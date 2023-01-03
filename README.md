@@ -29,10 +29,12 @@ The online version of this book is licensed under the [Creative Commons Attribut
 11. Back matter
     - can the references at the end of the book be active.
     
-** KSL Project Page **
-
-The KSL project is based on a git [repository](https://github.com/rossetti/KSL)
-
 When citing this book, please use the following format:
 
 Rossetti, M.D. (2023). Simulation Modeling using the Kotlin Simulation Library (KSL), 1st and Open Text Edition.  Retrieved from https://rossetti.github.io/KSLBook/ licensed under the [Creative Commons Attribution-NonCommercial-NoDerivatives 4.0 International License](https://creativecommons.org/licenses/by-nc-nd/4.0/).
+
+# KSL Project Page
+
+The KSL project is based on a git [repository](https://github.com/rossetti/KSL)
+
+
