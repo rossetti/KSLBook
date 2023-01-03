@@ -1,0 +1,788 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>6.4 Examples of Process Modeling | Simulation Modeling using the Kotlin Simulation Library (KSL)</title>
+  <meta name="description" content="A book that illustrates the basics of using the KSL. The output format for this book is bookdown::gitbook." />
+  <meta name="generator" content="bookdown 0.30 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="6.4 Examples of Process Modeling | Simulation Modeling using the Kotlin Simulation Library (KSL)" />
+  <meta property="og:type" content="book" />
+  
+  <meta property="og:description" content="A book that illustrates the basics of using the KSL. The output format for this book is bookdown::gitbook." />
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="6.4 Examples of Process Modeling | Simulation Modeling using the Kotlin Simulation Library (KSL)" />
+  
+  <meta name="twitter:description" content="A book that illustrates the basics of using the KSL. The output format for this book is bookdown::gitbook." />
+  
+
+<meta name="author" content="Manuel D. Rossetti" />
+
+
+<meta name="date" content="2023-01-02" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="understanding-ksl-processes-and-entities.html"/>
+<link rel="next" href="modeling-a-stem-career-mixer.html"/>
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
+<link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
+<script src="libs/kePrint-0.0.1/kePrint.js"></script>
+<link href="libs/lightable-0.0.1/lightable.css" rel="stylesheet" />
+
+
+<style type="text/css">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { color: #008000; } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { color: #008000; font-weight: bold; } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<style type="text/css">
+/* Used with Pandoc 2.11+ new --citeproc when CSL is used */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+}
+.hanging div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}
+</style>
+
+<link rel="stylesheet" href="css/style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">Simulation Modeling using the Kotlin Simulation Library</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Preface</a>
+<ul>
+<li class="chapter" data-level="" data-path="release-history.html"><a href="release-history.html"><i class="fa fa-check"></i>Release History</a></li>
+<li class="chapter" data-level="" data-path="ksl-project-page.html"><a href="ksl-project-page.html"><i class="fa fa-check"></i>KSL Project Page</a></li>
+<li class="chapter" data-level="" data-path="book-support-files.html"><a href="book-support-files.html"><i class="fa fa-check"></i>Book Support Files</a></li>
+<li class="chapter" data-level="" data-path="acknowledgments.html"><a href="acknowledgments.html"><i class="fa fa-check"></i>Acknowledgments</a></li>
+<li class="chapter" data-level="" data-path="intended-audience.html"><a href="intended-audience.html"><i class="fa fa-check"></i>Intended Audience</a></li>
+<li class="chapter" data-level="" data-path="organization-of-the-book.html"><a href="organization-of-the-book.html"><i class="fa fa-check"></i>Organization of the Book</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="about-the-author.html"><a href="about-the-author.html"><i class="fa fa-check"></i>About the Author</a></li>
+<li class="chapter" data-level="1" data-path="ch1.html"><a href="ch1.html"><i class="fa fa-check"></i><b>1</b> Simulation Modeling</a>
+<ul>
+<li class="chapter" data-level="1.1" data-path="simulation-modeling.html"><a href="simulation-modeling.html"><i class="fa fa-check"></i><b>1.1</b> Simulation Modeling</a></li>
+<li class="chapter" data-level="1.2" data-path="why-simulate.html"><a href="why-simulate.html"><i class="fa fa-check"></i><b>1.2</b> Why Simulate?</a></li>
+<li class="chapter" data-level="1.3" data-path="types-of-systems-and-simulation-models.html"><a href="types-of-systems-and-simulation-models.html"><i class="fa fa-check"></i><b>1.3</b> Types of Systems and Simulation Models</a></li>
+<li class="chapter" data-level="1.4" data-path="simulation-descriptive-or-prescriptive-modeling.html"><a href="simulation-descriptive-or-prescriptive-modeling.html"><i class="fa fa-check"></i><b>1.4</b> Simulation: Descriptive or Prescriptive Modeling?</a></li>
+<li class="chapter" data-level="1.5" data-path="randomness-in-simulation.html"><a href="randomness-in-simulation.html"><i class="fa fa-check"></i><b>1.5</b> Randomness in Simulation</a></li>
+<li class="chapter" data-level="1.6" data-path="simulation-languages.html"><a href="simulation-languages.html"><i class="fa fa-check"></i><b>1.6</b> Simulation Languages</a></li>
+<li class="chapter" data-level="1.7" data-path="ch1:sec:simMeth.html"><a href="ch1:sec:simMeth.html"><i class="fa fa-check"></i><b>1.7</b> Simulation Methodology</a></li>
+<li class="chapter" data-level="1.8" data-path="overview-of-the-kotline-simulation-library.html"><a href="overview-of-the-kotline-simulation-library.html"><i class="fa fa-check"></i><b>1.8</b> Overview of the Kotline Simulation Library</a></li>
+<li class="chapter" data-level="1.9" data-path="exercises.html"><a href="exercises.html"><i class="fa fa-check"></i><b>1.9</b> Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="ch2rng.html"><a href="ch2rng.html"><i class="fa fa-check"></i><b>2</b> Modeling Randomness</a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="ch2generator.html"><a href="ch2generator.html"><i class="fa fa-check"></i><b>2.1</b> Random Number Generator</a>
+<ul>
+<li class="chapter" data-level="2.1.1" data-path="ch2generator.html"><a href="ch2generator.html#ch2randompkg"><i class="fa fa-check"></i><b>2.1.1</b> Random Package</a></li>
+<li class="chapter" data-level="2.1.2" data-path="ch2generator.html"><a href="ch2generator.html#ch2creatingStreams"><i class="fa fa-check"></i><b>2.1.2</b> Creating and Using Streams</a></li>
+<li class="chapter" data-level="2.1.3" data-path="ch2generator.html"><a href="ch2generator.html#ch2crn"><i class="fa fa-check"></i><b>2.1.3</b> Common Random Numbers</a></li>
+<li class="chapter" data-level="2.1.4" data-path="ch2generator.html"><a href="ch2generator.html#ch2antitheticStreams"><i class="fa fa-check"></i><b>2.1.4</b> Creating and Using Antithetic Streams</a></li>
+<li class="chapter" data-level="2.1.5" data-path="ch2generator.html"><a href="ch2generator.html#ch2rnFAQ"><i class="fa fa-check"></i><b>2.1.5</b> Frequently Asked Questions about Random Numbers</a></li>
+</ul></li>
+<li class="chapter" data-level="2.2" data-path="rvg.html"><a href="rvg.html"><i class="fa fa-check"></i><b>2.2</b> Random Variate Generation</a>
+<ul>
+<li class="chapter" data-level="2.2.1" data-path="rvg.html"><a href="rvg.html#rvg_dists"><i class="fa fa-check"></i><b>2.2.1</b> Continuous and Discrete Random Variables</a></li>
+<li class="chapter" data-level="2.2.2" data-path="rvg.html"><a href="rvg.html#rvg_algo"><i class="fa fa-check"></i><b>2.2.2</b> Overview of Generation Algorithms</a></li>
+<li class="chapter" data-level="2.2.3" data-path="rvg.html"><a href="rvg.html#rvg_use"><i class="fa fa-check"></i><b>2.2.3</b> Creating and Using Random Variables</a></li>
+<li class="chapter" data-level="2.2.4" data-path="rvg.html"><a href="rvg.html#functions-of-random-variables"><i class="fa fa-check"></i><b>2.2.4</b> Functions of Random Variables</a></li>
+</ul></li>
+<li class="chapter" data-level="2.3" data-path="probability-distribution-models.html"><a href="probability-distribution-models.html"><i class="fa fa-check"></i><b>2.3</b> Probability Distribution Models</a></li>
+<li class="chapter" data-level="2.4" data-path="summary.html"><a href="summary.html"><i class="fa fa-check"></i><b>2.4</b> Summary</a></li>
+<li class="chapter" data-level="2.5" data-path="exercises-1.html"><a href="exercises-1.html"><i class="fa fa-check"></i><b>2.5</b> Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="mcm.html"><a href="mcm.html"><i class="fa fa-check"></i><b>3</b> Monte Carlo Methods</a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="kslStatistics.html"><a href="kslStatistics.html"><i class="fa fa-check"></i><b>3.1</b> Collecting Statistics</a>
+<ul>
+<li class="chapter" data-level="3.1.1" data-path="kslStatistics.html"><a href="kslStatistics.html#creating-and-using-a-statistic"><i class="fa fa-check"></i><b>3.1.1</b> Creating and Using a Statistic</a></li>
+<li class="chapter" data-level="3.1.2" data-path="kslStatistics.html"><a href="kslStatistics.html#histograms-and-frequencies"><i class="fa fa-check"></i><b>3.1.2</b> Histograms and Frequencies</a></li>
+</ul></li>
+<li class="chapter" data-level="3.2" data-path="ch3batchStats.html"><a href="ch3batchStats.html"><i class="fa fa-check"></i><b>3.2</b> Batch Statistics</a></li>
+<li class="chapter" data-level="3.3" data-path="ssMC.html"><a href="ssMC.html"><i class="fa fa-check"></i><b>3.3</b> Simple Monte Carlo Integration</a></li>
+<li class="chapter" data-level="3.4" data-path="ch3StatReview.html"><a href="ch3StatReview.html"><i class="fa fa-check"></i><b>3.4</b> Review of Statistical Concepts</a>
+<ul>
+<li class="chapter" data-level="3.4.1" data-path="ch3StatReview.html"><a href="ch3StatReview.html#point-estimates-and-confidence-intervals"><i class="fa fa-check"></i><b>3.4.1</b> Point Estimates and Confidence Intervals</a></li>
+<li class="chapter" data-level="3.4.2" data-path="ch3StatReview.html"><a href="ch3StatReview.html#ch3SampleSize"><i class="fa fa-check"></i><b>3.4.2</b> Sample Size Determination</a></li>
+<li class="chapter" data-level="3.4.3" data-path="ch3StatReview.html"><a href="ch3StatReview.html#determining-the-sample-size-for-a-monte-carlo-simulation-experiment"><i class="fa fa-check"></i><b>3.4.3</b> Determining the Sample Size for a Monte Carlo Simulation Experiment</a></li>
+</ul></li>
+<li class="chapter" data-level="3.5" data-path="craps.html"><a href="craps.html"><i class="fa fa-check"></i><b>3.5</b> Simulating the Game of Craps</a></li>
+<li class="chapter" data-level="3.6" data-path="the-news-vendor-problem.html"><a href="the-news-vendor-problem.html"><i class="fa fa-check"></i><b>3.6</b> The News Vendor Problem</a></li>
+<li class="chapter" data-level="3.7" data-path="monte-carlo-experiments.html"><a href="monte-carlo-experiments.html"><i class="fa fa-check"></i><b>3.7</b> Monte-Carlo Experiments</a></li>
+<li class="chapter" data-level="3.8" data-path="summary-1.html"><a href="summary-1.html"><i class="fa fa-check"></i><b>3.8</b> Summary</a></li>
+<li class="chapter" data-level="3.9" data-path="exercises-2.html"><a href="exercises-2.html"><i class="fa fa-check"></i><b>3.9</b> Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="introDEDS.html"><a href="introDEDS.html"><i class="fa fa-check"></i><b>4</b> Introduction to Discrete Event Modeling</a>
+<ul>
+<li class="chapter" data-level="4.1" data-path="introDEDSIntro.html"><a href="introDEDSIntro.html"><i class="fa fa-check"></i><b>4.1</b> Introduction</a></li>
+<li class="chapter" data-level="4.2" data-path="introDEDSdeds.html"><a href="introDEDSdeds.html"><i class="fa fa-check"></i><b>4.2</b> Discrete-Event Dynamic Systems</a></li>
+<li class="chapter" data-level="4.3" data-path="HowDEDSClockWorks.html"><a href="HowDEDSClockWorks.html"><i class="fa fa-check"></i><b>4.3</b> How the Discrete-Event Clock Works</a></li>
+<li class="chapter" data-level="4.4" data-path="QHandExample.html"><a href="QHandExample.html"><i class="fa fa-check"></i><b>4.4</b> Simulating a Queueing System By Hand</a></li>
+<li class="chapter" data-level="4.5" data-path="introDEDSdedsKSL.html"><a href="introDEDSdedsKSL.html"><i class="fa fa-check"></i><b>4.5</b> Modeling DEDS in the KSL</a>
+<ul>
+<li class="chapter" data-level="4.5.1" data-path="introDEDSdedsKSL.html"><a href="introDEDSdedsKSL.html#event-scheduling"><i class="fa fa-check"></i><b>4.5.1</b> Event Scheduling</a></li>
+<li class="chapter" data-level="4.5.2" data-path="introDEDSdedsKSL.html"><a href="introDEDSdedsKSL.html#introDEDSschedExamples"><i class="fa fa-check"></i><b>4.5.2</b> Simple Event Scheduling Examples</a></li>
+<li class="chapter" data-level="4.5.3" data-path="introDEDSdedsKSL.html"><a href="introDEDSdedsKSL.html#introDEDSUpDown"><i class="fa fa-check"></i><b>4.5.3</b> Up and Down Component Example</a></li>
+<li class="chapter" data-level="4.5.4" data-path="introDEDSdedsKSL.html"><a href="introDEDSdedsKSL.html#introDEDSPharmacy"><i class="fa fa-check"></i><b>4.5.4</b> Modeling a Simple Queueing System</a></li>
+<li class="chapter" data-level="4.5.5" data-path="introDEDSdedsKSL.html"><a href="introDEDSdedsKSL.html#more-details-about-the-pharmacy-model-implementation"><i class="fa fa-check"></i><b>4.5.5</b> More Details About the Pharmacy Model Implementation</a></li>
+</ul></li>
+<li class="chapter" data-level="4.6" data-path="enhancing-the-drive-through-pharmacy-model.html"><a href="enhancing-the-drive-through-pharmacy-model.html"><i class="fa fa-check"></i><b>4.6</b> Enhancing the Drive Through Pharmacy Model</a></li>
+<li class="chapter" data-level="4.7" data-path="introDEDSSummary.html"><a href="introDEDSSummary.html"><i class="fa fa-check"></i><b>4.7</b> Summary</a></li>
+<li class="chapter" data-level="4.8" data-path="exercises-3.html"><a href="exercises-3.html"><i class="fa fa-check"></i><b>4.8</b> Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="simoa.html"><a href="simoa.html"><i class="fa fa-check"></i><b>5</b> Analyzing Simulation Output</a>
+<ul>
+<li class="chapter" data-level="5.1" data-path="simoadatatypes.html"><a href="simoadatatypes.html"><i class="fa fa-check"></i><b>5.1</b> Types of Statistical Variables</a></li>
+<li class="chapter" data-level="5.2" data-path="simoasimtypes.html"><a href="simoasimtypes.html"><i class="fa fa-check"></i><b>5.2</b> Types of Simulation With Respect To Output Analysis</a></li>
+<li class="chapter" data-level="5.3" data-path="simoafinhorizon.html"><a href="simoafinhorizon.html"><i class="fa fa-check"></i><b>5.3</b> Analysis of Finite Horizon Simulations</a></li>
+<li class="chapter" data-level="5.4" data-path="simoafinhorizonex.html"><a href="simoafinhorizonex.html"><i class="fa fa-check"></i><b>5.4</b> Capturing Output for a Simple Finite Horizon Simulation</a>
+<ul>
+<li class="chapter" data-level="5.4.1" data-path="simoafinhorizonex.html"><a href="simoafinhorizonex.html#ksl-functionality-for-capturing-statistical-results"><i class="fa fa-check"></i><b>5.4.1</b> KSL Functionality for Capturing Statistical Results</a></li>
+<li class="chapter" data-level="5.4.2" data-path="simoafinhorizonex.html"><a href="simoafinhorizonex.html#additional-remarks"><i class="fa fa-check"></i><b>5.4.2</b> Additional Remarks</a></li>
+<li class="chapter" data-level="5.4.3" data-path="simoafinhorizonex.html"><a href="simoafinhorizonex.html#querying-the-ksl-database"><i class="fa fa-check"></i><b>5.4.3</b> Querying the KSL Database</a></li>
+</ul></li>
+<li class="chapter" data-level="5.5" data-path="simoaseqsampling.html"><a href="simoaseqsampling.html"><i class="fa fa-check"></i><b>5.5</b> Sequential Sampling for Finite Horizon Simulations</a></li>
+<li class="chapter" data-level="5.6" data-path="simoainfhorizon.html"><a href="simoainfhorizon.html"><i class="fa fa-check"></i><b>5.6</b> Analysis of Infinite Horizon Simulations</a>
+<ul>
+<li class="chapter" data-level="5.6.1" data-path="simoainfhorizon.html"><a href="simoainfhorizon.html#simoainfhorizoninitialbias"><i class="fa fa-check"></i><b>5.6.1</b> Assessing the Effect of Initial Conditions</a></li>
+<li class="chapter" data-level="5.6.2" data-path="simoainfhorizon.html"><a href="simoainfhorizon.html#simoainfhorizonrepDeletion"><i class="fa fa-check"></i><b>5.6.2</b> Performing the Method of Replication-Deletion</a></li>
+<li class="chapter" data-level="5.6.3" data-path="simoainfhorizon.html"><a href="simoainfhorizon.html#simoainfhorizonbatchmeans"><i class="fa fa-check"></i><b>5.6.3</b> The Method of Batch Means</a></li>
+<li class="chapter" data-level="5.6.4" data-path="simoainfhorizon.html"><a href="simoainfhorizon.html#simoainfhorizonjslbatching"><i class="fa fa-check"></i><b>5.6.4</b> Performing the Method of Batch Means</a></li>
+</ul></li>
+<li class="chapter" data-level="5.7" data-path="simoacomparingSystems.html"><a href="simoacomparingSystems.html"><i class="fa fa-check"></i><b>5.7</b> Comparing System Configurations</a>
+<ul>
+<li class="chapter" data-level="5.7.1" data-path="simoacomparingSystems.html"><a href="simoacomparingSystems.html#simoacomparingSystems:two"><i class="fa fa-check"></i><b>5.7.1</b> Comparing Two Systems</a></li>
+<li class="chapter" data-level="5.7.2" data-path="simoacomparingSystems.html"><a href="simoacomparingSystems.html#simoacomparingSystemsMCB"><i class="fa fa-check"></i><b>5.7.2</b> Multiple Comparisons</a></li>
+</ul></li>
+<li class="chapter" data-level="5.8" data-path="simoasummary.html"><a href="simoasummary.html"><i class="fa fa-check"></i><b>5.8</b> Summary</a></li>
+<li class="chapter" data-level="5.9" data-path="exercises-4.html"><a href="exercises-4.html"><i class="fa fa-check"></i><b>5.9</b> Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="processview.html"><a href="processview.html"><i class="fa fa-check"></i><b>6</b> Process View Modeling Using the KSL</a>
+<ul>
+<li class="chapter" data-level="6.1" data-path="ch6Entities.html"><a href="ch6Entities.html"><i class="fa fa-check"></i><b>6.1</b> What are Entities?</a></li>
+<li class="chapter" data-level="6.2" data-path="pvIntro.html"><a href="pvIntro.html"><i class="fa fa-check"></i><b>6.2</b> The Process View</a></li>
+<li class="chapter" data-level="6.3" data-path="understanding-ksl-processes-and-entities.html"><a href="understanding-ksl-processes-and-entities.html"><i class="fa fa-check"></i><b>6.3</b> Understanding KSL Processes and Entities</a></li>
+<li class="chapter" data-level="6.4" data-path="examples-of-process-modeling.html"><a href="examples-of-process-modeling.html"><i class="fa fa-check"></i><b>6.4</b> Examples of Process Modeling</a></li>
+<li class="chapter" data-level="6.5" data-path="modeling-a-stem-career-mixer.html"><a href="modeling-a-stem-career-mixer.html"><i class="fa fa-check"></i><b>6.5</b> Modeling a STEM Career Mixer</a>
+<ul>
+<li class="chapter" data-level="6.5.1" data-path="modeling-a-stem-career-mixer.html"><a href="modeling-a-stem-career-mixer.html#conceptualizing-the-system"><i class="fa fa-check"></i><b>6.5.1</b> Conceptualizing the System</a></li>
+<li class="chapter" data-level="6.5.2" data-path="modeling-a-stem-career-mixer.html"><a href="modeling-a-stem-career-mixer.html#implementing-the-stem-mixer-model"><i class="fa fa-check"></i><b>6.5.2</b> Implementing the STEM Mixer Model</a></li>
+</ul></li>
+<li class="chapter" data-level="6.6" data-path="the-tie-dye-t-shirt-model.html"><a href="the-tie-dye-t-shirt-model.html"><i class="fa fa-check"></i><b>6.6</b> The Tie-Dye T-Shirt Model</a>
+<ul>
+<li class="chapter" data-level="6.6.1" data-path="the-tie-dye-t-shirt-model.html"><a href="the-tie-dye-t-shirt-model.html#ch4:TieDyeTShirtsSub1"><i class="fa fa-check"></i><b>6.6.1</b> Implementing the Tie-Dye T-Shirt Model</a></li>
+</ul></li>
+<li class="chapter" data-level="6.7" data-path="summary-2.html"><a href="summary-2.html"><i class="fa fa-check"></i><b>6.7</b> Summary</a></li>
+<li class="chapter" data-level="6.8" data-path="exercises-5.html"><a href="exercises-5.html"><i class="fa fa-check"></i><b>6.8</b> Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="ch7AdvModeling.html"><a href="ch7AdvModeling.html"><i class="fa fa-check"></i><b>7</b> Advanced Event and Process View Modeling</a>
+<ul>
+<li class="chapter" data-level="7.1" data-path="modeling-with-processes-and-resources.html"><a href="modeling-with-processes-and-resources.html"><i class="fa fa-check"></i><b>7.1</b> Modeling with Processes and Resources</a>
+<ul>
+<li class="chapter" data-level="7.1.1" data-path="modeling-with-processes-and-resources.html"><a href="modeling-with-processes-and-resources.html#modeling-space-with-resources"><i class="fa fa-check"></i><b>7.1.1</b> Modeling Space with Resources</a></li>
+<li class="chapter" data-level="7.1.2" data-path="modeling-with-processes-and-resources.html"><a href="modeling-with-processes-and-resources.html#resource-pools"><i class="fa fa-check"></i><b>7.1.2</b> Resource Pools</a></li>
+<li class="chapter" data-level="7.1.3" data-path="modeling-with-processes-and-resources.html"><a href="modeling-with-processes-and-resources.html#computer-test-and-repair-shop-example"><i class="fa fa-check"></i><b>7.1.3</b> Computer Test and Repair Shop Example</a></li>
+</ul></li>
+<li class="chapter" data-level="7.2" data-path="modeling-non-stationary-systems.html"><a href="modeling-non-stationary-systems.html"><i class="fa fa-check"></i><b>7.2</b> Modeling Non-Stationary Systems</a>
+<ul>
+<li class="chapter" data-level="7.2.1" data-path="modeling-non-stationary-systems.html"><a href="modeling-non-stationary-systems.html#ch7secNSPP"><i class="fa fa-check"></i><b>7.2.1</b> Non-Stationary Arrival Processes</a></li>
+<li class="chapter" data-level="7.2.2" data-path="modeling-non-stationary-systems.html"><a href="modeling-non-stationary-systems.html#modeling-resources-under-non-stationary-conditions"><i class="fa fa-check"></i><b>7.2.2</b> Modeling Resources Under Non-Stationary Conditions</a></li>
+<li class="chapter" data-level="7.2.3" data-path="modeling-non-stationary-systems.html"><a href="modeling-non-stationary-systems.html#enhancing-the-stem-career-mixer-example"><i class="fa fa-check"></i><b>7.2.3</b> Enhancing the STEM Career Mixer Example</a></li>
+</ul></li>
+<li class="chapter" data-level="7.3" data-path="examples-of-advanced-event-models.html"><a href="examples-of-advanced-event-models.html"><i class="fa fa-check"></i><b>7.3</b> Examples of Advanced Event Models</a>
+<ul>
+<li class="chapter" data-level="7.3.1" data-path="examples-of-advanced-event-models.html"><a href="examples-of-advanced-event-models.html#ch6s1sb4sub3"><i class="fa fa-check"></i><b>7.3.1</b> Modeling Balking and Reneging</a></li>
+<li class="chapter" data-level="7.3.2" data-path="examples-of-advanced-event-models.html"><a href="examples-of-advanced-event-models.html#modeling-a-reorder-point-reorder-quantity-inventory-policy"><i class="fa fa-check"></i><b>7.3.2</b> Modeling a Reorder Point, Reorder Quantity Inventory Policy</a></li>
+</ul></li>
+<li class="chapter" data-level="7.4" data-path="summary-3.html"><a href="summary-3.html"><i class="fa fa-check"></i><b>7.4</b> Summary</a></li>
+<li class="chapter" data-level="7.5" data-path="exercises-6.html"><a href="exercises-6.html"><i class="fa fa-check"></i><b>7.5</b> Exercises</a></li>
+</ul></li>
+<li class="appendix"><span><b>Appendix</b></span></li>
+<li class="chapter" data-level="A" data-path="appRNRV.html"><a href="appRNRV.html"><i class="fa fa-check"></i><b>A</b> Generating Pseudo-Random Numbers and Random Variates</a>
+<ul>
+<li class="chapter" data-level="A.1" data-path="appRNRVPRN.html"><a href="appRNRVPRN.html"><i class="fa fa-check"></i><b>A.1</b> Pseudo Random Numbers</a>
+<ul>
+<li class="chapter" data-level="A.1.1" data-path="appRNRVPRN.html"><a href="appRNRVPRN.html#appRNRVRNGs"><i class="fa fa-check"></i><b>A.1.1</b> Random Number Generators</a></li>
+</ul></li>
+<li class="chapter" data-level="A.2" data-path="appRNRVs.html"><a href="appRNRVs.html"><i class="fa fa-check"></i><b>A.2</b> Generating Random Variates from Distributions</a>
+<ul>
+<li class="chapter" data-level="A.2.1" data-path="appRNRVs.html"><a href="appRNRVs.html#inverse-transform-method"><i class="fa fa-check"></i><b>A.2.1</b> Inverse Transform Method</a></li>
+<li class="chapter" data-level="A.2.2" data-path="appRNRVs.html"><a href="appRNRVs.html#convolution"><i class="fa fa-check"></i><b>A.2.2</b> Convolution</a></li>
+<li class="chapter" data-level="A.2.3" data-path="appRNRVs.html"><a href="appRNRVs.html#acceptancerejection"><i class="fa fa-check"></i><b>A.2.3</b> Acceptance/Rejection</a></li>
+<li class="chapter" data-level="A.2.4" data-path="appRNRVs.html"><a href="appRNRVs.html#AppRNRVsubsecMTSRV"><i class="fa fa-check"></i><b>A.2.4</b> Mixture Distributions, Truncated Distributions, and Shifted Random Variables</a></li>
+</ul></li>
+<li class="chapter" data-level="A.3" data-path="summary-4.html"><a href="summary-4.html"><i class="fa fa-check"></i><b>A.3</b> Summary</a></li>
+<li class="chapter" data-level="A.4" data-path="exercises-7.html"><a href="exercises-7.html"><i class="fa fa-check"></i><b>A.4</b> Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="B" data-path="appidm.html"><a href="appidm.html"><i class="fa fa-check"></i><b>B</b> Probability Distribution Modeling</a>
+<ul>
+<li class="chapter" data-level="B.1" data-path="appidmsecrvPD.html"><a href="appidmsecrvPD.html"><i class="fa fa-check"></i><b>B.1</b> Random Variables and Probability Distributions</a></li>
+<li class="chapter" data-level="B.2" data-path="appidmsecMDD.html"><a href="appidmsecMDD.html"><i class="fa fa-check"></i><b>B.2</b> Modeling with Discrete Distributions</a></li>
+<li class="chapter" data-level="B.3" data-path="appidmsecfitDiscrete.html"><a href="appidmsecfitDiscrete.html"><i class="fa fa-check"></i><b>B.3</b> Fitting Discrete Distributions</a>
+<ul>
+<li class="chapter" data-level="B.3.1" data-path="appidmsecfitDiscrete.html"><a href="appidmsecfitDiscrete.html#AppDisFitPoissonFit"><i class="fa fa-check"></i><b>B.3.1</b> Fitting a Poisson Distribution</a></li>
+<li class="chapter" data-level="B.3.2" data-path="appidmsecfitDiscrete.html"><a href="appidmsecfitDiscrete.html#visualizing-the-data"><i class="fa fa-check"></i><b>B.3.2</b> Visualizing the Data</a></li>
+<li class="chapter" data-level="B.3.3" data-path="appidmsecfitDiscrete.html"><a href="appidmsecfitDiscrete.html#estimating-the-rate-parameter-for-the-poisson-distribution"><i class="fa fa-check"></i><b>B.3.3</b> Estimating the Rate Parameter for the Poisson Distribution</a></li>
+<li class="chapter" data-level="B.3.4" data-path="appidmsecfitDiscrete.html"><a href="appidmsecfitDiscrete.html#chi-squared-goodness-of-fit-test-for-poisson-distribution"><i class="fa fa-check"></i><b>B.3.4</b> Chi-Squared Goodness of Fit Test for Poisson Distribution</a></li>
+<li class="chapter" data-level="B.3.5" data-path="appidmsecfitDiscrete.html"><a href="appidmsecfitDiscrete.html#subsubchisqGOF"><i class="fa fa-check"></i><b>B.3.5</b> Chi-Squared Goodness of Fit Test</a></li>
+<li class="chapter" data-level="B.3.6" data-path="appidmsecfitDiscrete.html"><a href="appidmsecfitDiscrete.html#using-the-fitdistrplus-r-package-on-discrete-data"><i class="fa fa-check"></i><b>B.3.6</b> Using the fitdistrplus R Package on Discrete Data</a></li>
+<li class="chapter" data-level="B.3.7" data-path="appidmsecfitDiscrete.html"><a href="appidmsecfitDiscrete.html#fitting-a-discrete-empirical-distribution"><i class="fa fa-check"></i><b>B.3.7</b> Fitting a Discrete Empirical Distribution</a></li>
+</ul></li>
+<li class="chapter" data-level="B.4" data-path="appidmsecMCD.html"><a href="appidmsecMCD.html"><i class="fa fa-check"></i><b>B.4</b> Modeling with Continuous Distributions</a></li>
+<li class="chapter" data-level="B.5" data-path="appidmsecfitContinuous.html"><a href="appidmsecfitContinuous.html"><i class="fa fa-check"></i><b>B.5</b> Fitting Continuous Distributions</a>
+<ul>
+<li class="chapter" data-level="B.5.1" data-path="appidmsecfitContinuous.html"><a href="appidmsecfitContinuous.html#appidmsubsecvisualizedata"><i class="fa fa-check"></i><b>B.5.1</b> Visualizing the Data</a></li>
+<li class="chapter" data-level="B.5.2" data-path="appidmsecfitContinuous.html"><a href="appidmsecfitContinuous.html#appidmsubsecstatsdata"><i class="fa fa-check"></i><b>B.5.2</b> Statistically Summarize the Data</a></li>
+<li class="chapter" data-level="B.5.3" data-path="appidmsecfitContinuous.html"><a href="appidmsecfitContinuous.html#appidmsubsechypothDist"><i class="fa fa-check"></i><b>B.5.3</b> Hypothesizing and Testing a Distribution</a></li>
+<li class="chapter" data-level="B.5.4" data-path="appidmsecfitContinuous.html"><a href="appidmsecfitContinuous.html#kolmogorov-smirnov-test"><i class="fa fa-check"></i><b>B.5.4</b> Kolmogorov-Smirnov Test</a></li>
+<li class="chapter" data-level="B.5.5" data-path="appidmsecfitContinuous.html"><a href="appidmsecfitContinuous.html#appidmsubsecvisFit"><i class="fa fa-check"></i><b>B.5.5</b> Visualizing the Fit</a></li>
+<li class="chapter" data-level="B.5.6" data-path="appidmsecfitContinuous.html"><a href="appidmsecfitContinuous.html#appidms2sb3"><i class="fa fa-check"></i><b>B.5.6</b> Using the Input Analyzer</a></li>
+</ul></li>
+<li class="chapter" data-level="B.6" data-path="appdistfittestU01.html"><a href="appdistfittestU01.html"><i class="fa fa-check"></i><b>B.6</b> Testing Uniform (0,1) Pseudo-Random Numbers</a>
+<ul>
+<li class="chapter" data-level="B.6.1" data-path="appdistfittestU01.html"><a href="appdistfittestU01.html#chi-squared-goodness-of-fit-tests-for-pseudo-random-numbers"><i class="fa fa-check"></i><b>B.6.1</b> Chi-Squared Goodness of Fit Tests for Pseudo-Random Numbers</a></li>
+<li class="chapter" data-level="B.6.2" data-path="appdistfittestU01.html"><a href="appdistfittestU01.html#higher-dimensional-chi-squared-test"><i class="fa fa-check"></i><b>B.6.2</b> Higher Dimensional Chi-Squared Test</a></li>
+<li class="chapter" data-level="B.6.3" data-path="appdistfittestU01.html"><a href="appdistfittestU01.html#kolmogorov-smirnov-test-for-pseudo-random-numbers"><i class="fa fa-check"></i><b>B.6.3</b> Kolmogorov-Smirnov Test for Pseudo-Random Numbers</a></li>
+<li class="chapter" data-level="B.6.4" data-path="appdistfittestU01.html"><a href="appdistfittestU01.html#testing-for-independence-and-patterns-in-pseudo-random-numbers"><i class="fa fa-check"></i><b>B.6.4</b> Testing for Independence and Patterns in Pseudo-Random Numbers</a></li>
+</ul></li>
+<li class="chapter" data-level="B.7" data-path="appdistfitidms2sb4.html"><a href="appdistfitidms2sb4.html"><i class="fa fa-check"></i><b>B.7</b> Additional Distribution Modeling Concepts</a></li>
+<li class="chapter" data-level="B.8" data-path="appidmSummary.html"><a href="appidmSummary.html"><i class="fa fa-check"></i><b>B.8</b> Summary</a></li>
+<li class="chapter" data-level="B.9" data-path="exercises-8.html"><a href="exercises-8.html"><i class="fa fa-check"></i><b>B.9</b> Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="C" data-path="appqtAndInvT.html"><a href="appqtAndInvT.html"><i class="fa fa-check"></i><b>C</b> Queueing Theory</a>
+<ul>
+<li class="chapter" data-level="C.1" data-path="appqts1.html"><a href="appqts1.html"><i class="fa fa-check"></i><b>C.1</b> Single Line Queueing Stations</a>
+<ul>
+<li class="chapter" data-level="C.1.1" data-path="appqts1.html"><a href="appqts1.html#queueing-notation"><i class="fa fa-check"></i><b>C.1.1</b> Queueing Notation</a></li>
+<li class="chapter" data-level="C.1.2" data-path="appqts1.html"><a href="appqts1.html#littles-formula"><i class="fa fa-check"></i><b>C.1.2</b> Little’s Formula</a></li>
+<li class="chapter" data-level="C.1.3" data-path="appqts1.html"><a href="appqts1.html#appqts1sb1"><i class="fa fa-check"></i><b>C.1.3</b> Deriving Formulas for Markovian Single Queue Systems</a></li>
+</ul></li>
+<li class="chapter" data-level="C.2" data-path="appqts1sb2.html"><a href="appqts1sb2.html"><i class="fa fa-check"></i><b>C.2</b> Examples and Applications of Queueing Analysis</a>
+<ul>
+<li class="chapter" data-level="C.2.1" data-path="appqts1sb2.html"><a href="appqts1sb2.html#infinite-queue-examples"><i class="fa fa-check"></i><b>C.2.1</b> Infinite Queue Examples</a></li>
+<li class="chapter" data-level="C.2.2" data-path="appqts1sb2.html"><a href="appqts1sb2.html#finite-queue-examples"><i class="fa fa-check"></i><b>C.2.2</b> Finite Queue Examples</a></li>
+</ul></li>
+<li class="chapter" data-level="C.3" data-path="appqts1sb3.html"><a href="appqts1sb3.html"><i class="fa fa-check"></i><b>C.3</b> Non-Markovian Queues and Approximations</a></li>
+<li class="chapter" data-level="C.4" data-path="appqtsecformulas.html"><a href="appqtsecformulas.html"><i class="fa fa-check"></i><b>C.4</b> Summary of Queueing Formulas</a>
+<ul>
+<li class="chapter" data-level="C.4.1" data-path="appqtsecformulas.html"><a href="appqtsecformulas.html#mm1-queue"><i class="fa fa-check"></i><b>C.4.1</b> M/M/1 Queue</a></li>
+<li class="chapter" data-level="C.4.2" data-path="appqtsecformulas.html"><a href="appqtsecformulas.html#mmc-queue"><i class="fa fa-check"></i><b>C.4.2</b> M/M/c Queue</a></li>
+<li class="chapter" data-level="C.4.3" data-path="appqtsecformulas.html"><a href="appqtsecformulas.html#mmck-queue"><i class="fa fa-check"></i><b>C.4.3</b> M/M/c/k Queue</a></li>
+<li class="chapter" data-level="C.4.4" data-path="appqtsecformulas.html"><a href="appqtsecformulas.html#mgcc-queue"><i class="fa fa-check"></i><b>C.4.4</b> M/G/c/c Queue</a></li>
+<li class="chapter" data-level="C.4.5" data-path="appqtsecformulas.html"><a href="appqtsecformulas.html#mm1k-queue"><i class="fa fa-check"></i><b>C.4.5</b> M/M/1/k Queue</a></li>
+<li class="chapter" data-level="C.4.6" data-path="appqtsecformulas.html"><a href="appqtsecformulas.html#mmck-queue-1"><i class="fa fa-check"></i><b>C.4.6</b> M/M/c/k Queue</a></li>
+<li class="chapter" data-level="C.4.7" data-path="appqtsecformulas.html"><a href="appqtsecformulas.html#mm1kk-queue"><i class="fa fa-check"></i><b>C.4.7</b> M/M/1/k/k Queue</a></li>
+<li class="chapter" data-level="C.4.8" data-path="appqtsecformulas.html"><a href="appqtsecformulas.html#mmckk-queue"><i class="fa fa-check"></i><b>C.4.8</b> M/M/c/k/k Queue</a></li>
+</ul></li>
+<li class="chapter" data-level="C.5" data-path="exercises-9.html"><a href="exercises-9.html"><i class="fa fa-check"></i><b>C.5</b> Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="D" data-path="distributions.html"><a href="distributions.html"><i class="fa fa-check"></i><b>D</b> Distributions</a>
+<ul>
+<li class="chapter" data-level="D.1" data-path="appDiscreteDistributions.html"><a href="appDiscreteDistributions.html"><i class="fa fa-check"></i><b>D.1</b> Discrete Distrbutions</a></li>
+<li class="chapter" data-level="D.2" data-path="appContinuousDistributions.html"><a href="appContinuousDistributions.html"><i class="fa fa-check"></i><b>D.2</b> Continuous Distrbutions</a></li>
+</ul></li>
+<li class="chapter" data-level="E" data-path="appStatTables.html"><a href="appStatTables.html"><i class="fa fa-check"></i><b>E</b> Statistical Tables</a></li>
+<li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
+<li class="divider"></li>
+<li><a href="https://bookdown.org" target="_blank">Published with bookdown</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Simulation Modeling using the Kotlin Simulation Library (KSL)</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="examples-of-process-modeling" class="section level2 hasAnchor" number="6.4">
+<h2><span class="header-section-number">6.4</span> Examples of Process Modeling<a href="examples-of-process-modeling.html#examples-of-process-modeling" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>The following example illustrates how to use a hold queue (<code>HoldQueue</code>). A <code>HoldQueue</code> holds an entity within a queue until it is removed. It is important to note that the entity that goes into the hold queue cannot remove itself. Thus, as you will see in the following code, we schedule an event that causes the entities to be removed at a specific time. The hold queue is created and an event action defined to represent the event. The entity process is simple, when the entity enters the process it immediately enters the hold queue. The process will be suspended. After being removed and resumed, the entity continues through a couple of delays.</p>
+<div class="sourceCode" id="cb133"><pre class="sourceCode kt"><code class="sourceCode kotlin"><span id="cb133-1"><a href="examples-of-process-modeling.html#cb133-1" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> Example2<span class="op">(</span><span class="va">parent</span><span class="op">:</span> <span class="dt">ModelElement</span><span class="op">)</span> <span class="op">:</span> <span class="dt">ProcessModel</span><span class="op">(</span><span class="va">parent</span><span class="op">,</span> <span class="va">null</span><span class="op">)</span>  <span class="op">{</span></span>
+<span id="cb133-2"><a href="examples-of-process-modeling.html#cb133-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb133-3"><a href="examples-of-process-modeling.html#cb133-3" aria-hidden="true" tabindex="-1"></a>    <span class="kw">private</span> <span class="kw">val</span> <span class="va">holdQueue</span> <span class="op">=</span> HoldQueue<span class="op">(</span><span class="kw">this</span><span class="op">,</span> <span class="st">&quot;hold&quot;</span><span class="op">)</span></span>
+<span id="cb133-4"><a href="examples-of-process-modeling.html#cb133-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb133-5"><a href="examples-of-process-modeling.html#cb133-5" aria-hidden="true" tabindex="-1"></a>    <span class="kw">private</span> <span class="kw">val</span> <span class="va">myEventActionOne</span><span class="op">:</span> EventActionOne <span class="op">=</span> EventActionOne<span class="op">()</span></span>
+<span id="cb133-6"><a href="examples-of-process-modeling.html#cb133-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb133-7"><a href="examples-of-process-modeling.html#cb133-7" aria-hidden="true" tabindex="-1"></a>    <span class="kw">private</span> inner <span class="kw">class</span> Customer<span class="op">:</span> <span class="dt">ProcessModel</span>.<span class="dt">Entity</span><span class="op">()</span> <span class="op">{</span></span>
+<span id="cb133-8"><a href="examples-of-process-modeling.html#cb133-8" aria-hidden="true" tabindex="-1"></a>        <span class="kw">val</span> <span class="va">holdProcess</span> <span class="op">:</span> KSLProcess <span class="op">=</span> process<span class="op">()</span> <span class="op">{</span></span>
+<span id="cb133-9"><a href="examples-of-process-modeling.html#cb133-9" aria-hidden="true" tabindex="-1"></a>            println<span class="op">(</span><span class="st">&quot;time = </span><span class="ss">$time</span><span class="st"> : before being held customer = </span><span class="ss">${</span>this<span class="at">@Customer</span><span class="op">.</span>name<span class="ss">}</span><span class="st">&quot;</span><span class="op">)</span></span>
+<span id="cb133-10"><a href="examples-of-process-modeling.html#cb133-10" aria-hidden="true" tabindex="-1"></a>            hold<span class="op">(</span>holdQueue<span class="op">)</span></span>
+<span id="cb133-11"><a href="examples-of-process-modeling.html#cb133-11" aria-hidden="true" tabindex="-1"></a>            println<span class="op">(</span><span class="st">&quot;time = </span><span class="ss">$time</span><span class="st"> : after being held customer = </span><span class="ss">${</span>this<span class="at">@Customer</span><span class="op">.</span>name<span class="ss">}</span><span class="st">&quot;</span><span class="op">)</span></span>
+<span id="cb133-12"><a href="examples-of-process-modeling.html#cb133-12" aria-hidden="true" tabindex="-1"></a>            delay<span class="op">(</span><span class="fl">10.0</span><span class="op">)</span></span>
+<span id="cb133-13"><a href="examples-of-process-modeling.html#cb133-13" aria-hidden="true" tabindex="-1"></a>            println<span class="op">(</span><span class="st">&quot;time = </span><span class="ss">$time</span><span class="st"> after the first delay for customer = </span><span class="ss">${</span>this<span class="at">@Customer</span><span class="op">.</span>name<span class="ss">}</span><span class="st">&quot;</span><span class="op">)</span></span>
+<span id="cb133-14"><a href="examples-of-process-modeling.html#cb133-14" aria-hidden="true" tabindex="-1"></a>            delay<span class="op">(</span><span class="fl">20.0</span><span class="op">)</span></span>
+<span id="cb133-15"><a href="examples-of-process-modeling.html#cb133-15" aria-hidden="true" tabindex="-1"></a>            println<span class="op">(</span><span class="st">&quot;time = </span><span class="ss">$time</span><span class="st"> after the second delay for customer = </span><span class="ss">${</span>this<span class="at">@Customer</span><span class="op">.</span>name<span class="ss">}</span><span class="st">&quot;</span><span class="op">)</span></span>
+<span id="cb133-16"><a href="examples-of-process-modeling.html#cb133-16" aria-hidden="true" tabindex="-1"></a>        <span class="op">}</span></span>
+<span id="cb133-17"><a href="examples-of-process-modeling.html#cb133-17" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
+<span id="cb133-18"><a href="examples-of-process-modeling.html#cb133-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb133-19"><a href="examples-of-process-modeling.html#cb133-19" aria-hidden="true" tabindex="-1"></a>    <span class="kw">override</span> <span class="kw">fun</span> <span class="fu">initialize</span><span class="op">()</span> <span class="op">{</span></span>
+<span id="cb133-20"><a href="examples-of-process-modeling.html#cb133-20" aria-hidden="true" tabindex="-1"></a>        <span class="kw">val</span> <span class="va">e</span> <span class="op">=</span> Customer<span class="op">()</span></span>
+<span id="cb133-21"><a href="examples-of-process-modeling.html#cb133-21" aria-hidden="true" tabindex="-1"></a>        activate<span class="op">(</span>e<span class="op">.</span>holdProcess<span class="op">)</span></span>
+<span id="cb133-22"><a href="examples-of-process-modeling.html#cb133-22" aria-hidden="true" tabindex="-1"></a>        <span class="kw">val</span> <span class="va">c</span> <span class="op">=</span> Customer<span class="op">()</span></span>
+<span id="cb133-23"><a href="examples-of-process-modeling.html#cb133-23" aria-hidden="true" tabindex="-1"></a>        activate<span class="op">(</span>c<span class="op">.</span>holdProcess<span class="op">,</span> <span class="fl">1.0</span><span class="op">)</span></span>
+<span id="cb133-24"><a href="examples-of-process-modeling.html#cb133-24" aria-hidden="true" tabindex="-1"></a>        schedule<span class="op">(</span>myEventActionOne<span class="op">,</span> <span class="fl">5.0</span><span class="op">)</span></span>
+<span id="cb133-25"><a href="examples-of-process-modeling.html#cb133-25" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
+<span id="cb133-26"><a href="examples-of-process-modeling.html#cb133-26" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb133-27"><a href="examples-of-process-modeling.html#cb133-27" aria-hidden="true" tabindex="-1"></a>    <span class="kw">private</span> inner <span class="kw">class</span> EventActionOne <span class="op">:</span> <span class="dt">ModelElement</span>.<span class="dt">EventAction</span><span class="op">&lt;</span><span class="dt">Nothing</span><span class="op">&gt;()</span> <span class="op">{</span></span>
+<span id="cb133-28"><a href="examples-of-process-modeling.html#cb133-28" aria-hidden="true" tabindex="-1"></a>        <span class="kw">override</span> <span class="kw">fun</span> <span class="fu">action</span><span class="op">(</span><span class="va">event</span><span class="op">:</span> <span class="dt">KSLEvent</span>&lt;<span class="va">Nothing</span>&gt;<span class="op">)</span> <span class="op">{</span></span>
+<span id="cb133-29"><a href="examples-of-process-modeling.html#cb133-29" aria-hidden="true" tabindex="-1"></a>            println<span class="op">(</span><span class="st">&quot;Removing and resuming held entities at time : </span><span class="ss">$time</span><span class="st">&quot;</span><span class="op">)</span></span>
+<span id="cb133-30"><a href="examples-of-process-modeling.html#cb133-30" aria-hidden="true" tabindex="-1"></a>            holdQueue<span class="op">.</span>removeAllAndResume<span class="op">()</span></span>
+<span id="cb133-31"><a href="examples-of-process-modeling.html#cb133-31" aria-hidden="true" tabindex="-1"></a>        <span class="op">}</span></span>
+<span id="cb133-32"><a href="examples-of-process-modeling.html#cb133-32" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
+<span id="cb133-33"><a href="examples-of-process-modeling.html#cb133-33" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
+<p>The <code>initialize()</code> method creates a couple of entities and activates their hold process. In addition, the event representing the release from the hold queue is scheduled for time 5.0. In the event logic, we see that the hold queue instance is used to call its <code>removeAllAndResume()</code> method. The <code>HoldQueue</code> class is a subclass of the <code>Queue</code> class. Thus, statistics are collected when it is used. In addition, it can be iterated and searched. If a reference to a particular entity is available, then the <code>removeAndResume()</code> can be used to remove and resume a specific entity. These two methods automatically resume the entity’s process. Other methods inherited from the <code>Queue</code> class allows for the entities to be removed <em>without</em> resuming their processes. It is then the responsibility of the user to properly resume the suspended processes by directly using the entity instance. There are also methods for terminating the held entity’s processes. The output from this simple simulation is as follows:</p>
+<pre><code>time = 0.0 : before being held customer = ID_1
+time = 1.0 : before being held customer = ID_2
+Removing and resuming held entities at time : 5.0
+time = 5.0 : after being held customer = ID_1
+time = 5.0 : after being held customer = ID_2
+time = 15.0 after the first delay for customer = ID_1
+time = 15.0 after the first delay for customer = ID_2
+time = 35.0 after the second delay for customer = ID_1
+time = 35.0 after the second delay for customer = ID_2</code></pre>
+<p>We see that the two customers are held in the queue right after activation. Then, the event at time 5.0 occurs which removes and resumes the held entities. The rest of the output indicates the the entities continue their processes.</p>
+<p>The next example illustrates the use of the <code>Signal</code> class, which build off of the <code>HoldQueue</code> class, as shown in Figure <a href="examples-of-process-modeling.html#fig:Ch5HQandSignalClass">6.10</a>.</p>
+<div class="figure"><span style="display:block;" id="fig:Ch5HQandSignalClass"></span>
+<img src="figures2/ch6/SignalClass.png" alt="HoldQueue and Signal Classes" width="75%" height="75%" />
+<p class="caption">
+Figure 6.10: HoldQueue and Signal Classes
+</p>
+</div>
+<p>The <code>Signal</code> class uses an instance of the <code>HoldQueue</code> class to hold entities until they are notified to move via the index of their rank in the queue. If you want the first entity to be signaled, then you call <code>signal(0)</code>. The entity is notified that its suspension is over and it removes itself from the hold queue. Thus, contrary to the <code>HoldQueue</code> class the user does not have to remove and resume the corresponding entity.</p>
+<p>Here is some example code. Notice that the code subclasses from <code>ProcessModel.</code> All implementations that use the process modeling constructs must subclass from <code>ProcessModel.</code> Then, the instance of the <code>Signal</code> is created. An inner class implements and entity that uses the signal. In the process, the entity immediately waits for the signal. After the signal, the entity has a simple delay and then the process ends.</p>
+<div class="sourceCode" id="cb135"><pre class="sourceCode kt"><code class="sourceCode kotlin"><span id="cb135-1"><a href="examples-of-process-modeling.html#cb135-1" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> SignalExample<span class="op">(</span><span class="va">parent</span><span class="op">:</span> <span class="dt">ModelElement</span><span class="op">,</span> <span class="va">name</span><span class="op">:</span> <span class="dt">String</span><span class="op">?</span> <span class="op">=</span> null<span class="op">)</span> <span class="op">:</span> <span class="dt">ProcessModel</span><span class="op">(</span><span class="va">parent</span><span class="op">,</span> <span class="va">name</span><span class="op">)</span> <span class="op">{</span></span>
+<span id="cb135-2"><a href="examples-of-process-modeling.html#cb135-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb135-3"><a href="examples-of-process-modeling.html#cb135-3" aria-hidden="true" tabindex="-1"></a>    <span class="kw">private</span> <span class="kw">val</span> <span class="va">signal</span> <span class="op">=</span> Signal<span class="op">(</span><span class="kw">this</span><span class="op">,</span> <span class="st">&quot;SignalExample&quot;</span><span class="op">)</span></span>
+<span id="cb135-4"><a href="examples-of-process-modeling.html#cb135-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb135-5"><a href="examples-of-process-modeling.html#cb135-5" aria-hidden="true" tabindex="-1"></a>    <span class="kw">private</span> inner <span class="kw">class</span> SignaledEntity <span class="op">:</span> <span class="dt">Entity</span><span class="op">()</span> <span class="op">{</span></span>
+<span id="cb135-6"><a href="examples-of-process-modeling.html#cb135-6" aria-hidden="true" tabindex="-1"></a>        <span class="kw">val</span> <span class="va">waitForSignalProcess</span><span class="op">:</span> KSLProcess <span class="op">=</span> process <span class="op">{</span></span>
+<span id="cb135-7"><a href="examples-of-process-modeling.html#cb135-7" aria-hidden="true" tabindex="-1"></a>            println<span class="op">(</span><span class="st">&quot;</span><span class="ss">$time</span><span class="st"> &gt; before waiting for the signal: </span><span class="ss">${</span>this<span class="at">@SignaledEntity</span><span class="op">.</span>name<span class="ss">}</span><span class="st">&quot;</span><span class="op">)</span></span>
+<span id="cb135-8"><a href="examples-of-process-modeling.html#cb135-8" aria-hidden="true" tabindex="-1"></a>            waitFor<span class="op">(</span>signal<span class="op">)</span></span>
+<span id="cb135-9"><a href="examples-of-process-modeling.html#cb135-9" aria-hidden="true" tabindex="-1"></a>            println<span class="op">(</span><span class="st">&quot;</span><span class="ss">$time</span><span class="st"> &gt; after getting the signal: </span><span class="ss">${</span>this<span class="at">@SignaledEntity</span><span class="op">.</span>name<span class="ss">}</span><span class="st">&quot;</span><span class="op">)</span></span>
+<span id="cb135-10"><a href="examples-of-process-modeling.html#cb135-10" aria-hidden="true" tabindex="-1"></a>            delay<span class="op">(</span><span class="fl">5.0</span><span class="op">)</span></span>
+<span id="cb135-11"><a href="examples-of-process-modeling.html#cb135-11" aria-hidden="true" tabindex="-1"></a>            println<span class="op">(</span><span class="st">&quot;</span><span class="ss">$time</span><span class="st"> &gt; after the second delay for entity: </span><span class="ss">${</span>this<span class="at">@SignaledEntity</span><span class="op">.</span>name<span class="ss">}</span><span class="st">&quot;</span><span class="op">)</span></span>
+<span id="cb135-12"><a href="examples-of-process-modeling.html#cb135-12" aria-hidden="true" tabindex="-1"></a>            println<span class="op">(</span><span class="st">&quot;</span><span class="ss">$time</span><span class="st"> &gt; exiting the process of entity: </span><span class="ss">${</span>this<span class="at">@SignaledEntity</span><span class="op">.</span>name<span class="ss">}</span><span class="st">&quot;</span><span class="op">)</span></span>
+<span id="cb135-13"><a href="examples-of-process-modeling.html#cb135-13" aria-hidden="true" tabindex="-1"></a>        <span class="op">}</span></span>
+<span id="cb135-14"><a href="examples-of-process-modeling.html#cb135-14" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
+<span id="cb135-15"><a href="examples-of-process-modeling.html#cb135-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb135-16"><a href="examples-of-process-modeling.html#cb135-16" aria-hidden="true" tabindex="-1"></a>    <span class="kw">override</span> <span class="kw">fun</span> <span class="fu">initialize</span><span class="op">()</span> <span class="op">{</span></span>
+<span id="cb135-17"><a href="examples-of-process-modeling.html#cb135-17" aria-hidden="true" tabindex="-1"></a>        <span class="cf">for</span> <span class="op">(</span>i <span class="kw">in</span> <span class="fl">1..10</span><span class="op">){</span></span>
+<span id="cb135-18"><a href="examples-of-process-modeling.html#cb135-18" aria-hidden="true" tabindex="-1"></a>            activate<span class="op">(</span>SignaledEntity<span class="op">().</span>waitForSignalProcess<span class="op">)</span></span>
+<span id="cb135-19"><a href="examples-of-process-modeling.html#cb135-19" aria-hidden="true" tabindex="-1"></a>        <span class="op">}</span></span>
+<span id="cb135-20"><a href="examples-of-process-modeling.html#cb135-20" aria-hidden="true" tabindex="-1"></a>        schedule<span class="op">(</span><span class="kw">this</span><span class="op">::</span>signalEvent<span class="op">,</span> <span class="fl">3.0</span><span class="op">)</span></span>
+<span id="cb135-21"><a href="examples-of-process-modeling.html#cb135-21" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
+<span id="cb135-22"><a href="examples-of-process-modeling.html#cb135-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb135-23"><a href="examples-of-process-modeling.html#cb135-23" aria-hidden="true" tabindex="-1"></a>    <span class="kw">private</span> <span class="kw">fun</span> <span class="fu">signalEvent</span><span class="op">(</span><span class="va">event</span><span class="op">:</span> <span class="dt">KSLEvent</span>&lt;<span class="va">Nothing</span>&gt;<span class="op">){</span></span>
+<span id="cb135-24"><a href="examples-of-process-modeling.html#cb135-24" aria-hidden="true" tabindex="-1"></a>        signal<span class="op">.</span>signal<span class="op">(</span><span class="fl">0..4</span><span class="op">)</span></span>
+<span id="cb135-25"><a href="examples-of-process-modeling.html#cb135-25" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
+<span id="cb135-26"><a href="examples-of-process-modeling.html#cb135-26" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span>
+<span id="cb135-27"><a href="examples-of-process-modeling.html#cb135-27" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb135-28"><a href="examples-of-process-modeling.html#cb135-28" aria-hidden="true" tabindex="-1"></a><span class="kw">fun</span> <span class="fu">main</span><span class="op">(){</span></span>
+<span id="cb135-29"><a href="examples-of-process-modeling.html#cb135-29" aria-hidden="true" tabindex="-1"></a>    <span class="kw">val</span> <span class="va">m</span> <span class="op">=</span> Model<span class="op">()</span></span>
+<span id="cb135-30"><a href="examples-of-process-modeling.html#cb135-30" aria-hidden="true" tabindex="-1"></a>    SignalExample<span class="op">(</span>m<span class="op">)</span></span>
+<span id="cb135-31"><a href="examples-of-process-modeling.html#cb135-31" aria-hidden="true" tabindex="-1"></a>    m<span class="op">.</span>numberOfReplications <span class="op">=</span> <span class="dv">1</span></span>
+<span id="cb135-32"><a href="examples-of-process-modeling.html#cb135-32" aria-hidden="true" tabindex="-1"></a>    m<span class="op">.</span>lengthOfReplication <span class="op">=</span> <span class="fl">50.0</span></span>
+<span id="cb135-33"><a href="examples-of-process-modeling.html#cb135-33" aria-hidden="true" tabindex="-1"></a>    m<span class="op">.</span>simulate<span class="op">()</span></span>
+<span id="cb135-34"><a href="examples-of-process-modeling.html#cb135-34" aria-hidden="true" tabindex="-1"></a>    m<span class="op">.</span>print<span class="op">()</span></span>
+<span id="cb135-35"><a href="examples-of-process-modeling.html#cb135-35" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
+<p>The <code>initialize()</code> method creates 10 instances of <code>SignalEntity</code> and activates each entity’s <code>waitForSignalProcess</code> process. It also schedules an event to cause the signal to occur at time 3.0. In the signal event, the reference to the signal, <code>signal,</code> is used to call the <code>signal()</code> method of of the <code>Signal.</code> The first 5 waiting entities are signaled using a Kotlin <a href="https://kotlinlang.org/docs/ranges.html">range.</a> The output from the process is as follows.</p>
+<pre><code>0.0 &gt; before waiting for the signal: ID_1
+0.0 &gt; before waiting for the signal: ID_2
+0.0 &gt; before waiting for the signal: ID_3
+0.0 &gt; before waiting for the signal: ID_4
+0.0 &gt; before waiting for the signal: ID_5
+0.0 &gt; before waiting for the signal: ID_6
+0.0 &gt; before waiting for the signal: ID_7
+0.0 &gt; before waiting for the signal: ID_8
+0.0 &gt; before waiting for the signal: ID_9
+0.0 &gt; before waiting for the signal: ID_10
+3.0 &gt; signaling the entities in range 0..4
+3.0 &gt; after getting the signal: ID_1
+3.0 &gt; after getting the signal: ID_2
+3.0 &gt; after getting the signal: ID_3
+3.0 &gt; after getting the signal: ID_4
+3.0 &gt; after getting the signal: ID_5
+8.0 &gt; after the second delay for entity: ID_1
+8.0 &gt; exiting the process of entity: ID_1
+8.0 &gt; after the second delay for entity: ID_2
+8.0 &gt; exiting the process of entity: ID_2
+8.0 &gt; after the second delay for entity: ID_3
+8.0 &gt; exiting the process of entity: ID_3
+8.0 &gt; after the second delay for entity: ID_4
+8.0 &gt; exiting the process of entity: ID_4
+8.0 &gt; after the second delay for entity: ID_5
+8.0 &gt; exiting the process of entity: ID_5</code></pre>
+<p>We see that at time 0.0, the 10 entities are created and their process activated so that they wait for the signal. Then, at time 3.0, the signal occurs and each of the signaled entities (in turn) resume their processes. Eventually, they complete their process after the 5.0 time unit delay. Notice that since the simulation run length was 50.0 time units that the simulation continues until that time. However, since there are no more signals, the last 5 entities remain waiting (suspended) at the end of the simulation. As previously mentioned, the <code>ProcessModel</code> class is responsible for removing these entities that are suspended after the replication has completed. Thus, when the next replication starts, there will not be 5 entities still waiting. The KSL takes care of these common clean up actions automatically.</p>
+<p>This next example illustrates the use of a <a href="https://jenkov.com/tutorials/java-concurrency/blocking-queues.html">blocking queue</a>. Blocking queues are often used in asynchronous programs to communicated between different threads. In the case of KSL process models, we can use the concept of blocking queues to assist with communication between two processes. Blocking queues can block on sending or on receiving. The typical use is to block when trying to dequeue an item from the queue when the queue is empty or if you try to enqueue an item and the queue is full. A process trying to dequeue from an empty queue is blocked until some other process inserts an item into the queue. A process trying to enqueue an item in a full queue is blocked until some other process makes space in the queue, either by dequeuing one or more items or clearing the queue completely. The KSL provides a class called <code>BlockingQueue</code> that facilitates this kind of modeling. In the case of the KSL, depending on the configuration of the queue, both the sender and the receiver may block.</p>
+<div class="figure"><span style="display:block;" id="fig:Ch5EBlockingQ"></span>
+<img src="figures2/ch6/BlockingQueue.png" alt="The BlockingQueue Class" width="75%" height="75%" />
+<p class="caption">
+Figure 6.11: The BlockingQueue Class
+</p>
+</div>
+<p>There are actually three queues used in the implementation of the <code>BlockingQueue</code> class. One queue called the <code>senderQ</code> will hold entities that place items into the blocking queue if the queue is full. Another queue, called the <code>receiverQ</code>, will hold entities that are waiting for items to be placed in the queue to be removed. Lastly, is the blocking queue, itself, which is better conceptualized as a channel between the sender and the receiver. This queue is called the <code>channelQ</code> and holds items that are placed into it for eventual removal. Statistics can be collected (or not) on any of these queues. The sender and receiver queues are essentially instances of the KSL <code>Queue</code> class. As such, they have no capacity limitation. The channel queue can have a capacity. If a capacity is not provided, it is <code>Int.MAX_VALUE</code>, which is essentially infinite.</p>
+<p>As noted in Figure <a href="examples-of-process-modeling.html#fig:Ch5EBlockingQ">6.11</a> we see that the items within the queue are requested from the receiver. These requests can have a specific amount. The receiver will need to wait until the specific amount of their request becomes available in the queue (channel). Users can provide a selection rule for the requests to determine which requests will be selected for filling when new items arrive within the channel. The default request selection rule is to select the next request. The following code illustrates the basic creation and use of a blocking queue.</p>
+<div class="sourceCode" id="cb137"><pre class="sourceCode kt"><code class="sourceCode kotlin"><span id="cb137-1"><a href="examples-of-process-modeling.html#cb137-1" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> BlockingQExample<span class="op">(</span><span class="va">parent</span><span class="op">:</span> <span class="dt">ModelElement</span><span class="op">,</span> <span class="va">name</span><span class="op">:</span> <span class="dt">String</span><span class="op">?</span> <span class="op">=</span> null<span class="op">)</span> <span class="op">:</span> <span class="dt">ProcessModel</span><span class="op">(</span><span class="va">parent</span><span class="op">,</span> <span class="va">name</span><span class="op">)</span> <span class="op">{</span></span>
+<span id="cb137-2"><a href="examples-of-process-modeling.html#cb137-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb137-3"><a href="examples-of-process-modeling.html#cb137-3" aria-hidden="true" tabindex="-1"></a><span class="co">//    val blockingQ: BlockingQueue&lt;QObject&gt; = BlockingQueue(this)</span></span>
+<span id="cb137-4"><a href="examples-of-process-modeling.html#cb137-4" aria-hidden="true" tabindex="-1"></a>    <span class="kw">val</span> <span class="va">blockingQ</span><span class="op">:</span> BlockingQueue<span class="op">&lt;</span>QObject<span class="op">&gt;</span> <span class="op">=</span> BlockingQueue<span class="op">(</span><span class="kw">this</span><span class="op">,</span> capacity <span class="op">=</span> <span class="dv">10</span><span class="op">)</span></span>
+<span id="cb137-5"><a href="examples-of-process-modeling.html#cb137-5" aria-hidden="true" tabindex="-1"></a>    init <span class="op">{</span></span>
+<span id="cb137-6"><a href="examples-of-process-modeling.html#cb137-6" aria-hidden="true" tabindex="-1"></a><span class="co">//        blockingQ.waitTimeStatisticsOption(false)</span></span>
+<span id="cb137-7"><a href="examples-of-process-modeling.html#cb137-7" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
+<span id="cb137-8"><a href="examples-of-process-modeling.html#cb137-8" aria-hidden="true" tabindex="-1"></a>    </span></code></pre></div>
+<p>You can create a blocking queue with a capacity (or not) and you can specify whether the statistics are collected (or not) as noted in the comments of the example. In this example, the queue (channel) has a capacity of 10 items. In the following code, we implement the process for receiving items from the blocking queue. Notice that there is a loop within the process. This illustrates that all normal <a href="https://kotlinlang.org/docs/control-flow.html">Kotlin control structures</a> are available with process routines. The entity (receiver) will loop through this process 15 time and essentially wait for single item to be placed in the blocking queue. If the entity hits the <code>waitForItems()</code> function call and there is an item in the queue, then it immediately receives the item and continues with its process. If an item is not available in the blocking queue, then the entity wait until an item becomes available and does not proceed. After receiving its requested item, the entity continues with its process.</p>
+<div class="sourceCode" id="cb138"><pre class="sourceCode kt"><code class="sourceCode kotlin"><span id="cb138-1"><a href="examples-of-process-modeling.html#cb138-1" aria-hidden="true" tabindex="-1"></a>    <span class="kw">private</span> inner <span class="kw">class</span> Receiver<span class="op">:</span> <span class="dt">Entity</span><span class="op">()</span> <span class="op">{</span></span>
+<span id="cb138-2"><a href="examples-of-process-modeling.html#cb138-2" aria-hidden="true" tabindex="-1"></a>        <span class="kw">val</span> <span class="va">receiving</span> <span class="op">:</span> KSLProcess <span class="op">=</span> process<span class="op">(</span><span class="st">&quot;receiving&quot;</span><span class="op">)</span> <span class="op">{</span></span>
+<span id="cb138-3"><a href="examples-of-process-modeling.html#cb138-3" aria-hidden="true" tabindex="-1"></a>            <span class="cf">for</span> <span class="op">(</span>i <span class="kw">in</span> <span class="fl">1..15</span><span class="op">)</span> <span class="op">{</span></span>
+<span id="cb138-4"><a href="examples-of-process-modeling.html#cb138-4" aria-hidden="true" tabindex="-1"></a>                println<span class="op">(</span><span class="st">&quot;</span><span class="ss">$time</span><span class="st"> &gt; before the first delay for entity: </span><span class="ss">${</span>this<span class="at">@Receiver</span><span class="op">.</span>name<span class="ss">}</span><span class="st">&quot;</span><span class="op">)</span></span>
+<span id="cb138-5"><a href="examples-of-process-modeling.html#cb138-5" aria-hidden="true" tabindex="-1"></a>                delay<span class="op">(</span><span class="fl">1.0</span><span class="op">)</span></span>
+<span id="cb138-6"><a href="examples-of-process-modeling.html#cb138-6" aria-hidden="true" tabindex="-1"></a>                println<span class="op">(</span><span class="st">&quot;</span><span class="ss">$time</span><span class="st"> &gt; trying to get item for entity: </span><span class="ss">${</span>this<span class="at">@Receiver</span><span class="op">.</span>name<span class="ss">}</span><span class="st">&quot;</span><span class="op">)</span></span>
+<span id="cb138-7"><a href="examples-of-process-modeling.html#cb138-7" aria-hidden="true" tabindex="-1"></a>                waitForItems<span class="op">(</span>blockingQ<span class="op">,</span> <span class="dv">1</span><span class="op">)</span></span>
+<span id="cb138-8"><a href="examples-of-process-modeling.html#cb138-8" aria-hidden="true" tabindex="-1"></a>                println<span class="op">(</span><span class="st">&quot;</span><span class="ss">$time</span><span class="st"> &gt; after getting item for entity: </span><span class="ss">${</span>this<span class="at">@Receiver</span><span class="op">.</span>name<span class="ss">}</span><span class="st">&quot;</span><span class="op">)</span></span>
+<span id="cb138-9"><a href="examples-of-process-modeling.html#cb138-9" aria-hidden="true" tabindex="-1"></a>                delay<span class="op">(</span><span class="fl">5.0</span><span class="op">)</span></span>
+<span id="cb138-10"><a href="examples-of-process-modeling.html#cb138-10" aria-hidden="true" tabindex="-1"></a>                println<span class="op">(</span><span class="st">&quot;</span><span class="ss">$time</span><span class="st"> &gt; after the second delay in </span><span class="ss">${</span>this<span class="at">@Receiver</span><span class="op">.</span>name<span class="ss">}</span><span class="st">&quot;</span><span class="op">)</span></span>
+<span id="cb138-11"><a href="examples-of-process-modeling.html#cb138-11" aria-hidden="true" tabindex="-1"></a>            <span class="op">}</span></span>
+<span id="cb138-12"><a href="examples-of-process-modeling.html#cb138-12" aria-hidden="true" tabindex="-1"></a>            println<span class="op">(</span><span class="st">&quot;</span><span class="ss">$time</span><span class="st"> &gt; exiting the process in </span><span class="ss">${</span>this<span class="at">@Receiver</span><span class="op">.</span>name<span class="ss">}</span><span class="st">&quot;</span><span class="op">)</span></span>
+<span id="cb138-13"><a href="examples-of-process-modeling.html#cb138-13" aria-hidden="true" tabindex="-1"></a>        <span class="op">}</span></span>
+<span id="cb138-14"><a href="examples-of-process-modeling.html#cb138-14" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span></code></pre></div>
+<p>In this code snippet, the entity (sender), also loops 15 times. Each time within the loop, the entity creates an instance of a <code>QObject</code> and places it in the blocking queue via the <code>send()</code> method. Since the blocking queue has capacity 10, and the time between requests by the receive is a little longer than the time between sends, the blocking queue will reach its capacity. If it does reach its capacity, then the sender will have to wait (blocking) at the <code>send()</code> method until space becomes available in the channel.</p>
+<div class="sourceCode" id="cb139"><pre class="sourceCode kt"><code class="sourceCode kotlin"><span id="cb139-1"><a href="examples-of-process-modeling.html#cb139-1" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb139-2"><a href="examples-of-process-modeling.html#cb139-2" aria-hidden="true" tabindex="-1"></a>    <span class="kw">private</span> inner <span class="kw">class</span> Sender<span class="op">:</span> <span class="dt">Entity</span><span class="op">()</span> <span class="op">{</span></span>
+<span id="cb139-3"><a href="examples-of-process-modeling.html#cb139-3" aria-hidden="true" tabindex="-1"></a>        <span class="kw">val</span> <span class="va">sending</span> <span class="op">:</span> KSLProcess <span class="op">=</span> process<span class="op">(</span><span class="st">&quot;sending&quot;</span><span class="op">)</span> <span class="op">{</span></span>
+<span id="cb139-4"><a href="examples-of-process-modeling.html#cb139-4" aria-hidden="true" tabindex="-1"></a>            <span class="cf">for</span> <span class="op">(</span>i <span class="kw">in</span> <span class="fl">1..15</span><span class="op">){</span></span>
+<span id="cb139-5"><a href="examples-of-process-modeling.html#cb139-5" aria-hidden="true" tabindex="-1"></a>                delay<span class="op">(</span><span class="fl">5.0</span><span class="op">)</span></span>
+<span id="cb139-6"><a href="examples-of-process-modeling.html#cb139-6" aria-hidden="true" tabindex="-1"></a>                println<span class="op">(</span><span class="st">&quot;</span><span class="ss">$time</span><span class="st"> &gt; after the first delay for sender </span><span class="ss">${</span>this<span class="at">@Sender</span><span class="op">.</span>name<span class="ss">}</span><span class="st">&quot;</span><span class="op">)</span></span>
+<span id="cb139-7"><a href="examples-of-process-modeling.html#cb139-7" aria-hidden="true" tabindex="-1"></a>                <span class="kw">val</span> <span class="va">item</span> <span class="op">=</span> QObject<span class="op">()</span></span>
+<span id="cb139-8"><a href="examples-of-process-modeling.html#cb139-8" aria-hidden="true" tabindex="-1"></a>                println<span class="op">(</span><span class="st">&quot;</span><span class="ss">$time</span><span class="st"> &gt; before sending an item from sender </span><span class="ss">${</span>this<span class="at">@Sender</span><span class="op">.</span>name<span class="ss">}</span><span class="st">&quot;</span><span class="op">)</span></span>
+<span id="cb139-9"><a href="examples-of-process-modeling.html#cb139-9" aria-hidden="true" tabindex="-1"></a>                send<span class="op">(</span>item<span class="op">,</span> blockingQ<span class="op">)</span></span>
+<span id="cb139-10"><a href="examples-of-process-modeling.html#cb139-10" aria-hidden="true" tabindex="-1"></a>                println<span class="op">(</span><span class="st">&quot;</span><span class="ss">$time</span><span class="st"> &gt; after sending an item from sender </span><span class="ss">${</span>this<span class="at">@Sender</span><span class="op">.</span>name<span class="ss">}</span><span class="st">&quot;</span><span class="op">)</span></span>
+<span id="cb139-11"><a href="examples-of-process-modeling.html#cb139-11" aria-hidden="true" tabindex="-1"></a>            <span class="op">}</span></span>
+<span id="cb139-12"><a href="examples-of-process-modeling.html#cb139-12" aria-hidden="true" tabindex="-1"></a>            println<span class="op">(</span><span class="st">&quot;</span><span class="ss">$time</span><span class="st"> &gt; exiting the process for sender </span><span class="ss">${</span>this<span class="at">@Sender</span><span class="op">.</span>name<span class="ss">}</span><span class="st">&quot;</span><span class="op">)</span></span>
+<span id="cb139-13"><a href="examples-of-process-modeling.html#cb139-13" aria-hidden="true" tabindex="-1"></a>        <span class="op">}</span></span>
+<span id="cb139-14"><a href="examples-of-process-modeling.html#cb139-14" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
+<span id="cb139-15"><a href="examples-of-process-modeling.html#cb139-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb139-16"><a href="examples-of-process-modeling.html#cb139-16" aria-hidden="true" tabindex="-1"></a>    <span class="kw">override</span> <span class="kw">fun</span> <span class="fu">initialize</span><span class="op">()</span> <span class="op">{</span></span>
+<span id="cb139-17"><a href="examples-of-process-modeling.html#cb139-17" aria-hidden="true" tabindex="-1"></a>        <span class="kw">val</span> <span class="va">r</span> <span class="op">=</span> Receiver<span class="op">()</span></span>
+<span id="cb139-18"><a href="examples-of-process-modeling.html#cb139-18" aria-hidden="true" tabindex="-1"></a>        activate<span class="op">(</span>r<span class="op">.</span>receiving<span class="op">)</span></span>
+<span id="cb139-19"><a href="examples-of-process-modeling.html#cb139-19" aria-hidden="true" tabindex="-1"></a>        <span class="kw">val</span> <span class="va">s</span> <span class="op">=</span> Sender<span class="op">()</span></span>
+<span id="cb139-20"><a href="examples-of-process-modeling.html#cb139-20" aria-hidden="true" tabindex="-1"></a>        activate<span class="op">(</span>s<span class="op">.</span>sending<span class="op">)</span></span>
+<span id="cb139-21"><a href="examples-of-process-modeling.html#cb139-21" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
+<span id="cb139-22"><a href="examples-of-process-modeling.html#cb139-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb139-23"><a href="examples-of-process-modeling.html#cb139-23" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
+<p>In the <code>intialize()</code> method, single instances of the receiver and sender are created and their processes activated. The model is setup to run for 100 time units</p>
+<div class="sourceCode" id="cb140"><pre class="sourceCode kt"><code class="sourceCode kotlin"><span id="cb140-1"><a href="examples-of-process-modeling.html#cb140-1" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb140-2"><a href="examples-of-process-modeling.html#cb140-2" aria-hidden="true" tabindex="-1"></a><span class="kw">fun</span> <span class="fu">main</span><span class="op">(){</span></span>
+<span id="cb140-3"><a href="examples-of-process-modeling.html#cb140-3" aria-hidden="true" tabindex="-1"></a>    <span class="kw">val</span> <span class="va">m</span> <span class="op">=</span> Model<span class="op">()</span></span>
+<span id="cb140-4"><a href="examples-of-process-modeling.html#cb140-4" aria-hidden="true" tabindex="-1"></a>    <span class="kw">val</span> <span class="va">test</span> <span class="op">=</span> BlockingQExample<span class="op">(</span>m<span class="op">)</span></span>
+<span id="cb140-5"><a href="examples-of-process-modeling.html#cb140-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb140-6"><a href="examples-of-process-modeling.html#cb140-6" aria-hidden="true" tabindex="-1"></a>    m<span class="op">.</span>lengthOfReplication <span class="op">=</span> <span class="fl">100.0</span></span>
+<span id="cb140-7"><a href="examples-of-process-modeling.html#cb140-7" aria-hidden="true" tabindex="-1"></a>    m<span class="op">.</span>numberOfReplications <span class="op">=</span> <span class="dv">1</span></span>
+<span id="cb140-8"><a href="examples-of-process-modeling.html#cb140-8" aria-hidden="true" tabindex="-1"></a>    m<span class="op">.</span>simulate<span class="op">()</span></span>
+<span id="cb140-9"><a href="examples-of-process-modeling.html#cb140-9" aria-hidden="true" tabindex="-1"></a>    m<span class="op">.</span>print<span class="op">()</span></span>
+<span id="cb140-10"><a href="examples-of-process-modeling.html#cb140-10" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
+<p>The output of the simulation is illustrative of the coordination that occurs between the receiver and the sender. We see in this output the the receiving entity blocks at time 1.0. Finally, at time 5.0 the sender sends an item and it is received by the receiving entity. Both processes continue.</p>
+<pre><code>0.0 &gt; before the first delay for receiving entity: ID_1
+1.0 &gt; trying to get item for receiving entity: ID_1
+5.0 &gt; after the first delay for sender ID_2
+5.0 &gt; before sending an item from sender ID_2
+5.0 &gt; after sending an item from sender ID_2
+5.0 &gt; after getting item for receiving entity: ID_1
+10.0 &gt; after the first delay for sender ID_2
+10.0 &gt; before sending an item from sender ID_2
+10.0 &gt; after sending an item from sender ID_2
+10.0 &gt; after the second delay for receiving entity: ID_1
+10.0 &gt; before the first delay for receiving entity: ID_1
+.
+.
+.</code></pre>
+<p>The queueing statistics indicate that the sender never blocked and the receiver had a small amount of blocking.</p>
+<pre><code>Half-Width Statistical Summary Report - Confidence Level (95.000)% 
+
+Name                                                Count         Average      Half-Width 
+-----------------------------------------------------------------------------------------
+BlockingQueue_4:SenderQ:NumInQ                          1          0.0000             NaN 
+BlockingQueue_4:SenderQ:TimeInQ                         1          0.0000             NaN 
+BlockingQueue_4:RequestQ:NumInQ                         1          0.2100             NaN 
+BlockingQueue_4:RequestQ:TimeInQ                        1          0.3077             NaN 
+BlockingQueue_4:ChannelQ:NumInQ                         1          0.3300             NaN 
+BlockingQueue_4:ChannelQ:TimeInQ                        1          2.2000             NaN 
+-----------------------------------------------------------------------------------------</code></pre>
+<p>As illustrated in this example, a blocking queue can facilitate the passing of information between two processes. These types of constructs can serve as the basis for communicating between agents which can invoke different procedures for different messages and wait until receiving and or sending messages. We will see another example of using a blocking queue later in this chapter.</p>
+<p>In the previous three examples, we saw how we can use a hold queue, a signal, and a blocking queue within a process description. In the case of the blocking queue, we saw how two processes can communicated. In this next simple example, we also see how to processes can coordinate their flow via the use of the <code>waitFor(process: KSLProcess)</code> suspending function. The purpose of the <code>waitFor(process: KSLProcess)</code> suspending function is to allow one entity to start another process and have the entity that starts the process wait until the newly activated process is completed. The following code indicates the signature of the <code>waitFor(process: KSLProcess)</code> suspending function.</p>
+<div class="sourceCode" id="cb143"><pre class="sourceCode kt"><code class="sourceCode kotlin"><span id="cb143-1"><a href="examples-of-process-modeling.html#cb143-1" aria-hidden="true" tabindex="-1"></a>    <span class="co">/** Causes the current process to suspend until the specified process has run to completion.</span></span>
+<span id="cb143-2"><a href="examples-of-process-modeling.html#cb143-2" aria-hidden="true" tabindex="-1"></a><span class="co">     *  This is like run blocking.  It activates the specified process and then waits for it</span></span>
+<span id="cb143-3"><a href="examples-of-process-modeling.html#cb143-3" aria-hidden="true" tabindex="-1"></a><span class="co">     *  to complete before proceeding.</span></span>
+<span id="cb143-4"><a href="examples-of-process-modeling.html#cb143-4" aria-hidden="true" tabindex="-1"></a><span class="co">     *</span></span>
+<span id="cb143-5"><a href="examples-of-process-modeling.html#cb143-5" aria-hidden="true" tabindex="-1"></a><span class="co">     * @param process the process to start for an entity</span></span>
+<span id="cb143-6"><a href="examples-of-process-modeling.html#cb143-6" aria-hidden="true" tabindex="-1"></a><span class="co">     * @param timeUntilActivation the time until the start the process</span></span>
+<span id="cb143-7"><a href="examples-of-process-modeling.html#cb143-7" aria-hidden="true" tabindex="-1"></a><span class="co">     * @param priority the priority associated with the event to start the process</span></span>
+<span id="cb143-8"><a href="examples-of-process-modeling.html#cb143-8" aria-hidden="true" tabindex="-1"></a><span class="co">     */</span></span>
+<span id="cb143-9"><a href="examples-of-process-modeling.html#cb143-9" aria-hidden="true" tabindex="-1"></a>    suspend <span class="kw">fun</span> <span class="fu">waitFor</span><span class="op">(</span></span>
+<span id="cb143-10"><a href="examples-of-process-modeling.html#cb143-10" aria-hidden="true" tabindex="-1"></a>        <span class="va">process</span><span class="op">:</span> <span class="dt">KSLProcess</span><span class="op">,</span></span>
+<span id="cb143-11"><a href="examples-of-process-modeling.html#cb143-11" aria-hidden="true" tabindex="-1"></a>        <span class="va">timeUntilActivation</span><span class="op">:</span> <span class="dt">Double</span> <span class="op">=</span> <span class="fl">0.0</span><span class="op">,</span></span>
+<span id="cb143-12"><a href="examples-of-process-modeling.html#cb143-12" aria-hidden="true" tabindex="-1"></a>        <span class="va">priority</span><span class="op">:</span> <span class="dt">Int</span> <span class="op">=</span> KSLEvent<span class="op">.</span>DEFAULT_PRIORITY<span class="op">,</span></span>
+<span id="cb143-13"><a href="examples-of-process-modeling.html#cb143-13" aria-hidden="true" tabindex="-1"></a>        <span class="va">suspensionName</span><span class="op">:</span> <span class="dt">String</span><span class="op">?</span> <span class="op">=</span> null</span>
+<span id="cb143-14"><a href="examples-of-process-modeling.html#cb143-14" aria-hidden="true" tabindex="-1"></a>    <span class="op">)</span></span></code></pre></div>
+<p>The <code>waitFor(process: KSLProcess)</code> suspending function activates the named process and suspends the current process until the activated process completes. Then, the suspending process is resumed. Let’s take a look at a simple example. Most of this class is simply to define the two interacting processes.</p>
+<div class="sourceCode" id="cb144"><pre class="sourceCode kt"><code class="sourceCode kotlin"><span id="cb144-1"><a href="examples-of-process-modeling.html#cb144-1" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> WaitForProcessExample<span class="op">(</span><span class="va">parent</span><span class="op">:</span> <span class="dt">ModelElement</span><span class="op">)</span> <span class="op">:</span> <span class="dt">ProcessModel</span><span class="op">(</span><span class="va">parent</span><span class="op">,</span> <span class="va">null</span><span class="op">)</span> <span class="op">{</span></span>
+<span id="cb144-2"><a href="examples-of-process-modeling.html#cb144-2" aria-hidden="true" tabindex="-1"></a>    <span class="kw">private</span> <span class="kw">val</span> <span class="va">worker</span><span class="op">:</span> ResourceWithQ <span class="op">=</span> ResourceWithQ<span class="op">(</span><span class="kw">this</span><span class="op">,</span> <span class="st">&quot;worker&quot;</span><span class="op">,</span> <span class="dv">1</span><span class="op">)</span></span>
+<span id="cb144-3"><a href="examples-of-process-modeling.html#cb144-3" aria-hidden="true" tabindex="-1"></a>    <span class="kw">private</span> <span class="kw">val</span> <span class="va">tba</span> <span class="op">=</span> RandomVariable<span class="op">(</span><span class="kw">this</span><span class="op">,</span> ExponentialRV<span class="op">(</span><span class="fl">6.0</span><span class="op">,</span> <span class="dv">1</span><span class="op">),</span> <span class="st">&quot;Arrival RV&quot;</span><span class="op">)</span></span>
+<span id="cb144-4"><a href="examples-of-process-modeling.html#cb144-4" aria-hidden="true" tabindex="-1"></a>    <span class="kw">private</span> <span class="kw">val</span> <span class="va">st</span> <span class="op">=</span> RandomVariable<span class="op">(</span><span class="kw">this</span><span class="op">,</span> ExponentialRV<span class="op">(</span><span class="fl">3.0</span><span class="op">,</span> <span class="dv">2</span><span class="op">),</span> <span class="st">&quot;Service RV&quot;</span><span class="op">)</span></span>
+<span id="cb144-5"><a href="examples-of-process-modeling.html#cb144-5" aria-hidden="true" tabindex="-1"></a>    <span class="kw">private</span> <span class="kw">val</span> <span class="va">wip</span> <span class="op">=</span> TWResponse<span class="op">(</span><span class="kw">this</span><span class="op">,</span> <span class="st">&quot;</span><span class="ss">${</span>name<span class="ss">}</span><span class="st">:WIP&quot;</span><span class="op">)</span></span>
+<span id="cb144-6"><a href="examples-of-process-modeling.html#cb144-6" aria-hidden="true" tabindex="-1"></a>    <span class="kw">private</span> <span class="kw">val</span> <span class="va">tip</span> <span class="op">=</span> Response<span class="op">(</span><span class="kw">this</span><span class="op">,</span> <span class="st">&quot;</span><span class="ss">${</span>name<span class="ss">}</span><span class="st">:TimeInSystem&quot;</span><span class="op">)</span></span>
+<span id="cb144-7"><a href="examples-of-process-modeling.html#cb144-7" aria-hidden="true" tabindex="-1"></a>    <span class="kw">private</span> <span class="kw">val</span> <span class="va">arrivals</span> <span class="op">=</span> Arrivals<span class="op">()</span></span>
+<span id="cb144-8"><a href="examples-of-process-modeling.html#cb144-8" aria-hidden="true" tabindex="-1"></a>    <span class="kw">private</span> <span class="kw">val</span> <span class="va">total</span> <span class="op">=</span> <span class="dv">1</span></span>
+<span id="cb144-9"><a href="examples-of-process-modeling.html#cb144-9" aria-hidden="true" tabindex="-1"></a>    <span class="kw">private</span> <span class="kw">var</span> <span class="va">n</span> <span class="op">=</span> <span class="dv">1</span></span>
+<span id="cb144-10"><a href="examples-of-process-modeling.html#cb144-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb144-11"><a href="examples-of-process-modeling.html#cb144-11" aria-hidden="true" tabindex="-1"></a>    <span class="kw">private</span> inner <span class="kw">class</span> Customer <span class="op">:</span> <span class="dt">Entity</span><span class="op">()</span> <span class="op">{</span></span>
+<span id="cb144-12"><a href="examples-of-process-modeling.html#cb144-12" aria-hidden="true" tabindex="-1"></a>        <span class="kw">val</span> <span class="va">simpleProcess</span><span class="op">:</span> KSLProcess <span class="op">=</span> process<span class="op">(</span><span class="st">&quot;SimpleProcess&quot;</span><span class="op">,</span> addToSequence <span class="op">=</span> <span class="kw">false</span><span class="op">)</span> <span class="op">{</span></span>
+<span id="cb144-13"><a href="examples-of-process-modeling.html#cb144-13" aria-hidden="true" tabindex="-1"></a>            println<span class="op">(</span><span class="st">&quot;</span><span class="sc">\t</span><span class="st"> </span><span class="ss">$time</span><span class="st"> &gt; starting simple process for entity: </span><span class="ss">${</span>this<span class="at">@Customer</span><span class="op">.</span>name<span class="ss">}</span><span class="st">&quot;</span><span class="op">)</span></span>
+<span id="cb144-14"><a href="examples-of-process-modeling.html#cb144-14" aria-hidden="true" tabindex="-1"></a>            wip<span class="op">.</span>increment<span class="op">()</span></span>
+<span id="cb144-15"><a href="examples-of-process-modeling.html#cb144-15" aria-hidden="true" tabindex="-1"></a>            timeStamp <span class="op">=</span> time</span>
+<span id="cb144-16"><a href="examples-of-process-modeling.html#cb144-16" aria-hidden="true" tabindex="-1"></a>            use<span class="op">(</span>worker<span class="op">,</span> delayDuration <span class="op">=</span> st<span class="op">)</span></span>
+<span id="cb144-17"><a href="examples-of-process-modeling.html#cb144-17" aria-hidden="true" tabindex="-1"></a>            tip<span class="op">.</span>value <span class="op">=</span> time <span class="op">-</span> timeStamp</span>
+<span id="cb144-18"><a href="examples-of-process-modeling.html#cb144-18" aria-hidden="true" tabindex="-1"></a>            wip<span class="op">.</span>decrement<span class="op">()</span></span>
+<span id="cb144-19"><a href="examples-of-process-modeling.html#cb144-19" aria-hidden="true" tabindex="-1"></a>            println<span class="op">(</span><span class="st">&quot;</span><span class="sc">\t</span><span class="st"> </span><span class="ss">$time</span><span class="st"> &gt; completed simple process for entity: </span><span class="ss">${</span>this<span class="at">@Customer</span><span class="op">.</span>name<span class="ss">}</span><span class="st">&quot;</span><span class="op">)</span></span>
+<span id="cb144-20"><a href="examples-of-process-modeling.html#cb144-20" aria-hidden="true" tabindex="-1"></a>        <span class="op">}</span></span>
+<span id="cb144-21"><a href="examples-of-process-modeling.html#cb144-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb144-22"><a href="examples-of-process-modeling.html#cb144-22" aria-hidden="true" tabindex="-1"></a>        <span class="kw">val</span> <span class="va">wfp</span> <span class="op">=</span> process<span class="op">(</span><span class="st">&quot;WaitForAnotherProcess&quot;</span><span class="op">,</span> addToSequence <span class="op">=</span> <span class="kw">false</span><span class="op">)</span> <span class="op">{</span></span>
+<span id="cb144-23"><a href="examples-of-process-modeling.html#cb144-23" aria-hidden="true" tabindex="-1"></a>            <span class="kw">val</span> <span class="va">c</span> <span class="op">=</span> Customer<span class="op">()</span></span>
+<span id="cb144-24"><a href="examples-of-process-modeling.html#cb144-24" aria-hidden="true" tabindex="-1"></a>            println<span class="op">(</span><span class="st">&quot;</span><span class="ss">$time</span><span class="st"> &gt; before waitFor simple process for entity: </span><span class="ss">${</span>this<span class="at">@Customer</span><span class="op">.</span>name<span class="ss">}</span><span class="st">&quot;</span><span class="op">)</span></span>
+<span id="cb144-25"><a href="examples-of-process-modeling.html#cb144-25" aria-hidden="true" tabindex="-1"></a>            waitFor<span class="op">(</span>c<span class="op">.</span>simpleProcess<span class="op">)</span></span>
+<span id="cb144-26"><a href="examples-of-process-modeling.html#cb144-26" aria-hidden="true" tabindex="-1"></a>            println<span class="op">(</span><span class="st">&quot;</span><span class="ss">$time</span><span class="st"> &gt; after waitFor simple process for entity: </span><span class="ss">${</span>this<span class="at">@Customer</span><span class="op">.</span>name<span class="ss">}</span><span class="st">&quot;</span><span class="op">)</span></span>
+<span id="cb144-27"><a href="examples-of-process-modeling.html#cb144-27" aria-hidden="true" tabindex="-1"></a>        <span class="op">}</span></span>
+<span id="cb144-28"><a href="examples-of-process-modeling.html#cb144-28" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
+<span id="cb144-29"><a href="examples-of-process-modeling.html#cb144-29" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb144-30"><a href="examples-of-process-modeling.html#cb144-30" aria-hidden="true" tabindex="-1"></a>    <span class="kw">override</span> <span class="kw">fun</span> <span class="fu">initialize</span><span class="op">()</span> <span class="op">{</span></span>
+<span id="cb144-31"><a href="examples-of-process-modeling.html#cb144-31" aria-hidden="true" tabindex="-1"></a>        arrivals<span class="op">.</span>schedule<span class="op">(</span>tba<span class="op">)</span></span>
+<span id="cb144-32"><a href="examples-of-process-modeling.html#cb144-32" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
+<span id="cb144-33"><a href="examples-of-process-modeling.html#cb144-33" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb144-34"><a href="examples-of-process-modeling.html#cb144-34" aria-hidden="true" tabindex="-1"></a>    <span class="kw">private</span> inner <span class="kw">class</span> Arrivals <span class="op">:</span> <span class="dt">EventAction</span><span class="op">&lt;</span><span class="dt">Nothing</span><span class="op">&gt;()</span> <span class="op">{</span></span>
+<span id="cb144-35"><a href="examples-of-process-modeling.html#cb144-35" aria-hidden="true" tabindex="-1"></a>        <span class="kw">override</span> <span class="kw">fun</span> <span class="fu">action</span><span class="op">(</span><span class="va">event</span><span class="op">:</span> <span class="dt">KSLEvent</span>&lt;<span class="va">Nothing</span>&gt;<span class="op">)</span> <span class="op">{</span></span>
+<span id="cb144-36"><a href="examples-of-process-modeling.html#cb144-36" aria-hidden="true" tabindex="-1"></a>            <span class="cf">if</span> <span class="op">(</span>n <span class="op">&lt;=</span> total<span class="op">)</span> <span class="op">{</span></span>
+<span id="cb144-37"><a href="examples-of-process-modeling.html#cb144-37" aria-hidden="true" tabindex="-1"></a>                <span class="kw">val</span> <span class="va">c</span> <span class="op">=</span> Customer<span class="op">()</span></span>
+<span id="cb144-38"><a href="examples-of-process-modeling.html#cb144-38" aria-hidden="true" tabindex="-1"></a>                println<span class="op">(</span><span class="st">&quot;</span><span class="ss">$time</span><span class="st"> &gt; activating the waitFor process for entity: </span><span class="ss">${</span>c<span class="op">.</span>name<span class="ss">}</span><span class="st">&quot;</span><span class="op">)</span></span>
+<span id="cb144-39"><a href="examples-of-process-modeling.html#cb144-39" aria-hidden="true" tabindex="-1"></a>                activate<span class="op">(</span>c<span class="op">.</span>wfp<span class="op">)</span></span>
+<span id="cb144-40"><a href="examples-of-process-modeling.html#cb144-40" aria-hidden="true" tabindex="-1"></a>                schedule<span class="op">(</span>tba<span class="op">)</span></span>
+<span id="cb144-41"><a href="examples-of-process-modeling.html#cb144-41" aria-hidden="true" tabindex="-1"></a>                n<span class="op">++</span></span>
+<span id="cb144-42"><a href="examples-of-process-modeling.html#cb144-42" aria-hidden="true" tabindex="-1"></a>            <span class="op">}</span></span>
+<span id="cb144-43"><a href="examples-of-process-modeling.html#cb144-43" aria-hidden="true" tabindex="-1"></a>        <span class="op">}</span></span>
+<span id="cb144-44"><a href="examples-of-process-modeling.html#cb144-44" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
+<span id="cb144-45"><a href="examples-of-process-modeling.html#cb144-45" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb144-46"><a href="examples-of-process-modeling.html#cb144-46" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
+<p>The <code>Customer</code> class is very similar to previous examples of a simple queueing situation. However, notice the used of the <code>use()</code> function. Because the combination of seize-delay-release is so common, the KSL provides the <code>use()</code> function to combine these into a convenient suspending function. It is illustrative to see the implementation:</p>
+<div class="sourceCode" id="cb145"><pre class="sourceCode kt"><code class="sourceCode kotlin"><span id="cb145-1"><a href="examples-of-process-modeling.html#cb145-1" aria-hidden="true" tabindex="-1"></a>    suspend <span class="kw">fun</span> <span class="fu">use</span><span class="op">(</span></span>
+<span id="cb145-2"><a href="examples-of-process-modeling.html#cb145-2" aria-hidden="true" tabindex="-1"></a>        <span class="va">resource</span><span class="op">:</span> <span class="dt">ResourceWithQ</span><span class="op">,</span></span>
+<span id="cb145-3"><a href="examples-of-process-modeling.html#cb145-3" aria-hidden="true" tabindex="-1"></a>        <span class="va">amountNeeded</span><span class="op">:</span> <span class="dt">Int</span> <span class="op">=</span> <span class="dv">1</span><span class="op">,</span></span>
+<span id="cb145-4"><a href="examples-of-process-modeling.html#cb145-4" aria-hidden="true" tabindex="-1"></a>        <span class="va">seizePriority</span><span class="op">:</span> <span class="dt">Int</span> <span class="op">=</span> KSLEvent<span class="op">.</span>DEFAULT_PRIORITY<span class="op">,</span></span>
+<span id="cb145-5"><a href="examples-of-process-modeling.html#cb145-5" aria-hidden="true" tabindex="-1"></a>        <span class="va">delayDuration</span><span class="op">:</span> <span class="dt">GetValueIfc</span><span class="op">,</span></span>
+<span id="cb145-6"><a href="examples-of-process-modeling.html#cb145-6" aria-hidden="true" tabindex="-1"></a>        <span class="va">delayPriority</span><span class="op">:</span> <span class="dt">Int</span> <span class="op">=</span> KSLEvent<span class="op">.</span>DEFAULT_PRIORITY<span class="op">,</span></span>
+<span id="cb145-7"><a href="examples-of-process-modeling.html#cb145-7" aria-hidden="true" tabindex="-1"></a>    <span class="op">)</span> <span class="op">{</span></span>
+<span id="cb145-8"><a href="examples-of-process-modeling.html#cb145-8" aria-hidden="true" tabindex="-1"></a>        <span class="kw">val</span> <span class="va">a</span> <span class="op">=</span> seize<span class="op">(</span>resource<span class="op">,</span> amountNeeded<span class="op">,</span> seizePriority<span class="op">)</span></span>
+<span id="cb145-9"><a href="examples-of-process-modeling.html#cb145-9" aria-hidden="true" tabindex="-1"></a>        delay<span class="op">(</span>delayDuration<span class="op">,</span> delayPriority<span class="op">)</span></span>
+<span id="cb145-10"><a href="examples-of-process-modeling.html#cb145-10" aria-hidden="true" tabindex="-1"></a>        release<span class="op">(</span>a<span class="op">)</span></span>
+<span id="cb145-11"><a href="examples-of-process-modeling.html#cb145-11" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span></code></pre></div>
+<p>Then, the code defines a process called “WaitForAnotherProcess”. The sole purpose of this process is to create an instance of the customer, activate its simple process, and wait for it to complete. The output from activating one instance of the wait for another process is as follows:</p>
+<pre><code>0.8149947795247992 &gt; activating the waitFor process for entity: ID_1
+0.8149947795247992 &gt; before waitFor simple process for entity: ID_1
+     0.8149947795247992 &gt; starting simple process for entity: ID_2
+     5.091121672376351 &gt; completed simple process for entity: ID_2
+5.091121672376351 &gt; after waitFor simple process for entity: ID_1</code></pre>
+<p>We see that entity ID_1 activation occurs at time 0.81, when it then subsequently activates entity ID_2’s simple process. Then, entity ID_2 executes its simple process, which completes at time 5.09. Then, entity ID_1’s process is allowed to complete. Thus, we see that it is easy to activate separate processes and to coordinate their completion.</p>
+<p>In the next section, we will develop a more realistically sized process model for a STEM Career Mixer involving students and recruiters.</p>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="understanding-ksl-processes-and-entities.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="modeling-a-stem-career-mixer.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"whatsapp": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": null,
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": ["KSLBook.pdf"],
+"search": {
+"engine": "fuse",
+"options": null
+},
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/latest.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>

@@ -1,0 +1,1503 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>7.1 Modeling with Processes and Resources | Simulation Modeling using the Kotlin Simulation Library (KSL)</title>
+  <meta name="description" content="A book that illustrates the basics of using the KSL. The output format for this book is bookdown::gitbook." />
+  <meta name="generator" content="bookdown 0.30 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="7.1 Modeling with Processes and Resources | Simulation Modeling using the Kotlin Simulation Library (KSL)" />
+  <meta property="og:type" content="book" />
+  
+  <meta property="og:description" content="A book that illustrates the basics of using the KSL. The output format for this book is bookdown::gitbook." />
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="7.1 Modeling with Processes and Resources | Simulation Modeling using the Kotlin Simulation Library (KSL)" />
+  
+  <meta name="twitter:description" content="A book that illustrates the basics of using the KSL. The output format for this book is bookdown::gitbook." />
+  
+
+<meta name="author" content="Manuel D. Rossetti" />
+
+
+<meta name="date" content="2023-01-02" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="ch7AdvModeling.html"/>
+<link rel="next" href="modeling-non-stationary-systems.html"/>
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
+<link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
+<script src="libs/kePrint-0.0.1/kePrint.js"></script>
+<link href="libs/lightable-0.0.1/lightable.css" rel="stylesheet" />
+
+
+<style type="text/css">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { color: #008000; } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { color: #008000; font-weight: bold; } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<style type="text/css">
+/* Used with Pandoc 2.11+ new --citeproc when CSL is used */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+}
+.hanging div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}
+</style>
+
+<link rel="stylesheet" href="css/style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">Simulation Modeling using the Kotlin Simulation Library</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Preface</a>
+<ul>
+<li class="chapter" data-level="" data-path="release-history.html"><a href="release-history.html"><i class="fa fa-check"></i>Release History</a></li>
+<li class="chapter" data-level="" data-path="ksl-project-page.html"><a href="ksl-project-page.html"><i class="fa fa-check"></i>KSL Project Page</a></li>
+<li class="chapter" data-level="" data-path="book-support-files.html"><a href="book-support-files.html"><i class="fa fa-check"></i>Book Support Files</a></li>
+<li class="chapter" data-level="" data-path="acknowledgments.html"><a href="acknowledgments.html"><i class="fa fa-check"></i>Acknowledgments</a></li>
+<li class="chapter" data-level="" data-path="intended-audience.html"><a href="intended-audience.html"><i class="fa fa-check"></i>Intended Audience</a></li>
+<li class="chapter" data-level="" data-path="organization-of-the-book.html"><a href="organization-of-the-book.html"><i class="fa fa-check"></i>Organization of the Book</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="about-the-author.html"><a href="about-the-author.html"><i class="fa fa-check"></i>About the Author</a></li>
+<li class="chapter" data-level="1" data-path="ch1.html"><a href="ch1.html"><i class="fa fa-check"></i><b>1</b> Simulation Modeling</a>
+<ul>
+<li class="chapter" data-level="1.1" data-path="simulation-modeling.html"><a href="simulation-modeling.html"><i class="fa fa-check"></i><b>1.1</b> Simulation Modeling</a></li>
+<li class="chapter" data-level="1.2" data-path="why-simulate.html"><a href="why-simulate.html"><i class="fa fa-check"></i><b>1.2</b> Why Simulate?</a></li>
+<li class="chapter" data-level="1.3" data-path="types-of-systems-and-simulation-models.html"><a href="types-of-systems-and-simulation-models.html"><i class="fa fa-check"></i><b>1.3</b> Types of Systems and Simulation Models</a></li>
+<li class="chapter" data-level="1.4" data-path="simulation-descriptive-or-prescriptive-modeling.html"><a href="simulation-descriptive-or-prescriptive-modeling.html"><i class="fa fa-check"></i><b>1.4</b> Simulation: Descriptive or Prescriptive Modeling?</a></li>
+<li class="chapter" data-level="1.5" data-path="randomness-in-simulation.html"><a href="randomness-in-simulation.html"><i class="fa fa-check"></i><b>1.5</b> Randomness in Simulation</a></li>
+<li class="chapter" data-level="1.6" data-path="simulation-languages.html"><a href="simulation-languages.html"><i class="fa fa-check"></i><b>1.6</b> Simulation Languages</a></li>
+<li class="chapter" data-level="1.7" data-path="ch1:sec:simMeth.html"><a href="ch1:sec:simMeth.html"><i class="fa fa-check"></i><b>1.7</b> Simulation Methodology</a></li>
+<li class="chapter" data-level="1.8" data-path="overview-of-the-kotline-simulation-library.html"><a href="overview-of-the-kotline-simulation-library.html"><i class="fa fa-check"></i><b>1.8</b> Overview of the Kotline Simulation Library</a></li>
+<li class="chapter" data-level="1.9" data-path="exercises.html"><a href="exercises.html"><i class="fa fa-check"></i><b>1.9</b> Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="ch2rng.html"><a href="ch2rng.html"><i class="fa fa-check"></i><b>2</b> Modeling Randomness</a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="ch2generator.html"><a href="ch2generator.html"><i class="fa fa-check"></i><b>2.1</b> Random Number Generator</a>
+<ul>
+<li class="chapter" data-level="2.1.1" data-path="ch2generator.html"><a href="ch2generator.html#ch2randompkg"><i class="fa fa-check"></i><b>2.1.1</b> Random Package</a></li>
+<li class="chapter" data-level="2.1.2" data-path="ch2generator.html"><a href="ch2generator.html#ch2creatingStreams"><i class="fa fa-check"></i><b>2.1.2</b> Creating and Using Streams</a></li>
+<li class="chapter" data-level="2.1.3" data-path="ch2generator.html"><a href="ch2generator.html#ch2crn"><i class="fa fa-check"></i><b>2.1.3</b> Common Random Numbers</a></li>
+<li class="chapter" data-level="2.1.4" data-path="ch2generator.html"><a href="ch2generator.html#ch2antitheticStreams"><i class="fa fa-check"></i><b>2.1.4</b> Creating and Using Antithetic Streams</a></li>
+<li class="chapter" data-level="2.1.5" data-path="ch2generator.html"><a href="ch2generator.html#ch2rnFAQ"><i class="fa fa-check"></i><b>2.1.5</b> Frequently Asked Questions about Random Numbers</a></li>
+</ul></li>
+<li class="chapter" data-level="2.2" data-path="rvg.html"><a href="rvg.html"><i class="fa fa-check"></i><b>2.2</b> Random Variate Generation</a>
+<ul>
+<li class="chapter" data-level="2.2.1" data-path="rvg.html"><a href="rvg.html#rvg_dists"><i class="fa fa-check"></i><b>2.2.1</b> Continuous and Discrete Random Variables</a></li>
+<li class="chapter" data-level="2.2.2" data-path="rvg.html"><a href="rvg.html#rvg_algo"><i class="fa fa-check"></i><b>2.2.2</b> Overview of Generation Algorithms</a></li>
+<li class="chapter" data-level="2.2.3" data-path="rvg.html"><a href="rvg.html#rvg_use"><i class="fa fa-check"></i><b>2.2.3</b> Creating and Using Random Variables</a></li>
+<li class="chapter" data-level="2.2.4" data-path="rvg.html"><a href="rvg.html#functions-of-random-variables"><i class="fa fa-check"></i><b>2.2.4</b> Functions of Random Variables</a></li>
+</ul></li>
+<li class="chapter" data-level="2.3" data-path="probability-distribution-models.html"><a href="probability-distribution-models.html"><i class="fa fa-check"></i><b>2.3</b> Probability Distribution Models</a></li>
+<li class="chapter" data-level="2.4" data-path="summary.html"><a href="summary.html"><i class="fa fa-check"></i><b>2.4</b> Summary</a></li>
+<li class="chapter" data-level="2.5" data-path="exercises-1.html"><a href="exercises-1.html"><i class="fa fa-check"></i><b>2.5</b> Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="mcm.html"><a href="mcm.html"><i class="fa fa-check"></i><b>3</b> Monte Carlo Methods</a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="kslStatistics.html"><a href="kslStatistics.html"><i class="fa fa-check"></i><b>3.1</b> Collecting Statistics</a>
+<ul>
+<li class="chapter" data-level="3.1.1" data-path="kslStatistics.html"><a href="kslStatistics.html#creating-and-using-a-statistic"><i class="fa fa-check"></i><b>3.1.1</b> Creating and Using a Statistic</a></li>
+<li class="chapter" data-level="3.1.2" data-path="kslStatistics.html"><a href="kslStatistics.html#histograms-and-frequencies"><i class="fa fa-check"></i><b>3.1.2</b> Histograms and Frequencies</a></li>
+</ul></li>
+<li class="chapter" data-level="3.2" data-path="ch3batchStats.html"><a href="ch3batchStats.html"><i class="fa fa-check"></i><b>3.2</b> Batch Statistics</a></li>
+<li class="chapter" data-level="3.3" data-path="ssMC.html"><a href="ssMC.html"><i class="fa fa-check"></i><b>3.3</b> Simple Monte Carlo Integration</a></li>
+<li class="chapter" data-level="3.4" data-path="ch3StatReview.html"><a href="ch3StatReview.html"><i class="fa fa-check"></i><b>3.4</b> Review of Statistical Concepts</a>
+<ul>
+<li class="chapter" data-level="3.4.1" data-path="ch3StatReview.html"><a href="ch3StatReview.html#point-estimates-and-confidence-intervals"><i class="fa fa-check"></i><b>3.4.1</b> Point Estimates and Confidence Intervals</a></li>
+<li class="chapter" data-level="3.4.2" data-path="ch3StatReview.html"><a href="ch3StatReview.html#ch3SampleSize"><i class="fa fa-check"></i><b>3.4.2</b> Sample Size Determination</a></li>
+<li class="chapter" data-level="3.4.3" data-path="ch3StatReview.html"><a href="ch3StatReview.html#determining-the-sample-size-for-a-monte-carlo-simulation-experiment"><i class="fa fa-check"></i><b>3.4.3</b> Determining the Sample Size for a Monte Carlo Simulation Experiment</a></li>
+</ul></li>
+<li class="chapter" data-level="3.5" data-path="craps.html"><a href="craps.html"><i class="fa fa-check"></i><b>3.5</b> Simulating the Game of Craps</a></li>
+<li class="chapter" data-level="3.6" data-path="the-news-vendor-problem.html"><a href="the-news-vendor-problem.html"><i class="fa fa-check"></i><b>3.6</b> The News Vendor Problem</a></li>
+<li class="chapter" data-level="3.7" data-path="monte-carlo-experiments.html"><a href="monte-carlo-experiments.html"><i class="fa fa-check"></i><b>3.7</b> Monte-Carlo Experiments</a></li>
+<li class="chapter" data-level="3.8" data-path="summary-1.html"><a href="summary-1.html"><i class="fa fa-check"></i><b>3.8</b> Summary</a></li>
+<li class="chapter" data-level="3.9" data-path="exercises-2.html"><a href="exercises-2.html"><i class="fa fa-check"></i><b>3.9</b> Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="introDEDS.html"><a href="introDEDS.html"><i class="fa fa-check"></i><b>4</b> Introduction to Discrete Event Modeling</a>
+<ul>
+<li class="chapter" data-level="4.1" data-path="introDEDSIntro.html"><a href="introDEDSIntro.html"><i class="fa fa-check"></i><b>4.1</b> Introduction</a></li>
+<li class="chapter" data-level="4.2" data-path="introDEDSdeds.html"><a href="introDEDSdeds.html"><i class="fa fa-check"></i><b>4.2</b> Discrete-Event Dynamic Systems</a></li>
+<li class="chapter" data-level="4.3" data-path="HowDEDSClockWorks.html"><a href="HowDEDSClockWorks.html"><i class="fa fa-check"></i><b>4.3</b> How the Discrete-Event Clock Works</a></li>
+<li class="chapter" data-level="4.4" data-path="QHandExample.html"><a href="QHandExample.html"><i class="fa fa-check"></i><b>4.4</b> Simulating a Queueing System By Hand</a></li>
+<li class="chapter" data-level="4.5" data-path="introDEDSdedsKSL.html"><a href="introDEDSdedsKSL.html"><i class="fa fa-check"></i><b>4.5</b> Modeling DEDS in the KSL</a>
+<ul>
+<li class="chapter" data-level="4.5.1" data-path="introDEDSdedsKSL.html"><a href="introDEDSdedsKSL.html#event-scheduling"><i class="fa fa-check"></i><b>4.5.1</b> Event Scheduling</a></li>
+<li class="chapter" data-level="4.5.2" data-path="introDEDSdedsKSL.html"><a href="introDEDSdedsKSL.html#introDEDSschedExamples"><i class="fa fa-check"></i><b>4.5.2</b> Simple Event Scheduling Examples</a></li>
+<li class="chapter" data-level="4.5.3" data-path="introDEDSdedsKSL.html"><a href="introDEDSdedsKSL.html#introDEDSUpDown"><i class="fa fa-check"></i><b>4.5.3</b> Up and Down Component Example</a></li>
+<li class="chapter" data-level="4.5.4" data-path="introDEDSdedsKSL.html"><a href="introDEDSdedsKSL.html#introDEDSPharmacy"><i class="fa fa-check"></i><b>4.5.4</b> Modeling a Simple Queueing System</a></li>
+<li class="chapter" data-level="4.5.5" data-path="introDEDSdedsKSL.html"><a href="introDEDSdedsKSL.html#more-details-about-the-pharmacy-model-implementation"><i class="fa fa-check"></i><b>4.5.5</b> More Details About the Pharmacy Model Implementation</a></li>
+</ul></li>
+<li class="chapter" data-level="4.6" data-path="enhancing-the-drive-through-pharmacy-model.html"><a href="enhancing-the-drive-through-pharmacy-model.html"><i class="fa fa-check"></i><b>4.6</b> Enhancing the Drive Through Pharmacy Model</a></li>
+<li class="chapter" data-level="4.7" data-path="introDEDSSummary.html"><a href="introDEDSSummary.html"><i class="fa fa-check"></i><b>4.7</b> Summary</a></li>
+<li class="chapter" data-level="4.8" data-path="exercises-3.html"><a href="exercises-3.html"><i class="fa fa-check"></i><b>4.8</b> Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="simoa.html"><a href="simoa.html"><i class="fa fa-check"></i><b>5</b> Analyzing Simulation Output</a>
+<ul>
+<li class="chapter" data-level="5.1" data-path="simoadatatypes.html"><a href="simoadatatypes.html"><i class="fa fa-check"></i><b>5.1</b> Types of Statistical Variables</a></li>
+<li class="chapter" data-level="5.2" data-path="simoasimtypes.html"><a href="simoasimtypes.html"><i class="fa fa-check"></i><b>5.2</b> Types of Simulation With Respect To Output Analysis</a></li>
+<li class="chapter" data-level="5.3" data-path="simoafinhorizon.html"><a href="simoafinhorizon.html"><i class="fa fa-check"></i><b>5.3</b> Analysis of Finite Horizon Simulations</a></li>
+<li class="chapter" data-level="5.4" data-path="simoafinhorizonex.html"><a href="simoafinhorizonex.html"><i class="fa fa-check"></i><b>5.4</b> Capturing Output for a Simple Finite Horizon Simulation</a>
+<ul>
+<li class="chapter" data-level="5.4.1" data-path="simoafinhorizonex.html"><a href="simoafinhorizonex.html#ksl-functionality-for-capturing-statistical-results"><i class="fa fa-check"></i><b>5.4.1</b> KSL Functionality for Capturing Statistical Results</a></li>
+<li class="chapter" data-level="5.4.2" data-path="simoafinhorizonex.html"><a href="simoafinhorizonex.html#additional-remarks"><i class="fa fa-check"></i><b>5.4.2</b> Additional Remarks</a></li>
+<li class="chapter" data-level="5.4.3" data-path="simoafinhorizonex.html"><a href="simoafinhorizonex.html#querying-the-ksl-database"><i class="fa fa-check"></i><b>5.4.3</b> Querying the KSL Database</a></li>
+</ul></li>
+<li class="chapter" data-level="5.5" data-path="simoaseqsampling.html"><a href="simoaseqsampling.html"><i class="fa fa-check"></i><b>5.5</b> Sequential Sampling for Finite Horizon Simulations</a></li>
+<li class="chapter" data-level="5.6" data-path="simoainfhorizon.html"><a href="simoainfhorizon.html"><i class="fa fa-check"></i><b>5.6</b> Analysis of Infinite Horizon Simulations</a>
+<ul>
+<li class="chapter" data-level="5.6.1" data-path="simoainfhorizon.html"><a href="simoainfhorizon.html#simoainfhorizoninitialbias"><i class="fa fa-check"></i><b>5.6.1</b> Assessing the Effect of Initial Conditions</a></li>
+<li class="chapter" data-level="5.6.2" data-path="simoainfhorizon.html"><a href="simoainfhorizon.html#simoainfhorizonrepDeletion"><i class="fa fa-check"></i><b>5.6.2</b> Performing the Method of Replication-Deletion</a></li>
+<li class="chapter" data-level="5.6.3" data-path="simoainfhorizon.html"><a href="simoainfhorizon.html#simoainfhorizonbatchmeans"><i class="fa fa-check"></i><b>5.6.3</b> The Method of Batch Means</a></li>
+<li class="chapter" data-level="5.6.4" data-path="simoainfhorizon.html"><a href="simoainfhorizon.html#simoainfhorizonjslbatching"><i class="fa fa-check"></i><b>5.6.4</b> Performing the Method of Batch Means</a></li>
+</ul></li>
+<li class="chapter" data-level="5.7" data-path="simoacomparingSystems.html"><a href="simoacomparingSystems.html"><i class="fa fa-check"></i><b>5.7</b> Comparing System Configurations</a>
+<ul>
+<li class="chapter" data-level="5.7.1" data-path="simoacomparingSystems.html"><a href="simoacomparingSystems.html#simoacomparingSystems:two"><i class="fa fa-check"></i><b>5.7.1</b> Comparing Two Systems</a></li>
+<li class="chapter" data-level="5.7.2" data-path="simoacomparingSystems.html"><a href="simoacomparingSystems.html#simoacomparingSystemsMCB"><i class="fa fa-check"></i><b>5.7.2</b> Multiple Comparisons</a></li>
+</ul></li>
+<li class="chapter" data-level="5.8" data-path="simoasummary.html"><a href="simoasummary.html"><i class="fa fa-check"></i><b>5.8</b> Summary</a></li>
+<li class="chapter" data-level="5.9" data-path="exercises-4.html"><a href="exercises-4.html"><i class="fa fa-check"></i><b>5.9</b> Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="processview.html"><a href="processview.html"><i class="fa fa-check"></i><b>6</b> Process View Modeling Using the KSL</a>
+<ul>
+<li class="chapter" data-level="6.1" data-path="ch6Entities.html"><a href="ch6Entities.html"><i class="fa fa-check"></i><b>6.1</b> What are Entities?</a></li>
+<li class="chapter" data-level="6.2" data-path="pvIntro.html"><a href="pvIntro.html"><i class="fa fa-check"></i><b>6.2</b> The Process View</a></li>
+<li class="chapter" data-level="6.3" data-path="understanding-ksl-processes-and-entities.html"><a href="understanding-ksl-processes-and-entities.html"><i class="fa fa-check"></i><b>6.3</b> Understanding KSL Processes and Entities</a></li>
+<li class="chapter" data-level="6.4" data-path="examples-of-process-modeling.html"><a href="examples-of-process-modeling.html"><i class="fa fa-check"></i><b>6.4</b> Examples of Process Modeling</a></li>
+<li class="chapter" data-level="6.5" data-path="modeling-a-stem-career-mixer.html"><a href="modeling-a-stem-career-mixer.html"><i class="fa fa-check"></i><b>6.5</b> Modeling a STEM Career Mixer</a>
+<ul>
+<li class="chapter" data-level="6.5.1" data-path="modeling-a-stem-career-mixer.html"><a href="modeling-a-stem-career-mixer.html#conceptualizing-the-system"><i class="fa fa-check"></i><b>6.5.1</b> Conceptualizing the System</a></li>
+<li class="chapter" data-level="6.5.2" data-path="modeling-a-stem-career-mixer.html"><a href="modeling-a-stem-career-mixer.html#implementing-the-stem-mixer-model"><i class="fa fa-check"></i><b>6.5.2</b> Implementing the STEM Mixer Model</a></li>
+</ul></li>
+<li class="chapter" data-level="6.6" data-path="the-tie-dye-t-shirt-model.html"><a href="the-tie-dye-t-shirt-model.html"><i class="fa fa-check"></i><b>6.6</b> The Tie-Dye T-Shirt Model</a>
+<ul>
+<li class="chapter" data-level="6.6.1" data-path="the-tie-dye-t-shirt-model.html"><a href="the-tie-dye-t-shirt-model.html#ch4:TieDyeTShirtsSub1"><i class="fa fa-check"></i><b>6.6.1</b> Implementing the Tie-Dye T-Shirt Model</a></li>
+</ul></li>
+<li class="chapter" data-level="6.7" data-path="summary-2.html"><a href="summary-2.html"><i class="fa fa-check"></i><b>6.7</b> Summary</a></li>
+<li class="chapter" data-level="6.8" data-path="exercises-5.html"><a href="exercises-5.html"><i class="fa fa-check"></i><b>6.8</b> Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="ch7AdvModeling.html"><a href="ch7AdvModeling.html"><i class="fa fa-check"></i><b>7</b> Advanced Event and Process View Modeling</a>
+<ul>
+<li class="chapter" data-level="7.1" data-path="modeling-with-processes-and-resources.html"><a href="modeling-with-processes-and-resources.html"><i class="fa fa-check"></i><b>7.1</b> Modeling with Processes and Resources</a>
+<ul>
+<li class="chapter" data-level="7.1.1" data-path="modeling-with-processes-and-resources.html"><a href="modeling-with-processes-and-resources.html#modeling-space-with-resources"><i class="fa fa-check"></i><b>7.1.1</b> Modeling Space with Resources</a></li>
+<li class="chapter" data-level="7.1.2" data-path="modeling-with-processes-and-resources.html"><a href="modeling-with-processes-and-resources.html#resource-pools"><i class="fa fa-check"></i><b>7.1.2</b> Resource Pools</a></li>
+<li class="chapter" data-level="7.1.3" data-path="modeling-with-processes-and-resources.html"><a href="modeling-with-processes-and-resources.html#computer-test-and-repair-shop-example"><i class="fa fa-check"></i><b>7.1.3</b> Computer Test and Repair Shop Example</a></li>
+</ul></li>
+<li class="chapter" data-level="7.2" data-path="modeling-non-stationary-systems.html"><a href="modeling-non-stationary-systems.html"><i class="fa fa-check"></i><b>7.2</b> Modeling Non-Stationary Systems</a>
+<ul>
+<li class="chapter" data-level="7.2.1" data-path="modeling-non-stationary-systems.html"><a href="modeling-non-stationary-systems.html#ch7secNSPP"><i class="fa fa-check"></i><b>7.2.1</b> Non-Stationary Arrival Processes</a></li>
+<li class="chapter" data-level="7.2.2" data-path="modeling-non-stationary-systems.html"><a href="modeling-non-stationary-systems.html#modeling-resources-under-non-stationary-conditions"><i class="fa fa-check"></i><b>7.2.2</b> Modeling Resources Under Non-Stationary Conditions</a></li>
+<li class="chapter" data-level="7.2.3" data-path="modeling-non-stationary-systems.html"><a href="modeling-non-stationary-systems.html#enhancing-the-stem-career-mixer-example"><i class="fa fa-check"></i><b>7.2.3</b> Enhancing the STEM Career Mixer Example</a></li>
+</ul></li>
+<li class="chapter" data-level="7.3" data-path="examples-of-advanced-event-models.html"><a href="examples-of-advanced-event-models.html"><i class="fa fa-check"></i><b>7.3</b> Examples of Advanced Event Models</a>
+<ul>
+<li class="chapter" data-level="7.3.1" data-path="examples-of-advanced-event-models.html"><a href="examples-of-advanced-event-models.html#ch6s1sb4sub3"><i class="fa fa-check"></i><b>7.3.1</b> Modeling Balking and Reneging</a></li>
+<li class="chapter" data-level="7.3.2" data-path="examples-of-advanced-event-models.html"><a href="examples-of-advanced-event-models.html#modeling-a-reorder-point-reorder-quantity-inventory-policy"><i class="fa fa-check"></i><b>7.3.2</b> Modeling a Reorder Point, Reorder Quantity Inventory Policy</a></li>
+</ul></li>
+<li class="chapter" data-level="7.4" data-path="summary-3.html"><a href="summary-3.html"><i class="fa fa-check"></i><b>7.4</b> Summary</a></li>
+<li class="chapter" data-level="7.5" data-path="exercises-6.html"><a href="exercises-6.html"><i class="fa fa-check"></i><b>7.5</b> Exercises</a></li>
+</ul></li>
+<li class="appendix"><span><b>Appendix</b></span></li>
+<li class="chapter" data-level="A" data-path="appRNRV.html"><a href="appRNRV.html"><i class="fa fa-check"></i><b>A</b> Generating Pseudo-Random Numbers and Random Variates</a>
+<ul>
+<li class="chapter" data-level="A.1" data-path="appRNRVPRN.html"><a href="appRNRVPRN.html"><i class="fa fa-check"></i><b>A.1</b> Pseudo Random Numbers</a>
+<ul>
+<li class="chapter" data-level="A.1.1" data-path="appRNRVPRN.html"><a href="appRNRVPRN.html#appRNRVRNGs"><i class="fa fa-check"></i><b>A.1.1</b> Random Number Generators</a></li>
+</ul></li>
+<li class="chapter" data-level="A.2" data-path="appRNRVs.html"><a href="appRNRVs.html"><i class="fa fa-check"></i><b>A.2</b> Generating Random Variates from Distributions</a>
+<ul>
+<li class="chapter" data-level="A.2.1" data-path="appRNRVs.html"><a href="appRNRVs.html#inverse-transform-method"><i class="fa fa-check"></i><b>A.2.1</b> Inverse Transform Method</a></li>
+<li class="chapter" data-level="A.2.2" data-path="appRNRVs.html"><a href="appRNRVs.html#convolution"><i class="fa fa-check"></i><b>A.2.2</b> Convolution</a></li>
+<li class="chapter" data-level="A.2.3" data-path="appRNRVs.html"><a href="appRNRVs.html#acceptancerejection"><i class="fa fa-check"></i><b>A.2.3</b> Acceptance/Rejection</a></li>
+<li class="chapter" data-level="A.2.4" data-path="appRNRVs.html"><a href="appRNRVs.html#AppRNRVsubsecMTSRV"><i class="fa fa-check"></i><b>A.2.4</b> Mixture Distributions, Truncated Distributions, and Shifted Random Variables</a></li>
+</ul></li>
+<li class="chapter" data-level="A.3" data-path="summary-4.html"><a href="summary-4.html"><i class="fa fa-check"></i><b>A.3</b> Summary</a></li>
+<li class="chapter" data-level="A.4" data-path="exercises-7.html"><a href="exercises-7.html"><i class="fa fa-check"></i><b>A.4</b> Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="B" data-path="appidm.html"><a href="appidm.html"><i class="fa fa-check"></i><b>B</b> Probability Distribution Modeling</a>
+<ul>
+<li class="chapter" data-level="B.1" data-path="appidmsecrvPD.html"><a href="appidmsecrvPD.html"><i class="fa fa-check"></i><b>B.1</b> Random Variables and Probability Distributions</a></li>
+<li class="chapter" data-level="B.2" data-path="appidmsecMDD.html"><a href="appidmsecMDD.html"><i class="fa fa-check"></i><b>B.2</b> Modeling with Discrete Distributions</a></li>
+<li class="chapter" data-level="B.3" data-path="appidmsecfitDiscrete.html"><a href="appidmsecfitDiscrete.html"><i class="fa fa-check"></i><b>B.3</b> Fitting Discrete Distributions</a>
+<ul>
+<li class="chapter" data-level="B.3.1" data-path="appidmsecfitDiscrete.html"><a href="appidmsecfitDiscrete.html#AppDisFitPoissonFit"><i class="fa fa-check"></i><b>B.3.1</b> Fitting a Poisson Distribution</a></li>
+<li class="chapter" data-level="B.3.2" data-path="appidmsecfitDiscrete.html"><a href="appidmsecfitDiscrete.html#visualizing-the-data"><i class="fa fa-check"></i><b>B.3.2</b> Visualizing the Data</a></li>
+<li class="chapter" data-level="B.3.3" data-path="appidmsecfitDiscrete.html"><a href="appidmsecfitDiscrete.html#estimating-the-rate-parameter-for-the-poisson-distribution"><i class="fa fa-check"></i><b>B.3.3</b> Estimating the Rate Parameter for the Poisson Distribution</a></li>
+<li class="chapter" data-level="B.3.4" data-path="appidmsecfitDiscrete.html"><a href="appidmsecfitDiscrete.html#chi-squared-goodness-of-fit-test-for-poisson-distribution"><i class="fa fa-check"></i><b>B.3.4</b> Chi-Squared Goodness of Fit Test for Poisson Distribution</a></li>
+<li class="chapter" data-level="B.3.5" data-path="appidmsecfitDiscrete.html"><a href="appidmsecfitDiscrete.html#subsubchisqGOF"><i class="fa fa-check"></i><b>B.3.5</b> Chi-Squared Goodness of Fit Test</a></li>
+<li class="chapter" data-level="B.3.6" data-path="appidmsecfitDiscrete.html"><a href="appidmsecfitDiscrete.html#using-the-fitdistrplus-r-package-on-discrete-data"><i class="fa fa-check"></i><b>B.3.6</b> Using the fitdistrplus R Package on Discrete Data</a></li>
+<li class="chapter" data-level="B.3.7" data-path="appidmsecfitDiscrete.html"><a href="appidmsecfitDiscrete.html#fitting-a-discrete-empirical-distribution"><i class="fa fa-check"></i><b>B.3.7</b> Fitting a Discrete Empirical Distribution</a></li>
+</ul></li>
+<li class="chapter" data-level="B.4" data-path="appidmsecMCD.html"><a href="appidmsecMCD.html"><i class="fa fa-check"></i><b>B.4</b> Modeling with Continuous Distributions</a></li>
+<li class="chapter" data-level="B.5" data-path="appidmsecfitContinuous.html"><a href="appidmsecfitContinuous.html"><i class="fa fa-check"></i><b>B.5</b> Fitting Continuous Distributions</a>
+<ul>
+<li class="chapter" data-level="B.5.1" data-path="appidmsecfitContinuous.html"><a href="appidmsecfitContinuous.html#appidmsubsecvisualizedata"><i class="fa fa-check"></i><b>B.5.1</b> Visualizing the Data</a></li>
+<li class="chapter" data-level="B.5.2" data-path="appidmsecfitContinuous.html"><a href="appidmsecfitContinuous.html#appidmsubsecstatsdata"><i class="fa fa-check"></i><b>B.5.2</b> Statistically Summarize the Data</a></li>
+<li class="chapter" data-level="B.5.3" data-path="appidmsecfitContinuous.html"><a href="appidmsecfitContinuous.html#appidmsubsechypothDist"><i class="fa fa-check"></i><b>B.5.3</b> Hypothesizing and Testing a Distribution</a></li>
+<li class="chapter" data-level="B.5.4" data-path="appidmsecfitContinuous.html"><a href="appidmsecfitContinuous.html#kolmogorov-smirnov-test"><i class="fa fa-check"></i><b>B.5.4</b> Kolmogorov-Smirnov Test</a></li>
+<li class="chapter" data-level="B.5.5" data-path="appidmsecfitContinuous.html"><a href="appidmsecfitContinuous.html#appidmsubsecvisFit"><i class="fa fa-check"></i><b>B.5.5</b> Visualizing the Fit</a></li>
+<li class="chapter" data-level="B.5.6" data-path="appidmsecfitContinuous.html"><a href="appidmsecfitContinuous.html#appidms2sb3"><i class="fa fa-check"></i><b>B.5.6</b> Using the Input Analyzer</a></li>
+</ul></li>
+<li class="chapter" data-level="B.6" data-path="appdistfittestU01.html"><a href="appdistfittestU01.html"><i class="fa fa-check"></i><b>B.6</b> Testing Uniform (0,1) Pseudo-Random Numbers</a>
+<ul>
+<li class="chapter" data-level="B.6.1" data-path="appdistfittestU01.html"><a href="appdistfittestU01.html#chi-squared-goodness-of-fit-tests-for-pseudo-random-numbers"><i class="fa fa-check"></i><b>B.6.1</b> Chi-Squared Goodness of Fit Tests for Pseudo-Random Numbers</a></li>
+<li class="chapter" data-level="B.6.2" data-path="appdistfittestU01.html"><a href="appdistfittestU01.html#higher-dimensional-chi-squared-test"><i class="fa fa-check"></i><b>B.6.2</b> Higher Dimensional Chi-Squared Test</a></li>
+<li class="chapter" data-level="B.6.3" data-path="appdistfittestU01.html"><a href="appdistfittestU01.html#kolmogorov-smirnov-test-for-pseudo-random-numbers"><i class="fa fa-check"></i><b>B.6.3</b> Kolmogorov-Smirnov Test for Pseudo-Random Numbers</a></li>
+<li class="chapter" data-level="B.6.4" data-path="appdistfittestU01.html"><a href="appdistfittestU01.html#testing-for-independence-and-patterns-in-pseudo-random-numbers"><i class="fa fa-check"></i><b>B.6.4</b> Testing for Independence and Patterns in Pseudo-Random Numbers</a></li>
+</ul></li>
+<li class="chapter" data-level="B.7" data-path="appdistfitidms2sb4.html"><a href="appdistfitidms2sb4.html"><i class="fa fa-check"></i><b>B.7</b> Additional Distribution Modeling Concepts</a></li>
+<li class="chapter" data-level="B.8" data-path="appidmSummary.html"><a href="appidmSummary.html"><i class="fa fa-check"></i><b>B.8</b> Summary</a></li>
+<li class="chapter" data-level="B.9" data-path="exercises-8.html"><a href="exercises-8.html"><i class="fa fa-check"></i><b>B.9</b> Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="C" data-path="appqtAndInvT.html"><a href="appqtAndInvT.html"><i class="fa fa-check"></i><b>C</b> Queueing Theory</a>
+<ul>
+<li class="chapter" data-level="C.1" data-path="appqts1.html"><a href="appqts1.html"><i class="fa fa-check"></i><b>C.1</b> Single Line Queueing Stations</a>
+<ul>
+<li class="chapter" data-level="C.1.1" data-path="appqts1.html"><a href="appqts1.html#queueing-notation"><i class="fa fa-check"></i><b>C.1.1</b> Queueing Notation</a></li>
+<li class="chapter" data-level="C.1.2" data-path="appqts1.html"><a href="appqts1.html#littles-formula"><i class="fa fa-check"></i><b>C.1.2</b> Little’s Formula</a></li>
+<li class="chapter" data-level="C.1.3" data-path="appqts1.html"><a href="appqts1.html#appqts1sb1"><i class="fa fa-check"></i><b>C.1.3</b> Deriving Formulas for Markovian Single Queue Systems</a></li>
+</ul></li>
+<li class="chapter" data-level="C.2" data-path="appqts1sb2.html"><a href="appqts1sb2.html"><i class="fa fa-check"></i><b>C.2</b> Examples and Applications of Queueing Analysis</a>
+<ul>
+<li class="chapter" data-level="C.2.1" data-path="appqts1sb2.html"><a href="appqts1sb2.html#infinite-queue-examples"><i class="fa fa-check"></i><b>C.2.1</b> Infinite Queue Examples</a></li>
+<li class="chapter" data-level="C.2.2" data-path="appqts1sb2.html"><a href="appqts1sb2.html#finite-queue-examples"><i class="fa fa-check"></i><b>C.2.2</b> Finite Queue Examples</a></li>
+</ul></li>
+<li class="chapter" data-level="C.3" data-path="appqts1sb3.html"><a href="appqts1sb3.html"><i class="fa fa-check"></i><b>C.3</b> Non-Markovian Queues and Approximations</a></li>
+<li class="chapter" data-level="C.4" data-path="appqtsecformulas.html"><a href="appqtsecformulas.html"><i class="fa fa-check"></i><b>C.4</b> Summary of Queueing Formulas</a>
+<ul>
+<li class="chapter" data-level="C.4.1" data-path="appqtsecformulas.html"><a href="appqtsecformulas.html#mm1-queue"><i class="fa fa-check"></i><b>C.4.1</b> M/M/1 Queue</a></li>
+<li class="chapter" data-level="C.4.2" data-path="appqtsecformulas.html"><a href="appqtsecformulas.html#mmc-queue"><i class="fa fa-check"></i><b>C.4.2</b> M/M/c Queue</a></li>
+<li class="chapter" data-level="C.4.3" data-path="appqtsecformulas.html"><a href="appqtsecformulas.html#mmck-queue"><i class="fa fa-check"></i><b>C.4.3</b> M/M/c/k Queue</a></li>
+<li class="chapter" data-level="C.4.4" data-path="appqtsecformulas.html"><a href="appqtsecformulas.html#mgcc-queue"><i class="fa fa-check"></i><b>C.4.4</b> M/G/c/c Queue</a></li>
+<li class="chapter" data-level="C.4.5" data-path="appqtsecformulas.html"><a href="appqtsecformulas.html#mm1k-queue"><i class="fa fa-check"></i><b>C.4.5</b> M/M/1/k Queue</a></li>
+<li class="chapter" data-level="C.4.6" data-path="appqtsecformulas.html"><a href="appqtsecformulas.html#mmck-queue-1"><i class="fa fa-check"></i><b>C.4.6</b> M/M/c/k Queue</a></li>
+<li class="chapter" data-level="C.4.7" data-path="appqtsecformulas.html"><a href="appqtsecformulas.html#mm1kk-queue"><i class="fa fa-check"></i><b>C.4.7</b> M/M/1/k/k Queue</a></li>
+<li class="chapter" data-level="C.4.8" data-path="appqtsecformulas.html"><a href="appqtsecformulas.html#mmckk-queue"><i class="fa fa-check"></i><b>C.4.8</b> M/M/c/k/k Queue</a></li>
+</ul></li>
+<li class="chapter" data-level="C.5" data-path="exercises-9.html"><a href="exercises-9.html"><i class="fa fa-check"></i><b>C.5</b> Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="D" data-path="distributions.html"><a href="distributions.html"><i class="fa fa-check"></i><b>D</b> Distributions</a>
+<ul>
+<li class="chapter" data-level="D.1" data-path="appDiscreteDistributions.html"><a href="appDiscreteDistributions.html"><i class="fa fa-check"></i><b>D.1</b> Discrete Distrbutions</a></li>
+<li class="chapter" data-level="D.2" data-path="appContinuousDistributions.html"><a href="appContinuousDistributions.html"><i class="fa fa-check"></i><b>D.2</b> Continuous Distrbutions</a></li>
+</ul></li>
+<li class="chapter" data-level="E" data-path="appStatTables.html"><a href="appStatTables.html"><i class="fa fa-check"></i><b>E</b> Statistical Tables</a></li>
+<li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
+<li class="divider"></li>
+<li><a href="https://bookdown.org" target="_blank">Published with bookdown</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Simulation Modeling using the Kotlin Simulation Library (KSL)</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="modeling-with-processes-and-resources" class="section level2 hasAnchor" number="7.1">
+<h2><span class="header-section-number">7.1</span> Modeling with Processes and Resources<a href="modeling-with-processes-and-resources.html#modeling-with-processes-and-resources" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>In this section, we explore some of the nuances of modeling systems via process and resources. Specifically, we will look more carefully at the KSL constructs for modeling resources. In general, a resource is something that is required or used by the entities within a process. In real systems, whenever there is requirement for an entity to wait, it is likely that a resource is needed. Within the KSL, a resource has number of identical units which represent its capacity. For the purposes of usage, the units of the resource are indistinguishable. That is, there can be no requirement to use one of the units over some other of the units. For the entity, it does not matter which unit is supplied for a request. It only matters that it gets the requested number of units from the resource. Resource units are allocated and deallocated to entities that request them. If a request for a specific number of units of the resource cannot be allocated immediately upon request, then the entity (generally) must wait for the units (or not proceed with the request). If there is a preference between types of resources, then a pool of resources should be used. Pools of resources will also be discussed in this section. We begin our study of resources by illustrating how resources can be used to model space.</p>
+<div id="modeling-space-with-resources" class="section level3 hasAnchor" number="7.1.1">
+<h3><span class="header-section-number">7.1.1</span> Modeling Space with Resources<a href="modeling-with-processes-and-resources.html#modeling-space-with-resources" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>We start the modeling of space with resources by looking at a simple system involving a tandem queue. A tandem queue is a sequence of queues in order that must be visited to receive service from resources. Let’s setup the situation by first modeling the system without a space requirement between the queues. The following example presents the specifics of the situation.</p>
+<div class="example">
+<p><span id="exm:exTandemQ" class="example"><strong>Example 7.1  (Tandem Queueing System) </strong></span>Suppose a service facility
+consists of two stations in series (tandem), each with its own FIFO
+queue. Each station consists of a queue and a single server. A customer
+completing service at station 1 proceeds to station 2, while a customer
+completing service at station 2 leaves the facility. Assume that the
+inter-arrival times of customers to station 1 are IID exponential random
+variables with a mean of 1 minute. Service times of customers at station
+1 are exponential random variables with a mean of 0.7 minute, and at
+station 2 are exponential random variables with mean 0.9 minute. Develop
+an model for this system. Run the simulation for exactly 20000 minutes and estimate for each station the expected average delay in queue for the customer, the expected time-average number of customers in
+queue, and the expected utilization. In addition, estimate the average
+number of customers in the system and the average time spent in the
+system.</p>
+</div>
+<p>To model this situation, we need to use two resources, one for each server at the two stations.</p>
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:Ch7TandemQ"></span>
+<img src="figures2/ch7/TandemQ.png" alt="Tandem Queue" width="65%" height="65%" />
+<p class="caption">
+Figure 7.1: Tandem Queue
+</p>
+</div>
+<p>Figure <a href="modeling-with-processes-and-resources.html#fig:Ch7TandemQ">7.1</a> illustrates this situation. This is a perfect application of what we have previously studied about modeling processes. The following code sets up the KSL constructs that are needed within the process modeling.</p>
+<div class="sourceCode" id="cb164"><pre class="sourceCode kt"><code class="sourceCode kotlin"><span id="cb164-1"><a href="modeling-with-processes-and-resources.html#cb164-1" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> TandemQueue<span class="op">(</span><span class="va">parent</span><span class="op">:</span> <span class="dt">ModelElement</span><span class="op">,</span> <span class="va">name</span><span class="op">:</span> <span class="dt">String</span><span class="op">?</span> <span class="op">=</span> null<span class="op">)</span> <span class="op">:</span> <span class="dt">ProcessModel</span><span class="op">(</span><span class="va">parent</span><span class="op">,</span> <span class="va">name</span><span class="op">)</span>  <span class="op">{</span></span>
+<span id="cb164-2"><a href="modeling-with-processes-and-resources.html#cb164-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb164-3"><a href="modeling-with-processes-and-resources.html#cb164-3" aria-hidden="true" tabindex="-1"></a>    <span class="kw">private</span> <span class="kw">val</span> <span class="va">worker1</span><span class="op">:</span> ResourceWithQ <span class="op">=</span> ResourceWithQ<span class="op">(</span><span class="kw">this</span><span class="op">,</span> <span class="st">&quot;worker1&quot;</span><span class="op">)</span></span>
+<span id="cb164-4"><a href="modeling-with-processes-and-resources.html#cb164-4" aria-hidden="true" tabindex="-1"></a>    <span class="kw">private</span> <span class="kw">val</span> <span class="va">worker2</span><span class="op">:</span> ResourceWithQ <span class="op">=</span> ResourceWithQ<span class="op">(</span><span class="kw">this</span><span class="op">,</span> <span class="st">&quot;worker2&quot;</span><span class="op">)</span></span>
+<span id="cb164-5"><a href="modeling-with-processes-and-resources.html#cb164-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb164-6"><a href="modeling-with-processes-and-resources.html#cb164-6" aria-hidden="true" tabindex="-1"></a>    <span class="kw">private</span> <span class="kw">val</span> <span class="va">tba</span> <span class="op">=</span> ExponentialRV<span class="op">(</span><span class="fl">2.0</span><span class="op">,</span> <span class="dv">1</span><span class="op">)</span></span>
+<span id="cb164-7"><a href="modeling-with-processes-and-resources.html#cb164-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb164-8"><a href="modeling-with-processes-and-resources.html#cb164-8" aria-hidden="true" tabindex="-1"></a>    <span class="kw">private</span> <span class="kw">val</span> <span class="va">st1</span> <span class="op">=</span> RandomVariable<span class="op">(</span><span class="kw">this</span><span class="op">,</span> ExponentialRV<span class="op">(</span><span class="fl">0.7</span><span class="op">,</span> <span class="dv">2</span><span class="op">))</span></span>
+<span id="cb164-9"><a href="modeling-with-processes-and-resources.html#cb164-9" aria-hidden="true" tabindex="-1"></a>    <span class="kw">val</span> <span class="va">service1RV</span><span class="op">:</span> RandomSourceCIfc</span>
+<span id="cb164-10"><a href="modeling-with-processes-and-resources.html#cb164-10" aria-hidden="true" tabindex="-1"></a>        <span class="kw">get</span><span class="op">()</span> <span class="op">=</span> st1</span>
+<span id="cb164-11"><a href="modeling-with-processes-and-resources.html#cb164-11" aria-hidden="true" tabindex="-1"></a>    <span class="kw">private</span> <span class="kw">val</span> <span class="va">st2</span> <span class="op">=</span> RandomVariable<span class="op">(</span><span class="kw">this</span><span class="op">,</span> ExponentialRV<span class="op">(</span><span class="fl">0.9</span><span class="op">,</span> <span class="dv">3</span><span class="op">))</span></span>
+<span id="cb164-12"><a href="modeling-with-processes-and-resources.html#cb164-12" aria-hidden="true" tabindex="-1"></a>    <span class="kw">val</span> <span class="va">service2RV</span><span class="op">:</span> RandomSourceCIfc</span>
+<span id="cb164-13"><a href="modeling-with-processes-and-resources.html#cb164-13" aria-hidden="true" tabindex="-1"></a>        <span class="kw">get</span><span class="op">()</span> <span class="op">=</span> st2</span>
+<span id="cb164-14"><a href="modeling-with-processes-and-resources.html#cb164-14" aria-hidden="true" tabindex="-1"></a>    <span class="kw">private</span> <span class="kw">val</span> <span class="va">myArrivalGenerator</span> <span class="op">=</span> EntityGenerator<span class="op">(::</span>Customer<span class="op">,</span> tba<span class="op">,</span> tba<span class="op">)</span></span>
+<span id="cb164-15"><a href="modeling-with-processes-and-resources.html#cb164-15" aria-hidden="true" tabindex="-1"></a>    <span class="kw">val</span> <span class="va">generator</span><span class="op">:</span> EventGeneratorCIfc</span>
+<span id="cb164-16"><a href="modeling-with-processes-and-resources.html#cb164-16" aria-hidden="true" tabindex="-1"></a>        <span class="kw">get</span><span class="op">()</span> <span class="op">=</span> myArrivalGenerator</span>
+<span id="cb164-17"><a href="modeling-with-processes-and-resources.html#cb164-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb164-18"><a href="modeling-with-processes-and-resources.html#cb164-18" aria-hidden="true" tabindex="-1"></a>    <span class="kw">private</span> <span class="kw">val</span> <span class="va">wip</span><span class="op">:</span> TWResponse <span class="op">=</span> TWResponse<span class="op">(</span><span class="kw">this</span><span class="op">,</span> <span class="st">&quot;</span><span class="ss">${</span><span class="kw">this</span><span class="op">.</span>name<span class="ss">}</span><span class="st">:NumInSystem&quot;</span><span class="op">)</span></span>
+<span id="cb164-19"><a href="modeling-with-processes-and-resources.html#cb164-19" aria-hidden="true" tabindex="-1"></a>    <span class="kw">val</span> <span class="va">numInSystem</span><span class="op">:</span> TWResponseCIfc</span>
+<span id="cb164-20"><a href="modeling-with-processes-and-resources.html#cb164-20" aria-hidden="true" tabindex="-1"></a>        <span class="kw">get</span><span class="op">()</span> <span class="op">=</span> wip</span>
+<span id="cb164-21"><a href="modeling-with-processes-and-resources.html#cb164-21" aria-hidden="true" tabindex="-1"></a>    <span class="kw">private</span> <span class="kw">val</span> <span class="va">timeInSystem</span><span class="op">:</span> Response <span class="op">=</span> Response<span class="op">(</span><span class="kw">this</span><span class="op">,</span> <span class="st">&quot;</span><span class="ss">${</span><span class="kw">this</span><span class="op">.</span>name<span class="ss">}</span><span class="st">:TimeInSystem&quot;</span><span class="op">)</span></span>
+<span id="cb164-22"><a href="modeling-with-processes-and-resources.html#cb164-22" aria-hidden="true" tabindex="-1"></a>    <span class="kw">val</span> <span class="va">systemTime</span><span class="op">:</span> ResponseCIfc</span>
+<span id="cb164-23"><a href="modeling-with-processes-and-resources.html#cb164-23" aria-hidden="true" tabindex="-1"></a>        <span class="kw">get</span><span class="op">()</span> <span class="op">=</span> timeInSystem</span></code></pre></div>
+<p>Since the resources will need a queue, we declare the two resources by using the <code>ResourceWithQ</code> class. Then, we specify the random variables that will be used to represent the time between arrivals and the service time at the two stations. Finally, we define the response variables for collecting the number in the system and the time in the system. The process modeling is a straight-forward application of the seize-delay-release pattern that was presented in the previous chapter.</p>
+<div class="sourceCode" id="cb165"><pre class="sourceCode kt"><code class="sourceCode kotlin"><span id="cb165-1"><a href="modeling-with-processes-and-resources.html#cb165-1" aria-hidden="true" tabindex="-1"></a>    <span class="kw">private</span> inner <span class="kw">class</span> Customer <span class="op">:</span> <span class="dt">Entity</span><span class="op">(){</span></span>
+<span id="cb165-2"><a href="modeling-with-processes-and-resources.html#cb165-2" aria-hidden="true" tabindex="-1"></a>        <span class="kw">val</span> <span class="va">tandemQProcess</span> <span class="op">:</span> KSLProcess <span class="op">=</span> process <span class="op">{</span></span>
+<span id="cb165-3"><a href="modeling-with-processes-and-resources.html#cb165-3" aria-hidden="true" tabindex="-1"></a>            wip<span class="op">.</span>increment<span class="op">()</span></span>
+<span id="cb165-4"><a href="modeling-with-processes-and-resources.html#cb165-4" aria-hidden="true" tabindex="-1"></a>            timeStamp <span class="op">=</span> time</span>
+<span id="cb165-5"><a href="modeling-with-processes-and-resources.html#cb165-5" aria-hidden="true" tabindex="-1"></a>            seize<span class="op">(</span>worker1<span class="op">)</span></span>
+<span id="cb165-6"><a href="modeling-with-processes-and-resources.html#cb165-6" aria-hidden="true" tabindex="-1"></a>            delay<span class="op">(</span>st1<span class="op">)</span></span>
+<span id="cb165-7"><a href="modeling-with-processes-and-resources.html#cb165-7" aria-hidden="true" tabindex="-1"></a>            release<span class="op">(</span>worker1<span class="op">)</span></span>
+<span id="cb165-8"><a href="modeling-with-processes-and-resources.html#cb165-8" aria-hidden="true" tabindex="-1"></a>            seize<span class="op">(</span>worker2<span class="op">)</span></span>
+<span id="cb165-9"><a href="modeling-with-processes-and-resources.html#cb165-9" aria-hidden="true" tabindex="-1"></a>            delay<span class="op">(</span>st2<span class="op">)</span></span>
+<span id="cb165-10"><a href="modeling-with-processes-and-resources.html#cb165-10" aria-hidden="true" tabindex="-1"></a>            release<span class="op">(</span>worker2<span class="op">)</span></span>
+<span id="cb165-11"><a href="modeling-with-processes-and-resources.html#cb165-11" aria-hidden="true" tabindex="-1"></a>            timeInSystem<span class="op">.</span>value <span class="op">=</span> time <span class="op">-</span> timeStamp</span>
+<span id="cb165-12"><a href="modeling-with-processes-and-resources.html#cb165-12" aria-hidden="true" tabindex="-1"></a>            wip<span class="op">.</span>decrement<span class="op">()</span></span>
+<span id="cb165-13"><a href="modeling-with-processes-and-resources.html#cb165-13" aria-hidden="true" tabindex="-1"></a>        <span class="op">}</span></span></code></pre></div>
+<p>Notice that this code does not save the allocations that are returned by the call to the <code>seize</code> method. This is possible because of two reasons. First, the KSL overloads the <code>release</code> method to allow for the specification of the resource to be released. This overloaded method will release <strong>all</strong> previously returned allocations that the entity holds of the named resource. Secondly, this situation is a perfect use case for this, because the entity only has seized the worker <em>once</em> before the specified release. Thus, we are simplying releasing the last allocation held by the entity via the <code>release</code> method. It really is user preference whether to save the allocation and then release the allocation or to use the approach of specifying the name of the resource. Of course, this works because releasing <strong>all</strong> previous allocations is the same as releasing the last one in this situation. In fact, this situation is so common that the KSL provides an additional short cut as illustrated in the following code.</p>
+<div class="sourceCode" id="cb166"><pre class="sourceCode kt"><code class="sourceCode kotlin"><span id="cb166-1"><a href="modeling-with-processes-and-resources.html#cb166-1" aria-hidden="true" tabindex="-1"></a>    <span class="kw">private</span> inner <span class="kw">class</span> Customer <span class="op">:</span> <span class="dt">Entity</span><span class="op">(){</span></span>
+<span id="cb166-2"><a href="modeling-with-processes-and-resources.html#cb166-2" aria-hidden="true" tabindex="-1"></a>        <span class="kw">val</span> <span class="va">tandemQProcess</span> <span class="op">:</span> KSLProcess <span class="op">=</span> process <span class="op">{</span></span>
+<span id="cb166-3"><a href="modeling-with-processes-and-resources.html#cb166-3" aria-hidden="true" tabindex="-1"></a>            wip<span class="op">.</span>increment<span class="op">()</span></span>
+<span id="cb166-4"><a href="modeling-with-processes-and-resources.html#cb166-4" aria-hidden="true" tabindex="-1"></a>            timeStamp <span class="op">=</span> time</span>
+<span id="cb166-5"><a href="modeling-with-processes-and-resources.html#cb166-5" aria-hidden="true" tabindex="-1"></a>            use<span class="op">(</span>worker1<span class="op">,</span> delayDuration <span class="op">=</span> st1<span class="op">)</span></span>
+<span id="cb166-6"><a href="modeling-with-processes-and-resources.html#cb166-6" aria-hidden="true" tabindex="-1"></a>            use<span class="op">(</span>worker2<span class="op">,</span> delayDuration <span class="op">=</span> st2<span class="op">)</span></span>
+<span id="cb166-7"><a href="modeling-with-processes-and-resources.html#cb166-7" aria-hidden="true" tabindex="-1"></a>            timeInSystem<span class="op">.</span>value <span class="op">=</span> time <span class="op">-</span> timeStamp</span>
+<span id="cb166-8"><a href="modeling-with-processes-and-resources.html#cb166-8" aria-hidden="true" tabindex="-1"></a>            wip<span class="op">.</span>decrement<span class="op">()</span></span>
+<span id="cb166-9"><a href="modeling-with-processes-and-resources.html#cb166-9" aria-hidden="true" tabindex="-1"></a>        <span class="op">}</span></span>
+<span id="cb166-10"><a href="modeling-with-processes-and-resources.html#cb166-10" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span></code></pre></div>
+<p>The <code>use</code> method combines the seize-delay-release pattern into one method call. The results are not very remarkable.</p>
+<table>
+<thead>
+<tr class="header">
+<th align="center">Name</th>
+<th align="center">Count</th>
+<th align="center">Average</th>
+<th align="center">Half-Width</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="center">worker1:InstantaneousUtil</td>
+<td align="center">30</td>
+<td align="center">0.351</td>
+<td align="center">0.002</td>
+</tr>
+<tr class="even">
+<td align="center">worker1:NumBusyUnits</td>
+<td align="center">30</td>
+<td align="center">0.351</td>
+<td align="center">0.002</td>
+</tr>
+<tr class="odd">
+<td align="center">worker1:ScheduledUtil</td>
+<td align="center">30</td>
+<td align="center">0.351</td>
+<td align="center">0.002</td>
+</tr>
+<tr class="even">
+<td align="center">worker1:Q:NumInQ</td>
+<td align="center">30</td>
+<td align="center">0.189</td>
+<td align="center">0.005</td>
+</tr>
+<tr class="odd">
+<td align="center">worker1:Q:TimeInQ</td>
+<td align="center">30</td>
+<td align="center">0.379</td>
+<td align="center">0.008</td>
+</tr>
+<tr class="even">
+<td align="center">worker2:InstantaneousUtil</td>
+<td align="center">30</td>
+<td align="center">0.45</td>
+<td align="center">0.003</td>
+</tr>
+<tr class="odd">
+<td align="center">worker2:NumBusyUnits</td>
+<td align="center">30</td>
+<td align="center">0.45</td>
+<td align="center">0.003</td>
+</tr>
+<tr class="even">
+<td align="center">worker2:ScheduledUtil</td>
+<td align="center">30</td>
+<td align="center">0.45</td>
+<td align="center">0.003</td>
+</tr>
+<tr class="odd">
+<td align="center">worker2:Q:NumInQ</td>
+<td align="center">30</td>
+<td align="center">0.37</td>
+<td align="center">0.008</td>
+</tr>
+<tr class="even">
+<td align="center">worker2:Q:TimeInQ</td>
+<td align="center">30</td>
+<td align="center">0.741</td>
+<td align="center">0.014</td>
+</tr>
+<tr class="odd">
+<td align="center">TandemQModel:NumInSystem</td>
+<td align="center">30</td>
+<td align="center">1.36</td>
+<td align="center">0.014</td>
+</tr>
+<tr class="even">
+<td align="center">TandemQModel:TimeInSystem</td>
+<td align="center">30</td>
+<td align="center">2.723</td>
+<td align="center">0.02</td>
+</tr>
+</tbody>
+</table>
+<p>Now we are ready to study the situation of modeling finite space between the two stations. Imagine that at the first station there is a chair for the customer to sit in while receiving service from the first worker. Any customers that arrive while a customer is receiving service at the first station must wait for the server to be free (i.e. the chair to be available). We assume that there is (at least conceptually) an infinite amount of space for the waiting customers at the first station. Now, at the second station, there are two chairs. The customer arriving to the second station will sit in the first chair when receiving service from the server. The second chair is provided for one waiting customer and there is no space for any other customers to wait at the second station. Thus, a customer finishing service at the first station cannot move into (use) the second station if there is a customer waiting at the second station. If a customer at the first station cannot move into the waiting line (2nd chair) at the second station, then the customer is considered blocked. What does this customer do? Well, they are selfish and do not give up their current chair until they can get a chair at the second station. Thus, waiting at the second station may cause waiting to occur at the first station. This situation is called a tandem queue with blocking, as illustrated in Figure <a href="modeling-with-processes-and-resources.html#fig:Ch7TandemQWithBlocking">7.2</a>.</p>
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:Ch7TandemQWithBlocking"></span>
+<img src="figures2/ch7/TandemQWithBlocking.png" alt="Tandem Queue with Blocking" width="65%" height="65%" />
+<p class="caption">
+Figure 7.2: Tandem Queue with Blocking
+</p>
+</div>
+<p>Let’s see how to model this situation using KSL constructs. The key is to model the chair that represents the waiting line at the second station with a resource. This is essentially modeling the waiting space with a resource. In the above scenario, there was one space for waiting.</p>
+<div class="sourceCode" id="cb167"><pre class="sourceCode kt"><code class="sourceCode kotlin"><span id="cb167-1"><a href="modeling-with-processes-and-resources.html#cb167-1" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> TandemQueueWithBlocking<span class="op">(</span><span class="va">parent</span><span class="op">:</span> <span class="dt">ModelElement</span><span class="op">,</span> <span class="va">name</span><span class="op">:</span> <span class="dt">String</span><span class="op">?</span> <span class="op">=</span> null<span class="op">)</span> <span class="op">:</span> <span class="dt">ProcessModel</span><span class="op">(</span><span class="va">parent</span><span class="op">,</span> <span class="va">name</span><span class="op">)</span> <span class="op">{</span></span>
+<span id="cb167-2"><a href="modeling-with-processes-and-resources.html#cb167-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb167-3"><a href="modeling-with-processes-and-resources.html#cb167-3" aria-hidden="true" tabindex="-1"></a>    <span class="kw">private</span> <span class="kw">val</span> <span class="va">buffer</span><span class="op">:</span> ResourceWithQ <span class="op">=</span> ResourceWithQ<span class="op">(</span><span class="kw">this</span><span class="op">,</span> <span class="st">&quot;buffer&quot;</span><span class="op">,</span> capacity <span class="op">=</span> <span class="dv">1</span><span class="op">)</span></span>
+<span id="cb167-4"><a href="modeling-with-processes-and-resources.html#cb167-4" aria-hidden="true" tabindex="-1"></a>    <span class="kw">private</span> <span class="kw">val</span> <span class="va">worker1</span><span class="op">:</span> ResourceWithQ <span class="op">=</span> ResourceWithQ<span class="op">(</span><span class="kw">this</span><span class="op">,</span> <span class="st">&quot;worker1&quot;</span><span class="op">)</span></span>
+<span id="cb167-5"><a href="modeling-with-processes-and-resources.html#cb167-5" aria-hidden="true" tabindex="-1"></a>    <span class="kw">private</span> <span class="kw">val</span> <span class="va">worker2</span><span class="op">:</span> ResourceWithQ <span class="op">=</span> ResourceWithQ<span class="op">(</span><span class="kw">this</span><span class="op">,</span> <span class="st">&quot;worker2&quot;</span><span class="op">)</span></span></code></pre></div>
+<p>In this code, we defined a resource called <code>buffer</code> with capacity 1 to represent the chair designated for waiting. By changing the capacity of this resource, we can study the effect of the limited space at the second station on system performance.</p>
+<p>Exploring the effect of the buffer size is left as an exercise for the reader. The process modeling needs to be adjusted to account for this space. In the following code, notice the overlapping nature of the seize and release statements.</p>
+<div class="sourceCode" id="cb168"><pre class="sourceCode kt"><code class="sourceCode kotlin"><span id="cb168-1"><a href="modeling-with-processes-and-resources.html#cb168-1" aria-hidden="true" tabindex="-1"></a>    <span class="kw">private</span> inner <span class="kw">class</span> Customer <span class="op">:</span> <span class="dt">Entity</span><span class="op">()</span> <span class="op">{</span></span>
+<span id="cb168-2"><a href="modeling-with-processes-and-resources.html#cb168-2" aria-hidden="true" tabindex="-1"></a>        <span class="kw">val</span> <span class="va">tandemQProcess</span><span class="op">:</span> KSLProcess <span class="op">=</span> process <span class="op">{</span></span>
+<span id="cb168-3"><a href="modeling-with-processes-and-resources.html#cb168-3" aria-hidden="true" tabindex="-1"></a>            wip<span class="op">.</span>increment<span class="op">()</span></span>
+<span id="cb168-4"><a href="modeling-with-processes-and-resources.html#cb168-4" aria-hidden="true" tabindex="-1"></a>            timeStamp <span class="op">=</span> time</span>
+<span id="cb168-5"><a href="modeling-with-processes-and-resources.html#cb168-5" aria-hidden="true" tabindex="-1"></a>            <span class="kw">val</span> <span class="va">a1</span> <span class="op">=</span> seize<span class="op">(</span>worker1<span class="op">)</span></span>
+<span id="cb168-6"><a href="modeling-with-processes-and-resources.html#cb168-6" aria-hidden="true" tabindex="-1"></a>            delay<span class="op">(</span>st1<span class="op">)</span></span>
+<span id="cb168-7"><a href="modeling-with-processes-and-resources.html#cb168-7" aria-hidden="true" tabindex="-1"></a>            <span class="kw">val</span> <span class="va">b</span> <span class="op">=</span> seize<span class="op">(</span>buffer<span class="op">)</span></span>
+<span id="cb168-8"><a href="modeling-with-processes-and-resources.html#cb168-8" aria-hidden="true" tabindex="-1"></a>            release<span class="op">(</span>a1<span class="op">)</span></span>
+<span id="cb168-9"><a href="modeling-with-processes-and-resources.html#cb168-9" aria-hidden="true" tabindex="-1"></a>            <span class="kw">val</span> <span class="va">a2</span> <span class="op">=</span> seize<span class="op">(</span>worker2<span class="op">)</span></span>
+<span id="cb168-10"><a href="modeling-with-processes-and-resources.html#cb168-10" aria-hidden="true" tabindex="-1"></a>            release<span class="op">(</span>b<span class="op">)</span></span>
+<span id="cb168-11"><a href="modeling-with-processes-and-resources.html#cb168-11" aria-hidden="true" tabindex="-1"></a>            delay<span class="op">(</span>st2<span class="op">)</span></span>
+<span id="cb168-12"><a href="modeling-with-processes-and-resources.html#cb168-12" aria-hidden="true" tabindex="-1"></a>            release<span class="op">(</span>a2<span class="op">)</span></span>
+<span id="cb168-13"><a href="modeling-with-processes-and-resources.html#cb168-13" aria-hidden="true" tabindex="-1"></a>            timeInSystem<span class="op">.</span>value <span class="op">=</span> time <span class="op">-</span> timeStamp</span>
+<span id="cb168-14"><a href="modeling-with-processes-and-resources.html#cb168-14" aria-hidden="true" tabindex="-1"></a>            wip<span class="op">.</span>decrement<span class="op">()</span></span>
+<span id="cb168-15"><a href="modeling-with-processes-and-resources.html#cb168-15" aria-hidden="true" tabindex="-1"></a>        <span class="op">}</span></span>
+<span id="cb168-16"><a href="modeling-with-processes-and-resources.html#cb168-16" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span></code></pre></div>
+<p>After receiving service at the first station, the customer attempts to seize the buffer (chair for waiting) at the second station. If there is space in the buffer, <strong>then</strong> the customer releases the first worker. Don’t give up your chair until you get the next chair! After moving into the chair (buffer), the customer attempts to seize the second worker. If the second worker is not available the customer waits; otherwise, the customer delays for service at the second station, releases the second worker, and then departs that system. Again the key is to have this overlapping seize and release statements.</p>
+<p>Figure <a href="modeling-with-processes-and-resources.html#fig:Ch7TandemQWithBlockingAD">7.3</a> provides the activity diagram for this situation. Notice how the arrows for the seize and release of the resources overlap.</p>
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:Ch7TandemQWithBlockingAD"></span>
+<img src="figures2/ch7/TQWithBlockingActivityDiagram.png" alt="Activity Diagram Tandem Queue with Blocking" width="35%" height="35%" />
+<p class="caption">
+Figure 7.3: Activity Diagram Tandem Queue with Blocking
+</p>
+</div>
+<p>For the given arrival rate and service parameters, the results indicate that the effect of blocking is not too significant.</p>
+<table>
+<thead>
+<tr class="header">
+<th align="center">Name</th>
+<th align="center">Count</th>
+<th align="center">Average</th>
+<th align="center">Half-Width</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="center">buffer:InstantaneousUtil</td>
+<td align="center">30</td>
+<td align="center">0.196</td>
+<td align="center">0.003</td>
+</tr>
+<tr class="even">
+<td align="center">buffer:NumBusyUnits</td>
+<td align="center">30</td>
+<td align="center">0.196</td>
+<td align="center">0.003</td>
+</tr>
+<tr class="odd">
+<td align="center">buffer:ScheduledUtil</td>
+<td align="center">30</td>
+<td align="center">0.196</td>
+<td align="center">0.003</td>
+</tr>
+<tr class="even">
+<td align="center">buffer:Q:NumInQ</td>
+<td align="center">30</td>
+<td align="center">0.071</td>
+<td align="center">0.002</td>
+</tr>
+<tr class="odd">
+<td align="center">buffer:Q:TimeInQ</td>
+<td align="center">30</td>
+<td align="center">0.143</td>
+<td align="center">0.003</td>
+</tr>
+<tr class="even">
+<td align="center">worker1:InstantaneousUtil</td>
+<td align="center">30</td>
+<td align="center">0.422</td>
+<td align="center">0.003</td>
+</tr>
+<tr class="odd">
+<td align="center">worker1:NumBusyUnits</td>
+<td align="center">30</td>
+<td align="center">0.422</td>
+<td align="center">0.003</td>
+</tr>
+<tr class="even">
+<td align="center">worker1:ScheduledUtil</td>
+<td align="center">30</td>
+<td align="center">0.422</td>
+<td align="center">0.003</td>
+</tr>
+<tr class="odd">
+<td align="center">worker1:Q:NumInQ</td>
+<td align="center">30</td>
+<td align="center">0.339</td>
+<td align="center">0.009</td>
+</tr>
+<tr class="even">
+<td align="center">worker1:Q:TimeInQ</td>
+<td align="center">30</td>
+<td align="center">0.678</td>
+<td align="center">0.016</td>
+</tr>
+<tr class="odd">
+<td align="center">worker2:InstantaneousUtil</td>
+<td align="center">30</td>
+<td align="center">0.45</td>
+<td align="center">0.003</td>
+</tr>
+<tr class="even">
+<td align="center">worker2:NumBusyUnits</td>
+<td align="center">30</td>
+<td align="center">0.45</td>
+<td align="center">0.003</td>
+</tr>
+<tr class="odd">
+<td align="center">worker2:ScheduledUtil</td>
+<td align="center">30</td>
+<td align="center">0.45</td>
+<td align="center">0.003</td>
+</tr>
+<tr class="even">
+<td align="center">worker2:Q:NumInQ</td>
+<td align="center">30</td>
+<td align="center">0.196</td>
+<td align="center">0.003</td>
+</tr>
+<tr class="odd">
+<td align="center">worker2:Q:TimeInQ</td>
+<td align="center">30</td>
+<td align="center">0.392</td>
+<td align="center">0.004</td>
+</tr>
+<tr class="even">
+<td align="center">TandemQModelWithBlocking:NumInSystem</td>
+<td align="center">30</td>
+<td align="center">1.406</td>
+<td align="center">0.016</td>
+</tr>
+<tr class="odd">
+<td align="center">TandemQModelWithBlocking:TimeInSystem</td>
+<td align="center">30</td>
+<td align="center">2.815</td>
+<td align="center">0.023</td>
+</tr>
+</tbody>
+</table>
+<p>However, the exercises ask the reader to explore what happens if the arrival rate is increased. A tandem queueing system is just a series of stations. The concept of having stations where work is performed is very useful. The next section illustrates how to generalize these ideas.</p>
+</div>
+<div id="resource-pools" class="section level3 hasAnchor" number="7.1.2">
+<h3><span class="header-section-number">7.1.2</span> Resource Pools<a href="modeling-with-processes-and-resources.html#resource-pools" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>A resource pool is a generalization of the concept of a resource that permits individual instances of the <code>Resource</code> class to be combined together into a larger <em>pool</em> of units. Resource pools facilitate the sharing of instances of resources across processes. The important concepts involved in using resource pools are 1) how to select resources to satisfy a request, and 2) how to allocate a request for units across the pool of resources. For example, if a request for units of the pool was for 2 units, and the pool contained 3 individual resources all of capacity 1, which of the 3 resources should be selected to provide the requested units? Also, suppose, for example, the request was for 2 units, and there were 3 individual resources with capacity (1, 2, 3) units, respectively. Should the resource with capacity 2 be used? Should the resource with capacity 3 be used? Should the resource with capacity 1 be used in combination with one of the other resources? As you can see, there may be many possible ways to allocate units to requests when there is a pool of resources. The KSL provides a structure for users to supply selection and allocation rules when using pools of resources through some interfaces.</p>
+<div class="sourceCode" id="cb169"><pre class="sourceCode kt"><code class="sourceCode kotlin"><span id="cb169-1"><a href="modeling-with-processes-and-resources.html#cb169-1" aria-hidden="true" tabindex="-1"></a><span class="co">/**</span></span>
+<span id="cb169-2"><a href="modeling-with-processes-and-resources.html#cb169-2" aria-hidden="true" tabindex="-1"></a><span class="co"> * Provides for a method to select resources from a list such that</span></span>
+<span id="cb169-3"><a href="modeling-with-processes-and-resources.html#cb169-3" aria-hidden="true" tabindex="-1"></a><span class="co"> * the returned list may contain resources that can fill the amount needed</span></span>
+<span id="cb169-4"><a href="modeling-with-processes-and-resources.html#cb169-4" aria-hidden="true" tabindex="-1"></a><span class="co"> */</span></span>
+<span id="cb169-5"><a href="modeling-with-processes-and-resources.html#cb169-5" aria-hidden="true" tabindex="-1"></a><span class="kw">fun</span> <span class="kw">interface</span> <span class="fu">ResourceSelectionRuleIfc</span> <span class="op">{</span></span>
+<span id="cb169-6"><a href="modeling-with-processes-and-resources.html#cb169-6" aria-hidden="true" tabindex="-1"></a>    <span class="co">/**</span></span>
+<span id="cb169-7"><a href="modeling-with-processes-and-resources.html#cb169-7" aria-hidden="true" tabindex="-1"></a><span class="co">     * @param amountNeeded the amount needed from resources</span></span>
+<span id="cb169-8"><a href="modeling-with-processes-and-resources.html#cb169-8" aria-hidden="true" tabindex="-1"></a><span class="co">     * @param list of resources to consider selecting from</span></span>
+<span id="cb169-9"><a href="modeling-with-processes-and-resources.html#cb169-9" aria-hidden="true" tabindex="-1"></a><span class="co">     * @return the selected list of resources. It may be empty</span></span>
+<span id="cb169-10"><a href="modeling-with-processes-and-resources.html#cb169-10" aria-hidden="true" tabindex="-1"></a><span class="co">     */</span></span>
+<span id="cb169-11"><a href="modeling-with-processes-and-resources.html#cb169-11" aria-hidden="true" tabindex="-1"></a>    <span class="kw">fun</span> <span class="fu">selectResources</span><span class="op">(</span><span class="va">amountNeeded</span><span class="op">:</span> <span class="dt">Int</span><span class="op">,</span> <span class="va">list</span><span class="op">:</span> <span class="dt">List</span>&lt;<span class="va">Resource</span>&gt;<span class="op">):</span> <span class="dt">List</span><span class="op">&lt;</span><span class="dt">Resource</span><span class="op">&gt;</span></span>
+<span id="cb169-12"><a href="modeling-with-processes-and-resources.html#cb169-12" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb169-13"><a href="modeling-with-processes-and-resources.html#cb169-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb169-14"><a href="modeling-with-processes-and-resources.html#cb169-14" aria-hidden="true" tabindex="-1"></a>/**</span>
+<span id="cb169-15"><a href="modeling-with-processes-and-resources.html#cb169-15" aria-hidden="true" tabindex="-1"></a> *  <span class="fu">Function</span> <span class="fu">to</span> <span class="fu">determine</span> <span class="fu">how</span> <span class="fu">to</span> <span class="fu">allocate</span> <span class="fu">requirement</span> <span class="fu">for</span> <span class="fu">units</span> <span class="fu">across</span></span>
+<span id="cb169-16"><a href="modeling-with-processes-and-resources.html#cb169-16" aria-hidden="true" tabindex="-1"></a> *  <span class="fu">a</span> <span class="fu">list</span> <span class="fu">of</span> <span class="fu">resources</span> <span class="fu">that</span> <span class="fu">have</span> <span class="fu">sufficient</span> <span class="fu">available</span> <span class="fu">units</span> <span class="fu">to</span> <span class="fu">meet</span></span>
+<span id="cb169-17"><a href="modeling-with-processes-and-resources.html#cb169-17" aria-hidden="true" tabindex="-1"></a> *  <span class="fu">the</span> <span class="fu">amount</span> <span class="fu">needed</span><span class="op">.</span></span>
+<span id="cb169-18"><a href="modeling-with-processes-and-resources.html#cb169-18" aria-hidden="true" tabindex="-1"></a> */</span>
+<span id="cb169-19"><a href="modeling-with-processes-and-resources.html#cb169-19" aria-hidden="true" tabindex="-1"></a><span class="kw">fun</span> <span class="kw">interface</span> <span class="fu">AllocationRuleIfc</span> <span class="op">{</span></span>
+<span id="cb169-20"><a href="modeling-with-processes-and-resources.html#cb169-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb169-21"><a href="modeling-with-processes-and-resources.html#cb169-21" aria-hidden="true" tabindex="-1"></a>    <span class="co">/** The method assumes that the provided list of resources has</span></span>
+<span id="cb169-22"><a href="modeling-with-processes-and-resources.html#cb169-22" aria-hidden="true" tabindex="-1"></a><span class="co">     *  enough units available to satisfy the needs of the request.</span></span>
+<span id="cb169-23"><a href="modeling-with-processes-and-resources.html#cb169-23" aria-hidden="true" tabindex="-1"></a><span class="co">     *</span></span>
+<span id="cb169-24"><a href="modeling-with-processes-and-resources.html#cb169-24" aria-hidden="true" tabindex="-1"></a><span class="co">     * @param amountNeeded the amount needed from resources</span></span>
+<span id="cb169-25"><a href="modeling-with-processes-and-resources.html#cb169-25" aria-hidden="true" tabindex="-1"></a><span class="co">     * @param resourceList list of resources to be allocated from</span></span>
+<span id="cb169-26"><a href="modeling-with-processes-and-resources.html#cb169-26" aria-hidden="true" tabindex="-1"></a><span class="co">     * @return the amount to allocate from each resource as a map</span></span>
+<span id="cb169-27"><a href="modeling-with-processes-and-resources.html#cb169-27" aria-hidden="true" tabindex="-1"></a><span class="co">     */</span></span>
+<span id="cb169-28"><a href="modeling-with-processes-and-resources.html#cb169-28" aria-hidden="true" tabindex="-1"></a>    <span class="kw">fun</span> <span class="fu">makeAllocations</span><span class="op">(</span><span class="va">amountNeeded</span><span class="op">:</span> <span class="dt">Int</span><span class="op">,</span> <span class="va">resourceList</span><span class="op">:</span> <span class="dt">List</span>&lt;<span class="va">Resource</span>&gt;<span class="op">):</span> <span class="dt">Map</span><span class="op">&lt;</span><span class="dt">Resource</span>, <span class="dt">Int</span><span class="op">&gt;</span></span>
+<span id="cb169-29"><a href="modeling-with-processes-and-resources.html#cb169-29" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
+<p>These two interfaces can be used in combination to form various selection and allocation possibilities for a variety of resource pool situations. The <code>ResourcePool</code> and <code>ResourcePoolWithQ</code> classes use default implementations of these functions. The KSL provides two implementations of the <code>ResourceSelectionRuleIfc</code> interface.</p>
+<ul>
+<li><code>FirstFullyAvailableResource</code> selects the first resource from a supplied list that can fully meet the request.</li>
+<li><code>ResourceSelectionRule</code> selects a list of resources that (in total) have enough available units to fully meet the request.</li>
+</ul>
+<p>It is important to note that the <code>ResourceSelectionRuleIfc</code> interface may return an empty list if the request cannot be met. This is used to determine if the entity must wait.</p>
+<p>The KSL provides a default instance of the <code>AllocationRuleIfc</code> interface called <code>DefaultAllocationRule.</code> This rule takes in a list of resources that in total has enough units available and allocates from each listed resource (in the order listed) until the entire amount requested is filled. Thus, in both the selection rule and the allocation rule, the order of the resources within the pool are important. Again, if you want or need to have different rules, then you can implement these interfaces and supply your instances to the <code>ResourcePool</code> and <code>ResourcePoolWithQ</code> classes to use instead of the default implementations.</p>
+<p>Let’s take a look at an example situation involving resource pools. In this example, there are two pools. The first pool will have 3 resources (john, paul, and george) and the second pool will have 2 resources (ringo and george). One of the resources (george) is shared (in common) between the two pools. The following code creates the four resources, adds them to lists, and then supplies the lists to instances of the <code>ResourcePoolWithQ</code> class.</p>
+<div class="sourceCode" id="cb170"><pre class="sourceCode kt"><code class="sourceCode kotlin"><span id="cb170-1"><a href="modeling-with-processes-and-resources.html#cb170-1" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> ResourcePoolExample<span class="op">(</span><span class="va">parent</span><span class="op">:</span> <span class="dt">ModelElement</span><span class="op">)</span> <span class="op">:</span> <span class="dt">ProcessModel</span><span class="op">(</span><span class="va">parent</span><span class="op">,</span> <span class="va">null</span><span class="op">)</span> <span class="op">{</span></span>
+<span id="cb170-2"><a href="modeling-with-processes-and-resources.html#cb170-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb170-3"><a href="modeling-with-processes-and-resources.html#cb170-3" aria-hidden="true" tabindex="-1"></a>    <span class="kw">private</span> <span class="kw">val</span> <span class="va">john</span> <span class="op">=</span> Resource<span class="op">(</span><span class="kw">this</span><span class="op">,</span> name <span class="op">=</span> <span class="st">&quot;John&quot;</span><span class="op">)</span></span>
+<span id="cb170-4"><a href="modeling-with-processes-and-resources.html#cb170-4" aria-hidden="true" tabindex="-1"></a>    <span class="kw">private</span> <span class="kw">val</span> <span class="va">paul</span> <span class="op">=</span> Resource<span class="op">(</span><span class="kw">this</span><span class="op">,</span> name <span class="op">=</span> <span class="st">&quot;Paul&quot;</span><span class="op">)</span></span>
+<span id="cb170-5"><a href="modeling-with-processes-and-resources.html#cb170-5" aria-hidden="true" tabindex="-1"></a>    <span class="kw">private</span> <span class="kw">val</span> <span class="va">george</span> <span class="op">=</span> Resource<span class="op">(</span><span class="kw">this</span><span class="op">,</span> name <span class="op">=</span> <span class="st">&quot;George&quot;</span><span class="op">)</span></span>
+<span id="cb170-6"><a href="modeling-with-processes-and-resources.html#cb170-6" aria-hidden="true" tabindex="-1"></a>    <span class="kw">private</span> <span class="kw">val</span> <span class="va">ringo</span> <span class="op">=</span> Resource<span class="op">(</span><span class="kw">this</span><span class="op">,</span> name <span class="op">=</span> <span class="st">&quot;Ringo&quot;</span><span class="op">)</span></span>
+<span id="cb170-7"><a href="modeling-with-processes-and-resources.html#cb170-7" aria-hidden="true" tabindex="-1"></a>    <span class="kw">private</span> <span class="kw">val</span> <span class="va">list1</span> <span class="op">=</span> listOf<span class="op">(</span>john<span class="op">,</span> paul<span class="op">,</span> george<span class="op">)</span></span>
+<span id="cb170-8"><a href="modeling-with-processes-and-resources.html#cb170-8" aria-hidden="true" tabindex="-1"></a>    <span class="kw">private</span> <span class="kw">val</span> <span class="va">list2</span> <span class="op">=</span> listOf<span class="op">(</span>ringo<span class="op">,</span> george<span class="op">)</span></span>
+<span id="cb170-9"><a href="modeling-with-processes-and-resources.html#cb170-9" aria-hidden="true" tabindex="-1"></a>    <span class="kw">private</span> <span class="kw">val</span> <span class="va">pool1</span><span class="op">:</span> ResourcePoolWithQ <span class="op">=</span> ResourcePoolWithQ<span class="op">(</span><span class="kw">this</span><span class="op">,</span> list1<span class="op">,</span> name <span class="op">=</span> <span class="st">&quot;pool1&quot;</span><span class="op">)</span></span>
+<span id="cb170-10"><a href="modeling-with-processes-and-resources.html#cb170-10" aria-hidden="true" tabindex="-1"></a>    <span class="kw">private</span> <span class="kw">val</span> <span class="va">pool2</span><span class="op">:</span> ResourcePoolWithQ <span class="op">=</span> ResourcePoolWithQ<span class="op">(</span><span class="kw">this</span><span class="op">,</span> list2<span class="op">,</span> name <span class="op">=</span> <span class="st">&quot;pool2&quot;</span><span class="op">)</span></span>
+<span id="cb170-11"><a href="modeling-with-processes-and-resources.html#cb170-11" aria-hidden="true" tabindex="-1"></a>    <span class="kw">private</span> <span class="kw">val</span> <span class="va">tba</span> <span class="op">=</span> RandomVariable<span class="op">(</span><span class="kw">this</span><span class="op">,</span> ExponentialRV<span class="op">(</span><span class="fl">1.0</span><span class="op">,</span> <span class="dv">1</span><span class="op">),</span> <span class="st">&quot;Arrival RV&quot;</span><span class="op">)</span></span>
+<span id="cb170-12"><a href="modeling-with-processes-and-resources.html#cb170-12" aria-hidden="true" tabindex="-1"></a>    <span class="kw">private</span> <span class="kw">val</span> <span class="va">st</span> <span class="op">=</span> RandomVariable<span class="op">(</span><span class="kw">this</span><span class="op">,</span> ExponentialRV<span class="op">(</span><span class="fl">3.0</span><span class="op">,</span> <span class="dv">2</span><span class="op">),</span> <span class="st">&quot;Service RV&quot;</span><span class="op">)</span></span>
+<span id="cb170-13"><a href="modeling-with-processes-and-resources.html#cb170-13" aria-hidden="true" tabindex="-1"></a>    <span class="kw">private</span> <span class="kw">val</span> <span class="va">decideProcess</span> <span class="op">=</span> RandomVariable<span class="op">(</span><span class="kw">this</span><span class="op">,</span> BernoulliRV<span class="op">(</span><span class="fl">0.7</span><span class="op">,</span> <span class="dv">3</span><span class="op">))</span></span>
+<span id="cb170-14"><a href="modeling-with-processes-and-resources.html#cb170-14" aria-hidden="true" tabindex="-1"></a>    <span class="kw">private</span> <span class="kw">val</span> <span class="va">wip1</span> <span class="op">=</span> TWResponse<span class="op">(</span><span class="kw">this</span><span class="op">,</span> <span class="st">&quot;</span><span class="ss">${</span>name<span class="ss">}</span><span class="st">:WIP1&quot;</span><span class="op">)</span></span>
+<span id="cb170-15"><a href="modeling-with-processes-and-resources.html#cb170-15" aria-hidden="true" tabindex="-1"></a>    <span class="kw">private</span> <span class="kw">val</span> <span class="va">tip1</span> <span class="op">=</span> Response<span class="op">(</span><span class="kw">this</span><span class="op">,</span> <span class="st">&quot;</span><span class="ss">${</span>name<span class="ss">}</span><span class="st">:TimeInSystem1&quot;</span><span class="op">)</span></span>
+<span id="cb170-16"><a href="modeling-with-processes-and-resources.html#cb170-16" aria-hidden="true" tabindex="-1"></a>    <span class="kw">private</span> <span class="kw">val</span> <span class="va">wip2</span> <span class="op">=</span> TWResponse<span class="op">(</span><span class="kw">this</span><span class="op">,</span> <span class="st">&quot;</span><span class="ss">${</span>name<span class="ss">}</span><span class="st">:WIP2&quot;</span><span class="op">)</span></span>
+<span id="cb170-17"><a href="modeling-with-processes-and-resources.html#cb170-17" aria-hidden="true" tabindex="-1"></a>    <span class="kw">private</span> <span class="kw">val</span> <span class="va">tip2</span> <span class="op">=</span> Response<span class="op">(</span><span class="kw">this</span><span class="op">,</span> <span class="st">&quot;</span><span class="ss">${</span>name<span class="ss">}</span><span class="st">:TimeInSystem2&quot;</span><span class="op">)</span></span>
+<span id="cb170-18"><a href="modeling-with-processes-and-resources.html#cb170-18" aria-hidden="true" tabindex="-1"></a>    <span class="kw">private</span> <span class="kw">val</span> <span class="va">generator</span> <span class="op">=</span> EventGenerator<span class="op">(</span><span class="kw">this</span><span class="op">,</span> <span class="kw">this</span><span class="op">::</span>arrivals<span class="op">,</span> tba<span class="op">,</span> tba<span class="op">)</span></span></code></pre></div>
+<p>The two pools are shared between two processes using straightforward seize-delay-release logic.</p>
+<div class="sourceCode" id="cb171"><pre class="sourceCode kt"><code class="sourceCode kotlin"><span id="cb171-1"><a href="modeling-with-processes-and-resources.html#cb171-1" aria-hidden="true" tabindex="-1"></a>    <span class="kw">private</span> inner <span class="kw">class</span> Customer<span class="op">:</span> <span class="dt">Entity</span><span class="op">()</span> <span class="op">{</span></span>
+<span id="cb171-2"><a href="modeling-with-processes-and-resources.html#cb171-2" aria-hidden="true" tabindex="-1"></a>        <span class="kw">val</span> <span class="va">usePool1</span><span class="op">:</span> KSLProcess <span class="op">=</span> process<span class="op">(</span>addToSequence <span class="op">=</span> <span class="kw">false</span><span class="op">)</span> <span class="op">{</span></span>
+<span id="cb171-3"><a href="modeling-with-processes-and-resources.html#cb171-3" aria-hidden="true" tabindex="-1"></a>            wip1<span class="op">.</span>increment<span class="op">()</span></span>
+<span id="cb171-4"><a href="modeling-with-processes-and-resources.html#cb171-4" aria-hidden="true" tabindex="-1"></a>            timeStamp <span class="op">=</span> time</span>
+<span id="cb171-5"><a href="modeling-with-processes-and-resources.html#cb171-5" aria-hidden="true" tabindex="-1"></a>            <span class="kw">val</span> <span class="va">a</span>  <span class="op">=</span> seize<span class="op">(</span>pool1<span class="op">,</span> <span class="dv">1</span><span class="op">)</span></span>
+<span id="cb171-6"><a href="modeling-with-processes-and-resources.html#cb171-6" aria-hidden="true" tabindex="-1"></a>            delay<span class="op">(</span>st<span class="op">)</span></span>
+<span id="cb171-7"><a href="modeling-with-processes-and-resources.html#cb171-7" aria-hidden="true" tabindex="-1"></a>            release<span class="op">(</span>a<span class="op">)</span></span>
+<span id="cb171-8"><a href="modeling-with-processes-and-resources.html#cb171-8" aria-hidden="true" tabindex="-1"></a>            tip1<span class="op">.</span>value <span class="op">=</span> time <span class="op">-</span> timeStamp</span>
+<span id="cb171-9"><a href="modeling-with-processes-and-resources.html#cb171-9" aria-hidden="true" tabindex="-1"></a>            wip1<span class="op">.</span>decrement<span class="op">()</span></span>
+<span id="cb171-10"><a href="modeling-with-processes-and-resources.html#cb171-10" aria-hidden="true" tabindex="-1"></a>        <span class="op">}</span></span>
+<span id="cb171-11"><a href="modeling-with-processes-and-resources.html#cb171-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb171-12"><a href="modeling-with-processes-and-resources.html#cb171-12" aria-hidden="true" tabindex="-1"></a>        <span class="kw">val</span> <span class="va">usePool2</span><span class="op">:</span> KSLProcess <span class="op">=</span> process<span class="op">(</span>addToSequence <span class="op">=</span> <span class="kw">false</span><span class="op">)</span> <span class="op">{</span></span>
+<span id="cb171-13"><a href="modeling-with-processes-and-resources.html#cb171-13" aria-hidden="true" tabindex="-1"></a>            wip2<span class="op">.</span>increment<span class="op">()</span></span>
+<span id="cb171-14"><a href="modeling-with-processes-and-resources.html#cb171-14" aria-hidden="true" tabindex="-1"></a>            timeStamp <span class="op">=</span> time</span>
+<span id="cb171-15"><a href="modeling-with-processes-and-resources.html#cb171-15" aria-hidden="true" tabindex="-1"></a>            <span class="kw">val</span> <span class="va">a</span>  <span class="op">=</span> seize<span class="op">(</span>pool2<span class="op">,</span> <span class="dv">1</span><span class="op">)</span></span>
+<span id="cb171-16"><a href="modeling-with-processes-and-resources.html#cb171-16" aria-hidden="true" tabindex="-1"></a>            delay<span class="op">(</span>st<span class="op">)</span></span>
+<span id="cb171-17"><a href="modeling-with-processes-and-resources.html#cb171-17" aria-hidden="true" tabindex="-1"></a>            release<span class="op">(</span>a<span class="op">)</span></span>
+<span id="cb171-18"><a href="modeling-with-processes-and-resources.html#cb171-18" aria-hidden="true" tabindex="-1"></a>            tip2<span class="op">.</span>value <span class="op">=</span> time <span class="op">-</span> timeStamp</span>
+<span id="cb171-19"><a href="modeling-with-processes-and-resources.html#cb171-19" aria-hidden="true" tabindex="-1"></a>            wip2<span class="op">.</span>decrement<span class="op">()</span></span>
+<span id="cb171-20"><a href="modeling-with-processes-and-resources.html#cb171-20" aria-hidden="true" tabindex="-1"></a>        <span class="op">}</span></span>
+<span id="cb171-21"><a href="modeling-with-processes-and-resources.html#cb171-21" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span></code></pre></div>
+<p>In this example, we randomly activate the two processes based on a distribution.</p>
+<div class="sourceCode" id="cb172"><pre class="sourceCode kt"><code class="sourceCode kotlin"><span id="cb172-1"><a href="modeling-with-processes-and-resources.html#cb172-1" aria-hidden="true" tabindex="-1"></a>    <span class="kw">private</span> <span class="kw">fun</span> <span class="fu">arrivals</span><span class="op">(</span><span class="va">generator</span><span class="op">:</span> <span class="dt">EventGenerator</span><span class="op">){</span></span>
+<span id="cb172-2"><a href="modeling-with-processes-and-resources.html#cb172-2" aria-hidden="true" tabindex="-1"></a>        <span class="kw">val</span> <span class="va">c</span> <span class="op">=</span> Customer<span class="op">()</span></span>
+<span id="cb172-3"><a href="modeling-with-processes-and-resources.html#cb172-3" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> <span class="op">(</span>decideProcess<span class="op">.</span>value<span class="op">.</span>toBoolean<span class="op">()){</span></span>
+<span id="cb172-4"><a href="modeling-with-processes-and-resources.html#cb172-4" aria-hidden="true" tabindex="-1"></a>            activate<span class="op">(</span>c<span class="op">.</span>usePool1<span class="op">)</span></span>
+<span id="cb172-5"><a href="modeling-with-processes-and-resources.html#cb172-5" aria-hidden="true" tabindex="-1"></a>        <span class="op">}</span> <span class="cf">else</span> <span class="op">{</span></span>
+<span id="cb172-6"><a href="modeling-with-processes-and-resources.html#cb172-6" aria-hidden="true" tabindex="-1"></a>            activate<span class="op">(</span>c<span class="op">.</span>usePool2<span class="op">)</span></span>
+<span id="cb172-7"><a href="modeling-with-processes-and-resources.html#cb172-7" aria-hidden="true" tabindex="-1"></a>        <span class="op">}</span></span>
+<span id="cb172-8"><a href="modeling-with-processes-and-resources.html#cb172-8" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span></code></pre></div>
+<p>Since there are four resources and two pools, the performance reports on all the individual resources usage as well as the overall performance of the pool.</p>
+<p><strong>Resource Pool Example Statistical Summary Report</strong></p>
+<table>
+<thead>
+<tr class="header">
+<th align="center">Name</th>
+<th align="center">Count</th>
+<th align="center">Average</th>
+<th align="center">Half-Width</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="center">John:InstantaneousUtil</td>
+<td align="center">30</td>
+<td align="center">0.82</td>
+<td align="center">0.002</td>
+</tr>
+<tr class="even">
+<td align="center">John:NumBusyUnits</td>
+<td align="center">30</td>
+<td align="center">0.82</td>
+<td align="center">0.002</td>
+</tr>
+<tr class="odd">
+<td align="center">John:ScheduledUtil</td>
+<td align="center">30</td>
+<td align="center">0.82</td>
+<td align="center">0.002</td>
+</tr>
+<tr class="even">
+<td align="center">Paul:InstantaneousUtil</td>
+<td align="center">30</td>
+<td align="center">0.747</td>
+<td align="center">0.003</td>
+</tr>
+<tr class="odd">
+<td align="center">Paul:NumBusyUnits</td>
+<td align="center">30</td>
+<td align="center">0.747</td>
+<td align="center">0.003</td>
+</tr>
+<tr class="even">
+<td align="center">Paul:ScheduledUtil</td>
+<td align="center">30</td>
+<td align="center">0.747</td>
+<td align="center">0.003</td>
+</tr>
+<tr class="odd">
+<td align="center">George:InstantaneousUtil</td>
+<td align="center">30</td>
+<td align="center">0.763</td>
+<td align="center">0.003</td>
+</tr>
+<tr class="even">
+<td align="center">George:NumBusyUnits</td>
+<td align="center">30</td>
+<td align="center">0.763</td>
+<td align="center">0.003</td>
+</tr>
+<tr class="odd">
+<td align="center">George:ScheduledUtil</td>
+<td align="center">30</td>
+<td align="center">0.763</td>
+<td align="center">0.003</td>
+</tr>
+<tr class="even">
+<td align="center">Ringo:InstantaneousUtil</td>
+<td align="center">30</td>
+<td align="center">0.662</td>
+<td align="center">0.004</td>
+</tr>
+<tr class="odd">
+<td align="center">Ringo:NumBusyUnits</td>
+<td align="center">30</td>
+<td align="center">0.662</td>
+<td align="center">0.004</td>
+</tr>
+<tr class="even">
+<td align="center">Ringo:ScheduledUtil</td>
+<td align="center">30</td>
+<td align="center">0.662</td>
+<td align="center">0.004</td>
+</tr>
+<tr class="odd">
+<td align="center">pool1:NumBusy</td>
+<td align="center">30</td>
+<td align="center">2.33</td>
+<td align="center">0.008</td>
+</tr>
+<tr class="even">
+<td align="center">pool1:FractionBusy</td>
+<td align="center">30</td>
+<td align="center">0.777</td>
+<td align="center">0.003</td>
+</tr>
+<tr class="odd">
+<td align="center">pool1:Q:NumInQ</td>
+<td align="center">30</td>
+<td align="center">1.597</td>
+<td align="center">0.05</td>
+</tr>
+<tr class="even">
+<td align="center">pool1:Q:TimeInQ</td>
+<td align="center">30</td>
+<td align="center">2.286</td>
+<td align="center">0.067</td>
+</tr>
+<tr class="odd">
+<td align="center">pool2:NumBusy</td>
+<td align="center">30</td>
+<td align="center">1.425</td>
+<td align="center">0.007</td>
+</tr>
+<tr class="even">
+<td align="center">pool2:FractionBusy</td>
+<td align="center">30</td>
+<td align="center">0.713</td>
+<td align="center">0.003</td>
+</tr>
+<tr class="odd">
+<td align="center">pool2:Q:NumInQ</td>
+<td align="center">30</td>
+<td align="center">0.935</td>
+<td align="center">0.036</td>
+</tr>
+<tr class="even">
+<td align="center">pool2:Q:TimeInQ</td>
+<td align="center">30</td>
+<td align="center">3.111</td>
+<td align="center">0.115</td>
+</tr>
+<tr class="odd">
+<td align="center">ResourcePoolExample_3:WIP1</td>
+<td align="center">30</td>
+<td align="center">3.684</td>
+<td align="center">0.056</td>
+</tr>
+<tr class="even">
+<td align="center">ResourcePoolExample_3:TimeInSystem1</td>
+<td align="center">30</td>
+<td align="center">5.276</td>
+<td align="center">0.07</td>
+</tr>
+<tr class="odd">
+<td align="center">ResourcePoolExample_3:WIP2</td>
+<td align="center">30</td>
+<td align="center">1.841</td>
+<td align="center">0.041</td>
+</tr>
+<tr class="even">
+<td align="center">ResourcePoolExample_3:TimeInSystem2</td>
+<td align="center">30</td>
+<td align="center">6.121</td>
+<td align="center">0.126</td>
+</tr>
+</tbody>
+</table>
+<p>Resource pools can be helpful when modeling the sharing of resources between activities. In the next section, we discuss a more complex situation involving a flow shop.</p>
+</div>
+<div id="computer-test-and-repair-shop-example" class="section level3 hasAnchor" number="7.1.3">
+<h3><span class="header-section-number">7.1.3</span> Computer Test and Repair Shop Example<a href="modeling-with-processes-and-resources.html#computer-test-and-repair-shop-example" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Consider a test and repair shop for computer parts (e.g. circuit boards,
+hard drives, etc.) The system consists of an initial diagnostic station
+through which all newly arriving parts must be processed. Currently,
+newly arriving parts arrive according to a Poisson arrival process with
+a mean rate of 3 per hour. The diagnostic station consists of 2
+diagnostic machines that are fed the arriving parts from a single queue.
+Data indicates that the diagnostic time is quite variable and follows an
+exponential distribution with a mean of 30 minutes. Based on the results
+of the diagnostics, a testing plan is formulated for the parts. There
+are currently three testing stations 1. 2, 3 which consist of one
+machine each. The testing plan consists of an ordered sequence of
+testing stations that must be visited by the part prior to proceeding to
+a repair station. Because the diagnosis often involves similar problems,
+there are common sequences that occur for the parts. The company
+collected extensive data on the visit sequences for the parts and found
+that the sequences in Table <a href="modeling-with-processes-and-resources.html#tab:TestPlans">7.1</a> constituted the vast majority of test plans for the parts.</p>
+<div id="tab:TestPlans">
+<table>
+<caption><span id="tab:TestPlans">Table 7.1: </span> Test plan sequences</caption>
+<thead>
+<tr class="header">
+<th align="left">Test Plan</th>
+<th align="center">% of Parts</th>
+<th align="center">Sequence</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">1</td>
+<td align="center">25%</td>
+<td align="center">2,3,2,1</td>
+</tr>
+<tr class="even">
+<td align="left">2</td>
+<td align="center">12.5%</td>
+<td align="center">3,1</td>
+</tr>
+<tr class="odd">
+<td align="left">3</td>
+<td align="center">37.5%</td>
+<td align="center">1,3,1</td>
+</tr>
+<tr class="even">
+<td align="left">4</td>
+<td align="center">25%</td>
+<td align="center">2,3</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>For example, 25% of the newly arriving parts follow test plan 1, which
+consists of visiting test stations 2, 3, 2, and 1 prior to proceeding to
+the repair station.</p>
+<p>The testing of the parts at each station takes time that may depend upon
+the sequence that the part follows. That is, while parts that follow
+test plan’s 1 and 3 both visit test station 1, data shows that the time
+spent processing at the station is not necessarily the same. Data on the
+testing times indicate that the distribution is well modeled with a
+lognormal distribution with mean, <span class="math inline">\(\ \mu\)</span>, and standard deviation,
+<span class="math inline">\(\sigma\)</span> in minutes. Table <a href="modeling-with-processes-and-resources.html#tab:TestDist">7.2</a> presents the mean and standard
+deviation for each of the testing time distributions for each station in
+the test plan.</p>
+<div id="tab:TestDist">
+<table>
+<caption><span id="tab:TestDist">Table 7.2: </span> Testing and repair distributions</caption>
+<thead>
+<tr class="header">
+<th align="left">Test Plan</th>
+<th align="center">Testing Time Parameters</th>
+<th align="center">Repair Time Parameters</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">1</td>
+<td align="center">(20,4.1), (12,4.2), (18,4.3), (16,4.0)</td>
+<td align="center">(30,60,80)</td>
+</tr>
+<tr class="even">
+<td align="left">2</td>
+<td align="center">(12,4), (15,4)</td>
+<td align="center">(45,55,70)</td>
+</tr>
+<tr class="odd">
+<td align="left">3</td>
+<td align="center">(18,4.2), (14,4.4), (12,4.3)</td>
+<td align="center">(30,40,60)</td>
+</tr>
+<tr class="even">
+<td align="left">4</td>
+<td align="center">(24,4), (30,4)</td>
+<td align="center">(35,65,75)</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>For example, the first pair of parameters, (20, 4.1), for test plan 1
+indicates that the testing time at test station 2 has a lognormal
+distribution with mean,<span class="math inline">\(\mu = 20\)</span>, and standard deviation,<span class="math inline">\(\sigma = 4.1\)</span>
+minutes.</p>
+<p>The repair station has 3 workers that attempt to complete the repairs
+based on the tests. The repair time also depends on the test plan that
+the part has been following. Data indicates that the repair time can be
+characterized by a triangular distribution with the minimum, mode, and
+maximum as specified in the previous table. After the repairs, the parts
+leave the system. When the parts move between stations assume that there
+is always a worker available and that the transfer time takes between 2
+to 4 minutes uniformly distributed.
+Figure <a href="modeling-with-processes-and-resources.html#fig:TestAndRepairSystem">7.4</a> illustrates the arrangement of the
+stations and the flow of the parts following Plan 2 in the test and
+repair shop.</p>
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:TestAndRepairSystem"></span>
+<img src="figures2/ch7/figTestAndRepairSystem.png" alt="Overview of the test and repair shop" width="80%" height="80%" />
+<p class="caption">
+Figure 7.4: Overview of the test and repair shop
+</p>
+</div>
+<p>The company is considering accepting a new contract that will increase
+the overall arrival rate of jobs to the system by 10%. They are
+interested in understanding where the potential bottlenecks are in the
+system and in developing alternatives to mitigate those bottlenecks so
+that they can still handle the contract. The new contract stipulates
+that 80% of the time the testing and repairs should be completed within
+480 minutes. The company runs 2 shifts each day for each 5 day work
+week. Any jobs not completed at the end of the second shift are carried
+over to first shift of the next working day. Assume that the contract is
+going to last for 1 year (52 weeks). Build a simulation model that can
+assist the company in assessing the risks associated with the new
+contract.</p>
+<div id="implementing-the-test-and-repair-model" class="section level4 hasAnchor" number="7.1.3.1">
+<h4><span class="header-section-number">7.1.3.1</span> Implementing the Test and Repair Model<a href="modeling-with-processes-and-resources.html#implementing-the-test-and-repair-model" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<p>Before implementing the model, you should prepare by conceptualizing
+the process flow.
+Figure <a href="modeling-with-processes-and-resources.html#fig:TestAndRepairActivityDiagram">7.5</a> illustrates the activity diagram
+for the test and repair system. Parts are created and flow first to the
+diagnostic station where they seize a diagnostic machine while the
+diagnostic activity occurs. Then, the test plan is assigned. The flow
+for the visitation of the parts to the test station is shown with a loop
+back to the transfer time between the stations. It should be clear that
+the activity diagram is representing any of the three test stations.
+After the final test station in the test plan has been visited, the part
+goes to the repair station, where 1 of 3 repair workers is seized for
+the repair activity. After the repair activity, the part leaves the
+system.</p>
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:TestAndRepairActivityDiagram"></span>
+<img src="figures2/ch7/figTestAndRepairActivityDiagram.png" alt="Activity diagram for test and repair system" width="65%" height="65%" />
+<p class="caption">
+Figure 7.5: Activity diagram for test and repair system
+</p>
+</div>
+<p>In many modeling contexts, entities will follow a specific path through
+the system. In a manufacturing job shop, this is often called the
+process plan. In a bus system, this is called a bus route. In the test and
+repair system, this is referred to as the test plan. To model a specify
+path through the system, we need an approach to specify a sequence of stations. A sequence
+consists of an ordered list of <em>steps</em>. Each step must indicate
+the resources and other information associated with the step. Thus, a sequence
+is built by simply providing the list of steps that must be visited. We will use Kotlin lists to hold this information. Let’s take a look at the implementation.</p>
+<p>Because of the requirement that different parts follow different sequences and have different processing times based on what resource they are using and where they are in the sequence, there are many random variables that need to be defined for this model.</p>
+<div class="sourceCode" id="cb173"><pre class="sourceCode kt"><code class="sourceCode kotlin"><span id="cb173-1"><a href="modeling-with-processes-and-resources.html#cb173-1" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> TestAndRepairShop<span class="op">(</span><span class="va">parent</span><span class="op">:</span> <span class="dt">ModelElement</span><span class="op">,</span> <span class="va">name</span><span class="op">:</span> <span class="dt">String</span><span class="op">?</span> <span class="op">=</span> null<span class="op">)</span> <span class="op">:</span> <span class="dt">ProcessModel</span><span class="op">(</span><span class="va">parent</span><span class="op">,</span> <span class="va">name</span><span class="op">)</span> <span class="op">{</span></span>
+<span id="cb173-2"><a href="modeling-with-processes-and-resources.html#cb173-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb173-3"><a href="modeling-with-processes-and-resources.html#cb173-3" aria-hidden="true" tabindex="-1"></a>    <span class="co">// define the random variables</span></span>
+<span id="cb173-4"><a href="modeling-with-processes-and-resources.html#cb173-4" aria-hidden="true" tabindex="-1"></a>    <span class="kw">private</span> <span class="kw">val</span> <span class="va">tba</span> <span class="op">=</span> ExponentialRV<span class="op">(</span><span class="fl">20.0</span><span class="op">)</span></span>
+<span id="cb173-5"><a href="modeling-with-processes-and-resources.html#cb173-5" aria-hidden="true" tabindex="-1"></a>    <span class="kw">private</span> <span class="kw">val</span> <span class="va">t11</span> <span class="op">=</span> RandomVariable<span class="op">(</span><span class="kw">this</span><span class="op">,</span> LognormalRV<span class="op">(</span><span class="fl">20.0</span><span class="op">,</span> <span class="fl">4.1</span><span class="op">))</span></span>
+<span id="cb173-6"><a href="modeling-with-processes-and-resources.html#cb173-6" aria-hidden="true" tabindex="-1"></a>    <span class="kw">private</span> <span class="kw">val</span> <span class="va">t21</span> <span class="op">=</span> RandomVariable<span class="op">(</span><span class="kw">this</span><span class="op">,</span> LognormalRV<span class="op">(</span><span class="fl">12.0</span><span class="op">,</span> <span class="fl">4.2</span><span class="op">))</span></span>
+<span id="cb173-7"><a href="modeling-with-processes-and-resources.html#cb173-7" aria-hidden="true" tabindex="-1"></a>    <span class="kw">private</span> <span class="kw">val</span> <span class="va">t31</span> <span class="op">=</span> RandomVariable<span class="op">(</span><span class="kw">this</span><span class="op">,</span> LognormalRV<span class="op">(</span><span class="fl">18.0</span><span class="op">,</span> <span class="fl">4.3</span><span class="op">))</span></span>
+<span id="cb173-8"><a href="modeling-with-processes-and-resources.html#cb173-8" aria-hidden="true" tabindex="-1"></a>    <span class="kw">private</span> <span class="kw">val</span> <span class="va">t41</span> <span class="op">=</span> RandomVariable<span class="op">(</span><span class="kw">this</span><span class="op">,</span> LognormalRV<span class="op">(</span><span class="fl">16.0</span><span class="op">,</span> <span class="fl">4.0</span><span class="op">))</span></span>
+<span id="cb173-9"><a href="modeling-with-processes-and-resources.html#cb173-9" aria-hidden="true" tabindex="-1"></a>    <span class="kw">private</span> <span class="kw">val</span> <span class="va">t12</span> <span class="op">=</span> RandomVariable<span class="op">(</span><span class="kw">this</span><span class="op">,</span> LognormalRV<span class="op">(</span><span class="fl">12.0</span><span class="op">,</span> <span class="fl">4.0</span><span class="op">))</span></span>
+<span id="cb173-10"><a href="modeling-with-processes-and-resources.html#cb173-10" aria-hidden="true" tabindex="-1"></a>    <span class="kw">private</span> <span class="kw">val</span> <span class="va">t22</span> <span class="op">=</span> RandomVariable<span class="op">(</span><span class="kw">this</span><span class="op">,</span> LognormalRV<span class="op">(</span><span class="fl">15.0</span><span class="op">,</span> <span class="fl">4.0</span><span class="op">))</span></span>
+<span id="cb173-11"><a href="modeling-with-processes-and-resources.html#cb173-11" aria-hidden="true" tabindex="-1"></a>    <span class="kw">private</span> <span class="kw">val</span> <span class="va">t13</span> <span class="op">=</span> RandomVariable<span class="op">(</span><span class="kw">this</span><span class="op">,</span> LognormalRV<span class="op">(</span><span class="fl">18.0</span><span class="op">,</span> <span class="fl">4.2</span><span class="op">))</span></span>
+<span id="cb173-12"><a href="modeling-with-processes-and-resources.html#cb173-12" aria-hidden="true" tabindex="-1"></a>    <span class="kw">private</span> <span class="kw">val</span> <span class="va">t23</span> <span class="op">=</span> RandomVariable<span class="op">(</span><span class="kw">this</span><span class="op">,</span> LognormalRV<span class="op">(</span><span class="fl">14.0</span><span class="op">,</span> <span class="fl">4.4</span><span class="op">))</span></span>
+<span id="cb173-13"><a href="modeling-with-processes-and-resources.html#cb173-13" aria-hidden="true" tabindex="-1"></a>    <span class="kw">private</span> <span class="kw">val</span> <span class="va">t33</span> <span class="op">=</span> RandomVariable<span class="op">(</span><span class="kw">this</span><span class="op">,</span> LognormalRV<span class="op">(</span><span class="fl">12.0</span><span class="op">,</span> <span class="fl">4.3</span><span class="op">))</span></span>
+<span id="cb173-14"><a href="modeling-with-processes-and-resources.html#cb173-14" aria-hidden="true" tabindex="-1"></a>    <span class="kw">private</span> <span class="kw">val</span> <span class="va">t14</span> <span class="op">=</span> RandomVariable<span class="op">(</span><span class="kw">this</span><span class="op">,</span> LognormalRV<span class="op">(</span><span class="fl">24.0</span><span class="op">,</span> <span class="fl">4.0</span><span class="op">))</span></span>
+<span id="cb173-15"><a href="modeling-with-processes-and-resources.html#cb173-15" aria-hidden="true" tabindex="-1"></a>    <span class="kw">private</span> <span class="kw">val</span> <span class="va">t24</span> <span class="op">=</span> RandomVariable<span class="op">(</span><span class="kw">this</span><span class="op">,</span> LognormalRV<span class="op">(</span><span class="fl">30.0</span><span class="op">,</span> <span class="fl">4.0</span><span class="op">))</span></span>
+<span id="cb173-16"><a href="modeling-with-processes-and-resources.html#cb173-16" aria-hidden="true" tabindex="-1"></a>    <span class="kw">private</span> <span class="kw">val</span> <span class="va">r1</span> <span class="op">=</span> RandomVariable<span class="op">(</span><span class="kw">this</span><span class="op">,</span> TriangularRV<span class="op">(</span><span class="fl">30.0</span><span class="op">,</span> <span class="fl">60.0</span><span class="op">,</span> <span class="fl">80.0</span><span class="op">))</span></span>
+<span id="cb173-17"><a href="modeling-with-processes-and-resources.html#cb173-17" aria-hidden="true" tabindex="-1"></a>    <span class="kw">private</span> <span class="kw">val</span> <span class="va">r2</span> <span class="op">=</span> RandomVariable<span class="op">(</span><span class="kw">this</span><span class="op">,</span> TriangularRV<span class="op">(</span><span class="fl">45.0</span><span class="op">,</span> <span class="fl">55.0</span><span class="op">,</span> <span class="fl">70.0</span><span class="op">))</span></span>
+<span id="cb173-18"><a href="modeling-with-processes-and-resources.html#cb173-18" aria-hidden="true" tabindex="-1"></a>    <span class="kw">private</span> <span class="kw">val</span> <span class="va">r3</span> <span class="op">=</span> RandomVariable<span class="op">(</span><span class="kw">this</span><span class="op">,</span> TriangularRV<span class="op">(</span><span class="fl">30.0</span><span class="op">,</span> <span class="fl">40.0</span><span class="op">,</span> <span class="fl">60.0</span><span class="op">))</span></span>
+<span id="cb173-19"><a href="modeling-with-processes-and-resources.html#cb173-19" aria-hidden="true" tabindex="-1"></a>    <span class="kw">private</span> <span class="kw">val</span> <span class="va">r4</span> <span class="op">=</span> RandomVariable<span class="op">(</span><span class="kw">this</span><span class="op">,</span> TriangularRV<span class="op">(</span><span class="fl">35.0</span><span class="op">,</span> <span class="fl">65.0</span><span class="op">,</span> <span class="fl">75.0</span><span class="op">))</span></span>
+<span id="cb173-20"><a href="modeling-with-processes-and-resources.html#cb173-20" aria-hidden="true" tabindex="-1"></a>    <span class="kw">private</span> <span class="kw">val</span> <span class="va">diagnosticTime</span> <span class="op">=</span> RandomVariable<span class="op">(</span><span class="kw">this</span><span class="op">,</span> ExponentialRV<span class="op">(</span><span class="fl">30.0</span><span class="op">))</span></span>
+<span id="cb173-21"><a href="modeling-with-processes-and-resources.html#cb173-21" aria-hidden="true" tabindex="-1"></a>    <span class="kw">private</span> <span class="kw">val</span> <span class="va">moveTime</span> <span class="op">=</span> RandomVariable<span class="op">(</span><span class="kw">this</span><span class="op">,</span> UniformRV<span class="op">(</span><span class="fl">2.0</span><span class="op">,</span> <span class="fl">4.0</span><span class="op">))</span></span></code></pre></div>
+<p>The code uses a naming convention to keep track of which random variable is using on which sequence. For example, <code>t21</code> is the random variable required for the second step of the first test plan and <code>r1</code> is the repair time random variable for the first test plan. For each step of the test plan, we need to know the required resource and the processing time. Thus, we define each of the resources as follows.</p>
+<div class="sourceCode" id="cb174"><pre class="sourceCode kt"><code class="sourceCode kotlin"><span id="cb174-1"><a href="modeling-with-processes-and-resources.html#cb174-1" aria-hidden="true" tabindex="-1"></a>    <span class="co">// define the resources</span></span>
+<span id="cb174-2"><a href="modeling-with-processes-and-resources.html#cb174-2" aria-hidden="true" tabindex="-1"></a>    <span class="kw">private</span> <span class="kw">val</span> <span class="va">myDiagnostics</span><span class="op">:</span> ResourceWithQ <span class="op">=</span> ResourceWithQ<span class="op">(</span><span class="kw">this</span><span class="op">,</span> <span class="st">&quot;Diagnostics&quot;</span><span class="op">,</span> capacity <span class="op">=</span> <span class="dv">2</span><span class="op">)</span></span>
+<span id="cb174-3"><a href="modeling-with-processes-and-resources.html#cb174-3" aria-hidden="true" tabindex="-1"></a>    <span class="kw">private</span> <span class="kw">val</span> <span class="va">myTest1</span><span class="op">:</span> ResourceWithQ <span class="op">=</span> ResourceWithQ<span class="op">(</span><span class="kw">this</span><span class="op">,</span> <span class="st">&quot;Test1&quot;</span><span class="op">)</span></span>
+<span id="cb174-4"><a href="modeling-with-processes-and-resources.html#cb174-4" aria-hidden="true" tabindex="-1"></a>    <span class="kw">private</span> <span class="kw">val</span> <span class="va">myTest2</span><span class="op">:</span> ResourceWithQ <span class="op">=</span> ResourceWithQ<span class="op">(</span><span class="kw">this</span><span class="op">,</span> <span class="st">&quot;Test2&quot;</span><span class="op">)</span></span>
+<span id="cb174-5"><a href="modeling-with-processes-and-resources.html#cb174-5" aria-hidden="true" tabindex="-1"></a>    <span class="kw">private</span> <span class="kw">val</span> <span class="va">myTest3</span><span class="op">:</span> ResourceWithQ <span class="op">=</span> ResourceWithQ<span class="op">(</span><span class="kw">this</span><span class="op">,</span> <span class="st">&quot;Test3&quot;</span><span class="op">)</span></span>
+<span id="cb174-6"><a href="modeling-with-processes-and-resources.html#cb174-6" aria-hidden="true" tabindex="-1"></a>    <span class="kw">private</span> <span class="kw">val</span> <span class="va">myRepair</span><span class="op">:</span> ResourceWithQ <span class="op">=</span> ResourceWithQ<span class="op">(</span><span class="kw">this</span><span class="op">,</span> <span class="st">&quot;Repair&quot;</span><span class="op">,</span> capacity <span class="op">=</span> <span class="dv">3</span><span class="op">)</span></span></code></pre></div>
+<p>Then, we define a class to hold the information for each step and the lists to represent each of the test plans.</p>
+<div class="sourceCode" id="cb175"><pre class="sourceCode kt"><code class="sourceCode kotlin"><span id="cb175-1"><a href="modeling-with-processes-and-resources.html#cb175-1" aria-hidden="true" tabindex="-1"></a>    inner <span class="kw">class</span> TestPlanStep<span class="op">(</span><span class="kw">val</span> <span class="va">resource</span><span class="op">:</span> <span class="dt">ResourceWithQ</span><span class="op">,</span> <span class="kw">val</span> <span class="va">processTime</span><span class="op">:</span> <span class="dt">RandomIfc</span><span class="op">)</span></span>
+<span id="cb175-2"><a href="modeling-with-processes-and-resources.html#cb175-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb175-3"><a href="modeling-with-processes-and-resources.html#cb175-3" aria-hidden="true" tabindex="-1"></a>    // make all the plans</span>
+<span id="cb175-4"><a href="modeling-with-processes-and-resources.html#cb175-4" aria-hidden="true" tabindex="-1"></a>    <span class="kw">private</span> <span class="kw">val</span> testPlan1 = listOf<span class="op">(</span></span>
+<span id="cb175-5"><a href="modeling-with-processes-and-resources.html#cb175-5" aria-hidden="true" tabindex="-1"></a>        <span class="va">TestPlanStep</span>(<span class="va">myTest2</span><span class="op">,</span> <span class="va">t11</span><span class="op">)</span>, TestPlanStep<span class="op">(</span><span class="va">myTest3</span><span class="op">,</span> <span class="va">t21</span><span class="op">)</span>,</span>
+<span id="cb175-6"><a href="modeling-with-processes-and-resources.html#cb175-6" aria-hidden="true" tabindex="-1"></a>        TestPlanStep<span class="op">(</span><span class="va">myTest2</span><span class="op">,</span> <span class="va">t31</span><span class="op">)</span>, TestPlanStep<span class="op">(</span><span class="va">myTest1</span><span class="op">,</span> <span class="va">t41</span><span class="op">)</span>, TestPlanStep<span class="op">(</span><span class="va">myRepair</span><span class="op">,</span> <span class="va">r1</span><span class="op">)</span></span>
+<span id="cb175-7"><a href="modeling-with-processes-and-resources.html#cb175-7" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb175-8"><a href="modeling-with-processes-and-resources.html#cb175-8" aria-hidden="true" tabindex="-1"></a>    <span class="kw">private</span> <span class="kw">val</span> testPlan2 = listOf<span class="op">(</span></span>
+<span id="cb175-9"><a href="modeling-with-processes-and-resources.html#cb175-9" aria-hidden="true" tabindex="-1"></a>        <span class="va">TestPlanStep</span>(<span class="va">myTest3</span><span class="op">,</span> <span class="va">t12</span><span class="op">)</span>,</span>
+<span id="cb175-10"><a href="modeling-with-processes-and-resources.html#cb175-10" aria-hidden="true" tabindex="-1"></a>        TestPlanStep<span class="op">(</span><span class="va">myTest1</span><span class="op">,</span> <span class="va">t22</span><span class="op">)</span>, TestPlanStep<span class="op">(</span><span class="va">myRepair</span><span class="op">,</span> <span class="va">r2</span><span class="op">)</span></span>
+<span id="cb175-11"><a href="modeling-with-processes-and-resources.html#cb175-11" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb175-12"><a href="modeling-with-processes-and-resources.html#cb175-12" aria-hidden="true" tabindex="-1"></a>    <span class="kw">private</span> <span class="kw">val</span> testPlan3 = listOf<span class="op">(</span></span>
+<span id="cb175-13"><a href="modeling-with-processes-and-resources.html#cb175-13" aria-hidden="true" tabindex="-1"></a>        <span class="va">TestPlanStep</span>(<span class="va">myTest1</span><span class="op">,</span> <span class="va">t13</span><span class="op">)</span>, TestPlanStep<span class="op">(</span><span class="va">myTest3</span><span class="op">,</span> <span class="va">t23</span><span class="op">)</span>,</span>
+<span id="cb175-14"><a href="modeling-with-processes-and-resources.html#cb175-14" aria-hidden="true" tabindex="-1"></a>        TestPlanStep<span class="op">(</span><span class="va">myTest1</span><span class="op">,</span> <span class="va">t33</span><span class="op">)</span>, TestPlanStep<span class="op">(</span><span class="va">myRepair</span><span class="op">,</span> <span class="va">r3</span><span class="op">)</span></span>
+<span id="cb175-15"><a href="modeling-with-processes-and-resources.html#cb175-15" aria-hidden="true" tabindex="-1"></a>    )</span>
+<span id="cb175-16"><a href="modeling-with-processes-and-resources.html#cb175-16" aria-hidden="true" tabindex="-1"></a>    <span class="kw">private</span> <span class="kw">val</span> testPlan4 = listOf<span class="op">(</span></span>
+<span id="cb175-17"><a href="modeling-with-processes-and-resources.html#cb175-17" aria-hidden="true" tabindex="-1"></a>        <span class="va">TestPlanStep</span>(<span class="va">myTest2</span><span class="op">,</span> <span class="va">t14</span><span class="op">)</span>,</span>
+<span id="cb175-18"><a href="modeling-with-processes-and-resources.html#cb175-18" aria-hidden="true" tabindex="-1"></a>        TestPlanStep<span class="op">(</span><span class="va">myTest3</span><span class="op">,</span> <span class="va">t24</span><span class="op">)</span>, TestPlanStep<span class="op">(</span><span class="va">myRepair</span><span class="op">,</span> <span class="va">r4</span><span class="op">)</span></span>
+<span id="cb175-19"><a href="modeling-with-processes-and-resources.html#cb175-19" aria-hidden="true" tabindex="-1"></a>    )</span></code></pre></div>
+<p>Now that the test plans are defined, we can develop a method for determining which plan is assigned to each part. The situation description provides a distribution associated with the test plans as provided in Table <a href="modeling-with-processes-and-resources.html#tab:TestDist">7.2</a>. We can use a random list (<code>REmpiricalList</code>) to model this situation.</p>
+<div class="sourceCode" id="cb176"><pre class="sourceCode kt"><code class="sourceCode kotlin"><span id="cb176-1"><a href="modeling-with-processes-and-resources.html#cb176-1" aria-hidden="true" tabindex="-1"></a>    <span class="co">// set up the sequences and the random selection of the plan</span></span>
+<span id="cb176-2"><a href="modeling-with-processes-and-resources.html#cb176-2" aria-hidden="true" tabindex="-1"></a>    <span class="kw">private</span> <span class="kw">val</span> <span class="va">sequences</span> <span class="op">=</span> listOf<span class="op">(</span>testPlan1<span class="op">,</span> testPlan2<span class="op">,</span> testPlan3<span class="op">,</span> testPlan4<span class="op">)</span></span>
+<span id="cb176-3"><a href="modeling-with-processes-and-resources.html#cb176-3" aria-hidden="true" tabindex="-1"></a>    <span class="kw">private</span> <span class="kw">val</span> <span class="va">planCDf</span> <span class="op">=</span> doubleArrayOf<span class="op">(</span><span class="fl">0.25</span><span class="op">,</span> <span class="fl">0.375</span><span class="op">,</span> <span class="fl">0.7</span><span class="op">,</span> <span class="fl">1.0</span><span class="op">)</span></span>
+<span id="cb176-4"><a href="modeling-with-processes-and-resources.html#cb176-4" aria-hidden="true" tabindex="-1"></a>    <span class="kw">private</span> <span class="kw">val</span> <span class="va">planList</span> <span class="op">=</span> REmpiricalList<span class="op">&lt;</span>List<span class="op">&lt;</span>TestPlanStep<span class="op">&gt;&gt;(</span><span class="kw">this</span><span class="op">,</span> sequences<span class="op">,</span> planCDf<span class="op">)</span></span></code></pre></div>
+<p>The test plans, which are lists, are added to another list called <code>sequences,</code> which will be used from which to randomly select the test plan according to the discrete empirical distribution as provided by the CDF across the test plans.</p>
+<p>To capture the performance of the system, we can use <code>Response</code> and <code>TWResponse</code> instances.</p>
+<div class="sourceCode" id="cb177"><pre class="sourceCode kt"><code class="sourceCode kotlin"><span id="cb177-1"><a href="modeling-with-processes-and-resources.html#cb177-1" aria-hidden="true" tabindex="-1"></a>    <span class="kw">private</span> <span class="kw">val</span> <span class="va">wip</span><span class="op">:</span> TWResponse <span class="op">=</span> TWResponse<span class="op">(</span><span class="kw">this</span><span class="op">,</span> <span class="st">&quot;</span><span class="ss">${</span><span class="kw">this</span><span class="op">.</span>name<span class="ss">}</span><span class="st">:NumInSystem&quot;</span><span class="op">)</span></span>
+<span id="cb177-2"><a href="modeling-with-processes-and-resources.html#cb177-2" aria-hidden="true" tabindex="-1"></a>    <span class="kw">val</span> <span class="va">numInSystem</span><span class="op">:</span> TWResponseCIfc</span>
+<span id="cb177-3"><a href="modeling-with-processes-and-resources.html#cb177-3" aria-hidden="true" tabindex="-1"></a>        <span class="kw">get</span><span class="op">()</span> <span class="op">=</span> wip</span>
+<span id="cb177-4"><a href="modeling-with-processes-and-resources.html#cb177-4" aria-hidden="true" tabindex="-1"></a>    <span class="kw">private</span> <span class="kw">val</span> <span class="va">timeInSystem</span><span class="op">:</span> Response <span class="op">=</span> Response<span class="op">(</span><span class="kw">this</span><span class="op">,</span> <span class="st">&quot;</span><span class="ss">${</span><span class="kw">this</span><span class="op">.</span>name<span class="ss">}</span><span class="st">:TimeInSystem&quot;</span><span class="op">)</span></span>
+<span id="cb177-5"><a href="modeling-with-processes-and-resources.html#cb177-5" aria-hidden="true" tabindex="-1"></a>    <span class="kw">val</span> <span class="va">systemTime</span><span class="op">:</span> ResponseCIfc</span>
+<span id="cb177-6"><a href="modeling-with-processes-and-resources.html#cb177-6" aria-hidden="true" tabindex="-1"></a>        <span class="kw">get</span><span class="op">()</span> <span class="op">=</span> timeInSystem</span>
+<span id="cb177-7"><a href="modeling-with-processes-and-resources.html#cb177-7" aria-hidden="true" tabindex="-1"></a>    <span class="kw">private</span> <span class="kw">val</span> <span class="va">myContractLimit</span><span class="op">:</span> IndicatorResponse <span class="op">=</span> IndicatorResponse<span class="op">({</span> x <span class="op">-&gt;</span> x <span class="op">&lt;=</span> <span class="fl">480.0</span> <span class="op">},</span> timeInSystem<span class="op">,</span> <span class="st">&quot;ProbWithinLimit&quot;</span><span class="op">)</span></span>
+<span id="cb177-8"><a href="modeling-with-processes-and-resources.html#cb177-8" aria-hidden="true" tabindex="-1"></a>    <span class="kw">val</span> <span class="va">probWithinLimit</span><span class="op">:</span> ResponseCIfc</span>
+<span id="cb177-9"><a href="modeling-with-processes-and-resources.html#cb177-9" aria-hidden="true" tabindex="-1"></a>        <span class="kw">get</span><span class="op">()</span> <span class="op">=</span> myContractLimit</span></code></pre></div>
+<p>Notice the use of an <code>IndicatorResponse</code> to capture the probability of completing the job within the contract limit. Finally, we can specify the process description for this situation.</p>
+<div class="sourceCode" id="cb178"><pre class="sourceCode kt"><code class="sourceCode kotlin"><span id="cb178-1"><a href="modeling-with-processes-and-resources.html#cb178-1" aria-hidden="true" tabindex="-1"></a>    <span class="kw">private</span> inner <span class="kw">class</span> Part <span class="op">:</span> <span class="dt">Entity</span><span class="op">()</span> <span class="op">{</span></span>
+<span id="cb178-2"><a href="modeling-with-processes-and-resources.html#cb178-2" aria-hidden="true" tabindex="-1"></a>        <span class="kw">val</span> <span class="va">testAndRepairProcess</span><span class="op">:</span> KSLProcess <span class="op">=</span> process <span class="op">{</span></span>
+<span id="cb178-3"><a href="modeling-with-processes-and-resources.html#cb178-3" aria-hidden="true" tabindex="-1"></a>            wip<span class="op">.</span>increment<span class="op">()</span></span>
+<span id="cb178-4"><a href="modeling-with-processes-and-resources.html#cb178-4" aria-hidden="true" tabindex="-1"></a>            timeStamp <span class="op">=</span> time</span>
+<span id="cb178-5"><a href="modeling-with-processes-and-resources.html#cb178-5" aria-hidden="true" tabindex="-1"></a>            <span class="co">//every part goes to diagnostics</span></span>
+<span id="cb178-6"><a href="modeling-with-processes-and-resources.html#cb178-6" aria-hidden="true" tabindex="-1"></a>            use<span class="op">(</span>myDiagnostics<span class="op">,</span> delayDuration <span class="op">=</span> diagnosticTime<span class="op">)</span></span>
+<span id="cb178-7"><a href="modeling-with-processes-and-resources.html#cb178-7" aria-hidden="true" tabindex="-1"></a>            <span class="co">// determine the test plan</span></span>
+<span id="cb178-8"><a href="modeling-with-processes-and-resources.html#cb178-8" aria-hidden="true" tabindex="-1"></a>            <span class="kw">val</span> <span class="va">plan</span><span class="op">:</span> List<span class="op">&lt;</span>TestPlanStep<span class="op">&gt;</span> <span class="op">=</span> planList<span class="op">.</span>element</span>
+<span id="cb178-9"><a href="modeling-with-processes-and-resources.html#cb178-9" aria-hidden="true" tabindex="-1"></a>            <span class="co">// get the iterator</span></span>
+<span id="cb178-10"><a href="modeling-with-processes-and-resources.html#cb178-10" aria-hidden="true" tabindex="-1"></a>            <span class="kw">val</span> <span class="va">itr</span> <span class="op">=</span> plan<span class="op">.</span>iterator<span class="op">()</span></span>
+<span id="cb178-11"><a href="modeling-with-processes-and-resources.html#cb178-11" aria-hidden="true" tabindex="-1"></a>            <span class="co">// iterate through the plan</span></span>
+<span id="cb178-12"><a href="modeling-with-processes-and-resources.html#cb178-12" aria-hidden="true" tabindex="-1"></a>            <span class="cf">while</span> <span class="op">(</span>itr<span class="op">.</span>hasNext<span class="op">())</span> <span class="op">{</span></span>
+<span id="cb178-13"><a href="modeling-with-processes-and-resources.html#cb178-13" aria-hidden="true" tabindex="-1"></a>                <span class="kw">val</span> <span class="va">tp</span> <span class="op">=</span> itr<span class="op">.</span>next<span class="op">()</span></span>
+<span id="cb178-14"><a href="modeling-with-processes-and-resources.html#cb178-14" aria-hidden="true" tabindex="-1"></a>                use<span class="op">(</span>tp<span class="op">.</span>resource<span class="op">,</span> delayDuration <span class="op">=</span> tp<span class="op">.</span>processTime<span class="op">)</span></span>
+<span id="cb178-15"><a href="modeling-with-processes-and-resources.html#cb178-15" aria-hidden="true" tabindex="-1"></a>                <span class="cf">if</span> <span class="op">(</span>tp<span class="op">.</span>resource <span class="op">!=</span> myRepair<span class="op">)</span> <span class="op">{</span></span>
+<span id="cb178-16"><a href="modeling-with-processes-and-resources.html#cb178-16" aria-hidden="true" tabindex="-1"></a>                    delay<span class="op">(</span>moveTime<span class="op">)</span></span>
+<span id="cb178-17"><a href="modeling-with-processes-and-resources.html#cb178-17" aria-hidden="true" tabindex="-1"></a>                <span class="op">}</span></span>
+<span id="cb178-18"><a href="modeling-with-processes-and-resources.html#cb178-18" aria-hidden="true" tabindex="-1"></a>            <span class="op">}</span></span>
+<span id="cb178-19"><a href="modeling-with-processes-and-resources.html#cb178-19" aria-hidden="true" tabindex="-1"></a>            timeInSystem<span class="op">.</span>value <span class="op">=</span> time <span class="op">-</span> timeStamp</span>
+<span id="cb178-20"><a href="modeling-with-processes-and-resources.html#cb178-20" aria-hidden="true" tabindex="-1"></a>            wip<span class="op">.</span>decrement<span class="op">()</span></span>
+<span id="cb178-21"><a href="modeling-with-processes-and-resources.html#cb178-21" aria-hidden="true" tabindex="-1"></a>        <span class="op">}</span></span>
+<span id="cb178-22"><a href="modeling-with-processes-and-resources.html#cb178-22" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span></code></pre></div>
+<p>Notice how the KSL process constructs and the Kotlin language combine to implement a fairly complex situation within a short and compact process description. The critical item to note is the use of an instance of an iterator within the process. The variable <code>plan</code> is actually randomly generated using the <code>planList</code> discrete empirical list. Then, an iterator for this list is retrieved. The iterator is then used to march through the steps of the assigned test plan within a <code>while</code> loop. Notice that we check if we are not at the repair machine. If we are not, we incur the delay to move to the next machine in the test plan. The process also includes the code to collect statistics on the part as it moves through the process. To setup to execute this code, we specify the run length and the number of replications.</p>
+<div class="sourceCode" id="cb179"><pre class="sourceCode kt"><code class="sourceCode kotlin"><span id="cb179-1"><a href="modeling-with-processes-and-resources.html#cb179-1" aria-hidden="true" tabindex="-1"></a><span class="kw">fun</span> <span class="fu">main</span><span class="op">()</span> <span class="op">{</span></span>
+<span id="cb179-2"><a href="modeling-with-processes-and-resources.html#cb179-2" aria-hidden="true" tabindex="-1"></a>    <span class="kw">val</span> <span class="va">m</span> <span class="op">=</span> Model<span class="op">()</span></span>
+<span id="cb179-3"><a href="modeling-with-processes-and-resources.html#cb179-3" aria-hidden="true" tabindex="-1"></a>    <span class="kw">val</span> <span class="va">tq</span> <span class="op">=</span> TestAndRepairShop<span class="op">(</span>m<span class="op">,</span> name <span class="op">=</span> <span class="st">&quot;TestAndRepair&quot;</span><span class="op">)</span></span>
+<span id="cb179-4"><a href="modeling-with-processes-and-resources.html#cb179-4" aria-hidden="true" tabindex="-1"></a>    m<span class="op">.</span>numberOfReplications <span class="op">=</span> <span class="dv">10</span></span>
+<span id="cb179-5"><a href="modeling-with-processes-and-resources.html#cb179-5" aria-hidden="true" tabindex="-1"></a>    m<span class="op">.</span>lengthOfReplication <span class="op">=</span> <span class="fl">52.0</span><span class="op">*</span> <span class="fl">5.0</span><span class="op">*</span><span class="fl">2.0</span><span class="op">*</span><span class="fl">480.0</span></span>
+<span id="cb179-6"><a href="modeling-with-processes-and-resources.html#cb179-6" aria-hidden="true" tabindex="-1"></a>    m<span class="op">.</span>simulate<span class="op">()</span></span>
+<span id="cb179-7"><a href="modeling-with-processes-and-resources.html#cb179-7" aria-hidden="true" tabindex="-1"></a>    m<span class="op">.</span>print<span class="op">()</span></span>
+<span id="cb179-8"><a href="modeling-with-processes-and-resources.html#cb179-8" aria-hidden="true" tabindex="-1"></a>    <span class="kw">val</span> <span class="va">r</span> <span class="op">=</span> m<span class="op">.</span>simulationReporter</span>
+<span id="cb179-9"><a href="modeling-with-processes-and-resources.html#cb179-9" aria-hidden="true" tabindex="-1"></a>    r<span class="op">.</span>writeHalfWidthSummaryReportAsMarkDown<span class="op">(</span>KSL<span class="op">.</span><span class="kw">out</span><span class="op">,</span> df <span class="op">=</span> MarkDown<span class="op">.</span>D3FORMAT<span class="op">)</span></span>
+<span id="cb179-10"><a href="modeling-with-processes-and-resources.html#cb179-10" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
+<p>The output is quite lengthy so the code captures it as a Markdown table.</p>
+<table>
+<thead>
+<tr class="header">
+<th align="center">Name</th>
+<th align="center">Count</th>
+<th align="center">Average</th>
+<th align="center">Half-Width</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="center">Diagnostics:InstantaneousUtil</td>
+<td align="center">10</td>
+<td align="center">0.75</td>
+<td align="center">0.009</td>
+</tr>
+<tr class="even">
+<td align="center">Diagnostics:NumBusyUnits</td>
+<td align="center">10</td>
+<td align="center">1.5</td>
+<td align="center">0.018</td>
+</tr>
+<tr class="odd">
+<td align="center">Diagnostics:ScheduledUtil</td>
+<td align="center">10</td>
+<td align="center">0.75</td>
+<td align="center">0.009</td>
+</tr>
+<tr class="even">
+<td align="center">Diagnostics:Q:NumInQ</td>
+<td align="center">10</td>
+<td align="center">2.017</td>
+<td align="center">0.19</td>
+</tr>
+<tr class="odd">
+<td align="center">Diagnostics:Q:TimeInQ</td>
+<td align="center">10</td>
+<td align="center">40.366</td>
+<td align="center">3.672</td>
+</tr>
+<tr class="even">
+<td align="center">Test1:InstantaneousUtil</td>
+<td align="center">10</td>
+<td align="center">0.78</td>
+<td align="center">0.004</td>
+</tr>
+<tr class="odd">
+<td align="center">Test1:NumBusyUnits</td>
+<td align="center">10</td>
+<td align="center">0.78</td>
+<td align="center">0.004</td>
+</tr>
+<tr class="even">
+<td align="center">Test1:ScheduledUtil</td>
+<td align="center">10</td>
+<td align="center">0.78</td>
+<td align="center">0.004</td>
+</tr>
+<tr class="odd">
+<td align="center">Test1:Q:NumInQ</td>
+<td align="center">10</td>
+<td align="center">1.454</td>
+<td align="center">0.099</td>
+</tr>
+<tr class="even">
+<td align="center">Test1:Q:TimeInQ</td>
+<td align="center">10</td>
+<td align="center">28.375</td>
+<td align="center">1.819</td>
+</tr>
+<tr class="odd">
+<td align="center">Test2:InstantaneousUtil</td>
+<td align="center">10</td>
+<td align="center">0.834</td>
+<td align="center">0.007</td>
+</tr>
+<tr class="even">
+<td align="center">Test2:NumBusyUnits</td>
+<td align="center">10</td>
+<td align="center">0.834</td>
+<td align="center">0.007</td>
+</tr>
+<tr class="odd">
+<td align="center">Test2:ScheduledUtil</td>
+<td align="center">10</td>
+<td align="center">0.834</td>
+<td align="center">0.007</td>
+</tr>
+<tr class="even">
+<td align="center">Test2:Q:NumInQ</td>
+<td align="center">10</td>
+<td align="center">2.253</td>
+<td align="center">0.181</td>
+</tr>
+<tr class="odd">
+<td align="center">Test2:Q:TimeInQ</td>
+<td align="center">10</td>
+<td align="center">56.326</td>
+<td align="center">4.057</td>
+</tr>
+<tr class="even">
+<td align="center">Test3:InstantaneousUtil</td>
+<td align="center">10</td>
+<td align="center">0.901</td>
+<td align="center">0.006</td>
+</tr>
+<tr class="odd">
+<td align="center">Test3:NumBusyUnits</td>
+<td align="center">10</td>
+<td align="center">0.901</td>
+<td align="center">0.006</td>
+</tr>
+<tr class="even">
+<td align="center">Test3:ScheduledUtil</td>
+<td align="center">10</td>
+<td align="center">0.901</td>
+<td align="center">0.006</td>
+</tr>
+<tr class="odd">
+<td align="center">Test3:Q:NumInQ</td>
+<td align="center">10</td>
+<td align="center">3.76</td>
+<td align="center">0.569</td>
+</tr>
+<tr class="even">
+<td align="center">Test3:Q:TimeInQ</td>
+<td align="center">10</td>
+<td align="center">75.238</td>
+<td align="center">11.03</td>
+</tr>
+<tr class="odd">
+<td align="center">Repair:InstantaneousUtil</td>
+<td align="center">10</td>
+<td align="center">0.877</td>
+<td align="center">0.005</td>
+</tr>
+<tr class="even">
+<td align="center">Repair:NumBusyUnits</td>
+<td align="center">10</td>
+<td align="center">2.632</td>
+<td align="center">0.014</td>
+</tr>
+<tr class="odd">
+<td align="center">Repair:ScheduledUtil</td>
+<td align="center">10</td>
+<td align="center">0.877</td>
+<td align="center">0.005</td>
+</tr>
+<tr class="even">
+<td align="center">Repair:Q:NumInQ</td>
+<td align="center">10</td>
+<td align="center">1.151</td>
+<td align="center">0.138</td>
+</tr>
+<tr class="odd">
+<td align="center">Repair:Q:TimeInQ</td>
+<td align="center">10</td>
+<td align="center">23.06</td>
+<td align="center">2.681</td>
+</tr>
+<tr class="even">
+<td align="center">TestAndRepair:NumInSystem</td>
+<td align="center">10</td>
+<td align="center">17.703</td>
+<td align="center">1.005</td>
+</tr>
+<tr class="odd">
+<td align="center">TestAndRepair:TimeInSystem</td>
+<td align="center">10</td>
+<td align="center">354.6</td>
+<td align="center">18.447</td>
+</tr>
+<tr class="even">
+<td align="center">ProbWithinLimit</td>
+<td align="center">10</td>
+<td align="center">0.814</td>
+<td align="center">0.037</td>
+</tr>
+</tbody>
+</table>
+<p>It looks like test machine 3 and the repair station have the highest estimated utilization values. An increase in the amount of work to the test and repair shop may have issues at those stations. The reader is asked to explore the performance of this situation in the exercises.</p>
+<p>In the next section, we examine an even more complex situation involving systems that have parameters or distributions that depend on time.</p>
+</div>
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="ch7AdvModeling.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="modeling-non-stationary-systems.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"whatsapp": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": null,
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": ["KSLBook.pdf"],
+"search": {
+"engine": "fuse",
+"options": null
+},
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/latest.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>

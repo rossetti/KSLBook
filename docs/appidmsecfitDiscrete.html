@@ -1,0 +1,1643 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>B.3 Fitting Discrete Distributions | Simulation Modeling using the Kotlin Simulation Library (KSL)</title>
+  <meta name="description" content="A book that illustrates the basics of using the KSL. The output format for this book is bookdown::gitbook." />
+  <meta name="generator" content="bookdown 0.30 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="B.3 Fitting Discrete Distributions | Simulation Modeling using the Kotlin Simulation Library (KSL)" />
+  <meta property="og:type" content="book" />
+  
+  <meta property="og:description" content="A book that illustrates the basics of using the KSL. The output format for this book is bookdown::gitbook." />
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="B.3 Fitting Discrete Distributions | Simulation Modeling using the Kotlin Simulation Library (KSL)" />
+  
+  <meta name="twitter:description" content="A book that illustrates the basics of using the KSL. The output format for this book is bookdown::gitbook." />
+  
+
+<meta name="author" content="Manuel D. Rossetti" />
+
+
+<meta name="date" content="2023-01-02" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="appidmsecMDD.html"/>
+<link rel="next" href="appidmsecMCD.html"/>
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
+<link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
+<script src="libs/kePrint-0.0.1/kePrint.js"></script>
+<link href="libs/lightable-0.0.1/lightable.css" rel="stylesheet" />
+
+
+<style type="text/css">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { color: #008000; } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { color: #008000; font-weight: bold; } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<style type="text/css">
+/* Used with Pandoc 2.11+ new --citeproc when CSL is used */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+}
+.hanging div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}
+</style>
+
+<link rel="stylesheet" href="css/style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">Simulation Modeling using the Kotlin Simulation Library</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Preface</a>
+<ul>
+<li class="chapter" data-level="" data-path="release-history.html"><a href="release-history.html"><i class="fa fa-check"></i>Release History</a></li>
+<li class="chapter" data-level="" data-path="ksl-project-page.html"><a href="ksl-project-page.html"><i class="fa fa-check"></i>KSL Project Page</a></li>
+<li class="chapter" data-level="" data-path="book-support-files.html"><a href="book-support-files.html"><i class="fa fa-check"></i>Book Support Files</a></li>
+<li class="chapter" data-level="" data-path="acknowledgments.html"><a href="acknowledgments.html"><i class="fa fa-check"></i>Acknowledgments</a></li>
+<li class="chapter" data-level="" data-path="intended-audience.html"><a href="intended-audience.html"><i class="fa fa-check"></i>Intended Audience</a></li>
+<li class="chapter" data-level="" data-path="organization-of-the-book.html"><a href="organization-of-the-book.html"><i class="fa fa-check"></i>Organization of the Book</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="about-the-author.html"><a href="about-the-author.html"><i class="fa fa-check"></i>About the Author</a></li>
+<li class="chapter" data-level="1" data-path="ch1.html"><a href="ch1.html"><i class="fa fa-check"></i><b>1</b> Simulation Modeling</a>
+<ul>
+<li class="chapter" data-level="1.1" data-path="simulation-modeling.html"><a href="simulation-modeling.html"><i class="fa fa-check"></i><b>1.1</b> Simulation Modeling</a></li>
+<li class="chapter" data-level="1.2" data-path="why-simulate.html"><a href="why-simulate.html"><i class="fa fa-check"></i><b>1.2</b> Why Simulate?</a></li>
+<li class="chapter" data-level="1.3" data-path="types-of-systems-and-simulation-models.html"><a href="types-of-systems-and-simulation-models.html"><i class="fa fa-check"></i><b>1.3</b> Types of Systems and Simulation Models</a></li>
+<li class="chapter" data-level="1.4" data-path="simulation-descriptive-or-prescriptive-modeling.html"><a href="simulation-descriptive-or-prescriptive-modeling.html"><i class="fa fa-check"></i><b>1.4</b> Simulation: Descriptive or Prescriptive Modeling?</a></li>
+<li class="chapter" data-level="1.5" data-path="randomness-in-simulation.html"><a href="randomness-in-simulation.html"><i class="fa fa-check"></i><b>1.5</b> Randomness in Simulation</a></li>
+<li class="chapter" data-level="1.6" data-path="simulation-languages.html"><a href="simulation-languages.html"><i class="fa fa-check"></i><b>1.6</b> Simulation Languages</a></li>
+<li class="chapter" data-level="1.7" data-path="ch1:sec:simMeth.html"><a href="ch1:sec:simMeth.html"><i class="fa fa-check"></i><b>1.7</b> Simulation Methodology</a></li>
+<li class="chapter" data-level="1.8" data-path="overview-of-the-kotline-simulation-library.html"><a href="overview-of-the-kotline-simulation-library.html"><i class="fa fa-check"></i><b>1.8</b> Overview of the Kotline Simulation Library</a></li>
+<li class="chapter" data-level="1.9" data-path="exercises.html"><a href="exercises.html"><i class="fa fa-check"></i><b>1.9</b> Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="ch2rng.html"><a href="ch2rng.html"><i class="fa fa-check"></i><b>2</b> Modeling Randomness</a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="ch2generator.html"><a href="ch2generator.html"><i class="fa fa-check"></i><b>2.1</b> Random Number Generator</a>
+<ul>
+<li class="chapter" data-level="2.1.1" data-path="ch2generator.html"><a href="ch2generator.html#ch2randompkg"><i class="fa fa-check"></i><b>2.1.1</b> Random Package</a></li>
+<li class="chapter" data-level="2.1.2" data-path="ch2generator.html"><a href="ch2generator.html#ch2creatingStreams"><i class="fa fa-check"></i><b>2.1.2</b> Creating and Using Streams</a></li>
+<li class="chapter" data-level="2.1.3" data-path="ch2generator.html"><a href="ch2generator.html#ch2crn"><i class="fa fa-check"></i><b>2.1.3</b> Common Random Numbers</a></li>
+<li class="chapter" data-level="2.1.4" data-path="ch2generator.html"><a href="ch2generator.html#ch2antitheticStreams"><i class="fa fa-check"></i><b>2.1.4</b> Creating and Using Antithetic Streams</a></li>
+<li class="chapter" data-level="2.1.5" data-path="ch2generator.html"><a href="ch2generator.html#ch2rnFAQ"><i class="fa fa-check"></i><b>2.1.5</b> Frequently Asked Questions about Random Numbers</a></li>
+</ul></li>
+<li class="chapter" data-level="2.2" data-path="rvg.html"><a href="rvg.html"><i class="fa fa-check"></i><b>2.2</b> Random Variate Generation</a>
+<ul>
+<li class="chapter" data-level="2.2.1" data-path="rvg.html"><a href="rvg.html#rvg_dists"><i class="fa fa-check"></i><b>2.2.1</b> Continuous and Discrete Random Variables</a></li>
+<li class="chapter" data-level="2.2.2" data-path="rvg.html"><a href="rvg.html#rvg_algo"><i class="fa fa-check"></i><b>2.2.2</b> Overview of Generation Algorithms</a></li>
+<li class="chapter" data-level="2.2.3" data-path="rvg.html"><a href="rvg.html#rvg_use"><i class="fa fa-check"></i><b>2.2.3</b> Creating and Using Random Variables</a></li>
+<li class="chapter" data-level="2.2.4" data-path="rvg.html"><a href="rvg.html#functions-of-random-variables"><i class="fa fa-check"></i><b>2.2.4</b> Functions of Random Variables</a></li>
+</ul></li>
+<li class="chapter" data-level="2.3" data-path="probability-distribution-models.html"><a href="probability-distribution-models.html"><i class="fa fa-check"></i><b>2.3</b> Probability Distribution Models</a></li>
+<li class="chapter" data-level="2.4" data-path="summary.html"><a href="summary.html"><i class="fa fa-check"></i><b>2.4</b> Summary</a></li>
+<li class="chapter" data-level="2.5" data-path="exercises-1.html"><a href="exercises-1.html"><i class="fa fa-check"></i><b>2.5</b> Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="mcm.html"><a href="mcm.html"><i class="fa fa-check"></i><b>3</b> Monte Carlo Methods</a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="kslStatistics.html"><a href="kslStatistics.html"><i class="fa fa-check"></i><b>3.1</b> Collecting Statistics</a>
+<ul>
+<li class="chapter" data-level="3.1.1" data-path="kslStatistics.html"><a href="kslStatistics.html#creating-and-using-a-statistic"><i class="fa fa-check"></i><b>3.1.1</b> Creating and Using a Statistic</a></li>
+<li class="chapter" data-level="3.1.2" data-path="kslStatistics.html"><a href="kslStatistics.html#histograms-and-frequencies"><i class="fa fa-check"></i><b>3.1.2</b> Histograms and Frequencies</a></li>
+</ul></li>
+<li class="chapter" data-level="3.2" data-path="ch3batchStats.html"><a href="ch3batchStats.html"><i class="fa fa-check"></i><b>3.2</b> Batch Statistics</a></li>
+<li class="chapter" data-level="3.3" data-path="ssMC.html"><a href="ssMC.html"><i class="fa fa-check"></i><b>3.3</b> Simple Monte Carlo Integration</a></li>
+<li class="chapter" data-level="3.4" data-path="ch3StatReview.html"><a href="ch3StatReview.html"><i class="fa fa-check"></i><b>3.4</b> Review of Statistical Concepts</a>
+<ul>
+<li class="chapter" data-level="3.4.1" data-path="ch3StatReview.html"><a href="ch3StatReview.html#point-estimates-and-confidence-intervals"><i class="fa fa-check"></i><b>3.4.1</b> Point Estimates and Confidence Intervals</a></li>
+<li class="chapter" data-level="3.4.2" data-path="ch3StatReview.html"><a href="ch3StatReview.html#ch3SampleSize"><i class="fa fa-check"></i><b>3.4.2</b> Sample Size Determination</a></li>
+<li class="chapter" data-level="3.4.3" data-path="ch3StatReview.html"><a href="ch3StatReview.html#determining-the-sample-size-for-a-monte-carlo-simulation-experiment"><i class="fa fa-check"></i><b>3.4.3</b> Determining the Sample Size for a Monte Carlo Simulation Experiment</a></li>
+</ul></li>
+<li class="chapter" data-level="3.5" data-path="craps.html"><a href="craps.html"><i class="fa fa-check"></i><b>3.5</b> Simulating the Game of Craps</a></li>
+<li class="chapter" data-level="3.6" data-path="the-news-vendor-problem.html"><a href="the-news-vendor-problem.html"><i class="fa fa-check"></i><b>3.6</b> The News Vendor Problem</a></li>
+<li class="chapter" data-level="3.7" data-path="monte-carlo-experiments.html"><a href="monte-carlo-experiments.html"><i class="fa fa-check"></i><b>3.7</b> Monte-Carlo Experiments</a></li>
+<li class="chapter" data-level="3.8" data-path="summary-1.html"><a href="summary-1.html"><i class="fa fa-check"></i><b>3.8</b> Summary</a></li>
+<li class="chapter" data-level="3.9" data-path="exercises-2.html"><a href="exercises-2.html"><i class="fa fa-check"></i><b>3.9</b> Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="introDEDS.html"><a href="introDEDS.html"><i class="fa fa-check"></i><b>4</b> Introduction to Discrete Event Modeling</a>
+<ul>
+<li class="chapter" data-level="4.1" data-path="introDEDSIntro.html"><a href="introDEDSIntro.html"><i class="fa fa-check"></i><b>4.1</b> Introduction</a></li>
+<li class="chapter" data-level="4.2" data-path="introDEDSdeds.html"><a href="introDEDSdeds.html"><i class="fa fa-check"></i><b>4.2</b> Discrete-Event Dynamic Systems</a></li>
+<li class="chapter" data-level="4.3" data-path="HowDEDSClockWorks.html"><a href="HowDEDSClockWorks.html"><i class="fa fa-check"></i><b>4.3</b> How the Discrete-Event Clock Works</a></li>
+<li class="chapter" data-level="4.4" data-path="QHandExample.html"><a href="QHandExample.html"><i class="fa fa-check"></i><b>4.4</b> Simulating a Queueing System By Hand</a></li>
+<li class="chapter" data-level="4.5" data-path="introDEDSdedsKSL.html"><a href="introDEDSdedsKSL.html"><i class="fa fa-check"></i><b>4.5</b> Modeling DEDS in the KSL</a>
+<ul>
+<li class="chapter" data-level="4.5.1" data-path="introDEDSdedsKSL.html"><a href="introDEDSdedsKSL.html#event-scheduling"><i class="fa fa-check"></i><b>4.5.1</b> Event Scheduling</a></li>
+<li class="chapter" data-level="4.5.2" data-path="introDEDSdedsKSL.html"><a href="introDEDSdedsKSL.html#introDEDSschedExamples"><i class="fa fa-check"></i><b>4.5.2</b> Simple Event Scheduling Examples</a></li>
+<li class="chapter" data-level="4.5.3" data-path="introDEDSdedsKSL.html"><a href="introDEDSdedsKSL.html#introDEDSUpDown"><i class="fa fa-check"></i><b>4.5.3</b> Up and Down Component Example</a></li>
+<li class="chapter" data-level="4.5.4" data-path="introDEDSdedsKSL.html"><a href="introDEDSdedsKSL.html#introDEDSPharmacy"><i class="fa fa-check"></i><b>4.5.4</b> Modeling a Simple Queueing System</a></li>
+<li class="chapter" data-level="4.5.5" data-path="introDEDSdedsKSL.html"><a href="introDEDSdedsKSL.html#more-details-about-the-pharmacy-model-implementation"><i class="fa fa-check"></i><b>4.5.5</b> More Details About the Pharmacy Model Implementation</a></li>
+</ul></li>
+<li class="chapter" data-level="4.6" data-path="enhancing-the-drive-through-pharmacy-model.html"><a href="enhancing-the-drive-through-pharmacy-model.html"><i class="fa fa-check"></i><b>4.6</b> Enhancing the Drive Through Pharmacy Model</a></li>
+<li class="chapter" data-level="4.7" data-path="introDEDSSummary.html"><a href="introDEDSSummary.html"><i class="fa fa-check"></i><b>4.7</b> Summary</a></li>
+<li class="chapter" data-level="4.8" data-path="exercises-3.html"><a href="exercises-3.html"><i class="fa fa-check"></i><b>4.8</b> Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="simoa.html"><a href="simoa.html"><i class="fa fa-check"></i><b>5</b> Analyzing Simulation Output</a>
+<ul>
+<li class="chapter" data-level="5.1" data-path="simoadatatypes.html"><a href="simoadatatypes.html"><i class="fa fa-check"></i><b>5.1</b> Types of Statistical Variables</a></li>
+<li class="chapter" data-level="5.2" data-path="simoasimtypes.html"><a href="simoasimtypes.html"><i class="fa fa-check"></i><b>5.2</b> Types of Simulation With Respect To Output Analysis</a></li>
+<li class="chapter" data-level="5.3" data-path="simoafinhorizon.html"><a href="simoafinhorizon.html"><i class="fa fa-check"></i><b>5.3</b> Analysis of Finite Horizon Simulations</a></li>
+<li class="chapter" data-level="5.4" data-path="simoafinhorizonex.html"><a href="simoafinhorizonex.html"><i class="fa fa-check"></i><b>5.4</b> Capturing Output for a Simple Finite Horizon Simulation</a>
+<ul>
+<li class="chapter" data-level="5.4.1" data-path="simoafinhorizonex.html"><a href="simoafinhorizonex.html#ksl-functionality-for-capturing-statistical-results"><i class="fa fa-check"></i><b>5.4.1</b> KSL Functionality for Capturing Statistical Results</a></li>
+<li class="chapter" data-level="5.4.2" data-path="simoafinhorizonex.html"><a href="simoafinhorizonex.html#additional-remarks"><i class="fa fa-check"></i><b>5.4.2</b> Additional Remarks</a></li>
+<li class="chapter" data-level="5.4.3" data-path="simoafinhorizonex.html"><a href="simoafinhorizonex.html#querying-the-ksl-database"><i class="fa fa-check"></i><b>5.4.3</b> Querying the KSL Database</a></li>
+</ul></li>
+<li class="chapter" data-level="5.5" data-path="simoaseqsampling.html"><a href="simoaseqsampling.html"><i class="fa fa-check"></i><b>5.5</b> Sequential Sampling for Finite Horizon Simulations</a></li>
+<li class="chapter" data-level="5.6" data-path="simoainfhorizon.html"><a href="simoainfhorizon.html"><i class="fa fa-check"></i><b>5.6</b> Analysis of Infinite Horizon Simulations</a>
+<ul>
+<li class="chapter" data-level="5.6.1" data-path="simoainfhorizon.html"><a href="simoainfhorizon.html#simoainfhorizoninitialbias"><i class="fa fa-check"></i><b>5.6.1</b> Assessing the Effect of Initial Conditions</a></li>
+<li class="chapter" data-level="5.6.2" data-path="simoainfhorizon.html"><a href="simoainfhorizon.html#simoainfhorizonrepDeletion"><i class="fa fa-check"></i><b>5.6.2</b> Performing the Method of Replication-Deletion</a></li>
+<li class="chapter" data-level="5.6.3" data-path="simoainfhorizon.html"><a href="simoainfhorizon.html#simoainfhorizonbatchmeans"><i class="fa fa-check"></i><b>5.6.3</b> The Method of Batch Means</a></li>
+<li class="chapter" data-level="5.6.4" data-path="simoainfhorizon.html"><a href="simoainfhorizon.html#simoainfhorizonjslbatching"><i class="fa fa-check"></i><b>5.6.4</b> Performing the Method of Batch Means</a></li>
+</ul></li>
+<li class="chapter" data-level="5.7" data-path="simoacomparingSystems.html"><a href="simoacomparingSystems.html"><i class="fa fa-check"></i><b>5.7</b> Comparing System Configurations</a>
+<ul>
+<li class="chapter" data-level="5.7.1" data-path="simoacomparingSystems.html"><a href="simoacomparingSystems.html#simoacomparingSystems:two"><i class="fa fa-check"></i><b>5.7.1</b> Comparing Two Systems</a></li>
+<li class="chapter" data-level="5.7.2" data-path="simoacomparingSystems.html"><a href="simoacomparingSystems.html#simoacomparingSystemsMCB"><i class="fa fa-check"></i><b>5.7.2</b> Multiple Comparisons</a></li>
+</ul></li>
+<li class="chapter" data-level="5.8" data-path="simoasummary.html"><a href="simoasummary.html"><i class="fa fa-check"></i><b>5.8</b> Summary</a></li>
+<li class="chapter" data-level="5.9" data-path="exercises-4.html"><a href="exercises-4.html"><i class="fa fa-check"></i><b>5.9</b> Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="processview.html"><a href="processview.html"><i class="fa fa-check"></i><b>6</b> Process View Modeling Using the KSL</a>
+<ul>
+<li class="chapter" data-level="6.1" data-path="ch6Entities.html"><a href="ch6Entities.html"><i class="fa fa-check"></i><b>6.1</b> What are Entities?</a></li>
+<li class="chapter" data-level="6.2" data-path="pvIntro.html"><a href="pvIntro.html"><i class="fa fa-check"></i><b>6.2</b> The Process View</a></li>
+<li class="chapter" data-level="6.3" data-path="understanding-ksl-processes-and-entities.html"><a href="understanding-ksl-processes-and-entities.html"><i class="fa fa-check"></i><b>6.3</b> Understanding KSL Processes and Entities</a></li>
+<li class="chapter" data-level="6.4" data-path="examples-of-process-modeling.html"><a href="examples-of-process-modeling.html"><i class="fa fa-check"></i><b>6.4</b> Examples of Process Modeling</a></li>
+<li class="chapter" data-level="6.5" data-path="modeling-a-stem-career-mixer.html"><a href="modeling-a-stem-career-mixer.html"><i class="fa fa-check"></i><b>6.5</b> Modeling a STEM Career Mixer</a>
+<ul>
+<li class="chapter" data-level="6.5.1" data-path="modeling-a-stem-career-mixer.html"><a href="modeling-a-stem-career-mixer.html#conceptualizing-the-system"><i class="fa fa-check"></i><b>6.5.1</b> Conceptualizing the System</a></li>
+<li class="chapter" data-level="6.5.2" data-path="modeling-a-stem-career-mixer.html"><a href="modeling-a-stem-career-mixer.html#implementing-the-stem-mixer-model"><i class="fa fa-check"></i><b>6.5.2</b> Implementing the STEM Mixer Model</a></li>
+</ul></li>
+<li class="chapter" data-level="6.6" data-path="the-tie-dye-t-shirt-model.html"><a href="the-tie-dye-t-shirt-model.html"><i class="fa fa-check"></i><b>6.6</b> The Tie-Dye T-Shirt Model</a>
+<ul>
+<li class="chapter" data-level="6.6.1" data-path="the-tie-dye-t-shirt-model.html"><a href="the-tie-dye-t-shirt-model.html#ch4:TieDyeTShirtsSub1"><i class="fa fa-check"></i><b>6.6.1</b> Implementing the Tie-Dye T-Shirt Model</a></li>
+</ul></li>
+<li class="chapter" data-level="6.7" data-path="summary-2.html"><a href="summary-2.html"><i class="fa fa-check"></i><b>6.7</b> Summary</a></li>
+<li class="chapter" data-level="6.8" data-path="exercises-5.html"><a href="exercises-5.html"><i class="fa fa-check"></i><b>6.8</b> Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="ch7AdvModeling.html"><a href="ch7AdvModeling.html"><i class="fa fa-check"></i><b>7</b> Advanced Event and Process View Modeling</a>
+<ul>
+<li class="chapter" data-level="7.1" data-path="modeling-with-processes-and-resources.html"><a href="modeling-with-processes-and-resources.html"><i class="fa fa-check"></i><b>7.1</b> Modeling with Processes and Resources</a>
+<ul>
+<li class="chapter" data-level="7.1.1" data-path="modeling-with-processes-and-resources.html"><a href="modeling-with-processes-and-resources.html#modeling-space-with-resources"><i class="fa fa-check"></i><b>7.1.1</b> Modeling Space with Resources</a></li>
+<li class="chapter" data-level="7.1.2" data-path="modeling-with-processes-and-resources.html"><a href="modeling-with-processes-and-resources.html#resource-pools"><i class="fa fa-check"></i><b>7.1.2</b> Resource Pools</a></li>
+<li class="chapter" data-level="7.1.3" data-path="modeling-with-processes-and-resources.html"><a href="modeling-with-processes-and-resources.html#computer-test-and-repair-shop-example"><i class="fa fa-check"></i><b>7.1.3</b> Computer Test and Repair Shop Example</a></li>
+</ul></li>
+<li class="chapter" data-level="7.2" data-path="modeling-non-stationary-systems.html"><a href="modeling-non-stationary-systems.html"><i class="fa fa-check"></i><b>7.2</b> Modeling Non-Stationary Systems</a>
+<ul>
+<li class="chapter" data-level="7.2.1" data-path="modeling-non-stationary-systems.html"><a href="modeling-non-stationary-systems.html#ch7secNSPP"><i class="fa fa-check"></i><b>7.2.1</b> Non-Stationary Arrival Processes</a></li>
+<li class="chapter" data-level="7.2.2" data-path="modeling-non-stationary-systems.html"><a href="modeling-non-stationary-systems.html#modeling-resources-under-non-stationary-conditions"><i class="fa fa-check"></i><b>7.2.2</b> Modeling Resources Under Non-Stationary Conditions</a></li>
+<li class="chapter" data-level="7.2.3" data-path="modeling-non-stationary-systems.html"><a href="modeling-non-stationary-systems.html#enhancing-the-stem-career-mixer-example"><i class="fa fa-check"></i><b>7.2.3</b> Enhancing the STEM Career Mixer Example</a></li>
+</ul></li>
+<li class="chapter" data-level="7.3" data-path="examples-of-advanced-event-models.html"><a href="examples-of-advanced-event-models.html"><i class="fa fa-check"></i><b>7.3</b> Examples of Advanced Event Models</a>
+<ul>
+<li class="chapter" data-level="7.3.1" data-path="examples-of-advanced-event-models.html"><a href="examples-of-advanced-event-models.html#ch6s1sb4sub3"><i class="fa fa-check"></i><b>7.3.1</b> Modeling Balking and Reneging</a></li>
+<li class="chapter" data-level="7.3.2" data-path="examples-of-advanced-event-models.html"><a href="examples-of-advanced-event-models.html#modeling-a-reorder-point-reorder-quantity-inventory-policy"><i class="fa fa-check"></i><b>7.3.2</b> Modeling a Reorder Point, Reorder Quantity Inventory Policy</a></li>
+</ul></li>
+<li class="chapter" data-level="7.4" data-path="summary-3.html"><a href="summary-3.html"><i class="fa fa-check"></i><b>7.4</b> Summary</a></li>
+<li class="chapter" data-level="7.5" data-path="exercises-6.html"><a href="exercises-6.html"><i class="fa fa-check"></i><b>7.5</b> Exercises</a></li>
+</ul></li>
+<li class="appendix"><span><b>Appendix</b></span></li>
+<li class="chapter" data-level="A" data-path="appRNRV.html"><a href="appRNRV.html"><i class="fa fa-check"></i><b>A</b> Generating Pseudo-Random Numbers and Random Variates</a>
+<ul>
+<li class="chapter" data-level="A.1" data-path="appRNRVPRN.html"><a href="appRNRVPRN.html"><i class="fa fa-check"></i><b>A.1</b> Pseudo Random Numbers</a>
+<ul>
+<li class="chapter" data-level="A.1.1" data-path="appRNRVPRN.html"><a href="appRNRVPRN.html#appRNRVRNGs"><i class="fa fa-check"></i><b>A.1.1</b> Random Number Generators</a></li>
+</ul></li>
+<li class="chapter" data-level="A.2" data-path="appRNRVs.html"><a href="appRNRVs.html"><i class="fa fa-check"></i><b>A.2</b> Generating Random Variates from Distributions</a>
+<ul>
+<li class="chapter" data-level="A.2.1" data-path="appRNRVs.html"><a href="appRNRVs.html#inverse-transform-method"><i class="fa fa-check"></i><b>A.2.1</b> Inverse Transform Method</a></li>
+<li class="chapter" data-level="A.2.2" data-path="appRNRVs.html"><a href="appRNRVs.html#convolution"><i class="fa fa-check"></i><b>A.2.2</b> Convolution</a></li>
+<li class="chapter" data-level="A.2.3" data-path="appRNRVs.html"><a href="appRNRVs.html#acceptancerejection"><i class="fa fa-check"></i><b>A.2.3</b> Acceptance/Rejection</a></li>
+<li class="chapter" data-level="A.2.4" data-path="appRNRVs.html"><a href="appRNRVs.html#AppRNRVsubsecMTSRV"><i class="fa fa-check"></i><b>A.2.4</b> Mixture Distributions, Truncated Distributions, and Shifted Random Variables</a></li>
+</ul></li>
+<li class="chapter" data-level="A.3" data-path="summary-4.html"><a href="summary-4.html"><i class="fa fa-check"></i><b>A.3</b> Summary</a></li>
+<li class="chapter" data-level="A.4" data-path="exercises-7.html"><a href="exercises-7.html"><i class="fa fa-check"></i><b>A.4</b> Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="B" data-path="appidm.html"><a href="appidm.html"><i class="fa fa-check"></i><b>B</b> Probability Distribution Modeling</a>
+<ul>
+<li class="chapter" data-level="B.1" data-path="appidmsecrvPD.html"><a href="appidmsecrvPD.html"><i class="fa fa-check"></i><b>B.1</b> Random Variables and Probability Distributions</a></li>
+<li class="chapter" data-level="B.2" data-path="appidmsecMDD.html"><a href="appidmsecMDD.html"><i class="fa fa-check"></i><b>B.2</b> Modeling with Discrete Distributions</a></li>
+<li class="chapter" data-level="B.3" data-path="appidmsecfitDiscrete.html"><a href="appidmsecfitDiscrete.html"><i class="fa fa-check"></i><b>B.3</b> Fitting Discrete Distributions</a>
+<ul>
+<li class="chapter" data-level="B.3.1" data-path="appidmsecfitDiscrete.html"><a href="appidmsecfitDiscrete.html#AppDisFitPoissonFit"><i class="fa fa-check"></i><b>B.3.1</b> Fitting a Poisson Distribution</a></li>
+<li class="chapter" data-level="B.3.2" data-path="appidmsecfitDiscrete.html"><a href="appidmsecfitDiscrete.html#visualizing-the-data"><i class="fa fa-check"></i><b>B.3.2</b> Visualizing the Data</a></li>
+<li class="chapter" data-level="B.3.3" data-path="appidmsecfitDiscrete.html"><a href="appidmsecfitDiscrete.html#estimating-the-rate-parameter-for-the-poisson-distribution"><i class="fa fa-check"></i><b>B.3.3</b> Estimating the Rate Parameter for the Poisson Distribution</a></li>
+<li class="chapter" data-level="B.3.4" data-path="appidmsecfitDiscrete.html"><a href="appidmsecfitDiscrete.html#chi-squared-goodness-of-fit-test-for-poisson-distribution"><i class="fa fa-check"></i><b>B.3.4</b> Chi-Squared Goodness of Fit Test for Poisson Distribution</a></li>
+<li class="chapter" data-level="B.3.5" data-path="appidmsecfitDiscrete.html"><a href="appidmsecfitDiscrete.html#subsubchisqGOF"><i class="fa fa-check"></i><b>B.3.5</b> Chi-Squared Goodness of Fit Test</a></li>
+<li class="chapter" data-level="B.3.6" data-path="appidmsecfitDiscrete.html"><a href="appidmsecfitDiscrete.html#using-the-fitdistrplus-r-package-on-discrete-data"><i class="fa fa-check"></i><b>B.3.6</b> Using the fitdistrplus R Package on Discrete Data</a></li>
+<li class="chapter" data-level="B.3.7" data-path="appidmsecfitDiscrete.html"><a href="appidmsecfitDiscrete.html#fitting-a-discrete-empirical-distribution"><i class="fa fa-check"></i><b>B.3.7</b> Fitting a Discrete Empirical Distribution</a></li>
+</ul></li>
+<li class="chapter" data-level="B.4" data-path="appidmsecMCD.html"><a href="appidmsecMCD.html"><i class="fa fa-check"></i><b>B.4</b> Modeling with Continuous Distributions</a></li>
+<li class="chapter" data-level="B.5" data-path="appidmsecfitContinuous.html"><a href="appidmsecfitContinuous.html"><i class="fa fa-check"></i><b>B.5</b> Fitting Continuous Distributions</a>
+<ul>
+<li class="chapter" data-level="B.5.1" data-path="appidmsecfitContinuous.html"><a href="appidmsecfitContinuous.html#appidmsubsecvisualizedata"><i class="fa fa-check"></i><b>B.5.1</b> Visualizing the Data</a></li>
+<li class="chapter" data-level="B.5.2" data-path="appidmsecfitContinuous.html"><a href="appidmsecfitContinuous.html#appidmsubsecstatsdata"><i class="fa fa-check"></i><b>B.5.2</b> Statistically Summarize the Data</a></li>
+<li class="chapter" data-level="B.5.3" data-path="appidmsecfitContinuous.html"><a href="appidmsecfitContinuous.html#appidmsubsechypothDist"><i class="fa fa-check"></i><b>B.5.3</b> Hypothesizing and Testing a Distribution</a></li>
+<li class="chapter" data-level="B.5.4" data-path="appidmsecfitContinuous.html"><a href="appidmsecfitContinuous.html#kolmogorov-smirnov-test"><i class="fa fa-check"></i><b>B.5.4</b> Kolmogorov-Smirnov Test</a></li>
+<li class="chapter" data-level="B.5.5" data-path="appidmsecfitContinuous.html"><a href="appidmsecfitContinuous.html#appidmsubsecvisFit"><i class="fa fa-check"></i><b>B.5.5</b> Visualizing the Fit</a></li>
+<li class="chapter" data-level="B.5.6" data-path="appidmsecfitContinuous.html"><a href="appidmsecfitContinuous.html#appidms2sb3"><i class="fa fa-check"></i><b>B.5.6</b> Using the Input Analyzer</a></li>
+</ul></li>
+<li class="chapter" data-level="B.6" data-path="appdistfittestU01.html"><a href="appdistfittestU01.html"><i class="fa fa-check"></i><b>B.6</b> Testing Uniform (0,1) Pseudo-Random Numbers</a>
+<ul>
+<li class="chapter" data-level="B.6.1" data-path="appdistfittestU01.html"><a href="appdistfittestU01.html#chi-squared-goodness-of-fit-tests-for-pseudo-random-numbers"><i class="fa fa-check"></i><b>B.6.1</b> Chi-Squared Goodness of Fit Tests for Pseudo-Random Numbers</a></li>
+<li class="chapter" data-level="B.6.2" data-path="appdistfittestU01.html"><a href="appdistfittestU01.html#higher-dimensional-chi-squared-test"><i class="fa fa-check"></i><b>B.6.2</b> Higher Dimensional Chi-Squared Test</a></li>
+<li class="chapter" data-level="B.6.3" data-path="appdistfittestU01.html"><a href="appdistfittestU01.html#kolmogorov-smirnov-test-for-pseudo-random-numbers"><i class="fa fa-check"></i><b>B.6.3</b> Kolmogorov-Smirnov Test for Pseudo-Random Numbers</a></li>
+<li class="chapter" data-level="B.6.4" data-path="appdistfittestU01.html"><a href="appdistfittestU01.html#testing-for-independence-and-patterns-in-pseudo-random-numbers"><i class="fa fa-check"></i><b>B.6.4</b> Testing for Independence and Patterns in Pseudo-Random Numbers</a></li>
+</ul></li>
+<li class="chapter" data-level="B.7" data-path="appdistfitidms2sb4.html"><a href="appdistfitidms2sb4.html"><i class="fa fa-check"></i><b>B.7</b> Additional Distribution Modeling Concepts</a></li>
+<li class="chapter" data-level="B.8" data-path="appidmSummary.html"><a href="appidmSummary.html"><i class="fa fa-check"></i><b>B.8</b> Summary</a></li>
+<li class="chapter" data-level="B.9" data-path="exercises-8.html"><a href="exercises-8.html"><i class="fa fa-check"></i><b>B.9</b> Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="C" data-path="appqtAndInvT.html"><a href="appqtAndInvT.html"><i class="fa fa-check"></i><b>C</b> Queueing Theory</a>
+<ul>
+<li class="chapter" data-level="C.1" data-path="appqts1.html"><a href="appqts1.html"><i class="fa fa-check"></i><b>C.1</b> Single Line Queueing Stations</a>
+<ul>
+<li class="chapter" data-level="C.1.1" data-path="appqts1.html"><a href="appqts1.html#queueing-notation"><i class="fa fa-check"></i><b>C.1.1</b> Queueing Notation</a></li>
+<li class="chapter" data-level="C.1.2" data-path="appqts1.html"><a href="appqts1.html#littles-formula"><i class="fa fa-check"></i><b>C.1.2</b> Little’s Formula</a></li>
+<li class="chapter" data-level="C.1.3" data-path="appqts1.html"><a href="appqts1.html#appqts1sb1"><i class="fa fa-check"></i><b>C.1.3</b> Deriving Formulas for Markovian Single Queue Systems</a></li>
+</ul></li>
+<li class="chapter" data-level="C.2" data-path="appqts1sb2.html"><a href="appqts1sb2.html"><i class="fa fa-check"></i><b>C.2</b> Examples and Applications of Queueing Analysis</a>
+<ul>
+<li class="chapter" data-level="C.2.1" data-path="appqts1sb2.html"><a href="appqts1sb2.html#infinite-queue-examples"><i class="fa fa-check"></i><b>C.2.1</b> Infinite Queue Examples</a></li>
+<li class="chapter" data-level="C.2.2" data-path="appqts1sb2.html"><a href="appqts1sb2.html#finite-queue-examples"><i class="fa fa-check"></i><b>C.2.2</b> Finite Queue Examples</a></li>
+</ul></li>
+<li class="chapter" data-level="C.3" data-path="appqts1sb3.html"><a href="appqts1sb3.html"><i class="fa fa-check"></i><b>C.3</b> Non-Markovian Queues and Approximations</a></li>
+<li class="chapter" data-level="C.4" data-path="appqtsecformulas.html"><a href="appqtsecformulas.html"><i class="fa fa-check"></i><b>C.4</b> Summary of Queueing Formulas</a>
+<ul>
+<li class="chapter" data-level="C.4.1" data-path="appqtsecformulas.html"><a href="appqtsecformulas.html#mm1-queue"><i class="fa fa-check"></i><b>C.4.1</b> M/M/1 Queue</a></li>
+<li class="chapter" data-level="C.4.2" data-path="appqtsecformulas.html"><a href="appqtsecformulas.html#mmc-queue"><i class="fa fa-check"></i><b>C.4.2</b> M/M/c Queue</a></li>
+<li class="chapter" data-level="C.4.3" data-path="appqtsecformulas.html"><a href="appqtsecformulas.html#mmck-queue"><i class="fa fa-check"></i><b>C.4.3</b> M/M/c/k Queue</a></li>
+<li class="chapter" data-level="C.4.4" data-path="appqtsecformulas.html"><a href="appqtsecformulas.html#mgcc-queue"><i class="fa fa-check"></i><b>C.4.4</b> M/G/c/c Queue</a></li>
+<li class="chapter" data-level="C.4.5" data-path="appqtsecformulas.html"><a href="appqtsecformulas.html#mm1k-queue"><i class="fa fa-check"></i><b>C.4.5</b> M/M/1/k Queue</a></li>
+<li class="chapter" data-level="C.4.6" data-path="appqtsecformulas.html"><a href="appqtsecformulas.html#mmck-queue-1"><i class="fa fa-check"></i><b>C.4.6</b> M/M/c/k Queue</a></li>
+<li class="chapter" data-level="C.4.7" data-path="appqtsecformulas.html"><a href="appqtsecformulas.html#mm1kk-queue"><i class="fa fa-check"></i><b>C.4.7</b> M/M/1/k/k Queue</a></li>
+<li class="chapter" data-level="C.4.8" data-path="appqtsecformulas.html"><a href="appqtsecformulas.html#mmckk-queue"><i class="fa fa-check"></i><b>C.4.8</b> M/M/c/k/k Queue</a></li>
+</ul></li>
+<li class="chapter" data-level="C.5" data-path="exercises-9.html"><a href="exercises-9.html"><i class="fa fa-check"></i><b>C.5</b> Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="D" data-path="distributions.html"><a href="distributions.html"><i class="fa fa-check"></i><b>D</b> Distributions</a>
+<ul>
+<li class="chapter" data-level="D.1" data-path="appDiscreteDistributions.html"><a href="appDiscreteDistributions.html"><i class="fa fa-check"></i><b>D.1</b> Discrete Distrbutions</a></li>
+<li class="chapter" data-level="D.2" data-path="appContinuousDistributions.html"><a href="appContinuousDistributions.html"><i class="fa fa-check"></i><b>D.2</b> Continuous Distrbutions</a></li>
+</ul></li>
+<li class="chapter" data-level="E" data-path="appStatTables.html"><a href="appStatTables.html"><i class="fa fa-check"></i><b>E</b> Statistical Tables</a></li>
+<li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
+<li class="divider"></li>
+<li><a href="https://bookdown.org" target="_blank">Published with bookdown</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Simulation Modeling using the Kotlin Simulation Library (KSL)</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="appidmsecfitDiscrete" class="section level2 hasAnchor" number="9.3">
+<h2><span class="header-section-number">B.3</span> Fitting Discrete Distributions<a href="appidmsecfitDiscrete.html#appidmsecfitDiscrete" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>This section illustrates how to model and fit a discrete distribution to
+data. Although the steps in modeling discrete and continuous
+distributions are very similar, the processes and tools utilized vary
+somewhat. The first thing to truly understand is the difference between
+discrete and continuous random variables. Discrete distributions are
+used to model discrete random variables. Continuous distributions are
+used to model continuous random variables. This may seem obvious but it
+is a key source of confusion for novice modelers.</p>
+<p>Discrete random variables take on any of a specified <em>countable</em>
+list of values. Continuous random variables take on any numerical value
+in an interval or collection of intervals. The source of confusion is
+when looking at a file of the data, you might not be able to tell the
+difference. The discrete values may have decimal places and then the
+modeler thinks that the data is continuous. The modeling starts with
+what is being collected and how it is being collected (not with looking
+at a file!).</p>
+<div id="AppDisFitPoissonFit" class="section level3 hasAnchor" number="9.3.1">
+<h3><span class="header-section-number">B.3.1</span> Fitting a Poisson Distribution<a href="appidmsecfitDiscrete.html#AppDisFitPoissonFit" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Since the Poisson distribution is very important in simulation modeling,
+the discrete input modeling process will be illustrated by fitting a
+Poisson distribution.
+Example <a href="appidmsecfitDiscrete.html#exm:PoissonFit">B.1</a> presents data collected from an arrival
+process. As noted in Table <a href="appidmsecMDD.html#tab:discreteD">B.1</a>, the Poisson distribution is a prime candidate
+for modeling this type of data.</p>
+<hr />
+<div class="example">
+<p><span id="exm:PoissonFit" class="example"><strong>Example B.1  (Fitting a Poisson Distribution) </strong></span>Suppose that we are interested in modeling the demand for a computer laboratory
+during the morning hours between 9 am to 11 am on normal weekdays.
+During this time a team of undergraduate students has collected the
+number of students arriving to the computer lab during 15 minute
+intervals over a period of 4 weeks.</p>
+</div>
+<p>Since there are four 15 minute intervals in each hour for each two hour
+time period, there are 8 observations per day. Since there are 5 days
+per week, we have 40 observations per week for a total of
+<span class="math inline">\(40\times 4= 160\)</span> observations. A sample of observations per 15 minute
+interval are presented in Table <a href="appidmsecfitDiscrete.html#tab:CLAdata">B.2</a>.
+The full data set is available with the chapter files. Check whether a Poisson distribution is
+an appropriate model for this data.</p>
+<div id="tab:CLAdata">
+<table>
+<caption><span id="tab:CLAdata">Table B.2: </span> Computer Laboratory Arrival Counts by Week, Period, and Day</caption>
+<thead>
+<tr class="header">
+<th align="center">Week</th>
+<th align="center">Period</th>
+<th align="center">M</th>
+<th align="center">T</th>
+<th align="center">W</th>
+<th align="center">TH</th>
+<th align="center">F</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="center">1</td>
+<td align="center">9:00-9:15 am</td>
+<td align="center">8</td>
+<td align="center">5</td>
+<td align="center">16</td>
+<td align="center">7</td>
+<td align="center">7</td>
+</tr>
+<tr class="even">
+<td align="center">1</td>
+<td align="center">9:15-9:30 am</td>
+<td align="center">8</td>
+<td align="center">4</td>
+<td align="center">9</td>
+<td align="center">8</td>
+<td align="center">6</td>
+</tr>
+<tr class="odd">
+<td align="center">1</td>
+<td align="center">9:30-9:45 am</td>
+<td align="center">9</td>
+<td align="center">5</td>
+<td align="center">6</td>
+<td align="center">6</td>
+<td align="center">5</td>
+</tr>
+<tr class="even">
+<td align="center">1</td>
+<td align="center">9:45-10:00 am</td>
+<td align="center">10</td>
+<td align="center">11</td>
+<td align="center">12</td>
+<td align="center">10</td>
+<td align="center">12</td>
+</tr>
+<tr class="odd">
+<td align="center">1</td>
+<td align="center">10:00-10:15 am</td>
+<td align="center">6</td>
+<td align="center">7</td>
+<td align="center">14</td>
+<td align="center">9</td>
+<td align="center">3</td>
+</tr>
+<tr class="even">
+<td align="center">1</td>
+<td align="center">10:15-10:30 am</td>
+<td align="center">11</td>
+<td align="center">8</td>
+<td align="center">7</td>
+<td align="center">7</td>
+<td align="center">11</td>
+</tr>
+<tr class="odd">
+<td align="center">1</td>
+<td align="center">10:30-10:45 am</td>
+<td align="center">12</td>
+<td align="center">7</td>
+<td align="center">8</td>
+<td align="center">3</td>
+<td align="center">6</td>
+</tr>
+<tr class="even">
+<td align="center">1</td>
+<td align="center">10:45-11:00 am</td>
+<td align="center">8</td>
+<td align="center">9</td>
+<td align="center">9</td>
+<td align="center">8</td>
+<td align="center">6</td>
+</tr>
+<tr class="odd">
+<td align="center">2</td>
+<td align="center">9:00-9:15 am</td>
+<td align="center">10</td>
+<td align="center">13</td>
+<td align="center">7</td>
+<td align="center">7</td>
+<td align="center">7</td>
+</tr>
+<tr class="even">
+<td align="center">3</td>
+<td align="center">9:00-9:15 am</td>
+<td align="center">5</td>
+<td align="center">7</td>
+<td align="center">14</td>
+<td align="center">8</td>
+<td align="center">8</td>
+</tr>
+<tr class="odd">
+<td align="center">4</td>
+<td align="center">9:00-9:15 am</td>
+<td align="center">7</td>
+<td align="center">11</td>
+<td align="center">8</td>
+<td align="center">5</td>
+<td align="center">4</td>
+</tr>
+<tr class="even">
+<td align="center">4</td>
+<td align="center">10:45-11:00 am</td>
+<td align="center">8</td>
+<td align="center">9</td>
+<td align="center">7</td>
+<td align="center">9</td>
+<td align="center">6</td>
+</tr>
+</tbody>
+</table>
+</div>
+<hr />
+<p>The solution to Example <a href="appidmsecfitDiscrete.html#exm:PoissonFit">B.1</a> involves the following steps:</p>
+<ol style="list-style-type: decimal">
+<li><p>Visualize the data.</p></li>
+<li><p>Check if the week, period, or day of week influence the statistical
+properties of the count data.</p></li>
+<li><p>Tabulate the frequency of the count data.</p></li>
+<li><p>Estimate the mean rate parameter of the hypothesized Poisson
+distribution.</p></li>
+<li><p>Perform goodness of fit tests to test the hypothesis that the number
+of arrivals per 15 minute interval has a Poisson distribution versus
+the alternative that it does not have a Poisson distribution.</p></li>
+</ol>
+</div>
+<div id="visualizing-the-data" class="section level3 hasAnchor" number="9.3.2">
+<h3><span class="header-section-number">B.3.2</span> Visualizing the Data<a href="appidmsecfitDiscrete.html#visualizing-the-data" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>When analyzing a data set it is best to begin with visualizing the data.
+We will analyze this data utilizing the R statistical software package.
+Assuming that the data is in a comma separate value (csv) file called
+<em>PoissonCountData.csv</em> in the R working directory, the following
+commands will read the data into the R enviroment, plot a histogram,
+plot a time series plot, and make an autocorrelation plot of the data.</p>
+<pre><code>p2 = read.csv(&quot;PoissonCountData.csv&quot;)
+hist(p2$N, main=&quot;Computer Lab Arrivals&quot;, xlab = &quot;Counts&quot;)
+plot(p2$N,type=&quot;b&quot;,main=&quot;Computer Lab Arrivals&quot;, ylab = &quot;Count&quot;, xlab = &quot;Observation#&quot;)
+acf(p2$N, main = &quot;ACF Plot for Computer Lab Arrivals&quot;)</code></pre>
+<p>Table <a href="appidmsecfitDiscrete.html#tab:PCntData">B.3</a> illustrates the layout of the
+data frame in R. The first column indicates the week, the 2nd column
+represents the period of the day, the 3rd column indicates the day of
+the week, and the last column indicated with the variable, <span class="math inline">\(N\)</span>,
+represents the count for the week, period, day combination. Notice that each period of the day is labeled numerically. To access a
+particular column within the data frame you use the $ operator. Thus,
+the reference, <span class="math inline">\(p\$N\)</span> accesses all the counts across all of the week,
+period, day combinations. The variable, <span class="math inline">\(p\$N\)</span>, is subsequently used in
+the <em>hist</em>, <em>plot</em>, and <em>acf</em> commands.</p>
+<table>
+<caption>
+<span id="tab:PCntData">Table B.3: </span>Computer Lab Arrival Data.
+</caption>
+<thead>
+<tr>
+<th style="text-align:center;">
+Week
+</th>
+<th style="text-align:center;">
+Period
+</th>
+<th style="text-align:center;">
+Day
+</th>
+<th style="text-align:center;">
+N
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center;">
+1
+</td>
+<td style="text-align:center;">
+1
+</td>
+<td style="text-align:center;">
+M
+</td>
+<td style="text-align:center;">
+8
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+1
+</td>
+<td style="text-align:center;">
+2
+</td>
+<td style="text-align:center;">
+M
+</td>
+<td style="text-align:center;">
+8
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+1
+</td>
+<td style="text-align:center;">
+3
+</td>
+<td style="text-align:center;">
+M
+</td>
+<td style="text-align:center;">
+9
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+1
+</td>
+<td style="text-align:center;">
+4
+</td>
+<td style="text-align:center;">
+M
+</td>
+<td style="text-align:center;">
+10
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+1
+</td>
+<td style="text-align:center;">
+5
+</td>
+<td style="text-align:center;">
+M
+</td>
+<td style="text-align:center;">
+6
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+1
+</td>
+<td style="text-align:center;">
+6
+</td>
+<td style="text-align:center;">
+M
+</td>
+<td style="text-align:center;">
+11
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+1
+</td>
+<td style="text-align:center;">
+7
+</td>
+<td style="text-align:center;">
+M
+</td>
+<td style="text-align:center;">
+12
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+1
+</td>
+<td style="text-align:center;">
+8
+</td>
+<td style="text-align:center;">
+M
+</td>
+<td style="text-align:center;">
+8
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+2
+</td>
+<td style="text-align:center;">
+1
+</td>
+<td style="text-align:center;">
+M
+</td>
+<td style="text-align:center;">
+10
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+2
+</td>
+<td style="text-align:center;">
+2
+</td>
+<td style="text-align:center;">
+M
+</td>
+<td style="text-align:center;">
+6
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+2
+</td>
+<td style="text-align:center;">
+3
+</td>
+<td style="text-align:center;">
+M
+</td>
+<td style="text-align:center;">
+7
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+2
+</td>
+<td style="text-align:center;">
+4
+</td>
+<td style="text-align:center;">
+M
+</td>
+<td style="text-align:center;">
+11
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+2
+</td>
+<td style="text-align:center;">
+5
+</td>
+<td style="text-align:center;">
+M
+</td>
+<td style="text-align:center;">
+10
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+2
+</td>
+<td style="text-align:center;">
+6
+</td>
+<td style="text-align:center;">
+M
+</td>
+<td style="text-align:center;">
+10
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+2
+</td>
+<td style="text-align:center;">
+7
+</td>
+<td style="text-align:center;">
+M
+</td>
+<td style="text-align:center;">
+5
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+2
+</td>
+<td style="text-align:center;">
+8
+</td>
+<td style="text-align:center;">
+M
+</td>
+<td style="text-align:center;">
+13
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+3
+</td>
+<td style="text-align:center;">
+1
+</td>
+<td style="text-align:center;">
+M
+</td>
+<td style="text-align:center;">
+5
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+3
+</td>
+<td style="text-align:center;">
+2
+</td>
+<td style="text-align:center;">
+M
+</td>
+<td style="text-align:center;">
+15
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+3
+</td>
+<td style="text-align:center;">
+3
+</td>
+<td style="text-align:center;">
+M
+</td>
+<td style="text-align:center;">
+5
+</td>
+</tr>
+<tr>
+<td style="text-align:center;">
+3
+</td>
+<td style="text-align:center;">
+4
+</td>
+<td style="text-align:center;">
+M
+</td>
+<td style="text-align:center;">
+7
+</td>
+</tr>
+</tbody>
+</table>
+<p>As can be seen in Figure <a href="appidmsecfitDiscrete.html#fig:PCntHist">B.3</a> the data has a somewhat symmetric shape
+with nothing unusual appearing in the figure. The shape of the histogram is consistent with possible shapes associated with the Poisson distribution.</p>
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:PCntHist"></span>
+<img src="11-AppDistributionFitting_files/figure-html/PCntHist-1.svg" alt="Histogram of Computer Lab Arrivals" width="85%" height="85%" />
+<p class="caption">
+Figure B.3: Histogram of Computer Lab Arrivals
+</p>
+</div>
+<p>The time series plot, shown in Figure <a href="appidmsecfitDiscrete.html#fig:PCntTimeSeries">B.4</a>, illustrates no significant patterns. We see random looking data centered around a common mean value with no trends of increasing or decreasing data points and no cyclical patterns of up and down behavior.</p>
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:PCntTimeSeries"></span>
+<img src="11-AppDistributionFitting_files/figure-html/PCntTimeSeries-1.svg" alt="Time Series Plot of Computer Lab Arrivals" width="85%" height="85%" />
+<p class="caption">
+Figure B.4: Time Series Plot of Computer Lab Arrivals
+</p>
+</div>
+<p>An autocorrelation plot allows the dependence within the data to be
+quickly examined. An autocorrelation plot is a time series assessment
+tool that plots the lag-k correlation versus the lag number. In order to
+understand these terms, we need to provide some background on how to
+think about a time series. A time series is a sequence of observations
+ordered by observation number, <span class="math inline">\(X_{1}, X_{2},...X_{n}\)</span>. A time series, <span class="math inline">\(X_{1}, X_{2},...X_{n}\)</span>, is said to be <em>covariance stationary</em> if:</p>
+<ul>
+<li><p>The mean of <span class="math inline">\(X_{i}\)</span>, <span class="math inline">\(E[X_{i}]\)</span>, exists and is a constant with
+respect to time. That is, <span class="math inline">\(\mu = E[X_{i}]\)</span> for $i=1, 2, $</p></li>
+<li><p>The variance of <span class="math inline">\(X_{i}\)</span>, <span class="math inline">\(Var[X_{i}]\)</span> exists and is constant with
+respect to time. That is, <span class="math inline">\(\sigma^{2} = Var[X_{i}]\)</span> for $i=1, 2, $</p></li>
+<li><p>The lag-k autocorrelation, <span class="math inline">\(\rho_{k} = cor[X_{i},X_{i+k}]\)</span>, is not
+a function of time <span class="math inline">\(i\)</span> but is a function of the distance <span class="math inline">\(k\)</span> between
+points. That is, the correlation between any two points in the
+series does not depend upon where the points are in the series, it
+depends only upon the distance between them in the series.</p></li>
+</ul>
+<p>Recall that the correlation between two random variables is defined as:</p>
+<p><span class="math display">\[cor[X,Y] = \frac{cov[X,Y]}{\sqrt{var[X] Var[Y]}}\]</span></p>
+<p>where the covariance, <span class="math inline">\(cov[X,Y]\)</span> is defined by:</p>
+<p><span class="math display">\[cov[X,Y] = E[\left(X-E[X]\right)\left(Y-E[Y]\right)] = E[XY] - E[X]E[Y]\]</span></p>
+<p>The correlation between two random variables <span class="math inline">\(X\)</span> and <span class="math inline">\(Y\)</span> measures the
+strength of linear association. The correlation has no units of measure
+and has a range: <span class="math inline">\(\left[-1, 1 \right]\)</span>. If the correlation between the
+random variables is less than zero then the random variables are said to
+be <em>negatively correlated</em>. This implies that if <span class="math inline">\(X\)</span> tends to be high
+then <span class="math inline">\(Y\)</span> will tend to be low, or alternatively if <span class="math inline">\(X\)</span> tends to be low
+then <span class="math inline">\(Y\)</span> will tend to be high. If the correlation between the random
+variables is positive, the random variables are said to be <em>positively
+correlated</em>. This implies that if <span class="math inline">\(X\)</span> tends to be high then <span class="math inline">\(Y\)</span> will
+tend to be high, or alternatively if <span class="math inline">\(X\)</span> tends to be low then <span class="math inline">\(Y\)</span> will
+tend to be low. If the correlation is zero, then the random variables
+are said to be uncorrelated. If <span class="math inline">\(X\)</span> and <span class="math inline">\(Y\)</span> are independent random
+variables then the correlation between them will be zero. The converse
+of this is not necessarily true, but an assessment of the correlation
+should tell you something about the linear dependence between the random
+variables.</p>
+<p>The autocorrelation between two random variables that are <span class="math inline">\(k\)</span> time
+points apart in a covariance stationary time series is given by:</p>
+<p><span class="math display">\[\begin{split}
+\rho_{k} &amp; = cor[X_{i},X_{i+k}] = \frac{cov[X_{i},X_{i+k}]}{\sqrt{Var[X_{i}] Var[X_{i+k}]}}\\
+&amp; = \frac{cov[X_{i},X_{i+k}]}{\sigma^2} \; \text{for} \; k = 1,2,\dots \;
+\end{split}\]</span></p>
+<p>A plot of <span class="math inline">\(\rho_{k}\)</span> for increasing values of <span class="math inline">\(k\)</span> is called an
+autocorrelation plot. The autocorrelation function as defined above is
+the theoretical function. When you have data, you must estimate the
+values of <span class="math inline">\(\rho_{k}\)</span> from the actual times series. This involves forming
+an estimator for <span class="math inline">\(\rho_{k}\)</span>. <span class="citation">(<a href="#ref-law2007simulation" role="doc-biblioref">Law 2007</a>)</span> suggests plotting:</p>
+<p><span class="math display">\[\hat{\rho}_{k} = \frac{\hat{C}_{k}}{S^{2}(n)}\]</span></p>
+<p>where</p>
+<p><span class="math display" id="eq:CovEst">\[\begin{equation}
+\hat{C}_{k} = \frac{1}{n-k}\sum\limits_{i=1}^{n-k}\left(X_{i} - \bar{X}(n) \right)\left(X_{i+k} - \bar{X}(n) \right)
+\tag{B.1}
+\end{equation}\]</span></p>
+<p><span class="math display" id="eq:SampleVar">\[\begin{equation}
+S^{2}(n) = \frac{1}{n-1}\sum\limits_{i=1}^{n}\left(X_{i} - \bar{X}(n) \right)^2
+\tag{B.2}
+\end{equation}\]</span></p>
+<p><span class="math display" id="eq:SampleAvg">\[\begin{equation}
+\bar{X}(n) = \frac{1}{n}\sum\limits_{i}^{n} X_{i}
+\tag{B.3}
+\end{equation}\]</span></p>
+<p>are the sample covariance, sample variance, and sample average
+respectively.</p>
+<p>Some time series analysis books, see for examples <span class="citation">Box, Jenkins, and Reinsel (<a href="#ref-box1994forecasting" role="doc-biblioref">1994</a>)</span>,
+have a slightly different definition of the sample autocorrelation
+function:</p>
+<p><span class="math display" id="eq:CovEst2">\[\begin{equation}
+r_{k} = \frac{c_{k}}{c_{0}} = \frac{\sum\limits_{i=1}^{n-k}\left(X_{i} - \bar{X}(n) \right)\left(X_{i+k} - \bar{X}(n) \right)}{\sum\limits_{i=1}^{n}\left(X_{i} - \bar{X}(n) \right)^2}
+\tag{B.4}
+\end{equation}\]</span></p>
+<p>where</p>
+<p><span class="math display" id="eq:csubk">\[\begin{equation}
+c_{k} = \frac{1}{n}\sum\limits_{i=1}^{n-k}\left(X_{i} - \bar{X}(n) \right)\left(X_{i+k} - \bar{X}(n) \right)
+\tag{B.5}
+\end{equation}\]</span></p>
+<p>Notice that the numerator in Equation <a href="appidmsecfitDiscrete.html#eq:CovEst2">(B.4)</a> has <span class="math inline">\(n-k\)</span> terms and the denominator has <span class="math inline">\(n\)</span> terms. A plot of <span class="math inline">\(r_{k}\)</span> versus <span class="math inline">\(k\)</span> is called a correlogram or sample
+autocorrelation plot. For the data to be uncorrelated, <span class="math inline">\(r_{k}\)</span> should be
+approximately zero for the values of <span class="math inline">\(k\)</span>. Unfortunately, estimators of
+<span class="math inline">\(r_{k}\)</span> are often highly variable, especially for large <span class="math inline">\(k\)</span>; however, an
+autocorrelation plot should still provide you with a good idea of
+independence.</p>
+<p>Formal tests can be performed using various time series techniques and
+their assumptions. A simple test can be performed based on the
+assumption that the series is white noise, <span class="math inline">\(N(0,1)\)</span> with all
+<span class="math inline">\(\rho_{k} = 0\)</span>. <span class="citation">Box, Jenkins, and Reinsel (<a href="#ref-box1994forecasting" role="doc-biblioref">1994</a>)</span> indicate that for large <span class="math inline">\(n\)</span>,
+<span class="math inline">\(\text{Var}(r_{k}) \approx \frac{1}{n}\)</span>. Thus, a quick test of
+dependence is to check if sampled correlations fall within a reasonable
+confidence band around zero. For example, suppose <span class="math inline">\(n = 100\)</span>, then
+<span class="math inline">\(\text{Var}(r_{k}) \approx \frac{1}{100} = 0.01\)</span>. Then, the standard
+deviation is <span class="math inline">\(\sqrt{0.01} = 0.1\)</span>. Assuming an approximate, <span class="math inline">\(95\%\)</span>
+confidence level, yields a confidence band of
+<span class="math inline">\(\pm 1.645 \times 0.1 = \pm 0.1645\)</span> about zero. Therefore, as long as
+the plotted values for <span class="math inline">\(r_{k}\)</span> do not fall outside of this confidence
+band, it is likely that the data are independent.</p>
+<p>A sample autocorrelation plot can be easily developed once the
+autocorrelations have been computed. Generally, the maximum lag should
+be set to no larger than one tenth of the size of the data set because
+the estimation of higher lags is generally unreliable.</p>
+<p>As we can see from Figure <a href="appidmsecfitDiscrete.html#fig:PCntACFPlot">B.5</a>, there does not appear to be any significant correlation with respect to observation number for the computer lab arrival data. The autocorrelation is well-contained within the lag correlation limits denoted with the dashed lines within the plot.</p>
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:PCntACFPlot"></span>
+<img src="11-AppDistributionFitting_files/figure-html/PCntACFPlot-1.svg" alt="Autocorrelation Function Plot for Computer Lab Arrivals" width="85%" height="85%" />
+<p class="caption">
+Figure B.5: Autocorrelation Function Plot for Computer Lab Arrivals
+</p>
+</div>
+<p>Because arrival data often varies with time, it would be useful to
+examine whether or not the count data depends in some manner on when it
+was collected. For example, perhaps the computer lab is less busy on
+Fridays. In other words, the counts may depend on the day of the week.
+We can test for dependence on various factors by using a Chi-square
+based contingency table test. These tests are summarized in introductory
+statistics books. See <span class="citation">(<a href="#ref-montgomery2006applied" role="doc-biblioref">Montgomery and Runger 2006</a>)</span>.</p>
+<p>First, we can try to visualize any patterns based on the factors. We can
+do this easily with a scatter plot matrix within the <em>lattice</em> package
+of R. In addition, we can use the <em>xtabs</em> function to tabulate the data
+by week, period, and day. The <em>xtabs</em> function specifies a modeling
+relationship between the observations and factors. In the R listing,
+<span class="math inline">\(N \sim Week + Period + Day\)</span> indicates that we believe that the count
+column <span class="math inline">\(N\)</span> in the data, depends on the <span class="math inline">\(Week\)</span>, <span class="math inline">\(Period\)</span>, and the <span class="math inline">\(Day\)</span>.
+This builds a statistical object that can be summarized using the
+<em>summary</em> command.</p>
+<pre><code>library(lattice)
+splom(p2)
+mytable = xtabs(N~Week + Period + Day, data=p2)
+summary(mytable)
+Call: xtabs(formula = N ~ Week + Period + Day, data = p2)
+Number of cases in table: 1324 
+Number of factors: 3 
+Test for independence of all factors:
+    Chisq = 133.76, df = 145, p-value = 0.7384</code></pre>
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:PCntSPLOM"></span>
+<img src="11-AppDistributionFitting_files/figure-html/PCntSPLOM-1.svg" alt="Scatter Plot Matrix from Lattice Package for Computer Lab Arrivals" width="672" />
+<p class="caption">
+Figure B.6: Scatter Plot Matrix from Lattice Package for Computer Lab Arrivals
+</p>
+</div>
+<p>A scatter plot matrix plots the variables in a matrix format that makes
+it easier to view pairwise relationships within the data.
+Figure <a href="appidmsecfitDiscrete.html#fig:PCntSPLOM">B.6</a> presents the results of the
+scatter plot. Within the cells, the data looks reasonably ‘uniform’.
+That is, there are no discernible patterns to be found. This provides
+evidence that there is not likely to be dependence between these
+factors. To formally test this hypothesis, we can use the multi-factor
+contingency table test provided by using the <em>summary</em> command on the
+output object, <em>myTable</em> of the <em>xtabs</em> command.</p>
+<p>The results of using, <em>summary(mytable)</em> show that the chi-square test
+statistic has a very high p-value, <span class="math inline">\(0.7384\)</span>, when testing if <span class="math inline">\(N\)</span> depends
+on <span class="math inline">\(Week\)</span>, <span class="math inline">\(Period\)</span>, and <span class="math inline">\(Day\)</span>. The null hypothesis,<span class="math inline">\(H_{0}\)</span>, of a
+contingency table test of this form states that the counts are
+independent of the factors versus the alternative, <span class="math inline">\(H_{a}\)</span>, that the
+counts are dependent on the factors. Since the p-value is very high, we
+should not reject <span class="math inline">\(H_{0}\)</span>. What does this all mean? In essence, we can
+now treat the arrival count observation as 160 independent observations. Thus, we can
+proceed with formally testing if the counts come from a Poisson
+distribution without worrying about time or factor dependencies within
+the data. If the results of the analysis indicated dependence on the
+factors, then we might need to fit separate distributions based on the
+dependence. For example, if we concluded that the days of the week were
+different (but the week and period did not matter), then we could try to
+fit a separate Poisson distribution for each day of the week. When the
+mean rate of occurrence depends on time, this situation warrants the
+investigation of using a non-homogeneous (non-stationary) Poisson
+process. The estimation of the parameters of a non-stationary Poisson
+process is beyond the scope of this text. The interested reader should
+refer to <span class="citation">(<a href="#ref-Leemis1991aa" role="doc-biblioref">L. Leemis 1991</a>)</span> and other such references.</p>
+</div>
+<div id="estimating-the-rate-parameter-for-the-poisson-distribution" class="section level3 hasAnchor" number="9.3.3">
+<h3><span class="header-section-number">B.3.3</span> Estimating the Rate Parameter for the Poisson Distribution<a href="appidmsecfitDiscrete.html#estimating-the-rate-parameter-for-the-poisson-distribution" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Testing if the Poisson distribution is a good model for this data can be
+accomplished using various statistics tests for a Poisson
+distribution. The basic approach is to compare
+the hypothesized distribution function in the form of the PDF, PMF, or
+the CDF to a fit of the data. This implies that you have hypothesized a
+distribution <em>and</em> estimated the parameters of the distribution in order
+to compare the hypothesized distribution to the data. For example,
+suppose that you hypothesize that the Poisson distribution will be a
+good model for the count data. Then, you need to estimate the rate
+parameter associated with the Poisson distribution.</p>
+<p>There are two main methods for estimating the parameters of distribution
+functions 1) the method of moments and 2) the method of maximum
+likelihood. The method of moments matches the empirical moments to the
+theoretical moments of the distribution and attempts to solve the
+resulting system of equations. The method of maximum likelihood attempts
+to find the parameter values that maximize the joint probability
+distribution function of the sample. Estimation of the parameters from
+sample data is based on important statistical theory that requires the
+estimators for the parameters to satisfy statistical properties (e.g.
+unique, unbiased, invariant, and consistency). It is beyond the scope of
+this book to cover the properties of these techniques. The interested
+reader is referred to <span class="citation">(<a href="#ref-law2007simulation" role="doc-biblioref">Law 2007</a>)</span> or to
+<span class="citation">(<a href="#ref-casella1990statistical" role="doc-biblioref">Casella and Berger 1990</a>)</span> for more details on the theory of these
+methods.</p>
+<p>To make concrete the challenges associated with fitting the parameters
+of a hypothesized distribution, the maximum likelihood method for
+fitting the Poisson distribution will be used on the count data. Suppose
+that you hypothesize that the distribution of the count of the number of
+arrivals in the <span class="math inline">\(i^{th}\)</span> 15 minute interval can be modeled with a
+Poisson distribution. Let <span class="math inline">\(N\)</span> be the number of arrivals in a 15 minute
+interval. Note that the intervals do not overlap and that we have shown
+that they can be considered independent of each other. We are
+hypothesizing that <span class="math inline">\(N\)</span> has a Poisson distribution with rate parameter
+<span class="math inline">\(\lambda\)</span>, where <span class="math inline">\(\lambda\)</span> represents the expected number of arrivals
+per 15 minute interval.</p>
+<p><span class="math display">\[f(n;\lambda) = P\{N=n\} = \frac{e^{-\lambda}\left(\lambda \right)^{n}}{n!}\]</span></p>
+<p>Let <span class="math inline">\(N_{i}\)</span> be the number of arrivals in the <span class="math inline">\(i^{th}\)</span> interval of the
+<span class="math inline">\(k=160\)</span> intervals. The <span class="math inline">\(N_{1}, N_{2},...,N_{k}\)</span> form a random sample of size <span class="math inline">\(k\)</span>.
+Then, the joint probability probability mass function of the sample is:</p>
+<p><span class="math display">\[L(\lambda) = g(n_{1}, n_{2},...,n_{k};\lambda) = f(n_1;\lambda)f(n_2;\lambda) \ldots f(n_k;\lambda) = \prod_{i = 1}^{k} f(n_i; \lambda)\]</span></p>
+<p>The <span class="math inline">\((n_{1}, n_{2},...,n_{k})\)</span> are observed (known values) and <span class="math inline">\(\lambda\)</span> is unknown.
+The function <span class="math inline">\(L(\lambda)\)</span> is called the likelihood function. To estimate
+the value of of <span class="math inline">\(\lambda\)</span> by the method of maximum likelihood, we must
+find the value of <span class="math inline">\(\lambda\)</span> that maximizes the function <span class="math inline">\(L(\lambda)\)</span>.
+The interpretation is that we are finding the value of the parameter
+that is maximizing the likelihood that it came from this sample.</p>
+<p>Substituting the definition of the Poisson distribution into the
+likelihood function yields:</p>
+<p><span class="math display">\[\begin{aligned}
+L(\lambda) &amp; = \prod_{i = 1}^{k}\frac{e^{-\lambda}\left(\lambda \right)^{n_i}}{n_{i}!}\\
+&amp; = \frac{e^{-k\lambda}\lambda^{\sum_{i=1}^{k}n_{i}}}{\prod_{i = 1}^{k}n_{i}!}\end{aligned}\]</span></p>
+<p>It can be shown that maximizing <span class="math inline">\(L(\lambda)\)</span> is the same as maximizing
+<span class="math inline">\(ln(L (\lambda))\)</span>. This is called the log-likelihood function. Thus,</p>
+<p><span class="math display">\[ln(L (\lambda)) = -k \lambda + ln(\lambda)\sum_{i = 1}^{k} n_i - \sum_{i = 1}^{k} ln(n_{i}!)\]</span></p>
+<p>Differentiating with respect to <span class="math inline">\(\lambda\)</span>, yields,</p>
+<p><span class="math display">\[\dfrac{dln(L(\lambda))}{d\lambda} = -k + \dfrac{\sum_{i = 1}^{k} n_i}{\lambda}\]</span></p>
+<p>When we set this equal to zero and solve for <span class="math inline">\(\lambda\)</span>, we get</p>
+<p><span class="math display">\[0 = -k + \dfrac{\sum_{i = 1}^{k} n_i}{\lambda}\]</span>
+<span class="math display" id="eq:PoissonMLE">\[\begin{equation}
+\hat{\lambda} = \dfrac{\sum_{i = 1}^{k} n_i}{k}
+\tag{B.6}
+\end{equation}\]</span></p>
+<p>If the second derivative, <span class="math inline">\(\dfrac{d^2lnL(\lambda)}{d\lambda^2} &lt; 0\)</span> then
+a maximum is obtained.</p>
+<p><span class="math display">\[\dfrac{d^2 lnL(\lambda)}{d \lambda^2} = \dfrac{-\sum_{i = 1}^{k} n_i}{\lambda^2}\]</span></p>
+<p>because the <span class="math inline">\(n_i\)</span> are positive and <span class="math inline">\(\lambda\)</span> is positive the second
+derivative must be negative; therefore the maximum likelihood estimator
+for the parameter of the Poisson distribution is given by
+Equation <a href="appidmsecfitDiscrete.html#eq:PoissonMLE">(B.6)</a>. Notice that this is the sample average of
+the interval counts, which can be easily computed using the <em>mean()</em> function within R.</p>
+<p>While the Poisson distribution has an analytical form for the maximum
+likelihood estimator, not all distributions will have this property.
+Estimating the parameters of distributions will, in general, involve
+non-linear optimization. This motivates the use of software tools such
+as R when performing the analysis. Software tools will perform this
+estimation process with little difficulty. Let’s complete this example
+using R to fit and test whether or not the Poisson distribution is a
+good model for this data.</p>
+</div>
+<div id="chi-squared-goodness-of-fit-test-for-poisson-distribution" class="section level3 hasAnchor" number="9.3.4">
+<h3><span class="header-section-number">B.3.4</span> Chi-Squared Goodness of Fit Test for Poisson Distribution<a href="appidmsecfitDiscrete.html#chi-squared-goodness-of-fit-test-for-poisson-distribution" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>In essence, a distributional test examines the hypothesis
+<span class="math inline">\(H_{0}: X_{i} \sim F_0\)</span> versus the alternate hypothesis of
+<span class="math inline">\(H_{a}: X_{i} \nsim F_0\)</span>. That is, the null hypothesis is that data come from distribution function, <span class="math inline">\(F_0\)</span> and the alternative hypothesis that the data are not distributed according to <span class="math inline">\(F_0\)</span>.</p>
+<p>As a reminder, when using a hypothesis testing framework, we can perform
+the test in two ways: 1) pre-specifying the Type 1 error and comparing
+to a critical value or 2) pre-specifying the Type 1 error and comparing
+to a p-value. For example, in the first case, suppose we let our Type 1
+error <span class="math inline">\(\alpha = 0.05\)</span>, then we look up a critical value appropriate for
+the test, compute the test statistic, and reject the null hypothesis
+<span class="math inline">\(H_{0}\)</span> if test statistic is too extreme (large or small depending on
+the test). In the second case, we compute the p-value for the test based
+on the computed test statistic, and then reject <span class="math inline">\(H_{0}\)</span> if the p-value
+is less than or equal to the specified Type 1 error value.</p>
+<p>This text emphasizes the p-value approach to hypothesis testing because
+computing the p-value provides additional information about the
+significance of the result. The p-value for a statistical test is the
+smallest <span class="math inline">\(\alpha\)</span> level at which the observed test statistic is
+significant. This smallest <span class="math inline">\(\alpha\)</span> level is also called the observed
+level of significance for the test. The smaller the p-value, the more
+the result can be considered statistically significant. Thus, the
+p-value can be compared to the desired significance level, <span class="math inline">\(\alpha\)</span>.
+Thus, when using the p-value approach to hypothesis testing the testing
+criterion is:</p>
+<ul>
+<li><p>If the p-value <span class="math inline">\(&gt; \alpha\)</span>, then do not reject <span class="math inline">\(H_{0}\)</span></p></li>
+<li><p>If the p-value <span class="math inline">\(\leq \alpha\)</span>, then reject <span class="math inline">\(H_{0}\)</span></p></li>
+</ul>
+<p>An alternate interpretation for the p-value is that it is the
+probability assuming <span class="math inline">\(H_{0}\)</span> is true of obtaining a test statistic at
+least as <em>extreme</em> as the observed value. <em>Assuming</em> that <span class="math inline">\(H_{0}\)</span> is
+true, then the test statistic will follow a known distributional model.
+The p-value can be interpreted as the chance assuming that <span class="math inline">\(H_{0}\)</span> is
+true of obtaining a more extreme value of the test statistic than the
+value actually obtained. Computing a p-value for a hypothesis test
+allows for a different mechanism for accepting or rejecting the null
+hypothesis. Remember that a Type I error is</p>
+<p><span class="math display">\[\alpha = P(\text{Type 1 error}) = P(\text{rejecting the null when it is in fact true})\]</span></p>
+<p>This represents the chance you are willing to take to make a mistake in
+your conclusion. The p-value represents the observed chance associated
+with the test statistic being more extreme under the assumption that the
+null is true. A small p-value indicates that the observed result is rare
+under the assumption of <span class="math inline">\(H_{0}\)</span>. If the p-value is small, it indicates
+that an outcome as extreme as observed is possible, but not probable
+under <span class="math inline">\(H_{0}\)</span>. In other words, chance by itself may not adequately
+explain the result. So for a small p-value, you can reject <span class="math inline">\(H_{0}\)</span> as a
+plausible explanation of the observed outcome. If the p-value is large,
+this indicates that an outcome as extreme as that observed can occur
+with high probability. For example, suppose you observed a p-value of
+<span class="math inline">\(0.001\)</span>. This means that assuming <span class="math inline">\(H_{0}\)</span> is true, there was a 1 in 1000
+chance that you would observe a test statistic value at least as extreme
+as what you observed. It comes down to whether or not you consider a 1
+in 1000 occurrence a rare or non-rare event. In other words, do you
+consider yourself that lucky to have observed such a rare event. If you
+do not think of this as lucky but you still actually observed it, then
+you might be suspicious that something is not “right with the world”. In
+other words, your assumption that <span class="math inline">\(H_{0}\)</span> was true is likely wrong.
+Therefore, you reject the null hypothesis, <span class="math inline">\(H_{0}\)</span>, in favor of the
+alternative hypothesis, <span class="math inline">\(H_{a}\)</span>. The risk of you making an incorrect
+decision here is what you consider a rare event, i.e. your <span class="math inline">\(\alpha\)</span>
+level.</p>
+<p>For a discrete distribution, the most common distributional test is the Chi-Squared goodness of fit test, which is the subject of the next section.</p>
+</div>
+<div id="subsubchisqGOF" class="section level3 hasAnchor" number="9.3.5">
+<h3><span class="header-section-number">B.3.5</span> Chi-Squared Goodness of Fit Test<a href="appidmsecfitDiscrete.html#subsubchisqGOF" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>The Chi-Square Test divides the range of the data into, <span class="math inline">\(k\)</span>, intervals (or classes)
+and tests if the number of observations that fall in each interval (or class) is
+close the expected number that should fall in the interval (or class) given the
+hypothesized distribution is the correct model. In the case of discrete data, the intervals are called classes and they are mapped to groupings along the domain of the random variable. For example, in the case of a Poisson distribution, a possible set of <span class="math inline">\(k=7\)</span> classes could be {0}, {1}, {2}, {3}, {4}, {5}, {6 or more}. As a general rule of thumb, the classes should be chosen so that the expected number of observations in each class is at least 5.</p>
+<p>Let <span class="math inline">\(c_{j}\)</span> be the observed count of the observations contained in
+the <span class="math inline">\(j^{th}\)</span> class. The Chi-Squared test statistic has the form:</p>
+<p><span class="math display" id="eq:chisq">\[\begin{equation}
+\chi^{2}_{0} = \sum\limits_{j=1}^{k} \frac{\left( c_{j} - np_{j} \right)^{2}}{np_{j}}
+\tag{B.7}
+\end{equation}\]</span></p>
+<p>The quantity <span class="math inline">\(np_{j}\)</span> is the expected number of observations that should
+fall in the <span class="math inline">\(j^{th}\)</span> class when there are <span class="math inline">\(n\)</span> observations.</p>
+<p>For large <span class="math inline">\(n\)</span>, an approximate <span class="math inline">\(1-\alpha\)</span> level hypothesis test can be
+performed based on a Chi-Squared test statistic that rejects the null
+hypothesis if the computed <span class="math inline">\(\chi^{2}_{0}\)</span> is greater than
+<span class="math inline">\(\chi^{2}_{\alpha, k-s-1}\)</span>, where <span class="math inline">\(s\)</span> is the <em>number of estimated
+parameters</em> for the hypothesized distribution. <span class="math inline">\(\chi^{2}_{\alpha, k-s-1}\)</span>
+is the upper critical value for a Chi-squared random variable <span class="math inline">\(\chi^{2}\)</span>
+such that <span class="math inline">\(P\{\chi^{2} &gt; \chi^{2}_{\alpha, k-s-1}\} = \alpha\)</span>. The
+p-value, <span class="math inline">\(P\{\chi^{2}_{k-s-1} &gt; \chi^{2}_{0}\}\)</span>, for this test can be
+computed in using the following formula:</p>
+<p><span class="math display">\[\text{CHISQ.DIST.RT}(\chi^{2}_{0},k-s-1)\]</span></p>
+<p>In the statistical package <span class="math inline">\(R\)</span>, the formula is:</p>
+<p><span class="math display">\[\text{pchisq}(\chi^{2}_{0},k-s-1,lower.tail=FALSE)\]</span>
+The null hypothesis is that the data come from the hypothesized
+distribution versus the alternative hypothesis that the data do not come
+from the hypothesized distribution.</p>
+<p>Let’s perform a Chi-squared goodness of fit test of computer lab data for the Poisson distribution. A good first step in analyzing discrete data is to summarize the observations in a table. We can do that easily with the R <em>table()</em> function.</p>
+<div class="sourceCode" id="cb216"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb216-1"><a href="appidmsecfitDiscrete.html#cb216-1" aria-hidden="true" tabindex="-1"></a><span class="co"># tabulate the counts</span></span>
+<span id="cb216-2"><a href="appidmsecfitDiscrete.html#cb216-2" aria-hidden="true" tabindex="-1"></a>tCnts <span class="ot">=</span> <span class="fu">table</span>(p2<span class="sc">$</span>N)</span>
+<span id="cb216-3"><a href="appidmsecfitDiscrete.html#cb216-3" aria-hidden="true" tabindex="-1"></a>tCnts</span></code></pre></div>
+<pre><code>## 
+##  1  2  3  4  5  6  7  8  9 10 11 12 13 14 15 16 
+##  1  3  2  7 13 16 21 25 20 21 11  7  5  6  1  1</code></pre>
+<p>From this analysis, we see that there were no week-period combinations that had 0 observations, 1 that had 1 count, 3 that had 2 counts, and so forth. Now, we will estimate the rate parameter of the hypothesized Poisson distribution using Equation <a href="appidmsecfitDiscrete.html#eq:PoissonMLE">(B.6)</a> and tabulate the expected number of observations for a proposed set of classes.</p>
+<div class="sourceCode" id="cb218"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb218-1"><a href="appidmsecfitDiscrete.html#cb218-1" aria-hidden="true" tabindex="-1"></a><span class="co"># get number of observations</span></span>
+<span id="cb218-2"><a href="appidmsecfitDiscrete.html#cb218-2" aria-hidden="true" tabindex="-1"></a>n <span class="ot">=</span> <span class="fu">length</span>(p2<span class="sc">$</span>N)</span>
+<span id="cb218-3"><a href="appidmsecfitDiscrete.html#cb218-3" aria-hidden="true" tabindex="-1"></a>n</span></code></pre></div>
+<pre><code>## [1] 160</code></pre>
+<div class="sourceCode" id="cb220"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb220-1"><a href="appidmsecfitDiscrete.html#cb220-1" aria-hidden="true" tabindex="-1"></a><span class="co"># estimate the rate for Poisson from the data</span></span>
+<span id="cb220-2"><a href="appidmsecfitDiscrete.html#cb220-2" aria-hidden="true" tabindex="-1"></a>lambda <span class="ot">=</span> <span class="fu">mean</span>(p2<span class="sc">$</span>N)</span>
+<span id="cb220-3"><a href="appidmsecfitDiscrete.html#cb220-3" aria-hidden="true" tabindex="-1"></a>lambda</span></code></pre></div>
+<pre><code>## [1] 8.275</code></pre>
+<div class="sourceCode" id="cb222"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb222-1"><a href="appidmsecfitDiscrete.html#cb222-1" aria-hidden="true" tabindex="-1"></a><span class="co"># setup vector of x&#39;s across domain of Poisson</span></span>
+<span id="cb222-2"><a href="appidmsecfitDiscrete.html#cb222-2" aria-hidden="true" tabindex="-1"></a>x <span class="ot">=</span> <span class="dv">0</span><span class="sc">:</span><span class="dv">15</span></span>
+<span id="cb222-3"><a href="appidmsecfitDiscrete.html#cb222-3" aria-hidden="true" tabindex="-1"></a>x</span></code></pre></div>
+<pre><code>##  [1]  0  1  2  3  4  5  6  7  8  9 10 11 12 13 14 15</code></pre>
+<div class="sourceCode" id="cb224"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb224-1"><a href="appidmsecfitDiscrete.html#cb224-1" aria-hidden="true" tabindex="-1"></a><span class="co"># compute the probability for Poisson</span></span>
+<span id="cb224-2"><a href="appidmsecfitDiscrete.html#cb224-2" aria-hidden="true" tabindex="-1"></a>prob <span class="ot">=</span> <span class="fu">dpois</span>(x, lambda)</span>
+<span id="cb224-3"><a href="appidmsecfitDiscrete.html#cb224-3" aria-hidden="true" tabindex="-1"></a>prob</span></code></pre></div>
+<pre><code>##  [1] 0.0002548081 0.0021085367 0.0087240706 0.0240638947 0.0497821822
+##  [6] 0.0823895116 0.1136288681 0.1343255548 0.1389429957 0.1277503655
+## [11] 0.1057134275 0.0795253284 0.0548393410 0.0349073498 0.0206327371
+## [16] 0.0113823933</code></pre>
+<div class="sourceCode" id="cb226"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb226-1"><a href="appidmsecfitDiscrete.html#cb226-1" aria-hidden="true" tabindex="-1"></a><span class="co"># view the expected counts for these probabilities</span></span>
+<span id="cb226-2"><a href="appidmsecfitDiscrete.html#cb226-2" aria-hidden="true" tabindex="-1"></a>prob<span class="sc">*</span>n</span></code></pre></div>
+<pre><code>##  [1]  0.04076929  0.33736587  1.39585130  3.85022316  7.96514916 13.18232186
+##  [7] 18.18061890 21.49208877 22.23087932 20.44005848 16.91414839 12.72405254
+## [13]  8.77429457  5.58517596  3.30123794  1.82118293</code></pre>
+<p>We computed the probability associated with the Poisson distribution with <span class="math inline">\(\hat{\lambda} = 8.275\)</span>. Recall that the Possion distribution has the following form:</p>
+<p><span class="math display">\[
+P\left\{X=x\right\} = \frac{e^{-\lambda}\lambda^{x}}{x!} \quad \lambda &gt; 0, \quad x = 0, 1, \ldots
+\]</span>
+Then, by multiplying each probability, <span class="math inline">\(P\left\{X=i\right\} = p_i\)</span> by the number of observations <span class="math inline">\(n=160\)</span>, we can get the expected number, <span class="math inline">\(n\times p_i\)</span>, that we should observed under the hypothesized distribution. Since the expected values for <span class="math inline">\(x = 0, 1, 2, 3, 4\)</span> are so small, we consolidate them in to one class to have the expected number to be at least 5. We will also consolidate the range <span class="math inline">\(x \geq 13\)</span> into a single class and the values of 11 and 12 into a class.</p>
+<div class="sourceCode" id="cb228"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb228-1"><a href="appidmsecfitDiscrete.html#cb228-1" aria-hidden="true" tabindex="-1"></a><span class="co"># compute the probability for the classes</span></span>
+<span id="cb228-2"><a href="appidmsecfitDiscrete.html#cb228-2" aria-hidden="true" tabindex="-1"></a><span class="co"># the vector is indexed starting at 1, prob[1] = P(X=0)</span></span>
+<span id="cb228-3"><a href="appidmsecfitDiscrete.html#cb228-3" aria-hidden="true" tabindex="-1"></a>cProb <span class="ot">=</span> <span class="fu">c</span>(<span class="fu">sum</span>(prob[<span class="dv">1</span><span class="sc">:</span><span class="dv">5</span>]), prob[<span class="dv">6</span><span class="sc">:</span><span class="dv">11</span>], <span class="fu">sum</span>(prob[<span class="dv">12</span><span class="sc">:</span><span class="dv">13</span>]), <span class="fu">ppois</span>(<span class="dv">12</span>, lambda, <span class="at">lower.tail =</span> <span class="cn">FALSE</span>))</span>
+<span id="cb228-4"><a href="appidmsecfitDiscrete.html#cb228-4" aria-hidden="true" tabindex="-1"></a>cProb</span></code></pre></div>
+<pre><code>## [1] 0.08493349 0.08238951 0.11362887 0.13432555 0.13894300 0.12775037 0.10571343
+## [8] 0.13436467 0.07795112</code></pre>
+<div class="sourceCode" id="cb230"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb230-1"><a href="appidmsecfitDiscrete.html#cb230-1" aria-hidden="true" tabindex="-1"></a><span class="co"># compute the expected counts for each of the classes</span></span>
+<span id="cb230-2"><a href="appidmsecfitDiscrete.html#cb230-2" aria-hidden="true" tabindex="-1"></a>expected <span class="ot">=</span> cProb<span class="sc">*</span>n</span>
+<span id="cb230-3"><a href="appidmsecfitDiscrete.html#cb230-3" aria-hidden="true" tabindex="-1"></a>expected</span></code></pre></div>
+<pre><code>## [1] 13.58936 13.18232 18.18062 21.49209 22.23088 20.44006 16.91415 21.49835
+## [9] 12.47218</code></pre>
+<p>Thus, we will use the following <span class="math inline">\(k=9\)</span> classes: {0,1,2,3,4}, {5}, <span class="math inline">\(\cdots\)</span>, {10}, {11,12}, and {13 or more }. Now, we need to summarize the observed frequencies for the proposed classes.</p>
+<div class="sourceCode" id="cb232"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb232-1"><a href="appidmsecfitDiscrete.html#cb232-1" aria-hidden="true" tabindex="-1"></a><span class="co"># transform tabulated counts to data frame</span></span>
+<span id="cb232-2"><a href="appidmsecfitDiscrete.html#cb232-2" aria-hidden="true" tabindex="-1"></a>dfCnts <span class="ot">=</span> <span class="fu">as.data.frame</span>(tCnts)</span>
+<span id="cb232-3"><a href="appidmsecfitDiscrete.html#cb232-3" aria-hidden="true" tabindex="-1"></a><span class="co"># extract only frequencies</span></span>
+<span id="cb232-4"><a href="appidmsecfitDiscrete.html#cb232-4" aria-hidden="true" tabindex="-1"></a>cnts <span class="ot">=</span> dfCnts<span class="sc">$</span>Freq</span>
+<span id="cb232-5"><a href="appidmsecfitDiscrete.html#cb232-5" aria-hidden="true" tabindex="-1"></a>cnts</span></code></pre></div>
+<pre><code>##  [1]  1  3  2  7 13 16 21 25 20 21 11  7  5  6  1  1</code></pre>
+<div class="sourceCode" id="cb234"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb234-1"><a href="appidmsecfitDiscrete.html#cb234-1" aria-hidden="true" tabindex="-1"></a><span class="co"># consolidate classes for observed</span></span>
+<span id="cb234-2"><a href="appidmsecfitDiscrete.html#cb234-2" aria-hidden="true" tabindex="-1"></a>observed <span class="ot">=</span> <span class="fu">c</span>(<span class="fu">sum</span>(cnts[<span class="dv">1</span><span class="sc">:</span><span class="dv">4</span>]), cnts[<span class="dv">5</span><span class="sc">:</span><span class="dv">10</span>], <span class="fu">sum</span>(cnts[<span class="dv">11</span><span class="sc">:</span><span class="dv">12</span>]), <span class="fu">sum</span>(cnts[<span class="dv">13</span><span class="sc">:</span><span class="dv">16</span>]))</span>
+<span id="cb234-3"><a href="appidmsecfitDiscrete.html#cb234-3" aria-hidden="true" tabindex="-1"></a>observed</span></code></pre></div>
+<pre><code>## [1] 13 13 16 21 25 20 21 18 13</code></pre>
+<p>Now, we have both the observed and expected tabulated and can proceed with the chi-squared goodness of fit test. We will compute the result directly using Equation <a href="appidmsecfitDiscrete.html#eq:chisq">(B.7)</a>.</p>
+<div class="sourceCode" id="cb236"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb236-1"><a href="appidmsecfitDiscrete.html#cb236-1" aria-hidden="true" tabindex="-1"></a><span class="co"># compute the observed minus expected components</span></span>
+<span id="cb236-2"><a href="appidmsecfitDiscrete.html#cb236-2" aria-hidden="true" tabindex="-1"></a>chisq <span class="ot">=</span> ((observed <span class="sc">-</span> expected)<span class="sc">^</span><span class="dv">2</span>)<span class="sc">/</span>expected</span>
+<span id="cb236-3"><a href="appidmsecfitDiscrete.html#cb236-3" aria-hidden="true" tabindex="-1"></a><span class="co"># compute the chi-squared test statistic</span></span>
+<span id="cb236-4"><a href="appidmsecfitDiscrete.html#cb236-4" aria-hidden="true" tabindex="-1"></a>sumchisq <span class="ot">=</span> <span class="fu">sum</span>(chisq)</span>
+<span id="cb236-5"><a href="appidmsecfitDiscrete.html#cb236-5" aria-hidden="true" tabindex="-1"></a><span class="co"># chi-squared test statistic</span></span>
+<span id="cb236-6"><a href="appidmsecfitDiscrete.html#cb236-6" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(sumchisq)</span></code></pre></div>
+<pre><code>## [1] 2.233903</code></pre>
+<div class="sourceCode" id="cb238"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb238-1"><a href="appidmsecfitDiscrete.html#cb238-1" aria-hidden="true" tabindex="-1"></a><span class="co"># set the degrees of freedom, with 1 estimated parameter s = 1</span></span>
+<span id="cb238-2"><a href="appidmsecfitDiscrete.html#cb238-2" aria-hidden="true" tabindex="-1"></a>df <span class="ot">=</span> <span class="fu">length</span>(expected) <span class="sc">-</span> <span class="dv">1</span> <span class="sc">-</span> <span class="dv">1</span></span>
+<span id="cb238-3"><a href="appidmsecfitDiscrete.html#cb238-3" aria-hidden="true" tabindex="-1"></a><span class="co"># compute the p-value</span></span>
+<span id="cb238-4"><a href="appidmsecfitDiscrete.html#cb238-4" aria-hidden="true" tabindex="-1"></a>pvalue <span class="ot">=</span> <span class="dv">1</span> <span class="sc">-</span> <span class="fu">pchisq</span>(sumchisq, df)</span>
+<span id="cb238-5"><a href="appidmsecfitDiscrete.html#cb238-5" aria-hidden="true" tabindex="-1"></a><span class="co"># p-value</span></span>
+<span id="cb238-6"><a href="appidmsecfitDiscrete.html#cb238-6" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(pvalue)</span></code></pre></div>
+<pre><code>## [1] 0.9457686</code></pre>
+<p>Based on such a high p-value, we would not reject <span class="math inline">\(H_0\)</span>. Thus, we can conclude that there is not enough evidence to suggest that the lab arrival count data is some other distribution than the Poisson distribution. In this section, we did the Chi-squared test <em>by-hand</em>. R has a package that facilitates distribution fitting called, <em>fitdistrplus</em>. We will use this package to analyze the computer lab arrival data again in the next section.</p>
+</div>
+<div id="using-the-fitdistrplus-r-package-on-discrete-data" class="section level3 hasAnchor" number="9.3.6">
+<h3><span class="header-section-number">B.3.6</span> Using the fitdistrplus R Package on Discrete Data<a href="appidmsecfitDiscrete.html#using-the-fitdistrplus-r-package-on-discrete-data" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Fortunately, R has a very useful package for fitting a wide variety of
+discrete and continuous distributions call the <em>fitdistrplus</em> package.
+To install and load the package do the following:</p>
+<pre><code>install.packages(&#39;fitdistrplus&#39;)
+library(fitdistrplus)
+plotdist(p2$N, discrete = TRUE)</code></pre>
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:PCntEmpiricalPMF"></span>
+<img src="11-AppDistributionFitting_files/figure-html/PCntEmpiricalPMF-1.svg" alt="Plot of the Empirical PMF and CDF of the Computer Lab Arrivals" width="672" />
+<p class="caption">
+Figure B.7: Plot of the Empirical PMF and CDF of the Computer Lab Arrivals
+</p>
+</div>
+<p>The <em>plotdist</em> command will plot the empirical probability mass function
+and the cumulative distribution function as illustrated in Figure <a href="appidmsecfitDiscrete.html#fig:PCntEmpiricalPMF">B.7</a>.</p>
+<p>To perform the fitting and analysis, you use the <em>fitdist</em> and <em>gofstat</em>
+commands. In addition, plotting the output from the <em>fitdist</em> function
+will provide a comparison of the empirical distribution to the
+theoretical distribution.</p>
+<pre><code>fp = fitdist(p2$N, &quot;pois&quot;)
+summary(fp)
+plot(fp)
+gofstat(fp)</code></pre>
+<div class="sourceCode" id="cb242"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb242-1"><a href="appidmsecfitDiscrete.html#cb242-1" aria-hidden="true" tabindex="-1"></a>fp <span class="ot">=</span> <span class="fu">fitdist</span>(p2<span class="sc">$</span>N, <span class="st">&quot;pois&quot;</span>)</span>
+<span id="cb242-2"><a href="appidmsecfitDiscrete.html#cb242-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(fp)</span></code></pre></div>
+<pre><code>## Fitting of the distribution &#39; pois &#39; by maximum likelihood 
+## Parameters : 
+##        estimate Std. Error
+## lambda    8.275  0.2274176
+## Loglikelihood:  -393.7743   AIC:  789.5485   BIC:  792.6237</code></pre>
+<div class="sourceCode" id="cb244"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb244-1"><a href="appidmsecfitDiscrete.html#cb244-1" aria-hidden="true" tabindex="-1"></a><span class="fu">gofstat</span>(fp)</span></code></pre></div>
+<pre><code>## Chi-squared statistic:  2.233903 
+## Degree of freedom of the Chi-squared distribution:  7 
+## Chi-squared p-value:  0.9457686 
+## Chi-squared table:
+##       obscounts theocounts
+## &lt;= 4   13.00000   13.58936
+## &lt;= 5   13.00000   13.18232
+## &lt;= 6   16.00000   18.18062
+## &lt;= 7   21.00000   21.49209
+## &lt;= 8   25.00000   22.23088
+## &lt;= 9   20.00000   20.44006
+## &lt;= 10  21.00000   16.91415
+## &lt;= 12  18.00000   21.49835
+## &gt; 12   13.00000   12.47218
+## 
+## Goodness-of-fit criteria
+##                                1-mle-pois
+## Akaike&#39;s Information Criterion   789.5485
+## Bayesian Information Criterion   792.6237</code></pre>
+<p>The output of the <em>fitdist</em> and the <em>summary</em> commands provides the
+estimate of <span class="math inline">\(\lambda = 8.275\)</span>. The result object, <em>fp</em>, returned by the
+<em>fitdist</em> can then subsequently be used to plot the fit, <em>plot</em> and
+perform a goodness of fit test, <em>gofstat</em>.</p>
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:PCntEmpiricalTheoretical"></span>
+<img src="11-AppDistributionFitting_files/figure-html/PCntEmpiricalTheoretical-1.svg" alt="Plot of the Empirical and Theoretical CDF of the Computer Lab Arrivals" width="672" />
+<p class="caption">
+Figure B.8: Plot of the Empirical and Theoretical CDF of the Computer Lab Arrivals
+</p>
+</div>
+<p>The <em>gofstat</em> command performs a chi-squared goodness of fit test and
+computes the chi-squared statistic value (here <span class="math inline">\(2.233903\)</span>) and the
+p-value (<span class="math inline">\(0.9457686\)</span>). These are exactly the same results that we computed in the previous section. Clearly, the chi-squared test statistic p-value
+is quite high. Again the null hypothesis is that the observations come
+from a Poisson distribution with the alternative that they do not. The
+high p-value suggests that we should not reject the null hypothesis and
+conclude that a Poisson distribution is a very reasonable model for the
+computer lab arrival counts.</p>
+</div>
+<div id="fitting-a-discrete-empirical-distribution" class="section level3 hasAnchor" number="9.3.7">
+<h3><span class="header-section-number">B.3.7</span> Fitting a Discrete Empirical Distribution<a href="appidmsecfitDiscrete.html#fitting-a-discrete-empirical-distribution" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>We are interested in modeling the number of packages delivered on a small parcel truck to a hospital
+loading dock. A distribution for this random variable will be used in a
+loading dock simulation to understand the ability of the workers to
+unload the truck in a timely manner. Unfortunately, a limited sample of
+observations is available from 40 different truck shipments as shown in Table <a href="appidmsecfitDiscrete.html#tab:TruckData">B.4</a></p>
+<div id="tab:TruckData">
+<table>
+<caption><span id="tab:TruckData">Table B.4: </span> Loading Dock Data</caption>
+<tbody>
+<tr class="odd">
+<td align="center">130</td>
+<td align="center">130</td>
+<td align="center">110</td>
+<td align="center">130</td>
+<td align="center">130</td>
+<td align="center">110</td>
+<td align="center">110</td>
+<td align="center">130</td>
+<td align="center">120</td>
+<td align="center">130</td>
+</tr>
+<tr class="even">
+<td align="center">140</td>
+<td align="center">140</td>
+<td align="center">130</td>
+<td align="center">110</td>
+<td align="center">110</td>
+<td align="center">140</td>
+<td align="center">130</td>
+<td align="center">140</td>
+<td align="center">130</td>
+<td align="center">120</td>
+</tr>
+<tr class="odd">
+<td align="center">140</td>
+<td align="center">150</td>
+<td align="center">120</td>
+<td align="center">150</td>
+<td align="center">120</td>
+<td align="center">130</td>
+<td align="center">120</td>
+<td align="center">100</td>
+<td align="center">110</td>
+<td align="center">150</td>
+</tr>
+<tr class="even">
+<td align="center">130</td>
+<td align="center">120</td>
+<td align="center">120</td>
+<td align="center">130</td>
+<td align="center">120</td>
+<td align="center">120</td>
+<td align="center">130</td>
+<td align="center">130</td>
+<td align="center">130</td>
+<td align="center">100</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>Developing a probability model will be a challenge for this data set
+because of the limited amount of data. Using the following <span class="math inline">\(R\)</span> commands,
+we can get a good understanding of the data. Assuming that the data has
+been read into the variable, <em>packageCnt</em>, the <em>hist()</em>, <em>stripchart()</em>,
+and <em>table()</em> commands provide an initial analysis.</p>
+<pre><code>packageCnt = scan(&quot;data/AppDistFitting/TruckLoadingData.txt&quot;)
+hist(packageCnt, main=&quot;Packages per Shipment&quot;, xlab=&quot;#packages&quot;)
+stripchart(packageCnt,method=&quot;stack&quot;,pch=&quot;o&quot;)
+table(packageCnt)</code></pre>
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:PackageHist"></span>
+<img src="11-AppDistributionFitting_files/figure-html/PackageHist-1.svg" alt="Histogram of Package Count per Shipment" width="672" />
+<p class="caption">
+Figure B.9: Histogram of Package Count per Shipment
+</p>
+</div>
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:PackagesDotPlot"></span>
+<img src="11-AppDistributionFitting_files/figure-html/PackagesDotPlot-1.svg" alt="Dot Plot of Package Countper Shipment" width="672" />
+<p class="caption">
+Figure B.10: Dot Plot of Package Countper Shipment
+</p>
+</div>
+<p>As we can see from the <span class="math inline">\(R\)</span> output, the range of the data varies between
+100 and 150. The histogram, shown in
+Figure <a href="appidmsecfitDiscrete.html#fig:PackageHist">B.9</a>, illustrates the shape of the data. It
+appears to be slightly positively skewed.
+Figure <a href="appidmsecfitDiscrete.html#fig:PackagesDotPlot">B.10</a> presents a dot plot of the observed
+counts. From this figure, we can clearly see that the only values
+obtained in the sample are 100, 110, 120, 130, 140, and 150. It looks as
+though the ordering comes in tens, starting at 100 units.</p>
+<p>Because of the limited size of the sample and limited variety of data
+points, fitting a distribution will be problematic. However, we can fit
+a discrete empirical distribution to the proportions observed in the
+sample. Using the table() command, we can summarize the counts. Then, by
+dividing by 40 (the total number of observations), we can get the
+proportions as show in the <span class="math inline">\(R\)</span> listing.</p>
+<div class="sourceCode" id="cb247"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb247-1"><a href="appidmsecfitDiscrete.html#cb247-1" aria-hidden="true" tabindex="-1"></a>tp <span class="ot">=</span> <span class="fu">table</span>(packageCnt)</span>
+<span id="cb247-2"><a href="appidmsecfitDiscrete.html#cb247-2" aria-hidden="true" tabindex="-1"></a>tp<span class="sc">/</span><span class="fu">length</span>(packageCnt)</span></code></pre></div>
+<pre><code>## packageCnt
+##   100   110   120   130   140   150 
+## 0.050 0.150 0.225 0.375 0.125 0.075</code></pre>
+<p>Thus, we can represent this situation with the following probability mass and cumulative
+distribution functions.</p>
+<p><span class="math display">\[P\{X=x\} =
+\begin{cases}
+    0.05 &amp; \text{x = 100}\\
+    0.15 &amp; \text{x = 110}\\
+    0.225 &amp; \text{x = 120}\\
+    0.375 &amp; \text{x = 130}\\
+    0.125 &amp; x = 140\\
+    0.075 &amp; x = 150
+\end{cases}\]</span></p>
+<p><span class="math display">\[F(x) =
+\begin{cases}
+0.0 &amp; \mathrm{if} \ x &lt; 100\\
+0.05 &amp; \mathrm{if} \ 100 \le x &lt; 110\\
+0.20 &amp; \mathrm{if} \ 110 \le x &lt; 120\\
+0.425 &amp; \mathrm{if} \ 120 \le x &lt; 130\\
+0.80 &amp; \mathrm{if} \ 130 \le x &lt; 140\\
+0.925 &amp; \mathrm{if} \ 140 \le x &lt; 150\\
+1.0 &amp; \mathrm{if} \ x \geq 150
+\end{cases}
+\]</span></p>
+<p>The previous two examples illustrated the process for fitting a discrete distribution to data for use in a simulation model. Because discrete event dynamic simulation involves modeling the behavior of a system over time, the modeling of distributions that represent the time to perform a task is important. Since the domain of time is on the set of positive real numbers, it is a continuous variable. We will explore the modeling of continuous distributions in the next section.</p>
+</div>
+</div>
+<h3>References<a href="references.html#references" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div id="refs" class="references csl-bib-body hanging-indent">
+<div id="ref-box1994forecasting" class="csl-entry">
+Box, G. E. P., G. M. Jenkins, and G. C. Time Series Analysis Reinsel. 1994. <em>Forecasting and Control</em>. 3rd ed. Prentice Hall.
+</div>
+<div id="ref-casella1990statistical" class="csl-entry">
+Casella, G., and R. Berger. 1990. <em>Statistical Inference</em>. Wadsworth &amp; Brooks/Cole.
+</div>
+<div id="ref-law2007simulation" class="csl-entry">
+Law, A. 2007. <em>Simulation Modeling and Analysis</em>. 4th ed. McGraw-Hill.
+</div>
+<div id="ref-Leemis1991aa" class="csl-entry">
+Leemis, L. 1991. <span>“Nonparametric Estimation of the Cumulative Intensity Function for a Nonhomogeneous Poisson Process.”</span> <em>Management Science</em> 37 (7): 886–900.
+</div>
+<div id="ref-montgomery2006applied" class="csl-entry">
+Montgomery, D. C., and G. C. Runger. 2006. <em>Applied Statistics and Probability for Engineers</em>. 4th ed. John Wiley &amp; Sons.
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="appidmsecMDD.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="appidmsecMCD.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"whatsapp": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": null,
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": ["KSLBook.pdf"],
+"search": {
+"engine": "fuse",
+"options": null
+},
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/latest.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>

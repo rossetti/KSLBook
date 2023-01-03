@@ -1,0 +1,957 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>2.1 Random Number Generator | Simulation Modeling using the Kotlin Simulation Library (KSL)</title>
+  <meta name="description" content="A book that illustrates the basics of using the KSL. The output format for this book is bookdown::gitbook." />
+  <meta name="generator" content="bookdown 0.30 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="2.1 Random Number Generator | Simulation Modeling using the Kotlin Simulation Library (KSL)" />
+  <meta property="og:type" content="book" />
+  
+  <meta property="og:description" content="A book that illustrates the basics of using the KSL. The output format for this book is bookdown::gitbook." />
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="2.1 Random Number Generator | Simulation Modeling using the Kotlin Simulation Library (KSL)" />
+  
+  <meta name="twitter:description" content="A book that illustrates the basics of using the KSL. The output format for this book is bookdown::gitbook." />
+  
+
+<meta name="author" content="Manuel D. Rossetti" />
+
+
+<meta name="date" content="2023-01-02" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="ch2rng.html"/>
+<link rel="next" href="rvg.html"/>
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
+<link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
+<script src="libs/kePrint-0.0.1/kePrint.js"></script>
+<link href="libs/lightable-0.0.1/lightable.css" rel="stylesheet" />
+
+
+<style type="text/css">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { color: #008000; } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { color: #008000; font-weight: bold; } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<style type="text/css">
+/* Used with Pandoc 2.11+ new --citeproc when CSL is used */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+}
+.hanging div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}
+</style>
+
+<link rel="stylesheet" href="css/style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">Simulation Modeling using the Kotlin Simulation Library</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Preface</a>
+<ul>
+<li class="chapter" data-level="" data-path="release-history.html"><a href="release-history.html"><i class="fa fa-check"></i>Release History</a></li>
+<li class="chapter" data-level="" data-path="ksl-project-page.html"><a href="ksl-project-page.html"><i class="fa fa-check"></i>KSL Project Page</a></li>
+<li class="chapter" data-level="" data-path="book-support-files.html"><a href="book-support-files.html"><i class="fa fa-check"></i>Book Support Files</a></li>
+<li class="chapter" data-level="" data-path="acknowledgments.html"><a href="acknowledgments.html"><i class="fa fa-check"></i>Acknowledgments</a></li>
+<li class="chapter" data-level="" data-path="intended-audience.html"><a href="intended-audience.html"><i class="fa fa-check"></i>Intended Audience</a></li>
+<li class="chapter" data-level="" data-path="organization-of-the-book.html"><a href="organization-of-the-book.html"><i class="fa fa-check"></i>Organization of the Book</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="about-the-author.html"><a href="about-the-author.html"><i class="fa fa-check"></i>About the Author</a></li>
+<li class="chapter" data-level="1" data-path="ch1.html"><a href="ch1.html"><i class="fa fa-check"></i><b>1</b> Simulation Modeling</a>
+<ul>
+<li class="chapter" data-level="1.1" data-path="simulation-modeling.html"><a href="simulation-modeling.html"><i class="fa fa-check"></i><b>1.1</b> Simulation Modeling</a></li>
+<li class="chapter" data-level="1.2" data-path="why-simulate.html"><a href="why-simulate.html"><i class="fa fa-check"></i><b>1.2</b> Why Simulate?</a></li>
+<li class="chapter" data-level="1.3" data-path="types-of-systems-and-simulation-models.html"><a href="types-of-systems-and-simulation-models.html"><i class="fa fa-check"></i><b>1.3</b> Types of Systems and Simulation Models</a></li>
+<li class="chapter" data-level="1.4" data-path="simulation-descriptive-or-prescriptive-modeling.html"><a href="simulation-descriptive-or-prescriptive-modeling.html"><i class="fa fa-check"></i><b>1.4</b> Simulation: Descriptive or Prescriptive Modeling?</a></li>
+<li class="chapter" data-level="1.5" data-path="randomness-in-simulation.html"><a href="randomness-in-simulation.html"><i class="fa fa-check"></i><b>1.5</b> Randomness in Simulation</a></li>
+<li class="chapter" data-level="1.6" data-path="simulation-languages.html"><a href="simulation-languages.html"><i class="fa fa-check"></i><b>1.6</b> Simulation Languages</a></li>
+<li class="chapter" data-level="1.7" data-path="ch1:sec:simMeth.html"><a href="ch1:sec:simMeth.html"><i class="fa fa-check"></i><b>1.7</b> Simulation Methodology</a></li>
+<li class="chapter" data-level="1.8" data-path="overview-of-the-kotline-simulation-library.html"><a href="overview-of-the-kotline-simulation-library.html"><i class="fa fa-check"></i><b>1.8</b> Overview of the Kotline Simulation Library</a></li>
+<li class="chapter" data-level="1.9" data-path="exercises.html"><a href="exercises.html"><i class="fa fa-check"></i><b>1.9</b> Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="ch2rng.html"><a href="ch2rng.html"><i class="fa fa-check"></i><b>2</b> Modeling Randomness</a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="ch2generator.html"><a href="ch2generator.html"><i class="fa fa-check"></i><b>2.1</b> Random Number Generator</a>
+<ul>
+<li class="chapter" data-level="2.1.1" data-path="ch2generator.html"><a href="ch2generator.html#ch2randompkg"><i class="fa fa-check"></i><b>2.1.1</b> Random Package</a></li>
+<li class="chapter" data-level="2.1.2" data-path="ch2generator.html"><a href="ch2generator.html#ch2creatingStreams"><i class="fa fa-check"></i><b>2.1.2</b> Creating and Using Streams</a></li>
+<li class="chapter" data-level="2.1.3" data-path="ch2generator.html"><a href="ch2generator.html#ch2crn"><i class="fa fa-check"></i><b>2.1.3</b> Common Random Numbers</a></li>
+<li class="chapter" data-level="2.1.4" data-path="ch2generator.html"><a href="ch2generator.html#ch2antitheticStreams"><i class="fa fa-check"></i><b>2.1.4</b> Creating and Using Antithetic Streams</a></li>
+<li class="chapter" data-level="2.1.5" data-path="ch2generator.html"><a href="ch2generator.html#ch2rnFAQ"><i class="fa fa-check"></i><b>2.1.5</b> Frequently Asked Questions about Random Numbers</a></li>
+</ul></li>
+<li class="chapter" data-level="2.2" data-path="rvg.html"><a href="rvg.html"><i class="fa fa-check"></i><b>2.2</b> Random Variate Generation</a>
+<ul>
+<li class="chapter" data-level="2.2.1" data-path="rvg.html"><a href="rvg.html#rvg_dists"><i class="fa fa-check"></i><b>2.2.1</b> Continuous and Discrete Random Variables</a></li>
+<li class="chapter" data-level="2.2.2" data-path="rvg.html"><a href="rvg.html#rvg_algo"><i class="fa fa-check"></i><b>2.2.2</b> Overview of Generation Algorithms</a></li>
+<li class="chapter" data-level="2.2.3" data-path="rvg.html"><a href="rvg.html#rvg_use"><i class="fa fa-check"></i><b>2.2.3</b> Creating and Using Random Variables</a></li>
+<li class="chapter" data-level="2.2.4" data-path="rvg.html"><a href="rvg.html#functions-of-random-variables"><i class="fa fa-check"></i><b>2.2.4</b> Functions of Random Variables</a></li>
+</ul></li>
+<li class="chapter" data-level="2.3" data-path="probability-distribution-models.html"><a href="probability-distribution-models.html"><i class="fa fa-check"></i><b>2.3</b> Probability Distribution Models</a></li>
+<li class="chapter" data-level="2.4" data-path="summary.html"><a href="summary.html"><i class="fa fa-check"></i><b>2.4</b> Summary</a></li>
+<li class="chapter" data-level="2.5" data-path="exercises-1.html"><a href="exercises-1.html"><i class="fa fa-check"></i><b>2.5</b> Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="mcm.html"><a href="mcm.html"><i class="fa fa-check"></i><b>3</b> Monte Carlo Methods</a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="kslStatistics.html"><a href="kslStatistics.html"><i class="fa fa-check"></i><b>3.1</b> Collecting Statistics</a>
+<ul>
+<li class="chapter" data-level="3.1.1" data-path="kslStatistics.html"><a href="kslStatistics.html#creating-and-using-a-statistic"><i class="fa fa-check"></i><b>3.1.1</b> Creating and Using a Statistic</a></li>
+<li class="chapter" data-level="3.1.2" data-path="kslStatistics.html"><a href="kslStatistics.html#histograms-and-frequencies"><i class="fa fa-check"></i><b>3.1.2</b> Histograms and Frequencies</a></li>
+</ul></li>
+<li class="chapter" data-level="3.2" data-path="ch3batchStats.html"><a href="ch3batchStats.html"><i class="fa fa-check"></i><b>3.2</b> Batch Statistics</a></li>
+<li class="chapter" data-level="3.3" data-path="ssMC.html"><a href="ssMC.html"><i class="fa fa-check"></i><b>3.3</b> Simple Monte Carlo Integration</a></li>
+<li class="chapter" data-level="3.4" data-path="ch3StatReview.html"><a href="ch3StatReview.html"><i class="fa fa-check"></i><b>3.4</b> Review of Statistical Concepts</a>
+<ul>
+<li class="chapter" data-level="3.4.1" data-path="ch3StatReview.html"><a href="ch3StatReview.html#point-estimates-and-confidence-intervals"><i class="fa fa-check"></i><b>3.4.1</b> Point Estimates and Confidence Intervals</a></li>
+<li class="chapter" data-level="3.4.2" data-path="ch3StatReview.html"><a href="ch3StatReview.html#ch3SampleSize"><i class="fa fa-check"></i><b>3.4.2</b> Sample Size Determination</a></li>
+<li class="chapter" data-level="3.4.3" data-path="ch3StatReview.html"><a href="ch3StatReview.html#determining-the-sample-size-for-a-monte-carlo-simulation-experiment"><i class="fa fa-check"></i><b>3.4.3</b> Determining the Sample Size for a Monte Carlo Simulation Experiment</a></li>
+</ul></li>
+<li class="chapter" data-level="3.5" data-path="craps.html"><a href="craps.html"><i class="fa fa-check"></i><b>3.5</b> Simulating the Game of Craps</a></li>
+<li class="chapter" data-level="3.6" data-path="the-news-vendor-problem.html"><a href="the-news-vendor-problem.html"><i class="fa fa-check"></i><b>3.6</b> The News Vendor Problem</a></li>
+<li class="chapter" data-level="3.7" data-path="monte-carlo-experiments.html"><a href="monte-carlo-experiments.html"><i class="fa fa-check"></i><b>3.7</b> Monte-Carlo Experiments</a></li>
+<li class="chapter" data-level="3.8" data-path="summary-1.html"><a href="summary-1.html"><i class="fa fa-check"></i><b>3.8</b> Summary</a></li>
+<li class="chapter" data-level="3.9" data-path="exercises-2.html"><a href="exercises-2.html"><i class="fa fa-check"></i><b>3.9</b> Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="introDEDS.html"><a href="introDEDS.html"><i class="fa fa-check"></i><b>4</b> Introduction to Discrete Event Modeling</a>
+<ul>
+<li class="chapter" data-level="4.1" data-path="introDEDSIntro.html"><a href="introDEDSIntro.html"><i class="fa fa-check"></i><b>4.1</b> Introduction</a></li>
+<li class="chapter" data-level="4.2" data-path="introDEDSdeds.html"><a href="introDEDSdeds.html"><i class="fa fa-check"></i><b>4.2</b> Discrete-Event Dynamic Systems</a></li>
+<li class="chapter" data-level="4.3" data-path="HowDEDSClockWorks.html"><a href="HowDEDSClockWorks.html"><i class="fa fa-check"></i><b>4.3</b> How the Discrete-Event Clock Works</a></li>
+<li class="chapter" data-level="4.4" data-path="QHandExample.html"><a href="QHandExample.html"><i class="fa fa-check"></i><b>4.4</b> Simulating a Queueing System By Hand</a></li>
+<li class="chapter" data-level="4.5" data-path="introDEDSdedsKSL.html"><a href="introDEDSdedsKSL.html"><i class="fa fa-check"></i><b>4.5</b> Modeling DEDS in the KSL</a>
+<ul>
+<li class="chapter" data-level="4.5.1" data-path="introDEDSdedsKSL.html"><a href="introDEDSdedsKSL.html#event-scheduling"><i class="fa fa-check"></i><b>4.5.1</b> Event Scheduling</a></li>
+<li class="chapter" data-level="4.5.2" data-path="introDEDSdedsKSL.html"><a href="introDEDSdedsKSL.html#introDEDSschedExamples"><i class="fa fa-check"></i><b>4.5.2</b> Simple Event Scheduling Examples</a></li>
+<li class="chapter" data-level="4.5.3" data-path="introDEDSdedsKSL.html"><a href="introDEDSdedsKSL.html#introDEDSUpDown"><i class="fa fa-check"></i><b>4.5.3</b> Up and Down Component Example</a></li>
+<li class="chapter" data-level="4.5.4" data-path="introDEDSdedsKSL.html"><a href="introDEDSdedsKSL.html#introDEDSPharmacy"><i class="fa fa-check"></i><b>4.5.4</b> Modeling a Simple Queueing System</a></li>
+<li class="chapter" data-level="4.5.5" data-path="introDEDSdedsKSL.html"><a href="introDEDSdedsKSL.html#more-details-about-the-pharmacy-model-implementation"><i class="fa fa-check"></i><b>4.5.5</b> More Details About the Pharmacy Model Implementation</a></li>
+</ul></li>
+<li class="chapter" data-level="4.6" data-path="enhancing-the-drive-through-pharmacy-model.html"><a href="enhancing-the-drive-through-pharmacy-model.html"><i class="fa fa-check"></i><b>4.6</b> Enhancing the Drive Through Pharmacy Model</a></li>
+<li class="chapter" data-level="4.7" data-path="introDEDSSummary.html"><a href="introDEDSSummary.html"><i class="fa fa-check"></i><b>4.7</b> Summary</a></li>
+<li class="chapter" data-level="4.8" data-path="exercises-3.html"><a href="exercises-3.html"><i class="fa fa-check"></i><b>4.8</b> Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="simoa.html"><a href="simoa.html"><i class="fa fa-check"></i><b>5</b> Analyzing Simulation Output</a>
+<ul>
+<li class="chapter" data-level="5.1" data-path="simoadatatypes.html"><a href="simoadatatypes.html"><i class="fa fa-check"></i><b>5.1</b> Types of Statistical Variables</a></li>
+<li class="chapter" data-level="5.2" data-path="simoasimtypes.html"><a href="simoasimtypes.html"><i class="fa fa-check"></i><b>5.2</b> Types of Simulation With Respect To Output Analysis</a></li>
+<li class="chapter" data-level="5.3" data-path="simoafinhorizon.html"><a href="simoafinhorizon.html"><i class="fa fa-check"></i><b>5.3</b> Analysis of Finite Horizon Simulations</a></li>
+<li class="chapter" data-level="5.4" data-path="simoafinhorizonex.html"><a href="simoafinhorizonex.html"><i class="fa fa-check"></i><b>5.4</b> Capturing Output for a Simple Finite Horizon Simulation</a>
+<ul>
+<li class="chapter" data-level="5.4.1" data-path="simoafinhorizonex.html"><a href="simoafinhorizonex.html#ksl-functionality-for-capturing-statistical-results"><i class="fa fa-check"></i><b>5.4.1</b> KSL Functionality for Capturing Statistical Results</a></li>
+<li class="chapter" data-level="5.4.2" data-path="simoafinhorizonex.html"><a href="simoafinhorizonex.html#additional-remarks"><i class="fa fa-check"></i><b>5.4.2</b> Additional Remarks</a></li>
+<li class="chapter" data-level="5.4.3" data-path="simoafinhorizonex.html"><a href="simoafinhorizonex.html#querying-the-ksl-database"><i class="fa fa-check"></i><b>5.4.3</b> Querying the KSL Database</a></li>
+</ul></li>
+<li class="chapter" data-level="5.5" data-path="simoaseqsampling.html"><a href="simoaseqsampling.html"><i class="fa fa-check"></i><b>5.5</b> Sequential Sampling for Finite Horizon Simulations</a></li>
+<li class="chapter" data-level="5.6" data-path="simoainfhorizon.html"><a href="simoainfhorizon.html"><i class="fa fa-check"></i><b>5.6</b> Analysis of Infinite Horizon Simulations</a>
+<ul>
+<li class="chapter" data-level="5.6.1" data-path="simoainfhorizon.html"><a href="simoainfhorizon.html#simoainfhorizoninitialbias"><i class="fa fa-check"></i><b>5.6.1</b> Assessing the Effect of Initial Conditions</a></li>
+<li class="chapter" data-level="5.6.2" data-path="simoainfhorizon.html"><a href="simoainfhorizon.html#simoainfhorizonrepDeletion"><i class="fa fa-check"></i><b>5.6.2</b> Performing the Method of Replication-Deletion</a></li>
+<li class="chapter" data-level="5.6.3" data-path="simoainfhorizon.html"><a href="simoainfhorizon.html#simoainfhorizonbatchmeans"><i class="fa fa-check"></i><b>5.6.3</b> The Method of Batch Means</a></li>
+<li class="chapter" data-level="5.6.4" data-path="simoainfhorizon.html"><a href="simoainfhorizon.html#simoainfhorizonjslbatching"><i class="fa fa-check"></i><b>5.6.4</b> Performing the Method of Batch Means</a></li>
+</ul></li>
+<li class="chapter" data-level="5.7" data-path="simoacomparingSystems.html"><a href="simoacomparingSystems.html"><i class="fa fa-check"></i><b>5.7</b> Comparing System Configurations</a>
+<ul>
+<li class="chapter" data-level="5.7.1" data-path="simoacomparingSystems.html"><a href="simoacomparingSystems.html#simoacomparingSystems:two"><i class="fa fa-check"></i><b>5.7.1</b> Comparing Two Systems</a></li>
+<li class="chapter" data-level="5.7.2" data-path="simoacomparingSystems.html"><a href="simoacomparingSystems.html#simoacomparingSystemsMCB"><i class="fa fa-check"></i><b>5.7.2</b> Multiple Comparisons</a></li>
+</ul></li>
+<li class="chapter" data-level="5.8" data-path="simoasummary.html"><a href="simoasummary.html"><i class="fa fa-check"></i><b>5.8</b> Summary</a></li>
+<li class="chapter" data-level="5.9" data-path="exercises-4.html"><a href="exercises-4.html"><i class="fa fa-check"></i><b>5.9</b> Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="processview.html"><a href="processview.html"><i class="fa fa-check"></i><b>6</b> Process View Modeling Using the KSL</a>
+<ul>
+<li class="chapter" data-level="6.1" data-path="ch6Entities.html"><a href="ch6Entities.html"><i class="fa fa-check"></i><b>6.1</b> What are Entities?</a></li>
+<li class="chapter" data-level="6.2" data-path="pvIntro.html"><a href="pvIntro.html"><i class="fa fa-check"></i><b>6.2</b> The Process View</a></li>
+<li class="chapter" data-level="6.3" data-path="understanding-ksl-processes-and-entities.html"><a href="understanding-ksl-processes-and-entities.html"><i class="fa fa-check"></i><b>6.3</b> Understanding KSL Processes and Entities</a></li>
+<li class="chapter" data-level="6.4" data-path="examples-of-process-modeling.html"><a href="examples-of-process-modeling.html"><i class="fa fa-check"></i><b>6.4</b> Examples of Process Modeling</a></li>
+<li class="chapter" data-level="6.5" data-path="modeling-a-stem-career-mixer.html"><a href="modeling-a-stem-career-mixer.html"><i class="fa fa-check"></i><b>6.5</b> Modeling a STEM Career Mixer</a>
+<ul>
+<li class="chapter" data-level="6.5.1" data-path="modeling-a-stem-career-mixer.html"><a href="modeling-a-stem-career-mixer.html#conceptualizing-the-system"><i class="fa fa-check"></i><b>6.5.1</b> Conceptualizing the System</a></li>
+<li class="chapter" data-level="6.5.2" data-path="modeling-a-stem-career-mixer.html"><a href="modeling-a-stem-career-mixer.html#implementing-the-stem-mixer-model"><i class="fa fa-check"></i><b>6.5.2</b> Implementing the STEM Mixer Model</a></li>
+</ul></li>
+<li class="chapter" data-level="6.6" data-path="the-tie-dye-t-shirt-model.html"><a href="the-tie-dye-t-shirt-model.html"><i class="fa fa-check"></i><b>6.6</b> The Tie-Dye T-Shirt Model</a>
+<ul>
+<li class="chapter" data-level="6.6.1" data-path="the-tie-dye-t-shirt-model.html"><a href="the-tie-dye-t-shirt-model.html#ch4:TieDyeTShirtsSub1"><i class="fa fa-check"></i><b>6.6.1</b> Implementing the Tie-Dye T-Shirt Model</a></li>
+</ul></li>
+<li class="chapter" data-level="6.7" data-path="summary-2.html"><a href="summary-2.html"><i class="fa fa-check"></i><b>6.7</b> Summary</a></li>
+<li class="chapter" data-level="6.8" data-path="exercises-5.html"><a href="exercises-5.html"><i class="fa fa-check"></i><b>6.8</b> Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="ch7AdvModeling.html"><a href="ch7AdvModeling.html"><i class="fa fa-check"></i><b>7</b> Advanced Event and Process View Modeling</a>
+<ul>
+<li class="chapter" data-level="7.1" data-path="modeling-with-processes-and-resources.html"><a href="modeling-with-processes-and-resources.html"><i class="fa fa-check"></i><b>7.1</b> Modeling with Processes and Resources</a>
+<ul>
+<li class="chapter" data-level="7.1.1" data-path="modeling-with-processes-and-resources.html"><a href="modeling-with-processes-and-resources.html#modeling-space-with-resources"><i class="fa fa-check"></i><b>7.1.1</b> Modeling Space with Resources</a></li>
+<li class="chapter" data-level="7.1.2" data-path="modeling-with-processes-and-resources.html"><a href="modeling-with-processes-and-resources.html#resource-pools"><i class="fa fa-check"></i><b>7.1.2</b> Resource Pools</a></li>
+<li class="chapter" data-level="7.1.3" data-path="modeling-with-processes-and-resources.html"><a href="modeling-with-processes-and-resources.html#computer-test-and-repair-shop-example"><i class="fa fa-check"></i><b>7.1.3</b> Computer Test and Repair Shop Example</a></li>
+</ul></li>
+<li class="chapter" data-level="7.2" data-path="modeling-non-stationary-systems.html"><a href="modeling-non-stationary-systems.html"><i class="fa fa-check"></i><b>7.2</b> Modeling Non-Stationary Systems</a>
+<ul>
+<li class="chapter" data-level="7.2.1" data-path="modeling-non-stationary-systems.html"><a href="modeling-non-stationary-systems.html#ch7secNSPP"><i class="fa fa-check"></i><b>7.2.1</b> Non-Stationary Arrival Processes</a></li>
+<li class="chapter" data-level="7.2.2" data-path="modeling-non-stationary-systems.html"><a href="modeling-non-stationary-systems.html#modeling-resources-under-non-stationary-conditions"><i class="fa fa-check"></i><b>7.2.2</b> Modeling Resources Under Non-Stationary Conditions</a></li>
+<li class="chapter" data-level="7.2.3" data-path="modeling-non-stationary-systems.html"><a href="modeling-non-stationary-systems.html#enhancing-the-stem-career-mixer-example"><i class="fa fa-check"></i><b>7.2.3</b> Enhancing the STEM Career Mixer Example</a></li>
+</ul></li>
+<li class="chapter" data-level="7.3" data-path="examples-of-advanced-event-models.html"><a href="examples-of-advanced-event-models.html"><i class="fa fa-check"></i><b>7.3</b> Examples of Advanced Event Models</a>
+<ul>
+<li class="chapter" data-level="7.3.1" data-path="examples-of-advanced-event-models.html"><a href="examples-of-advanced-event-models.html#ch6s1sb4sub3"><i class="fa fa-check"></i><b>7.3.1</b> Modeling Balking and Reneging</a></li>
+<li class="chapter" data-level="7.3.2" data-path="examples-of-advanced-event-models.html"><a href="examples-of-advanced-event-models.html#modeling-a-reorder-point-reorder-quantity-inventory-policy"><i class="fa fa-check"></i><b>7.3.2</b> Modeling a Reorder Point, Reorder Quantity Inventory Policy</a></li>
+</ul></li>
+<li class="chapter" data-level="7.4" data-path="summary-3.html"><a href="summary-3.html"><i class="fa fa-check"></i><b>7.4</b> Summary</a></li>
+<li class="chapter" data-level="7.5" data-path="exercises-6.html"><a href="exercises-6.html"><i class="fa fa-check"></i><b>7.5</b> Exercises</a></li>
+</ul></li>
+<li class="appendix"><span><b>Appendix</b></span></li>
+<li class="chapter" data-level="A" data-path="appRNRV.html"><a href="appRNRV.html"><i class="fa fa-check"></i><b>A</b> Generating Pseudo-Random Numbers and Random Variates</a>
+<ul>
+<li class="chapter" data-level="A.1" data-path="appRNRVPRN.html"><a href="appRNRVPRN.html"><i class="fa fa-check"></i><b>A.1</b> Pseudo Random Numbers</a>
+<ul>
+<li class="chapter" data-level="A.1.1" data-path="appRNRVPRN.html"><a href="appRNRVPRN.html#appRNRVRNGs"><i class="fa fa-check"></i><b>A.1.1</b> Random Number Generators</a></li>
+</ul></li>
+<li class="chapter" data-level="A.2" data-path="appRNRVs.html"><a href="appRNRVs.html"><i class="fa fa-check"></i><b>A.2</b> Generating Random Variates from Distributions</a>
+<ul>
+<li class="chapter" data-level="A.2.1" data-path="appRNRVs.html"><a href="appRNRVs.html#inverse-transform-method"><i class="fa fa-check"></i><b>A.2.1</b> Inverse Transform Method</a></li>
+<li class="chapter" data-level="A.2.2" data-path="appRNRVs.html"><a href="appRNRVs.html#convolution"><i class="fa fa-check"></i><b>A.2.2</b> Convolution</a></li>
+<li class="chapter" data-level="A.2.3" data-path="appRNRVs.html"><a href="appRNRVs.html#acceptancerejection"><i class="fa fa-check"></i><b>A.2.3</b> Acceptance/Rejection</a></li>
+<li class="chapter" data-level="A.2.4" data-path="appRNRVs.html"><a href="appRNRVs.html#AppRNRVsubsecMTSRV"><i class="fa fa-check"></i><b>A.2.4</b> Mixture Distributions, Truncated Distributions, and Shifted Random Variables</a></li>
+</ul></li>
+<li class="chapter" data-level="A.3" data-path="summary-4.html"><a href="summary-4.html"><i class="fa fa-check"></i><b>A.3</b> Summary</a></li>
+<li class="chapter" data-level="A.4" data-path="exercises-7.html"><a href="exercises-7.html"><i class="fa fa-check"></i><b>A.4</b> Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="B" data-path="appidm.html"><a href="appidm.html"><i class="fa fa-check"></i><b>B</b> Probability Distribution Modeling</a>
+<ul>
+<li class="chapter" data-level="B.1" data-path="appidmsecrvPD.html"><a href="appidmsecrvPD.html"><i class="fa fa-check"></i><b>B.1</b> Random Variables and Probability Distributions</a></li>
+<li class="chapter" data-level="B.2" data-path="appidmsecMDD.html"><a href="appidmsecMDD.html"><i class="fa fa-check"></i><b>B.2</b> Modeling with Discrete Distributions</a></li>
+<li class="chapter" data-level="B.3" data-path="appidmsecfitDiscrete.html"><a href="appidmsecfitDiscrete.html"><i class="fa fa-check"></i><b>B.3</b> Fitting Discrete Distributions</a>
+<ul>
+<li class="chapter" data-level="B.3.1" data-path="appidmsecfitDiscrete.html"><a href="appidmsecfitDiscrete.html#AppDisFitPoissonFit"><i class="fa fa-check"></i><b>B.3.1</b> Fitting a Poisson Distribution</a></li>
+<li class="chapter" data-level="B.3.2" data-path="appidmsecfitDiscrete.html"><a href="appidmsecfitDiscrete.html#visualizing-the-data"><i class="fa fa-check"></i><b>B.3.2</b> Visualizing the Data</a></li>
+<li class="chapter" data-level="B.3.3" data-path="appidmsecfitDiscrete.html"><a href="appidmsecfitDiscrete.html#estimating-the-rate-parameter-for-the-poisson-distribution"><i class="fa fa-check"></i><b>B.3.3</b> Estimating the Rate Parameter for the Poisson Distribution</a></li>
+<li class="chapter" data-level="B.3.4" data-path="appidmsecfitDiscrete.html"><a href="appidmsecfitDiscrete.html#chi-squared-goodness-of-fit-test-for-poisson-distribution"><i class="fa fa-check"></i><b>B.3.4</b> Chi-Squared Goodness of Fit Test for Poisson Distribution</a></li>
+<li class="chapter" data-level="B.3.5" data-path="appidmsecfitDiscrete.html"><a href="appidmsecfitDiscrete.html#subsubchisqGOF"><i class="fa fa-check"></i><b>B.3.5</b> Chi-Squared Goodness of Fit Test</a></li>
+<li class="chapter" data-level="B.3.6" data-path="appidmsecfitDiscrete.html"><a href="appidmsecfitDiscrete.html#using-the-fitdistrplus-r-package-on-discrete-data"><i class="fa fa-check"></i><b>B.3.6</b> Using the fitdistrplus R Package on Discrete Data</a></li>
+<li class="chapter" data-level="B.3.7" data-path="appidmsecfitDiscrete.html"><a href="appidmsecfitDiscrete.html#fitting-a-discrete-empirical-distribution"><i class="fa fa-check"></i><b>B.3.7</b> Fitting a Discrete Empirical Distribution</a></li>
+</ul></li>
+<li class="chapter" data-level="B.4" data-path="appidmsecMCD.html"><a href="appidmsecMCD.html"><i class="fa fa-check"></i><b>B.4</b> Modeling with Continuous Distributions</a></li>
+<li class="chapter" data-level="B.5" data-path="appidmsecfitContinuous.html"><a href="appidmsecfitContinuous.html"><i class="fa fa-check"></i><b>B.5</b> Fitting Continuous Distributions</a>
+<ul>
+<li class="chapter" data-level="B.5.1" data-path="appidmsecfitContinuous.html"><a href="appidmsecfitContinuous.html#appidmsubsecvisualizedata"><i class="fa fa-check"></i><b>B.5.1</b> Visualizing the Data</a></li>
+<li class="chapter" data-level="B.5.2" data-path="appidmsecfitContinuous.html"><a href="appidmsecfitContinuous.html#appidmsubsecstatsdata"><i class="fa fa-check"></i><b>B.5.2</b> Statistically Summarize the Data</a></li>
+<li class="chapter" data-level="B.5.3" data-path="appidmsecfitContinuous.html"><a href="appidmsecfitContinuous.html#appidmsubsechypothDist"><i class="fa fa-check"></i><b>B.5.3</b> Hypothesizing and Testing a Distribution</a></li>
+<li class="chapter" data-level="B.5.4" data-path="appidmsecfitContinuous.html"><a href="appidmsecfitContinuous.html#kolmogorov-smirnov-test"><i class="fa fa-check"></i><b>B.5.4</b> Kolmogorov-Smirnov Test</a></li>
+<li class="chapter" data-level="B.5.5" data-path="appidmsecfitContinuous.html"><a href="appidmsecfitContinuous.html#appidmsubsecvisFit"><i class="fa fa-check"></i><b>B.5.5</b> Visualizing the Fit</a></li>
+<li class="chapter" data-level="B.5.6" data-path="appidmsecfitContinuous.html"><a href="appidmsecfitContinuous.html#appidms2sb3"><i class="fa fa-check"></i><b>B.5.6</b> Using the Input Analyzer</a></li>
+</ul></li>
+<li class="chapter" data-level="B.6" data-path="appdistfittestU01.html"><a href="appdistfittestU01.html"><i class="fa fa-check"></i><b>B.6</b> Testing Uniform (0,1) Pseudo-Random Numbers</a>
+<ul>
+<li class="chapter" data-level="B.6.1" data-path="appdistfittestU01.html"><a href="appdistfittestU01.html#chi-squared-goodness-of-fit-tests-for-pseudo-random-numbers"><i class="fa fa-check"></i><b>B.6.1</b> Chi-Squared Goodness of Fit Tests for Pseudo-Random Numbers</a></li>
+<li class="chapter" data-level="B.6.2" data-path="appdistfittestU01.html"><a href="appdistfittestU01.html#higher-dimensional-chi-squared-test"><i class="fa fa-check"></i><b>B.6.2</b> Higher Dimensional Chi-Squared Test</a></li>
+<li class="chapter" data-level="B.6.3" data-path="appdistfittestU01.html"><a href="appdistfittestU01.html#kolmogorov-smirnov-test-for-pseudo-random-numbers"><i class="fa fa-check"></i><b>B.6.3</b> Kolmogorov-Smirnov Test for Pseudo-Random Numbers</a></li>
+<li class="chapter" data-level="B.6.4" data-path="appdistfittestU01.html"><a href="appdistfittestU01.html#testing-for-independence-and-patterns-in-pseudo-random-numbers"><i class="fa fa-check"></i><b>B.6.4</b> Testing for Independence and Patterns in Pseudo-Random Numbers</a></li>
+</ul></li>
+<li class="chapter" data-level="B.7" data-path="appdistfitidms2sb4.html"><a href="appdistfitidms2sb4.html"><i class="fa fa-check"></i><b>B.7</b> Additional Distribution Modeling Concepts</a></li>
+<li class="chapter" data-level="B.8" data-path="appidmSummary.html"><a href="appidmSummary.html"><i class="fa fa-check"></i><b>B.8</b> Summary</a></li>
+<li class="chapter" data-level="B.9" data-path="exercises-8.html"><a href="exercises-8.html"><i class="fa fa-check"></i><b>B.9</b> Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="C" data-path="appqtAndInvT.html"><a href="appqtAndInvT.html"><i class="fa fa-check"></i><b>C</b> Queueing Theory</a>
+<ul>
+<li class="chapter" data-level="C.1" data-path="appqts1.html"><a href="appqts1.html"><i class="fa fa-check"></i><b>C.1</b> Single Line Queueing Stations</a>
+<ul>
+<li class="chapter" data-level="C.1.1" data-path="appqts1.html"><a href="appqts1.html#queueing-notation"><i class="fa fa-check"></i><b>C.1.1</b> Queueing Notation</a></li>
+<li class="chapter" data-level="C.1.2" data-path="appqts1.html"><a href="appqts1.html#littles-formula"><i class="fa fa-check"></i><b>C.1.2</b> Little’s Formula</a></li>
+<li class="chapter" data-level="C.1.3" data-path="appqts1.html"><a href="appqts1.html#appqts1sb1"><i class="fa fa-check"></i><b>C.1.3</b> Deriving Formulas for Markovian Single Queue Systems</a></li>
+</ul></li>
+<li class="chapter" data-level="C.2" data-path="appqts1sb2.html"><a href="appqts1sb2.html"><i class="fa fa-check"></i><b>C.2</b> Examples and Applications of Queueing Analysis</a>
+<ul>
+<li class="chapter" data-level="C.2.1" data-path="appqts1sb2.html"><a href="appqts1sb2.html#infinite-queue-examples"><i class="fa fa-check"></i><b>C.2.1</b> Infinite Queue Examples</a></li>
+<li class="chapter" data-level="C.2.2" data-path="appqts1sb2.html"><a href="appqts1sb2.html#finite-queue-examples"><i class="fa fa-check"></i><b>C.2.2</b> Finite Queue Examples</a></li>
+</ul></li>
+<li class="chapter" data-level="C.3" data-path="appqts1sb3.html"><a href="appqts1sb3.html"><i class="fa fa-check"></i><b>C.3</b> Non-Markovian Queues and Approximations</a></li>
+<li class="chapter" data-level="C.4" data-path="appqtsecformulas.html"><a href="appqtsecformulas.html"><i class="fa fa-check"></i><b>C.4</b> Summary of Queueing Formulas</a>
+<ul>
+<li class="chapter" data-level="C.4.1" data-path="appqtsecformulas.html"><a href="appqtsecformulas.html#mm1-queue"><i class="fa fa-check"></i><b>C.4.1</b> M/M/1 Queue</a></li>
+<li class="chapter" data-level="C.4.2" data-path="appqtsecformulas.html"><a href="appqtsecformulas.html#mmc-queue"><i class="fa fa-check"></i><b>C.4.2</b> M/M/c Queue</a></li>
+<li class="chapter" data-level="C.4.3" data-path="appqtsecformulas.html"><a href="appqtsecformulas.html#mmck-queue"><i class="fa fa-check"></i><b>C.4.3</b> M/M/c/k Queue</a></li>
+<li class="chapter" data-level="C.4.4" data-path="appqtsecformulas.html"><a href="appqtsecformulas.html#mgcc-queue"><i class="fa fa-check"></i><b>C.4.4</b> M/G/c/c Queue</a></li>
+<li class="chapter" data-level="C.4.5" data-path="appqtsecformulas.html"><a href="appqtsecformulas.html#mm1k-queue"><i class="fa fa-check"></i><b>C.4.5</b> M/M/1/k Queue</a></li>
+<li class="chapter" data-level="C.4.6" data-path="appqtsecformulas.html"><a href="appqtsecformulas.html#mmck-queue-1"><i class="fa fa-check"></i><b>C.4.6</b> M/M/c/k Queue</a></li>
+<li class="chapter" data-level="C.4.7" data-path="appqtsecformulas.html"><a href="appqtsecformulas.html#mm1kk-queue"><i class="fa fa-check"></i><b>C.4.7</b> M/M/1/k/k Queue</a></li>
+<li class="chapter" data-level="C.4.8" data-path="appqtsecformulas.html"><a href="appqtsecformulas.html#mmckk-queue"><i class="fa fa-check"></i><b>C.4.8</b> M/M/c/k/k Queue</a></li>
+</ul></li>
+<li class="chapter" data-level="C.5" data-path="exercises-9.html"><a href="exercises-9.html"><i class="fa fa-check"></i><b>C.5</b> Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="D" data-path="distributions.html"><a href="distributions.html"><i class="fa fa-check"></i><b>D</b> Distributions</a>
+<ul>
+<li class="chapter" data-level="D.1" data-path="appDiscreteDistributions.html"><a href="appDiscreteDistributions.html"><i class="fa fa-check"></i><b>D.1</b> Discrete Distrbutions</a></li>
+<li class="chapter" data-level="D.2" data-path="appContinuousDistributions.html"><a href="appContinuousDistributions.html"><i class="fa fa-check"></i><b>D.2</b> Continuous Distrbutions</a></li>
+</ul></li>
+<li class="chapter" data-level="E" data-path="appStatTables.html"><a href="appStatTables.html"><i class="fa fa-check"></i><b>E</b> Statistical Tables</a></li>
+<li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
+<li class="divider"></li>
+<li><a href="https://bookdown.org" target="_blank">Published with bookdown</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Simulation Modeling using the Kotlin Simulation Library (KSL)</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="ch2generator" class="section level2 hasAnchor" number="2.1">
+<h2><span class="header-section-number">2.1</span> Random Number Generator<a href="ch2generator.html#ch2generator" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>This section discusses how to random number generation is implemented
+within the KSL. The purpose is to present how these concepts can be put into
+practice.</p>
+<p>The random number generator used within the KSL is described in
+<span class="citation">L’Ecuyer, Simard, and Kelton (<a href="#ref-ecuyer2002an" role="doc-biblioref">2002</a>)</span> and has excellent statistical properties. It is based on the
+combination of two multiple recursive generators resulting in a period
+of approximately <span class="math inline">\(3.1 \times 10^{57}\)</span>. This is the same generator that
+is now used in many commercial simulation packages. The generator used in the KSL is
+defined by the following equations.</p>
+<p><span class="math display">\[
+\begin{aligned}
+R_{1,i} &amp; = (1,403,580 R_{1,i-2} - 810,728 R_{1,i-3})\bmod (2^{32}-209)\\
+R_{2,i} &amp; = (527,612R_{2,i-1} - 1,370,589 R_{2,i-3})\bmod (2^{32}-22,853)\\
+Y_i &amp; = (R_{1,i}-R_{2,i})\bmod(2^{32}-209)\\
+U_i &amp; = \frac{Y_i}{2^{32}-209}
+\end{aligned}
+\]</span></p>
+<p>To illustrate how this generator works, consider generating an initial sequence of
+pseudo-random numbers from the generator. The generator takes as its
+initial seed a vector of six initial values
+<span class="math inline">\((R_{1,0}, R_{1,1}, R_{1,2}, R_{2,0}, R_{2,1}, R_{2,2})\)</span>. The first
+initially generated value, <span class="math inline">\(U_{i}\)</span>, will start at index <span class="math inline">\(3\)</span>. To produce five pseudo random numbers using this generator we need an initial seed vector, such as:
+<span class="math display">\[\lbrace R_{1,0}, R_{1,1}, R_{1,2}, R_{2,0}, R_{2,1}, R_{2,2} \rbrace = \lbrace 12345, 12345, 12345, 12345, 12345, 12345\rbrace\]</span></p>
+<p>Using the recursive equations, the resulting random numbers are as follows:</p>
+<table>
+<thead>
+<tr class="header">
+<th></th>
+<th align="center">i=3</th>
+<th align="center">i=4</th>
+<th align="center">i=5</th>
+<th align="center">i=6</th>
+<th align="center">i=7</th>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><span class="math inline">\(Z_{1,i-3}=\)</span></td>
+<td align="center">12345</td>
+<td align="center">12345</td>
+<td align="center">12345</td>
+<td align="center">3023790853</td>
+<td align="center">3023790853</td>
+<td></td>
+<td></td>
+</tr>
+<tr class="even">
+<td><span class="math inline">\(Z_{1,i-2}=\)</span></td>
+<td align="center">12345</td>
+<td align="center">12345</td>
+<td align="center">3023790853</td>
+<td align="center">3023790853</td>
+<td align="center">3385359573</td>
+<td></td>
+<td></td>
+</tr>
+<tr class="odd">
+<td><span class="math inline">\(Z_{1,i-1}=\)</span></td>
+<td align="center">12345</td>
+<td align="center">3023790853</td>
+<td align="center">3023790853</td>
+<td align="center">3385359573</td>
+<td align="center">1322208174</td>
+<td></td>
+<td></td>
+</tr>
+<tr class="even">
+<td><span class="math inline">\(Z_{2,i-3}=\)</span></td>
+<td align="center">12345</td>
+<td align="center">12345</td>
+<td align="center">12345</td>
+<td align="center">2478282264</td>
+<td align="center">1655725443</td>
+<td></td>
+<td></td>
+</tr>
+<tr class="odd">
+<td><span class="math inline">\(Z_{2,i-2}=\)</span></td>
+<td align="center">12345</td>
+<td align="center">12345</td>
+<td align="center">2478282264</td>
+<td align="center">1655725443</td>
+<td align="center">2057415812</td>
+<td></td>
+<td></td>
+</tr>
+<tr class="even">
+<td><span class="math inline">\(Z_{2,i-1}=\)</span></td>
+<td align="center">12345</td>
+<td align="center">2478282264</td>
+<td align="center">1655725443</td>
+<td align="center">2057415812</td>
+<td align="center">2070190165</td>
+<td></td>
+<td></td>
+</tr>
+<tr class="odd">
+<td><span class="math inline">\(Z_{1,i}=\)</span></td>
+<td align="center">3023790853</td>
+<td align="center">3023790853</td>
+<td align="center">3385359573</td>
+<td align="center">1322208174</td>
+<td align="center">2930192941</td>
+<td></td>
+<td></td>
+</tr>
+<tr class="even">
+<td><span class="math inline">\(Z_{2,i}=\)</span></td>
+<td align="center">2478282264</td>
+<td align="center">1655725443</td>
+<td align="center">2057415812</td>
+<td align="center">2070190165</td>
+<td align="center">1978299747</td>
+<td></td>
+<td></td>
+</tr>
+<tr class="odd">
+<td><span class="math inline">\(Y_i=\)</span></td>
+<td align="center">545508589</td>
+<td align="center">1368065410</td>
+<td align="center">1327943761</td>
+<td align="center">3546985096</td>
+<td align="center">951893194</td>
+<td></td>
+<td></td>
+</tr>
+<tr class="even">
+<td><span class="math inline">\(U_i=\)</span></td>
+<td align="center">0.127011122076</td>
+<td align="center">0.318527565471</td>
+<td align="center">0.309186015655</td>
+<td align="center">0.82584686312</td>
+<td align="center">0.221629915834</td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<p>While it is beyond the scope of this document to explore the theoretical
+underpinnings of this generator, it is important to note that the generator allows multiple independent streams to be defined along with sub-streams.</p>
+<p>The fantastic thing about this generator is the sheer size of the
+period. Based on their analysis, <span class="citation">L’Ecuyer, Simard, and Kelton (<a href="#ref-ecuyer2002an" role="doc-biblioref">2002</a>)</span> state that it will be
+“approximately 219 years into the future before average desktop
+computers will have the capability to exhaust the cycle of the
+(generator) in a year of continuous computing.” In addition to the
+period length, the generator has an enormous number of streams,
+approximately <span class="math inline">\(1.8 \times 10^{19}\)</span> with stream lengths of
+<span class="math inline">\(1.7 \times 10^{38}\)</span> and sub-streams of length <span class="math inline">\(7.6 \times 10^{22}\)</span>
+numbering at <span class="math inline">\(2.3 \times 10^{15}\)</span> per stream. Clearly, with these
+properties, you do not have to worry about overlapping random numbers
+when performing simulation experiments. The generator was subjected to a
+rigorous battery of statistical tests and is known to have excellent
+statistical properties.</p>
+<div id="ch2randompkg" class="section level3 hasAnchor" number="2.1.1">
+<h3><span class="header-section-number">2.1.1</span> Random Package<a href="ch2generator.html#ch2randompkg" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>The concepts within L’Ecuyer et al. (2002) have been implemented within the <code>ksl.utilities.random.rng</code> package in the KSL. A key organizing principle for the <code>random</code> package is the use of interfaces. An interface allows classes to act like other classes. It is a mechanism by which a class can promise to have
+certain behaviors (i.e. methods). The KSL utilizes interfaces to
+separate random number generation concepts from stream control concepts.</p>
+<div class="figure"><span style="display:block;" id="fig:RNStreamInterfaces"></span>
+<img src="figures/RNStreamInterfaces.png" alt="Random Number Stream Interfaces"  />
+<p class="caption">
+Figure 2.1: Random Number Stream Interfaces
+</p>
+</div>
+<p>Figure <a href="ch2generator.html#fig:RNStreamInterfaces">2.1</a> shows the important interfaces within the
+<code>ksl.utilities.random.rng</code> package. The <code>RandU01Ifc</code> defines the methods for
+getting the next pseudo-random number and the previous pseudo-random
+number via <code>randU01()</code> and <code>previousU</code>. The <code>randInt(i: Int, j: Int)</code> method can be used to generate
+a random integer uniformly over the range from <span class="math inline">\(i\)</span> to <span class="math inline">\(j\)</span>.
+The <code>GetAntitheticStreamIfc</code> and <code>RNStreamNewInstanceIfc</code> interfaces allow a new object
+instance to be created from the stream. In the case of the <code>GetAntitheticStreamIfc</code> interface
+the created stream will produce antithetic variates from the stream. If <span class="math inline">\(U\)</span> is a pseudo-random number,
+then <span class="math inline">\(1-U\)</span> is the antithetic variate of <span class="math inline">\(U\)</span>.</p>
+<p>The <code>RNStreamControlIfc</code> defines methods for controlling the underlying stream of pseudo-random numbers.</p>
+<ul>
+<li><code>resetStartStream()</code> - positions the random number stream at the
+beginning of its sequence This is the same location in the stream as
+assigned when the random number stream was created and
+initialized.</li>
+<li><code>resetStartSubstream()</code> - resets the position of the random number
+stream to the start of the current substream. If the random
+number stream has advanced into the substream, then this method
+resets to the beginning of the substream.</li>
+<li><code>advanceToNextSubStream()</code> - positions the random number stream at
+the beginning of its next substream. This method move through the
+current substream and positions the stream at the beginning of
+the next substream.</li>
+<li><code>antithetic</code> indicates to the stream to start producing antithetic variates. If the option is true, the
+stream should start producing antithetic variates with the next
+call to <code>randU01()</code>. If the option is false, the stream should stop
+producing antithetic variates.</li>
+</ul>
+<p>The <code>StreamOptionIfc</code> defines methods for automating the control of the stream during simulation runs.</p>
+<ul>
+<li><code>advanceToNextSubStreamOption</code> - Indicates that the stream will be advance to the next substream for the beginning of the next simulation replication.</li>
+<li><code>resetStartStreamOption</code> - Indicates that the underlying stream will be reset to its starting point for the beginning of the next simulation replication.</li>
+</ul>
+<p>The <code>RNStreamIfc</code> interface assumes that the underlying pseudo-random number generator can produce
+multiple streams that can be further divided into substreams. The reset
+methods allow the user to move within the streams. Classes that
+implement the <code>RNStreamControlIfc</code> can manipulate the streams in a
+well-defined manner.</p>
+<div class="figure"><span style="display:block;" id="fig:RNStreamProvider"></span>
+<img src="figures/RNStreamProvider.png" alt="RNStreamProviderIfc Interface"  />
+<p class="caption">
+Figure 2.2: RNStreamProviderIfc Interface
+</p>
+</div>
+<p>To create an concrete instance of a stream, we must have a random number stream provider. This
+functionality is defined by the <code>RNStreamProviderIfc</code> interface and its concrete implementation,
+<code>RNStreamProvider</code>. Figure <a href="ch2generator.html#fig:RNStreamProvider">2.2</a> illustrates the functionality available for
+creating random number streams. This interface conceptualizes the creation of random number streams
+as a process of making a sequence of streams numbered 1, 2, 3, …</p>
+<p>A random number stream provider must define a default stream, which can be retrieved via the
+<code>defaultRNStream()</code> method. For the KSL, the default stream is the first
+stream created and is label with the sequence number 1. The sequence number of a stream
+can be used to retrieve a particular stream from the provider. The following methods
+allow for creation and access to streams.</p>
+<ul>
+<li><code>nextRNStream()</code> - returns the next random number stream associated with the provider. Each call
+to <code>nextRNStream()</code> makes a new stream in the sequence of streams.</li>
+<li><code>lastRNStreamNumber()</code> - returns the number of the stream that was last made. This indicates how
+many streams have been made. If <span class="math inline">\(0\)</span> is returned, then no streams have been made by the provider.</li>
+<li><code>rnStream(k : Int)</code> - returns the <span class="math inline">\(k^{th}\)</span> stream. If <span class="math inline">\(k\)</span> is greater than <code>lastRNStreamNumber()</code> then <code>lastRNStreamNumber()</code> is advanced according to the additional number of streams by creating any intermediate streams. For example, if <code>lastRNStreamNumber()</code> = 10 and k = 15, then streams 11, 12, 13, 14, 15 are assumed provided and stream 15 is returned and <code>lastRNStreamNumber()</code> now equals 15. If <span class="math inline">\(k\)</span> is less than or equal to <code>lastRNStreamNumber()</code>, then no new streams are created and <code>lastRNStreamNumber()</code>stays at its current value and the <span class="math inline">\(k^{th}\)</span> stream is returned.</li>
+<li><code>streamNumber(RNStreamIfc stream)</code> - returns the stream number of the instance of a stream.</li>
+<li><code>advanceStreamMechanism(int n)</code> - advances the underlying stream mechanism by the specified number of streams, without actually creating the streams. The value of <code>lastRNStreamNumber()</code> remains the same after advancing through
+the streams. In other words, this method should act as if <code>nextRNStream()</code> was not called but advance the underlying stream mechanism as if <span class="math inline">\(n\)</span> streams had been provided.</li>
+<li><code>resetRNStreamSequence()</code> - Causes the random number stream provider to act as if has never created any streams. Thus, the next call to <code>nextRNStream()</code> will return the <span class="math inline">\(1^{st}\)</span> stream.</li>
+</ul>
+<p>The random number stream provider also facilitates the control of all streams that have been created. This functionality is similar to how the position within an individual stream can be manipulated, except the provider performs the functionality on <em>all streams</em> that it has provided The following methods perform this function.</p>
+<ul>
+<li><code>resetAllStreamsToStart()</code> - resets all created streams to the start of their stream.</li>
+<li><code>resetAllStreamsToStartOfCurrentSubStream()</code> - resets all created streams to the start of their current sub-stream.</li>
+<li><code>advanceAllStreamsToNextSubstream()</code> - advances all created streams to the start of their next sub-stream.</li>
+<li><code>setAllStreamsAntitheticOption(option: Boolean)</code> - changes all created streams to have their antithetic option either off = false or on = true.</li>
+</ul>
+<p>Many random number generators require the specification of a seed to start the generated sequence. Even though the generator within the KSL use seeds, there really is no need to utilize the seeds because of the well defined methods for moving within the streams. Now, let’s illustrate how to create and manipulate streams.</p>
+</div>
+<div id="ch2creatingStreams" class="section level3 hasAnchor" number="2.1.2">
+<h3><span class="header-section-number">2.1.2</span> Creating and Using Streams<a href="ch2generator.html#ch2creatingStreams" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>To create a random number stream, the user must utilize an instance of <code>RNStreamProvider</code>. This process is illustrated in in the following code. This code creates two instances of <code>RNStreamProvider</code> and gets the first stream from each instance. The instances of <code>RNStreamProvider</code> use the exact same underlying default seeds. Thus, they produce <em>exactly the same</em> sequence of streams.</p>
+
+<div class="sourceCode" id="cb1"><pre class="sourceCode kt"><code class="sourceCode kotlin"><span id="cb1-1"><a href="ch2generator.html#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="kw">fun</span> <span class="fu">main</span><span class="op">()</span> <span class="op">{</span></span>
+<span id="cb1-2"><a href="ch2generator.html#cb1-2" aria-hidden="true" tabindex="-1"></a>    <span class="co">// make a provider for creating streams</span></span>
+<span id="cb1-3"><a href="ch2generator.html#cb1-3" aria-hidden="true" tabindex="-1"></a>    <span class="kw">val</span> <span class="va">p1</span> <span class="op">=</span> RNStreamProvider<span class="op">()</span></span>
+<span id="cb1-4"><a href="ch2generator.html#cb1-4" aria-hidden="true" tabindex="-1"></a>    <span class="co">// get the first stream from the provider</span></span>
+<span id="cb1-5"><a href="ch2generator.html#cb1-5" aria-hidden="true" tabindex="-1"></a>    <span class="kw">val</span> <span class="va">p1s1</span> <span class="op">=</span> p1<span class="op">.</span>nextRNStream<span class="op">()</span></span>
+<span id="cb1-6"><a href="ch2generator.html#cb1-6" aria-hidden="true" tabindex="-1"></a>    <span class="co">// make another provider, the providers are identical</span></span>
+<span id="cb1-7"><a href="ch2generator.html#cb1-7" aria-hidden="true" tabindex="-1"></a>    <span class="kw">val</span> <span class="va">p2</span> <span class="op">=</span> RNStreamProvider<span class="op">()</span></span>
+<span id="cb1-8"><a href="ch2generator.html#cb1-8" aria-hidden="true" tabindex="-1"></a>    <span class="co">// thus the first streams returned are identical</span></span>
+<span id="cb1-9"><a href="ch2generator.html#cb1-9" aria-hidden="true" tabindex="-1"></a>    <span class="kw">val</span> <span class="va">p2s1</span> <span class="op">=</span> p2<span class="op">.</span>nextRNStream<span class="op">()</span></span>
+<span id="cb1-10"><a href="ch2generator.html#cb1-10" aria-hidden="true" tabindex="-1"></a>    System<span class="op">.</span><span class="kw">out</span><span class="op">.</span>printf<span class="op">(</span><span class="st">&quot;%3s %15s %15s %n&quot;</span><span class="op">,</span> <span class="st">&quot;n&quot;</span><span class="op">,</span> <span class="st">&quot;p1s1&quot;</span><span class="op">,</span> <span class="st">&quot;p2s2&quot;</span><span class="op">)</span></span>
+<span id="cb1-11"><a href="ch2generator.html#cb1-11" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> <span class="op">(</span>i <span class="kw">in</span> <span class="fl">1..10</span><span class="op">)</span> <span class="op">{</span></span>
+<span id="cb1-12"><a href="ch2generator.html#cb1-12" aria-hidden="true" tabindex="-1"></a>        System<span class="op">.</span><span class="kw">out</span><span class="op">.</span>printf<span class="op">(</span><span class="st">&quot;%3d %15f %15f %n&quot;</span><span class="op">,</span> i<span class="op">,</span> p1s1<span class="op">.</span>randU01<span class="op">(),</span> p2s1<span class="op">.</span>randU01<span class="op">())</span></span>
+<span id="cb1-13"><a href="ch2generator.html#cb1-13" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
+<span id="cb1-14"><a href="ch2generator.html#cb1-14" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
+<p>Thus, in the following code output, the randomly generated values are exactly the same for the two streams.</p>
+<pre><code>  n            p1s1            p2s2 
+  1        0.728510        0.728510 
+  2        0.965587        0.965587 
+  3        0.996184        0.996184 
+  4        0.114988        0.114988 
+  5        0.973145        0.973145 </code></pre>
+<p>There is is really very little need for the general programmer to create
+a <code>RNStreamProvider</code> because the KSL supplies a default provider that can be used to provide a
+virtually infinite number of streams. The need for directly accessing the functionality of <code>RNStreamProvider</code> is for very fine control of stream creation in such situations like running
+code on different computers in parallel. While the providers produce the
+same streams, you can force one provider to be different from another
+provider by manipulating the seeds. In addition, the
+provider can control all streams that it produces. So, unless you are
+trying to do some advanced work that involves coordinating multiple streams, you should not need to create multiple instances of <code>RNStreamProvider</code>.</p>
+<p>Because the most common use case is to just have a single provider of streams, the KSL facilitates this through the <code>KSLRandom</code> class. The <code>KSLRandom</code> class has a wide range of static methods to facilitate random variate generation.
+The most important methods include:</p>
+<ul>
+<li><code>nextRNStream()</code> - calls the underlying default <code>RNStreamProvider</code> to create a new random number stream</li>
+<li><code>rnStream(int k)</code> - returns the <span class="math inline">\(k^{th}\)</span> stream from the default <code>RNStreamProvider</code></li>
+<li><code>defaultRNStream()</code> - calls the underlying default <code>RNStreamProvider</code> for its default stream</li>
+</ul>
+<p>In the following code example, these methods are used to create streams that are used to generate random numbers.
+The first line of the code uses the static method <code>defaultRNStream()</code> of <code>KSLRandom</code> to get the default stream and
+then generates three random numbers. The stream is then advanced and three new random numbers are generated. Then,
+the stream is reset to its starting (initial seed) and it then repeats the original values. Finally, the a new stream
+is created via <code>KSLRandom.nextRNStream()</code> and then used to generate new random numbers. From a conceptual standpoint,
+each stream contains an independent sequence of random numbers from any other stream (unless of course they are made from different providers). They are conceptually infinite and independent due to their enormous periods.</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode kt"><code class="sourceCode kotlin"><span id="cb3-1"><a href="ch2generator.html#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="kw">fun</span> <span class="fu">main</span><span class="op">()</span> <span class="op">{</span></span>
+<span id="cb3-2"><a href="ch2generator.html#cb3-2" aria-hidden="true" tabindex="-1"></a>    <span class="kw">val</span> <span class="va">s1</span> <span class="op">=</span> KSLRandom<span class="op">.</span>defaultRNStream<span class="op">()</span></span>
+<span id="cb3-3"><a href="ch2generator.html#cb3-3" aria-hidden="true" tabindex="-1"></a>    println<span class="op">(</span><span class="st">&quot;Default stream is stream 1&quot;</span><span class="op">)</span></span>
+<span id="cb3-4"><a href="ch2generator.html#cb3-4" aria-hidden="true" tabindex="-1"></a>    println<span class="op">(</span><span class="st">&quot;Generate 3 random numbers&quot;</span><span class="op">)</span></span>
+<span id="cb3-5"><a href="ch2generator.html#cb3-5" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> <span class="op">(</span>i <span class="kw">in</span> <span class="fl">1..3</span><span class="op">)</span> <span class="op">{</span></span>
+<span id="cb3-6"><a href="ch2generator.html#cb3-6" aria-hidden="true" tabindex="-1"></a>        println<span class="op">(</span><span class="st">&quot;u = &quot;</span> <span class="op">+</span> s1<span class="op">.</span>randU01<span class="op">())</span></span>
+<span id="cb3-7"><a href="ch2generator.html#cb3-7" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
+<span id="cb3-8"><a href="ch2generator.html#cb3-8" aria-hidden="true" tabindex="-1"></a>    s1<span class="op">.</span>advanceToNextSubStream<span class="op">()</span></span>
+<span id="cb3-9"><a href="ch2generator.html#cb3-9" aria-hidden="true" tabindex="-1"></a>    println<span class="op">(</span><span class="st">&quot;Advance to next sub-stream and get some more random numbers&quot;</span><span class="op">)</span></span>
+<span id="cb3-10"><a href="ch2generator.html#cb3-10" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> <span class="op">(</span>i <span class="kw">in</span> <span class="fl">1..3</span><span class="op">)</span> <span class="op">{</span></span>
+<span id="cb3-11"><a href="ch2generator.html#cb3-11" aria-hidden="true" tabindex="-1"></a>        println<span class="op">(</span><span class="st">&quot;u = &quot;</span> <span class="op">+</span> s1<span class="op">.</span>randU01<span class="op">())</span></span>
+<span id="cb3-12"><a href="ch2generator.html#cb3-12" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
+<span id="cb3-13"><a href="ch2generator.html#cb3-13" aria-hidden="true" tabindex="-1"></a>    println<span class="op">(</span><span class="st">&quot;Notice that they are different from the first 3.&quot;</span><span class="op">)</span></span>
+<span id="cb3-14"><a href="ch2generator.html#cb3-14" aria-hidden="true" tabindex="-1"></a>    s1<span class="op">.</span>resetStartStream<span class="op">()</span></span>
+<span id="cb3-15"><a href="ch2generator.html#cb3-15" aria-hidden="true" tabindex="-1"></a>    println<span class="op">(</span><span class="st">&quot;Reset the stream to the beginning of its sequence&quot;</span><span class="op">)</span></span>
+<span id="cb3-16"><a href="ch2generator.html#cb3-16" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> <span class="op">(</span>i <span class="kw">in</span> <span class="fl">1..3</span><span class="op">)</span> <span class="op">{</span></span>
+<span id="cb3-17"><a href="ch2generator.html#cb3-17" aria-hidden="true" tabindex="-1"></a>        println<span class="op">(</span><span class="st">&quot;u = &quot;</span> <span class="op">+</span> s1<span class="op">.</span>randU01<span class="op">())</span></span>
+<span id="cb3-18"><a href="ch2generator.html#cb3-18" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
+<span id="cb3-19"><a href="ch2generator.html#cb3-19" aria-hidden="true" tabindex="-1"></a>    println<span class="op">(</span><span class="st">&quot;Notice that they are the same as the first 3.&quot;</span><span class="op">)</span></span>
+<span id="cb3-20"><a href="ch2generator.html#cb3-20" aria-hidden="true" tabindex="-1"></a>    println<span class="op">(</span><span class="st">&quot;Get another random number stream&quot;</span><span class="op">)</span></span>
+<span id="cb3-21"><a href="ch2generator.html#cb3-21" aria-hidden="true" tabindex="-1"></a>    <span class="kw">val</span> <span class="va">s2</span> <span class="op">=</span> KSLRandom<span class="op">.</span>nextRNStream<span class="op">()</span></span>
+<span id="cb3-22"><a href="ch2generator.html#cb3-22" aria-hidden="true" tabindex="-1"></a>    println<span class="op">(</span><span class="st">&quot;2nd stream&quot;</span><span class="op">)</span></span>
+<span id="cb3-23"><a href="ch2generator.html#cb3-23" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> <span class="op">(</span>i <span class="kw">in</span> <span class="fl">1..3</span><span class="op">)</span> <span class="op">{</span></span>
+<span id="cb3-24"><a href="ch2generator.html#cb3-24" aria-hidden="true" tabindex="-1"></a>        println<span class="op">(</span><span class="st">&quot;u = &quot;</span> <span class="op">+</span> s2<span class="op">.</span>randU01<span class="op">())</span></span>
+<span id="cb3-25"><a href="ch2generator.html#cb3-25" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
+<span id="cb3-26"><a href="ch2generator.html#cb3-26" aria-hidden="true" tabindex="-1"></a>    println<span class="op">(</span><span class="st">&quot;Notice that they are different from the first 3.&quot;</span><span class="op">)</span></span>
+<span id="cb3-27"><a href="ch2generator.html#cb3-27" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
+<p>The resulting output from this code is as follows. Again, the methods of the <code>RNStreamControlIfc</code> interface that permit movement within a stream are extremely useful for controlling the randomness associated with a simulation.</p>
+<pre><code>Default stream is stream 1
+Generate 3 random numbers
+u = 0.12701112204657714
+u = 0.3185275653967945
+u = 0.3091860155832701
+Advance to next sub-stream and get some more random numbers
+u = 0.07939898979733463
+u = 0.4803395047575741
+u = 0.8583222470551328
+Notice that they are different from the first 3.
+Reset the stream to the beginning of its sequence
+u = 0.12701112204657714
+u = 0.3185275653967945
+u = 0.3091860155832701
+Notice that they are the same as the first 3.
+Get another random number stream
+2nd stream
+u = 0.7285097861965271
+u = 0.9655872822837334
+u = 0.9961841304801171
+Notice that they are different from the first 3.</code></pre>
+</div>
+<div id="ch2crn" class="section level3 hasAnchor" number="2.1.3">
+<h3><span class="header-section-number">2.1.3</span> Common Random Numbers<a href="ch2generator.html#ch2crn" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Common random numbers (CRN) is a Monte Carlo method that has different experiments utilize the same random numbers. CRN is a variance reduction technique that allows the experimenter to block out the effect of the random numbers used in the experiment. To facilitate the use of common random numbers the KSL has the aforementioned stream control mechanism. One way to implement common random numbers is to use two instances of <code>RNStreamProvider</code> as was previously illustrated. In that case, the two providers produce the same sequence of streams and thus those streams can be used on the different experiments. An alternative method that does not require the use of two providers is to create a copy of the stream directly from the stream instance. The following code clones the stream instance.</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode kt"><code class="sourceCode kotlin"><span id="cb5-1"><a href="ch2generator.html#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="kw">fun</span> <span class="fu">main</span><span class="op">()</span> <span class="op">{</span></span>
+<span id="cb5-2"><a href="ch2generator.html#cb5-2" aria-hidden="true" tabindex="-1"></a>    <span class="co">// get the default stream</span></span>
+<span id="cb5-3"><a href="ch2generator.html#cb5-3" aria-hidden="true" tabindex="-1"></a>    <span class="kw">val</span> <span class="va">s</span> <span class="op">=</span> KSLRandom<span class="op">.</span>defaultRNStream<span class="op">()</span></span>
+<span id="cb5-4"><a href="ch2generator.html#cb5-4" aria-hidden="true" tabindex="-1"></a>    <span class="co">// make a clone of the stream</span></span>
+<span id="cb5-5"><a href="ch2generator.html#cb5-5" aria-hidden="true" tabindex="-1"></a>    <span class="kw">val</span> <span class="va">clone</span> <span class="op">=</span> s<span class="op">.</span>instance<span class="op">()</span></span>
+<span id="cb5-6"><a href="ch2generator.html#cb5-6" aria-hidden="true" tabindex="-1"></a>    System<span class="op">.</span><span class="kw">out</span><span class="op">.</span>printf<span class="op">(</span><span class="st">&quot;%3s %15s %15s %n&quot;</span><span class="op">,</span> <span class="st">&quot;n&quot;</span><span class="op">,</span> <span class="st">&quot;U&quot;</span><span class="op">,</span> <span class="st">&quot;U again&quot;</span><span class="op">)</span></span>
+<span id="cb5-7"><a href="ch2generator.html#cb5-7" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> <span class="op">(</span>i <span class="kw">in</span> <span class="fl">1..3</span><span class="op">)</span> <span class="op">{</span></span>
+<span id="cb5-8"><a href="ch2generator.html#cb5-8" aria-hidden="true" tabindex="-1"></a>        System<span class="op">.</span><span class="kw">out</span><span class="op">.</span>printf<span class="op">(</span><span class="st">&quot;%3d %15f %15f %n&quot;</span><span class="op">,</span> i<span class="op">,</span> s<span class="op">.</span>randU01<span class="op">(),</span> clone<span class="op">.</span>randU01<span class="op">())</span></span>
+<span id="cb5-9"><a href="ch2generator.html#cb5-9" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
+<span id="cb5-10"><a href="ch2generator.html#cb5-10" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
+<p>Since the instances have the same underlying state, they produce the same random numbers. Please note that the cloned stream instance is not produced by the underlying <code>RNStreamProvider</code> and thus it is not part of the set of streams managed or controlled by the provider.</p>
+<pre><code>  n               U         U again 
+  1        0.127011        0.127011 
+  2        0.318528        0.318528 
+  3        0.309186        0.309186 </code></pre>
+<p>An alternative method is to just use the <code>resetStartStream()</code> method of the stream to reset the stream to the desired location in its sequence and then reproduce the random numbers. This is illustrated in the following code.</p>
+<div class="sourceCode" id="cb7"><pre class="sourceCode kt"><code class="sourceCode kotlin"><span id="cb7-1"><a href="ch2generator.html#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="kw">fun</span> <span class="fu">main</span><span class="op">()</span> <span class="op">{</span></span>
+<span id="cb7-2"><a href="ch2generator.html#cb7-2" aria-hidden="true" tabindex="-1"></a>    <span class="kw">val</span> <span class="va">s</span> <span class="op">=</span> KSLRandom<span class="op">.</span>defaultRNStream<span class="op">()</span></span>
+<span id="cb7-3"><a href="ch2generator.html#cb7-3" aria-hidden="true" tabindex="-1"></a>    <span class="co">// generate regular</span></span>
+<span id="cb7-4"><a href="ch2generator.html#cb7-4" aria-hidden="true" tabindex="-1"></a>    System<span class="op">.</span><span class="kw">out</span><span class="op">.</span>printf<span class="op">(</span><span class="st">&quot;%3s %15s %n&quot;</span><span class="op">,</span> <span class="st">&quot;n&quot;</span><span class="op">,</span> <span class="st">&quot;U&quot;</span><span class="op">)</span></span>
+<span id="cb7-5"><a href="ch2generator.html#cb7-5" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> <span class="op">(</span>i <span class="kw">in</span> <span class="fl">1..3</span><span class="op">)</span> <span class="op">{</span></span>
+<span id="cb7-6"><a href="ch2generator.html#cb7-6" aria-hidden="true" tabindex="-1"></a>        <span class="kw">val</span> <span class="va">u</span> <span class="op">=</span> s<span class="op">.</span>randU01<span class="op">()</span></span>
+<span id="cb7-7"><a href="ch2generator.html#cb7-7" aria-hidden="true" tabindex="-1"></a>        System<span class="op">.</span><span class="kw">out</span><span class="op">.</span>printf<span class="op">(</span><span class="st">&quot;%3d %15f %n&quot;</span><span class="op">,</span> i<span class="op">,</span> u<span class="op">)</span></span>
+<span id="cb7-8"><a href="ch2generator.html#cb7-8" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
+<span id="cb7-9"><a href="ch2generator.html#cb7-9" aria-hidden="true" tabindex="-1"></a>    <span class="co">// reset the stream and generate again</span></span>
+<span id="cb7-10"><a href="ch2generator.html#cb7-10" aria-hidden="true" tabindex="-1"></a>    s<span class="op">.</span>resetStartStream<span class="op">()</span></span>
+<span id="cb7-11"><a href="ch2generator.html#cb7-11" aria-hidden="true" tabindex="-1"></a>    println<span class="op">()</span></span>
+<span id="cb7-12"><a href="ch2generator.html#cb7-12" aria-hidden="true" tabindex="-1"></a>    System<span class="op">.</span><span class="kw">out</span><span class="op">.</span>printf<span class="op">(</span><span class="st">&quot;%3s %15s %n&quot;</span><span class="op">,</span> <span class="st">&quot;n&quot;</span><span class="op">,</span> <span class="st">&quot;U again&quot;</span><span class="op">)</span></span>
+<span id="cb7-13"><a href="ch2generator.html#cb7-13" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> <span class="op">(</span>i <span class="kw">in</span> <span class="fl">1..3</span><span class="op">)</span> <span class="op">{</span></span>
+<span id="cb7-14"><a href="ch2generator.html#cb7-14" aria-hidden="true" tabindex="-1"></a>        <span class="kw">val</span> <span class="va">u</span> <span class="op">=</span> s<span class="op">.</span>randU01<span class="op">()</span></span>
+<span id="cb7-15"><a href="ch2generator.html#cb7-15" aria-hidden="true" tabindex="-1"></a>        System<span class="op">.</span><span class="kw">out</span><span class="op">.</span>printf<span class="op">(</span><span class="st">&quot;%3d %15f %n&quot;</span><span class="op">,</span> i<span class="op">,</span> u<span class="op">)</span></span>
+<span id="cb7-16"><a href="ch2generator.html#cb7-16" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
+<span id="cb7-17"><a href="ch2generator.html#cb7-17" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
+<p>Notice that the generated numbers are the same.</p>
+<pre><code>  n               U 
+  1        0.127011 
+  2        0.318528 
+  3        0.309186 
+
+  n         U again 
+  1        0.127011 
+  2        0.318528 
+  3        0.309186 </code></pre>
+<p>Thus, an experiment can be executed, then the random numbers reset to the desired location. Then, by changing the experimental conditions and re-running the simulation, the same random numbers are used. If many streams are used, then by accessing the <code>RNStreamProvider</code> you can reset all of the controlled streams with one call and then perform the next experiment.</p>
+</div>
+<div id="ch2antitheticStreams" class="section level3 hasAnchor" number="2.1.4">
+<h3><span class="header-section-number">2.1.4</span> Creating and Using Antithetic Streams<a href="ch2generator.html#ch2antitheticStreams" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Recall that if a pseudo-random number is called <span class="math inline">\(U\)</span> then its antithetic value is <span class="math inline">\(1-U\)</span>. There are a number of methods to access antithetic values. The simplest is to create an antithetic instance from a given stream. This is illustrated is in the following code. Please note that the antithetic stream instance is not produced by the underlying <code>RNStreamProvider</code> and thus it is not part of the set of streams managed or controlled by the provider. The new instance process directly creates the new stream based on the current stream so that it has the same underling state and it is set to produce antithetic values.</p>
+<div class="sourceCode" id="cb9"><pre class="sourceCode kt"><code class="sourceCode kotlin"><span id="cb9-1"><a href="ch2generator.html#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="kw">fun</span> <span class="fu">main</span><span class="op">()</span> <span class="op">{</span></span>
+<span id="cb9-2"><a href="ch2generator.html#cb9-2" aria-hidden="true" tabindex="-1"></a>    <span class="co">// get the default stream</span></span>
+<span id="cb9-3"><a href="ch2generator.html#cb9-3" aria-hidden="true" tabindex="-1"></a>    <span class="kw">val</span> <span class="va">s</span> <span class="op">=</span> KSLRandom<span class="op">.</span>defaultRNStream<span class="op">()</span></span>
+<span id="cb9-4"><a href="ch2generator.html#cb9-4" aria-hidden="true" tabindex="-1"></a>    <span class="co">// make its antithetic version</span></span>
+<span id="cb9-5"><a href="ch2generator.html#cb9-5" aria-hidden="true" tabindex="-1"></a>    <span class="kw">val</span> <span class="va">ans</span> <span class="op">=</span> s<span class="op">.</span>antitheticInstance<span class="op">()</span></span>
+<span id="cb9-6"><a href="ch2generator.html#cb9-6" aria-hidden="true" tabindex="-1"></a>    System<span class="op">.</span><span class="kw">out</span><span class="op">.</span>printf<span class="op">(</span><span class="st">&quot;%3s %15s %15s %15s %n&quot;</span><span class="op">,</span> <span class="st">&quot;n&quot;</span><span class="op">,</span> <span class="st">&quot;U&quot;</span><span class="op">,</span> <span class="st">&quot;1-U&quot;</span><span class="op">,</span> <span class="st">&quot;sum&quot;</span><span class="op">)</span></span>
+<span id="cb9-7"><a href="ch2generator.html#cb9-7" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> <span class="op">(</span>i <span class="kw">in</span> <span class="fl">1..5</span><span class="op">)</span> <span class="op">{</span></span>
+<span id="cb9-8"><a href="ch2generator.html#cb9-8" aria-hidden="true" tabindex="-1"></a>        <span class="kw">val</span> <span class="va">u</span> <span class="op">=</span> s<span class="op">.</span>randU01<span class="op">()</span></span>
+<span id="cb9-9"><a href="ch2generator.html#cb9-9" aria-hidden="true" tabindex="-1"></a>        <span class="kw">val</span> <span class="va">au</span> <span class="op">=</span> ans<span class="op">.</span>randU01<span class="op">()</span></span>
+<span id="cb9-10"><a href="ch2generator.html#cb9-10" aria-hidden="true" tabindex="-1"></a>        System<span class="op">.</span><span class="kw">out</span><span class="op">.</span>printf<span class="op">(</span><span class="st">&quot;%3d %15f %15f %15f %n&quot;</span><span class="op">,</span> i<span class="op">,</span> u<span class="op">,</span> au<span class="op">,</span> u <span class="op">+</span> au<span class="op">)</span></span>
+<span id="cb9-11"><a href="ch2generator.html#cb9-11" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
+<span id="cb9-12"><a href="ch2generator.html#cb9-12" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
+<p>Notice that the generated values sum to 1.0.</p>
+<pre><code>  n               U             1-U             sum 
+  1        0.127011        0.872989        1.000000 
+  2        0.318528        0.681472        1.000000 
+  3        0.309186        0.690814        1.000000 
+  4        0.825847        0.174153        1.000000 
+  5        0.221630        0.778370        1.000000 </code></pre>
+<p>An alternate method that does not require the creation of another stream involves using the <code>resetStartStream()</code> method and the <code>antithetic</code> property of the current stream. If you have a stream, you can use the <code>antithetic</code> property to cause the stream to start producing antithetic values. If you use the <code>resetStartStream()</code> method and then set the antithetic option to true, the stream will be set to its initial starting point and then produce antithetic values.</p>
+<div class="sourceCode" id="cb11"><pre class="sourceCode kt"><code class="sourceCode kotlin"><span id="cb11-1"><a href="ch2generator.html#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="kw">fun</span> <span class="fu">main</span><span class="op">()</span> <span class="op">{</span></span>
+<span id="cb11-2"><a href="ch2generator.html#cb11-2" aria-hidden="true" tabindex="-1"></a>    <span class="kw">val</span> <span class="va">s</span> <span class="op">=</span> KSLRandom<span class="op">.</span>defaultRNStream<span class="op">()</span></span>
+<span id="cb11-3"><a href="ch2generator.html#cb11-3" aria-hidden="true" tabindex="-1"></a>    s<span class="op">.</span>resetStartStream<span class="op">()</span></span>
+<span id="cb11-4"><a href="ch2generator.html#cb11-4" aria-hidden="true" tabindex="-1"></a>    <span class="co">// generate regular</span></span>
+<span id="cb11-5"><a href="ch2generator.html#cb11-5" aria-hidden="true" tabindex="-1"></a>    System<span class="op">.</span><span class="kw">out</span><span class="op">.</span>printf<span class="op">(</span><span class="st">&quot;%3s %15s %n&quot;</span><span class="op">,</span> <span class="st">&quot;n&quot;</span><span class="op">,</span> <span class="st">&quot;U&quot;</span><span class="op">)</span></span>
+<span id="cb11-6"><a href="ch2generator.html#cb11-6" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> <span class="op">(</span>i <span class="kw">in</span> <span class="fl">1..5</span><span class="op">)</span> <span class="op">{</span></span>
+<span id="cb11-7"><a href="ch2generator.html#cb11-7" aria-hidden="true" tabindex="-1"></a>        <span class="kw">val</span> <span class="va">u</span> <span class="op">=</span> s<span class="op">.</span>randU01<span class="op">()</span></span>
+<span id="cb11-8"><a href="ch2generator.html#cb11-8" aria-hidden="true" tabindex="-1"></a>        System<span class="op">.</span><span class="kw">out</span><span class="op">.</span>printf<span class="op">(</span><span class="st">&quot;%3d %15f %n&quot;</span><span class="op">,</span> i<span class="op">,</span> u<span class="op">)</span></span>
+<span id="cb11-9"><a href="ch2generator.html#cb11-9" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
+<span id="cb11-10"><a href="ch2generator.html#cb11-10" aria-hidden="true" tabindex="-1"></a>    <span class="co">// generate antithetic</span></span>
+<span id="cb11-11"><a href="ch2generator.html#cb11-11" aria-hidden="true" tabindex="-1"></a>    s<span class="op">.</span>resetStartStream<span class="op">()</span></span>
+<span id="cb11-12"><a href="ch2generator.html#cb11-12" aria-hidden="true" tabindex="-1"></a>    s<span class="op">.</span>antithetic <span class="op">=</span> <span class="kw">true</span></span>
+<span id="cb11-13"><a href="ch2generator.html#cb11-13" aria-hidden="true" tabindex="-1"></a>    println<span class="op">()</span></span>
+<span id="cb11-14"><a href="ch2generator.html#cb11-14" aria-hidden="true" tabindex="-1"></a>    System<span class="op">.</span><span class="kw">out</span><span class="op">.</span>printf<span class="op">(</span><span class="st">&quot;%3s %15s %n&quot;</span><span class="op">,</span> <span class="st">&quot;n&quot;</span><span class="op">,</span> <span class="st">&quot;1-U&quot;</span><span class="op">)</span></span>
+<span id="cb11-15"><a href="ch2generator.html#cb11-15" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> <span class="op">(</span>i <span class="kw">in</span> <span class="fl">1..5</span><span class="op">)</span> <span class="op">{</span></span>
+<span id="cb11-16"><a href="ch2generator.html#cb11-16" aria-hidden="true" tabindex="-1"></a>        <span class="kw">val</span> <span class="va">u</span> <span class="op">=</span> s<span class="op">.</span>randU01<span class="op">()</span></span>
+<span id="cb11-17"><a href="ch2generator.html#cb11-17" aria-hidden="true" tabindex="-1"></a>        System<span class="op">.</span><span class="kw">out</span><span class="op">.</span>printf<span class="op">(</span><span class="st">&quot;%3d %15f %n&quot;</span><span class="op">,</span> i<span class="op">,</span> u<span class="op">)</span></span>
+<span id="cb11-18"><a href="ch2generator.html#cb11-18" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
+<span id="cb11-19"><a href="ch2generator.html#cb11-19" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
+<p>Notice that the second set of random numbers is the complement of the first set in this output. Of course, you can also create multiple instances of <code>RNStreamProvider</code>, and then create streams and set one of the streams to produce antithetic values.</p>
+<pre><code>  n               U 
+  1        0.127011 
+  2        0.318528 
+  3        0.309186 
+  4        0.825847 
+  5        0.221630
+  
+  n             1-U 
+  1        0.872989 
+  2        0.681472 
+  3        0.690814 
+  4        0.174153 
+  5        0.778370</code></pre>
+</div>
+<div id="ch2rnFAQ" class="section level3 hasAnchor" number="2.1.5">
+<h3><span class="header-section-number">2.1.5</span> Frequently Asked Questions about Random Numbers<a href="ch2generator.html#ch2rnFAQ" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<ol style="list-style-type: decimal">
+<li><p><strong>What are pseudo-random numbers?</strong>
+Numbers generated through an algorithm that appear to be random, when in fact, they are created by a deterministic process.</p></li>
+<li><p><strong>Why do we want to control randomness within simulation models?</strong>
+By controlling randomness, we can better understand if changes in simulation responses are due to factors of interest or due to underlying statistical variation caused by sampling. Do you think that it is better to compare two systems using the same inputs or different inputs? Suppose we have a work process that we have redesigned. We have the old process and the new process. Would it be better to test the difference in the process by using two different workers or the same worker? Most people agree that using the same worker is better. This same logic applies to randomness. Since we can control which pseudo-random numbers we use, it is better to test the difference between two model alternatives by using the same pseudo-random numbers. We use seeds and streams to do this.</p></li>
+<li><p><strong>What are seeds and streams?</strong>
+A random number stream is a sub-sequence of pseudo-random numbers that start at particular place with a larger sequence of pseudo-random numbers. The starting point of a sequence of pseudo-random numbers is called the seed. A seed allows us to pick a particular stream. Having multiple streams is useful to assign different streams to different sources of randomness within a model. This facilitates the control of the use of pseudo-random numbers when performing experiments.</p></li>
+<li><p><strong>How come my simulation results are always the same?</strong>
+Random number generators in computer simulation languages come with a default set of streams that divide the “circle” up into independent sets of random numbers. The streams are only independent if you do not use up all the random numbers within the subsequence. These streams allow the randomness associated with a simulation to be controlled. During the simulation, you can associate a specific stream with specific random processes in the model. This has the advantage of allowing you to check if the random numbers are causing significant differences in the outputs. In addition, this allows the random numbers used across alternative simulations to be better synchronized.
+Now a common question in simulation can be answered. That is, “If the simulation is using random numbers, why to I get the same results each time I run my program?” The corollary to this question is, “If I want to get different random results each time I run my program, how do I do it?” The answer to the first question is that the underlying random number generator is starting with the same seed each time you run your program. Thus, your program will use the same pseudo random numbers today as it did yesterday and the day before, etc. The answer to the corollary question is that you must tell the random number generator to use a different seed (or alternatively a different stream) if you want different invocations of the program to produce different results. The latter is not necessarily a desirable goal. For example, when developing your simulation programs, it is desirable to have repeatable results so that you can know that your program is working correctly.</p></li>
+<li><p><strong>How come my simulation results are unexpectedly different?</strong>
+Sometimes by changing the order of method calls you change the sequence of random numbers that are assigned to various things that happen in the model (e.g. attribute, generated service times, paths taken, etc.). Please see the FAQ “How come my results are always the same?”. Now, the result can sometimes be radically different if different random numbers are used for different purposes. By using streams, you reduce this possibility and increase the likelihood that two models that have different configurations will have differences due to the change and not due to the random numbers used.</p></li>
+</ol>
+</div>
+</div>
+<h3>References<a href="references.html#references" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div id="refs" class="references csl-bib-body hanging-indent">
+<div id="ref-ecuyer2002an" class="csl-entry">
+L’Ecuyer, P., R. Simard, and W. D. Kelton. 2002. <span>“An Object-Oriented Random Number Package with Many Long Streams and Substreams.”</span> <em>Operations Research</em> 50: 1073–75.
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="ch2rng.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="rvg.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"whatsapp": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": null,
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": ["KSLBook.pdf"],
+"search": {
+"engine": "fuse",
+"options": null
+},
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/latest.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>
