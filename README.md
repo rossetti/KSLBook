@@ -37,4 +37,6 @@ Rossetti, M.D. (2023). Simulation Modeling using the Kotlin Simulation Library (
 
 The KSL project is based on a git [repository](https://github.com/rossetti/KSL)
 
+# KSL Documentation Page
 
+The API documentation for the KSL can be found [here](https://rossetti.github.io/KSLDocs/)
