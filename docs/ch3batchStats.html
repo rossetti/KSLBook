@@ -23,7 +23,7 @@
 <meta name="author" content="Manuel D. Rossetti" />
 
 
-<meta name="date" content="2023-01-02" />
+<meta name="date" content="2023-01-16" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -157,7 +157,7 @@ div.csl-indent {
       <nav role="navigation">
 
 <ul class="summary">
-<li><a href="./">Simulation Modeling using the Kotlin Simulation Library</a></li>
+<li><a href="./">Simulation Modeling using the Kotlin Simulation Library (KSL)</a></li>
 
 <li class="divider"></li>
 <li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Preface</a>
@@ -459,7 +459,7 @@ The <code>BatchStatistic</code> class within the statistic package implements a 
 <span id="cb38-7"><a href="ch3batchStats.html#cb38-7" aria-hidden="true" tabindex="-1"></a>            collectBatch<span class="op">()</span></span>
 <span id="cb38-8"><a href="ch3batchStats.html#cb38-8" aria-hidden="true" tabindex="-1"></a>        <span class="op">}</span></span>
 <span id="cb38-9"><a href="ch3batchStats.html#cb38-9" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span></code></pre></div>
-<p>Referring to the collectBatch() method in the following code, the batches that are formed are recorded in an array called <code>bm</code>. After recording the batch average, the statistic is reset for collecting the next batch of data. The number of batches is recorded and if this has reached the maximum number of batches (as determined by the batch multiple calculation), we rebatch the batches back down to the minimum number of batches by combining adjacent batches according to the batch multiple.</p>
+<p>Referring to the collectBatch() method in the following code, the batches that are formed are recorded in an array called <code>bm.</code> After recording the batch average, the statistic is reset for collecting the next batch of data. The number of batches is recorded and if this has reached the maximum number of batches (as determined by the batch multiple calculation), we rebatch the batches back down to the minimum number of batches by combining adjacent batches according to the batch multiple.</p>
 <div class="sourceCode" id="cb39"><pre class="sourceCode kt"><code class="sourceCode kotlin"><span id="cb39-1"><a href="ch3batchStats.html#cb39-1" aria-hidden="true" tabindex="-1"></a>    <span class="kw">private</span> <span class="kw">fun</span> <span class="fu">collectBatch</span><span class="op">()</span> <span class="op">{</span></span>
 <span id="cb39-2"><a href="ch3batchStats.html#cb39-2" aria-hidden="true" tabindex="-1"></a>        <span class="co">// increment the current number of batches</span></span>
 <span id="cb39-3"><a href="ch3batchStats.html#cb39-3" aria-hidden="true" tabindex="-1"></a>        numBatches <span class="op">=</span> numBatches <span class="op">+</span> <span class="dv">1</span></span>
@@ -557,7 +557,7 @@ summarizing data via a batching process.</li>
 statistics such as: minimum, maximum, average, variance, standard
 deviation, lag-1 correlation, and count. In addition, confidence
 intervals can be formed on the observations based on the student-t
-distribution. Finally, there are useful static methods for computing
+distribution. Finally, there are useful companion object methods for computing
 statistics on arrays and for estimating sample sizes. The reader is
 encourage to review the KSL documentation for all of the functionality,
 including the ability to write nicely printed statistical results.</p>
@@ -599,7 +599,10 @@ gitbook.start({
 "family": "sans",
 "size": 2
 },
-"edit": null,
+"edit": {
+"link": null,
+"text": null
+},
 "history": {
 "link": null,
 "text": null
@@ -608,7 +611,7 @@ gitbook.start({
 "link": null,
 "text": null
 },
-"download": ["KSLBook.pdf"],
+"download": null,
 "search": {
 "engine": "fuse",
 "options": null

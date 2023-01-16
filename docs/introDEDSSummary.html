@@ -23,7 +23,7 @@
 <meta name="author" content="Manuel D. Rossetti" />
 
 
-<meta name="date" content="2023-01-02" />
+<meta name="date" content="2023-01-16" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -157,7 +157,7 @@ div.csl-indent {
       <nav role="navigation">
 
 <ul class="summary">
-<li><a href="./">Simulation Modeling using the Kotlin Simulation Library</a></li>
+<li><a href="./">Simulation Modeling using the Kotlin Simulation Library (KSL)</a></li>
 
 <li class="divider"></li>
 <li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Preface</a>
@@ -421,27 +421,27 @@ div.csl-indent {
 using the KSL. The KSL facilitates the model building process, the model
 running process, and the output analysis process.</p>
 <p>The main model elements covered included:</p>
-<p><code>Model</code>: Used to hold all model elements. Automatically created by the
+<p><code>Model:</code> Used to hold all model elements. Automatically created by the
 Simulation class. Used to create and control the execution of the model.</p>
-<p><code>ModelElement</code>: Used as an abstract base class for creating new model elements for a
+<p><code>ModelElement:</code> Used as an abstract base class for creating new model elements for a
 simulation.</p>
-<p><code>RandomVariable</code>: A sub-class of <code>ModelElement</code> used to model randomness within a
+<p><code>RandomVariable:</code> A sub-class of <code>ModelElement</code> used to model randomness within a
 simulation.</p>
-<p><code>Response</code>: A sub-class of <code>ModelElement</code> used to collect statistics on
+<p><code>Response:</code> A sub-class of <code>ModelElement</code> used to collect statistics on
 observation-based variables.</p>
-<p><code>TWResponse</code>: A sub-class of <code>Response</code> used to collect statistics on
+<p><code>TWResponse:</code> A sub-class of <code>Response</code> used to collect statistics on
 time-weighted variables in the model.</p>
-<p><code>Counter</code>: A sub-class of <code>ModelElement</code> used to count occurrences and collect
+<p><code>Counter:</code> A sub-class of <code>ModelElement</code> used to count occurrences and collect
 statistics.</p>
-<p><code>IndicatorResponse</code>: A sub-class of <code>Response</code> used to collect on boolean expressions by observing another response.</p>
-<p><code>AggregateTWResponse</code>: A sub-class of <code>TWResponse</code> used to collect time weighted statistics by observing other <code>TWResponse</code> instances.</p>
-<p><code>SimulationReporter</code>: Used to gather and report statistics on a simulation model.</p>
-<p><code>KSLEvent</code>: Used to model different events scheduled in time during a
+<p><code>IndicatorResponse:</code> A sub-class of <code>Response</code> used to collect on boolean expressions by observing another response.</p>
+<p><code>AggregateTWResponse:</code> A sub-class of <code>TWResponse</code> used to collect time weighted statistics by observing other <code>TWResponse</code> instances.</p>
+<p><code>SimulationReporter:</code> Used to gather and report statistics on a simulation model.</p>
+<p><code>KSLEvent:</code> Used to model different events scheduled in time during a
 simulation.</p>
-<p><code>EventActionIfc</code>: An interface used to define an action() method that represents event
+<p><code>EventActionIfc:</code> An interface used to define an action() method that represents event
 logic within the simulation.</p>
-<p><code>EventGenerator</code>: A subclass of ModelElement that facilitates the repeated generation of events.</p>
-<p><code>GeneratorActionIfc</code>: An interface used to implement the actions associated with event generators.</p>
+<p><code>EventGenerator:</code> A subclass of <code>ModelElement</code> that facilitates the repeated generation of events.</p>
+<p><code>GeneratorActionIfc:</code> An interface used to implement the actions associated with event generators.</p>
 <p>The KSL has many other facets that have yet to be touched upon. Not only
 does the KSL allow the modeler to build and analyze simulation models,
 but it also facilitates data collection, statistical analysis, and
@@ -484,7 +484,10 @@ gitbook.start({
 "family": "sans",
 "size": 2
 },
-"edit": null,
+"edit": {
+"link": null,
+"text": null
+},
 "history": {
 "link": null,
 "text": null
@@ -493,7 +496,7 @@ gitbook.start({
 "link": null,
 "text": null
 },
-"download": ["KSLBook.pdf"],
+"download": null,
 "search": {
 "engine": "fuse",
 "options": null

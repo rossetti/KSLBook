@@ -84,7 +84,7 @@ separate random number generation concepts from stream control concepts.
 Figure \@ref(fig:RNStreamInterfaces) shows the important interfaces within the
 `ksl.utilities.random.rng` package. The `RandU01Ifc` defines the methods for
 getting the next pseudo-random number and the previous pseudo-random
-number via `randU01()` and `previousU`. The `randInt(i: Int, j: Int)` method can be used to generate
+number via `randU01()` and `previousU.` The `randInt(i: Int, j: Int)` method can be used to generate
 a random integer uniformly over the range from $i$ to $j$. 
 The `GetAntitheticStreamIfc` and `RNStreamNewInstanceIfc` interfaces allow a new object
 instance to be created from the stream.  In the case of the `GetAntitheticStreamIfc` interface
@@ -107,7 +107,7 @@ The `RNStreamControlIfc` defines methods for controlling the underlying stream o
     the next substream.
 *   `antithetic` indicates to the stream to start producing antithetic variates. If the option is true, the
     stream should start producing antithetic variates with the next
-    call to `randU01()`. If the option is false, the stream should stop
+    call to `randU01().` If the option is false, the stream should stop
     producing antithetic variates. 
     
 The `StreamOptionIfc` defines methods for automating the control of the stream during simulation runs.
@@ -128,13 +128,13 @@ well-defined manner.
 
 To create an concrete instance of a stream, we must have a random number stream provider. This
 functionality is defined by the `RNStreamProviderIfc` interface and its concrete implementation, 
-`RNStreamProvider`. Figure \@ref(fig:RNStreamProvider) illustrates the functionality available for
+`RNStreamProvider.` Figure \@ref(fig:RNStreamProvider) illustrates the functionality available for
 creating random number streams. This interface conceptualizes the creation of random number streams
 as a process of making a sequence of streams numbered 1, 2, 3, ... 
 
 A random number stream provider must define a default stream, which can be retrieved via the 
 `defaultRNStream()` method. For the KSL, the default stream is the first
-stream created and is label with the sequence number 1.  The sequence number of a stream
+stream created and is labeled with the sequence number 1.  The sequence number of a stream
 can be used to retrieve a particular stream from the provider.  The following methods
 allow for creation and access to streams.
 
@@ -158,7 +158,7 @@ The random number stream provider also facilitates the control of all streams th
 Many random number generators require the specification of a seed to start the generated sequence.  Even though the generator within the KSL use seeds, there really is no need to utilize the seeds because of the well defined methods for moving within the streams.  Now, let's illustrate how to create and manipulate streams.
 
 ### Creating and Using Streams {#ch2creatingStreams}
-To create a random number stream, the user must utilize an instance of `RNStreamProvider`.  This process is illustrated in in the following code.  This code creates two instances of `RNStreamProvider` and gets the first stream from each instance.  The instances of `RNStreamProvider` use the exact same underlying default seeds. Thus, they produce *exactly the same* sequence of streams.
+To create a random number stream, the user must utilize an instance of `RNStreamProvider.`  This process is illustrated in in the following code.  This code creates two instances of `RNStreamProvider` and gets the first stream from each instance.  The instances of `RNStreamProvider` use the exact same underlying default seeds. Thus, they produce *exactly the same* sequence of streams.
 
 (ref:example1) Exhibit 1 Creating a Stream Provider
 ```kt 
@@ -195,10 +195,9 @@ code on different computers in parallel. While the providers produce the
 same streams, you can force one provider to be different from another
 provider by manipulating the seeds. In addition, the
 provider can control all streams that it produces. So, unless you are
-trying to do some advanced work that involves coordinating multiple streams, you should not need to create multiple instances of `RNStreamProvider`.
+trying to do some advanced work that involves coordinating multiple streams, you should not need to create multiple instances of `RNStreamProvider.`
 
-Because the most common use case is to just have a single provider of streams, the KSL facilitates this through the `KSLRandom` class. The `KSLRandom` class has a wide range of static methods to facilitate random variate generation. 
-The most important methods include:
+Because the most common use case is to just have a single provider of streams, the KSL facilitates this through the `KSLRandom` *object* The `KSLRandom` object has a wide range of methods to facilitate random variate generation.The most important methods include:
 
 * `nextRNStream()` - calls the underlying default `RNStreamProvider` to create a new random number stream
 * `rnStream(int k)` - returns the $k^{th}$ stream from the default `RNStreamProvider`
@@ -376,7 +375,7 @@ fun main() {
     }
 }
 ```
-Notice that the second set of random numbers is the complement of the first set in this output. Of course, you can also create multiple instances of `RNStreamProvider`, and then create streams and set one of the streams to produce antithetic values.
+Notice that the second set of random numbers is the antithetic complement of the first set in this output. Of course, you can also create multiple instances of `RNStreamProvider,` and then create streams and set one of the streams to produce antithetic values.
 ```
   n               U 
   1        0.127011 
@@ -402,7 +401,7 @@ Numbers generated through an algorithm that appear to be random, when in fact, t
 By controlling randomness, we can better understand if changes in simulation responses are due to factors of interest or due to underlying statistical variation caused by sampling.  Do you think that it is better to compare two systems using the same inputs or different inputs?  Suppose we have a work process that we have redesigned.  We have the old process and the new process.  Would it be better to test the difference in the process by using two different workers or the same worker? Most people agree that using the same worker is better. This same logic applies to randomness. Since we can control which pseudo-random numbers we use, it is better to test the difference between two model alternatives by using the same pseudo-random numbers.  We use seeds and streams to do this.
 
 3. **What are seeds and streams?**
-A random number stream is a sub-sequence of pseudo-random numbers that start at particular place with a larger sequence of pseudo-random numbers. The starting point of a sequence of pseudo-random numbers is called the seed.  A seed allows us to pick a particular stream.  Having multiple streams is useful to assign different streams to different sources of randomness within a model.  This facilitates the control of the use of pseudo-random numbers when performing experiments.
+A random number stream is a sub-sequence of pseudo-random numbers that start at particular place within a larger sequence of pseudo-random numbers. The starting point of a sequence of pseudo-random numbers is called the seed.  A seed allows us to pick a particular stream.  Having multiple streams is useful to assign different streams to different sources of randomness within a model.  This facilitates the control of the use of pseudo-random numbers when performing experiments.
 
 4. **How come my simulation results are always the same?**
 Random number generators in computer simulation languages come with a default set of streams that divide the “circle” up into independent sets of random numbers. The streams are only independent if you do not use up all the random numbers within the subsequence. These streams allow the randomness associated with a simulation to be controlled. During the simulation, you can associate a specific stream with specific random processes in the model. This has the advantage of allowing you to check if the random numbers are causing significant differences in the outputs. In addition, this allows the random numbers used across alternative simulations to be better synchronized.
@@ -417,7 +416,7 @@ The KSL has the capability to generate random variates from both
 discrete and continuous distributions. The `ksl.utilities.random.rvariable` package supports this functionality. The package has a set of interfaces
 that define the behavior associated with random variables. Concrete
 sub-classes of specific random variables are created by sub-classing
-`RVariable`. As shown in Figure \@ref(fig:RVariableIfc), every random variable has
+`RVariable.` As shown in Figure \@ref(fig:RVariableIfc), every random variable has
 access to an object that implements the `RNStreamIfc` interface. This
 gives it the ability to generate pseudo-random numbers and to control
 the streams. The `GetValueIfc` interface is the key interface because in
@@ -432,52 +431,51 @@ example, if `d` is a reference to an instance of a sub-class of type
 
 ### Continuous and Discrete Random Variables {#rvg_dists}
 
-The names and parameters associated with the continuous random variables
-are as follows:
+The names and parameters (based on common naming conventions) associated with the continuous random variables are as follows:
 
--   BetaRV
--   ChiSquaredRV
--   ExponentialRV
--   GammaRV
--   GeneralizedBetaRV
--   JohnsonBRV
--   LaplaceRV
--   LogLogisticRV
--   LognormalRV
--   NormalRV
--   PearsonType5RV
--   PearsonType6RV
--   StudentTRV
--   TriangularRV
--   UniformRV
--   WeibullRV
+-   `BetaRV(alpha1, alpha2)`
+-   `ChiSquaredRV(degreesOfFreedom)`
+-   `ExponentialRV(mean)`
+-   `GammaRV(shape, scale)`
+-   `GeneralizedBetaRV(alpha1, alpha2, min, max)`
+-   `JohnsonBRV(alpha1, alpha2, min, max)`
+-   `LaplaceRV(mean scale)`
+-   `LogLogisticRV(shape, scale)`
+-   `LognormalRV(mean, variance)`
+-   `NormalRV(mean, variance)`
+-   `PearsonType5RV(shape, scale)`
+-   `PearsonType6RV(alpha1, alpha2, beta)`
+-   `StudentTRV(degreesOfFreedom)`
+-   `TriangularRV(min, mode, max)`
+-   `UniformRV(min, max)`
+-   `WeibullRV(shape, scale)`
 
 The names of the discrete random variables are as follows:
 
--   BernoulliRV
--   BinomialRV
--   ConstantRV a degenerate probability mass on a single value that cannot be changed
--   DEmpiricalRV
--   DUniformRV
--   GeometricRV with range is 0 to infinity
--   NegativeBinomialRV with range is 0 to infinity. The number of failures before the $r^{th}$ success.
--   PoissonRV
--   ShiftedGeometricRVrange is 1 to infinity
--   VConstantRVa degenerate probability mass on a single value that can be changed
+-   `BernoulliRV(probOfSuccess)`
+-   `BinomialRV(pSucces, numTrials)`
+-   `ConstantRV(constVal)` a degenerate probability mass on a single value that cannot be changed
+-   `DEmpiricalRV(values, cdf)` values is an array of numbers and cdf is an array representing the cumulative distribution function over the values
+-   `DUniformRV(min, max)`
+-   `GeometricRV(probOfSucces)` with range is 0 to infinity
+-   `NegativeBinomialRV(probOfSuccess, numSuccess)` with range is 0 to infinity. The number of failures before the $r^{th}$ success.
+-   `PoissonRV(mean)`
+-   `ShiftedGeometricRV(probOfSucces)` range is 1 to infinity
+-   `VConstantRV(constVal)` a degenerate probability mass on a single value that can be changed
 
-The following sections will overivew the generation algorithms and provide examples for using some of these distributions.
+All classes that represent random variables also have optional parameters to provide a stream and a name. If the stream is not provided, then the next stream from the default provider is allocated to the new instance of the random variable.  Thus, all random variables are automatically constructed such that they use different underlying streams, unless the programming specifically assigns streams.  The following sections will overview the generation algorithms and provide examples for using some of these distributions.
 
 ### Overview of Generation Algorithms {#rvg_algo}
 
 As you can see, the name of the distribution followed by the letters RV designate the class names.  Implementations of these classes extend the `RVarable` class, which implements the `RVariableIfc` interface.  Users simply create and instance of the class and then use it to get a sequence of values that have the named probability distribution. In order to implement a new random variable (i.e. some random variable
 that is not already implemented) you can extend the class
-`RVariable`. This provides a basic template for what is expected
+`RVariable.` This provides a basic template for what is expected
 in the implementation. However, it implies that you need to implement
 all of the required interfaces. The key method to implement is the
 protected `generate()` method, which should return the generated random
-value.
+value according to some algorithm.
 
-In almost all cases, the KSL utilizes the inverse transform method for generating random variates. Thus, there is a one to one mapping of the underlying pseudo-random number and the resulting random variate. Even in the case of distributions that do not have closed form inverse cumulative distribution functions, the KSL utilizes numerical methods to approximate the function whenever feasible. For example, the KSL uses a rational function approximation, see Cody (1969), to
+In almost all cases, the KSL utilizes the inverse transform algorithm for generating random variates. Thus, there is a one to one mapping of the underlying pseudo-random number and the resulting random variate. Even in the case of distributions that do not have closed form inverse cumulative distribution functions, the KSL utilizes numerical methods to approximate the function whenever feasible. For example, the KSL uses a rational function approximation, see Cody (1969), to
 implement the inverse cumulative distribution function for the standard
 normal distribution. The inversion for the gamma distribution is based
 on Algorithm AS 91 for inverting the chi-squared distribution and
@@ -486,8 +484,8 @@ uses numerical methods to compute the cumulative distribution function
 as well as bi-section search to determine the inverse for cumulative
 distribution function.
 
-The KSL implements the `BernoulliRV`, `DUniformRV`, `GeometricRV`,
-`NegativeBinomialRV`, and `ShiftedGeometricRV` classes using the methods
+The KSL implements the `BernoulliRV,` `DUniformRV,` `GeometricRV,`
+`NegativeBinomialRV,` and `ShiftedGeometricRV` classes using the methods
 described in Chapter 2 of @Rossetti2015. While more efficient methods may be available, the
 `PoissonRV` and `BinomialRV` distributions are implemented by searching the
 probability mass functions. Both search methods use an approximation to
@@ -585,7 +583,7 @@ fun main() {
 While the preferred method for generating random values from random
 variables is to create instance of the appropriate random variable
 class, the KSL also provide a set of functions for generating random
-values within the `KSLRandom` object For all the previously listed random variables, there is a 
+values within the `KSLRandom` object. For all the previously listed random variables, there is a 
 corresponding function that will generate a random value.  For
 example, the method `rNormal()` will generate a normally distributed
 value. Each method is named with an \"r\" in front of the distribution
@@ -679,7 +677,7 @@ Var[Y] = \sigma_{l}^{2}  = e^{2\mu + \sigma^{2}}\left(e^{\sigma^{2}} - 1\right)
 
 Thus, one can define new random variables simply as functions of other random variables.
 
-The interface `RVariableIfc` and base class `RVariable` provides the ability to construct new random variables that are functions of other random variables by overriding the $+, -, \times, \div $ operators and providing extension functions for various math functions.  For example, we can defined two random variables and then a third that is the sum of the first two random variables. The random variable that is defined as the sum will generate random variates that represent the sum. Functions, such as `sin()`, `cos()` as well as many other standard math functions can be applied to random variables to create new random variables.  That is, the KSL provides the ability to create arbitrarily complex random variables that are defined as functions of other random variables. This capability will be illustrated in this section with a couple of examples.
+The interface `RVariableIfc` and base class `RVariable` provides the ability to construct new random variables that are functions of other random variables by overriding the $(+, -, \times, \div)$ operators and providing extension functions for various math functions.  For example, we can defined two random variables and then a third that is the sum of the first two random variables. The random variable that is defined as the sum will generate random variates that represent the sum. Functions, such as `sin(),` `cos()` as well as many other standard math functions can be applied to random variables to create new random variables.  That is, the KSL provides the ability to create arbitrarily complex random variables that are defined as *functions* of other random variables. This capability will be illustrated in this section with a couple of examples.
 
 ***
 ::: {.example #Erlang}
@@ -706,7 +704,7 @@ fun main(){
     sample.writeToFile("erlang.txt")
 }
 ```
-The first line of this code creates and stores an instance of an exponential random variable with mean 10.  The for loop is **not** generating any random variates.  It is defining a new random variable that is the sum of 4 additional exponential random variables. The defined random variable is used to generate a sample of size 1000 and using the `Statistic` class (discussed in the next chapter) a basic statistical summary is computed. Also, using the `writeToFile` KSL extension function for double arrays, the sample is written to a file.  The statistical results are as follows.
+The first line of this code creates and stores an instance of an exponential random variable with mean 10.  The for loop is **not** generating any random variates.  It is defining a new random variable that is the sum of 4 additional exponential random variables. The defined random variable is used to generate a sample of size 1000 and using the `Statistic` class (discussed in the next chapter) a basic statistical summary is computed. Also, using the `writeToFile` KSL extension function for double arrays, the sample is written to a file.  The results as a histogram are also presented. The statistical results are as follows.
 
 ```
 ID 30
@@ -738,6 +736,8 @@ Lead-Digit Rule(1) -1
 <p class="caption">(\#fig:ErlangHist)Histogram for Erlang Generated Data</p>
 </div>
 
+Notice that the histogram looks like an Erlang distribution and the estimated results are what we would expect for an Erlang distribution with $k=5$ and $\theta = 10$. 
+
 To illustrate a couple of other examples consider the following code. In this code, the previously noted relationship between normal random variables and lognormal random variables is demonstrated in the first 6 lines of the code.
 
 ```kt
@@ -763,7 +763,7 @@ One method for generating Beta random variables exploits its relationship with t
 
 ## Probability Distribution Models
 
-The `ksl.utilities.random.rvariable` package is the key package for generating random variables; however, it does not facilitate performing calculations involving the underlying probability distributions. To perform calculations involving probability distributions, you should use the `ksl.utilities.distributions` package.  This package has almost all the same distributions represented within the `jsl.utilities.random.rvariable` package.  
+The `ksl.utilities.random.rvariable` package is the key package for generating random variables; however, it does not facilitate performing calculations involving the underlying probability distributions. To perform calculations involving probability distributions, you should use the `ksl.utilities.distributions` package.  This package has almost all the same distributions represented within the `ksl.utilities.random.rvariable` package.  
 
 <div class="figure">
 <img src="./figures/Distributions.png" alt="Distribution Interfaces"  />
@@ -868,7 +868,7 @@ These methods are designed to perform their calculations in a numerically stable
 * `stdNormalComplementaryCDF(z: Double)` - returns $1-P(Z \leq z)$
 * `stdNormalInvCDF(p: Double)` - returns $z = F^{-1}(p)$ the inverse of the cumulative distribution function
 
-The Student-T distribution also has two static convenience methods to facilitate computations.
+The Student-T distribution also has two convenience methods to facilitate computations.
 
 * `cdf(dof: Double, x: Double)` - computes the cumulative distribution function for $x$ given the degrees of freedom
 * `invCDF(dof: Double, p: Double)` - computes the inverse cumulative distribution function or t-value for the supplied probability given the degrees of freedom.

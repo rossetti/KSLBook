@@ -23,7 +23,7 @@
 <meta name="author" content="Manuel D. Rossetti" />
 
 
-<meta name="date" content="2023-01-02" />
+<meta name="date" content="2023-01-16" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -157,7 +157,7 @@ div.csl-indent {
       <nav role="navigation">
 
 <ul class="summary">
-<li><a href="./">Simulation Modeling using the Kotlin Simulation Library</a></li>
+<li><a href="./">Simulation Modeling using the Kotlin Simulation Library (KSL)</a></li>
 
 <li class="divider"></li>
 <li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Preface</a>
@@ -586,7 +586,7 @@ Figure 2.1: Random Number Stream Interfaces
 <p>Figure <a href="ch2generator.html#fig:RNStreamInterfaces">2.1</a> shows the important interfaces within the
 <code>ksl.utilities.random.rng</code> package. The <code>RandU01Ifc</code> defines the methods for
 getting the next pseudo-random number and the previous pseudo-random
-number via <code>randU01()</code> and <code>previousU</code>. The <code>randInt(i: Int, j: Int)</code> method can be used to generate
+number via <code>randU01()</code> and <code>previousU.</code> The <code>randInt(i: Int, j: Int)</code> method can be used to generate
 a random integer uniformly over the range from <span class="math inline">\(i\)</span> to <span class="math inline">\(j\)</span>.
 The <code>GetAntitheticStreamIfc</code> and <code>RNStreamNewInstanceIfc</code> interfaces allow a new object
 instance to be created from the stream. In the case of the <code>GetAntitheticStreamIfc</code> interface
@@ -608,7 +608,7 @@ current substream and positions the stream at the beginning of
 the next substream.</li>
 <li><code>antithetic</code> indicates to the stream to start producing antithetic variates. If the option is true, the
 stream should start producing antithetic variates with the next
-call to <code>randU01()</code>. If the option is false, the stream should stop
+call to <code>randU01().</code> If the option is false, the stream should stop
 producing antithetic variates.</li>
 </ul>
 <p>The <code>StreamOptionIfc</code> defines methods for automating the control of the stream during simulation runs.</p>
@@ -629,12 +629,12 @@ Figure 2.2: RNStreamProviderIfc Interface
 </div>
 <p>To create an concrete instance of a stream, we must have a random number stream provider. This
 functionality is defined by the <code>RNStreamProviderIfc</code> interface and its concrete implementation,
-<code>RNStreamProvider</code>. Figure <a href="ch2generator.html#fig:RNStreamProvider">2.2</a> illustrates the functionality available for
+<code>RNStreamProvider.</code> Figure <a href="ch2generator.html#fig:RNStreamProvider">2.2</a> illustrates the functionality available for
 creating random number streams. This interface conceptualizes the creation of random number streams
 as a process of making a sequence of streams numbered 1, 2, 3, …</p>
 <p>A random number stream provider must define a default stream, which can be retrieved via the
 <code>defaultRNStream()</code> method. For the KSL, the default stream is the first
-stream created and is label with the sequence number 1. The sequence number of a stream
+stream created and is labeled with the sequence number 1. The sequence number of a stream
 can be used to retrieve a particular stream from the provider. The following methods
 allow for creation and access to streams.</p>
 <ul>
@@ -659,7 +659,7 @@ the streams. In other words, this method should act as if <code>nextRNStream()</
 </div>
 <div id="ch2creatingStreams" class="section level3 hasAnchor" number="2.1.2">
 <h3><span class="header-section-number">2.1.2</span> Creating and Using Streams<a href="ch2generator.html#ch2creatingStreams" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<p>To create a random number stream, the user must utilize an instance of <code>RNStreamProvider</code>. This process is illustrated in in the following code. This code creates two instances of <code>RNStreamProvider</code> and gets the first stream from each instance. The instances of <code>RNStreamProvider</code> use the exact same underlying default seeds. Thus, they produce <em>exactly the same</em> sequence of streams.</p>
+<p>To create a random number stream, the user must utilize an instance of <code>RNStreamProvider.</code> This process is illustrated in in the following code. This code creates two instances of <code>RNStreamProvider</code> and gets the first stream from each instance. The instances of <code>RNStreamProvider</code> use the exact same underlying default seeds. Thus, they produce <em>exactly the same</em> sequence of streams.</p>
 
 <div class="sourceCode" id="cb1"><pre class="sourceCode kt"><code class="sourceCode kotlin"><span id="cb1-1"><a href="ch2generator.html#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="kw">fun</span> <span class="fu">main</span><span class="op">()</span> <span class="op">{</span></span>
 <span id="cb1-2"><a href="ch2generator.html#cb1-2" aria-hidden="true" tabindex="-1"></a>    <span class="co">// make a provider for creating streams</span></span>
@@ -689,9 +689,8 @@ code on different computers in parallel. While the providers produce the
 same streams, you can force one provider to be different from another
 provider by manipulating the seeds. In addition, the
 provider can control all streams that it produces. So, unless you are
-trying to do some advanced work that involves coordinating multiple streams, you should not need to create multiple instances of <code>RNStreamProvider</code>.</p>
-<p>Because the most common use case is to just have a single provider of streams, the KSL facilitates this through the <code>KSLRandom</code> class. The <code>KSLRandom</code> class has a wide range of static methods to facilitate random variate generation.
-The most important methods include:</p>
+trying to do some advanced work that involves coordinating multiple streams, you should not need to create multiple instances of <code>RNStreamProvider.</code></p>
+<p>Because the most common use case is to just have a single provider of streams, the KSL facilitates this through the <code>KSLRandom</code> <em>object</em> The <code>KSLRandom</code> object has a wide range of methods to facilitate random variate generation.The most important methods include:</p>
 <ul>
 <li><code>nextRNStream()</code> - calls the underlying default <code>RNStreamProvider</code> to create a new random number stream</li>
 <li><code>rnStream(int k)</code> - returns the <span class="math inline">\(k^{th}\)</span> stream from the default <code>RNStreamProvider</code></li>
@@ -843,7 +842,7 @@ Notice that they are different from the first 3.</code></pre>
 <span id="cb11-17"><a href="ch2generator.html#cb11-17" aria-hidden="true" tabindex="-1"></a>        System<span class="op">.</span><span class="kw">out</span><span class="op">.</span>printf<span class="op">(</span><span class="st">&quot;%3d %15f %n&quot;</span><span class="op">,</span> i<span class="op">,</span> u<span class="op">)</span></span>
 <span id="cb11-18"><a href="ch2generator.html#cb11-18" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
 <span id="cb11-19"><a href="ch2generator.html#cb11-19" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
-<p>Notice that the second set of random numbers is the complement of the first set in this output. Of course, you can also create multiple instances of <code>RNStreamProvider</code>, and then create streams and set one of the streams to produce antithetic values.</p>
+<p>Notice that the second set of random numbers is the antithetic complement of the first set in this output. Of course, you can also create multiple instances of <code>RNStreamProvider,</code> and then create streams and set one of the streams to produce antithetic values.</p>
 <pre><code>  n               U 
   1        0.127011 
   2        0.318528 
@@ -866,7 +865,7 @@ Numbers generated through an algorithm that appear to be random, when in fact, t
 <li><p><strong>Why do we want to control randomness within simulation models?</strong>
 By controlling randomness, we can better understand if changes in simulation responses are due to factors of interest or due to underlying statistical variation caused by sampling. Do you think that it is better to compare two systems using the same inputs or different inputs? Suppose we have a work process that we have redesigned. We have the old process and the new process. Would it be better to test the difference in the process by using two different workers or the same worker? Most people agree that using the same worker is better. This same logic applies to randomness. Since we can control which pseudo-random numbers we use, it is better to test the difference between two model alternatives by using the same pseudo-random numbers. We use seeds and streams to do this.</p></li>
 <li><p><strong>What are seeds and streams?</strong>
-A random number stream is a sub-sequence of pseudo-random numbers that start at particular place with a larger sequence of pseudo-random numbers. The starting point of a sequence of pseudo-random numbers is called the seed. A seed allows us to pick a particular stream. Having multiple streams is useful to assign different streams to different sources of randomness within a model. This facilitates the control of the use of pseudo-random numbers when performing experiments.</p></li>
+A random number stream is a sub-sequence of pseudo-random numbers that start at particular place within a larger sequence of pseudo-random numbers. The starting point of a sequence of pseudo-random numbers is called the seed. A seed allows us to pick a particular stream. Having multiple streams is useful to assign different streams to different sources of randomness within a model. This facilitates the control of the use of pseudo-random numbers when performing experiments.</p></li>
 <li><p><strong>How come my simulation results are always the same?</strong>
 Random number generators in computer simulation languages come with a default set of streams that divide the “circle” up into independent sets of random numbers. The streams are only independent if you do not use up all the random numbers within the subsequence. These streams allow the randomness associated with a simulation to be controlled. During the simulation, you can associate a specific stream with specific random processes in the model. This has the advantage of allowing you to check if the random numbers are causing significant differences in the outputs. In addition, this allows the random numbers used across alternative simulations to be better synchronized.
 Now a common question in simulation can be answered. That is, “If the simulation is using random numbers, why to I get the same results each time I run my program?” The corollary to this question is, “If I want to get different random results each time I run my program, how do I do it?” The answer to the first question is that the underlying random number generator is starting with the same seed each time you run your program. Thus, your program will use the same pseudo random numbers today as it did yesterday and the day before, etc. The answer to the corollary question is that you must tell the random number generator to use a different seed (or alternatively a different stream) if you want different invocations of the program to produce different results. The latter is not necessarily a desirable goal. For example, when developing your simulation programs, it is desirable to have repeatable results so that you can know that your program is working correctly.</p></li>
@@ -917,7 +916,10 @@ gitbook.start({
 "family": "sans",
 "size": 2
 },
-"edit": null,
+"edit": {
+"link": null,
+"text": null
+},
 "history": {
 "link": null,
 "text": null
@@ -926,7 +928,7 @@ gitbook.start({
 "link": null,
 "text": null
 },
-"download": ["KSLBook.pdf"],
+"download": null,
 "search": {
 "engine": "fuse",
 "options": null

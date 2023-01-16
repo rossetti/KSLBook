@@ -23,7 +23,7 @@
 <meta name="author" content="Manuel D. Rossetti" />
 
 
-<meta name="date" content="2023-01-02" />
+<meta name="date" content="2023-01-16" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -157,7 +157,7 @@ div.csl-indent {
       <nav role="navigation">
 
 <ul class="summary">
-<li><a href="./">Simulation Modeling using the Kotlin Simulation Library</a></li>
+<li><a href="./">Simulation Modeling using the Kotlin Simulation Library (KSL)</a></li>
 
 <li class="divider"></li>
 <li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Preface</a>
@@ -1089,7 +1089,7 @@ should specify 30,000 minutes for the replication length.</p>
 run the simulation for multiple replications and capture the data
 necessary to produce Welch plots for the performance measures of
 interest. Within the KSL, this can be accomplished by using the classes
-within the <code>ksl.observers.welch</code> package. There are three classes
+within the <code>ksl.observers.welch</code> package. There are two classes
 of note:</p>
 <dl>
 <dt><code>WelchDataFileCollector</code></dt>
@@ -1146,7 +1146,7 @@ Figure 5.17: Welch Plot for System Time Analysis
 </div>
 <p>Figure <a href="simoainfhorizon.html#fig:WelchSysTimePlot">5.17</a> illustrates the plot of the
 data. From this plot, we can estimate the number of observations
-to delete as 20000.</p>
+to delete as approximately 20000.</p>
 <p>Time-persistent observations are saved within a file from within the
 model such that the time of the observation and the value of the state
 variable at the time of change are recorded. Thus, the observations are
@@ -1777,7 +1777,10 @@ gitbook.start({
 "family": "sans",
 "size": 2
 },
-"edit": null,
+"edit": {
+"link": null,
+"text": null
+},
 "history": {
 "link": null,
 "text": null
@@ -1786,7 +1789,7 @@ gitbook.start({
 "link": null,
 "text": null
 },
-"download": ["KSLBook.pdf"],
+"download": null,
 "search": {
 "engine": "fuse",
 "options": null

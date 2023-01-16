@@ -23,7 +23,7 @@
 <meta name="author" content="Manuel D. Rossetti" />
 
 
-<meta name="date" content="2023-01-02" />
+<meta name="date" content="2023-01-16" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -157,7 +157,7 @@ div.csl-indent {
       <nav role="navigation">
 
 <ul class="summary">
-<li><a href="./">Simulation Modeling using the Kotlin Simulation Library</a></li>
+<li><a href="./">Simulation Modeling using the Kotlin Simulation Library (KSL)</a></li>
 
 <li class="divider"></li>
 <li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Preface</a>
@@ -417,14 +417,14 @@ div.csl-indent {
             <section class="normal" id="section-">
 <div id="understanding-ksl-processes-and-entities" class="section level2 hasAnchor" number="6.3">
 <h2><span class="header-section-number">6.3</span> Understanding KSL Processes and Entities<a href="understanding-ksl-processes-and-entities.html#understanding-ksl-processes-and-entities" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p>Entities can experience many processes. Thus, there needs to be a mechanism to activate the processes and to cleanup after the processes have completed. The <code>ProcessModel</code> class facilitates the modeling of entities experiencing processes. A <code>ProcessModel</code> has inner classes (<code>Entity</code>, <code>EntityGenerator</code>, etc.) that can be used to describe entities and the processes that they experience.</p>
+<p>Entities can experience many processes. Thus, there needs to be a mechanism to activate the processes and to cleanup after the processes have completed. The <code>ProcessModel</code> class facilitates the modeling of entities experiencing processes. A <code>ProcessModel</code> has inner classes (<code>Entity,</code> <code>EntityGenerator,</code> etc.) that can be used to describe entities and the processes that they experience.</p>
 <div class="figure"><span style="display:block;" id="fig:Ch5ProcessModelOverview"></span>
 <img src="figures2/ch6/ProcessModelOverview.png" alt="Overview of the ProcessModel Class" width="90%" height="90%" />
 <p class="caption">
 Figure 6.5: Overview of the ProcessModel Class
 </p>
 </div>
-<p>As noted in Figure <a href="understanding-ksl-processes-and-entities.html#fig:Ch5ProcessModelOverview">6.5</a> a <code>ProcessModel</code> can activate KSL processes, can start entity process sequences, can dispose of entities, and can perform some after replication cleanup. One of the activities that a process model must perform is to terminate any processes that are still suspended after the replication is completed. In addition, it ensures that no entity terminates its process while still having allocations to a resource. Thus, a <code>ProcessModel</code> is needed to manage the entities and processes that it represents. This is why in the pharmacy code example, the pharmacy model is a subclass of <code>ProcessModel</code>.</p>
+<p>As noted in Figure <a href="understanding-ksl-processes-and-entities.html#fig:Ch5ProcessModelOverview">6.5</a> a <code>ProcessModel</code> can activate KSL processes, can start entity process sequences, can dispose of entities, and can perform some after replication cleanup. One of the activities that a process model must perform is to terminate any processes that are still suspended after the replication is completed. In addition, it ensures that no entity terminates its process while still having allocations to a resource. Thus, a <code>ProcessModel</code> is needed to manage the entities and processes that it represents. This is why in the pharmacy code example, the pharmacy model is a subclass of <code>ProcessModel.</code></p>
 <div class="sourceCode" id="cb130"><pre class="sourceCode kt"><code class="sourceCode kotlin"><span id="cb130-1"><a href="understanding-ksl-processes-and-entities.html#cb130-1" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> DriveThroughPharmacy<span class="op">(</span></span>
 <span id="cb130-2"><a href="understanding-ksl-processes-and-entities.html#cb130-2" aria-hidden="true" tabindex="-1"></a>    <span class="va">parent</span><span class="op">:</span> <span class="dt">ModelElement</span><span class="op">,</span></span>
 <span id="cb130-3"><a href="understanding-ksl-processes-and-entities.html#cb130-3" aria-hidden="true" tabindex="-1"></a>    <span class="va">numPharmacists</span><span class="op">:</span> <span class="dt">Int</span> <span class="op">=</span> <span class="dv">1</span><span class="op">,</span></span>
@@ -433,8 +433,8 @@ Figure 6.5: Overview of the ProcessModel Class
 <span id="cb130-6"><a href="understanding-ksl-processes-and-entities.html#cb130-6" aria-hidden="true" tabindex="-1"></a>    <span class="va">name</span><span class="op">:</span> <span class="dt">String</span><span class="op">?</span> <span class="op">=</span> null</span>
 <span id="cb130-7"><a href="understanding-ksl-processes-and-entities.html#cb130-7" aria-hidden="true" tabindex="-1"></a><span class="op">)</span> <span class="op">:</span> <span class="dt">ProcessModel</span><span class="op">(</span><span class="va">parent</span><span class="op">,</span> <span class="va">name</span><span class="op">)</span></span></code></pre></div>
 <p>This provides the modeler with access to the inner classes e.g. <code>Entity</code> that are inherited by the subclass for use in process modeling.</p>
-<p>The key inner class is <code>Entity</code>, which has a function <code>process()</code> that uses a builder to describe the entity’s process in the form of a coroutine. An entity can have many processes described that it may follow based on different modeling logic. A process model facilitates the running of a sequence of processes that are stored in an entity’s <code>processSequence</code> property. An entity can <strong>experience only one process at a time</strong>. After completing the process, the entity will try to use its sequence to run the next process (if available). Individual processes can be activated for specific entities. But, again, an entity instance may only be activated to experience 1 process at a time, even if it has many defined processes. The entity experiences processes <em>sequentially.</em></p>
-<p>An <code>Entity</code> instance is something that can experience processes and as such may wait in queues. <code>Entity</code> is a subclass of <code>QObject.</code> Thus, statistics can be automatically collected on entities if they experience waiting. The general approach to defining a process for an entity is to use the <code>process()</code> function to define a process that a subclass of Entity can follow. Entity instances may use resources, signals, hold queues, etc. as shared mutable state. Entities may follow a process sequence if defined. An entity can have many properties that define different processes that it might experience. The user can store the processes in data structures. In fact, there is a <code>processSequence</code> property for this purpose that defines a list of processes that the entity will follow. As previously mentioned, the <code>process()</code> function automatically adds each defined process (in the order of definition via the class body) to the <code>processSequence</code> property unless told not to do so as an optional argument to the <code>process()</code> function. The following code defines a process and assigns the function to the property <code>pharmacyProcess</code>. This property is of type <code>KSLProcess.</code> Because there were no arguments to the <code>process()</code> function, the process is automatically added to the list of processes for this entity found in the <code>processSequence</code> property. Each process can also be provided a string name via an argument of the <code>process()</code> function.</p>
+<p>The key inner class is <code>Entity,</code> which has a function <code>process()</code> that uses a builder to describe the entity’s process in the form of a coroutine. An entity can have many processes described that it may follow based on different modeling logic. A process model facilitates the running of a sequence of processes that are stored in an entity’s <code>processSequence</code> property. An entity can <strong>experience only one process at a time</strong>. After completing the process, the entity will try to use its sequence to run the next process (if available). Individual processes can be activated for specific entities. But, again, an entity instance may only be activated to experience 1 process at a time, even if it has many defined processes. The entity experiences processes <em>sequentially.</em></p>
+<p>An <code>Entity</code> instance is something that can experience processes and as such may wait in queues. <code>Entity</code> is a subclass of <code>QObject.</code> Thus, statistics can be automatically collected on entities if they experience waiting. The general approach to defining a process for an entity is to use the <code>process()</code> function to define a process that a subclass of Entity can follow. Entity instances may use resources, signals, hold queues, etc. as shared mutable state. Entities may follow a process sequence if defined. An entity can have many properties that define different processes that it might experience. The user can store the processes in data structures. In fact, there is a <code>processSequence</code> property for this purpose that defines a list of processes that the entity will follow. As previously mentioned, the <code>process()</code> function automatically adds each defined process (in the order of definition via the class body) to the <code>processSequence</code> property unless told not to do so as an optional argument to the <code>process()</code> function. The following code defines a process and assigns the function to the property <code>pharmacyProcess.</code> This property is of type <code>KSLProcess.</code> Because there were no arguments to the <code>process()</code> function, the process is automatically added to the list of processes for this entity found in the <code>processSequence</code> property. Each process can also be provided a string name via an argument of the <code>process()</code> function.</p>
 <div class="sourceCode" id="cb131"><pre class="sourceCode kt"><code class="sourceCode kotlin"><span id="cb131-1"><a href="understanding-ksl-processes-and-entities.html#cb131-1" aria-hidden="true" tabindex="-1"></a>    <span class="kw">private</span> inner <span class="kw">class</span> Customer <span class="op">:</span> <span class="dt">Entity</span><span class="op">()</span> <span class="op">{</span></span>
 <span id="cb131-2"><a href="understanding-ksl-processes-and-entities.html#cb131-2" aria-hidden="true" tabindex="-1"></a>        <span class="kw">val</span> <span class="va">pharmacyProcess</span><span class="op">:</span> KSLProcess <span class="op">=</span> process<span class="op">()</span> <span class="op">{</span></span>
 <span id="cb131-3"><a href="understanding-ksl-processes-and-entities.html#cb131-3" aria-hidden="true" tabindex="-1"></a>        <span class="op">...</span></span>
@@ -453,7 +453,7 @@ Figure 6.5: Overview of the ProcessModel Class
 <span id="cb132-11"><a href="understanding-ksl-processes-and-entities.html#cb132-11" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
 <p>The <code>process()</code> function is a special builder function related to a <code>KSLProcessBuilder.</code> A <code>KSLProcessBuilder</code> provides the functionality for describing a process. A process is an instance of a coroutine that can be suspended and resumed. The methods of the <code>KSLProcessBuilder</code> are the suspending methods that are allowed within the process modeling paradigm of the KSL. The various suspend methods have an optional string name parameter to identify the name of the suspension point. While not required for basic modeling, identifying the suspension point can be useful for more advanced modeling involving the cancellation or interrupting of a process. A unique name can be used to determine which suspension point is suspending the process when the process has many suspension points. We will examine the functionality of a <code>KSLProcessBuilder</code> later in this section.</p>
 <p>First and foremost, process modeling starts with understanding and using instances of the <code>Entity</code> class.</p>
-<div class="figure"><span style="display:block;" id="fig:Ch5EnityStates"></span>
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:Ch5EnityStates"></span>
 <img src="figures2/ch6/EntityStates.png" alt="Defined Entity States"  />
 <p class="caption">
 Figure 6.6: Defined Entity States
@@ -471,15 +471,15 @@ Figure 6.6: Defined Entity States
 <li><code>InHoldQueue</code> - This state indicates that the entity’s process is suspended because the entity is an arbitrary queue that holds entities until they are removed and re-activated.</li>
 <li><code>WaitForProcess</code> - An entity may activate another process. This state indicates that the entity’s process is suspended because the entity is waiting for the process to complete before proceeding.</li>
 </ul>
-<div class="figure"><span style="display:block;" id="fig:Ch5EnityStateTransitions"></span>
-<img src="figures2/ch6/EntityStateTransitions.png" alt="Legal Entity State Transitions" width="75%" height="75%" />
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:Ch5EnityStateTransitions"></span>
+<img src="figures2/ch6/EntityStateTransitions.png" alt="Legal Entity State Transitions" width="50%" height="50%" />
 <p class="caption">
 Figure 6.7: Legal Entity State Transitions
 </p>
 </div>
 <p>The entity states are mapped onto the lower level coroutine via an internal inner class (<code>ProcessCoroutine</code>). This class defines the legal states of the coroutine shown in Figure <a href="understanding-ksl-processes-and-entities.html#fig:Ch5EProcessStates">6.8</a>.</p>
-<div class="figure"><span style="display:block;" id="fig:Ch5EProcessStates"></span>
-<img src="figures2/ch6/ProcessStates.png" alt="Defined Process States" width="75%" height="75%" />
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:Ch5EProcessStates"></span>
+<img src="figures2/ch6/ProcessStates.png" alt="Defined Process States" width="70%" height="70%" />
 <p class="caption">
 Figure 6.8: Defined Process States
 </p>
@@ -494,8 +494,8 @@ Figure 6.8: Defined Process States
 </ul>
 <p>When a process coroutine exits normally the process coroutine is placed in the completed state. Then, the <code>ProcessModel</code> checks to see if there are additional processes to execute within the entity’s process sequence. If there are, then the next process is automatically started. If there are no additional processes in the sequence, the entity is disposed.</p>
 <p>If the entity is executing a process and the process is suspended, then the process routine may be terminated. This causes the currently suspended process to exit, essentially with an error condition. No further programming statements within the process coroutine will execute. The process ends (placed in the terminated state). All resources that the entity has allocated will be deallocated. If the entity was waiting in a queue, the entity is removed from the queue and no statistics are collected on its queueing. If the entity is experiencing a delay, then the event associated with the delay is cancelled. If the entity has additional processes in its process sequence they are not automatically executed. If the user requires specific behavior to occur for the entity after termination, then the user should override the Entity’s <code>handleTerminatedProcess()</code> function to supply specific logic. Termination happens immediately, with no time delay.</p>
-<div class="figure"><span style="display:block;" id="fig:Ch5EProcessStateTransitions"></span>
-<img src="figures2/ch6/ProcessStateTransitions.png" alt="Legal Process States Transitions" width="75%" height="75%" />
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:Ch5EProcessStateTransitions"></span>
+<img src="figures2/ch6/ProcessStateTransitions.png" alt="Legal Process States Transitions" width="50%" height="50%" />
 <p class="caption">
 Figure 6.9: Legal Process States Transitions
 </p>
@@ -538,7 +538,10 @@ gitbook.start({
 "family": "sans",
 "size": 2
 },
-"edit": null,
+"edit": {
+"link": null,
+"text": null
+},
 "history": {
 "link": null,
 "text": null
@@ -547,7 +550,7 @@ gitbook.start({
 "link": null,
 "text": null
 },
-"download": ["KSLBook.pdf"],
+"download": null,
 "search": {
 "engine": "fuse",
 "options": null

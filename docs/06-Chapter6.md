@@ -238,8 +238,8 @@ Before discussing additional functionality enabled within the `KSLProcessBuilder
 This is so common the KSL provides a class called `EntityGenerator` that automates this process.  The `EntityGenerator` class subclassed from `EventGenerator` and allows for a creation pattern to be specified. Figure \@ref(fig:Ch5EntityGenerator) illustrates this relationship.
 
 
-<div class="figure">
-<img src="./figures2/ch6/EntityGenerator.png" alt="Overview of the ProcessModel Class" width="90%" height="90%" />
+<div class="figure" style="text-align: center">
+<img src="./figures2/ch6/EntityGenerator.png" alt="Overview of the ProcessModel Class" width="50%" height="50%" />
 <p class="caption">(\#fig:Ch5EntityGenerator)Overview of the ProcessModel Class</p>
 </div>
 
@@ -314,14 +314,14 @@ In the next section, we will take a closer look at how the KSL makes the process
 
 ## Understanding KSL Processes and Entities
 
-Entities can experience many processes.  Thus, there needs to be a mechanism to activate the processes and to cleanup after the processes have completed. The `ProcessModel` class facilitates the modeling of entities experiencing processes. A `ProcessModel` has inner classes (`Entity`, `EntityGenerator`, etc.) that can be used to describe entities and the processes that they experience. 
+Entities can experience many processes.  Thus, there needs to be a mechanism to activate the processes and to cleanup after the processes have completed. The `ProcessModel` class facilitates the modeling of entities experiencing processes. A `ProcessModel` has inner classes (`Entity,` `EntityGenerator,` etc.) that can be used to describe entities and the processes that they experience. 
 
 <div class="figure">
 <img src="./figures2/ch6/ProcessModelOverview.png" alt="Overview of the ProcessModel Class" width="90%" height="90%" />
 <p class="caption">(\#fig:Ch5ProcessModelOverview)Overview of the ProcessModel Class</p>
 </div>
 
-As noted in Figure \@ref(fig:Ch5ProcessModelOverview) a `ProcessModel` can activate KSL processes, can start entity process sequences, can dispose of entities, and can perform some after replication cleanup.  One of the activities that a process model must perform is to terminate any processes that are still suspended after the replication is completed.  In addition, it ensures that no entity terminates its process while still having allocations to a resource.  Thus, a `ProcessModel` is needed to manage the entities and processes that it represents. This is why in the pharmacy code example, the pharmacy model is a subclass of `ProcessModel`.
+As noted in Figure \@ref(fig:Ch5ProcessModelOverview) a `ProcessModel` can activate KSL processes, can start entity process sequences, can dispose of entities, and can perform some after replication cleanup.  One of the activities that a process model must perform is to terminate any processes that are still suspended after the replication is completed.  In addition, it ensures that no entity terminates its process while still having allocations to a resource.  Thus, a `ProcessModel` is needed to manage the entities and processes that it represents. This is why in the pharmacy code example, the pharmacy model is a subclass of `ProcessModel.`
 
 ```kt
 class DriveThroughPharmacy(
@@ -335,9 +335,9 @@ class DriveThroughPharmacy(
 
 This provides the modeler with access to the inner classes e.g. `Entity` that are inherited by the subclass for use in process modeling.
 
-The key inner class is `Entity`, which has a function `process()` that uses a builder to describe the entity's process in the form of a coroutine.  An entity can have many processes described that it may follow based on different modeling logic. A process model facilitates the running of a sequence of processes that are stored in an entity's `processSequence` property. An entity can **experience only one process at a time**. After completing the process, the entity will try to use its sequence to run the next process (if available). Individual processes can be activated for specific entities. But, again, an entity instance may only be activated to experience 1 process at a time, even if it has many defined processes. The entity experiences processes *sequentially.*  
+The key inner class is `Entity,` which has a function `process()` that uses a builder to describe the entity's process in the form of a coroutine.  An entity can have many processes described that it may follow based on different modeling logic. A process model facilitates the running of a sequence of processes that are stored in an entity's `processSequence` property. An entity can **experience only one process at a time**. After completing the process, the entity will try to use its sequence to run the next process (if available). Individual processes can be activated for specific entities. But, again, an entity instance may only be activated to experience 1 process at a time, even if it has many defined processes. The entity experiences processes *sequentially.*  
  
-An `Entity` instance is something that can experience processes and as such may wait in queues. `Entity` is a subclass of `QObject.`  Thus, statistics can be automatically collected on entities if they experience waiting. The general approach to defining a process for an entity is to use the `process()` function to define a process that a subclass of Entity can follow.  Entity instances may use resources, signals, hold queues, etc. as shared mutable state.  Entities may follow a process sequence if defined.  An entity can have many properties that define different processes that it might experience. The user can store the processes in data structures. In fact, there is a `processSequence` property for this purpose that defines a list of processes that the entity will follow. As previously mentioned, the `process()` function automatically adds each defined process (in the order of definition via the class body) to the `processSequence` property unless told not to do so as an optional argument to the `process()` function. The following code defines a process and assigns the function to the property `pharmacyProcess`.  This property is of type `KSLProcess.` Because there were no arguments to the `process()` function, the process is automatically added to the list of processes for this entity found in the `processSequence` property.  Each process can also be provided a string name via an argument of the `process()` function.
+An `Entity` instance is something that can experience processes and as such may wait in queues. `Entity` is a subclass of `QObject.`  Thus, statistics can be automatically collected on entities if they experience waiting. The general approach to defining a process for an entity is to use the `process()` function to define a process that a subclass of Entity can follow.  Entity instances may use resources, signals, hold queues, etc. as shared mutable state.  Entities may follow a process sequence if defined.  An entity can have many properties that define different processes that it might experience. The user can store the processes in data structures. In fact, there is a `processSequence` property for this purpose that defines a list of processes that the entity will follow. As previously mentioned, the `process()` function automatically adds each defined process (in the order of definition via the class body) to the `processSequence` property unless told not to do so as an optional argument to the `process()` function. The following code defines a process and assigns the function to the property `pharmacyProcess.`  This property is of type `KSLProcess.` Because there were no arguments to the `process()` function, the process is automatically added to the list of processes for this entity found in the `processSequence` property.  Each process can also be provided a string name via an argument of the `process()` function.
 
 ```kt
     private inner class Customer : Entity() {
@@ -366,7 +366,7 @@ The `process()` function is a special builder function related to a `KSLProcessB
 
 First and foremost, process modeling starts with understanding and using instances of the `Entity` class. 
 
-<div class="figure">
+<div class="figure" style="text-align: center">
 <img src="./figures2/ch6/EntityStates.png" alt="Defined Entity States"  />
 <p class="caption">(\#fig:Ch5EnityStates)Defined Entity States</p>
 </div>
@@ -383,15 +383,15 @@ Figure \@ref(fig:Ch5ProcessModelOverview) indicates that there is an inner class
 - `InHoldQueue` - This state indicates that the entity's process is suspended because the entity is an arbitrary queue that holds entities until they are removed and re-activated.
 - `WaitForProcess` - An entity may activate another process.  This state indicates that the entity's process is suspended because the entity is waiting for the process to complete before proceeding.
 
-<div class="figure">
-<img src="./figures2/ch6/EntityStateTransitions.png" alt="Legal Entity State Transitions" width="75%" height="75%" />
+<div class="figure" style="text-align: center">
+<img src="./figures2/ch6/EntityStateTransitions.png" alt="Legal Entity State Transitions" width="50%" height="50%" />
 <p class="caption">(\#fig:Ch5EnityStateTransitions)Legal Entity State Transitions</p>
 </div>
 
 The entity states are mapped onto the lower level coroutine via an internal inner class (`ProcessCoroutine`). This class defines the legal states of the coroutine shown in Figure \@ref(fig:Ch5EProcessStates). 
 
-<div class="figure">
-<img src="./figures2/ch6/ProcessStates.png" alt="Defined Process States" width="75%" height="75%" />
+<div class="figure" style="text-align: center">
+<img src="./figures2/ch6/ProcessStates.png" alt="Defined Process States" width="70%" height="70%" />
 <p class="caption">(\#fig:Ch5EProcessStates)Defined Process States</p>
 </div>
 
@@ -407,8 +407,8 @@ When a process coroutine exits normally the process coroutine is placed in the c
 
 If the entity is executing a process and the process is suspended, then the process routine may be terminated. This causes the currently suspended process to exit, essentially with an error condition.  No further programming statements within the process coroutine will execute. The process ends (placed in the terminated state). All resources that the entity has allocated will be deallocated.  If the entity was waiting in a queue, the entity is removed from the queue and no statistics are collected on its queueing.  If the entity is experiencing a delay, then the event associated with the delay is cancelled. If the entity has additional processes in its process sequence they are not automatically executed. If the user requires specific behavior to occur for the entity after termination, then the user should override the Entity's `handleTerminatedProcess()` function to supply specific logic.  Termination happens immediately, with no time delay.
 
-<div class="figure">
-<img src="./figures2/ch6/ProcessStateTransitions.png" alt="Legal Process States Transitions" width="75%" height="75%" />
+<div class="figure" style="text-align: center">
+<img src="./figures2/ch6/ProcessStateTransitions.png" alt="Legal Process States Transitions" width="50%" height="50%" />
 <p class="caption">(\#fig:Ch5EProcessStateTransitions)Legal Process States Transitions</p>
 </div>
 
@@ -416,7 +416,7 @@ The following section will illustrate through some simple models some of the fun
 
 ## Examples of Process Modeling
 
-The following example illustrates how to use a hold queue (`HoldQueue`). A `HoldQueue` holds an entity within a queue until it is removed.  It is important to note that the entity that goes into the hold queue cannot remove itself. Thus, as you will see in the following code, we schedule an event that causes the entities to be removed at a specific time. The hold queue is created and an event action defined to represent the event. The entity process is simple, when the entity enters the process it immediately enters the hold queue. The process will be suspended.  After being removed and resumed, the entity continues through a couple of delays. 
+The following example illustrates how to use a hold queue (`HoldQueue`).  A `HoldQueue` holds an entity within a queue until it is removed.  It is important to note that the entity that goes into the hold queue cannot remove itself. Thus, as you will see in the following code, we schedule an event that causes the entities to be removed at a specific time. The hold queue is created and an event action defined to represent the event. The entity process is simple, when the entity enters the process it immediately enters the hold queue. The process will be suspended.  After being removed and resumed, the entity continues through a couple of delays. 
 
 ```kt
 class Example2(parent: ModelElement) : ProcessModel(parent, null)  {
@@ -477,7 +477,7 @@ The next example illustrates the use of the `Signal` class, which build off of t
 <p class="caption">(\#fig:Ch5HQandSignalClass)HoldQueue and Signal Classes</p>
 </div>
 
-The `Signal` class uses an instance of the `HoldQueue` class to hold entities until they are notified to move via the index of their rank in the queue.  If you want the first entity to be signaled, then you call `signal(0)`. The entity is notified that its suspension is over and it removes itself from the hold queue.  Thus, contrary to the `HoldQueue` class the user does not have to remove and resume the corresponding entity. 
+The `Signal` class uses an instance of the `HoldQueue` class to hold entities until they are notified to move via the index of their rank in the queue.  If you want the first entity to be signaled, then you call `signal(0).` The entity is notified that its suspension is over and it removes itself from the hold queue.  Thus, contrary to the `HoldQueue` class the user does not have to remove and resume the corresponding entity. 
 
 Here is some example code. Notice that the code subclasses from `ProcessModel.` All implementations that use the process modeling constructs must subclass from `ProcessModel.`  Then, the instance of the `Signal` is created. An inner class implements and entity that uses the signal. In the process, the entity immediately waits for the signal. After the signal, the entity has a simple delay and then the process ends.
 
@@ -519,7 +519,7 @@ fun main(){
 }
 ```
 
-The `initialize()` method creates 10 instances of `SignalEntity` and activates each entity's `waitForSignalProcess` process. It also schedules an event to cause the signal to occur at time 3.0.  In the signal event, the reference to the signal, `signal,` is used to call the `signal()` method of of the `Signal.`  The first 5 waiting entities are signaled using a Kotlin [range.](https://kotlinlang.org/docs/ranges.html)  The output from the process is as follows.
+The `initialize()` method creates 10 instances of `SignalEntity` and activates each entity's `waitForSignalProcess` process. It also schedules an event to cause the signal to occur at time 3.0.  In the signal event, the reference to the signal, `signal,` is used to call the `signal()` method of of the `Signal` class.  The first 5 waiting entities are signaled using a Kotlin [range.](https://kotlinlang.org/docs/ranges.html)  The output from the process is as follows.
 
 ```
 0.0 > before waiting for the signal: ID_1
@@ -575,7 +575,7 @@ class BlockingQExample(parent: ModelElement, name: String? = null) : ProcessMode
     
 ```
 
-You can create a blocking queue with a capacity (or not) and you can specify whether the statistics are collected (or not) as noted in the comments of the example. In this example, the queue (channel) has a capacity of 10 items. In the following code, we implement the process for receiving items from the blocking queue. Notice that there is a loop within the process.  This illustrates that all normal [Kotlin control structures](https://kotlinlang.org/docs/control-flow.html) are available with process routines. The entity (receiver) will loop through this process 15 time and essentially wait for single item to be placed in the blocking queue. If the entity hits the `waitForItems()` function call and there is an item in the queue, then it immediately receives the item and continues with its process. If an item is not available in the blocking queue, then the entity wait until an item becomes available and does not proceed.  After receiving its requested item, the entity continues with its process.
+You can create a blocking queue with a capacity (or not) and you can specify whether the statistics are collected (or not) as noted in the comments of the example. In this example, the queue (channel) has a capacity of 10 items. In the following code, we implement the process for receiving items from the blocking queue. Notice that there is a loop within the process.  This illustrates that all normal [Kotlin control structures](https://kotlinlang.org/docs/control-flow.html) are available with process routines. The entity (receiver) will loop through this process 15 time and essentially wait for single item to be placed in the blocking queue. If the entity hits the `waitForItems()` function call and there is an item in the queue, then it immediately receives the item and continues with its process. If an item is not available in the blocking queue, then the entity will wait until an item becomes available and does not proceed.  After receiving its requested item, the entity continues with its process.
 
 ```kt
     private inner class Receiver: Entity() {
@@ -673,7 +673,7 @@ BlockingQueue_4:ChannelQ:TimeInQ         	            1 	       2.2000 	        
 
 As illustrated in this example, a blocking queue can facilitate the passing of information between two processes. These types of constructs can serve as the basis for communicating between agents which can invoke different procedures for different messages and wait until receiving and or sending messages.  We will see another example of using a blocking queue later in this chapter.  
 
-In the previous three examples, we saw how we can use a hold queue, a signal, and a blocking queue within a process description. In the case of the blocking queue, we saw how two processes can communicated.  In this next simple example, we also see how to processes can coordinate their flow via the use of the `waitFor(process: KSLProcess)` suspending function.  The purpose of the `waitFor(process: KSLProcess)` suspending function is to allow one entity to start another process and have the entity that starts the process wait until the newly activated process is completed.  The following code indicates the signature of the `waitFor(process: KSLProcess)` suspending function.
+In the previous three examples, we saw how we can use a hold queue, a signal, and a blocking queue within a process description. In the case of the blocking queue, we saw how two processes communicated.  In this next simple example, we also see how to processes can coordinate their flow via the use of the `waitFor(process: KSLProcess)` suspending function.  The purpose of the `waitFor(process: KSLProcess)` suspending function is to allow one entity to start another process and have the entity that starts the process wait until the newly activated process is completed.  The following code indicates the signature of the `waitFor(process: KSLProcess)` suspending function.
 
 ```kt
     /** Causes the current process to suspend until the specified process has run to completion.
@@ -758,7 +758,7 @@ The `Customer` class is very similar to previous examples of a simple queueing s
     }
 ```
 
-Then, the code defines a process called "WaitForAnotherProcess". The sole purpose of this process is to create an instance of the customer, activate its simple process, and wait for it to complete.  The output from activating one instance of the wait for another process is as follows:
+Then, the code defines a process called `WaitForAnotherProcess.` The sole purpose of this process is to create an instance of the customer, activate its simple process, and wait for it to complete.  The output from activating one instance of the wait for another process is as follows:
 
 ```
 0.8149947795247992 > activating the waitFor process for entity: ID_1
@@ -1298,7 +1298,9 @@ In the following code, two attributes, `isWanderer` and `isLeaver` are defined a
         
 ```
 
-The process followed by each student is defined in the process property called `stemFairProcess.` Notice how we first increment the number in the system and start the delay for the name tag activity.  If the student is a wandering student, we experience the delay for wandering. And, if the student is a wandering student that leaves early, then the `departingMixer()` method is called. As we will see in a moment, this method will be used to collect statistics on departing students. Now we have something new, we have a `return` statement within a process.  As previously noted, Kotlin flow of control statements are available within coroutines and `return` is such as statement.  Because the return is within a process builder, we need to be more specific about the return label.  This can be specified by the name of the builder function. In this case `process.` Kotlin also allows you to [explicitly label the return](https://kotlinlang.org/docs/returns.html#return-to-labels).  This return statement will cause the normal exit from the process routine for those students that leave without visiting recruiters.
+The process followed by each student is defined in the process property called `stemFairProcess.` Notice how we first increment the number in the system and start the delay for the name tag activity.  If the student is a wandering student, we experience the delay for wandering. And, if the student is a wandering student that leaves early, then the `departingMixer()` method is called. As we will see in a moment, this method will be used to collect statistics on departing students. 
+
+Now we have something new, we have a `return` statement within a process.  As previously noted, Kotlin flow of control statements are available within coroutines and `return` is such as statement.  Because the return is within a process builder, we need to be more specific about the return label.  This can be specified by the name of the builder function. In this case `process.` Kotlin also allows you to [explicitly label the return](https://kotlinlang.org/docs/returns.html#return-to-labels).  This return statement will cause the normal exit from the process routine for those students that leave without visiting recruiters.
 
 The students that visit the recruiter seize-delay-release the related resources and then depart. The following code shows the `departMixer()` method.  In this method, we decrement the number in the system and collect the system time statistics. Notice how we use the attributes within the boolean conditions of the if statements to get the correct system time response variables.
 

@@ -23,7 +23,7 @@
 <meta name="author" content="Manuel D. Rossetti" />
 
 
-<meta name="date" content="2023-01-02" />
+<meta name="date" content="2023-01-16" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -157,7 +157,7 @@ div.csl-indent {
       <nav role="navigation">
 
 <ul class="summary">
-<li><a href="./">Simulation Modeling using the Kotlin Simulation Library</a></li>
+<li><a href="./">Simulation Modeling using the Kotlin Simulation Library (KSL)</a></li>
 
 <li class="divider"></li>
 <li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Preface</a>
@@ -514,7 +514,7 @@ patient is willing to wait. The following code defines the random variables need
 <span id="cb199-3"><a href="examples-of-advanced-event-models.html#cb199-3" aria-hidden="true" tabindex="-1"></a>    <span class="kw">private</span> <span class="kw">val</span> <span class="va">distributionCDF</span> <span class="op">=</span> doubleArrayOf<span class="op">(</span><span class="fl">0.25</span><span class="op">,</span> <span class="fl">0.85</span><span class="op">,</span> <span class="fl">1.0</span><span class="op">)</span></span>
 <span id="cb199-4"><a href="examples-of-advanced-event-models.html#cb199-4" aria-hidden="true" tabindex="-1"></a>    <span class="kw">private</span> <span class="kw">val</span> <span class="va">serviceRV</span> <span class="op">=</span> REmpiricalList<span class="op">(</span><span class="kw">this</span><span class="op">,</span> distributions<span class="op">,</span> distributionCDF<span class="op">)</span></span>
 <span id="cb199-5"><a href="examples-of-advanced-event-models.html#cb199-5" aria-hidden="true" tabindex="-1"></a>    <span class="kw">private</span> <span class="kw">val</span> <span class="va">typeMap</span> <span class="op">=</span> mapOf<span class="op">(</span>highRV to <span class="dv">1</span><span class="op">,</span> mediumRV to <span class="dv">2</span><span class="op">,</span> lowRV to <span class="dv">3</span><span class="op">)</span></span></code></pre></div>
-<p>We will use these constructs within the patient processes. In the following code, we use the <code>serviceRv</code> to randomly assign the service time distribution for the patient and then use the map to assign the patient’s priority based on the service setting. The <code>clinicProcess</code> starts with a test to see if the low priority patient that arrives will balk if the doctor’s waiting queue has too many people. If so, we collect statistics on the balking and exit the process.</p>
+<p>We will use these constructs within the patient processes. In the following code, we use the <code>serviceRV</code> to randomly assign the service time distribution for the patient and then use the map to assign the patient’s priority based on the service setting. The <code>clinicProcess</code> starts with a test to see if the low priority patient that arrives will balk if the doctor’s waiting queue has too many people. If so, we collect statistics on the balking and exit the process.</p>
 <div class="sourceCode" id="cb200"><pre class="sourceCode kt"><code class="sourceCode kotlin"><span id="cb200-1"><a href="examples-of-advanced-event-models.html#cb200-1" aria-hidden="true" tabindex="-1"></a>    <span class="kw">private</span> inner <span class="kw">class</span> Patient <span class="op">:</span> <span class="dt">Entity</span><span class="op">()</span> <span class="op">{</span></span>
 <span id="cb200-2"><a href="examples-of-advanced-event-models.html#cb200-2" aria-hidden="true" tabindex="-1"></a>        <span class="kw">private</span> <span class="kw">val</span> <span class="va">service</span> <span class="op">=</span> serviceRV<span class="op">.</span>element</span>
 <span id="cb200-3"><a href="examples-of-advanced-event-models.html#cb200-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -1239,7 +1239,10 @@ gitbook.start({
 "family": "sans",
 "size": 2
 },
-"edit": null,
+"edit": {
+"link": null,
+"text": null
+},
 "history": {
 "link": null,
 "text": null
@@ -1248,7 +1251,7 @@ gitbook.start({
 "link": null,
 "text": null
 },
-"download": ["KSLBook.pdf"],
+"download": null,
 "search": {
 "engine": "fuse",
 "options": null

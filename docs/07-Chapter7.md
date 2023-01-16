@@ -201,7 +201,7 @@ For the given arrival rate and service parameters, the results indicate that the
 |TandemQModelWithBlocking:NumInSystem| 30| 1.406| 0.016|
 |TandemQModelWithBlocking:TimeInSystem| 30| 2.815| 0.023|
 
-However, the exercises ask the reader to explore what happens if the arrival rate is increased.  A tandem queueing system is just a series of stations. The concept of having stations where work is performed is very useful. The next section illustrates how to generalize these ideas.
+However, the exercises ask the reader to explore what happens if the arrival rate is increased.  A tandem queueing system is just a series of stations. The concept of having stations where work is performed is very useful. A later section illustrates how to generalize these ideas, but first we explore how to organize resources into sets or pools from which resources can be selected.
 
 ### Resource Pools
 
@@ -2346,7 +2346,7 @@ In the following code fragment, we use a `DEmpiricalList` to hold the service di
     private val typeMap = mapOf(highRV to 1, mediumRV to 2, lowRV to 3)
 ```
 
-We will use these constructs within the patient processes. In the following code, we use the `serviceRv` to randomly assign the service time distribution for the patient and then use the map to assign the patient's priority based on the service setting. The `clinicProcess` starts with a test to see if the low priority patient that arrives will balk if the doctor's waiting queue has too many people. If so, we collect statistics on the balking and exit the process.
+We will use these constructs within the patient processes. In the following code, we use the `serviceRV` to randomly assign the service time distribution for the patient and then use the map to assign the patient's priority based on the service setting. The `clinicProcess` starts with a test to see if the low priority patient that arrives will balk if the doctor's waiting queue has too many people. If so, we collect statistics on the balking and exit the process.
 
 ```kt
     private inner class Patient : Entity() {

@@ -39,9 +39,9 @@ The KSL has a wide variety of classes that support statistic computations.  A ma
 <p class="caption">(\#fig:CollectorIfc)CollectorIfc Interface</p>
 </div>
 
-Something is a collector, if it implements the `CollectorIfc` interface. The implication is that those values presented to the various `collect` methods will be observed and tabulated into various quantities based on the presented values. The `collect` method has been overloaded to facilitate collection of double values, arrays of double values, and boolean values.  A collector can be reset. Resetting a collector should set the state of the collector as if no values had been observed  Thus, resetting a collector should clear all previous collection results. The collector may or may not store any of the observations related to the collection process.  By default, the standard approach taken is not to store the observations, but rather to summarize the observations in some manner.  To facilitate the further use of the observed values, the base class, `Collect` is observable and will also emit observed values.  Thus, other classes can be connected to a base observation process.
+Something is a collector, if it implements the `CollectorIfc` interface. The implication is that those values presented to the various `collect` methods will be observed and tabulated into various quantities based on the presented values. The `collect` method has been overloaded to facilitate collection of double values, arrays of double values, and boolean values.  A collector can be reset. Resetting a collector should set the state of the collector as if no values had been observed.  Thus, resetting a collector should clear all previous collection results. The collector may or may not store any of the observations related to the collection process.  By default, the standard approach taken is not to store the observations, but rather to summarize the observations in some manner.  To facilitate the further use of the observed values, the base class, `Collector` is observable and will also emit observed values.  Thus, other classes can be connected to a base observation process.
 
-Figure \@ref(fig:Statistics) presents the major classes and interfaces within the statistics package. The `CollectIfc` interface is implemented within the abstract base class `Collector`, which serves as the basis for various concrete implementations of statistical collectors. There are two major kinds of statistics one of which assumes that the values presented must be weighted, the `WeightedStatisticIfc` interface and the `WeightedStatistic` class. While the other branch of classes, derived from `AbstractStatistic` do not necessarily have to be weighted. The main classes to be discussed in this chapter are `Statistic` and `Histogram`.
+Figure \@ref(fig:Statistics) presents the major classes and interfaces within the statistics package. The `CollectIfc` interface is implemented within the abstract base class `Collector`, which serves as the basis for various concrete implementations of statistical collectors. There are two major kinds of statistics, one of which assumes that the values presented must be weighted, the `WeightedStatisticIfc` interface and the `WeightedStatistic` class. The other branch of classes, derived from `AbstractStatistic` do not necessarily have to be weighted. The main classes to be discussed in this chapter are `Statistic` and `Histogram`.
 
 <div class="figure">
 <img src="./figures/Statistics.png" alt="Major Classes and Interfaces in the Statistics Package"  />
@@ -157,7 +157,7 @@ $c(\vec{x}\leq b)$ counts the number of observations less than or equal to $x$. 
 $$
 c_{j} = c(\vec{x}\leq b_{j}) - c(\vec{x}\leq b_{j-1})
 $$ 
-The key parameters of a histogram are the break points associated with the bins.  Since knowledge of the data is often necessary to specify good break points, the `Histogram` class's companion object provides a number of methods for creating break points and recommending break points based on sample data. For example, the function, `createBreakPoints` which as input parameters:
+The key parameters of a histogram are the break points associated with the bins.  Since knowledge of the data is often necessary to specify good break points, the `Histogram` class's companion object provides a number of methods for creating break points and recommending break points based on sample data. For example, the function, `createBreakPoints` which has input parameters:
 
 * The first bin lower limit ($b_{0}$):  This is the starting point of the range over which the data will be tabulated.
 * The number of bins ($k$))
@@ -288,7 +288,7 @@ Lead-Digit Rule(1) -1
 The KSL will also tabulate count frequencies when the values are only integers.  This is accomplished with the `IntegerFrequency` class. Figure \@ref(fig:Frequency) indicates the methods of the `IntegerFrequency` class. The object can return information on the counts and proportions.  It can even create a `DEmpiricalCDF` distribution based on the observed data.
 
 <div class="figure">
-<img src="./figures/Frequency.png" alt="IntegerFrequence Class"  />
+<img src="./figures/Frequency.png" alt="IntegerFrequence Class" width="70%" height="70%" />
 <p class="caption">(\#fig:Frequency)IntegerFrequence Class</p>
 </div>
 
@@ -468,7 +468,7 @@ The `BatchStatistic` class uses instances of the `Statistic` class to do its cal
     }
 ```
 
-Referring to the collectBatch() method in the following code, the batches that are formed are recorded in an array called `bm`.  After recording the batch average, the statistic is reset for collecting the next batch of data.  The number of batches is recorded and if this has reached the maximum number of batches (as determined by the batch multiple calculation), we rebatch the batches back down to the minimum number of batches by combining adjacent batches according to the batch multiple.
+Referring to the collectBatch() method in the following code, the batches that are formed are recorded in an array called `bm.`  After recording the batch average, the statistic is reset for collecting the next batch of data.  The number of batches is recorded and if this has reached the maximum number of batches (as determined by the batch multiple calculation), we rebatch the batches back down to the minimum number of batches by combining adjacent batches according to the batch multiple.
 
 ```kt
     private fun collectBatch() {
@@ -575,7 +575,7 @@ The most important class within the statistics package is probably the
 statistics such as: minimum, maximum, average, variance, standard
 deviation, lag-1 correlation, and count. In addition, confidence
 intervals can be formed on the observations based on the student-t
-distribution. Finally, there are useful static methods for computing
+distribution. Finally, there are useful companion object methods for computing
 statistics on arrays and for estimating sample sizes. The reader is
 encourage to review the KSL documentation for all of the functionality,
 including the ability to write nicely printed statistical results.

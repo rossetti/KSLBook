@@ -23,7 +23,7 @@
 <meta name="author" content="Manuel D. Rossetti" />
 
 
-<meta name="date" content="2023-01-02" />
+<meta name="date" content="2023-01-16" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -157,7 +157,7 @@ div.csl-indent {
       <nav role="navigation">
 
 <ul class="summary">
-<li><a href="./">Simulation Modeling using the Kotlin Simulation Library</a></li>
+<li><a href="./">Simulation Modeling using the Kotlin Simulation Library (KSL)</a></li>
 
 <li class="divider"></li>
 <li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Preface</a>
@@ -422,26 +422,25 @@ div.csl-indent {
 of <code>ModelElement</code> that is able to hold instances of the class <code>QObject</code> and
 will <em>automatically</em> collect statistics on the number in the queue and the
 time spent in the queue.</p>
-<div class="figure"><span style="display:block;" id="fig:QOverview"></span>
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:QOverview"></span>
 <img src="figures2/ch4/QueueOverview.png" alt="Overview of Classes Related to Queue and QObject"  />
 <p class="caption">
 Figure 4.11: Overview of Classes Related to Queue and QObject
 </p>
 </div>
 <p>Figure <a href="enhancing-the-drive-through-pharmacy-model.html#fig:QOverview">4.11</a> illustrates the classes involved when using the <code>Queue</code> and <code>QObject</code> classes. The first thing to note is that <code>QObject</code> is an inner class of <code>ModelElement.</code> This permits subclasses of <code>ModelElement</code> to create instances of <code>QObject</code> that have access to all the architecture of the model but are not model elements. That is, instances of <code>QObject</code> are transitory and are not added to the model element hierarchy that has been previously described. Users create <code>QObject</code> instances, use them to model elements of interest in the system that may experience waiting and then allow the Kotlin garbage collector to deallocate the memory associated with the instances. In Figure <a href="enhancing-the-drive-through-pharmacy-model.html#fig:QOverview">4.11</a>, we also see the class <code>Queue&lt;T: ModelElement.QObject</code> is a sub-class of <code>ModelElement</code> that is parameterized by sub-types of <code>QObject.</code> Thus, users can develop sub-classes fo <code>QObject</code> and still use <code>Queue</code> to hold and collect statistics on those object instances. As noted in the figure, <code>Queue</code> also implements iterable. The last item to notice from Figure <a href="enhancing-the-drive-through-pharmacy-model.html#fig:QOverview">4.11</a> is that queues can be governed by four basic queue disciplines: FIFO, LIFO, random, and ranked. In the case of a ranked queue, the queue is ordered by the priority property of <code>QObject.</code> The KSL permits the changing of the queue discipline during the simulation. The default queue discipline is FIFO.</p>
-<div class="figure"><span style="display:block;" id="fig:QandQObject"></span>
-<img src="figures2/ch4/QueueAndQObject.png" alt="Properties and Methods of Queue and QObject"  />
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:QandQObject"></span>
+<img src="figures2/ch4/QueueAndQObject.png" alt="Properties and Methods of Queue and QObject" width="70%" height="70%" />
 <p class="caption">
 Figure 4.12: Properties and Methods of Queue and QObject
 </p>
 </div>
 <p>Figure <a href="enhancing-the-drive-through-pharmacy-model.html#fig:QandQObject">4.12</a> presents the properties and methods of the <code>Queue</code> and <code>QObject</code> classes. Here we can see that the <code>Queue</code> class has some standard methods for inserting and removing <code>QObject</code> instances. For the purposes of this chapter, the most noteworthy of these are:</p>
-<div class="sourceCode" id="cb86"><pre class="sourceCode kt"><code class="sourceCode kotlin"><span id="cb86-1"><a href="enhancing-the-drive-through-pharmacy-model.html#cb86-1" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb86-2"><a href="enhancing-the-drive-through-pharmacy-model.html#cb86-2" aria-hidden="true" tabindex="-1"></a><span class="kw">fun</span> <span class="fu">enqueue</span><span class="op">(</span><span class="va">qObject</span><span class="op">:</span> <span class="dt">T</span><span class="op">,</span> <span class="va">priority</span><span class="op">:</span> <span class="dt">Int</span> <span class="op">=</span> qObject<span class="op">.</span>priority<span class="op">,</span> <span class="va">obj</span><span class="op">:</span> <span class="dt">Any</span><span class="op">?</span> <span class="op">=</span> qObject<span class="op">.</span>attachedObject<span class="op">)</span></span>
-<span id="cb86-3"><a href="enhancing-the-drive-through-pharmacy-model.html#cb86-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb86-4"><a href="enhancing-the-drive-through-pharmacy-model.html#cb86-4" aria-hidden="true" tabindex="-1"></a><span class="kw">fun</span> <span class="fu">peekNext</span><span class="op">():</span> <span class="dt">T</span><span class="op">?</span> </span>
-<span id="cb86-5"><a href="enhancing-the-drive-through-pharmacy-model.html#cb86-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb86-6"><a href="enhancing-the-drive-through-pharmacy-model.html#cb86-6" aria-hidden="true" tabindex="-1"></a><span class="kw">fun</span> <span class="fu">removeNext</span><span class="op">():</span> <span class="dt">T</span><span class="op">?</span> </span></code></pre></div>
+<div class="sourceCode" id="cb86"><pre class="sourceCode kt"><code class="sourceCode kotlin"><span id="cb86-1"><a href="enhancing-the-drive-through-pharmacy-model.html#cb86-1" aria-hidden="true" tabindex="-1"></a><span class="kw">fun</span> <span class="fu">enqueue</span><span class="op">(</span><span class="va">qObject</span><span class="op">:</span> <span class="dt">T</span><span class="op">,</span> <span class="va">priority</span><span class="op">:</span> <span class="dt">Int</span> <span class="op">=</span> qObject<span class="op">.</span>priority<span class="op">,</span> <span class="va">obj</span><span class="op">:</span> <span class="dt">Any</span><span class="op">?</span> <span class="op">=</span> qObject<span class="op">.</span>attachedObject<span class="op">)</span></span>
+<span id="cb86-2"><a href="enhancing-the-drive-through-pharmacy-model.html#cb86-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb86-3"><a href="enhancing-the-drive-through-pharmacy-model.html#cb86-3" aria-hidden="true" tabindex="-1"></a><span class="kw">fun</span> <span class="fu">peekNext</span><span class="op">():</span> <span class="dt">T</span><span class="op">?</span> </span>
+<span id="cb86-4"><a href="enhancing-the-drive-through-pharmacy-model.html#cb86-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb86-5"><a href="enhancing-the-drive-through-pharmacy-model.html#cb86-5" aria-hidden="true" tabindex="-1"></a><span class="kw">fun</span> <span class="fu">removeNext</span><span class="op">():</span> <span class="dt">T</span><span class="op">?</span> </span></code></pre></div>
 <p>The <code>enqueue</code> method places <code>QObject</code> instances into the queue using the supplied priority. It also allows the user to attach an instance of <code>Any</code> to the <code>QObject</code> instance. The <code>peekNext</code> method provides a reference to the next <code>QObject</code> to be removed according the specified queue discipline and the <code>removeNext</code> method will remove the next <code>QObject</code> instance. During the enqueue and removal processes statistics are tabulated on the number of items in the queue and how much time the items spent in the queue. These responses are available via the <code>timeInQ</code> and <code>numInQ</code> properties. We will see how to use these classes within the revised pharmacy model. Before proceeding with reviewing the implementation, let us examine the <code>EventGenerator</code> class.</p>
 <p>The <code>EventGenerator</code> class allows for the periodic generation of events
 similar to that achieved by “CREATE” modules in other simulation languages.
@@ -568,7 +567,7 @@ a suspended event generator, it is necessary to schedule an event whose
 action invokes the <code>resume()</code> method. Obviously, this can be within a
 sub-class of <code>EventGenerator</code> or within another class that has a reference
 to the event generator.</p>
-<p>Now we are ready to review the revised implementation of the drive through pharmacy model which puts the <code>Queue</code>, <code>QObject</code>, and <code>EventGenerator</code> classes into action. Only portions of the code are illustrated here. For full details see the Example4 file in the <code>ksl.examples.book.chapter4</code> package. To declare an instance of the Queue class, we use the following code.</p>
+<p>Now we are ready to review the revised implementation of the drive through pharmacy model which puts the <code>Queue,</code> <code>QObject,</code> and <code>EventGenerator</code> classes into action. Only portions of the code are illustrated here. For full details see the Example4 file in the <code>ksl.examples.book.chapter4</code> package. To declare an instance of the Queue class, we use the following code.</p>
 <div class="sourceCode" id="cb87"><pre class="sourceCode kt"><code class="sourceCode kotlin"><span id="cb87-1"><a href="enhancing-the-drive-through-pharmacy-model.html#cb87-1" aria-hidden="true" tabindex="-1"></a>    <span class="kw">private</span> <span class="kw">val</span> <span class="va">mySTGT4</span><span class="op">:</span> IndicatorResponse <span class="op">=</span> IndicatorResponse<span class="op">({</span> x <span class="op">-&gt;</span> x <span class="op">&gt;=</span> <span class="fl">4.0</span> <span class="op">},</span> mySysTime<span class="op">,</span> <span class="st">&quot;SysTime &gt; 4.0 minutes&quot;</span><span class="op">)</span></span>
 <span id="cb87-2"><a href="enhancing-the-drive-through-pharmacy-model.html#cb87-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb87-3"><a href="enhancing-the-drive-through-pharmacy-model.html#cb87-3" aria-hidden="true" tabindex="-1"></a>    <span class="kw">private</span> <span class="kw">val</span> <span class="va">mySysTime</span><span class="op">:</span> Response <span class="op">=</span> Response<span class="op">(</span><span class="kw">this</span><span class="op">,</span> <span class="st">&quot;System Time&quot;</span><span class="op">)</span></span>
@@ -579,7 +578,7 @@ to the event generator.</p>
 <span id="cb87-8"><a href="enhancing-the-drive-through-pharmacy-model.html#cb87-8" aria-hidden="true" tabindex="-1"></a>    <span class="kw">val</span> <span class="va">waitingQ</span><span class="op">:</span> QueueCIfc<span class="op">&lt;</span>QObject<span class="op">&gt;</span></span>
 <span id="cb87-9"><a href="enhancing-the-drive-through-pharmacy-model.html#cb87-9" aria-hidden="true" tabindex="-1"></a>        <span class="kw">get</span><span class="op">()</span> <span class="op">=</span> myWaitingQ</span></code></pre></div>
 <p>Notice how we also declare a public property that exposes part of the queue functionality, especially related to getting access to the statistical responses.</p>
-<p>We can create and use an instance of <code>EventGenerator</code> with the following code. We see that the event generator uses an instance of the inner class <code>Arrivals</code>, which implements the <code>GeneratorActionIfc.</code> In addition, the time between arrivals random variable is supplied for both the time until the first event and the time between events. The <code>initialize()</code>method of the <code>EventGenerator</code> class ensures that the first event is scheduled at the start of the simulation. In addition, the <code>EventGenerator</code> class continues rescheduling the arrivals according to the time between arrival pattern. As previously noted, this process can be suspended, resumed, and turned off if needed. An event generator can also be specified not to automatically start at time 0.</p>
+<p>We can create and use an instance of <code>EventGenerator</code> with the following code. We see that the event generator uses an instance of the inner class <code>Arrivals,</code> which implements the <code>GeneratorActionIfc.</code> In addition, the time between arrivals random variable is supplied for both the time until the first event and the time between events. The <code>initialize()</code> method of the <code>EventGenerator</code> class ensures that the first event is scheduled at the start of the simulation. In addition, the <code>EventGenerator</code> class continues rescheduling the arrivals according to the time between arrival pattern. As previously noted, this process can be suspended, resumed, and turned off if needed. An event generator can also be specified not to automatically start at time 0.</p>
 <div class="sourceCode" id="cb88"><pre class="sourceCode kt"><code class="sourceCode kotlin"><span id="cb88-1"><a href="enhancing-the-drive-through-pharmacy-model.html#cb88-1" aria-hidden="true" tabindex="-1"></a>    <span class="kw">private</span> <span class="kw">val</span> <span class="va">myArrivalGenerator</span><span class="op">:</span> EventGenerator <span class="op">=</span> EventGenerator<span class="op">(</span><span class="kw">this</span><span class="op">,</span> Arrivals<span class="op">(),</span> myArrivalRV<span class="op">,</span> myArrivalRV<span class="op">)</span></span>
 <span id="cb88-2"><a href="enhancing-the-drive-through-pharmacy-model.html#cb88-2" aria-hidden="true" tabindex="-1"></a>    <span class="kw">private</span> <span class="kw">val</span> <span class="va">endServiceEvent</span> <span class="op">=</span> <span class="kw">this</span><span class="op">::</span>endOfService</span>
 <span id="cb88-3"><a href="enhancing-the-drive-through-pharmacy-model.html#cb88-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -630,7 +629,7 @@ PharmacyQ:NumInQ                                       30          0.5025       
 PharmacyQ:TimeInQ                                      30          2.9961          0.1235 
 SysTime &gt; 4.0 minutes                                  30          0.5136          0.0071 
 Num Served                                             30       2513.2667         17.6883 
----------------------------------------------------------------------------------------------------- </code></pre>
+----------------------------------------------------------------------------------------------------</code></pre>
 <p>In the results, we see the system time and the queueing time reported. We also see a statistic called <code>SysTime &gt; 4.0 minutes.</code> This was captured by using an <code>IndicatorResponse</code>, which is a subclass of <code>Response</code> that allows the user to specify a function that results in boolean expression and an instance of a <code>Response</code> to observe. The expression is collected as a 1.0 for true and 0.0 for false. In this example, we are observing the response called <code>mySysTime.</code></p>
 <div class="sourceCode" id="cb92"><pre class="sourceCode kt"><code class="sourceCode kotlin"><span id="cb92-1"><a href="enhancing-the-drive-through-pharmacy-model.html#cb92-1" aria-hidden="true" tabindex="-1"></a>    <span class="kw">private</span> <span class="kw">val</span> <span class="va">mySTGT4</span><span class="op">:</span> IndicatorResponse <span class="op">=</span> IndicatorResponse<span class="op">({</span> x <span class="op">-&gt;</span> x <span class="op">&gt;=</span> <span class="fl">4.0</span> <span class="op">},</span> mySysTime<span class="op">,</span> <span class="st">&quot;SysTime &gt; 4.0 minutes&quot;</span><span class="op">)</span></span></code></pre></div>
 <p>This allow a probability to be estimated. In this case, we estimated the probability that a customer’s system time was more than 4.0 minutes.</p>
@@ -671,7 +670,10 @@ gitbook.start({
 "family": "sans",
 "size": 2
 },
-"edit": null,
+"edit": {
+"link": null,
+"text": null
+},
 "history": {
 "link": null,
 "text": null
@@ -680,7 +682,7 @@ gitbook.start({
 "link": null,
 "text": null
 },
-"download": ["KSLBook.pdf"],
+"download": null,
 "search": {
 "engine": "fuse",
 "options": null

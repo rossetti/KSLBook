@@ -23,7 +23,7 @@
 <meta name="author" content="Manuel D. Rossetti" />
 
 
-<meta name="date" content="2023-01-02" />
+<meta name="date" content="2023-01-16" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -157,7 +157,7 @@ div.csl-indent {
       <nav role="navigation">
 
 <ul class="summary">
-<li><a href="./">Simulation Modeling using the Kotlin Simulation Library</a></li>
+<li><a href="./">Simulation Modeling using the Kotlin Simulation Library (KSL)</a></li>
 
 <li class="divider"></li>
 <li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Preface</a>
@@ -469,7 +469,7 @@ time = 35.0 after the second delay for customer = ID_2</code></pre>
 Figure 6.10: HoldQueue and Signal Classes
 </p>
 </div>
-<p>The <code>Signal</code> class uses an instance of the <code>HoldQueue</code> class to hold entities until they are notified to move via the index of their rank in the queue. If you want the first entity to be signaled, then you call <code>signal(0)</code>. The entity is notified that its suspension is over and it removes itself from the hold queue. Thus, contrary to the <code>HoldQueue</code> class the user does not have to remove and resume the corresponding entity.</p>
+<p>The <code>Signal</code> class uses an instance of the <code>HoldQueue</code> class to hold entities until they are notified to move via the index of their rank in the queue. If you want the first entity to be signaled, then you call <code>signal(0).</code> The entity is notified that its suspension is over and it removes itself from the hold queue. Thus, contrary to the <code>HoldQueue</code> class the user does not have to remove and resume the corresponding entity.</p>
 <p>Here is some example code. Notice that the code subclasses from <code>ProcessModel.</code> All implementations that use the process modeling constructs must subclass from <code>ProcessModel.</code> Then, the instance of the <code>Signal</code> is created. An inner class implements and entity that uses the signal. In the process, the entity immediately waits for the signal. After the signal, the entity has a simple delay and then the process ends.</p>
 <div class="sourceCode" id="cb135"><pre class="sourceCode kt"><code class="sourceCode kotlin"><span id="cb135-1"><a href="examples-of-process-modeling.html#cb135-1" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> SignalExample<span class="op">(</span><span class="va">parent</span><span class="op">:</span> <span class="dt">ModelElement</span><span class="op">,</span> <span class="va">name</span><span class="op">:</span> <span class="dt">String</span><span class="op">?</span> <span class="op">=</span> null<span class="op">)</span> <span class="op">:</span> <span class="dt">ProcessModel</span><span class="op">(</span><span class="va">parent</span><span class="op">,</span> <span class="va">name</span><span class="op">)</span> <span class="op">{</span></span>
 <span id="cb135-2"><a href="examples-of-process-modeling.html#cb135-2" aria-hidden="true" tabindex="-1"></a></span>
@@ -506,7 +506,7 @@ Figure 6.10: HoldQueue and Signal Classes
 <span id="cb135-33"><a href="examples-of-process-modeling.html#cb135-33" aria-hidden="true" tabindex="-1"></a>    m<span class="op">.</span>simulate<span class="op">()</span></span>
 <span id="cb135-34"><a href="examples-of-process-modeling.html#cb135-34" aria-hidden="true" tabindex="-1"></a>    m<span class="op">.</span>print<span class="op">()</span></span>
 <span id="cb135-35"><a href="examples-of-process-modeling.html#cb135-35" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
-<p>The <code>initialize()</code> method creates 10 instances of <code>SignalEntity</code> and activates each entity’s <code>waitForSignalProcess</code> process. It also schedules an event to cause the signal to occur at time 3.0. In the signal event, the reference to the signal, <code>signal,</code> is used to call the <code>signal()</code> method of of the <code>Signal.</code> The first 5 waiting entities are signaled using a Kotlin <a href="https://kotlinlang.org/docs/ranges.html">range.</a> The output from the process is as follows.</p>
+<p>The <code>initialize()</code> method creates 10 instances of <code>SignalEntity</code> and activates each entity’s <code>waitForSignalProcess</code> process. It also schedules an event to cause the signal to occur at time 3.0. In the signal event, the reference to the signal, <code>signal,</code> is used to call the <code>signal()</code> method of of the <code>Signal</code> class. The first 5 waiting entities are signaled using a Kotlin <a href="https://kotlinlang.org/docs/ranges.html">range.</a> The output from the process is as follows.</p>
 <pre><code>0.0 &gt; before waiting for the signal: ID_1
 0.0 &gt; before waiting for the signal: ID_2
 0.0 &gt; before waiting for the signal: ID_3
@@ -551,7 +551,7 @@ Figure 6.11: The BlockingQueue Class
 <span id="cb137-6"><a href="examples-of-process-modeling.html#cb137-6" aria-hidden="true" tabindex="-1"></a><span class="co">//        blockingQ.waitTimeStatisticsOption(false)</span></span>
 <span id="cb137-7"><a href="examples-of-process-modeling.html#cb137-7" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
 <span id="cb137-8"><a href="examples-of-process-modeling.html#cb137-8" aria-hidden="true" tabindex="-1"></a>    </span></code></pre></div>
-<p>You can create a blocking queue with a capacity (or not) and you can specify whether the statistics are collected (or not) as noted in the comments of the example. In this example, the queue (channel) has a capacity of 10 items. In the following code, we implement the process for receiving items from the blocking queue. Notice that there is a loop within the process. This illustrates that all normal <a href="https://kotlinlang.org/docs/control-flow.html">Kotlin control structures</a> are available with process routines. The entity (receiver) will loop through this process 15 time and essentially wait for single item to be placed in the blocking queue. If the entity hits the <code>waitForItems()</code> function call and there is an item in the queue, then it immediately receives the item and continues with its process. If an item is not available in the blocking queue, then the entity wait until an item becomes available and does not proceed. After receiving its requested item, the entity continues with its process.</p>
+<p>You can create a blocking queue with a capacity (or not) and you can specify whether the statistics are collected (or not) as noted in the comments of the example. In this example, the queue (channel) has a capacity of 10 items. In the following code, we implement the process for receiving items from the blocking queue. Notice that there is a loop within the process. This illustrates that all normal <a href="https://kotlinlang.org/docs/control-flow.html">Kotlin control structures</a> are available with process routines. The entity (receiver) will loop through this process 15 time and essentially wait for single item to be placed in the blocking queue. If the entity hits the <code>waitForItems()</code> function call and there is an item in the queue, then it immediately receives the item and continues with its process. If an item is not available in the blocking queue, then the entity will wait until an item becomes available and does not proceed. After receiving its requested item, the entity continues with its process.</p>
 <div class="sourceCode" id="cb138"><pre class="sourceCode kt"><code class="sourceCode kotlin"><span id="cb138-1"><a href="examples-of-process-modeling.html#cb138-1" aria-hidden="true" tabindex="-1"></a>    <span class="kw">private</span> inner <span class="kw">class</span> Receiver<span class="op">:</span> <span class="dt">Entity</span><span class="op">()</span> <span class="op">{</span></span>
 <span id="cb138-2"><a href="examples-of-process-modeling.html#cb138-2" aria-hidden="true" tabindex="-1"></a>        <span class="kw">val</span> <span class="va">receiving</span> <span class="op">:</span> KSLProcess <span class="op">=</span> process<span class="op">(</span><span class="st">&quot;receiving&quot;</span><span class="op">)</span> <span class="op">{</span></span>
 <span id="cb138-3"><a href="examples-of-process-modeling.html#cb138-3" aria-hidden="true" tabindex="-1"></a>            <span class="cf">for</span> <span class="op">(</span>i <span class="kw">in</span> <span class="fl">1..15</span><span class="op">)</span> <span class="op">{</span></span>
@@ -629,7 +629,7 @@ BlockingQueue_4:ChannelQ:NumInQ                         1          0.3300       
 BlockingQueue_4:ChannelQ:TimeInQ                        1          2.2000             NaN 
 -----------------------------------------------------------------------------------------</code></pre>
 <p>As illustrated in this example, a blocking queue can facilitate the passing of information between two processes. These types of constructs can serve as the basis for communicating between agents which can invoke different procedures for different messages and wait until receiving and or sending messages. We will see another example of using a blocking queue later in this chapter.</p>
-<p>In the previous three examples, we saw how we can use a hold queue, a signal, and a blocking queue within a process description. In the case of the blocking queue, we saw how two processes can communicated. In this next simple example, we also see how to processes can coordinate their flow via the use of the <code>waitFor(process: KSLProcess)</code> suspending function. The purpose of the <code>waitFor(process: KSLProcess)</code> suspending function is to allow one entity to start another process and have the entity that starts the process wait until the newly activated process is completed. The following code indicates the signature of the <code>waitFor(process: KSLProcess)</code> suspending function.</p>
+<p>In the previous three examples, we saw how we can use a hold queue, a signal, and a blocking queue within a process description. In the case of the blocking queue, we saw how two processes communicated. In this next simple example, we also see how to processes can coordinate their flow via the use of the <code>waitFor(process: KSLProcess)</code> suspending function. The purpose of the <code>waitFor(process: KSLProcess)</code> suspending function is to allow one entity to start another process and have the entity that starts the process wait until the newly activated process is completed. The following code indicates the signature of the <code>waitFor(process: KSLProcess)</code> suspending function.</p>
 <div class="sourceCode" id="cb143"><pre class="sourceCode kt"><code class="sourceCode kotlin"><span id="cb143-1"><a href="examples-of-process-modeling.html#cb143-1" aria-hidden="true" tabindex="-1"></a>    <span class="co">/** Causes the current process to suspend until the specified process has run to completion.</span></span>
 <span id="cb143-2"><a href="examples-of-process-modeling.html#cb143-2" aria-hidden="true" tabindex="-1"></a><span class="co">     *  This is like run blocking.  It activates the specified process and then waits for it</span></span>
 <span id="cb143-3"><a href="examples-of-process-modeling.html#cb143-3" aria-hidden="true" tabindex="-1"></a><span class="co">     *  to complete before proceeding.</span></span>
@@ -703,7 +703,7 @@ BlockingQueue_4:ChannelQ:TimeInQ                        1          2.2000       
 <span id="cb145-9"><a href="examples-of-process-modeling.html#cb145-9" aria-hidden="true" tabindex="-1"></a>        delay<span class="op">(</span>delayDuration<span class="op">,</span> delayPriority<span class="op">)</span></span>
 <span id="cb145-10"><a href="examples-of-process-modeling.html#cb145-10" aria-hidden="true" tabindex="-1"></a>        release<span class="op">(</span>a<span class="op">)</span></span>
 <span id="cb145-11"><a href="examples-of-process-modeling.html#cb145-11" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span></code></pre></div>
-<p>Then, the code defines a process called “WaitForAnotherProcess”. The sole purpose of this process is to create an instance of the customer, activate its simple process, and wait for it to complete. The output from activating one instance of the wait for another process is as follows:</p>
+<p>Then, the code defines a process called <code>WaitForAnotherProcess.</code> The sole purpose of this process is to create an instance of the customer, activate its simple process, and wait for it to complete. The output from activating one instance of the wait for another process is as follows:</p>
 <pre><code>0.8149947795247992 &gt; activating the waitFor process for entity: ID_1
 0.8149947795247992 &gt; before waitFor simple process for entity: ID_1
      0.8149947795247992 &gt; starting simple process for entity: ID_2
@@ -748,7 +748,10 @@ gitbook.start({
 "family": "sans",
 "size": 2
 },
-"edit": null,
+"edit": {
+"link": null,
+"text": null
+},
 "history": {
 "link": null,
 "text": null
@@ -757,7 +760,7 @@ gitbook.start({
 "link": null,
 "text": null
 },
-"download": ["KSLBook.pdf"],
+"download": null,
 "search": {
 "engine": "fuse",
 "options": null

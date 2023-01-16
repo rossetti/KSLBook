@@ -23,7 +23,7 @@
 <meta name="author" content="Manuel D. Rossetti" />
 
 
-<meta name="date" content="2023-01-02" />
+<meta name="date" content="2023-01-16" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -157,7 +157,7 @@ div.csl-indent {
       <nav role="navigation">
 
 <ul class="summary">
-<li><a href="./">Simulation Modeling using the Kotlin Simulation Library</a></li>
+<li><a href="./">Simulation Modeling using the Kotlin Simulation Library (KSL)</a></li>
 
 <li class="divider"></li>
 <li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Preface</a>
@@ -937,7 +937,8 @@ ready to represent to start representing this system in KSL code.</p>
 <span id="cb151-21"><a href="modeling-a-stem-career-mixer.html#cb151-21" aria-hidden="true" tabindex="-1"></a>            departMixer<span class="op">(</span>this<span class="at">@Student</span><span class="op">)</span></span>
 <span id="cb151-22"><a href="modeling-a-stem-career-mixer.html#cb151-22" aria-hidden="true" tabindex="-1"></a>        <span class="op">}</span></span>
 <span id="cb151-23"><a href="modeling-a-stem-career-mixer.html#cb151-23" aria-hidden="true" tabindex="-1"></a>        </span></code></pre></div>
-<p>The process followed by each student is defined in the process property called <code>stemFairProcess.</code> Notice how we first increment the number in the system and start the delay for the name tag activity. If the student is a wandering student, we experience the delay for wandering. And, if the student is a wandering student that leaves early, then the <code>departingMixer()</code> method is called. As we will see in a moment, this method will be used to collect statistics on departing students. Now we have something new, we have a <code>return</code> statement within a process. As previously noted, Kotlin flow of control statements are available within coroutines and <code>return</code> is such as statement. Because the return is within a process builder, we need to be more specific about the return label. This can be specified by the name of the builder function. In this case <code>process.</code> Kotlin also allows you to <a href="https://kotlinlang.org/docs/returns.html#return-to-labels">explicitly label the return</a>. This return statement will cause the normal exit from the process routine for those students that leave without visiting recruiters.</p>
+<p>The process followed by each student is defined in the process property called <code>stemFairProcess.</code> Notice how we first increment the number in the system and start the delay for the name tag activity. If the student is a wandering student, we experience the delay for wandering. And, if the student is a wandering student that leaves early, then the <code>departingMixer()</code> method is called. As we will see in a moment, this method will be used to collect statistics on departing students.</p>
+<p>Now we have something new, we have a <code>return</code> statement within a process. As previously noted, Kotlin flow of control statements are available within coroutines and <code>return</code> is such as statement. Because the return is within a process builder, we need to be more specific about the return label. This can be specified by the name of the builder function. In this case <code>process.</code> Kotlin also allows you to <a href="https://kotlinlang.org/docs/returns.html#return-to-labels">explicitly label the return</a>. This return statement will cause the normal exit from the process routine for those students that leave without visiting recruiters.</p>
 <p>The students that visit the recruiter seize-delay-release the related resources and then depart. The following code shows the <code>departMixer()</code> method. In this method, we decrement the number in the system and collect the system time statistics. Notice how we use the attributes within the boolean conditions of the if statements to get the correct system time response variables.</p>
 <div class="sourceCode" id="cb152"><pre class="sourceCode kt"><code class="sourceCode kotlin"><span id="cb152-1"><a href="modeling-a-stem-career-mixer.html#cb152-1" aria-hidden="true" tabindex="-1"></a>        <span class="kw">private</span> <span class="kw">fun</span> <span class="fu">departMixer</span><span class="op">(</span><span class="va">departingStudent</span><span class="op">:</span> <span class="dt">Student</span><span class="op">)</span> <span class="op">{</span></span>
 <span id="cb152-2"><a href="modeling-a-stem-career-mixer.html#cb152-2" aria-hidden="true" tabindex="-1"></a>            myNumInSystem<span class="op">.</span>decrement<span class="op">()</span></span>
@@ -1011,7 +1012,10 @@ gitbook.start({
 "family": "sans",
 "size": 2
 },
-"edit": null,
+"edit": {
+"link": null,
+"text": null
+},
 "history": {
 "link": null,
 "text": null
@@ -1020,7 +1024,7 @@ gitbook.start({
 "link": null,
 "text": null
 },
-"download": ["KSLBook.pdf"],
+"download": null,
 "search": {
 "engine": "fuse",
 "options": null

@@ -23,7 +23,7 @@
 <meta name="author" content="Manuel D. Rossetti" />
 
 
-<meta name="date" content="2023-01-02" />
+<meta name="date" content="2023-01-16" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -157,7 +157,7 @@ div.csl-indent {
       <nav role="navigation">
 
 <ul class="summary">
-<li><a href="./">Simulation Modeling using the Kotlin Simulation Library</a></li>
+<li><a href="./">Simulation Modeling using the Kotlin Simulation Library (KSL)</a></li>
 
 <li class="divider"></li>
 <li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Preface</a>
@@ -424,8 +424,8 @@ div.csl-indent {
 Figure 3.1: CollectorIfc Interface
 </p>
 </div>
-<p>Something is a collector, if it implements the <code>CollectorIfc</code> interface. The implication is that those values presented to the various <code>collect</code> methods will be observed and tabulated into various quantities based on the presented values. The <code>collect</code> method has been overloaded to facilitate collection of double values, arrays of double values, and boolean values. A collector can be reset. Resetting a collector should set the state of the collector as if no values had been observed Thus, resetting a collector should clear all previous collection results. The collector may or may not store any of the observations related to the collection process. By default, the standard approach taken is not to store the observations, but rather to summarize the observations in some manner. To facilitate the further use of the observed values, the base class, <code>Collect</code> is observable and will also emit observed values. Thus, other classes can be connected to a base observation process.</p>
-<p>Figure <a href="kslStatistics.html#fig:Statistics">3.2</a> presents the major classes and interfaces within the statistics package. The <code>CollectIfc</code> interface is implemented within the abstract base class <code>Collector</code>, which serves as the basis for various concrete implementations of statistical collectors. There are two major kinds of statistics one of which assumes that the values presented must be weighted, the <code>WeightedStatisticIfc</code> interface and the <code>WeightedStatistic</code> class. While the other branch of classes, derived from <code>AbstractStatistic</code> do not necessarily have to be weighted. The main classes to be discussed in this chapter are <code>Statistic</code> and <code>Histogram</code>.</p>
+<p>Something is a collector, if it implements the <code>CollectorIfc</code> interface. The implication is that those values presented to the various <code>collect</code> methods will be observed and tabulated into various quantities based on the presented values. The <code>collect</code> method has been overloaded to facilitate collection of double values, arrays of double values, and boolean values. A collector can be reset. Resetting a collector should set the state of the collector as if no values had been observed. Thus, resetting a collector should clear all previous collection results. The collector may or may not store any of the observations related to the collection process. By default, the standard approach taken is not to store the observations, but rather to summarize the observations in some manner. To facilitate the further use of the observed values, the base class, <code>Collector</code> is observable and will also emit observed values. Thus, other classes can be connected to a base observation process.</p>
+<p>Figure <a href="kslStatistics.html#fig:Statistics">3.2</a> presents the major classes and interfaces within the statistics package. The <code>CollectIfc</code> interface is implemented within the abstract base class <code>Collector</code>, which serves as the basis for various concrete implementations of statistical collectors. There are two major kinds of statistics, one of which assumes that the values presented must be weighted, the <code>WeightedStatisticIfc</code> interface and the <code>WeightedStatistic</code> class. The other branch of classes, derived from <code>AbstractStatistic</code> do not necessarily have to be weighted. The main classes to be discussed in this chapter are <code>Statistic</code> and <code>Histogram</code>.</p>
 <div class="figure"><span style="display:block;" id="fig:Statistics"></span>
 <img src="figures/Statistics.png" alt="Major Classes and Interfaces in the Statistics Package"  />
 <p class="caption">
@@ -529,7 +529,7 @@ c(\vec{x}\leq b) = \#\lbrace x_i \leq b \rbrace \; i=1,\ldots,n
 <span class="math display">\[
 c_{j} = c(\vec{x}\leq b_{j}) - c(\vec{x}\leq b_{j-1})
 \]</span>
-The key parameters of a histogram are the break points associated with the bins. Since knowledge of the data is often necessary to specify good break points, the <code>Histogram</code> class’s companion object provides a number of methods for creating break points and recommending break points based on sample data. For example, the function, <code>createBreakPoints</code> which as input parameters:</p>
+The key parameters of a histogram are the break points associated with the bins. Since knowledge of the data is often necessary to specify good break points, the <code>Histogram</code> class’s companion object provides a number of methods for creating break points and recommending break points based on sample data. For example, the function, <code>createBreakPoints</code> which has input parameters:</p>
 <ul>
 <li>The first bin lower limit (<span class="math inline">\(b_{0}\)</span>): This is the starting point of the range over which the data will be tabulated.</li>
 <li>The number of bins (<span class="math inline">\(k\)</span>))</li>
@@ -654,7 +654,7 @@ Lead-Digit Rule(1) -1
 -------------------------------------</code></pre>
 <p>The KSL will also tabulate count frequencies when the values are only integers. This is accomplished with the <code>IntegerFrequency</code> class. Figure <a href="kslStatistics.html#fig:Frequency">3.5</a> indicates the methods of the <code>IntegerFrequency</code> class. The object can return information on the counts and proportions. It can even create a <code>DEmpiricalCDF</code> distribution based on the observed data.</p>
 <div class="figure"><span style="display:block;" id="fig:Frequency"></span>
-<img src="figures/Frequency.png" alt="IntegerFrequence Class"  />
+<img src="figures/Frequency.png" alt="IntegerFrequence Class" width="70%" height="70%" />
 <p class="caption">
 Figure 3.5: IntegerFrequence Class
 </p>
@@ -807,7 +807,10 @@ gitbook.start({
 "family": "sans",
 "size": 2
 },
-"edit": null,
+"edit": {
+"link": null,
+"text": null
+},
 "history": {
 "link": null,
 "text": null
@@ -816,7 +819,7 @@ gitbook.start({
 "link": null,
 "text": null
 },
-"download": ["KSLBook.pdf"],
+"download": null,
 "search": {
 "engine": "fuse",
 "options": null

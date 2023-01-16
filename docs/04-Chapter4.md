@@ -1775,12 +1775,12 @@ provide for the scheduling and execution of events:
 
 
 Figure \@ref(fig:kslModeling) illustrates the relationships between the
-classes `Model`, `ModelElement`, and
+classes `Model,` `ModelElement,` and
 `Executive.` The `ModelElement` class represents the primary building block
 for KSL models. A `ModelElement` represents something (an element) that
 can be placed within an instance of a `Model`. The `Model` class subclasses
-`ModelElement`. Every `ModelElement` can contain many other instances of
-`ModelElement`. As such, an instance of a `Model` can also contain model
+`ModelElement.` Every `ModelElement` can contain many other instances of
+`ModelElement.` As such, an instance of a `Model` can also contain model
 elements. There can only be one instance of the `Model` class within the
 simulation. It acts as the parent (container) for all other model
 elements. Model elements in turn also hold other model elements.
@@ -1791,7 +1791,7 @@ that implements the `CalendarIfc` interface. The simulation also
 references an instance of the `Experiment` class. The `Experiment` class
 allows the specification and control of the run parameters for the
 simulation. Every instance of a `ModelElement` must be a child of another
-`ModelElement` or the `Model`. This implies that instances of `ModelElement`
+`ModelElement` or the `Model.` This implies that instances of `ModelElement`
 have access to the main model, which has access to an instance of
 `Model` and thus the instance of the `Executive.` Therefore sub-classes
 of `ModelElement` have access to the `Executive` and can schedule events.
@@ -1904,10 +1904,10 @@ The following code listing provides the code for this simple event
 example. Let's walk carefully through the construction and execution of
 this code. 
 
-First, the class sub-classes from `ModelElement`. This
+First, the class sub-classes from `ModelElement.` This
 enables the class to have access to all the scheduling methods within
 `ModelElement` and provides one method that needs to be overridden:
-`initialize()`. Every `ModelElement` has an `initialize()`
+`initialize().` Every `ModelElement` has an `initialize()`
 method. The `initialize()` method does nothing within the class `ModelElement.`
 However, the `initialize()` method is *critical* to properly modeling
 using instances of `ModelElement` within the KSL architecture. The purpose of the
@@ -1954,16 +1954,16 @@ class SchedulingEventExamples (parent: ModelElement, name: String? = null) :
     }
 }
 ```
-The call `scheduleEvent(myEventActionTwo, 20.0)` schedules an event 20 time
+The the function call `scheduleEvent(myEventActionTwo, 20.0)` schedules an event 20 time
 units into the future where the event will be handled via the instance
 of the class `EventActionTwo`, which implements the `EventActionIfc` interface.
-The reference `myEventActionTwo` refers to an object of type `EventActionTwo`,
+The reference `myEventActionTwo` refers to an object of type `EventActionTwo,`
 which is an instance of the inner classes defined within
-`SchedulingEventExamples`. This variable is defined as as class property
+`SchedulingEventExamples.` This variable is defined as as class property
 on line 4 and an instance is created via the constructor. To
 summarize, the `initialize()` method is used to schedule the initial occurrences of the two types of events. The `initialize()` method occurs right before time 0.0. That is, it occurs right before the simulation clock starts.
 
-Now, let us examine the actions that occur for the two types of events.  Within the `action()` method of `EventActionOne`, we see the following code:
+Now, let us examine the actions that occur for the two types of events.  Within the `action()` method of `EventActionOne,` we see the following code:
 
 ```kt
 println("EventActionOne at time : $time")
@@ -1980,7 +1980,7 @@ fun main() {
 ```
 
 The main method associated with the `SchedulingEventExamples` class
-indicates how to create and run a simulation model. The first line of the main method creates an instance of a `Model`. The next line makes an instance of
+indicates how to create and run a simulation model. The first line of the main method creates an instance of a `Model.` The next line makes an instance of
 `SchedulingEventExamples` and attaches it to the simulation model. The
 property called, `s.model` returns an instance of the `Model` class that is
 associated with the instance of the simulation. The next line sets up the
@@ -2043,10 +2043,10 @@ step, the initialize() methods of all of the model elements are
 executed. This is why it was important to implement the `initialize()`
 method in the example and have it schedule the initial events. Then,
 step 2(c) begins the execution of the events that were placed on the
-calendar. In looking at the code listings, it is not possible to ascertain how the action() methods are actually invoked unless you
+calendar. In looking at the code listings, it is not possible to ascertain how the `action()` methods are actually invoked unless you
 understand that during step 2(c) each scheduled event is removed from
 the calendar and its associated action called. In the case of the event action one
-and two events in the example, these actions are specified in the action() method of EventActionOne and EventActionTwo. After all the events in the
+and two events in the example, these actions are specified in the `action()` method of `EventActionOne` and `EventActionTwo.` After all the events in the
 calendar are executed or the simulation is not otherwise stopped, the
 replication is ended. Any clean up logic (such as statistical
 collection) is executed at the end of the replication. Finally, after
@@ -2065,7 +2065,7 @@ within some time interval. For a Poisson process the time between events
 is exponentially distributed with a mean that is the reciprocal of the
 rate of occurrence for the events. For simplicity, this example
 simulates a Poisson process with rate 1 arrival per unit time. Thus, the
-mean time between events is 1.0 time unit.  In this case the action is very simple, incrementing a counter that is tracking the number of events that have
+mean time between events is 1.0 time unit.  In this case the action is very simple, increment a counter that is tracking the number of events that have
 occurred.
 
 The code for this example is as follows. 
@@ -2110,11 +2110,11 @@ decrementing of a variable and the statistical collection of the
 variable across replications. The value of the variable associated with
 the instance of a `Counter` is automatically reset to 0.0 at the beginning
 of each replication. Lines 2 and 3 within the constructor create the
-instances of the `RandomVariable` and the `Counter`.
+instances of the `RandomVariable` and the `Counter.`
 
 Since we are modeling a Poisson process, the `initialize()` method is used
 to schedule the first event using the random variable that represents
-the time between events. This occurs on the only line of the `initialize()` method. The event logic, found in the inner class `EventHandler`,
+the time between events. This occurs on the only line of the `initialize()` method. The event logic, found in the inner class `EventHandler,`
 causes the counter to be incremented. Then, the next arrival is scheduled
 to occur. Thus, it is very easy to model an arrival process using this
 pattern. 
@@ -2151,7 +2151,7 @@ Right after the `simulate()` method is called, an instance of a `SimulationRepor
 simulation. A `SimulationReporter` has the ability to write out
 statistical output associated with the simulation. The code uses the
 `printAcrossReplicationSummaryStatistics()` method to write out a simple
-summary report across the 50 replications for the `Counter`. Note that
+summary report across the 50 replications for the `Counter.` Note that
 using the `Counter` to count the events provided for automatically
 collected statistics across the replications for the counter. As you can
 see from the output, the average number of events is close to the
@@ -2209,7 +2209,7 @@ The following steps are useful in developing this model:
 4.  Determine how to initialize and run the model
 
 The first step is to conceptualize how to model the system and the state
-of the component. A model element, UpDownComponent, will be used to
+of the component. A model element, `UpDownComponent,` will be used to
 model the component. To track the state of the component, it is
 necessary to know whether or not the component is UP or DOWN. A variable
 can be used to represent this state. However, since we need to estimate
@@ -2222,7 +2222,7 @@ at particular instants of time. Time-based variables must have
 time-weighted statistics collected. Time-weighted statistics weight the
 value of the variable by the proportion of time that the variable is set
 to a value. To collect statistics on the cycle length we can use a
-`Response`. `Response` is a sub-class of `ModelElement` that
+`Response.` `Response` is a sub-class of `ModelElement` that
 can take on values within a simulation model and allows easy statistical
 observation of its values during the simulation run. This class provides
 observation-based statistical collection. Further discussion of
@@ -2239,9 +2239,9 @@ $\theta_{d}$ is the mean of the down-time distribution. In addition, the
 expected cycle length should be $\theta_{u}+\theta_{d} = 3.0$.
 
 The `UpDownComponent` class extends the `ModelElement` class and has
-object references to instances of `RandomVariable`, `TWResponse`,
-`Response`, and `Counter` classes. Within the constructor of
-`UpDownComponent`, we need to create the instances of these objects for
+object references to instances of `RandomVariable,` `TWResponse,`
+`Response,` and `Counter` classes. Within the constructor of
+`UpDownComponent,` we need to create the instances of these objects for
 use within the class, as shown in the following code fragment.
 
 ```kt
@@ -2273,8 +2273,8 @@ class UpDownComponent (parent: ModelElement, name: String? = null) : ModelElemen
 Lines 3 and 4 define two constants to represent
 the up and down states within the companion object. Lines 5-9 declare additional references
 needed to represent the up and down time random variables and the
-variables that need statistical collection (myState, myCycleLength, and
-myCountFailures). Lines 10 and 11 define and create the event actions
+variables that need statistical collection (`myState,` `myCycleLength,` and
+`myCountFailures`). Lines 10 and 11 define and create the event actions
 associated with the end of the up-time and the end of the down time. The
 variable `myTimeLastUp` is used to keep track of the time that the
 component last changed into the UP state, which allows the cycle length
@@ -2334,9 +2334,9 @@ The following listing presents the code to construct and execute the
 simulation. This code is very similar to previously presented code for
 running a simulation. In line 3, the simulation is constructed. Then, in
 line 5, the model associated with the simulation is accessed. This model
-is then used to construct an instance of the UpDownComponent in line 7.
-Finally, lines 9-15 represent getting a SimulationReporter, running the
-simulation, and causing output to be written to the console. 
+is then used to construct an instance of the `UpDownComponent` in line 5.
+Finally, lines 7-12 represent setting up the replication parameters of the simulation, running the
+simulation, and causing output to be written to the console via a `SimulationReporter.` 
 
 ```kt
 fun main() {
@@ -2524,7 +2524,7 @@ summarized as follows:
     condition to occur in order to proceed. In this system, the customer
     may have to wait in a queue until the pharmacist becomes available.
 
-With an activity diagram and pseudo-code such as this available to
+With an activity diagram and pseudo-code to
 represent a solid conceptual understanding of the system, you can begin
 the model development process.
 
@@ -2594,7 +2594,7 @@ K = K + 1
 
 In the end of service actions, the number of busy pharmacists is decreased by one because the pharmacist has completed service for the departing customer.  Then the queue is checked to see if it has customers.  If the queue has customers, then a customer is removed from the queue (decreasing the number in queue) and the number of busy pharmacists is increased by one. In addition, the end of service event is scheduled.  Finally, the number of customers in the system is decremented and the count of the total customers processes is incremented.
 
-The following code listing presents the definition of the variables and their creation within the KSL. The drive through pharmacy system is modeled via a class `DriveThroughPharmacy` that sub-classes from `ModelElement` to provide the ability to schedule events.  The `RandomVariable` instances `myServiceRV` and `myArrivalRV` are used to represent the $ST_i$ and $TBA_i$ random variables. $B(t)$, $N(t)$, and $Q(t)$ are modeled with the objects `myNumBusy`, `myNS`, and `myQ`, respectively, all instances of the `TWResponse` class. The tabulation of the number of processed customers, $K$, is modeled with a KSL counter, using the `Counter` class.
+The following code listing presents the definition of the variables and their creation within the KSL. The drive through pharmacy system is modeled via a class `DriveThroughPharmacy` that sub-classes from `ModelElement` to provide the ability to schedule events.  The `RandomVariable` instances `myServiceRV` and `myArrivalRV` are used to represent the $ST_i$ and $TBA_i$ random variables. $B(t)$, $N(t)$, and $Q(t)$ are modeled with the objects `myNumBusy,` `myNS,` and `myQ,` respectively, all instances of the `TWResponse` class. The tabulation of the number of processed customers, $K$, is modeled with a KSL counter, using the `Counter` class.
 
 ```kt
 class DriveThroughPharmacy(
@@ -2692,7 +2692,7 @@ because a pharmacist is becoming idle. Then, the queue is
 checked to see if it is not empty. If the queue is not empty, then the
 next customer must be removed, the server made busy again
 and the customer scheduled into service. Finally,  the `TWResponse` variable,
-`myNS`, indicates that a customer has departed the system and the `Counter` for the number of customers processed is incremented. 
+`myNS,` indicates that a customer has departed the system and the `Counter` for the number of customers processed is incremented. 
 
 The following method can be used to run the model based on a desired number of servers.
 
@@ -2861,14 +2861,14 @@ Similarly for simulation response variables, there should be controlled access t
 
 However, it is useful for outside clients to have access to immutable properties and to summary statistics related to the response variable.  This is permitted by the use of the `TWResponseCIfc` interface, which limits access.  
 
-<div class="figure">
-<img src="./figures2/ch4/ResponseCIfc.png" alt="Controlled Access to Responses"  />
+<div class="figure" style="text-align: center">
+<img src="./figures2/ch4/ResponseCIfc.png" alt="Controlled Access to Responses" width="70%" height="70%" />
 <p class="caption">(\#fig:ResponseCIfc)Controlled Access to Responses</p>
 </div>
 
 As indicated in Figure \@ref(fig:ResponseCIfc), the two interfaces `TWResponseCIfc` and `ResponseCIfc` limit access to time-weighted and tally-based response variables to access within and across replication statistics and to add count actions.  Count actions permit actions to take place when the number of observations reaches a particular value.  One use of count actions is to stop the simulation with a fixed number of observations have been observed.
 
-Within the implementation, there are a couple of additional items to note.  The KSL allows for the definition of aggregate responses.  Aggregate responses observe other responses and permit the definition of derived responses. In the pharmacy model implementation there is an aggregate response called `myTotal`.  The relevant code is shown below.
+Within the implementation, there are a couple of additional items to note.  The KSL allows for the definition of aggregate responses.  Aggregate responses observe other responses and permit the definition of derived responses. In the pharmacy model implementation there is an aggregate response called `myTotal.`  The relevant code is shown below.
 
 ```kt
     private val myNumBusy: TWResponse = TWResponse(this, "NumBusy")
@@ -2884,9 +2884,9 @@ Within the implementation, there are a couple of additional items to note.  The 
     }
 ```
 
-This code defines an aggregate response that observes two variables, `myNumInQ` and `myNumBusy`.  Thus, whenever either of these two variables change, the aggregate response is updated to ensure that it represents the total of the two variable.  Thus, `myTotal` represents the total number of customers in the system at any time $t$.  As can be noted in the output results, this response has the same statistics as the response collected by the variable `myNS` labeled "# in System".
+This code defines an aggregate response that observes two variables, `myNumInQ` and `myNumBusy.`  Thus, whenever either of these two variables change, the aggregate response is updated to ensure that it represents the total of the two variable.  Thus, `myTotal` represents the total number of customers in the system at any time $t$.  As can be noted in the output results, this response has the same statistics as the response collected by the variable `myNS` labeled "# in System".
 
-Finally, the implementation has a couple of interesting new items within the main execution method.  Notice that in line 1 in the model constructor that the parameter `autoCSVReports` is set to true.  This will cause comma separated value files to be produced in the model's default output directory that contains all of the within and across replication statistics.  In addition, note how the initial random sources for the arrival and service distributions are set in lines 8 and 9.  Finally, note the use of `model.print()`, which causes the default simulation running information and results to be printed to the console.
+Finally, the implementation has a couple of interesting new items within the main execution method.  Notice that in line 1 in the model constructor that the parameter `autoCSVReports` is set to true.  This will cause comma separated value files to be produced in the model's default output directory that contains all of the within and across replication statistics.  In addition, note how the initial random sources for the arrival and service distributions are set in lines 8 and 9.  Finally, note the use of `model.print(),` which causes the default simulation running information and results to be printed to the console.
 
 ```kt
 fun main() {
@@ -2914,28 +2914,26 @@ of `ModelElement` that is able to hold instances of the class `QObject` and
 will *automatically* collect statistics on the number in the queue and the
 time spent in the queue. 
 
-<div class="figure">
+<div class="figure" style="text-align: center">
 <img src="./figures2/ch4/QueueOverview.png" alt="Overview of Classes Related to Queue and QObject"  />
 <p class="caption">(\#fig:QOverview)Overview of Classes Related to Queue and QObject</p>
 </div>
 
 Figure \@ref(fig:QOverview) illustrates the classes involved when using the `Queue` and `QObject` classes. The first thing to note is that `QObject` is an inner class of `ModelElement.` This permits subclasses of `ModelElement` to create instances of `QObject` that have access to all the architecture of the model but are not model elements.  That is, instances of `QObject` are transitory and are not added to the model element hierarchy that has been previously described. Users create `QObject` instances, use them to model elements of interest in the system that may experience waiting and then allow the Kotlin garbage collector to deallocate the memory associated with the instances. In Figure \@ref(fig:QOverview), we also see the class `Queue<T: ModelElement.QObject` is a sub-class of `ModelElement` that is parameterized by sub-types of `QObject.` Thus, users can develop sub-classes fo `QObject` and still use `Queue` to hold and collect statistics on those object instances. As noted in the figure, `Queue` also implements iterable.   The last item to notice from Figure \@ref(fig:QOverview) is that queues can be governed by four basic queue disciplines: FIFO, LIFO, random, and ranked.  In the case of a ranked queue, the queue is ordered by the priority property of `QObject.` The KSL permits the changing of the queue discipline during the simulation.  The default queue discipline is FIFO. 
 
-<div class="figure">
-<img src="./figures2/ch4/QueueAndQObject.png" alt="Properties and Methods of Queue and QObject"  />
+<div class="figure" style="text-align: center">
+<img src="./figures2/ch4/QueueAndQObject.png" alt="Properties and Methods of Queue and QObject" width="70%" height="70%" />
 <p class="caption">(\#fig:QandQObject)Properties and Methods of Queue and QObject</p>
 </div>
 
 Figure \@ref(fig:QandQObject) presents the properties and methods of the `Queue` and `QObject` classes. Here we can see that the `Queue` class has some standard methods for inserting and removing `QObject` instances.  For the purposes of this chapter, the most noteworthy of these are:
 
 ```kt
-
 fun enqueue(qObject: T, priority: Int = qObject.priority, obj: Any? = qObject.attachedObject)
 
 fun peekNext(): T? 
 
 fun removeNext(): T? 
-
 ```
 
 The `enqueue` method places `QObject` instances into the queue using the supplied priority. It also allows the user to attach an instance of `Any` to the `QObject` instance.  The `peekNext` method provides a reference to the next `QObject` to be removed according the specified queue discipline and the `removeNext` method will remove the next `QObject` instance.  During the enqueue and removal processes statistics are tabulated on the number of items in the queue and how much time the items spent in the queue. These responses are available via the `timeInQ` and `numInQ` properties.  We will see how to use these classes within the revised pharmacy model. Before proceeding with reviewing the implementation, let us examine the `EventGenerator` class.
@@ -3065,7 +3063,7 @@ action invokes the `resume()` method. Obviously, this can be within a
 sub-class of `EventGenerator` or within another class that has a reference
 to the event generator.
 
-Now we are ready to review the revised implementation of the drive through pharmacy model which puts the `Queue`, `QObject`, and `EventGenerator` classes into action.  Only portions of the code are illustrated here.  For full details see the Example4 file in the `ksl.examples.book.chapter4` package. To declare an instance of the Queue class, we use the following code.
+Now we are ready to review the revised implementation of the drive through pharmacy model which puts the `Queue,` `QObject,` and `EventGenerator` classes into action.  Only portions of the code are illustrated here.  For full details see the Example4 file in the `ksl.examples.book.chapter4` package. To declare an instance of the Queue class, we use the following code.
 
 ```kt
     private val mySTGT4: IndicatorResponse = IndicatorResponse({ x -> x >= 4.0 }, mySysTime, "SysTime > 4.0 minutes")
@@ -3081,7 +3079,7 @@ Now we are ready to review the revised implementation of the drive through pharm
 
 Notice how we also declare a public property that exposes part of the queue functionality, especially related to getting access to the statistical responses. 
 
-We can create and use an instance of `EventGenerator` with the following code.  We see that the event generator uses an instance of the inner class `Arrivals`, which implements the `GeneratorActionIfc.` In addition, the time between arrivals random variable is supplied for both the time until the first event and the time between events.  The `initialize() `method of the `EventGenerator` class ensures that the first event is scheduled at the start of the simulation.  In addition, the `EventGenerator` class continues rescheduling the arrivals according to the time between arrival pattern.  As previously noted, this process can be suspended, resumed, and turned off if needed.  An event generator can also be specified not to automatically start at time 0.
+We can create and use an instance of `EventGenerator` with the following code.  We see that the event generator uses an instance of the inner class `Arrivals,` which implements the `GeneratorActionIfc.` In addition, the time between arrivals random variable is supplied for both the time until the first event and the time between events.  The `initialize()` method of the `EventGenerator` class ensures that the first event is scheduled at the start of the simulation.  In addition, the `EventGenerator` class continues rescheduling the arrivals according to the time between arrival pattern.  As previously noted, this process can be suspended, resumed, and turned off if needed.  An event generator can also be specified not to automatically start at time 0.
 
 ```kt
     private val myArrivalGenerator: EventGenerator = EventGenerator(this, Arrivals(), myArrivalRV, myArrivalRV)
@@ -3149,7 +3147,7 @@ PharmacyQ:NumInQ                         	           30 	       0.5025 	       0
 PharmacyQ:TimeInQ                        	           30 	       2.9961 	       0.1235 
 SysTime > 4.0 minutes                    	           30 	       0.5136 	       0.0071 
 Num Served                               	           30 	    2513.2667 	      17.6883 
----------------------------------------------------------------------------------------------------- 
+----------------------------------------------------------------------------------------------------
 ```
 In the results, we see the system time and the queueing time reported.  We also see a statistic called `SysTime > 4.0 minutes.`  This was captured by using an `IndicatorResponse`, which is a subclass of `Response` that allows the user to specify a function that results in boolean expression and an instance of a `Response` to observe. The expression is collected as a 1.0 for true and 0.0 for false. In this example, we are observing the response called `mySysTime.`  
 
@@ -3166,39 +3164,39 @@ running process, and the output analysis process.
 
 The main model elements covered included:
 
-`Model`:   Used to hold all model elements. Automatically created by the
+`Model:`   Used to hold all model elements. Automatically created by the
     Simulation class. Used to create and control the execution of the model.
     
-`ModelElement`:   Used as an abstract base class for creating new model elements for a
+`ModelElement:`   Used as an abstract base class for creating new model elements for a
     simulation.
     
-`RandomVariable`:   A sub-class of `ModelElement` used to model randomness within a
+`RandomVariable:`   A sub-class of `ModelElement` used to model randomness within a
     simulation.
     
-`Response`:   A sub-class of `ModelElement` used to collect statistics on
+`Response:`   A sub-class of `ModelElement` used to collect statistics on
     observation-based variables.
     
-`TWResponse`:   A sub-class of `Response` used to collect statistics on
+`TWResponse:`   A sub-class of `Response` used to collect statistics on
     time-weighted variables in the model.
     
-`Counter`:   A sub-class of `ModelElement` used to count occurrences and collect
+`Counter:`   A sub-class of `ModelElement` used to count occurrences and collect
     statistics.
     
-`IndicatorResponse`:   A sub-class of `Response` used to collect on boolean expressions by observing another response.
+`IndicatorResponse:`   A sub-class of `Response` used to collect on boolean expressions by observing another response.
 
-`AggregateTWResponse`: A sub-class of `TWResponse` used to collect time weighted statistics by observing other `TWResponse` instances.
+`AggregateTWResponse:` A sub-class of `TWResponse` used to collect time weighted statistics by observing other `TWResponse` instances.
 
-`SimulationReporter`:   Used to gather and report statistics on a simulation model.
+`SimulationReporter:`   Used to gather and report statistics on a simulation model.
 
-`KSLEvent`:   Used to model different events scheduled in time during a
+`KSLEvent:`   Used to model different events scheduled in time during a
     simulation.
     
-`EventActionIfc`:   An interface used to define an action() method that represents event
+`EventActionIfc:`   An interface used to define an action() method that represents event
     logic within the simulation.
     
-`EventGenerator`:   A subclass of ModelElement that facilitates the repeated generation of events.
+`EventGenerator:`   A subclass of `ModelElement` that facilitates the repeated generation of events.
 
-`GeneratorActionIfc`: An interface used to implement the actions associated with event generators.
+`GeneratorActionIfc:` An interface used to implement the actions associated with event generators.
 
 The KSL has many other facets that have yet to be touched upon. Not only
 does the KSL allow the modeler to build and analyze simulation models,

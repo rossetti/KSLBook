@@ -23,7 +23,7 @@
 <meta name="author" content="Manuel D. Rossetti" />
 
 
-<meta name="date" content="2023-01-02" />
+<meta name="date" content="2023-01-16" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -157,7 +157,7 @@ div.csl-indent {
       <nav role="navigation">
 
 <ul class="summary">
-<li><a href="./">Simulation Modeling using the Kotlin Simulation Library</a></li>
+<li><a href="./">Simulation Modeling using the Kotlin Simulation Library (KSL)</a></li>
 
 <li class="divider"></li>
 <li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Preface</a>
@@ -448,12 +448,12 @@ scheduler and ensures that model elements participate in common
 simulation actions (e.g. warm up, initialization, etc.).</p></li>
 </ul>
 <p>Figure <a href="introDEDSdedsKSL.html#fig:kslModeling">4.5</a> illustrates the relationships between the
-classes <code>Model</code>, <code>ModelElement</code>, and
+classes <code>Model,</code> <code>ModelElement,</code> and
 <code>Executive.</code> The <code>ModelElement</code> class represents the primary building block
 for KSL models. A <code>ModelElement</code> represents something (an element) that
 can be placed within an instance of a <code>Model</code>. The <code>Model</code> class subclasses
-<code>ModelElement</code>. Every <code>ModelElement</code> can contain many other instances of
-<code>ModelElement</code>. As such, an instance of a <code>Model</code> can also contain model
+<code>ModelElement.</code> Every <code>ModelElement</code> can contain many other instances of
+<code>ModelElement.</code> As such, an instance of a <code>Model</code> can also contain model
 elements. There can only be one instance of the <code>Model</code> class within the
 simulation. It acts as the parent (container) for all other model
 elements. Model elements in turn also hold other model elements.
@@ -464,7 +464,7 @@ that implements the <code>CalendarIfc</code> interface. The simulation also
 references an instance of the <code>Experiment</code> class. The <code>Experiment</code> class
 allows the specification and control of the run parameters for the
 simulation. Every instance of a <code>ModelElement</code> must be a child of another
-<code>ModelElement</code> or the <code>Model</code>. This implies that instances of <code>ModelElement</code>
+<code>ModelElement</code> or the <code>Model.</code> This implies that instances of <code>ModelElement</code>
 have access to the main model, which has access to an instance of
 <code>Model</code> and thus the instance of the <code>Executive.</code> Therefore sub-classes
 of <code>ModelElement</code> have access to the <code>Executive</code> and can schedule events.</p>
@@ -565,10 +565,10 @@ the events are as follows:</p>
 <p>The following code listing provides the code for this simple event
 example. Let’s walk carefully through the construction and execution of
 this code.</p>
-<p>First, the class sub-classes from <code>ModelElement</code>. This
+<p>First, the class sub-classes from <code>ModelElement.</code> This
 enables the class to have access to all the scheduling methods within
 <code>ModelElement</code> and provides one method that needs to be overridden:
-<code>initialize()</code>. Every <code>ModelElement</code> has an <code>initialize()</code>
+<code>initialize().</code> Every <code>ModelElement</code> has an <code>initialize()</code>
 method. The <code>initialize()</code> method does nothing within the class <code>ModelElement.</code>
 However, the <code>initialize()</code> method is <em>critical</em> to properly modeling
 using instances of <code>ModelElement</code> within the KSL architecture. The purpose of the
@@ -613,15 +613,15 @@ the <code>initialize()</code> method does two things:</p>
 <span id="cb63-26"><a href="introDEDSdedsKSL.html#cb63-26" aria-hidden="true" tabindex="-1"></a>        <span class="op">}</span></span>
 <span id="cb63-27"><a href="introDEDSdedsKSL.html#cb63-27" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
 <span id="cb63-28"><a href="introDEDSdedsKSL.html#cb63-28" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
-<p>The call <code>scheduleEvent(myEventActionTwo, 20.0)</code> schedules an event 20 time
+<p>The the function call <code>scheduleEvent(myEventActionTwo, 20.0)</code> schedules an event 20 time
 units into the future where the event will be handled via the instance
 of the class <code>EventActionTwo</code>, which implements the <code>EventActionIfc</code> interface.
-The reference <code>myEventActionTwo</code> refers to an object of type <code>EventActionTwo</code>,
+The reference <code>myEventActionTwo</code> refers to an object of type <code>EventActionTwo,</code>
 which is an instance of the inner classes defined within
-<code>SchedulingEventExamples</code>. This variable is defined as as class property
+<code>SchedulingEventExamples.</code> This variable is defined as as class property
 on line 4 and an instance is created via the constructor. To
 summarize, the <code>initialize()</code> method is used to schedule the initial occurrences of the two types of events. The <code>initialize()</code> method occurs right before time 0.0. That is, it occurs right before the simulation clock starts.</p>
-<p>Now, let us examine the actions that occur for the two types of events. Within the <code>action()</code> method of <code>EventActionOne</code>, we see the following code:</p>
+<p>Now, let us examine the actions that occur for the two types of events. Within the <code>action()</code> method of <code>EventActionOne,</code> we see the following code:</p>
 <div class="sourceCode" id="cb64"><pre class="sourceCode kt"><code class="sourceCode kotlin"><span id="cb64-1"><a href="introDEDSdedsKSL.html#cb64-1" aria-hidden="true" tabindex="-1"></a>println<span class="op">(</span><span class="st">&quot;EventActionOne at time : </span><span class="ss">$time</span><span class="st">&quot;</span><span class="op">)</span></span></code></pre></div>
 <p>Here a simple message is printed that includes the simulation time via the inherited <code>time</code> property of the <code>ModelElement</code> class. Thus, by implementing the <code>action()</code> method of the <code>EventActionIfc</code> interface, you can supply the logic that occurs when the event is executed by the simulation executive. In the implemented <code>EventActionTwo</code> class, a simple message is printed and event action one is scheduled. In addition, the <code>schedule()</code> method is used to reschedule the <code>action()</code> method. The following code illustrates how to setup and run the simulation.</p>
 <div class="sourceCode" id="cb65"><pre class="sourceCode kt"><code class="sourceCode kotlin"><span id="cb65-1"><a href="introDEDSdedsKSL.html#cb65-1" aria-hidden="true" tabindex="-1"></a><span class="kw">fun</span> <span class="fu">main</span><span class="op">()</span> <span class="op">{</span></span>
@@ -631,7 +631,7 @@ summarize, the <code>initialize()</code> method is used to schedule the initial 
 <span id="cb65-5"><a href="introDEDSdedsKSL.html#cb65-5" aria-hidden="true" tabindex="-1"></a>    m<span class="op">.</span>simulate<span class="op">()</span></span>
 <span id="cb65-6"><a href="introDEDSdedsKSL.html#cb65-6" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
 <p>The main method associated with the <code>SchedulingEventExamples</code> class
-indicates how to create and run a simulation model. The first line of the main method creates an instance of a <code>Model</code>. The next line makes an instance of
+indicates how to create and run a simulation model. The first line of the main method creates an instance of a <code>Model.</code> The next line makes an instance of
 <code>SchedulingEventExamples</code> and attaches it to the simulation model. The
 property called, <code>s.model</code> returns an instance of the <code>Model</code> class that is
 associated with the instance of the simulation. The next line sets up the
@@ -683,10 +683,10 @@ step, the initialize() methods of all of the model elements are
 executed. This is why it was important to implement the <code>initialize()</code>
 method in the example and have it schedule the initial events. Then,
 step 2(c) begins the execution of the events that were placed on the
-calendar. In looking at the code listings, it is not possible to ascertain how the action() methods are actually invoked unless you
+calendar. In looking at the code listings, it is not possible to ascertain how the <code>action()</code> methods are actually invoked unless you
 understand that during step 2(c) each scheduled event is removed from
 the calendar and its associated action called. In the case of the event action one
-and two events in the example, these actions are specified in the action() method of EventActionOne and EventActionTwo. After all the events in the
+and two events in the example, these actions are specified in the <code>action()</code> method of <code>EventActionOne</code> and <code>EventActionTwo.</code> After all the events in the
 calendar are executed or the simulation is not otherwise stopped, the
 replication is ended. Any clean up logic (such as statistical
 collection) is executed at the end of the replication. Finally, after
@@ -705,7 +705,7 @@ within some time interval. For a Poisson process the time between events
 is exponentially distributed with a mean that is the reciprocal of the
 rate of occurrence for the events. For simplicity, this example
 simulates a Poisson process with rate 1 arrival per unit time. Thus, the
-mean time between events is 1.0 time unit. In this case the action is very simple, incrementing a counter that is tracking the number of events that have
+mean time between events is 1.0 time unit. In this case the action is very simple, increment a counter that is tracking the number of events that have
 occurred.</p>
 <p>The code for this example is as follows.</p>
 <div class="sourceCode" id="cb67"><pre class="sourceCode kt"><code class="sourceCode kotlin"><span id="cb67-1"><a href="introDEDSdedsKSL.html#cb67-1" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> SimplePoissonProcess <span class="op">(</span><span class="va">parent</span><span class="op">:</span> <span class="dt">ModelElement</span><span class="op">,</span> <span class="va">name</span><span class="op">:</span> <span class="dt">String</span><span class="op">?</span> <span class="op">=</span> null<span class="op">)</span> <span class="op">:</span></span>
@@ -744,10 +744,10 @@ decrementing of a variable and the statistical collection of the
 variable across replications. The value of the variable associated with
 the instance of a <code>Counter</code> is automatically reset to 0.0 at the beginning
 of each replication. Lines 2 and 3 within the constructor create the
-instances of the <code>RandomVariable</code> and the <code>Counter</code>.</p>
+instances of the <code>RandomVariable</code> and the <code>Counter.</code></p>
 <p>Since we are modeling a Poisson process, the <code>initialize()</code> method is used
 to schedule the first event using the random variable that represents
-the time between events. This occurs on the only line of the <code>initialize()</code> method. The event logic, found in the inner class <code>EventHandler</code>,
+the time between events. This occurs on the only line of the <code>initialize()</code> method. The event logic, found in the inner class <code>EventHandler,</code>
 causes the counter to be incremented. Then, the next arrival is scheduled
 to occur. Thus, it is very easy to model an arrival process using this
 pattern.</p>
@@ -778,7 +778,7 @@ average.</p>
 simulation. A <code>SimulationReporter</code> has the ability to write out
 statistical output associated with the simulation. The code uses the
 <code>printAcrossReplicationSummaryStatistics()</code> method to write out a simple
-summary report across the 50 replications for the <code>Counter</code>. Note that
+summary report across the 50 replications for the <code>Counter.</code> Note that
 using the <code>Counter</code> to count the events provided for automatically
 collected statistics across the replications for the counter. As you can
 see from the output, the average number of events is close to the
@@ -833,7 +833,7 @@ component over time.</p>
 <li>Determine how to initialize and run the model</li>
 </ol>
 <p>The first step is to conceptualize how to model the system and the state
-of the component. A model element, UpDownComponent, will be used to
+of the component. A model element, <code>UpDownComponent,</code> will be used to
 model the component. To track the state of the component, it is
 necessary to know whether or not the component is UP or DOWN. A variable
 can be used to represent this state. However, since we need to estimate
@@ -846,7 +846,7 @@ at particular instants of time. Time-based variables must have
 time-weighted statistics collected. Time-weighted statistics weight the
 value of the variable by the proportion of time that the variable is set
 to a value. To collect statistics on the cycle length we can use a
-<code>Response</code>. <code>Response</code> is a sub-class of <code>ModelElement</code> that
+<code>Response.</code> <code>Response</code> is a sub-class of <code>ModelElement</code> that
 can take on values within a simulation model and allows easy statistical
 observation of its values during the simulation run. This class provides
 observation-based statistical collection. Further discussion of
@@ -859,9 +859,9 @@ probability of being in the UP state in the long run should be equal to:</p>
 <span class="math inline">\(\theta_{d}\)</span> is the mean of the down-time distribution. In addition, the
 expected cycle length should be <span class="math inline">\(\theta_{u}+\theta_{d} = 3.0\)</span>.</p>
 <p>The <code>UpDownComponent</code> class extends the <code>ModelElement</code> class and has
-object references to instances of <code>RandomVariable</code>, <code>TWResponse</code>,
-<code>Response</code>, and <code>Counter</code> classes. Within the constructor of
-<code>UpDownComponent</code>, we need to create the instances of these objects for
+object references to instances of <code>RandomVariable,</code> <code>TWResponse,</code>
+<code>Response,</code> and <code>Counter</code> classes. Within the constructor of
+<code>UpDownComponent,</code> we need to create the instances of these objects for
 use within the class, as shown in the following code fragment.</p>
 <div class="sourceCode" id="cb70"><pre class="sourceCode kt"><code class="sourceCode kotlin"><span id="cb70-1"><a href="introDEDSdedsKSL.html#cb70-1" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> UpDownComponent <span class="op">(</span><span class="va">parent</span><span class="op">:</span> <span class="dt">ModelElement</span><span class="op">,</span> <span class="va">name</span><span class="op">:</span> <span class="dt">String</span><span class="op">?</span> <span class="op">=</span> null<span class="op">)</span> <span class="op">:</span> <span class="dt">ModelElement</span><span class="op">(</span><span class="va">parent</span><span class="op">,</span> <span class="va">name</span><span class="op">)</span> <span class="op">{</span></span>
 <span id="cb70-2"><a href="introDEDSdedsKSL.html#cb70-2" aria-hidden="true" tabindex="-1"></a>    <span class="kw">companion</span> <span class="kw">object</span> <span class="op">{</span></span>
@@ -889,8 +889,8 @@ use within the class, as shown in the following code fragment.</p>
 <p>Lines 3 and 4 define two constants to represent
 the up and down states within the companion object. Lines 5-9 declare additional references
 needed to represent the up and down time random variables and the
-variables that need statistical collection (myState, myCycleLength, and
-myCountFailures). Lines 10 and 11 define and create the event actions
+variables that need statistical collection (<code>myState,</code> <code>myCycleLength,</code> and
+<code>myCountFailures</code>). Lines 10 and 11 define and create the event actions
 associated with the end of the up-time and the end of the down time. The
 variable <code>myTimeLastUp</code> is used to keep track of the time that the
 component last changed into the UP state, which allows the cycle length
@@ -945,9 +945,9 @@ schedules when the component should next transition into the UP state.</p>
 simulation. This code is very similar to previously presented code for
 running a simulation. In line 3, the simulation is constructed. Then, in
 line 5, the model associated with the simulation is accessed. This model
-is then used to construct an instance of the UpDownComponent in line 7.
-Finally, lines 9-15 represent getting a SimulationReporter, running the
-simulation, and causing output to be written to the console.</p>
+is then used to construct an instance of the <code>UpDownComponent</code> in line 5.
+Finally, lines 7-12 represent setting up the replication parameters of the simulation, running the
+simulation, and causing output to be written to the console via a <code>SimulationReporter.</code></p>
 <div class="sourceCode" id="cb72"><pre class="sourceCode kt"><code class="sourceCode kotlin"><span id="cb72-1"><a href="introDEDSdedsKSL.html#cb72-1" aria-hidden="true" tabindex="-1"></a><span class="kw">fun</span> <span class="fu">main</span><span class="op">()</span> <span class="op">{</span></span>
 <span id="cb72-2"><a href="introDEDSdedsKSL.html#cb72-2" aria-hidden="true" tabindex="-1"></a>    <span class="co">// create the simulation model</span></span>
 <span id="cb72-3"><a href="introDEDSdedsKSL.html#cb72-3" aria-hidden="true" tabindex="-1"></a>    <span class="kw">val</span> <span class="va">m</span> <span class="op">=</span> Model<span class="op">(</span><span class="st">&quot;UpDownComponent&quot;</span><span class="op">)</span></span>
@@ -1118,7 +1118,7 @@ a mean of 3 minutes.</p></li>
 condition to occur in order to proceed. In this system, the customer
 may have to wait in a queue until the pharmacist becomes available.</p></li>
 </ul>
-<p>With an activity diagram and pseudo-code such as this available to
+<p>With an activity diagram and pseudo-code to
 represent a solid conceptual understanding of the system, you can begin
 the model development process.</p>
 <p>In the current example, pharmacy customers arrive according to a Poisson
@@ -1174,7 +1174,7 @@ endif
 N(t) = N(t) - 1
 K = K + 1</code></pre>
 <p>In the end of service actions, the number of busy pharmacists is decreased by one because the pharmacist has completed service for the departing customer. Then the queue is checked to see if it has customers. If the queue has customers, then a customer is removed from the queue (decreasing the number in queue) and the number of busy pharmacists is increased by one. In addition, the end of service event is scheduled. Finally, the number of customers in the system is decremented and the count of the total customers processes is incremented.</p>
-<p>The following code listing presents the definition of the variables and their creation within the KSL. The drive through pharmacy system is modeled via a class <code>DriveThroughPharmacy</code> that sub-classes from <code>ModelElement</code> to provide the ability to schedule events. The <code>RandomVariable</code> instances <code>myServiceRV</code> and <code>myArrivalRV</code> are used to represent the <span class="math inline">\(ST_i\)</span> and <span class="math inline">\(TBA_i\)</span> random variables. <span class="math inline">\(B(t)\)</span>, <span class="math inline">\(N(t)\)</span>, and <span class="math inline">\(Q(t)\)</span> are modeled with the objects <code>myNumBusy</code>, <code>myNS</code>, and <code>myQ</code>, respectively, all instances of the <code>TWResponse</code> class. The tabulation of the number of processed customers, <span class="math inline">\(K\)</span>, is modeled with a KSL counter, using the <code>Counter</code> class.</p>
+<p>The following code listing presents the definition of the variables and their creation within the KSL. The drive through pharmacy system is modeled via a class <code>DriveThroughPharmacy</code> that sub-classes from <code>ModelElement</code> to provide the ability to schedule events. The <code>RandomVariable</code> instances <code>myServiceRV</code> and <code>myArrivalRV</code> are used to represent the <span class="math inline">\(ST_i\)</span> and <span class="math inline">\(TBA_i\)</span> random variables. <span class="math inline">\(B(t)\)</span>, <span class="math inline">\(N(t)\)</span>, and <span class="math inline">\(Q(t)\)</span> are modeled with the objects <code>myNumBusy,</code> <code>myNS,</code> and <code>myQ,</code> respectively, all instances of the <code>TWResponse</code> class. The tabulation of the number of processed customers, <span class="math inline">\(K\)</span>, is modeled with a KSL counter, using the <code>Counter</code> class.</p>
 <div class="sourceCode" id="cb76"><pre class="sourceCode kt"><code class="sourceCode kotlin"><span id="cb76-1"><a href="introDEDSdedsKSL.html#cb76-1" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> DriveThroughPharmacy<span class="op">(</span></span>
 <span id="cb76-2"><a href="introDEDSdedsKSL.html#cb76-2" aria-hidden="true" tabindex="-1"></a>    <span class="va">parent</span><span class="op">:</span> <span class="dt">ModelElement</span><span class="op">,</span> <span class="va">numServers</span><span class="op">:</span> <span class="dt">Int</span> <span class="op">=</span> <span class="dv">1</span><span class="op">,</span></span>
 <span id="cb76-3"><a href="introDEDSdedsKSL.html#cb76-3" aria-hidden="true" tabindex="-1"></a>    <span class="va">timeBtwArrivals</span><span class="op">:</span> <span class="dt">RandomIfc</span> <span class="op">=</span> ExponentialRV<span class="op">(</span><span class="fl">1.0</span>, <span class="dv">1</span><span class="op">),</span></span>
@@ -1258,7 +1258,7 @@ because a pharmacist is becoming idle. Then, the queue is
 checked to see if it is not empty. If the queue is not empty, then the
 next customer must be removed, the server made busy again
 and the customer scheduled into service. Finally, the <code>TWResponse</code> variable,
-<code>myNS</code>, indicates that a customer has departed the system and the <code>Counter</code> for the number of customers processed is incremented.</p>
+<code>myNS,</code> indicates that a customer has departed the system and the <code>Counter</code> for the number of customers processed is incremented.</p>
 <p>The following method can be used to run the model based on a desired number of servers.</p>
 <div class="sourceCode" id="cb79"><pre class="sourceCode kt"><code class="sourceCode kotlin"><span id="cb79-1"><a href="introDEDSdedsKSL.html#cb79-1" aria-hidden="true" tabindex="-1"></a><span class="kw">fun</span> <span class="fu">main</span><span class="op">()</span> <span class="op">{</span></span>
 <span id="cb79-2"><a href="introDEDSdedsKSL.html#cb79-2" aria-hidden="true" tabindex="-1"></a>    <span class="kw">val</span> <span class="va">model</span> <span class="op">=</span> Model<span class="op">(</span><span class="st">&quot;Drive Through Pharmacy&quot;</span><span class="op">,</span> autoCSVReports <span class="op">=</span> <span class="kw">true</span><span class="op">)</span></span>
@@ -1401,14 +1401,14 @@ cars waiting.</p>
 <span id="cb83-2"><a href="introDEDSdedsKSL.html#cb83-2" aria-hidden="true" tabindex="-1"></a>    <span class="kw">val</span> <span class="va">numInQ</span><span class="op">:</span> TWResponseCIfc</span>
 <span id="cb83-3"><a href="introDEDSdedsKSL.html#cb83-3" aria-hidden="true" tabindex="-1"></a>        <span class="kw">get</span><span class="op">()</span> <span class="op">=</span> myNumInQ</span></code></pre></div>
 <p>However, it is useful for outside clients to have access to immutable properties and to summary statistics related to the response variable. This is permitted by the use of the <code>TWResponseCIfc</code> interface, which limits access.</p>
-<div class="figure"><span style="display:block;" id="fig:ResponseCIfc"></span>
-<img src="figures2/ch4/ResponseCIfc.png" alt="Controlled Access to Responses"  />
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:ResponseCIfc"></span>
+<img src="figures2/ch4/ResponseCIfc.png" alt="Controlled Access to Responses" width="70%" height="70%" />
 <p class="caption">
 Figure 4.10: Controlled Access to Responses
 </p>
 </div>
 <p>As indicated in Figure <a href="introDEDSdedsKSL.html#fig:ResponseCIfc">4.10</a>, the two interfaces <code>TWResponseCIfc</code> and <code>ResponseCIfc</code> limit access to time-weighted and tally-based response variables to access within and across replication statistics and to add count actions. Count actions permit actions to take place when the number of observations reaches a particular value. One use of count actions is to stop the simulation with a fixed number of observations have been observed.</p>
-<p>Within the implementation, there are a couple of additional items to note. The KSL allows for the definition of aggregate responses. Aggregate responses observe other responses and permit the definition of derived responses. In the pharmacy model implementation there is an aggregate response called <code>myTotal</code>. The relevant code is shown below.</p>
+<p>Within the implementation, there are a couple of additional items to note. The KSL allows for the definition of aggregate responses. Aggregate responses observe other responses and permit the definition of derived responses. In the pharmacy model implementation there is an aggregate response called <code>myTotal.</code> The relevant code is shown below.</p>
 <div class="sourceCode" id="cb84"><pre class="sourceCode kt"><code class="sourceCode kotlin"><span id="cb84-1"><a href="introDEDSdedsKSL.html#cb84-1" aria-hidden="true" tabindex="-1"></a>    <span class="kw">private</span> <span class="kw">val</span> <span class="va">myNumBusy</span><span class="op">:</span> TWResponse <span class="op">=</span> TWResponse<span class="op">(</span><span class="kw">this</span><span class="op">,</span> <span class="st">&quot;NumBusy&quot;</span><span class="op">)</span></span>
 <span id="cb84-2"><a href="introDEDSdedsKSL.html#cb84-2" aria-hidden="true" tabindex="-1"></a>    <span class="kw">private</span> <span class="kw">val</span> <span class="va">myNS</span><span class="op">:</span> TWResponse <span class="op">=</span> TWResponse<span class="op">(</span><span class="kw">this</span><span class="op">,</span> <span class="st">&quot;# in System&quot;</span><span class="op">)</span></span>
 <span id="cb84-3"><a href="introDEDSdedsKSL.html#cb84-3" aria-hidden="true" tabindex="-1"></a>    <span class="kw">private</span> <span class="kw">val</span> <span class="va">myNumCustomers</span><span class="op">:</span> Counter <span class="op">=</span> Counter<span class="op">(</span><span class="kw">this</span><span class="op">,</span> name <span class="op">=</span> <span class="st">&quot;Num Served&quot;</span><span class="op">)</span></span>
@@ -1420,8 +1420,8 @@ Figure 4.10: Controlled Access to Responses
 <span id="cb84-9"><a href="introDEDSdedsKSL.html#cb84-9" aria-hidden="true" tabindex="-1"></a>        myTotal<span class="op">.</span>observe<span class="op">(</span>myNumInQ<span class="op">)</span></span>
 <span id="cb84-10"><a href="introDEDSdedsKSL.html#cb84-10" aria-hidden="true" tabindex="-1"></a>        myTotal<span class="op">.</span>observe<span class="op">(</span>myNumBusy<span class="op">)</span></span>
 <span id="cb84-11"><a href="introDEDSdedsKSL.html#cb84-11" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span></code></pre></div>
-<p>This code defines an aggregate response that observes two variables, <code>myNumInQ</code> and <code>myNumBusy</code>. Thus, whenever either of these two variables change, the aggregate response is updated to ensure that it represents the total of the two variable. Thus, <code>myTotal</code> represents the total number of customers in the system at any time <span class="math inline">\(t\)</span>. As can be noted in the output results, this response has the same statistics as the response collected by the variable <code>myNS</code> labeled “# in System”.</p>
-<p>Finally, the implementation has a couple of interesting new items within the main execution method. Notice that in line 1 in the model constructor that the parameter <code>autoCSVReports</code> is set to true. This will cause comma separated value files to be produced in the model’s default output directory that contains all of the within and across replication statistics. In addition, note how the initial random sources for the arrival and service distributions are set in lines 8 and 9. Finally, note the use of <code>model.print()</code>, which causes the default simulation running information and results to be printed to the console.</p>
+<p>This code defines an aggregate response that observes two variables, <code>myNumInQ</code> and <code>myNumBusy.</code> Thus, whenever either of these two variables change, the aggregate response is updated to ensure that it represents the total of the two variable. Thus, <code>myTotal</code> represents the total number of customers in the system at any time <span class="math inline">\(t\)</span>. As can be noted in the output results, this response has the same statistics as the response collected by the variable <code>myNS</code> labeled “# in System”.</p>
+<p>Finally, the implementation has a couple of interesting new items within the main execution method. Notice that in line 1 in the model constructor that the parameter <code>autoCSVReports</code> is set to true. This will cause comma separated value files to be produced in the model’s default output directory that contains all of the within and across replication statistics. In addition, note how the initial random sources for the arrival and service distributions are set in lines 8 and 9. Finally, note the use of <code>model.print(),</code> which causes the default simulation running information and results to be printed to the console.</p>
 <div class="sourceCode" id="cb85"><pre class="sourceCode kt"><code class="sourceCode kotlin"><span id="cb85-1"><a href="introDEDSdedsKSL.html#cb85-1" aria-hidden="true" tabindex="-1"></a><span class="kw">fun</span> <span class="fu">main</span><span class="op">()</span> <span class="op">{</span></span>
 <span id="cb85-2"><a href="introDEDSdedsKSL.html#cb85-2" aria-hidden="true" tabindex="-1"></a>    <span class="kw">val</span> <span class="va">model</span> <span class="op">=</span> Model<span class="op">(</span><span class="st">&quot;Drive Through Pharmacy&quot;</span><span class="op">,</span> autoCSVReports <span class="op">=</span> <span class="kw">true</span><span class="op">)</span></span>
 <span id="cb85-3"><a href="introDEDSdedsKSL.html#cb85-3" aria-hidden="true" tabindex="-1"></a>    model<span class="op">.</span>numberOfReplications <span class="op">=</span> <span class="dv">30</span></span>
@@ -1473,7 +1473,10 @@ gitbook.start({
 "family": "sans",
 "size": 2
 },
-"edit": null,
+"edit": {
+"link": null,
+"text": null
+},
 "history": {
 "link": null,
 "text": null
@@ -1482,7 +1485,7 @@ gitbook.start({
 "link": null,
 "text": null
 },
-"download": ["KSLBook.pdf"],
+"download": null,
 "search": {
 "engine": "fuse",
 "options": null

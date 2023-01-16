@@ -23,7 +23,7 @@
 <meta name="author" content="Manuel D. Rossetti" />
 
 
-<meta name="date" content="2023-01-02" />
+<meta name="date" content="2023-01-16" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -157,7 +157,7 @@ div.csl-indent {
       <nav role="navigation">
 
 <ul class="summary">
-<li><a href="./">Simulation Modeling using the Kotlin Simulation Library</a></li>
+<li><a href="./">Simulation Modeling using the Kotlin Simulation Library (KSL)</a></li>
 
 <li class="divider"></li>
 <li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Preface</a>
@@ -417,7 +417,7 @@ div.csl-indent {
             <section class="normal" id="section-">
 <div id="probability-distribution-models" class="section level2 hasAnchor" number="2.3">
 <h2><span class="header-section-number">2.3</span> Probability Distribution Models<a href="probability-distribution-models.html#probability-distribution-models" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p>The <code>ksl.utilities.random.rvariable</code> package is the key package for generating random variables; however, it does not facilitate performing calculations involving the underlying probability distributions. To perform calculations involving probability distributions, you should use the <code>ksl.utilities.distributions</code> package. This package has almost all the same distributions represented within the <code>jsl.utilities.random.rvariable</code> package.</p>
+<p>The <code>ksl.utilities.random.rvariable</code> package is the key package for generating random variables; however, it does not facilitate performing calculations involving the underlying probability distributions. To perform calculations involving probability distributions, you should use the <code>ksl.utilities.distributions</code> package. This package has almost all the same distributions represented within the <code>ksl.utilities.random.rvariable</code> package.</p>
 <div class="figure"><span style="display:block;" id="fig:DistPackage"></span>
 <img src="figures/Distributions.png" alt="Distribution Interfaces"  />
 <p class="caption">
@@ -511,7 +511,7 @@ variance = 5.0
 <li><code>stdNormalComplementaryCDF(z: Double)</code> - returns <span class="math inline">\(1-P(Z \leq z)\)</span></li>
 <li><code>stdNormalInvCDF(p: Double)</code> - returns <span class="math inline">\(z = F^{-1}(p)\)</span> the inverse of the cumulative distribution function</li>
 </ul>
-<p>The Student-T distribution also has two static convenience methods to facilitate computations.</p>
+<p>The Student-T distribution also has two convenience methods to facilitate computations.</p>
 <ul>
 <li><code>cdf(dof: Double, x: Double)</code> - computes the cumulative distribution function for <span class="math inline">\(x\)</span> given the degrees of freedom</li>
 <li><code>invCDF(dof: Double, p: Double)</code> - computes the inverse cumulative distribution function or t-value for the supplied probability given the degrees of freedom.</li>
@@ -554,7 +554,10 @@ gitbook.start({
 "family": "sans",
 "size": 2
 },
-"edit": null,
+"edit": {
+"link": null,
+"text": null
+},
 "history": {
 "link": null,
 "text": null
@@ -563,7 +566,7 @@ gitbook.start({
 "link": null,
 "text": null
 },
-"download": ["KSLBook.pdf"],
+"download": null,
 "search": {
 "engine": "fuse",
 "options": null

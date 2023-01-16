@@ -23,7 +23,7 @@
 <meta name="author" content="Manuel D. Rossetti" />
 
 
-<meta name="date" content="2023-01-02" />
+<meta name="date" content="2023-01-16" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -157,7 +157,7 @@ div.csl-indent {
       <nav role="navigation">
 
 <ul class="summary">
-<li><a href="./">Simulation Modeling using the Kotlin Simulation Library</a></li>
+<li><a href="./">Simulation Modeling using the Kotlin Simulation Library (KSL)</a></li>
 
 <li class="divider"></li>
 <li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Preface</a>
@@ -492,7 +492,7 @@ half-width criterion is met, then the simulation is told to end using
 the <code>Model</code> class’s <code>endSimulation()</code> method. The <code>endSimulation()</code> method causes the simulation to not execute any future replications and to halt further execution.</p>
 <p>All that is needed is to get a reference to the response
 variable that needs to be checked so that the observer can be attached.
-This can be done easily if a reference to the response is exposed through the class’s interface. In this case the property, <code>totalProcessingTime</code>, an instance of <code>ResponseCIfc</code>, is used. Alternatively if the string name representation of the response is available, it can be used to extract the response from the model via the model’s functionality for getting model elements.</p>
+This can be done easily if a reference to the response is exposed through the class’s interface. In this case the property, <code>totalProcessingTime,</code> an instance of <code>ResponseCIfc,</code> is used. Alternatively if the string name representation of the response is available, it can be used to extract the response from the model via the model’s functionality for getting model elements.</p>
 <div class="sourceCode" id="cb108"><pre class="sourceCode kt"><code class="sourceCode kotlin"><span id="cb108-1"><a href="simoaseqsampling.html#cb108-1" aria-hidden="true" tabindex="-1"></a><span class="kw">fun</span> <span class="fu">response</span><span class="op">(</span><span class="va">name</span><span class="op">:</span> <span class="dt">String</span><span class="op">):</span> <span class="dt">Response</span><span class="op">?</span> </span>
 <span id="cb108-2"><a href="simoaseqsampling.html#cb108-2" aria-hidden="true" tabindex="-1"></a><span class="kw">fun</span> <span class="fu">timeWeightedResponse</span><span class="op">(</span><span class="va">name</span><span class="op">:</span> <span class="dt">String</span><span class="op">):</span> <span class="dt">TWResponse</span><span class="op">?</span> </span>
 <span id="cb108-3"><a href="simoaseqsampling.html#cb108-3" aria-hidden="true" tabindex="-1"></a><span class="kw">fun</span> <span class="fu">counter</span><span class="op">(</span><span class="va">name</span><span class="op">:</span> <span class="dt">String</span><span class="op">):</span> <span class="dt">Counter</span><span class="op">?</span> </span></code></pre></div>
@@ -516,7 +516,7 @@ This can be done easily if a reference to the response is exposed through the cl
 <span id="cb109-17"><a href="simoaseqsampling.html#cb109-17" aria-hidden="true" tabindex="-1"></a>    sr<span class="op">.</span>printHalfWidthSummaryReport<span class="op">()</span></span>
 <span id="cb109-18"><a href="simoaseqsampling.html#cb109-18" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb109-19"><a href="simoaseqsampling.html#cb109-19" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
-<p>Notice that the number of replications is set to an arbitrarily high value (10000) and the desired half-width is specified as 5.0. In the original example, the half-width for the total processing time was 16.3269 based on 10 replications. As we can see from the following output, the half-width criteria has been met with 149 replication.</p>
+<p>Notice that the number of replications is set to an arbitrarily high value (10000) and the desired half-width is specified as 5.0. In the original example, the half-width for the total processing time was 16.3269 based on 10 replications. As we can see from the following output, the half-width criteria has been met with 149 replications.</p>
 <pre><code>Half-Width Statistical Summary Report - Confidence Level (95.000)% 
 
 Name                                                Count         Average      Half-Width 
@@ -567,7 +567,10 @@ gitbook.start({
 "family": "sans",
 "size": 2
 },
-"edit": null,
+"edit": {
+"link": null,
+"text": null
+},
 "history": {
 "link": null,
 "text": null
@@ -576,7 +579,7 @@ gitbook.start({
 "link": null,
 "text": null
 },
-"download": ["KSLBook.pdf"],
+"download": null,
 "search": {
 "engine": "fuse",
 "options": null

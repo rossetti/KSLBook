@@ -23,7 +23,7 @@
 <meta name="author" content="Manuel D. Rossetti" />
 
 
-<meta name="date" content="2023-01-02" />
+<meta name="date" content="2023-01-16" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -157,7 +157,7 @@ div.csl-indent {
       <nav role="navigation">
 
 <ul class="summary">
-<li><a href="./">Simulation Modeling using the Kotlin Simulation Library</a></li>
+<li><a href="./">Simulation Modeling using the Kotlin Simulation Library (KSL)</a></li>
 
 <li class="divider"></li>
 <li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Preface</a>
@@ -1080,7 +1080,7 @@ Figure 5.23: Properties and Methods of the MultipleComparisonAnalyzer Class
 <li>multiple comparison confidence intervals based on finding the maximum value</li>
 <li>multiple comparison confidence intervals based on finding the minimum value</li>
 </ul>
-<p>The user can specify the indifference zone parameter to be included in the confidence interval calculations. The <code>MultipleComparisonAnalyzer</code> class does not utilize the probability of correct selection or assume some underlying distribution. The confidence intervals that are computed have the following forms. Define <span class="math inline">\(Y_ij\)</span> as the <span class="math inline">\(i^{th}\)</span> observation of system <span class="math inline">\(j\)</span>. Thus, <span class="math inline">\(\bar{Y}_{\cdot j}\)</span> is the mean performance of system <span class="math inline">\(j\)</span>. Let <span class="math inline">\(\delta\)</span> be the indifference zone parameter. When selecting the system with the largest <span class="math inline">\(\bar{Y}_{\cdot j}\)</span> as the best the confidence interval is:</p>
+<p>The user can specify the indifference zone parameter to be included in the confidence interval calculations. The <code>MultipleComparisonAnalyzer</code> class does not utilize the probability of correct selection or assume some underlying distribution. The confidence intervals that are computed have the following forms. Define <span class="math inline">\(Y_{ij}\)</span> as the <span class="math inline">\(i^{th}\)</span> observation of system <span class="math inline">\(j\)</span>. Thus, <span class="math inline">\(\bar{Y}_{\cdot j}\)</span> is the mean performance of system <span class="math inline">\(j\)</span>. Let <span class="math inline">\(\delta\)</span> be the indifference zone parameter. When selecting the system with the largest <span class="math inline">\(\bar{Y}_{\cdot j}\)</span> as the best the confidence interval is:</p>
 <p><span class="math inline">\(\min\{0, \bar{Y}_{\cdot j} - \max_{j \neq i}\bar{Y}_{\cdot j}- \delta \} \leq \theta_i - \max_{j \neq i} \theta_j \leq \max\{0, \bar{Y}_{\cdot j} - \max_{j \neq i}\bar{Y}_{\cdot j}- \delta \} \text{for} \ i=1,2, \dots,k\)</span></p>
 <p>When selecting the system with the smallest <span class="math inline">\(\bar{Y}_{\cdot j}\)</span> as the best the confidence interval is:</p>
 <p><span class="math inline">\(\min\{0, \bar{Y}_{\cdot j} - \min_{j \neq i}\bar{Y}_{\cdot j}- \delta \} \leq \theta_i - \max_{j \neq i} \theta_j \leq \max\{0, \bar{Y}_{\cdot j} - \min_{j \neq i}\bar{Y}_{\cdot j}- \delta \} \text{for} \ i=1,2, \dots,k\)</span></p>
@@ -1153,7 +1153,10 @@ gitbook.start({
 "family": "sans",
 "size": 2
 },
-"edit": null,
+"edit": {
+"link": null,
+"text": null
+},
 "history": {
 "link": null,
 "text": null
@@ -1162,7 +1165,7 @@ gitbook.start({
 "link": null,
 "text": null
 },
-"download": ["KSLBook.pdf"],
+"download": null,
 "search": {
 "engine": "fuse",
 "options": null

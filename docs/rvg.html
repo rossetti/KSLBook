@@ -23,7 +23,7 @@
 <meta name="author" content="Manuel D. Rossetti" />
 
 
-<meta name="date" content="2023-01-02" />
+<meta name="date" content="2023-01-16" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -157,7 +157,7 @@ div.csl-indent {
       <nav role="navigation">
 
 <ul class="summary">
-<li><a href="./">Simulation Modeling using the Kotlin Simulation Library</a></li>
+<li><a href="./">Simulation Modeling using the Kotlin Simulation Library (KSL)</a></li>
 
 <li class="divider"></li>
 <li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Preface</a>
@@ -421,7 +421,7 @@ div.csl-indent {
 discrete and continuous distributions. The <code>ksl.utilities.random.rvariable</code> package supports this functionality. The package has a set of interfaces
 that define the behavior associated with random variables. Concrete
 sub-classes of specific random variables are created by sub-classing
-<code>RVariable</code>. As shown in Figure <a href="rvg.html#fig:RVariableIfc">2.3</a>, every random variable has
+<code>RVariable.</code> As shown in Figure <a href="rvg.html#fig:RVariableIfc">2.3</a>, every random variable has
 access to an object that implements the <code>RNStreamIfc</code> interface. This
 gives it the ability to generate pseudo-random numbers and to control
 the streams. The <code>GetValueIfc</code> interface is the key interface because in
@@ -436,51 +436,50 @@ Figure 2.3: Random Variable Interfaces
 </div>
 <div id="rvg_dists" class="section level3 hasAnchor" number="2.2.1">
 <h3><span class="header-section-number">2.2.1</span> Continuous and Discrete Random Variables<a href="rvg.html#rvg_dists" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<p>The names and parameters associated with the continuous random variables
-are as follows:</p>
+<p>The names and parameters (based on common naming conventions) associated with the continuous random variables are as follows:</p>
 <ul>
-<li>BetaRV</li>
-<li>ChiSquaredRV</li>
-<li>ExponentialRV</li>
-<li>GammaRV</li>
-<li>GeneralizedBetaRV</li>
-<li>JohnsonBRV</li>
-<li>LaplaceRV</li>
-<li>LogLogisticRV</li>
-<li>LognormalRV</li>
-<li>NormalRV</li>
-<li>PearsonType5RV</li>
-<li>PearsonType6RV</li>
-<li>StudentTRV</li>
-<li>TriangularRV</li>
-<li>UniformRV</li>
-<li>WeibullRV</li>
+<li><code>BetaRV(alpha1, alpha2)</code></li>
+<li><code>ChiSquaredRV(degreesOfFreedom)</code></li>
+<li><code>ExponentialRV(mean)</code></li>
+<li><code>GammaRV(shape, scale)</code></li>
+<li><code>GeneralizedBetaRV(alpha1, alpha2, min, max)</code></li>
+<li><code>JohnsonBRV(alpha1, alpha2, min, max)</code></li>
+<li><code>LaplaceRV(mean scale)</code></li>
+<li><code>LogLogisticRV(shape, scale)</code></li>
+<li><code>LognormalRV(mean, variance)</code></li>
+<li><code>NormalRV(mean, variance)</code></li>
+<li><code>PearsonType5RV(shape, scale)</code></li>
+<li><code>PearsonType6RV(alpha1, alpha2, beta)</code></li>
+<li><code>StudentTRV(degreesOfFreedom)</code></li>
+<li><code>TriangularRV(min, mode, max)</code></li>
+<li><code>UniformRV(min, max)</code></li>
+<li><code>WeibullRV(shape, scale)</code></li>
 </ul>
 <p>The names of the discrete random variables are as follows:</p>
 <ul>
-<li>BernoulliRV</li>
-<li>BinomialRV</li>
-<li>ConstantRV a degenerate probability mass on a single value that cannot be changed</li>
-<li>DEmpiricalRV</li>
-<li>DUniformRV</li>
-<li>GeometricRV with range is 0 to infinity</li>
-<li>NegativeBinomialRV with range is 0 to infinity. The number of failures before the <span class="math inline">\(r^{th}\)</span> success.</li>
-<li>PoissonRV</li>
-<li>ShiftedGeometricRVrange is 1 to infinity</li>
-<li>VConstantRVa degenerate probability mass on a single value that can be changed</li>
+<li><code>BernoulliRV(probOfSuccess)</code></li>
+<li><code>BinomialRV(pSucces, numTrials)</code></li>
+<li><code>ConstantRV(constVal)</code> a degenerate probability mass on a single value that cannot be changed</li>
+<li><code>DEmpiricalRV(values, cdf)</code> values is an array of numbers and cdf is an array representing the cumulative distribution function over the values</li>
+<li><code>DUniformRV(min, max)</code></li>
+<li><code>GeometricRV(probOfSucces)</code> with range is 0 to infinity</li>
+<li><code>NegativeBinomialRV(probOfSuccess, numSuccess)</code> with range is 0 to infinity. The number of failures before the <span class="math inline">\(r^{th}\)</span> success.</li>
+<li><code>PoissonRV(mean)</code></li>
+<li><code>ShiftedGeometricRV(probOfSucces)</code> range is 1 to infinity</li>
+<li><code>VConstantRV(constVal)</code> a degenerate probability mass on a single value that can be changed</li>
 </ul>
-<p>The following sections will overivew the generation algorithms and provide examples for using some of these distributions.</p>
+<p>All classes that represent random variables also have optional parameters to provide a stream and a name. If the stream is not provided, then the next stream from the default provider is allocated to the new instance of the random variable. Thus, all random variables are automatically constructed such that they use different underlying streams, unless the programming specifically assigns streams. The following sections will overview the generation algorithms and provide examples for using some of these distributions.</p>
 </div>
 <div id="rvg_algo" class="section level3 hasAnchor" number="2.2.2">
 <h3><span class="header-section-number">2.2.2</span> Overview of Generation Algorithms<a href="rvg.html#rvg_algo" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>As you can see, the name of the distribution followed by the letters RV designate the class names. Implementations of these classes extend the <code>RVarable</code> class, which implements the <code>RVariableIfc</code> interface. Users simply create and instance of the class and then use it to get a sequence of values that have the named probability distribution. In order to implement a new random variable (i.e. some random variable
 that is not already implemented) you can extend the class
-<code>RVariable</code>. This provides a basic template for what is expected
+<code>RVariable.</code> This provides a basic template for what is expected
 in the implementation. However, it implies that you need to implement
 all of the required interfaces. The key method to implement is the
 protected <code>generate()</code> method, which should return the generated random
-value.</p>
-<p>In almost all cases, the KSL utilizes the inverse transform method for generating random variates. Thus, there is a one to one mapping of the underlying pseudo-random number and the resulting random variate. Even in the case of distributions that do not have closed form inverse cumulative distribution functions, the KSL utilizes numerical methods to approximate the function whenever feasible. For example, the KSL uses a rational function approximation, see Cody (1969), to
+value according to some algorithm.</p>
+<p>In almost all cases, the KSL utilizes the inverse transform algorithm for generating random variates. Thus, there is a one to one mapping of the underlying pseudo-random number and the resulting random variate. Even in the case of distributions that do not have closed form inverse cumulative distribution functions, the KSL utilizes numerical methods to approximate the function whenever feasible. For example, the KSL uses a rational function approximation, see Cody (1969), to
 implement the inverse cumulative distribution function for the standard
 normal distribution. The inversion for the gamma distribution is based
 on Algorithm AS 91 for inverting the chi-squared distribution and
@@ -488,8 +487,8 @@ exploiting its relationship with the gamma. The beta distribution also
 uses numerical methods to compute the cumulative distribution function
 as well as bi-section search to determine the inverse for cumulative
 distribution function.</p>
-<p>The KSL implements the <code>BernoulliRV</code>, <code>DUniformRV</code>, <code>GeometricRV</code>,
-<code>NegativeBinomialRV</code>, and <code>ShiftedGeometricRV</code> classes using the methods
+<p>The KSL implements the <code>BernoulliRV,</code> <code>DUniformRV,</code> <code>GeometricRV,</code>
+<code>NegativeBinomialRV,</code> and <code>ShiftedGeometricRV</code> classes using the methods
 described in Chapter 2 of <span class="citation">Rossetti (<a href="#ref-Rossetti2015" role="doc-biblioref">2015</a>)</span>. While more efficient methods may be available, the
 <code>PoissonRV</code> and <code>BinomialRV</code> distributions are implemented by searching the
 probability mass functions. Both search methods use an approximation to
@@ -568,7 +567,7 @@ cumulative distribution function.</p>
 <p>While the preferred method for generating random values from random
 variables is to create instance of the appropriate random variable
 class, the KSL also provide a set of functions for generating random
-values within the <code>KSLRandom</code> object For all the previously listed random variables, there is a
+values within the <code>KSLRandom</code> object. For all the previously listed random variables, there is a
 corresponding function that will generate a random value. For
 example, the method <code>rNormal()</code> will generate a normally distributed
 value. Each method is named with an "r" in front of the distribution
@@ -649,7 +648,7 @@ E[Y] = \mu_l = e^{\mu + \sigma^{2}/2}
 Var[Y] = \sigma_{l}^{2}  = e^{2\mu + \sigma^{2}}\left(e^{\sigma^{2}} - 1\right)
 \end{equation}\]</span></p>
 <p>Thus, one can define new random variables simply as functions of other random variables.</p>
-<p>The interface <code>RVariableIfc</code> and base class <code>RVariable</code> provides the ability to construct new random variables that are functions of other random variables by overriding the $+, -, , $ operators and providing extension functions for various math functions. For example, we can defined two random variables and then a third that is the sum of the first two random variables. The random variable that is defined as the sum will generate random variates that represent the sum. Functions, such as <code>sin()</code>, <code>cos()</code> as well as many other standard math functions can be applied to random variables to create new random variables. That is, the KSL provides the ability to create arbitrarily complex random variables that are defined as functions of other random variables. This capability will be illustrated in this section with a couple of examples.</p>
+<p>The interface <code>RVariableIfc</code> and base class <code>RVariable</code> provides the ability to construct new random variables that are functions of other random variables by overriding the <span class="math inline">\((+, -, \times, \div)\)</span> operators and providing extension functions for various math functions. For example, we can defined two random variables and then a third that is the sum of the first two random variables. The random variable that is defined as the sum will generate random variates that represent the sum. Functions, such as <code>sin(),</code> <code>cos()</code> as well as many other standard math functions can be applied to random variables to create new random variables. That is, the KSL provides the ability to create arbitrarily complex random variables that are defined as <em>functions</em> of other random variables. This capability will be illustrated in this section with a couple of examples.</p>
 <hr />
 <div class="example">
 <p><span id="exm:Erlang" class="example"><strong>Example 2.1  </strong></span>Suppose we have <span class="math inline">\(k\)</span> independent random variables, <span class="math inline">\(X_i\)</span> each exponentially distributed with mean <span class="math inline">\(\theta\)</span>. Then, the random variable:
@@ -670,7 +669,7 @@ will be an Erlang<span class="math inline">\((k, \theta)\)</span> where <span cl
 <span id="cb22-8"><a href="rvg.html#cb22-8" aria-hidden="true" tabindex="-1"></a>    print<span class="op">(</span>stats<span class="op">)</span></span>
 <span id="cb22-9"><a href="rvg.html#cb22-9" aria-hidden="true" tabindex="-1"></a>    sample<span class="op">.</span>writeToFile<span class="op">(</span><span class="st">&quot;erlang.txt&quot;</span><span class="op">)</span></span>
 <span id="cb22-10"><a href="rvg.html#cb22-10" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
-<p>The first line of this code creates and stores an instance of an exponential random variable with mean 10. The for loop is <strong>not</strong> generating any random variates. It is defining a new random variable that is the sum of 4 additional exponential random variables. The defined random variable is used to generate a sample of size 1000 and using the <code>Statistic</code> class (discussed in the next chapter) a basic statistical summary is computed. Also, using the <code>writeToFile</code> KSL extension function for double arrays, the sample is written to a file. The statistical results are as follows.</p>
+<p>The first line of this code creates and stores an instance of an exponential random variable with mean 10. The for loop is <strong>not</strong> generating any random variates. It is defining a new random variable that is the sum of 4 additional exponential random variables. The defined random variable is used to generate a sample of size 1000 and using the <code>Statistic</code> class (discussed in the next chapter) a basic statistical summary is computed. Also, using the <code>writeToFile</code> KSL extension function for double arrays, the sample is written to a file. The results as a histogram are also presented. The statistical results are as follows.</p>
 <pre><code>ID 30
 Name Statistic_1
 Number 1000.0
@@ -699,6 +698,7 @@ Lead-Digit Rule(1) -1</code></pre>
 Figure 2.4: Histogram for Erlang Generated Data
 </p>
 </div>
+<p>Notice that the histogram looks like an Erlang distribution and the estimated results are what we would expect for an Erlang distribution with <span class="math inline">\(k=5\)</span> and <span class="math inline">\(\theta = 10\)</span>.</p>
 <p>To illustrate a couple of other examples consider the following code. In this code, the previously noted relationship between normal random variables and lognormal random variables is demonstrated in the first 6 lines of the code.</p>
 <div class="sourceCode" id="cb24"><pre class="sourceCode kt"><code class="sourceCode kotlin"><span id="cb24-1"><a href="rvg.html#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="kw">fun</span> <span class="fu">main</span><span class="op">(){</span></span>
 <span id="cb24-2"><a href="rvg.html#cb24-2" aria-hidden="true" tabindex="-1"></a>    <span class="co">// define a lognormal random variable, y</span></span>
@@ -761,7 +761,10 @@ gitbook.start({
 "family": "sans",
 "size": 2
 },
-"edit": null,
+"edit": {
+"link": null,
+"text": null
+},
 "history": {
 "link": null,
 "text": null
@@ -770,7 +773,7 @@ gitbook.start({
 "link": null,
 "text": null
 },
-"download": ["KSLBook.pdf"],
+"download": null,
 "search": {
 "engine": "fuse",
 "options": null
