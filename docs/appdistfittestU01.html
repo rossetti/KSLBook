@@ -6,7 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>B.6 Testing Uniform (0,1) Pseudo-Random Numbers | Simulation Modeling using the Kotlin Simulation Library (KSL)</title>
   <meta name="description" content="A book that illustrates the basics of using the KSL. The output format for this book is bookdown::gitbook." />
-  <meta name="generator" content="bookdown 0.30 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.34 and GitBook 2.6.7" />
 
   <meta property="og:title" content="B.6 Testing Uniform (0,1) Pseudo-Random Numbers | Simulation Modeling using the Kotlin Simulation Library (KSL)" />
   <meta property="og:type" content="book" />
@@ -23,7 +23,7 @@
 <meta name="author" content="Manuel D. Rossetti" />
 
 
-<meta name="date" content="2023-01-16" />
+<meta name="date" content="2023-08-22" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -121,6 +121,10 @@ code span.vs { color: #4070a0; } /* VerbatimString */
 code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
 </style>
 
+<style type="text/css">
+  
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+</style>
 <style type="text/css">
 /* Used with Pandoc 2.11+ new --citeproc when CSL is used */
 div.csl-bib-body { }
@@ -388,12 +392,23 @@ div.csl-indent {
 </ul></li>
 <li class="chapter" data-level="C.5" data-path="exercises-9.html"><a href="exercises-9.html"><i class="fa fa-check"></i><b>C.5</b> Exercises</a></li>
 </ul></li>
-<li class="chapter" data-level="D" data-path="distributions.html"><a href="distributions.html"><i class="fa fa-check"></i><b>D</b> Distributions</a>
+<li class="chapter" data-level="D" data-path="appUtilities.html"><a href="appUtilities.html"><i class="fa fa-check"></i><b>D</b> KSL Utility Packages</a>
 <ul>
-<li class="chapter" data-level="D.1" data-path="appDiscreteDistributions.html"><a href="appDiscreteDistributions.html"><i class="fa fa-check"></i><b>D.1</b> Discrete Distrbutions</a></li>
-<li class="chapter" data-level="D.2" data-path="appContinuousDistributions.html"><a href="appContinuousDistributions.html"><i class="fa fa-check"></i><b>D.2</b> Continuous Distrbutions</a></li>
+<li class="chapter" data-level="D.1" data-path="the-outputdirectory-class-and-ksl-object.html"><a href="the-outputdirectory-class-and-ksl-object.html"><i class="fa fa-check"></i><b>D.1</b> The <code>OutputDirectory</code> Class and <code>KSL</code> Object</a></li>
+<li class="chapter" data-level="D.2" data-path="logging-options.html"><a href="logging-options.html"><i class="fa fa-check"></i><b>D.2</b> Logging Options</a></li>
+<li class="chapter" data-level="D.3" data-path="the-kslfileutil-object.html"><a href="the-kslfileutil-object.html"><i class="fa fa-check"></i><b>D.3</b> The <code>KSLFileUtil</code> Object</a></li>
+<li class="chapter" data-level="D.4" data-path="csv-excel-and-tabular-data-files.html"><a href="csv-excel-and-tabular-data-files.html"><i class="fa fa-check"></i><b>D.4</b> CSV, Excel, and Tabular Data Files</a></li>
+<li class="chapter" data-level="D.5" data-path="the-dataframeutil-object.html"><a href="the-dataframeutil-object.html"><i class="fa fa-check"></i><b>D.5</b> The <code>DataFrameUtil</code> Object</a></li>
+<li class="chapter" data-level="D.6" data-path="ksl-database-utilities.html"><a href="ksl-database-utilities.html"><i class="fa fa-check"></i><b>D.6</b> KSL Database Utilities</a></li>
+<li class="chapter" data-level="D.7" data-path="appUtilitiesArrays.html"><a href="appUtilitiesArrays.html"><i class="fa fa-check"></i><b>D.7</b> Array Utilities</a></li>
+<li class="chapter" data-level="D.8" data-path="appUtilitiesMisc.html"><a href="appUtilitiesMisc.html"><i class="fa fa-check"></i><b>D.8</b> Miscellaneous Utilities</a></li>
 </ul></li>
-<li class="chapter" data-level="E" data-path="appStatTables.html"><a href="appStatTables.html"><i class="fa fa-check"></i><b>E</b> Statistical Tables</a></li>
+<li class="chapter" data-level="E" data-path="distributions.html"><a href="distributions.html"><i class="fa fa-check"></i><b>E</b> Distributions</a>
+<ul>
+<li class="chapter" data-level="E.1" data-path="appDiscreteDistributions.html"><a href="appDiscreteDistributions.html"><i class="fa fa-check"></i><b>E.1</b> Discrete Distrbutions</a></li>
+<li class="chapter" data-level="E.2" data-path="appContinuousDistributions.html"><a href="appContinuousDistributions.html"><i class="fa fa-check"></i><b>E.2</b> Continuous Distrbutions</a></li>
+</ul></li>
+<li class="chapter" data-level="F" data-path="appStatTables.html"><a href="appStatTables.html"><i class="fa fa-check"></i><b>F</b> Statistical Tables</a></li>
 <li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
 <li class="divider"></li>
 <li><a href="https://bookdown.org" target="_blank">Published with bookdown</a></li>
@@ -424,7 +439,7 @@ appear to be independent and identically distributed (IID) <span class="math inl
 random variables. The hypothesis that a sample from the generator is IID
 <span class="math inline">\(U(0,1)\)</span> must be made. Then, the hypothesis is subjected to various
 statistical tests. There are standard batteries of test, see for example
-<span class="citation">(<a href="#ref-soto1999statistical" role="doc-biblioref">Soto 1999</a>)</span>, that are utilized. Typical tests examine:</p>
+<span class="citation">(<a href="#ref-soto1999statistical">Soto 1999</a>)</span>, that are utilized. Typical tests examine:</p>
 <ul>
 <li><p>Distributional properties: e.g. Chi-Squared and Kolmogorov-Smirnov
 test</p></li>
@@ -729,10 +744,10 @@ Computing the p-value for <span class="math inline">\(k-s-1=10-0-1=9\)</span> de
 would not reject the hypothesis that the observed data is <span class="math inline">\(U(0,1)\)</span>. This process can be readily implemented within a spreadsheet or performed using R. Assuming that the file, u01data.txt, contains the PRNs for this example, then the following R commands will
 perform the test:<br />
 </p>
-<div class="sourceCode" id="cb294"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb294-1"><a href="appdistfittestU01.html#cb294-1" aria-hidden="true" tabindex="-1"></a>data <span class="ot">=</span> <span class="fu">scan</span>(<span class="at">file=</span><span class="st">&quot;data/AppDistFitting/u01data.txt&quot;</span>) <span class="co"># read in the file</span></span>
-<span id="cb294-2"><a href="appdistfittestU01.html#cb294-2" aria-hidden="true" tabindex="-1"></a>b <span class="ot">=</span> <span class="fu">seq</span>(<span class="dv">0</span>,<span class="dv">1</span>, <span class="at">by =</span> <span class="fl">0.1</span>) <span class="co"># set up the break points</span></span>
-<span id="cb294-3"><a href="appdistfittestU01.html#cb294-3" aria-hidden="true" tabindex="-1"></a>h <span class="ot">=</span> <span class="fu">hist</span>(data, b, <span class="at">right =</span> <span class="cn">FALSE</span>, <span class="at">plot =</span> <span class="cn">FALSE</span>) <span class="co"># tabulate the counts</span></span>
-<span id="cb294-4"><a href="appdistfittestU01.html#cb294-4" aria-hidden="true" tabindex="-1"></a><span class="fu">chisq.test</span>(h<span class="sc">$</span>counts) <span class="co"># perform the test</span></span></code></pre></div>
+<div class="sourceCode" id="cb294"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb294-1"><a href="appdistfittestU01.html#cb294-1" tabindex="-1"></a>data <span class="ot">=</span> <span class="fu">scan</span>(<span class="at">file=</span><span class="st">&quot;data/AppDistFitting/u01data.txt&quot;</span>) <span class="co"># read in the file</span></span>
+<span id="cb294-2"><a href="appdistfittestU01.html#cb294-2" tabindex="-1"></a>b <span class="ot">=</span> <span class="fu">seq</span>(<span class="dv">0</span>,<span class="dv">1</span>, <span class="at">by =</span> <span class="fl">0.1</span>) <span class="co"># set up the break points</span></span>
+<span id="cb294-3"><a href="appdistfittestU01.html#cb294-3" tabindex="-1"></a>h <span class="ot">=</span> <span class="fu">hist</span>(data, b, <span class="at">right =</span> <span class="cn">FALSE</span>, <span class="at">plot =</span> <span class="cn">FALSE</span>) <span class="co"># tabulate the counts</span></span>
+<span id="cb294-4"><a href="appdistfittestU01.html#cb294-4" tabindex="-1"></a><span class="fu">chisq.test</span>(h<span class="sc">$</span>counts) <span class="co"># perform the test</span></span></code></pre></div>
 <pre><code>## 
 ##  Chi-squared test for given probabilities
 ## 
@@ -747,7 +762,7 @@ the interval <span class="math inline">\((0,1)\)</span> they should also be unif
 within the unit square,
 <span class="math inline">\(\lbrace (x,y): x\in (0,1), y \in (0,1) \rbrace\)</span>, the unit cube, and so
 forth for higher number of dimensions <span class="math inline">\(d\)</span>.</p>
-<p>The serial test, described in <span class="citation">(<a href="#ref-law2007simulation" role="doc-biblioref">Law 2007</a>)</span> can be used to assess
+<p>The serial test, described in <span class="citation">(<a href="#ref-law2007simulation">Law 2007</a>)</span> can be used to assess
 the quality of the higher dimensional properties of pseudo-random
 numbers. Suppose the sequence of pseudo-random numbers can be formed
 into non-overlapping vectors each of size <span class="math inline">\(d\)</span>. The vectors should be
@@ -783,7 +798,7 @@ distributed in the d-dimensional unit hyper-cube if
 <span class="math inline">\(\chi^{2}_{0}(d) &gt; \chi^{2}_{\alpha, k^{d}-1}\)</span> or if the p-value
 <span class="math inline">\(P\{\chi^{2}_{k^{d}-1} &gt; \chi^{2}_{0}(d)\}\)</span> is less than <span class="math inline">\(\alpha\)</span>.</li>
 </ol>
-<p><span class="citation">(<a href="#ref-law2007simulation" role="doc-biblioref">Law 2007</a>)</span> provides an algorithm for computing
+<p><span class="citation">(<a href="#ref-law2007simulation">Law 2007</a>)</span> provides an algorithm for computing
 <span class="math inline">\(c_{j_{1}, j_{2}, \cdots, j_{d}}\)</span>. This test examines how uniformly the random numbers
 fill-up the multi-dimensional space. This is a very important property
 when applying simulation to the evaluation of multi-dimensional
@@ -1028,7 +1043,7 @@ D^{-}_{n} &amp; = \underset{1 \leq i \leq n}{\max} \Bigl\lbrace x_{(i)} - \frac{
 \]</span>
 Thus, we have that</p>
 <p><span class="math display">\[D_{n} = \max \lbrace D^{+}_{n}, D^{-}_{n} \rbrace = \max \lbrace 0.038, 0.108 \rbrace = 0.108\]</span>
-Referring to Table <a href="appStatTables.html#tab:ksValues">E.5</a> and using the approximation for sample sizes greater
+Referring to Table <a href="appStatTables.html#tab:ksValues">F.5</a> and using the approximation for sample sizes greater
 than 35, we have that <span class="math inline">\(D_{0.05} \approx 1.36/\sqrt{n}\)</span>. Thus,
 <span class="math inline">\(D_{0.05} \approx 1.36/\sqrt{100} = 0.136\)</span>. Since <span class="math inline">\(D_{n} &lt; D_{0.05}\)</span>, we
 would not reject the hypothesis that the data is uniformly distribution
@@ -1039,8 +1054,8 @@ statistical software <span class="math inline">\(R\)</span>. Assuming that the f
 contains the data for this example, then the following R commands will
 perform the test:<br />
 </p>
-<div class="sourceCode" id="cb298"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb298-1"><a href="appdistfittestU01.html#cb298-1" aria-hidden="true" tabindex="-1"></a>data <span class="ot">=</span> <span class="fu">scan</span>(<span class="at">file=</span><span class="st">&quot;data/AppDistFitting/u01data.txt&quot;</span>) <span class="co"># read in the file</span></span>
-<span id="cb298-2"><a href="appdistfittestU01.html#cb298-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ks.test</span>(data,<span class="st">&quot;punif&quot;</span>,<span class="dv">0</span>,<span class="dv">1</span>) <span class="co"># perform the test</span></span></code></pre></div>
+<div class="sourceCode" id="cb298"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb298-1"><a href="appdistfittestU01.html#cb298-1" tabindex="-1"></a>data <span class="ot">=</span> <span class="fu">scan</span>(<span class="at">file=</span><span class="st">&quot;data/AppDistFitting/u01data.txt&quot;</span>) <span class="co"># read in the file</span></span>
+<span id="cb298-2"><a href="appdistfittestU01.html#cb298-2" tabindex="-1"></a><span class="fu">ks.test</span>(data,<span class="st">&quot;punif&quot;</span>,<span class="dv">0</span>,<span class="dv">1</span>) <span class="co"># perform the test</span></span></code></pre></div>
 <pre><code>## 
 ##  Asymptotic one-sample Kolmogorov-Smirnov test
 ## 
@@ -1070,7 +1085,7 @@ band, we can conclude that the data are likely independent observations.</p>
 Figure B.28: Autocorrelation Plot for u01data.txt Data Set
 </p>
 </div>
-<div class="sourceCode" id="cb300"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb300-1"><a href="appdistfittestU01.html#cb300-1" aria-hidden="true" tabindex="-1"></a>rho</span></code></pre></div>
+<div class="sourceCode" id="cb300"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb300-1"><a href="appdistfittestU01.html#cb300-1" tabindex="-1"></a>rho</span></code></pre></div>
 <pre><code>## 
 ## Autocorrelations of series &#39;data&#39;, by lag
 ## 
@@ -1145,7 +1160,7 @@ digits that appear between repetitions of a particular digit and uses a
 K-S test statistic to compare with the expected number of gaps. The
 poker test examines for independence based on the frequency with which
 certain digits are repeated in a series of numbers, (e.g. pairs, three
-of a kind, etc.). <span class="citation">Banks et al. (<a href="#ref-banks2005discreteevent" role="doc-biblioref">2005</a>)</span> discusses how to perform these
+of a kind, etc.). <span class="citation">Banks et al. (<a href="#ref-banks2005discreteevent">2005</a>)</span> discusses how to perform these
 tests.</p>
 <p>Does all this testing really matter? Yes! You should always know what pseudo-random number
 generator you are using within your simulation models and you should always know if the generator has passed a battery of statistical tests. The

@@ -6,7 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>2.1 Random Number Generator | Simulation Modeling using the Kotlin Simulation Library (KSL)</title>
   <meta name="description" content="A book that illustrates the basics of using the KSL. The output format for this book is bookdown::gitbook." />
-  <meta name="generator" content="bookdown 0.30 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.34 and GitBook 2.6.7" />
 
   <meta property="og:title" content="2.1 Random Number Generator | Simulation Modeling using the Kotlin Simulation Library (KSL)" />
   <meta property="og:type" content="book" />
@@ -23,7 +23,7 @@
 <meta name="author" content="Manuel D. Rossetti" />
 
 
-<meta name="date" content="2023-01-16" />
+<meta name="date" content="2023-08-22" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -121,6 +121,10 @@ code span.vs { color: #4070a0; } /* VerbatimString */
 code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
 </style>
 
+<style type="text/css">
+  
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+</style>
 <style type="text/css">
 /* Used with Pandoc 2.11+ new --citeproc when CSL is used */
 div.csl-bib-body { }
@@ -388,12 +392,23 @@ div.csl-indent {
 </ul></li>
 <li class="chapter" data-level="C.5" data-path="exercises-9.html"><a href="exercises-9.html"><i class="fa fa-check"></i><b>C.5</b> Exercises</a></li>
 </ul></li>
-<li class="chapter" data-level="D" data-path="distributions.html"><a href="distributions.html"><i class="fa fa-check"></i><b>D</b> Distributions</a>
+<li class="chapter" data-level="D" data-path="appUtilities.html"><a href="appUtilities.html"><i class="fa fa-check"></i><b>D</b> KSL Utility Packages</a>
 <ul>
-<li class="chapter" data-level="D.1" data-path="appDiscreteDistributions.html"><a href="appDiscreteDistributions.html"><i class="fa fa-check"></i><b>D.1</b> Discrete Distrbutions</a></li>
-<li class="chapter" data-level="D.2" data-path="appContinuousDistributions.html"><a href="appContinuousDistributions.html"><i class="fa fa-check"></i><b>D.2</b> Continuous Distrbutions</a></li>
+<li class="chapter" data-level="D.1" data-path="the-outputdirectory-class-and-ksl-object.html"><a href="the-outputdirectory-class-and-ksl-object.html"><i class="fa fa-check"></i><b>D.1</b> The <code>OutputDirectory</code> Class and <code>KSL</code> Object</a></li>
+<li class="chapter" data-level="D.2" data-path="logging-options.html"><a href="logging-options.html"><i class="fa fa-check"></i><b>D.2</b> Logging Options</a></li>
+<li class="chapter" data-level="D.3" data-path="the-kslfileutil-object.html"><a href="the-kslfileutil-object.html"><i class="fa fa-check"></i><b>D.3</b> The <code>KSLFileUtil</code> Object</a></li>
+<li class="chapter" data-level="D.4" data-path="csv-excel-and-tabular-data-files.html"><a href="csv-excel-and-tabular-data-files.html"><i class="fa fa-check"></i><b>D.4</b> CSV, Excel, and Tabular Data Files</a></li>
+<li class="chapter" data-level="D.5" data-path="the-dataframeutil-object.html"><a href="the-dataframeutil-object.html"><i class="fa fa-check"></i><b>D.5</b> The <code>DataFrameUtil</code> Object</a></li>
+<li class="chapter" data-level="D.6" data-path="ksl-database-utilities.html"><a href="ksl-database-utilities.html"><i class="fa fa-check"></i><b>D.6</b> KSL Database Utilities</a></li>
+<li class="chapter" data-level="D.7" data-path="appUtilitiesArrays.html"><a href="appUtilitiesArrays.html"><i class="fa fa-check"></i><b>D.7</b> Array Utilities</a></li>
+<li class="chapter" data-level="D.8" data-path="appUtilitiesMisc.html"><a href="appUtilitiesMisc.html"><i class="fa fa-check"></i><b>D.8</b> Miscellaneous Utilities</a></li>
 </ul></li>
-<li class="chapter" data-level="E" data-path="appStatTables.html"><a href="appStatTables.html"><i class="fa fa-check"></i><b>E</b> Statistical Tables</a></li>
+<li class="chapter" data-level="E" data-path="distributions.html"><a href="distributions.html"><i class="fa fa-check"></i><b>E</b> Distributions</a>
+<ul>
+<li class="chapter" data-level="E.1" data-path="appDiscreteDistributions.html"><a href="appDiscreteDistributions.html"><i class="fa fa-check"></i><b>E.1</b> Discrete Distrbutions</a></li>
+<li class="chapter" data-level="E.2" data-path="appContinuousDistributions.html"><a href="appContinuousDistributions.html"><i class="fa fa-check"></i><b>E.2</b> Continuous Distrbutions</a></li>
+</ul></li>
+<li class="chapter" data-level="F" data-path="appStatTables.html"><a href="appStatTables.html"><i class="fa fa-check"></i><b>F</b> Statistical Tables</a></li>
 <li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
 <li class="divider"></li>
 <li><a href="https://bookdown.org" target="_blank">Published with bookdown</a></li>
@@ -421,7 +436,7 @@ div.csl-indent {
 within the KSL. The purpose is to present how these concepts can be put into
 practice.</p>
 <p>The random number generator used within the KSL is described in
-<span class="citation">L’Ecuyer, Simard, and Kelton (<a href="#ref-ecuyer2002an" role="doc-biblioref">2002</a>)</span> and has excellent statistical properties. It is based on the
+<span class="citation">L’Ecuyer, Simard, and Kelton (<a href="#ref-ecuyer2002an">2002</a>)</span> and has excellent statistical properties. It is based on the
 combination of two multiple recursive generators resulting in a period
 of approximately <span class="math inline">\(3.1 \times 10^{57}\)</span>. This is the same generator that
 is now used in many commercial simulation packages. The generator used in the KSL is
@@ -560,7 +575,7 @@ initially generated value, <span class="math inline">\(U_{i}\)</span>, will star
 <p>While it is beyond the scope of this document to explore the theoretical
 underpinnings of this generator, it is important to note that the generator allows multiple independent streams to be defined along with sub-streams.</p>
 <p>The fantastic thing about this generator is the sheer size of the
-period. Based on their analysis, <span class="citation">L’Ecuyer, Simard, and Kelton (<a href="#ref-ecuyer2002an" role="doc-biblioref">2002</a>)</span> state that it will be
+period. Based on their analysis, <span class="citation">L’Ecuyer, Simard, and Kelton (<a href="#ref-ecuyer2002an">2002</a>)</span> state that it will be
 “approximately 219 years into the future before average desktop
 computers will have the capability to exhaust the cycle of the
 (generator) in a year of continuous computing.” In addition to the
@@ -661,20 +676,20 @@ the streams. In other words, this method should act as if <code>nextRNStream()</
 <h3><span class="header-section-number">2.1.2</span> Creating and Using Streams<a href="ch2generator.html#ch2creatingStreams" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>To create a random number stream, the user must utilize an instance of <code>RNStreamProvider.</code> This process is illustrated in in the following code. This code creates two instances of <code>RNStreamProvider</code> and gets the first stream from each instance. The instances of <code>RNStreamProvider</code> use the exact same underlying default seeds. Thus, they produce <em>exactly the same</em> sequence of streams.</p>
 
-<div class="sourceCode" id="cb1"><pre class="sourceCode kt"><code class="sourceCode kotlin"><span id="cb1-1"><a href="ch2generator.html#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="kw">fun</span> <span class="fu">main</span><span class="op">()</span> <span class="op">{</span></span>
-<span id="cb1-2"><a href="ch2generator.html#cb1-2" aria-hidden="true" tabindex="-1"></a>    <span class="co">// make a provider for creating streams</span></span>
-<span id="cb1-3"><a href="ch2generator.html#cb1-3" aria-hidden="true" tabindex="-1"></a>    <span class="kw">val</span> <span class="va">p1</span> <span class="op">=</span> RNStreamProvider<span class="op">()</span></span>
-<span id="cb1-4"><a href="ch2generator.html#cb1-4" aria-hidden="true" tabindex="-1"></a>    <span class="co">// get the first stream from the provider</span></span>
-<span id="cb1-5"><a href="ch2generator.html#cb1-5" aria-hidden="true" tabindex="-1"></a>    <span class="kw">val</span> <span class="va">p1s1</span> <span class="op">=</span> p1<span class="op">.</span>nextRNStream<span class="op">()</span></span>
-<span id="cb1-6"><a href="ch2generator.html#cb1-6" aria-hidden="true" tabindex="-1"></a>    <span class="co">// make another provider, the providers are identical</span></span>
-<span id="cb1-7"><a href="ch2generator.html#cb1-7" aria-hidden="true" tabindex="-1"></a>    <span class="kw">val</span> <span class="va">p2</span> <span class="op">=</span> RNStreamProvider<span class="op">()</span></span>
-<span id="cb1-8"><a href="ch2generator.html#cb1-8" aria-hidden="true" tabindex="-1"></a>    <span class="co">// thus the first streams returned are identical</span></span>
-<span id="cb1-9"><a href="ch2generator.html#cb1-9" aria-hidden="true" tabindex="-1"></a>    <span class="kw">val</span> <span class="va">p2s1</span> <span class="op">=</span> p2<span class="op">.</span>nextRNStream<span class="op">()</span></span>
-<span id="cb1-10"><a href="ch2generator.html#cb1-10" aria-hidden="true" tabindex="-1"></a>    System<span class="op">.</span><span class="kw">out</span><span class="op">.</span>printf<span class="op">(</span><span class="st">&quot;%3s %15s %15s %n&quot;</span><span class="op">,</span> <span class="st">&quot;n&quot;</span><span class="op">,</span> <span class="st">&quot;p1s1&quot;</span><span class="op">,</span> <span class="st">&quot;p2s2&quot;</span><span class="op">)</span></span>
-<span id="cb1-11"><a href="ch2generator.html#cb1-11" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> <span class="op">(</span>i <span class="kw">in</span> <span class="fl">1..10</span><span class="op">)</span> <span class="op">{</span></span>
-<span id="cb1-12"><a href="ch2generator.html#cb1-12" aria-hidden="true" tabindex="-1"></a>        System<span class="op">.</span><span class="kw">out</span><span class="op">.</span>printf<span class="op">(</span><span class="st">&quot;%3d %15f %15f %n&quot;</span><span class="op">,</span> i<span class="op">,</span> p1s1<span class="op">.</span>randU01<span class="op">(),</span> p2s1<span class="op">.</span>randU01<span class="op">())</span></span>
-<span id="cb1-13"><a href="ch2generator.html#cb1-13" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
-<span id="cb1-14"><a href="ch2generator.html#cb1-14" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
+<div class="sourceCode" id="cb1"><pre class="sourceCode kt"><code class="sourceCode kotlin"><span id="cb1-1"><a href="ch2generator.html#cb1-1" tabindex="-1"></a><span class="kw">fun</span> <span class="fu">main</span><span class="op">()</span> <span class="op">{</span></span>
+<span id="cb1-2"><a href="ch2generator.html#cb1-2" tabindex="-1"></a>    <span class="co">// make a provider for creating streams</span></span>
+<span id="cb1-3"><a href="ch2generator.html#cb1-3" tabindex="-1"></a>    <span class="kw">val</span> <span class="va">p1</span> <span class="op">=</span> RNStreamProvider<span class="op">()</span></span>
+<span id="cb1-4"><a href="ch2generator.html#cb1-4" tabindex="-1"></a>    <span class="co">// get the first stream from the provider</span></span>
+<span id="cb1-5"><a href="ch2generator.html#cb1-5" tabindex="-1"></a>    <span class="kw">val</span> <span class="va">p1s1</span> <span class="op">=</span> p1<span class="op">.</span>nextRNStream<span class="op">()</span></span>
+<span id="cb1-6"><a href="ch2generator.html#cb1-6" tabindex="-1"></a>    <span class="co">// make another provider, the providers are identical</span></span>
+<span id="cb1-7"><a href="ch2generator.html#cb1-7" tabindex="-1"></a>    <span class="kw">val</span> <span class="va">p2</span> <span class="op">=</span> RNStreamProvider<span class="op">()</span></span>
+<span id="cb1-8"><a href="ch2generator.html#cb1-8" tabindex="-1"></a>    <span class="co">// thus the first streams returned are identical</span></span>
+<span id="cb1-9"><a href="ch2generator.html#cb1-9" tabindex="-1"></a>    <span class="kw">val</span> <span class="va">p2s1</span> <span class="op">=</span> p2<span class="op">.</span>nextRNStream<span class="op">()</span></span>
+<span id="cb1-10"><a href="ch2generator.html#cb1-10" tabindex="-1"></a>    System<span class="op">.</span><span class="kw">out</span><span class="op">.</span>printf<span class="op">(</span><span class="st">&quot;%3s %15s %15s %n&quot;</span><span class="op">,</span> <span class="st">&quot;n&quot;</span><span class="op">,</span> <span class="st">&quot;p1s1&quot;</span><span class="op">,</span> <span class="st">&quot;p2s2&quot;</span><span class="op">)</span></span>
+<span id="cb1-11"><a href="ch2generator.html#cb1-11" tabindex="-1"></a>    <span class="cf">for</span> <span class="op">(</span>i <span class="kw">in</span> <span class="fl">1..10</span><span class="op">)</span> <span class="op">{</span></span>
+<span id="cb1-12"><a href="ch2generator.html#cb1-12" tabindex="-1"></a>        System<span class="op">.</span><span class="kw">out</span><span class="op">.</span>printf<span class="op">(</span><span class="st">&quot;%3d %15f %15f %n&quot;</span><span class="op">,</span> i<span class="op">,</span> p1s1<span class="op">.</span>randU01<span class="op">(),</span> p2s1<span class="op">.</span>randU01<span class="op">())</span></span>
+<span id="cb1-13"><a href="ch2generator.html#cb1-13" tabindex="-1"></a>    <span class="op">}</span></span>
+<span id="cb1-14"><a href="ch2generator.html#cb1-14" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
 <p>Thus, in the following code output, the randomly generated values are exactly the same for the two streams.</p>
 <pre><code>  n            p1s1            p2s2 
   1        0.728510        0.728510 
@@ -702,33 +717,33 @@ then generates three random numbers. The stream is then advanced and three new r
 the stream is reset to its starting (initial seed) and it then repeats the original values. Finally, the a new stream
 is created via <code>KSLRandom.nextRNStream()</code> and then used to generate new random numbers. From a conceptual standpoint,
 each stream contains an independent sequence of random numbers from any other stream (unless of course they are made from different providers). They are conceptually infinite and independent due to their enormous periods.</p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode kt"><code class="sourceCode kotlin"><span id="cb3-1"><a href="ch2generator.html#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="kw">fun</span> <span class="fu">main</span><span class="op">()</span> <span class="op">{</span></span>
-<span id="cb3-2"><a href="ch2generator.html#cb3-2" aria-hidden="true" tabindex="-1"></a>    <span class="kw">val</span> <span class="va">s1</span> <span class="op">=</span> KSLRandom<span class="op">.</span>defaultRNStream<span class="op">()</span></span>
-<span id="cb3-3"><a href="ch2generator.html#cb3-3" aria-hidden="true" tabindex="-1"></a>    println<span class="op">(</span><span class="st">&quot;Default stream is stream 1&quot;</span><span class="op">)</span></span>
-<span id="cb3-4"><a href="ch2generator.html#cb3-4" aria-hidden="true" tabindex="-1"></a>    println<span class="op">(</span><span class="st">&quot;Generate 3 random numbers&quot;</span><span class="op">)</span></span>
-<span id="cb3-5"><a href="ch2generator.html#cb3-5" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> <span class="op">(</span>i <span class="kw">in</span> <span class="fl">1..3</span><span class="op">)</span> <span class="op">{</span></span>
-<span id="cb3-6"><a href="ch2generator.html#cb3-6" aria-hidden="true" tabindex="-1"></a>        println<span class="op">(</span><span class="st">&quot;u = &quot;</span> <span class="op">+</span> s1<span class="op">.</span>randU01<span class="op">())</span></span>
-<span id="cb3-7"><a href="ch2generator.html#cb3-7" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
-<span id="cb3-8"><a href="ch2generator.html#cb3-8" aria-hidden="true" tabindex="-1"></a>    s1<span class="op">.</span>advanceToNextSubStream<span class="op">()</span></span>
-<span id="cb3-9"><a href="ch2generator.html#cb3-9" aria-hidden="true" tabindex="-1"></a>    println<span class="op">(</span><span class="st">&quot;Advance to next sub-stream and get some more random numbers&quot;</span><span class="op">)</span></span>
-<span id="cb3-10"><a href="ch2generator.html#cb3-10" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> <span class="op">(</span>i <span class="kw">in</span> <span class="fl">1..3</span><span class="op">)</span> <span class="op">{</span></span>
-<span id="cb3-11"><a href="ch2generator.html#cb3-11" aria-hidden="true" tabindex="-1"></a>        println<span class="op">(</span><span class="st">&quot;u = &quot;</span> <span class="op">+</span> s1<span class="op">.</span>randU01<span class="op">())</span></span>
-<span id="cb3-12"><a href="ch2generator.html#cb3-12" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
-<span id="cb3-13"><a href="ch2generator.html#cb3-13" aria-hidden="true" tabindex="-1"></a>    println<span class="op">(</span><span class="st">&quot;Notice that they are different from the first 3.&quot;</span><span class="op">)</span></span>
-<span id="cb3-14"><a href="ch2generator.html#cb3-14" aria-hidden="true" tabindex="-1"></a>    s1<span class="op">.</span>resetStartStream<span class="op">()</span></span>
-<span id="cb3-15"><a href="ch2generator.html#cb3-15" aria-hidden="true" tabindex="-1"></a>    println<span class="op">(</span><span class="st">&quot;Reset the stream to the beginning of its sequence&quot;</span><span class="op">)</span></span>
-<span id="cb3-16"><a href="ch2generator.html#cb3-16" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> <span class="op">(</span>i <span class="kw">in</span> <span class="fl">1..3</span><span class="op">)</span> <span class="op">{</span></span>
-<span id="cb3-17"><a href="ch2generator.html#cb3-17" aria-hidden="true" tabindex="-1"></a>        println<span class="op">(</span><span class="st">&quot;u = &quot;</span> <span class="op">+</span> s1<span class="op">.</span>randU01<span class="op">())</span></span>
-<span id="cb3-18"><a href="ch2generator.html#cb3-18" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
-<span id="cb3-19"><a href="ch2generator.html#cb3-19" aria-hidden="true" tabindex="-1"></a>    println<span class="op">(</span><span class="st">&quot;Notice that they are the same as the first 3.&quot;</span><span class="op">)</span></span>
-<span id="cb3-20"><a href="ch2generator.html#cb3-20" aria-hidden="true" tabindex="-1"></a>    println<span class="op">(</span><span class="st">&quot;Get another random number stream&quot;</span><span class="op">)</span></span>
-<span id="cb3-21"><a href="ch2generator.html#cb3-21" aria-hidden="true" tabindex="-1"></a>    <span class="kw">val</span> <span class="va">s2</span> <span class="op">=</span> KSLRandom<span class="op">.</span>nextRNStream<span class="op">()</span></span>
-<span id="cb3-22"><a href="ch2generator.html#cb3-22" aria-hidden="true" tabindex="-1"></a>    println<span class="op">(</span><span class="st">&quot;2nd stream&quot;</span><span class="op">)</span></span>
-<span id="cb3-23"><a href="ch2generator.html#cb3-23" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> <span class="op">(</span>i <span class="kw">in</span> <span class="fl">1..3</span><span class="op">)</span> <span class="op">{</span></span>
-<span id="cb3-24"><a href="ch2generator.html#cb3-24" aria-hidden="true" tabindex="-1"></a>        println<span class="op">(</span><span class="st">&quot;u = &quot;</span> <span class="op">+</span> s2<span class="op">.</span>randU01<span class="op">())</span></span>
-<span id="cb3-25"><a href="ch2generator.html#cb3-25" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
-<span id="cb3-26"><a href="ch2generator.html#cb3-26" aria-hidden="true" tabindex="-1"></a>    println<span class="op">(</span><span class="st">&quot;Notice that they are different from the first 3.&quot;</span><span class="op">)</span></span>
-<span id="cb3-27"><a href="ch2generator.html#cb3-27" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
+<div class="sourceCode" id="cb3"><pre class="sourceCode kt"><code class="sourceCode kotlin"><span id="cb3-1"><a href="ch2generator.html#cb3-1" tabindex="-1"></a><span class="kw">fun</span> <span class="fu">main</span><span class="op">()</span> <span class="op">{</span></span>
+<span id="cb3-2"><a href="ch2generator.html#cb3-2" tabindex="-1"></a>    <span class="kw">val</span> <span class="va">s1</span> <span class="op">=</span> KSLRandom<span class="op">.</span>defaultRNStream<span class="op">()</span></span>
+<span id="cb3-3"><a href="ch2generator.html#cb3-3" tabindex="-1"></a>    println<span class="op">(</span><span class="st">&quot;Default stream is stream 1&quot;</span><span class="op">)</span></span>
+<span id="cb3-4"><a href="ch2generator.html#cb3-4" tabindex="-1"></a>    println<span class="op">(</span><span class="st">&quot;Generate 3 random numbers&quot;</span><span class="op">)</span></span>
+<span id="cb3-5"><a href="ch2generator.html#cb3-5" tabindex="-1"></a>    <span class="cf">for</span> <span class="op">(</span>i <span class="kw">in</span> <span class="fl">1..3</span><span class="op">)</span> <span class="op">{</span></span>
+<span id="cb3-6"><a href="ch2generator.html#cb3-6" tabindex="-1"></a>        println<span class="op">(</span><span class="st">&quot;u = &quot;</span> <span class="op">+</span> s1<span class="op">.</span>randU01<span class="op">())</span></span>
+<span id="cb3-7"><a href="ch2generator.html#cb3-7" tabindex="-1"></a>    <span class="op">}</span></span>
+<span id="cb3-8"><a href="ch2generator.html#cb3-8" tabindex="-1"></a>    s1<span class="op">.</span>advanceToNextSubStream<span class="op">()</span></span>
+<span id="cb3-9"><a href="ch2generator.html#cb3-9" tabindex="-1"></a>    println<span class="op">(</span><span class="st">&quot;Advance to next sub-stream and get some more random numbers&quot;</span><span class="op">)</span></span>
+<span id="cb3-10"><a href="ch2generator.html#cb3-10" tabindex="-1"></a>    <span class="cf">for</span> <span class="op">(</span>i <span class="kw">in</span> <span class="fl">1..3</span><span class="op">)</span> <span class="op">{</span></span>
+<span id="cb3-11"><a href="ch2generator.html#cb3-11" tabindex="-1"></a>        println<span class="op">(</span><span class="st">&quot;u = &quot;</span> <span class="op">+</span> s1<span class="op">.</span>randU01<span class="op">())</span></span>
+<span id="cb3-12"><a href="ch2generator.html#cb3-12" tabindex="-1"></a>    <span class="op">}</span></span>
+<span id="cb3-13"><a href="ch2generator.html#cb3-13" tabindex="-1"></a>    println<span class="op">(</span><span class="st">&quot;Notice that they are different from the first 3.&quot;</span><span class="op">)</span></span>
+<span id="cb3-14"><a href="ch2generator.html#cb3-14" tabindex="-1"></a>    s1<span class="op">.</span>resetStartStream<span class="op">()</span></span>
+<span id="cb3-15"><a href="ch2generator.html#cb3-15" tabindex="-1"></a>    println<span class="op">(</span><span class="st">&quot;Reset the stream to the beginning of its sequence&quot;</span><span class="op">)</span></span>
+<span id="cb3-16"><a href="ch2generator.html#cb3-16" tabindex="-1"></a>    <span class="cf">for</span> <span class="op">(</span>i <span class="kw">in</span> <span class="fl">1..3</span><span class="op">)</span> <span class="op">{</span></span>
+<span id="cb3-17"><a href="ch2generator.html#cb3-17" tabindex="-1"></a>        println<span class="op">(</span><span class="st">&quot;u = &quot;</span> <span class="op">+</span> s1<span class="op">.</span>randU01<span class="op">())</span></span>
+<span id="cb3-18"><a href="ch2generator.html#cb3-18" tabindex="-1"></a>    <span class="op">}</span></span>
+<span id="cb3-19"><a href="ch2generator.html#cb3-19" tabindex="-1"></a>    println<span class="op">(</span><span class="st">&quot;Notice that they are the same as the first 3.&quot;</span><span class="op">)</span></span>
+<span id="cb3-20"><a href="ch2generator.html#cb3-20" tabindex="-1"></a>    println<span class="op">(</span><span class="st">&quot;Get another random number stream&quot;</span><span class="op">)</span></span>
+<span id="cb3-21"><a href="ch2generator.html#cb3-21" tabindex="-1"></a>    <span class="kw">val</span> <span class="va">s2</span> <span class="op">=</span> KSLRandom<span class="op">.</span>nextRNStream<span class="op">()</span></span>
+<span id="cb3-22"><a href="ch2generator.html#cb3-22" tabindex="-1"></a>    println<span class="op">(</span><span class="st">&quot;2nd stream&quot;</span><span class="op">)</span></span>
+<span id="cb3-23"><a href="ch2generator.html#cb3-23" tabindex="-1"></a>    <span class="cf">for</span> <span class="op">(</span>i <span class="kw">in</span> <span class="fl">1..3</span><span class="op">)</span> <span class="op">{</span></span>
+<span id="cb3-24"><a href="ch2generator.html#cb3-24" tabindex="-1"></a>        println<span class="op">(</span><span class="st">&quot;u = &quot;</span> <span class="op">+</span> s2<span class="op">.</span>randU01<span class="op">())</span></span>
+<span id="cb3-25"><a href="ch2generator.html#cb3-25" tabindex="-1"></a>    <span class="op">}</span></span>
+<span id="cb3-26"><a href="ch2generator.html#cb3-26" tabindex="-1"></a>    println<span class="op">(</span><span class="st">&quot;Notice that they are different from the first 3.&quot;</span><span class="op">)</span></span>
+<span id="cb3-27"><a href="ch2generator.html#cb3-27" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
 <p>The resulting output from this code is as follows. Again, the methods of the <code>RNStreamControlIfc</code> interface that permit movement within a stream are extremely useful for controlling the randomness associated with a simulation.</p>
 <pre><code>Default stream is stream 1
 Generate 3 random numbers
@@ -755,39 +770,39 @@ Notice that they are different from the first 3.</code></pre>
 <div id="ch2crn" class="section level3 hasAnchor" number="2.1.3">
 <h3><span class="header-section-number">2.1.3</span> Common Random Numbers<a href="ch2generator.html#ch2crn" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>Common random numbers (CRN) is a Monte Carlo method that has different experiments utilize the same random numbers. CRN is a variance reduction technique that allows the experimenter to block out the effect of the random numbers used in the experiment. To facilitate the use of common random numbers the KSL has the aforementioned stream control mechanism. One way to implement common random numbers is to use two instances of <code>RNStreamProvider</code> as was previously illustrated. In that case, the two providers produce the same sequence of streams and thus those streams can be used on the different experiments. An alternative method that does not require the use of two providers is to create a copy of the stream directly from the stream instance. The following code clones the stream instance.</p>
-<div class="sourceCode" id="cb5"><pre class="sourceCode kt"><code class="sourceCode kotlin"><span id="cb5-1"><a href="ch2generator.html#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="kw">fun</span> <span class="fu">main</span><span class="op">()</span> <span class="op">{</span></span>
-<span id="cb5-2"><a href="ch2generator.html#cb5-2" aria-hidden="true" tabindex="-1"></a>    <span class="co">// get the default stream</span></span>
-<span id="cb5-3"><a href="ch2generator.html#cb5-3" aria-hidden="true" tabindex="-1"></a>    <span class="kw">val</span> <span class="va">s</span> <span class="op">=</span> KSLRandom<span class="op">.</span>defaultRNStream<span class="op">()</span></span>
-<span id="cb5-4"><a href="ch2generator.html#cb5-4" aria-hidden="true" tabindex="-1"></a>    <span class="co">// make a clone of the stream</span></span>
-<span id="cb5-5"><a href="ch2generator.html#cb5-5" aria-hidden="true" tabindex="-1"></a>    <span class="kw">val</span> <span class="va">clone</span> <span class="op">=</span> s<span class="op">.</span>instance<span class="op">()</span></span>
-<span id="cb5-6"><a href="ch2generator.html#cb5-6" aria-hidden="true" tabindex="-1"></a>    System<span class="op">.</span><span class="kw">out</span><span class="op">.</span>printf<span class="op">(</span><span class="st">&quot;%3s %15s %15s %n&quot;</span><span class="op">,</span> <span class="st">&quot;n&quot;</span><span class="op">,</span> <span class="st">&quot;U&quot;</span><span class="op">,</span> <span class="st">&quot;U again&quot;</span><span class="op">)</span></span>
-<span id="cb5-7"><a href="ch2generator.html#cb5-7" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> <span class="op">(</span>i <span class="kw">in</span> <span class="fl">1..3</span><span class="op">)</span> <span class="op">{</span></span>
-<span id="cb5-8"><a href="ch2generator.html#cb5-8" aria-hidden="true" tabindex="-1"></a>        System<span class="op">.</span><span class="kw">out</span><span class="op">.</span>printf<span class="op">(</span><span class="st">&quot;%3d %15f %15f %n&quot;</span><span class="op">,</span> i<span class="op">,</span> s<span class="op">.</span>randU01<span class="op">(),</span> clone<span class="op">.</span>randU01<span class="op">())</span></span>
-<span id="cb5-9"><a href="ch2generator.html#cb5-9" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
-<span id="cb5-10"><a href="ch2generator.html#cb5-10" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
+<div class="sourceCode" id="cb5"><pre class="sourceCode kt"><code class="sourceCode kotlin"><span id="cb5-1"><a href="ch2generator.html#cb5-1" tabindex="-1"></a><span class="kw">fun</span> <span class="fu">main</span><span class="op">()</span> <span class="op">{</span></span>
+<span id="cb5-2"><a href="ch2generator.html#cb5-2" tabindex="-1"></a>    <span class="co">// get the default stream</span></span>
+<span id="cb5-3"><a href="ch2generator.html#cb5-3" tabindex="-1"></a>    <span class="kw">val</span> <span class="va">s</span> <span class="op">=</span> KSLRandom<span class="op">.</span>defaultRNStream<span class="op">()</span></span>
+<span id="cb5-4"><a href="ch2generator.html#cb5-4" tabindex="-1"></a>    <span class="co">// make a clone of the stream</span></span>
+<span id="cb5-5"><a href="ch2generator.html#cb5-5" tabindex="-1"></a>    <span class="kw">val</span> <span class="va">clone</span> <span class="op">=</span> s<span class="op">.</span>instance<span class="op">()</span></span>
+<span id="cb5-6"><a href="ch2generator.html#cb5-6" tabindex="-1"></a>    System<span class="op">.</span><span class="kw">out</span><span class="op">.</span>printf<span class="op">(</span><span class="st">&quot;%3s %15s %15s %n&quot;</span><span class="op">,</span> <span class="st">&quot;n&quot;</span><span class="op">,</span> <span class="st">&quot;U&quot;</span><span class="op">,</span> <span class="st">&quot;U again&quot;</span><span class="op">)</span></span>
+<span id="cb5-7"><a href="ch2generator.html#cb5-7" tabindex="-1"></a>    <span class="cf">for</span> <span class="op">(</span>i <span class="kw">in</span> <span class="fl">1..3</span><span class="op">)</span> <span class="op">{</span></span>
+<span id="cb5-8"><a href="ch2generator.html#cb5-8" tabindex="-1"></a>        System<span class="op">.</span><span class="kw">out</span><span class="op">.</span>printf<span class="op">(</span><span class="st">&quot;%3d %15f %15f %n&quot;</span><span class="op">,</span> i<span class="op">,</span> s<span class="op">.</span>randU01<span class="op">(),</span> clone<span class="op">.</span>randU01<span class="op">())</span></span>
+<span id="cb5-9"><a href="ch2generator.html#cb5-9" tabindex="-1"></a>    <span class="op">}</span></span>
+<span id="cb5-10"><a href="ch2generator.html#cb5-10" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
 <p>Since the instances have the same underlying state, they produce the same random numbers. Please note that the cloned stream instance is not produced by the underlying <code>RNStreamProvider</code> and thus it is not part of the set of streams managed or controlled by the provider.</p>
 <pre><code>  n               U         U again 
   1        0.127011        0.127011 
   2        0.318528        0.318528 
   3        0.309186        0.309186 </code></pre>
 <p>An alternative method is to just use the <code>resetStartStream()</code> method of the stream to reset the stream to the desired location in its sequence and then reproduce the random numbers. This is illustrated in the following code.</p>
-<div class="sourceCode" id="cb7"><pre class="sourceCode kt"><code class="sourceCode kotlin"><span id="cb7-1"><a href="ch2generator.html#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="kw">fun</span> <span class="fu">main</span><span class="op">()</span> <span class="op">{</span></span>
-<span id="cb7-2"><a href="ch2generator.html#cb7-2" aria-hidden="true" tabindex="-1"></a>    <span class="kw">val</span> <span class="va">s</span> <span class="op">=</span> KSLRandom<span class="op">.</span>defaultRNStream<span class="op">()</span></span>
-<span id="cb7-3"><a href="ch2generator.html#cb7-3" aria-hidden="true" tabindex="-1"></a>    <span class="co">// generate regular</span></span>
-<span id="cb7-4"><a href="ch2generator.html#cb7-4" aria-hidden="true" tabindex="-1"></a>    System<span class="op">.</span><span class="kw">out</span><span class="op">.</span>printf<span class="op">(</span><span class="st">&quot;%3s %15s %n&quot;</span><span class="op">,</span> <span class="st">&quot;n&quot;</span><span class="op">,</span> <span class="st">&quot;U&quot;</span><span class="op">)</span></span>
-<span id="cb7-5"><a href="ch2generator.html#cb7-5" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> <span class="op">(</span>i <span class="kw">in</span> <span class="fl">1..3</span><span class="op">)</span> <span class="op">{</span></span>
-<span id="cb7-6"><a href="ch2generator.html#cb7-6" aria-hidden="true" tabindex="-1"></a>        <span class="kw">val</span> <span class="va">u</span> <span class="op">=</span> s<span class="op">.</span>randU01<span class="op">()</span></span>
-<span id="cb7-7"><a href="ch2generator.html#cb7-7" aria-hidden="true" tabindex="-1"></a>        System<span class="op">.</span><span class="kw">out</span><span class="op">.</span>printf<span class="op">(</span><span class="st">&quot;%3d %15f %n&quot;</span><span class="op">,</span> i<span class="op">,</span> u<span class="op">)</span></span>
-<span id="cb7-8"><a href="ch2generator.html#cb7-8" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
-<span id="cb7-9"><a href="ch2generator.html#cb7-9" aria-hidden="true" tabindex="-1"></a>    <span class="co">// reset the stream and generate again</span></span>
-<span id="cb7-10"><a href="ch2generator.html#cb7-10" aria-hidden="true" tabindex="-1"></a>    s<span class="op">.</span>resetStartStream<span class="op">()</span></span>
-<span id="cb7-11"><a href="ch2generator.html#cb7-11" aria-hidden="true" tabindex="-1"></a>    println<span class="op">()</span></span>
-<span id="cb7-12"><a href="ch2generator.html#cb7-12" aria-hidden="true" tabindex="-1"></a>    System<span class="op">.</span><span class="kw">out</span><span class="op">.</span>printf<span class="op">(</span><span class="st">&quot;%3s %15s %n&quot;</span><span class="op">,</span> <span class="st">&quot;n&quot;</span><span class="op">,</span> <span class="st">&quot;U again&quot;</span><span class="op">)</span></span>
-<span id="cb7-13"><a href="ch2generator.html#cb7-13" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> <span class="op">(</span>i <span class="kw">in</span> <span class="fl">1..3</span><span class="op">)</span> <span class="op">{</span></span>
-<span id="cb7-14"><a href="ch2generator.html#cb7-14" aria-hidden="true" tabindex="-1"></a>        <span class="kw">val</span> <span class="va">u</span> <span class="op">=</span> s<span class="op">.</span>randU01<span class="op">()</span></span>
-<span id="cb7-15"><a href="ch2generator.html#cb7-15" aria-hidden="true" tabindex="-1"></a>        System<span class="op">.</span><span class="kw">out</span><span class="op">.</span>printf<span class="op">(</span><span class="st">&quot;%3d %15f %n&quot;</span><span class="op">,</span> i<span class="op">,</span> u<span class="op">)</span></span>
-<span id="cb7-16"><a href="ch2generator.html#cb7-16" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
-<span id="cb7-17"><a href="ch2generator.html#cb7-17" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
+<div class="sourceCode" id="cb7"><pre class="sourceCode kt"><code class="sourceCode kotlin"><span id="cb7-1"><a href="ch2generator.html#cb7-1" tabindex="-1"></a><span class="kw">fun</span> <span class="fu">main</span><span class="op">()</span> <span class="op">{</span></span>
+<span id="cb7-2"><a href="ch2generator.html#cb7-2" tabindex="-1"></a>    <span class="kw">val</span> <span class="va">s</span> <span class="op">=</span> KSLRandom<span class="op">.</span>defaultRNStream<span class="op">()</span></span>
+<span id="cb7-3"><a href="ch2generator.html#cb7-3" tabindex="-1"></a>    <span class="co">// generate regular</span></span>
+<span id="cb7-4"><a href="ch2generator.html#cb7-4" tabindex="-1"></a>    System<span class="op">.</span><span class="kw">out</span><span class="op">.</span>printf<span class="op">(</span><span class="st">&quot;%3s %15s %n&quot;</span><span class="op">,</span> <span class="st">&quot;n&quot;</span><span class="op">,</span> <span class="st">&quot;U&quot;</span><span class="op">)</span></span>
+<span id="cb7-5"><a href="ch2generator.html#cb7-5" tabindex="-1"></a>    <span class="cf">for</span> <span class="op">(</span>i <span class="kw">in</span> <span class="fl">1..3</span><span class="op">)</span> <span class="op">{</span></span>
+<span id="cb7-6"><a href="ch2generator.html#cb7-6" tabindex="-1"></a>        <span class="kw">val</span> <span class="va">u</span> <span class="op">=</span> s<span class="op">.</span>randU01<span class="op">()</span></span>
+<span id="cb7-7"><a href="ch2generator.html#cb7-7" tabindex="-1"></a>        System<span class="op">.</span><span class="kw">out</span><span class="op">.</span>printf<span class="op">(</span><span class="st">&quot;%3d %15f %n&quot;</span><span class="op">,</span> i<span class="op">,</span> u<span class="op">)</span></span>
+<span id="cb7-8"><a href="ch2generator.html#cb7-8" tabindex="-1"></a>    <span class="op">}</span></span>
+<span id="cb7-9"><a href="ch2generator.html#cb7-9" tabindex="-1"></a>    <span class="co">// reset the stream and generate again</span></span>
+<span id="cb7-10"><a href="ch2generator.html#cb7-10" tabindex="-1"></a>    s<span class="op">.</span>resetStartStream<span class="op">()</span></span>
+<span id="cb7-11"><a href="ch2generator.html#cb7-11" tabindex="-1"></a>    println<span class="op">()</span></span>
+<span id="cb7-12"><a href="ch2generator.html#cb7-12" tabindex="-1"></a>    System<span class="op">.</span><span class="kw">out</span><span class="op">.</span>printf<span class="op">(</span><span class="st">&quot;%3s %15s %n&quot;</span><span class="op">,</span> <span class="st">&quot;n&quot;</span><span class="op">,</span> <span class="st">&quot;U again&quot;</span><span class="op">)</span></span>
+<span id="cb7-13"><a href="ch2generator.html#cb7-13" tabindex="-1"></a>    <span class="cf">for</span> <span class="op">(</span>i <span class="kw">in</span> <span class="fl">1..3</span><span class="op">)</span> <span class="op">{</span></span>
+<span id="cb7-14"><a href="ch2generator.html#cb7-14" tabindex="-1"></a>        <span class="kw">val</span> <span class="va">u</span> <span class="op">=</span> s<span class="op">.</span>randU01<span class="op">()</span></span>
+<span id="cb7-15"><a href="ch2generator.html#cb7-15" tabindex="-1"></a>        System<span class="op">.</span><span class="kw">out</span><span class="op">.</span>printf<span class="op">(</span><span class="st">&quot;%3d %15f %n&quot;</span><span class="op">,</span> i<span class="op">,</span> u<span class="op">)</span></span>
+<span id="cb7-16"><a href="ch2generator.html#cb7-16" tabindex="-1"></a>    <span class="op">}</span></span>
+<span id="cb7-17"><a href="ch2generator.html#cb7-17" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
 <p>Notice that the generated numbers are the same.</p>
 <pre><code>  n               U 
   1        0.127011 
@@ -803,18 +818,18 @@ Notice that they are different from the first 3.</code></pre>
 <div id="ch2antitheticStreams" class="section level3 hasAnchor" number="2.1.4">
 <h3><span class="header-section-number">2.1.4</span> Creating and Using Antithetic Streams<a href="ch2generator.html#ch2antitheticStreams" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>Recall that if a pseudo-random number is called <span class="math inline">\(U\)</span> then its antithetic value is <span class="math inline">\(1-U\)</span>. There are a number of methods to access antithetic values. The simplest is to create an antithetic instance from a given stream. This is illustrated is in the following code. Please note that the antithetic stream instance is not produced by the underlying <code>RNStreamProvider</code> and thus it is not part of the set of streams managed or controlled by the provider. The new instance process directly creates the new stream based on the current stream so that it has the same underling state and it is set to produce antithetic values.</p>
-<div class="sourceCode" id="cb9"><pre class="sourceCode kt"><code class="sourceCode kotlin"><span id="cb9-1"><a href="ch2generator.html#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="kw">fun</span> <span class="fu">main</span><span class="op">()</span> <span class="op">{</span></span>
-<span id="cb9-2"><a href="ch2generator.html#cb9-2" aria-hidden="true" tabindex="-1"></a>    <span class="co">// get the default stream</span></span>
-<span id="cb9-3"><a href="ch2generator.html#cb9-3" aria-hidden="true" tabindex="-1"></a>    <span class="kw">val</span> <span class="va">s</span> <span class="op">=</span> KSLRandom<span class="op">.</span>defaultRNStream<span class="op">()</span></span>
-<span id="cb9-4"><a href="ch2generator.html#cb9-4" aria-hidden="true" tabindex="-1"></a>    <span class="co">// make its antithetic version</span></span>
-<span id="cb9-5"><a href="ch2generator.html#cb9-5" aria-hidden="true" tabindex="-1"></a>    <span class="kw">val</span> <span class="va">ans</span> <span class="op">=</span> s<span class="op">.</span>antitheticInstance<span class="op">()</span></span>
-<span id="cb9-6"><a href="ch2generator.html#cb9-6" aria-hidden="true" tabindex="-1"></a>    System<span class="op">.</span><span class="kw">out</span><span class="op">.</span>printf<span class="op">(</span><span class="st">&quot;%3s %15s %15s %15s %n&quot;</span><span class="op">,</span> <span class="st">&quot;n&quot;</span><span class="op">,</span> <span class="st">&quot;U&quot;</span><span class="op">,</span> <span class="st">&quot;1-U&quot;</span><span class="op">,</span> <span class="st">&quot;sum&quot;</span><span class="op">)</span></span>
-<span id="cb9-7"><a href="ch2generator.html#cb9-7" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> <span class="op">(</span>i <span class="kw">in</span> <span class="fl">1..5</span><span class="op">)</span> <span class="op">{</span></span>
-<span id="cb9-8"><a href="ch2generator.html#cb9-8" aria-hidden="true" tabindex="-1"></a>        <span class="kw">val</span> <span class="va">u</span> <span class="op">=</span> s<span class="op">.</span>randU01<span class="op">()</span></span>
-<span id="cb9-9"><a href="ch2generator.html#cb9-9" aria-hidden="true" tabindex="-1"></a>        <span class="kw">val</span> <span class="va">au</span> <span class="op">=</span> ans<span class="op">.</span>randU01<span class="op">()</span></span>
-<span id="cb9-10"><a href="ch2generator.html#cb9-10" aria-hidden="true" tabindex="-1"></a>        System<span class="op">.</span><span class="kw">out</span><span class="op">.</span>printf<span class="op">(</span><span class="st">&quot;%3d %15f %15f %15f %n&quot;</span><span class="op">,</span> i<span class="op">,</span> u<span class="op">,</span> au<span class="op">,</span> u <span class="op">+</span> au<span class="op">)</span></span>
-<span id="cb9-11"><a href="ch2generator.html#cb9-11" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
-<span id="cb9-12"><a href="ch2generator.html#cb9-12" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
+<div class="sourceCode" id="cb9"><pre class="sourceCode kt"><code class="sourceCode kotlin"><span id="cb9-1"><a href="ch2generator.html#cb9-1" tabindex="-1"></a><span class="kw">fun</span> <span class="fu">main</span><span class="op">()</span> <span class="op">{</span></span>
+<span id="cb9-2"><a href="ch2generator.html#cb9-2" tabindex="-1"></a>    <span class="co">// get the default stream</span></span>
+<span id="cb9-3"><a href="ch2generator.html#cb9-3" tabindex="-1"></a>    <span class="kw">val</span> <span class="va">s</span> <span class="op">=</span> KSLRandom<span class="op">.</span>defaultRNStream<span class="op">()</span></span>
+<span id="cb9-4"><a href="ch2generator.html#cb9-4" tabindex="-1"></a>    <span class="co">// make its antithetic version</span></span>
+<span id="cb9-5"><a href="ch2generator.html#cb9-5" tabindex="-1"></a>    <span class="kw">val</span> <span class="va">ans</span> <span class="op">=</span> s<span class="op">.</span>antitheticInstance<span class="op">()</span></span>
+<span id="cb9-6"><a href="ch2generator.html#cb9-6" tabindex="-1"></a>    System<span class="op">.</span><span class="kw">out</span><span class="op">.</span>printf<span class="op">(</span><span class="st">&quot;%3s %15s %15s %15s %n&quot;</span><span class="op">,</span> <span class="st">&quot;n&quot;</span><span class="op">,</span> <span class="st">&quot;U&quot;</span><span class="op">,</span> <span class="st">&quot;1-U&quot;</span><span class="op">,</span> <span class="st">&quot;sum&quot;</span><span class="op">)</span></span>
+<span id="cb9-7"><a href="ch2generator.html#cb9-7" tabindex="-1"></a>    <span class="cf">for</span> <span class="op">(</span>i <span class="kw">in</span> <span class="fl">1..5</span><span class="op">)</span> <span class="op">{</span></span>
+<span id="cb9-8"><a href="ch2generator.html#cb9-8" tabindex="-1"></a>        <span class="kw">val</span> <span class="va">u</span> <span class="op">=</span> s<span class="op">.</span>randU01<span class="op">()</span></span>
+<span id="cb9-9"><a href="ch2generator.html#cb9-9" tabindex="-1"></a>        <span class="kw">val</span> <span class="va">au</span> <span class="op">=</span> ans<span class="op">.</span>randU01<span class="op">()</span></span>
+<span id="cb9-10"><a href="ch2generator.html#cb9-10" tabindex="-1"></a>        System<span class="op">.</span><span class="kw">out</span><span class="op">.</span>printf<span class="op">(</span><span class="st">&quot;%3d %15f %15f %15f %n&quot;</span><span class="op">,</span> i<span class="op">,</span> u<span class="op">,</span> au<span class="op">,</span> u <span class="op">+</span> au<span class="op">)</span></span>
+<span id="cb9-11"><a href="ch2generator.html#cb9-11" tabindex="-1"></a>    <span class="op">}</span></span>
+<span id="cb9-12"><a href="ch2generator.html#cb9-12" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
 <p>Notice that the generated values sum to 1.0.</p>
 <pre><code>  n               U             1-U             sum 
   1        0.127011        0.872989        1.000000 
@@ -823,25 +838,25 @@ Notice that they are different from the first 3.</code></pre>
   4        0.825847        0.174153        1.000000 
   5        0.221630        0.778370        1.000000 </code></pre>
 <p>An alternate method that does not require the creation of another stream involves using the <code>resetStartStream()</code> method and the <code>antithetic</code> property of the current stream. If you have a stream, you can use the <code>antithetic</code> property to cause the stream to start producing antithetic values. If you use the <code>resetStartStream()</code> method and then set the antithetic option to true, the stream will be set to its initial starting point and then produce antithetic values.</p>
-<div class="sourceCode" id="cb11"><pre class="sourceCode kt"><code class="sourceCode kotlin"><span id="cb11-1"><a href="ch2generator.html#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="kw">fun</span> <span class="fu">main</span><span class="op">()</span> <span class="op">{</span></span>
-<span id="cb11-2"><a href="ch2generator.html#cb11-2" aria-hidden="true" tabindex="-1"></a>    <span class="kw">val</span> <span class="va">s</span> <span class="op">=</span> KSLRandom<span class="op">.</span>defaultRNStream<span class="op">()</span></span>
-<span id="cb11-3"><a href="ch2generator.html#cb11-3" aria-hidden="true" tabindex="-1"></a>    s<span class="op">.</span>resetStartStream<span class="op">()</span></span>
-<span id="cb11-4"><a href="ch2generator.html#cb11-4" aria-hidden="true" tabindex="-1"></a>    <span class="co">// generate regular</span></span>
-<span id="cb11-5"><a href="ch2generator.html#cb11-5" aria-hidden="true" tabindex="-1"></a>    System<span class="op">.</span><span class="kw">out</span><span class="op">.</span>printf<span class="op">(</span><span class="st">&quot;%3s %15s %n&quot;</span><span class="op">,</span> <span class="st">&quot;n&quot;</span><span class="op">,</span> <span class="st">&quot;U&quot;</span><span class="op">)</span></span>
-<span id="cb11-6"><a href="ch2generator.html#cb11-6" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> <span class="op">(</span>i <span class="kw">in</span> <span class="fl">1..5</span><span class="op">)</span> <span class="op">{</span></span>
-<span id="cb11-7"><a href="ch2generator.html#cb11-7" aria-hidden="true" tabindex="-1"></a>        <span class="kw">val</span> <span class="va">u</span> <span class="op">=</span> s<span class="op">.</span>randU01<span class="op">()</span></span>
-<span id="cb11-8"><a href="ch2generator.html#cb11-8" aria-hidden="true" tabindex="-1"></a>        System<span class="op">.</span><span class="kw">out</span><span class="op">.</span>printf<span class="op">(</span><span class="st">&quot;%3d %15f %n&quot;</span><span class="op">,</span> i<span class="op">,</span> u<span class="op">)</span></span>
-<span id="cb11-9"><a href="ch2generator.html#cb11-9" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
-<span id="cb11-10"><a href="ch2generator.html#cb11-10" aria-hidden="true" tabindex="-1"></a>    <span class="co">// generate antithetic</span></span>
-<span id="cb11-11"><a href="ch2generator.html#cb11-11" aria-hidden="true" tabindex="-1"></a>    s<span class="op">.</span>resetStartStream<span class="op">()</span></span>
-<span id="cb11-12"><a href="ch2generator.html#cb11-12" aria-hidden="true" tabindex="-1"></a>    s<span class="op">.</span>antithetic <span class="op">=</span> <span class="kw">true</span></span>
-<span id="cb11-13"><a href="ch2generator.html#cb11-13" aria-hidden="true" tabindex="-1"></a>    println<span class="op">()</span></span>
-<span id="cb11-14"><a href="ch2generator.html#cb11-14" aria-hidden="true" tabindex="-1"></a>    System<span class="op">.</span><span class="kw">out</span><span class="op">.</span>printf<span class="op">(</span><span class="st">&quot;%3s %15s %n&quot;</span><span class="op">,</span> <span class="st">&quot;n&quot;</span><span class="op">,</span> <span class="st">&quot;1-U&quot;</span><span class="op">)</span></span>
-<span id="cb11-15"><a href="ch2generator.html#cb11-15" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> <span class="op">(</span>i <span class="kw">in</span> <span class="fl">1..5</span><span class="op">)</span> <span class="op">{</span></span>
-<span id="cb11-16"><a href="ch2generator.html#cb11-16" aria-hidden="true" tabindex="-1"></a>        <span class="kw">val</span> <span class="va">u</span> <span class="op">=</span> s<span class="op">.</span>randU01<span class="op">()</span></span>
-<span id="cb11-17"><a href="ch2generator.html#cb11-17" aria-hidden="true" tabindex="-1"></a>        System<span class="op">.</span><span class="kw">out</span><span class="op">.</span>printf<span class="op">(</span><span class="st">&quot;%3d %15f %n&quot;</span><span class="op">,</span> i<span class="op">,</span> u<span class="op">)</span></span>
-<span id="cb11-18"><a href="ch2generator.html#cb11-18" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
-<span id="cb11-19"><a href="ch2generator.html#cb11-19" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
+<div class="sourceCode" id="cb11"><pre class="sourceCode kt"><code class="sourceCode kotlin"><span id="cb11-1"><a href="ch2generator.html#cb11-1" tabindex="-1"></a><span class="kw">fun</span> <span class="fu">main</span><span class="op">()</span> <span class="op">{</span></span>
+<span id="cb11-2"><a href="ch2generator.html#cb11-2" tabindex="-1"></a>    <span class="kw">val</span> <span class="va">s</span> <span class="op">=</span> KSLRandom<span class="op">.</span>defaultRNStream<span class="op">()</span></span>
+<span id="cb11-3"><a href="ch2generator.html#cb11-3" tabindex="-1"></a>    s<span class="op">.</span>resetStartStream<span class="op">()</span></span>
+<span id="cb11-4"><a href="ch2generator.html#cb11-4" tabindex="-1"></a>    <span class="co">// generate regular</span></span>
+<span id="cb11-5"><a href="ch2generator.html#cb11-5" tabindex="-1"></a>    System<span class="op">.</span><span class="kw">out</span><span class="op">.</span>printf<span class="op">(</span><span class="st">&quot;%3s %15s %n&quot;</span><span class="op">,</span> <span class="st">&quot;n&quot;</span><span class="op">,</span> <span class="st">&quot;U&quot;</span><span class="op">)</span></span>
+<span id="cb11-6"><a href="ch2generator.html#cb11-6" tabindex="-1"></a>    <span class="cf">for</span> <span class="op">(</span>i <span class="kw">in</span> <span class="fl">1..5</span><span class="op">)</span> <span class="op">{</span></span>
+<span id="cb11-7"><a href="ch2generator.html#cb11-7" tabindex="-1"></a>        <span class="kw">val</span> <span class="va">u</span> <span class="op">=</span> s<span class="op">.</span>randU01<span class="op">()</span></span>
+<span id="cb11-8"><a href="ch2generator.html#cb11-8" tabindex="-1"></a>        System<span class="op">.</span><span class="kw">out</span><span class="op">.</span>printf<span class="op">(</span><span class="st">&quot;%3d %15f %n&quot;</span><span class="op">,</span> i<span class="op">,</span> u<span class="op">)</span></span>
+<span id="cb11-9"><a href="ch2generator.html#cb11-9" tabindex="-1"></a>    <span class="op">}</span></span>
+<span id="cb11-10"><a href="ch2generator.html#cb11-10" tabindex="-1"></a>    <span class="co">// generate antithetic</span></span>
+<span id="cb11-11"><a href="ch2generator.html#cb11-11" tabindex="-1"></a>    s<span class="op">.</span>resetStartStream<span class="op">()</span></span>
+<span id="cb11-12"><a href="ch2generator.html#cb11-12" tabindex="-1"></a>    s<span class="op">.</span>antithetic <span class="op">=</span> <span class="kw">true</span></span>
+<span id="cb11-13"><a href="ch2generator.html#cb11-13" tabindex="-1"></a>    println<span class="op">()</span></span>
+<span id="cb11-14"><a href="ch2generator.html#cb11-14" tabindex="-1"></a>    System<span class="op">.</span><span class="kw">out</span><span class="op">.</span>printf<span class="op">(</span><span class="st">&quot;%3s %15s %n&quot;</span><span class="op">,</span> <span class="st">&quot;n&quot;</span><span class="op">,</span> <span class="st">&quot;1-U&quot;</span><span class="op">)</span></span>
+<span id="cb11-15"><a href="ch2generator.html#cb11-15" tabindex="-1"></a>    <span class="cf">for</span> <span class="op">(</span>i <span class="kw">in</span> <span class="fl">1..5</span><span class="op">)</span> <span class="op">{</span></span>
+<span id="cb11-16"><a href="ch2generator.html#cb11-16" tabindex="-1"></a>        <span class="kw">val</span> <span class="va">u</span> <span class="op">=</span> s<span class="op">.</span>randU01<span class="op">()</span></span>
+<span id="cb11-17"><a href="ch2generator.html#cb11-17" tabindex="-1"></a>        System<span class="op">.</span><span class="kw">out</span><span class="op">.</span>printf<span class="op">(</span><span class="st">&quot;%3d %15f %n&quot;</span><span class="op">,</span> i<span class="op">,</span> u<span class="op">)</span></span>
+<span id="cb11-18"><a href="ch2generator.html#cb11-18" tabindex="-1"></a>    <span class="op">}</span></span>
+<span id="cb11-19"><a href="ch2generator.html#cb11-19" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
 <p>Notice that the second set of random numbers is the antithetic complement of the first set in this output. Of course, you can also create multiple instances of <code>RNStreamProvider,</code> and then create streams and set one of the streams to produce antithetic values.</p>
 <pre><code>  n               U 
   1        0.127011 

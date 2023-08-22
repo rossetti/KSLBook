@@ -1,0 +1,926 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>D.1 Input and Output Utilities | Simulation Modeling using the Kotlin Simulation Library (KSL)</title>
+  <meta name="description" content="A book that illustrates the basics of using the KSL. The output format for this book is bookdown::gitbook." />
+  <meta name="generator" content="bookdown 0.34 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="D.1 Input and Output Utilities | Simulation Modeling using the Kotlin Simulation Library (KSL)" />
+  <meta property="og:type" content="book" />
+  
+  <meta property="og:description" content="A book that illustrates the basics of using the KSL. The output format for this book is bookdown::gitbook." />
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="D.1 Input and Output Utilities | Simulation Modeling using the Kotlin Simulation Library (KSL)" />
+  
+  <meta name="twitter:description" content="A book that illustrates the basics of using the KSL. The output format for this book is bookdown::gitbook." />
+  
+
+<meta name="author" content="Manuel D. Rossetti" />
+
+
+<meta name="date" content="2023-08-22" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="appUtilities.html"/>
+<link rel="next" href="appUtilitiesArrays.html"/>
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
+<link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
+<script src="libs/kePrint-0.0.1/kePrint.js"></script>
+<link href="libs/lightable-0.0.1/lightable.css" rel="stylesheet" />
+
+
+<style type="text/css">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { color: #008000; } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { color: #008000; font-weight: bold; } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<style type="text/css">
+  
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+</style>
+<style type="text/css">
+/* Used with Pandoc 2.11+ new --citeproc when CSL is used */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+}
+.hanging div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}
+</style>
+
+<link rel="stylesheet" href="css/style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">Simulation Modeling using the Kotlin Simulation Library (KSL)</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Preface</a>
+<ul>
+<li class="chapter" data-level="" data-path="release-history.html"><a href="release-history.html"><i class="fa fa-check"></i>Release History</a></li>
+<li class="chapter" data-level="" data-path="ksl-project-page.html"><a href="ksl-project-page.html"><i class="fa fa-check"></i>KSL Project Page</a></li>
+<li class="chapter" data-level="" data-path="book-support-files.html"><a href="book-support-files.html"><i class="fa fa-check"></i>Book Support Files</a></li>
+<li class="chapter" data-level="" data-path="acknowledgments.html"><a href="acknowledgments.html"><i class="fa fa-check"></i>Acknowledgments</a></li>
+<li class="chapter" data-level="" data-path="intended-audience.html"><a href="intended-audience.html"><i class="fa fa-check"></i>Intended Audience</a></li>
+<li class="chapter" data-level="" data-path="organization-of-the-book.html"><a href="organization-of-the-book.html"><i class="fa fa-check"></i>Organization of the Book</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="about-the-author.html"><a href="about-the-author.html"><i class="fa fa-check"></i>About the Author</a></li>
+<li class="chapter" data-level="1" data-path="ch1.html"><a href="ch1.html"><i class="fa fa-check"></i><b>1</b> Simulation Modeling</a>
+<ul>
+<li class="chapter" data-level="1.1" data-path="simulation-modeling.html"><a href="simulation-modeling.html"><i class="fa fa-check"></i><b>1.1</b> Simulation Modeling</a></li>
+<li class="chapter" data-level="1.2" data-path="why-simulate.html"><a href="why-simulate.html"><i class="fa fa-check"></i><b>1.2</b> Why Simulate?</a></li>
+<li class="chapter" data-level="1.3" data-path="types-of-systems-and-simulation-models.html"><a href="types-of-systems-and-simulation-models.html"><i class="fa fa-check"></i><b>1.3</b> Types of Systems and Simulation Models</a></li>
+<li class="chapter" data-level="1.4" data-path="simulation-descriptive-or-prescriptive-modeling.html"><a href="simulation-descriptive-or-prescriptive-modeling.html"><i class="fa fa-check"></i><b>1.4</b> Simulation: Descriptive or Prescriptive Modeling?</a></li>
+<li class="chapter" data-level="1.5" data-path="randomness-in-simulation.html"><a href="randomness-in-simulation.html"><i class="fa fa-check"></i><b>1.5</b> Randomness in Simulation</a></li>
+<li class="chapter" data-level="1.6" data-path="simulation-languages.html"><a href="simulation-languages.html"><i class="fa fa-check"></i><b>1.6</b> Simulation Languages</a></li>
+<li class="chapter" data-level="1.7" data-path="ch1:sec:simMeth.html"><a href="ch1:sec:simMeth.html"><i class="fa fa-check"></i><b>1.7</b> Simulation Methodology</a></li>
+<li class="chapter" data-level="1.8" data-path="overview-of-the-kotline-simulation-library.html"><a href="overview-of-the-kotline-simulation-library.html"><i class="fa fa-check"></i><b>1.8</b> Overview of the Kotline Simulation Library</a></li>
+<li class="chapter" data-level="1.9" data-path="exercises.html"><a href="exercises.html"><i class="fa fa-check"></i><b>1.9</b> Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="ch2rng.html"><a href="ch2rng.html"><i class="fa fa-check"></i><b>2</b> Modeling Randomness</a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="ch2generator.html"><a href="ch2generator.html"><i class="fa fa-check"></i><b>2.1</b> Random Number Generator</a>
+<ul>
+<li class="chapter" data-level="2.1.1" data-path="ch2generator.html"><a href="ch2generator.html#ch2randompkg"><i class="fa fa-check"></i><b>2.1.1</b> Random Package</a></li>
+<li class="chapter" data-level="2.1.2" data-path="ch2generator.html"><a href="ch2generator.html#ch2creatingStreams"><i class="fa fa-check"></i><b>2.1.2</b> Creating and Using Streams</a></li>
+<li class="chapter" data-level="2.1.3" data-path="ch2generator.html"><a href="ch2generator.html#ch2crn"><i class="fa fa-check"></i><b>2.1.3</b> Common Random Numbers</a></li>
+<li class="chapter" data-level="2.1.4" data-path="ch2generator.html"><a href="ch2generator.html#ch2antitheticStreams"><i class="fa fa-check"></i><b>2.1.4</b> Creating and Using Antithetic Streams</a></li>
+<li class="chapter" data-level="2.1.5" data-path="ch2generator.html"><a href="ch2generator.html#ch2rnFAQ"><i class="fa fa-check"></i><b>2.1.5</b> Frequently Asked Questions about Random Numbers</a></li>
+</ul></li>
+<li class="chapter" data-level="2.2" data-path="rvg.html"><a href="rvg.html"><i class="fa fa-check"></i><b>2.2</b> Random Variate Generation</a>
+<ul>
+<li class="chapter" data-level="2.2.1" data-path="rvg.html"><a href="rvg.html#rvg_dists"><i class="fa fa-check"></i><b>2.2.1</b> Continuous and Discrete Random Variables</a></li>
+<li class="chapter" data-level="2.2.2" data-path="rvg.html"><a href="rvg.html#rvg_algo"><i class="fa fa-check"></i><b>2.2.2</b> Overview of Generation Algorithms</a></li>
+<li class="chapter" data-level="2.2.3" data-path="rvg.html"><a href="rvg.html#rvg_use"><i class="fa fa-check"></i><b>2.2.3</b> Creating and Using Random Variables</a></li>
+<li class="chapter" data-level="2.2.4" data-path="rvg.html"><a href="rvg.html#functions-of-random-variables"><i class="fa fa-check"></i><b>2.2.4</b> Functions of Random Variables</a></li>
+</ul></li>
+<li class="chapter" data-level="2.3" data-path="probability-distribution-models.html"><a href="probability-distribution-models.html"><i class="fa fa-check"></i><b>2.3</b> Probability Distribution Models</a></li>
+<li class="chapter" data-level="2.4" data-path="summary.html"><a href="summary.html"><i class="fa fa-check"></i><b>2.4</b> Summary</a></li>
+<li class="chapter" data-level="2.5" data-path="exercises-1.html"><a href="exercises-1.html"><i class="fa fa-check"></i><b>2.5</b> Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="mcm.html"><a href="mcm.html"><i class="fa fa-check"></i><b>3</b> Monte Carlo Methods</a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="kslStatistics.html"><a href="kslStatistics.html"><i class="fa fa-check"></i><b>3.1</b> Collecting Statistics</a>
+<ul>
+<li class="chapter" data-level="3.1.1" data-path="kslStatistics.html"><a href="kslStatistics.html#creating-and-using-a-statistic"><i class="fa fa-check"></i><b>3.1.1</b> Creating and Using a Statistic</a></li>
+<li class="chapter" data-level="3.1.2" data-path="kslStatistics.html"><a href="kslStatistics.html#histograms-and-frequencies"><i class="fa fa-check"></i><b>3.1.2</b> Histograms and Frequencies</a></li>
+</ul></li>
+<li class="chapter" data-level="3.2" data-path="ch3batchStats.html"><a href="ch3batchStats.html"><i class="fa fa-check"></i><b>3.2</b> Batch Statistics</a></li>
+<li class="chapter" data-level="3.3" data-path="ssMC.html"><a href="ssMC.html"><i class="fa fa-check"></i><b>3.3</b> Simple Monte Carlo Integration</a></li>
+<li class="chapter" data-level="3.4" data-path="ch3StatReview.html"><a href="ch3StatReview.html"><i class="fa fa-check"></i><b>3.4</b> Review of Statistical Concepts</a>
+<ul>
+<li class="chapter" data-level="3.4.1" data-path="ch3StatReview.html"><a href="ch3StatReview.html#point-estimates-and-confidence-intervals"><i class="fa fa-check"></i><b>3.4.1</b> Point Estimates and Confidence Intervals</a></li>
+<li class="chapter" data-level="3.4.2" data-path="ch3StatReview.html"><a href="ch3StatReview.html#ch3SampleSize"><i class="fa fa-check"></i><b>3.4.2</b> Sample Size Determination</a></li>
+<li class="chapter" data-level="3.4.3" data-path="ch3StatReview.html"><a href="ch3StatReview.html#determining-the-sample-size-for-a-monte-carlo-simulation-experiment"><i class="fa fa-check"></i><b>3.4.3</b> Determining the Sample Size for a Monte Carlo Simulation Experiment</a></li>
+</ul></li>
+<li class="chapter" data-level="3.5" data-path="craps.html"><a href="craps.html"><i class="fa fa-check"></i><b>3.5</b> Simulating the Game of Craps</a></li>
+<li class="chapter" data-level="3.6" data-path="the-news-vendor-problem.html"><a href="the-news-vendor-problem.html"><i class="fa fa-check"></i><b>3.6</b> The News Vendor Problem</a></li>
+<li class="chapter" data-level="3.7" data-path="monte-carlo-experiments.html"><a href="monte-carlo-experiments.html"><i class="fa fa-check"></i><b>3.7</b> Monte-Carlo Experiments</a></li>
+<li class="chapter" data-level="3.8" data-path="summary-1.html"><a href="summary-1.html"><i class="fa fa-check"></i><b>3.8</b> Summary</a></li>
+<li class="chapter" data-level="3.9" data-path="exercises-2.html"><a href="exercises-2.html"><i class="fa fa-check"></i><b>3.9</b> Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="introDEDS.html"><a href="introDEDS.html"><i class="fa fa-check"></i><b>4</b> Introduction to Discrete Event Modeling</a>
+<ul>
+<li class="chapter" data-level="4.1" data-path="introDEDSIntro.html"><a href="introDEDSIntro.html"><i class="fa fa-check"></i><b>4.1</b> Introduction</a></li>
+<li class="chapter" data-level="4.2" data-path="introDEDSdeds.html"><a href="introDEDSdeds.html"><i class="fa fa-check"></i><b>4.2</b> Discrete-Event Dynamic Systems</a></li>
+<li class="chapter" data-level="4.3" data-path="HowDEDSClockWorks.html"><a href="HowDEDSClockWorks.html"><i class="fa fa-check"></i><b>4.3</b> How the Discrete-Event Clock Works</a></li>
+<li class="chapter" data-level="4.4" data-path="QHandExample.html"><a href="QHandExample.html"><i class="fa fa-check"></i><b>4.4</b> Simulating a Queueing System By Hand</a></li>
+<li class="chapter" data-level="4.5" data-path="introDEDSdedsKSL.html"><a href="introDEDSdedsKSL.html"><i class="fa fa-check"></i><b>4.5</b> Modeling DEDS in the KSL</a>
+<ul>
+<li class="chapter" data-level="4.5.1" data-path="introDEDSdedsKSL.html"><a href="introDEDSdedsKSL.html#event-scheduling"><i class="fa fa-check"></i><b>4.5.1</b> Event Scheduling</a></li>
+<li class="chapter" data-level="4.5.2" data-path="introDEDSdedsKSL.html"><a href="introDEDSdedsKSL.html#introDEDSschedExamples"><i class="fa fa-check"></i><b>4.5.2</b> Simple Event Scheduling Examples</a></li>
+<li class="chapter" data-level="4.5.3" data-path="introDEDSdedsKSL.html"><a href="introDEDSdedsKSL.html#introDEDSUpDown"><i class="fa fa-check"></i><b>4.5.3</b> Up and Down Component Example</a></li>
+<li class="chapter" data-level="4.5.4" data-path="introDEDSdedsKSL.html"><a href="introDEDSdedsKSL.html#introDEDSPharmacy"><i class="fa fa-check"></i><b>4.5.4</b> Modeling a Simple Queueing System</a></li>
+<li class="chapter" data-level="4.5.5" data-path="introDEDSdedsKSL.html"><a href="introDEDSdedsKSL.html#more-details-about-the-pharmacy-model-implementation"><i class="fa fa-check"></i><b>4.5.5</b> More Details About the Pharmacy Model Implementation</a></li>
+</ul></li>
+<li class="chapter" data-level="4.6" data-path="enhancing-the-drive-through-pharmacy-model.html"><a href="enhancing-the-drive-through-pharmacy-model.html"><i class="fa fa-check"></i><b>4.6</b> Enhancing the Drive Through Pharmacy Model</a></li>
+<li class="chapter" data-level="4.7" data-path="introDEDSSummary.html"><a href="introDEDSSummary.html"><i class="fa fa-check"></i><b>4.7</b> Summary</a></li>
+<li class="chapter" data-level="4.8" data-path="exercises-3.html"><a href="exercises-3.html"><i class="fa fa-check"></i><b>4.8</b> Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="simoa.html"><a href="simoa.html"><i class="fa fa-check"></i><b>5</b> Analyzing Simulation Output</a>
+<ul>
+<li class="chapter" data-level="5.1" data-path="simoadatatypes.html"><a href="simoadatatypes.html"><i class="fa fa-check"></i><b>5.1</b> Types of Statistical Variables</a></li>
+<li class="chapter" data-level="5.2" data-path="simoasimtypes.html"><a href="simoasimtypes.html"><i class="fa fa-check"></i><b>5.2</b> Types of Simulation With Respect To Output Analysis</a></li>
+<li class="chapter" data-level="5.3" data-path="simoafinhorizon.html"><a href="simoafinhorizon.html"><i class="fa fa-check"></i><b>5.3</b> Analysis of Finite Horizon Simulations</a></li>
+<li class="chapter" data-level="5.4" data-path="simoafinhorizonex.html"><a href="simoafinhorizonex.html"><i class="fa fa-check"></i><b>5.4</b> Capturing Output for a Simple Finite Horizon Simulation</a>
+<ul>
+<li class="chapter" data-level="5.4.1" data-path="simoafinhorizonex.html"><a href="simoafinhorizonex.html#ksl-functionality-for-capturing-statistical-results"><i class="fa fa-check"></i><b>5.4.1</b> KSL Functionality for Capturing Statistical Results</a></li>
+<li class="chapter" data-level="5.4.2" data-path="simoafinhorizonex.html"><a href="simoafinhorizonex.html#additional-remarks"><i class="fa fa-check"></i><b>5.4.2</b> Additional Remarks</a></li>
+<li class="chapter" data-level="5.4.3" data-path="simoafinhorizonex.html"><a href="simoafinhorizonex.html#querying-the-ksl-database"><i class="fa fa-check"></i><b>5.4.3</b> Querying the KSL Database</a></li>
+</ul></li>
+<li class="chapter" data-level="5.5" data-path="simoaseqsampling.html"><a href="simoaseqsampling.html"><i class="fa fa-check"></i><b>5.5</b> Sequential Sampling for Finite Horizon Simulations</a></li>
+<li class="chapter" data-level="5.6" data-path="simoainfhorizon.html"><a href="simoainfhorizon.html"><i class="fa fa-check"></i><b>5.6</b> Analysis of Infinite Horizon Simulations</a>
+<ul>
+<li class="chapter" data-level="5.6.1" data-path="simoainfhorizon.html"><a href="simoainfhorizon.html#simoainfhorizoninitialbias"><i class="fa fa-check"></i><b>5.6.1</b> Assessing the Effect of Initial Conditions</a></li>
+<li class="chapter" data-level="5.6.2" data-path="simoainfhorizon.html"><a href="simoainfhorizon.html#simoainfhorizonrepDeletion"><i class="fa fa-check"></i><b>5.6.2</b> Performing the Method of Replication-Deletion</a></li>
+<li class="chapter" data-level="5.6.3" data-path="simoainfhorizon.html"><a href="simoainfhorizon.html#simoainfhorizonbatchmeans"><i class="fa fa-check"></i><b>5.6.3</b> The Method of Batch Means</a></li>
+<li class="chapter" data-level="5.6.4" data-path="simoainfhorizon.html"><a href="simoainfhorizon.html#simoainfhorizonjslbatching"><i class="fa fa-check"></i><b>5.6.4</b> Performing the Method of Batch Means</a></li>
+</ul></li>
+<li class="chapter" data-level="5.7" data-path="simoacomparingSystems.html"><a href="simoacomparingSystems.html"><i class="fa fa-check"></i><b>5.7</b> Comparing System Configurations</a>
+<ul>
+<li class="chapter" data-level="5.7.1" data-path="simoacomparingSystems.html"><a href="simoacomparingSystems.html#simoacomparingSystems:two"><i class="fa fa-check"></i><b>5.7.1</b> Comparing Two Systems</a></li>
+<li class="chapter" data-level="5.7.2" data-path="simoacomparingSystems.html"><a href="simoacomparingSystems.html#simoacomparingSystemsMCB"><i class="fa fa-check"></i><b>5.7.2</b> Multiple Comparisons</a></li>
+</ul></li>
+<li class="chapter" data-level="5.8" data-path="simoasummary.html"><a href="simoasummary.html"><i class="fa fa-check"></i><b>5.8</b> Summary</a></li>
+<li class="chapter" data-level="5.9" data-path="exercises-4.html"><a href="exercises-4.html"><i class="fa fa-check"></i><b>5.9</b> Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="processview.html"><a href="processview.html"><i class="fa fa-check"></i><b>6</b> Process View Modeling Using the KSL</a>
+<ul>
+<li class="chapter" data-level="6.1" data-path="ch6Entities.html"><a href="ch6Entities.html"><i class="fa fa-check"></i><b>6.1</b> What are Entities?</a></li>
+<li class="chapter" data-level="6.2" data-path="pvIntro.html"><a href="pvIntro.html"><i class="fa fa-check"></i><b>6.2</b> The Process View</a></li>
+<li class="chapter" data-level="6.3" data-path="understanding-ksl-processes-and-entities.html"><a href="understanding-ksl-processes-and-entities.html"><i class="fa fa-check"></i><b>6.3</b> Understanding KSL Processes and Entities</a></li>
+<li class="chapter" data-level="6.4" data-path="examples-of-process-modeling.html"><a href="examples-of-process-modeling.html"><i class="fa fa-check"></i><b>6.4</b> Examples of Process Modeling</a></li>
+<li class="chapter" data-level="6.5" data-path="modeling-a-stem-career-mixer.html"><a href="modeling-a-stem-career-mixer.html"><i class="fa fa-check"></i><b>6.5</b> Modeling a STEM Career Mixer</a>
+<ul>
+<li class="chapter" data-level="6.5.1" data-path="modeling-a-stem-career-mixer.html"><a href="modeling-a-stem-career-mixer.html#conceptualizing-the-system"><i class="fa fa-check"></i><b>6.5.1</b> Conceptualizing the System</a></li>
+<li class="chapter" data-level="6.5.2" data-path="modeling-a-stem-career-mixer.html"><a href="modeling-a-stem-career-mixer.html#implementing-the-stem-mixer-model"><i class="fa fa-check"></i><b>6.5.2</b> Implementing the STEM Mixer Model</a></li>
+</ul></li>
+<li class="chapter" data-level="6.6" data-path="the-tie-dye-t-shirt-model.html"><a href="the-tie-dye-t-shirt-model.html"><i class="fa fa-check"></i><b>6.6</b> The Tie-Dye T-Shirt Model</a>
+<ul>
+<li class="chapter" data-level="6.6.1" data-path="the-tie-dye-t-shirt-model.html"><a href="the-tie-dye-t-shirt-model.html#ch4:TieDyeTShirtsSub1"><i class="fa fa-check"></i><b>6.6.1</b> Implementing the Tie-Dye T-Shirt Model</a></li>
+</ul></li>
+<li class="chapter" data-level="6.7" data-path="summary-2.html"><a href="summary-2.html"><i class="fa fa-check"></i><b>6.7</b> Summary</a></li>
+<li class="chapter" data-level="6.8" data-path="exercises-5.html"><a href="exercises-5.html"><i class="fa fa-check"></i><b>6.8</b> Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="ch7AdvModeling.html"><a href="ch7AdvModeling.html"><i class="fa fa-check"></i><b>7</b> Advanced Event and Process View Modeling</a>
+<ul>
+<li class="chapter" data-level="7.1" data-path="modeling-with-processes-and-resources.html"><a href="modeling-with-processes-and-resources.html"><i class="fa fa-check"></i><b>7.1</b> Modeling with Processes and Resources</a>
+<ul>
+<li class="chapter" data-level="7.1.1" data-path="modeling-with-processes-and-resources.html"><a href="modeling-with-processes-and-resources.html#modeling-space-with-resources"><i class="fa fa-check"></i><b>7.1.1</b> Modeling Space with Resources</a></li>
+<li class="chapter" data-level="7.1.2" data-path="modeling-with-processes-and-resources.html"><a href="modeling-with-processes-and-resources.html#resource-pools"><i class="fa fa-check"></i><b>7.1.2</b> Resource Pools</a></li>
+<li class="chapter" data-level="7.1.3" data-path="modeling-with-processes-and-resources.html"><a href="modeling-with-processes-and-resources.html#computer-test-and-repair-shop-example"><i class="fa fa-check"></i><b>7.1.3</b> Computer Test and Repair Shop Example</a></li>
+</ul></li>
+<li class="chapter" data-level="7.2" data-path="modeling-non-stationary-systems.html"><a href="modeling-non-stationary-systems.html"><i class="fa fa-check"></i><b>7.2</b> Modeling Non-Stationary Systems</a>
+<ul>
+<li class="chapter" data-level="7.2.1" data-path="modeling-non-stationary-systems.html"><a href="modeling-non-stationary-systems.html#ch7secNSPP"><i class="fa fa-check"></i><b>7.2.1</b> Non-Stationary Arrival Processes</a></li>
+<li class="chapter" data-level="7.2.2" data-path="modeling-non-stationary-systems.html"><a href="modeling-non-stationary-systems.html#modeling-resources-under-non-stationary-conditions"><i class="fa fa-check"></i><b>7.2.2</b> Modeling Resources Under Non-Stationary Conditions</a></li>
+<li class="chapter" data-level="7.2.3" data-path="modeling-non-stationary-systems.html"><a href="modeling-non-stationary-systems.html#enhancing-the-stem-career-mixer-example"><i class="fa fa-check"></i><b>7.2.3</b> Enhancing the STEM Career Mixer Example</a></li>
+</ul></li>
+<li class="chapter" data-level="7.3" data-path="examples-of-advanced-event-models.html"><a href="examples-of-advanced-event-models.html"><i class="fa fa-check"></i><b>7.3</b> Examples of Advanced Event Models</a>
+<ul>
+<li class="chapter" data-level="7.3.1" data-path="examples-of-advanced-event-models.html"><a href="examples-of-advanced-event-models.html#ch6s1sb4sub3"><i class="fa fa-check"></i><b>7.3.1</b> Modeling Balking and Reneging</a></li>
+<li class="chapter" data-level="7.3.2" data-path="examples-of-advanced-event-models.html"><a href="examples-of-advanced-event-models.html#modeling-a-reorder-point-reorder-quantity-inventory-policy"><i class="fa fa-check"></i><b>7.3.2</b> Modeling a Reorder Point, Reorder Quantity Inventory Policy</a></li>
+</ul></li>
+<li class="chapter" data-level="7.4" data-path="summary-3.html"><a href="summary-3.html"><i class="fa fa-check"></i><b>7.4</b> Summary</a></li>
+<li class="chapter" data-level="7.5" data-path="exercises-6.html"><a href="exercises-6.html"><i class="fa fa-check"></i><b>7.5</b> Exercises</a></li>
+</ul></li>
+<li class="appendix"><span><b>Appendix</b></span></li>
+<li class="chapter" data-level="A" data-path="appRNRV.html"><a href="appRNRV.html"><i class="fa fa-check"></i><b>A</b> Generating Pseudo-Random Numbers and Random Variates</a>
+<ul>
+<li class="chapter" data-level="A.1" data-path="appRNRVPRN.html"><a href="appRNRVPRN.html"><i class="fa fa-check"></i><b>A.1</b> Pseudo Random Numbers</a>
+<ul>
+<li class="chapter" data-level="A.1.1" data-path="appRNRVPRN.html"><a href="appRNRVPRN.html#appRNRVRNGs"><i class="fa fa-check"></i><b>A.1.1</b> Random Number Generators</a></li>
+</ul></li>
+<li class="chapter" data-level="A.2" data-path="appRNRVs.html"><a href="appRNRVs.html"><i class="fa fa-check"></i><b>A.2</b> Generating Random Variates from Distributions</a>
+<ul>
+<li class="chapter" data-level="A.2.1" data-path="appRNRVs.html"><a href="appRNRVs.html#inverse-transform-method"><i class="fa fa-check"></i><b>A.2.1</b> Inverse Transform Method</a></li>
+<li class="chapter" data-level="A.2.2" data-path="appRNRVs.html"><a href="appRNRVs.html#convolution"><i class="fa fa-check"></i><b>A.2.2</b> Convolution</a></li>
+<li class="chapter" data-level="A.2.3" data-path="appRNRVs.html"><a href="appRNRVs.html#acceptancerejection"><i class="fa fa-check"></i><b>A.2.3</b> Acceptance/Rejection</a></li>
+<li class="chapter" data-level="A.2.4" data-path="appRNRVs.html"><a href="appRNRVs.html#AppRNRVsubsecMTSRV"><i class="fa fa-check"></i><b>A.2.4</b> Mixture Distributions, Truncated Distributions, and Shifted Random Variables</a></li>
+</ul></li>
+<li class="chapter" data-level="A.3" data-path="summary-4.html"><a href="summary-4.html"><i class="fa fa-check"></i><b>A.3</b> Summary</a></li>
+<li class="chapter" data-level="A.4" data-path="exercises-7.html"><a href="exercises-7.html"><i class="fa fa-check"></i><b>A.4</b> Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="B" data-path="appidm.html"><a href="appidm.html"><i class="fa fa-check"></i><b>B</b> Probability Distribution Modeling</a>
+<ul>
+<li class="chapter" data-level="B.1" data-path="appidmsecrvPD.html"><a href="appidmsecrvPD.html"><i class="fa fa-check"></i><b>B.1</b> Random Variables and Probability Distributions</a></li>
+<li class="chapter" data-level="B.2" data-path="appidmsecMDD.html"><a href="appidmsecMDD.html"><i class="fa fa-check"></i><b>B.2</b> Modeling with Discrete Distributions</a></li>
+<li class="chapter" data-level="B.3" data-path="appidmsecfitDiscrete.html"><a href="appidmsecfitDiscrete.html"><i class="fa fa-check"></i><b>B.3</b> Fitting Discrete Distributions</a>
+<ul>
+<li class="chapter" data-level="B.3.1" data-path="appidmsecfitDiscrete.html"><a href="appidmsecfitDiscrete.html#AppDisFitPoissonFit"><i class="fa fa-check"></i><b>B.3.1</b> Fitting a Poisson Distribution</a></li>
+<li class="chapter" data-level="B.3.2" data-path="appidmsecfitDiscrete.html"><a href="appidmsecfitDiscrete.html#visualizing-the-data"><i class="fa fa-check"></i><b>B.3.2</b> Visualizing the Data</a></li>
+<li class="chapter" data-level="B.3.3" data-path="appidmsecfitDiscrete.html"><a href="appidmsecfitDiscrete.html#estimating-the-rate-parameter-for-the-poisson-distribution"><i class="fa fa-check"></i><b>B.3.3</b> Estimating the Rate Parameter for the Poisson Distribution</a></li>
+<li class="chapter" data-level="B.3.4" data-path="appidmsecfitDiscrete.html"><a href="appidmsecfitDiscrete.html#chi-squared-goodness-of-fit-test-for-poisson-distribution"><i class="fa fa-check"></i><b>B.3.4</b> Chi-Squared Goodness of Fit Test for Poisson Distribution</a></li>
+<li class="chapter" data-level="B.3.5" data-path="appidmsecfitDiscrete.html"><a href="appidmsecfitDiscrete.html#subsubchisqGOF"><i class="fa fa-check"></i><b>B.3.5</b> Chi-Squared Goodness of Fit Test</a></li>
+<li class="chapter" data-level="B.3.6" data-path="appidmsecfitDiscrete.html"><a href="appidmsecfitDiscrete.html#using-the-fitdistrplus-r-package-on-discrete-data"><i class="fa fa-check"></i><b>B.3.6</b> Using the fitdistrplus R Package on Discrete Data</a></li>
+<li class="chapter" data-level="B.3.7" data-path="appidmsecfitDiscrete.html"><a href="appidmsecfitDiscrete.html#fitting-a-discrete-empirical-distribution"><i class="fa fa-check"></i><b>B.3.7</b> Fitting a Discrete Empirical Distribution</a></li>
+</ul></li>
+<li class="chapter" data-level="B.4" data-path="appidmsecMCD.html"><a href="appidmsecMCD.html"><i class="fa fa-check"></i><b>B.4</b> Modeling with Continuous Distributions</a></li>
+<li class="chapter" data-level="B.5" data-path="appidmsecfitContinuous.html"><a href="appidmsecfitContinuous.html"><i class="fa fa-check"></i><b>B.5</b> Fitting Continuous Distributions</a>
+<ul>
+<li class="chapter" data-level="B.5.1" data-path="appidmsecfitContinuous.html"><a href="appidmsecfitContinuous.html#appidmsubsecvisualizedata"><i class="fa fa-check"></i><b>B.5.1</b> Visualizing the Data</a></li>
+<li class="chapter" data-level="B.5.2" data-path="appidmsecfitContinuous.html"><a href="appidmsecfitContinuous.html#appidmsubsecstatsdata"><i class="fa fa-check"></i><b>B.5.2</b> Statistically Summarize the Data</a></li>
+<li class="chapter" data-level="B.5.3" data-path="appidmsecfitContinuous.html"><a href="appidmsecfitContinuous.html#appidmsubsechypothDist"><i class="fa fa-check"></i><b>B.5.3</b> Hypothesizing and Testing a Distribution</a></li>
+<li class="chapter" data-level="B.5.4" data-path="appidmsecfitContinuous.html"><a href="appidmsecfitContinuous.html#kolmogorov-smirnov-test"><i class="fa fa-check"></i><b>B.5.4</b> Kolmogorov-Smirnov Test</a></li>
+<li class="chapter" data-level="B.5.5" data-path="appidmsecfitContinuous.html"><a href="appidmsecfitContinuous.html#appidmsubsecvisFit"><i class="fa fa-check"></i><b>B.5.5</b> Visualizing the Fit</a></li>
+<li class="chapter" data-level="B.5.6" data-path="appidmsecfitContinuous.html"><a href="appidmsecfitContinuous.html#appidms2sb3"><i class="fa fa-check"></i><b>B.5.6</b> Using the Input Analyzer</a></li>
+</ul></li>
+<li class="chapter" data-level="B.6" data-path="appdistfittestU01.html"><a href="appdistfittestU01.html"><i class="fa fa-check"></i><b>B.6</b> Testing Uniform (0,1) Pseudo-Random Numbers</a>
+<ul>
+<li class="chapter" data-level="B.6.1" data-path="appdistfittestU01.html"><a href="appdistfittestU01.html#chi-squared-goodness-of-fit-tests-for-pseudo-random-numbers"><i class="fa fa-check"></i><b>B.6.1</b> Chi-Squared Goodness of Fit Tests for Pseudo-Random Numbers</a></li>
+<li class="chapter" data-level="B.6.2" data-path="appdistfittestU01.html"><a href="appdistfittestU01.html#higher-dimensional-chi-squared-test"><i class="fa fa-check"></i><b>B.6.2</b> Higher Dimensional Chi-Squared Test</a></li>
+<li class="chapter" data-level="B.6.3" data-path="appdistfittestU01.html"><a href="appdistfittestU01.html#kolmogorov-smirnov-test-for-pseudo-random-numbers"><i class="fa fa-check"></i><b>B.6.3</b> Kolmogorov-Smirnov Test for Pseudo-Random Numbers</a></li>
+<li class="chapter" data-level="B.6.4" data-path="appdistfittestU01.html"><a href="appdistfittestU01.html#testing-for-independence-and-patterns-in-pseudo-random-numbers"><i class="fa fa-check"></i><b>B.6.4</b> Testing for Independence and Patterns in Pseudo-Random Numbers</a></li>
+</ul></li>
+<li class="chapter" data-level="B.7" data-path="appdistfitidms2sb4.html"><a href="appdistfitidms2sb4.html"><i class="fa fa-check"></i><b>B.7</b> Additional Distribution Modeling Concepts</a></li>
+<li class="chapter" data-level="B.8" data-path="appidmSummary.html"><a href="appidmSummary.html"><i class="fa fa-check"></i><b>B.8</b> Summary</a></li>
+<li class="chapter" data-level="B.9" data-path="exercises-8.html"><a href="exercises-8.html"><i class="fa fa-check"></i><b>B.9</b> Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="C" data-path="appqtAndInvT.html"><a href="appqtAndInvT.html"><i class="fa fa-check"></i><b>C</b> Queueing Theory</a>
+<ul>
+<li class="chapter" data-level="C.1" data-path="appqts1.html"><a href="appqts1.html"><i class="fa fa-check"></i><b>C.1</b> Single Line Queueing Stations</a>
+<ul>
+<li class="chapter" data-level="C.1.1" data-path="appqts1.html"><a href="appqts1.html#queueing-notation"><i class="fa fa-check"></i><b>C.1.1</b> Queueing Notation</a></li>
+<li class="chapter" data-level="C.1.2" data-path="appqts1.html"><a href="appqts1.html#littles-formula"><i class="fa fa-check"></i><b>C.1.2</b> Little’s Formula</a></li>
+<li class="chapter" data-level="C.1.3" data-path="appqts1.html"><a href="appqts1.html#appqts1sb1"><i class="fa fa-check"></i><b>C.1.3</b> Deriving Formulas for Markovian Single Queue Systems</a></li>
+</ul></li>
+<li class="chapter" data-level="C.2" data-path="appqts1sb2.html"><a href="appqts1sb2.html"><i class="fa fa-check"></i><b>C.2</b> Examples and Applications of Queueing Analysis</a>
+<ul>
+<li class="chapter" data-level="C.2.1" data-path="appqts1sb2.html"><a href="appqts1sb2.html#infinite-queue-examples"><i class="fa fa-check"></i><b>C.2.1</b> Infinite Queue Examples</a></li>
+<li class="chapter" data-level="C.2.2" data-path="appqts1sb2.html"><a href="appqts1sb2.html#finite-queue-examples"><i class="fa fa-check"></i><b>C.2.2</b> Finite Queue Examples</a></li>
+</ul></li>
+<li class="chapter" data-level="C.3" data-path="appqts1sb3.html"><a href="appqts1sb3.html"><i class="fa fa-check"></i><b>C.3</b> Non-Markovian Queues and Approximations</a></li>
+<li class="chapter" data-level="C.4" data-path="appqtsecformulas.html"><a href="appqtsecformulas.html"><i class="fa fa-check"></i><b>C.4</b> Summary of Queueing Formulas</a>
+<ul>
+<li class="chapter" data-level="C.4.1" data-path="appqtsecformulas.html"><a href="appqtsecformulas.html#mm1-queue"><i class="fa fa-check"></i><b>C.4.1</b> M/M/1 Queue</a></li>
+<li class="chapter" data-level="C.4.2" data-path="appqtsecformulas.html"><a href="appqtsecformulas.html#mmc-queue"><i class="fa fa-check"></i><b>C.4.2</b> M/M/c Queue</a></li>
+<li class="chapter" data-level="C.4.3" data-path="appqtsecformulas.html"><a href="appqtsecformulas.html#mmck-queue"><i class="fa fa-check"></i><b>C.4.3</b> M/M/c/k Queue</a></li>
+<li class="chapter" data-level="C.4.4" data-path="appqtsecformulas.html"><a href="appqtsecformulas.html#mgcc-queue"><i class="fa fa-check"></i><b>C.4.4</b> M/G/c/c Queue</a></li>
+<li class="chapter" data-level="C.4.5" data-path="appqtsecformulas.html"><a href="appqtsecformulas.html#mm1k-queue"><i class="fa fa-check"></i><b>C.4.5</b> M/M/1/k Queue</a></li>
+<li class="chapter" data-level="C.4.6" data-path="appqtsecformulas.html"><a href="appqtsecformulas.html#mmck-queue-1"><i class="fa fa-check"></i><b>C.4.6</b> M/M/c/k Queue</a></li>
+<li class="chapter" data-level="C.4.7" data-path="appqtsecformulas.html"><a href="appqtsecformulas.html#mm1kk-queue"><i class="fa fa-check"></i><b>C.4.7</b> M/M/1/k/k Queue</a></li>
+<li class="chapter" data-level="C.4.8" data-path="appqtsecformulas.html"><a href="appqtsecformulas.html#mmckk-queue"><i class="fa fa-check"></i><b>C.4.8</b> M/M/c/k/k Queue</a></li>
+</ul></li>
+<li class="chapter" data-level="C.5" data-path="exercises-9.html"><a href="exercises-9.html"><i class="fa fa-check"></i><b>C.5</b> Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="D" data-path="appUtilities.html"><a href="appUtilities.html"><i class="fa fa-check"></i><b>D</b> KSL Utility Packages</a>
+<ul>
+<li class="chapter" data-level="D.1" data-path="appUtilitiesFiles.html"><a href="appUtilitiesFiles.html"><i class="fa fa-check"></i><b>D.1</b> Input and Output Utilities</a>
+<ul>
+<li class="chapter" data-level="D.1.1" data-path="appUtilitiesFiles.html"><a href="appUtilitiesFiles.html#the-outputdirectory-class-and-ksl-object"><i class="fa fa-check"></i><b>D.1.1</b> The <code>OutputDirectory</code> Class and <code>KSL</code> Object</a></li>
+<li class="chapter" data-level="D.1.2" data-path="appUtilitiesFiles.html"><a href="appUtilitiesFiles.html#logging-options"><i class="fa fa-check"></i><b>D.1.2</b> Logging Options</a></li>
+<li class="chapter" data-level="D.1.3" data-path="appUtilitiesFiles.html"><a href="appUtilitiesFiles.html#the-kslfileutil-object"><i class="fa fa-check"></i><b>D.1.3</b> The <code>KSLFileUtil</code> Object</a></li>
+<li class="chapter" data-level="D.1.4" data-path="appUtilitiesFiles.html"><a href="appUtilitiesFiles.html#csv-excel-and-tabular-data-files"><i class="fa fa-check"></i><b>D.1.4</b> CSV, Excel, and Tabular Data Files</a></li>
+<li class="chapter" data-level="D.1.5" data-path="appUtilitiesFiles.html"><a href="appUtilitiesFiles.html#the-dataframeutil-object"><i class="fa fa-check"></i><b>D.1.5</b> The <code>DataFrameUtil</code> Object</a></li>
+<li class="chapter" data-level="D.1.6" data-path="appUtilitiesFiles.html"><a href="appUtilitiesFiles.html#ksl-database-utilities"><i class="fa fa-check"></i><b>D.1.6</b> KSL Database Utilities</a></li>
+</ul></li>
+<li class="chapter" data-level="D.2" data-path="appUtilitiesArrays.html"><a href="appUtilitiesArrays.html"><i class="fa fa-check"></i><b>D.2</b> Array Utilities</a></li>
+<li class="chapter" data-level="D.3" data-path="appUtilitiesMisc.html"><a href="appUtilitiesMisc.html"><i class="fa fa-check"></i><b>D.3</b> Miscellaneous Utilities</a></li>
+</ul></li>
+<li class="chapter" data-level="E" data-path="distributions.html"><a href="distributions.html"><i class="fa fa-check"></i><b>E</b> Distributions</a>
+<ul>
+<li class="chapter" data-level="E.1" data-path="appDiscreteDistributions.html"><a href="appDiscreteDistributions.html"><i class="fa fa-check"></i><b>E.1</b> Discrete Distrbutions</a></li>
+<li class="chapter" data-level="E.2" data-path="appContinuousDistributions.html"><a href="appContinuousDistributions.html"><i class="fa fa-check"></i><b>E.2</b> Continuous Distrbutions</a></li>
+</ul></li>
+<li class="chapter" data-level="F" data-path="appStatTables.html"><a href="appStatTables.html"><i class="fa fa-check"></i><b>F</b> Statistical Tables</a></li>
+<li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
+<li class="divider"></li>
+<li><a href="https://bookdown.org" target="_blank">Published with bookdown</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Simulation Modeling using the Kotlin Simulation Library (KSL)</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="appUtilitiesFiles" class="section level2 hasAnchor" number="11.1">
+<h2><span class="header-section-number">D.1</span> Input and Output Utilities<a href="appUtilitiesFiles.html#appUtilitiesFiles" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>We often need to get data into a program or to write data out. Because of the plethora of file formats and differing methods for creating and using files, the KSL provides some utilities for working with comma separated value (CSV), Excel, Markdown, text, and database files. The most relevant classes include <code>OutputDirectory</code> class, the <code>KSL</code> <em>object</em> and the <code>KSLFileUtil</code> class.</p>
+<div id="the-outputdirectory-class-and-ksl-object" class="section level3 hasAnchor" number="11.1.1">
+<h3><span class="header-section-number">D.1.1</span> The <code>OutputDirectory</code> Class and <code>KSL</code> Object<a href="appUtilitiesFiles.html#the-outputdirectory-class-and-ksl-object" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Figure <a href="appUtilitiesFiles.html#fig:FileUtilities">D.1</a> illustrates the functions and properties of the <code>KSL</code> object and the <code>OutputDirectory</code> class.</p>
+<div class="figure"><span style="display:block;" id="fig:FileUtilities"></span>
+<img src="figures2/ch13/KSL.png" alt="OutputDirectory and KSL"  />
+<p class="caption">
+Figure D.1: OutputDirectory and KSL
+</p>
+</div>
+<p>The <code>OutputDirectory</code> class is an abstraction for a file directory to store output. When working with a particular simulation model, it is useful to store all of the results and files generated by the model in one directory. The <code>OutputDirectory</code> class facilitates this common use case. An instance of <code>OutputDirectory</code> requires a path to the file directory and then forms some standard sub-directories (<code>excelDir</code>, <code>dbDir</code>, <code>csvDir</code>, <code>outDir</code>) to hold various files that may be generated for these common types of files. The <code>KSL</code> object is, in essence, a default directory to hold all KSL output. Notice that <code>OutputDirectory</code> provides functions for creating files and directories within it. The most useful of the functions is the <code>createPrintWriter(name: String)</code> function which takes in the name of the file and creates a <code>PrintWriter</code> set up to write to the file. Also, notice the <code>createSubDirectory()</code> function. The directories created by this function are relative to the defined output directory. This alleviates the burden of fully specifying path strings and working with paths.</p>
+<p>Here is some sample code that uses the <code>OutputDirectory</code> class.</p>
+<div class="sourceCode" id="cb303"><pre class="sourceCode kt"><code class="sourceCode kotlin"><span id="cb303-1"><a href="appUtilitiesFiles.html#cb303-1" tabindex="-1"></a>    <span class="co">// get the working directory</span></span>
+<span id="cb303-2"><a href="appUtilitiesFiles.html#cb303-2" tabindex="-1"></a>    <span class="kw">val</span> <span class="va">path</span> <span class="op">=</span> Paths<span class="op">.</span><span class="kw">get</span><span class="op">(</span><span class="st">&quot;&quot;</span><span class="op">).</span>toAbsolutePath<span class="op">()</span></span>
+<span id="cb303-3"><a href="appUtilitiesFiles.html#cb303-3" tabindex="-1"></a>    println<span class="op">(</span><span class="st">&quot;Working Directory = </span><span class="ss">$path</span><span class="st">&quot;</span><span class="op">)</span></span>
+<span id="cb303-4"><a href="appUtilitiesFiles.html#cb303-4" tabindex="-1"></a>    <span class="co">// creates a directory called TestOutputDir in the current working directory</span></span>
+<span id="cb303-5"><a href="appUtilitiesFiles.html#cb303-5" tabindex="-1"></a>    <span class="co">// Creates subdirectories: csvDir, dbDir, excelDir and file out.txt</span></span>
+<span id="cb303-6"><a href="appUtilitiesFiles.html#cb303-6" tabindex="-1"></a>    <span class="kw">val</span> <span class="va">outDir</span> <span class="op">=</span> OutputDirectory<span class="op">(</span>path<span class="op">.</span>resolve<span class="op">(</span><span class="st">&quot;TestOutputDir&quot;</span><span class="op">))</span></span>
+<span id="cb303-7"><a href="appUtilitiesFiles.html#cb303-7" tabindex="-1"></a>    <span class="co">// write to the default file</span></span>
+<span id="cb303-8"><a href="appUtilitiesFiles.html#cb303-8" tabindex="-1"></a>    outDir<span class="op">.</span><span class="kw">out</span><span class="op">.</span>println<span class="op">(</span><span class="st">&quot;Use out property to write out text to a file.&quot;</span><span class="op">)</span></span>
+<span id="cb303-9"><a href="appUtilitiesFiles.html#cb303-9" tabindex="-1"></a>    <span class="co">// Creates a PrintWriter (and file) to write to within TestOutputDir</span></span>
+<span id="cb303-10"><a href="appUtilitiesFiles.html#cb303-10" tabindex="-1"></a>    <span class="kw">val</span> <span class="va">pw</span> <span class="op">=</span> outDir<span class="op">.</span>createPrintWriter<span class="op">(</span><span class="st">&quot;PW_File.txt&quot;</span><span class="op">)</span></span>
+<span id="cb303-11"><a href="appUtilitiesFiles.html#cb303-11" tabindex="-1"></a>    pw<span class="op">.</span>println<span class="op">(</span><span class="st">&quot;Hello, World&quot;</span><span class="op">)</span></span>
+<span id="cb303-12"><a href="appUtilitiesFiles.html#cb303-12" tabindex="-1"></a>    <span class="kw">val</span> <span class="va">subDir</span> <span class="op">=</span> outDir<span class="op">.</span>createSubDirectory<span class="op">(</span><span class="st">&quot;SubDir&quot;</span><span class="op">)</span></span>
+<span id="cb303-13"><a href="appUtilitiesFiles.html#cb303-13" tabindex="-1"></a>    println<span class="op">(</span>outDir<span class="op">)</span></span></code></pre></div>
+<p>The <code>KSL</code> object is essentially a predefined instance of <code>OutputDirectory</code> that creates a default directory called <code>kslOutput</code> within the current working directory. The property <code>out</code> is an instance of a <code>LogPrintWriter</code>, which is a class that wraps a <code>PrintWriter</code> but also has a property called <code>OUTPUT_ON</code>, which has type boolean, where true indicates that output will be written and false turns off the output. You can use this to stop excessive print messages globally. I find this useful for simple debugging messages. Besides this field, <code>KSL</code> has a standard logger for logging program messages.</p>
+<div class="sourceCode" id="cb304"><pre class="sourceCode kt"><code class="sourceCode kotlin"><span id="cb304-1"><a href="appUtilitiesFiles.html#cb304-1" tabindex="-1"></a>    <span class="co">// use KSL like you use OutputDirectory but with some added functionality</span></span>
+<span id="cb304-2"><a href="appUtilitiesFiles.html#cb304-2" tabindex="-1"></a>    <span class="co">// The PW_File.txt file with be within the kslOutput directory within the working directory</span></span>
+<span id="cb304-3"><a href="appUtilitiesFiles.html#cb304-3" tabindex="-1"></a>    <span class="kw">val</span> <span class="va">pw</span> <span class="op">=</span> KSL<span class="op">.</span>createPrintWriter<span class="op">(</span><span class="st">&quot;PW_File.txt&quot;</span><span class="op">)</span></span>
+<span id="cb304-4"><a href="appUtilitiesFiles.html#cb304-4" tabindex="-1"></a>    pw<span class="op">.</span>println<span class="op">(</span><span class="st">&quot;Hello, World!&quot;</span><span class="op">)</span></span>
+<span id="cb304-5"><a href="appUtilitiesFiles.html#cb304-5" tabindex="-1"></a>    <span class="co">// Creates subdirectory SubDir within the kslOutput directory</span></span>
+<span id="cb304-6"><a href="appUtilitiesFiles.html#cb304-6" tabindex="-1"></a>    KSL<span class="op">.</span>createSubDirectory<span class="op">(</span><span class="st">&quot;SubDir&quot;</span><span class="op">)</span></span>
+<span id="cb304-7"><a href="appUtilitiesFiles.html#cb304-7" tabindex="-1"></a>    <span class="co">// use KSL.out to write to kslOutput.txt</span></span>
+<span id="cb304-8"><a href="appUtilitiesFiles.html#cb304-8" tabindex="-1"></a>    KSL<span class="op">.</span><span class="kw">out</span><span class="op">.</span>println<span class="op">(</span><span class="st">&quot;Information written into kslOutput.txt&quot;</span><span class="op">)</span></span>
+<span id="cb304-9"><a href="appUtilitiesFiles.html#cb304-9" tabindex="-1"></a>    println<span class="op">(</span>KSL<span class="op">)</span></span>
+<span id="cb304-10"><a href="appUtilitiesFiles.html#cb304-10" tabindex="-1"></a>    <span class="co">// KSL also has logger. This logs to logs/ksl.log</span></span>
+<span id="cb304-11"><a href="appUtilitiesFiles.html#cb304-11" tabindex="-1"></a>    KSL<span class="op">.</span>logger<span class="op">.</span>info <span class="op">{</span> <span class="st">&quot;This is an informational log comment!&quot;</span> <span class="op">}</span></span></code></pre></div>
+</div>
+<div id="logging-options" class="section level3 hasAnchor" number="11.1.2">
+<h3><span class="header-section-number">D.1.2</span> Logging Options<a href="appUtilitiesFiles.html#logging-options" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Logging is controlled by a <a href="https://logback.qos.ch/">logback</a> XML file for configuring the loggers. The <code>logback.xml</code> file can be found in the resources folder within the source code repository. The more interesting classes that have default loggers written to the logs directory include:</p>
+<ul>
+<li><code>KSL</code> useful for general purpose logging and written to <code>ksl.log</code> with default level DEBUG.</li>
+<li><code>DatabaseIfc</code> captures database interaction, written to <code>kslDbLog.log</code> with default level INFO.</li>
+<li><code>ExcelUtil</code> captures Excel file interactions, written to <code>kslExcelLog.log</code> with default level INFO.</li>
+<li><code>KSLFileUtil</code> captures file interactions, written to <code>ksl_io.log</code> with default level INFO.</li>
+<li><code>Model</code> captures key model actions as the model is processed, written to <code>kslSim.log</code> with default level of INFO.</li>
+<li><code>ModelElement</code> captures detailed actions related to model element processing, written to <code>kslModelElement.log</code> with default level INFO.</li>
+<li><code>ProcessModel</code> captures detailed actions related to entity processing, written to <code>kslEntity.log</code> with default level INFO. Very detailed entity tracing can be achieved by setting the log level to TRACE.</li>
+<li><code>RNStreamProvider</code> captures random number stream assignments, written to <code>kslStreams.log</code> with default level INFO.</li>
+<li><code>Controls</code> captures simulation control assignment, written to <code>controlsFile.log</code> with default level INFO.</li>
+</ul>
+<p>For diagnosing issues related to these classes, you can change the debug level within the <code>logback.xml</code> file. Be careful with setting the <code>ProcessModel</code> logger to trace because the generated files will be large and the execution time of the model will be longer because of the extra IO.</p>
+</div>
+<div id="the-kslfileutil-object" class="section level3 hasAnchor" number="11.1.3">
+<h3><span class="header-section-number">D.1.3</span> The <code>KSLFileUtil</code> Object<a href="appUtilitiesFiles.html#the-kslfileutil-object" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>The <code>KSLFileUtil</code> Object supports the creation/deletion of files, directories, and working with file extensions. It also facilitates the reading and writing of 1-D and 2-D arrays. Figure <a href="appUtilitiesFiles.html#fig:KSLFileUtil">D.2</a> illustrates the functions and properties of the <code>KSLFileUtil</code> object</p>
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:KSLFileUtil"></span>
+<img src="figures2/ch13/KSLFileUtil.png" alt="KSLFileUtil Class" width="70%" height="70%" />
+<p class="caption">
+Figure D.2: KSLFileUtil Class
+</p>
+</div>
+<ul>
+<li><code>copyDirectory()</code> and <code>copyFile()</code> facilitate path and file based copying</li>
+<li><code>createFile()</code>, <code>createDirectories()</code>, <code>createPrintWriter()</code>, all create according to their function names</li>
+<li><code>deleteDirectory()</code> will delete a directory based on a <code>File</code> or a <code>Path</code></li>
+<li><code>createCSVFileName()</code>, <code>createTxtFileName()</code> will make a string that has the appropriate extension</li>
+<li><code>isCSVFile()</code>, <code>isTeXFile()</code>, <code>isTextFile()</code> check for the appropriate extension</li>
+</ul>
+<p>As previously noted, there is a logger available for logging file interactions. A useful property is the <code>programLaunchDirectory</code>, which provides the path to the directory in which the program is executing.</p>
+<p>The <code>KSLFileUtil</code> object also helps with array IO.</p>
+<ul>
+<li><code>write(array, out: PrintWriter)</code> has versions for working with arrays of primitives: <code>Array&lt;DoubleArray&gt;</code>, <code>Array&lt;IntArray&gt;</code>, <code>DoubleArray</code>, <code>IntArray</code>. The functions that write double values also have an optional argument to control formatting, <code>df: DecimalFormat?</code>. There are equivalent extension functions for <code>Array&lt;DoubleArray&gt;</code>, <code>Array&lt;IntArray&gt;</code>, <code>DoubleArray</code>, <code>IntArray</code> for writing to files.</li>
+<li><code>scanToArray(path:  Path)</code> will read the values file associated with the path into an <code>DoubleArray.</code></li>
+<li><code>toCSVString(array: DoubleArray, df: DecimalFormat?)</code> will format a line representing the array of data as a comma separated value string.</li>
+</ul>
+<p>These functions are used in a number of other packages when working with data and files.</p>
+</div>
+<div id="csv-excel-and-tabular-data-files" class="section level3 hasAnchor" number="11.1.4">
+<h3><span class="header-section-number">D.1.4</span> CSV, Excel, and Tabular Data Files<a href="appUtilitiesFiles.html#csv-excel-and-tabular-data-files" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>The KSL also has simple utilities to work with comma separated value (CSV) files and Excel files. The underlying CSV file processing library used by the KSL is <a href="https://opencsv.sourceforge.net/">opencsv</a>. The KSL provision of working with CSV files is not meant to replace the functionality of those libraries. Instead, the purpose is to provide a simple facade so that users can do some simple processing without worrying about the complexities of a full featured CSV library. Figure <a href="appUtilitiesFiles.html#fig:CSVUtil">D.3</a> illustrates the functions and properties of the <code>CSVUtil</code> object</p>
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:CSVUtil"></span>
+<img src="figures2/ch13/CSVUtil.png" alt="CSVUtil Class" width="65%" height="65%" />
+<p class="caption">
+Figure D.3: CSVUtil Class
+</p>
+</div>
+<p>Assuming that the CSV data is organized with first row as a header and each subsequent row as the data for each column as follows:</p>
+<pre><code>&quot;x&quot;, &quot;y&quot;
+1.1, 2.0
+4.3, 6.4</code></pre>
+<p>The KSL class <code>CSVUtil</code> has the following functions:</p>
+<ul>
+<li><code>readRows() : List&lt;Array&lt;String&gt;&gt;</code> Reads all rows into list holding the rows within an array of strings</li>
+<li><code>readRows() : Array&lt;DoubleArray&gt;</code> Reads all rows into array holding the rows within an array of doubles</li>
+<li><code>readToColumns() : Array&lt;DoubleArray&gt;</code> reads all of the rows and transposes them into the columns</li>
+<li><code>writeArrayToCSVFile(array: Array&lt;DoubleArray&gt;)</code> will write a 2-D array to a file with the CSV format, allowing an optional header and whether quotes are added to strings.</li>
+<li><code>csvIterator(): Iterator&lt;Array&lt;String&gt;&gt;</code> will iterate through a CSV file.</li>
+</ul>
+<p>The following code illustrates the use of the <code>CSVUtil</code> class. An instance of a <code>NormalRV</code> random variable is used to make a 5 row, 4 column matrix of normal <span class="math inline">\(\mu = 0\)</span> and <span class="math inline">\(\sigma = 1\)</span> random variates.</p>
+<div class="sourceCode" id="cb306"><pre class="sourceCode kt"><code class="sourceCode kotlin"><span id="cb306-1"><a href="appUtilitiesFiles.html#cb306-1" tabindex="-1"></a>    <span class="kw">val</span> <span class="va">n</span> <span class="op">=</span> NormalRV<span class="op">()</span></span>
+<span id="cb306-2"><a href="appUtilitiesFiles.html#cb306-2" tabindex="-1"></a>    <span class="kw">val</span> <span class="va">matrix</span> <span class="op">=</span> n<span class="op">.</span>sampleAsColumns<span class="op">(</span>sampleSize <span class="op">=</span> <span class="dv">5</span><span class="op">,</span> nCols <span class="op">=</span> <span class="dv">4</span><span class="op">)</span></span>
+<span id="cb306-3"><a href="appUtilitiesFiles.html#cb306-3" tabindex="-1"></a>    <span class="cf">for</span><span class="op">(</span>i <span class="kw">in</span> matrix<span class="op">.</span>indices<span class="op">){</span></span>
+<span id="cb306-4"><a href="appUtilitiesFiles.html#cb306-4" tabindex="-1"></a>        println<span class="op">(</span>matrix<span class="op">[</span>i<span class="op">].</span>contentToString<span class="op">())</span></span>
+<span id="cb306-5"><a href="appUtilitiesFiles.html#cb306-5" tabindex="-1"></a>    <span class="op">}</span></span>
+<span id="cb306-6"><a href="appUtilitiesFiles.html#cb306-6" tabindex="-1"></a>    <span class="kw">val</span> <span class="va">h</span> <span class="op">=</span> listOf<span class="op">(</span><span class="st">&quot;col1&quot;</span><span class="op">,</span> <span class="st">&quot;col2&quot;</span><span class="op">,</span> <span class="st">&quot;col3&quot;</span><span class="op">,</span> <span class="st">&quot;col4&quot;</span><span class="op">)</span></span>
+<span id="cb306-7"><a href="appUtilitiesFiles.html#cb306-7" tabindex="-1"></a>    <span class="kw">val</span> <span class="va">p</span> <span class="op">=</span> KSL<span class="op">.</span>csvDir<span class="op">.</span>resolve<span class="op">(</span><span class="st">&quot;data.csv&quot;</span><span class="op">)</span></span>
+<span id="cb306-8"><a href="appUtilitiesFiles.html#cb306-8" tabindex="-1"></a>    CSVUtil<span class="op">.</span>writeArrayToCSVFile<span class="op">(</span>matrix<span class="op">,</span> header <span class="op">=</span> h<span class="op">.</span>toMutableList<span class="op">(),</span> applyQuotesToData <span class="op">=</span> <span class="kw">false</span><span class="op">,</span> pathToFile <span class="op">=</span> p<span class="op">)</span></span>
+<span id="cb306-9"><a href="appUtilitiesFiles.html#cb306-9" tabindex="-1"></a>    println<span class="op">()</span></span>
+<span id="cb306-10"><a href="appUtilitiesFiles.html#cb306-10" tabindex="-1"></a>    <span class="kw">val</span> <span class="va">dataAsList</span><span class="op">:</span> List<span class="op">&lt;</span>Array<span class="op">&lt;</span><span class="kw">String</span><span class="op">&gt;&gt;</span> <span class="op">=</span> CSVUtil<span class="op">.</span>readRows<span class="op">(</span>p<span class="op">,</span> skipLines <span class="op">=</span> <span class="dv">1</span><span class="op">)</span></span>
+<span id="cb306-11"><a href="appUtilitiesFiles.html#cb306-11" tabindex="-1"></a>    <span class="kw">val</span> <span class="va">m</span> <span class="op">=</span> KSLArrays<span class="op">.</span>parseTo2DArray<span class="op">(</span>dataAsList<span class="op">)</span></span>
+<span id="cb306-12"><a href="appUtilitiesFiles.html#cb306-12" tabindex="-1"></a>    <span class="cf">for</span><span class="op">(</span>i <span class="kw">in</span> matrix<span class="op">.</span>indices<span class="op">){</span></span>
+<span id="cb306-13"><a href="appUtilitiesFiles.html#cb306-13" tabindex="-1"></a>        println<span class="op">(</span>m<span class="op">[</span>i<span class="op">].</span>contentToString<span class="op">())</span></span>
+<span id="cb306-14"><a href="appUtilitiesFiles.html#cb306-14" tabindex="-1"></a>    <span class="op">}</span></span></code></pre></div>
+<p>The contents of the matrix are printed to console. The header is made for the CSV file and then the matrix is written to the file using the <code>CSVUtil</code> function to write an array to a CSV file. Then, the <code>CSVUtil</code> object is used to read the data into list of strings, which are parsed to double values. Of course, you can use the <a href="https://opencsv.sourceforge.net/"><code>OpenCSV</code></a> functionality to read and write values via its API, which is expose through the KSL API. The approach illustrated here is only meant for simple file processing.</p>
+<p>Excel file operations are available within the KSL through the <a href="https://poi.apache.org/">Apache POI library</a>. The KSL provision of working with Excel files is not meant to replace the functionality of the POI library. Instead, the purpose is to provide a simple facade so that users can do some simple processing without worrying about the complexities of a full featured POI library. Figure <a href="appUtilitiesFiles.html#fig:ExcelUtil">D.4</a> illustrates the functions and properties of the <code>ExcelUtil</code> object.</p>
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:ExcelUtil"></span>
+<img src="figures2/ch13/ExcelUtil.png" alt="ExcelUtil Class" width="65%" height="65%" />
+<p class="caption">
+Figure D.4: ExcelUtil Class
+</p>
+</div>
+<p>The KSL class <code>ExcelUtil</code> provides the basic functions primarily concerned with reading and writing tabular data:</p>
+<ul>
+<li><code>createSheet(workbook: Workbook, sheetName:String)</code> Creates a sheet within the workbook with the name.</li>
+<li><code>writeSheetToCSV()</code> Treats the columns as fields in a csv file, writes each row as a separate csv row in the resulting csv file</li>
+<li><code>writeCell()</code> Writes the object to the Excel cell</li>
+<li><code>readCellAsObject() : Any?</code> the data in the form of an object</li>
+<li><code>readCellAsString() : String</code> the data in the form of a String</li>
+<li><code>readRowAsObjectList() : List&lt;Any?&gt;</code> an list of strings representing the contents of the cells</li>
+<li><code>readRowAsStringArray() : Array&lt;String?&gt;</code> an array of strings representing the contents of the cells</li>
+<li><code>readRowAsStringList() : List&lt;String?&gt;</code> a list of strings representing the contents of the cells</li>
+<li><code>readSheetAsObjects() : List&lt;List&lt;Any?&gt;&gt;</code> a list of lists of the objects representing each cell of each row of the sheet</li>
+<li><code>columnSize()</code> number of rows that have data in a particular column as defined by not having
+a null cell.</li>
+</ul>
+<p>To use the <code>ExcelUtil</code> object, it is useful to know how the Apache POI library works because you need to know how to create workbooks. The functionality of the POI library is also exposed as part of the KSL API. The main use of the object <code>ExcelUtil</code> within the KSL is for importing and exporting database tables and record sets to Excel.</p>
+<p>Comma separated value (CSV) files and Excel files are commonly used to store data in a tabular (row/column) format. The KSL also provides some basic functionality for reading and writing tabular files.</p>
+<p>A common programming necessity is to write or read data that is organized in rows and columns. While libraries that support CSV file processing are readily available, it is sometimes useful to have a quick and easy way to write (or read) tabular data that is not as sophisticated as a database. While Excel files also provide this ability, using the Apache POI may be more than is required. To make this type of file processing easier, the KSL provides a general interface for representing tabular data as a data class via the <code>TabularData</code> class. In addition, the <code>TabularFile</code>, <code>TabularOutputFile,</code> and <code>TabularInputFile</code> classes permit simple row oriented reading and writing of tabular data.</p>
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:TabularData"></span>
+<img src="figures2/ch13/TabularData.png" alt="TabularData Class" width="65%" height="65%" />
+<p class="caption">
+Figure D.5: TabularData Class
+</p>
+</div>
+<p>Figure <a href="appUtilitiesFiles.html#fig:TabularData">D.5</a> illustrates the functions and properties of the <code>TabularData</code> class. The basic usage of this class is to subclass a data class from it to define the contents of a row of data. This can be used for database processing as well as for working with the tabular file classes.</p>
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:TabularFile"></span>
+<img src="figures2/ch13/TabularFile.png" alt="Tabular File Classes" width="90%" height="90%" />
+<p class="caption">
+Figure D.6: Tabular File Classes
+</p>
+</div>
+<p>Figure <a href="appUtilitiesFiles.html#fig:TabularFile">D.6</a> illustrates the functions and properties of the classes for working with tabular data stored in files.</p>
+<p>The following code illustrates how to make a tabular file with 5 columns. The first three columns hold numeric data. The fourth column holds text, and the fifth column holds numeric data. The enum <code>DataType</code> defines two types of data to be held in columns: numeric or text. This covers a vast majority of simple computing needs.</p>
+<div class="sourceCode" id="cb307"><pre class="sourceCode kt"><code class="sourceCode kotlin"><span id="cb307-1"><a href="appUtilitiesFiles.html#cb307-1" tabindex="-1"></a>    <span class="kw">val</span> <span class="va">path</span><span class="op">:</span> Path <span class="op">=</span> KSL<span class="op">.</span>outDir<span class="op">.</span>resolve<span class="op">(</span><span class="st">&quot;demoFile&quot;</span><span class="op">)</span></span>
+<span id="cb307-2"><a href="appUtilitiesFiles.html#cb307-2" tabindex="-1"></a>    <span class="co">// configure the columns</span></span>
+<span id="cb307-3"><a href="appUtilitiesFiles.html#cb307-3" tabindex="-1"></a>    <span class="kw">val</span> <span class="va">columns</span><span class="op">:</span> MutableMap<span class="op">&lt;</span><span class="kw">String</span><span class="op">,</span> DataType<span class="op">&gt;</span> <span class="op">=</span> TabularFile<span class="op">.</span>columns<span class="op">(</span><span class="dv">3</span><span class="op">,</span> DataType<span class="op">.</span>NUMERIC<span class="op">).</span>toMutableMap<span class="op">()</span></span>
+<span id="cb307-4"><a href="appUtilitiesFiles.html#cb307-4" tabindex="-1"></a>    columns<span class="op">[</span><span class="st">&quot;c4&quot;</span><span class="op">]</span> <span class="op">=</span> DataType<span class="op">.</span>TEXT</span>
+<span id="cb307-5"><a href="appUtilitiesFiles.html#cb307-5" tabindex="-1"></a>    columns<span class="op">[</span><span class="st">&quot;c5&quot;</span><span class="op">]</span> <span class="op">=</span> DataType<span class="op">.</span>NUMERIC</span>
+<span id="cb307-6"><a href="appUtilitiesFiles.html#cb307-6" tabindex="-1"></a>    <span class="co">// make the file</span></span>
+<span id="cb307-7"><a href="appUtilitiesFiles.html#cb307-7" tabindex="-1"></a>    <span class="kw">val</span> <span class="va">tif</span> <span class="op">=</span> TabularOutputFile<span class="op">(</span>columns<span class="op">,</span> path<span class="op">)</span></span>
+<span id="cb307-8"><a href="appUtilitiesFiles.html#cb307-8" tabindex="-1"></a>    println<span class="op">(</span>tif<span class="op">)</span></span></code></pre></div>
+<p>The <code>columns()</code> function is used to define the columns as a map of column names and the data types. This describes a type of column within the tabular file.</p>
+<p>The numeric type should be used for numeric data (float, double, long, int, etc.). In addition, use the numeric type for boolean values, which are stored 1.0 = true, 0.0 = false). The text type should be used for strings and date/time data. Date and time data is saved as ISO8601 strings (“YYYY-MM-DD HH:MM:SS.SSS”). If you need more type complexity, you should use a database or some other more advanced serialization method such as <a href="https://www.json.org/json-en.html">JSON</a>, <a href="https://parquet.apache.org/">Parquet</a>, or <a href="https://arrow.apache.org/">Arrow</a>.</p>
+<p>The following code creates some random data and writes rows of data to the file. The <code>RowSetterIfc</code> interface is use in that it allows for the writing of any numeric columns and any text columns as separate row operations.</p>
+<div class="sourceCode" id="cb308"><pre class="sourceCode kt"><code class="sourceCode kotlin"><span id="cb308-1"><a href="appUtilitiesFiles.html#cb308-1" tabindex="-1"></a>    <span class="co">// needed for some random data</span></span>
+<span id="cb308-2"><a href="appUtilitiesFiles.html#cb308-2" tabindex="-1"></a>    <span class="kw">val</span> <span class="va">n</span> <span class="op">=</span> NormalRV<span class="op">(</span><span class="fl">10.0</span><span class="op">,</span> <span class="fl">1.0</span><span class="op">)</span></span>
+<span id="cb308-3"><a href="appUtilitiesFiles.html#cb308-3" tabindex="-1"></a>    <span class="kw">val</span> <span class="va">k</span> <span class="op">=</span> <span class="dv">15</span></span>
+<span id="cb308-4"><a href="appUtilitiesFiles.html#cb308-4" tabindex="-1"></a>    <span class="co">// get a row</span></span>
+<span id="cb308-5"><a href="appUtilitiesFiles.html#cb308-5" tabindex="-1"></a>    <span class="kw">val</span> <span class="va">row</span><span class="op">:</span> RowSetterIfc <span class="op">=</span> tif<span class="op">.</span>row<span class="op">()</span></span>
+<span id="cb308-6"><a href="appUtilitiesFiles.html#cb308-6" tabindex="-1"></a>    <span class="co">// write some data to each row</span></span>
+<span id="cb308-7"><a href="appUtilitiesFiles.html#cb308-7" tabindex="-1"></a>    println<span class="op">(</span><span class="st">&quot;Writing rows...&quot;</span><span class="op">)</span></span>
+<span id="cb308-8"><a href="appUtilitiesFiles.html#cb308-8" tabindex="-1"></a>    <span class="cf">for</span> <span class="op">(</span>i <span class="kw">in</span> <span class="fl">1.</span><span class="op">.</span>k<span class="op">)</span> <span class="op">{</span></span>
+<span id="cb308-9"><a href="appUtilitiesFiles.html#cb308-9" tabindex="-1"></a>        <span class="co">// reuse the same row, many times</span></span>
+<span id="cb308-10"><a href="appUtilitiesFiles.html#cb308-10" tabindex="-1"></a>        <span class="co">// can fill all numeric columns</span></span>
+<span id="cb308-11"><a href="appUtilitiesFiles.html#cb308-11" tabindex="-1"></a>        row<span class="op">.</span>setNumeric<span class="op">(</span>n<span class="op">.</span>sample<span class="op">(</span><span class="dv">5</span><span class="op">))</span></span>
+<span id="cb308-12"><a href="appUtilitiesFiles.html#cb308-12" tabindex="-1"></a>        <span class="co">// can set specific columns</span></span>
+<span id="cb308-13"><a href="appUtilitiesFiles.html#cb308-13" tabindex="-1"></a>        row<span class="op">.</span>setText<span class="op">(</span><span class="dv">3</span><span class="op">,</span> <span class="st">&quot;text data </span><span class="ss">$i</span><span class="st">&quot;</span><span class="op">)</span></span>
+<span id="cb308-14"><a href="appUtilitiesFiles.html#cb308-14" tabindex="-1"></a>        <span class="co">// need to write the row to the buffer</span></span>
+<span id="cb308-15"><a href="appUtilitiesFiles.html#cb308-15" tabindex="-1"></a>        tif<span class="op">.</span>writeRow<span class="op">(</span>row<span class="op">)</span></span>
+<span id="cb308-16"><a href="appUtilitiesFiles.html#cb308-16" tabindex="-1"></a>    <span class="op">}</span></span>
+<span id="cb308-17"><a href="appUtilitiesFiles.html#cb308-17" tabindex="-1"></a>    <span class="co">// don&#39;t forget to flush the buffer</span></span>
+<span id="cb308-18"><a href="appUtilitiesFiles.html#cb308-18" tabindex="-1"></a>    tif<span class="op">.</span>flushRows<span class="op">()</span></span>
+<span id="cb308-19"><a href="appUtilitiesFiles.html#cb308-19" tabindex="-1"></a>    println<span class="op">(</span><span class="st">&quot;Done writing rows!&quot;</span><span class="op">)</span></span></code></pre></div>
+<p>The tabular file package also allows for the defintion of the data schema via data class. The type of the properties of the data class are translated to either text or numeric columns. The following code illustrates this functionality. Here a data class is used to define a text field and a numeric field, which are then written to the file.</p>
+<div class="sourceCode" id="cb309"><pre class="sourceCode kt"><code class="sourceCode kotlin"><span id="cb309-1"><a href="appUtilitiesFiles.html#cb309-1" tabindex="-1"></a>    <span class="kw">val</span> <span class="va">path</span><span class="op">:</span> Path <span class="op">=</span> KSL<span class="op">.</span>outDir<span class="op">.</span>resolve<span class="op">(</span><span class="st">&quot;TabularDataFile&quot;</span><span class="op">)</span></span>
+<span id="cb309-2"><a href="appUtilitiesFiles.html#cb309-2" tabindex="-1"></a>    <span class="kw">data</span> <span class="kw">class</span> SomeData<span class="op">(</span><span class="kw">var</span> <span class="va">someText</span><span class="op">:</span> <span class="dt">String</span> <span class="op">=</span> <span class="st">&quot;&quot;</span><span class="op">,</span> <span class="kw">var</span> <span class="va">someData</span><span class="op">:</span> <span class="dt">Double</span> <span class="op">=</span> <span class="fl">0.0</span><span class="op">):</span> <span class="dt">TabularData</span><span class="op">(</span>&quot;<span class="va">SomeData</span>&quot;<span class="op">)</span></span>
+<span id="cb309-3"><a href="appUtilitiesFiles.html#cb309-3" tabindex="-1"></a>    <span class="kw">val</span> <span class="va">rowData</span> <span class="op">=</span> SomeData<span class="op">()</span></span>
+<span id="cb309-4"><a href="appUtilitiesFiles.html#cb309-4" tabindex="-1"></a>    <span class="co">// use the data class instance to define the columns and their types</span></span>
+<span id="cb309-5"><a href="appUtilitiesFiles.html#cb309-5" tabindex="-1"></a>    <span class="kw">val</span> <span class="va">tof</span> <span class="op">=</span> TabularOutputFile<span class="op">(</span>rowData<span class="op">,</span> path<span class="op">)</span></span>
+<span id="cb309-6"><a href="appUtilitiesFiles.html#cb309-6" tabindex="-1"></a>    println<span class="op">(</span>tof<span class="op">)</span></span>
+<span id="cb309-7"><a href="appUtilitiesFiles.html#cb309-7" tabindex="-1"></a></span>
+<span id="cb309-8"><a href="appUtilitiesFiles.html#cb309-8" tabindex="-1"></a>    <span class="co">// needed for some random data</span></span>
+<span id="cb309-9"><a href="appUtilitiesFiles.html#cb309-9" tabindex="-1"></a>    <span class="kw">val</span> <span class="va">n</span> <span class="op">=</span> NormalRV<span class="op">(</span><span class="fl">10.0</span><span class="op">,</span> <span class="fl">1.0</span><span class="op">)</span></span>
+<span id="cb309-10"><a href="appUtilitiesFiles.html#cb309-10" tabindex="-1"></a>    <span class="kw">val</span> <span class="va">k</span> <span class="op">=</span> <span class="dv">15</span></span>
+<span id="cb309-11"><a href="appUtilitiesFiles.html#cb309-11" tabindex="-1"></a>    <span class="co">// write some data to each row</span></span>
+<span id="cb309-12"><a href="appUtilitiesFiles.html#cb309-12" tabindex="-1"></a>    println<span class="op">(</span><span class="st">&quot;Writing rows...&quot;</span><span class="op">)</span></span>
+<span id="cb309-13"><a href="appUtilitiesFiles.html#cb309-13" tabindex="-1"></a>    <span class="cf">for</span> <span class="op">(</span>i <span class="kw">in</span> <span class="fl">1.</span><span class="op">.</span>k<span class="op">)</span> <span class="op">{</span></span>
+<span id="cb309-14"><a href="appUtilitiesFiles.html#cb309-14" tabindex="-1"></a>        <span class="co">// reuse the same row, many times</span></span>
+<span id="cb309-15"><a href="appUtilitiesFiles.html#cb309-15" tabindex="-1"></a>        <span class="co">// can fill all numeric columns</span></span>
+<span id="cb309-16"><a href="appUtilitiesFiles.html#cb309-16" tabindex="-1"></a>        rowData<span class="op">.</span>someData <span class="op">=</span> n<span class="op">.</span>value</span>
+<span id="cb309-17"><a href="appUtilitiesFiles.html#cb309-17" tabindex="-1"></a>        rowData<span class="op">.</span>someText <span class="op">=</span> <span class="st">&quot;text data </span><span class="ss">$i</span><span class="st">&quot;</span></span>
+<span id="cb309-18"><a href="appUtilitiesFiles.html#cb309-18" tabindex="-1"></a>        <span class="co">// need to write the row to the buffer</span></span>
+<span id="cb309-19"><a href="appUtilitiesFiles.html#cb309-19" tabindex="-1"></a>        tof<span class="op">.</span>writeRow<span class="op">(</span>rowData<span class="op">)</span></span>
+<span id="cb309-20"><a href="appUtilitiesFiles.html#cb309-20" tabindex="-1"></a>    <span class="op">}</span></span>
+<span id="cb309-21"><a href="appUtilitiesFiles.html#cb309-21" tabindex="-1"></a>    <span class="co">// don&#39;t forget to flush the buffer</span></span>
+<span id="cb309-22"><a href="appUtilitiesFiles.html#cb309-22" tabindex="-1"></a>    tof<span class="op">.</span>flushRows<span class="op">()</span></span>
+<span id="cb309-23"><a href="appUtilitiesFiles.html#cb309-23" tabindex="-1"></a>    println<span class="op">(</span><span class="st">&quot;Done writing rows!&quot;</span><span class="op">)</span></span></code></pre></div>
+<p>As long as the data class is compatible with the rows of the file, then the same approach can be used to read in the data as illustrated in the next code snippet.</p>
+<div class="sourceCode" id="cb310"><pre class="sourceCode kt"><code class="sourceCode kotlin"><span id="cb310-1"><a href="appUtilitiesFiles.html#cb310-1" tabindex="-1"></a>    <span class="kw">val</span> <span class="va">tif</span> <span class="op">=</span> TabularInputFile<span class="op">(</span>path<span class="op">)</span></span>
+<span id="cb310-2"><a href="appUtilitiesFiles.html#cb310-2" tabindex="-1"></a>    println<span class="op">(</span>tif<span class="op">)</span></span>
+<span id="cb310-3"><a href="appUtilitiesFiles.html#cb310-3" tabindex="-1"></a></span>
+<span id="cb310-4"><a href="appUtilitiesFiles.html#cb310-4" tabindex="-1"></a>    <span class="co">// TabularInputFile is Iterable and foreach construct works across rows</span></span>
+<span id="cb310-5"><a href="appUtilitiesFiles.html#cb310-5" tabindex="-1"></a>    println<span class="op">(</span><span class="st">&quot;Printing all rows from an iterator using data class&quot;</span><span class="op">)</span></span>
+<span id="cb310-6"><a href="appUtilitiesFiles.html#cb310-6" tabindex="-1"></a>    <span class="cf">for</span> <span class="op">(</span>row <span class="kw">in</span> tif<span class="op">.</span>iterator<span class="op">())</span> <span class="op">{</span></span>
+<span id="cb310-7"><a href="appUtilitiesFiles.html#cb310-7" tabindex="-1"></a>        rowData<span class="op">.</span>setPropertyValues<span class="op">(</span>row<span class="op">)</span></span>
+<span id="cb310-8"><a href="appUtilitiesFiles.html#cb310-8" tabindex="-1"></a>        println<span class="op">(</span>rowData<span class="op">)</span></span>
+<span id="cb310-9"><a href="appUtilitiesFiles.html#cb310-9" tabindex="-1"></a>    <span class="op">}</span></span>
+<span id="cb310-10"><a href="appUtilitiesFiles.html#cb310-10" tabindex="-1"></a>    println<span class="op">()</span></span></code></pre></div>
+<p>Reading data from the file has a bit more functionality through some useful iterators. The following code opens a tabular file and iterates the rows.</p>
+<div class="sourceCode" id="cb311"><pre class="sourceCode kt"><code class="sourceCode kotlin"><span id="cb311-1"><a href="appUtilitiesFiles.html#cb311-1" tabindex="-1"></a>    <span class="kw">val</span> <span class="va">path</span><span class="op">:</span> Path <span class="op">=</span> KSL<span class="op">.</span>outDir<span class="op">.</span>resolve<span class="op">(</span><span class="st">&quot;demoFile&quot;</span><span class="op">)</span></span>
+<span id="cb311-2"><a href="appUtilitiesFiles.html#cb311-2" tabindex="-1"></a>    <span class="kw">val</span> <span class="va">tif</span> <span class="op">=</span> TabularInputFile<span class="op">(</span>path<span class="op">)</span></span>
+<span id="cb311-3"><a href="appUtilitiesFiles.html#cb311-3" tabindex="-1"></a>    println<span class="op">(</span>tif<span class="op">)</span></span>
+<span id="cb311-4"><a href="appUtilitiesFiles.html#cb311-4" tabindex="-1"></a></span>
+<span id="cb311-5"><a href="appUtilitiesFiles.html#cb311-5" tabindex="-1"></a>    <span class="co">// TabularInputFile is Iterable and foreach construct works across rows</span></span>
+<span id="cb311-6"><a href="appUtilitiesFiles.html#cb311-6" tabindex="-1"></a>    println<span class="op">(</span><span class="st">&quot;Printing all rows from an iterator&quot;</span><span class="op">)</span></span>
+<span id="cb311-7"><a href="appUtilitiesFiles.html#cb311-7" tabindex="-1"></a>    <span class="cf">for</span> <span class="op">(</span>row <span class="kw">in</span> tif<span class="op">.</span>iterator<span class="op">())</span> <span class="op">{</span></span>
+<span id="cb311-8"><a href="appUtilitiesFiles.html#cb311-8" tabindex="-1"></a>        println<span class="op">(</span>row<span class="op">)</span></span>
+<span id="cb311-9"><a href="appUtilitiesFiles.html#cb311-9" tabindex="-1"></a>    <span class="op">}</span></span>
+<span id="cb311-10"><a href="appUtilitiesFiles.html#cb311-10" tabindex="-1"></a>    println<span class="op">()</span></span></code></pre></div>
+<p>You can fetch specific rows or a subset of rows. Multiple iterators can be active at the same time.</p>
+<div class="sourceCode" id="cb312"><pre class="sourceCode kt"><code class="sourceCode kotlin"><span id="cb312-1"><a href="appUtilitiesFiles.html#cb312-1" tabindex="-1"></a>    <span class="co">// You can fetch rows as a list</span></span>
+<span id="cb312-2"><a href="appUtilitiesFiles.html#cb312-2" tabindex="-1"></a>    println<span class="op">(</span><span class="st">&quot;Printing a subset of rows&quot;</span><span class="op">)</span></span>
+<span id="cb312-3"><a href="appUtilitiesFiles.html#cb312-3" tabindex="-1"></a>    <span class="kw">val</span> <span class="va">rows</span><span class="op">:</span> List<span class="op">&lt;</span>RowGetterIfc<span class="op">&gt;</span> <span class="op">=</span> tif<span class="op">.</span>fetchRows<span class="op">(</span><span class="dv">1</span><span class="op">,</span> <span class="dv">5</span><span class="op">)</span></span>
+<span id="cb312-4"><a href="appUtilitiesFiles.html#cb312-4" tabindex="-1"></a>    <span class="cf">for</span> <span class="op">(</span>row <span class="kw">in</span> rows<span class="op">)</span> <span class="op">{</span></span>
+<span id="cb312-5"><a href="appUtilitiesFiles.html#cb312-5" tabindex="-1"></a>        println<span class="op">(</span>row<span class="op">)</span></span>
+<span id="cb312-6"><a href="appUtilitiesFiles.html#cb312-6" tabindex="-1"></a>    <span class="op">}</span></span>
+<span id="cb312-7"><a href="appUtilitiesFiles.html#cb312-7" tabindex="-1"></a>    println<span class="op">()</span></span></code></pre></div>
+<p>You can start the iterator at a particular row.</p>
+<div class="sourceCode" id="cb313"><pre class="sourceCode kt"><code class="sourceCode kotlin"><span id="cb313-1"><a href="appUtilitiesFiles.html#cb313-1" tabindex="-1"></a>    println<span class="op">(</span><span class="st">&quot;Print starting at row 9&quot;</span><span class="op">)</span></span>
+<span id="cb313-2"><a href="appUtilitiesFiles.html#cb313-2" tabindex="-1"></a>    <span class="kw">val</span> <span class="va">iterator</span><span class="op">:</span> TabularInputFile<span class="op">.</span>RowIterator <span class="op">=</span> tif<span class="op">.</span>iterator<span class="op">(</span><span class="dv">9</span><span class="op">)</span></span>
+<span id="cb313-3"><a href="appUtilitiesFiles.html#cb313-3" tabindex="-1"></a>    <span class="cf">while</span> <span class="op">(</span>iterator<span class="op">.</span>hasNext<span class="op">())</span> <span class="op">{</span></span>
+<span id="cb313-4"><a href="appUtilitiesFiles.html#cb313-4" tabindex="-1"></a>        println<span class="op">(</span>iterator<span class="op">.</span>next<span class="op">())</span></span>
+<span id="cb313-5"><a href="appUtilitiesFiles.html#cb313-5" tabindex="-1"></a>    <span class="op">}</span></span>
+<span id="cb313-6"><a href="appUtilitiesFiles.html#cb313-6" tabindex="-1"></a>    println<span class="op">()</span></span></code></pre></div>
+<p>You can grab various columns as arrays.</p>
+<div class="sourceCode" id="cb314"><pre class="sourceCode kt"><code class="sourceCode kotlin"><span id="cb314-1"><a href="appUtilitiesFiles.html#cb314-1" tabindex="-1"></a>    println<span class="op">(</span><span class="st">&quot;Printing column 0&quot;</span><span class="op">)</span></span>
+<span id="cb314-2"><a href="appUtilitiesFiles.html#cb314-2" tabindex="-1"></a>    <span class="kw">val</span> <span class="va">numericColumn</span><span class="op">:</span> DoubleArray <span class="op">=</span> tif<span class="op">.</span>fetchNumericColumn<span class="op">(</span><span class="dv">0</span><span class="op">,</span> <span class="dv">10</span><span class="op">,</span> <span class="kw">true</span><span class="op">)</span></span>
+<span id="cb314-3"><a href="appUtilitiesFiles.html#cb314-3" tabindex="-1"></a>    <span class="cf">for</span> <span class="op">(</span>v <span class="kw">in</span> numericColumn<span class="op">)</span> <span class="op">{</span></span>
+<span id="cb314-4"><a href="appUtilitiesFiles.html#cb314-4" tabindex="-1"></a>        println<span class="op">(</span>v<span class="op">)</span></span>
+<span id="cb314-5"><a href="appUtilitiesFiles.html#cb314-5" tabindex="-1"></a>    <span class="op">}</span></span></code></pre></div>
+<p>You can write the data to an Excel workbook.</p>
+<div class="sourceCode" id="cb315"><pre class="sourceCode kt"><code class="sourceCode kotlin"><span id="cb315-1"><a href="appUtilitiesFiles.html#cb315-1" tabindex="-1"></a>    <span class="cf">try</span> <span class="op">{</span></span>
+<span id="cb315-2"><a href="appUtilitiesFiles.html#cb315-2" tabindex="-1"></a>        tif<span class="op">.</span>exportToExcelWorkbook<span class="op">(</span><span class="st">&quot;demoData.xlsx&quot;</span><span class="op">,</span> KSL<span class="op">.</span>excelDir<span class="op">)</span></span>
+<span id="cb315-3"><a href="appUtilitiesFiles.html#cb315-3" tabindex="-1"></a>    <span class="op">}</span> <span class="cf">catch</span> <span class="op">(</span>e<span class="op">:</span> IOException<span class="op">)</span> <span class="op">{</span></span>
+<span id="cb315-4"><a href="appUtilitiesFiles.html#cb315-4" tabindex="-1"></a>        e<span class="op">.</span>printStackTrace<span class="op">()</span></span>
+<span id="cb315-5"><a href="appUtilitiesFiles.html#cb315-5" tabindex="-1"></a>    <span class="op">}</span></span></code></pre></div>
+<p>You can pretty print rows of the data and export the data to a CSV file.</p>
+<div class="sourceCode" id="cb316"><pre class="sourceCode kt"><code class="sourceCode kotlin"><span id="cb316-1"><a href="appUtilitiesFiles.html#cb316-1" tabindex="-1"></a>    tif<span class="op">.</span>printAsText<span class="op">(</span><span class="dv">1</span><span class="op">,</span> <span class="dv">5</span><span class="op">)</span></span>
+<span id="cb316-2"><a href="appUtilitiesFiles.html#cb316-2" tabindex="-1"></a>    <span class="kw">val</span> <span class="va">printWriter</span><span class="op">:</span> PrintWriter <span class="op">=</span> KSL<span class="op">.</span>createPrintWriter<span class="op">(</span><span class="st">&quot;data.csv&quot;</span><span class="op">)</span></span>
+<span id="cb316-3"><a href="appUtilitiesFiles.html#cb316-3" tabindex="-1"></a>    tif<span class="op">.</span>exportToCSV<span class="op">(</span>printWriter<span class="op">,</span> <span class="kw">true</span><span class="op">)</span></span>
+<span id="cb316-4"><a href="appUtilitiesFiles.html#cb316-4" tabindex="-1"></a>    printWriter<span class="op">.</span>close<span class="op">()</span></span></code></pre></div>
+<p>You can even convert the tabular data to an SQLLite database or turn the data into a data frame.</p>
+<div class="sourceCode" id="cb317"><pre class="sourceCode kt"><code class="sourceCode kotlin"><span id="cb317-1"><a href="appUtilitiesFiles.html#cb317-1" tabindex="-1"></a>    <span class="cf">try</span> <span class="op">{</span></span>
+<span id="cb317-2"><a href="appUtilitiesFiles.html#cb317-2" tabindex="-1"></a>        <span class="kw">val</span> <span class="va">database</span><span class="op">:</span> DatabaseIfc <span class="op">=</span> tif<span class="op">.</span>asDatabase<span class="op">()</span></span>
+<span id="cb317-3"><a href="appUtilitiesFiles.html#cb317-3" tabindex="-1"></a>    <span class="op">}</span> <span class="cf">catch</span> <span class="op">(</span>e<span class="op">:</span> IOException<span class="op">)</span> <span class="op">{</span></span>
+<span id="cb317-4"><a href="appUtilitiesFiles.html#cb317-4" tabindex="-1"></a>        e<span class="op">.</span>printStackTrace<span class="op">()</span></span>
+<span id="cb317-5"><a href="appUtilitiesFiles.html#cb317-5" tabindex="-1"></a>    <span class="op">}</span></span>
+<span id="cb317-6"><a href="appUtilitiesFiles.html#cb317-6" tabindex="-1"></a>    println<span class="op">()</span></span>
+<span id="cb317-7"><a href="appUtilitiesFiles.html#cb317-7" tabindex="-1"></a>    println<span class="op">(</span><span class="st">&quot;Printing a data frame version&quot;</span><span class="op">)</span></span>
+<span id="cb317-8"><a href="appUtilitiesFiles.html#cb317-8" tabindex="-1"></a>    <span class="kw">val</span> <span class="va">df</span> <span class="op">=</span> tif<span class="op">.</span>asDataFrame<span class="op">()</span></span>
+<span id="cb317-9"><a href="appUtilitiesFiles.html#cb317-9" tabindex="-1"></a>    println<span class="op">(</span>df<span class="op">)</span></span></code></pre></div>
+<p>Much of this functionality is used within the implementation of the KSL database implementation, which will be discussed in a subsequent section. Since we just mentioned data frames, we discuss that functionality in the next section.</p>
+</div>
+<div id="the-dataframeutil-object" class="section level3 hasAnchor" number="11.1.5">
+<h3><span class="header-section-number">D.1.5</span> The <code>DataFrameUtil</code> Object<a href="appUtilitiesFiles.html#the-dataframeutil-object" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>A data frame is an in-memory data structure that holds tabular data. That is, data having rows and columns. Kotlin has a library to support this type of functionality and the <code>DataFrameUtil</code> object has been designed to facilitate the use of data frame within the <code>KSL.</code>. Documentation, examples, and the basic functionality of Kotlin data frames can be found on at this <a href="https://github.com/Kotlin/dataframe">repository</a>. Kotlin data frames provide similar functionality as that found in other data frame libraries such as R. Figure <a href="appUtilitiesFiles.html#fig:DataFrameUtil">D.7</a> illustrates the functions and properties of the <code>DataFrameUtil</code> object.</p>
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:DataFrameUtil"></span>
+<img src="figures2/ch13/DataFrameUtil.png" alt="The DataFrameUtil Object" width="90%" height="90%" />
+<p class="caption">
+Figure D.7: The DataFrameUtil Object
+</p>
+</div>
+<p>The main functionality added by <code>DataFrameUtil</code> is sampling from rows and columns of the data frame and computing some basic statistics. The functions for sampling without replacement return a new data frame with the sampled rows. The functions for permutation return a new data frame with the permutated rows. The functions for randomly selection will select an element from the a column of the data frame or for selecting an entire row. The element or row can be selected with equal probability or via an empirical distribution over the elements (by row). <code>KSL</code> statistics, histogram, box plot statistics, and frequencies can all be computed over the columns.</p>
+<ul>
+<li>sampleWithoutReplacement(DataFrame<span class="math inline">\(&lt;T&gt;\)</span>, Int, RNStreamIfc) DataFrame<span class="math inline">\(&lt;T&gt;\)</span></li>
+<li>sampleWithoutReplacement(DataFrame<span class="math inline">\(&lt;T&gt;\)</span> Int, Int) DataFrame<span class="math inline">\(&lt;T&gt;\)</span></li>
+<li>permute(DataFrame<span class="math inline">\(&lt;T&gt;\)</span>, Int) DataFrame<span class="math inline">\(&lt;T&gt;\)</span></li>
+<li>permute(DataFrame<span class="math inline">\(&lt;T&gt;\)</span>, RNStreamIfc) DataFrame<span class="math inline">\(&lt;T&gt;\)</span></li>
+<li>randomlySelect(DataColumn<span class="math inline">\(&lt;T&gt;\)</span>, RNStreamIfc) T</li>
+<li>randomlySelect(DataColumn<span class="math inline">\(&lt;T&gt;\)</span>, Int) T</li>
+<li>randomlySelect(DataColumn<span class="math inline">\(&lt;T&gt;\)</span>, Double[], RNStreamIfc) T</li>
+<li>randomlySelect(DataColumn<span class="math inline">\(&lt;T&gt;\)</span>, Double[], Int) T</li>
+<li>randomlySelect(DataFrame<span class="math inline">\(&lt;T&gt;\)</span>, Int) DataRow<span class="math inline">\(&lt;T&gt;\)</span></li>
+<li>randomlySelect(DataFrame<span class="math inline">\(&lt;T&gt;\)</span>, RNStreamIfc) DataRow<span class="math inline">\(&lt;T&gt;\)</span></li>
+<li>randomlySelect(DataFrame<span class="math inline">\(&lt;T&gt;\)</span>, Double[], Int) DataRow<span class="math inline">\(&lt;T&gt;\)</span></li>
+<li>randomlySelect(DataFrame<span class="math inline">\(&lt;T&gt;\)</span>, Double[], RNStreamIfc) DataRow<span class="math inline">\(&lt;T&gt;\)</span></li>
+<li>buildMarkDown(DataFrame<span class="math inline">\(&lt;T&gt;\)</span>, Appendable) Unit</li>
+<li>histogram(DataColumn<span class="math inline">\(&lt;Double&gt;\)</span>, Double[]) Histogram</li>
+<li>statistics(DataColumn<span class="math inline">\(&lt;Double&gt;\)</span>) Statistic</li>
+<li>frequencies(DataColumn<span class="math inline">\(&lt;Int&gt;\)</span>) IntegerFrequency</li>
+<li>boxPlotSummary(DataColumn<span class="math inline">\(&lt;Double&gt;\)</span>) BoxPlotSummary</li>
+</ul>
+<p>Extension functions are also available for the data frame and columns. The Kotlin data frame library has been included in the KSL as part of the API. Thus, clients also have access to the full features associated with the library. The main usage within the KSL is in the capturing of simulation output data. The easiest way to do this is by using the <code>KSLDatabase</code> class. Data frame instances can be requested as part of the database functionality of the KSL.</p>
+</div>
+<div id="ksl-database-utilities" class="section level3 hasAnchor" number="11.1.6">
+<h3><span class="header-section-number">D.1.6</span> KSL Database Utilities<a href="appUtilitiesFiles.html#ksl-database-utilities" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Some of the database functionality for use when accessing simulation results has already been discused in Chapter 5. This section presents some of the more general database utilities available within the KSL framework. These utilities basically exist to help with implementing the KSL database functionality. However, users may find some of this functionality useful for other purpose. However, these utilities are not meant as a substitute for more advanced database frameworks such as <a href="https://www.jooq.org/">JOOQ</a>, <a href="https://github.com/JetBrains/Exposed">Exposed</a>, and <a href="https://www.ktorm.org/">KTorm</a>. We refer the interested reader to those libraries for more advanced work for database processing using Kotlin.</p>
+<p>Figure <a href="appUtilitiesFiles.html#fig:DbProperties">D.8</a> illustrates the properties of the interfaces, <code>DatabaseIOIfc</code> and <code>DatabaseIfc</code> which represent the main functionality for working with databases.</p>
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:DbProperties"></span>
+<img src="figures2/ch13/DbProperties.png" alt="Properties of the Main Database Classes" width="90%" height="90%" />
+<p class="caption">
+Figure D.8: Properties of the Main Database Classes
+</p>
+</div>
+<p>The <code>DatabaseIOIfc</code> interface is responsible for defining the functionality related to input and output. As shown in Figure <a href="appUtilitiesFiles.html#fig:DatabaseIOIfc">D.9</a> the capabilities are easily discerned from the names of the methods. Exporting tables and views to Excel or CSV files are probably the most useful functions. For small tables, capturing the table as a Markdown table can be useful.</p>
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:DatabaseIOIfc"></span>
+<img src="figures2/ch13/DatabaseIOIfc.png" alt="Methods of the DatabaseIOIfc Interface" width="80%" height="80%" />
+<p class="caption">
+Figure D.9: Methods of the DatabaseIOIfc Interface
+</p>
+</div>
+<p>The <code>DatabaseIfc</code> interface defines what a database can do and the <code>Database</code> class provides a concrete implementation for working with a database. The functionality of the <code>DatabaseIfc</code> interface is extensive. Besides the IO related functions, we note a few useful methods here. The <code>execute</code> methods allow the execution of an SQL string, list of SQL commands, or script file. It is the user’s responsibility for forming an appropriate SQL string.</p>
+<ul>
+<li>executeCommand(String) Boolean</li>
+<li>executeCommand(String) Boolean</li>
+<li>executeCommands(List<span class="math inline">\(&lt;\)</span>String<span class="math inline">\(&gt;\)</span>) Boolean</li>
+<li>executeCommands(List<span class="math inline">\(&lt;\)</span>String<span class="math inline">\(&gt;\)</span>) Boolean</li>
+<li>executeScript(Path) Boolean</li>
+<li>executeScript(Path) Boolean</li>
+</ul>
+<p>There are methods for checking if the database contains specific named tables or views.</p>
+<ul>
+<li>containsSchema(String) Boolean</li>
+<li>containsSchema(String) Boolean</li>
+<li>containsTable(String) Boolean</li>
+<li>containsTable(String, String) Boolean</li>
+<li>containsTable(String, String) Boolean</li>
+<li>containsTable(String) Boolean</li>
+<li>containsView(String) Boolean</li>
+<li>containsView(String) Boolean</li>
+</ul>
+<p>A set of methods for fetching data from the database facilitate the execution of SQL select statements. The select all methods will select all the data from a named table or view.</p>
+<ul>
+<li>fetchCachedRowSet(String) CachedRowSet?</li>
+<li>fetchCachedRowSet(String) CachedRowSet?</li>
+<li>fetchOpenResultSet(String) ResultSet?</li>
+<li>fetchOpenResultSet(String) ResultSet?</li>
+<li>selectAll(String, String?) CachedRowSet?</li>
+<li>selectAll(String, String?) CachedRowSet?</li>
+<li>selectAllIntoOpenResultSet(String, String?) ResultSet?</li>
+<li>selectAllIntoOpenResultSet(String, String?) ResultSet?</li>
+</ul>
+<p>The interface also provides some basic methods for inserting and updating data within the database by using Kotlin data classes, specifically sub-classes of the <code>DbTableData</code> class, which extends the <code>TabularData</code> class and allows the user to supply the data for a table in a data class instance similar to how it was done for working with tabular files. However, in this case more general mapping of data types to database types is permitted besides just numeric or text.</p>
+<ul>
+<li>insertDbDataIntoTable(List<span class="math inline">\(&lt;\)</span>String<span class="math inline">\(&gt;\)</span>, String, String?) Int</li>
+<li>insertDbDataIntoTable(T, String, String?) Int</li>
+<li>insertDbDataIntoTable(List<span class="math inline">\(&lt;\)</span>String<span class="math inline">\(&gt;\)</span>, String, String?) Int</li>
+<li>insertDbDataIntoTable(T, String, String?) Int</li>
+<li>updateDbDataInTable(List<span class="math inline">\(&lt;\)</span>String<span class="math inline">\(&gt;\)</span>, String, String?) Int</li>
+<li>updateDbDataInTable(T, String, String?) Int</li>
+<li>updateDbDataInTable(List<span class="math inline">\(&lt;\)</span>String<span class="math inline">\(&gt;\)</span>, String, String?) Int</li>
+<li>updateDbDataInTable(T, String, String?) Int</li>
+</ul>
+<p>When working with the database it is useful to get a connection, access table meta data, check if tables have data, check if tables or views exist.</p>
+<ul>
+<li>getConnection() Connection</li>
+<li>getSchemas() List<span class="math inline">\(&lt;\)</span>String<span class="math inline">\(&gt;\)</span></li>
+<li>getUserDefinedTables() List~<span class="math inline">\(&lt;\)</span>String<span class="math inline">\(&gt;\)</span></li>
+<li>getViews() List<span class="math inline">\(&lt;\)</span>String<span class="math inline">\(&gt;\)</span></li>
+<li>hasData(String?) Boolean</li>
+<li>hasData(String?) Boolean</li>
+<li>hasTables(String) Boolean</li>
+<li>hasTables(String) Boolean</li>
+<li>isTableEmpty(String, String?) Boolean</li>
+<li>isTableEmpty(String, String?) Boolean</li>
+<li>numRows(String, String?) Long</li>
+<li>numRows(String, String?) Long</li>
+<li>tableMetaData(String, String?) List<span class="math inline">\(&lt;\)</span>ColumnMetaData<span class="math inline">\(&gt;\)</span></li>
+<li>tableMetaData(String, String?) List<span class="math inline">\(&lt;\)</span>ColumnMetaData<span class="math inline">\(&gt;\)</span></li>
+<li>tableNames(String) List<span class="math inline">\(&lt;\)</span>String<span class="math inline">\(&gt;\)</span></li>
+<li>tableNames(String) List<span class="math inline">\(&lt;\)</span>String<span class="math inline">\(&gt;\)</span></li>
+<li>viewNames(String) List<span class="math inline">\(&lt;\)</span>String<span class="math inline">\(&gt;\)</span></li>
+<li>viewNames(String) List<span class="math inline">\(&lt;\)</span>String<span class="math inline">\(&gt;\)</span></li>
+</ul>
+<p>We refer the interested reader to the <a href="https://rossetti.github.io/KSLDocs/">KSL KDoc</a> documentation for further details about using these methods.</p>
+<p>The <code>Database</code> functionality defines basic capabilities for working with any database implementation. The KSL provides functionality to create <a href="https://www.sqlite.org/index.html">SQLite</a> and <a href="https://db.apache.org/derby/">Derby</a> embedded databases. In addition, the KSL facilitates the creation of a database on a <a href="https://www.postgresql.org/">Postgres</a> database server.</p>
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:EmbeddedDb"></span>
+<img src="figures2/ch13/EmbeddedDb.png" alt="Working with Embedded Databases" width="90%" height="90%" />
+<p class="caption">
+Figure D.10: Working with Embedded Databases
+</p>
+</div>
+<p>Figure <a href="appUtilitiesFiles.html#fig:EmbeddedDb">D.10</a> illustrates the functionality of the <code>EmbeddedDbIfc</code> interface, and its SQLite and Derby implementations. Readers interested in other databases can review these implementations for how to structure code for other databases. The <code>PostgresDb</code> class provides similar functionality. The main purpose is to be able to supply a data source to the <code>Database</code> class.</p>
+<p>Figure <a href="appUtilitiesFiles.html#fig:Ch13KSLDatabase">D.11</a> provides the functionality for the <code>KSLDatabase</code> class. Although most of this functionality has been mentioned within Chapter 5, it is useful to note that since the <code>KSLDatabase</code> class is a database, it also has all of the previously mentioned database functionality.</p>
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:Ch13KSLDatabase"></span>
+<img src="figures2/ch13/KSLDatabase.png" alt="The KSLDatabase Class" width="80%" height="80%" />
+<p class="caption">
+Figure D.11: The KSLDatabase Class
+</p>
+</div>
+<p>The main notable methods involve the export, printing, or writing of the underlying data from the tables or views storing the simulation statistical results. In addition, there are a number of properties that will provide data frame representations of the simulation output data. For example, the data class <code>WithinRepStatTableData</code> represents the statistics collected within each replication and is used to by the <code>withinReplicationResponseStatistics</code> property to create a data frame that holds the statistical data. Figure <a href="appUtilitiesFiles.html#fig:WithinRepStatTableData">D.12</a> provides the data elements held for within replication data.</p>
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:WithinRepStatTableData"></span>
+<img src="figures2/ch13/WithinRepStatTableData.png" alt="Within Replication Statistical Data" width="90%" height="90%" />
+<p class="caption">
+Figure D.12: Within Replication Statistical Data
+</p>
+</div>
+<p>The within replication statistical data represents the summary statistics of the data collected during a replication. The most relevant properties are the <code>average</code>, <code>minimum</code>, and <code>maximum</code>. To compute across replication statistics we can use the <code>average</code> for each replication. The statistical quantities are captured within the underlying database as discussed in Chapter 5. The user can post-process any of this data using commonly available database technology and SQL.</p>
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="appUtilities.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="appUtilitiesArrays.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"whatsapp": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": null,
+"text": null
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": null,
+"search": {
+"engine": "fuse",
+"options": null
+},
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/latest.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>

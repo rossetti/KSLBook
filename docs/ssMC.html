@@ -6,7 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>3.3 Simple Monte Carlo Integration | Simulation Modeling using the Kotlin Simulation Library (KSL)</title>
   <meta name="description" content="A book that illustrates the basics of using the KSL. The output format for this book is bookdown::gitbook." />
-  <meta name="generator" content="bookdown 0.30 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.34 and GitBook 2.6.7" />
 
   <meta property="og:title" content="3.3 Simple Monte Carlo Integration | Simulation Modeling using the Kotlin Simulation Library (KSL)" />
   <meta property="og:type" content="book" />
@@ -23,7 +23,7 @@
 <meta name="author" content="Manuel D. Rossetti" />
 
 
-<meta name="date" content="2023-01-16" />
+<meta name="date" content="2023-08-22" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -121,6 +121,10 @@ code span.vs { color: #4070a0; } /* VerbatimString */
 code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
 </style>
 
+<style type="text/css">
+  
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+</style>
 <style type="text/css">
 /* Used with Pandoc 2.11+ new --citeproc when CSL is used */
 div.csl-bib-body { }
@@ -388,12 +392,23 @@ div.csl-indent {
 </ul></li>
 <li class="chapter" data-level="C.5" data-path="exercises-9.html"><a href="exercises-9.html"><i class="fa fa-check"></i><b>C.5</b> Exercises</a></li>
 </ul></li>
-<li class="chapter" data-level="D" data-path="distributions.html"><a href="distributions.html"><i class="fa fa-check"></i><b>D</b> Distributions</a>
+<li class="chapter" data-level="D" data-path="appUtilities.html"><a href="appUtilities.html"><i class="fa fa-check"></i><b>D</b> KSL Utility Packages</a>
 <ul>
-<li class="chapter" data-level="D.1" data-path="appDiscreteDistributions.html"><a href="appDiscreteDistributions.html"><i class="fa fa-check"></i><b>D.1</b> Discrete Distrbutions</a></li>
-<li class="chapter" data-level="D.2" data-path="appContinuousDistributions.html"><a href="appContinuousDistributions.html"><i class="fa fa-check"></i><b>D.2</b> Continuous Distrbutions</a></li>
+<li class="chapter" data-level="D.1" data-path="the-outputdirectory-class-and-ksl-object.html"><a href="the-outputdirectory-class-and-ksl-object.html"><i class="fa fa-check"></i><b>D.1</b> The <code>OutputDirectory</code> Class and <code>KSL</code> Object</a></li>
+<li class="chapter" data-level="D.2" data-path="logging-options.html"><a href="logging-options.html"><i class="fa fa-check"></i><b>D.2</b> Logging Options</a></li>
+<li class="chapter" data-level="D.3" data-path="the-kslfileutil-object.html"><a href="the-kslfileutil-object.html"><i class="fa fa-check"></i><b>D.3</b> The <code>KSLFileUtil</code> Object</a></li>
+<li class="chapter" data-level="D.4" data-path="csv-excel-and-tabular-data-files.html"><a href="csv-excel-and-tabular-data-files.html"><i class="fa fa-check"></i><b>D.4</b> CSV, Excel, and Tabular Data Files</a></li>
+<li class="chapter" data-level="D.5" data-path="the-dataframeutil-object.html"><a href="the-dataframeutil-object.html"><i class="fa fa-check"></i><b>D.5</b> The <code>DataFrameUtil</code> Object</a></li>
+<li class="chapter" data-level="D.6" data-path="ksl-database-utilities.html"><a href="ksl-database-utilities.html"><i class="fa fa-check"></i><b>D.6</b> KSL Database Utilities</a></li>
+<li class="chapter" data-level="D.7" data-path="appUtilitiesArrays.html"><a href="appUtilitiesArrays.html"><i class="fa fa-check"></i><b>D.7</b> Array Utilities</a></li>
+<li class="chapter" data-level="D.8" data-path="appUtilitiesMisc.html"><a href="appUtilitiesMisc.html"><i class="fa fa-check"></i><b>D.8</b> Miscellaneous Utilities</a></li>
 </ul></li>
-<li class="chapter" data-level="E" data-path="appStatTables.html"><a href="appStatTables.html"><i class="fa fa-check"></i><b>E</b> Statistical Tables</a></li>
+<li class="chapter" data-level="E" data-path="distributions.html"><a href="distributions.html"><i class="fa fa-check"></i><b>E</b> Distributions</a>
+<ul>
+<li class="chapter" data-level="E.1" data-path="appDiscreteDistributions.html"><a href="appDiscreteDistributions.html"><i class="fa fa-check"></i><b>E.1</b> Discrete Distrbutions</a></li>
+<li class="chapter" data-level="E.2" data-path="appContinuousDistributions.html"><a href="appContinuousDistributions.html"><i class="fa fa-check"></i><b>E.2</b> Continuous Distrbutions</a></li>
+</ul></li>
+<li class="chapter" data-level="F" data-path="appStatTables.html"><a href="appStatTables.html"><i class="fa fa-check"></i><b>F</b> Statistical Tables</a></li>
 <li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
 <li class="divider"></li>
 <li><a href="https://bookdown.org" target="_blank">Published with bookdown</a></li>
@@ -485,23 +500,23 @@ the area under <span class="math inline">\(f(x) = x^{\frac{1}{2}}\)</span> over 
 <span class="math inline">\(Y_i = (4-1)\sqrt{X{_i}}= 3\sqrt{X{_i}}\)</span>. In addition, for this simple example,
 we can easily check if our Monte Carlo approach is working because we
 know the true area.</p>
-<div class="sourceCode" id="cb41"><pre class="sourceCode kt"><code class="sourceCode kotlin"><span id="cb41-1"><a href="ssMC.html#cb41-1" aria-hidden="true" tabindex="-1"></a><span class="kw">fun</span> <span class="fu">main</span><span class="op">()</span> <span class="op">{</span></span>
-<span id="cb41-2"><a href="ssMC.html#cb41-2" aria-hidden="true" tabindex="-1"></a>    <span class="kw">val</span> <span class="va">a</span> <span class="op">=</span> <span class="fl">1.0</span></span>
-<span id="cb41-3"><a href="ssMC.html#cb41-3" aria-hidden="true" tabindex="-1"></a>    <span class="kw">val</span> <span class="va">b</span> <span class="op">=</span> <span class="fl">4.0</span></span>
-<span id="cb41-4"><a href="ssMC.html#cb41-4" aria-hidden="true" tabindex="-1"></a>    <span class="kw">val</span> <span class="va">ucdf</span> <span class="op">=</span> UniformRV<span class="op">(</span>a<span class="op">,</span> b<span class="op">)</span></span>
-<span id="cb41-5"><a href="ssMC.html#cb41-5" aria-hidden="true" tabindex="-1"></a>    <span class="kw">val</span> <span class="va">stat</span> <span class="op">=</span> Statistic<span class="op">(</span><span class="st">&quot;Area Estimator&quot;</span><span class="op">)</span></span>
-<span id="cb41-6"><a href="ssMC.html#cb41-6" aria-hidden="true" tabindex="-1"></a>    <span class="kw">val</span> <span class="va">n</span> <span class="op">=</span> <span class="dv">100</span> <span class="co">// sample size</span></span>
-<span id="cb41-7"><a href="ssMC.html#cb41-7" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> <span class="op">(</span>i <span class="kw">in</span> <span class="fl">1.</span><span class="op">.</span>n<span class="op">)</span> <span class="op">{</span></span>
-<span id="cb41-8"><a href="ssMC.html#cb41-8" aria-hidden="true" tabindex="-1"></a>        <span class="kw">val</span> <span class="va">x</span> <span class="op">=</span> ucdf<span class="op">.</span>value</span>
-<span id="cb41-9"><a href="ssMC.html#cb41-9" aria-hidden="true" tabindex="-1"></a>        <span class="kw">val</span> <span class="va">gx</span> <span class="op">=</span> Math<span class="op">.</span>sqrt<span class="op">(</span>x<span class="op">)</span></span>
-<span id="cb41-10"><a href="ssMC.html#cb41-10" aria-hidden="true" tabindex="-1"></a>        <span class="kw">val</span> <span class="va">y</span> <span class="op">=</span> <span class="op">(</span>b <span class="op">-</span> a<span class="op">)</span> <span class="op">*</span> gx</span>
-<span id="cb41-11"><a href="ssMC.html#cb41-11" aria-hidden="true" tabindex="-1"></a>        stat<span class="op">.</span>collect<span class="op">(</span>y<span class="op">)</span></span>
-<span id="cb41-12"><a href="ssMC.html#cb41-12" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
-<span id="cb41-13"><a href="ssMC.html#cb41-13" aria-hidden="true" tabindex="-1"></a>    System<span class="op">.</span><span class="kw">out</span><span class="op">.</span>printf<span class="op">(</span><span class="st">&quot;True Area = %10.3f %n&quot;</span><span class="op">,</span> <span class="fl">14.0</span> <span class="op">/</span> <span class="fl">3.0</span><span class="op">)</span></span>
-<span id="cb41-14"><a href="ssMC.html#cb41-14" aria-hidden="true" tabindex="-1"></a>    System<span class="op">.</span><span class="kw">out</span><span class="op">.</span>printf<span class="op">(</span><span class="st">&quot;Area estimate = %10.3f %n&quot;</span><span class="op">,</span> stat<span class="op">.</span>average<span class="op">)</span></span>
-<span id="cb41-15"><a href="ssMC.html#cb41-15" aria-hidden="true" tabindex="-1"></a>    println<span class="op">(</span><span class="st">&quot;Confidence Interval&quot;</span><span class="op">)</span></span>
-<span id="cb41-16"><a href="ssMC.html#cb41-16" aria-hidden="true" tabindex="-1"></a>    println<span class="op">(</span>stat<span class="op">.</span>confidenceInterval<span class="op">)</span></span>
-<span id="cb41-17"><a href="ssMC.html#cb41-17" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
+<div class="sourceCode" id="cb41"><pre class="sourceCode kt"><code class="sourceCode kotlin"><span id="cb41-1"><a href="ssMC.html#cb41-1" tabindex="-1"></a><span class="kw">fun</span> <span class="fu">main</span><span class="op">()</span> <span class="op">{</span></span>
+<span id="cb41-2"><a href="ssMC.html#cb41-2" tabindex="-1"></a>    <span class="kw">val</span> <span class="va">a</span> <span class="op">=</span> <span class="fl">1.0</span></span>
+<span id="cb41-3"><a href="ssMC.html#cb41-3" tabindex="-1"></a>    <span class="kw">val</span> <span class="va">b</span> <span class="op">=</span> <span class="fl">4.0</span></span>
+<span id="cb41-4"><a href="ssMC.html#cb41-4" tabindex="-1"></a>    <span class="kw">val</span> <span class="va">ucdf</span> <span class="op">=</span> UniformRV<span class="op">(</span>a<span class="op">,</span> b<span class="op">)</span></span>
+<span id="cb41-5"><a href="ssMC.html#cb41-5" tabindex="-1"></a>    <span class="kw">val</span> <span class="va">stat</span> <span class="op">=</span> Statistic<span class="op">(</span><span class="st">&quot;Area Estimator&quot;</span><span class="op">)</span></span>
+<span id="cb41-6"><a href="ssMC.html#cb41-6" tabindex="-1"></a>    <span class="kw">val</span> <span class="va">n</span> <span class="op">=</span> <span class="dv">100</span> <span class="co">// sample size</span></span>
+<span id="cb41-7"><a href="ssMC.html#cb41-7" tabindex="-1"></a>    <span class="cf">for</span> <span class="op">(</span>i <span class="kw">in</span> <span class="fl">1.</span><span class="op">.</span>n<span class="op">)</span> <span class="op">{</span></span>
+<span id="cb41-8"><a href="ssMC.html#cb41-8" tabindex="-1"></a>        <span class="kw">val</span> <span class="va">x</span> <span class="op">=</span> ucdf<span class="op">.</span>value</span>
+<span id="cb41-9"><a href="ssMC.html#cb41-9" tabindex="-1"></a>        <span class="kw">val</span> <span class="va">gx</span> <span class="op">=</span> Math<span class="op">.</span>sqrt<span class="op">(</span>x<span class="op">)</span></span>
+<span id="cb41-10"><a href="ssMC.html#cb41-10" tabindex="-1"></a>        <span class="kw">val</span> <span class="va">y</span> <span class="op">=</span> <span class="op">(</span>b <span class="op">-</span> a<span class="op">)</span> <span class="op">*</span> gx</span>
+<span id="cb41-11"><a href="ssMC.html#cb41-11" tabindex="-1"></a>        stat<span class="op">.</span>collect<span class="op">(</span>y<span class="op">)</span></span>
+<span id="cb41-12"><a href="ssMC.html#cb41-12" tabindex="-1"></a>    <span class="op">}</span></span>
+<span id="cb41-13"><a href="ssMC.html#cb41-13" tabindex="-1"></a>    System<span class="op">.</span><span class="kw">out</span><span class="op">.</span>printf<span class="op">(</span><span class="st">&quot;True Area = %10.3f %n&quot;</span><span class="op">,</span> <span class="fl">14.0</span> <span class="op">/</span> <span class="fl">3.0</span><span class="op">)</span></span>
+<span id="cb41-14"><a href="ssMC.html#cb41-14" tabindex="-1"></a>    System<span class="op">.</span><span class="kw">out</span><span class="op">.</span>printf<span class="op">(</span><span class="st">&quot;Area estimate = %10.3f %n&quot;</span><span class="op">,</span> stat<span class="op">.</span>average<span class="op">)</span></span>
+<span id="cb41-15"><a href="ssMC.html#cb41-15" tabindex="-1"></a>    println<span class="op">(</span><span class="st">&quot;Confidence Interval&quot;</span><span class="op">)</span></span>
+<span id="cb41-16"><a href="ssMC.html#cb41-16" tabindex="-1"></a>    println<span class="op">(</span>stat<span class="op">.</span>confidenceInterval<span class="op">)</span></span>
+<span id="cb41-17"><a href="ssMC.html#cb41-17" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
 <pre><code>True Area =      4.667
 Area estimate =      4.781
 Confidence Interval

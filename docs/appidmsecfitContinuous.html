@@ -6,7 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>B.5 Fitting Continuous Distributions | Simulation Modeling using the Kotlin Simulation Library (KSL)</title>
   <meta name="description" content="A book that illustrates the basics of using the KSL. The output format for this book is bookdown::gitbook." />
-  <meta name="generator" content="bookdown 0.30 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.34 and GitBook 2.6.7" />
 
   <meta property="og:title" content="B.5 Fitting Continuous Distributions | Simulation Modeling using the Kotlin Simulation Library (KSL)" />
   <meta property="og:type" content="book" />
@@ -23,7 +23,7 @@
 <meta name="author" content="Manuel D. Rossetti" />
 
 
-<meta name="date" content="2023-01-16" />
+<meta name="date" content="2023-08-22" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -121,6 +121,10 @@ code span.vs { color: #4070a0; } /* VerbatimString */
 code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
 </style>
 
+<style type="text/css">
+  
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+</style>
 <style type="text/css">
 /* Used with Pandoc 2.11+ new --citeproc when CSL is used */
 div.csl-bib-body { }
@@ -388,12 +392,23 @@ div.csl-indent {
 </ul></li>
 <li class="chapter" data-level="C.5" data-path="exercises-9.html"><a href="exercises-9.html"><i class="fa fa-check"></i><b>C.5</b> Exercises</a></li>
 </ul></li>
-<li class="chapter" data-level="D" data-path="distributions.html"><a href="distributions.html"><i class="fa fa-check"></i><b>D</b> Distributions</a>
+<li class="chapter" data-level="D" data-path="appUtilities.html"><a href="appUtilities.html"><i class="fa fa-check"></i><b>D</b> KSL Utility Packages</a>
 <ul>
-<li class="chapter" data-level="D.1" data-path="appDiscreteDistributions.html"><a href="appDiscreteDistributions.html"><i class="fa fa-check"></i><b>D.1</b> Discrete Distrbutions</a></li>
-<li class="chapter" data-level="D.2" data-path="appContinuousDistributions.html"><a href="appContinuousDistributions.html"><i class="fa fa-check"></i><b>D.2</b> Continuous Distrbutions</a></li>
+<li class="chapter" data-level="D.1" data-path="the-outputdirectory-class-and-ksl-object.html"><a href="the-outputdirectory-class-and-ksl-object.html"><i class="fa fa-check"></i><b>D.1</b> The <code>OutputDirectory</code> Class and <code>KSL</code> Object</a></li>
+<li class="chapter" data-level="D.2" data-path="logging-options.html"><a href="logging-options.html"><i class="fa fa-check"></i><b>D.2</b> Logging Options</a></li>
+<li class="chapter" data-level="D.3" data-path="the-kslfileutil-object.html"><a href="the-kslfileutil-object.html"><i class="fa fa-check"></i><b>D.3</b> The <code>KSLFileUtil</code> Object</a></li>
+<li class="chapter" data-level="D.4" data-path="csv-excel-and-tabular-data-files.html"><a href="csv-excel-and-tabular-data-files.html"><i class="fa fa-check"></i><b>D.4</b> CSV, Excel, and Tabular Data Files</a></li>
+<li class="chapter" data-level="D.5" data-path="the-dataframeutil-object.html"><a href="the-dataframeutil-object.html"><i class="fa fa-check"></i><b>D.5</b> The <code>DataFrameUtil</code> Object</a></li>
+<li class="chapter" data-level="D.6" data-path="ksl-database-utilities.html"><a href="ksl-database-utilities.html"><i class="fa fa-check"></i><b>D.6</b> KSL Database Utilities</a></li>
+<li class="chapter" data-level="D.7" data-path="appUtilitiesArrays.html"><a href="appUtilitiesArrays.html"><i class="fa fa-check"></i><b>D.7</b> Array Utilities</a></li>
+<li class="chapter" data-level="D.8" data-path="appUtilitiesMisc.html"><a href="appUtilitiesMisc.html"><i class="fa fa-check"></i><b>D.8</b> Miscellaneous Utilities</a></li>
 </ul></li>
-<li class="chapter" data-level="E" data-path="appStatTables.html"><a href="appStatTables.html"><i class="fa fa-check"></i><b>E</b> Statistical Tables</a></li>
+<li class="chapter" data-level="E" data-path="distributions.html"><a href="distributions.html"><i class="fa fa-check"></i><b>E</b> Distributions</a>
+<ul>
+<li class="chapter" data-level="E.1" data-path="appDiscreteDistributions.html"><a href="appDiscreteDistributions.html"><i class="fa fa-check"></i><b>E.1</b> Discrete Distrbutions</a></li>
+<li class="chapter" data-level="E.2" data-path="appContinuousDistributions.html"><a href="appContinuousDistributions.html"><i class="fa fa-check"></i><b>E.2</b> Continuous Distrbutions</a></li>
+</ul></li>
+<li class="chapter" data-level="F" data-path="appStatTables.html"><a href="appStatTables.html"><i class="fa fa-check"></i><b>F</b> Statistical Tables</a></li>
 <li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
 <li class="divider"></li>
 <li><a href="https://bookdown.org" target="_blank">Published with bookdown</a></li>
@@ -422,7 +437,7 @@ distributions. In this section, we will look at modeling a continuous
 distribution using the functionality available in R. This example starts
 with step 3 of the input modeling process. That is, the data has already
 been collected. Additional discussion of this topic can be found in
-Chapter 6 of <span class="citation">(<a href="#ref-law2007simulation" role="doc-biblioref">Law 2007</a>)</span>.</p>
+Chapter 6 of <span class="citation">(<a href="#ref-law2007simulation">Law 2007</a>)</span>.</p>
 <hr />
 <div class="example">
 <p><span id="exm:GammaFit" class="example"><strong>Example B.2  (Fitting a Gamma Distribution) </strong></span>Suppose that we are
@@ -624,20 +639,20 @@ likely to be independent and identically distributed.</p>
 easily accomplished in R using the <em>summary</em>, <em>mean</em>, <em>var</em>, <em>sd</em>, and
 <em>t.test</em> functions. The <em>summary</em> command summarizes the distributional properties in terms
 of the minimum, maximum, median, and 1st and 3rd quartiles of the data.</p>
-<div class="sourceCode" id="cb250"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb250-1"><a href="appidmsecfitContinuous.html#cb250-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(y)</span></code></pre></div>
+<div class="sourceCode" id="cb250"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb250-1"><a href="appidmsecfitContinuous.html#cb250-1" tabindex="-1"></a><span class="fu">summary</span>(y)</span></code></pre></div>
 <pre><code>##    Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
 ##   1.300   8.275  11.750  13.412  17.325  31.500</code></pre>
 <p>The <em>mean</em>, <em>var</em>, <em>sd</em> commands compute the sample average, sample
 variance, and sample standard deviation of the data.</p>
-<div class="sourceCode" id="cb252"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb252-1"><a href="appidmsecfitContinuous.html#cb252-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(y)</span></code></pre></div>
+<div class="sourceCode" id="cb252"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb252-1"><a href="appidmsecfitContinuous.html#cb252-1" tabindex="-1"></a><span class="fu">mean</span>(y)</span></code></pre></div>
 <pre><code>## [1] 13.412</code></pre>
-<div class="sourceCode" id="cb254"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb254-1"><a href="appidmsecfitContinuous.html#cb254-1" aria-hidden="true" tabindex="-1"></a><span class="fu">var</span>(y)</span></code></pre></div>
+<div class="sourceCode" id="cb254"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb254-1"><a href="appidmsecfitContinuous.html#cb254-1" tabindex="-1"></a><span class="fu">var</span>(y)</span></code></pre></div>
 <pre><code>## [1] 50.44895</code></pre>
-<div class="sourceCode" id="cb256"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb256-1"><a href="appidmsecfitContinuous.html#cb256-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sd</span>(y)</span></code></pre></div>
+<div class="sourceCode" id="cb256"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb256-1"><a href="appidmsecfitContinuous.html#cb256-1" tabindex="-1"></a><span class="fu">sd</span>(y)</span></code></pre></div>
 <pre><code>## [1] 7.102742</code></pre>
 <p>Finally, the <em>t.test</em> command can be used to form a 95% confidence interval on the
 mean and test if the true mean is significantly different from zero.</p>
-<div class="sourceCode" id="cb258"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb258-1"><a href="appidmsecfitContinuous.html#cb258-1" aria-hidden="true" tabindex="-1"></a><span class="fu">t.test</span>(y)</span></code></pre></div>
+<div class="sourceCode" id="cb258"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb258-1"><a href="appidmsecfitContinuous.html#cb258-1" tabindex="-1"></a><span class="fu">t.test</span>(y)</span></code></pre></div>
 <pre><code>## 
 ##  One Sample t-test
 ## 
@@ -651,7 +666,7 @@ mean and test if the true mean is significantly different from zero.</p>
 ##    13.412</code></pre>
 <p>The <em>descdist</em> command of the <em>fitdistrplus</em> package will also provide a
 description of the distribution’s properties.</p>
-<div class="sourceCode" id="cb260"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb260-1"><a href="appidmsecfitContinuous.html#cb260-1" aria-hidden="true" tabindex="-1"></a><span class="fu">descdist</span>(y, <span class="at">graph=</span><span class="cn">FALSE</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb260"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb260-1"><a href="appidmsecfitContinuous.html#cb260-1" tabindex="-1"></a><span class="fu">descdist</span>(y, <span class="at">graph=</span><span class="cn">FALSE</span>)</span></code></pre></div>
 <pre><code>## summary statistics
 ## ------
 ## min:  1.3   max:  31.5 
@@ -749,10 +764,10 @@ The <em>hist()</em> function provides the frequency version of histogram and
 Sturges rule as its default. You can also provide your own breakpoints
 in a vector. The <em>hist()</em> function will automatically compute the counts
 associated with the intervals.</p>
-<div class="sourceCode" id="cb262"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb262-1"><a href="appidmsecfitContinuous.html#cb262-1" aria-hidden="true" tabindex="-1"></a><span class="co"># make histogram with no plot</span></span>
-<span id="cb262-2"><a href="appidmsecfitContinuous.html#cb262-2" aria-hidden="true" tabindex="-1"></a>h <span class="ot">=</span> <span class="fu">hist</span>(y, <span class="at">plot =</span> <span class="cn">FALSE</span>)</span>
-<span id="cb262-3"><a href="appidmsecfitContinuous.html#cb262-3" aria-hidden="true" tabindex="-1"></a><span class="co"># show the histogram object components</span></span>
-<span id="cb262-4"><a href="appidmsecfitContinuous.html#cb262-4" aria-hidden="true" tabindex="-1"></a>h</span></code></pre></div>
+<div class="sourceCode" id="cb262"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb262-1"><a href="appidmsecfitContinuous.html#cb262-1" tabindex="-1"></a><span class="co"># make histogram with no plot</span></span>
+<span id="cb262-2"><a href="appidmsecfitContinuous.html#cb262-2" tabindex="-1"></a>h <span class="ot">=</span> <span class="fu">hist</span>(y, <span class="at">plot =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb262-3"><a href="appidmsecfitContinuous.html#cb262-3" tabindex="-1"></a><span class="co"># show the histogram object components</span></span>
+<span id="cb262-4"><a href="appidmsecfitContinuous.html#cb262-4" tabindex="-1"></a>h</span></code></pre></div>
 <pre><code>## $breaks
 ## [1]  0  5 10 15 20 25 30 35
 ## 
@@ -778,7 +793,7 @@ the result object is assigned to the variable <span class="math inline">\(h\)</s
 result object, you can see all the tabulated results. For example the
 variable <em>h$counts</em> shows the tabulation of the counts based on the
 default breakpoints.</p>
-<div class="sourceCode" id="cb264"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb264-1"><a href="appidmsecfitContinuous.html#cb264-1" aria-hidden="true" tabindex="-1"></a>h<span class="sc">$</span>counts</span></code></pre></div>
+<div class="sourceCode" id="cb264"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb264-1"><a href="appidmsecfitContinuous.html#cb264-1" tabindex="-1"></a>h<span class="sc">$</span>counts</span></code></pre></div>
 <pre><code>## [1]  6 34 25 16 11  5  3</code></pre>
 <p>The breakpoints are given by the variable
 <em>h$breaks</em>. Note that by default <em>hist</em> defines the intervals as
@@ -796,14 +811,14 @@ command (for example: <span class="math inline">\(b = c(0,4,8,12,16,20,24,28,32)
 the vector with the <em>breaks</em> option of the <em>hist</em> command if you do not
 want to use the default breakpoints. The following listing illustrates
 how to do this.</p>
-<div class="sourceCode" id="cb266"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb266-1"><a href="appidmsecfitContinuous.html#cb266-1" aria-hidden="true" tabindex="-1"></a><span class="co"># set up some new break points</span></span>
-<span id="cb266-2"><a href="appidmsecfitContinuous.html#cb266-2" aria-hidden="true" tabindex="-1"></a>b <span class="ot">=</span> <span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">4</span>,<span class="dv">8</span>,<span class="dv">12</span>,<span class="dv">16</span>,<span class="dv">20</span>,<span class="dv">24</span>,<span class="dv">28</span>,<span class="dv">32</span>)</span>
-<span id="cb266-3"><a href="appidmsecfitContinuous.html#cb266-3" aria-hidden="true" tabindex="-1"></a>b</span></code></pre></div>
+<div class="sourceCode" id="cb266"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb266-1"><a href="appidmsecfitContinuous.html#cb266-1" tabindex="-1"></a><span class="co"># set up some new break points</span></span>
+<span id="cb266-2"><a href="appidmsecfitContinuous.html#cb266-2" tabindex="-1"></a>b <span class="ot">=</span> <span class="fu">c</span>(<span class="dv">0</span>,<span class="dv">4</span>,<span class="dv">8</span>,<span class="dv">12</span>,<span class="dv">16</span>,<span class="dv">20</span>,<span class="dv">24</span>,<span class="dv">28</span>,<span class="dv">32</span>)</span>
+<span id="cb266-3"><a href="appidmsecfitContinuous.html#cb266-3" tabindex="-1"></a>b</span></code></pre></div>
 <pre><code>## [1]  0  4  8 12 16 20 24 28 32</code></pre>
-<div class="sourceCode" id="cb268"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb268-1"><a href="appidmsecfitContinuous.html#cb268-1" aria-hidden="true" tabindex="-1"></a><span class="co"># make histogram with no plot for new breakpoints</span></span>
-<span id="cb268-2"><a href="appidmsecfitContinuous.html#cb268-2" aria-hidden="true" tabindex="-1"></a>hb <span class="ot">=</span> <span class="fu">hist</span>(y, <span class="at">breaks =</span> b, <span class="at">plot =</span> <span class="cn">FALSE</span>)</span>
-<span id="cb268-3"><a href="appidmsecfitContinuous.html#cb268-3" aria-hidden="true" tabindex="-1"></a><span class="co"># show the histogram object components</span></span>
-<span id="cb268-4"><a href="appidmsecfitContinuous.html#cb268-4" aria-hidden="true" tabindex="-1"></a>hb</span></code></pre></div>
+<div class="sourceCode" id="cb268"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb268-1"><a href="appidmsecfitContinuous.html#cb268-1" tabindex="-1"></a><span class="co"># make histogram with no plot for new breakpoints</span></span>
+<span id="cb268-2"><a href="appidmsecfitContinuous.html#cb268-2" tabindex="-1"></a>hb <span class="ot">=</span> <span class="fu">hist</span>(y, <span class="at">breaks =</span> b, <span class="at">plot =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb268-3"><a href="appidmsecfitContinuous.html#cb268-3" tabindex="-1"></a><span class="co"># show the histogram object components</span></span>
+<span id="cb268-4"><a href="appidmsecfitContinuous.html#cb268-4" tabindex="-1"></a>hb</span></code></pre></div>
 <pre><code>## $breaks
 ## [1]  0  4  8 12 16 20 24 28 32
 ## 
@@ -828,10 +843,10 @@ how to do this.</p>
 tabulate the counts by providing a vector of breaks and tabulate the
 counts using the <em>cut()</em> and the <em>table()</em> commands without using the
 <em>hist</em> command. The following listing illustrates how to do this.</p>
-<div class="sourceCode" id="cb270"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb270-1"><a href="appidmsecfitContinuous.html#cb270-1" aria-hidden="true" tabindex="-1"></a><span class="co">#define the intervals</span></span>
-<span id="cb270-2"><a href="appidmsecfitContinuous.html#cb270-2" aria-hidden="true" tabindex="-1"></a>y.cut <span class="ot">=</span> <span class="fu">cut</span>(y, <span class="at">breaks=</span>b)</span>
-<span id="cb270-3"><a href="appidmsecfitContinuous.html#cb270-3" aria-hidden="true" tabindex="-1"></a><span class="co"># tabulate the counts in the intervals</span></span>
-<span id="cb270-4"><a href="appidmsecfitContinuous.html#cb270-4" aria-hidden="true" tabindex="-1"></a><span class="fu">table</span>(y.cut)</span></code></pre></div>
+<div class="sourceCode" id="cb270"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb270-1"><a href="appidmsecfitContinuous.html#cb270-1" tabindex="-1"></a><span class="co">#define the intervals</span></span>
+<span id="cb270-2"><a href="appidmsecfitContinuous.html#cb270-2" tabindex="-1"></a>y.cut <span class="ot">=</span> <span class="fu">cut</span>(y, <span class="at">breaks=</span>b)</span>
+<span id="cb270-3"><a href="appidmsecfitContinuous.html#cb270-3" tabindex="-1"></a><span class="co"># tabulate the counts in the intervals</span></span>
+<span id="cb270-4"><a href="appidmsecfitContinuous.html#cb270-4" tabindex="-1"></a><span class="fu">table</span>(y.cut)</span></code></pre></div>
 <pre><code>## y.cut
 ##   (0,4]   (4,8]  (8,12] (12,16] (16,20] (20,24] (24,28] (28,32] 
 ##       6      16      30      17      12       9       5       5</code></pre>
@@ -1010,24 +1025,24 @@ would not reject the hypothesis that the observed data is gamma
 distributed with <span class="math inline">\(\alpha = 3.56562\)</span> and <span class="math inline">\(\beta = 3.761478\)</span>.</p>
 <p>The following listing provides a script that will compute the chi-square
 test statistic and its p-value within R.</p>
-<div class="sourceCode" id="cb272"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb272-1"><a href="appidmsecfitContinuous.html#cb272-1" aria-hidden="true" tabindex="-1"></a>a <span class="ot">=</span> <span class="fu">mean</span>(y)<span class="sc">*</span><span class="fu">mean</span>(y)<span class="sc">/</span><span class="fu">var</span>(y) <span class="co">#estimate alpha</span></span>
-<span id="cb272-2"><a href="appidmsecfitContinuous.html#cb272-2" aria-hidden="true" tabindex="-1"></a>b <span class="ot">=</span> <span class="fu">var</span>(y)<span class="sc">/</span><span class="fu">mean</span>(y) <span class="co">#estmate beta</span></span>
-<span id="cb272-3"><a href="appidmsecfitContinuous.html#cb272-3" aria-hidden="true" tabindex="-1"></a>hy <span class="ot">=</span> <span class="fu">hist</span>(y, <span class="at">plot=</span><span class="cn">FALSE</span>) <span class="co"># make histogram</span></span>
-<span id="cb272-4"><a href="appidmsecfitContinuous.html#cb272-4" aria-hidden="true" tabindex="-1"></a>LL <span class="ot">=</span> hy<span class="sc">$</span>breaks <span class="co"># set lower limit of intervals</span></span>
-<span id="cb272-5"><a href="appidmsecfitContinuous.html#cb272-5" aria-hidden="true" tabindex="-1"></a>UL <span class="ot">=</span> <span class="fu">c</span>(LL[<span class="sc">-</span><span class="dv">1</span>],<span class="dv">10000</span>) <span class="co"># set upper limit of intervals</span></span>
-<span id="cb272-6"><a href="appidmsecfitContinuous.html#cb272-6" aria-hidden="true" tabindex="-1"></a>FLL <span class="ot">=</span> <span class="fu">pgamma</span>(LL,<span class="at">shape =</span> a, <span class="at">scale =</span> b) <span class="co">#compute F(LL)</span></span>
-<span id="cb272-7"><a href="appidmsecfitContinuous.html#cb272-7" aria-hidden="true" tabindex="-1"></a>FUL <span class="ot">=</span> <span class="fu">pgamma</span>(UL,<span class="at">shape =</span> a, <span class="at">scale =</span> b)  <span class="co">#compute F(UL)</span></span>
-<span id="cb272-8"><a href="appidmsecfitContinuous.html#cb272-8" aria-hidden="true" tabindex="-1"></a>pj <span class="ot">=</span> FUL <span class="sc">-</span> FLL <span class="co"># compute prob of being in interval</span></span>
-<span id="cb272-9"><a href="appidmsecfitContinuous.html#cb272-9" aria-hidden="true" tabindex="-1"></a>ej <span class="ot">=</span> <span class="fu">length</span>(y)<span class="sc">*</span>pj <span class="co"># compute expected number in interval</span></span>
-<span id="cb272-10"><a href="appidmsecfitContinuous.html#cb272-10" aria-hidden="true" tabindex="-1"></a>e <span class="ot">=</span> <span class="fu">c</span>(ej[<span class="dv">1</span><span class="sc">:</span><span class="dv">5</span>],<span class="fu">sum</span>(ej[<span class="dv">6</span><span class="sc">:</span><span class="dv">8</span>])) <span class="co">#combine last 3 intervals</span></span>
-<span id="cb272-11"><a href="appidmsecfitContinuous.html#cb272-11" aria-hidden="true" tabindex="-1"></a>cnts <span class="ot">=</span> <span class="fu">c</span>(hy<span class="sc">$</span>counts[<span class="dv">1</span><span class="sc">:</span><span class="dv">5</span>],<span class="fu">sum</span>(hy<span class="sc">$</span>counts[<span class="dv">6</span><span class="sc">:</span><span class="dv">7</span>])) <span class="co">#combine last 3 intervals</span></span>
-<span id="cb272-12"><a href="appidmsecfitContinuous.html#cb272-12" aria-hidden="true" tabindex="-1"></a>chissq <span class="ot">=</span> ((cnts<span class="sc">-</span>e)<span class="sc">^</span><span class="dv">2</span>)<span class="sc">/</span>e <span class="co">#compute chi sq values</span></span>
-<span id="cb272-13"><a href="appidmsecfitContinuous.html#cb272-13" aria-hidden="true" tabindex="-1"></a>sumchisq <span class="ot">=</span> <span class="fu">sum</span>(chissq) <span class="co"># compute test statistic</span></span>
-<span id="cb272-14"><a href="appidmsecfitContinuous.html#cb272-14" aria-hidden="true" tabindex="-1"></a>df <span class="ot">=</span> <span class="fu">length</span>(e)<span class="sc">-</span><span class="dv">2-1</span> <span class="co">#compute degrees of freedom</span></span>
-<span id="cb272-15"><a href="appidmsecfitContinuous.html#cb272-15" aria-hidden="true" tabindex="-1"></a>pvalue <span class="ot">=</span> <span class="dv">1</span> <span class="sc">-</span> <span class="fu">pchisq</span>(sumchisq, df) <span class="co">#compute p-value</span></span>
-<span id="cb272-16"><a href="appidmsecfitContinuous.html#cb272-16" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(sumchisq) <span class="co"># print test statistic</span></span></code></pre></div>
+<div class="sourceCode" id="cb272"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb272-1"><a href="appidmsecfitContinuous.html#cb272-1" tabindex="-1"></a>a <span class="ot">=</span> <span class="fu">mean</span>(y)<span class="sc">*</span><span class="fu">mean</span>(y)<span class="sc">/</span><span class="fu">var</span>(y) <span class="co">#estimate alpha</span></span>
+<span id="cb272-2"><a href="appidmsecfitContinuous.html#cb272-2" tabindex="-1"></a>b <span class="ot">=</span> <span class="fu">var</span>(y)<span class="sc">/</span><span class="fu">mean</span>(y) <span class="co">#estmate beta</span></span>
+<span id="cb272-3"><a href="appidmsecfitContinuous.html#cb272-3" tabindex="-1"></a>hy <span class="ot">=</span> <span class="fu">hist</span>(y, <span class="at">plot=</span><span class="cn">FALSE</span>) <span class="co"># make histogram</span></span>
+<span id="cb272-4"><a href="appidmsecfitContinuous.html#cb272-4" tabindex="-1"></a>LL <span class="ot">=</span> hy<span class="sc">$</span>breaks <span class="co"># set lower limit of intervals</span></span>
+<span id="cb272-5"><a href="appidmsecfitContinuous.html#cb272-5" tabindex="-1"></a>UL <span class="ot">=</span> <span class="fu">c</span>(LL[<span class="sc">-</span><span class="dv">1</span>],<span class="dv">10000</span>) <span class="co"># set upper limit of intervals</span></span>
+<span id="cb272-6"><a href="appidmsecfitContinuous.html#cb272-6" tabindex="-1"></a>FLL <span class="ot">=</span> <span class="fu">pgamma</span>(LL,<span class="at">shape =</span> a, <span class="at">scale =</span> b) <span class="co">#compute F(LL)</span></span>
+<span id="cb272-7"><a href="appidmsecfitContinuous.html#cb272-7" tabindex="-1"></a>FUL <span class="ot">=</span> <span class="fu">pgamma</span>(UL,<span class="at">shape =</span> a, <span class="at">scale =</span> b)  <span class="co">#compute F(UL)</span></span>
+<span id="cb272-8"><a href="appidmsecfitContinuous.html#cb272-8" tabindex="-1"></a>pj <span class="ot">=</span> FUL <span class="sc">-</span> FLL <span class="co"># compute prob of being in interval</span></span>
+<span id="cb272-9"><a href="appidmsecfitContinuous.html#cb272-9" tabindex="-1"></a>ej <span class="ot">=</span> <span class="fu">length</span>(y)<span class="sc">*</span>pj <span class="co"># compute expected number in interval</span></span>
+<span id="cb272-10"><a href="appidmsecfitContinuous.html#cb272-10" tabindex="-1"></a>e <span class="ot">=</span> <span class="fu">c</span>(ej[<span class="dv">1</span><span class="sc">:</span><span class="dv">5</span>],<span class="fu">sum</span>(ej[<span class="dv">6</span><span class="sc">:</span><span class="dv">8</span>])) <span class="co">#combine last 3 intervals</span></span>
+<span id="cb272-11"><a href="appidmsecfitContinuous.html#cb272-11" tabindex="-1"></a>cnts <span class="ot">=</span> <span class="fu">c</span>(hy<span class="sc">$</span>counts[<span class="dv">1</span><span class="sc">:</span><span class="dv">5</span>],<span class="fu">sum</span>(hy<span class="sc">$</span>counts[<span class="dv">6</span><span class="sc">:</span><span class="dv">7</span>])) <span class="co">#combine last 3 intervals</span></span>
+<span id="cb272-12"><a href="appidmsecfitContinuous.html#cb272-12" tabindex="-1"></a>chissq <span class="ot">=</span> ((cnts<span class="sc">-</span>e)<span class="sc">^</span><span class="dv">2</span>)<span class="sc">/</span>e <span class="co">#compute chi sq values</span></span>
+<span id="cb272-13"><a href="appidmsecfitContinuous.html#cb272-13" tabindex="-1"></a>sumchisq <span class="ot">=</span> <span class="fu">sum</span>(chissq) <span class="co"># compute test statistic</span></span>
+<span id="cb272-14"><a href="appidmsecfitContinuous.html#cb272-14" tabindex="-1"></a>df <span class="ot">=</span> <span class="fu">length</span>(e)<span class="sc">-</span><span class="dv">2-1</span> <span class="co">#compute degrees of freedom</span></span>
+<span id="cb272-15"><a href="appidmsecfitContinuous.html#cb272-15" tabindex="-1"></a>pvalue <span class="ot">=</span> <span class="dv">1</span> <span class="sc">-</span> <span class="fu">pchisq</span>(sumchisq, df) <span class="co">#compute p-value</span></span>
+<span id="cb272-16"><a href="appidmsecfitContinuous.html#cb272-16" tabindex="-1"></a><span class="fu">print</span>(sumchisq) <span class="co"># print test statistic</span></span></code></pre></div>
 <pre><code>## [1] 2.742749</code></pre>
-<div class="sourceCode" id="cb274"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb274-1"><a href="appidmsecfitContinuous.html#cb274-1" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(pvalue) <span class="co">#print p-value</span></span></code></pre></div>
+<div class="sourceCode" id="cb274"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb274-1"><a href="appidmsecfitContinuous.html#cb274-1" tabindex="-1"></a><span class="fu">print</span>(pvalue) <span class="co">#print p-value</span></span></code></pre></div>
 <pre><code>## [1] 0.4330114</code></pre>
 <p>Notice that we computed the same <span class="math inline">\(\chi^{2}\)</span> value and p-value as when doing the calculations by hand.</p>
 </div>
@@ -1039,9 +1054,9 @@ depend on specifying intervals for tabulating the test statistic. The
 K-S test compares the theoretical cumulative distribution function (CDF)
 to the empirical CDF by checking the largest absolute deviation between
 the two over the range of the random variable. The K-S Test is described
-in detail in <span class="citation">(<a href="#ref-law2007simulation" role="doc-biblioref">Law 2007</a>)</span>, which also includes a discussion of
+in detail in <span class="citation">(<a href="#ref-law2007simulation">Law 2007</a>)</span>, which also includes a discussion of
 the advantages/disadvantages of the test. For example,
-<span class="citation">(<a href="#ref-law2007simulation" role="doc-biblioref">Law 2007</a>)</span> indicates that the K-S Test is more powerful than
+<span class="citation">(<a href="#ref-law2007simulation">Law 2007</a>)</span> indicates that the K-S Test is more powerful than
 the Chi-Squared test and has the ability to be used on smaller sample
 sizes.</p>
 <p>To apply the K-S Test, we must be able to compute the empirical
@@ -1102,7 +1117,7 @@ D^{-}_{n} &amp; = \underset{1 \leq i \leq n}{\max} \Bigl\lbrace \hat{F}(x_{(i)})
 <p>The K-S Test statistic, <span class="math inline">\(D_{n}\)</span>, represents the largest vertical
 distance between the hypothesized distribution and the empirical
 distribution over the range of the distribution.
-Table <a href="appStatTables.html#tab:ksValues">E.5</a> contains critical values for the K-S test, where you reject the null
+Table <a href="appStatTables.html#tab:ksValues">F.5</a> contains critical values for the K-S test, where you reject the null
 hypothesis if <span class="math inline">\(D_{n}\)</span> is greater than the critical value <span class="math inline">\(D_{\alpha}\)</span>,
 where <span class="math inline">\(\alpha\)</span> is the Type 1 significance level.</p>
 <p>Intuitively, a large value for the K-S test statistic indicates a poor
@@ -1118,14 +1133,14 @@ Type I error will be less than specified.</p>
 <p>The following R listing, illustrates how to compute the K-S statistic by
 hand (which is quite unnecessary) because you can simply use the
 <em>ks.test</em> command as illustrated.</p>
-<div class="sourceCode" id="cb276"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb276-1"><a href="appidmsecfitContinuous.html#cb276-1" aria-hidden="true" tabindex="-1"></a>j <span class="ot">=</span> <span class="dv">1</span><span class="sc">:</span><span class="fu">length</span>(y) <span class="co"># make a vector to count y&#39;s</span></span>
-<span id="cb276-2"><a href="appidmsecfitContinuous.html#cb276-2" aria-hidden="true" tabindex="-1"></a>yj <span class="ot">=</span> <span class="fu">sort</span>(y) <span class="co"># sort the y&#39;s</span></span>
-<span id="cb276-3"><a href="appidmsecfitContinuous.html#cb276-3" aria-hidden="true" tabindex="-1"></a>Fj <span class="ot">=</span> <span class="fu">pgamma</span>(yj, <span class="at">shape =</span> a, <span class="at">scale =</span> b)  <span class="co">#compute F(yj)</span></span>
-<span id="cb276-4"><a href="appidmsecfitContinuous.html#cb276-4" aria-hidden="true" tabindex="-1"></a>n <span class="ot">=</span> <span class="fu">length</span>(y)</span>
-<span id="cb276-5"><a href="appidmsecfitContinuous.html#cb276-5" aria-hidden="true" tabindex="-1"></a>D <span class="ot">=</span> <span class="fu">max</span>(<span class="fu">max</span>((j<span class="sc">/</span>n)<span class="sc">-</span>Fj),<span class="fu">max</span>(Fj <span class="sc">-</span> ((j<span class="dv">-1</span>)<span class="sc">/</span>n))) <span class="co"># compute K-S test statistic</span></span>
-<span id="cb276-6"><a href="appidmsecfitContinuous.html#cb276-6" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(D)</span></code></pre></div>
+<div class="sourceCode" id="cb276"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb276-1"><a href="appidmsecfitContinuous.html#cb276-1" tabindex="-1"></a>j <span class="ot">=</span> <span class="dv">1</span><span class="sc">:</span><span class="fu">length</span>(y) <span class="co"># make a vector to count y&#39;s</span></span>
+<span id="cb276-2"><a href="appidmsecfitContinuous.html#cb276-2" tabindex="-1"></a>yj <span class="ot">=</span> <span class="fu">sort</span>(y) <span class="co"># sort the y&#39;s</span></span>
+<span id="cb276-3"><a href="appidmsecfitContinuous.html#cb276-3" tabindex="-1"></a>Fj <span class="ot">=</span> <span class="fu">pgamma</span>(yj, <span class="at">shape =</span> a, <span class="at">scale =</span> b)  <span class="co">#compute F(yj)</span></span>
+<span id="cb276-4"><a href="appidmsecfitContinuous.html#cb276-4" tabindex="-1"></a>n <span class="ot">=</span> <span class="fu">length</span>(y)</span>
+<span id="cb276-5"><a href="appidmsecfitContinuous.html#cb276-5" tabindex="-1"></a>D <span class="ot">=</span> <span class="fu">max</span>(<span class="fu">max</span>((j<span class="sc">/</span>n)<span class="sc">-</span>Fj),<span class="fu">max</span>(Fj <span class="sc">-</span> ((j<span class="dv">-1</span>)<span class="sc">/</span>n))) <span class="co"># compute K-S test statistic</span></span>
+<span id="cb276-6"><a href="appidmsecfitContinuous.html#cb276-6" tabindex="-1"></a><span class="fu">print</span>(D)</span></code></pre></div>
 <pre><code>## [1] 0.05265431</code></pre>
-<div class="sourceCode" id="cb278"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb278-1"><a href="appidmsecfitContinuous.html#cb278-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ks.test</span>(y, <span class="st">&#39;pgamma&#39;</span>, <span class="at">shape=</span>a, <span class="at">scale =</span>b) <span class="co"># compute k-s test</span></span></code></pre></div>
+<div class="sourceCode" id="cb278"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb278-1"><a href="appidmsecfitContinuous.html#cb278-1" tabindex="-1"></a><span class="fu">ks.test</span>(y, <span class="st">&#39;pgamma&#39;</span>, <span class="at">shape=</span>a, <span class="at">scale =</span>b) <span class="co"># compute k-s test</span></span></code></pre></div>
 <pre><code>## 
 ##  Asymptotic one-sample Kolmogorov-Smirnov test
 ## 
@@ -1140,7 +1155,7 @@ the K-S test. The Chi-Squared test has more general applicability than
 the K-S Test. Specifically, the Chi-Squared test applies to both
 continuous and discrete data; however, it suffers from depending on the
 interval specification. In addition, it has a number of other
-shortcomings which are discussed in <span class="citation">(<a href="#ref-law2007simulation" role="doc-biblioref">Law 2007</a>)</span>. While the K-S
+shortcomings which are discussed in <span class="citation">(<a href="#ref-law2007simulation">Law 2007</a>)</span>. While the K-S
 Test can also be applied to discrete data, special tables must be used
 for getting the critical values. Additionally, the K-S Test in its
 original form assumes that the parameters of the hypothesized
@@ -1148,10 +1163,10 @@ distribution are known, i.e. given without estimating from the data.
 Research on the effect of using the K-S Test with estimated parameters
 has indicated that it will be conservative in the sense that the actual
 Type I error will be less than specified. Additional advantage and
-disadvantage of the K-S Test are given in <span class="citation">(<a href="#ref-law2007simulation" role="doc-biblioref">Law 2007</a>)</span>. There
+disadvantage of the K-S Test are given in <span class="citation">(<a href="#ref-law2007simulation">Law 2007</a>)</span>. There
 are other statistical tests that have been devised for testing the
 goodness of fit for distributions. One such test is Anderson-Darling
-Test. <span class="citation">(<a href="#ref-law2007simulation" role="doc-biblioref">Law 2007</a>)</span> describes this test. This test detects tail
+Test. <span class="citation">(<a href="#ref-law2007simulation">Law 2007</a>)</span> describes this test. This test detects tail
 differences and has a higher power than the K-S Test for many popular
 distributions. It can be found as standard output in commercial
 distribution fitting software.</p>
@@ -1220,7 +1235,7 @@ distribution must be available and in order to make a Q-Q Plot, the
 inverse CDF of the hypothesized distribution must be available. When the
 inverse CDF is not readily available there are other methods to making
 Q-Q plots for many distributions. These methods are outlined in
-<span class="citation">(<a href="#ref-law2007simulation" role="doc-biblioref">Law 2007</a>)</span>. The following example will illustrate how to make
+<span class="citation">(<a href="#ref-law2007simulation">Law 2007</a>)</span>. The following example will illustrate how to make
 and interpret the P-P plot and Q-Q plot for the hypothesized gamma
 distribution for the task times.</p>
 <p>The following R listing will make the P-P and Q-Q plots for this
@@ -1263,9 +1278,9 @@ Figure B.16: The Q-Q Plot for the Task Times with gamma(shape = 3.56, scale = 3.
 <p>Now, that we have seen how to do the analysis ‘by hand’, let’s see how
 easy it can be using the <em>fitdistrplus</em> package. Notice that the
 <em>fitdist</em> command will fit the parameters of the distribution.</p>
-<div class="sourceCode" id="cb281"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb281-1"><a href="appidmsecfitContinuous.html#cb281-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(fitdistrplus)</span>
-<span id="cb281-2"><a href="appidmsecfitContinuous.html#cb281-2" aria-hidden="true" tabindex="-1"></a>fy <span class="ot">=</span> <span class="fu">fitdist</span>(y, <span class="st">&quot;gamma&quot;</span>)</span>
-<span id="cb281-3"><a href="appidmsecfitContinuous.html#cb281-3" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(fy)</span></code></pre></div>
+<div class="sourceCode" id="cb281"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb281-1"><a href="appidmsecfitContinuous.html#cb281-1" tabindex="-1"></a><span class="fu">library</span>(fitdistrplus)</span>
+<span id="cb281-2"><a href="appidmsecfitContinuous.html#cb281-2" tabindex="-1"></a>fy <span class="ot">=</span> <span class="fu">fitdist</span>(y, <span class="st">&quot;gamma&quot;</span>)</span>
+<span id="cb281-3"><a href="appidmsecfitContinuous.html#cb281-3" tabindex="-1"></a><span class="fu">print</span>(fy)</span></code></pre></div>
 <pre><code>## Fitting of the distribution &#39; gamma &#39; by maximum likelihood 
 ## Parameters:
 ##        estimate Std. Error
@@ -1275,8 +1290,8 @@ easy it can be using the <em>fitdistrplus</em> package. Notice that the
 of fit, K-S test statistic, as well as other goodness of fit criteria.
 The results lead to the same conclusion that we had before: the gamma
 distribution is a good model for this data.</p>
-<div class="sourceCode" id="cb283"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb283-1"><a href="appidmsecfitContinuous.html#cb283-1" aria-hidden="true" tabindex="-1"></a>gfy <span class="ot">=</span> <span class="fu">gofstat</span>(fy)</span>
-<span id="cb283-2"><a href="appidmsecfitContinuous.html#cb283-2" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(gfy)</span></code></pre></div>
+<div class="sourceCode" id="cb283"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb283-1"><a href="appidmsecfitContinuous.html#cb283-1" tabindex="-1"></a>gfy <span class="ot">=</span> <span class="fu">gofstat</span>(fy)</span>
+<span id="cb283-2"><a href="appidmsecfitContinuous.html#cb283-2" tabindex="-1"></a><span class="fu">print</span>(gfy)</span></code></pre></div>
 <pre><code>## Goodness-of-fit statistics
 ##                              1-mle-gamma
 ## Kolmogorov-Smirnov statistic  0.04930008
@@ -1287,11 +1302,11 @@ distribution is a good model for this data.</p>
 ##                                1-mle-gamma
 ## Akaike&#39;s Information Criterion    663.3157
 ## Bayesian Information Criterion    668.5260</code></pre>
-<div class="sourceCode" id="cb285"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb285-1"><a href="appidmsecfitContinuous.html#cb285-1" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(gfy<span class="sc">$</span>chisq) <span class="co"># chi-squared test statistic</span></span></code></pre></div>
+<div class="sourceCode" id="cb285"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb285-1"><a href="appidmsecfitContinuous.html#cb285-1" tabindex="-1"></a><span class="fu">print</span>(gfy<span class="sc">$</span>chisq) <span class="co"># chi-squared test statistic</span></span></code></pre></div>
 <pre><code>## [1] 3.544766</code></pre>
-<div class="sourceCode" id="cb287"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb287-1"><a href="appidmsecfitContinuous.html#cb287-1" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(gfy<span class="sc">$</span>chisqpvalue) <span class="co"># chi-squared p-value</span></span></code></pre></div>
+<div class="sourceCode" id="cb287"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb287-1"><a href="appidmsecfitContinuous.html#cb287-1" tabindex="-1"></a><span class="fu">print</span>(gfy<span class="sc">$</span>chisqpvalue) <span class="co"># chi-squared p-value</span></span></code></pre></div>
 <pre><code>## [1] 0.8956877</code></pre>
-<div class="sourceCode" id="cb289"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb289-1"><a href="appidmsecfitContinuous.html#cb289-1" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(gfy<span class="sc">$</span>chisqdf)  <span class="co"># chi-squared degrees of freedom</span></span></code></pre></div>
+<div class="sourceCode" id="cb289"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb289-1"><a href="appidmsecfitContinuous.html#cb289-1" tabindex="-1"></a><span class="fu">print</span>(gfy<span class="sc">$</span>chisqdf)  <span class="co"># chi-squared degrees of freedom</span></span></code></pre></div>
 <pre><code>## [1] 8</code></pre>
 <!-- ``` -->
 <!-- library(fitdistrplus) -->

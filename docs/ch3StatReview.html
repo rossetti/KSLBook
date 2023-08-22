@@ -6,7 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>3.4 Review of Statistical Concepts | Simulation Modeling using the Kotlin Simulation Library (KSL)</title>
   <meta name="description" content="A book that illustrates the basics of using the KSL. The output format for this book is bookdown::gitbook." />
-  <meta name="generator" content="bookdown 0.30 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.34 and GitBook 2.6.7" />
 
   <meta property="og:title" content="3.4 Review of Statistical Concepts | Simulation Modeling using the Kotlin Simulation Library (KSL)" />
   <meta property="og:type" content="book" />
@@ -23,7 +23,7 @@
 <meta name="author" content="Manuel D. Rossetti" />
 
 
-<meta name="date" content="2023-01-16" />
+<meta name="date" content="2023-08-22" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -121,6 +121,10 @@ code span.vs { color: #4070a0; } /* VerbatimString */
 code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
 </style>
 
+<style type="text/css">
+  
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+</style>
 <style type="text/css">
 /* Used with Pandoc 2.11+ new --citeproc when CSL is used */
 div.csl-bib-body { }
@@ -388,12 +392,23 @@ div.csl-indent {
 </ul></li>
 <li class="chapter" data-level="C.5" data-path="exercises-9.html"><a href="exercises-9.html"><i class="fa fa-check"></i><b>C.5</b> Exercises</a></li>
 </ul></li>
-<li class="chapter" data-level="D" data-path="distributions.html"><a href="distributions.html"><i class="fa fa-check"></i><b>D</b> Distributions</a>
+<li class="chapter" data-level="D" data-path="appUtilities.html"><a href="appUtilities.html"><i class="fa fa-check"></i><b>D</b> KSL Utility Packages</a>
 <ul>
-<li class="chapter" data-level="D.1" data-path="appDiscreteDistributions.html"><a href="appDiscreteDistributions.html"><i class="fa fa-check"></i><b>D.1</b> Discrete Distrbutions</a></li>
-<li class="chapter" data-level="D.2" data-path="appContinuousDistributions.html"><a href="appContinuousDistributions.html"><i class="fa fa-check"></i><b>D.2</b> Continuous Distrbutions</a></li>
+<li class="chapter" data-level="D.1" data-path="the-outputdirectory-class-and-ksl-object.html"><a href="the-outputdirectory-class-and-ksl-object.html"><i class="fa fa-check"></i><b>D.1</b> The <code>OutputDirectory</code> Class and <code>KSL</code> Object</a></li>
+<li class="chapter" data-level="D.2" data-path="logging-options.html"><a href="logging-options.html"><i class="fa fa-check"></i><b>D.2</b> Logging Options</a></li>
+<li class="chapter" data-level="D.3" data-path="the-kslfileutil-object.html"><a href="the-kslfileutil-object.html"><i class="fa fa-check"></i><b>D.3</b> The <code>KSLFileUtil</code> Object</a></li>
+<li class="chapter" data-level="D.4" data-path="csv-excel-and-tabular-data-files.html"><a href="csv-excel-and-tabular-data-files.html"><i class="fa fa-check"></i><b>D.4</b> CSV, Excel, and Tabular Data Files</a></li>
+<li class="chapter" data-level="D.5" data-path="the-dataframeutil-object.html"><a href="the-dataframeutil-object.html"><i class="fa fa-check"></i><b>D.5</b> The <code>DataFrameUtil</code> Object</a></li>
+<li class="chapter" data-level="D.6" data-path="ksl-database-utilities.html"><a href="ksl-database-utilities.html"><i class="fa fa-check"></i><b>D.6</b> KSL Database Utilities</a></li>
+<li class="chapter" data-level="D.7" data-path="appUtilitiesArrays.html"><a href="appUtilitiesArrays.html"><i class="fa fa-check"></i><b>D.7</b> Array Utilities</a></li>
+<li class="chapter" data-level="D.8" data-path="appUtilitiesMisc.html"><a href="appUtilitiesMisc.html"><i class="fa fa-check"></i><b>D.8</b> Miscellaneous Utilities</a></li>
 </ul></li>
-<li class="chapter" data-level="E" data-path="appStatTables.html"><a href="appStatTables.html"><i class="fa fa-check"></i><b>E</b> Statistical Tables</a></li>
+<li class="chapter" data-level="E" data-path="distributions.html"><a href="distributions.html"><i class="fa fa-check"></i><b>E</b> Distributions</a>
+<ul>
+<li class="chapter" data-level="E.1" data-path="appDiscreteDistributions.html"><a href="appDiscreteDistributions.html"><i class="fa fa-check"></i><b>E.1</b> Discrete Distrbutions</a></li>
+<li class="chapter" data-level="E.2" data-path="appContinuousDistributions.html"><a href="appContinuousDistributions.html"><i class="fa fa-check"></i><b>E.2</b> Continuous Distrbutions</a></li>
+</ul></li>
+<li class="chapter" data-level="F" data-path="appStatTables.html"><a href="appStatTables.html"><i class="fa fa-check"></i><b>F</b> Statistical Tables</a></li>
 <li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
 <li class="divider"></li>
 <li><a href="https://bookdown.org" target="_blank">Published with bookdown</a></li>
@@ -506,23 +521,23 @@ Within the statistical package R, this computation is straight-forward by using 
 <p><span class="math display">\[
 t_{p, n} = qt(p,n)
 \]</span></p>
-<div class="sourceCode" id="cb43"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb43-1"><a href="ch3StatReview.html#cb43-1" aria-hidden="true" tabindex="-1"></a><span class="co">#&#39;qt(0.975, 5)</span></span>
-<span id="cb43-2"><a href="ch3StatReview.html#cb43-2" aria-hidden="true" tabindex="-1"></a><span class="fu">qt</span>(<span class="fl">0.975</span>,<span class="dv">5</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb43"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb43-1"><a href="ch3StatReview.html#cb43-1" tabindex="-1"></a><span class="co">#&#39;qt(0.975, 5)</span></span>
+<span id="cb43-2"><a href="ch3StatReview.html#cb43-2" tabindex="-1"></a><span class="fu">qt</span>(<span class="fl">0.975</span>,<span class="dv">5</span>)</span></code></pre></div>
 <pre><code>## [1] 2.570582</code></pre>
-<div class="sourceCode" id="cb45"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb45-1"><a href="ch3StatReview.html#cb45-1" aria-hidden="true" tabindex="-1"></a><span class="co">#&#39; set alpha</span></span>
-<span id="cb45-2"><a href="ch3StatReview.html#cb45-2" aria-hidden="true" tabindex="-1"></a>alpha <span class="ot">=</span> <span class="fl">0.05</span></span>
-<span id="cb45-3"><a href="ch3StatReview.html#cb45-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&#39;qt(1-(alpha/2, 5)</span></span>
-<span id="cb45-4"><a href="ch3StatReview.html#cb45-4" aria-hidden="true" tabindex="-1"></a><span class="fu">qt</span>(<span class="dv">1</span><span class="sc">-</span>(alpha<span class="sc">/</span><span class="dv">2</span>),<span class="dv">5</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb45"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb45-1"><a href="ch3StatReview.html#cb45-1" tabindex="-1"></a><span class="co">#&#39; set alpha</span></span>
+<span id="cb45-2"><a href="ch3StatReview.html#cb45-2" tabindex="-1"></a>alpha <span class="ot">=</span> <span class="fl">0.05</span></span>
+<span id="cb45-3"><a href="ch3StatReview.html#cb45-3" tabindex="-1"></a><span class="co">#&#39;qt(1-(alpha/2, 5)</span></span>
+<span id="cb45-4"><a href="ch3StatReview.html#cb45-4" tabindex="-1"></a><span class="fu">qt</span>(<span class="dv">1</span><span class="sc">-</span>(alpha<span class="sc">/</span><span class="dv">2</span>),<span class="dv">5</span>)</span></code></pre></div>
 <pre><code>## [1] 2.570582</code></pre>
 <p>Using the KSL, we can compute the quantile of the Student-T distribution via the following:</p>
-<div class="sourceCode" id="cb47"><pre class="sourceCode kt"><code class="sourceCode kotlin"><span id="cb47-1"><a href="ch3StatReview.html#cb47-1" aria-hidden="true" tabindex="-1"></a><span class="kw">fun</span> <span class="fu">main</span><span class="op">(){</span></span>
-<span id="cb47-2"><a href="ch3StatReview.html#cb47-2" aria-hidden="true" tabindex="-1"></a>    <span class="kw">val</span> <span class="va">level</span> <span class="op">=</span> <span class="fl">0.95</span></span>
-<span id="cb47-3"><a href="ch3StatReview.html#cb47-3" aria-hidden="true" tabindex="-1"></a>    <span class="kw">val</span> <span class="va">dof</span> <span class="op">=</span> <span class="fl">5.0</span></span>
-<span id="cb47-4"><a href="ch3StatReview.html#cb47-4" aria-hidden="true" tabindex="-1"></a>    <span class="kw">val</span> <span class="va">alpha</span> <span class="op">=</span> <span class="fl">1.0</span> <span class="op">-</span> level</span>
-<span id="cb47-5"><a href="ch3StatReview.html#cb47-5" aria-hidden="true" tabindex="-1"></a>    <span class="kw">val</span> <span class="va">p</span> <span class="op">=</span> <span class="fl">1.0</span> <span class="op">-</span> alpha <span class="op">/</span> <span class="fl">2.0</span></span>
-<span id="cb47-6"><a href="ch3StatReview.html#cb47-6" aria-hidden="true" tabindex="-1"></a>    <span class="kw">val</span> <span class="va">t</span><span class="op">:</span> <span class="kw">Double</span> <span class="op">=</span> StudentT<span class="op">.</span>invCDF<span class="op">(</span>dof<span class="op">,</span> p<span class="op">)</span></span>
-<span id="cb47-7"><a href="ch3StatReview.html#cb47-7" aria-hidden="true" tabindex="-1"></a>    println<span class="op">(</span><span class="st">&quot;p = </span><span class="ss">$p</span><span class="st"> dof = </span><span class="ss">$dof</span><span class="st"> t-value = </span><span class="ss">$t</span><span class="st">&quot;</span><span class="op">)</span></span>
-<span id="cb47-8"><a href="ch3StatReview.html#cb47-8" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
+<div class="sourceCode" id="cb47"><pre class="sourceCode kt"><code class="sourceCode kotlin"><span id="cb47-1"><a href="ch3StatReview.html#cb47-1" tabindex="-1"></a><span class="kw">fun</span> <span class="fu">main</span><span class="op">(){</span></span>
+<span id="cb47-2"><a href="ch3StatReview.html#cb47-2" tabindex="-1"></a>    <span class="kw">val</span> <span class="va">level</span> <span class="op">=</span> <span class="fl">0.95</span></span>
+<span id="cb47-3"><a href="ch3StatReview.html#cb47-3" tabindex="-1"></a>    <span class="kw">val</span> <span class="va">dof</span> <span class="op">=</span> <span class="fl">5.0</span></span>
+<span id="cb47-4"><a href="ch3StatReview.html#cb47-4" tabindex="-1"></a>    <span class="kw">val</span> <span class="va">alpha</span> <span class="op">=</span> <span class="fl">1.0</span> <span class="op">-</span> level</span>
+<span id="cb47-5"><a href="ch3StatReview.html#cb47-5" tabindex="-1"></a>    <span class="kw">val</span> <span class="va">p</span> <span class="op">=</span> <span class="fl">1.0</span> <span class="op">-</span> alpha <span class="op">/</span> <span class="fl">2.0</span></span>
+<span id="cb47-6"><a href="ch3StatReview.html#cb47-6" tabindex="-1"></a>    <span class="kw">val</span> <span class="va">t</span><span class="op">:</span> <span class="kw">Double</span> <span class="op">=</span> StudentT<span class="op">.</span>invCDF<span class="op">(</span>dof<span class="op">,</span> p<span class="op">)</span></span>
+<span id="cb47-7"><a href="ch3StatReview.html#cb47-7" tabindex="-1"></a>    println<span class="op">(</span><span class="st">&quot;p = </span><span class="ss">$p</span><span class="st"> dof = </span><span class="ss">$dof</span><span class="st"> t-value = </span><span class="ss">$t</span><span class="st">&quot;</span><span class="op">)</span></span>
+<span id="cb47-8"><a href="ch3StatReview.html#cb47-8" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
 <p>With results:</p>
 <pre><code>p = 0.975 dof = 5.0 t-value = 2.5705818445939186</code></pre>
 </div>
@@ -553,24 +568,24 @@ n \geq \left(\dfrac{z_{1-(\alpha/2)} s}{\epsilon}\right)^2
   \tag{3.8}
 \end{equation}\]</span></p>
 <p>Within this text, we refer to this method for determining the sample size as the <em>normal approximation</em> method. This approximation generally works well for large <span class="math inline">\(n\)</span>, say <span class="math inline">\(n &gt; 50\)</span>. Both of these methods require an initial value for the standard deviation. This computation is implemented in the function, <code>estimateSampleSize</code> of the <code>Statisitic</code> class’s companion object.</p>
-<div class="sourceCode" id="cb49"><pre class="sourceCode kt"><code class="sourceCode kotlin"><span id="cb49-1"><a href="ch3StatReview.html#cb49-1" aria-hidden="true" tabindex="-1"></a>        <span class="co">/**</span></span>
-<span id="cb49-2"><a href="ch3StatReview.html#cb49-2" aria-hidden="true" tabindex="-1"></a><span class="co">         * Estimate the sample size based on a normal approximation</span></span>
-<span id="cb49-3"><a href="ch3StatReview.html#cb49-3" aria-hidden="true" tabindex="-1"></a><span class="co">         *</span></span>
-<span id="cb49-4"><a href="ch3StatReview.html#cb49-4" aria-hidden="true" tabindex="-1"></a><span class="co">         * @param desiredHW the desired half-width (must be bigger than 0)</span></span>
-<span id="cb49-5"><a href="ch3StatReview.html#cb49-5" aria-hidden="true" tabindex="-1"></a><span class="co">         * @param stdDev    the standard deviation (must be bigger than or equal to 0)</span></span>
-<span id="cb49-6"><a href="ch3StatReview.html#cb49-6" aria-hidden="true" tabindex="-1"></a><span class="co">         * @param level     the confidence level (must be between 0 and 1)</span></span>
-<span id="cb49-7"><a href="ch3StatReview.html#cb49-7" aria-hidden="true" tabindex="-1"></a><span class="co">         * @return the estimated sample size</span></span>
-<span id="cb49-8"><a href="ch3StatReview.html#cb49-8" aria-hidden="true" tabindex="-1"></a><span class="co">         */</span></span>
-<span id="cb49-9"><a href="ch3StatReview.html#cb49-9" aria-hidden="true" tabindex="-1"></a>        <span class="kw">fun</span> <span class="fu">estimateSampleSize</span><span class="op">(</span><span class="va">desiredHW</span><span class="op">:</span> <span class="dt">Double</span><span class="op">,</span> <span class="va">stdDev</span><span class="op">:</span> <span class="dt">Double</span><span class="op">,</span> <span class="va">level</span><span class="op">:</span> <span class="dt">Double</span><span class="op">):</span> <span class="dt">Long</span> <span class="op">{</span></span>
-<span id="cb49-10"><a href="ch3StatReview.html#cb49-10" aria-hidden="true" tabindex="-1"></a>            require<span class="op">(</span>desiredHW <span class="op">&gt;</span> <span class="fl">0.0</span><span class="op">)</span> <span class="op">{</span> <span class="st">&quot;The desired half-width must be &gt; 0&quot;</span> <span class="op">}</span></span>
-<span id="cb49-11"><a href="ch3StatReview.html#cb49-11" aria-hidden="true" tabindex="-1"></a>            require<span class="op">(</span>stdDev <span class="op">&gt;=</span> <span class="fl">0.0</span><span class="op">)</span> <span class="op">{</span> <span class="st">&quot;The desired std. dev. must be &gt;= 0&quot;</span> <span class="op">}</span></span>
-<span id="cb49-12"><a href="ch3StatReview.html#cb49-12" aria-hidden="true" tabindex="-1"></a>            require<span class="op">(!(</span>level <span class="op">&lt;=</span> <span class="fl">0.0</span> <span class="op">||</span> level <span class="op">&gt;=</span> <span class="fl">1.0</span><span class="op">))</span> <span class="op">{</span> <span class="st">&quot;Confidence Level must be (0,1)&quot;</span> <span class="op">}</span></span>
-<span id="cb49-13"><a href="ch3StatReview.html#cb49-13" aria-hidden="true" tabindex="-1"></a>            <span class="kw">val</span> <span class="va">a</span> <span class="op">=</span> <span class="fl">1.0</span> <span class="op">-</span> level</span>
-<span id="cb49-14"><a href="ch3StatReview.html#cb49-14" aria-hidden="true" tabindex="-1"></a>            <span class="kw">val</span> <span class="va">a2</span> <span class="op">=</span> a <span class="op">/</span> <span class="fl">2.0</span></span>
-<span id="cb49-15"><a href="ch3StatReview.html#cb49-15" aria-hidden="true" tabindex="-1"></a>            <span class="kw">val</span> <span class="va">z</span> <span class="op">=</span> Normal<span class="op">.</span>stdNormalInvCDF<span class="op">(</span><span class="fl">1.0</span> <span class="op">-</span> a2<span class="op">)</span></span>
-<span id="cb49-16"><a href="ch3StatReview.html#cb49-16" aria-hidden="true" tabindex="-1"></a>            <span class="kw">val</span> <span class="va">m</span> <span class="op">=</span> z <span class="op">*</span> stdDev <span class="op">/</span> desiredHW <span class="op">*</span> <span class="op">(</span>z <span class="op">*</span> stdDev <span class="op">/</span> desiredHW<span class="op">)</span></span>
-<span id="cb49-17"><a href="ch3StatReview.html#cb49-17" aria-hidden="true" tabindex="-1"></a>            <span class="kw">return</span> <span class="op">(</span>m <span class="op">+</span> <span class="fl">.5</span><span class="op">).</span>roundToLong<span class="op">()</span></span>
-<span id="cb49-18"><a href="ch3StatReview.html#cb49-18" aria-hidden="true" tabindex="-1"></a>        <span class="op">}</span></span></code></pre></div>
+<div class="sourceCode" id="cb49"><pre class="sourceCode kt"><code class="sourceCode kotlin"><span id="cb49-1"><a href="ch3StatReview.html#cb49-1" tabindex="-1"></a>        <span class="co">/**</span></span>
+<span id="cb49-2"><a href="ch3StatReview.html#cb49-2" tabindex="-1"></a><span class="co">         * Estimate the sample size based on a normal approximation</span></span>
+<span id="cb49-3"><a href="ch3StatReview.html#cb49-3" tabindex="-1"></a><span class="co">         *</span></span>
+<span id="cb49-4"><a href="ch3StatReview.html#cb49-4" tabindex="-1"></a><span class="co">         * @param desiredHW the desired half-width (must be bigger than 0)</span></span>
+<span id="cb49-5"><a href="ch3StatReview.html#cb49-5" tabindex="-1"></a><span class="co">         * @param stdDev    the standard deviation (must be bigger than or equal to 0)</span></span>
+<span id="cb49-6"><a href="ch3StatReview.html#cb49-6" tabindex="-1"></a><span class="co">         * @param level     the confidence level (must be between 0 and 1)</span></span>
+<span id="cb49-7"><a href="ch3StatReview.html#cb49-7" tabindex="-1"></a><span class="co">         * @return the estimated sample size</span></span>
+<span id="cb49-8"><a href="ch3StatReview.html#cb49-8" tabindex="-1"></a><span class="co">         */</span></span>
+<span id="cb49-9"><a href="ch3StatReview.html#cb49-9" tabindex="-1"></a>        <span class="kw">fun</span> <span class="fu">estimateSampleSize</span><span class="op">(</span><span class="va">desiredHW</span><span class="op">:</span> <span class="dt">Double</span><span class="op">,</span> <span class="va">stdDev</span><span class="op">:</span> <span class="dt">Double</span><span class="op">,</span> <span class="va">level</span><span class="op">:</span> <span class="dt">Double</span><span class="op">):</span> <span class="dt">Long</span> <span class="op">{</span></span>
+<span id="cb49-10"><a href="ch3StatReview.html#cb49-10" tabindex="-1"></a>            require<span class="op">(</span>desiredHW <span class="op">&gt;</span> <span class="fl">0.0</span><span class="op">)</span> <span class="op">{</span> <span class="st">&quot;The desired half-width must be &gt; 0&quot;</span> <span class="op">}</span></span>
+<span id="cb49-11"><a href="ch3StatReview.html#cb49-11" tabindex="-1"></a>            require<span class="op">(</span>stdDev <span class="op">&gt;=</span> <span class="fl">0.0</span><span class="op">)</span> <span class="op">{</span> <span class="st">&quot;The desired std. dev. must be &gt;= 0&quot;</span> <span class="op">}</span></span>
+<span id="cb49-12"><a href="ch3StatReview.html#cb49-12" tabindex="-1"></a>            require<span class="op">(!(</span>level <span class="op">&lt;=</span> <span class="fl">0.0</span> <span class="op">||</span> level <span class="op">&gt;=</span> <span class="fl">1.0</span><span class="op">))</span> <span class="op">{</span> <span class="st">&quot;Confidence Level must be (0,1)&quot;</span> <span class="op">}</span></span>
+<span id="cb49-13"><a href="ch3StatReview.html#cb49-13" tabindex="-1"></a>            <span class="kw">val</span> <span class="va">a</span> <span class="op">=</span> <span class="fl">1.0</span> <span class="op">-</span> level</span>
+<span id="cb49-14"><a href="ch3StatReview.html#cb49-14" tabindex="-1"></a>            <span class="kw">val</span> <span class="va">a2</span> <span class="op">=</span> a <span class="op">/</span> <span class="fl">2.0</span></span>
+<span id="cb49-15"><a href="ch3StatReview.html#cb49-15" tabindex="-1"></a>            <span class="kw">val</span> <span class="va">z</span> <span class="op">=</span> Normal<span class="op">.</span>stdNormalInvCDF<span class="op">(</span><span class="fl">1.0</span> <span class="op">-</span> a2<span class="op">)</span></span>
+<span id="cb49-16"><a href="ch3StatReview.html#cb49-16" tabindex="-1"></a>            <span class="kw">val</span> <span class="va">m</span> <span class="op">=</span> z <span class="op">*</span> stdDev <span class="op">/</span> desiredHW <span class="op">*</span> <span class="op">(</span>z <span class="op">*</span> stdDev <span class="op">/</span> desiredHW<span class="op">)</span></span>
+<span id="cb49-17"><a href="ch3StatReview.html#cb49-17" tabindex="-1"></a>            <span class="kw">return</span> <span class="op">(</span>m <span class="op">+</span> <span class="fl">.5</span><span class="op">).</span>roundToLong<span class="op">()</span></span>
+<span id="cb49-18"><a href="ch3StatReview.html#cb49-18" tabindex="-1"></a>        <span class="op">}</span></span></code></pre></div>
 <p>In order to use either the <em>normal approximation</em> method or the <em>Student-T iterative</em> method, you must have an initial value for, <span class="math inline">\(s\)</span>, the sample standard deviation. The simplest way to get an initial estimate of <span class="math inline">\(s\)</span> is to make a small initial pilot sample
 (e.g. <span class="math inline">\(n_0=5\)</span>). Given a value for <span class="math inline">\(s\)</span> you can then set a desired bound and
 use the formulas. The bound is problem and performance measure dependent
@@ -642,20 +657,20 @@ the proportion. Thus, an estimator for <span class="math inline">\(p\)</span> is
 \hat{p} = \bar{Y} = \frac{1}{n}\sum_{i=1}^{n}Y_i = \frac{\#\lbrace X_i  &gt; 8\rbrace}{n}
 \]</span>
 Therefore, computing the average of an indicator variable will estimate
-the desired probability. The java-code for this situation is quite simple:</p>
-<div class="sourceCode" id="cb50"><pre class="sourceCode kt"><code class="sourceCode kotlin"><span id="cb50-1"><a href="ch3StatReview.html#cb50-1" aria-hidden="true" tabindex="-1"></a><span class="kw">fun</span> <span class="fu">main</span><span class="op">()</span> <span class="op">{</span></span>
-<span id="cb50-2"><a href="ch3StatReview.html#cb50-2" aria-hidden="true" tabindex="-1"></a>    <span class="kw">val</span> <span class="va">rv</span> <span class="op">=</span> NormalRV<span class="op">(</span><span class="fl">10.0</span><span class="op">,</span> <span class="fl">4.0</span><span class="op">)</span></span>
-<span id="cb50-3"><a href="ch3StatReview.html#cb50-3" aria-hidden="true" tabindex="-1"></a>    <span class="kw">val</span> <span class="va">estimateX</span> <span class="op">=</span> Statistic<span class="op">(</span><span class="st">&quot;Estimated X&quot;</span><span class="op">)</span></span>
-<span id="cb50-4"><a href="ch3StatReview.html#cb50-4" aria-hidden="true" tabindex="-1"></a>    <span class="kw">val</span> <span class="va">estOfProb</span> <span class="op">=</span> Statistic<span class="op">(</span><span class="st">&quot;Pr(X&gt;8)&quot;</span><span class="op">)</span></span>
-<span id="cb50-5"><a href="ch3StatReview.html#cb50-5" aria-hidden="true" tabindex="-1"></a>    <span class="kw">val</span> <span class="va">r</span> <span class="op">=</span> StatisticReporter<span class="op">(</span>mutableListOf<span class="op">(</span>estOfProb<span class="op">,</span> estimateX<span class="op">))</span></span>
-<span id="cb50-6"><a href="ch3StatReview.html#cb50-6" aria-hidden="true" tabindex="-1"></a>    <span class="kw">val</span> <span class="va">n</span> <span class="op">=</span> <span class="dv">20</span> <span class="co">// sample size</span></span>
-<span id="cb50-7"><a href="ch3StatReview.html#cb50-7" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> <span class="op">(</span>i <span class="kw">in</span> <span class="fl">1.</span><span class="op">.</span>n<span class="op">)</span> <span class="op">{</span></span>
-<span id="cb50-8"><a href="ch3StatReview.html#cb50-8" aria-hidden="true" tabindex="-1"></a>        <span class="kw">val</span> <span class="va">x</span> <span class="op">=</span> rv<span class="op">.</span>value</span>
-<span id="cb50-9"><a href="ch3StatReview.html#cb50-9" aria-hidden="true" tabindex="-1"></a>        estimateX<span class="op">.</span>collect<span class="op">(</span>x<span class="op">)</span></span>
-<span id="cb50-10"><a href="ch3StatReview.html#cb50-10" aria-hidden="true" tabindex="-1"></a>        estOfProb<span class="op">.</span>collect<span class="op">(</span>x <span class="op">&gt;</span> <span class="dv">8</span><span class="op">)</span></span>
-<span id="cb50-11"><a href="ch3StatReview.html#cb50-11" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
-<span id="cb50-12"><a href="ch3StatReview.html#cb50-12" aria-hidden="true" tabindex="-1"></a>    println<span class="op">(</span>r<span class="op">.</span>halfWidthSummaryReport<span class="op">())</span></span>
-<span id="cb50-13"><a href="ch3StatReview.html#cb50-13" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
+the desired probability. The code for this situation is quite simple:</p>
+<div class="sourceCode" id="cb50"><pre class="sourceCode kt"><code class="sourceCode kotlin"><span id="cb50-1"><a href="ch3StatReview.html#cb50-1" tabindex="-1"></a><span class="kw">fun</span> <span class="fu">main</span><span class="op">()</span> <span class="op">{</span></span>
+<span id="cb50-2"><a href="ch3StatReview.html#cb50-2" tabindex="-1"></a>    <span class="kw">val</span> <span class="va">rv</span> <span class="op">=</span> NormalRV<span class="op">(</span><span class="fl">10.0</span><span class="op">,</span> <span class="fl">4.0</span><span class="op">)</span></span>
+<span id="cb50-3"><a href="ch3StatReview.html#cb50-3" tabindex="-1"></a>    <span class="kw">val</span> <span class="va">estimateX</span> <span class="op">=</span> Statistic<span class="op">(</span><span class="st">&quot;Estimated X&quot;</span><span class="op">)</span></span>
+<span id="cb50-4"><a href="ch3StatReview.html#cb50-4" tabindex="-1"></a>    <span class="kw">val</span> <span class="va">estOfProb</span> <span class="op">=</span> Statistic<span class="op">(</span><span class="st">&quot;Pr(X&gt;8)&quot;</span><span class="op">)</span></span>
+<span id="cb50-5"><a href="ch3StatReview.html#cb50-5" tabindex="-1"></a>    <span class="kw">val</span> <span class="va">r</span> <span class="op">=</span> StatisticReporter<span class="op">(</span>mutableListOf<span class="op">(</span>estOfProb<span class="op">,</span> estimateX<span class="op">))</span></span>
+<span id="cb50-6"><a href="ch3StatReview.html#cb50-6" tabindex="-1"></a>    <span class="kw">val</span> <span class="va">n</span> <span class="op">=</span> <span class="dv">20</span> <span class="co">// sample size</span></span>
+<span id="cb50-7"><a href="ch3StatReview.html#cb50-7" tabindex="-1"></a>    <span class="cf">for</span> <span class="op">(</span>i <span class="kw">in</span> <span class="fl">1.</span><span class="op">.</span>n<span class="op">)</span> <span class="op">{</span></span>
+<span id="cb50-8"><a href="ch3StatReview.html#cb50-8" tabindex="-1"></a>        <span class="kw">val</span> <span class="va">x</span> <span class="op">=</span> rv<span class="op">.</span>value</span>
+<span id="cb50-9"><a href="ch3StatReview.html#cb50-9" tabindex="-1"></a>        estimateX<span class="op">.</span>collect<span class="op">(</span>x<span class="op">)</span></span>
+<span id="cb50-10"><a href="ch3StatReview.html#cb50-10" tabindex="-1"></a>        estOfProb<span class="op">.</span>collect<span class="op">(</span>x <span class="op">&gt;</span> <span class="dv">8</span><span class="op">)</span></span>
+<span id="cb50-11"><a href="ch3StatReview.html#cb50-11" tabindex="-1"></a>    <span class="op">}</span></span>
+<span id="cb50-12"><a href="ch3StatReview.html#cb50-12" tabindex="-1"></a>    println<span class="op">(</span>r<span class="op">.</span>halfWidthSummaryReport<span class="op">())</span></span>
+<span id="cb50-13"><a href="ch3StatReview.html#cb50-13" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
 <p>In the code, an instance of Statistic is used to observe values of the quantity <span class="math inline">\((x &gt; 8)\)</span>. This quantity is actually a logical condition which will evaluate to true (1) or false (0) given the value of <span class="math inline">\(x\)</span>. Thus, the Statistic will be recording observations of 1’s and 0’s. Because the Statistic computes that average of the values that it “collects”, we will get an estimate of the probability. Thus, the quantity, <span class="math inline">\((x &gt; 8)\)</span> is an indicator variable for the desired event. Using a Statistic to estimate a probability in this manner is quite effective.</p>
 <p>Now, in more realistic simulation situations, we would not know the true population mean and variance. Thus, in solving this problem, we will ignore that information. To apply the previously discussed sample size determination methods, we need estimates of <span class="math inline">\(\sigma = \sqrt{Var[X]}\)</span> and <span class="math inline">\(p = P[X&gt;8]\)</span>. In order to get estimates of these quantities, we need to run our simulation experiment; however, in order to run our simulation experiment, we need to know how many observations to make. This is quite a catch-22 situation!</p>
 <p>To proceed, we need to run our simulation model for a pilot experiment. From a small number of samples (called a pilot experiment, pilot run or pilot study), we will estimate <span class="math inline">\(\sigma\)</span> and <span class="math inline">\(p = P[X&gt;8]\)</span> and then use those estimates to determine how many samples we need to meet the desired margins of error. We will then re-run the simulation using the recommended sample size.</p>
@@ -697,9 +712,9 @@ s_0 = \dfrac{h\sqrt{n_0}}{t_{1-(\alpha/2), n_0-1}} = \dfrac{2.24\sqrt{20}}{t_{0.
 <p><span class="math display">\[n \geq \left(\dfrac{z_{1-(\alpha/2)}\; s}{\epsilon}\right)^2 = \left(\dfrac{2.576 \times 4.7862}{0.5}\right)^2 = 608.042 \approx 609\]</span>
 To determine the sample size for estimating <span class="math inline">\(p=P[X&gt;8]\)</span> with 95% confidence to <span class="math inline">\(\pm 0.1\)</span>, we can use Equation <a href="ch3StatReview.html#eq:pSampleSize">(3.10)</a></p>
 <p><span class="math display">\[
-n = \left(\dfrac{z_{1-(\alpha/2)}}{\epsilon}\right)^{2} \hat{p}(1 - \hat{p})=\left(\dfrac{z_{0.975}}{0.1}\right)^{2} (0.22)(1 - 0.22)=\left(\dfrac{1.96}{0.1}\right)^{2} (0.22)(0.78) =65.92 \approx 66
+n = \left(\dfrac{z_{1-(\alpha/2)}}{\epsilon}\right)^{2} \hat{p}(1 - \hat{p})=\left(\dfrac{z_{0.975}}{0.1}\right)^{2} (0.70)(1 - 0.70)=\left(\dfrac{1.96}{0.1}\right)^{2} (0.70)(0.30) = 80.67 \approx 81
 \]</span>
-By using the maximum of <span class="math inline">\(\max{(66, 609)=609}\)</span>, we can re-run the simulation this number of replications. Doing so, yields,</p>
+By using the maximum of <span class="math inline">\(\max{(81, 609)=609}\)</span>, we can re-run the simulation this number of replications. Doing so, yields,</p>
 <table>
 <caption><span id="tab:exResultsn609">Table 3.2: </span> Simulation Results for <span class="math inline">\(n=609\)</span> Replications</caption>
 <thead>

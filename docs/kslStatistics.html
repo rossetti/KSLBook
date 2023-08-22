@@ -6,7 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>3.1 Collecting Statistics | Simulation Modeling using the Kotlin Simulation Library (KSL)</title>
   <meta name="description" content="A book that illustrates the basics of using the KSL. The output format for this book is bookdown::gitbook." />
-  <meta name="generator" content="bookdown 0.30 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.34 and GitBook 2.6.7" />
 
   <meta property="og:title" content="3.1 Collecting Statistics | Simulation Modeling using the Kotlin Simulation Library (KSL)" />
   <meta property="og:type" content="book" />
@@ -23,7 +23,7 @@
 <meta name="author" content="Manuel D. Rossetti" />
 
 
-<meta name="date" content="2023-01-16" />
+<meta name="date" content="2023-08-22" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -121,6 +121,10 @@ code span.vs { color: #4070a0; } /* VerbatimString */
 code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
 </style>
 
+<style type="text/css">
+  
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+</style>
 <style type="text/css">
 /* Used with Pandoc 2.11+ new --citeproc when CSL is used */
 div.csl-bib-body { }
@@ -388,12 +392,23 @@ div.csl-indent {
 </ul></li>
 <li class="chapter" data-level="C.5" data-path="exercises-9.html"><a href="exercises-9.html"><i class="fa fa-check"></i><b>C.5</b> Exercises</a></li>
 </ul></li>
-<li class="chapter" data-level="D" data-path="distributions.html"><a href="distributions.html"><i class="fa fa-check"></i><b>D</b> Distributions</a>
+<li class="chapter" data-level="D" data-path="appUtilities.html"><a href="appUtilities.html"><i class="fa fa-check"></i><b>D</b> KSL Utility Packages</a>
 <ul>
-<li class="chapter" data-level="D.1" data-path="appDiscreteDistributions.html"><a href="appDiscreteDistributions.html"><i class="fa fa-check"></i><b>D.1</b> Discrete Distrbutions</a></li>
-<li class="chapter" data-level="D.2" data-path="appContinuousDistributions.html"><a href="appContinuousDistributions.html"><i class="fa fa-check"></i><b>D.2</b> Continuous Distrbutions</a></li>
+<li class="chapter" data-level="D.1" data-path="the-outputdirectory-class-and-ksl-object.html"><a href="the-outputdirectory-class-and-ksl-object.html"><i class="fa fa-check"></i><b>D.1</b> The <code>OutputDirectory</code> Class and <code>KSL</code> Object</a></li>
+<li class="chapter" data-level="D.2" data-path="logging-options.html"><a href="logging-options.html"><i class="fa fa-check"></i><b>D.2</b> Logging Options</a></li>
+<li class="chapter" data-level="D.3" data-path="the-kslfileutil-object.html"><a href="the-kslfileutil-object.html"><i class="fa fa-check"></i><b>D.3</b> The <code>KSLFileUtil</code> Object</a></li>
+<li class="chapter" data-level="D.4" data-path="csv-excel-and-tabular-data-files.html"><a href="csv-excel-and-tabular-data-files.html"><i class="fa fa-check"></i><b>D.4</b> CSV, Excel, and Tabular Data Files</a></li>
+<li class="chapter" data-level="D.5" data-path="the-dataframeutil-object.html"><a href="the-dataframeutil-object.html"><i class="fa fa-check"></i><b>D.5</b> The <code>DataFrameUtil</code> Object</a></li>
+<li class="chapter" data-level="D.6" data-path="ksl-database-utilities.html"><a href="ksl-database-utilities.html"><i class="fa fa-check"></i><b>D.6</b> KSL Database Utilities</a></li>
+<li class="chapter" data-level="D.7" data-path="appUtilitiesArrays.html"><a href="appUtilitiesArrays.html"><i class="fa fa-check"></i><b>D.7</b> Array Utilities</a></li>
+<li class="chapter" data-level="D.8" data-path="appUtilitiesMisc.html"><a href="appUtilitiesMisc.html"><i class="fa fa-check"></i><b>D.8</b> Miscellaneous Utilities</a></li>
 </ul></li>
-<li class="chapter" data-level="E" data-path="appStatTables.html"><a href="appStatTables.html"><i class="fa fa-check"></i><b>E</b> Statistical Tables</a></li>
+<li class="chapter" data-level="E" data-path="distributions.html"><a href="distributions.html"><i class="fa fa-check"></i><b>E</b> Distributions</a>
+<ul>
+<li class="chapter" data-level="E.1" data-path="appDiscreteDistributions.html"><a href="appDiscreteDistributions.html"><i class="fa fa-check"></i><b>E.1</b> Discrete Distrbutions</a></li>
+<li class="chapter" data-level="E.2" data-path="appContinuousDistributions.html"><a href="appContinuousDistributions.html"><i class="fa fa-check"></i><b>E.2</b> Continuous Distrbutions</a></li>
+</ul></li>
+<li class="chapter" data-level="F" data-path="appStatTables.html"><a href="appStatTables.html"><i class="fa fa-check"></i><b>F</b> Statistical Tables</a></li>
 <li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
 <li class="divider"></li>
 <li><a href="https://bookdown.org" target="_blank">Published with bookdown</a></li>
@@ -442,24 +457,24 @@ Figure 3.3: Major Accumulated Statistical Quantities
 </p>
 </div>
 <p>As can be seen in Figure <a href="kslStatistics.html#fig:StatisticIfc">3.3</a>, the <code>Statistic</code> class not only computes the standard statistical quantities such as the count, average, and variance, it also has functionality to compute confidence intervals, skewness, kurtosis, the minimum, the maximum, and lag 1 covariance and correlation. The computed confidence intervals are based on the assumption that the observed data are normally distributed or that the sample size is large enough to justify using the central limit theorem to assume that the sampling distribution is normal. Thus, we can assume that the confidence intervals are approximate. The summary statistics are computed via efficient one pass algorithms that do not require any observed data to be stored. The algorithms are designed to minimize issues related to numerical precision within the calculated results. The <code>toString()</code> method of the <code>Statistic</code> class has been overridden to contain all of the computed values. Let’s illustrate the usage of the <code>Statistic</code> class with some code. In this code, first we create a normal random variable to be able to generate some data. Then, two statistics are created. The first statistic directly collects the generated values. The second statistic is designed to collect <span class="math inline">\(P(X\geq 20.0)\)</span> by observing whether the generated value meets this criteria as defined by the boolean expression <code>x &gt;= 20.0</code>.</p>
-<div class="sourceCode" id="cb28"><pre class="sourceCode kt"><code class="sourceCode kotlin"><span id="cb28-1"><a href="kslStatistics.html#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="kw">fun</span> <span class="fu">main</span><span class="op">()</span> <span class="op">{</span></span>
-<span id="cb28-2"><a href="kslStatistics.html#cb28-2" aria-hidden="true" tabindex="-1"></a>    <span class="co">// create a normal mean = 20.0, variance = 4.0 random variable</span></span>
-<span id="cb28-3"><a href="kslStatistics.html#cb28-3" aria-hidden="true" tabindex="-1"></a>    <span class="kw">val</span> <span class="va">n</span> <span class="op">=</span> NormalRV<span class="op">(</span><span class="fl">20.0</span><span class="op">,</span> <span class="fl">4.0</span><span class="op">)</span></span>
-<span id="cb28-4"><a href="kslStatistics.html#cb28-4" aria-hidden="true" tabindex="-1"></a>    <span class="co">// create a Statistic to observe the values</span></span>
-<span id="cb28-5"><a href="kslStatistics.html#cb28-5" aria-hidden="true" tabindex="-1"></a>    <span class="kw">val</span> <span class="va">stat</span> <span class="op">=</span> Statistic<span class="op">(</span><span class="st">&quot;Normal Stats&quot;</span><span class="op">)</span></span>
-<span id="cb28-6"><a href="kslStatistics.html#cb28-6" aria-hidden="true" tabindex="-1"></a>    <span class="kw">val</span> <span class="va">pGT20</span> <span class="op">=</span> Statistic<span class="op">(</span><span class="st">&quot;P(X&gt;=20&quot;</span><span class="op">)</span></span>
-<span id="cb28-7"><a href="kslStatistics.html#cb28-7" aria-hidden="true" tabindex="-1"></a>    <span class="co">// generate 100 values</span></span>
-<span id="cb28-8"><a href="kslStatistics.html#cb28-8" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> <span class="op">(</span>i <span class="kw">in</span> <span class="fl">1..100</span><span class="op">)</span> <span class="op">{</span></span>
-<span id="cb28-9"><a href="kslStatistics.html#cb28-9" aria-hidden="true" tabindex="-1"></a>        <span class="co">// getValue() method returns generated values</span></span>
-<span id="cb28-10"><a href="kslStatistics.html#cb28-10" aria-hidden="true" tabindex="-1"></a>        <span class="kw">val</span> <span class="va">x</span> <span class="op">=</span> n<span class="op">.</span>value</span>
-<span id="cb28-11"><a href="kslStatistics.html#cb28-11" aria-hidden="true" tabindex="-1"></a>        stat<span class="op">.</span>collect<span class="op">(</span>x<span class="op">)</span></span>
-<span id="cb28-12"><a href="kslStatistics.html#cb28-12" aria-hidden="true" tabindex="-1"></a>        pGT20<span class="op">.</span>collect<span class="op">(</span>x <span class="op">&gt;=</span> <span class="fl">20.0</span><span class="op">)</span></span>
-<span id="cb28-13"><a href="kslStatistics.html#cb28-13" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
-<span id="cb28-14"><a href="kslStatistics.html#cb28-14" aria-hidden="true" tabindex="-1"></a>    println<span class="op">(</span>stat<span class="op">)</span></span>
-<span id="cb28-15"><a href="kslStatistics.html#cb28-15" aria-hidden="true" tabindex="-1"></a>    println<span class="op">(</span>pGT20<span class="op">)</span></span>
-<span id="cb28-16"><a href="kslStatistics.html#cb28-16" aria-hidden="true" tabindex="-1"></a>    <span class="kw">val</span> <span class="va">reporter</span> <span class="op">=</span> StatisticReporter<span class="op">(</span>mutableListOf<span class="op">(</span>stat<span class="op">,</span> pGT20<span class="op">))</span></span>
-<span id="cb28-17"><a href="kslStatistics.html#cb28-17" aria-hidden="true" tabindex="-1"></a>    println<span class="op">(</span>reporter<span class="op">.</span>halfWidthSummaryReport<span class="op">())</span></span>
-<span id="cb28-18"><a href="kslStatistics.html#cb28-18" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
+<div class="sourceCode" id="cb28"><pre class="sourceCode kt"><code class="sourceCode kotlin"><span id="cb28-1"><a href="kslStatistics.html#cb28-1" tabindex="-1"></a><span class="kw">fun</span> <span class="fu">main</span><span class="op">()</span> <span class="op">{</span></span>
+<span id="cb28-2"><a href="kslStatistics.html#cb28-2" tabindex="-1"></a>    <span class="co">// create a normal mean = 20.0, variance = 4.0 random variable</span></span>
+<span id="cb28-3"><a href="kslStatistics.html#cb28-3" tabindex="-1"></a>    <span class="kw">val</span> <span class="va">n</span> <span class="op">=</span> NormalRV<span class="op">(</span><span class="fl">20.0</span><span class="op">,</span> <span class="fl">4.0</span><span class="op">)</span></span>
+<span id="cb28-4"><a href="kslStatistics.html#cb28-4" tabindex="-1"></a>    <span class="co">// create a Statistic to observe the values</span></span>
+<span id="cb28-5"><a href="kslStatistics.html#cb28-5" tabindex="-1"></a>    <span class="kw">val</span> <span class="va">stat</span> <span class="op">=</span> Statistic<span class="op">(</span><span class="st">&quot;Normal Stats&quot;</span><span class="op">)</span></span>
+<span id="cb28-6"><a href="kslStatistics.html#cb28-6" tabindex="-1"></a>    <span class="kw">val</span> <span class="va">pGT20</span> <span class="op">=</span> Statistic<span class="op">(</span><span class="st">&quot;P(X&gt;=20&quot;</span><span class="op">)</span></span>
+<span id="cb28-7"><a href="kslStatistics.html#cb28-7" tabindex="-1"></a>    <span class="co">// generate 100 values</span></span>
+<span id="cb28-8"><a href="kslStatistics.html#cb28-8" tabindex="-1"></a>    <span class="cf">for</span> <span class="op">(</span>i <span class="kw">in</span> <span class="fl">1..100</span><span class="op">)</span> <span class="op">{</span></span>
+<span id="cb28-9"><a href="kslStatistics.html#cb28-9" tabindex="-1"></a>        <span class="co">// getValue() method returns generated values</span></span>
+<span id="cb28-10"><a href="kslStatistics.html#cb28-10" tabindex="-1"></a>        <span class="kw">val</span> <span class="va">x</span> <span class="op">=</span> n<span class="op">.</span>value</span>
+<span id="cb28-11"><a href="kslStatistics.html#cb28-11" tabindex="-1"></a>        stat<span class="op">.</span>collect<span class="op">(</span>x<span class="op">)</span></span>
+<span id="cb28-12"><a href="kslStatistics.html#cb28-12" tabindex="-1"></a>        pGT20<span class="op">.</span>collect<span class="op">(</span>x <span class="op">&gt;=</span> <span class="fl">20.0</span><span class="op">)</span></span>
+<span id="cb28-13"><a href="kslStatistics.html#cb28-13" tabindex="-1"></a>    <span class="op">}</span></span>
+<span id="cb28-14"><a href="kslStatistics.html#cb28-14" tabindex="-1"></a>    println<span class="op">(</span>stat<span class="op">)</span></span>
+<span id="cb28-15"><a href="kslStatistics.html#cb28-15" tabindex="-1"></a>    println<span class="op">(</span>pGT20<span class="op">)</span></span>
+<span id="cb28-16"><a href="kslStatistics.html#cb28-16" tabindex="-1"></a>    <span class="kw">val</span> <span class="va">reporter</span> <span class="op">=</span> StatisticReporter<span class="op">(</span>mutableListOf<span class="op">(</span>stat<span class="op">,</span> pGT20<span class="op">))</span></span>
+<span id="cb28-17"><a href="kslStatistics.html#cb28-17" tabindex="-1"></a>    println<span class="op">(</span>reporter<span class="op">.</span>halfWidthSummaryReport<span class="op">())</span></span>
+<span id="cb28-18"><a href="kslStatistics.html#cb28-18" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
 <p>The results for the statistics collected directly on the observations from the <code>toString()</code> method are as follows.</p>
 <pre><code>ID 1
 Name Normal Stats
@@ -489,8 +504,8 @@ Von Neumann Lag 1 Test Statistic -2.2136062395518343
 Number of missing observations 0.0
 Lead-Digit Rule(1) -1</code></pre>
 <p>Of course, this is probably more output than what you need, but you can use the properties and methods illustrated in Figure <a href="kslStatistics.html#fig:StatisticIfc">3.3</a> to access specific desired quantities. Notice that in the code example that the <span class="math inline">\(P(X \geq 20.0)\)</span> is also collected. This is done by using the boolean expression <code>x &gt;= 20.0</code> within the <code>collect()</code> method. This expression evaluates to either true or false. The true values are presented as 1.0 and the false values as 0.0. Thus, this expression acts as an indicator variable and facilitates the estimation of probabilities. The results from the statistics can be pretty printed by using the <code>StatisticReporter</code> class, which takes a list of objects that implement the <code>StatisticIfc</code> interface and facilitates the writing and printing of various statistical summary reports.</p>
-<div class="sourceCode" id="cb30"><pre class="sourceCode kt"><code class="sourceCode kotlin"><span id="cb30-1"><a href="kslStatistics.html#cb30-1" aria-hidden="true" tabindex="-1"></a>    <span class="kw">val</span> <span class="va">reporter</span> <span class="op">=</span> StatisticReporter<span class="op">(</span>mutableListOf<span class="op">(</span>stat<span class="op">,</span> pGT20<span class="op">))</span></span>
-<span id="cb30-2"><a href="kslStatistics.html#cb30-2" aria-hidden="true" tabindex="-1"></a>    println<span class="op">(</span>reporter<span class="op">.</span>halfWidthSummaryReport<span class="op">())</span></span></code></pre></div>
+<div class="sourceCode" id="cb30"><pre class="sourceCode kt"><code class="sourceCode kotlin"><span id="cb30-1"><a href="kslStatistics.html#cb30-1" tabindex="-1"></a>    <span class="kw">val</span> <span class="va">reporter</span> <span class="op">=</span> StatisticReporter<span class="op">(</span>mutableListOf<span class="op">(</span>stat<span class="op">,</span> pGT20<span class="op">))</span></span>
+<span id="cb30-2"><a href="kslStatistics.html#cb30-2" tabindex="-1"></a>    println<span class="op">(</span>reporter<span class="op">.</span>halfWidthSummaryReport<span class="op">())</span></span></code></pre></div>
 <pre><code>Half-Width Statistical Summary Report - Confidence Level (95.000)% 
 
 Name                                                Count         Average      Half-Width 
@@ -543,19 +558,19 @@ Figure 3.4: Histogram Class
 </div>
 <p>Figure <a href="kslStatistics.html#fig:Histogram">3.4</a> presents the methods of the <code>Histogram</code> class. The <code>Histogram</code> class is utilized in a very similar manner as the <code>Statistic</code> class by collecting observations. The observations are then tabulated into the bins. The <code>Histogram</code> class allows the user to tabulate the bin contents via the collect() methods inherited from the <code>AbstractStatistic</code> base class. Since data may fall below the first bin and after the last bin, the implementation also provides counts for those occurrences. Since a <code>Histogram</code> is a sub-class of <code>AbstractStatistic</code>, it also implements the <code>StatisticIfc</code> to provide summary statistics on the data tabulated within the bins.</p>
 <p>In some cases, the client may not know in advance the appropriate settings for the number of bins or the width of the bins. In this situation, one can use the <code>recommendBreakPoints</code> function, which uses an array of data or statistics computed on the data. The function <code>recommendBreakPoints</code> computes a reasonable lower limit, number of bins, and bin width based on the statistics.</p>
-<div class="sourceCode" id="cb32"><pre class="sourceCode kt"><code class="sourceCode kotlin"><span id="cb32-1"><a href="kslStatistics.html#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="kw">fun</span> <span class="fu">main</span><span class="op">()</span> <span class="op">{</span></span>
-<span id="cb32-2"><a href="kslStatistics.html#cb32-2" aria-hidden="true" tabindex="-1"></a>    <span class="kw">val</span> <span class="va">d</span> <span class="op">=</span> ExponentialRV<span class="op">(</span><span class="fl">2.0</span><span class="op">)</span></span>
-<span id="cb32-3"><a href="kslStatistics.html#cb32-3" aria-hidden="true" tabindex="-1"></a>    <span class="kw">val</span> <span class="va">points</span> <span class="op">=</span> Histogram<span class="op">.</span>createBreakPoints<span class="op">(</span><span class="fl">0.0</span><span class="op">,</span> <span class="dv">10</span><span class="op">,</span> <span class="fl">0.25</span><span class="op">)</span></span>
-<span id="cb32-4"><a href="kslStatistics.html#cb32-4" aria-hidden="true" tabindex="-1"></a>    <span class="kw">val</span> <span class="va">h1</span><span class="op">:</span> HistogramIfc <span class="op">=</span> Histogram<span class="op">(</span>points<span class="op">)</span></span>
-<span id="cb32-5"><a href="kslStatistics.html#cb32-5" aria-hidden="true" tabindex="-1"></a>    <span class="kw">val</span> <span class="va">h2</span><span class="op">:</span> HistogramIfc <span class="op">=</span> Histogram<span class="op">(</span>Histogram<span class="op">.</span>addPositiveInfinity<span class="op">(</span>points<span class="op">))</span></span>
-<span id="cb32-6"><a href="kslStatistics.html#cb32-6" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> <span class="op">(</span>i <span class="kw">in</span> <span class="fl">1..100</span><span class="op">)</span> <span class="op">{</span></span>
-<span id="cb32-7"><a href="kslStatistics.html#cb32-7" aria-hidden="true" tabindex="-1"></a>        <span class="kw">val</span> <span class="va">x</span> <span class="op">=</span> d<span class="op">.</span>value</span>
-<span id="cb32-8"><a href="kslStatistics.html#cb32-8" aria-hidden="true" tabindex="-1"></a>        h1<span class="op">.</span>collect<span class="op">(</span>x<span class="op">)</span></span>
-<span id="cb32-9"><a href="kslStatistics.html#cb32-9" aria-hidden="true" tabindex="-1"></a>        h2<span class="op">.</span>collect<span class="op">(</span>x<span class="op">)</span></span>
-<span id="cb32-10"><a href="kslStatistics.html#cb32-10" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
-<span id="cb32-11"><a href="kslStatistics.html#cb32-11" aria-hidden="true" tabindex="-1"></a>    println<span class="op">(</span>h1<span class="op">)</span></span>
-<span id="cb32-12"><a href="kslStatistics.html#cb32-12" aria-hidden="true" tabindex="-1"></a>    println<span class="op">(</span>h2<span class="op">)</span></span>
-<span id="cb32-13"><a href="kslStatistics.html#cb32-13" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
+<div class="sourceCode" id="cb32"><pre class="sourceCode kt"><code class="sourceCode kotlin"><span id="cb32-1"><a href="kslStatistics.html#cb32-1" tabindex="-1"></a><span class="kw">fun</span> <span class="fu">main</span><span class="op">()</span> <span class="op">{</span></span>
+<span id="cb32-2"><a href="kslStatistics.html#cb32-2" tabindex="-1"></a>    <span class="kw">val</span> <span class="va">d</span> <span class="op">=</span> ExponentialRV<span class="op">(</span><span class="fl">2.0</span><span class="op">)</span></span>
+<span id="cb32-3"><a href="kslStatistics.html#cb32-3" tabindex="-1"></a>    <span class="kw">val</span> <span class="va">points</span> <span class="op">=</span> Histogram<span class="op">.</span>createBreakPoints<span class="op">(</span><span class="fl">0.0</span><span class="op">,</span> <span class="dv">10</span><span class="op">,</span> <span class="fl">0.25</span><span class="op">)</span></span>
+<span id="cb32-4"><a href="kslStatistics.html#cb32-4" tabindex="-1"></a>    <span class="kw">val</span> <span class="va">h1</span><span class="op">:</span> HistogramIfc <span class="op">=</span> Histogram<span class="op">(</span>points<span class="op">)</span></span>
+<span id="cb32-5"><a href="kslStatistics.html#cb32-5" tabindex="-1"></a>    <span class="kw">val</span> <span class="va">h2</span><span class="op">:</span> HistogramIfc <span class="op">=</span> Histogram<span class="op">(</span>Histogram<span class="op">.</span>addPositiveInfinity<span class="op">(</span>points<span class="op">))</span></span>
+<span id="cb32-6"><a href="kslStatistics.html#cb32-6" tabindex="-1"></a>    <span class="cf">for</span> <span class="op">(</span>i <span class="kw">in</span> <span class="fl">1..100</span><span class="op">)</span> <span class="op">{</span></span>
+<span id="cb32-7"><a href="kslStatistics.html#cb32-7" tabindex="-1"></a>        <span class="kw">val</span> <span class="va">x</span> <span class="op">=</span> d<span class="op">.</span>value</span>
+<span id="cb32-8"><a href="kslStatistics.html#cb32-8" tabindex="-1"></a>        h1<span class="op">.</span>collect<span class="op">(</span>x<span class="op">)</span></span>
+<span id="cb32-9"><a href="kslStatistics.html#cb32-9" tabindex="-1"></a>        h2<span class="op">.</span>collect<span class="op">(</span>x<span class="op">)</span></span>
+<span id="cb32-10"><a href="kslStatistics.html#cb32-10" tabindex="-1"></a>    <span class="op">}</span></span>
+<span id="cb32-11"><a href="kslStatistics.html#cb32-11" tabindex="-1"></a>    println<span class="op">(</span>h1<span class="op">)</span></span>
+<span id="cb32-12"><a href="kslStatistics.html#cb32-12" tabindex="-1"></a>    println<span class="op">(</span>h2<span class="op">)</span></span>
+<span id="cb32-13"><a href="kslStatistics.html#cb32-13" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
 <pre><code>Histogram: ID_2
 -------------------------------------
 Number of bins = 10
@@ -660,13 +675,13 @@ Figure 3.5: IntegerFrequence Class
 </p>
 </div>
 <p>In the following code example, an instance of the <code>IntegerFrequency</code> class is created. Then, an instance of a binomial random variable is used to generate a sample of 10,000 observations. The sample is then collected by the <code>IntegerFrequency</code> class’s <code>collect()</code> method.</p>
-<div class="sourceCode" id="cb34"><pre class="sourceCode kt"><code class="sourceCode kotlin"><span id="cb34-1"><a href="kslStatistics.html#cb34-1" aria-hidden="true" tabindex="-1"></a><span class="kw">fun</span> <span class="fu">main</span><span class="op">()</span> <span class="op">{</span></span>
-<span id="cb34-2"><a href="kslStatistics.html#cb34-2" aria-hidden="true" tabindex="-1"></a>    <span class="kw">val</span> <span class="va">f</span> <span class="op">=</span> IntegerFrequency<span class="op">(</span><span class="st">&quot;Frequency Demo&quot;</span><span class="op">)</span></span>
-<span id="cb34-3"><a href="kslStatistics.html#cb34-3" aria-hidden="true" tabindex="-1"></a>    <span class="kw">val</span> <span class="va">bn</span> <span class="op">=</span> BinomialRV<span class="op">(</span><span class="fl">0.5</span><span class="op">,</span> <span class="dv">100</span><span class="op">)</span></span>
-<span id="cb34-4"><a href="kslStatistics.html#cb34-4" aria-hidden="true" tabindex="-1"></a>    <span class="kw">val</span> <span class="va">sample</span> <span class="op">=</span> bn<span class="op">.</span>sample<span class="op">(</span><span class="dv">10000</span><span class="op">)</span></span>
-<span id="cb34-5"><a href="kslStatistics.html#cb34-5" aria-hidden="true" tabindex="-1"></a>    f<span class="op">.</span>collect<span class="op">(</span>sample<span class="op">)</span></span>
-<span id="cb34-6"><a href="kslStatistics.html#cb34-6" aria-hidden="true" tabindex="-1"></a>    println<span class="op">(</span>f<span class="op">)</span></span>
-<span id="cb34-7"><a href="kslStatistics.html#cb34-7" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
+<div class="sourceCode" id="cb34"><pre class="sourceCode kt"><code class="sourceCode kotlin"><span id="cb34-1"><a href="kslStatistics.html#cb34-1" tabindex="-1"></a><span class="kw">fun</span> <span class="fu">main</span><span class="op">()</span> <span class="op">{</span></span>
+<span id="cb34-2"><a href="kslStatistics.html#cb34-2" tabindex="-1"></a>    <span class="kw">val</span> <span class="va">f</span> <span class="op">=</span> IntegerFrequency<span class="op">(</span><span class="st">&quot;Frequency Demo&quot;</span><span class="op">)</span></span>
+<span id="cb34-3"><a href="kslStatistics.html#cb34-3" tabindex="-1"></a>    <span class="kw">val</span> <span class="va">bn</span> <span class="op">=</span> BinomialRV<span class="op">(</span><span class="fl">0.5</span><span class="op">,</span> <span class="dv">100</span><span class="op">)</span></span>
+<span id="cb34-4"><a href="kslStatistics.html#cb34-4" tabindex="-1"></a>    <span class="kw">val</span> <span class="va">sample</span> <span class="op">=</span> bn<span class="op">.</span>sample<span class="op">(</span><span class="dv">10000</span><span class="op">)</span></span>
+<span id="cb34-5"><a href="kslStatistics.html#cb34-5" tabindex="-1"></a>    f<span class="op">.</span>collect<span class="op">(</span>sample<span class="op">)</span></span>
+<span id="cb34-6"><a href="kslStatistics.html#cb34-6" tabindex="-1"></a>    println<span class="op">(</span>f<span class="op">)</span></span>
+<span id="cb34-7"><a href="kslStatistics.html#cb34-7" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
 <p>As can be noted in the output, only those integers that are actually observed are tabulated in terms of the count of the number of times the integer is observed and its proportion. The user does not have to specify the range of possible integers; however, instances of <code>IntegerFrequency</code> can be created that specify a lower and upper limit on the tabulated values. The overflow and underflow counts then tabulate when observations fall outside of the specified range.</p>
 <pre><code>Frequency Tabulation Frequency Demo
 ----------------------------------------
@@ -719,15 +734,15 @@ Value    Count   Proportion
 71   1   1.0E-4
 ----------------------------------------</code></pre>
 <p>Finally, the KSL provides the ability to define labeled states and to tabulate frequencies and proportions related to the visitation and transition between the states. This functionality is available in the <code>StateFrequency</code> class. The following code example creates an instance of <code>StateFrequency</code> by providing the number of states. The states are returned in a <code>List</code> and then 10,000 states are randomly selected from the list with equal probability using the <code>KSLRandom</code> functionality to randomly select from lists. The randomly selected state is then observed via the <code>collect()</code> method.</p>
-<div class="sourceCode" id="cb36"><pre class="sourceCode kt"><code class="sourceCode kotlin"><span id="cb36-1"><a href="kslStatistics.html#cb36-1" aria-hidden="true" tabindex="-1"></a><span class="kw">fun</span> <span class="fu">main</span><span class="op">()</span> <span class="op">{</span></span>
-<span id="cb36-2"><a href="kslStatistics.html#cb36-2" aria-hidden="true" tabindex="-1"></a>    <span class="kw">val</span> <span class="va">sf</span> <span class="op">=</span> StateFrequency<span class="op">(</span><span class="dv">6</span><span class="op">)</span></span>
-<span id="cb36-3"><a href="kslStatistics.html#cb36-3" aria-hidden="true" tabindex="-1"></a>    <span class="kw">val</span> <span class="va">states</span> <span class="op">=</span> sf<span class="op">.</span>states</span>
-<span id="cb36-4"><a href="kslStatistics.html#cb36-4" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> <span class="op">(</span>i <span class="kw">in</span> <span class="fl">1..10000</span><span class="op">)</span> <span class="op">{</span></span>
-<span id="cb36-5"><a href="kslStatistics.html#cb36-5" aria-hidden="true" tabindex="-1"></a>        <span class="kw">val</span> <span class="va">state</span> <span class="op">=</span> KSLRandom<span class="op">.</span>randomlySelect<span class="op">(</span>states<span class="op">)</span></span>
-<span id="cb36-6"><a href="kslStatistics.html#cb36-6" aria-hidden="true" tabindex="-1"></a>        sf<span class="op">.</span>collect<span class="op">(</span>state<span class="op">)</span></span>
-<span id="cb36-7"><a href="kslStatistics.html#cb36-7" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
-<span id="cb36-8"><a href="kslStatistics.html#cb36-8" aria-hidden="true" tabindex="-1"></a>    println<span class="op">(</span>sf<span class="op">)</span></span>
-<span id="cb36-9"><a href="kslStatistics.html#cb36-9" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
+<div class="sourceCode" id="cb36"><pre class="sourceCode kt"><code class="sourceCode kotlin"><span id="cb36-1"><a href="kslStatistics.html#cb36-1" tabindex="-1"></a><span class="kw">fun</span> <span class="fu">main</span><span class="op">()</span> <span class="op">{</span></span>
+<span id="cb36-2"><a href="kslStatistics.html#cb36-2" tabindex="-1"></a>    <span class="kw">val</span> <span class="va">sf</span> <span class="op">=</span> StateFrequency<span class="op">(</span><span class="dv">6</span><span class="op">)</span></span>
+<span id="cb36-3"><a href="kslStatistics.html#cb36-3" tabindex="-1"></a>    <span class="kw">val</span> <span class="va">states</span> <span class="op">=</span> sf<span class="op">.</span>states</span>
+<span id="cb36-4"><a href="kslStatistics.html#cb36-4" tabindex="-1"></a>    <span class="cf">for</span> <span class="op">(</span>i <span class="kw">in</span> <span class="fl">1..10000</span><span class="op">)</span> <span class="op">{</span></span>
+<span id="cb36-5"><a href="kslStatistics.html#cb36-5" tabindex="-1"></a>        <span class="kw">val</span> <span class="va">state</span> <span class="op">=</span> KSLRandom<span class="op">.</span>randomlySelect<span class="op">(</span>states<span class="op">)</span></span>
+<span id="cb36-6"><a href="kslStatistics.html#cb36-6" tabindex="-1"></a>        sf<span class="op">.</span>collect<span class="op">(</span>state<span class="op">)</span></span>
+<span id="cb36-7"><a href="kslStatistics.html#cb36-7" tabindex="-1"></a>    <span class="op">}</span></span>
+<span id="cb36-8"><a href="kslStatistics.html#cb36-8" tabindex="-1"></a>    println<span class="op">(</span>sf<span class="op">)</span></span>
+<span id="cb36-9"><a href="kslStatistics.html#cb36-9" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
 <p>The output is what you would expect based on selecting the states with equal probability. Notice that the <code>StateFrequency</code> class not only tabulates the visits to the states, similar to <code>IntegerFrequency</code>, it also counts and tabulates the transitions between states. These detailed tabulations are available via the various methods of the class. See the documentation for further details.</p>
 <pre><code>State Frequency Tabulation for: Identity#1
 State Labels

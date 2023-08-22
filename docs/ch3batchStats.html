@@ -6,7 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>3.2 Batch Statistics | Simulation Modeling using the Kotlin Simulation Library (KSL)</title>
   <meta name="description" content="A book that illustrates the basics of using the KSL. The output format for this book is bookdown::gitbook." />
-  <meta name="generator" content="bookdown 0.30 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.34 and GitBook 2.6.7" />
 
   <meta property="og:title" content="3.2 Batch Statistics | Simulation Modeling using the Kotlin Simulation Library (KSL)" />
   <meta property="og:type" content="book" />
@@ -23,7 +23,7 @@
 <meta name="author" content="Manuel D. Rossetti" />
 
 
-<meta name="date" content="2023-01-16" />
+<meta name="date" content="2023-08-22" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -121,6 +121,10 @@ code span.vs { color: #4070a0; } /* VerbatimString */
 code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
 </style>
 
+<style type="text/css">
+  
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+</style>
 <style type="text/css">
 /* Used with Pandoc 2.11+ new --citeproc when CSL is used */
 div.csl-bib-body { }
@@ -388,12 +392,23 @@ div.csl-indent {
 </ul></li>
 <li class="chapter" data-level="C.5" data-path="exercises-9.html"><a href="exercises-9.html"><i class="fa fa-check"></i><b>C.5</b> Exercises</a></li>
 </ul></li>
-<li class="chapter" data-level="D" data-path="distributions.html"><a href="distributions.html"><i class="fa fa-check"></i><b>D</b> Distributions</a>
+<li class="chapter" data-level="D" data-path="appUtilities.html"><a href="appUtilities.html"><i class="fa fa-check"></i><b>D</b> KSL Utility Packages</a>
 <ul>
-<li class="chapter" data-level="D.1" data-path="appDiscreteDistributions.html"><a href="appDiscreteDistributions.html"><i class="fa fa-check"></i><b>D.1</b> Discrete Distrbutions</a></li>
-<li class="chapter" data-level="D.2" data-path="appContinuousDistributions.html"><a href="appContinuousDistributions.html"><i class="fa fa-check"></i><b>D.2</b> Continuous Distrbutions</a></li>
+<li class="chapter" data-level="D.1" data-path="the-outputdirectory-class-and-ksl-object.html"><a href="the-outputdirectory-class-and-ksl-object.html"><i class="fa fa-check"></i><b>D.1</b> The <code>OutputDirectory</code> Class and <code>KSL</code> Object</a></li>
+<li class="chapter" data-level="D.2" data-path="logging-options.html"><a href="logging-options.html"><i class="fa fa-check"></i><b>D.2</b> Logging Options</a></li>
+<li class="chapter" data-level="D.3" data-path="the-kslfileutil-object.html"><a href="the-kslfileutil-object.html"><i class="fa fa-check"></i><b>D.3</b> The <code>KSLFileUtil</code> Object</a></li>
+<li class="chapter" data-level="D.4" data-path="csv-excel-and-tabular-data-files.html"><a href="csv-excel-and-tabular-data-files.html"><i class="fa fa-check"></i><b>D.4</b> CSV, Excel, and Tabular Data Files</a></li>
+<li class="chapter" data-level="D.5" data-path="the-dataframeutil-object.html"><a href="the-dataframeutil-object.html"><i class="fa fa-check"></i><b>D.5</b> The <code>DataFrameUtil</code> Object</a></li>
+<li class="chapter" data-level="D.6" data-path="ksl-database-utilities.html"><a href="ksl-database-utilities.html"><i class="fa fa-check"></i><b>D.6</b> KSL Database Utilities</a></li>
+<li class="chapter" data-level="D.7" data-path="appUtilitiesArrays.html"><a href="appUtilitiesArrays.html"><i class="fa fa-check"></i><b>D.7</b> Array Utilities</a></li>
+<li class="chapter" data-level="D.8" data-path="appUtilitiesMisc.html"><a href="appUtilitiesMisc.html"><i class="fa fa-check"></i><b>D.8</b> Miscellaneous Utilities</a></li>
 </ul></li>
-<li class="chapter" data-level="E" data-path="appStatTables.html"><a href="appStatTables.html"><i class="fa fa-check"></i><b>E</b> Statistical Tables</a></li>
+<li class="chapter" data-level="E" data-path="distributions.html"><a href="distributions.html"><i class="fa fa-check"></i><b>E</b> Distributions</a>
+<ul>
+<li class="chapter" data-level="E.1" data-path="appDiscreteDistributions.html"><a href="appDiscreteDistributions.html"><i class="fa fa-check"></i><b>E.1</b> Discrete Distrbutions</a></li>
+<li class="chapter" data-level="E.2" data-path="appContinuousDistributions.html"><a href="appContinuousDistributions.html"><i class="fa fa-check"></i><b>E.2</b> Continuous Distrbutions</a></li>
+</ul></li>
+<li class="chapter" data-level="F" data-path="appStatTables.html"><a href="appStatTables.html"><i class="fa fa-check"></i><b>F</b> Statistical Tables</a></li>
 <li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
 <li class="divider"></li>
 <li><a href="https://bookdown.org" target="_blank">Published with bookdown</a></li>
@@ -450,92 +465,92 @@ The <code>BatchStatistic</code> class within the statistic package implements a 
 <li><code>maxNumBatchesMultiple</code> – This represents a multiple of minimum number of batches which is used to determine the upper limit (maximum) number of batches. For example, if <code>maxNumBatchesMultiple = 2</code> and the <code>minNumBatches = 20</code>, then the maximum number of batches we can have is 40 (2*20). The default value for this property is determined by <code>BatchStatistic</code>. <code>MAX_BATCH_MULTIPLE</code>, which is set to 2.</li>
 </ul>
 <p>The <code>BatchStatistic</code> class uses instances of the <code>Statistic</code> class to do its calculations. The bulk of the processing is done in two methods, <code>collect()</code> and <code>collectBatch().</code> The <code>collect()</code> method simply uses an instance of the <code>Statistic</code> class (<code>myStatistic</code>) to collect statistics. When the amount of data collected (<code>myStatistic.count</code>) equals the current batch size (<code>currentBatchSize</code>) then the <code>collectBatch()</code> method is called to form a batch.</p>
-<div class="sourceCode" id="cb38"><pre class="sourceCode kt"><code class="sourceCode kotlin"><span id="cb38-1"><a href="ch3batchStats.html#cb38-1" aria-hidden="true" tabindex="-1"></a>    <span class="kw">override</span> <span class="kw">fun</span> <span class="fu">collect</span><span class="op">(</span><span class="va">obs</span><span class="op">:</span> <span class="dt">Double</span><span class="op">)</span> <span class="op">{</span></span>
-<span id="cb38-2"><a href="ch3batchStats.html#cb38-2" aria-hidden="true" tabindex="-1"></a>        <span class="kw">super</span><span class="op">.</span>collect<span class="op">(</span>obs<span class="op">)</span></span>
-<span id="cb38-3"><a href="ch3batchStats.html#cb38-3" aria-hidden="true" tabindex="-1"></a>        myTotNumObs <span class="op">=</span> myTotNumObs <span class="op">+</span> <span class="fl">1.0</span></span>
-<span id="cb38-4"><a href="ch3batchStats.html#cb38-4" aria-hidden="true" tabindex="-1"></a>        myValue <span class="op">=</span> obs</span>
-<span id="cb38-5"><a href="ch3batchStats.html#cb38-5" aria-hidden="true" tabindex="-1"></a>        myStatistic<span class="op">.</span>collect<span class="op">(</span>myValue<span class="op">)</span></span>
-<span id="cb38-6"><a href="ch3batchStats.html#cb38-6" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> <span class="op">(</span>myStatistic<span class="op">.</span>count <span class="op">==</span> currentBatchSize<span class="op">.</span>toDouble<span class="op">())</span> <span class="op">{</span></span>
-<span id="cb38-7"><a href="ch3batchStats.html#cb38-7" aria-hidden="true" tabindex="-1"></a>            collectBatch<span class="op">()</span></span>
-<span id="cb38-8"><a href="ch3batchStats.html#cb38-8" aria-hidden="true" tabindex="-1"></a>        <span class="op">}</span></span>
-<span id="cb38-9"><a href="ch3batchStats.html#cb38-9" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span></code></pre></div>
+<div class="sourceCode" id="cb38"><pre class="sourceCode kt"><code class="sourceCode kotlin"><span id="cb38-1"><a href="ch3batchStats.html#cb38-1" tabindex="-1"></a>    <span class="kw">override</span> <span class="kw">fun</span> <span class="fu">collect</span><span class="op">(</span><span class="va">obs</span><span class="op">:</span> <span class="dt">Double</span><span class="op">)</span> <span class="op">{</span></span>
+<span id="cb38-2"><a href="ch3batchStats.html#cb38-2" tabindex="-1"></a>        <span class="kw">super</span><span class="op">.</span>collect<span class="op">(</span>obs<span class="op">)</span></span>
+<span id="cb38-3"><a href="ch3batchStats.html#cb38-3" tabindex="-1"></a>        myTotNumObs <span class="op">=</span> myTotNumObs <span class="op">+</span> <span class="fl">1.0</span></span>
+<span id="cb38-4"><a href="ch3batchStats.html#cb38-4" tabindex="-1"></a>        myValue <span class="op">=</span> obs</span>
+<span id="cb38-5"><a href="ch3batchStats.html#cb38-5" tabindex="-1"></a>        myStatistic<span class="op">.</span>collect<span class="op">(</span>myValue<span class="op">)</span></span>
+<span id="cb38-6"><a href="ch3batchStats.html#cb38-6" tabindex="-1"></a>        <span class="cf">if</span> <span class="op">(</span>myStatistic<span class="op">.</span>count <span class="op">==</span> currentBatchSize<span class="op">.</span>toDouble<span class="op">())</span> <span class="op">{</span></span>
+<span id="cb38-7"><a href="ch3batchStats.html#cb38-7" tabindex="-1"></a>            collectBatch<span class="op">()</span></span>
+<span id="cb38-8"><a href="ch3batchStats.html#cb38-8" tabindex="-1"></a>        <span class="op">}</span></span>
+<span id="cb38-9"><a href="ch3batchStats.html#cb38-9" tabindex="-1"></a>    <span class="op">}</span></span></code></pre></div>
 <p>Referring to the collectBatch() method in the following code, the batches that are formed are recorded in an array called <code>bm.</code> After recording the batch average, the statistic is reset for collecting the next batch of data. The number of batches is recorded and if this has reached the maximum number of batches (as determined by the batch multiple calculation), we rebatch the batches back down to the minimum number of batches by combining adjacent batches according to the batch multiple.</p>
-<div class="sourceCode" id="cb39"><pre class="sourceCode kt"><code class="sourceCode kotlin"><span id="cb39-1"><a href="ch3batchStats.html#cb39-1" aria-hidden="true" tabindex="-1"></a>    <span class="kw">private</span> <span class="kw">fun</span> <span class="fu">collectBatch</span><span class="op">()</span> <span class="op">{</span></span>
-<span id="cb39-2"><a href="ch3batchStats.html#cb39-2" aria-hidden="true" tabindex="-1"></a>        <span class="co">// increment the current number of batches</span></span>
-<span id="cb39-3"><a href="ch3batchStats.html#cb39-3" aria-hidden="true" tabindex="-1"></a>        numBatches <span class="op">=</span> numBatches <span class="op">+</span> <span class="dv">1</span></span>
-<span id="cb39-4"><a href="ch3batchStats.html#cb39-4" aria-hidden="true" tabindex="-1"></a>        <span class="co">// record the average of the batch</span></span>
-<span id="cb39-5"><a href="ch3batchStats.html#cb39-5" aria-hidden="true" tabindex="-1"></a>        bm<span class="op">[</span>numBatches<span class="op">]</span> <span class="op">=</span> myStatistic<span class="op">.</span>average</span>
-<span id="cb39-6"><a href="ch3batchStats.html#cb39-6" aria-hidden="true" tabindex="-1"></a>        <span class="co">// collect running statistics on the batches</span></span>
-<span id="cb39-7"><a href="ch3batchStats.html#cb39-7" aria-hidden="true" tabindex="-1"></a>        myBMStatistic<span class="op">.</span>collect<span class="op">(</span>bm<span class="op">[</span>numBatches<span class="op">])</span></span>
-<span id="cb39-8"><a href="ch3batchStats.html#cb39-8" aria-hidden="true" tabindex="-1"></a>        <span class="co">// reset the within batch statistic for next batch</span></span>
-<span id="cb39-9"><a href="ch3batchStats.html#cb39-9" aria-hidden="true" tabindex="-1"></a>        myStatistic<span class="op">.</span>reset<span class="op">()</span></span>
-<span id="cb39-10"><a href="ch3batchStats.html#cb39-10" aria-hidden="true" tabindex="-1"></a>        <span class="co">// if the number of batches has reached the maximum then rebatch down to</span></span>
-<span id="cb39-11"><a href="ch3batchStats.html#cb39-11" aria-hidden="true" tabindex="-1"></a>        <span class="co">// min number of batches</span></span>
-<span id="cb39-12"><a href="ch3batchStats.html#cb39-12" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> <span class="op">(</span>numBatches <span class="op">==</span> maxNumBatches<span class="op">)</span> <span class="op">{</span></span>
-<span id="cb39-13"><a href="ch3batchStats.html#cb39-13" aria-hidden="true" tabindex="-1"></a>            numRebatches<span class="op">++</span></span>
-<span id="cb39-14"><a href="ch3batchStats.html#cb39-14" aria-hidden="true" tabindex="-1"></a>            currentBatchSize <span class="op">=</span> currentBatchSize <span class="op">*</span> minNumBatchesMultiple</span>
-<span id="cb39-15"><a href="ch3batchStats.html#cb39-15" aria-hidden="true" tabindex="-1"></a>            <span class="kw">var</span> <span class="va">j</span> <span class="op">=</span> <span class="dv">0</span> <span class="co">// within batch counter</span></span>
-<span id="cb39-16"><a href="ch3batchStats.html#cb39-16" aria-hidden="true" tabindex="-1"></a>            <span class="kw">var</span> <span class="va">k</span> <span class="op">=</span> <span class="dv">0</span> <span class="co">// batch counter</span></span>
-<span id="cb39-17"><a href="ch3batchStats.html#cb39-17" aria-hidden="true" tabindex="-1"></a>            myBMStatistic<span class="op">.</span>reset<span class="op">()</span> <span class="co">// clear for collection across new batches</span></span>
-<span id="cb39-18"><a href="ch3batchStats.html#cb39-18" aria-hidden="true" tabindex="-1"></a>            <span class="co">// loop through all the batches</span></span>
-<span id="cb39-19"><a href="ch3batchStats.html#cb39-19" aria-hidden="true" tabindex="-1"></a>            <span class="cf">for</span> <span class="op">(</span>i <span class="kw">in</span> <span class="fl">1.</span><span class="op">.</span>numBatches<span class="op">)</span> <span class="op">{</span></span>
-<span id="cb39-20"><a href="ch3batchStats.html#cb39-20" aria-hidden="true" tabindex="-1"></a>                myStatistic<span class="op">.</span>collect<span class="op">(</span>bm<span class="op">[</span>i<span class="op">])</span> <span class="co">// collect across batches old batches</span></span>
-<span id="cb39-21"><a href="ch3batchStats.html#cb39-21" aria-hidden="true" tabindex="-1"></a>                j<span class="op">++</span></span>
-<span id="cb39-22"><a href="ch3batchStats.html#cb39-22" aria-hidden="true" tabindex="-1"></a>                <span class="cf">if</span> <span class="op">(</span>j <span class="op">==</span> minNumBatchesMultiple<span class="op">)</span> <span class="op">{</span> <span class="co">// have enough for a batch</span></span>
-<span id="cb39-23"><a href="ch3batchStats.html#cb39-23" aria-hidden="true" tabindex="-1"></a>                    <span class="co">//collect new batch average</span></span>
-<span id="cb39-24"><a href="ch3batchStats.html#cb39-24" aria-hidden="true" tabindex="-1"></a>                    myBMStatistic<span class="op">.</span>collect<span class="op">(</span>myStatistic<span class="op">.</span>average<span class="op">)</span></span>
-<span id="cb39-25"><a href="ch3batchStats.html#cb39-25" aria-hidden="true" tabindex="-1"></a>                    k<span class="op">++</span> <span class="co">//count the batches</span></span>
-<span id="cb39-26"><a href="ch3batchStats.html#cb39-26" aria-hidden="true" tabindex="-1"></a>                    bm<span class="op">[</span>k<span class="op">]</span> <span class="op">=</span> myStatistic<span class="op">.</span>average <span class="co">// save the new batch average</span></span>
-<span id="cb39-27"><a href="ch3batchStats.html#cb39-27" aria-hidden="true" tabindex="-1"></a>                    myStatistic<span class="op">.</span>reset<span class="op">()</span> <span class="co">// reset for next batch</span></span>
-<span id="cb39-28"><a href="ch3batchStats.html#cb39-28" aria-hidden="true" tabindex="-1"></a>                    j <span class="op">=</span> <span class="dv">0</span></span>
-<span id="cb39-29"><a href="ch3batchStats.html#cb39-29" aria-hidden="true" tabindex="-1"></a>                <span class="op">}</span></span>
-<span id="cb39-30"><a href="ch3batchStats.html#cb39-30" aria-hidden="true" tabindex="-1"></a>            <span class="op">}</span></span>
-<span id="cb39-31"><a href="ch3batchStats.html#cb39-31" aria-hidden="true" tabindex="-1"></a>            numBatches <span class="op">=</span> k <span class="co">// k should be minNumBatches</span></span>
-<span id="cb39-32"><a href="ch3batchStats.html#cb39-32" aria-hidden="true" tabindex="-1"></a>            myStatistic<span class="op">.</span>reset<span class="op">()</span> <span class="co">//reset for use with new data</span></span>
-<span id="cb39-33"><a href="ch3batchStats.html#cb39-33" aria-hidden="true" tabindex="-1"></a>        <span class="op">}</span></span>
-<span id="cb39-34"><a href="ch3batchStats.html#cb39-34" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span></code></pre></div>
+<div class="sourceCode" id="cb39"><pre class="sourceCode kt"><code class="sourceCode kotlin"><span id="cb39-1"><a href="ch3batchStats.html#cb39-1" tabindex="-1"></a>    <span class="kw">private</span> <span class="kw">fun</span> <span class="fu">collectBatch</span><span class="op">()</span> <span class="op">{</span></span>
+<span id="cb39-2"><a href="ch3batchStats.html#cb39-2" tabindex="-1"></a>        <span class="co">// increment the current number of batches</span></span>
+<span id="cb39-3"><a href="ch3batchStats.html#cb39-3" tabindex="-1"></a>        numBatches <span class="op">=</span> numBatches <span class="op">+</span> <span class="dv">1</span></span>
+<span id="cb39-4"><a href="ch3batchStats.html#cb39-4" tabindex="-1"></a>        <span class="co">// record the average of the batch</span></span>
+<span id="cb39-5"><a href="ch3batchStats.html#cb39-5" tabindex="-1"></a>        bm<span class="op">[</span>numBatches<span class="op">]</span> <span class="op">=</span> myStatistic<span class="op">.</span>average</span>
+<span id="cb39-6"><a href="ch3batchStats.html#cb39-6" tabindex="-1"></a>        <span class="co">// collect running statistics on the batches</span></span>
+<span id="cb39-7"><a href="ch3batchStats.html#cb39-7" tabindex="-1"></a>        myBMStatistic<span class="op">.</span>collect<span class="op">(</span>bm<span class="op">[</span>numBatches<span class="op">])</span></span>
+<span id="cb39-8"><a href="ch3batchStats.html#cb39-8" tabindex="-1"></a>        <span class="co">// reset the within batch statistic for next batch</span></span>
+<span id="cb39-9"><a href="ch3batchStats.html#cb39-9" tabindex="-1"></a>        myStatistic<span class="op">.</span>reset<span class="op">()</span></span>
+<span id="cb39-10"><a href="ch3batchStats.html#cb39-10" tabindex="-1"></a>        <span class="co">// if the number of batches has reached the maximum then rebatch down to</span></span>
+<span id="cb39-11"><a href="ch3batchStats.html#cb39-11" tabindex="-1"></a>        <span class="co">// min number of batches</span></span>
+<span id="cb39-12"><a href="ch3batchStats.html#cb39-12" tabindex="-1"></a>        <span class="cf">if</span> <span class="op">(</span>numBatches <span class="op">==</span> maxNumBatches<span class="op">)</span> <span class="op">{</span></span>
+<span id="cb39-13"><a href="ch3batchStats.html#cb39-13" tabindex="-1"></a>            numRebatches<span class="op">++</span></span>
+<span id="cb39-14"><a href="ch3batchStats.html#cb39-14" tabindex="-1"></a>            currentBatchSize <span class="op">=</span> currentBatchSize <span class="op">*</span> minNumBatchesMultiple</span>
+<span id="cb39-15"><a href="ch3batchStats.html#cb39-15" tabindex="-1"></a>            <span class="kw">var</span> <span class="va">j</span> <span class="op">=</span> <span class="dv">0</span> <span class="co">// within batch counter</span></span>
+<span id="cb39-16"><a href="ch3batchStats.html#cb39-16" tabindex="-1"></a>            <span class="kw">var</span> <span class="va">k</span> <span class="op">=</span> <span class="dv">0</span> <span class="co">// batch counter</span></span>
+<span id="cb39-17"><a href="ch3batchStats.html#cb39-17" tabindex="-1"></a>            myBMStatistic<span class="op">.</span>reset<span class="op">()</span> <span class="co">// clear for collection across new batches</span></span>
+<span id="cb39-18"><a href="ch3batchStats.html#cb39-18" tabindex="-1"></a>            <span class="co">// loop through all the batches</span></span>
+<span id="cb39-19"><a href="ch3batchStats.html#cb39-19" tabindex="-1"></a>            <span class="cf">for</span> <span class="op">(</span>i <span class="kw">in</span> <span class="fl">1.</span><span class="op">.</span>numBatches<span class="op">)</span> <span class="op">{</span></span>
+<span id="cb39-20"><a href="ch3batchStats.html#cb39-20" tabindex="-1"></a>                myStatistic<span class="op">.</span>collect<span class="op">(</span>bm<span class="op">[</span>i<span class="op">])</span> <span class="co">// collect across batches old batches</span></span>
+<span id="cb39-21"><a href="ch3batchStats.html#cb39-21" tabindex="-1"></a>                j<span class="op">++</span></span>
+<span id="cb39-22"><a href="ch3batchStats.html#cb39-22" tabindex="-1"></a>                <span class="cf">if</span> <span class="op">(</span>j <span class="op">==</span> minNumBatchesMultiple<span class="op">)</span> <span class="op">{</span> <span class="co">// have enough for a batch</span></span>
+<span id="cb39-23"><a href="ch3batchStats.html#cb39-23" tabindex="-1"></a>                    <span class="co">//collect new batch average</span></span>
+<span id="cb39-24"><a href="ch3batchStats.html#cb39-24" tabindex="-1"></a>                    myBMStatistic<span class="op">.</span>collect<span class="op">(</span>myStatistic<span class="op">.</span>average<span class="op">)</span></span>
+<span id="cb39-25"><a href="ch3batchStats.html#cb39-25" tabindex="-1"></a>                    k<span class="op">++</span> <span class="co">//count the batches</span></span>
+<span id="cb39-26"><a href="ch3batchStats.html#cb39-26" tabindex="-1"></a>                    bm<span class="op">[</span>k<span class="op">]</span> <span class="op">=</span> myStatistic<span class="op">.</span>average <span class="co">// save the new batch average</span></span>
+<span id="cb39-27"><a href="ch3batchStats.html#cb39-27" tabindex="-1"></a>                    myStatistic<span class="op">.</span>reset<span class="op">()</span> <span class="co">// reset for next batch</span></span>
+<span id="cb39-28"><a href="ch3batchStats.html#cb39-28" tabindex="-1"></a>                    j <span class="op">=</span> <span class="dv">0</span></span>
+<span id="cb39-29"><a href="ch3batchStats.html#cb39-29" tabindex="-1"></a>                <span class="op">}</span></span>
+<span id="cb39-30"><a href="ch3batchStats.html#cb39-30" tabindex="-1"></a>            <span class="op">}</span></span>
+<span id="cb39-31"><a href="ch3batchStats.html#cb39-31" tabindex="-1"></a>            numBatches <span class="op">=</span> k <span class="co">// k should be minNumBatches</span></span>
+<span id="cb39-32"><a href="ch3batchStats.html#cb39-32" tabindex="-1"></a>            myStatistic<span class="op">.</span>reset<span class="op">()</span> <span class="co">//reset for use with new data</span></span>
+<span id="cb39-33"><a href="ch3batchStats.html#cb39-33" tabindex="-1"></a>        <span class="op">}</span></span>
+<span id="cb39-34"><a href="ch3batchStats.html#cb39-34" tabindex="-1"></a>    <span class="op">}</span></span></code></pre></div>
 <p>There are a variety of procedures that have been developed that will automatically batch the data as it is collected. The KSL has a batching algorithm based on the procedure implemented within the Arena simulation language. When a sufficient amount of data has been collected batches are formed. As more data is collected, additional batches are formed until <span class="math inline">\(k=40\)</span> batches are collected. When 40 batches are formed, the algorithm collapses the number of batches back to 20, by averaging each pair of batches. This has the net effect of doubling the batch size. This process is repeated as more data is collected, thereby ensuring that the number of batches is between 20 and 39. In addition, the procedure also computes the lag-1 correlation so that independence of the batches can be tested.</p>
 <p>The <code>BatchStatistic</code> class also provides a public <code>reformBatches()</code> method to allow the user to rebatch the batches to a user supplied number of batches. Since the <code>BatchStatistic</code> class implements the <code>StatisticalAccessorIfc</code> interface, it can return the sample average, sample variance, minimum, maximum, etc. of the batches. Within the discrete-event modeling constructs of the KSL, batching can be turned on to collect batch statistics during a replication. The use of these constructs will be discussed when the discrete-event modeling elements of the KSL are presented.</p>
 <p>The following code illustrates how to create and use a <code>BatchStatistic</code>.</p>
-<div class="sourceCode" id="cb40"><pre class="sourceCode kt"><code class="sourceCode kotlin"><span id="cb40-1"><a href="ch3batchStats.html#cb40-1" aria-hidden="true" tabindex="-1"></a><span class="kw">fun</span> <span class="fu">main</span><span class="op">()</span> <span class="op">{</span></span>
-<span id="cb40-2"><a href="ch3batchStats.html#cb40-2" aria-hidden="true" tabindex="-1"></a>    <span class="kw">val</span> <span class="va">d</span> <span class="op">=</span> ExponentialRV<span class="op">(</span><span class="fl">2.0</span><span class="op">)</span></span>
-<span id="cb40-3"><a href="ch3batchStats.html#cb40-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb40-4"><a href="ch3batchStats.html#cb40-4" aria-hidden="true" tabindex="-1"></a>    <span class="co">// number of observations</span></span>
-<span id="cb40-5"><a href="ch3batchStats.html#cb40-5" aria-hidden="true" tabindex="-1"></a>    <span class="kw">val</span> <span class="va">n</span> <span class="op">=</span> <span class="dv">1000</span></span>
-<span id="cb40-6"><a href="ch3batchStats.html#cb40-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb40-7"><a href="ch3batchStats.html#cb40-7" aria-hidden="true" tabindex="-1"></a>    <span class="co">// minimum number of batches permitted</span></span>
-<span id="cb40-8"><a href="ch3batchStats.html#cb40-8" aria-hidden="true" tabindex="-1"></a>    <span class="co">// there will not be less than this number of batches</span></span>
-<span id="cb40-9"><a href="ch3batchStats.html#cb40-9" aria-hidden="true" tabindex="-1"></a>    <span class="kw">val</span> <span class="va">minNumBatches</span> <span class="op">=</span> <span class="dv">40</span></span>
-<span id="cb40-10"><a href="ch3batchStats.html#cb40-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb40-11"><a href="ch3batchStats.html#cb40-11" aria-hidden="true" tabindex="-1"></a>    <span class="co">// minimum batch size permitted</span></span>
-<span id="cb40-12"><a href="ch3batchStats.html#cb40-12" aria-hidden="true" tabindex="-1"></a>    <span class="co">// the batch size can be no smaller than this amount</span></span>
-<span id="cb40-13"><a href="ch3batchStats.html#cb40-13" aria-hidden="true" tabindex="-1"></a>    <span class="kw">val</span> <span class="va">minBatchSize</span> <span class="op">=</span> <span class="dv">25</span></span>
-<span id="cb40-14"><a href="ch3batchStats.html#cb40-14" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb40-15"><a href="ch3batchStats.html#cb40-15" aria-hidden="true" tabindex="-1"></a>    <span class="co">// maximum number of batch multiple</span></span>
-<span id="cb40-16"><a href="ch3batchStats.html#cb40-16" aria-hidden="true" tabindex="-1"></a>    <span class="co">//  The multiple of the minimum number of batches</span></span>
-<span id="cb40-17"><a href="ch3batchStats.html#cb40-17" aria-hidden="true" tabindex="-1"></a>    <span class="co">//  that determines the maximum number of batches</span></span>
-<span id="cb40-18"><a href="ch3batchStats.html#cb40-18" aria-hidden="true" tabindex="-1"></a>    <span class="co">//  e.g. if the min. number of batches is 20</span></span>
-<span id="cb40-19"><a href="ch3batchStats.html#cb40-19" aria-hidden="true" tabindex="-1"></a>    <span class="co">//  and the max number batches multiple is 2,</span></span>
-<span id="cb40-20"><a href="ch3batchStats.html#cb40-20" aria-hidden="true" tabindex="-1"></a>    <span class="co">//  then we can have at most 40 batches</span></span>
-<span id="cb40-21"><a href="ch3batchStats.html#cb40-21" aria-hidden="true" tabindex="-1"></a>    <span class="kw">val</span> <span class="va">maxNBMultiple</span> <span class="op">=</span> <span class="dv">2</span></span>
-<span id="cb40-22"><a href="ch3batchStats.html#cb40-22" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb40-23"><a href="ch3batchStats.html#cb40-23" aria-hidden="true" tabindex="-1"></a>    <span class="co">// In this example, since 40*25 = 1000, the batch multiple does not matter</span></span>
-<span id="cb40-24"><a href="ch3batchStats.html#cb40-24" aria-hidden="true" tabindex="-1"></a>    <span class="kw">val</span> <span class="va">bm</span> <span class="op">=</span> BatchStatistic<span class="op">(</span>minNumBatches<span class="op">,</span> minBatchSize<span class="op">,</span> maxNBMultiple<span class="op">)</span></span>
-<span id="cb40-25"><a href="ch3batchStats.html#cb40-25" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> <span class="op">(</span>i <span class="kw">in</span> <span class="fl">1.</span><span class="op">.</span>n<span class="op">)</span> <span class="op">{</span></span>
-<span id="cb40-26"><a href="ch3batchStats.html#cb40-26" aria-hidden="true" tabindex="-1"></a>        bm<span class="op">.</span>collect<span class="op">(</span>d<span class="op">.</span>value<span class="op">)</span></span>
-<span id="cb40-27"><a href="ch3batchStats.html#cb40-27" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
-<span id="cb40-28"><a href="ch3batchStats.html#cb40-28" aria-hidden="true" tabindex="-1"></a>    println<span class="op">(</span>bm<span class="op">)</span></span>
-<span id="cb40-29"><a href="ch3batchStats.html#cb40-29" aria-hidden="true" tabindex="-1"></a>    <span class="kw">val</span> <span class="va">bma</span> <span class="op">=</span> bm<span class="op">.</span>batchMeans</span>
-<span id="cb40-30"><a href="ch3batchStats.html#cb40-30" aria-hidden="true" tabindex="-1"></a>    <span class="kw">var</span> <span class="va">i</span> <span class="op">=</span> <span class="dv">0</span></span>
-<span id="cb40-31"><a href="ch3batchStats.html#cb40-31" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> <span class="op">(</span>x <span class="kw">in</span> bma<span class="op">)</span> <span class="op">{</span></span>
-<span id="cb40-32"><a href="ch3batchStats.html#cb40-32" aria-hidden="true" tabindex="-1"></a>        println<span class="op">(</span><span class="st">&quot;bm(</span><span class="ss">$i</span><span class="st">) = </span><span class="ss">$x</span><span class="st">&quot;</span><span class="op">)</span></span>
-<span id="cb40-33"><a href="ch3batchStats.html#cb40-33" aria-hidden="true" tabindex="-1"></a>        i<span class="op">++</span></span>
-<span id="cb40-34"><a href="ch3batchStats.html#cb40-34" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
-<span id="cb40-35"><a href="ch3batchStats.html#cb40-35" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb40-36"><a href="ch3batchStats.html#cb40-36" aria-hidden="true" tabindex="-1"></a>    <span class="co">// this re-batches the 40 down to 10</span></span>
-<span id="cb40-37"><a href="ch3batchStats.html#cb40-37" aria-hidden="true" tabindex="-1"></a>    <span class="kw">val</span> <span class="va">reformed</span> <span class="op">=</span> bm<span class="op">.</span>reformBatches<span class="op">(</span><span class="dv">10</span><span class="op">)</span></span>
-<span id="cb40-38"><a href="ch3batchStats.html#cb40-38" aria-hidden="true" tabindex="-1"></a>    println<span class="op">(</span>Statistic<span class="op">(</span>reformed<span class="op">))</span></span>
-<span id="cb40-39"><a href="ch3batchStats.html#cb40-39" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
+<div class="sourceCode" id="cb40"><pre class="sourceCode kt"><code class="sourceCode kotlin"><span id="cb40-1"><a href="ch3batchStats.html#cb40-1" tabindex="-1"></a><span class="kw">fun</span> <span class="fu">main</span><span class="op">()</span> <span class="op">{</span></span>
+<span id="cb40-2"><a href="ch3batchStats.html#cb40-2" tabindex="-1"></a>    <span class="kw">val</span> <span class="va">d</span> <span class="op">=</span> ExponentialRV<span class="op">(</span><span class="fl">2.0</span><span class="op">)</span></span>
+<span id="cb40-3"><a href="ch3batchStats.html#cb40-3" tabindex="-1"></a></span>
+<span id="cb40-4"><a href="ch3batchStats.html#cb40-4" tabindex="-1"></a>    <span class="co">// number of observations</span></span>
+<span id="cb40-5"><a href="ch3batchStats.html#cb40-5" tabindex="-1"></a>    <span class="kw">val</span> <span class="va">n</span> <span class="op">=</span> <span class="dv">1000</span></span>
+<span id="cb40-6"><a href="ch3batchStats.html#cb40-6" tabindex="-1"></a></span>
+<span id="cb40-7"><a href="ch3batchStats.html#cb40-7" tabindex="-1"></a>    <span class="co">// minimum number of batches permitted</span></span>
+<span id="cb40-8"><a href="ch3batchStats.html#cb40-8" tabindex="-1"></a>    <span class="co">// there will not be less than this number of batches</span></span>
+<span id="cb40-9"><a href="ch3batchStats.html#cb40-9" tabindex="-1"></a>    <span class="kw">val</span> <span class="va">minNumBatches</span> <span class="op">=</span> <span class="dv">40</span></span>
+<span id="cb40-10"><a href="ch3batchStats.html#cb40-10" tabindex="-1"></a></span>
+<span id="cb40-11"><a href="ch3batchStats.html#cb40-11" tabindex="-1"></a>    <span class="co">// minimum batch size permitted</span></span>
+<span id="cb40-12"><a href="ch3batchStats.html#cb40-12" tabindex="-1"></a>    <span class="co">// the batch size can be no smaller than this amount</span></span>
+<span id="cb40-13"><a href="ch3batchStats.html#cb40-13" tabindex="-1"></a>    <span class="kw">val</span> <span class="va">minBatchSize</span> <span class="op">=</span> <span class="dv">25</span></span>
+<span id="cb40-14"><a href="ch3batchStats.html#cb40-14" tabindex="-1"></a></span>
+<span id="cb40-15"><a href="ch3batchStats.html#cb40-15" tabindex="-1"></a>    <span class="co">// maximum number of batch multiple</span></span>
+<span id="cb40-16"><a href="ch3batchStats.html#cb40-16" tabindex="-1"></a>    <span class="co">//  The multiple of the minimum number of batches</span></span>
+<span id="cb40-17"><a href="ch3batchStats.html#cb40-17" tabindex="-1"></a>    <span class="co">//  that determines the maximum number of batches</span></span>
+<span id="cb40-18"><a href="ch3batchStats.html#cb40-18" tabindex="-1"></a>    <span class="co">//  e.g. if the min. number of batches is 20</span></span>
+<span id="cb40-19"><a href="ch3batchStats.html#cb40-19" tabindex="-1"></a>    <span class="co">//  and the max number batches multiple is 2,</span></span>
+<span id="cb40-20"><a href="ch3batchStats.html#cb40-20" tabindex="-1"></a>    <span class="co">//  then we can have at most 40 batches</span></span>
+<span id="cb40-21"><a href="ch3batchStats.html#cb40-21" tabindex="-1"></a>    <span class="kw">val</span> <span class="va">maxNBMultiple</span> <span class="op">=</span> <span class="dv">2</span></span>
+<span id="cb40-22"><a href="ch3batchStats.html#cb40-22" tabindex="-1"></a></span>
+<span id="cb40-23"><a href="ch3batchStats.html#cb40-23" tabindex="-1"></a>    <span class="co">// In this example, since 40*25 = 1000, the batch multiple does not matter</span></span>
+<span id="cb40-24"><a href="ch3batchStats.html#cb40-24" tabindex="-1"></a>    <span class="kw">val</span> <span class="va">bm</span> <span class="op">=</span> BatchStatistic<span class="op">(</span>minNumBatches<span class="op">,</span> minBatchSize<span class="op">,</span> maxNBMultiple<span class="op">)</span></span>
+<span id="cb40-25"><a href="ch3batchStats.html#cb40-25" tabindex="-1"></a>    <span class="cf">for</span> <span class="op">(</span>i <span class="kw">in</span> <span class="fl">1.</span><span class="op">.</span>n<span class="op">)</span> <span class="op">{</span></span>
+<span id="cb40-26"><a href="ch3batchStats.html#cb40-26" tabindex="-1"></a>        bm<span class="op">.</span>collect<span class="op">(</span>d<span class="op">.</span>value<span class="op">)</span></span>
+<span id="cb40-27"><a href="ch3batchStats.html#cb40-27" tabindex="-1"></a>    <span class="op">}</span></span>
+<span id="cb40-28"><a href="ch3batchStats.html#cb40-28" tabindex="-1"></a>    println<span class="op">(</span>bm<span class="op">)</span></span>
+<span id="cb40-29"><a href="ch3batchStats.html#cb40-29" tabindex="-1"></a>    <span class="kw">val</span> <span class="va">bma</span> <span class="op">=</span> bm<span class="op">.</span>batchMeans</span>
+<span id="cb40-30"><a href="ch3batchStats.html#cb40-30" tabindex="-1"></a>    <span class="kw">var</span> <span class="va">i</span> <span class="op">=</span> <span class="dv">0</span></span>
+<span id="cb40-31"><a href="ch3batchStats.html#cb40-31" tabindex="-1"></a>    <span class="cf">for</span> <span class="op">(</span>x <span class="kw">in</span> bma<span class="op">)</span> <span class="op">{</span></span>
+<span id="cb40-32"><a href="ch3batchStats.html#cb40-32" tabindex="-1"></a>        println<span class="op">(</span><span class="st">&quot;bm(</span><span class="ss">$i</span><span class="st">) = </span><span class="ss">$x</span><span class="st">&quot;</span><span class="op">)</span></span>
+<span id="cb40-33"><a href="ch3batchStats.html#cb40-33" tabindex="-1"></a>        i<span class="op">++</span></span>
+<span id="cb40-34"><a href="ch3batchStats.html#cb40-34" tabindex="-1"></a>    <span class="op">}</span></span>
+<span id="cb40-35"><a href="ch3batchStats.html#cb40-35" tabindex="-1"></a></span>
+<span id="cb40-36"><a href="ch3batchStats.html#cb40-36" tabindex="-1"></a>    <span class="co">// this re-batches the 40 down to 10</span></span>
+<span id="cb40-37"><a href="ch3batchStats.html#cb40-37" tabindex="-1"></a>    <span class="kw">val</span> <span class="va">reformed</span> <span class="op">=</span> bm<span class="op">.</span>reformBatches<span class="op">(</span><span class="dv">10</span><span class="op">)</span></span>
+<span id="cb40-38"><a href="ch3batchStats.html#cb40-38" tabindex="-1"></a>    println<span class="op">(</span>Statistic<span class="op">(</span>reformed<span class="op">))</span></span>
+<span id="cb40-39"><a href="ch3batchStats.html#cb40-39" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
 <p>The <code>ksl.utilities.statistic</code> package defines a lot of functionality. Here is a summary of some of the useful classes and interfaces.</p>
 <ol style="list-style-type: decimal">
 <li><code>CollectorIfc</code> defines a set of collect() methods for collecting data. The method is overridden to permit the collection of a wide variety of data type. The collect() method is designed to collect values and a weight associated with the value. This allows the collection of weighted statistics. <code>Collector</code> is an abstract base class for building concrete sub-classes.</li>

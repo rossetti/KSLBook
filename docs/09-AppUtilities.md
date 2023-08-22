@@ -133,12 +133,12 @@ measure. From this view, pairwise statistics can be computed across all
 replications.
 
 <div class="figure">
-<img src="./figures/JSLDBTables.png" alt="JSL Database Relational Diagram"  />
+<img src="./figures/JSLDBTables.png" alt="JSL Database Relational Diagram" width="640" />
 <p class="caption">(\#fig:JSLDBTables)JSL Database Relational Diagram</p>
 </div>
 
 <div class="figure">
-<img src="./figures/JSLDBViews.png" alt="JSL Database Views"  />
+<img src="./figures/JSLDBViews.png" alt="JSL Database Views" width="359" />
 <p class="caption">(\#fig:JSLDBViews)JSL Database Views</p>
 </div>
 

@@ -6,7 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>A.1 Pseudo Random Numbers | Simulation Modeling using the Kotlin Simulation Library (KSL)</title>
   <meta name="description" content="A book that illustrates the basics of using the KSL. The output format for this book is bookdown::gitbook." />
-  <meta name="generator" content="bookdown 0.30 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.34 and GitBook 2.6.7" />
 
   <meta property="og:title" content="A.1 Pseudo Random Numbers | Simulation Modeling using the Kotlin Simulation Library (KSL)" />
   <meta property="og:type" content="book" />
@@ -23,7 +23,7 @@
 <meta name="author" content="Manuel D. Rossetti" />
 
 
-<meta name="date" content="2023-01-16" />
+<meta name="date" content="2023-08-22" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -121,6 +121,10 @@ code span.vs { color: #4070a0; } /* VerbatimString */
 code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
 </style>
 
+<style type="text/css">
+  
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+</style>
 <style type="text/css">
 /* Used with Pandoc 2.11+ new --citeproc when CSL is used */
 div.csl-bib-body { }
@@ -388,12 +392,23 @@ div.csl-indent {
 </ul></li>
 <li class="chapter" data-level="C.5" data-path="exercises-9.html"><a href="exercises-9.html"><i class="fa fa-check"></i><b>C.5</b> Exercises</a></li>
 </ul></li>
-<li class="chapter" data-level="D" data-path="distributions.html"><a href="distributions.html"><i class="fa fa-check"></i><b>D</b> Distributions</a>
+<li class="chapter" data-level="D" data-path="appUtilities.html"><a href="appUtilities.html"><i class="fa fa-check"></i><b>D</b> KSL Utility Packages</a>
 <ul>
-<li class="chapter" data-level="D.1" data-path="appDiscreteDistributions.html"><a href="appDiscreteDistributions.html"><i class="fa fa-check"></i><b>D.1</b> Discrete Distrbutions</a></li>
-<li class="chapter" data-level="D.2" data-path="appContinuousDistributions.html"><a href="appContinuousDistributions.html"><i class="fa fa-check"></i><b>D.2</b> Continuous Distrbutions</a></li>
+<li class="chapter" data-level="D.1" data-path="the-outputdirectory-class-and-ksl-object.html"><a href="the-outputdirectory-class-and-ksl-object.html"><i class="fa fa-check"></i><b>D.1</b> The <code>OutputDirectory</code> Class and <code>KSL</code> Object</a></li>
+<li class="chapter" data-level="D.2" data-path="logging-options.html"><a href="logging-options.html"><i class="fa fa-check"></i><b>D.2</b> Logging Options</a></li>
+<li class="chapter" data-level="D.3" data-path="the-kslfileutil-object.html"><a href="the-kslfileutil-object.html"><i class="fa fa-check"></i><b>D.3</b> The <code>KSLFileUtil</code> Object</a></li>
+<li class="chapter" data-level="D.4" data-path="csv-excel-and-tabular-data-files.html"><a href="csv-excel-and-tabular-data-files.html"><i class="fa fa-check"></i><b>D.4</b> CSV, Excel, and Tabular Data Files</a></li>
+<li class="chapter" data-level="D.5" data-path="the-dataframeutil-object.html"><a href="the-dataframeutil-object.html"><i class="fa fa-check"></i><b>D.5</b> The <code>DataFrameUtil</code> Object</a></li>
+<li class="chapter" data-level="D.6" data-path="ksl-database-utilities.html"><a href="ksl-database-utilities.html"><i class="fa fa-check"></i><b>D.6</b> KSL Database Utilities</a></li>
+<li class="chapter" data-level="D.7" data-path="appUtilitiesArrays.html"><a href="appUtilitiesArrays.html"><i class="fa fa-check"></i><b>D.7</b> Array Utilities</a></li>
+<li class="chapter" data-level="D.8" data-path="appUtilitiesMisc.html"><a href="appUtilitiesMisc.html"><i class="fa fa-check"></i><b>D.8</b> Miscellaneous Utilities</a></li>
 </ul></li>
-<li class="chapter" data-level="E" data-path="appStatTables.html"><a href="appStatTables.html"><i class="fa fa-check"></i><b>E</b> Statistical Tables</a></li>
+<li class="chapter" data-level="E" data-path="distributions.html"><a href="distributions.html"><i class="fa fa-check"></i><b>E</b> Distributions</a>
+<ul>
+<li class="chapter" data-level="E.1" data-path="appDiscreteDistributions.html"><a href="appDiscreteDistributions.html"><i class="fa fa-check"></i><b>E.1</b> Discrete Distrbutions</a></li>
+<li class="chapter" data-level="E.2" data-path="appContinuousDistributions.html"><a href="appContinuousDistributions.html"><i class="fa fa-check"></i><b>E.2</b> Continuous Distrbutions</a></li>
+</ul></li>
+<li class="chapter" data-level="F" data-path="appStatTables.html"><a href="appStatTables.html"><i class="fa fa-check"></i><b>F</b> Statistical Tables</a></li>
 <li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
 <li class="divider"></li>
 <li><a href="https://bookdown.org" target="_blank">Published with bookdown</a></li>
@@ -449,7 +464,7 @@ random</em>.</p>
 <hr />
 <div class="definition">
 <p><span id="def:PRN" class="definition"><strong>Definition A.1  (Pseudo-Random Numbers) </strong></span>A sequence of pseudo-random numbers, <span class="math inline">\(U_{i}\)</span>, is a deterministic sequence of numbers in <span class="math inline">\((0,1)\)</span> having the same relevant statistical properties as a sequence of truly
-random <span class="math inline">\(U(0,1)\)</span> numbers.(<span class="citation">(<a href="#ref-ripley1987stochastic" role="doc-biblioref">Ripley 1987</a>)</span>)</p>
+random <span class="math inline">\(U(0,1)\)</span> numbers.(<span class="citation">(<a href="#ref-ripley1987stochastic">Ripley 1987</a>)</span>)</p>
 </div>
 <hr />
 <p>A set of statistical tests are performed on the pseudo-random numbers
@@ -463,7 +478,7 @@ approach will be practical, with just enough theory to motivate future
 study of this area and to allow you to understand the important
 implications of random number generation. A more rigorous treatment of
 random number and random variable generation can be found such texts as
-<span class="citation">(<a href="#ref-fishman2006first" role="doc-biblioref">Fishman 2006</a>)</span> and <span class="citation">(<a href="#ref-devroye1986nonuniform" role="doc-biblioref">Devroye 1986</a>)</span>.</p>
+<span class="citation">(<a href="#ref-fishman2006first">Fishman 2006</a>)</span> and <span class="citation">(<a href="#ref-devroye1986nonuniform">Devroye 1986</a>)</span>.</p>
 <div id="appRNRVRNGs" class="section level3 hasAnchor" number="8.1.1">
 <h3><span class="header-section-number">A.1.1</span> Random Number Generators<a href="appRNRVPRN.html#appRNRVRNGs" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>Over the history of scientific computing, there have been a wide variety
@@ -566,7 +581,7 @@ complement integer arithmetic. This choice of <span class="math inline">\(m\)</s
 prime number, which leads to special properties.</p>
 <p>A proper choice of the parameters of the LCG will allow desirable pseudo
 random number properties to be obtained. The following result due to
-<span class="citation">(<a href="#ref-hull1962random" role="doc-biblioref">Hull and Dobell 1962</a>)</span>, see also <span class="citation">(<a href="#ref-law2007simulation" role="doc-biblioref">Law 2007</a>)</span>, indicates how to check
+<span class="citation">(<a href="#ref-hull1962random">Hull and Dobell 1962</a>)</span>, see also <span class="citation">(<a href="#ref-law2007simulation">Law 2007</a>)</span>, indicates how to check
 if a LCG will have the largest possible cycle.</p>
 <hr />
 <div class="theorem">
@@ -594,7 +609,7 @@ Thus, condition 3 holds.</p></li>
 <div class="rmdnote">
 The theorem only tells us when a specification of <span class="math inline">\((a, c, m)\)</span> will obtain full period. In case (3), it does not tell us anything about what happens if <span class="math inline">\(4\)</span> does not divide <span class="math inline">\(m\)</span>, If <span class="math inline">\(4\)</span> divides <span class="math inline">\(m\)</span>, and we pick <span class="math inline">\(a\)</span> so that it divides <span class="math inline">\((a-1)\)</span> then the condition will be met. If <span class="math inline">\(4\)</span> does not divide <span class="math inline">\(m\)</span>, then the theorem really does not tell us one way or the other whether the LCG obtains full period.
 </div>
-<p>There are some simplifying conditions, see <span class="citation">Banks et al. (<a href="#ref-banks2005discreteevent" role="doc-biblioref">2005</a>)</span>,
+<p>There are some simplifying conditions, see <span class="citation">Banks et al. (<a href="#ref-banks2005discreteevent">2005</a>)</span>,
 which allow for easier application of the theorem. For <span class="math inline">\(m = 2^{b}\)</span>, (<span class="math inline">\(m\)</span>
 a power of 2) and <span class="math inline">\(c\)</span> not equal to 0, the longest possible period is <span class="math inline">\(m\)</span>
 and can be achieved provided that <span class="math inline">\(c\)</span> is chosen so that the greatest
@@ -703,11 +718,11 @@ insufficient since it is likely that all the 2 billion or so of the
 random numbers would be used in performing serious simulation studies.
 Thus, a new generation of random number generators was developed that
 have extremely long periods. The random number generator described in
-<span class="citation">L’Ecuyer, Simard, and Kelton (<a href="#ref-ecuyer2002an" role="doc-biblioref">2002</a>)</span> is one example of such a generator. It is based on the
+<span class="citation">L’Ecuyer, Simard, and Kelton (<a href="#ref-ecuyer2002an">2002</a>)</span> is one example of such a generator. It is based on the
 combination of two multiple recursive generators resulting in a period
 of approximately <span class="math inline">\(3.1 \times 10^{57}\)</span>. This is the same generator that
 is now used in many commercial simulation packages. The generator as
-defined in <span class="citation">(<a href="#ref-law2007simulation" role="doc-biblioref">Law 2007</a>)</span> is:</p>
+defined in <span class="citation">(<a href="#ref-law2007simulation">Law 2007</a>)</span> is:</p>
 <p><span class="math display">\[
 \begin{split}
 R_{1,i}&amp;=(1,403,580 R_{1,i-2} - 810,728 R_{1,i-3})[\bmod (2^{32}-209)]\\
@@ -847,7 +862,7 @@ defined along with sub-streams.</p>
 A random number stream is a sub-sequence of pseudo-random numbers that start at particular place with a larger sequence of pseudo-random numbers. The starting point of a sequence of pseudo-random numbers is called the <em>seed</em>. A seed allows us to pick a particular stream. Having multiple streams is useful to assign different streams to different sources of randomness within a model. Streams can be further divided into sub-streams. This facilitates the control of the use of pseudo-random numbers when performing experiments.
 </div>
 <p>The fantastic thing about this generator is the sheer size of the
-period. Based on their analysis, <span class="citation">L’Ecuyer, Simard, and Kelton (<a href="#ref-ecuyer2002an" role="doc-biblioref">2002</a>)</span> state that it will be
+period. Based on their analysis, <span class="citation">L’Ecuyer, Simard, and Kelton (<a href="#ref-ecuyer2002an">2002</a>)</span> state that it will be
 “approximately 219 years into the future before average desktop
 computers will have the capability to exhaust the cycle of the
 (generator) in a year of continuous computing.” In addition to the

@@ -995,7 +995,7 @@ $$
 \hat{p} = \bar{Y} = \frac{1}{n}\sum_{i=1}^{n}Y_i = \frac{\#\lbrace X_i  > 8\rbrace}{n}
 $$
 Therefore, computing the average of an indicator variable will estimate
-the desired probability. The java-code for this situation is quite simple:
+the desired probability. The code for this situation is quite simple:
 
 ```kt
 fun main() {
@@ -1049,9 +1049,9 @@ $$n \geq \left(\dfrac{z_{1-(\alpha/2)}\; s}{\epsilon}\right)^2 = \left(\dfrac{2.
 To determine the sample size for estimating $p=P[X>8]$ with 95% confidence to $\pm 0.1$, we can use Equation \@ref(eq:pSampleSize)
 
 $$
-n = \left(\dfrac{z_{1-(\alpha/2)}}{\epsilon}\right)^{2} \hat{p}(1 - \hat{p})=\left(\dfrac{z_{0.975}}{0.1}\right)^{2} (0.22)(1 - 0.22)=\left(\dfrac{1.96}{0.1}\right)^{2} (0.22)(0.78) =65.92 \approx 66
+n = \left(\dfrac{z_{1-(\alpha/2)}}{\epsilon}\right)^{2} \hat{p}(1 - \hat{p})=\left(\dfrac{z_{0.975}}{0.1}\right)^{2} (0.70)(1 - 0.70)=\left(\dfrac{1.96}{0.1}\right)^{2} (0.70)(0.30) = 80.67 \approx 81
 $$
-By using the maximum of $\max{(66, 609)=609}$, we can re-run the simulation this number of replications.  Doing so, yields,
+By using the maximum of $\max{(81, 609)=609}$, we can re-run the simulation this number of replications.  Doing so, yields,
 
 Performance Measures    Average   95% Half-Width
 --------------------    -------   -------------
