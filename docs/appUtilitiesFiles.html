@@ -23,7 +23,7 @@
 <meta name="author" content="Manuel D. Rossetti" />
 
 
-<meta name="date" content="2023-08-22" />
+<meta name="date" content="2023-08-13" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -401,7 +401,6 @@ div.csl-indent {
 <li class="chapter" data-level="D.1.3" data-path="appUtilitiesFiles.html"><a href="appUtilitiesFiles.html#the-kslfileutil-object"><i class="fa fa-check"></i><b>D.1.3</b> The <code>KSLFileUtil</code> Object</a></li>
 <li class="chapter" data-level="D.1.4" data-path="appUtilitiesFiles.html"><a href="appUtilitiesFiles.html#csv-excel-and-tabular-data-files"><i class="fa fa-check"></i><b>D.1.4</b> CSV, Excel, and Tabular Data Files</a></li>
 <li class="chapter" data-level="D.1.5" data-path="appUtilitiesFiles.html"><a href="appUtilitiesFiles.html#the-dataframeutil-object"><i class="fa fa-check"></i><b>D.1.5</b> The <code>DataFrameUtil</code> Object</a></li>
-<li class="chapter" data-level="D.1.6" data-path="appUtilitiesFiles.html"><a href="appUtilitiesFiles.html#ksl-database-utilities"><i class="fa fa-check"></i><b>D.1.6</b> KSL Database Utilities</a></li>
 </ul></li>
 <li class="chapter" data-level="D.2" data-path="appUtilitiesArrays.html"><a href="appUtilitiesArrays.html"><i class="fa fa-check"></i><b>D.2</b> Array Utilities</a></li>
 <li class="chapter" data-level="D.3" data-path="appUtilitiesMisc.html"><a href="appUtilitiesMisc.html"><i class="fa fa-check"></i><b>D.3</b> Miscellaneous Utilities</a></li>
@@ -516,9 +515,9 @@ Figure D.2: KSLFileUtil Class
 </div>
 <div id="csv-excel-and-tabular-data-files" class="section level3 hasAnchor" number="11.1.4">
 <h3><span class="header-section-number">D.1.4</span> CSV, Excel, and Tabular Data Files<a href="appUtilitiesFiles.html#csv-excel-and-tabular-data-files" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<p>The KSL also has simple utilities to work with comma separated value (CSV) files and Excel files. The underlying CSV file processing library used by the KSL is <a href="https://opencsv.sourceforge.net/">opencsv</a>. The KSL provision of working with CSV files is not meant to replace the functionality of those libraries. Instead, the purpose is to provide a simple facade so that users can do some simple processing without worrying about the complexities of a full featured CSV library. Figure <a href="appUtilitiesFiles.html#fig:CSVUtil">D.3</a> illustrates the functions and properties of the <code>CSVUtil</code> object</p>
+<p>The KSL also has simple utilities to work with comma separated value (CSV) files and Excel files. The underlying CSV file processing library used by the KSL is <a href="https://opencsv.sourceforge.net/">opencsv</a>. The KSL provision of working with CSV files is not meant to replace the functionality of those libraries. Instead, the purpose is to provide a simple facade so that users can do some simple processing without working about the complexities of a full featured CSV library. Figure <a href="appUtilitiesFiles.html#fig:CSVUtil">D.3</a> illustrates the functions and properties of the <code>CSVUtil</code> object</p>
 <div class="figure" style="text-align: center"><span style="display:block;" id="fig:CSVUtil"></span>
-<img src="figures2/ch13/CSVUtil.png" alt="CSVUtil Class" width="65%" height="65%" />
+<img src="figures2/ch13/CSVUtil.png" alt="CSVUtil Class" width="70%" height="70%" />
 <p class="caption">
 Figure D.3: CSVUtil Class
 </p>
@@ -550,10 +549,10 @@ Figure D.3: CSVUtil Class
 <span id="cb306-12"><a href="appUtilitiesFiles.html#cb306-12" tabindex="-1"></a>    <span class="cf">for</span><span class="op">(</span>i <span class="kw">in</span> matrix<span class="op">.</span>indices<span class="op">){</span></span>
 <span id="cb306-13"><a href="appUtilitiesFiles.html#cb306-13" tabindex="-1"></a>        println<span class="op">(</span>m<span class="op">[</span>i<span class="op">].</span>contentToString<span class="op">())</span></span>
 <span id="cb306-14"><a href="appUtilitiesFiles.html#cb306-14" tabindex="-1"></a>    <span class="op">}</span></span></code></pre></div>
-<p>The contents of the matrix are printed to console. The header is made for the CSV file and then the matrix is written to the file using the <code>CSVUtil</code> function to write an array to a CSV file. Then, the <code>CSVUtil</code> object is used to read the data into list of strings, which are parsed to double values. Of course, you can use the <a href="https://opencsv.sourceforge.net/"><code>OpenCSV</code></a> functionality to read and write values via its API, which is expose through the KSL API. The approach illustrated here is only meant for simple file processing.</p>
-<p>Excel file operations are available within the KSL through the <a href="https://poi.apache.org/">Apache POI library</a>. The KSL provision of working with Excel files is not meant to replace the functionality of the POI library. Instead, the purpose is to provide a simple facade so that users can do some simple processing without worrying about the complexities of a full featured POI library. Figure <a href="appUtilitiesFiles.html#fig:ExcelUtil">D.4</a> illustrates the functions and properties of the <code>ExcelUtil</code> object.</p>
+<p>The contents of the matrix are printed to console. The header is made for the CSV file and then the matrix is written to the file using the <code>CSVUtil</code> function to write an array to a CSV file. Then, the <code>CSVUtil</code> object is used to read the data into list of strings, which are parsed to double values. Of course, you can use the <code>OpenCSV</code> functionality to read and write values via its API. The approach here is only meant for simple file processing.</p>
+<p>Excel file operations are available within the KSL through the <a href="https://poi.apache.org/">Apache POI library</a>. The KSL provision of working with Excel files is not meant to replace the functionality of the POI library. Instead, the purpose is to provide a simple facade so that users can do some simple processing without working about the complexities of a full featured POI library. Figure <a href="appUtilitiesFiles.html#fig:ExcelUtil">D.4</a> illustrates the functions and properties of the <code>ExcelUtil</code> object.</p>
 <div class="figure" style="text-align: center"><span style="display:block;" id="fig:ExcelUtil"></span>
-<img src="figures2/ch13/ExcelUtil.png" alt="ExcelUtil Class" width="65%" height="65%" />
+<img src="figures2/ch13/ExcelUtil.png" alt="ExcelUtil Class" width="70%" height="70%" />
 <p class="caption">
 Figure D.4: ExcelUtil Class
 </p>
@@ -573,8 +572,7 @@ Figure D.4: ExcelUtil Class
 a null cell.</li>
 </ul>
 <p>To use the <code>ExcelUtil</code> object, it is useful to know how the Apache POI library works because you need to know how to create workbooks. The functionality of the POI library is also exposed as part of the KSL API. The main use of the object <code>ExcelUtil</code> within the KSL is for importing and exporting database tables and record sets to Excel.</p>
-<p>Comma separated value (CSV) files and Excel files are commonly used to store data in a tabular (row/column) format. The KSL also provides some basic functionality for reading and writing tabular files.</p>
-<p>A common programming necessity is to write or read data that is organized in rows and columns. While libraries that support CSV file processing are readily available, it is sometimes useful to have a quick and easy way to write (or read) tabular data that is not as sophisticated as a database. While Excel files also provide this ability, using the Apache POI may be more than is required. To make this type of file processing easier, the KSL provides a general interface for representing tabular data as a data class via the <code>TabularData</code> class. In addition, the <code>TabularFile</code>, <code>TabularOutputFile,</code> and <code>TabularInputFile</code> classes permit simple row oriented reading and writing of tabular data.</p>
+<p>Comma separated value (CSV) files and Excel files are commonly used to store data in a tabular (row/column) format. The KSL also provides some basic functionality for reading and writing tabular files. A common programming necessity is to write or read data that is organized in rows and columns. While libraries that support CSV file processing are readily available, it is sometimes useful to have a quick and easy way to write (or read) tabular data that is not as sophisticated as a database. While Excel files also provide this ability, using the Apache POI may be more than is required. To make this type of file processing easier, the KSL provides a general interface for representing tabular data as a data class via the <code>TabularData</code> class. In addition, the <code>TabularFile</code>, <code>TabularOutputFile,</code> and <code>TabularInputFile</code> classes permit simple row oriented reading and writing of tabular data.</p>
 <div class="figure" style="text-align: center"><span style="display:block;" id="fig:TabularData"></span>
 <img src="figures2/ch13/TabularData.png" alt="TabularData Class" width="65%" height="65%" />
 <p class="caption">
@@ -583,14 +581,13 @@ Figure D.5: TabularData Class
 </div>
 <p>Figure <a href="appUtilitiesFiles.html#fig:TabularData">D.5</a> illustrates the functions and properties of the <code>TabularData</code> class. The basic usage of this class is to subclass a data class from it to define the contents of a row of data. This can be used for database processing as well as for working with the tabular file classes.</p>
 <div class="figure" style="text-align: center"><span style="display:block;" id="fig:TabularFile"></span>
-<img src="figures2/ch13/TabularFile.png" alt="Tabular File Classes" width="90%" height="90%" />
+<img src="figures2/ch13/TabularFile.png" alt="Tabular File Classes" width="80%" height="80%" />
 <p class="caption">
 Figure D.6: Tabular File Classes
 </p>
 </div>
-<p>Figure <a href="appUtilitiesFiles.html#fig:TabularFile">D.6</a> illustrates the functions and properties of the classes for working with tabular data stored in files.</p>
-<p>The following code illustrates how to make a tabular file with 5 columns. The first three columns hold numeric data. The fourth column holds text, and the fifth column holds numeric data. The enum <code>DataType</code> defines two types of data to be held in columns: numeric or text. This covers a vast majority of simple computing needs.</p>
-<div class="sourceCode" id="cb307"><pre class="sourceCode kt"><code class="sourceCode kotlin"><span id="cb307-1"><a href="appUtilitiesFiles.html#cb307-1" tabindex="-1"></a>    <span class="kw">val</span> <span class="va">path</span><span class="op">:</span> Path <span class="op">=</span> KSL<span class="op">.</span>outDir<span class="op">.</span>resolve<span class="op">(</span><span class="st">&quot;demoFile&quot;</span><span class="op">)</span></span>
+<p>Figure <a href="appUtilitiesFiles.html#fig:TabularFile">D.6</a> illustrates the functions and properties of the classes for working with tabular data stored in files. The following code illustrates how to make a tabular file with 5 columns. The first three columns hold numeric data. The fourth column holds text, and the fifth column holds numeric data. The enum <code>DataType</code> defines two types of data to be held in columns: numeric or text. This covers a vast majority of simple computing needs. The <code>columns()</code> function is used to define the columns as a map of column names and the data types. This describes a type of column within the tabular file. The numeric type should be used for numeric data (float, double, long, int, etc.). In addition, use the numeric type for boolean values, which are stored 1.0 = true, 0.0 = false). The text type should be used for strings and date/time data. Date and time data is saved as ISO8601 strings (“YYYY-MM-DD HH:MM:SS.SSS”). If you need more type complexity, you should use a database or some other more advanced serialization method such as <a href="https://www.json.org/json-en.html">JSON</a>, <a href="https://parquet.apache.org/">Parquet</a>, or <a href="https://arrow.apache.org/">Arrow</a>. T</p>
+<div class="sourceCode" id="cb307"><pre class="sourceCode kt"><code class="sourceCode kotlin"><span id="cb307-1"><a href="appUtilitiesFiles.html#cb307-1" tabindex="-1"></a>    <span class="kw">val</span> <span class="va">path</span><span class="op">:</span> Path <span class="op">=</span> KSLDatabase<span class="op">.</span>dbDir<span class="op">.</span>resolve<span class="op">(</span><span class="st">&quot;demoFile&quot;</span><span class="op">)</span></span>
 <span id="cb307-2"><a href="appUtilitiesFiles.html#cb307-2" tabindex="-1"></a>    <span class="co">// configure the columns</span></span>
 <span id="cb307-3"><a href="appUtilitiesFiles.html#cb307-3" tabindex="-1"></a>    <span class="kw">val</span> <span class="va">columns</span><span class="op">:</span> MutableMap<span class="op">&lt;</span><span class="kw">String</span><span class="op">,</span> DataType<span class="op">&gt;</span> <span class="op">=</span> TabularFile<span class="op">.</span>columns<span class="op">(</span><span class="dv">3</span><span class="op">,</span> DataType<span class="op">.</span>NUMERIC<span class="op">).</span>toMutableMap<span class="op">()</span></span>
 <span id="cb307-4"><a href="appUtilitiesFiles.html#cb307-4" tabindex="-1"></a>    columns<span class="op">[</span><span class="st">&quot;c4&quot;</span><span class="op">]</span> <span class="op">=</span> DataType<span class="op">.</span>TEXT</span>
@@ -598,8 +595,6 @@ Figure D.6: Tabular File Classes
 <span id="cb307-6"><a href="appUtilitiesFiles.html#cb307-6" tabindex="-1"></a>    <span class="co">// make the file</span></span>
 <span id="cb307-7"><a href="appUtilitiesFiles.html#cb307-7" tabindex="-1"></a>    <span class="kw">val</span> <span class="va">tif</span> <span class="op">=</span> TabularOutputFile<span class="op">(</span>columns<span class="op">,</span> path<span class="op">)</span></span>
 <span id="cb307-8"><a href="appUtilitiesFiles.html#cb307-8" tabindex="-1"></a>    println<span class="op">(</span>tif<span class="op">)</span></span></code></pre></div>
-<p>The <code>columns()</code> function is used to define the columns as a map of column names and the data types. This describes a type of column within the tabular file.</p>
-<p>The numeric type should be used for numeric data (float, double, long, int, etc.). In addition, use the numeric type for boolean values, which are stored 1.0 = true, 0.0 = false). The text type should be used for strings and date/time data. Date and time data is saved as ISO8601 strings (“YYYY-MM-DD HH:MM:SS.SSS”). If you need more type complexity, you should use a database or some other more advanced serialization method such as <a href="https://www.json.org/json-en.html">JSON</a>, <a href="https://parquet.apache.org/">Parquet</a>, or <a href="https://arrow.apache.org/">Arrow</a>.</p>
 <p>The following code creates some random data and writes rows of data to the file. The <code>RowSetterIfc</code> interface is use in that it allows for the writing of any numeric columns and any text columns as separate row operations.</p>
 <div class="sourceCode" id="cb308"><pre class="sourceCode kt"><code class="sourceCode kotlin"><span id="cb308-1"><a href="appUtilitiesFiles.html#cb308-1" tabindex="-1"></a>    <span class="co">// needed for some random data</span></span>
 <span id="cb308-2"><a href="appUtilitiesFiles.html#cb308-2" tabindex="-1"></a>    <span class="kw">val</span> <span class="va">n</span> <span class="op">=</span> NormalRV<span class="op">(</span><span class="fl">10.0</span><span class="op">,</span> <span class="fl">1.0</span><span class="op">)</span></span>
@@ -621,7 +616,7 @@ Figure D.6: Tabular File Classes
 <span id="cb308-18"><a href="appUtilitiesFiles.html#cb308-18" tabindex="-1"></a>    tif<span class="op">.</span>flushRows<span class="op">()</span></span>
 <span id="cb308-19"><a href="appUtilitiesFiles.html#cb308-19" tabindex="-1"></a>    println<span class="op">(</span><span class="st">&quot;Done writing rows!&quot;</span><span class="op">)</span></span></code></pre></div>
 <p>The tabular file package also allows for the defintion of the data schema via data class. The type of the properties of the data class are translated to either text or numeric columns. The following code illustrates this functionality. Here a data class is used to define a text field and a numeric field, which are then written to the file.</p>
-<div class="sourceCode" id="cb309"><pre class="sourceCode kt"><code class="sourceCode kotlin"><span id="cb309-1"><a href="appUtilitiesFiles.html#cb309-1" tabindex="-1"></a>    <span class="kw">val</span> <span class="va">path</span><span class="op">:</span> Path <span class="op">=</span> KSL<span class="op">.</span>outDir<span class="op">.</span>resolve<span class="op">(</span><span class="st">&quot;TabularDataFile&quot;</span><span class="op">)</span></span>
+<div class="sourceCode" id="cb309"><pre class="sourceCode kt"><code class="sourceCode kotlin"><span id="cb309-1"><a href="appUtilitiesFiles.html#cb309-1" tabindex="-1"></a>    <span class="kw">val</span> <span class="va">path</span><span class="op">:</span> Path <span class="op">=</span> KSLDatabase<span class="op">.</span>dbDir<span class="op">.</span>resolve<span class="op">(</span><span class="st">&quot;TabularDataFile&quot;</span><span class="op">)</span></span>
 <span id="cb309-2"><a href="appUtilitiesFiles.html#cb309-2" tabindex="-1"></a>    <span class="kw">data</span> <span class="kw">class</span> SomeData<span class="op">(</span><span class="kw">var</span> <span class="va">someText</span><span class="op">:</span> <span class="dt">String</span> <span class="op">=</span> <span class="st">&quot;&quot;</span><span class="op">,</span> <span class="kw">var</span> <span class="va">someData</span><span class="op">:</span> <span class="dt">Double</span> <span class="op">=</span> <span class="fl">0.0</span><span class="op">):</span> <span class="dt">TabularData</span><span class="op">(</span>&quot;<span class="va">SomeData</span>&quot;<span class="op">)</span></span>
 <span id="cb309-3"><a href="appUtilitiesFiles.html#cb309-3" tabindex="-1"></a>    <span class="kw">val</span> <span class="va">rowData</span> <span class="op">=</span> SomeData<span class="op">()</span></span>
 <span id="cb309-4"><a href="appUtilitiesFiles.html#cb309-4" tabindex="-1"></a>    <span class="co">// use the data class instance to define the columns and their types</span></span>
@@ -644,7 +639,7 @@ Figure D.6: Tabular File Classes
 <span id="cb309-21"><a href="appUtilitiesFiles.html#cb309-21" tabindex="-1"></a>    <span class="co">// don&#39;t forget to flush the buffer</span></span>
 <span id="cb309-22"><a href="appUtilitiesFiles.html#cb309-22" tabindex="-1"></a>    tof<span class="op">.</span>flushRows<span class="op">()</span></span>
 <span id="cb309-23"><a href="appUtilitiesFiles.html#cb309-23" tabindex="-1"></a>    println<span class="op">(</span><span class="st">&quot;Done writing rows!&quot;</span><span class="op">)</span></span></code></pre></div>
-<p>As long as the data class is compatible with the rows of the file, then the same approach can be used to read in the data as illustrated in the next code snippet.</p>
+<p>The approach can be used to read in the data as illustrated in the next code snippet.</p>
 <div class="sourceCode" id="cb310"><pre class="sourceCode kt"><code class="sourceCode kotlin"><span id="cb310-1"><a href="appUtilitiesFiles.html#cb310-1" tabindex="-1"></a>    <span class="kw">val</span> <span class="va">tif</span> <span class="op">=</span> TabularInputFile<span class="op">(</span>path<span class="op">)</span></span>
 <span id="cb310-2"><a href="appUtilitiesFiles.html#cb310-2" tabindex="-1"></a>    println<span class="op">(</span>tif<span class="op">)</span></span>
 <span id="cb310-3"><a href="appUtilitiesFiles.html#cb310-3" tabindex="-1"></a></span>
@@ -656,7 +651,7 @@ Figure D.6: Tabular File Classes
 <span id="cb310-9"><a href="appUtilitiesFiles.html#cb310-9" tabindex="-1"></a>    <span class="op">}</span></span>
 <span id="cb310-10"><a href="appUtilitiesFiles.html#cb310-10" tabindex="-1"></a>    println<span class="op">()</span></span></code></pre></div>
 <p>Reading data from the file has a bit more functionality through some useful iterators. The following code opens a tabular file and iterates the rows.</p>
-<div class="sourceCode" id="cb311"><pre class="sourceCode kt"><code class="sourceCode kotlin"><span id="cb311-1"><a href="appUtilitiesFiles.html#cb311-1" tabindex="-1"></a>    <span class="kw">val</span> <span class="va">path</span><span class="op">:</span> Path <span class="op">=</span> KSL<span class="op">.</span>outDir<span class="op">.</span>resolve<span class="op">(</span><span class="st">&quot;demoFile&quot;</span><span class="op">)</span></span>
+<div class="sourceCode" id="cb311"><pre class="sourceCode kt"><code class="sourceCode kotlin"><span id="cb311-1"><a href="appUtilitiesFiles.html#cb311-1" tabindex="-1"></a>    <span class="kw">val</span> <span class="va">path</span><span class="op">:</span> Path <span class="op">=</span> KSLDatabase<span class="op">.</span>dbDir<span class="op">.</span>resolve<span class="op">(</span><span class="st">&quot;demoFile&quot;</span><span class="op">)</span></span>
 <span id="cb311-2"><a href="appUtilitiesFiles.html#cb311-2" tabindex="-1"></a>    <span class="kw">val</span> <span class="va">tif</span> <span class="op">=</span> TabularInputFile<span class="op">(</span>path<span class="op">)</span></span>
 <span id="cb311-3"><a href="appUtilitiesFiles.html#cb311-3" tabindex="-1"></a>    println<span class="op">(</span>tif<span class="op">)</span></span>
 <span id="cb311-4"><a href="appUtilitiesFiles.html#cb311-4" tabindex="-1"></a></span>
@@ -708,15 +703,15 @@ Figure D.6: Tabular File Classes
 <span id="cb317-7"><a href="appUtilitiesFiles.html#cb317-7" tabindex="-1"></a>    println<span class="op">(</span><span class="st">&quot;Printing a data frame version&quot;</span><span class="op">)</span></span>
 <span id="cb317-8"><a href="appUtilitiesFiles.html#cb317-8" tabindex="-1"></a>    <span class="kw">val</span> <span class="va">df</span> <span class="op">=</span> tif<span class="op">.</span>asDataFrame<span class="op">()</span></span>
 <span id="cb317-9"><a href="appUtilitiesFiles.html#cb317-9" tabindex="-1"></a>    println<span class="op">(</span>df<span class="op">)</span></span></code></pre></div>
-<p>Much of this functionality is used within the implementation of the KSL database implementation, which will be discussed in a subsequent section. Since we just mentioned data frames, we discuss that functionality in the next section.</p>
+<p>Much of this functionality is used within the implementation of the KSL database implementation, which will be discussed in a subsequent section.</p>
 </div>
 <div id="the-dataframeutil-object" class="section level3 hasAnchor" number="11.1.5">
 <h3><span class="header-section-number">D.1.5</span> The <code>DataFrameUtil</code> Object<a href="appUtilitiesFiles.html#the-dataframeutil-object" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>A data frame is an in-memory data structure that holds tabular data. That is, data having rows and columns. Kotlin has a library to support this type of functionality and the <code>DataFrameUtil</code> object has been designed to facilitate the use of data frame within the <code>KSL.</code>. Documentation, examples, and the basic functionality of Kotlin data frames can be found on at this <a href="https://github.com/Kotlin/dataframe">repository</a>. Kotlin data frames provide similar functionality as that found in other data frame libraries such as R. Figure <a href="appUtilitiesFiles.html#fig:DataFrameUtil">D.7</a> illustrates the functions and properties of the <code>DataFrameUtil</code> object.</p>
 <div class="figure" style="text-align: center"><span style="display:block;" id="fig:DataFrameUtil"></span>
-<img src="figures2/ch13/DataFrameUtil.png" alt="The DataFrameUtil Object" width="90%" height="90%" />
+<img src="figures2/ch13/DataFrameUtil.png" alt="DataFrameUtil" width="90%" height="90%" />
 <p class="caption">
-Figure D.7: The DataFrameUtil Object
+Figure D.7: DataFrameUtil
 </p>
 </div>
 <p>The main functionality added by <code>DataFrameUtil</code> is sampling from rows and columns of the data frame and computing some basic statistics. The functions for sampling without replacement return a new data frame with the sampled rows. The functions for permutation return a new data frame with the permutated rows. The functions for randomly selection will select an element from the a column of the data frame or for selecting an entire row. The element or row can be selected with equal probability or via an empirical distribution over the elements (by row). <code>KSL</code> statistics, histogram, box plot statistics, and frequencies can all be computed over the columns.</p>
@@ -740,111 +735,6 @@ Figure D.7: The DataFrameUtil Object
 <li>boxPlotSummary(DataColumn<span class="math inline">\(&lt;Double&gt;\)</span>) BoxPlotSummary</li>
 </ul>
 <p>Extension functions are also available for the data frame and columns. The Kotlin data frame library has been included in the KSL as part of the API. Thus, clients also have access to the full features associated with the library. The main usage within the KSL is in the capturing of simulation output data. The easiest way to do this is by using the <code>KSLDatabase</code> class. Data frame instances can be requested as part of the database functionality of the KSL.</p>
-</div>
-<div id="ksl-database-utilities" class="section level3 hasAnchor" number="11.1.6">
-<h3><span class="header-section-number">D.1.6</span> KSL Database Utilities<a href="appUtilitiesFiles.html#ksl-database-utilities" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<p>Some of the database functionality for use when accessing simulation results has already been discused in Chapter 5. This section presents some of the more general database utilities available within the KSL framework. These utilities basically exist to help with implementing the KSL database functionality. However, users may find some of this functionality useful for other purpose. However, these utilities are not meant as a substitute for more advanced database frameworks such as <a href="https://www.jooq.org/">JOOQ</a>, <a href="https://github.com/JetBrains/Exposed">Exposed</a>, and <a href="https://www.ktorm.org/">KTorm</a>. We refer the interested reader to those libraries for more advanced work for database processing using Kotlin.</p>
-<p>Figure <a href="appUtilitiesFiles.html#fig:DbProperties">D.8</a> illustrates the properties of the interfaces, <code>DatabaseIOIfc</code> and <code>DatabaseIfc</code> which represent the main functionality for working with databases.</p>
-<div class="figure" style="text-align: center"><span style="display:block;" id="fig:DbProperties"></span>
-<img src="figures2/ch13/DbProperties.png" alt="Properties of the Main Database Classes" width="90%" height="90%" />
-<p class="caption">
-Figure D.8: Properties of the Main Database Classes
-</p>
-</div>
-<p>The <code>DatabaseIOIfc</code> interface is responsible for defining the functionality related to input and output. As shown in Figure <a href="appUtilitiesFiles.html#fig:DatabaseIOIfc">D.9</a> the capabilities are easily discerned from the names of the methods. Exporting tables and views to Excel or CSV files are probably the most useful functions. For small tables, capturing the table as a Markdown table can be useful.</p>
-<div class="figure" style="text-align: center"><span style="display:block;" id="fig:DatabaseIOIfc"></span>
-<img src="figures2/ch13/DatabaseIOIfc.png" alt="Methods of the DatabaseIOIfc Interface" width="80%" height="80%" />
-<p class="caption">
-Figure D.9: Methods of the DatabaseIOIfc Interface
-</p>
-</div>
-<p>The <code>DatabaseIfc</code> interface defines what a database can do and the <code>Database</code> class provides a concrete implementation for working with a database. The functionality of the <code>DatabaseIfc</code> interface is extensive. Besides the IO related functions, we note a few useful methods here. The <code>execute</code> methods allow the execution of an SQL string, list of SQL commands, or script file. It is the user’s responsibility for forming an appropriate SQL string.</p>
-<ul>
-<li>executeCommand(String) Boolean</li>
-<li>executeCommand(String) Boolean</li>
-<li>executeCommands(List<span class="math inline">\(&lt;\)</span>String<span class="math inline">\(&gt;\)</span>) Boolean</li>
-<li>executeCommands(List<span class="math inline">\(&lt;\)</span>String<span class="math inline">\(&gt;\)</span>) Boolean</li>
-<li>executeScript(Path) Boolean</li>
-<li>executeScript(Path) Boolean</li>
-</ul>
-<p>There are methods for checking if the database contains specific named tables or views.</p>
-<ul>
-<li>containsSchema(String) Boolean</li>
-<li>containsSchema(String) Boolean</li>
-<li>containsTable(String) Boolean</li>
-<li>containsTable(String, String) Boolean</li>
-<li>containsTable(String, String) Boolean</li>
-<li>containsTable(String) Boolean</li>
-<li>containsView(String) Boolean</li>
-<li>containsView(String) Boolean</li>
-</ul>
-<p>A set of methods for fetching data from the database facilitate the execution of SQL select statements. The select all methods will select all the data from a named table or view.</p>
-<ul>
-<li>fetchCachedRowSet(String) CachedRowSet?</li>
-<li>fetchCachedRowSet(String) CachedRowSet?</li>
-<li>fetchOpenResultSet(String) ResultSet?</li>
-<li>fetchOpenResultSet(String) ResultSet?</li>
-<li>selectAll(String, String?) CachedRowSet?</li>
-<li>selectAll(String, String?) CachedRowSet?</li>
-<li>selectAllIntoOpenResultSet(String, String?) ResultSet?</li>
-<li>selectAllIntoOpenResultSet(String, String?) ResultSet?</li>
-</ul>
-<p>The interface also provides some basic methods for inserting and updating data within the database by using Kotlin data classes, specifically sub-classes of the <code>DbTableData</code> class, which extends the <code>TabularData</code> class and allows the user to supply the data for a table in a data class instance similar to how it was done for working with tabular files. However, in this case more general mapping of data types to database types is permitted besides just numeric or text.</p>
-<ul>
-<li>insertDbDataIntoTable(List<span class="math inline">\(&lt;\)</span>String<span class="math inline">\(&gt;\)</span>, String, String?) Int</li>
-<li>insertDbDataIntoTable(T, String, String?) Int</li>
-<li>insertDbDataIntoTable(List<span class="math inline">\(&lt;\)</span>String<span class="math inline">\(&gt;\)</span>, String, String?) Int</li>
-<li>insertDbDataIntoTable(T, String, String?) Int</li>
-<li>updateDbDataInTable(List<span class="math inline">\(&lt;\)</span>String<span class="math inline">\(&gt;\)</span>, String, String?) Int</li>
-<li>updateDbDataInTable(T, String, String?) Int</li>
-<li>updateDbDataInTable(List<span class="math inline">\(&lt;\)</span>String<span class="math inline">\(&gt;\)</span>, String, String?) Int</li>
-<li>updateDbDataInTable(T, String, String?) Int</li>
-</ul>
-<p>When working with the database it is useful to get a connection, access table meta data, check if tables have data, check if tables or views exist.</p>
-<ul>
-<li>getConnection() Connection</li>
-<li>getSchemas() List<span class="math inline">\(&lt;\)</span>String<span class="math inline">\(&gt;\)</span></li>
-<li>getUserDefinedTables() List~<span class="math inline">\(&lt;\)</span>String<span class="math inline">\(&gt;\)</span></li>
-<li>getViews() List<span class="math inline">\(&lt;\)</span>String<span class="math inline">\(&gt;\)</span></li>
-<li>hasData(String?) Boolean</li>
-<li>hasData(String?) Boolean</li>
-<li>hasTables(String) Boolean</li>
-<li>hasTables(String) Boolean</li>
-<li>isTableEmpty(String, String?) Boolean</li>
-<li>isTableEmpty(String, String?) Boolean</li>
-<li>numRows(String, String?) Long</li>
-<li>numRows(String, String?) Long</li>
-<li>tableMetaData(String, String?) List<span class="math inline">\(&lt;\)</span>ColumnMetaData<span class="math inline">\(&gt;\)</span></li>
-<li>tableMetaData(String, String?) List<span class="math inline">\(&lt;\)</span>ColumnMetaData<span class="math inline">\(&gt;\)</span></li>
-<li>tableNames(String) List<span class="math inline">\(&lt;\)</span>String<span class="math inline">\(&gt;\)</span></li>
-<li>tableNames(String) List<span class="math inline">\(&lt;\)</span>String<span class="math inline">\(&gt;\)</span></li>
-<li>viewNames(String) List<span class="math inline">\(&lt;\)</span>String<span class="math inline">\(&gt;\)</span></li>
-<li>viewNames(String) List<span class="math inline">\(&lt;\)</span>String<span class="math inline">\(&gt;\)</span></li>
-</ul>
-<p>We refer the interested reader to the <a href="https://rossetti.github.io/KSLDocs/">KSL KDoc</a> documentation for further details about using these methods.</p>
-<p>The <code>Database</code> functionality defines basic capabilities for working with any database implementation. The KSL provides functionality to create <a href="https://www.sqlite.org/index.html">SQLite</a> and <a href="https://db.apache.org/derby/">Derby</a> embedded databases. In addition, the KSL facilitates the creation of a database on a <a href="https://www.postgresql.org/">Postgres</a> database server.</p>
-<div class="figure" style="text-align: center"><span style="display:block;" id="fig:EmbeddedDb"></span>
-<img src="figures2/ch13/EmbeddedDb.png" alt="Working with Embedded Databases" width="90%" height="90%" />
-<p class="caption">
-Figure D.10: Working with Embedded Databases
-</p>
-</div>
-<p>Figure <a href="appUtilitiesFiles.html#fig:EmbeddedDb">D.10</a> illustrates the functionality of the <code>EmbeddedDbIfc</code> interface, and its SQLite and Derby implementations. Readers interested in other databases can review these implementations for how to structure code for other databases. The <code>PostgresDb</code> class provides similar functionality. The main purpose is to be able to supply a data source to the <code>Database</code> class.</p>
-<p>Figure <a href="appUtilitiesFiles.html#fig:Ch13KSLDatabase">D.11</a> provides the functionality for the <code>KSLDatabase</code> class. Although most of this functionality has been mentioned within Chapter 5, it is useful to note that since the <code>KSLDatabase</code> class is a database, it also has all of the previously mentioned database functionality.</p>
-<div class="figure" style="text-align: center"><span style="display:block;" id="fig:Ch13KSLDatabase"></span>
-<img src="figures2/ch13/KSLDatabase.png" alt="The KSLDatabase Class" width="80%" height="80%" />
-<p class="caption">
-Figure D.11: The KSLDatabase Class
-</p>
-</div>
-<p>The main notable methods involve the export, printing, or writing of the underlying data from the tables or views storing the simulation statistical results. In addition, there are a number of properties that will provide data frame representations of the simulation output data. For example, the data class <code>WithinRepStatTableData</code> represents the statistics collected within each replication and is used to by the <code>withinReplicationResponseStatistics</code> property to create a data frame that holds the statistical data. Figure <a href="appUtilitiesFiles.html#fig:WithinRepStatTableData">D.12</a> provides the data elements held for within replication data.</p>
-<div class="figure" style="text-align: center"><span style="display:block;" id="fig:WithinRepStatTableData"></span>
-<img src="figures2/ch13/WithinRepStatTableData.png" alt="Within Replication Statistical Data" width="90%" height="90%" />
-<p class="caption">
-Figure D.12: Within Replication Statistical Data
-</p>
-</div>
-<p>The within replication statistical data represents the summary statistics of the data collected during a replication. The most relevant properties are the <code>average</code>, <code>minimum</code>, and <code>maximum</code>. To compute across replication statistics we can use the <code>average</code> for each replication. The statistical quantities are captured within the underlying database as discussed in Chapter 5. The user can post-process any of this data using commonly available database technology and SQL.</p>
 </div>
 </div>
             </section>

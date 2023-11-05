@@ -398,7 +398,7 @@ The entity states are mapped onto the lower level coroutine via an internal inne
 Again, these states define the legal states of the underlying process coroutine. In general, users will not care about these internal details, but a basic understanding of what are legal transitions, shown in Figure \@ref(fig:Ch5EProcessStateTransitions) can be helpful. The following are the process coroutine states:
 
 - Created - The process coroutine is placed in this state when it is instantiated.
-- Running - The coroutine is running after it is started. This occurs when the entity activates a the associated process. Processes are started by scheduling an event that invokes the coroutine code at the appropriate simulated time. The entity moves through its process and when the entity is between suspension points the process is considered to be in the running state.
+- Running - The coroutine is running after it is started. This occurs when the entity activates the associated process. Processes are started by scheduling an event that invokes the coroutine code at the appropriate simulated time. The entity moves through its process and when the entity is between suspension points the process is considered to be in the running state.
 - Suspended - The underlying process coroutine is suspended using Kotlin's coroutine suspension functionality. Suspension is mapped to the various suspension states associated with an entity.
 - Completed - The process coroutine has exited normally from the process routine or reached the end of the process routine. Once completed the coroutine is finished.
 - Terminated - The process coroutine has exited abnormally via an error or exception or the user has directly terminated the process. Once terminated the coroutine is finished.
@@ -1498,7 +1498,7 @@ The order process follows the basic outline of the activity diagram. As we have 
 
 When the order making process is activated, there is a for-loop that makes the shirts and activates the shirt making process. This activates the process at the current time. It is important to note that the activated shirt making processes are scheduled to be activated at the current time. Since those events are on the event calendar, they will not be executed until the current event finishes.  The current event is essentially the code in the process before the next suspension point. This provides the notion of pseudo-parallelism. The shirt making processes are really pending activation.
 
-Meanwhile, the order continues with its process by using the packager in the classic seize-delay-release pattern.  However, note the signature of the `seize() `method, which specifies the queue for waiting orders.
+Meanwhile, the order continues with its process by using the packager in the classic seize-delay-release pattern.  However, note the signature of the `seize()` method, which specifies the queue for waiting orders.
 
 ```kt
             var a = seize(myPackager, queue = myOrderQ)

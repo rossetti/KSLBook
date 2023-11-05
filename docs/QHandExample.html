@@ -23,7 +23,7 @@
 <meta name="author" content="Manuel D. Rossetti" />
 
 
-<meta name="date" content="2023-08-22" />
+<meta name="date" content="2023-11-05" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -183,7 +183,7 @@ div.csl-indent {
 <li class="chapter" data-level="1.5" data-path="randomness-in-simulation.html"><a href="randomness-in-simulation.html"><i class="fa fa-check"></i><b>1.5</b> Randomness in Simulation</a></li>
 <li class="chapter" data-level="1.6" data-path="simulation-languages.html"><a href="simulation-languages.html"><i class="fa fa-check"></i><b>1.6</b> Simulation Languages</a></li>
 <li class="chapter" data-level="1.7" data-path="ch1:sec:simMeth.html"><a href="ch1:sec:simMeth.html"><i class="fa fa-check"></i><b>1.7</b> Simulation Methodology</a></li>
-<li class="chapter" data-level="1.8" data-path="overview-of-the-kotline-simulation-library.html"><a href="overview-of-the-kotline-simulation-library.html"><i class="fa fa-check"></i><b>1.8</b> Overview of the Kotline Simulation Library</a></li>
+<li class="chapter" data-level="1.8" data-path="overview-of-the-kotlin-simulation-library.html"><a href="overview-of-the-kotlin-simulation-library.html"><i class="fa fa-check"></i><b>1.8</b> Overview of the Kotlin Simulation Library</a></li>
 <li class="chapter" data-level="1.9" data-path="exercises.html"><a href="exercises.html"><i class="fa fa-check"></i><b>1.9</b> Exercises</a></li>
 </ul></li>
 <li class="chapter" data-level="2" data-path="ch2rng.html"><a href="ch2rng.html"><i class="fa fa-check"></i><b>2</b> Modeling Randomness</a>
@@ -204,8 +204,15 @@ div.csl-indent {
 <li class="chapter" data-level="2.2.4" data-path="rvg.html"><a href="rvg.html#functions-of-random-variables"><i class="fa fa-check"></i><b>2.2.4</b> Functions of Random Variables</a></li>
 </ul></li>
 <li class="chapter" data-level="2.3" data-path="probability-distribution-models.html"><a href="probability-distribution-models.html"><i class="fa fa-check"></i><b>2.3</b> Probability Distribution Models</a></li>
-<li class="chapter" data-level="2.4" data-path="summary.html"><a href="summary.html"><i class="fa fa-check"></i><b>2.4</b> Summary</a></li>
-<li class="chapter" data-level="2.5" data-path="exercises-1.html"><a href="exercises-1.html"><i class="fa fa-check"></i><b>2.5</b> Exercises</a></li>
+<li class="chapter" data-level="2.4" data-path="distribution-fitting-using-the-ksl.html"><a href="distribution-fitting-using-the-ksl.html"><i class="fa fa-check"></i><b>2.4</b> Distribution Fitting Using the KSL</a>
+<ul>
+<li class="chapter" data-level="2.4.1" data-path="distribution-fitting-using-the-ksl.html"><a href="distribution-fitting-using-the-ksl.html#estimating-distribution-parameters"><i class="fa fa-check"></i><b>2.4.1</b> Estimating Distribution Parameters</a></li>
+<li class="chapter" data-level="2.4.2" data-path="distribution-fitting-using-the-ksl.html"><a href="distribution-fitting-using-the-ksl.html#continuous-distribution-recommendation-framework"><i class="fa fa-check"></i><b>2.4.2</b> Continuous Distribution Recommendation Framework</a></li>
+<li class="chapter" data-level="2.4.3" data-path="distribution-fitting-using-the-ksl.html"><a href="distribution-fitting-using-the-ksl.html#discrete-distribution-framework"><i class="fa fa-check"></i><b>2.4.3</b> Discrete Distribution Framework</a></li>
+<li class="chapter" data-level="2.4.4" data-path="distribution-fitting-using-the-ksl.html"><a href="distribution-fitting-using-the-ksl.html#illustrative-examples-from-appendix-refappidm"><i class="fa fa-check"></i><b>2.4.4</b> Illustrative Examples from Appendix @ref(appidm)</a></li>
+</ul></li>
+<li class="chapter" data-level="2.5" data-path="summary.html"><a href="summary.html"><i class="fa fa-check"></i><b>2.5</b> Summary</a></li>
+<li class="chapter" data-level="2.6" data-path="exercises-1.html"><a href="exercises-1.html"><i class="fa fa-check"></i><b>2.6</b> Exercises</a></li>
 </ul></li>
 <li class="chapter" data-level="3" data-path="mcm.html"><a href="mcm.html"><i class="fa fa-check"></i><b>3</b> Monte Carlo Methods</a>
 <ul>
@@ -3382,14 +3389,14 @@ constant, c, such that</p>
 function can be defined for <span class="math inline">\(Q(t)\)</span> This function is called the
 time-average (and represents the <em>mean value</em> of the <span class="math inline">\(Q(t)\)</span>
 function):</p>
-<p><span class="math display">\[\overline{Q}\left( n \right) = \frac{\int_{t_{0}}^{t_{n}}{Q\left( t \right)\text{dt}}}{t_{n} - t_{0}}\]</span></p>
+<p><span class="math display">\[\overline{Q} = \frac{\int_{t_{0}}^{t_{n}}{Q\left( t \right)\text{dt}}}{t_{n} - t_{0}}\]</span></p>
 <p>This function represents the <em>average with respect to time</em> of the given
 state variable. This type of statistical variable is called time-persistent
 because <span class="math inline">\(Q(t)\)</span> is a function of time.</p>
 <p>In the particular case where <span class="math inline">\(Q(t)\)</span> represents the number of customers
 in the queue, <span class="math inline">\(Q(t)\)</span> will take on constant values during intervals of
 time corresponding to when the queue has a certain number of customers. Let <span class="math inline">\(Q\left( t \right) = \ q_{k}\ \)</span>for<span class="math inline">\(\ t_{k - 1} \leq t \leq t_{k}\)</span>. Then, the time-average can be rewritten as follows:</p>
-<p><span class="math display">\[\overline{Q}\left( t \right) = \frac{\int_{t_{0}}^{t_{n}}{Q\left( t \right)\text{dt}}}{t_{n} - t_{0}} = \sum_{k = 1}^{n}\frac{q_{k}(t_{k} - t_{k - 1})}{t_{n} - t_{0}}\]</span>
+<p><span class="math display">\[\overline{Q} = \frac{\int_{t_{0}}^{t_{n}}{Q\left( t \right)\text{dt}}}{t_{n} - t_{0}} = \sum_{k = 1}^{n}\frac{q_{k}(t_{k} - t_{k - 1})}{t_{n} - t_{0}}\]</span>
 Note that <span class="math inline">\(q_{k}(t_{k} - t_{k - 1})\)</span> is the area under the curve, <span class="math inline">\(Q\left( t \right)\)</span> over the interval <span class="math inline">\(t_{k - 1} \leq t \leq t_{k}\)</span> and because <span class="math display">\[t_{n} - t_{0} = \left( t_{1} - t_{0} \right) + \left( t_{2} - t_{1} \right) + \left( t_{3} - t_{2} \right) + \ \cdots + \left( t_{n - 1} - t_{n - 2} \right) + \ \left( t_{n} - t_{n - 1} \right)\]</span>
 we can write,
 <span class="math display">\[t_{n} - t_{0} = \sum_{k = 1}^{n}{t_{k} - t_{k - 1}}\]</span></p>
@@ -3398,7 +3405,7 @@ over which the curve is observed. From this equation, it should be noted
 that each value of <span class="math inline">\(q_{k}\)</span> is weighted by the length of time that the
 variable has the value. If we define, <span class="math inline">\(w_{k} = (t_{k} - t_{k - 1})\)</span>,
 then we can re-write the time average as:</p>
-<p><span class="math display">\[\overline{Q}\left( t \right) = \frac{\int_{t_{0}}^{t_{n}}{Q\left( t \right)\text{dt}}}{t_{n} - t_{0}} = \sum_{k = 1}^{n}\frac{q_{k}(t_{k} - t_{k - 1})}{t_{n} - t_{0}} = \frac{\sum_{k = 1}^{n}{q_{k}w_{k}}}{\sum_{i = 1}^{n}w_{k}}\]</span></p>
+<p><span class="math display">\[\overline{Q} = \frac{\int_{t_{0}}^{t_{n}}{Q\left( t \right)\text{dt}}}{t_{n} - t_{0}} = \sum_{k = 1}^{n}\frac{q_{k}(t_{k} - t_{k - 1})}{t_{n} - t_{0}} = \frac{\sum_{k = 1}^{n}{q_{k}w_{k}}}{\sum_{i = 1}^{n}w_{k}}\]</span></p>
 <p>This form of the equation clearly shows that each value of <span class="math inline">\(q_{k}\)</span> is
 weighted by:</p>
 <p><span class="math display">\[\frac{w_{k}}{\sum_{i = 1}^{n}w_{k}} = \frac{w_{k}}{t_{n} - t_{0}} = \frac{(t_{k} - t_{k - 1})}{t_{n} - t_{0}}\]</span></p>
@@ -3408,25 +3415,25 @@ average.</p>
 <p>Now we can compute the time average for
 <span class="math inline">\(Q\left( t \right),\ N\left( t \right)\)</span> and <span class="math inline">\(B(t)\)</span>. Using the following
 formula and noting that <span class="math inline">\(t_{n} - t_{0} = 31\)</span></p>
-<p><span class="math display">\[\overline{Q}\left( t \right) = \sum_{k = 1}^{n}\frac{q_{k}(t_{k} - t_{k - 1})}{t_{n} - t_{0}}\]</span></p>
+<p><span class="math display">\[\overline{Q} = \sum_{k = 1}^{n}\frac{q_{k}(t_{k} - t_{k - 1})}{t_{n} - t_{0}}\]</span></p>
 <p>We have that the numerator computes as follows:</p>
 <p><span class="math display">\[\sum_{k = 1}^{n}{q_{k}\left( t_{k} - t_{k - 1} \right)} = 0\left( 13 - 0 \right) + \ 1\left( 14 - 13 \right) + \ 2\left( 15 - 14 \right) + \ 1\left( 17 - 15 \right) + \ 2\left( 19 - 17 \right)\]</span></p>
 <p><span class="math display">\[\  + 1\left( 19 - 19 \right) + \ 2\left( 21 - 19 \right) + \ 3\left( 22 - 21 \right) + \ 2\left( 24 - 22 \right) + \ \]</span></p>
 <p><span class="math display">\[1\left( 27 - 24 \right) + \ 2\left( 28 - 27 \right) + \ 1\left( 31 - 28 \right) = 28\]</span></p>
 <p>And, the final time-weighted average number in the queue ss:</p>
-<p><span class="math display">\[\overline{Q}\left( t \right) = \frac{28}{31} \cong 0.903\]</span></p>
+<p><span class="math display">\[\overline{Q} = \frac{28}{31} \cong 0.903\]</span></p>
 <p>The average number in the system and the average number of busy tellers
 can also be computed in a similar manner, resulting in:</p>
-<p><span class="math display">\[\overline{N}\left( t \right) = \frac{52}{31} \cong 1.677\]</span></p>
-<p><span class="math display">\[\overline{B}\left( t \right) = \frac{24}{31} \cong 0.7742\]</span></p>
-<p>The value of <span class="math inline">\(\overline{B}\left( t \right)\)</span> is most interesting for this
+<p><span class="math display">\[\overline{N} = \frac{52}{31} \cong 1.677\]</span></p>
+<p><span class="math display">\[\overline{B} = \frac{24}{31} \cong 0.7742\]</span></p>
+<p>The value of <span class="math inline">\(\overline{B}\)</span> is most interesting for this
 situation. Because there is only 1 teller, the fraction of the tellers
 that are busy is 0.7742. This quantity represents the <em>utilization</em> of
 the teller. The utilization of a resource represents the proportion of
 time that the resource is busy. Let c represent the number of units of a
 resource that are available. Then the utilization of the
 resource is defined as:</p>
-<p><span class="math display">\[\overline{U} = \frac{\overline{B}\left( t \right)}{c} = \frac{\int_{t_{0}}^{t_{n}}{B\left( t \right)\text{dt}}}{c(t_{n} - t_{0})}\]</span></p>
+<p><span class="math display">\[\overline{U} = \frac{\overline{B}}{c} = \frac{\int_{t_{0}}^{t_{n}}{B\left( t \right)\text{dt}}}{c(t_{n} - t_{0})}\]</span></p>
 <p>Notice that the numerator of this equation is simply the total time that
 the resource is busy. So, we are computing the total time that the
 resource is busy divided by the total time that the resource could be

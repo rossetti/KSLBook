@@ -258,12 +258,12 @@ satisfy the goal of observing long run performance. Examples of infinite
 horizon simulations include:
 
 -   A factory where you are interested in measuring the steady state
-    throughput
+    throughput.
 
 -   A hospital emergency room which is open 24 hours a day, 7 days of
-    week
+    week.
 
--   A telecommunications system which is always operational
+-   A telecommunications system which is always operational.
 
 Infinite horizon simulations are often tied to systems that operate
 continuously and for which the long-run or steady state behavior needs
@@ -597,7 +597,7 @@ Let's start with automatically collecting responses within comma separated value
 The first thing to note is how the output from a KSL simulation is organized. The KSL model class allows the user to specify the output directory for the model results.  If the user does not specify an output directory, the default directory will be within a folder called `kslOutput` that will be created within the same folder that the model was executed.  That is, the current working directory for the user. Within the `kslOutput` directory all KSL related work will be stored.  In particular, a unique directory derived from the name of the simulation will be created to hold all the results from a particular simulation model's execution. These locations can be changed, but the defaults are well-specified and useful.
 
 <div class="figure" style="text-align: center">
-<img src="./figures2/ch5/Ch5Example1OutputDir.png" alt="Organization of KSL Output Directories"  />
+<img src="./figures2/ch5/Ch5Example1OutputDirectory.png" alt="Organization of KSL Output Directories"  />
 <p class="caption">(\#fig:KSLOutputDir)Organization of KSL Output Directories</p>
 </div>
 
@@ -1068,8 +1068,17 @@ The `ReplicationDataCollector` class and the `ExperimentDataCollector` class (no
 This code creates a `ReplicationDataCollector` instance and configures the instance to collect the replication data for the total processing time and probability of over time responses. A simple output of the first 5 values of the data arrays is shown here.
 
 ```
-Total Processing Time | 482.417 | 461.544 | 521.417 | 476.025 | 534.281 |      
-P{total time > 480 minutes} | 1.000 | 0.000 | 1.000 | 0.000 | 1.000 | 
+   Total Processing Time P{total time > 480 minutes}
+ 0            482.417201                         1.0
+ 1            461.544205                         0.0
+ 2            521.417293                         1.0
+ 3            476.025297                         0.0
+ 4            534.281150                         1.0
+ 5            485.735690                         1.0
+ 6            477.468018                         0.0
+ 7            482.557886                         1.0
+ 8            499.628817                         1.0
+ 9            471.007443                         0.0
 ```
 
 <div class="figure" style="text-align: center">
@@ -1293,17 +1302,17 @@ KSL database.
 ### Querying the KSL Database
 
 The KSL database is a database and thus it can be queried from within
-Kotlin or from other programs. If you have an instance of the `KSLDatabase`
-as in you can extract information about the simulation run using the methods
+Kotlin or from other programs. If you have an instance of the `KSLDatabase,` 
+you can extract information about the simulation run using the methods
 of the `KSLDatabase` class. Since the underlying data is stored in a
 relational database, SQL queries can be used on the database. The
 discussion of writing and executing SQL queries is beyond
-the scope of this presentation. To facilitate output when using the KSL, the KSL
+the scope of this text. To facilitate output when using the KSL, the KSL
 has a few methods to be aware of, including:
 
 - `exportAllTablesAsCSV()` -- writes all the tables to separate CSV files
 - `exportDbToExcelWorkbook()` -- writes all the tables and views to a single Excel workbook
-- `multipleComparisonAnalyserFor(set of experiment name, response name)` -- returns an instance of the `MultipleComparisonAnalyzer` class in order to perform a multiple comparison analysis of a set of experiments on a specific response name.
+- `multipleComparisonAnalyzerFor(set of experiment name, response name)` -- returns an instance of the `MultipleComparisonAnalyzer` class in order to perform a multiple comparison analysis of a set of experiments on a specific response name.
 - a number of properties that return Kotlin [data frames](https://kotlin.github.io/dataframe/overview.html) of the underlying database tables.
 
 The data frame functionality was illustrated in the following code from the main execution method:
@@ -1905,7 +1914,7 @@ The basic idea behind Welch's graphical procedure is simple:
 -   Apply smoothing techniques to $\bar{Y}_{\cdot j}$ for
     $j = 1, 2, \ldots, m$
 
--   Visually assess where the plots start to converge
+-   Visually assess where the plot start to converge
 
 Let's apply the Welch's procedure to the replications generated from the
 Lindley equation simulation. Using the 10 replications stored in a spreadsheet
@@ -2367,8 +2376,8 @@ are good for independence but reduce the number of batches, resulting in
 higher variance for the estimator. [@schmeiser1982batch] performed an
 analysis that suggests that there is little benefit if the number of
 batches is larger than 30 and recommended that the number of batches
-remain in the range from 10 to 30. However, when trying to access
-whether or not the batches are independent it is better to have a large
+remain in the range from 10 to 30. However, when trying to assess
+whether the batches are independent, it is better to have a large
 number of batches ($>$ 100) so that tests on the lag-k correlation have
 better statistical properties.
 
@@ -2586,12 +2595,7 @@ under a wide-variety of controlled conditions. It is this ability to
 easily perform these what-if simulations that make simulation such a
 useful analysis tool.
 
-<!-- Figure [1.21](#fig:ch7MultipleInputs){reference-type="ref" -->
-<!-- reference="fig:ch7MultipleInputs"} represents the notion of using -->
-<!-- different inputs to get different outputs. -->
-
-<!-- ![Multiple Inputs on Models Represent Different System -->
-<!-- Configurations[]{label="fig:ch7MultipleInputs"}](./figures/ch7/ch7fig71.png){#fig:ch7MultipleInputs} -->
+<img src="./figures2/ch5/figMultipleInputsMultipleOutputs.png" width="60%" height="60%" style="display: block; margin: auto;" />
 
 Naturally, when you have different design configurations, you would like
 to know which configurations are better than the others. Since the
@@ -2910,7 +2914,7 @@ $$\begin{aligned}
 2.22 & \pm 0.0.393\end{aligned}$$
 
 Since this results in an interval $[1.827, 2.613]$ that does not contain
-zero, we can conclude that design 1 has the higher cost with 95%
+zero, we can conclude that design 1 has the higher throughput with 95%
 confidence.
 
 Of the two approaches (independent versus dependent) samples, the latter
@@ -3078,7 +3082,7 @@ Two Workers - Three Workers                  30 	      64.9215 	      33.0561
 Two Workers - Three Workers	[52.57814571744155, 77.26483056807177]
 ```
 
-We see the that the sample standard deviation on the difference, $s_d = 33.0561$ for the case of common random numbers has been significantly reducesd (about a 43\% reduction in this case).  What does this mean for the simulation analyst?  First the confidence interval half-width will also be shortened. Thus, we have a tighter margin of error for the same confidence level.  This may be more important when the results are closer and when it takes significantly longer to execute the models.  That is, we get more precision on the estimate of the difference for no extra computing.
+We see the that the sample standard deviation on the difference, $s_d = 33.0561$ for the case of common random numbers has been significantly reduced (about a 43\% reduction in this case).  What does this mean for the simulation analyst?  First the confidence interval half-width will also be shortened. Thus, we have a tighter margin of error for the same confidence level.  This may be more important when the results are closer and when it takes significantly longer to execute the models.  That is, we get more precision on the estimate of the difference for no extra computing.
 
 It is important to note that setting the reset start stream option to true as indicated here is predicated on running both models in the same program execution.  If we had run the two worker model today and then changed the number of workers to 3 for a run tomorrow, the simulations would have used the same random number streams (common random numbers by default).  If we had saved the results in the database *and* reattached the same database to the execution, we would capture the results from both runs (just like we did in this example).  Thus, we would still have used common random numbers. You need to be careful if you take this approach not to over write your earlier results by properly utilizing the KSL database functionality.
 
@@ -3225,7 +3229,7 @@ Multiple comparison procedures are described in [@goldsman1998comparing] and the
 therein. See also [@law2007simulation] for how these methods relate to
 other ranking and selection methods.
 
-While it is beyond the scope of this textbook to review multiple comparison with the best (MCB) procedures, it is useful to have a basic understanding of the form of the confidence interval constructed by these procedures.  To see how MCB procedures avoid part of the issues with having a large number of confidence intervals, we can note that the confidence interval is based on the difference between the best and the best of the rest.  Suppose we have $k$ system configurations to compare and suppose that somehow you knew that the $i^{th}$ system *is the best*.  Now, consider a confidence interval system's $i$ performance metric, $\theta_i$, of the following form:
+While it is beyond the scope of this textbook to review multiple comparison with the best (MCB) procedures, it is useful to have a basic understanding of the form of the confidence interval constructed by these procedures.  To see how MCB procedures avoid part of the issues with having a large number of confidence intervals, we can note that the confidence interval is based on the difference between the best and the best of the rest.  Suppose we have $k$ system configurations to compare and suppose that somehow you knew that the $i^{th}$ system *is the best*.  Now, consider a confidence interval for system's $i$ performance metric, $\theta_i$, of the following form:
 
 $$
 \theta_i - \max_{j \neq i} \theta_j
@@ -3286,13 +3290,13 @@ The `MultipleComparisonAnalyzer` class will automatically compute the following:
 - multiple comparison confidence intervals based on finding the maximum value
 - multiple comparison confidence intervals based on finding the minimum value
  
-The user can specify the indifference zone parameter to be included in the confidence interval calculations.  The `MultipleComparisonAnalyzer` class does not utilize the probability of correct selection or assume some underlying distribution.  The confidence intervals that are computed have the following forms.  Define $Y_{ij}$ as the $i^{th}$ observation of system $j$. Thus, $\bar{Y}_{\cdot j}$ is the mean performance of system $j$. Let $\delta$ be the indifference zone parameter.  When selecting the system with the largest $\bar{Y}_{\cdot j}$ as the best the confidence interval is:
+The user can specify the indifference zone parameter to be included in the confidence interval calculations.  The `MultipleComparisonAnalyzer` class does not utilize the probability of correct selection or assume some underlying distribution.  The confidence intervals that are computed have the following forms.  Define $Y_{ij}$ as the $i^{th}$ observation of system $j$. Thus, $\bar{Y}_{\cdot j}$ is the mean performance of system $j$. Let $\delta$ be the indifference zone parameter.  When selecting the system with the largest $\bar{Y}_{\cdot j}$ as the best, the confidence intervals for configurations $i=1,2,\dots,k$ are computed by:
 
-$\min\{0, \bar{Y}_{\cdot j} - \max_{j \neq i}\bar{Y}_{\cdot j}- \delta \} \leq \theta_i - \max_{j \neq i} \theta_j \leq \max\{0, \bar{Y}_{\cdot j} - \max_{j \neq i}\bar{Y}_{\cdot j}- \delta \} \text{for} \ i=1,2, \dots,k$
+$\min\{0, \bar{Y}_{\cdot j} - \max_{j \neq i}\bar{Y}_{\cdot j}- \delta \} \leq \theta_i - \max_{j \neq i} \theta_j \leq \max\{0, \bar{Y}_{\cdot j} - \max_{j \neq i}\bar{Y}_{\cdot j}- \delta \}$
 
-When selecting the system with the smallest $\bar{Y}_{\cdot j}$ as the best the confidence interval is:
+When selecting the system with the smallest $\bar{Y}_{\cdot j}$ as the best, the confidence intervals for configurations $i=1,2,\dots,k$ are computed by:
 
-$\min\{0, \bar{Y}_{\cdot j} - \min_{j \neq i}\bar{Y}_{\cdot j}- \delta \} \leq \theta_i - \max_{j \neq i} \theta_j \leq \max\{0, \bar{Y}_{\cdot j} - \min_{j \neq i}\bar{Y}_{\cdot j}- \delta \} \text{for} \ i=1,2, \dots,k$
+$\min\{0, \bar{Y}_{\cdot j} - \min_{j \neq i}\bar{Y}_{\cdot j}- \delta \} \leq \theta_i - \max_{j \neq i} \theta_j \leq \max\{0, \bar{Y}_{\cdot j} - \min_{j \neq i}\bar{Y}_{\cdot j}- \delta \}$
 
 The results for the example code previously discussed illustrate the form of these confidence intervals.
 
@@ -3318,7 +3322,138 @@ Notice how the form of these confidence interval equations require that for the 
 
 Further details of such procedures can be found in [@goldsman1998comparing]. As a note, some of those procedures require the computation of critical values from the multivariate $T$ distribution and Rinott's constant. Rinott's constant can be computed using the `Rinott` class within the `ksl.utilities.statistics` package and limited values for the multivariate $T$ distribution are available via the `MultipleComparisonAnalyzer` class's companion object. Finally, the quantiles of the Tukey distribution are available via the `Tukey` class located in the `ksl.utilities.distributions` package.
 
-To apply the `MultipleComparisonAnalyzer` class on a KSL simulation, we can just attach a `KSLDatabaseObserver` instance and ask for the `MultipleComparisonAnalyzer` instance as previously illustrated for the pallet model.
+To illustrate the application of MCB methods, let us consider the two-stage Bonferroni based procedure developed by [@nelsonMatejcik1995] and also described in [@goldsman1998comparing] as well as in [@banks2005discreteevent]. This presentation follows the one in [@banks2005discreteevent]. To apply the procedure, the analyst specifies a probability of correct selection (PCS) as $(1-\alpha)$ and performs the experimentation in two-stages. The first stage is essentially a pilot set of replications from which the variability of the design configurations is estimated and used to plan the second stage of the procedure. The procedure is applicable when the data is normally distributed and can be applied if the observations are independent or if CRN has been used.
+
+**Two-Stage Bonferroni Procedure**
+
+1. Specify the indifference parameter, $\delta$, PCS as $(1-\alpha)$, the initial sample size, $n_0$, and compute $t= t_{1-\alpha/(k-1),n_0 - 1}$
+
+2. Execute the $n_0$ replications for each system and capture $Y_{ij}$ as the $i^{th}$ observation of system $j$
+
+3. Compute $\bar{Y}_{\cdot j}$ as the mean performance of system $j$, for $j=1,2,\cdots,k$. Then for all $i \neq j$, compute the sample variance of the differences and the largest sample variance $\hat{S}^2 = max_{i \neq j}S^{2}_{ij}$
+  
+\begin{equation}
+S^{2}_{ij} = \frac{1}{n_0 - 1} \sum_{r=1}^{n_0} ((Y_{ri} - Y_{rj})  - (\bar{Y}_{\cdot i} - \bar{Y}_{\cdot j}))^2
+\end{equation}
+
+4. Calculate the second stage sample size:
+
+\begin{equation}
+n = max \Bigl\{ n_0, \Bigl \lceil \frac{t^2\hat{S}^2}{\delta^2} \Bigr \rceil \Bigr\}
+\end{equation}
+
+5. Make $n - n_0$ additional replications (or just make $n$ by re-running). Capture $Y_{ij}$ as the $i^{th}$ observation of system $j$
+
+6. Calculate the overall sample means for $j=1, 2,\cdots, k$ for each design.
+  
+\begin{equation}
+\bar{Y}_{\cdot j} = \frac{1}{n}\sum_{r=1}^{n}Y_{rj}
+\end{equation}
+
+7. Select the system with the largest $\bar{Y}_{\cdot j}$ as the best and if maximizing form the confidence intervals:
+  
+  $\min\{0, \bar{Y}_{\cdot j} - \max_{j \neq i}\bar{Y}_{\cdot j}- \delta \} \leq \theta_i - \max_{j \neq i} \theta_j \leq \max\{0, \bar{Y}_{\cdot j} - \max_{j \neq i}\bar{Y}_{\cdot j}- \delta \}$
+
+If minimizing, form the confidence intervals:
+
+$\min\{0, \bar{Y}_{\cdot j} - \min_{j \neq i}\bar{Y}_{\cdot j}- \delta \} \leq \theta_i - \max_{j \neq i} \theta_j \leq \max\{0, \bar{Y}_{\cdot j} - \min_{j \neq i}\bar{Y}_{\cdot j}- \delta \}$
+
+To apply the `MultipleComparisonAnalyzer` class on a KSL simulation, we can just attach a `KSLDatabaseObserver` instance and ask for the `MultipleComparisonAnalyzer` instance as previously illustrated for the pallet model.  
+
+The `MultipleComparisonAnalyzer` class automatically computes everything that is needed to apply the Two-Stage Bonferroni procedure. The `toString()` method can be used to see all the results. The second stage sample size can be computed via the function `secondStageSampleSizeNM(),` and the maximum variance can be found from property, `maxVarianceOfDifferences.` In addition, the maximum or minimum performer can be noted from the `nameOfMaximumAverageOfData` and `nameOfMinimumAverageOfData` properties. The respective performance of the maximum and minimum via the `maximumAverageOfData` and `minimumAverageOfData` properties. Finally, the MCB intervals for each case are found from the `mcbMaxIntervals(delta)` and `mcbMinIntervals(delta)` functions respectively. Note that if $n = n_0$ in step 5, then no additional replications are required and the PCS will still be met.  [@nelsonMatejcik1995] recommend that the initial number of replications in the first stage should be greater than or equal to 10 ($n_0 \geq 10$). The two-stage Bonferroni procedure is somewhat conservative in recommending the sample size requirements. If the number of replications is of concern, then the reader should consult [@banks2005discreteevent] for other procedures.
+
+The following KSL code illustrates the basic use of the `MultipleComparisonAnalyzer` class on some data.
+
+```kt
+fun main() {
+    val data = LinkedHashMap<String, DoubleArray>()
+    data["One"] = doubleArrayOf(63.72, 32.24, 40.28, 36.94, 36.29, 56.94, 34.10, 63.36, 49.29, 87.20)
+    data["Two"] = doubleArrayOf(63.06, 31.78, 40.32, 37.71, 36.79, 57.93, 33.39, 62.92, 47.67, 80.79)
+    data["Three"] = doubleArrayOf(57.74, 29.65, 36.52, 35.71, 33.81, 51.54, 31.39, 57.24, 42.63, 67.27)
+    data["Four"] = doubleArrayOf(62.63, 31.56, 39.87, 37.35, 36.65, 57.15, 33.30, 62.21, 47.46, 79.60)
+    val mca = MultipleComparisonAnalyzer(data)
+    val out = PrintWriter(System.out, true)
+    mca.writeDataAsCSVFile(out)
+    out.println()
+    println(mca)
+    println("num data sets: " + mca.numberDatasets)
+    println(mca.dataNames.contentToString())
+    val r = mca.secondStageSampleSizeNM(2.0, 0.95)
+    println("Second stage sampling recommendation R = $r")
+}
+```
+
+The output from the running of the code contains everything you need for a MCB analysis.
+
+```
+Multiple Comparison Report: Statistical Summary Report
+
+Raw Data 
+Name                       Count 	      Average 	    Std. Dev. 
+--------------------------------------------------------------- 
+One                        10 	      50.0360 	      17.7027 
+Two                        10 	      49.2360 	      16.2450 
+Three                      10 	      44.3500 	      13.1509 
+Four                       10 	      48.7780 	      15.9415 
+-------------------------------------------------------------- 
+
+95.0% Confidence Intervals on Data
+One	[37.37228240333723, 62.69971759666277]
+Two	[37.61502264027472, 60.85697735972529]
+Three	[34.94237884397989, 53.7576211560201]
+Four	[37.37412553653087, 60.18187446346914]
+
+Statistical Summary Report
+
+Difference Data 
+Name                              Count 	      Average 	    Std. Dev. 
+----------------------------------------------------------------------- 
+One - Two                         10 	       0.8000 	       2.1208 
+One - Three                       10 	       5.6860 	       5.3384 
+One - Four                        10 	       1.2580 	       2.3430 
+Two - Three                       10 	       4.8860 	       3.4435 
+Two - Four                        10 	       0.4580 	       0.3445 
+Three - Four                      10 	      -4.4280 	       3.1384 
+----------------------------------------------------------------------- 
+
+95.0% Confidence Intervals on Difference Data
+One - Two	[-0.717163895232598, 2.317163895232595]
+One - Three	[1.8671698996711696, 9.504830100328828]
+One - Four	[-0.41806967690470764, 2.934069676904709]
+Two - Three	[2.422703009361264, 7.349296990638738]
+Two - Four	[0.21155519141551002, 0.7044448085844948]
+Three - Four	[-6.673063053959199, -2.182936946040797]
+
+Max variance = 28.498048888888913
+Min performer = Three
+Min performance = 44.349999999999994
+Max performer = One
+Max performance = 50.036
+Min difference = Three - Four
+Min difference value = -4.427999999999998
+Max difference = One - Three
+Max difference value = 5.685999999999999
+
+MCB Maximum Intervals
+Indifference delta: 0.0
+Name	 	Interval
+One	 	[0.0, 0.7999999999999972]
+Two	 	[-0.7999999999999972, 0.0]
+Three	 	[-5.686000000000007, 0.0]
+Four	 	[-1.2579999999999956, 0.0]
+
+MCB Minimum Intervals
+Indifference delta: 0.0
+Name	 	Interval
+One	 	[0.0, 5.686000000000007]
+Two	 	[0.0, 4.88600000000001]
+Three	 	[-4.4280000000000115, 0.0]
+Four	 	[0.0, 4.4280000000000115]
+
+num data sets: 4
+[One, Two, Three, Four]
+Second stage sampling recommendation R = 45
+```
 
 ## Summary {#simoasummary}
 

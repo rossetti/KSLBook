@@ -1,7 +1,7 @@
 --- 
 title: "Simulation Modeling using the Kotlin Simulation Library (KSL)"
 author: "Manuel D. Rossetti"
-date: "2023-08-22"
+date: "2023-11-05"
 site: bookdown::bookdown_site
 output: bookdown::gitbook
 header-includes:
@@ -83,14 +83,13 @@ Artifacts for using the KSL have been made available on Maven central.
 
 The KSL uses the following open source libraries.
 
-- [Apache Commons Math](https://commons.apache.org/proper/commons-math/)
+- [Hipparchus: a mathematics Library](https://hipparchus.org/index.html)
 - [Apache POI](https://poi.apache.org/)
 - [Apache Derby](https://db.apache.org/derby/)
 - [SQLite](https://github.com/xerial/sqlite-jdbc)
 - [PostgreSQL](https://jdbc.postgresql.org/)
 - [HikariCP](https://github.com/brettwooldridge/HikariCP)
 - [OpenCSV](http://opencsv.sourceforge.net/)
-- [Ktorm](https://www.ktorm.org/)
 - [Dataframe](https://github.com/Kotlin/dataframe)
 - [Microutils](https://github.com/MicroUtils/kotlin-logging)
 

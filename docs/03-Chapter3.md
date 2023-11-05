@@ -67,7 +67,7 @@ fun main() {
     val pGT20 = Statistic("P(X>=20")
     // generate 100 values
     for (i in 1..100) {
-        // getValue() method returns generated values
+        // value property returns a generated value
         val x = n.value
         stat.collect(x)
         pGT20.collect(x >= 20.0)

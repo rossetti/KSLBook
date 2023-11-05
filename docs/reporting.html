@@ -23,7 +23,7 @@
 <meta name="author" content="Manuel D. Rossetti" />
 
 
-<meta name="date" content="2022-12-01" />
+<meta name="date" content="2022-12-02" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -236,14 +236,13 @@ div.csl-indent {
 <ul>
 <li class="chapter" data-level="5.1" data-path="simoadatatypes.html"><a href="simoadatatypes.html"><i class="fa fa-check"></i><b>5.1</b> Types of Statistical Variables</a></li>
 <li class="chapter" data-level="5.2" data-path="simoasimtypes.html"><a href="simoasimtypes.html"><i class="fa fa-check"></i><b>5.2</b> Types of Simulation With Respect To Output Analysis</a></li>
-<li class="chapter" data-level="5.3" data-path="simoafinhorizon.html"><a href="simoafinhorizon.html"><i class="fa fa-check"></i><b>5.3</b> Analysis of Finite Horizon Simulations</a>
+<li class="chapter" data-level="5.3" data-path="simoafinhorizon.html"><a href="simoafinhorizon.html"><i class="fa fa-check"></i><b>5.3</b> Analysis of Finite Horizon Simulations</a></li>
+<li class="chapter" data-level="5.4" data-path="simoafinhorizonex.html"><a href="simoafinhorizonex.html"><i class="fa fa-check"></i><b>5.4</b> Capturing Output for a Simple Finite Horizon Simulation</a>
 <ul>
-<li class="chapter" data-level="5.3.1" data-path="simoafinhorizon.html"><a href="simoafinhorizon.html#simoafinhorizonsamplesize"><i class="fa fa-check"></i><b>5.3.1</b> Determining the Number of Replications</a></li>
-</ul></li>
-<li class="chapter" data-level="5.4" data-path="simoafinhorizonex.html"><a href="simoafinhorizonex.html"><i class="fa fa-check"></i><b>5.4</b> Finite Horizon Example</a>
-<ul>
-<li class="chapter" data-level="5.4.1" data-path="simoafinhorizonex.html"><a href="simoafinhorizonex.html#conceptualizing-the-model"><i class="fa fa-check"></i><b>5.4.1</b> Conceptualizing the Model</a></li>
-<li class="chapter" data-level="5.4.2" data-path="simoafinhorizonex.html"><a href="simoafinhorizonex.html#simoaseqsampling"><i class="fa fa-check"></i><b>5.4.2</b> Sequential Sampling for Finite Horizon Simulations</a></li>
+<li class="chapter" data-level="5.4.1" data-path="simoafinhorizonex.html"><a href="simoafinhorizonex.html#ksl-functionality-for-capturing-statistical-results"><i class="fa fa-check"></i><b>5.4.1</b> KSL Functionality for Capturing Statistical Results</a></li>
+<li class="chapter" data-level="5.4.2" data-path="simoafinhorizonex.html"><a href="simoafinhorizonex.html#additional-remarks"><i class="fa fa-check"></i><b>5.4.2</b> Additional Remarks</a></li>
+<li class="chapter" data-level="5.4.3" data-path="simoafinhorizonex.html"><a href="simoafinhorizonex.html#querying-the-ksl-database"><i class="fa fa-check"></i><b>5.4.3</b> Querying the KSL Database</a></li>
+<li class="chapter" data-level="5.4.4" data-path="simoafinhorizonex.html"><a href="simoafinhorizonex.html#simoaseqsampling"><i class="fa fa-check"></i><b>5.4.4</b> Sequential Sampling for Finite Horizon Simulations</a></li>
 </ul></li>
 <li class="chapter" data-level="5.5" data-path="simoainfhorizon.html"><a href="simoainfhorizon.html"><i class="fa fa-check"></i><b>5.5</b> Analysis of Infinite Horizon Simulations</a>
 <ul>
@@ -284,7 +283,7 @@ div.csl-indent {
 <li class="chapter" data-level="B.2.1" data-path="appRNRVs.html"><a href="appRNRVs.html#inverse-transform-method"><i class="fa fa-check"></i><b>B.2.1</b> Inverse Transform Method</a></li>
 <li class="chapter" data-level="B.2.2" data-path="appRNRVs.html"><a href="appRNRVs.html#convolution"><i class="fa fa-check"></i><b>B.2.2</b> Convolution</a></li>
 <li class="chapter" data-level="B.2.3" data-path="appRNRVs.html"><a href="appRNRVs.html#acceptancerejection"><i class="fa fa-check"></i><b>B.2.3</b> Acceptance/Rejection</a></li>
-<li class="chapter" data-level="B.2.4" data-path="appRNRVs.html"><a href="appRNRVs.html#appRNRVsubsecMTSRV"><i class="fa fa-check"></i><b>B.2.4</b> Mixture Distributions, Truncated Distributions, and Shifted Random Variables</a></li>
+<li class="chapter" data-level="B.2.4" data-path="appRNRVs.html"><a href="appRNRVs.html#AppRNRVsubsecMTSRV"><i class="fa fa-check"></i><b>B.2.4</b> Mixture Distributions, Truncated Distributions, and Shifted Random Variables</a></li>
 </ul></li>
 <li class="chapter" data-level="B.3" data-path="summary-2.html"><a href="summary-2.html"><i class="fa fa-check"></i><b>B.3</b> Summary</a></li>
 <li class="chapter" data-level="B.4" data-path="exercises-4.html"><a href="exercises-4.html"><i class="fa fa-check"></i><b>B.4</b> Exercises</a></li>
@@ -381,13 +380,13 @@ div.csl-indent {
 <div id="reporting" class="section level2 hasAnchor" number="6.1">
 <h2><span class="header-section-number">A.1</span> Reporting<a href="reporting.html#reporting" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>We have already introduced the <code>StatisticReporter</code> class. Beside the ability to create a string representation of a half-width summary statistical report, the class has the ability to create a string representation of the report as a LaTeX table. Also found in the <a href="https://rossetti.git-pages.uark.edu/JSL-Documentation/jsl/utilities/reporting/package-summary.html"><code>jsl.utilities.reporting</code></a> package is the <code>JSL</code> class. This class provide ready access to methods to create text files and to write to text files. It has a static field called <code>out</code> that is a <code>PrintWriter</code>. Thus, the field can be used globally to write out to a text file called <code>jslOutput.txt</code> that is written into the <code>jslOutput</code> directory.</p>
-<div class="sourceCode" id="cb92"><pre class="sourceCode java"><code class="sourceCode java"><span id="cb92-1"><a href="reporting.html#cb92-1" aria-hidden="true" tabindex="-1"></a><span class="co">// write string to file jslOutput.txt found in directory jslOutput</span></span>
-<span id="cb92-2"><a href="reporting.html#cb92-2" aria-hidden="true" tabindex="-1"></a><span class="co">// JSL.out can be used just like System.out except text goes to a file</span></span>
-<span id="cb92-3"><a href="reporting.html#cb92-3" aria-hidden="true" tabindex="-1"></a>JSL<span class="op">.</span><span class="fu">out</span><span class="op">.</span><span class="fu">println</span><span class="op">(</span><span class="st">&quot;Hello World!&quot;</span><span class="op">);</span></span></code></pre></div>
+<div class="sourceCode" id="cb103"><pre class="sourceCode java"><code class="sourceCode java"><span id="cb103-1"><a href="reporting.html#cb103-1" aria-hidden="true" tabindex="-1"></a><span class="co">// write string to file jslOutput.txt found in directory jslOutput</span></span>
+<span id="cb103-2"><a href="reporting.html#cb103-2" aria-hidden="true" tabindex="-1"></a><span class="co">// JSL.out can be used just like System.out except text goes to a file</span></span>
+<span id="cb103-3"><a href="reporting.html#cb103-3" aria-hidden="true" tabindex="-1"></a>JSL<span class="op">.</span><span class="fu">out</span><span class="op">.</span><span class="fu">println</span><span class="op">(</span><span class="st">&quot;Hello World!&quot;</span><span class="op">);</span></span></code></pre></div>
 <p>One nice feature of using <code>JSL.out</code> is that the output can be turned off. The field <code>out</code> is actually an instance of <code>LogPrintWriter</code>, which provides <em>very</em> simple logging capabilities. By setting <code>out.OUTPUT_ON = false</code> all writing via <code>JSL.out</code> will not happen. When doing small programs, this can be useful for debugging and tracing; however, this is no substitute for using a full logger. The JSL supports logging through the <a href="https://www.slf4j.org/index.html">SL4J</a> logging facade. While SL4J loggers can and should be used anywhere in your code, if you want a simple global logger that is already set up, you can used the <code>JSL.LOGGER</code> field.</p>
 <p>In addition, the <code>JSL</code> class facilitates the creation of files and instances of <code>PrintWriter</code> that automatically catch the I/O exceptions through various static methods.</p>
-<div class="sourceCode" id="cb93"><pre class="sourceCode java"><code class="sourceCode java"><span id="cb93-1"><a href="reporting.html#cb93-1" aria-hidden="true" tabindex="-1"></a><span class="co">// make a file and write some data to it, file will be directory jslOutput, by default</span></span>
-<span id="cb93-2"><a href="reporting.html#cb93-2" aria-hidden="true" tabindex="-1"></a><span class="bu">PrintWriter</span> writer <span class="op">=</span> JSL<span class="op">.</span><span class="fu">makePrintWriter</span><span class="op">(</span><span class="st">&quot;data&quot;</span><span class="op">,</span> <span class="st">&quot;csv&quot;</span><span class="op">);</span></span></code></pre></div>
+<div class="sourceCode" id="cb104"><pre class="sourceCode java"><code class="sourceCode java"><span id="cb104-1"><a href="reporting.html#cb104-1" aria-hidden="true" tabindex="-1"></a><span class="co">// make a file and write some data to it, file will be directory jslOutput, by default</span></span>
+<span id="cb104-2"><a href="reporting.html#cb104-2" aria-hidden="true" tabindex="-1"></a><span class="bu">PrintWriter</span> writer <span class="op">=</span> JSL<span class="op">.</span><span class="fu">makePrintWriter</span><span class="op">(</span><span class="st">&quot;data&quot;</span><span class="op">,</span> <span class="st">&quot;csv&quot;</span><span class="op">);</span></span></code></pre></div>
 <p>There are methods to make instances of java’s <code>File</code> class, make <code>PrintWriter</code> instances, get a path to the working directory and cause <code>JSL.out</code> to be redirected to the console. Please see the java docs for additional details.</p>
 </div>
             </section>

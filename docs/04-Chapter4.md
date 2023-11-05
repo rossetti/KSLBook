@@ -1592,7 +1592,7 @@ function can be defined for $Q(t)$ This function is called the
 time-average (and represents the *mean value* of the $Q(t)$
 function):
 
-$$\overline{Q}\left( n \right) = \frac{\int_{t_{0}}^{t_{n}}{Q\left( t \right)\text{dt}}}{t_{n} - t_{0}}$$
+$$\overline{Q} = \frac{\int_{t_{0}}^{t_{n}}{Q\left( t \right)\text{dt}}}{t_{n} - t_{0}}$$
 
 This function represents the *average with respect to time* of the given
 state variable. This type of statistical variable is called time-persistent
@@ -1602,7 +1602,7 @@ In the particular case where $Q(t)$ represents the number of customers
 in the queue, $Q(t)$ will take on constant values during intervals of
 time corresponding to when the queue has a certain number of customers. Let $Q\left( t \right) = \ q_{k}\ $for$\ t_{k - 1} \leq t \leq t_{k}$. Then, the time-average can be rewritten as follows:
 
-$$\overline{Q}\left( t \right) = \frac{\int_{t_{0}}^{t_{n}}{Q\left( t \right)\text{dt}}}{t_{n} - t_{0}} = \sum_{k = 1}^{n}\frac{q_{k}(t_{k} - t_{k - 1})}{t_{n} - t_{0}}$$
+$$\overline{Q} = \frac{\int_{t_{0}}^{t_{n}}{Q\left( t \right)\text{dt}}}{t_{n} - t_{0}} = \sum_{k = 1}^{n}\frac{q_{k}(t_{k} - t_{k - 1})}{t_{n} - t_{0}}$$
 Note that $q_{k}(t_{k} - t_{k - 1})$ is the area under the curve, $Q\left( t \right)$ over the interval $t_{k - 1} \leq t \leq t_{k}$ and because $$t_{n} - t_{0} = \left( t_{1} - t_{0} \right) + \left( t_{2} - t_{1} \right) + \left( t_{3} - t_{2} \right) + \ \cdots + \left( t_{n - 1} - t_{n - 2} \right) + \ \left( t_{n} - t_{n - 1} \right)$$
 we can write, 
 $$t_{n} - t_{0} = \sum_{k = 1}^{n}{t_{k} - t_{k - 1}}$$
@@ -1613,7 +1613,7 @@ that each value of $q_{k}$ is weighted by the length of time that the
 variable has the value. If we define, $w_{k} = (t_{k} - t_{k - 1})$,
 then we can re-write the time average as:
 
-$$\overline{Q}\left( t \right) = \frac{\int_{t_{0}}^{t_{n}}{Q\left( t \right)\text{dt}}}{t_{n} - t_{0}} = \sum_{k = 1}^{n}\frac{q_{k}(t_{k} - t_{k - 1})}{t_{n} - t_{0}} = \frac{\sum_{k = 1}^{n}{q_{k}w_{k}}}{\sum_{i = 1}^{n}w_{k}}$$
+$$\overline{Q} = \frac{\int_{t_{0}}^{t_{n}}{Q\left( t \right)\text{dt}}}{t_{n} - t_{0}} = \sum_{k = 1}^{n}\frac{q_{k}(t_{k} - t_{k - 1})}{t_{n} - t_{0}} = \frac{\sum_{k = 1}^{n}{q_{k}w_{k}}}{\sum_{i = 1}^{n}w_{k}}$$
 
 This form of the equation clearly shows that each value of $q_{k}$ is
 weighted by:
@@ -1628,7 +1628,7 @@ Now we can compute the time average for
 $Q\left( t \right),\ N\left( t \right)$ and $B(t)$. Using the following
 formula and noting that $t_{n} - t_{0} = 31$
 
-$$\overline{Q}\left( t \right) = \sum_{k = 1}^{n}\frac{q_{k}(t_{k} - t_{k - 1})}{t_{n} - t_{0}}$$
+$$\overline{Q} = \sum_{k = 1}^{n}\frac{q_{k}(t_{k} - t_{k - 1})}{t_{n} - t_{0}}$$
 
 We have that the numerator computes as follows:
 
@@ -1640,16 +1640,16 @@ $$1\left( 27 - 24 \right) + \ 2\left( 28 - 27 \right) + \ 1\left( 31 - 28 \right
 
 And, the final time-weighted average number in the queue ss:
 
-$$\overline{Q}\left( t \right) = \frac{28}{31} \cong 0.903$$
+$$\overline{Q} = \frac{28}{31} \cong 0.903$$
 
 The average number in the system and the average number of busy tellers
 can also be computed in a similar manner, resulting in:
 
-$$\overline{N}\left( t \right) = \frac{52}{31} \cong 1.677$$
+$$\overline{N} = \frac{52}{31} \cong 1.677$$
 
-$$\overline{B}\left( t \right) = \frac{24}{31} \cong 0.7742$$
+$$\overline{B} = \frac{24}{31} \cong 0.7742$$
 
-The value of $\overline{B}\left( t \right)$ is most interesting for this
+The value of $\overline{B}$ is most interesting for this
 situation. Because there is only 1 teller, the fraction of the tellers
 that are busy is 0.7742. This quantity represents the *utilization* of
 the teller. The utilization of a resource represents the proportion of
@@ -1657,7 +1657,7 @@ time that the resource is busy. Let c represent the number of units of a
 resource that are available. Then the utilization of the
 resource is defined as:
 
-$$\overline{U} = \frac{\overline{B}\left( t \right)}{c} = \frac{\int_{t_{0}}^{t_{n}}{B\left( t \right)\text{dt}}}{c(t_{n} - t_{0})}$$
+$$\overline{U} = \frac{\overline{B}}{c} = \frac{\int_{t_{0}}^{t_{n}}{B\left( t \right)\text{dt}}}{c(t_{n} - t_{0})}$$
 
 Notice that the numerator of this equation is simply the total time that
 the resource is busy. So, we are computing the total time that the
@@ -3193,6 +3193,8 @@ The main model elements covered included:
     
 `EventActionIfc:`   An interface used to define an action() method that represents event
     logic within the simulation.
+    
+`Queue:` A sub-class of `ModelElement` that holds instances of the class `QObject` and will *automatically* collect statistics on the number in the queue and the time spent in the queue.
     
 `EventGenerator:`   A subclass of `ModelElement` that facilitates the repeated generation of events.
 

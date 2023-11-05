@@ -23,7 +23,7 @@
 <meta name="author" content="Manuel D. Rossetti" />
 
 
-<meta name="date" content="2023-08-22" />
+<meta name="date" content="2023-11-05" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -183,7 +183,7 @@ div.csl-indent {
 <li class="chapter" data-level="1.5" data-path="randomness-in-simulation.html"><a href="randomness-in-simulation.html"><i class="fa fa-check"></i><b>1.5</b> Randomness in Simulation</a></li>
 <li class="chapter" data-level="1.6" data-path="simulation-languages.html"><a href="simulation-languages.html"><i class="fa fa-check"></i><b>1.6</b> Simulation Languages</a></li>
 <li class="chapter" data-level="1.7" data-path="ch1:sec:simMeth.html"><a href="ch1:sec:simMeth.html"><i class="fa fa-check"></i><b>1.7</b> Simulation Methodology</a></li>
-<li class="chapter" data-level="1.8" data-path="overview-of-the-kotline-simulation-library.html"><a href="overview-of-the-kotline-simulation-library.html"><i class="fa fa-check"></i><b>1.8</b> Overview of the Kotline Simulation Library</a></li>
+<li class="chapter" data-level="1.8" data-path="overview-of-the-kotlin-simulation-library.html"><a href="overview-of-the-kotlin-simulation-library.html"><i class="fa fa-check"></i><b>1.8</b> Overview of the Kotlin Simulation Library</a></li>
 <li class="chapter" data-level="1.9" data-path="exercises.html"><a href="exercises.html"><i class="fa fa-check"></i><b>1.9</b> Exercises</a></li>
 </ul></li>
 <li class="chapter" data-level="2" data-path="ch2rng.html"><a href="ch2rng.html"><i class="fa fa-check"></i><b>2</b> Modeling Randomness</a>
@@ -204,8 +204,15 @@ div.csl-indent {
 <li class="chapter" data-level="2.2.4" data-path="rvg.html"><a href="rvg.html#functions-of-random-variables"><i class="fa fa-check"></i><b>2.2.4</b> Functions of Random Variables</a></li>
 </ul></li>
 <li class="chapter" data-level="2.3" data-path="probability-distribution-models.html"><a href="probability-distribution-models.html"><i class="fa fa-check"></i><b>2.3</b> Probability Distribution Models</a></li>
-<li class="chapter" data-level="2.4" data-path="summary.html"><a href="summary.html"><i class="fa fa-check"></i><b>2.4</b> Summary</a></li>
-<li class="chapter" data-level="2.5" data-path="exercises-1.html"><a href="exercises-1.html"><i class="fa fa-check"></i><b>2.5</b> Exercises</a></li>
+<li class="chapter" data-level="2.4" data-path="distribution-fitting-using-the-ksl.html"><a href="distribution-fitting-using-the-ksl.html"><i class="fa fa-check"></i><b>2.4</b> Distribution Fitting Using the KSL</a>
+<ul>
+<li class="chapter" data-level="2.4.1" data-path="distribution-fitting-using-the-ksl.html"><a href="distribution-fitting-using-the-ksl.html#estimating-distribution-parameters"><i class="fa fa-check"></i><b>2.4.1</b> Estimating Distribution Parameters</a></li>
+<li class="chapter" data-level="2.4.2" data-path="distribution-fitting-using-the-ksl.html"><a href="distribution-fitting-using-the-ksl.html#continuous-distribution-recommendation-framework"><i class="fa fa-check"></i><b>2.4.2</b> Continuous Distribution Recommendation Framework</a></li>
+<li class="chapter" data-level="2.4.3" data-path="distribution-fitting-using-the-ksl.html"><a href="distribution-fitting-using-the-ksl.html#discrete-distribution-framework"><i class="fa fa-check"></i><b>2.4.3</b> Discrete Distribution Framework</a></li>
+<li class="chapter" data-level="2.4.4" data-path="distribution-fitting-using-the-ksl.html"><a href="distribution-fitting-using-the-ksl.html#illustrative-examples-from-appendix-refappidm"><i class="fa fa-check"></i><b>2.4.4</b> Illustrative Examples from Appendix @ref(appidm)</a></li>
+</ul></li>
+<li class="chapter" data-level="2.5" data-path="summary.html"><a href="summary.html"><i class="fa fa-check"></i><b>2.5</b> Summary</a></li>
+<li class="chapter" data-level="2.6" data-path="exercises-1.html"><a href="exercises-1.html"><i class="fa fa-check"></i><b>2.6</b> Exercises</a></li>
 </ul></li>
 <li class="chapter" data-level="3" data-path="mcm.html"><a href="mcm.html"><i class="fa fa-check"></i><b>3</b> Monte Carlo Methods</a>
 <ul>
@@ -447,11 +454,7 @@ compared. This allows the performance of the system to be estimated
 under a wide-variety of controlled conditions. It is this ability to
 easily perform these what-if simulations that make simulation such a
 useful analysis tool.</p>
-<!-- Figure [1.21]{reference-type="ref" -->
-<!-- reference="fig:ch7MultipleInputs"} represents the notion of using -->
-<!-- different inputs to get different outputs. -->
-<!-- ![Multiple Inputs on Models Represent Different System -->
-<!-- Configurations[]{label="fig:ch7MultipleInputs"}](./figures/ch7/ch7fig71.png){#fig:ch7MultipleInputs} -->
+<p><img src="figures2/ch5/figMultipleInputsMultipleOutputs.png" width="60%" height="60%" style="display: block; margin: auto;" /></p>
 <p>Naturally, when you have different design configurations, you would like
 to know which configurations are better than the others. Since the
 simulations are driven by random variables, the outputs from each
@@ -721,10 +724,10 @@ between the two systems.</p>
 <div class="figure"><span style="display:block;" id="fig:IndifZone"></span>
 <img src="figures/ch7/ch7fig72.png" alt="Indifference Zone Concept" width="80%" height="80%" />
 <p class="caption">
-Figure 5.22: Indifference Zone Concept
+Figure 5.21: Indifference Zone Concept
 </p>
 </div>
-<p>Figure <a href="simoacomparingSystems.html#fig:IndifZone">5.22</a> illustrates the concept of an indifference zone
+<p>Figure <a href="simoacomparingSystems.html#fig:IndifZone">5.21</a> illustrates the concept of an indifference zone
 around the difference between the two systems. If the difference between
 the two systems falls in this zone, you are indifferent between the two
 systems (i.e. there is no practical difference).</p>
@@ -784,7 +787,7 @@ interval on <span class="math inline">\(\theta = \theta_1 - \theta_2\)</span> is
 2.22 &amp; \pm (2.261)(0.1739)\\
 2.22 &amp; \pm 0.0.393\end{aligned}\]</span></p>
 <p>Since this results in an interval <span class="math inline">\([1.827, 2.613]\)</span> that does not contain
-zero, we can conclude that design 1 has the higher cost with 95%
+zero, we can conclude that design 1 has the higher throughput with 95%
 confidence.</p>
 <p>Of the two approaches (independent versus dependent) samples, the latter
 is much more prevalent in simulation contexts. The approach is called
@@ -848,29 +851,29 @@ when using common random numbers.</p>
 <h4><span class="header-section-number">5.7.1.3</span> Using Common Random Numbers<a href="simoacomparingSystems.html#simoacomparingSystemsCRN" class="anchor-section" aria-label="Anchor link to header"></a></h4>
 <p>The following explores how independent sampling and common random
 numbers can be implemented using the KSL. To illustrate this situation, we will utilize the familiar pallet processing example. For this situation, we will compare the performance of the system based on the time to process all pallets using two and three workers. The following code will demonstrate how to get the results based on not using common random number and based on using common random numbers. To facilitate this analysis we will use a <code>KSLDatabaseObserver</code> and the resulting <code>KSLDatabase</code> to capture the output from the simulations. In addition, we will use the <code>MultipleComparisonAnalyzer</code> class found in the <code>ksl.utilities.statistics</code> package to tabulate and compute the paired difference results. Based on our previous work with the pallet processing model, the code is very straight-forward. The following function executes the model twice. In the code, we make sure to assign different names to the experiments before running them. Of course, the number of workers is also changed. The code executes both simulation experiments sequentially and the results are stored in the KSL database.</p>
-<div class="sourceCode" id="cb114"><pre class="sourceCode kt"><code class="sourceCode kotlin"><span id="cb114-1"><a href="simoacomparingSystems.html#cb114-1" tabindex="-1"></a><span class="kw">fun</span> <span class="fu">withoutCommonRandomNumbers</span><span class="op">(){</span></span>
-<span id="cb114-2"><a href="simoacomparingSystems.html#cb114-2" tabindex="-1"></a>    <span class="kw">val</span> <span class="va">model</span> <span class="op">=</span> Model<span class="op">(</span><span class="st">&quot;Pallet Model Experiments&quot;</span><span class="op">)</span></span>
-<span id="cb114-3"><a href="simoacomparingSystems.html#cb114-3" tabindex="-1"></a>    model<span class="op">.</span>numberOfReplications <span class="op">=</span> <span class="dv">30</span></span>
-<span id="cb114-4"><a href="simoacomparingSystems.html#cb114-4" tabindex="-1"></a>    <span class="co">// add the model element to the main model</span></span>
-<span id="cb114-5"><a href="simoacomparingSystems.html#cb114-5" tabindex="-1"></a>    <span class="kw">val</span> <span class="va">palletWorkCenter</span> <span class="op">=</span> PalletWorkCenter<span class="op">(</span>model<span class="op">)</span></span>
-<span id="cb114-6"><a href="simoacomparingSystems.html#cb114-6" tabindex="-1"></a>    <span class="co">// use a database to capture the response data</span></span>
-<span id="cb114-7"><a href="simoacomparingSystems.html#cb114-7" tabindex="-1"></a>    <span class="kw">val</span> <span class="va">kslDatabaseObserver</span> <span class="op">=</span> KSLDatabaseObserver<span class="op">(</span>model<span class="op">)</span></span>
-<span id="cb114-8"><a href="simoacomparingSystems.html#cb114-8" tabindex="-1"></a></span>
-<span id="cb114-9"><a href="simoacomparingSystems.html#cb114-9" tabindex="-1"></a>    model<span class="op">.</span>experimentName <span class="op">=</span> <span class="st">&quot;Two Workers&quot;</span></span>
-<span id="cb114-10"><a href="simoacomparingSystems.html#cb114-10" tabindex="-1"></a>    palletWorkCenter<span class="op">.</span>numWorkers <span class="op">=</span> <span class="dv">2</span></span>
-<span id="cb114-11"><a href="simoacomparingSystems.html#cb114-11" tabindex="-1"></a>    model<span class="op">.</span>simulate<span class="op">()</span></span>
-<span id="cb114-12"><a href="simoacomparingSystems.html#cb114-12" tabindex="-1"></a></span>
-<span id="cb114-13"><a href="simoacomparingSystems.html#cb114-13" tabindex="-1"></a>    model<span class="op">.</span>experimentName <span class="op">=</span> <span class="st">&quot;Three Workers&quot;</span></span>
-<span id="cb114-14"><a href="simoacomparingSystems.html#cb114-14" tabindex="-1"></a>    palletWorkCenter<span class="op">.</span>numWorkers <span class="op">=</span> <span class="dv">3</span></span>
-<span id="cb114-15"><a href="simoacomparingSystems.html#cb114-15" tabindex="-1"></a>    model<span class="op">.</span>simulate<span class="op">()</span></span>
-<span id="cb114-16"><a href="simoacomparingSystems.html#cb114-16" tabindex="-1"></a></span>
-<span id="cb114-17"><a href="simoacomparingSystems.html#cb114-17" tabindex="-1"></a>    <span class="kw">val</span> <span class="va">responseName</span> <span class="op">=</span> palletWorkCenter<span class="op">.</span>totalProcessingTime<span class="op">.</span>name</span>
-<span id="cb114-18"><a href="simoacomparingSystems.html#cb114-18" tabindex="-1"></a>    <span class="kw">val</span> <span class="va">db</span> <span class="op">=</span> kslDatabaseObserver<span class="op">.</span>db</span>
-<span id="cb114-19"><a href="simoacomparingSystems.html#cb114-19" tabindex="-1"></a></span>
-<span id="cb114-20"><a href="simoacomparingSystems.html#cb114-20" tabindex="-1"></a>    <span class="kw">val</span> <span class="va">expNames</span> <span class="op">=</span> listOf<span class="op">(</span><span class="st">&quot;Two Workers&quot;</span><span class="op">,</span> <span class="st">&quot;Three Workers&quot;</span><span class="op">)</span></span>
-<span id="cb114-21"><a href="simoacomparingSystems.html#cb114-21" tabindex="-1"></a>    <span class="kw">val</span> <span class="va">comparisonAnalyzer</span> <span class="op">=</span> db<span class="op">.</span>multipleComparisonAnalyzerFor<span class="op">(</span>expNames<span class="op">,</span> responseName<span class="op">)</span></span>
-<span id="cb114-22"><a href="simoacomparingSystems.html#cb114-22" tabindex="-1"></a>    println<span class="op">(</span>comparisonAnalyzer<span class="op">)</span></span>
-<span id="cb114-23"><a href="simoacomparingSystems.html#cb114-23" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
+<div class="sourceCode" id="cb135"><pre class="sourceCode kt"><code class="sourceCode kotlin"><span id="cb135-1"><a href="simoacomparingSystems.html#cb135-1" tabindex="-1"></a><span class="kw">fun</span> <span class="fu">withoutCommonRandomNumbers</span><span class="op">(){</span></span>
+<span id="cb135-2"><a href="simoacomparingSystems.html#cb135-2" tabindex="-1"></a>    <span class="kw">val</span> <span class="va">model</span> <span class="op">=</span> Model<span class="op">(</span><span class="st">&quot;Pallet Model Experiments&quot;</span><span class="op">)</span></span>
+<span id="cb135-3"><a href="simoacomparingSystems.html#cb135-3" tabindex="-1"></a>    model<span class="op">.</span>numberOfReplications <span class="op">=</span> <span class="dv">30</span></span>
+<span id="cb135-4"><a href="simoacomparingSystems.html#cb135-4" tabindex="-1"></a>    <span class="co">// add the model element to the main model</span></span>
+<span id="cb135-5"><a href="simoacomparingSystems.html#cb135-5" tabindex="-1"></a>    <span class="kw">val</span> <span class="va">palletWorkCenter</span> <span class="op">=</span> PalletWorkCenter<span class="op">(</span>model<span class="op">)</span></span>
+<span id="cb135-6"><a href="simoacomparingSystems.html#cb135-6" tabindex="-1"></a>    <span class="co">// use a database to capture the response data</span></span>
+<span id="cb135-7"><a href="simoacomparingSystems.html#cb135-7" tabindex="-1"></a>    <span class="kw">val</span> <span class="va">kslDatabaseObserver</span> <span class="op">=</span> KSLDatabaseObserver<span class="op">(</span>model<span class="op">)</span></span>
+<span id="cb135-8"><a href="simoacomparingSystems.html#cb135-8" tabindex="-1"></a></span>
+<span id="cb135-9"><a href="simoacomparingSystems.html#cb135-9" tabindex="-1"></a>    model<span class="op">.</span>experimentName <span class="op">=</span> <span class="st">&quot;Two Workers&quot;</span></span>
+<span id="cb135-10"><a href="simoacomparingSystems.html#cb135-10" tabindex="-1"></a>    palletWorkCenter<span class="op">.</span>numWorkers <span class="op">=</span> <span class="dv">2</span></span>
+<span id="cb135-11"><a href="simoacomparingSystems.html#cb135-11" tabindex="-1"></a>    model<span class="op">.</span>simulate<span class="op">()</span></span>
+<span id="cb135-12"><a href="simoacomparingSystems.html#cb135-12" tabindex="-1"></a></span>
+<span id="cb135-13"><a href="simoacomparingSystems.html#cb135-13" tabindex="-1"></a>    model<span class="op">.</span>experimentName <span class="op">=</span> <span class="st">&quot;Three Workers&quot;</span></span>
+<span id="cb135-14"><a href="simoacomparingSystems.html#cb135-14" tabindex="-1"></a>    palletWorkCenter<span class="op">.</span>numWorkers <span class="op">=</span> <span class="dv">3</span></span>
+<span id="cb135-15"><a href="simoacomparingSystems.html#cb135-15" tabindex="-1"></a>    model<span class="op">.</span>simulate<span class="op">()</span></span>
+<span id="cb135-16"><a href="simoacomparingSystems.html#cb135-16" tabindex="-1"></a></span>
+<span id="cb135-17"><a href="simoacomparingSystems.html#cb135-17" tabindex="-1"></a>    <span class="kw">val</span> <span class="va">responseName</span> <span class="op">=</span> palletWorkCenter<span class="op">.</span>totalProcessingTime<span class="op">.</span>name</span>
+<span id="cb135-18"><a href="simoacomparingSystems.html#cb135-18" tabindex="-1"></a>    <span class="kw">val</span> <span class="va">db</span> <span class="op">=</span> kslDatabaseObserver<span class="op">.</span>db</span>
+<span id="cb135-19"><a href="simoacomparingSystems.html#cb135-19" tabindex="-1"></a></span>
+<span id="cb135-20"><a href="simoacomparingSystems.html#cb135-20" tabindex="-1"></a>    <span class="kw">val</span> <span class="va">expNames</span> <span class="op">=</span> listOf<span class="op">(</span><span class="st">&quot;Two Workers&quot;</span><span class="op">,</span> <span class="st">&quot;Three Workers&quot;</span><span class="op">)</span></span>
+<span id="cb135-21"><a href="simoacomparingSystems.html#cb135-21" tabindex="-1"></a>    <span class="kw">val</span> <span class="va">comparisonAnalyzer</span> <span class="op">=</span> db<span class="op">.</span>multipleComparisonAnalyzerFor<span class="op">(</span>expNames<span class="op">,</span> responseName<span class="op">)</span></span>
+<span id="cb135-22"><a href="simoacomparingSystems.html#cb135-22" tabindex="-1"></a>    println<span class="op">(</span>comparisonAnalyzer<span class="op">)</span></span>
+<span id="cb135-23"><a href="simoacomparingSystems.html#cb135-23" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
 <p>Notice the second to last line of the code where we use the instance of the <code>KSLDatabase</code> to create an instance of the <code>MultipleComparisonAnalyzer</code> class based on the names of the experiments and the name of the response variable to be compared. The <code>MultipleComparisonAnalyzer</code> has a significant amount of output, part of which is shown here.</p>
 <pre><code>Statistical Summary Report
 
@@ -883,32 +886,32 @@ Two Workers - Three Workers                            30         64.7723       
 Two Workers - Three Workers [43.15986335728935, 86.38476883829914]</code></pre>
 <p>We should note the sample standard deviation on the difference, <span class="math inline">\(s_d = 57.8792\)</span>. Since the confidence interval does not contain zero, we can conclude with 95% confidence that the system with two workers has a longer time to complete the processing of the pallets. Of course, this result should be expected.</p>
 <p>Because the simulation experiments were executed sequentially within the same invocation of the program, the random number streams in the three worker simulation continued from where the streams ended for the two worker simulation. Thus, the two experiments used different underlying random numbers and can be considered as independent sampling. To utilize common random numbers we must manipulate the streams. The following code illustrates how to implement common random numbers within the KSL.</p>
-<div class="sourceCode" id="cb116"><pre class="sourceCode kt"><code class="sourceCode kotlin"><span id="cb116-1"><a href="simoacomparingSystems.html#cb116-1" tabindex="-1"></a><span class="kw">fun</span> <span class="fu">withCommonRandomNumbers</span><span class="op">(){</span></span>
-<span id="cb116-2"><a href="simoacomparingSystems.html#cb116-2" tabindex="-1"></a>    <span class="kw">val</span> <span class="va">model</span> <span class="op">=</span> Model<span class="op">(</span><span class="st">&quot;Pallet Model Experiments&quot;</span><span class="op">)</span></span>
-<span id="cb116-3"><a href="simoacomparingSystems.html#cb116-3" tabindex="-1"></a>    model<span class="op">.</span>numberOfReplications <span class="op">=</span> <span class="dv">30</span></span>
-<span id="cb116-4"><a href="simoacomparingSystems.html#cb116-4" tabindex="-1"></a>    <span class="co">// add the model element to the main model</span></span>
-<span id="cb116-5"><a href="simoacomparingSystems.html#cb116-5" tabindex="-1"></a>    <span class="kw">val</span> <span class="va">palletWorkCenter</span> <span class="op">=</span> PalletWorkCenter<span class="op">(</span>model<span class="op">)</span></span>
-<span id="cb116-6"><a href="simoacomparingSystems.html#cb116-6" tabindex="-1"></a>    <span class="co">// use a database to capture the response data</span></span>
-<span id="cb116-7"><a href="simoacomparingSystems.html#cb116-7" tabindex="-1"></a>    <span class="kw">val</span> <span class="va">kslDatabaseObserver</span> <span class="op">=</span> KSLDatabaseObserver<span class="op">(</span>model<span class="op">)</span></span>
-<span id="cb116-8"><a href="simoacomparingSystems.html#cb116-8" tabindex="-1"></a></span>
-<span id="cb116-9"><a href="simoacomparingSystems.html#cb116-9" tabindex="-1"></a>    model<span class="op">.</span>resetStartStreamOption <span class="op">=</span> <span class="kw">true</span></span>
-<span id="cb116-10"><a href="simoacomparingSystems.html#cb116-10" tabindex="-1"></a>    model<span class="op">.</span>experimentName <span class="op">=</span> <span class="st">&quot;Two Workers&quot;</span></span>
-<span id="cb116-11"><a href="simoacomparingSystems.html#cb116-11" tabindex="-1"></a>    palletWorkCenter<span class="op">.</span>numWorkers <span class="op">=</span> <span class="dv">2</span></span>
-<span id="cb116-12"><a href="simoacomparingSystems.html#cb116-12" tabindex="-1"></a>    model<span class="op">.</span>simulate<span class="op">()</span></span>
-<span id="cb116-13"><a href="simoacomparingSystems.html#cb116-13" tabindex="-1"></a></span>
-<span id="cb116-14"><a href="simoacomparingSystems.html#cb116-14" tabindex="-1"></a>    model<span class="op">.</span>experimentName <span class="op">=</span> <span class="st">&quot;Three Workers&quot;</span></span>
-<span id="cb116-15"><a href="simoacomparingSystems.html#cb116-15" tabindex="-1"></a>    palletWorkCenter<span class="op">.</span>numWorkers <span class="op">=</span> <span class="dv">3</span></span>
-<span id="cb116-16"><a href="simoacomparingSystems.html#cb116-16" tabindex="-1"></a>    model<span class="op">.</span>simulate<span class="op">()</span></span>
-<span id="cb116-17"><a href="simoacomparingSystems.html#cb116-17" tabindex="-1"></a></span>
-<span id="cb116-18"><a href="simoacomparingSystems.html#cb116-18" tabindex="-1"></a>    <span class="kw">val</span> <span class="va">responseName</span> <span class="op">=</span> palletWorkCenter<span class="op">.</span>totalProcessingTime<span class="op">.</span>name</span>
-<span id="cb116-19"><a href="simoacomparingSystems.html#cb116-19" tabindex="-1"></a>    <span class="kw">val</span> <span class="va">db</span> <span class="op">=</span> kslDatabaseObserver<span class="op">.</span>db</span>
-<span id="cb116-20"><a href="simoacomparingSystems.html#cb116-20" tabindex="-1"></a></span>
-<span id="cb116-21"><a href="simoacomparingSystems.html#cb116-21" tabindex="-1"></a>    <span class="kw">val</span> <span class="va">expNames</span> <span class="op">=</span> listOf<span class="op">(</span><span class="st">&quot;Two Workers&quot;</span><span class="op">,</span> <span class="st">&quot;Three Workers&quot;</span><span class="op">)</span></span>
-<span id="cb116-22"><a href="simoacomparingSystems.html#cb116-22" tabindex="-1"></a>    <span class="kw">val</span> <span class="va">comparisonAnalyzer</span> <span class="op">=</span> db<span class="op">.</span>multipleComparisonAnalyzerFor<span class="op">(</span>expNames<span class="op">,</span> responseName<span class="op">)</span></span>
-<span id="cb116-23"><a href="simoacomparingSystems.html#cb116-23" tabindex="-1"></a>    println<span class="op">(</span>comparisonAnalyzer<span class="op">)</span></span>
-<span id="cb116-24"><a href="simoacomparingSystems.html#cb116-24" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
+<div class="sourceCode" id="cb137"><pre class="sourceCode kt"><code class="sourceCode kotlin"><span id="cb137-1"><a href="simoacomparingSystems.html#cb137-1" tabindex="-1"></a><span class="kw">fun</span> <span class="fu">withCommonRandomNumbers</span><span class="op">(){</span></span>
+<span id="cb137-2"><a href="simoacomparingSystems.html#cb137-2" tabindex="-1"></a>    <span class="kw">val</span> <span class="va">model</span> <span class="op">=</span> Model<span class="op">(</span><span class="st">&quot;Pallet Model Experiments&quot;</span><span class="op">)</span></span>
+<span id="cb137-3"><a href="simoacomparingSystems.html#cb137-3" tabindex="-1"></a>    model<span class="op">.</span>numberOfReplications <span class="op">=</span> <span class="dv">30</span></span>
+<span id="cb137-4"><a href="simoacomparingSystems.html#cb137-4" tabindex="-1"></a>    <span class="co">// add the model element to the main model</span></span>
+<span id="cb137-5"><a href="simoacomparingSystems.html#cb137-5" tabindex="-1"></a>    <span class="kw">val</span> <span class="va">palletWorkCenter</span> <span class="op">=</span> PalletWorkCenter<span class="op">(</span>model<span class="op">)</span></span>
+<span id="cb137-6"><a href="simoacomparingSystems.html#cb137-6" tabindex="-1"></a>    <span class="co">// use a database to capture the response data</span></span>
+<span id="cb137-7"><a href="simoacomparingSystems.html#cb137-7" tabindex="-1"></a>    <span class="kw">val</span> <span class="va">kslDatabaseObserver</span> <span class="op">=</span> KSLDatabaseObserver<span class="op">(</span>model<span class="op">)</span></span>
+<span id="cb137-8"><a href="simoacomparingSystems.html#cb137-8" tabindex="-1"></a></span>
+<span id="cb137-9"><a href="simoacomparingSystems.html#cb137-9" tabindex="-1"></a>    model<span class="op">.</span>resetStartStreamOption <span class="op">=</span> <span class="kw">true</span></span>
+<span id="cb137-10"><a href="simoacomparingSystems.html#cb137-10" tabindex="-1"></a>    model<span class="op">.</span>experimentName <span class="op">=</span> <span class="st">&quot;Two Workers&quot;</span></span>
+<span id="cb137-11"><a href="simoacomparingSystems.html#cb137-11" tabindex="-1"></a>    palletWorkCenter<span class="op">.</span>numWorkers <span class="op">=</span> <span class="dv">2</span></span>
+<span id="cb137-12"><a href="simoacomparingSystems.html#cb137-12" tabindex="-1"></a>    model<span class="op">.</span>simulate<span class="op">()</span></span>
+<span id="cb137-13"><a href="simoacomparingSystems.html#cb137-13" tabindex="-1"></a></span>
+<span id="cb137-14"><a href="simoacomparingSystems.html#cb137-14" tabindex="-1"></a>    model<span class="op">.</span>experimentName <span class="op">=</span> <span class="st">&quot;Three Workers&quot;</span></span>
+<span id="cb137-15"><a href="simoacomparingSystems.html#cb137-15" tabindex="-1"></a>    palletWorkCenter<span class="op">.</span>numWorkers <span class="op">=</span> <span class="dv">3</span></span>
+<span id="cb137-16"><a href="simoacomparingSystems.html#cb137-16" tabindex="-1"></a>    model<span class="op">.</span>simulate<span class="op">()</span></span>
+<span id="cb137-17"><a href="simoacomparingSystems.html#cb137-17" tabindex="-1"></a></span>
+<span id="cb137-18"><a href="simoacomparingSystems.html#cb137-18" tabindex="-1"></a>    <span class="kw">val</span> <span class="va">responseName</span> <span class="op">=</span> palletWorkCenter<span class="op">.</span>totalProcessingTime<span class="op">.</span>name</span>
+<span id="cb137-19"><a href="simoacomparingSystems.html#cb137-19" tabindex="-1"></a>    <span class="kw">val</span> <span class="va">db</span> <span class="op">=</span> kslDatabaseObserver<span class="op">.</span>db</span>
+<span id="cb137-20"><a href="simoacomparingSystems.html#cb137-20" tabindex="-1"></a></span>
+<span id="cb137-21"><a href="simoacomparingSystems.html#cb137-21" tabindex="-1"></a>    <span class="kw">val</span> <span class="va">expNames</span> <span class="op">=</span> listOf<span class="op">(</span><span class="st">&quot;Two Workers&quot;</span><span class="op">,</span> <span class="st">&quot;Three Workers&quot;</span><span class="op">)</span></span>
+<span id="cb137-22"><a href="simoacomparingSystems.html#cb137-22" tabindex="-1"></a>    <span class="kw">val</span> <span class="va">comparisonAnalyzer</span> <span class="op">=</span> db<span class="op">.</span>multipleComparisonAnalyzerFor<span class="op">(</span>expNames<span class="op">,</span> responseName<span class="op">)</span></span>
+<span id="cb137-23"><a href="simoacomparingSystems.html#cb137-23" tabindex="-1"></a>    println<span class="op">(</span>comparisonAnalyzer<span class="op">)</span></span>
+<span id="cb137-24"><a href="simoacomparingSystems.html#cb137-24" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
 <p>The only difference between this code and the previous code is the addition of line 9:</p>
-<div class="sourceCode" id="cb117"><pre class="sourceCode kt"><code class="sourceCode kotlin"><span id="cb117-1"><a href="simoacomparingSystems.html#cb117-1" tabindex="-1"></a>    model<span class="op">.</span>resetStartStreamOption <span class="op">=</span> <span class="kw">true</span></span></code></pre></div>
+<div class="sourceCode" id="cb138"><pre class="sourceCode kt"><code class="sourceCode kotlin"><span id="cb138-1"><a href="simoacomparingSystems.html#cb138-1" tabindex="-1"></a>    model<span class="op">.</span>resetStartStreamOption <span class="op">=</span> <span class="kw">true</span></span></code></pre></div>
 <p>This line tells the model to automatically reset the streams of all of the random variables (and other constructs that use streams) back to their starting point in their stream prior to executing the replications of the experiment. This causes the three worker simulation to start in the streams in the same location as the two worker simulation. This facilitates the syncronization of the use of the random numbers. In addition, there are two other methods that the KSL automatically performs to assist in syncronization. First, each random variable utilizes its own dedicated stream, by default, and secondly, at the end of each replication, the random number streams are advanced (automatically) to the next substream in their main stream. This ensures that every replication starts in the same place in the streams. The effect of common random numbers on variance reduction can be dramatic. The results for this situation are as follows:</p>
 <pre><code>Statistical Summary Report
 
@@ -919,7 +922,7 @@ Two Workers - Three Workers                  30           64.9215         33.056
 --------------------------------------------------------------------------------- 
 95.0% Confidence Intervals on Difference Data
 Two Workers - Three Workers [52.57814571744155, 77.26483056807177]</code></pre>
-<p>We see the that the sample standard deviation on the difference, <span class="math inline">\(s_d = 33.0561\)</span> for the case of common random numbers has been significantly reducesd (about a 43% reduction in this case). What does this mean for the simulation analyst? First the confidence interval half-width will also be shortened. Thus, we have a tighter margin of error for the same confidence level. This may be more important when the results are closer and when it takes significantly longer to execute the models. That is, we get more precision on the estimate of the difference for no extra computing.</p>
+<p>We see the that the sample standard deviation on the difference, <span class="math inline">\(s_d = 33.0561\)</span> for the case of common random numbers has been significantly reduced (about a 43% reduction in this case). What does this mean for the simulation analyst? First the confidence interval half-width will also be shortened. Thus, we have a tighter margin of error for the same confidence level. This may be more important when the results are closer and when it takes significantly longer to execute the models. That is, we get more precision on the estimate of the difference for no extra computing.</p>
 <p>It is important to note that setting the reset start stream option to true as indicated here is predicated on running both models in the same program execution. If we had run the two worker model today and then changed the number of workers to 3 for a run tomorrow, the simulations would have used the same random number streams (common random numbers by default). If we had saved the results in the database <em>and</em> reattached the same database to the execution, we would capture the results from both runs (just like we did in this example). Thus, we would still have used common random numbers. You need to be careful if you take this approach not to over write your earlier results by properly utilizing the KSL database functionality.</p>
 </div>
 </div>
@@ -1043,7 +1046,7 @@ and still guarantee an overall pre-specified confidence in the decision.
 Multiple comparison procedures are described in <span class="citation">(<a href="#ref-goldsman1998comparing">Goldsman and Nelson 1998</a>)</span> and the references
 therein. See also <span class="citation">(<a href="#ref-law2007simulation">Law 2007</a>)</span> for how these methods relate to
 other ranking and selection methods.</p>
-<p>While it is beyond the scope of this textbook to review multiple comparison with the best (MCB) procedures, it is useful to have a basic understanding of the form of the confidence interval constructed by these procedures. To see how MCB procedures avoid part of the issues with having a large number of confidence intervals, we can note that the confidence interval is based on the difference between the best and the best of the rest. Suppose we have <span class="math inline">\(k\)</span> system configurations to compare and suppose that somehow you knew that the <span class="math inline">\(i^{th}\)</span> system <em>is the best</em>. Now, consider a confidence interval system’s <span class="math inline">\(i\)</span> performance metric, <span class="math inline">\(\theta_i\)</span>, of the following form:</p>
+<p>While it is beyond the scope of this textbook to review multiple comparison with the best (MCB) procedures, it is useful to have a basic understanding of the form of the confidence interval constructed by these procedures. To see how MCB procedures avoid part of the issues with having a large number of confidence intervals, we can note that the confidence interval is based on the difference between the best and the best of the rest. Suppose we have <span class="math inline">\(k\)</span> system configurations to compare and suppose that somehow you knew that the <span class="math inline">\(i^{th}\)</span> system <em>is the best</em>. Now, consider a confidence interval for system’s <span class="math inline">\(i\)</span> performance metric, <span class="math inline">\(\theta_i\)</span>, of the following form:</p>
 <p><span class="math display">\[
 \theta_i - \max_{j \neq i} \theta_j
 \]</span>
@@ -1062,27 +1065,27 @@ Therefore, only <span class="math inline">\(k\)</span> confidence intervals need
 <li>If <span class="math inline">\(\hat{\theta}_{i} - \hat{\theta}_{\hat{i}} + \delta \leq 0\)</span>, then we declare that system <span class="math inline">\(i\)</span> not the best.</li>
 <li>If <span class="math inline">\(\hat{\theta}_{i} - \hat{\theta}_{\hat{i}} + \delta &gt; 0\)</span>, then we can declare that system <span class="math inline">\(i\)</span> is not statistically different from the best. In this case, system <span class="math inline">\(i\)</span>, may in fact be the best.</li>
 </ul>
-<p>The computations necessary to perform many different multiple comparision procedures can be found in the <code>MultipleComparisonAnalyzer</code> class illustrated in Figure <a href="simoacomparingSystems.html#fig:MCAnalyzer">5.23</a>.</p>
+<p>The computations necessary to perform many different multiple comparision procedures can be found in the <code>MultipleComparisonAnalyzer</code> class illustrated in Figure <a href="simoacomparingSystems.html#fig:MCAnalyzer">5.22</a>.</p>
 <div class="figure"><span style="display:block;" id="fig:MCAnalyzer"></span>
 <img src="figures2/ch5/MultipleComparisonAnalyzerProperties.png" alt="Properties and Methods of the MultipleComparisonAnalyzer Class" width="40%" height="80%" /><img src="figures2/ch5/MultipleComparisonAnalyzerMethods.png" alt="Properties and Methods of the MultipleComparisonAnalyzer Class" width="40%" height="80%" />
 <p class="caption">
-Figure 5.23: Properties and Methods of the MultipleComparisonAnalyzer Class
+Figure 5.22: Properties and Methods of the MultipleComparisonAnalyzer Class
 </p>
 </div>
 <p>The <code>MultipleComparisonAnalyzer</code> class depends on having the data to be compared in the form of named arrays within a map <code>dataMap: Map&lt;String, DoubleArray&gt;.</code> Each array is associated with the name of the array via the map’s key parameter. There needs to be at least 2 data arrays, and the length of each data array must be the same. As we have seen in the previous example, the KSL facilitates extracting and organizing the simulation data in this form from the KSL database. Such data can also be readily extracted from instances of a <code>ReplicationDataObserver</code> or an <code>ExperimentDataObserver.</code> The following code illustrates setting up a <code>MultipleComparisonAnalyzer</code> based on arrays.</p>
-<div class="sourceCode" id="cb119"><pre class="sourceCode kt"><code class="sourceCode kotlin"><span id="cb119-1"><a href="simoacomparingSystems.html#cb119-1" tabindex="-1"></a><span class="kw">fun</span> <span class="fu">main</span><span class="op">()</span> <span class="op">{</span></span>
-<span id="cb119-2"><a href="simoacomparingSystems.html#cb119-2" tabindex="-1"></a>    <span class="kw">val</span> <span class="va">data</span> <span class="op">=</span> LinkedHashMap<span class="op">&lt;</span><span class="kw">String</span><span class="op">,</span> DoubleArray<span class="op">&gt;()</span></span>
-<span id="cb119-3"><a href="simoacomparingSystems.html#cb119-3" tabindex="-1"></a>    <span class="kw">val</span> <span class="va">d1</span> <span class="op">=</span> doubleArrayOf<span class="op">(</span><span class="fl">63.72</span><span class="op">,</span> <span class="fl">32.24</span><span class="op">,</span> <span class="fl">40.28</span><span class="op">,</span> <span class="fl">36.94</span><span class="op">,</span> <span class="fl">36.29</span><span class="op">,</span> <span class="fl">56.94</span><span class="op">,</span> <span class="fl">34.10</span><span class="op">,</span> <span class="fl">63.36</span><span class="op">,</span> <span class="fl">49.29</span><span class="op">,</span> <span class="fl">87.20</span><span class="op">)</span></span>
-<span id="cb119-4"><a href="simoacomparingSystems.html#cb119-4" tabindex="-1"></a>    <span class="kw">val</span> <span class="va">d2</span> <span class="op">=</span> doubleArrayOf<span class="op">(</span><span class="fl">63.06</span><span class="op">,</span> <span class="fl">31.78</span><span class="op">,</span> <span class="fl">40.32</span><span class="op">,</span> <span class="fl">37.71</span><span class="op">,</span> <span class="fl">36.79</span><span class="op">,</span> <span class="fl">57.93</span><span class="op">,</span> <span class="fl">33.39</span><span class="op">,</span> <span class="fl">62.92</span><span class="op">,</span> <span class="fl">47.67</span><span class="op">,</span> <span class="fl">80.79</span><span class="op">)</span></span>
-<span id="cb119-5"><a href="simoacomparingSystems.html#cb119-5" tabindex="-1"></a>    <span class="kw">val</span> <span class="va">d3</span> <span class="op">=</span> doubleArrayOf<span class="op">(</span><span class="fl">57.74</span><span class="op">,</span> <span class="fl">29.65</span><span class="op">,</span> <span class="fl">36.52</span><span class="op">,</span> <span class="fl">35.71</span><span class="op">,</span> <span class="fl">33.81</span><span class="op">,</span> <span class="fl">51.54</span><span class="op">,</span> <span class="fl">31.39</span><span class="op">,</span> <span class="fl">57.24</span><span class="op">,</span> <span class="fl">42.63</span><span class="op">,</span> <span class="fl">67.27</span><span class="op">)</span></span>
-<span id="cb119-6"><a href="simoacomparingSystems.html#cb119-6" tabindex="-1"></a>    <span class="kw">val</span> <span class="va">d4</span> <span class="op">=</span> doubleArrayOf<span class="op">(</span><span class="fl">62.63</span><span class="op">,</span> <span class="fl">31.56</span><span class="op">,</span> <span class="fl">39.87</span><span class="op">,</span> <span class="fl">37.35</span><span class="op">,</span> <span class="fl">36.65</span><span class="op">,</span> <span class="fl">57.15</span><span class="op">,</span> <span class="fl">33.30</span><span class="op">,</span> <span class="fl">62.21</span><span class="op">,</span> <span class="fl">47.46</span><span class="op">,</span> <span class="fl">79.60</span><span class="op">)</span></span>
-<span id="cb119-7"><a href="simoacomparingSystems.html#cb119-7" tabindex="-1"></a>    <span class="kw">data</span><span class="op">[</span><span class="st">&quot;One&quot;</span><span class="op">]</span> <span class="op">=</span> d1</span>
-<span id="cb119-8"><a href="simoacomparingSystems.html#cb119-8" tabindex="-1"></a>    <span class="kw">data</span><span class="op">[</span><span class="st">&quot;Two&quot;</span><span class="op">]</span> <span class="op">=</span> d2</span>
-<span id="cb119-9"><a href="simoacomparingSystems.html#cb119-9" tabindex="-1"></a>    <span class="kw">data</span><span class="op">[</span><span class="st">&quot;Three&quot;</span><span class="op">]</span> <span class="op">=</span> d3</span>
-<span id="cb119-10"><a href="simoacomparingSystems.html#cb119-10" tabindex="-1"></a>    <span class="kw">data</span><span class="op">[</span><span class="st">&quot;Four&quot;</span><span class="op">]</span> <span class="op">=</span> d4</span>
-<span id="cb119-11"><a href="simoacomparingSystems.html#cb119-11" tabindex="-1"></a>    <span class="kw">val</span> <span class="va">mca</span> <span class="op">=</span> MultipleComparisonAnalyzer<span class="op">(</span><span class="kw">data</span><span class="op">)</span></span>
-<span id="cb119-12"><a href="simoacomparingSystems.html#cb119-12" tabindex="-1"></a>    println<span class="op">(</span>mca<span class="op">)</span></span>
-<span id="cb119-13"><a href="simoacomparingSystems.html#cb119-13" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
+<div class="sourceCode" id="cb140"><pre class="sourceCode kt"><code class="sourceCode kotlin"><span id="cb140-1"><a href="simoacomparingSystems.html#cb140-1" tabindex="-1"></a><span class="kw">fun</span> <span class="fu">main</span><span class="op">()</span> <span class="op">{</span></span>
+<span id="cb140-2"><a href="simoacomparingSystems.html#cb140-2" tabindex="-1"></a>    <span class="kw">val</span> <span class="va">data</span> <span class="op">=</span> LinkedHashMap<span class="op">&lt;</span><span class="kw">String</span><span class="op">,</span> DoubleArray<span class="op">&gt;()</span></span>
+<span id="cb140-3"><a href="simoacomparingSystems.html#cb140-3" tabindex="-1"></a>    <span class="kw">val</span> <span class="va">d1</span> <span class="op">=</span> doubleArrayOf<span class="op">(</span><span class="fl">63.72</span><span class="op">,</span> <span class="fl">32.24</span><span class="op">,</span> <span class="fl">40.28</span><span class="op">,</span> <span class="fl">36.94</span><span class="op">,</span> <span class="fl">36.29</span><span class="op">,</span> <span class="fl">56.94</span><span class="op">,</span> <span class="fl">34.10</span><span class="op">,</span> <span class="fl">63.36</span><span class="op">,</span> <span class="fl">49.29</span><span class="op">,</span> <span class="fl">87.20</span><span class="op">)</span></span>
+<span id="cb140-4"><a href="simoacomparingSystems.html#cb140-4" tabindex="-1"></a>    <span class="kw">val</span> <span class="va">d2</span> <span class="op">=</span> doubleArrayOf<span class="op">(</span><span class="fl">63.06</span><span class="op">,</span> <span class="fl">31.78</span><span class="op">,</span> <span class="fl">40.32</span><span class="op">,</span> <span class="fl">37.71</span><span class="op">,</span> <span class="fl">36.79</span><span class="op">,</span> <span class="fl">57.93</span><span class="op">,</span> <span class="fl">33.39</span><span class="op">,</span> <span class="fl">62.92</span><span class="op">,</span> <span class="fl">47.67</span><span class="op">,</span> <span class="fl">80.79</span><span class="op">)</span></span>
+<span id="cb140-5"><a href="simoacomparingSystems.html#cb140-5" tabindex="-1"></a>    <span class="kw">val</span> <span class="va">d3</span> <span class="op">=</span> doubleArrayOf<span class="op">(</span><span class="fl">57.74</span><span class="op">,</span> <span class="fl">29.65</span><span class="op">,</span> <span class="fl">36.52</span><span class="op">,</span> <span class="fl">35.71</span><span class="op">,</span> <span class="fl">33.81</span><span class="op">,</span> <span class="fl">51.54</span><span class="op">,</span> <span class="fl">31.39</span><span class="op">,</span> <span class="fl">57.24</span><span class="op">,</span> <span class="fl">42.63</span><span class="op">,</span> <span class="fl">67.27</span><span class="op">)</span></span>
+<span id="cb140-6"><a href="simoacomparingSystems.html#cb140-6" tabindex="-1"></a>    <span class="kw">val</span> <span class="va">d4</span> <span class="op">=</span> doubleArrayOf<span class="op">(</span><span class="fl">62.63</span><span class="op">,</span> <span class="fl">31.56</span><span class="op">,</span> <span class="fl">39.87</span><span class="op">,</span> <span class="fl">37.35</span><span class="op">,</span> <span class="fl">36.65</span><span class="op">,</span> <span class="fl">57.15</span><span class="op">,</span> <span class="fl">33.30</span><span class="op">,</span> <span class="fl">62.21</span><span class="op">,</span> <span class="fl">47.46</span><span class="op">,</span> <span class="fl">79.60</span><span class="op">)</span></span>
+<span id="cb140-7"><a href="simoacomparingSystems.html#cb140-7" tabindex="-1"></a>    <span class="kw">data</span><span class="op">[</span><span class="st">&quot;One&quot;</span><span class="op">]</span> <span class="op">=</span> d1</span>
+<span id="cb140-8"><a href="simoacomparingSystems.html#cb140-8" tabindex="-1"></a>    <span class="kw">data</span><span class="op">[</span><span class="st">&quot;Two&quot;</span><span class="op">]</span> <span class="op">=</span> d2</span>
+<span id="cb140-9"><a href="simoacomparingSystems.html#cb140-9" tabindex="-1"></a>    <span class="kw">data</span><span class="op">[</span><span class="st">&quot;Three&quot;</span><span class="op">]</span> <span class="op">=</span> d3</span>
+<span id="cb140-10"><a href="simoacomparingSystems.html#cb140-10" tabindex="-1"></a>    <span class="kw">data</span><span class="op">[</span><span class="st">&quot;Four&quot;</span><span class="op">]</span> <span class="op">=</span> d4</span>
+<span id="cb140-11"><a href="simoacomparingSystems.html#cb140-11" tabindex="-1"></a>    <span class="kw">val</span> <span class="va">mca</span> <span class="op">=</span> MultipleComparisonAnalyzer<span class="op">(</span><span class="kw">data</span><span class="op">)</span></span>
+<span id="cb140-12"><a href="simoacomparingSystems.html#cb140-12" tabindex="-1"></a>    println<span class="op">(</span>mca<span class="op">)</span></span>
+<span id="cb140-13"><a href="simoacomparingSystems.html#cb140-13" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
 <p>The <code>MultipleComparisonAnalyzer</code> class will automatically compute the following:</p>
 <ul>
 <li>statistical summaries and confidence intervals on the individual data arrays</li>
@@ -1095,10 +1098,10 @@ Figure 5.23: Properties and Methods of the MultipleComparisonAnalyzer Class
 <li>multiple comparison confidence intervals based on finding the maximum value</li>
 <li>multiple comparison confidence intervals based on finding the minimum value</li>
 </ul>
-<p>The user can specify the indifference zone parameter to be included in the confidence interval calculations. The <code>MultipleComparisonAnalyzer</code> class does not utilize the probability of correct selection or assume some underlying distribution. The confidence intervals that are computed have the following forms. Define <span class="math inline">\(Y_{ij}\)</span> as the <span class="math inline">\(i^{th}\)</span> observation of system <span class="math inline">\(j\)</span>. Thus, <span class="math inline">\(\bar{Y}_{\cdot j}\)</span> is the mean performance of system <span class="math inline">\(j\)</span>. Let <span class="math inline">\(\delta\)</span> be the indifference zone parameter. When selecting the system with the largest <span class="math inline">\(\bar{Y}_{\cdot j}\)</span> as the best the confidence interval is:</p>
-<p><span class="math inline">\(\min\{0, \bar{Y}_{\cdot j} - \max_{j \neq i}\bar{Y}_{\cdot j}- \delta \} \leq \theta_i - \max_{j \neq i} \theta_j \leq \max\{0, \bar{Y}_{\cdot j} - \max_{j \neq i}\bar{Y}_{\cdot j}- \delta \} \text{for} \ i=1,2, \dots,k\)</span></p>
-<p>When selecting the system with the smallest <span class="math inline">\(\bar{Y}_{\cdot j}\)</span> as the best the confidence interval is:</p>
-<p><span class="math inline">\(\min\{0, \bar{Y}_{\cdot j} - \min_{j \neq i}\bar{Y}_{\cdot j}- \delta \} \leq \theta_i - \max_{j \neq i} \theta_j \leq \max\{0, \bar{Y}_{\cdot j} - \min_{j \neq i}\bar{Y}_{\cdot j}- \delta \} \text{for} \ i=1,2, \dots,k\)</span></p>
+<p>The user can specify the indifference zone parameter to be included in the confidence interval calculations. The <code>MultipleComparisonAnalyzer</code> class does not utilize the probability of correct selection or assume some underlying distribution. The confidence intervals that are computed have the following forms. Define <span class="math inline">\(Y_{ij}\)</span> as the <span class="math inline">\(i^{th}\)</span> observation of system <span class="math inline">\(j\)</span>. Thus, <span class="math inline">\(\bar{Y}_{\cdot j}\)</span> is the mean performance of system <span class="math inline">\(j\)</span>. Let <span class="math inline">\(\delta\)</span> be the indifference zone parameter. When selecting the system with the largest <span class="math inline">\(\bar{Y}_{\cdot j}\)</span> as the best, the confidence intervals for configurations <span class="math inline">\(i=1,2,\dots,k\)</span> are computed by:</p>
+<p><span class="math inline">\(\min\{0, \bar{Y}_{\cdot j} - \max_{j \neq i}\bar{Y}_{\cdot j}- \delta \} \leq \theta_i - \max_{j \neq i} \theta_j \leq \max\{0, \bar{Y}_{\cdot j} - \max_{j \neq i}\bar{Y}_{\cdot j}- \delta \}\)</span></p>
+<p>When selecting the system with the smallest <span class="math inline">\(\bar{Y}_{\cdot j}\)</span> as the best, the confidence intervals for configurations <span class="math inline">\(i=1,2,\dots,k\)</span> are computed by:</p>
+<p><span class="math inline">\(\min\{0, \bar{Y}_{\cdot j} - \min_{j \neq i}\bar{Y}_{\cdot j}- \delta \} \leq \theta_i - \max_{j \neq i} \theta_j \leq \max\{0, \bar{Y}_{\cdot j} - \min_{j \neq i}\bar{Y}_{\cdot j}- \delta \}\)</span></p>
 <p>The results for the example code previously discussed illustrate the form of these confidence intervals.</p>
 <pre><code>MCB Maximum Intervals
 Indifference delta: 0.0
@@ -1117,16 +1120,137 @@ Three       [-4.4280000000000115, 0.0]
 Four        [0.0, 4.4280000000000115]</code></pre>
 <p>Notice how the form of these confidence interval equations require that for the case of finding the maximum, systems that are candidates for the maximum have a lower interval limit of 0.0, while candidate systems that should be ruled out have an upper limit of 0.0. The reverse is true for the case of finding the minimum. Also, note that the confidence intervals (as defined here) do not have a distribution requirement for computing a test statistic value. Thus, their forms do not depend on the distributional assumptions. However, the probability of correctly selecting the best will depend upon some distributional assumptions. If the confidence interval contains zero, then it cannot be ruled out as the best. When this occurs, it is advisable to increase the sample size to see if a clear winner emerges.</p>
 <p>Further details of such procedures can be found in <span class="citation">(<a href="#ref-goldsman1998comparing">Goldsman and Nelson 1998</a>)</span>. As a note, some of those procedures require the computation of critical values from the multivariate <span class="math inline">\(T\)</span> distribution and Rinott’s constant. Rinott’s constant can be computed using the <code>Rinott</code> class within the <code>ksl.utilities.statistics</code> package and limited values for the multivariate <span class="math inline">\(T\)</span> distribution are available via the <code>MultipleComparisonAnalyzer</code> class’s companion object. Finally, the quantiles of the Tukey distribution are available via the <code>Tukey</code> class located in the <code>ksl.utilities.distributions</code> package.</p>
+<p>To illustrate the application of MCB methods, let us consider the two-stage Bonferroni based procedure developed by <span class="citation">(<a href="#ref-nelsonMatejcik1995">Matejcik and Nelson 1995</a>)</span> and also described in <span class="citation">(<a href="#ref-goldsman1998comparing">Goldsman and Nelson 1998</a>)</span> as well as in <span class="citation">(<a href="#ref-banks2005discreteevent">Banks et al. 2005</a>)</span>. This presentation follows the one in <span class="citation">(<a href="#ref-banks2005discreteevent">Banks et al. 2005</a>)</span>. To apply the procedure, the analyst specifies a probability of correct selection (PCS) as <span class="math inline">\((1-\alpha)\)</span> and performs the experimentation in two-stages. The first stage is essentially a pilot set of replications from which the variability of the design configurations is estimated and used to plan the second stage of the procedure. The procedure is applicable when the data is normally distributed and can be applied if the observations are independent or if CRN has been used.</p>
+<p><strong>Two-Stage Bonferroni Procedure</strong></p>
+<ol style="list-style-type: decimal">
+<li><p>Specify the indifference parameter, <span class="math inline">\(\delta\)</span>, PCS as <span class="math inline">\((1-\alpha)\)</span>, the initial sample size, <span class="math inline">\(n_0\)</span>, and compute <span class="math inline">\(t= t_{1-\alpha/(k-1),n_0 - 1}\)</span></p></li>
+<li><p>Execute the <span class="math inline">\(n_0\)</span> replications for each system and capture <span class="math inline">\(Y_{ij}\)</span> as the <span class="math inline">\(i^{th}\)</span> observation of system <span class="math inline">\(j\)</span></p></li>
+<li><p>Compute <span class="math inline">\(\bar{Y}_{\cdot j}\)</span> as the mean performance of system <span class="math inline">\(j\)</span>, for <span class="math inline">\(j=1,2,\cdots,k\)</span>. Then for all <span class="math inline">\(i \neq j\)</span>, compute the sample variance of the differences and the largest sample variance <span class="math inline">\(\hat{S}^2 = max_{i \neq j}S^{2}_{ij}\)</span></p></li>
+</ol>
+<p><span class="math display">\[\begin{equation}
+S^{2}_{ij} = \frac{1}{n_0 - 1} \sum_{r=1}^{n_0} ((Y_{ri} - Y_{rj})  - (\bar{Y}_{\cdot i} - \bar{Y}_{\cdot j}))^2
+\end{equation}\]</span></p>
+<ol start="4" style="list-style-type: decimal">
+<li>Calculate the second stage sample size:</li>
+</ol>
+<p><span class="math display">\[\begin{equation}
+n = max \Bigl\{ n_0, \Bigl \lceil \frac{t^2\hat{S}^2}{\delta^2} \Bigr \rceil \Bigr\}
+\end{equation}\]</span></p>
+<ol start="5" style="list-style-type: decimal">
+<li><p>Make <span class="math inline">\(n - n_0\)</span> additional replications (or just make <span class="math inline">\(n\)</span> by re-running). Capture <span class="math inline">\(Y_{ij}\)</span> as the <span class="math inline">\(i^{th}\)</span> observation of system <span class="math inline">\(j\)</span></p></li>
+<li><p>Calculate the overall sample means for <span class="math inline">\(j=1, 2,\cdots, k\)</span> for each design.</p></li>
+</ol>
+<p><span class="math display">\[\begin{equation}
+\bar{Y}_{\cdot j} = \frac{1}{n}\sum_{r=1}^{n}Y_{rj}
+\end{equation}\]</span></p>
+<ol start="7" style="list-style-type: decimal">
+<li>Select the system with the largest <span class="math inline">\(\bar{Y}_{\cdot j}\)</span> as the best and if maximizing form the confidence intervals:</li>
+</ol>
+<p><span class="math inline">\(\min\{0, \bar{Y}_{\cdot j} - \max_{j \neq i}\bar{Y}_{\cdot j}- \delta \} \leq \theta_i - \max_{j \neq i} \theta_j \leq \max\{0, \bar{Y}_{\cdot j} - \max_{j \neq i}\bar{Y}_{\cdot j}- \delta \}\)</span></p>
+<p>If minimizing, form the confidence intervals:</p>
+<p><span class="math inline">\(\min\{0, \bar{Y}_{\cdot j} - \min_{j \neq i}\bar{Y}_{\cdot j}- \delta \} \leq \theta_i - \max_{j \neq i} \theta_j \leq \max\{0, \bar{Y}_{\cdot j} - \min_{j \neq i}\bar{Y}_{\cdot j}- \delta \}\)</span></p>
 <p>To apply the <code>MultipleComparisonAnalyzer</code> class on a KSL simulation, we can just attach a <code>KSLDatabaseObserver</code> instance and ask for the <code>MultipleComparisonAnalyzer</code> instance as previously illustrated for the pallet model.</p>
+<p>The <code>MultipleComparisonAnalyzer</code> class automatically computes everything that is needed to apply the Two-Stage Bonferroni procedure. The <code>toString()</code> method can be used to see all the results. The second stage sample size can be computed via the function <code>secondStageSampleSizeNM(),</code> and the maximum variance can be found from property, <code>maxVarianceOfDifferences.</code> In addition, the maximum or minimum performer can be noted from the <code>nameOfMaximumAverageOfData</code> and <code>nameOfMinimumAverageOfData</code> properties. The respective performance of the maximum and minimum via the <code>maximumAverageOfData</code> and <code>minimumAverageOfData</code> properties. Finally, the MCB intervals for each case are found from the <code>mcbMaxIntervals(delta)</code> and <code>mcbMinIntervals(delta)</code> functions respectively. Note that if <span class="math inline">\(n = n_0\)</span> in step 5, then no additional replications are required and the PCS will still be met. <span class="citation">(<a href="#ref-nelsonMatejcik1995">Matejcik and Nelson 1995</a>)</span> recommend that the initial number of replications in the first stage should be greater than or equal to 10 (<span class="math inline">\(n_0 \geq 10\)</span>). The two-stage Bonferroni procedure is somewhat conservative in recommending the sample size requirements. If the number of replications is of concern, then the reader should consult <span class="citation">(<a href="#ref-banks2005discreteevent">Banks et al. 2005</a>)</span> for other procedures.</p>
+<p>The following KSL code illustrates the basic use of the <code>MultipleComparisonAnalyzer</code> class on some data.</p>
+<div class="sourceCode" id="cb142"><pre class="sourceCode kt"><code class="sourceCode kotlin"><span id="cb142-1"><a href="simoacomparingSystems.html#cb142-1" tabindex="-1"></a><span class="kw">fun</span> <span class="fu">main</span><span class="op">()</span> <span class="op">{</span></span>
+<span id="cb142-2"><a href="simoacomparingSystems.html#cb142-2" tabindex="-1"></a>    <span class="kw">val</span> <span class="va">data</span> <span class="op">=</span> LinkedHashMap<span class="op">&lt;</span><span class="kw">String</span><span class="op">,</span> DoubleArray<span class="op">&gt;()</span></span>
+<span id="cb142-3"><a href="simoacomparingSystems.html#cb142-3" tabindex="-1"></a>    <span class="kw">data</span><span class="op">[</span><span class="st">&quot;One&quot;</span><span class="op">]</span> <span class="op">=</span> doubleArrayOf<span class="op">(</span><span class="fl">63.72</span><span class="op">,</span> <span class="fl">32.24</span><span class="op">,</span> <span class="fl">40.28</span><span class="op">,</span> <span class="fl">36.94</span><span class="op">,</span> <span class="fl">36.29</span><span class="op">,</span> <span class="fl">56.94</span><span class="op">,</span> <span class="fl">34.10</span><span class="op">,</span> <span class="fl">63.36</span><span class="op">,</span> <span class="fl">49.29</span><span class="op">,</span> <span class="fl">87.20</span><span class="op">)</span></span>
+<span id="cb142-4"><a href="simoacomparingSystems.html#cb142-4" tabindex="-1"></a>    <span class="kw">data</span><span class="op">[</span><span class="st">&quot;Two&quot;</span><span class="op">]</span> <span class="op">=</span> doubleArrayOf<span class="op">(</span><span class="fl">63.06</span><span class="op">,</span> <span class="fl">31.78</span><span class="op">,</span> <span class="fl">40.32</span><span class="op">,</span> <span class="fl">37.71</span><span class="op">,</span> <span class="fl">36.79</span><span class="op">,</span> <span class="fl">57.93</span><span class="op">,</span> <span class="fl">33.39</span><span class="op">,</span> <span class="fl">62.92</span><span class="op">,</span> <span class="fl">47.67</span><span class="op">,</span> <span class="fl">80.79</span><span class="op">)</span></span>
+<span id="cb142-5"><a href="simoacomparingSystems.html#cb142-5" tabindex="-1"></a>    <span class="kw">data</span><span class="op">[</span><span class="st">&quot;Three&quot;</span><span class="op">]</span> <span class="op">=</span> doubleArrayOf<span class="op">(</span><span class="fl">57.74</span><span class="op">,</span> <span class="fl">29.65</span><span class="op">,</span> <span class="fl">36.52</span><span class="op">,</span> <span class="fl">35.71</span><span class="op">,</span> <span class="fl">33.81</span><span class="op">,</span> <span class="fl">51.54</span><span class="op">,</span> <span class="fl">31.39</span><span class="op">,</span> <span class="fl">57.24</span><span class="op">,</span> <span class="fl">42.63</span><span class="op">,</span> <span class="fl">67.27</span><span class="op">)</span></span>
+<span id="cb142-6"><a href="simoacomparingSystems.html#cb142-6" tabindex="-1"></a>    <span class="kw">data</span><span class="op">[</span><span class="st">&quot;Four&quot;</span><span class="op">]</span> <span class="op">=</span> doubleArrayOf<span class="op">(</span><span class="fl">62.63</span><span class="op">,</span> <span class="fl">31.56</span><span class="op">,</span> <span class="fl">39.87</span><span class="op">,</span> <span class="fl">37.35</span><span class="op">,</span> <span class="fl">36.65</span><span class="op">,</span> <span class="fl">57.15</span><span class="op">,</span> <span class="fl">33.30</span><span class="op">,</span> <span class="fl">62.21</span><span class="op">,</span> <span class="fl">47.46</span><span class="op">,</span> <span class="fl">79.60</span><span class="op">)</span></span>
+<span id="cb142-7"><a href="simoacomparingSystems.html#cb142-7" tabindex="-1"></a>    <span class="kw">val</span> <span class="va">mca</span> <span class="op">=</span> MultipleComparisonAnalyzer<span class="op">(</span><span class="kw">data</span><span class="op">)</span></span>
+<span id="cb142-8"><a href="simoacomparingSystems.html#cb142-8" tabindex="-1"></a>    <span class="kw">val</span> <span class="va">out</span> <span class="op">=</span> PrintWriter<span class="op">(</span>System<span class="op">.</span><span class="kw">out</span><span class="op">,</span> <span class="kw">true</span><span class="op">)</span></span>
+<span id="cb142-9"><a href="simoacomparingSystems.html#cb142-9" tabindex="-1"></a>    mca<span class="op">.</span>writeDataAsCSVFile<span class="op">(</span><span class="kw">out</span><span class="op">)</span></span>
+<span id="cb142-10"><a href="simoacomparingSystems.html#cb142-10" tabindex="-1"></a>    <span class="kw">out</span><span class="op">.</span>println<span class="op">()</span></span>
+<span id="cb142-11"><a href="simoacomparingSystems.html#cb142-11" tabindex="-1"></a>    println<span class="op">(</span>mca<span class="op">)</span></span>
+<span id="cb142-12"><a href="simoacomparingSystems.html#cb142-12" tabindex="-1"></a>    println<span class="op">(</span><span class="st">&quot;num data sets: &quot;</span> <span class="op">+</span> mca<span class="op">.</span>numberDatasets<span class="op">)</span></span>
+<span id="cb142-13"><a href="simoacomparingSystems.html#cb142-13" tabindex="-1"></a>    println<span class="op">(</span>mca<span class="op">.</span>dataNames<span class="op">.</span>contentToString<span class="op">())</span></span>
+<span id="cb142-14"><a href="simoacomparingSystems.html#cb142-14" tabindex="-1"></a>    <span class="kw">val</span> <span class="va">r</span> <span class="op">=</span> mca<span class="op">.</span>secondStageSampleSizeNM<span class="op">(</span><span class="fl">2.0</span><span class="op">,</span> <span class="fl">0.95</span><span class="op">)</span></span>
+<span id="cb142-15"><a href="simoacomparingSystems.html#cb142-15" tabindex="-1"></a>    println<span class="op">(</span><span class="st">&quot;Second stage sampling recommendation R = </span><span class="ss">$r</span><span class="st">&quot;</span><span class="op">)</span></span>
+<span id="cb142-16"><a href="simoacomparingSystems.html#cb142-16" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
+<p>The output from the running of the code contains everything you need for a MCB analysis.</p>
+<pre><code>Multiple Comparison Report: Statistical Summary Report
+
+Raw Data 
+Name                       Count          Average       Std. Dev. 
+--------------------------------------------------------------- 
+One                        10         50.0360         17.7027 
+Two                        10         49.2360         16.2450 
+Three                      10         44.3500         13.1509 
+Four                       10         48.7780         15.9415 
+-------------------------------------------------------------- 
+
+95.0% Confidence Intervals on Data
+One [37.37228240333723, 62.69971759666277]
+Two [37.61502264027472, 60.85697735972529]
+Three   [34.94237884397989, 53.7576211560201]
+Four    [37.37412553653087, 60.18187446346914]
+
+Statistical Summary Report
+
+Difference Data 
+Name                              Count           Average       Std. Dev. 
+----------------------------------------------------------------------- 
+One - Two                         10           0.8000          2.1208 
+One - Three                       10           5.6860          5.3384 
+One - Four                        10           1.2580          2.3430 
+Two - Three                       10           4.8860          3.4435 
+Two - Four                        10           0.4580          0.3445 
+Three - Four                      10          -4.4280          3.1384 
+----------------------------------------------------------------------- 
+
+95.0% Confidence Intervals on Difference Data
+One - Two   [-0.717163895232598, 2.317163895232595]
+One - Three [1.8671698996711696, 9.504830100328828]
+One - Four  [-0.41806967690470764, 2.934069676904709]
+Two - Three [2.422703009361264, 7.349296990638738]
+Two - Four  [0.21155519141551002, 0.7044448085844948]
+Three - Four    [-6.673063053959199, -2.182936946040797]
+
+Max variance = 28.498048888888913
+Min performer = Three
+Min performance = 44.349999999999994
+Max performer = One
+Max performance = 50.036
+Min difference = Three - Four
+Min difference value = -4.427999999999998
+Max difference = One - Three
+Max difference value = 5.685999999999999
+
+MCB Maximum Intervals
+Indifference delta: 0.0
+Name        Interval
+One     [0.0, 0.7999999999999972]
+Two     [-0.7999999999999972, 0.0]
+Three       [-5.686000000000007, 0.0]
+Four        [-1.2579999999999956, 0.0]
+
+MCB Minimum Intervals
+Indifference delta: 0.0
+Name        Interval
+One     [0.0, 5.686000000000007]
+Two     [0.0, 4.88600000000001]
+Three       [-4.4280000000000115, 0.0]
+Four        [0.0, 4.4280000000000115]
+
+num data sets: 4
+[One, Two, Three, Four]
+Second stage sampling recommendation R = 45</code></pre>
 </div>
 </div>
 <h3>References<a href="references.html#references" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <div id="refs" class="references csl-bib-body hanging-indent">
+<div id="ref-banks2005discreteevent" class="csl-entry">
+Banks, J., J. Carson, B. Nelson, and D. Nicol. 2005. <em>Discrete-Event System Simulation</em>. 4th ed. Prentice Hall.
+</div>
 <div id="ref-goldsman1998comparing" class="csl-entry">
 Goldsman, D., and B. L. Nelson. 1998. <span>“Comparing Systems via Simulation.”</span> In <em>Handbook of Simulation</em>, edited by J. Banks. New York: John Wiley &amp; Sons.
 </div>
 <div id="ref-law2007simulation" class="csl-entry">
 Law, A. 2007. <em>Simulation Modeling and Analysis</em>. 4th ed. McGraw-Hill.
+</div>
+<div id="ref-nelsonMatejcik1995" class="csl-entry">
+Matejcik, F. J., and B. L. Nelson. 1995. <span>“Two-Stage Multiple Comparisons with the Best for Computer Simulation.”</span> <em>Operations Research</em> 43 (4): 633–40.
 </div>
 <div id="ref-montgomery2006applied" class="csl-entry">
 Montgomery, D. C., and G. C. Runger. 2006. <em>Applied Statistics and Probability for Engineers</em>. 4th ed. John Wiley &amp; Sons.

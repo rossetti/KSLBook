@@ -1697,7 +1697,7 @@ Here is what we are going to do:
 
 3.  Examine the P-P and Q-Q plots.
 
-Recall that the Chi-Square Test divides the range of the data, $(x_1, x_2, \dots, x_n)$, into,
+Recall that the Chi-Squared Test divides the range of the data, $(x_1, x_2, \dots, x_n)$, into,
 $k$, intervals and tests if the number of observations that fall in each
 interval is close the expected number that should fall in the interval
 given the hypothesized distribution is the correct model.
