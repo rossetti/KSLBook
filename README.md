@@ -1,4 +1,4 @@
-# 1st [Edition Simulation Modeling using the Kotlin Simulation Library (KSL)](https://rossetti.github.io/KSLBook/)
+# 2nd [Edition Simulation Modeling using the Kotlin Simulation Library (KSL)](https://rossetti.github.io/KSLBook/)
 
 <a rel="license" href="http://creativecommons.org/licenses/by-nc-nd/4.0/"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by-nc-nd/4.0/88x31.png" /></a><br />This work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-nc-nd/4.0/">Creative Commons Attribution-NonCommercial-NoDerivatives 4.0 International License</a>.
 
@@ -7,31 +7,11 @@ This book is intended as an introductory textbook for a first course in discrete
 ![Creative Commons License](figures2/by-nc-nd.png)  
 The online version of this book is licensed under the [Creative Commons Attribution-NonCommercial-NoDerivatives 4.0 International License](http://creativecommons.org/licenses/by-nc-nd/4.0/). 
 
-# Structure of the book
-
-0. Preface
-    - finalize instructions for finding and using materials
-1. Chapter 1 Simulation Modeling
-2. Chapter 2 Modeling Randomness
-3. Chapter 3 Monte Carlo Methods
-4. Chapter 4 Introduction to Discrete Event Modeling
-5. Chapter 5 Analyzing Simulation Output
-6. Chapter 6 Process View Modeling
-7. Chapter 7 Advanced Event and Process View Modeling
-8. Appendices
-  - Generating Pseudo-Random Numbers and Random Variates
-  - Probability Distribution Modeling
-  - Queueing Theory
-  - Discrete Distributions
-  - Continuous Distributions
-  - Statistical Tables
-10. References
-11. Back matter
-    - can the references at the end of the book be active.
+# Book Citation and Licensing
     
 When citing this book, please use the following format:
 
-Rossetti, M.D. (2023). Simulation Modeling using the Kotlin Simulation Library (KSL), 1st and Open Text Edition.  Retrieved from https://rossetti.github.io/KSLBook/ licensed under the [Creative Commons Attribution-NonCommercial-NoDerivatives 4.0 International License](https://creativecommons.org/licenses/by-nc-nd/4.0/).
+Rossetti, M.D. (2023). Simulation Modeling using the Kotlin Simulation Library (KSL), On-line and Open Text Edition.  Retrieved from https://rossetti.github.io/KSLBook/ licensed under the [Creative Commons Attribution-NonCommercial-NoDerivatives 4.0 International License](https://creativecommons.org/licenses/by-nc-nd/4.0/).
 
 # KSL Project Page
 
