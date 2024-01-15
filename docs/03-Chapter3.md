@@ -999,7 +999,7 @@ the desired probability. The code for this situation is quite simple:
 
 ```kt
 fun main() {
-    val rv = NormalRV(10.0, 4.0)
+    val rv = NormalRV(10.0, 16.0)
     val estimateX = Statistic("Estimated X")
     val estOfProb = Statistic("Pr(X>8)")
     val r = StatisticReporter(mutableListOf(estOfProb, estimateX))
@@ -1051,7 +1051,7 @@ To determine the sample size for estimating $p=P[X>8]$ with 95% confidence to $\
 $$
 n = \left(\dfrac{z_{1-(\alpha/2)}}{\epsilon}\right)^{2} \hat{p}(1 - \hat{p})=\left(\dfrac{z_{0.975}}{0.1}\right)^{2} (0.70)(1 - 0.70)=\left(\dfrac{1.96}{0.1}\right)^{2} (0.70)(0.30) = 80.67 \approx 81
 $$
-By using the maximum of $\max{(81, 609)=609}$, we can re-run the simulation this number of replications.  Doing so, yields,
+By using the maximum of $\max{(81, 609)=609}$, we can re-run the simulation for this number of replications.  Doing so, yields,
 
 Performance Measures    Average   95% Half-Width
 --------------------    -------   -------------
@@ -1100,7 +1100,7 @@ n \geq n_0 \left(\frac{h_0}{h}\right)^2
 \end{equation} 
 
 The issue that we face when applying Equation \@ref(eq:hwratio) is that Table \@ref(tab:exResults) only reports the 
-95\% confidence interval half-width.  Thus, to apply Equation \@ref(eq:hwratio) the value of $h_0$ will be based on an $\alpha = 0.05$.  If the desired half-width, $h$, is required for a different confidence level, e.g. a 99\% confidence interval, then you must first translate $h_0$ to be based on the desired confidence level or set the confidence level for the StatisticalReporter to be 99\%. To compute the 95\% half-width from Table \@ref(tab:exResults), you can compute $s$ from Equation \@ref(eq:sInTermsOfh) and then recomputing the actual half-width, $h$, for the desired confidence level.   
+95\% confidence interval half-width.  Thus, to apply Equation \@ref(eq:hwratio) the value of $h_0$ will be based on an $\alpha = 0.05$.  If the desired half-width, $h$, is required for a different confidence level, e.g. a 99\% confidence interval, then you must first translate $h_0$ to be based on the desired confidence level or set the confidence level for the `StatisticalReporter` to be 99\%. To compute the 95\% half-width from Table \@ref(tab:exResults), you can compute $s$ from Equation \@ref(eq:sInTermsOfh) and then recomputing the actual half-width, $h$, for the desired confidence level.   
 
 Using the results from Table \@ref(tab:exResults) and $\alpha = 0.05$ in Equation \@ref(eq:sInTermsOfh) we already know that $s_0 = 4.7862$ for a 95\% confidence interval. Thus, for a 99\% confidence interval, where $\alpha = 0.01$ and $\alpha/2 = 0.005$, we have:
 
@@ -1112,7 +1112,7 @@ Now, we can apply Equation \@ref(eq:hwratio) to this problem with the desire hal
 $$
 n \geq n_0 \left(\frac{h_0}{h}\right)^2=20\left(\frac{3.0618}{h}\right)^2=20\left(\frac{3.0618}{0.5}\right)^2=749.98 \cong 750
 $$
-We see that for this pilot sample, the half-width ratio method recommends a substantially large sample size, $750$ versus $609$. In practice, the half-width ratio method tends to be conservative by recommending a larger sample size. We will see another example of these methods within the next section.
+We see that for this pilot sample, the half-width ratio method recommends a substantially larger sample size, $750$ versus $609$. In practice, the half-width ratio method tends to be conservative by recommending a larger sample size. We will see another example of these methods within the next section.
 
 Based on these examples, you should have a basic understanding of how a
 simulation experiment can be performed to meet a desired margin of error. In general, simulation models are much more interesting than this simple example. 
@@ -1330,7 +1330,7 @@ Half-width =  	 0.436790
 95.0% CI = [1.2407095787617952, 2.1142904212382048]
 ```
 
-## Monte-Carlo Experiments
+## Monte-Carlo Experiments {#mcmExperiments}
 
 Because running Monte-Carlo experiments is very common the KSL has provided some classes to support simple experimentation on Monte-Carlo problems within the `ksl.utilities.mcintegration` package. Figure \@ref(fig:MCExperimentIfc) illustrates the classes within the package.
 
@@ -1526,7 +1526,11 @@ Confidence Interval [1.9973657945263494, 2.002391825899537]
 
 ## Summary
 
-In this chapter, learned how to use KSL constructs to collect statistics within static simulation models. In addition, we explored how to develop models in for which time is not a significant factor. In the case of the news vendor problem, where
+In this chapter, learned how to use KSL constructs to collect statistics within Monte Carlo models. We use the KSL's random variate generation methods and the functionality for collecting and reporting statistics to easily setup and perform Monte Carlo experiments. The quantities to be estimated from the Monte Carlo experiments are random variables. Thus, the Monte Carlo procedure generates a random sample of from the experiment. The random sample from the experiment provides estimates such as the sample average and other statistical quantities. For example, to estimate a probability, we used an indicator variable and computed statistics on the observations of the indicator variable. 
+
+When executing a Monte Carlo experiment, we should report the sampling error or a confidence interval on the quantities estimated from the Monte Carlo experiment. In addition, because we are performing an experiment, we should plan the sampling by understanding the sampling error and if possible, pre-plan the required sample size. Besides the random variate generation and statistical classes within the KSL, we can use the KSL's `MCExperiment` class to execute Monte Carlo experiments.
+
+In addition, we explored how to develop models in for which time is not a significant factor. In the case of the news vendor problem, where
 we simulated each day's demand, time advanced at regular intervals. In the case of the area estimation problem, time was not a factor in the simulation. These types of simulation experiments are often termed static. In the next chapter, we begin our exploration of simulation experiments where time is an integral component in driving the behavior of the system. In addition, we will see that time will not necessarily advance at regular intervals (e.g. hour 1, hour 2, etc.). This will be the focus of the rest of the book.
 
 ## Exercises
@@ -1585,7 +1589,6 @@ a. Find the approximate number of additional replications to execute in order to
 b. Find the number of replications necessary to be 99% confident that you have an interval within plus or minus 2% of the true probability of negative present value.
 
 ***
-***
 
 ::: {.exercise #ch3P7}
 The service
@@ -1622,8 +1625,7 @@ of the observations.
 ***
 
 ::: {.exercise #ch3P10}
-The
-interest rate for a capital project is unknown. An accountant has
+The interest rate for a capital project is unknown. An accountant has
 estimated that the minimum interest rate will between 2\% and 5\% within
 the next year. The accountant believes that any interest rate in this
 range is equally likely. You are tasked with generating interest rates
@@ -1668,8 +1670,7 @@ expected value of the distribution?
 ***
 
 ::: {.exercise #ch3P13}
-Suppose that $X$ is
-a random variable with a $N(\mu = 2, \sigma = 1.5)$ normal distribution.
+Suppose that $X$ is a random variable with a $N(\mu = 2, \sigma = 1.5)$ normal distribution.
 Generate 100 observations of $X$ using a simulation model.
 
 Estimate the mean from your observations. Report a 95\% confidence interval for your point estimate.
@@ -1720,7 +1721,7 @@ of the observations.
 ***
 
 ::: {.exercise #ch3P17}
-Using and the Monte Carlo method estimate the following integral with 95\% confidence
+Use the Monte Carlo method estimate the following integral with 95\% confidence
 to within $\pm 0.01$.
 
 $$\int\limits_{1}^{4} \left( \sqrt{x} + \frac{1}{2\sqrt{x}}\right) \mathrm{d}x$$
@@ -1729,7 +1730,7 @@ $$\int\limits_{1}^{4} \left( \sqrt{x} + \frac{1}{2\sqrt{x}}\right) \mathrm{d}x$$
 ***
 
 ::: {.exercise #ch3P18}
-Using and the Monte Carlo method estimate the following integral with 99\% confidence
+Use the Monte Carlo method estimate the following integral with 99\% confidence
 to within $\pm 0.01$.
 
 $$\int\limits_{0}^{\pi} \left( \sin (x) - 8x^{2}\right) \mathrm{d}x$$
@@ -1738,8 +1739,7 @@ $$\int\limits_{0}^{\pi} \left( \sin (x) - 8x^{2}\right) \mathrm{d}x$$
 
 ***
 ::: {.exercise #ch3P19}
-Using and the
-Monte Carlo method estimate the following integral with 99\% confidence
+Use the Monte Carlo method estimate the following integral with 99\% confidence
 to within $\pm 0.01$.
 
 $$\theta = \int\limits_{0}^{1} \int\limits_{0}^{1} \left( 4x^{2}y + y^{2}\right) \mathrm{d}x \mathrm{d}y$$

@@ -875,7 +875,7 @@ The Student-T distribution also has two convenience methods to facilitate comput
 
 Within the `Gamma` class's companion object there are some convenience methods for computing the gamma function, the natural logarithm of the gamma function, the incomplete gamma function, and the digamma function (derivative of the natural logarithm of the gamma function).
 
-## Distribution Fitting Using the KSL
+## Distribution Fitting Using the KSL {#distFitting}
 
 This section describes how to apply the methods discussed in Appendix \@ref(appidm) to fit probability distributions using the KSL.  The package `ksl.utilities.distributions.fitting` contains classes that facilitate the estimation of the parameters of discrete and continuous probability distributions.  In addition, the quality of the estimated parameters can be examined based on a number of metrics that measure the goodness of fit of the probability model to the data. Finally, there is functionality that will automatically fit a set of possible distributions to a data set and recommend the best distribution based on a combination of metrics.  This section will first describe the organization of the functionality related to parameter estimation. Then, the scoring models for measuring the quality of fit will be presented. Finally, a number of examples will illustrate the use of the classes on the data from the examples discussed in Appendix \@ref(appidm).
 
@@ -933,7 +933,7 @@ fun main(){
 }
 ```
 
-The results of this estimation process are show here.  Notice that the estimation process was successful and the summary statistics were reported. The data was not shifted for the estimation process and the estimated parameters were $\mu = 2.4138851463671918$ and $\sigma^2 = 5.571943618235626$.  The bootstrapping process was used to provide confidence intervals on the estimated parameters.  This functionality is available for any of the distributions and the estimation routines that have been defined within the KSL. 
+The results of this estimation process are show here.  Notice that the estimation process was successful and the summary statistics were reported. The data was not shifted for the estimation process and the estimated parameters were $\mu = 2.4138851463671918$ and $\sigma^2 = 5.571943618235626$.  The bootstrapping process, see Section \@ref(ch9BootStrapping) of Chapter \@ref(ch9AdvMC) was used to provide confidence intervals on the estimated parameters.  This functionality is available for any of the distributions and the estimation routines that have been defined within the KSL. 
 
 ```
 Estimation Results:
@@ -1023,7 +1023,7 @@ The parameters of the following distributions can be estimated from data using t
 - Uniform - via `UniformParameterEstimator`
 - Weibull - via `WeibullMLEParameterEstimator` or `WeibullPercentileParameterEstimator`
 
-Again, by implementing the concepts illustrated in Figure \@ref(fig:ParameterEstimatorLabel), a KSL user can implement additional distribution parameter estimation methods. If the user needs to fit a distribution that is not availabled within the KSL, then not only does the estimation method need to be implemented, but also a class representing the distribution must be implemented. Depending on the type of distribution, this may involve implementing the requirements of the `ContinuousDistributionIfc` interface or the `DiscreteDistributionIfc` interface for the underlying probability model. 
+Again, by implementing the concepts illustrated in Figure \@ref(fig:ParameterEstimatorLabel), a KSL user can implement additional distribution parameter estimation methods. If you need to fit a distribution that is not modeled within the KSL, then you need to implement the distribution's parameter estimation procedure. In addition, you will also need to implement a class representing the distribution. Depending on the type of distribution, this may involve implementing the requirements of the `ContinuousDistributionIfc` interface or the `DiscreteDistributionIfc` interface for the underlying probability model. 
 
 ### Continuous Distribution Recommendation Framework
 
@@ -1175,7 +1175,7 @@ After performing the estimation and scoring process, the modeler may want to per
 
 Figure \@ref(fig:ContinuousCDFGoodnessOfFitLabel) shows the framework of classes and interfaces for performing goodness of fit tests within the KSL. The main class is the `ContinuousCDFGoodnessOfFit` class.  This class will compute the test statistics and their P-values. 
 
-The chi-squared test is the most challenging test to execute in an automated fashion.  The KSL follows the recommendation found in Chapter 6 of [@law2007simulation] for setting up the chi-squared test. The KSL does not use arbitrary break points from a histogramming process. Instead the KSL attempts to define the break points for the chi-squared intervals such that each interval has the *same* probability of occurrence.  This also ensures that the expected number of observations within each interval is approximately the same. The theoretical basis for this approach can be found in [@CAWilliams1950].  [@CAWilliams1950] considered the testing of $U(0,1)$ random variates.  In the case of the $U(0,1)$ distribution, the choice of the number of intervals determines the break points because each interval is equally likely. [@CAWilliams1950] recommended choosing the class limits such that the expected number in the interval was $n/k$, where $n$ is the number of observations and $k$ is the number of class intervals. Based on the ability to ensure that the resulting chi-squared test statistic actually has a chi-squared distribution, [@CAWilliams1950] recommended that the number of class intervals be:
+The chi-squared test is the most challenging test to execute in an automated fashion.  The KSL follows the recommendation found in Chapter 6 of [@law2007simulation] for setting up the chi-squared test. The KSL does not use arbitrary break points from a histogram generation process. Instead the KSL attempts to define the break points for the chi-squared intervals such that each interval has the *same* probability of occurrence.  This also ensures that the expected number of observations within each interval is approximately the same. The theoretical basis for this approach can be found in [@CAWilliams1950].  [@CAWilliams1950] considered the testing of $U(0,1)$ random variates.  In the case of the $U(0,1)$ distribution, the choice of the number of intervals determines the break points because each interval is equally likely. [@CAWilliams1950] recommended choosing the class limits such that the expected number in the interval was $n/k$, where $n$ is the number of observations and $k$ is the number of class intervals. Based on the ability to ensure that the resulting chi-squared test statistic actually has a chi-squared distribution, [@CAWilliams1950] recommended that the number of class intervals be:
 
 \begin{equation}
 k = \Bigg\lceil 4 \, \sqrt[5]{\frac{2(n-1)^2}{z_{1-\alpha}}} \, \Bigg\rceil

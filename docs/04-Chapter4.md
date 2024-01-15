@@ -439,8 +439,8 @@ variables and the entity attributes within a table as follows.
    <th style="text-align:right;"> Q(t) </th>
    <th style="text-align:right;"> ID(i) </th>
    <th style="text-align:right;"> A(i) </th>
-   <th style="text-align:right;"> S(i) </th>
    <th style="text-align:right;"> ST(i) </th>
+   <th style="text-align:right;"> S(i) </th>
    <th style="text-align:right;"> D(i) </th>
    <th style="text-align:right;"> T(i) </th>
    <th style="text-align:right;"> W(i) </th>
@@ -494,8 +494,8 @@ The table has been updated as follows.
    <th style="text-align:right;"> Q(t) </th>
    <th style="text-align:right;"> ID(i) </th>
    <th style="text-align:right;"> A(i) </th>
-   <th style="text-align:right;"> S(i) </th>
    <th style="text-align:right;"> ST(i) </th>
+   <th style="text-align:right;"> S(i) </th>
    <th style="text-align:right;"> D(i) </th>
    <th style="text-align:right;"> T(i) </th>
    <th style="text-align:right;"> W(i) </th>
@@ -568,8 +568,8 @@ follows.
    <th style="text-align:right;"> Q(t) </th>
    <th style="text-align:right;"> ID(i) </th>
    <th style="text-align:right;"> A(i) </th>
-   <th style="text-align:right;"> S(i) </th>
    <th style="text-align:right;"> ST(i) </th>
+   <th style="text-align:right;"> S(i) </th>
    <th style="text-align:right;"> D(i) </th>
    <th style="text-align:right;"> T(i) </th>
    <th style="text-align:right;"> W(i) </th>
@@ -645,8 +645,8 @@ can be updated as follows.
    <th style="text-align:right;"> Q(t) </th>
    <th style="text-align:right;"> ID(i) </th>
    <th style="text-align:right;"> A(i) </th>
-   <th style="text-align:right;"> S(i) </th>
    <th style="text-align:right;"> ST(i) </th>
+   <th style="text-align:right;"> S(i) </th>
    <th style="text-align:right;"> D(i) </th>
    <th style="text-align:right;"> T(i) </th>
    <th style="text-align:right;"> W(i) </th>
@@ -738,8 +738,8 @@ form. Updating our bookkeeping table, yields:
    <th style="text-align:right;"> Q(t) </th>
    <th style="text-align:right;"> ID(i) </th>
    <th style="text-align:right;"> A(i) </th>
-   <th style="text-align:right;"> S(i) </th>
    <th style="text-align:right;"> ST(i) </th>
+   <th style="text-align:right;"> S(i) </th>
    <th style="text-align:right;"> D(i) </th>
    <th style="text-align:right;"> T(i) </th>
    <th style="text-align:right;"> W(i) </th>
@@ -848,8 +848,8 @@ table.
    <th style="text-align:right;"> Q(t) </th>
    <th style="text-align:right;"> ID(i) </th>
    <th style="text-align:right;"> A(i) </th>
-   <th style="text-align:right;"> S(i) </th>
    <th style="text-align:right;"> ST(i) </th>
+   <th style="text-align:right;"> S(i) </th>
    <th style="text-align:right;"> D(i) </th>
    <th style="text-align:right;"> T(i) </th>
    <th style="text-align:right;"> W(i) </th>
@@ -970,8 +970,8 @@ customer 2 will finally complete service and depart at time 15.
    <th style="text-align:right;"> Q(t) </th>
    <th style="text-align:right;"> ID(i) </th>
    <th style="text-align:right;"> A(i) </th>
-   <th style="text-align:right;"> S(i) </th>
    <th style="text-align:right;"> ST(i) </th>
+   <th style="text-align:right;"> S(i) </th>
    <th style="text-align:right;"> D(i) </th>
    <th style="text-align:right;"> T(i) </th>
    <th style="text-align:right;"> W(i) </th>
@@ -1111,8 +1111,8 @@ customer 5 at time 17.
    <th style="text-align:right;"> Q(t) </th>
    <th style="text-align:right;"> ID(i) </th>
    <th style="text-align:right;"> A(i) </th>
-   <th style="text-align:right;"> S(i) </th>
    <th style="text-align:right;"> ST(i) </th>
+   <th style="text-align:right;"> S(i) </th>
    <th style="text-align:right;"> D(i) </th>
    <th style="text-align:right;"> T(i) </th>
    <th style="text-align:right;"> W(i) </th>
@@ -1279,8 +1279,8 @@ time 31 is as follows.
    <th style="text-align:right;"> Q(t) </th>
    <th style="text-align:right;"> ID(i) </th>
    <th style="text-align:right;"> A(i) </th>
-   <th style="text-align:right;"> S(i) </th>
    <th style="text-align:right;"> ST(i) </th>
+   <th style="text-align:right;"> S(i) </th>
    <th style="text-align:right;"> D(i) </th>
    <th style="text-align:right;"> T(i) </th>
    <th style="text-align:right;"> W(i) </th>

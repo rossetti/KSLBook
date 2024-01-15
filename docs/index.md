@@ -1,7 +1,7 @@
 --- 
 title: "Simulation Modeling using the Kotlin Simulation Library (KSL)"
 author: "Manuel D. Rossetti"
-date: "2023-11-05"
+date: "2024-01-15"
 site: bookdown::bookdown_site
 output: bookdown::gitbook
 header-includes:
@@ -23,7 +23,7 @@ The online version of this book is licensed under the [Creative Commons Attribut
 
 When citing this book, please use the following format:
 
-Rossetti, M.D. (2023). Simulation Modeling using the Kotlin Simulation Library (KSL), 1st and Open Text Edition.  Retrieved from https://rossetti.github.io/KSLBook/ licensed under the [Creative Commons Attribution-NonCommercial-NoDerivatives 4.0 International License](https://creativecommons.org/licenses/by-nc-nd/4.0/).
+Rossetti, M.D. (2023). Simulation Modeling using the Kotlin Simulation Library (KSL), On-line and Open Text Edition.  Retrieved from https://rossetti.github.io/KSLBook/ licensed under the [Creative Commons Attribution-NonCommercial-NoDerivatives 4.0 International License](https://creativecommons.org/licenses/by-nc-nd/4.0/).
 
 The purpose of this book is to provide an overview of the Kotlin Simulation Library (KSL). The KSL facilitates simulation modeling by providing Kotlin language libraries that ease the development of simulation models. The KSL has a substantial amount of functionality implemented in the following packages:
 
@@ -61,10 +61,13 @@ Rossetti, M.D. (2021). Simulation Modeling and Arena, 3rd and Open Text Edition.
 
 ## Release History {-}
 
-You are reading the 1st edition of *Simulation Modeling using the Kotlin Simulation Library (KSL)* by Dr. Manuel D. Rossetti.  Because of its on-line nature, updated versions of the book will be released, as needed, to correct issues and possibly add new material that would not warrant a new edition.  This section summarizes noteworthy updates.
+You are reading the on-line edition of *Simulation Modeling using the Kotlin Simulation Library (KSL)* by Dr. Manuel D. Rossetti.  Because of its on-line nature, updated versions of the book will be released, as needed, to correct issues and add new material.  This section summarizes noteworthy updates.
 
 - 1st Edition, Version 1.0, released January 2023
   - first main release of text book
+- 2nd Edition Version 2.0, released January 2024
+  - Added distribution fitting Section \@ref(distFitting) to Chapter \@ref(ch2rng)
+  - Added Chapter \@ref(ch9AdvMC) on advance Monte Carlo methods
 
 If you find typographical errors or other issues related to the text or supporting files, then please use the book's [repository's](https://github.com/rossetti/KSLBook) issue tracking system to create a new issue. You should first check if the same or similar issue has already been submitted. The issue tracking system is for filing issues about the correctness of the text or files. It is **not** about general questions about simulation concepts, solutions to homework, how to do something in the KSL, etc.  Such issues will not be considered and will be deleted as needed.
 
@@ -158,48 +161,48 @@ be aware of these concepts within the context of simulation.
 
 ## Organization of the Book {-}
 
-Chapter 1 is an introduction to the field of simulation modeling. After
-Chapter 1 the student should know what simulation is and be able to put
-the different types of simulation into context. Chapter 2 introduces the
+Chapter \@ref(ch1) is an introduction to the field of simulation modeling. After
+Chapter \@ref(ch1) the student should know what simulation is and be able to put
+the different types of simulation into context. Chapter \@ref(ch2rng) introduces the
 basics of random number generation and random variate generation within the context of the KSL library. 
 
-Chapter 3 introduces problem solving and statistical concepts related to Monte Carlo simulation experiments. Chapter 4 introduces the important concept of how a discrete-event clock "ticks"
+Chapter \@ref(mcm) introduces problem solving and statistical concepts related to Monte Carlo simulation experiments. Chapter \@ref(introDEDS) introduces the important concept of how a discrete-event clock "ticks"
 and sets the stage for process modeling using activity diagramming.
 Finally, simple (but comprehensive) examples of KSL event modeling are presented. 
 
-Chapter 5 presents important concepts of statistical analysis that occur within discrete-event simulation modeling.  This chapter should provide a refresher for students on statistical concepts. Chapter 6 dives deeper into
-process-oriented modeling. Important concepts within process-oriented modeling
+Chapter \@ref(simoa) presents important concepts of statistical analysis that occur within discrete-event simulation modeling.  This chapter should provide a refresher for students on statistical concepts. Chapter \@ref(processview) dives deeper into process-oriented modeling. Important concepts within process-oriented modeling
 (e.g. entities, attributes, activities, state variables, etc.) are
 emphasized within the context of a number of examples. In addition, a
 deeper understanding of the KSL is developed including flow of control and
-input/output. After finishing Chapter 6, students should be able to model interesting systems from a process
-viewpoint using the KSL. Chapter 7 presents more advanced concepts within simulation and
+input/output. After finishing Chapter \@ref(processview), students should be able to model interesting systems from a process viewpoint using the KSL. Chapter \@ref(ch7AdvModeling) presents more advanced concepts within simulation and
 especially how the KSL facilitates the modeling. In particular,
 non-stationary arrivals and resource staffing are introduced in Chapter
-7, as well as constructs for more advance modeling with resources. 
+\@ref(ch7AdvModeling), as well as constructs for more advance modeling with resources. Chapter \@ref(ch9AdvMC) presents more advanced techniques used within Monte Carlo methods. 
 
-The Appendix A and B are extremely useful for understanding the concepts of random variate generation and distribution modeling.  For undergraduate students, I recommend starting with Appendices A and B.  Appendix C provides an overview of queueing theory, which can be useful when verifying and validating the results of simulation models involving queues.  The remaining appendices provide information on probability distributions and statistical tables.
+The Appendix \@ref(appRNRV) and Appendix \@ref(appidm) are extremely useful for understanding the concepts of random variate generation and distribution modeling.  For undergraduate students, I recommend starting with Appendices \@ref(appRNRV) and \@ref(appidm).  Appendix \@ref(appqtAndInvT) provides an overview of queueing theory, which can be useful when verifying and validating the results of simulation models involving queues.  The remaining appendices provide information on probability distributions and statistical tables.
 
 Future chapters are planned for when new KSL functionality is developed.
 
 0. Preface
-1. Chapter 1 Simulation Modeling
-2. Chapter 2 Modeling Randomness
-3. Chapter 3 Monte Carlo Methods
-4. Chapter 4 Introduction to Discrete Event Modeling
-5. Chapter 5 Analyzing Simulation Output
-6. Chapter 6 Process View Modeling
-7. Chapter 7 Advanced Event and Process View Modeling
-8. Appendices
-  - Generating Pseudo-Random Numbers and Random Variates
-  - Probability Distribution Modeling
-  - Queueing Theory
-  - Discrete Distributions
-  - Continuous Distributions
-  - Statistical Tables
-10. References
+1. Chapter \@ref(ch1) Simulation Modeling
+2. Chapter \@ref(ch2rng) Modeling Randomness
+3. Chapter \@ref(mcm)  Monte Carlo Methods
+4. Chapter \@ref(introDEDS) Introduction to Discrete Event Modeling
+5. Chapter \@ref(simoa) Analyzing Simulation Output
+6. Chapter \@ref(processview) Process View Modeling
+7. Chapter \@ref(ch7AdvModeling) Advanced Event and Process View Modeling
+8. Chapter \@ref(ch9AdvMC) Advanced Monte Carlo Methods
+9. Appendices
+  - Appendix \@ref(appRNRV) Generating Pseudo-Random Numbers and Random Variates
+  - Appendix \@ref(appidm) Probability Distribution Modeling
+  - Appendix \@ref(appqtAndInvT) Queueing Theory
+  - Appendix \@ref(appUtilities) KSL Utility Packages
+  - Appendix \@ref(appDiscreteDistributions) Discrete Distributions
+  - Appendix \@ref(appContinuousDistributions) Continuous Distributions
+  - Appendix \@ref(appStatTables) Statistical Tables
+10. References \@ref(references)
 
-Depending on the level of programming skill of the students, instructors should be able to cover chapters 1 through 6 within a semester course.
+Depending on the level of programming skill of the students, instructors should be able to cover chapters \@ref(ch1) through \@ref(processview) within a semester course.
 
 
 
