@@ -2549,7 +2549,7 @@ method to test whether $\mu_2 > \mu_1$.
 ::: {.exercise #Ch9Ex150}
 Let $X$ be a random variable with a lognormal distribution with mean 2.0, and variance 4.0.  Let $Y$ be a random variable with a Weibull distribution with shape 5.0 and scale 10.0.  We are interested in generating the joint distribution of $(X, Y)$ when $X$ and $Y$ have dependence specified with the following copulas:
 
-a) Gausian copula with correlation 0.8. Generate 1000 pairs of $(X, Y$). Measure the Pearson, Kendall, and Spearman correlation between $X$ and $Y$ when $\theta = 2$.  Make a 2-D plot of $(X, Y)$.
+a) Gausian copula with correlation 0.8. Generate 1000 pairs of $(X, Y$). Measure the Pearson, Kendall, and Spearman correlation between $X$ and $Y$.  Make a 2-D plot of $(X, Y)$.
 
 b) [Clayton copula](https://en.wikipedia.org/wiki/Copula_(probability_theory)) with $\theta$, where $U$ is the first coordinate and $V$ is the second coordinate. Generate 1000 pairs of $(U, V)$ from the copula.  Measure the Pearson, Kendall, and Spearman correlation between $U$ and $V$ when $\theta = 2$. Generate 1000 pairs of $(X, Y$) using the copula with mapping $U$ to $X$ and $V$ to $Y$. Measure the Pearson, Kendall, and Spearman correlation between $X$ and $Y$ when $\theta = 2$.  Make a 2-D plot of $(X, Y)$.
 
