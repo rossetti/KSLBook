@@ -1066,7 +1066,7 @@ X_{i} = \left\lfloor \frac{ln(1 - U_{i})}{ln(1 - p)} \right\rfloor
 
 ::: {.example #GenNB name="Generate Negative Binomial Variates via Convolution"}
 Use the following pseudo-random numbers $u_{1} = 0.35$, $u_{2} = 0.64$,
-$u_{2} = 0.14$, generate a random variate from Negative Binomial distribution
+$u_{3} = 0.14$, generate a random variate from Negative Binomial distribution
 having parameters $r=3$ and $p= 0.3$.  Also, using the same pseudo-random numbers, generate a random variate from a *shifted* Negative Binomial distribution having parameters $r=3$ and $p=0.3$.
 :::
 
@@ -1206,7 +1206,7 @@ f(x) =
 $$
 
 <div class="figure" style="text-align: center">
-<img src="./figures2/AppRNRV/ARExampleFig.jpg" alt="Plot of f(x)" width="65%" height="65%" />
+<img src="./figures2/AppRNRV/ARExampleFig.jpg" alt="Plot of f(x)" width="50%" height="50%" />
 <p class="caption">(\#fig:ARExampleFig)Plot of f(x)</p>
 </div>
 

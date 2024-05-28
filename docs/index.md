@@ -1,7 +1,7 @@
 --- 
 title: "Simulation Modeling using the Kotlin Simulation Library (KSL)"
 author: "Manuel D. Rossetti"
-date: "2024-01-15"
+date: "2024-05-28"
 site: bookdown::bookdown_site
 output: bookdown::gitbook
 header-includes:

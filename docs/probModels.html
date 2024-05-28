@@ -4,18 +4,18 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>C.2 Examples and Applications of Queueing Analysis | Simulation Modeling using the Kotlin Simulation Library (KSL)</title>
+  <title>2.3 Probability Distribution Models | Simulation Modeling using the Kotlin Simulation Library (KSL)</title>
   <meta name="description" content="A book that illustrates the basics of using the KSL. The output format for this book is bookdown::gitbook." />
   <meta name="generator" content="bookdown 0.34 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="C.2 Examples and Applications of Queueing Analysis | Simulation Modeling using the Kotlin Simulation Library (KSL)" />
+  <meta property="og:title" content="2.3 Probability Distribution Models | Simulation Modeling using the Kotlin Simulation Library (KSL)" />
   <meta property="og:type" content="book" />
   
   <meta property="og:description" content="A book that illustrates the basics of using the KSL. The output format for this book is bookdown::gitbook." />
   
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="C.2 Examples and Applications of Queueing Analysis | Simulation Modeling using the Kotlin Simulation Library (KSL)" />
+  <meta name="twitter:title" content="2.3 Probability Distribution Models | Simulation Modeling using the Kotlin Simulation Library (KSL)" />
   
   <meta name="twitter:description" content="A book that illustrates the basics of using the KSL. The output format for this book is bookdown::gitbook." />
   
@@ -30,8 +30,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-<link rel="prev" href="appqts1.html"/>
-<link rel="next" href="appqts1sb3.html"/>
+<link rel="prev" href="rvg.html"/>
+<link rel="next" href="distFitting.html"/>
 <script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
@@ -465,577 +465,119 @@ div.csl-indent {
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="appqts1sb2" class="section level2 hasAnchor" number="11.2">
-<h2><span class="header-section-number">C.2</span> Examples and Applications of Queueing Analysis<a href="appqts1sb2.html#appqts1sb2" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p>The derivations and formulas in the previous section certainly appear to
-be intimidating and they can be tedious to apply. Fortunately, there is
-readily available software that can be used to do the calculations. On
-line resources for software for queueing analysis can be found at:</p>
+<div id="probModels" class="section level2 hasAnchor" number="2.3">
+<h2><span class="header-section-number">2.3</span> Probability Distribution Models<a href="probModels.html#probModels" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>The <code>ksl.utilities.random.rvariable</code> package is the key package for generating random variables; however, it does not facilitate performing calculations involving the underlying probability distributions. To perform calculations involving probability distributions, you should use the <code>ksl.utilities.distributions</code> package. This package has almost all the same distributions represented within the <code>ksl.utilities.random.rvariable</code> package.</p>
+<div class="figure"><span style="display:block;" id="fig:DistPackage"></span>
+<img src="figures/Distributions.png" alt="Distribution Interfaces"  />
+<p class="caption">
+Figure 2.6: Distribution Interfaces
+</p>
+</div>
+<p>Figure<a href="probModels.html#fig:DistPackage">2.6</a> illustrates the interfaces used to define probability distributions. First, the interface, <code>CDFIfc</code> serves as the basis for discrete distributions via the <code>DiscreteDistributionIfc</code> interface, for continuous distributions via the <code>ContinuousDistributionIfc</code> interface and the general <code>DistributionIfc</code> interface. The discrete distributions such as the geometric, binomial, etc. implement the <code>DiscreteDistributionIfc</code> and <code>PMFIfc</code> interfaces. Similarly, continuous distributions like the normal, uniform, etc. implement the <code>ContinuousDistributionIfc</code> and <code>PDFIfc</code> interfaces. All concrete implementations of distributions extend from the abstract base class <code>Distribution</code>, which implements the <code>DistributionIfc</code> interface. Thus, all distributions have the following capabilities:</p>
 <ul>
-<li><p><a href="https://web2.uwindsor.ca/math/hlynka/qsoft.html">List of queueing theory software resources</a></p></li>
-<li><p><a href="http://mason.gmu.edu/~jshortle/fqt5th.html">QTSPlus</a> Excel based queueing theory software that accompanies
-<span class="citation">Gross et al. (<a href="#ref-Gross2008aa">2008</a>)</span></p></li>
+<li><code>cdf(b: Double)</code> - computes the cumulative probability, <span class="math inline">\(F(b) = P(X \leq b)\)</span></li>
+<li><code>cdf(a: Double, b: Double)</code> - computes the cumulative probability, <span class="math inline">\(P( a \leq X \leq b)\)</span></li>
+<li><code>complementaryCDF(b: Double)</code> - computes the cumulative probability, <span class="math inline">\(1-F(b) = P(X &gt; b)\)</span></li>
+<li><code>mean()</code> - returns the expected value (mean) of the distribution</li>
+<li><code>variance()</code> - returns the variance of the distribution</li>
+<li><code>standardDeviation()</code> - returns the standard deviation of the distribution</li>
+<li><code>invCDF(p: Double)</code> - returns the inverse of the cumulative distribution function <span class="math inline">\(F^{-1}(p)\)</span>. This is performed by numerical search if necessary</li>
 </ul>
-<p>The most important part of performing a queueing analysis is to identify
-the most appropriate queueing model for a given situation. Then,
-software tools can be used to analyze the situation. This section
-provides a number of examples and discusses the differences between the
-systems so that you can better apply the results of the previous
-sections. The solutions to these types of problems involve the following
-steps:</p>
-<ol style="list-style-type: decimal">
-<li><p>Identify the arrival and service processes</p></li>
-<li><p>Identify the size of the arriving population and the size of the
-system</p></li>
-<li><p>Specify the appropriate queueing model and its input parameters</p></li>
-<li><p>Identify the desired performance measures</p></li>
-<li><p>Compute the required performance measures</p></li>
-</ol>
-<div id="infinite-queue-examples" class="section level3 hasAnchor" number="11.2.1">
-<h3><span class="header-section-number">C.2.1</span> Infinite Queue Examples<a href="appqts1sb2.html#infinite-queue-examples" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<p>In this section, we will explore two queueing systems (M/M/1 and M/M/c)
-that have an infinite population of arrivals and an infinite size queue.
-The examples illustrate some of the common questions related to these
-types of queueing systems.</p>
-<hr />
+<p>Discrete distributions have a method called <code>pmf(k: Double)</code> that returns the probability associated with the value <span class="math inline">\(k\)</span>. Continuous distributions have a probability density function, <span class="math inline">\(f(x)\)</span>, implemented in the method, <code>pdf(x : Double)</code>. Finally, all distributions know how to create random variables through the <code>GetRVariableIfc</code> interface that provides the following methods.</p>
+<ul>
+<li><code>RVariableIfc randomVariable(stream: RNStreamIfc)</code> - returns a new instance of a random variable based on the current values of the distribution’s parameters that uses the supplied stream</li>
+<li><code>RVariableIfc randomVariable(streamNum: Int)</code> - returns a new instance of a random variable based on the current values of the distribution’s parameters that uses the supplied stream number</li>
+<li><code>RVariableIfc randomVariable()</code> - returns a new instance of a random variable based on the current values of the distribution’s parameters that uses a newly created stream</li>
+</ul>
+<p>As an example, the following code illustrates some calculations for the binomial distribution.</p>
 <div class="example">
-<p><span id="exm:exDTP" class="example"><strong>Example C.1  </strong></span>Customers arrive at a one window drive through pharmacy according to a Poisson distribution
-with a mean of 10 per hour. The service time per customer is exponential
-with a mean of 5 minutes. There are 3 spaces in front of the window,
-including that for the car being served. Other arriving cars can wait
-outside these 3 spaces. The pharmacy is interested in answering the
-following questions:</p>
+<p><span id="exm:ch2ex22" class="example"><strong>Example 2.22  (Computing with a Binomial Distribution) </strong></span>This example code illustrates how to create a binomial distribution and to use some of its functions to compute the mean, variance, and perform some basic calculations involving probabilities. Notice that the parameters of a distribution can be changes and that distributions can create random variables for generating variates.</p>
+<div class="sourceCode" id="cb36"><pre class="sourceCode kt"><code class="sourceCode kotlin"><span id="cb36-1"><a href="probModels.html#cb36-1" tabindex="-1"></a><span class="kw">fun</span> <span class="fu">main</span><span class="op">()</span> <span class="op">{</span></span>
+<span id="cb36-2"><a href="probModels.html#cb36-2" tabindex="-1"></a>    <span class="co">// make and use a Binomial(p, n) distribution</span></span>
+<span id="cb36-3"><a href="probModels.html#cb36-3" tabindex="-1"></a>    <span class="kw">val</span> <span class="va">n</span> <span class="op">=</span> <span class="dv">10</span></span>
+<span id="cb36-4"><a href="probModels.html#cb36-4" tabindex="-1"></a>    <span class="kw">val</span> <span class="va">p</span> <span class="op">=</span> <span class="fl">0.8</span></span>
+<span id="cb36-5"><a href="probModels.html#cb36-5" tabindex="-1"></a>    println<span class="op">(</span><span class="st">&quot;n = </span><span class="ss">$n</span><span class="st">&quot;</span><span class="op">)</span></span>
+<span id="cb36-6"><a href="probModels.html#cb36-6" tabindex="-1"></a>    println<span class="op">(</span><span class="st">&quot;p = </span><span class="ss">$p</span><span class="st">&quot;</span><span class="op">)</span></span>
+<span id="cb36-7"><a href="probModels.html#cb36-7" tabindex="-1"></a>    <span class="kw">val</span> <span class="va">bnDF</span> <span class="op">=</span> Binomial<span class="op">(</span>p<span class="op">,</span> n<span class="op">)</span></span>
+<span id="cb36-8"><a href="probModels.html#cb36-8" tabindex="-1"></a>    println<span class="op">(</span><span class="st">&quot;mean = &quot;</span> <span class="op">+</span> bnDF<span class="op">.</span>mean<span class="op">())</span></span>
+<span id="cb36-9"><a href="probModels.html#cb36-9" tabindex="-1"></a>    println<span class="op">(</span><span class="st">&quot;variance = &quot;</span> <span class="op">+</span> bnDF<span class="op">.</span>variance<span class="op">())</span></span>
+<span id="cb36-10"><a href="probModels.html#cb36-10" tabindex="-1"></a>    <span class="co">// compute some values</span></span>
+<span id="cb36-11"><a href="probModels.html#cb36-11" tabindex="-1"></a>    System<span class="op">.</span><span class="kw">out</span><span class="op">.</span>printf<span class="op">(</span><span class="st">&quot;%3s %15s %15s %n&quot;</span><span class="op">,</span> <span class="st">&quot;k&quot;</span><span class="op">,</span> <span class="st">&quot;p(k)&quot;</span><span class="op">,</span> <span class="st">&quot;cdf(k)&quot;</span><span class="op">)</span></span>
+<span id="cb36-12"><a href="probModels.html#cb36-12" tabindex="-1"></a>    <span class="cf">for</span> <span class="op">(</span>i <span class="kw">in</span> <span class="fl">0..10</span><span class="op">)</span> <span class="op">{</span></span>
+<span id="cb36-13"><a href="probModels.html#cb36-13" tabindex="-1"></a>        System<span class="op">.</span><span class="kw">out</span><span class="op">.</span>printf<span class="op">(</span><span class="st">&quot;%3d %15.10f %15.10f %n&quot;</span><span class="op">,</span> i<span class="op">,</span> bnDF<span class="op">.</span>pmf<span class="op">(</span>i<span class="op">),</span> bnDF<span class="op">.</span>cdf<span class="op">(</span>i<span class="op">))</span></span>
+<span id="cb36-14"><a href="probModels.html#cb36-14" tabindex="-1"></a>    <span class="op">}</span></span>
+<span id="cb36-15"><a href="probModels.html#cb36-15" tabindex="-1"></a>    println<span class="op">()</span></span>
+<span id="cb36-16"><a href="probModels.html#cb36-16" tabindex="-1"></a>    <span class="co">// change the probability and number of trials</span></span>
+<span id="cb36-17"><a href="probModels.html#cb36-17" tabindex="-1"></a>    bnDF<span class="op">.</span>probOfSuccess <span class="op">=</span> <span class="fl">0.5</span></span>
+<span id="cb36-18"><a href="probModels.html#cb36-18" tabindex="-1"></a>    bnDF<span class="op">.</span>numTrials <span class="op">=</span> <span class="dv">20</span></span>
+<span id="cb36-19"><a href="probModels.html#cb36-19" tabindex="-1"></a>    println<span class="op">(</span><span class="st">&quot;mean = &quot;</span> <span class="op">+</span> bnDF<span class="op">.</span>mean<span class="op">())</span></span>
+<span id="cb36-20"><a href="probModels.html#cb36-20" tabindex="-1"></a>    println<span class="op">(</span><span class="st">&quot;variance = &quot;</span> <span class="op">+</span> bnDF<span class="op">.</span>variance<span class="op">())</span></span>
+<span id="cb36-21"><a href="probModels.html#cb36-21" tabindex="-1"></a>    <span class="co">// make random variables based on the distributions</span></span>
+<span id="cb36-22"><a href="probModels.html#cb36-22" tabindex="-1"></a>    <span class="kw">val</span> <span class="va">brv</span> <span class="op">=</span> bnDF<span class="op">.</span>randomVariable</span>
+<span id="cb36-23"><a href="probModels.html#cb36-23" tabindex="-1"></a>    System<span class="op">.</span><span class="kw">out</span><span class="op">.</span>printf<span class="op">(</span><span class="st">&quot;%3s %15s %n&quot;</span><span class="op">,</span> <span class="st">&quot;n&quot;</span><span class="op">,</span> <span class="st">&quot;Values&quot;</span><span class="op">)</span></span>
+<span id="cb36-24"><a href="probModels.html#cb36-24" tabindex="-1"></a>    <span class="co">// generate some values</span></span>
+<span id="cb36-25"><a href="probModels.html#cb36-25" tabindex="-1"></a>    <span class="cf">for</span> <span class="op">(</span>i <span class="kw">in</span> <span class="fl">1..5</span><span class="op">)</span> <span class="op">{</span></span>
+<span id="cb36-26"><a href="probModels.html#cb36-26" tabindex="-1"></a>        <span class="co">// value property returns generated values</span></span>
+<span id="cb36-27"><a href="probModels.html#cb36-27" tabindex="-1"></a>        <span class="kw">val</span> <span class="va">x</span> <span class="op">=</span> brv<span class="op">.</span>value<span class="op">.</span>toInt<span class="op">()</span></span>
+<span id="cb36-28"><a href="probModels.html#cb36-28" tabindex="-1"></a>        System<span class="op">.</span><span class="kw">out</span><span class="op">.</span>printf<span class="op">(</span><span class="st">&quot;%3d %15d %n&quot;</span><span class="op">,</span> i<span class="op">,</span> x<span class="op">)</span></span>
+<span id="cb36-29"><a href="probModels.html#cb36-29" tabindex="-1"></a>    <span class="op">}</span></span>
+<span id="cb36-30"><a href="probModels.html#cb36-30" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
 </div>
-<ol style="list-style-type: decimal">
-<li><p>What is the probability that an arriving customer can enter one of
-the 3 spaces in front of the window?</p></li>
-<li><p>What is the probability that an arriving customer will have to wait
-outside the 3 spaces?</p></li>
-<li><p>What is the probability that an arriving customer has to wait?</p></li>
-<li><p>How long is an arriving customer expected to wait before starting
-service?</p></li>
-<li><p>How many car spaces should be provided in front of the window so
-that an arriving customer has a <span class="math inline">\(\gamma\)</span> = 40% chance of being able
-to wait in one of the provided spaces?</p></li>
-</ol>
-<hr />
-<p><strong>Solution to Example <a href="appqts1sb2.html#exm:exDTP">C.1</a></strong></p>
-<p>The customers arrive according to a Poisson process, which implies that
-the time between arrivals is exponentially distributed. Thus, the
-arrival process is Markovian (M). The service process is stated as
-exponential. Thus, the service process is Markovian (M). There is only 1
-window and customers wait in front of this window to receive service.
-Thus, the number of servers is <span class="math inline">\(c = 1\)</span>. The problem states that
-customers that arrive when the three spaces are filled, still wait for
-service outside the 3 spaces. Thus, there does not appear to be a
-restriction on the size of the waiting line. Therefore, this situation
-can be considered an infinite size system. The arrival rate is specified
-for any likely customer and there is no information given concerning the
-total population of the customers. Thus, it appears that an infinite
-population of customers can be assumed. We can conclude that this is a
-M/M/1 queueing situation with an arrival rate <span class="math inline">\(\lambda = 10/hr\)</span> and a
-service rate of <span class="math inline">\(\mu = 12/hr\)</span>. Notice the input parameters have been
-converted to a common unit of measure (customers/hour).</p>
-<p>The equations for the M/M/1 can be readily applied. From
-Section <a href="appqtsecformulas.html#appqtsecformulas">C.4</a> the following formulas can be applied:</p>
-<p><span class="math display">\[
-\begin{aligned}
-c &amp; = 1\\
-\lambda_n &amp; = \lambda = 10/hr\\
-\lambda_{e} &amp; = \lambda \\
-\mu_n &amp; =\mu = 12/hr \\
-\rho &amp; = \dfrac{\lambda}{c\mu} = r = 10/12 = 5/6\\
-P_0 &amp; = 1 - \dfrac{\lambda}{\mu} = 1 - r = 1/6 \\
-P_n &amp; = P_0 r^n = \dfrac{1}{6} \left(\dfrac{5}{6}\right)^{n}\\
-L &amp; = \dfrac{r}{1 - r} = \dfrac{(5/6)}{1 - (5/6)} = 5\\
-L_q &amp; = \dfrac{r^2}{1 - r} = \dfrac{(5/6)^2}{1 - (5/6)} = 4.1\bar{6}\\
-W_q &amp; = \frac{L_q}{\lambda} = \frac{r}{\mu(1 - r)} = 0.41\bar{6} \; \text{hours} = 25.02 \; \text{minutes} \\
-W &amp; = \frac{L}{\lambda} = 5/10 = 0.5 \; \text{hours} = 30 \; \text{minutes} \\
-\end{aligned}
-\]</span></p>
-<p>Let’s consider each question from the problem in turn:</p>
-<ol style="list-style-type: decimal">
-<li><p>Probability statements of this form are related to the underlying
-state variable for the system. In this case, let <span class="math inline">\(N\)</span> represent the
-number of customers in the system. To find the probability that an
-arriving customer can enter one of the 3 spaces in front of the
-window, you should consider the question: <em>When can a customer enter
-one of the 3 spaces?</em> A customer can enter one of the three spaces
-when there are 0 or 1 or 2 customers in the system. This is not <span class="math inline">\(N\)</span>
-= 0, 1, 2, or 3 because if there are 3 customers in the system, then
-the <span class="math inline">\(3^{rd}\)</span> space is taken. Therefore, <span class="math inline">\(P\lbrace N \leq 2 \rbrace\)</span>
-needs to be computed.<br />
-To compute <span class="math inline">\(P[N \leq 2]\)</span> note that:</p>
-<p><span class="math display">\[P[N \geq n] = \sum_{j=n}^{\infty} P_0 r^j = (1 - r)\sum_{j=n}^{\infty} r^{j-n} = (1 - r)\dfrac{r^n}{1 - r} = r^n\]</span></p>
-<p>Therefore, <span class="math inline">\(P[N \leq n]\)</span> is:</p>
-<p><span class="math display">\[P[N \leq n] = 1 - P[N &gt; n] = 1 - P[N \geq n + 1] = 1 - r^{n + 1}\]</span></p>
-<p>Thus, we have that <span class="math inline">\(P[N \leq 2] = 1 - r^3 \cong 0.42\)</span></p></li>
-<li><p>An arriving customer will have to wait outside of the 3 spaces, when
-there are more than 2 (3 or more) customers in the system. Thus,
-<span class="math inline">\(P[N &gt; 2]\)</span> needs to be computed to answer question (b).
-This is the complement event for part (a), <span class="math inline">\(P[N &gt; 2] = 1 - P[N \leq 2] \cong 0.58\)</span></p></li>
-<li><p>An arriving customer has to wait when there are 1 or more customers
-already at the pharmacy. This is <span class="math inline">\(P[N \geq 1]= 1 - P[N &lt; 1] = 1 - P_0\)</span>.</p>
-<p><span class="math display">\[P[N \geq 1] = 1 - P[N &lt; 1] = 1 - P_0 = 1 - (1 - r) = \rho = \dfrac{5}{6}\]</span></p></li>
-<li><p>The waiting time that does not include service is the queueing time.
-Thus, <span class="math inline">\(W_q\)</span> needs to be computed to answer question (d).</p>
-<p><span class="math display">\[W_q = 0.41\bar{6} \; \text{hours} = 25.02 \; \text{minutes}\]</span></p></li>
-<li><p>This is a design question for which the probability of waiting in
-one of the provided spaces is used to determine the number of spaces
-to provide. Suppose that there are <span class="math inline">\(m\)</span> spaces. An arriving customer
-can waiting in one of the spaces if there are <span class="math inline">\(m - 1\)</span> or less
-customers in the system. Thus, <span class="math inline">\(m\)</span> needs to be chosen such that
-<span class="math inline">\(P\lbrace N \leq m - 1\rbrace = 0.4\)</span>.</p>
-<p><span class="math display">\[P[N \leq m - 1] = \gamma\]</span> <span class="math display">\[1 - r^m = \gamma\]</span>
-<span class="math display">\[r^m = 1 - \gamma\]</span>
-<span class="math display">\[m = \dfrac{\ln(1 - \gamma)}{\ln r} = \dfrac{\ln(1 - 0.4)}{\ln(\frac{5}{6})} = 2.8 \cong 3 \; \text{spaces}\]</span></p>
-<p>Rounding up guarantees <span class="math inline">\(P[N \leq m - 1] \geq 0.4)\)</span>.</p></li>
-</ol>
-<p>The following example models self-service copiers.</p>
-<hr />
-<div class="example">
-<p><span id="exm:exSSC" class="example"><strong>Example C.2  </strong></span>The Student Union Copy
-center is considering the installation of self-service copiers. They
-predict that the arrivals will be Poisson with a rate of 30 per hour and
-that the time spent copying is exponentially distributed with a mean of
-1.75 minutes. They would like the chance that 4 or more people in the
-copy center to be less than 5%. How many copiers should they install?</p>
-</div>
-<hr />
-<p><strong>Solution to Example <a href="appqts1sb2.html#exm:exSSC">C.2</a></strong></p>
-<p>The Poisson arrivals and exponential service times make this situation
-an M/M/c where <span class="math inline">\(c\)</span> is the number of copiers to install and
-<span class="math inline">\(\lambda = 0.5\)</span> and <span class="math inline">\(\mu = 1/1.75\)</span> per minute. To meet the design
-criteria, <span class="math inline">\(P[N \geq 4] = 1 - P[N \leq 3]\)</span> needs to be computed for
-systems with <span class="math inline">\(c = 1,2,\ldots\)</span> until <span class="math inline">\(P[N \geq 4]\)</span> is less than 5%.
-This can be readily achieved with the provided formulas or by utilizing
-the aforementioned software. In what follows, the <a href="http://mason.gmu.edu/~jshortle/fqt5th.html">QTSPlus</a> software
-was used.</p>
-<p>The software is very self-explanatory. It is important to remember that
-when applying the queueing formulas make sure that you keep your time
-units consistent. Setting up the QTSPlus spreadsheet as shown in
-Figure <a href="appqts1sb2.html#fig:QTSSpreadsheet">C.6</a> with <span class="math inline">\(c=3\)</span> yields the results shown
-in Figure <a href="appqts1sb2.html#fig:QTSResults">C.7</a>. By changing the number of servers, one
-can find that <span class="math inline">\(c=3\)</span> meets the probability requirement as shown in
-Table <a href="appqts1sb2.html#tab:SSCResults">C.2</a>.</p>
-<div id="tab:SSCResults">
-<table>
-<caption><span id="tab:SSCResults">Table C.2: </span>Results for Example <a href="appqts1sb2.html#exm:exSSC">C.2</a>, <span class="math inline">\(c=1, 2, 3, 4\)</span></caption>
-<thead>
-<tr class="header">
-<th align="center"><span class="math inline">\(c\)</span></th>
-<th align="center"><span class="math inline">\(P[N \geq 4] = 1 - P[N \leq 3]\)</span></th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td align="center">1</td>
-<td align="center">0.586182</td>
-</tr>
-<tr class="even">
-<td align="center">2</td>
-<td align="center">0.050972</td>
-</tr>
-<tr class="odd">
-<td align="center">3</td>
-<td align="center">0.019034</td>
-</tr>
-<tr class="even">
-<td align="center">4</td>
-<td align="center">0.013022</td>
-</tr>
-</tbody>
-</table>
-</div>
-<div class="figure" style="text-align: center"><span style="display:block;" id="fig:QTSSpreadsheet"></span>
-<img src="figures2/AppQueueing/fig6QTSSpreadsheet.png" alt="QTSPlus M/M/c spreadsheet results" width="60%" height="60%" />
-<p class="caption">
-Figure C.6: QTSPlus M/M/c spreadsheet results
-</p>
-</div>
-<div class="figure" style="text-align: center"><span style="display:block;" id="fig:QTSResults"></span>
-<img src="figures2/AppQueueing/fig7QTSResults.png" alt="QTSPlus M/M/c state probability results " width="50%" height="50%" />
-<p class="caption">
-Figure C.7: QTSPlus M/M/c state probability results
-</p>
-</div>
-<div id="square-root-staffing-rule" class="section level4 hasAnchor" number="11.2.1.1">
-<h4><span class="header-section-number">C.2.1.1</span> Square Root Staffing Rule<a href="appqts1sb2.html#square-root-staffing-rule" class="anchor-section" aria-label="Anchor link to header"></a></h4>
-<p>Often in the case of systems with multiple servers such as the M/M/c,
-you want to determine the best value of <span class="math inline">\(c\)</span>, as in
-Example <a href="appqts1sb2.html#exm:exSSC">C.2</a>. Another common design situation is to determine
-the value <span class="math inline">\(c\)</span> of such that there is an acceptable probability that an
-arriving customer will have to wait. For the case of Poisson arrivals,
-this is the same as the steady state probability that there are more
-than <em>c</em> customers in the system. For the M/M/c model, this is called
-the Erlang delay probability:</p>
-<p><span class="math display">\[P_w = P[N \geq c] = \sum_{n=c}^{\infty} P_n = \dfrac{\dfrac{r^c}{c!}}{\dfrac{r^c}{c!} + (1 - \rho)\sum_{j=0}^{c-1} \dfrac{r^j}{j!}}\]</span></p>
-<p>Even though this is a relatively easy formula to use (especially in view
-of available spreadsheet software), an interesting and useful
-approximation has been developed called the square root staffing rule.
-The derivation of the square root staffing rule is given in
-<span class="citation">(<a href="#ref-tijms2003first">Tijms 2003</a>)</span>. In what follows, the usefulness of the rule is
-discussed.</p>
-<p>The <em>square root staffing rule</em> states that the least number of servers,
-<span class="math inline">\(c^{*}\)</span>, required to meet the criteria, <span class="math inline">\(P_w \leq \alpha\)</span> is given by:
-<span class="math inline">\(c^{*} \cong r+ \gamma_\alpha\sqrt{r}\)</span>, where the factor <span class="math inline">\(\gamma_\alpha\)</span>
-is the solution to the equation:</p>
-<p><span class="math display">\[\dfrac{\gamma\Phi(\gamma)}{\varphi(\gamma)} = \dfrac{1 - \alpha}{\alpha}\]</span></p>
-<p>The functions, <span class="math inline">\(\Phi(\cdot)\)</span> and <span class="math inline">\(\varphi(\cdot)\)</span> are the cumulative
-distribution function (CDF) and the probability density function (PDF)
-of a standard normal random variable. Therefore, given a design
-criteria, <span class="math inline">\(\alpha\)</span>, in the form a probability tolerance, you can find
-the number of servers that will result in the probability of waiting
-being less than <span class="math inline">\(\alpha\)</span>. This has very useful application in the area
-of call service centers and help support lines.</p>
-<hr />
-<div class="example">
-<p><span id="exm:exSQSR" class="example"><strong>Example C.3  </strong></span>The Student Union Copy center is considering the installation of self-service copiers.
-They predict that the arrivals will be Poisson with a rate of 30 per
-hour and that the time spent copying is exponentially distributed with a
-mean of 1.75 minutes. Find the least number of servers such that the
-probability that an arriving customer waits is less than or equal to
-0.10.</p>
-</div>
-<hr />
-<p><strong>Solution to Example <a href="appqts1sb2.html#exm:exSQSR">C.3</a></strong></p>
-<p>For <span class="math inline">\(\lambda = 0.5\)</span> and <span class="math inline">\(\mu = 1/1.75\)</span> per minute, you have that
-<span class="math inline">\(r = 0.875\)</span>. Figure <a href="appqts1sb2.html#fig:SqrtStaffingRule">C.8</a> illustrates the use of the
-<em>SquareRootStaffingRule.xls</em> spreadsheet that accompanies this chapter.
-The spreadsheet has text that explains the required inputs. Enter the
-offered load <span class="math inline">\(r\)</span> in cell B3 and the delay criteria of 0.1 in cell B4. An
-initial search value is required in cell B5. The value of 1.0 will
-always work. The spreadsheet uses the goal seek functionality to solve
-for <span class="math inline">\(\gamma_\alpha\)</span>.</p>
-<p>For this problem, this results in about 3 servers being needed to ensure
-that the probability of wait will be less than 10%. The square root
-staffing rule has been shown to be quite a robust approximation and can
-be useful in many design settings involving staffing.</p>
-<div class="figure" style="text-align: center"><span style="display:block;" id="fig:SqrtStaffingRule"></span>
-<img src="figures2/AppQueueing/fig8SqrtStaffingRule.png" alt="Spreadsheet for square root staffing rule" width="75%" height="75%" />
-<p class="caption">
-Figure C.8: Spreadsheet for square root staffing rule
-</p>
-</div>
-<p>The previous examples have had infinite system capacity. The next section presents examples of finite capacity queueing systems.</p>
-</div>
-</div>
-<div id="finite-queue-examples" class="section level3 hasAnchor" number="11.2.2">
-<h3><span class="header-section-number">C.2.2</span> Finite Queue Examples<a href="appqts1sb2.html#finite-queue-examples" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<p>In this section, we will explore three queueing systems that are finite
-in some manner, either in space or in population. The examples
-illustrate some of the common questions related to these types of
-systems.</p>
-<hr />
-<div class="example">
-<p><span id="exm:exFBQ" class="example"><strong>Example C.4  </strong></span>A single machine is connected to a conveyor system. The conveyor causes parts to arrive to the machine at a rate of 1 part per minute according to a Poisson distribution. There is a finite buffer of size 5 in front of the machine. The machine’s processing time is considered to be exponentially distributed with a mean rate of 1.2 parts per minute. Any parts that arrive on the conveyor when the buffer is full are carried to other machines that are not part of this analysis. What are the expected system time and the expected number of parts at the machining center?</p>
-</div>
-<hr />
-<p><strong>Solution to Example <a href="appqts1sb2.html#exm:exFBQ">C.4</a></strong></p>
-<p>The finite buffer, Poisson arrivals, and exponential service times make
-this situation an M/M/1/6 where <span class="math inline">\(k = 6\)</span> is the size of the system (5 in
-buffer + 1 in service) and <span class="math inline">\(\lambda =1\)</span> and <span class="math inline">\(\mu = 1.2\)</span> per minute. The
-desired performance measures are <span class="math inline">\(W\)</span> and <span class="math inline">\(L\)</span>.
-Figure <a href="appqts1sb2.html#fig:MM1KResults">C.9</a> presents the results using <em>QTSPlus</em>.
-Notice that in this case, the effective arrival rate must be computed:</p>
-<p><span class="math display">\[\lambda_e = \sum_{n=0}^{k-1} \lambda_n P_n = \sum_{n=0}^{k-1} \lambda P_n = \lambda\sum_{n=0}^{k-1} P_n = \lambda(1 - P_k)\]</span></p>
-<p>Rearranging this formula, yields, <span class="math inline">\(\lambda = \lambda_e + \lambda_{f}\)</span>
-where <span class="math inline">\(\lambda_{f} = \lambda P_k\)</span> equals the mean number of customers
-that are turned away from the system because it is full. According to
-Figure <a href="appqts1sb2.html#fig:MM1KResults">C.9</a>, the expected number of turned away because
-the system is full is about 0.077 per minute (or about 4.62 per hour).</p>
-<div class="figure" style="text-align: center"><span style="display:block;" id="fig:MM1KResults"></span>
-<img src="figures2/AppQueueing/fig9MM1KResults.png" alt="Results for finite buffer M/M/1/6 queue" width="70%" height="70%" />
-<p class="caption">
-Figure C.9: Results for finite buffer M/M/1/6 queue
-</p>
-</div>
-<p>Let’s take a look at modeling a situation that we experience everyday, parking lots.</p>
-<hr />
-<div class="example">
-<p><span id="exm:exPL" class="example"><strong>Example C.5  </strong></span>The university has a row of 10 parking meter based spaces across from the engineering school. During the peak hours students arrive to the parking lot at a rate of 40 per hour according to a Poisson distribution and the students use the parking space for approximately 60 minutes exponentially distributed. If all the parking spaces are taken, it can be assumed that an arriving student does not wait (goes somewhere else to park). Suppose that the meters cost <span class="math inline">\(w\)</span> = $0.03 per minute, i.e. $2 per hour. How much income does the university potentially lose during peak hours on average because the parking spaces are full?</p>
-</div>
-<hr />
-<p><strong>Solution to Example <a href="appqts1sb2.html#exm:exPL">C.5</a></strong></p>
-<p>In this system, the parking spaces are the servers of the system. There
-are 10 parking spaces so that <span class="math inline">\(c = 10\)</span>. In addition, there is no waiting
-for one of the meters and thus no queue forms. Therefore, the system
-size, <span class="math inline">\(k\)</span>, is also 10. Because of the Poisson arrival process and
-exponential service times, this can be considered an M/M/10/10 queueing
-system. In other words, the size of the system is same as the number of
-servers, <span class="math inline">\(c = k = 10\)</span>.</p>
-<p>In the case of a M/M/c/c queueing system, <span class="math inline">\(P_c\)</span> represents the
-probability that all the servers in the system are busy. Thus, it also
-represents the probability that an arriving customer will be turned
-away. The formula for the probability of a lost customer is called the
-Erlang loss formula:</p>
-<p><span class="math display">\[P_c = \frac{\frac{r^c}{c!}}{\sum_{n=0}^c \frac{r^n}{n!}}\]</span></p>
-<p>Customers arrive at the rate <span class="math inline">\(\lambda = 20/hr\)</span> whether the system is
-full or not. Thus, the expected number of lost customers per hour is
-<span class="math inline">\(\lambda P_c\)</span>. Since each customer brings <span class="math inline">\(1/\mu\)</span> service time charged
-at <span class="math inline">\(w\)</span> = $2 per hour, each arriving customer brings <span class="math inline">\(w/\mu\)</span> of income
-on average; however, not all arriving customers can park. Thus, the
-university loses <span class="math inline">\(w \times 1/\mu \times \lambda P_c\)</span> of income per
-hour. Figure <a href="appqts1sb2.html#fig:MMccResults">C.10</a> illustrates the use of the <em>QTSPlus</em>
-software. In the figure the arrival rate of 40 per hour and the mean
-service time of 1 hours is entered. The number of parking spaces, 10, is
-the size of the system.</p>
-<div class="figure" style="text-align: center"><span style="display:block;" id="fig:MMccResults"></span>
-<img src="figures2/AppQueueing/fig10MMccResults.png" alt="Parking lot results for M/M/10/10 system" width="70%" height="70%" />
-<p class="caption">
-Figure C.10: Parking lot results for M/M/10/10 system
-</p>
-</div>
-<p>Thus according to Figure <a href="appqts1sb2.html#fig:MMccResults">C.10</a>, the university is losing about $2
-<span class="math inline">\(\times\)</span> 30.3 = $60.6 per hour because the metered lot is full during peak hours.</p>
-<p>For this example, the service times are exponentially distributed. It
-turns out that for the case of <span class="math inline">\(c = k\)</span>, the results for the M/M/c/c
-model are the same for the M/G/c/c model. In other words, the form of
-the service time distribution does not matter. The mean of the service distribution
-is the critical input parameter to this analysis.</p>
-<p>In the next example, a <em>finite population</em> of customers that can arrive,
-depart, and then return is considered. A classic and important example
-of this type of system is the machine interference or operator tending
-problem. A detailed discussion of the analysis and application of this
-model can be found in <span class="citation">(<a href="#ref-stecke1992machine">Stecke 1992</a>)</span>.</p>
-<p>In this situation, a set of machines are tended by 1 or more operators.
-The operators must tend to stoppages (breakdowns) of the machines. As
-the machines breakdown, they may have to wait for the operator to
-complete the service of other machines. Thus, the machine stoppages
-cause the machines to <em>interfere</em> with the productivity of the set of
-machines because of their dependence on a common resource, the operator.</p>
-<p>The situation that we will examine and for which analytical formulas can
-be derived is called the M/M/c/k/k queueing model where <span class="math inline">\(c\)</span> is the
-number of servers (operators) and <span class="math inline">\(k\)</span> is the number of machines (size of
-the population). Notice that the size of the system is the same as the
-size of the calling population in this particular model. For this
-system, the arrival rate of an <em>individual machine</em>, <span class="math inline">\(\lambda\)</span>, is
-specified. This is not the arrival rate of the population as has been
-previously utilized. The service rate of <span class="math inline">\(\mu\)</span> for each operator is also
-necessary. The arrival and service rates for this system are:</p>
-<p><span class="math display">\[\lambda_n =
-   \begin{cases}
-     (k - n) \lambda &amp; n=0,1,2, \ldots k\\
-     0 &amp; n \geq k
-  \end{cases}\]</span></p>
-<p><span class="math display">\[\mu_n =
-    \begin{cases}
-     n \mu &amp; n = 1,2,\ldots c\\
-     c \mu &amp; n \geq c
-     \end{cases}\]</span></p>
-<p>These rates are illustrated in the state diagram of
-Figure <a href="appqts1sb2.html#fig:MachineInterference">C.11</a> for the case of 2 operators and 5
-machines. Thus, for this system, the arrival rate to the system
-decreases as more machines breakdown. Notice that in the figure the
-arrival rate from state 0 to state 1 is <span class="math inline">\(5\lambda\)</span>. This is because
-there are 5 machines that are not broken down, each with individual
-rate, <span class="math inline">\(\lambda\)</span>. Thus, the total rate of arrivals to the system is
-<span class="math inline">\(5\lambda\)</span>. This rate goes down as more machines breakdown. When all the
-machines are broken down, the arrival rate to the system will be zero.</p>
-<div class="figure" style="text-align: center"><span style="display:block;" id="fig:MachineInterference"></span>
-<img src="figures2/AppQueueing/fig11MachineInterference.png" alt="System involving machine interference" width="70%" height="70%" />
-<p class="caption">
-Figure C.11: System involving machine interference
-</p>
-</div>
-<p>Notice also that the service rate from state 1 to state 0 is <span class="math inline">\(\mu\)</span>. When
-one machine is in the system, the operator works at rate <span class="math inline">\(\mu\)</span>. Note
-also that the rate from state 2 to state 1 is <span class="math inline">\(2\mu\)</span>. This is because
-when there are 2 broken down machines the 2 operators are working each
-at rate <span class="math inline">\(\mu\)</span>. Thus, the rate of leaving from state 2 to 1 is <span class="math inline">\(2\mu\)</span>.
-Because there are only 2 operators in this illustration, the maximum
-rate is <span class="math inline">\(2\mu\)</span> for state 2-5.</p>
-<p>Notice that the customer in this system is the machine. Even though the
-machines do not actually move to line up in a queue, they form a virtual
-queue for the operators to receive their repair. Let’s consider an
-example of this system.</p>
-<hr />
-<div class="example">
-<p><span id="exm:exMIM" class="example"><strong>Example C.6  </strong></span>Suppose a manufacturing
-system contains 5 machines, each subject to randomly occurring
-breakdowns. A machine runs for an amount of time that is an exponential
-random variable with a mean of 10 hours before breaking down. At present
-there are 2 operators to fix the broken machines. The amount of time
-that an operator takes to service the machines is exponential with a
-mean of 4 hours. An operator repairs only 1 machine at a time. If more
-machines are broken down than the current number of operators, the
-machines must wait for the next available operator for repair. They form
-a FIFO queue to wait for the next available operator. The number of
-operators required to tend to the machines in order to minimize down
-time in a cost effective manner is desired. Assume that it costs the
-system $60 per hour for each machine that is broken down. Each operator
-is paid $15 per hour regardless of whether they are repairing a machine
-or not.</p>
-</div>
-<hr />
-<p><strong>Solution to Example <a href="appqts1sb2.html#exm:exMIM">C.6</a></strong></p>
-<p>The arrival rate of an <em>individual machine</em> is <span class="math inline">\(\lambda = 1/10\)</span> per hour
-and the service rate of <span class="math inline">\(\mu = 1/4\)</span> per hour for each operator. In order
-to decide the most appropriate number of operators to tend the machines,
-a service criteria or a way to measure the cost of the system is
-required. Since costs are given, let’s formulate how much a given system
-configuration costs.</p>
-<p>The easiest way to formulate a cost is to consider what a given system
-configuration costs on a per time basis, e.g. the cost per hour.
-Clearly, the system costs <span class="math inline">\(15 \times c\)</span> ($/hour) to employ <span class="math inline">\(c\)</span>
-operators. The problem also states that it costs $60/hour for each
-machine that is broken down. A machine is broken down if it is waiting
-for an operator or if it is being repaired by an operator. Therefore a
-machine is broken down if it is in the queueing system.</p>
-<p>In terms of queueing performance measures, <span class="math inline">\(L\)</span> machines can be expected
-to be broken down at any time in steady state. Thus, the expected steady
-state cost of the broken down machines is <span class="math inline">\(60 \times L\)</span> per hour. The
-total expected cost per hour, <span class="math inline">\(E[\mathit{TC}]\)</span>, of operating a system
-configuration in steady state is thus:</p>
-<p><span class="math display">\[E[\mathit{TC}] = 60 \times L + 15 \times c\]</span></p>
-<p>Thus, the total expected cost, <span class="math inline">\(E[\mathit{TC}]\)</span>, can be evaluated for
-various values of <span class="math inline">\(c\)</span> and the system that has the lowest cost
-determined.</p>
-<p>Using the <em>QTSPlus</em> software, the necessary performance measures can be
-calculated and tabulated. Within the <em>QTSPlus</em> software you must choose
-the model category <em>Multiple Servers</em> and then choose the <em>Markov
-Multi-Server Finite Source Queue without Spares</em> model.
-Figure <a href="appqts1sb2.html#fig:MIMResults">C.12</a> illustrates the inputs for the case of 1
-server with 5 machines. Note that the software requests the time between
-arrivals, <span class="math inline">\(1/lambda\)</span> and the mean service time, <span class="math inline">\(1/\mu\)</span>, rather than
-<span class="math inline">\(\lambda\)</span> and <span class="math inline">\(\mu\)</span>.</p>
-<div class="figure" style="text-align: center"><span style="display:block;" id="fig:MIMResults"></span>
-<img src="figures2/AppQueueing/fig12MIMResults.png" alt="Modeling the machine interference problem in QTSPlus" width="80%" height="80%" />
-<p class="caption">
-Figure C.12: Modeling the machine interference problem in QTSPlus
-</p>
-</div>
-<div id="tab:MIMResults">
-<table>
-<caption><span id="tab:MIMResults">Table C.3: </span> Tabulated Results for Example <a href="appqts1sb2.html#exm:exMIM">C.6</a></caption>
-<tbody>
-<tr class="odd">
-<td align="left"><span class="math inline">\(\lambda\)</span></td>
-<td align="center">0.10</td>
-<td align="center">0.10</td>
-<td align="center">0.10</td>
-<td align="center">0.10</td>
-<td align="center">0.10</td>
-</tr>
-<tr class="even">
-<td align="left"><span class="math inline">\(\mu\)</span></td>
-<td align="center">0.25</td>
-<td align="center">0.25</td>
-<td align="center">0.25</td>
-<td align="center">0.25</td>
-<td align="center">0.25</td>
-</tr>
-<tr class="odd">
-<td align="left"><span class="math inline">\(c\)</span></td>
-<td align="center">1</td>
-<td align="center">2</td>
-<td align="center">3</td>
-<td align="center">4</td>
-<td align="center">5</td>
-</tr>
-<tr class="even">
-<td align="left"><span class="math inline">\(N\)</span></td>
-<td align="center">5</td>
-<td align="center">5</td>
-<td align="center">5</td>
-<td align="center">5</td>
-<td align="center">5</td>
-</tr>
-<tr class="odd">
-<td align="left"><span class="math inline">\(K\)</span></td>
-<td align="center">5</td>
-<td align="center">5</td>
-<td align="center">5</td>
-<td align="center">5</td>
-<td align="center">5</td>
-</tr>
-<tr class="even">
-<td align="left">System</td>
-<td align="center">M/M/1/5/5</td>
-<td align="center">M/M/2/5/5</td>
-<td align="center">M/M/3/5/5</td>
-<td align="center">M/M/4/5/5</td>
-<td align="center">M/M/5/5/5</td>
-</tr>
-<tr class="odd">
-<td align="left"><span class="math inline">\(L\)</span></td>
-<td align="center">2.674</td>
-<td align="center">1.661</td>
-<td align="center">1.457</td>
-<td align="center">1.430</td>
-<td align="center">1.429</td>
-</tr>
-<tr class="even">
-<td align="left"><span class="math inline">\(L_q\)</span></td>
-<td align="center">1.744</td>
-<td align="center">0.325</td>
-<td align="center">0.040</td>
-<td align="center">0.002</td>
-<td align="center">0.000</td>
-</tr>
-<tr class="odd">
-<td align="left"><span class="math inline">\(B\)</span></td>
-<td align="center">0.930</td>
-<td align="center">1.336</td>
-<td align="center">1.417</td>
-<td align="center">1.428</td>
-<td align="center">1.429</td>
-</tr>
-<tr class="even">
-<td align="left"><span class="math inline">\(B/c\)</span></td>
-<td align="center">0.930</td>
-<td align="center">0.668</td>
-<td align="center">0.472</td>
-<td align="center">0.357</td>
-<td align="center">0.286</td>
-</tr>
-<tr class="odd">
-<td align="left"><span class="math inline">\(E[\mathit{TC}]\)</span></td>
-<td align="center">$175.460</td>
-<td align="center">$129.655</td>
-<td align="center">$132.419</td>
-<td align="center">$145.816</td>
-<td align="center">$160.714</td>
-</tr>
-<tr class="even">
-<td align="left"><span class="math inline">\(\overline{\mathit{MU}}\)</span></td>
-<td align="center">0.465</td>
-<td align="center">0.668</td>
-<td align="center">0.709</td>
-<td align="center">0.714</td>
-<td align="center">0.714</td>
-</tr>
-</tbody>
-</table>
-</div>
-<p>Table <a href="appqts1sb2.html#tab:MIMResults">C.3</a> shows the results of the analysis.
-The results indicate that as the number of operators increase, the expected cost
-reaches its minimum at <span class="math inline">\(c = 2\)</span>. As the number of operators is increased,
-the machine utilization increases but levels off. The machine
-utilization is the expected number of machines that are not broken down
-divided by the number of machines:</p>
-<p><span class="math display">\[\text{Machine Utilization} = \overline{\mathit{MU}} = \dfrac{k - L}{k} = 1 - \dfrac{L}{k}\]</span></p>
-</div>
-</div>
-<h3><span class="header-section-number">G</span> References<a href="references.html#references" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<div id="refs" class="references csl-bib-body hanging-indent">
-<div id="ref-Gross2008aa" class="csl-entry">
-Gross, D., J. F. Shortle, J. M. Thompson, and C. M. Harris. 2008. <em>Fundamentals of Queueing Theory</em>. John Wiley &amp; Sons.
-</div>
-<div id="ref-stecke1992machine" class="csl-entry">
-Stecke, K. E. 1992. <span>“Machine Interference: Assignment of Machines to Operators.”</span> In <em>Handbook of Industrial Engineering</em>, edited by G. Salvendy. John-Wiley &amp; Sons.
-</div>
-<div id="ref-tijms2003first" class="csl-entry">
-Tijms, H. C. 2003. <em>A First Course in Stochastic Models</em>. John-Wiley &amp; Sons.
-</div>
+<p>The output shows the mean, variance, and basic probability calculations.</p>
+<pre><code>n = 10
+p = 0.8
+mean = 8.0
+variance = 1.5999999999999996
+  k            p(k)          cdf(k) 
+  0    0.0000001024    0.0000001024 
+  1    0.0000040960    0.0000041984 
+  2    0.0000737280    0.0000779264 
+  3    0.0007864320    0.0008643584 
+  4    0.0055050240    0.0063693824 
+  5    0.0264241152    0.0327934976 
+  6    0.0880803840    0.1208738816 
+  7    0.2013265920    0.3222004736 
+  8    0.3019898880    0.6241903616 
+  9    0.2684354560    0.8926258176 
+ 10    0.1073741824    1.0000000000 </code></pre>
+<p>The <code>ksl.utilities.random.rvariable</code> package creates instances of random variables that are immutable. That is, once you create a random variable, its parameters cannot be changed. However, distributions permit their parameters to be changed and they also facilitate the creation of random variables. The previous example code uses the properties <code>probOfSuccess</code> and <code>numTrials</code> to change the parameters of the previously created binomial distribution and then creates a random variable based on the mutated distribution.</p>
+<pre><code>mean = 10.0
+variance = 5.0
+  n          Values 
+  1              11 
+  2              14 
+  3              16 
+  4               7 
+  5              14 </code></pre>
+<p>The results are as we would expect. Similar calculations can be made for continuous distributions. In most cases, the concrete implementations of the various distributions have specialize methods beyond those generic methods described here. Please refer to the documentation for further details.</p>
+<p>There are a number of useful companion object methods defined for the binomial, normal, gamma, and Student-T distributions. Specifically, for the binomial distribution, has the following methods</p>
+<ul>
+<li><code>binomialPMF(j: Int, n: Int, p: Double)</code> - directly computes the probability for the value <span class="math inline">\(j\)</span></li>
+<li><code>binomialCDF(j: Int, n: Int, p: Double)</code> - directly computes the cumulative distribution function for the value <span class="math inline">\(j\)</span></li>
+<li><code>binomialCCDF(j: Int, n: Int, p: Double)</code>- directly computes the complementary cumulative distribution function for the value of <span class="math inline">\(j\)</span></li>
+<li><code>binomialInvCDF(x: Double, n: Int, p: Double)</code> - directly computes the inverse cumulative distribution function</li>
+</ul>
+<p>These methods are designed to perform their calculations in a numerically stable manner to ensure numerical accuracy. The normal distribution has the following companion object methods for computations involving the standard normal distribution.</p>
+<ul>
+<li><code>stdNormalCDF(z: Double)</code> - the cumulative probability for a <span class="math inline">\(Z ~ N(0,1)\)</span> random variable, i.e. <span class="math inline">\(F(z) = P(Z \leq z)\)</span></li>
+<li><code>stdNormalComplementaryCDF(z: Double)</code> - returns <span class="math inline">\(1-P(Z \leq z)\)</span></li>
+<li><code>stdNormalInvCDF(p: Double)</code> - returns <span class="math inline">\(z = F^{-1}(p)\)</span> the inverse of the cumulative distribution function</li>
+</ul>
+<p>The Student-T distribution also has two convenience methods to facilitate computations.</p>
+<ul>
+<li><code>cdf(dof: Double, x: Double)</code> - computes the cumulative distribution function for <span class="math inline">\(x\)</span> given the degrees of freedom</li>
+<li><code>invCDF(dof: Double, p: Double)</code> - computes the inverse cumulative distribution function or t-value for the supplied probability given the degrees of freedom.</li>
+</ul>
+<p>Within the <code>Gamma</code> class’s companion object there are some convenience methods for computing the gamma function, the natural logarithm of the gamma function, the incomplete gamma function, and the digamma function (derivative of the natural logarithm of the gamma function).</p>
 </div>
             </section>
 
           </div>
         </div>
       </div>
-<a href="appqts1.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="appqts1sb3.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="rvg.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="distFitting.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>

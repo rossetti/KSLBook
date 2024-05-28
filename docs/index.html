@@ -23,7 +23,7 @@
 <meta name="author" content="Manuel D. Rossetti" />
 
 
-<meta name="date" content="2024-01-15" />
+<meta name="date" content="2024-05-28" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -198,18 +198,18 @@ div.csl-indent {
 </ul></li>
 <li class="chapter" data-level="2.2" data-path="rvg.html"><a href="rvg.html"><i class="fa fa-check"></i><b>2.2</b> Random Variate Generation</a>
 <ul>
-<li class="chapter" data-level="2.2.1" data-path="rvg.html"><a href="rvg.html#rvg_dists"><i class="fa fa-check"></i><b>2.2.1</b> Continuous and Discrete Random Variables</a></li>
-<li class="chapter" data-level="2.2.2" data-path="rvg.html"><a href="rvg.html#rvg_algo"><i class="fa fa-check"></i><b>2.2.2</b> Overview of Generation Algorithms</a></li>
+<li class="chapter" data-level="2.2.1" data-path="rvg.html"><a href="rvg.html#basic-random-variate-generation"><i class="fa fa-check"></i><b>2.2.1</b> Basic Random Variate Generation</a></li>
+<li class="chapter" data-level="2.2.2" data-path="rvg.html"><a href="rvg.html#rvg_dists"><i class="fa fa-check"></i><b>2.2.2</b> Continuous and Discrete Random Variables</a></li>
 <li class="chapter" data-level="2.2.3" data-path="rvg.html"><a href="rvg.html#rvg_use"><i class="fa fa-check"></i><b>2.2.3</b> Creating and Using Random Variables</a></li>
 <li class="chapter" data-level="2.2.4" data-path="rvg.html"><a href="rvg.html#functions-of-random-variables"><i class="fa fa-check"></i><b>2.2.4</b> Functions of Random Variables</a></li>
 </ul></li>
-<li class="chapter" data-level="2.3" data-path="probability-distribution-models.html"><a href="probability-distribution-models.html"><i class="fa fa-check"></i><b>2.3</b> Probability Distribution Models</a></li>
+<li class="chapter" data-level="2.3" data-path="probModels.html"><a href="probModels.html"><i class="fa fa-check"></i><b>2.3</b> Probability Distribution Models</a></li>
 <li class="chapter" data-level="2.4" data-path="distFitting.html"><a href="distFitting.html"><i class="fa fa-check"></i><b>2.4</b> Distribution Fitting Using the KSL</a>
 <ul>
 <li class="chapter" data-level="2.4.1" data-path="distFitting.html"><a href="distFitting.html#estimating-distribution-parameters"><i class="fa fa-check"></i><b>2.4.1</b> Estimating Distribution Parameters</a></li>
 <li class="chapter" data-level="2.4.2" data-path="distFitting.html"><a href="distFitting.html#continuous-distribution-recommendation-framework"><i class="fa fa-check"></i><b>2.4.2</b> Continuous Distribution Recommendation Framework</a></li>
 <li class="chapter" data-level="2.4.3" data-path="distFitting.html"><a href="distFitting.html#discrete-distribution-framework"><i class="fa fa-check"></i><b>2.4.3</b> Discrete Distribution Framework</a></li>
-<li class="chapter" data-level="2.4.4" data-path="distFitting.html"><a href="distFitting.html#illustrative-examples-from-appendix-refappidm"><i class="fa fa-check"></i><b>2.4.4</b> Illustrative Examples from Appendix @ref(appidm)</a></li>
+<li class="chapter" data-level="2.4.4" data-path="distFitting.html"><a href="distFitting.html#pdfmexamples"><i class="fa fa-check"></i><b>2.4.4</b> Illustrative Examples from Appendix @ref(appidm)</a></li>
 </ul></li>
 <li class="chapter" data-level="2.5" data-path="summary.html"><a href="summary.html"><i class="fa fa-check"></i><b>2.5</b> Summary</a></li>
 <li class="chapter" data-level="2.6" data-path="exercises-1.html"><a href="exercises-1.html"><i class="fa fa-check"></i><b>2.6</b> Exercises</a></li>
@@ -219,21 +219,23 @@ div.csl-indent {
 <li class="chapter" data-level="3.1" data-path="kslStatistics.html"><a href="kslStatistics.html"><i class="fa fa-check"></i><b>3.1</b> Collecting Statistics</a>
 <ul>
 <li class="chapter" data-level="3.1.1" data-path="kslStatistics.html"><a href="kslStatistics.html#creating-and-using-a-statistic"><i class="fa fa-check"></i><b>3.1.1</b> Creating and Using a Statistic</a></li>
-<li class="chapter" data-level="3.1.2" data-path="kslStatistics.html"><a href="kslStatistics.html#histograms-and-frequencies"><i class="fa fa-check"></i><b>3.1.2</b> Histograms and Frequencies</a></li>
+<li class="chapter" data-level="3.1.2" data-path="kslStatistics.html"><a href="kslStatistics.html#histFreq"><i class="fa fa-check"></i><b>3.1.2</b> Histograms and Frequencies</a></li>
+<li class="chapter" data-level="3.1.3" data-path="kslStatistics.html"><a href="kslStatistics.html#ch3batchStats"><i class="fa fa-check"></i><b>3.1.3</b> Batch Statistics</a></li>
 </ul></li>
-<li class="chapter" data-level="3.2" data-path="ch3batchStats.html"><a href="ch3batchStats.html"><i class="fa fa-check"></i><b>3.2</b> Batch Statistics</a></li>
-<li class="chapter" data-level="3.3" data-path="ssMC.html"><a href="ssMC.html"><i class="fa fa-check"></i><b>3.3</b> Simple Monte Carlo Integration</a></li>
-<li class="chapter" data-level="3.4" data-path="ch3StatReview.html"><a href="ch3StatReview.html"><i class="fa fa-check"></i><b>3.4</b> Review of Statistical Concepts</a>
+<li class="chapter" data-level="3.2" data-path="ssMC.html"><a href="ssMC.html"><i class="fa fa-check"></i><b>3.2</b> Simple Monte Carlo Integration</a></li>
+<li class="chapter" data-level="3.3" data-path="ch3StatReview.html"><a href="ch3StatReview.html"><i class="fa fa-check"></i><b>3.3</b> Review of Statistical Concepts</a>
 <ul>
-<li class="chapter" data-level="3.4.1" data-path="ch3StatReview.html"><a href="ch3StatReview.html#point-estimates-and-confidence-intervals"><i class="fa fa-check"></i><b>3.4.1</b> Point Estimates and Confidence Intervals</a></li>
-<li class="chapter" data-level="3.4.2" data-path="ch3StatReview.html"><a href="ch3StatReview.html#ch3SampleSize"><i class="fa fa-check"></i><b>3.4.2</b> Sample Size Determination</a></li>
-<li class="chapter" data-level="3.4.3" data-path="ch3StatReview.html"><a href="ch3StatReview.html#determining-the-sample-size-for-a-monte-carlo-simulation-experiment"><i class="fa fa-check"></i><b>3.4.3</b> Determining the Sample Size for a Monte Carlo Simulation Experiment</a></li>
+<li class="chapter" data-level="3.3.1" data-path="ch3StatReview.html"><a href="ch3StatReview.html#point-estimates-and-confidence-intervals"><i class="fa fa-check"></i><b>3.3.1</b> Point Estimates and Confidence Intervals</a></li>
+<li class="chapter" data-level="3.3.2" data-path="ch3StatReview.html"><a href="ch3StatReview.html#ch3SampleSize"><i class="fa fa-check"></i><b>3.3.2</b> Sample Size Determination</a></li>
+<li class="chapter" data-level="3.3.3" data-path="ch3StatReview.html"><a href="ch3StatReview.html#determining-the-sample-size-for-a-monte-carlo-simulation-experiment"><i class="fa fa-check"></i><b>3.3.3</b> Determining the Sample Size for a Monte Carlo Simulation Experiment</a></li>
 </ul></li>
-<li class="chapter" data-level="3.5" data-path="craps.html"><a href="craps.html"><i class="fa fa-check"></i><b>3.5</b> Simulating the Game of Craps</a></li>
-<li class="chapter" data-level="3.6" data-path="the-news-vendor-problem.html"><a href="the-news-vendor-problem.html"><i class="fa fa-check"></i><b>3.6</b> The News Vendor Problem</a></li>
-<li class="chapter" data-level="3.7" data-path="mcmExperiments.html"><a href="mcmExperiments.html"><i class="fa fa-check"></i><b>3.7</b> Monte-Carlo Experiments</a></li>
-<li class="chapter" data-level="3.8" data-path="summary-1.html"><a href="summary-1.html"><i class="fa fa-check"></i><b>3.8</b> Summary</a></li>
-<li class="chapter" data-level="3.9" data-path="exercises-2.html"><a href="exercises-2.html"><i class="fa fa-check"></i><b>3.9</b> Exercises</a></li>
+<li class="chapter" data-level="3.4" data-path="craps.html"><a href="craps.html"><i class="fa fa-check"></i><b>3.4</b> Simulating the Game of Craps</a></li>
+<li class="chapter" data-level="3.5" data-path="the-news-vendor-problem.html"><a href="the-news-vendor-problem.html"><i class="fa fa-check"></i><b>3.5</b> The News Vendor Problem</a></li>
+<li class="chapter" data-level="3.6" data-path="a-simple-inspection-process.html"><a href="a-simple-inspection-process.html"><i class="fa fa-check"></i><b>3.6</b> A Simple Inspection Process</a></li>
+<li class="chapter" data-level="3.7" data-path="stochastic-activity-networks.html"><a href="stochastic-activity-networks.html"><i class="fa fa-check"></i><b>3.7</b> Stochastic Activity Networks</a></li>
+<li class="chapter" data-level="3.8" data-path="mcmExperiments.html"><a href="mcmExperiments.html"><i class="fa fa-check"></i><b>3.8</b> Monte-Carlo Experiments</a></li>
+<li class="chapter" data-level="3.9" data-path="summary-1.html"><a href="summary-1.html"><i class="fa fa-check"></i><b>3.9</b> Summary</a></li>
+<li class="chapter" data-level="3.10" data-path="exercises-2.html"><a href="exercises-2.html"><i class="fa fa-check"></i><b>3.10</b> Exercises</a></li>
 </ul></li>
 <li class="chapter" data-level="4" data-path="introDEDS.html"><a href="introDEDS.html"><i class="fa fa-check"></i><b>4</b> Introduction to Discrete Event Modeling</a>
 <ul>
@@ -466,7 +468,7 @@ div.csl-indent {
 <div id="header">
 <h1 class="title">Simulation Modeling using the Kotlin Simulation Library (KSL)</h1>
 <p class="author"><em>Manuel D. Rossetti</em></p>
-<p class="date"><em>2024-01-15</em></p>
+<p class="date"><em>2024-05-28</em></p>
 </div>
 <div id="preface" class="section level1 unnumbered hasAnchor">
 <h1>Preface<a href="index.html#preface" class="anchor-section" aria-label="Anchor link to header"></a></h1>

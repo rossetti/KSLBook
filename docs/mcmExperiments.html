@@ -4,18 +4,18 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>3.7 Monte-Carlo Experiments | Simulation Modeling using the Kotlin Simulation Library (KSL)</title>
+  <title>3.8 Monte-Carlo Experiments | Simulation Modeling using the Kotlin Simulation Library (KSL)</title>
   <meta name="description" content="A book that illustrates the basics of using the KSL. The output format for this book is bookdown::gitbook." />
   <meta name="generator" content="bookdown 0.34 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="3.7 Monte-Carlo Experiments | Simulation Modeling using the Kotlin Simulation Library (KSL)" />
+  <meta property="og:title" content="3.8 Monte-Carlo Experiments | Simulation Modeling using the Kotlin Simulation Library (KSL)" />
   <meta property="og:type" content="book" />
   
   <meta property="og:description" content="A book that illustrates the basics of using the KSL. The output format for this book is bookdown::gitbook." />
   
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="3.7 Monte-Carlo Experiments | Simulation Modeling using the Kotlin Simulation Library (KSL)" />
+  <meta name="twitter:title" content="3.8 Monte-Carlo Experiments | Simulation Modeling using the Kotlin Simulation Library (KSL)" />
   
   <meta name="twitter:description" content="A book that illustrates the basics of using the KSL. The output format for this book is bookdown::gitbook." />
   
@@ -23,14 +23,14 @@
 <meta name="author" content="Manuel D. Rossetti" />
 
 
-<meta name="date" content="2024-01-15" />
+<meta name="date" content="2024-05-28" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-<link rel="prev" href="the-news-vendor-problem.html"/>
+<link rel="prev" href="stochastic-activity-networks.html"/>
 <link rel="next" href="summary-1.html"/>
 <script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
@@ -198,18 +198,18 @@ div.csl-indent {
 </ul></li>
 <li class="chapter" data-level="2.2" data-path="rvg.html"><a href="rvg.html"><i class="fa fa-check"></i><b>2.2</b> Random Variate Generation</a>
 <ul>
-<li class="chapter" data-level="2.2.1" data-path="rvg.html"><a href="rvg.html#rvg_dists"><i class="fa fa-check"></i><b>2.2.1</b> Continuous and Discrete Random Variables</a></li>
-<li class="chapter" data-level="2.2.2" data-path="rvg.html"><a href="rvg.html#rvg_algo"><i class="fa fa-check"></i><b>2.2.2</b> Overview of Generation Algorithms</a></li>
+<li class="chapter" data-level="2.2.1" data-path="rvg.html"><a href="rvg.html#basic-random-variate-generation"><i class="fa fa-check"></i><b>2.2.1</b> Basic Random Variate Generation</a></li>
+<li class="chapter" data-level="2.2.2" data-path="rvg.html"><a href="rvg.html#rvg_dists"><i class="fa fa-check"></i><b>2.2.2</b> Continuous and Discrete Random Variables</a></li>
 <li class="chapter" data-level="2.2.3" data-path="rvg.html"><a href="rvg.html#rvg_use"><i class="fa fa-check"></i><b>2.2.3</b> Creating and Using Random Variables</a></li>
 <li class="chapter" data-level="2.2.4" data-path="rvg.html"><a href="rvg.html#functions-of-random-variables"><i class="fa fa-check"></i><b>2.2.4</b> Functions of Random Variables</a></li>
 </ul></li>
-<li class="chapter" data-level="2.3" data-path="probability-distribution-models.html"><a href="probability-distribution-models.html"><i class="fa fa-check"></i><b>2.3</b> Probability Distribution Models</a></li>
+<li class="chapter" data-level="2.3" data-path="probModels.html"><a href="probModels.html"><i class="fa fa-check"></i><b>2.3</b> Probability Distribution Models</a></li>
 <li class="chapter" data-level="2.4" data-path="distFitting.html"><a href="distFitting.html"><i class="fa fa-check"></i><b>2.4</b> Distribution Fitting Using the KSL</a>
 <ul>
 <li class="chapter" data-level="2.4.1" data-path="distFitting.html"><a href="distFitting.html#estimating-distribution-parameters"><i class="fa fa-check"></i><b>2.4.1</b> Estimating Distribution Parameters</a></li>
 <li class="chapter" data-level="2.4.2" data-path="distFitting.html"><a href="distFitting.html#continuous-distribution-recommendation-framework"><i class="fa fa-check"></i><b>2.4.2</b> Continuous Distribution Recommendation Framework</a></li>
 <li class="chapter" data-level="2.4.3" data-path="distFitting.html"><a href="distFitting.html#discrete-distribution-framework"><i class="fa fa-check"></i><b>2.4.3</b> Discrete Distribution Framework</a></li>
-<li class="chapter" data-level="2.4.4" data-path="distFitting.html"><a href="distFitting.html#illustrative-examples-from-appendix-refappidm"><i class="fa fa-check"></i><b>2.4.4</b> Illustrative Examples from Appendix @ref(appidm)</a></li>
+<li class="chapter" data-level="2.4.4" data-path="distFitting.html"><a href="distFitting.html#pdfmexamples"><i class="fa fa-check"></i><b>2.4.4</b> Illustrative Examples from Appendix @ref(appidm)</a></li>
 </ul></li>
 <li class="chapter" data-level="2.5" data-path="summary.html"><a href="summary.html"><i class="fa fa-check"></i><b>2.5</b> Summary</a></li>
 <li class="chapter" data-level="2.6" data-path="exercises-1.html"><a href="exercises-1.html"><i class="fa fa-check"></i><b>2.6</b> Exercises</a></li>
@@ -219,21 +219,23 @@ div.csl-indent {
 <li class="chapter" data-level="3.1" data-path="kslStatistics.html"><a href="kslStatistics.html"><i class="fa fa-check"></i><b>3.1</b> Collecting Statistics</a>
 <ul>
 <li class="chapter" data-level="3.1.1" data-path="kslStatistics.html"><a href="kslStatistics.html#creating-and-using-a-statistic"><i class="fa fa-check"></i><b>3.1.1</b> Creating and Using a Statistic</a></li>
-<li class="chapter" data-level="3.1.2" data-path="kslStatistics.html"><a href="kslStatistics.html#histograms-and-frequencies"><i class="fa fa-check"></i><b>3.1.2</b> Histograms and Frequencies</a></li>
+<li class="chapter" data-level="3.1.2" data-path="kslStatistics.html"><a href="kslStatistics.html#histFreq"><i class="fa fa-check"></i><b>3.1.2</b> Histograms and Frequencies</a></li>
+<li class="chapter" data-level="3.1.3" data-path="kslStatistics.html"><a href="kslStatistics.html#ch3batchStats"><i class="fa fa-check"></i><b>3.1.3</b> Batch Statistics</a></li>
 </ul></li>
-<li class="chapter" data-level="3.2" data-path="ch3batchStats.html"><a href="ch3batchStats.html"><i class="fa fa-check"></i><b>3.2</b> Batch Statistics</a></li>
-<li class="chapter" data-level="3.3" data-path="ssMC.html"><a href="ssMC.html"><i class="fa fa-check"></i><b>3.3</b> Simple Monte Carlo Integration</a></li>
-<li class="chapter" data-level="3.4" data-path="ch3StatReview.html"><a href="ch3StatReview.html"><i class="fa fa-check"></i><b>3.4</b> Review of Statistical Concepts</a>
+<li class="chapter" data-level="3.2" data-path="ssMC.html"><a href="ssMC.html"><i class="fa fa-check"></i><b>3.2</b> Simple Monte Carlo Integration</a></li>
+<li class="chapter" data-level="3.3" data-path="ch3StatReview.html"><a href="ch3StatReview.html"><i class="fa fa-check"></i><b>3.3</b> Review of Statistical Concepts</a>
 <ul>
-<li class="chapter" data-level="3.4.1" data-path="ch3StatReview.html"><a href="ch3StatReview.html#point-estimates-and-confidence-intervals"><i class="fa fa-check"></i><b>3.4.1</b> Point Estimates and Confidence Intervals</a></li>
-<li class="chapter" data-level="3.4.2" data-path="ch3StatReview.html"><a href="ch3StatReview.html#ch3SampleSize"><i class="fa fa-check"></i><b>3.4.2</b> Sample Size Determination</a></li>
-<li class="chapter" data-level="3.4.3" data-path="ch3StatReview.html"><a href="ch3StatReview.html#determining-the-sample-size-for-a-monte-carlo-simulation-experiment"><i class="fa fa-check"></i><b>3.4.3</b> Determining the Sample Size for a Monte Carlo Simulation Experiment</a></li>
+<li class="chapter" data-level="3.3.1" data-path="ch3StatReview.html"><a href="ch3StatReview.html#point-estimates-and-confidence-intervals"><i class="fa fa-check"></i><b>3.3.1</b> Point Estimates and Confidence Intervals</a></li>
+<li class="chapter" data-level="3.3.2" data-path="ch3StatReview.html"><a href="ch3StatReview.html#ch3SampleSize"><i class="fa fa-check"></i><b>3.3.2</b> Sample Size Determination</a></li>
+<li class="chapter" data-level="3.3.3" data-path="ch3StatReview.html"><a href="ch3StatReview.html#determining-the-sample-size-for-a-monte-carlo-simulation-experiment"><i class="fa fa-check"></i><b>3.3.3</b> Determining the Sample Size for a Monte Carlo Simulation Experiment</a></li>
 </ul></li>
-<li class="chapter" data-level="3.5" data-path="craps.html"><a href="craps.html"><i class="fa fa-check"></i><b>3.5</b> Simulating the Game of Craps</a></li>
-<li class="chapter" data-level="3.6" data-path="the-news-vendor-problem.html"><a href="the-news-vendor-problem.html"><i class="fa fa-check"></i><b>3.6</b> The News Vendor Problem</a></li>
-<li class="chapter" data-level="3.7" data-path="mcmExperiments.html"><a href="mcmExperiments.html"><i class="fa fa-check"></i><b>3.7</b> Monte-Carlo Experiments</a></li>
-<li class="chapter" data-level="3.8" data-path="summary-1.html"><a href="summary-1.html"><i class="fa fa-check"></i><b>3.8</b> Summary</a></li>
-<li class="chapter" data-level="3.9" data-path="exercises-2.html"><a href="exercises-2.html"><i class="fa fa-check"></i><b>3.9</b> Exercises</a></li>
+<li class="chapter" data-level="3.4" data-path="craps.html"><a href="craps.html"><i class="fa fa-check"></i><b>3.4</b> Simulating the Game of Craps</a></li>
+<li class="chapter" data-level="3.5" data-path="the-news-vendor-problem.html"><a href="the-news-vendor-problem.html"><i class="fa fa-check"></i><b>3.5</b> The News Vendor Problem</a></li>
+<li class="chapter" data-level="3.6" data-path="a-simple-inspection-process.html"><a href="a-simple-inspection-process.html"><i class="fa fa-check"></i><b>3.6</b> A Simple Inspection Process</a></li>
+<li class="chapter" data-level="3.7" data-path="stochastic-activity-networks.html"><a href="stochastic-activity-networks.html"><i class="fa fa-check"></i><b>3.7</b> Stochastic Activity Networks</a></li>
+<li class="chapter" data-level="3.8" data-path="mcmExperiments.html"><a href="mcmExperiments.html"><i class="fa fa-check"></i><b>3.8</b> Monte-Carlo Experiments</a></li>
+<li class="chapter" data-level="3.9" data-path="summary-1.html"><a href="summary-1.html"><i class="fa fa-check"></i><b>3.9</b> Summary</a></li>
+<li class="chapter" data-level="3.10" data-path="exercises-2.html"><a href="exercises-2.html"><i class="fa fa-check"></i><b>3.10</b> Exercises</a></li>
 </ul></li>
 <li class="chapter" data-level="4" data-path="introDEDS.html"><a href="introDEDS.html"><i class="fa fa-check"></i><b>4</b> Introduction to Discrete Event Modeling</a>
 <ul>
@@ -463,16 +465,16 @@ div.csl-indent {
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="mcmExperiments" class="section level2 hasAnchor" number="3.7">
-<h2><span class="header-section-number">3.7</span> Monte-Carlo Experiments<a href="mcmExperiments.html#mcmExperiments" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p>Because running Monte-Carlo experiments is very common the KSL has provided some classes to support simple experimentation on Monte-Carlo problems within the <code>ksl.utilities.mcintegration</code> package. Figure <a href="mcmExperiments.html#fig:MCExperimentIfc">3.6</a> illustrates the classes within the package.</p>
+<div id="mcmExperiments" class="section level2 hasAnchor" number="3.8">
+<h2><span class="header-section-number">3.8</span> Monte-Carlo Experiments<a href="mcmExperiments.html#mcmExperiments" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Because running Monte-Carlo experiments is very common the KSL has provided some classes to support simple experimentation on Monte-Carlo problems within the <code>ksl.utilities.mcintegration</code> package. Figure <a href="mcmExperiments.html#fig:MCExperimentIfc">3.7</a> illustrates the classes within the package.</p>
 <div class="figure"><span style="display:block;" id="fig:MCExperimentIfc"></span>
 <img src="figures2/ch3/MCExperimentIfc.png" alt="Classes in ksl.utilities.mcintegration" width="80%" height="80%" />
 <p class="caption">
-Figure 3.6: Classes in ksl.utilities.mcintegration
+Figure 3.7: Classes in ksl.utilities.mcintegration
 </p>
 </div>
-<p>A Monte-Carlo experiment is conceptualized as a two-step process: 1) an initial pilot sample, and 2) the sampling to meet the desired half-width criteria. The initial pilot sample determines based on the equations of Section <a href="ch3StatReview.html#ch3SampleSize">3.4.2</a> how many samples are needed to meet the criteria. Then, the remaining samples are executed until a maximum number of samples is reached or the half-width criteria is met.</p>
+<p>A Monte-Carlo experiment is conceptualized as a two-step process: 1) an initial pilot sample, and 2) the sampling to meet the desired half-width criteria. The initial pilot sample determines based on the equations of Section <a href="ch3StatReview.html#ch3SampleSize">3.3.2</a> how many samples are needed to meet the criteria. Then, the remaining samples are executed until a maximum number of samples is reached or the half-width criteria is met.</p>
 <p>The sampling is performed in the form of micro and macro replications. A micro replication observes the desired quantity for a pre-determined sample size. Then, the micro replications are repeated for a pre-determined overall number of macro replications. Let’s use some notation to represent these concepts.</p>
 <p>Let <span class="math inline">\(r\)</span> be the number of micro replications and let <span class="math inline">\(n\)</span> be the number of macro replications. Let <span class="math inline">\(Y_{ij}\)</span> be the <span class="math inline">\(i^{th}\)</span> observation of the <span class="math inline">\(r\)</span> micro replications and let <span class="math inline">\(j\)</span> be the <span class="math inline">\(j^{th}\)</span> observation of the <span class="math inline">\(n\)</span> macro replications. Let <span class="math inline">\(\bar{Y}_{\cdot j} = \frac{1}{r}\sum_{i=1}^{r}Y_{ij}\)</span> be the sample average for the <span class="math inline">\(j^{th}\)</span> macro replication. Let <span class="math inline">\(k\)</span> be the sample size of the initial set of macro replications. Thus, they form a random sample of size <span class="math inline">\(k\)</span>, as follows:</p>
 <p><span class="math display">\[\begin{equation}
@@ -483,55 +485,60 @@ Figure 3.6: Classes in ksl.utilities.mcintegration
 <p>By default, the number of macro replications should be relatively small and the number of micro replications large. Specific settings will be problem dependent. The default initial sample size, <span class="math inline">\(k\)</span> is 30, with a maximum number of macro replications of$ M = 10000$. The default half-width error bound is <span class="math inline">\(0.001\)</span>. The default setting
 of the number of micro replications, <span class="math inline">\(r\)</span>, is 100. Again, these are all adjustable by the user via the properties of the <code>MCExperiment</code> class. The initial pilot sample is executed automatically as part of the overall sampling; however, using the <code>runInitialSample()</code> method, the user can just execute the initial sample and review the results before setting up the overall sampling. In the following code, we re-implement the news vendor problem using the <code>MCExperiment</code> class.</p>
 <p>To use the <code>MCExperiment</code> class the user can either subclass <code>MCExperiment</code> or provide a function that represents a replication of an individual observation. This can be done by using the <code>MCReplicationIfc</code> functional interface.</p>
-<div class="sourceCode" id="cb76"><pre class="sourceCode kt"><code class="sourceCode kotlin"><span id="cb76-1"><a href="mcmExperiments.html#cb76-1" tabindex="-1"></a><span class="kw">fun</span> <span class="kw">interface</span> <span class="fu">MCReplicationIfc</span> <span class="op">{</span></span>
-<span id="cb76-2"><a href="mcmExperiments.html#cb76-2" tabindex="-1"></a>    <span class="co">/**</span></span>
-<span id="cb76-3"><a href="mcmExperiments.html#cb76-3" tabindex="-1"></a><span class="co">     * @param j the current replication number. Could be used to implement more advanced</span></span>
-<span id="cb76-4"><a href="mcmExperiments.html#cb76-4" tabindex="-1"></a><span class="co">     * sampling that needs the current replication number. For example, antithetic sampling.</span></span>
-<span id="cb76-5"><a href="mcmExperiments.html#cb76-5" tabindex="-1"></a><span class="co">     */</span></span>
-<span id="cb76-6"><a href="mcmExperiments.html#cb76-6" tabindex="-1"></a>    <span class="kw">fun</span> <span class="fu">replication</span><span class="op">(</span><span class="va">j</span><span class="op">:</span> <span class="dt">Int</span><span class="op">):</span> <span class="dt">Double</span></span>
-<span id="cb76-7"><a href="mcmExperiments.html#cb76-7" tabindex="-1"></a>}</span></code></pre></div>
+<div class="sourceCode" id="cb99"><pre class="sourceCode kt"><code class="sourceCode kotlin"><span id="cb99-1"><a href="mcmExperiments.html#cb99-1" tabindex="-1"></a><span class="kw">fun</span> <span class="kw">interface</span> <span class="fu">MCReplicationIfc</span> <span class="op">{</span></span>
+<span id="cb99-2"><a href="mcmExperiments.html#cb99-2" tabindex="-1"></a>    <span class="co">/**</span></span>
+<span id="cb99-3"><a href="mcmExperiments.html#cb99-3" tabindex="-1"></a><span class="co">     * @param j the current replication number. Could be used to implement more advanced</span></span>
+<span id="cb99-4"><a href="mcmExperiments.html#cb99-4" tabindex="-1"></a><span class="co">     * sampling that needs the current replication number. For example, antithetic sampling.</span></span>
+<span id="cb99-5"><a href="mcmExperiments.html#cb99-5" tabindex="-1"></a><span class="co">     */</span></span>
+<span id="cb99-6"><a href="mcmExperiments.html#cb99-6" tabindex="-1"></a>    <span class="kw">fun</span> <span class="fu">replication</span><span class="op">(</span><span class="va">j</span><span class="op">:</span> <span class="dt">Int</span><span class="op">):</span> <span class="dt">Double</span></span>
+<span id="cb99-7"><a href="mcmExperiments.html#cb99-7" tabindex="-1"></a>}</span></code></pre></div>
 <p>A Kotlin functional interface allows the function to be supplied easily as a parameter of a function. An interface with only one abstract method is called a functional interface, or a Single Abstract Method (SAM) interface. Using the functional programming constructs of Kotlin the user can supply a lamda expression as the function, implement the interface, or reference a class or object method that has the same functional signature. In the example presented here, for simplicity and clarity, we implement the interface.</p>
-<div class="sourceCode" id="cb77"><pre class="sourceCode kt"><code class="sourceCode kotlin"><span id="cb77-1"><a href="mcmExperiments.html#cb77-1" tabindex="-1"></a><span class="kw">class</span> NewsVendor<span class="op">(</span><span class="kw">var</span> <span class="va">demand</span><span class="op">:</span> <span class="dt">RVariableIfc</span><span class="op">)</span> <span class="op">:</span> <span class="dt">MCReplicationIfc</span> <span class="op">{</span></span>
-<span id="cb77-2"><a href="mcmExperiments.html#cb77-2" tabindex="-1"></a>    <span class="kw">var</span> <span class="va">orderQty</span> <span class="op">=</span> <span class="fl">30.0</span> <span class="co">// order qty</span></span>
-<span id="cb77-3"><a href="mcmExperiments.html#cb77-3" tabindex="-1"></a>        <span class="kw">set</span><span class="op">(</span>value<span class="op">)</span> <span class="op">{</span></span>
-<span id="cb77-4"><a href="mcmExperiments.html#cb77-4" tabindex="-1"></a>            require<span class="op">(</span>value <span class="op">&gt;</span> <span class="dv">0</span><span class="op">)</span></span>
-<span id="cb77-5"><a href="mcmExperiments.html#cb77-5" tabindex="-1"></a>            field <span class="op">=</span> value</span>
-<span id="cb77-6"><a href="mcmExperiments.html#cb77-6" tabindex="-1"></a>        <span class="op">}</span></span>
-<span id="cb77-7"><a href="mcmExperiments.html#cb77-7" tabindex="-1"></a>    <span class="kw">var</span> <span class="va">salesPrice</span> <span class="op">=</span> <span class="fl">0.25</span> <span class="co">//sales price</span></span>
-<span id="cb77-8"><a href="mcmExperiments.html#cb77-8" tabindex="-1"></a>        <span class="kw">set</span><span class="op">(</span>value<span class="op">)</span> <span class="op">{</span></span>
-<span id="cb77-9"><a href="mcmExperiments.html#cb77-9" tabindex="-1"></a>            require<span class="op">(</span>value <span class="op">&gt;</span> <span class="dv">0</span><span class="op">)</span></span>
-<span id="cb77-10"><a href="mcmExperiments.html#cb77-10" tabindex="-1"></a>            field <span class="op">=</span> value</span>
-<span id="cb77-11"><a href="mcmExperiments.html#cb77-11" tabindex="-1"></a>        <span class="op">}</span></span>
-<span id="cb77-12"><a href="mcmExperiments.html#cb77-12" tabindex="-1"></a>    <span class="kw">var</span> <span class="va">unitCost</span> <span class="op">=</span> <span class="fl">0.15</span> <span class="co">// unit cost</span></span>
-<span id="cb77-13"><a href="mcmExperiments.html#cb77-13" tabindex="-1"></a>        <span class="kw">set</span><span class="op">(</span>value<span class="op">)</span> <span class="op">{</span></span>
-<span id="cb77-14"><a href="mcmExperiments.html#cb77-14" tabindex="-1"></a>            require<span class="op">(</span>value <span class="op">&gt;</span> <span class="dv">0</span><span class="op">)</span></span>
-<span id="cb77-15"><a href="mcmExperiments.html#cb77-15" tabindex="-1"></a>            field <span class="op">=</span> value</span>
-<span id="cb77-16"><a href="mcmExperiments.html#cb77-16" tabindex="-1"></a>        <span class="op">}</span></span>
-<span id="cb77-17"><a href="mcmExperiments.html#cb77-17" tabindex="-1"></a>    <span class="kw">var</span> <span class="va">salvageValue</span> <span class="op">=</span> <span class="fl">0.02</span> <span class="co">//salvage value</span></span>
-<span id="cb77-18"><a href="mcmExperiments.html#cb77-18" tabindex="-1"></a>        <span class="kw">set</span><span class="op">(</span>value<span class="op">)</span> <span class="op">{</span></span>
-<span id="cb77-19"><a href="mcmExperiments.html#cb77-19" tabindex="-1"></a>            require<span class="op">(</span>value <span class="op">&gt;</span> <span class="dv">0</span><span class="op">)</span></span>
-<span id="cb77-20"><a href="mcmExperiments.html#cb77-20" tabindex="-1"></a>            field <span class="op">=</span> value</span>
-<span id="cb77-21"><a href="mcmExperiments.html#cb77-21" tabindex="-1"></a>        <span class="op">}</span></span>
-<span id="cb77-22"><a href="mcmExperiments.html#cb77-22" tabindex="-1"></a></span>
-<span id="cb77-23"><a href="mcmExperiments.html#cb77-23" tabindex="-1"></a>    <span class="kw">override</span> <span class="kw">fun</span> <span class="fu">replication</span><span class="op">(</span><span class="va">j</span><span class="op">:</span> <span class="dt">Int</span><span class="op">):</span> <span class="dt">Double</span> <span class="op">{</span></span>
-<span id="cb77-24"><a href="mcmExperiments.html#cb77-24" tabindex="-1"></a>        <span class="kw">val</span> <span class="va">d</span> <span class="op">=</span> demand<span class="op">.</span>value</span>
-<span id="cb77-25"><a href="mcmExperiments.html#cb77-25" tabindex="-1"></a>        <span class="kw">val</span> <span class="va">amtSold</span> <span class="op">=</span> minOf<span class="op">(</span>d<span class="op">,</span> orderQty<span class="op">)</span></span>
-<span id="cb77-26"><a href="mcmExperiments.html#cb77-26" tabindex="-1"></a>        <span class="kw">val</span> <span class="va">amtLeft</span> <span class="op">=</span> maxOf<span class="op">(</span><span class="fl">0.0</span><span class="op">,</span> orderQty <span class="op">-</span> d<span class="op">)</span></span>
-<span id="cb77-27"><a href="mcmExperiments.html#cb77-27" tabindex="-1"></a>        <span class="kw">return</span> salesPrice <span class="op">*</span> amtSold <span class="op">+</span> salvageValue <span class="op">*</span> amtLeft <span class="op">-</span> unitCost <span class="op">*</span> orderQty</span>
-<span id="cb77-28"><a href="mcmExperiments.html#cb77-28" tabindex="-1"></a>    <span class="op">}</span></span>
-<span id="cb77-29"><a href="mcmExperiments.html#cb77-29" tabindex="-1"></a></span>
-<span id="cb77-30"><a href="mcmExperiments.html#cb77-30" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
+<div class="sourceCode" id="cb100"><pre class="sourceCode kt"><code class="sourceCode kotlin"><span id="cb100-1"><a href="mcmExperiments.html#cb100-1" tabindex="-1"></a><span class="kw">class</span> NewsVendor<span class="op">(</span><span class="kw">var</span> <span class="va">demand</span><span class="op">:</span> <span class="dt">RVariableIfc</span><span class="op">)</span> <span class="op">:</span> <span class="dt">MCReplicationIfc</span> <span class="op">{</span></span>
+<span id="cb100-2"><a href="mcmExperiments.html#cb100-2" tabindex="-1"></a>    <span class="kw">var</span> <span class="va">orderQty</span> <span class="op">=</span> <span class="fl">30.0</span> <span class="co">// order qty</span></span>
+<span id="cb100-3"><a href="mcmExperiments.html#cb100-3" tabindex="-1"></a>        <span class="kw">set</span><span class="op">(</span>value<span class="op">)</span> <span class="op">{</span></span>
+<span id="cb100-4"><a href="mcmExperiments.html#cb100-4" tabindex="-1"></a>            require<span class="op">(</span>value <span class="op">&gt;</span> <span class="dv">0</span><span class="op">)</span></span>
+<span id="cb100-5"><a href="mcmExperiments.html#cb100-5" tabindex="-1"></a>            field <span class="op">=</span> value</span>
+<span id="cb100-6"><a href="mcmExperiments.html#cb100-6" tabindex="-1"></a>        <span class="op">}</span></span>
+<span id="cb100-7"><a href="mcmExperiments.html#cb100-7" tabindex="-1"></a>    <span class="kw">var</span> <span class="va">salesPrice</span> <span class="op">=</span> <span class="fl">0.25</span> <span class="co">//sales price</span></span>
+<span id="cb100-8"><a href="mcmExperiments.html#cb100-8" tabindex="-1"></a>        <span class="kw">set</span><span class="op">(</span>value<span class="op">)</span> <span class="op">{</span></span>
+<span id="cb100-9"><a href="mcmExperiments.html#cb100-9" tabindex="-1"></a>            require<span class="op">(</span>value <span class="op">&gt;</span> <span class="dv">0</span><span class="op">)</span></span>
+<span id="cb100-10"><a href="mcmExperiments.html#cb100-10" tabindex="-1"></a>            field <span class="op">=</span> value</span>
+<span id="cb100-11"><a href="mcmExperiments.html#cb100-11" tabindex="-1"></a>        <span class="op">}</span></span>
+<span id="cb100-12"><a href="mcmExperiments.html#cb100-12" tabindex="-1"></a>    <span class="kw">var</span> <span class="va">unitCost</span> <span class="op">=</span> <span class="fl">0.15</span> <span class="co">// unit cost</span></span>
+<span id="cb100-13"><a href="mcmExperiments.html#cb100-13" tabindex="-1"></a>        <span class="kw">set</span><span class="op">(</span>value<span class="op">)</span> <span class="op">{</span></span>
+<span id="cb100-14"><a href="mcmExperiments.html#cb100-14" tabindex="-1"></a>            require<span class="op">(</span>value <span class="op">&gt;</span> <span class="dv">0</span><span class="op">)</span></span>
+<span id="cb100-15"><a href="mcmExperiments.html#cb100-15" tabindex="-1"></a>            field <span class="op">=</span> value</span>
+<span id="cb100-16"><a href="mcmExperiments.html#cb100-16" tabindex="-1"></a>        <span class="op">}</span></span>
+<span id="cb100-17"><a href="mcmExperiments.html#cb100-17" tabindex="-1"></a>    <span class="kw">var</span> <span class="va">salvageValue</span> <span class="op">=</span> <span class="fl">0.02</span> <span class="co">//salvage value</span></span>
+<span id="cb100-18"><a href="mcmExperiments.html#cb100-18" tabindex="-1"></a>        <span class="kw">set</span><span class="op">(</span>value<span class="op">)</span> <span class="op">{</span></span>
+<span id="cb100-19"><a href="mcmExperiments.html#cb100-19" tabindex="-1"></a>            require<span class="op">(</span>value <span class="op">&gt;</span> <span class="dv">0</span><span class="op">)</span></span>
+<span id="cb100-20"><a href="mcmExperiments.html#cb100-20" tabindex="-1"></a>            field <span class="op">=</span> value</span>
+<span id="cb100-21"><a href="mcmExperiments.html#cb100-21" tabindex="-1"></a>        <span class="op">}</span></span>
+<span id="cb100-22"><a href="mcmExperiments.html#cb100-22" tabindex="-1"></a></span>
+<span id="cb100-23"><a href="mcmExperiments.html#cb100-23" tabindex="-1"></a>    <span class="kw">override</span> <span class="kw">fun</span> <span class="fu">replication</span><span class="op">(</span><span class="va">j</span><span class="op">:</span> <span class="dt">Int</span><span class="op">):</span> <span class="dt">Double</span> <span class="op">{</span></span>
+<span id="cb100-24"><a href="mcmExperiments.html#cb100-24" tabindex="-1"></a>        <span class="kw">val</span> <span class="va">d</span> <span class="op">=</span> demand<span class="op">.</span>value</span>
+<span id="cb100-25"><a href="mcmExperiments.html#cb100-25" tabindex="-1"></a>        <span class="kw">val</span> <span class="va">amtSold</span> <span class="op">=</span> minOf<span class="op">(</span>d<span class="op">,</span> orderQty<span class="op">)</span></span>
+<span id="cb100-26"><a href="mcmExperiments.html#cb100-26" tabindex="-1"></a>        <span class="kw">val</span> <span class="va">amtLeft</span> <span class="op">=</span> maxOf<span class="op">(</span><span class="fl">0.0</span><span class="op">,</span> orderQty <span class="op">-</span> d<span class="op">)</span></span>
+<span id="cb100-27"><a href="mcmExperiments.html#cb100-27" tabindex="-1"></a>        <span class="kw">return</span> salesPrice <span class="op">*</span> amtSold <span class="op">+</span> salvageValue <span class="op">*</span> amtLeft <span class="op">-</span> unitCost <span class="op">*</span> orderQty</span>
+<span id="cb100-28"><a href="mcmExperiments.html#cb100-28" tabindex="-1"></a>    <span class="op">}</span></span>
+<span id="cb100-29"><a href="mcmExperiments.html#cb100-29" tabindex="-1"></a></span>
+<span id="cb100-30"><a href="mcmExperiments.html#cb100-30" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
 <p>Notice the function, <code>replication</code> which implements computation of the profit equation for the news vendor problem. The key input parameters of the problem have also been implemented as properties of the class so that different problem instances can be easily created. The user of the class must provide a random variable to represent the demand. The running of the experiment is implemented in the following code.</p>
-<div class="sourceCode" id="cb78"><pre class="sourceCode kt"><code class="sourceCode kotlin"><span id="cb78-1"><a href="mcmExperiments.html#cb78-1" tabindex="-1"></a><span class="kw">fun</span> <span class="fu">main</span><span class="op">()</span> <span class="op">{</span></span>
-<span id="cb78-2"><a href="mcmExperiments.html#cb78-2" tabindex="-1"></a>    <span class="kw">val</span> <span class="va">values</span> <span class="op">=</span> doubleArrayOf<span class="op">(</span><span class="fl">5.0</span><span class="op">,</span> <span class="fl">10.0</span><span class="op">,</span> <span class="fl">40.0</span><span class="op">,</span> <span class="fl">45.0</span><span class="op">,</span> <span class="fl">50.0</span><span class="op">,</span> <span class="fl">55.0</span><span class="op">,</span> <span class="fl">60.0</span><span class="op">)</span></span>
-<span id="cb78-3"><a href="mcmExperiments.html#cb78-3" tabindex="-1"></a>    <span class="kw">val</span> <span class="va">cdf</span> <span class="op">=</span> doubleArrayOf<span class="op">(</span><span class="fl">0.1</span><span class="op">,</span> <span class="fl">0.3</span><span class="op">,</span> <span class="fl">0.6</span><span class="op">,</span> <span class="fl">0.8</span><span class="op">,</span> <span class="fl">0.9</span><span class="op">,</span> <span class="fl">0.95</span><span class="op">,</span> <span class="fl">1.0</span><span class="op">)</span></span>
-<span id="cb78-4"><a href="mcmExperiments.html#cb78-4" tabindex="-1"></a>    <span class="kw">val</span> <span class="va">dCDF</span> <span class="op">=</span> DEmpiricalRV<span class="op">(</span>values<span class="op">,</span> cdf<span class="op">)</span></span>
-<span id="cb78-5"><a href="mcmExperiments.html#cb78-5" tabindex="-1"></a>    <span class="kw">val</span> <span class="va">nv</span> <span class="op">=</span> NewsVendor<span class="op">(</span>dCDF<span class="op">)</span></span>
-<span id="cb78-6"><a href="mcmExperiments.html#cb78-6" tabindex="-1"></a>    <span class="kw">val</span> <span class="va">exp</span> <span class="op">=</span> MCExperiment<span class="op">(</span>nv<span class="op">)</span></span>
-<span id="cb78-7"><a href="mcmExperiments.html#cb78-7" tabindex="-1"></a>    exp<span class="op">.</span>desiredHWErrorBound <span class="op">=</span> <span class="fl">0.01</span></span>
-<span id="cb78-8"><a href="mcmExperiments.html#cb78-8" tabindex="-1"></a>    exp<span class="op">.</span>runSimulation<span class="op">()</span></span>
-<span id="cb78-9"><a href="mcmExperiments.html#cb78-9" tabindex="-1"></a>    println<span class="op">(</span>exp<span class="op">)</span></span>
-<span id="cb78-10"><a href="mcmExperiments.html#cb78-10" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
+<hr />
+<div class="example">
+<p><span id="exm:ch3ex13" class="example"><strong>Example 3.13  (News Vendor Via MCExperiment) </strong></span>This example illustrates how to use the <code>MCExperiment</code> class to run a Monte-Carlo experiment for the news vendor problem.</p>
+<div class="sourceCode" id="cb101"><pre class="sourceCode kt"><code class="sourceCode kotlin"><span id="cb101-1"><a href="mcmExperiments.html#cb101-1" tabindex="-1"></a><span class="kw">fun</span> <span class="fu">main</span><span class="op">()</span> <span class="op">{</span></span>
+<span id="cb101-2"><a href="mcmExperiments.html#cb101-2" tabindex="-1"></a>    <span class="kw">val</span> <span class="va">values</span> <span class="op">=</span> doubleArrayOf<span class="op">(</span><span class="fl">5.0</span><span class="op">,</span> <span class="fl">10.0</span><span class="op">,</span> <span class="fl">40.0</span><span class="op">,</span> <span class="fl">45.0</span><span class="op">,</span> <span class="fl">50.0</span><span class="op">,</span> <span class="fl">55.0</span><span class="op">,</span> <span class="fl">60.0</span><span class="op">)</span></span>
+<span id="cb101-3"><a href="mcmExperiments.html#cb101-3" tabindex="-1"></a>    <span class="kw">val</span> <span class="va">cdf</span> <span class="op">=</span> doubleArrayOf<span class="op">(</span><span class="fl">0.1</span><span class="op">,</span> <span class="fl">0.3</span><span class="op">,</span> <span class="fl">0.6</span><span class="op">,</span> <span class="fl">0.8</span><span class="op">,</span> <span class="fl">0.9</span><span class="op">,</span> <span class="fl">0.95</span><span class="op">,</span> <span class="fl">1.0</span><span class="op">)</span></span>
+<span id="cb101-4"><a href="mcmExperiments.html#cb101-4" tabindex="-1"></a>    <span class="kw">val</span> <span class="va">dCDF</span> <span class="op">=</span> DEmpiricalRV<span class="op">(</span>values<span class="op">,</span> cdf<span class="op">)</span></span>
+<span id="cb101-5"><a href="mcmExperiments.html#cb101-5" tabindex="-1"></a>    <span class="kw">val</span> <span class="va">nv</span> <span class="op">=</span> NewsVendor<span class="op">(</span>dCDF<span class="op">)</span></span>
+<span id="cb101-6"><a href="mcmExperiments.html#cb101-6" tabindex="-1"></a>    <span class="kw">val</span> <span class="va">exp</span> <span class="op">=</span> MCExperiment<span class="op">(</span>nv<span class="op">)</span></span>
+<span id="cb101-7"><a href="mcmExperiments.html#cb101-7" tabindex="-1"></a>    exp<span class="op">.</span>desiredHWErrorBound <span class="op">=</span> <span class="fl">0.01</span></span>
+<span id="cb101-8"><a href="mcmExperiments.html#cb101-8" tabindex="-1"></a>    exp<span class="op">.</span>runSimulation<span class="op">()</span></span>
+<span id="cb101-9"><a href="mcmExperiments.html#cb101-9" tabindex="-1"></a>    println<span class="op">(</span>exp<span class="op">)</span></span>
+<span id="cb101-10"><a href="mcmExperiments.html#cb101-10" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
+</div>
+<hr />
 <p>This code creates an instance of the news vendor problem and supplies the same demand distribution used in the previous section. The instance of <code>NewsVendor,</code> which implements the <code>MCReplicationIfc</code> interface is supplied to the <code>MCExperiment</code> as a constructor parameter. Then the desired half-width bound is set and the simulation executed.</p>
 <pre><code>Monte Carlo Simulation Results
 initial Sample Size = 30
@@ -558,7 +565,7 @@ Half-width 0.00999980532316225
 Confidence Level 0.95
 Confidence Interval [1.494972104789197, 1.5149717154355216]</code></pre>
 <p>As we can see from the results, the desired half-width criteria of 0.01 was met based on 2045 macro replications.</p>
-<p>The KSL also provides a class called <code>MC1DIntegration</code> that is a subclass of <code>MCExperiment</code> which facilitates the evaluation of 1-dimensional integration as previously illustrated in Section <a href="ssMC.html#ssMC">3.3</a>. For that situation a function and a sampling distribution can be provided.</p>
+<p>The KSL also provides a class called <code>MC1DIntegration</code> that is a subclass of <code>MCExperiment</code> which facilitates the evaluation of 1-dimensional integration as previously illustrated in Section <a href="ssMC.html#ssMC">3.2</a>. For that situation a function and a sampling distribution can be provided.</p>
 <ul>
 <li>Let <span class="math inline">\(f(x)\)</span> be the probability distribution for the random variable supplied by the sampler.</li>
 <li>Let <span class="math inline">\(g(x)\)</span> be the function that needs to be integrated.</li>
@@ -581,19 +588,24 @@ With <span class="math inline">\(g(x) = \sin(x)\)</span>, we need to specify a s
 \end{cases}\]</span><br />
 </p>
 <p>In the following code, notice that we multiply by <span class="math inline">\(\pi\)</span> in the functional evaluation to account for the range of sampling.</p>
-<div class="sourceCode" id="cb80"><pre class="sourceCode kt"><code class="sourceCode kotlin"><span id="cb80-1"><a href="mcmExperiments.html#cb80-1" tabindex="-1"></a><span class="kw">fun</span> <span class="fu">main</span><span class="op">()</span> <span class="op">{</span></span>
-<span id="cb80-2"><a href="mcmExperiments.html#cb80-2" tabindex="-1"></a>    <span class="kw">class</span> SinFunc <span class="op">:</span> <span class="dt">FunctionIfc</span> <span class="op">{</span></span>
-<span id="cb80-3"><a href="mcmExperiments.html#cb80-3" tabindex="-1"></a>        <span class="kw">override</span> <span class="kw">fun</span> <span class="fu">f</span><span class="op">(</span><span class="va">x</span><span class="op">:</span> <span class="dt">Double</span><span class="op">):</span> <span class="dt">Double</span> <span class="op">{</span></span>
-<span id="cb80-4"><a href="mcmExperiments.html#cb80-4" tabindex="-1"></a>            <span class="kw">return</span> Math<span class="op">.</span>PI <span class="op">*</span> sin<span class="op">(</span>x<span class="op">)</span></span>
-<span id="cb80-5"><a href="mcmExperiments.html#cb80-5" tabindex="-1"></a>        <span class="op">}</span></span>
-<span id="cb80-6"><a href="mcmExperiments.html#cb80-6" tabindex="-1"></a>    <span class="op">}</span></span>
-<span id="cb80-7"><a href="mcmExperiments.html#cb80-7" tabindex="-1"></a></span>
-<span id="cb80-8"><a href="mcmExperiments.html#cb80-8" tabindex="-1"></a>    <span class="kw">val</span> <span class="va">f</span> <span class="op">=</span> SinFunc<span class="op">()</span></span>
-<span id="cb80-9"><a href="mcmExperiments.html#cb80-9" tabindex="-1"></a>    <span class="kw">val</span> <span class="va">mc</span> <span class="op">=</span> MC1DIntegration<span class="op">(</span>f<span class="op">,</span> UniformRV<span class="op">(</span><span class="fl">0.0</span><span class="op">,</span> Math<span class="op">.</span>PI<span class="op">))</span></span>
-<span id="cb80-10"><a href="mcmExperiments.html#cb80-10" tabindex="-1"></a>    println<span class="op">()</span></span>
-<span id="cb80-11"><a href="mcmExperiments.html#cb80-11" tabindex="-1"></a>    mc<span class="op">.</span>runSimulation<span class="op">()</span></span>
-<span id="cb80-12"><a href="mcmExperiments.html#cb80-12" tabindex="-1"></a>    println<span class="op">(</span>mc<span class="op">)</span></span>
-<span id="cb80-13"><a href="mcmExperiments.html#cb80-13" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
+<hr />
+<div class="example">
+<p><span id="exm:ch3ex14" class="example"><strong>Example 3.14  (1-D Integration via MCExperiment) </strong></span>This example illustrates how to use the <code>MCExperiment</code> class to run a Monte-Carlo experiment on a one-dimensional integration problem.</p>
+<div class="sourceCode" id="cb103"><pre class="sourceCode kt"><code class="sourceCode kotlin"><span id="cb103-1"><a href="mcmExperiments.html#cb103-1" tabindex="-1"></a><span class="kw">fun</span> <span class="fu">main</span><span class="op">()</span> <span class="op">{</span></span>
+<span id="cb103-2"><a href="mcmExperiments.html#cb103-2" tabindex="-1"></a>    <span class="kw">class</span> SinFunc <span class="op">:</span> <span class="dt">FunctionIfc</span> <span class="op">{</span></span>
+<span id="cb103-3"><a href="mcmExperiments.html#cb103-3" tabindex="-1"></a>        <span class="kw">override</span> <span class="kw">fun</span> <span class="fu">f</span><span class="op">(</span><span class="va">x</span><span class="op">:</span> <span class="dt">Double</span><span class="op">):</span> <span class="dt">Double</span> <span class="op">{</span></span>
+<span id="cb103-4"><a href="mcmExperiments.html#cb103-4" tabindex="-1"></a>            <span class="kw">return</span> Math<span class="op">.</span>PI <span class="op">*</span> sin<span class="op">(</span>x<span class="op">)</span></span>
+<span id="cb103-5"><a href="mcmExperiments.html#cb103-5" tabindex="-1"></a>        <span class="op">}</span></span>
+<span id="cb103-6"><a href="mcmExperiments.html#cb103-6" tabindex="-1"></a>    <span class="op">}</span></span>
+<span id="cb103-7"><a href="mcmExperiments.html#cb103-7" tabindex="-1"></a></span>
+<span id="cb103-8"><a href="mcmExperiments.html#cb103-8" tabindex="-1"></a>    <span class="kw">val</span> <span class="va">f</span> <span class="op">=</span> SinFunc<span class="op">()</span></span>
+<span id="cb103-9"><a href="mcmExperiments.html#cb103-9" tabindex="-1"></a>    <span class="kw">val</span> <span class="va">mc</span> <span class="op">=</span> MC1DIntegration<span class="op">(</span>f<span class="op">,</span> UniformRV<span class="op">(</span><span class="fl">0.0</span><span class="op">,</span> Math<span class="op">.</span>PI<span class="op">))</span></span>
+<span id="cb103-10"><a href="mcmExperiments.html#cb103-10" tabindex="-1"></a>    println<span class="op">()</span></span>
+<span id="cb103-11"><a href="mcmExperiments.html#cb103-11" tabindex="-1"></a>    mc<span class="op">.</span>runSimulation<span class="op">()</span></span>
+<span id="cb103-12"><a href="mcmExperiments.html#cb103-12" tabindex="-1"></a>    println<span class="op">(</span>mc<span class="op">)</span></span>
+<span id="cb103-13"><a href="mcmExperiments.html#cb103-13" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
+</div>
+<hr />
 <p>The results based on the default settings do not meet the desired half-width criteria. We leave it as an exercise for the reader to further explore this problem.</p>
 <pre><code>Monte Carlo Simulation Results
 initial Sample Size = 30
@@ -629,7 +641,7 @@ Confidence Interval [1.9973657945263494, 2.002391825899537]</code></pre>
           </div>
         </div>
       </div>
-<a href="the-news-vendor-problem.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="stochastic-activity-networks.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
 <a href="summary-1.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>

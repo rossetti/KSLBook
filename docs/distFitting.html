@@ -23,14 +23,14 @@
 <meta name="author" content="Manuel D. Rossetti" />
 
 
-<meta name="date" content="2024-01-15" />
+<meta name="date" content="2024-05-28" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-<link rel="prev" href="probability-distribution-models.html"/>
+<link rel="prev" href="probModels.html"/>
 <link rel="next" href="summary.html"/>
 <script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
@@ -198,18 +198,18 @@ div.csl-indent {
 </ul></li>
 <li class="chapter" data-level="2.2" data-path="rvg.html"><a href="rvg.html"><i class="fa fa-check"></i><b>2.2</b> Random Variate Generation</a>
 <ul>
-<li class="chapter" data-level="2.2.1" data-path="rvg.html"><a href="rvg.html#rvg_dists"><i class="fa fa-check"></i><b>2.2.1</b> Continuous and Discrete Random Variables</a></li>
-<li class="chapter" data-level="2.2.2" data-path="rvg.html"><a href="rvg.html#rvg_algo"><i class="fa fa-check"></i><b>2.2.2</b> Overview of Generation Algorithms</a></li>
+<li class="chapter" data-level="2.2.1" data-path="rvg.html"><a href="rvg.html#basic-random-variate-generation"><i class="fa fa-check"></i><b>2.2.1</b> Basic Random Variate Generation</a></li>
+<li class="chapter" data-level="2.2.2" data-path="rvg.html"><a href="rvg.html#rvg_dists"><i class="fa fa-check"></i><b>2.2.2</b> Continuous and Discrete Random Variables</a></li>
 <li class="chapter" data-level="2.2.3" data-path="rvg.html"><a href="rvg.html#rvg_use"><i class="fa fa-check"></i><b>2.2.3</b> Creating and Using Random Variables</a></li>
 <li class="chapter" data-level="2.2.4" data-path="rvg.html"><a href="rvg.html#functions-of-random-variables"><i class="fa fa-check"></i><b>2.2.4</b> Functions of Random Variables</a></li>
 </ul></li>
-<li class="chapter" data-level="2.3" data-path="probability-distribution-models.html"><a href="probability-distribution-models.html"><i class="fa fa-check"></i><b>2.3</b> Probability Distribution Models</a></li>
+<li class="chapter" data-level="2.3" data-path="probModels.html"><a href="probModels.html"><i class="fa fa-check"></i><b>2.3</b> Probability Distribution Models</a></li>
 <li class="chapter" data-level="2.4" data-path="distFitting.html"><a href="distFitting.html"><i class="fa fa-check"></i><b>2.4</b> Distribution Fitting Using the KSL</a>
 <ul>
 <li class="chapter" data-level="2.4.1" data-path="distFitting.html"><a href="distFitting.html#estimating-distribution-parameters"><i class="fa fa-check"></i><b>2.4.1</b> Estimating Distribution Parameters</a></li>
 <li class="chapter" data-level="2.4.2" data-path="distFitting.html"><a href="distFitting.html#continuous-distribution-recommendation-framework"><i class="fa fa-check"></i><b>2.4.2</b> Continuous Distribution Recommendation Framework</a></li>
 <li class="chapter" data-level="2.4.3" data-path="distFitting.html"><a href="distFitting.html#discrete-distribution-framework"><i class="fa fa-check"></i><b>2.4.3</b> Discrete Distribution Framework</a></li>
-<li class="chapter" data-level="2.4.4" data-path="distFitting.html"><a href="distFitting.html#illustrative-examples-from-appendix-refappidm"><i class="fa fa-check"></i><b>2.4.4</b> Illustrative Examples from Appendix @ref(appidm)</a></li>
+<li class="chapter" data-level="2.4.4" data-path="distFitting.html"><a href="distFitting.html#pdfmexamples"><i class="fa fa-check"></i><b>2.4.4</b> Illustrative Examples from Appendix @ref(appidm)</a></li>
 </ul></li>
 <li class="chapter" data-level="2.5" data-path="summary.html"><a href="summary.html"><i class="fa fa-check"></i><b>2.5</b> Summary</a></li>
 <li class="chapter" data-level="2.6" data-path="exercises-1.html"><a href="exercises-1.html"><i class="fa fa-check"></i><b>2.6</b> Exercises</a></li>
@@ -219,21 +219,23 @@ div.csl-indent {
 <li class="chapter" data-level="3.1" data-path="kslStatistics.html"><a href="kslStatistics.html"><i class="fa fa-check"></i><b>3.1</b> Collecting Statistics</a>
 <ul>
 <li class="chapter" data-level="3.1.1" data-path="kslStatistics.html"><a href="kslStatistics.html#creating-and-using-a-statistic"><i class="fa fa-check"></i><b>3.1.1</b> Creating and Using a Statistic</a></li>
-<li class="chapter" data-level="3.1.2" data-path="kslStatistics.html"><a href="kslStatistics.html#histograms-and-frequencies"><i class="fa fa-check"></i><b>3.1.2</b> Histograms and Frequencies</a></li>
+<li class="chapter" data-level="3.1.2" data-path="kslStatistics.html"><a href="kslStatistics.html#histFreq"><i class="fa fa-check"></i><b>3.1.2</b> Histograms and Frequencies</a></li>
+<li class="chapter" data-level="3.1.3" data-path="kslStatistics.html"><a href="kslStatistics.html#ch3batchStats"><i class="fa fa-check"></i><b>3.1.3</b> Batch Statistics</a></li>
 </ul></li>
-<li class="chapter" data-level="3.2" data-path="ch3batchStats.html"><a href="ch3batchStats.html"><i class="fa fa-check"></i><b>3.2</b> Batch Statistics</a></li>
-<li class="chapter" data-level="3.3" data-path="ssMC.html"><a href="ssMC.html"><i class="fa fa-check"></i><b>3.3</b> Simple Monte Carlo Integration</a></li>
-<li class="chapter" data-level="3.4" data-path="ch3StatReview.html"><a href="ch3StatReview.html"><i class="fa fa-check"></i><b>3.4</b> Review of Statistical Concepts</a>
+<li class="chapter" data-level="3.2" data-path="ssMC.html"><a href="ssMC.html"><i class="fa fa-check"></i><b>3.2</b> Simple Monte Carlo Integration</a></li>
+<li class="chapter" data-level="3.3" data-path="ch3StatReview.html"><a href="ch3StatReview.html"><i class="fa fa-check"></i><b>3.3</b> Review of Statistical Concepts</a>
 <ul>
-<li class="chapter" data-level="3.4.1" data-path="ch3StatReview.html"><a href="ch3StatReview.html#point-estimates-and-confidence-intervals"><i class="fa fa-check"></i><b>3.4.1</b> Point Estimates and Confidence Intervals</a></li>
-<li class="chapter" data-level="3.4.2" data-path="ch3StatReview.html"><a href="ch3StatReview.html#ch3SampleSize"><i class="fa fa-check"></i><b>3.4.2</b> Sample Size Determination</a></li>
-<li class="chapter" data-level="3.4.3" data-path="ch3StatReview.html"><a href="ch3StatReview.html#determining-the-sample-size-for-a-monte-carlo-simulation-experiment"><i class="fa fa-check"></i><b>3.4.3</b> Determining the Sample Size for a Monte Carlo Simulation Experiment</a></li>
+<li class="chapter" data-level="3.3.1" data-path="ch3StatReview.html"><a href="ch3StatReview.html#point-estimates-and-confidence-intervals"><i class="fa fa-check"></i><b>3.3.1</b> Point Estimates and Confidence Intervals</a></li>
+<li class="chapter" data-level="3.3.2" data-path="ch3StatReview.html"><a href="ch3StatReview.html#ch3SampleSize"><i class="fa fa-check"></i><b>3.3.2</b> Sample Size Determination</a></li>
+<li class="chapter" data-level="3.3.3" data-path="ch3StatReview.html"><a href="ch3StatReview.html#determining-the-sample-size-for-a-monte-carlo-simulation-experiment"><i class="fa fa-check"></i><b>3.3.3</b> Determining the Sample Size for a Monte Carlo Simulation Experiment</a></li>
 </ul></li>
-<li class="chapter" data-level="3.5" data-path="craps.html"><a href="craps.html"><i class="fa fa-check"></i><b>3.5</b> Simulating the Game of Craps</a></li>
-<li class="chapter" data-level="3.6" data-path="the-news-vendor-problem.html"><a href="the-news-vendor-problem.html"><i class="fa fa-check"></i><b>3.6</b> The News Vendor Problem</a></li>
-<li class="chapter" data-level="3.7" data-path="mcmExperiments.html"><a href="mcmExperiments.html"><i class="fa fa-check"></i><b>3.7</b> Monte-Carlo Experiments</a></li>
-<li class="chapter" data-level="3.8" data-path="summary-1.html"><a href="summary-1.html"><i class="fa fa-check"></i><b>3.8</b> Summary</a></li>
-<li class="chapter" data-level="3.9" data-path="exercises-2.html"><a href="exercises-2.html"><i class="fa fa-check"></i><b>3.9</b> Exercises</a></li>
+<li class="chapter" data-level="3.4" data-path="craps.html"><a href="craps.html"><i class="fa fa-check"></i><b>3.4</b> Simulating the Game of Craps</a></li>
+<li class="chapter" data-level="3.5" data-path="the-news-vendor-problem.html"><a href="the-news-vendor-problem.html"><i class="fa fa-check"></i><b>3.5</b> The News Vendor Problem</a></li>
+<li class="chapter" data-level="3.6" data-path="a-simple-inspection-process.html"><a href="a-simple-inspection-process.html"><i class="fa fa-check"></i><b>3.6</b> A Simple Inspection Process</a></li>
+<li class="chapter" data-level="3.7" data-path="stochastic-activity-networks.html"><a href="stochastic-activity-networks.html"><i class="fa fa-check"></i><b>3.7</b> Stochastic Activity Networks</a></li>
+<li class="chapter" data-level="3.8" data-path="mcmExperiments.html"><a href="mcmExperiments.html"><i class="fa fa-check"></i><b>3.8</b> Monte-Carlo Experiments</a></li>
+<li class="chapter" data-level="3.9" data-path="summary-1.html"><a href="summary-1.html"><i class="fa fa-check"></i><b>3.9</b> Summary</a></li>
+<li class="chapter" data-level="3.10" data-path="exercises-2.html"><a href="exercises-2.html"><i class="fa fa-check"></i><b>3.10</b> Exercises</a></li>
 </ul></li>
 <li class="chapter" data-level="4" data-path="introDEDS.html"><a href="introDEDS.html"><i class="fa fa-check"></i><b>4</b> Introduction to Discrete Event Modeling</a>
 <ul>
@@ -473,43 +475,45 @@ div.csl-indent {
 <div class="figure"><span style="display:block;" id="fig:ParameterEstimatorLabel"></span>
 <img src="figures2/ch2/ParameterEstimatorIfc.png" alt="Important Classes for Parameter Estimation" width="80%" height="80%" />
 <p class="caption">
-Figure 2.6: Important Classes for Parameter Estimation
+Figure 2.7: Important Classes for Parameter Estimation
 </p>
 </div>
-<p>Figure <a href="distFitting.html#fig:ParameterEstimatorLabel">2.6</a> illustrates some of the key classes and interfaces involved in the parameter estimation framework. The functionality starts with the <code>ParameterEstimatorIfc</code> interface, which requires the implementation of the estimation routine and a property (<code>checkRange</code>) to indicate if the data should be checked for shifting onto the domain of the distribution. The <code>ParameterEstimatorIfc</code> interface defines a general function that uses 1-dimensional data array, and estimates the parameters of an hypothesized uni-variate distribution via some estimation algorithm. It is important to note that a distribution may have more than one method for estimating its parameters. In the figure, the maximum likelihood estimator for the gamma distribution is illustrated; however, for example, there is also a method of moments estimator for the gamma distribution implemented within the KSL distribution fitting framework.</p>
-<div class="sourceCode" id="cb28"><pre class="sourceCode kt"><code class="sourceCode kotlin"><span id="cb28-1"><a href="distFitting.html#cb28-1" tabindex="-1"></a><span class="kw">interface</span> ParameterEstimatorIfc <span class="op">{</span></span>
-<span id="cb28-2"><a href="distFitting.html#cb28-2" tabindex="-1"></a></span>
-<span id="cb28-3"><a href="distFitting.html#cb28-3" tabindex="-1"></a>    <span class="co">/**</span></span>
-<span id="cb28-4"><a href="distFitting.html#cb28-4" tabindex="-1"></a><span class="co">     *  Indicates if the estimator requires that the range of the data be checked for a shift</span></span>
-<span id="cb28-5"><a href="distFitting.html#cb28-5" tabindex="-1"></a><span class="co">     *  before the estimation process.</span></span>
-<span id="cb28-6"><a href="distFitting.html#cb28-6" tabindex="-1"></a><span class="co">     */</span></span>
-<span id="cb28-7"><a href="distFitting.html#cb28-7" tabindex="-1"></a>    <span class="kw">val</span> <span class="va">checkRange</span><span class="op">:</span> <span class="kw">Boolean</span></span>
-<span id="cb28-8"><a href="distFitting.html#cb28-8" tabindex="-1"></a></span>
-<span id="cb28-9"><a href="distFitting.html#cb28-9" tabindex="-1"></a>    <span class="co">/**</span></span>
-<span id="cb28-10"><a href="distFitting.html#cb28-10" tabindex="-1"></a><span class="co">     *  Estimates the parameters associated with some distribution. The returned [EstimationResult]</span></span>
-<span id="cb28-11"><a href="distFitting.html#cb28-11" tabindex="-1"></a><span class="co">     *  needs to be consistent with the intent of the desired distribution.</span></span>
-<span id="cb28-12"><a href="distFitting.html#cb28-12" tabindex="-1"></a><span class="co">     *  Note the meaning of the fields associated with [EstimationResult]</span></span>
-<span id="cb28-13"><a href="distFitting.html#cb28-13" tabindex="-1"></a><span class="co">     */</span></span>
-<span id="cb28-14"><a href="distFitting.html#cb28-14" tabindex="-1"></a>    <span class="kw">fun</span> <span class="fu">estimateParameters</span><span class="op">(</span><span class="kw">data</span><span class="op">:</span> <span class="dt">DoubleArray</span><span class="op">,</span> <span class="va">statistics</span><span class="op">:</span> <span class="dt">StatisticIfc</span> <span class="op">=</span> Statistic<span class="op">(</span>data<span class="op">)):</span> <span class="dt">EstimationResult</span></span>
-<span id="cb28-15"><a href="distFitting.html#cb28-15" tabindex="-1"></a>}</span></code></pre></div>
+<p>Figure <a href="distFitting.html#fig:ParameterEstimatorLabel">2.7</a> illustrates some of the key classes and interfaces involved in the parameter estimation framework. The functionality starts with the <code>ParameterEstimatorIfc</code> interface, which requires the implementation of the estimation routine and a property (<code>checkRange</code>) to indicate if the data should be checked for shifting onto the domain of the distribution. The <code>ParameterEstimatorIfc</code> interface defines a general function that uses 1-dimensional data array, and estimates the parameters of an hypothesized uni-variate distribution via some estimation algorithm. It is important to note that a distribution may have more than one method for estimating its parameters. In the figure, the maximum likelihood estimator for the gamma distribution is illustrated; however, for example, there is also a method of moments estimator for the gamma distribution implemented within the KSL distribution fitting framework.</p>
+<div class="sourceCode" id="cb39"><pre class="sourceCode kt"><code class="sourceCode kotlin"><span id="cb39-1"><a href="distFitting.html#cb39-1" tabindex="-1"></a><span class="kw">interface</span> ParameterEstimatorIfc <span class="op">{</span></span>
+<span id="cb39-2"><a href="distFitting.html#cb39-2" tabindex="-1"></a></span>
+<span id="cb39-3"><a href="distFitting.html#cb39-3" tabindex="-1"></a>    <span class="co">/**</span></span>
+<span id="cb39-4"><a href="distFitting.html#cb39-4" tabindex="-1"></a><span class="co">     *  Indicates if the estimator requires that the range of the data be checked for a shift</span></span>
+<span id="cb39-5"><a href="distFitting.html#cb39-5" tabindex="-1"></a><span class="co">     *  before the estimation process.</span></span>
+<span id="cb39-6"><a href="distFitting.html#cb39-6" tabindex="-1"></a><span class="co">     */</span></span>
+<span id="cb39-7"><a href="distFitting.html#cb39-7" tabindex="-1"></a>    <span class="kw">val</span> <span class="va">checkRange</span><span class="op">:</span> <span class="kw">Boolean</span></span>
+<span id="cb39-8"><a href="distFitting.html#cb39-8" tabindex="-1"></a></span>
+<span id="cb39-9"><a href="distFitting.html#cb39-9" tabindex="-1"></a>    <span class="co">/**</span></span>
+<span id="cb39-10"><a href="distFitting.html#cb39-10" tabindex="-1"></a><span class="co">     *  Estimates the parameters associated with some distribution. The returned [EstimationResult]</span></span>
+<span id="cb39-11"><a href="distFitting.html#cb39-11" tabindex="-1"></a><span class="co">     *  needs to be consistent with the intent of the desired distribution.</span></span>
+<span id="cb39-12"><a href="distFitting.html#cb39-12" tabindex="-1"></a><span class="co">     *  Note the meaning of the fields associated with [EstimationResult]</span></span>
+<span id="cb39-13"><a href="distFitting.html#cb39-13" tabindex="-1"></a><span class="co">     */</span></span>
+<span id="cb39-14"><a href="distFitting.html#cb39-14" tabindex="-1"></a>    <span class="kw">fun</span> <span class="fu">estimateParameters</span><span class="op">(</span><span class="kw">data</span><span class="op">:</span> <span class="dt">DoubleArray</span><span class="op">,</span> <span class="va">statistics</span><span class="op">:</span> <span class="dt">StatisticIfc</span> <span class="op">=</span> Statistic<span class="op">(</span>data<span class="op">)):</span> <span class="dt">EstimationResult</span></span>
+<span id="cb39-15"><a href="distFitting.html#cb39-15" tabindex="-1"></a>}</span></code></pre></div>
 <p>The basic contract for the estimation process is that the returned <code>EstimationResult</code> is consistent with the required parameter estimation. The data class <code>EstimationResult</code> stores information about the estimation process to be returned as a result of its application on the supplied data. The key property is the <code>success</code> property, which indicates whether the parameter estimation process was successful. Given that many estimation processes may require advanced optimization methods, the estimation process might not converge or some other problem might have occurred. If the <code>success</code> property is true, then the results should be meaningful. The <code>EstimationResult</code> also returns the estimator that was used (<code>MVBSestimatorIfc</code>) in a form for bootstrapping, the estimated parameters as an instance of <code>RVParameters,</code> a message concerning the estimation process, a text (string) representation of the distribution and its parameters, the original data (<code>originalData</code>), the shifted data if shifted, the statistics associated with the original data, and data that is suitable for testing for goodness of fit (<code>testData</code>). The <code>MVBSestimatorIfc</code> interface defines a method that takes in an array of data and produces an (double) array that holds the estimated parameters. In addition, the interface defines a list of the names to use for the parameters. This form for the estimation results facilitates performing a bootstrapping process that can provide confidence intervals for the estimated parameters.</p>
-<p>The following code illustrates the estimation of the parameters for a normal distribution.</p>
-<div class="sourceCode" id="cb29"><pre class="sourceCode kt"><code class="sourceCode kotlin"><span id="cb29-1"><a href="distFitting.html#cb29-1" tabindex="-1"></a><span class="kw">fun</span> <span class="fu">main</span><span class="op">(){</span></span>
-<span id="cb29-2"><a href="distFitting.html#cb29-2" tabindex="-1"></a>    <span class="co">// define a normal random variable,</span></span>
-<span id="cb29-3"><a href="distFitting.html#cb29-3" tabindex="-1"></a>    <span class="kw">val</span> <span class="va">x</span> <span class="op">=</span> NormalRV<span class="op">(</span><span class="fl">2.0</span><span class="op">,</span> <span class="fl">5.0</span><span class="op">)</span></span>
-<span id="cb29-4"><a href="distFitting.html#cb29-4" tabindex="-1"></a>    <span class="co">// generate some data</span></span>
-<span id="cb29-5"><a href="distFitting.html#cb29-5" tabindex="-1"></a>    <span class="kw">val</span> <span class="va">data</span> <span class="op">=</span> x<span class="op">.</span>sample<span class="op">(</span><span class="dv">100</span><span class="op">)</span></span>
-<span id="cb29-6"><a href="distFitting.html#cb29-6" tabindex="-1"></a>    <span class="co">// create the estimator</span></span>
-<span id="cb29-7"><a href="distFitting.html#cb29-7" tabindex="-1"></a>    <span class="kw">val</span> <span class="va">ne</span> <span class="op">=</span> NormalMLEParameterEstimator</span>
-<span id="cb29-8"><a href="distFitting.html#cb29-8" tabindex="-1"></a>    <span class="co">// estimate the parameters</span></span>
-<span id="cb29-9"><a href="distFitting.html#cb29-9" tabindex="-1"></a>    <span class="kw">val</span> <span class="va">result</span> <span class="op">=</span> ne<span class="op">.</span>estimateParameters<span class="op">(</span><span class="kw">data</span><span class="op">)</span></span>
-<span id="cb29-10"><a href="distFitting.html#cb29-10" tabindex="-1"></a>    println<span class="op">(</span>result<span class="op">)</span></span>
-<span id="cb29-11"><a href="distFitting.html#cb29-11" tabindex="-1"></a>    <span class="kw">val</span> <span class="va">bss</span> <span class="op">=</span> BootstrapSampler<span class="op">(</span><span class="kw">data</span><span class="op">,</span> ne<span class="op">)</span></span>
-<span id="cb29-12"><a href="distFitting.html#cb29-12" tabindex="-1"></a>    <span class="kw">val</span> <span class="va">list</span> <span class="op">=</span> bss<span class="op">.</span>bootStrapEstimates<span class="op">(</span><span class="dv">400</span><span class="op">)</span></span>
-<span id="cb29-13"><a href="distFitting.html#cb29-13" tabindex="-1"></a>    <span class="cf">for</span> <span class="op">(</span>element <span class="kw">in</span> list<span class="op">)</span> <span class="op">{</span></span>
-<span id="cb29-14"><a href="distFitting.html#cb29-14" tabindex="-1"></a>        println<span class="op">(</span>element<span class="op">.</span>toString<span class="op">())</span></span>
-<span id="cb29-15"><a href="distFitting.html#cb29-15" tabindex="-1"></a>    <span class="op">}</span></span>
-<span id="cb29-16"><a href="distFitting.html#cb29-16" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
+<div class="example">
+<p><span id="exm:ch2ex23" class="example"><strong>Example 2.23  (Parameter Estimation) </strong></span>The following code illustrates the estimation of the parameters for a normal distribution.</p>
+<div class="sourceCode" id="cb40"><pre class="sourceCode kt"><code class="sourceCode kotlin"><span id="cb40-1"><a href="distFitting.html#cb40-1" tabindex="-1"></a><span class="kw">fun</span> <span class="fu">main</span><span class="op">(){</span></span>
+<span id="cb40-2"><a href="distFitting.html#cb40-2" tabindex="-1"></a>    <span class="co">// define a normal random variable,</span></span>
+<span id="cb40-3"><a href="distFitting.html#cb40-3" tabindex="-1"></a>    <span class="kw">val</span> <span class="va">x</span> <span class="op">=</span> NormalRV<span class="op">(</span><span class="fl">2.0</span><span class="op">,</span> <span class="fl">5.0</span><span class="op">)</span></span>
+<span id="cb40-4"><a href="distFitting.html#cb40-4" tabindex="-1"></a>    <span class="co">// generate some data</span></span>
+<span id="cb40-5"><a href="distFitting.html#cb40-5" tabindex="-1"></a>    <span class="kw">val</span> <span class="va">data</span> <span class="op">=</span> x<span class="op">.</span>sample<span class="op">(</span><span class="dv">100</span><span class="op">)</span></span>
+<span id="cb40-6"><a href="distFitting.html#cb40-6" tabindex="-1"></a>    <span class="co">// create the estimator</span></span>
+<span id="cb40-7"><a href="distFitting.html#cb40-7" tabindex="-1"></a>    <span class="kw">val</span> <span class="va">ne</span> <span class="op">=</span> NormalMLEParameterEstimator</span>
+<span id="cb40-8"><a href="distFitting.html#cb40-8" tabindex="-1"></a>    <span class="co">// estimate the parameters</span></span>
+<span id="cb40-9"><a href="distFitting.html#cb40-9" tabindex="-1"></a>    <span class="kw">val</span> <span class="va">result</span> <span class="op">=</span> ne<span class="op">.</span>estimateParameters<span class="op">(</span><span class="kw">data</span><span class="op">)</span></span>
+<span id="cb40-10"><a href="distFitting.html#cb40-10" tabindex="-1"></a>    println<span class="op">(</span>result<span class="op">)</span></span>
+<span id="cb40-11"><a href="distFitting.html#cb40-11" tabindex="-1"></a>    <span class="kw">val</span> <span class="va">bss</span> <span class="op">=</span> BootstrapSampler<span class="op">(</span><span class="kw">data</span><span class="op">,</span> ne<span class="op">)</span></span>
+<span id="cb40-12"><a href="distFitting.html#cb40-12" tabindex="-1"></a>    <span class="kw">val</span> <span class="va">list</span> <span class="op">=</span> bss<span class="op">.</span>bootStrapEstimates<span class="op">(</span><span class="dv">400</span><span class="op">)</span></span>
+<span id="cb40-13"><a href="distFitting.html#cb40-13" tabindex="-1"></a>    <span class="cf">for</span> <span class="op">(</span>element <span class="kw">in</span> list<span class="op">)</span> <span class="op">{</span></span>
+<span id="cb40-14"><a href="distFitting.html#cb40-14" tabindex="-1"></a>        println<span class="op">(</span>element<span class="op">.</span>toString<span class="op">())</span></span>
+<span id="cb40-15"><a href="distFitting.html#cb40-15" tabindex="-1"></a>    <span class="op">}</span></span>
+<span id="cb40-16"><a href="distFitting.html#cb40-16" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
+</div>
 <p>The results of this estimation process are show here. Notice that the estimation process was successful and the summary statistics were reported. The data was not shifted for the estimation process and the estimated parameters were <span class="math inline">\(\mu = 2.4138851463671918\)</span> and <span class="math inline">\(\sigma^2 = 5.571943618235626\)</span>. The bootstrapping process, see Section <a href="ch9BootStrapping.html#ch9BootStrapping">8.1</a> of Chapter <a href="ch9AdvMC.html#ch9AdvMC">8</a> was used to provide confidence intervals on the estimated parameters. This functionality is available for any of the distributions and the estimation routines that have been defined within the KSL.</p>
 <pre><code>Estimation Results:
 The estimation was a SUCCESS!
@@ -587,6 +591,8 @@ percentile c.i. = [4.143736649463448, 6.707311028148204]
 <li>Exponential - via <code>ExponentialMLEEstimator</code></li>
 <li>Gamma - via <code>GammaMLEParameterEstimator</code> or <code>GammaMOMParameterEstimator</code></li>
 <li>Generalized Beta - via <code>GeneralizedBetaMOMParameterEstimator</code></li>
+<li>Laplace - via <code>LaplaceMLEParameterEstimator</code></li>
+<li>Logistic - via <code>LogisticMOMParameterEstimator</code></li>
 <li>Lognormal - via <code>LognormalMLEParameterEstimator</code></li>
 <li>Negative Binomial - via <code>NegBinomialMOMParameterEstimator</code></li>
 <li>Normal - via <code>NormalMLEParameterEstimator</code></li>
@@ -596,39 +602,24 @@ percentile c.i. = [4.143736649463448, 6.707311028148204]
 <li>Uniform - via <code>UniformParameterEstimator</code></li>
 <li>Weibull - via <code>WeibullMLEParameterEstimator</code> or <code>WeibullPercentileParameterEstimator</code></li>
 </ul>
-<p>Again, by implementing the concepts illustrated in Figure <a href="distFitting.html#fig:ParameterEstimatorLabel">2.6</a>, a KSL user can implement additional distribution parameter estimation methods. If you need to fit a distribution that is not modeled within the KSL, then you need to implement the distribution’s parameter estimation procedure. In addition, you will also need to implement a class representing the distribution. Depending on the type of distribution, this may involve implementing the requirements of the <code>ContinuousDistributionIfc</code> interface or the <code>DiscreteDistributionIfc</code> interface for the underlying probability model.</p>
+<p>Again, by implementing the concepts illustrated in Figure <a href="distFitting.html#fig:ParameterEstimatorLabel">2.7</a>, a KSL user can implement additional distribution parameter estimation methods. If you need to fit a distribution that is not modeled within the KSL, then you need to implement the distribution’s parameter estimation procedure. In addition, you will also need to implement a class representing the distribution. Depending on the type of distribution, this may involve implementing the requirements of the <code>ContinuousDistributionIfc</code> interface or the <code>DiscreteDistributionIfc</code> interface for the underlying probability model.</p>
 </div>
 <div id="continuous-distribution-recommendation-framework" class="section level3 hasAnchor" number="2.4.2">
 <h3><span class="header-section-number">2.4.2</span> Continuous Distribution Recommendation Framework<a href="distFitting.html#continuous-distribution-recommendation-framework" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>As described in Appendix <a href="appidm.html#appidm">B</a>, the distribution modeling process may require that the parameters of many distributions be estimated and the quality of those probability models examined to recommend an overall distribution. This process normally involves statistical tests or metrics (e.g. square error criterion) to assess how well the probability model represents the data.</p>
-<p>Rather than relying on statistical tests, the KSL’s distribution recommendation framework defines a set of criteria for assessing the quality of the probability model’s representation. These criteria are called <em>scoring models</em>. Figure <a href="distFitting.html#fig:ScoringModelLabel">2.7</a> illustrates the five major scoring models that the KSL uses within it automated fitting process. To implement your own scoring model, you need to sub-class from the abstract base class <code>PDFScoringModel.</code></p>
+<p>Rather than relying on statistical tests, the KSL’s distribution recommendation framework defines a set of criteria for assessing the quality of the probability model’s representation. These criteria are called <em>scoring models</em>. Figure <a href="distFitting.html#fig:ScoringModelLabel">2.8</a> illustrates the scoring models that the KSL uses within its automated fitting process. To implement your own scoring model, you need to sub-class from the abstract base class <code>PDFScoringModel.</code></p>
 <div class="figure"><span style="display:block;" id="fig:ScoringModelLabel"></span>
-<img src="figures2/ch2/PDFScoringModel.png" alt="Important Classes for PDF Scoring" width="70%" height="70%" />
+<img src="figures2/ch2/PDFScoringModel.png" alt="Important Classes for PDF Scoring" width="80%" height="80%" />
 <p class="caption">
-Figure 2.7: Important Classes for PDF Scoring
+Figure 2.8: Important Classes for PDF Scoring
 </p>
 </div>
 <p>The primary method that needs to be implemented is the abstract <code>score()</code> function.</p>
-<div class="sourceCode" id="cb31"><pre class="sourceCode kt"><code class="sourceCode kotlin"><span id="cb31-1"><a href="distFitting.html#cb31-1" tabindex="-1"></a><span class="kw">abstract</span> <span class="kw">fun</span> <span class="fu">score</span><span class="op">(</span><span class="kw">data</span><span class="op">:</span> <span class="dt">DoubleArray</span><span class="op">,</span> <span class="va">cdf</span><span class="op">:</span> <span class="dt">ContinuousDistributionIfc</span><span class="op">)</span> <span class="op">:</span> <span class="dt">Score</span></span></code></pre></div>
+<div class="sourceCode" id="cb42"><pre class="sourceCode kt"><code class="sourceCode kotlin"><span id="cb42-1"><a href="distFitting.html#cb42-1" tabindex="-1"></a><span class="kw">abstract</span> <span class="kw">fun</span> <span class="fu">score</span><span class="op">(</span><span class="kw">data</span><span class="op">:</span> <span class="dt">DoubleArray</span><span class="op">,</span> <span class="va">cdf</span><span class="op">:</span> <span class="dt">ContinuousDistributionIfc</span><span class="op">)</span> <span class="op">:</span> <span class="dt">Score</span></span></code></pre></div>
 <p>The contract for this function is it will return a numerical value that measures the quality of the distribution fit given the observed data and a hypothesized continuous distribution function. In addition, the function, <code>badScore(),</code> should return the worse possible score for the metric. The <code>badScore()</code> function should be used if there is some error or issue that prevents the scoring procedure from determining a score for the fit. A <code>Score</code> is a data class that indicates whether the score is <code>valid</code> or not and provides the metric that determined the score. You can think of the metric as the units of measure. The metric defines the domain (or set of legal values) for the metric and its direction. By direction, we mean whether bigger scores are better than smaller scores or vice versa. This information is used when a set of scores are combined into an overall score.</p>
-<p>The KSL has five default scoring models. Two of the scoring models are based on a histogram summary of the data. This involves dividing the range of observations via break points <span class="math inline">\(b_j\)</span> and tabulating frequencies or proportions of the data falling with the defined intervals. Let <span class="math inline">\(c_{j}\)</span> be the observed count of the <span class="math inline">\(x\)</span> values contained in
-the <span class="math inline">\(j^{th}\)</span> interval <span class="math inline">\(\left(b_{j-1}, b_{j} \right]\)</span>, <span class="math inline">\(h_j = c_j/n\)</span> be the relative frequency for the <span class="math inline">\(j^{th}\)</span> interval, and</p>
-<p><span class="math display">\[p_j = P\{b_{j-1} \leq X \leq b_{j}\} = \int\limits_{b_{j-1}}^{b_{j}} f(x) \mathrm{d}x\]</span>
-be the theoretical probability associated with the interval. The squared error criterion and the chi-squared criterion are based on the defined intervals.</p>
+<p>The KSL has many pre-defined scoring models; however, only three are specified to be used by default during the standard automated distribution process.</p>
 <ul>
-<li>Squared error criterion - The squared error is defined as the sum over the intervals of the squared difference between the relative frequency and the theoretical probability associated with each interval:</li>
-</ul>
-<p><span class="math display">\[\begin{equation}
-\text{Square Error} = \sum_{j = 1}^k (h_j - p_j)^2
-\end{equation}\]</span></p>
-<ul>
-<li>Chi-Squared criterion - The chi-squared criterion is the <span class="math inline">\(\chi^{2}\)</span> test statistic value that compares the observed counts <span class="math inline">\(c_j\)</span> to the expected counts <span class="math inline">\(np_j\)</span> over the intervals.</li>
-</ul>
-<p><span class="math display">\[\begin{equation}
-\chi^{2}_{0} = \sum\limits_{j=1}^{k} \frac{\left( c_{j} - np_{j} \right)^{2}}{np_{j}}
-\end{equation}\]</span></p>
-<ul>
-<li>Kolmogorov-Smirnov criterion - The Kolmogorov-Smirnov criterion, <span class="math inline">\(D_{n} = \max \lbrace D^{+}_{n}, D^{-}_{n} \rbrace\)</span>, represents the largest vertical
+<li>Kolmogorov-Smirnov criterion - The Kolmogorov-Smirnov (K-S) criterion is based on the K-S test statistic, where, <span class="math inline">\(D_{n} = \max \lbrace D^{+}_{n}, D^{-}_{n} \rbrace\)</span>, represents the largest vertical
 distance between the hypothesized distribution and the empirical
 distribution over the range of the distribution.</li>
 </ul>
@@ -642,15 +633,7 @@ D^{+}_{n} &amp; = \underset{1 \leq i \leq n}{\max} \Bigl\lbrace \tilde{F}_{n} \l
 D^{-}_{n} &amp; = \underset{1 \leq i \leq n}{\max} \Bigl\lbrace \hat{F}(x_{(i)}) - \tilde{F}_{n} \left( x_{(i-1)} \right) \Bigr\rbrace \\
   &amp; = \underset{1 \leq i \leq n}{\max} \Bigl\lbrace \hat{F}(x_{(i)}) - \frac{i-1}{n} \Bigr\rbrace
 \end{aligned}
-\]</span>
-- Cramer Von Mises criterion - The Cramer Von Mises criterion is a distance measure used to compare the goodness of fit of a cumulative distribution function, <span class="math inline">\(F(x)\)</span> to the empirical distribution, <span class="math inline">\(F_n(x)\)</span>. The distance is defined as:</p>
-<p><span class="math display">\[\begin{equation}
-\omega^2 = \int_{-\infty}^{+\infty}\Big[ F_n(x) - F(x) \Big]^2\,dF(x)
-\end{equation}\]</span></p>
-<p>This metric can be computed from data sorted in ascending order (<span class="math inline">\(x_1, x_2, \cdots, x_n\)</span>), i.e. the order statistics, as:</p>
-<p><span class="math display">\[\begin{equation}
-T = n\omega^2 = \frac{1}{12n} + \sum_{i=1}^{n}\Big[ \frac{2i-1}{2n} - F(x_i) \Big]^2
-\end{equation}\]</span></p>
+\]</span></p>
 <ul>
 <li>Anderson Darling criterion - The Anderson-Darling criterion is similar in spirit to the Cramer Von Mises test statistic except that it is designed to detect discrepancies in the tails of the distribution.</li>
 </ul>
@@ -661,38 +644,47 @@ A^2 = n\int_{-\infty}^{+\infty}\frac{\Big[ F_n(x) - F(x) \Big]^2}{F(x)(1-F(x))}\
 <span class="math display">\[\begin{equation}
 A^2 = -n - \sum_{i=1}^{n}\frac{2i-1}{n}\Big[ \ln(F(x_i)) + \ln(1-F(x_{n+1-i})) \Big]
 \end{equation}\]</span></p>
-<p>The companion object of the <code>Statistic</code> class will compute the chi-squared test statistic, K-S test statistic, Anderson Darling test statistic, and Cramer Von Mises test statistic. These functions directly compute the criterion value. In addition, as illustrated in Figure <a href="distFitting.html#fig:ScoringModelLabel">2.7</a>, each of these statistics, as well as the squared error criterion, have been implemented as PDF scoring models.</p>
-<p>The quality of a parametric fit for a specific distribution can be evaluated by one or more scoring models. Since distribution quality metrics have been designed to measure different aspects of the fit, the KSL allows the scoring results to be combined into an overall score. Suppose distribution <span class="math inline">\(F_k\)</span> is evaluated by the five scoring models, each resulting in score <span class="math inline">\(S_i\)</span> for <span class="math inline">\(i=1,2,\cdots, m\)</span>, where <span class="math inline">\(m\)</span> is the number of scoring models. In general, the scores may not have the same scales and the same direction of <em>goodness</em>. The KSL scoring system translates and scales each score <span class="math inline">\(S_i\)</span> in to a value, <span class="math inline">\(M_i\)</span> measure, that has a common scale and direction (a bigger score is better). These value measures are then combined into an overall value (<span class="math inline">\(V_k\)</span>) for the distribution using weights (<span class="math inline">\(w_i\)</span>) across the scoring criteria:</p>
+<ul>
+<li>P-P Plot Sum of Squared Errors - Based on the concepts found in <span class="citation">(<a href="#ref-gan-koehler">Gan and Koehler 1990</a>)</span>, the sum of squared error related to the P-P plot of the theoretical distribution versus the empirical distribution was developed as a scoring criterion. Let <span class="math inline">\((x_{(1)}, x_{(2)}, \ldots x_{(n)})\)</span> be the order statistics. Let the theoretical distribution be represented with <span class="math inline">\(\hat{F}(x_{(i)})\)</span> for i= 1, 2, <span class="math inline">\(\ldots\)</span> n where <span class="math inline">\(\hat{F}\)</span> is the CDF of the hypothesized distribution. Define the empirical distribution as</li>
+</ul>
+<p><span class="math display">\[\tilde{F}_n(x_{(i)}) = \dfrac{i - 0.5}{n}\]</span>
+Then, the P-P Plot sum of squared error criterion is defined as:</p>
+<p><span class="math display">\[
+\text{PP Squared Error} = \sum_{i = 1}^n (\tilde{F}_n(x_{(i)}) - \hat{F}(x_{(i)}))^2
+\]</span>
+These scoring models avoid summarizing the data based on a histogram, which requires a specification of the bin sizes (or widths) and tabulation of frequencies or proportions associated with the bins.</p>
+<p>The companion object of the <code>Statistic</code> class will compute the K-S test statistic and Anderson Darling test statistic. These functions directly compute the test statistic value. In addition, as illustrated in Figure <a href="distFitting.html#fig:ScoringModelLabel">2.8</a>, each of these statistics, as well as the <code>PPSSEScoringModel</code> have been implemented as PDF scoring models.</p>
+<p>The quality of a parametric fit for a specific distribution can be evaluated by one or more scoring models. Since distribution quality metrics have been designed to measure different aspects of the fit, the KSL allows the scoring results to be combined into an overall score. Suppose distribution <span class="math inline">\(F_k\)</span> is evaluated by the the scoring models, each resulting in score <span class="math inline">\(S_i\)</span> for <span class="math inline">\(i=1,2,\cdots, m\)</span>, where <span class="math inline">\(m\)</span> is the number of scoring models. In general, the scores may not have the same scales and the same direction of <em>goodness</em>. The KSL scoring system translates and scales each score <span class="math inline">\(S_i\)</span> in to a value, <span class="math inline">\(M_i\)</span> measure, that has a common scale and direction (a bigger score is better). These value measures are then combined into an overall value (<span class="math inline">\(V_k\)</span>) for the distribution using weights (<span class="math inline">\(w_i\)</span>) across the scoring criteria:</p>
 <p><span class="math display">\[\begin{equation}
 V_{k} = \sum_{i=1}^{m}w_i \times M_i
 \end{equation}\]</span></p>
 <p>The distribution that has the overall largest value, <span class="math inline">\(V_k\)</span>, is then recommended as the best fitting probability model.</p>
 <p>This methodology is based on the commonly used multi-objective decision analysis (MODA) method for choosing among a set of alternatives. In the KSL default application of this methodology, each scoring model is weighted equally and a linearly additive model is assumed. The framework is designed to allow the user to define and apply their own scoring models and to set the preference weights among the metrics. In addition, sensitivity analysis of the weights can easily be accomplished. Once the best distribution has been recommended, then the KSL facilitates performing statistical tests with resulting p-values.</p>
-<p>Figure <a href="distFitting.html#fig:PDFModelerLabel">2.8</a> presents the main class (<code>PDFModeler</code>) for performing the continuous distribution fitting task. The companion object provides functionality to estimate the shift parameter, shift the data to the left, compute confidence intervals for the minimum and maximum of the data via bootstrapping, estimate the range of possible values for the distribution, create distributions from estimated parameters, create the default evaluation model, and work with histograms.</p>
+<p>Figure <a href="distFitting.html#fig:PDFModelerLabel">2.9</a> presents the main class (<code>PDFModeler</code>) for performing the continuous distribution fitting task. The companion object provides functionality to estimate the shift parameter, shift the data to the left, compute confidence intervals for the minimum and maximum of the data via bootstrapping, estimate the range of possible values for the distribution, create distributions from estimated parameters, create the default evaluation model, and work with histograms.</p>
 <div class="figure"><span style="display:block;" id="fig:PDFModelerLabel"></span>
 <img src="figures2/ch2/PDFModeler.png" alt="PDF Modeling Framework" width="100%" height="100%" />
 <p class="caption">
-Figure 2.8: PDF Modeling Framework
+Figure 2.9: PDF Modeling Framework
 </p>
 </div>
-<p>The modeling process starts with creating an instance of <code>PDFModeler</code> by supplying the data to be modeled. Then, functions can be used to perform the estimation and scoring tasks.</p>
+<p>The modeling process starts with creating an instance of <code>PDFModeler</code> by supplying the data to be modeled and the set of scoring models to be used within the evaluation process. Then, functions can be used to perform the estimation and scoring tasks.</p>
 <ul>
 <li><p><code>estimateParameters(estimators: Set&lt;ParameterEstimatorIfc&gt;, automaticShifting: Boolean = true)</code> - This function estimates the parameters for all estimators represented by the supplied set of estimators. The parameter, <code>automaticShifting</code> controls whether the data will be automatically shifted. If the automatic shift parameter is true (the default), then a confidence interval for the minimum of the data is estimated from the data. If the upper limit of the estimated confidence interval is greater than the value specified by the default zero tolerance property, then the data is shifted to the left and used in the estimation process. The estimated shift will be recorded in the result. Automated shift estimation will occur only if the automatic shifting parameter is true, if the estimator requires that its range be checked, and if the data actually requires a shift. If the automatic shifting parameter is false, then no shifting will occur. In this case it is up to the user to ensure that the supplied data is representative of the set of estimators to be estimated. The returned list will contain the results for each estimator.</p></li>
-<li><p><code>evaluateScores(estimationResults: List&lt;EstimationResult&gt;, scoringModels: Set&lt;PDFScoringModel&gt; = allScoringModels)</code> - This function applies the supplied scoring models to the results from the parameter estimation process. Each distribution with estimated parameters will be scored by each of the supplied models and the results tabulated as an instance of the <code>PDFModelingResults</code> class.</p></li>
+<li><p><code>evaluateScores(estimationResults: List&lt;EstimationResult&gt;)</code> - This function applies the supplied scoring models to the results from the parameter estimation process. Each distribution with estimated parameters will be scored by each of the supplied models and the results tabulated as an instance of the <code>PDFModelingResults</code> class.</p></li>
 <li><p><code>estimateAndEvaluateScores(estimators: Set&lt;ParameterEstimatorIfc&gt; = allEstimators, automaticShifting: Boolean = true, scoringModels: Set&lt;PDFScoringModel&gt; = allScoringModels)</code> - As its name implies, this function combines the functions of <code>estimateParameters()</code> and <code>evaluateScores()</code> into a single function for the convenience of the modeler. The returned instance of the <code>PDFModelingResults</code> class has the estimation results and the scoring results.</p></li>
 <li><p><code>showAllResultsInBrowser(fileName: String = "pdfModelingResults")</code> - This function makes a histogram, observations plot, auto-correlation plot, performs the fitting and scoring process, and performs goodness
 of fit tests on the top scoring distribution and displays all the results by opening a browser window. The generated <code>html</code> file is stored in the <code>KSL.plotDir</code> directory using the supplied name as the pre-fix for a temporary file. This one function performs all the necessary fitting steps and returns the results, including plots, within an <code>html</code> page.</p></li>
 </ul>
 <p>The <code>PDFModeling</code> class encapsulates the estimation and scoring process. The purpose of this class is to serve as the general location for implementing the estimation of distribution parameters across many distributions. The general use involves the following:</p>
-<div class="sourceCode" id="cb32"><pre class="sourceCode kt"><code class="sourceCode kotlin"><span id="cb32-1"><a href="distFitting.html#cb32-1" tabindex="-1"></a><span class="kw">val</span> <span class="va">d</span> <span class="op">=</span> PDFModeler<span class="op">(</span><span class="kw">data</span><span class="op">)</span></span>
-<span id="cb32-2"><a href="distFitting.html#cb32-2" tabindex="-1"></a><span class="kw">val</span> <span class="va">estimationResults</span><span class="op">:</span> List<span class="op">&lt;</span>EstimationResult<span class="op">&gt;</span> <span class="op">=</span> d<span class="op">.</span>estimateParameters<span class="op">(</span>d<span class="op">.</span>allEstimators<span class="op">)</span></span>
-<span id="cb32-3"><a href="distFitting.html#cb32-3" tabindex="-1"></a><span class="kw">val</span> <span class="va">scoringResults</span> <span class="op">=</span> d<span class="op">.</span>scoringResults<span class="op">(</span>estimationResults<span class="op">)</span></span>
-<span id="cb32-4"><a href="distFitting.html#cb32-4" tabindex="-1"></a><span class="kw">val</span> <span class="va">model</span> <span class="op">=</span> d<span class="op">.</span>evaluateScoringResults<span class="op">(</span>scoringResults<span class="op">)</span></span>
-<span id="cb32-5"><a href="distFitting.html#cb32-5" tabindex="-1"></a>scoringResults<span class="op">.</span>forEach<span class="op">(</span> <span class="op">::</span>println<span class="op">)</span></span></code></pre></div>
+<div class="sourceCode" id="cb43"><pre class="sourceCode kt"><code class="sourceCode kotlin"><span id="cb43-1"><a href="distFitting.html#cb43-1" tabindex="-1"></a><span class="kw">val</span> <span class="va">d</span> <span class="op">=</span> PDFModeler<span class="op">(</span><span class="kw">data</span><span class="op">)</span></span>
+<span id="cb43-2"><a href="distFitting.html#cb43-2" tabindex="-1"></a><span class="kw">val</span> <span class="va">estimationResults</span><span class="op">:</span> List<span class="op">&lt;</span>EstimationResult<span class="op">&gt;</span> <span class="op">=</span> d<span class="op">.</span>estimateParameters<span class="op">(</span>d<span class="op">.</span>allEstimators<span class="op">)</span></span>
+<span id="cb43-3"><a href="distFitting.html#cb43-3" tabindex="-1"></a><span class="kw">val</span> <span class="va">scoringResults</span> <span class="op">=</span> d<span class="op">.</span>scoringResults<span class="op">(</span>estimationResults<span class="op">)</span></span>
+<span id="cb43-4"><a href="distFitting.html#cb43-4" tabindex="-1"></a><span class="kw">val</span> <span class="va">model</span> <span class="op">=</span> d<span class="op">.</span>evaluateScoringResults<span class="op">(</span>scoringResults<span class="op">)</span></span>
+<span id="cb43-5"><a href="distFitting.html#cb43-5" tabindex="-1"></a>scoringResults<span class="op">.</span>forEach<span class="op">(</span> <span class="op">::</span>println<span class="op">)</span></span></code></pre></div>
 <p>The scoring results will be updated with the evaluation information and will contain the evaluation scores. The scoring results can be sorted to find the recommended distribution based on the evaluation score. Alternatively, the single function can be used:</p>
-<div class="sourceCode" id="cb33"><pre class="sourceCode kt"><code class="sourceCode kotlin"><span id="cb33-1"><a href="distFitting.html#cb33-1" tabindex="-1"></a><span class="kw">val</span> <span class="va">d</span> <span class="op">=</span> PDFModeler<span class="op">(</span><span class="kw">data</span><span class="op">)</span></span>
-<span id="cb33-2"><a href="distFitting.html#cb33-2" tabindex="-1"></a><span class="kw">val</span> <span class="va">results</span>  <span class="op">=</span> d<span class="op">.</span>estimateAndEvaluateScores<span class="op">()</span></span></code></pre></div>
-<p>This function returns an instance of <code>PDFModelingResults,</code> which will have the results of the entire fitting process. The advantage of using the individual functions may permit some further customization of the estimation process. The <code>PDFModelingResults</code> class in Figure <a href="distFitting.html#fig:PDFModelerLabel">2.8</a> is a data class that holds all of the results from the fitting and scoring process. In addition, the class holds an instance of the scoring model (<code>AdditiveMODAModel</code>), which can be used to perform additional analysis of the scores. The property <code>sortedScoringResults</code> provides the list of results sorted such that the top performer is the first element of the list.</p>
+<div class="sourceCode" id="cb44"><pre class="sourceCode kt"><code class="sourceCode kotlin"><span id="cb44-1"><a href="distFitting.html#cb44-1" tabindex="-1"></a><span class="kw">val</span> <span class="va">d</span> <span class="op">=</span> PDFModeler<span class="op">(</span><span class="kw">data</span><span class="op">)</span></span>
+<span id="cb44-2"><a href="distFitting.html#cb44-2" tabindex="-1"></a><span class="kw">val</span> <span class="va">results</span>  <span class="op">=</span> d<span class="op">.</span>estimateAndEvaluateScores<span class="op">()</span></span></code></pre></div>
+<p>This function returns an instance of <code>PDFModelingResults,</code> which will have the results of the entire fitting process. The advantage of using the individual functions may permit some further customization of the estimation process. The <code>PDFModelingResults</code> class in Figure <a href="distFitting.html#fig:PDFModelerLabel">2.9</a> is a data class that holds all of the results from the fitting and scoring process. In addition, the class holds an instance of the scoring model (<code>AdditiveMODAModel</code>), which can be used to perform additional analysis of the scores. The property <code>sortedScoringResults</code> provides the list of results sorted such that the top performer is the first element of the list.</p>
 <p>To summarize, the KSL continuous distribution modeling framework allows the modeler to:</p>
 <ul>
 <li>Define and select from a set of distributions to evaluate</li>
@@ -703,7 +695,7 @@ of fit tests on the top scoring distribution and displays all the results by ope
 <li>Recommend the best distribution based on weighted preference among evaluation metrics</li>
 <li>Make observations plots, histograms, autocorrelation plots, P-P plots, Q-Q plots, and empirical distribution plots.</li>
 </ul>
-<p>All of this functionality is encapsulated in the <code>PDFModeler</code> class.</p>
+<p>All of this functionality is encapsulated in the <code>PDFModeler</code> class. This functionality will be illustrated in Section <a href="distFitting.html#pdfmexamples">2.4.4</a>.</p>
 <p>After performing the estimation and scoring process, the modeler may want to perform statistical tests for the top performing distribution (or others). The <code>ContinuousCDFGoodnessOfFit</code> class facilitates the performing of the following goodness of fit tests:</p>
 <ul>
 <li>Chi-Squared</li>
@@ -714,25 +706,28 @@ of fit tests on the top scoring distribution and displays all the results by ope
 <div class="figure"><span style="display:block;" id="fig:ContinuousCDFGoodnessOfFitLabel"></span>
 <img src="figures2/ch2/ContinuousCDFGoodnessOfFit.png" alt="Continuous Distribution Goodness of Fit Framework" width="100%" height="100%" />
 <p class="caption">
-Figure 2.9: Continuous Distribution Goodness of Fit Framework
+Figure 2.10: Continuous Distribution Goodness of Fit Framework
 </p>
 </div>
-<p>Figure <a href="distFitting.html#fig:ContinuousCDFGoodnessOfFitLabel">2.9</a> shows the framework of classes and interfaces for performing goodness of fit tests within the KSL. The main class is the <code>ContinuousCDFGoodnessOfFit</code> class. This class will compute the test statistics and their P-values.</p>
+<p>Figure <a href="distFitting.html#fig:ContinuousCDFGoodnessOfFitLabel">2.10</a> shows the framework of classes and interfaces for performing goodness of fit tests within the KSL. The main class is the <code>ContinuousCDFGoodnessOfFit</code> class. This class will compute the test statistics and their P-values.</p>
 <p>The chi-squared test is the most challenging test to execute in an automated fashion. The KSL follows the recommendation found in Chapter 6 of <span class="citation">(<a href="#ref-law2007simulation">Law 2007</a>)</span> for setting up the chi-squared test. The KSL does not use arbitrary break points from a histogram generation process. Instead the KSL attempts to define the break points for the chi-squared intervals such that each interval has the <em>same</em> probability of occurrence. This also ensures that the expected number of observations within each interval is approximately the same. The theoretical basis for this approach can be found in <span class="citation">(<a href="#ref-CAWilliams1950">Williams 1950</a>)</span>. <span class="citation">(<a href="#ref-CAWilliams1950">Williams 1950</a>)</span> considered the testing of <span class="math inline">\(U(0,1)\)</span> random variates. In the case of the <span class="math inline">\(U(0,1)\)</span> distribution, the choice of the number of intervals determines the break points because each interval is equally likely. <span class="citation">(<a href="#ref-CAWilliams1950">Williams 1950</a>)</span> recommended choosing the class limits such that the expected number in the interval was <span class="math inline">\(n/k\)</span>, where <span class="math inline">\(n\)</span> is the number of observations and <span class="math inline">\(k\)</span> is the number of class intervals. Based on the ability to ensure that the resulting chi-squared test statistic actually has a chi-squared distribution, <span class="citation">(<a href="#ref-CAWilliams1950">Williams 1950</a>)</span> recommended that the number of class intervals be:</p>
 <p><span class="math display">\[\begin{equation}
 k = \Bigg\lceil 4 \, \sqrt[5]{\frac{2(n-1)^2}{z_{1-\alpha}}} \, \Bigg\rceil
 \end{equation}\]</span></p>
 <p>This approach produces equally distant break points between <span class="math inline">\((0,1)\)</span>. Let’s call those break points <span class="math inline">\(u_i\)</span> for <span class="math inline">\(i=1,\cdots,k\)</span>. We then define the break points for the chi-squared test for the distribution, <span class="math inline">\(F(x)\)</span>, as <span class="math inline">\(b_i = F^{-1}(u_i)\)</span>, which will result in non-equally spaced break points for <span class="math inline">\(F(x)\)</span>, but the probability <span class="math inline">\(p_i\)</span> associated with the intervals will all be the same. For the resulting recommended break points, the procedure attempts to ensure that the number of intervals is at least 3 and that the expected number within the intervals is at least 5. If the number of observations of the sample, <span class="math inline">\(n\)</span>, is less than or equal to 15, this may not be possible. The procedure ensures that there are at least 3 intervals and if the expected count is less than 5 for any interval the user is warned. This same procedure is used in determining the break points for the squared error criteria. This approach reduces the sensitivity of the chi-squared fitting process and the squared error criteria to the choice of the intervals. This functionality is found in the <code>suggestBreakPoints()</code> function of the companion object of the <code>ContinuousCDFGoodnessOfFit</code> class.</p>
 <p>As an example, the following code generates an exponentially distributed sample and applies the goodness of fit tests to the data.</p>
-<div class="sourceCode" id="cb34"><pre class="sourceCode kt"><code class="sourceCode kotlin"><span id="cb34-1"><a href="distFitting.html#cb34-1" tabindex="-1"></a><span class="kw">fun</span> <span class="fu">main</span><span class="op">(){</span></span>
-<span id="cb34-2"><a href="distFitting.html#cb34-2" tabindex="-1"></a>    <span class="kw">val</span> <span class="va">d</span> <span class="op">=</span> Exponential<span class="op">(</span><span class="fl">10.0</span><span class="op">)</span></span>
-<span id="cb34-3"><a href="distFitting.html#cb34-3" tabindex="-1"></a>    <span class="kw">val</span> <span class="va">e</span> <span class="op">=</span> d<span class="op">.</span>randomVariable</span>
-<span id="cb34-4"><a href="distFitting.html#cb34-4" tabindex="-1"></a>    e<span class="op">.</span>advanceToNextSubStream<span class="op">()</span></span>
-<span id="cb34-5"><a href="distFitting.html#cb34-5" tabindex="-1"></a>    <span class="kw">val</span> <span class="va">n</span> <span class="op">=</span> <span class="dv">1000</span></span>
-<span id="cb34-6"><a href="distFitting.html#cb34-6" tabindex="-1"></a>    <span class="kw">val</span> <span class="va">data</span> <span class="op">=</span> e<span class="op">.</span>sample<span class="op">(</span>n<span class="op">)</span></span>
-<span id="cb34-7"><a href="distFitting.html#cb34-7" tabindex="-1"></a>    <span class="kw">val</span> <span class="va">gof</span> <span class="op">=</span> ContinuousCDFGoodnessOfFit<span class="op">(</span><span class="kw">data</span><span class="op">,</span> d<span class="op">)</span></span>
-<span id="cb34-8"><a href="distFitting.html#cb34-8" tabindex="-1"></a>    println<span class="op">(</span>gof<span class="op">)</span></span>
-<span id="cb34-9"><a href="distFitting.html#cb34-9" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
+<div class="example">
+<p><span id="exm:ch2ex24" class="example"><strong>Example 2.24  (Goodness of Fit Testing) </strong></span></p>
+<div class="sourceCode" id="cb45"><pre class="sourceCode kt"><code class="sourceCode kotlin"><span id="cb45-1"><a href="distFitting.html#cb45-1" tabindex="-1"></a><span class="kw">fun</span> <span class="fu">main</span><span class="op">(){</span></span>
+<span id="cb45-2"><a href="distFitting.html#cb45-2" tabindex="-1"></a>    <span class="kw">val</span> <span class="va">d</span> <span class="op">=</span> Exponential<span class="op">(</span><span class="fl">10.0</span><span class="op">)</span></span>
+<span id="cb45-3"><a href="distFitting.html#cb45-3" tabindex="-1"></a>    <span class="kw">val</span> <span class="va">e</span> <span class="op">=</span> d<span class="op">.</span>randomVariable</span>
+<span id="cb45-4"><a href="distFitting.html#cb45-4" tabindex="-1"></a>    e<span class="op">.</span>advanceToNextSubStream<span class="op">()</span></span>
+<span id="cb45-5"><a href="distFitting.html#cb45-5" tabindex="-1"></a>    <span class="kw">val</span> <span class="va">n</span> <span class="op">=</span> <span class="dv">1000</span></span>
+<span id="cb45-6"><a href="distFitting.html#cb45-6" tabindex="-1"></a>    <span class="kw">val</span> <span class="va">data</span> <span class="op">=</span> e<span class="op">.</span>sample<span class="op">(</span>n<span class="op">)</span></span>
+<span id="cb45-7"><a href="distFitting.html#cb45-7" tabindex="-1"></a>    <span class="kw">val</span> <span class="va">gof</span> <span class="op">=</span> ContinuousCDFGoodnessOfFit<span class="op">(</span><span class="kw">data</span><span class="op">,</span> d<span class="op">)</span></span>
+<span id="cb45-8"><a href="distFitting.html#cb45-8" tabindex="-1"></a>    println<span class="op">(</span>gof<span class="op">)</span></span>
+<span id="cb45-9"><a href="distFitting.html#cb45-9" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
+</div>
 <p>The results, as expected, indicate that the data is exponentially distributed. Notice how the binning process for the data results in the bin probabilities and expected number per bin being all equal. The observed counts look pretty consistent for the intervals. Thus, the chi-squared test does not reject the hypothesis that the data is exponential with a mean of 10. In addition, the Anderson-Darling, K-S test, and Cramer Von Mises P-values indicate that we should not reject the hypothesis that the data is exponentially distributed. The <code>showAllResultsInBrowser()</code> function of the <code>PDFModeler</code> class automatically performs these goodness of fit tests for the recommended distribution from the PDF modeling process.</p>
 <pre><code>GOF Results for Distribution: Exponential(mean=10.0)
 ---------------------------------------------------------
@@ -820,28 +815,31 @@ Cramer-Von-Mises test p-value = 0.9152815646329959</code></pre>
 <div id="discrete-distribution-framework" class="section level3 hasAnchor" number="2.4.3">
 <h3><span class="header-section-number">2.4.3</span> Discrete Distribution Framework<a href="distFitting.html#discrete-distribution-framework" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>For discrete distributions, the KSL provides the <code>PMFModeler</code> class. Since there are less discrete distributions within the KSL than continuous distributions, the <code>PMFModeler</code> class does not provide the full range of functionality provided by the <code>PDFModeler</code> class. Instead the <code>PMFModeler</code> class focuses on estimating the parameters of discrete distributions. Similar to how the <code>PDFModeler</code> class functions, the <code>PMFModeler</code> has an <code>estimateParameters()</code> function that uses a set of objects that implement the <code>ParameterEstimatorIfc</code> interface. The default set of discrete distributions includes the Poisson, negative binomial, and the binomial distributions. Of course users can define additional discrete distributions and implement parameter estimators for those distributions.</p>
-<p>Figure <a href="distFitting.html#fig:PMFMEstimationLabel">2.10</a> presents the PMF estimation framework. As indicated the key function is the <code>estimateParameters()</code> function. Note also that the companion object for the <code>PMFModeler</code> class has the function <code>equalizedPMFBreakPoints(),</code> which can be useful during the goodness of fit testing of the distribution. The purpose of the function is to attempt to form intervals that have similar probabilities.</p>
+<p>Figure <a href="distFitting.html#fig:PMFMEstimationLabel">2.11</a> presents the PMF estimation framework. As indicated the key function is the <code>estimateParameters()</code> function. Note also that the companion object for the <code>PMFModeler</code> class has the function <code>equalizedPMFBreakPoints(),</code> which can be useful during the goodness of fit testing of the distribution. The purpose of the function is to attempt to form intervals that have similar probabilities.</p>
 <div class="figure"><span style="display:block;" id="fig:PMFMEstimationLabel"></span>
 <img src="figures2/ch2/PMFModeler.png" alt="PMF Estimation Framework" width="70%" height="70%" />
 <p class="caption">
-Figure 2.10: PMF Estimation Framework
+Figure 2.11: PMF Estimation Framework
 </p>
 </div>
 <p>The application of the <code>estimateParameters()</code> function results in the creation of a list that contains instances of <code>EstimationResult,</code> one for each of the estimation methods.</p>
 <div class="figure"><span style="display:block;" id="fig:DiscretePMFGoodnessOfFitLabel"></span>
 <img src="figures2/ch2/DiscretePMFGoodnessOfFit.png" alt="Discrete Distribution Goodness of Fit Framework" width="90%" height="90%" />
 <p class="caption">
-Figure 2.11: Discrete Distribution Goodness of Fit Framework
+Figure 2.12: Discrete Distribution Goodness of Fit Framework
 </p>
 </div>
-<p>Given the limited number of discrete distributions, the KSL does not provide a scoring model approach for selecting the best distribution. Instead, the <code>DiscretePMFGoodnessOfFit</code> class, illustrated in Figure <a href="distFitting.html#fig:DiscretePMFGoodnessOfFitLabel">2.11</a> can be used to check the goodness of fit for the discrete distribution. The primary method for testing the goodness of it is the chi-squared goodness of fit test. Similar to how the continuous distribution defines break points that result in approximately equal probabilities for the bins and expected counts, the KSL attempts to form intervals for the chi-squared test that have approximately equal probabilities. The following code illustrates how to fit a negative binomial distribution to some randomly generated data.</p>
-<div class="sourceCode" id="cb36"><pre class="sourceCode kt"><code class="sourceCode kotlin"><span id="cb36-1"><a href="distFitting.html#cb36-1" tabindex="-1"></a><span class="kw">val</span> <span class="va">dist</span> <span class="op">=</span> NegativeBinomial<span class="op">(</span><span class="fl">0.2</span><span class="op">,</span> theNumSuccesses <span class="op">=</span> <span class="fl">4.0</span><span class="op">)</span></span>
-<span id="cb36-2"><a href="distFitting.html#cb36-2" tabindex="-1"></a><span class="kw">val</span> <span class="va">rv</span> <span class="op">=</span> dist<span class="op">.</span>randomVariable</span>
-<span id="cb36-3"><a href="distFitting.html#cb36-3" tabindex="-1"></a>rv<span class="op">.</span>advanceToNextSubStream<span class="op">()</span></span>
-<span id="cb36-4"><a href="distFitting.html#cb36-4" tabindex="-1"></a><span class="kw">val</span> <span class="va">data</span> <span class="op">=</span> rv<span class="op">.</span>sample<span class="op">(</span><span class="dv">200</span><span class="op">)</span></span>
-<span id="cb36-5"><a href="distFitting.html#cb36-5" tabindex="-1"></a><span class="kw">val</span> <span class="va">breakPoints</span> <span class="op">=</span> PMFModeler<span class="op">.</span>makeZeroToInfinityBreakPoints<span class="op">(</span><span class="kw">data</span><span class="op">.</span>size<span class="op">,</span> dist<span class="op">)</span></span>
-<span id="cb36-6"><a href="distFitting.html#cb36-6" tabindex="-1"></a><span class="kw">val</span> <span class="va">pf</span> <span class="op">=</span> DiscretePMFGoodnessOfFit<span class="op">(</span><span class="kw">data</span><span class="op">,</span> dist<span class="op">,</span> breakPoints <span class="op">=</span> breakPoints<span class="op">)</span></span>
-<span id="cb36-7"><a href="distFitting.html#cb36-7" tabindex="-1"></a>println<span class="op">(</span>pf<span class="op">.</span>chiSquaredTestResults<span class="op">())</span></span></code></pre></div>
+<p>Given the limited number of discrete distributions, the KSL does not provide a scoring model approach for selecting the best distribution. Instead, the <code>DiscretePMFGoodnessOfFit</code> class, illustrated in Figure <a href="distFitting.html#fig:DiscretePMFGoodnessOfFitLabel">2.12</a> can be used to check the goodness of fit for the discrete distribution. The primary method for testing the goodness of it is the chi-squared goodness of fit test. Similar to how the continuous distribution defines break points that result in approximately equal probabilities for the bins and expected counts, the KSL attempts to form intervals for the chi-squared test that have approximately equal probabilities. The following code illustrates how to fit a negative binomial distribution to some randomly generated data.</p>
+<div class="example">
+<p><span id="exm:ch2ex25" class="example"><strong>Example 2.25  (Discrete Goodness of Fit Testing) </strong></span></p>
+<div class="sourceCode" id="cb47"><pre class="sourceCode kt"><code class="sourceCode kotlin"><span id="cb47-1"><a href="distFitting.html#cb47-1" tabindex="-1"></a><span class="kw">val</span> <span class="va">dist</span> <span class="op">=</span> NegativeBinomial<span class="op">(</span><span class="fl">0.2</span><span class="op">,</span> theNumSuccesses <span class="op">=</span> <span class="fl">4.0</span><span class="op">)</span></span>
+<span id="cb47-2"><a href="distFitting.html#cb47-2" tabindex="-1"></a><span class="kw">val</span> <span class="va">rv</span> <span class="op">=</span> dist<span class="op">.</span>randomVariable</span>
+<span id="cb47-3"><a href="distFitting.html#cb47-3" tabindex="-1"></a>rv<span class="op">.</span>advanceToNextSubStream<span class="op">()</span></span>
+<span id="cb47-4"><a href="distFitting.html#cb47-4" tabindex="-1"></a><span class="kw">val</span> <span class="va">data</span> <span class="op">=</span> rv<span class="op">.</span>sample<span class="op">(</span><span class="dv">200</span><span class="op">)</span></span>
+<span id="cb47-5"><a href="distFitting.html#cb47-5" tabindex="-1"></a><span class="kw">val</span> <span class="va">breakPoints</span> <span class="op">=</span> PMFModeler<span class="op">.</span>makeZeroToInfinityBreakPoints<span class="op">(</span><span class="kw">data</span><span class="op">.</span>size<span class="op">,</span> dist<span class="op">)</span></span>
+<span id="cb47-6"><a href="distFitting.html#cb47-6" tabindex="-1"></a><span class="kw">val</span> <span class="va">pf</span> <span class="op">=</span> DiscretePMFGoodnessOfFit<span class="op">(</span><span class="kw">data</span><span class="op">,</span> dist<span class="op">,</span> breakPoints <span class="op">=</span> breakPoints<span class="op">)</span></span>
+<span id="cb47-7"><a href="distFitting.html#cb47-7" tabindex="-1"></a>println<span class="op">(</span>pf<span class="op">.</span>chiSquaredTestResults<span class="op">())</span></span></code></pre></div>
+</div>
 <p>The results indicate the challenge of trying to make bins with equal probability for discrete distributions. In general, it may not be possible to do so. Thus, the modeler is encouraged to update the break points as needed during the distribution assessment process. As expected the results indicate that we should not reject the hypothesis of a negative binomial distribution for this situation.</p>
 <pre><code>Chi-Squared Test Results:
 Bin Label                 P(Bin)       Observed   Expected
@@ -880,17 +878,16 @@ P-value = 0.31539706650371313
 Hypothesis test at 0.05 level: 
 The p-value = 0.31539706650371313 is &gt;= 0.05 : Do not reject hypothesis.</code></pre>
 </div>
-<div id="illustrative-examples-from-appendix-refappidm" class="section level3 hasAnchor" number="2.4.4">
-<h3><span class="header-section-number">2.4.4</span> Illustrative Examples from Appendix <a href="appidm.html#appidm">B</a><a href="distFitting.html#illustrative-examples-from-appendix-refappidm" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<p>This section illustrates how to use the KSL probability distribution modeling frameworks by applying the previously discussed constructs to two examples from Appendix <a href="appidm.html#appidm">B</a>. We will start with the fitting of Poisson distribution to the data from Example <a href="appidmsecfitDiscrete.html#exm:PoissonFit">B.1</a>, which is repeated here for convenience.</p>
+<div id="pdfmexamples" class="section level3 hasAnchor" number="2.4.4">
+<h3><span class="header-section-number">2.4.4</span> Illustrative Examples from Appendix <a href="appidm.html#appidm">B</a><a href="distFitting.html#pdfmexamples" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>This section illustrates how to use the KSL probability distribution modeling frameworks by applying the previously discussed constructs to two examples from Appendix <a href="appidm.html#appidm">B</a>. We will start with the fitting of Poisson distribution to the data from Example <a href="appidmsecfitDiscrete.html#exm:PoissonFit">B.1</a>, which is repeated here for convenience. The data associated with the examples of this section can be found in the chapter <a href="https://github.com/rossetti/KSL/tree/main/KSLExamples/chapterFiles/Appendix-Distribution%20Fitting">files</a> with in the <code>KSLExamples</code> project associated with the KSL source code repository.</p>
 <hr />
 <div class="example">
-<p><span id="exm:PoissonFitCh2" class="example"><strong>Example 2.2  (Fitting a Poisson Distribution) </strong></span>Suppose that we are interested in modeling the demand for a computer laboratory
+<p><span id="exm:ch2ex26" class="example"><strong>Example 2.26  (Fitting a Poisson Distribution) </strong></span>Suppose that we are interested in modeling the demand for a computer laboratory
 during the morning hours between 9 am to 11 am on normal weekdays.
 During this time a team of undergraduate students has collected the
 number of students arriving to the computer lab during 15 minute
 intervals over a period of 4 weeks.</p>
-</div>
 <p>Since there are four 15 minute intervals in each hour for each two hour
 time period, there are 8 observations per day. Since there are 5 days
 per week, we have 40 observations per week for a total of
@@ -898,6 +895,7 @@ per week, we have 40 observations per week for a total of
 interval are presented in Table <a href="distFitting.html#tab:CLAdataCh2">2.1</a>.
 The full data set is available with the chapter files. Check whether a Poisson distribution is
 an appropriate model for this data.</p>
+</div>
 <div id="tab:CLAdataCh2">
 <table>
 <caption><span id="tab:CLAdataCh2">Table 2.1: </span> Computer Laboratory Arrival Counts by Week, Period, and Day</caption>
@@ -1026,71 +1024,71 @@ an appropriate model for this data.</p>
 </div>
 <hr />
 <p>Since the testing of dependence on the day of the week or the period of observation was already performed in Appendix <a href="appidm.html#appidm">B</a>, we focus on the distribution fitting process in this demonstration of the KSL constructs. Here, we need to fit a Poisson distribution to the data. The first step is reading the data from the CSV file. This can be readily accomplished by using the CSV file reading capabilities of Kotlin’s <code>DataFrame</code> library. The following code uses the KSL’s <code>KSLFileUtil</code> object to open a file choosing dialog for the user to select the file, which then has its contents read in using the CSV file processing function for the <code>DataFrame</code> object. This data is converted into an integer array and returned.</p>
-<div class="sourceCode" id="cb38"><pre class="sourceCode kt"><code class="sourceCode kotlin"><span id="cb38-1"><a href="distFitting.html#cb38-1" tabindex="-1"></a><span class="kw">fun</span> <span class="fu">readCountData</span><span class="op">():</span> <span class="dt">IntArray</span> <span class="op">{</span></span>
-<span id="cb38-2"><a href="distFitting.html#cb38-2" tabindex="-1"></a>    <span class="co">// choose file: KSL/KSLExamples/chapterFiles/Appendix-Distribution Fitting/PoissonCountData.csv</span></span>
-<span id="cb38-3"><a href="distFitting.html#cb38-3" tabindex="-1"></a>    <span class="kw">val</span> <span class="va">file</span> <span class="op">=</span> KSLFileUtil<span class="op">.</span>chooseFile<span class="op">()</span></span>
-<span id="cb38-4"><a href="distFitting.html#cb38-4" tabindex="-1"></a>    <span class="cf">if</span> <span class="op">(</span>file <span class="op">!=</span> <span class="kw">null</span><span class="op">)</span> <span class="op">{</span></span>
-<span id="cb38-5"><a href="distFitting.html#cb38-5" tabindex="-1"></a>        <span class="kw">val</span> <span class="va">df</span> <span class="op">=</span> DataFrame<span class="op">.</span>readCSV<span class="op">(</span></span>
-<span id="cb38-6"><a href="distFitting.html#cb38-6" tabindex="-1"></a>            file<span class="op">,</span></span>
-<span id="cb38-7"><a href="distFitting.html#cb38-7" tabindex="-1"></a>            colTypes <span class="op">=</span> mapOf<span class="op">(</span></span>
-<span id="cb38-8"><a href="distFitting.html#cb38-8" tabindex="-1"></a>                <span class="st">&quot;week&quot;</span> to ColType<span class="op">.</span><span class="kw">Int</span><span class="op">,</span></span>
-<span id="cb38-9"><a href="distFitting.html#cb38-9" tabindex="-1"></a>                <span class="st">&quot;period&quot;</span> to ColType<span class="op">.</span><span class="kw">Int</span><span class="op">,</span></span>
-<span id="cb38-10"><a href="distFitting.html#cb38-10" tabindex="-1"></a>                <span class="st">&quot;day&quot;</span> to ColType<span class="op">.</span><span class="kw">String</span><span class="op">,</span></span>
-<span id="cb38-11"><a href="distFitting.html#cb38-11" tabindex="-1"></a>                <span class="st">&quot;count&quot;</span> to ColType<span class="op">.</span><span class="kw">Int</span></span>
-<span id="cb38-12"><a href="distFitting.html#cb38-12" tabindex="-1"></a>            <span class="op">)</span></span>
-<span id="cb38-13"><a href="distFitting.html#cb38-13" tabindex="-1"></a>        <span class="op">)</span></span>
-<span id="cb38-14"><a href="distFitting.html#cb38-14" tabindex="-1"></a>        <span class="kw">val</span> <span class="va">count</span> <span class="kw">by</span> column<span class="op">&lt;</span><span class="kw">Int</span><span class="op">&gt;()</span></span>
-<span id="cb38-15"><a href="distFitting.html#cb38-15" tabindex="-1"></a>        <span class="kw">val</span> <span class="va">countData</span><span class="op">:</span> DataColumn<span class="op">&lt;</span><span class="kw">Int</span><span class="op">&gt;</span> <span class="op">=</span> df<span class="op">[</span>count<span class="op">]</span></span>
-<span id="cb38-16"><a href="distFitting.html#cb38-16" tabindex="-1"></a>        <span class="kw">return</span> countData<span class="op">.</span>toIntArray<span class="op">()</span></span>
-<span id="cb38-17"><a href="distFitting.html#cb38-17" tabindex="-1"></a>    <span class="op">}</span></span>
-<span id="cb38-18"><a href="distFitting.html#cb38-18" tabindex="-1"></a>    <span class="kw">return</span> IntArray<span class="op">(</span><span class="dv">0</span><span class="op">)</span></span>
-<span id="cb38-19"><a href="distFitting.html#cb38-19" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
+<div class="sourceCode" id="cb49"><pre class="sourceCode kt"><code class="sourceCode kotlin"><span id="cb49-1"><a href="distFitting.html#cb49-1" tabindex="-1"></a><span class="kw">fun</span> <span class="fu">readCountData</span><span class="op">():</span> <span class="dt">IntArray</span> <span class="op">{</span></span>
+<span id="cb49-2"><a href="distFitting.html#cb49-2" tabindex="-1"></a>    <span class="co">// choose file: KSL/KSLExamples/chapterFiles/Appendix-Distribution Fitting/PoissonCountData.csv</span></span>
+<span id="cb49-3"><a href="distFitting.html#cb49-3" tabindex="-1"></a>    <span class="kw">val</span> <span class="va">file</span> <span class="op">=</span> KSLFileUtil<span class="op">.</span>chooseFile<span class="op">()</span></span>
+<span id="cb49-4"><a href="distFitting.html#cb49-4" tabindex="-1"></a>    <span class="cf">if</span> <span class="op">(</span>file <span class="op">!=</span> <span class="kw">null</span><span class="op">)</span> <span class="op">{</span></span>
+<span id="cb49-5"><a href="distFitting.html#cb49-5" tabindex="-1"></a>        <span class="kw">val</span> <span class="va">df</span> <span class="op">=</span> DataFrame<span class="op">.</span>readCSV<span class="op">(</span></span>
+<span id="cb49-6"><a href="distFitting.html#cb49-6" tabindex="-1"></a>            file<span class="op">,</span></span>
+<span id="cb49-7"><a href="distFitting.html#cb49-7" tabindex="-1"></a>            colTypes <span class="op">=</span> mapOf<span class="op">(</span></span>
+<span id="cb49-8"><a href="distFitting.html#cb49-8" tabindex="-1"></a>                <span class="st">&quot;week&quot;</span> to ColType<span class="op">.</span><span class="kw">Int</span><span class="op">,</span></span>
+<span id="cb49-9"><a href="distFitting.html#cb49-9" tabindex="-1"></a>                <span class="st">&quot;period&quot;</span> to ColType<span class="op">.</span><span class="kw">Int</span><span class="op">,</span></span>
+<span id="cb49-10"><a href="distFitting.html#cb49-10" tabindex="-1"></a>                <span class="st">&quot;day&quot;</span> to ColType<span class="op">.</span><span class="kw">String</span><span class="op">,</span></span>
+<span id="cb49-11"><a href="distFitting.html#cb49-11" tabindex="-1"></a>                <span class="st">&quot;count&quot;</span> to ColType<span class="op">.</span><span class="kw">Int</span></span>
+<span id="cb49-12"><a href="distFitting.html#cb49-12" tabindex="-1"></a>            <span class="op">)</span></span>
+<span id="cb49-13"><a href="distFitting.html#cb49-13" tabindex="-1"></a>        <span class="op">)</span></span>
+<span id="cb49-14"><a href="distFitting.html#cb49-14" tabindex="-1"></a>        <span class="kw">val</span> <span class="va">count</span> <span class="kw">by</span> column<span class="op">&lt;</span><span class="kw">Int</span><span class="op">&gt;()</span></span>
+<span id="cb49-15"><a href="distFitting.html#cb49-15" tabindex="-1"></a>        <span class="kw">val</span> <span class="va">countData</span><span class="op">:</span> DataColumn<span class="op">&lt;</span><span class="kw">Int</span><span class="op">&gt;</span> <span class="op">=</span> df<span class="op">[</span>count<span class="op">]</span></span>
+<span id="cb49-16"><a href="distFitting.html#cb49-16" tabindex="-1"></a>        <span class="kw">return</span> countData<span class="op">.</span>toIntArray<span class="op">()</span></span>
+<span id="cb49-17"><a href="distFitting.html#cb49-17" tabindex="-1"></a>    <span class="op">}</span></span>
+<span id="cb49-18"><a href="distFitting.html#cb49-18" tabindex="-1"></a>    <span class="kw">return</span> IntArray<span class="op">(</span><span class="dv">0</span><span class="op">)</span></span>
+<span id="cb49-19"><a href="distFitting.html#cb49-19" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
 <p>Once the data is an array, the KSL’s discrete distribution framework can be easily applied. In the following code, the data is used to visualize the count data in the form of an integer frequency plot, which we can use like a histogram to view the distribution of the data and see if it has a shape that would support the hypothesis of a Poisson distribution.</p>
-<div class="sourceCode" id="cb39"><pre class="sourceCode kt"><code class="sourceCode kotlin"><span id="cb39-1"><a href="distFitting.html#cb39-1" tabindex="-1"></a><span class="kw">val</span> <span class="va">data</span> <span class="op">=</span> readCountData<span class="op">()</span></span>
-<span id="cb39-2"><a href="distFitting.html#cb39-2" tabindex="-1"></a><span class="kw">val</span> <span class="va">f</span> <span class="op">=</span> IntegerFrequency<span class="op">(</span><span class="kw">data</span><span class="op">)</span></span>
-<span id="cb39-3"><a href="distFitting.html#cb39-3" tabindex="-1"></a><span class="kw">val</span> <span class="va">fp</span> <span class="op">=</span> f<span class="op">.</span>frequencyPlot<span class="op">()</span></span>
-<span id="cb39-4"><a href="distFitting.html#cb39-4" tabindex="-1"></a>fp<span class="op">.</span>showInBrowser<span class="op">()</span></span>
-<span id="cb39-5"><a href="distFitting.html#cb39-5" tabindex="-1"></a>fp<span class="op">.</span>saveToFile<span class="op">(</span><span class="st">&quot;Lab_Count_Freq_Plot&quot;</span><span class="op">)</span></span></code></pre></div>
-<p>Figure <a href="distFitting.html#fig:LCFreqPlot">2.12</a> clearly indicates that the Poisson distribution is a candidate model.</p>
+<div class="sourceCode" id="cb50"><pre class="sourceCode kt"><code class="sourceCode kotlin"><span id="cb50-1"><a href="distFitting.html#cb50-1" tabindex="-1"></a><span class="kw">val</span> <span class="va">data</span> <span class="op">=</span> readCountData<span class="op">()</span></span>
+<span id="cb50-2"><a href="distFitting.html#cb50-2" tabindex="-1"></a><span class="kw">val</span> <span class="va">f</span> <span class="op">=</span> IntegerFrequency<span class="op">(</span><span class="kw">data</span><span class="op">)</span></span>
+<span id="cb50-3"><a href="distFitting.html#cb50-3" tabindex="-1"></a><span class="kw">val</span> <span class="va">fp</span> <span class="op">=</span> f<span class="op">.</span>frequencyPlot<span class="op">()</span></span>
+<span id="cb50-4"><a href="distFitting.html#cb50-4" tabindex="-1"></a>fp<span class="op">.</span>showInBrowser<span class="op">()</span></span>
+<span id="cb50-5"><a href="distFitting.html#cb50-5" tabindex="-1"></a>fp<span class="op">.</span>saveToFile<span class="op">(</span><span class="st">&quot;Lab_Count_Freq_Plot&quot;</span><span class="op">)</span></span></code></pre></div>
+<p>Figure <a href="distFitting.html#fig:LCFreqPlot">2.13</a> clearly indicates that the Poisson distribution is a candidate model.</p>
 <div class="figure"><span style="display:block;" id="fig:LCFreqPlot"></span>
 <img src="figures2/ch2/Lab_Count_Freq_Plot.PNG" alt="Integer Frequence Plot of Lab Count Data" width="80%" height="80%" />
 <p class="caption">
-Figure 2.12: Integer Frequence Plot of Lab Count Data
+Figure 2.13: Integer Frequence Plot of Lab Count Data
 </p>
 </div>
 <p>The following code will create a time series observation plot of the data and an auto correlation plot of the data. The use of both of these plots for analysis of data is discussed in Appendix <a href="appidm.html#appidm">B</a>. This code will also save the plots to files and display the plots within a browser window.</p>
-<div class="sourceCode" id="cb40"><pre class="sourceCode kt"><code class="sourceCode kotlin"><span id="cb40-1"><a href="distFitting.html#cb40-1" tabindex="-1"></a><span class="kw">val</span> <span class="va">op</span> <span class="op">=</span> ObservationsPlot<span class="op">(</span><span class="kw">data</span><span class="op">)</span></span>
-<span id="cb40-2"><a href="distFitting.html#cb40-2" tabindex="-1"></a>op<span class="op">.</span>saveToFile<span class="op">(</span><span class="st">&quot;Lab_Count_Obs_Plot&quot;</span><span class="op">)</span></span>
-<span id="cb40-3"><a href="distFitting.html#cb40-3" tabindex="-1"></a>op<span class="op">.</span>showInBrowser<span class="op">()</span></span>
-<span id="cb40-4"><a href="distFitting.html#cb40-4" tabindex="-1"></a><span class="kw">val</span> <span class="va">acf</span> <span class="op">=</span> ACFPlot<span class="op">(</span><span class="kw">data</span><span class="op">.</span>toDoubles<span class="op">())</span></span>
-<span id="cb40-5"><a href="distFitting.html#cb40-5" tabindex="-1"></a>acf<span class="op">.</span>saveToFile<span class="op">(</span><span class="st">&quot;Lab_Count_ACF_Plot&quot;</span><span class="op">)</span></span>
-<span id="cb40-6"><a href="distFitting.html#cb40-6" tabindex="-1"></a>acf<span class="op">.</span>showInBrowser<span class="op">()</span></span>
-<span id="cb40-7"><a href="distFitting.html#cb40-7" tabindex="-1"></a>println<span class="op">(</span>f<span class="op">)</span></span></code></pre></div>
-<p>Just as in Appendix <a href="appidm.html#appidm">B</a>, the time series plot does not indicate a trend or pattern with respect to time as shown in Figure <a href="distFitting.html#fig:LCObsPlot">2.13</a>.</p>
+<div class="sourceCode" id="cb51"><pre class="sourceCode kt"><code class="sourceCode kotlin"><span id="cb51-1"><a href="distFitting.html#cb51-1" tabindex="-1"></a><span class="kw">val</span> <span class="va">op</span> <span class="op">=</span> ObservationsPlot<span class="op">(</span><span class="kw">data</span><span class="op">)</span></span>
+<span id="cb51-2"><a href="distFitting.html#cb51-2" tabindex="-1"></a>op<span class="op">.</span>saveToFile<span class="op">(</span><span class="st">&quot;Lab_Count_Obs_Plot&quot;</span><span class="op">)</span></span>
+<span id="cb51-3"><a href="distFitting.html#cb51-3" tabindex="-1"></a>op<span class="op">.</span>showInBrowser<span class="op">()</span></span>
+<span id="cb51-4"><a href="distFitting.html#cb51-4" tabindex="-1"></a><span class="kw">val</span> <span class="va">acf</span> <span class="op">=</span> ACFPlot<span class="op">(</span><span class="kw">data</span><span class="op">.</span>toDoubles<span class="op">())</span></span>
+<span id="cb51-5"><a href="distFitting.html#cb51-5" tabindex="-1"></a>acf<span class="op">.</span>saveToFile<span class="op">(</span><span class="st">&quot;Lab_Count_ACF_Plot&quot;</span><span class="op">)</span></span>
+<span id="cb51-6"><a href="distFitting.html#cb51-6" tabindex="-1"></a>acf<span class="op">.</span>showInBrowser<span class="op">()</span></span>
+<span id="cb51-7"><a href="distFitting.html#cb51-7" tabindex="-1"></a>println<span class="op">(</span>f<span class="op">)</span></span></code></pre></div>
+<p>Just as in Appendix <a href="appidm.html#appidm">B</a>, the time series plot does not indicate a trend or pattern with respect to time as shown in Figure <a href="distFitting.html#fig:LCObsPlot">2.14</a>.</p>
 <div class="figure"><span style="display:block;" id="fig:LCObsPlot"></span>
 <img src="figures2/ch2/Lab_Count_Obs_Plot.PNG" alt="Time Series Plot of Lab Count Data" width="80%" height="80%" />
 <p class="caption">
-Figure 2.13: Time Series Plot of Lab Count Data
+Figure 2.14: Time Series Plot of Lab Count Data
 </p>
 </div>
-<p>Again, the ACF plot, see Figure <a href="distFitting.html#fig:LCACFPlot">2.14</a>, does not indicate that the data has any significant concerns with respect to autocorrelation.</p>
+<p>Again, the ACF plot, see Figure <a href="distFitting.html#fig:LCACFPlot">2.15</a>, does not indicate that the data has any significant concerns with respect to autocorrelation.</p>
 <div class="figure"><span style="display:block;" id="fig:LCACFPlot"></span>
 <img src="figures2/ch2/Lab_Count_ACF_Plot.PNG" alt="Autocorrelation Plot of Lab Count Data" width="80%" height="80%" />
 <p class="caption">
-Figure 2.14: Autocorrelation Plot of Lab Count Data
+Figure 2.15: Autocorrelation Plot of Lab Count Data
 </p>
 </div>
 <p>Because the plots indicate that the data is likely to be independent and identically distributed, it appears that it should be safe to proceed with the distribution modeling task. The following code will estimate the parameters, perform a goodness of fit test, and display a plot that compares the theoretical PMF to the empirical PMF.</p>
-<div class="sourceCode" id="cb41"><pre class="sourceCode kt"><code class="sourceCode kotlin"><span id="cb41-1"><a href="distFitting.html#cb41-1" tabindex="-1"></a><span class="kw">val</span> <span class="va">pmfModeler</span> <span class="op">=</span> PMFModeler<span class="op">(</span><span class="kw">data</span><span class="op">)</span></span>
-<span id="cb41-2"><a href="distFitting.html#cb41-2" tabindex="-1"></a><span class="kw">val</span> <span class="va">results</span> <span class="op">=</span> pmfModeler<span class="op">.</span>estimateParameters<span class="op">(</span>setOf<span class="op">(</span>PoissonMLEParameterEstimator<span class="op">))</span></span>
-<span id="cb41-3"><a href="distFitting.html#cb41-3" tabindex="-1"></a><span class="kw">val</span> <span class="va">e</span> <span class="op">=</span> results<span class="op">.</span>first<span class="op">()</span></span>
-<span id="cb41-4"><a href="distFitting.html#cb41-4" tabindex="-1"></a>println<span class="op">(</span>e<span class="op">)</span></span>
-<span id="cb41-5"><a href="distFitting.html#cb41-5" tabindex="-1"></a><span class="kw">val</span> <span class="va">mean</span> <span class="op">=</span> e<span class="op">.</span>parameters<span class="op">!!.</span>doubleParameter<span class="op">(</span><span class="st">&quot;mean&quot;</span><span class="op">)</span></span>
-<span id="cb41-6"><a href="distFitting.html#cb41-6" tabindex="-1"></a><span class="kw">val</span> <span class="va">pf</span> <span class="op">=</span> PoissonGoodnessOfFit<span class="op">(</span><span class="kw">data</span><span class="op">.</span>toDoubles<span class="op">(),</span> mean <span class="op">=</span> mean<span class="op">)</span></span>
-<span id="cb41-7"><a href="distFitting.html#cb41-7" tabindex="-1"></a>println<span class="op">(</span>pf<span class="op">)</span></span>
-<span id="cb41-8"><a href="distFitting.html#cb41-8" tabindex="-1"></a><span class="kw">val</span> <span class="va">plot</span> <span class="op">=</span> PMFComparisonPlot<span class="op">(</span><span class="kw">data</span><span class="op">,</span> pf<span class="op">.</span>distribution<span class="op">)</span></span>
-<span id="cb41-9"><a href="distFitting.html#cb41-9" tabindex="-1"></a>plot<span class="op">.</span>saveToFile<span class="op">(</span><span class="st">&quot;Lab_Count_PMF_Plot&quot;</span><span class="op">)</span></span>
-<span id="cb41-10"><a href="distFitting.html#cb41-10" tabindex="-1"></a>plot<span class="op">.</span>showInBrowser<span class="op">()</span></span></code></pre></div>
+<div class="sourceCode" id="cb52"><pre class="sourceCode kt"><code class="sourceCode kotlin"><span id="cb52-1"><a href="distFitting.html#cb52-1" tabindex="-1"></a><span class="kw">val</span> <span class="va">pmfModeler</span> <span class="op">=</span> PMFModeler<span class="op">(</span><span class="kw">data</span><span class="op">)</span></span>
+<span id="cb52-2"><a href="distFitting.html#cb52-2" tabindex="-1"></a><span class="kw">val</span> <span class="va">results</span> <span class="op">=</span> pmfModeler<span class="op">.</span>estimateParameters<span class="op">(</span>setOf<span class="op">(</span>PoissonMLEParameterEstimator<span class="op">))</span></span>
+<span id="cb52-3"><a href="distFitting.html#cb52-3" tabindex="-1"></a><span class="kw">val</span> <span class="va">e</span> <span class="op">=</span> results<span class="op">.</span>first<span class="op">()</span></span>
+<span id="cb52-4"><a href="distFitting.html#cb52-4" tabindex="-1"></a>println<span class="op">(</span>e<span class="op">)</span></span>
+<span id="cb52-5"><a href="distFitting.html#cb52-5" tabindex="-1"></a><span class="kw">val</span> <span class="va">mean</span> <span class="op">=</span> e<span class="op">.</span>parameters<span class="op">!!.</span>doubleParameter<span class="op">(</span><span class="st">&quot;mean&quot;</span><span class="op">)</span></span>
+<span id="cb52-6"><a href="distFitting.html#cb52-6" tabindex="-1"></a><span class="kw">val</span> <span class="va">pf</span> <span class="op">=</span> PoissonGoodnessOfFit<span class="op">(</span><span class="kw">data</span><span class="op">.</span>toDoubles<span class="op">(),</span> mean <span class="op">=</span> mean<span class="op">)</span></span>
+<span id="cb52-7"><a href="distFitting.html#cb52-7" tabindex="-1"></a>println<span class="op">(</span>pf<span class="op">)</span></span>
+<span id="cb52-8"><a href="distFitting.html#cb52-8" tabindex="-1"></a><span class="kw">val</span> <span class="va">plot</span> <span class="op">=</span> PMFComparisonPlot<span class="op">(</span><span class="kw">data</span><span class="op">,</span> pf<span class="op">.</span>distribution<span class="op">)</span></span>
+<span id="cb52-9"><a href="distFitting.html#cb52-9" tabindex="-1"></a>plot<span class="op">.</span>saveToFile<span class="op">(</span><span class="st">&quot;Lab_Count_PMF_Plot&quot;</span><span class="op">)</span></span>
+<span id="cb52-10"><a href="distFitting.html#cb52-10" tabindex="-1"></a>plot<span class="op">.</span>showInBrowser<span class="op">()</span></span></code></pre></div>
 <p>The code first creates an instance of the <code>PMFModeler</code> class to perform the estimation. In this situation, only the estimator for the Poisson distribution is specified as input to the <code>estimateParameters()</code> function. The estimated mean of the distribution is extracted from the estimated parameters and used for the <code>PoissonGoodnessOfFit</code> class. The <code>PoissonGoodnessOfFit</code> class is a straight-forward sub-class of <code>DiscretePMFGoodnessOfFit</code> class. The results of the fit are printed and then the PMF comparison plot is created.</p>
 <pre><code>Shift estimation results:
 null
@@ -1126,14 +1124,14 @@ The p-value = 0.9894603477732713 is &gt;= 0.05 : Do not reject hypothesis.</code
 <div class="figure"><span style="display:block;" id="fig:LCPMFPlot"></span>
 <img src="figures2/ch2/Lab_Count_PMF_Plot.PNG" alt="PMF Comparison Plot of Lab Count Data" width="80%" height="80%" />
 <p class="caption">
-Figure 2.15: PMF Comparison Plot of Lab Count Data
+Figure 2.16: PMF Comparison Plot of Lab Count Data
 </p>
 </div>
-<p>The results of the goodness of fit test and the PMF comparison plot, Figure <a href="distFitting.html#fig:LCPMFPlot">2.15</a>, clearly indicate that the Poisson distribution should not be rejected as a model for this data.</p>
+<p>The results of the goodness of fit test and the PMF comparison plot, Figure <a href="distFitting.html#fig:LCPMFPlot">2.16</a>, clearly indicate that the Poisson distribution should not be rejected as a model for this data.</p>
 <p>The follow example repeats the analysis of Section <a href="appidmsecfitContinuous.html#appidms2sb3">B.5.6</a> on the pharmacy service time data using KSL constructs.</p>
 <hr />
 <div class="example">
-<p><span id="exm:ExPharmacyDataCh2" class="example"><strong>Example 2.3  (Analyzing the Pharmacy Data using the KSL) </strong></span>One hundred observations of the service time were collected using a
+<p><span id="exm:ch2ex27" class="example"><strong>Example 2.27  (Analyzing the Pharmacy Data using the KSL) </strong></span>One hundred observations of the service time were collected using a
 portable digital assistant and are shown in
 Table <a href="distFitting.html#tab:PharmacyDataCh2">2.2</a> where the first observation is in row 1
 column 1, the second observation is in row 2 column 1, the <span class="math inline">\(21^{st}\)</span>
@@ -1288,16 +1286,16 @@ observation is in row 1 column 2, and so forth.</p>
 </div>
 <hr />
 <p>Recall the basic process described in Appendix <a href="appidm.html#appidm">B</a>. We will plot the data using a histogram, make a time series observation plot, and make an ACF plot. The following code performs those tasks. The plots can be shown in a browser window or saved to files.</p>
-<div class="sourceCode" id="cb43"><pre class="sourceCode kt"><code class="sourceCode kotlin"><span id="cb43-1"><a href="distFitting.html#cb43-1" tabindex="-1"></a><span class="kw">val</span> <span class="va">data</span> <span class="op">=</span> KSLFileUtil<span class="op">.</span>scanToArray<span class="op">(</span>myFile<span class="op">.</span>toPath<span class="op">())</span></span>
-<span id="cb43-2"><a href="distFitting.html#cb43-2" tabindex="-1"></a><span class="kw">val</span> <span class="va">d</span> <span class="op">=</span> PDFModeler<span class="op">(</span><span class="kw">data</span><span class="op">)</span></span>
-<span id="cb43-3"><a href="distFitting.html#cb43-3" tabindex="-1"></a>println<span class="op">(</span>d<span class="op">.</span>histogram<span class="op">)</span></span>
-<span id="cb43-4"><a href="distFitting.html#cb43-4" tabindex="-1"></a>println<span class="op">()</span></span>
-<span id="cb43-5"><a href="distFitting.html#cb43-5" tabindex="-1"></a><span class="kw">val</span> <span class="va">hPlot</span> <span class="op">=</span> d<span class="op">.</span>histogram<span class="op">.</span>histogramPlot<span class="op">()</span></span>
-<span id="cb43-6"><a href="distFitting.html#cb43-6" tabindex="-1"></a>hPlot<span class="op">.</span>showInBrowser<span class="op">()</span></span>
-<span id="cb43-7"><a href="distFitting.html#cb43-7" tabindex="-1"></a><span class="kw">val</span> <span class="va">op</span> <span class="op">=</span> ObservationsPlot<span class="op">(</span><span class="kw">data</span><span class="op">)</span></span>
-<span id="cb43-8"><a href="distFitting.html#cb43-8" tabindex="-1"></a>op<span class="op">.</span>showInBrowser<span class="op">()</span></span>
-<span id="cb43-9"><a href="distFitting.html#cb43-9" tabindex="-1"></a><span class="kw">val</span> <span class="va">acf</span> <span class="op">=</span> ACFPlot<span class="op">(</span><span class="kw">data</span><span class="op">)</span></span>
-<span id="cb43-10"><a href="distFitting.html#cb43-10" tabindex="-1"></a>acf<span class="op">.</span>showInBrowser<span class="op">()</span></span></code></pre></div>
+<div class="sourceCode" id="cb54"><pre class="sourceCode kt"><code class="sourceCode kotlin"><span id="cb54-1"><a href="distFitting.html#cb54-1" tabindex="-1"></a><span class="kw">val</span> <span class="va">data</span> <span class="op">=</span> KSLFileUtil<span class="op">.</span>scanToArray<span class="op">(</span>myFile<span class="op">.</span>toPath<span class="op">())</span></span>
+<span id="cb54-2"><a href="distFitting.html#cb54-2" tabindex="-1"></a><span class="kw">val</span> <span class="va">d</span> <span class="op">=</span> PDFModeler<span class="op">(</span><span class="kw">data</span><span class="op">)</span></span>
+<span id="cb54-3"><a href="distFitting.html#cb54-3" tabindex="-1"></a>println<span class="op">(</span>d<span class="op">.</span>histogram<span class="op">)</span></span>
+<span id="cb54-4"><a href="distFitting.html#cb54-4" tabindex="-1"></a>println<span class="op">()</span></span>
+<span id="cb54-5"><a href="distFitting.html#cb54-5" tabindex="-1"></a><span class="kw">val</span> <span class="va">hPlot</span> <span class="op">=</span> d<span class="op">.</span>histogram<span class="op">.</span>histogramPlot<span class="op">()</span></span>
+<span id="cb54-6"><a href="distFitting.html#cb54-6" tabindex="-1"></a>hPlot<span class="op">.</span>showInBrowser<span class="op">()</span></span>
+<span id="cb54-7"><a href="distFitting.html#cb54-7" tabindex="-1"></a><span class="kw">val</span> <span class="va">op</span> <span class="op">=</span> ObservationsPlot<span class="op">(</span><span class="kw">data</span><span class="op">)</span></span>
+<span id="cb54-8"><a href="distFitting.html#cb54-8" tabindex="-1"></a>op<span class="op">.</span>showInBrowser<span class="op">()</span></span>
+<span id="cb54-9"><a href="distFitting.html#cb54-9" tabindex="-1"></a><span class="kw">val</span> <span class="va">acf</span> <span class="op">=</span> ACFPlot<span class="op">(</span><span class="kw">data</span><span class="op">)</span></span>
+<span id="cb54-10"><a href="distFitting.html#cb54-10" tabindex="-1"></a>acf<span class="op">.</span>showInBrowser<span class="op">()</span></span></code></pre></div>
 <p>This results in the following histogram summary, which clearly indicates that the data is shifted from zero to about 36.</p>
 <pre><code>-------------------------------------
 Number of bins = 6
@@ -1316,195 +1314,63 @@ Bin Range        Count CumTot Frac  CumFrac
   5 [536.00,661.00)  = 1  99.0 0.010000 0.990000 
   6 [661.00,786.00)  = 1 100.0 0.010000 1.000000 
 -------------------------------------</code></pre>
-<p>Figure <a href="distFitting.html#fig:ch2PharmacyHistPlot">2.16</a> clearly shows an exponential shape for the distribution.</p>
+<p>Figure <a href="distFitting.html#fig:ch2PharmacyHistPlot">2.17</a> clearly shows an exponential shape for the distribution.</p>
 <div class="figure"><span style="display:block;" id="fig:ch2PharmacyHistPlot"></span>
 <img src="figures2/ch2/pdfModelingResults_Hist_Plot.PNG" alt="Histogram of the Pharmacy Data" width="80%" height="80%" />
 <p class="caption">
-Figure 2.16: Histogram of the Pharmacy Data
+Figure 2.17: Histogram of the Pharmacy Data
 </p>
 </div>
-<p>Similar to the analysis in Appendix <a href="appidm.html#appidm">B</a>, the time series plot, Figure <a href="distFitting.html#fig:ch2PharmachyObsPlot">2.17</a>, and the ACF plot, Figure <a href="distFitting.html#fig:ch2PharmacyACFPlot">2.18</a> do not indicate any issues with non-stationary behavior or with dependence within the observations.</p>
+<p>Similar to the analysis in Appendix <a href="appidm.html#appidm">B</a>, the time series plot, Figure <a href="distFitting.html#fig:ch2PharmachyObsPlot">2.18</a>, and the ACF plot, Figure <a href="distFitting.html#fig:ch2PharmacyACFPlot">2.19</a> do not indicate any issues with non-stationary behavior or with dependence within the observations.</p>
 <div class="figure"><span style="display:block;" id="fig:ch2PharmachyObsPlot"></span>
 <img src="figures2/ch2/pdfModelingResults_Obs_Plot.PNG" alt="Time Series Observation Plot for Pharmacy Data" width="80%" height="80%" />
 <p class="caption">
-Figure 2.17: Time Series Observation Plot for Pharmacy Data
+Figure 2.18: Time Series Observation Plot for Pharmacy Data
 </p>
 </div>
 <div class="figure"><span style="display:block;" id="fig:ch2PharmacyACFPlot"></span>
 <img src="figures2/ch2/pdfModelingResults_ACF_Plot.PNG" alt="ACF Plot for Pharmacy Data" width="80%" height="80%" />
 <p class="caption">
-Figure 2.18: ACF Plot for Pharmacy Data
+Figure 2.19: ACF Plot for Pharmacy Data
 </p>
 </div>
 <p>Given this analysis, we can proceed with modeling the distribution and checking for the goodness of fit. The following KSL code will estimate the parameters of the default distributions within the KSL and recommend a candidate distribution. Notice that the shift parameter will be <em>automatically</em> estimated for this situation.</p>
-<div class="sourceCode" id="cb45"><pre class="sourceCode kt"><code class="sourceCode kotlin"><span id="cb45-1"><a href="distFitting.html#cb45-1" tabindex="-1"></a><span class="kw">val</span> <span class="va">results</span>  <span class="op">=</span> d<span class="op">.</span>estimateAndEvaluateScores<span class="op">()</span></span>
-<span id="cb45-2"><a href="distFitting.html#cb45-2" tabindex="-1"></a>println<span class="op">(</span><span class="st">&quot;PDF Estimation Results for each Distribution:&quot;</span><span class="op">)</span></span>
-<span id="cb45-3"><a href="distFitting.html#cb45-3" tabindex="-1"></a>println<span class="op">(</span><span class="st">&quot;------------------------------------------------------&quot;</span><span class="op">)</span></span>
-<span id="cb45-4"><a href="distFitting.html#cb45-4" tabindex="-1"></a>results<span class="op">.</span>sortedScoringResults<span class="op">.</span>forEach<span class="op">(::</span>println<span class="op">)</span></span>
-<span id="cb45-5"><a href="distFitting.html#cb45-5" tabindex="-1"></a><span class="kw">val</span> <span class="va">topResult</span> <span class="op">=</span> results<span class="op">.</span>sortedScoringResults<span class="op">.</span>first<span class="op">()</span></span>
-<span id="cb45-6"><a href="distFitting.html#cb45-6" tabindex="-1"></a><span class="kw">val</span> <span class="va">scores</span> <span class="op">=</span> results<span class="op">.</span>evaluationModel<span class="op">.</span>alternativeScoresAsDataFrame<span class="op">(</span><span class="st">&quot;Distributions&quot;</span><span class="op">)</span></span>
-<span id="cb45-7"><a href="distFitting.html#cb45-7" tabindex="-1"></a>println<span class="op">(</span>scores<span class="op">)</span></span>
-<span id="cb45-8"><a href="distFitting.html#cb45-8" tabindex="-1"></a>println<span class="op">()</span></span>
-<span id="cb45-9"><a href="distFitting.html#cb45-9" tabindex="-1"></a><span class="kw">val</span> <span class="va">values</span> <span class="op">=</span> results<span class="op">.</span>evaluationModel<span class="op">.</span>alternativeValuesAsDataFrame<span class="op">(</span><span class="st">&quot;Distributions&quot;</span><span class="op">)</span></span>
-<span id="cb45-10"><a href="distFitting.html#cb45-10" tabindex="-1"></a>println<span class="op">(</span>values<span class="op">)</span></span>
-<span id="cb45-11"><a href="distFitting.html#cb45-11" tabindex="-1"></a>println<span class="op">()</span></span>
-<span id="cb45-12"><a href="distFitting.html#cb45-12" tabindex="-1"></a><span class="kw">val</span> <span class="va">distPlot</span> <span class="op">=</span> topResult<span class="op">.</span>distributionFitPlot<span class="op">()</span></span>
-<span id="cb45-13"><a href="distFitting.html#cb45-13" tabindex="-1"></a>distPlot<span class="op">.</span>showInBrowser<span class="op">(</span><span class="st">&quot;Recommended Distribution </span><span class="ss">${</span>topResult<span class="op">.</span>name<span class="ss">}</span><span class="st">&quot;</span><span class="op">)</span></span>
-<span id="cb45-14"><a href="distFitting.html#cb45-14" tabindex="-1"></a>println<span class="op">()</span></span>
-<span id="cb45-15"><a href="distFitting.html#cb45-15" tabindex="-1"></a>println<span class="op">(</span><span class="st">&quot;** Recommended Distribution** </span><span class="ss">${</span>topResult<span class="op">.</span>name<span class="ss">}</span><span class="st">&quot;</span><span class="op">)</span></span>
-<span id="cb45-16"><a href="distFitting.html#cb45-16" tabindex="-1"></a>println<span class="op">()</span></span></code></pre></div>
-<p>The following table displays a portion of the distribution fitting results and the scores for the first two scoring models.</p>
-<table>
-<colgroup>
-<col width="13%" />
-<col width="17%" />
-<col width="17%" />
-<col width="17%" />
-<col width="17%" />
-<col width="17%" />
-</colgroup>
-<thead>
-<tr class="header">
-<th align="left">Distributions</th>
-<th align="center">Chi-Squared</th>
-<th align="center">K-S</th>
-<th align="center">Squared-Error</th>
-<th align="center">Anderson-Darling</th>
-<th align="center">Cramer-von-Mises</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td align="left">Uniform(minimum=29.310909090909092</td>
-<td align="center">maximum=789.7490909090909)</td>
-<td align="center">151.6</td>
-<td align="center">0.49215488199387436</td>
-<td align="center">0.07579999999999999</td>
-<td align="center">58.79543675567092</td>
-</tr>
-<tr class="even">
-<td align="left">Triangular(minimum=29.310909090909092</td>
-<td align="center">mode=29.310909090909092</td>
-<td align="center">maximum=789.7490909090909)</td>
-<td align="center">56.79999999999995</td>
-<td align="center">0.30456433510175973</td>
-<td align="center">0.028399999999999963</td>
-</tr>
-<tr class="odd">
-<td align="left">Normal(mean=182.77779999999996</td>
-<td align="center">variance=20053.73115470709)</td>
-<td align="center">85.59999969972148</td>
-<td align="center">0.16637351058301064</td>
-<td align="center">0.04279999993634699</td>
-<td align="center">4.857111383075534</td>
-</tr>
-<tr class="even">
-<td align="left">GeneralizedBeta(min=29.310909090909092</td>
-<td align="center">max=789.7490909090909</td>
-<td align="center">alpha=0.7356153488826158</td>
-<td align="center">beta=2.9094053790945313)</td>
-<td align="center">30.79999867988125</td>
-<td align="center">0.11197454624430075</td>
-</tr>
-<tr class="odd">
-<td align="left">36.83628655364795 + Exponential(mean=145.94151344635202)</td>
-<td align="center">15.999999999999984</td>
-<td align="center">0.0399213095618332</td>
-<td align="center">0.007999999999999997</td>
-<td align="center">0.24859556182926212</td>
-<td align="center">0.025283543923658194</td>
-</tr>
-<tr class="even">
-<td align="left">36.83628655364795 + Lognormal(mean=250.46425448551713</td>
-<td align="center">variance=536239.5203995836)</td>
-<td align="center">27.599999971810362</td>
-<td align="center">0.11113783465101595</td>
-<td align="center">0.013799999990102237</td>
-<td align="center">2.6924265813220387</td>
-</tr>
-<tr class="odd">
-<td align="left">36.83628655364795 + Gamma(shape=0.9835042713420494</td>
-<td align="center">scale=148.38930312646863)</td>
-<td align="center">24.400000036501375</td>
-<td align="center">0.042856144282514254</td>
-<td align="center">0.012200000016935272</td>
-<td align="center">0.26745110906280445</td>
-</tr>
-<tr class="even">
-<td align="left">36.83628655364795 + Weibull(shape=1.003714037935936</td>
-<td align="center">scale=151.6852597437524)</td>
-<td align="center">17.599999999999927</td>
-<td align="center">0.04793959816873422</td>
-<td align="center">0.00879999999999997</td>
-<td align="center">0.27487632012235963</td>
-</tr>
-<tr class="odd">
-<td align="left">36.83628655364795 + PearsonType5(shape=0.1433904565135134</td>
-<td align="center">scale=0.05276408469245713)</td>
-<td align="center">389.59999995772955</td>
-<td align="center">0.4662537477856373</td>
-<td align="center">0.19479999978929727</td>
-<td align="center">31.13768339567025</td>
-</tr>
-</tbody>
-</table>
+<div class="sourceCode" id="cb56"><pre class="sourceCode kt"><code class="sourceCode kotlin"><span id="cb56-1"><a href="distFitting.html#cb56-1" tabindex="-1"></a><span class="kw">val</span> <span class="va">results</span>  <span class="op">=</span> d<span class="op">.</span>estimateAndEvaluateScores<span class="op">()</span></span>
+<span id="cb56-2"><a href="distFitting.html#cb56-2" tabindex="-1"></a>println<span class="op">(</span><span class="st">&quot;PDF Estimation Results for each Distribution:&quot;</span><span class="op">)</span></span>
+<span id="cb56-3"><a href="distFitting.html#cb56-3" tabindex="-1"></a>println<span class="op">(</span><span class="st">&quot;------------------------------------------------------&quot;</span><span class="op">)</span></span>
+<span id="cb56-4"><a href="distFitting.html#cb56-4" tabindex="-1"></a>results<span class="op">.</span>sortedScoringResults<span class="op">.</span>forEach<span class="op">(::</span>println<span class="op">)</span></span>
+<span id="cb56-5"><a href="distFitting.html#cb56-5" tabindex="-1"></a><span class="kw">val</span> <span class="va">topResult</span> <span class="op">=</span> results<span class="op">.</span>sortedScoringResults<span class="op">.</span>first<span class="op">()</span></span>
+<span id="cb56-6"><a href="distFitting.html#cb56-6" tabindex="-1"></a><span class="kw">val</span> <span class="va">scores</span> <span class="op">=</span> results<span class="op">.</span>evaluationModel<span class="op">.</span>alternativeScoresAsDataFrame<span class="op">(</span><span class="st">&quot;Distributions&quot;</span><span class="op">)</span></span>
+<span id="cb56-7"><a href="distFitting.html#cb56-7" tabindex="-1"></a>println<span class="op">(</span>scores<span class="op">)</span></span>
+<span id="cb56-8"><a href="distFitting.html#cb56-8" tabindex="-1"></a>println<span class="op">()</span></span>
+<span id="cb56-9"><a href="distFitting.html#cb56-9" tabindex="-1"></a><span class="kw">val</span> <span class="va">values</span> <span class="op">=</span> results<span class="op">.</span>evaluationModel<span class="op">.</span>alternativeValuesAsDataFrame<span class="op">(</span><span class="st">&quot;Distributions&quot;</span><span class="op">)</span></span>
+<span id="cb56-10"><a href="distFitting.html#cb56-10" tabindex="-1"></a>println<span class="op">(</span>values<span class="op">)</span></span>
+<span id="cb56-11"><a href="distFitting.html#cb56-11" tabindex="-1"></a>println<span class="op">()</span></span>
+<span id="cb56-12"><a href="distFitting.html#cb56-12" tabindex="-1"></a><span class="kw">val</span> <span class="va">distPlot</span> <span class="op">=</span> topResult<span class="op">.</span>distributionFitPlot<span class="op">()</span></span>
+<span id="cb56-13"><a href="distFitting.html#cb56-13" tabindex="-1"></a>distPlot<span class="op">.</span>showInBrowser<span class="op">(</span><span class="st">&quot;Recommended Distribution </span><span class="ss">${</span>topResult<span class="op">.</span>name<span class="ss">}</span><span class="st">&quot;</span><span class="op">)</span></span>
+<span id="cb56-14"><a href="distFitting.html#cb56-14" tabindex="-1"></a>println<span class="op">()</span></span>
+<span id="cb56-15"><a href="distFitting.html#cb56-15" tabindex="-1"></a>println<span class="op">(</span><span class="st">&quot;** Recommended Distribution** </span><span class="ss">${</span>topResult<span class="op">.</span>name<span class="ss">}</span><span class="st">&quot;</span><span class="op">)</span></span>
+<span id="cb56-16"><a href="distFitting.html#cb56-16" tabindex="-1"></a>println<span class="op">()</span></span></code></pre></div>
+<p>The following table displays the distribution fitting scores.</p>
+<div class="figure"><span style="display:block;" id="fig:ch2PharmacyScores"></span>
+<img src="figures2/ch2/pdfModelingResults_Scores.png" alt="Scoring Model Results" width="100%" height="100%" />
+<p class="caption">
+Figure 2.20: Scoring Model Results
+</p>
+</div>
 <p>By applying the value scoring model and sorting, we can see the top performing distribution with overall value of 0.9696257711895793 in the following table. Thus, the recommended distribution is: 36.83628655364795 + Exponential(mean=145.94151344635202). Notice that the shift parameter was automatically estimated for this situation.</p>
-<table>
-<colgroup>
-<col width="44%" />
-<col width="55%" />
-</colgroup>
-<thead>
-<tr class="header">
-<th align="left">Distributions</th>
-<th align="center">Overall Value</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td align="left">36.83628655364795 + Exponential(mean=145.94151344635202)</td>
-<td align="center">0.9696257711895793</td>
-</tr>
-<tr class="even">
-<td align="left">36.83628655364795 + Weibull(shape=1.003714037935936, scale=151.6852597437524)</td>
-<td align="center">0.9649927259316368</td>
-</tr>
-<tr class="odd">
-<td align="left">36.83628655364795 + Gamma(shape=0.9835042713420494, scale=148.38930312646863)</td>
-<td align="center">0.9607705242493729</td>
-</tr>
-<tr class="even">
-<td align="left">GeneralizedBeta(min=29.310909090909092, max=789.7490909090909, alpha=0.7356153488826158, beta=2.9094053790945313)</td>
-<td align="center">0.9219840879188533</td>
-</tr>
-<tr class="odd">
-<td align="left">36.83628655364795 + Lognormal(mean=250.46425448551713, variance=536239.5203995836)</td>
-<td align="center">0.9200543546500699</td>
-</tr>
-<tr class="even">
-<td align="left">Normal(mean=182.77779999999996, variance=20053.73115470709)</td>
-<td align="center">0.8327362903913982</td>
-</tr>
-<tr class="odd">
-<td align="left">Triangular(minimum=29.310909090909092, mode=29.310909090909092, maximum=789.7490909090909)</td>
-<td align="center">0.7211332196291593</td>
-</tr>
-<tr class="even">
-<td align="left">Uniform(minimum=29.310909090909092, maximum=789.7490909090909)</td>
-<td align="center">0.32593468399612574</td>
-</tr>
-<tr class="odd">
-<td align="left">36.83628655364795 + PearsonType5(shape=0.1433904565135134, scale=0.05276408469245713)</td>
-<td align="center">0.2733043272265799</td>
-</tr>
-</tbody>
-</table>
+<div class="figure"><span style="display:block;" id="fig:ch2PharmacyOveralScores"></span>
+<img src="figures2/ch2/pdfModelingResults_OverallScores.png" alt="Overall Scoring Results" width="100%" height="100%" />
+<p class="caption">
+Figure 2.21: Overall Scoring Results
+</p>
+</div>
 <p>We can use the following code to perform a goodness of fit analysis on the recommended distribution.</p>
-<div class="sourceCode" id="cb46"><pre class="sourceCode kt"><code class="sourceCode kotlin"><span id="cb46-1"><a href="distFitting.html#cb46-1" tabindex="-1"></a><span class="kw">val</span> <span class="va">gof</span> <span class="op">=</span> ContinuousCDFGoodnessOfFit<span class="op">(</span>topResult<span class="op">.</span>estimationResult<span class="op">.</span>testData<span class="op">,</span></span>
-<span id="cb46-2"><a href="distFitting.html#cb46-2" tabindex="-1"></a>  topResult<span class="op">.</span>distribution<span class="op">,</span></span>
-<span id="cb46-3"><a href="distFitting.html#cb46-3" tabindex="-1"></a>  numEstimatedParameters <span class="op">=</span> topResult<span class="op">.</span>numberOfParameters</span>
-<span id="cb46-4"><a href="distFitting.html#cb46-4" tabindex="-1"></a><span class="op">)</span></span>
-<span id="cb46-5"><a href="distFitting.html#cb46-5" tabindex="-1"></a>println<span class="op">(</span>gof<span class="op">)</span></span></code></pre></div>
+<div class="sourceCode" id="cb57"><pre class="sourceCode kt"><code class="sourceCode kotlin"><span id="cb57-1"><a href="distFitting.html#cb57-1" tabindex="-1"></a><span class="kw">val</span> <span class="va">gof</span> <span class="op">=</span> ContinuousCDFGoodnessOfFit<span class="op">(</span>topResult<span class="op">.</span>estimationResult<span class="op">.</span>testData<span class="op">,</span></span>
+<span id="cb57-2"><a href="distFitting.html#cb57-2" tabindex="-1"></a>  topResult<span class="op">.</span>distribution<span class="op">,</span></span>
+<span id="cb57-3"><a href="distFitting.html#cb57-3" tabindex="-1"></a>  numEstimatedParameters <span class="op">=</span> topResult<span class="op">.</span>numberOfParameters</span>
+<span id="cb57-4"><a href="distFitting.html#cb57-4" tabindex="-1"></a><span class="op">)</span></span>
+<span id="cb57-5"><a href="distFitting.html#cb57-5" tabindex="-1"></a>println<span class="op">(</span>gof<span class="op">)</span></span></code></pre></div>
 <p>The results of the goodness of fit analysis clearly indicate that we should not reject the exponential distribution. Notice that the results are for the shifted distribution.</p>
 <pre><code>GOF Results for Distribution: Exponential(mean=145.94151344635202)
 ---------------------------------------------------------
@@ -1549,22 +1415,25 @@ Anderson-Darling test p-value = 0.9710833730000956
 
 Cramer-Von-Mises test statistic = 0.025283543923658194
 Cramer-Von-Mises test p-value = 0.9893094979248238</code></pre>
-<p>Finally, we can review the distribution plot, Figure <a href="distFitting.html#fig:ch2PharmacyPDFPlot">2.19</a>, and see that according the the P-P plot, Q-Q plot, histogram overlay, and empirical cumulative distribution overlay plot that the exponential distribution is an excellent probability model for this data.</p>
+<p>Finally, we can review the distribution plot, Figure <a href="distFitting.html#fig:ch2PharmacyPDFPlot">2.22</a>, and see that according the the P-P plot, Q-Q plot, histogram overlay, and empirical cumulative distribution overlay plot that the exponential distribution is an excellent probability model for this data.</p>
 <div class="figure"><span style="display:block;" id="fig:ch2PharmacyPDFPlot"></span>
 <img src="figures2/ch2/pdfModelingResults_PDF_Plot.PNG" alt="Distribution Plot for Pharmacy Data" width="80%" height="80%" />
 <p class="caption">
-Figure 2.19: Distribution Plot for Pharmacy Data
+Figure 2.22: Distribution Plot for Pharmacy Data
 </p>
 </div>
 <p>As a final note for this example, all of the previously illustrated analysis can be performed with a few lines of code:</p>
-<div class="sourceCode" id="cb48"><pre class="sourceCode kt"><code class="sourceCode kotlin"><span id="cb48-1"><a href="distFitting.html#cb48-1" tabindex="-1"></a><span class="kw">val</span> <span class="va">data</span> <span class="op">=</span> KSLFileUtil<span class="op">.</span>scanToArray<span class="op">(</span>myFile<span class="op">.</span>toPath<span class="op">())</span></span>
-<span id="cb48-2"><a href="distFitting.html#cb48-2" tabindex="-1"></a><span class="kw">val</span> <span class="va">d</span> <span class="op">=</span> PDFModeler<span class="op">(</span><span class="kw">data</span><span class="op">)</span></span>
-<span id="cb48-3"><a href="distFitting.html#cb48-3" tabindex="-1"></a>d<span class="op">.</span>showAllResultsInBrowser<span class="op">()</span></span></code></pre></div>
+<div class="sourceCode" id="cb59"><pre class="sourceCode kt"><code class="sourceCode kotlin"><span id="cb59-1"><a href="distFitting.html#cb59-1" tabindex="-1"></a><span class="kw">val</span> <span class="va">data</span> <span class="op">=</span> KSLFileUtil<span class="op">.</span>scanToArray<span class="op">(</span>myFile<span class="op">.</span>toPath<span class="op">())</span></span>
+<span id="cb59-2"><a href="distFitting.html#cb59-2" tabindex="-1"></a><span class="kw">val</span> <span class="va">d</span> <span class="op">=</span> PDFModeler<span class="op">(</span><span class="kw">data</span><span class="op">)</span></span>
+<span id="cb59-3"><a href="distFitting.html#cb59-3" tabindex="-1"></a>d<span class="op">.</span>showAllResultsInBrowser<span class="op">()</span></span></code></pre></div>
 <p>The functionally for distribution modeling within the KSL is on par with what you can find within commercial software.</p>
 </div>
 </div>
 <h3><span class="header-section-number">G</span> References<a href="references.html#references" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <div id="refs" class="references csl-bib-body hanging-indent">
+<div id="ref-gan-koehler" class="csl-entry">
+Gan, F., and K. J. Koehler. 1990. <span>“Goodness-of-Fit Tests Based on p-p Probability Plots.”</span> <em>Technometrics</em> 32 (3): 289–303.
+</div>
 <div id="ref-law2007simulation" class="csl-entry">
 Law, A. 2007. <em>Simulation Modeling and Analysis</em>. 4th ed. McGraw-Hill.
 </div>
@@ -1577,7 +1446,7 @@ Williams, C. Arthur. 1950. <span>“On the Choice of the Number and Width of Cla
           </div>
         </div>
       </div>
-<a href="probability-distribution-models.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="probModels.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
 <a href="summary.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>

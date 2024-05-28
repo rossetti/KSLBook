@@ -23,7 +23,7 @@
 <meta name="author" content="Manuel D. Rossetti" />
 
 
-<meta name="date" content="2024-01-15" />
+<meta name="date" content="2024-05-25" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -198,8 +198,8 @@ div.csl-indent {
 </ul></li>
 <li class="chapter" data-level="2.2" data-path="rvg.html"><a href="rvg.html"><i class="fa fa-check"></i><b>2.2</b> Random Variate Generation</a>
 <ul>
-<li class="chapter" data-level="2.2.1" data-path="rvg.html"><a href="rvg.html#rvg_dists"><i class="fa fa-check"></i><b>2.2.1</b> Continuous and Discrete Random Variables</a></li>
-<li class="chapter" data-level="2.2.2" data-path="rvg.html"><a href="rvg.html#rvg_algo"><i class="fa fa-check"></i><b>2.2.2</b> Overview of Generation Algorithms</a></li>
+<li class="chapter" data-level="2.2.1" data-path="rvg.html"><a href="rvg.html#basic-random-variate-generation"><i class="fa fa-check"></i><b>2.2.1</b> Basic Random Variate Generation</a></li>
+<li class="chapter" data-level="2.2.2" data-path="rvg.html"><a href="rvg.html#rvg_dists"><i class="fa fa-check"></i><b>2.2.2</b> Continuous and Discrete Random Variables</a></li>
 <li class="chapter" data-level="2.2.3" data-path="rvg.html"><a href="rvg.html#rvg_use"><i class="fa fa-check"></i><b>2.2.3</b> Creating and Using Random Variables</a></li>
 <li class="chapter" data-level="2.2.4" data-path="rvg.html"><a href="rvg.html#functions-of-random-variables"><i class="fa fa-check"></i><b>2.2.4</b> Functions of Random Variables</a></li>
 </ul></li>
@@ -489,36 +489,36 @@ Figure 2.5: Distribution Interfaces
 <li><code>RVariableIfc randomVariable()</code> - returns a new instance of a random variable based on the current values of the distribution’s parameters that uses a newly created stream</li>
 </ul>
 <p>As an example, the following code illustrates some calculations for the binomial distribution.</p>
-<div class="sourceCode" id="cb25"><pre class="sourceCode kt"><code class="sourceCode kotlin"><span id="cb25-1"><a href="probability-distribution-models.html#cb25-1" tabindex="-1"></a><span class="kw">fun</span> <span class="fu">main</span><span class="op">()</span> <span class="op">{</span></span>
-<span id="cb25-2"><a href="probability-distribution-models.html#cb25-2" tabindex="-1"></a>    <span class="co">// make and use a Binomial(p, n) distribution</span></span>
-<span id="cb25-3"><a href="probability-distribution-models.html#cb25-3" tabindex="-1"></a>    <span class="kw">val</span> <span class="va">n</span> <span class="op">=</span> <span class="dv">10</span></span>
-<span id="cb25-4"><a href="probability-distribution-models.html#cb25-4" tabindex="-1"></a>    <span class="kw">val</span> <span class="va">p</span> <span class="op">=</span> <span class="fl">0.8</span></span>
-<span id="cb25-5"><a href="probability-distribution-models.html#cb25-5" tabindex="-1"></a>    println<span class="op">(</span><span class="st">&quot;n = </span><span class="ss">$n</span><span class="st">&quot;</span><span class="op">)</span></span>
-<span id="cb25-6"><a href="probability-distribution-models.html#cb25-6" tabindex="-1"></a>    println<span class="op">(</span><span class="st">&quot;p = </span><span class="ss">$p</span><span class="st">&quot;</span><span class="op">)</span></span>
-<span id="cb25-7"><a href="probability-distribution-models.html#cb25-7" tabindex="-1"></a>    <span class="kw">val</span> <span class="va">bnDF</span> <span class="op">=</span> Binomial<span class="op">(</span>p<span class="op">,</span> n<span class="op">)</span></span>
-<span id="cb25-8"><a href="probability-distribution-models.html#cb25-8" tabindex="-1"></a>    println<span class="op">(</span><span class="st">&quot;mean = &quot;</span> <span class="op">+</span> bnDF<span class="op">.</span>mean<span class="op">())</span></span>
-<span id="cb25-9"><a href="probability-distribution-models.html#cb25-9" tabindex="-1"></a>    println<span class="op">(</span><span class="st">&quot;variance = &quot;</span> <span class="op">+</span> bnDF<span class="op">.</span>variance<span class="op">())</span></span>
-<span id="cb25-10"><a href="probability-distribution-models.html#cb25-10" tabindex="-1"></a>    <span class="co">// compute some values</span></span>
-<span id="cb25-11"><a href="probability-distribution-models.html#cb25-11" tabindex="-1"></a>    System<span class="op">.</span><span class="kw">out</span><span class="op">.</span>printf<span class="op">(</span><span class="st">&quot;%3s %15s %15s %n&quot;</span><span class="op">,</span> <span class="st">&quot;k&quot;</span><span class="op">,</span> <span class="st">&quot;p(k)&quot;</span><span class="op">,</span> <span class="st">&quot;cdf(k)&quot;</span><span class="op">)</span></span>
-<span id="cb25-12"><a href="probability-distribution-models.html#cb25-12" tabindex="-1"></a>    <span class="cf">for</span> <span class="op">(</span>i <span class="kw">in</span> <span class="fl">0..10</span><span class="op">)</span> <span class="op">{</span></span>
-<span id="cb25-13"><a href="probability-distribution-models.html#cb25-13" tabindex="-1"></a>        System<span class="op">.</span><span class="kw">out</span><span class="op">.</span>printf<span class="op">(</span><span class="st">&quot;%3d %15.10f %15.10f %n&quot;</span><span class="op">,</span> i<span class="op">,</span> bnDF<span class="op">.</span>pmf<span class="op">(</span>i<span class="op">),</span> bnDF<span class="op">.</span>cdf<span class="op">(</span>i<span class="op">))</span></span>
-<span id="cb25-14"><a href="probability-distribution-models.html#cb25-14" tabindex="-1"></a>    <span class="op">}</span></span>
-<span id="cb25-15"><a href="probability-distribution-models.html#cb25-15" tabindex="-1"></a>    println<span class="op">()</span></span>
-<span id="cb25-16"><a href="probability-distribution-models.html#cb25-16" tabindex="-1"></a>    <span class="co">// change the probability and number of trials</span></span>
-<span id="cb25-17"><a href="probability-distribution-models.html#cb25-17" tabindex="-1"></a>    bnDF<span class="op">.</span>probOfSuccess <span class="op">=</span> <span class="fl">0.5</span></span>
-<span id="cb25-18"><a href="probability-distribution-models.html#cb25-18" tabindex="-1"></a>    bnDF<span class="op">.</span>numTrials <span class="op">=</span> <span class="dv">20</span></span>
-<span id="cb25-19"><a href="probability-distribution-models.html#cb25-19" tabindex="-1"></a>    println<span class="op">(</span><span class="st">&quot;mean = &quot;</span> <span class="op">+</span> bnDF<span class="op">.</span>mean<span class="op">())</span></span>
-<span id="cb25-20"><a href="probability-distribution-models.html#cb25-20" tabindex="-1"></a>    println<span class="op">(</span><span class="st">&quot;variance = &quot;</span> <span class="op">+</span> bnDF<span class="op">.</span>variance<span class="op">())</span></span>
-<span id="cb25-21"><a href="probability-distribution-models.html#cb25-21" tabindex="-1"></a>    <span class="co">// make random variables based on the distributions</span></span>
-<span id="cb25-22"><a href="probability-distribution-models.html#cb25-22" tabindex="-1"></a>    <span class="kw">val</span> <span class="va">brv</span> <span class="op">=</span> bnDF<span class="op">.</span>randomVariable</span>
-<span id="cb25-23"><a href="probability-distribution-models.html#cb25-23" tabindex="-1"></a>    System<span class="op">.</span><span class="kw">out</span><span class="op">.</span>printf<span class="op">(</span><span class="st">&quot;%3s %15s %n&quot;</span><span class="op">,</span> <span class="st">&quot;n&quot;</span><span class="op">,</span> <span class="st">&quot;Values&quot;</span><span class="op">)</span></span>
-<span id="cb25-24"><a href="probability-distribution-models.html#cb25-24" tabindex="-1"></a>    <span class="co">// generate some values</span></span>
-<span id="cb25-25"><a href="probability-distribution-models.html#cb25-25" tabindex="-1"></a>    <span class="cf">for</span> <span class="op">(</span>i <span class="kw">in</span> <span class="fl">1..5</span><span class="op">)</span> <span class="op">{</span></span>
-<span id="cb25-26"><a href="probability-distribution-models.html#cb25-26" tabindex="-1"></a>        <span class="co">// value property returns generated values</span></span>
-<span id="cb25-27"><a href="probability-distribution-models.html#cb25-27" tabindex="-1"></a>        <span class="kw">val</span> <span class="va">x</span> <span class="op">=</span> brv<span class="op">.</span>value<span class="op">.</span>toInt<span class="op">()</span></span>
-<span id="cb25-28"><a href="probability-distribution-models.html#cb25-28" tabindex="-1"></a>        System<span class="op">.</span><span class="kw">out</span><span class="op">.</span>printf<span class="op">(</span><span class="st">&quot;%3d %15d %n&quot;</span><span class="op">,</span> i<span class="op">,</span> x<span class="op">)</span></span>
-<span id="cb25-29"><a href="probability-distribution-models.html#cb25-29" tabindex="-1"></a>    <span class="op">}</span></span>
-<span id="cb25-30"><a href="probability-distribution-models.html#cb25-30" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
+<div class="sourceCode" id="cb31"><pre class="sourceCode kt"><code class="sourceCode kotlin"><span id="cb31-1"><a href="probability-distribution-models.html#cb31-1" tabindex="-1"></a><span class="kw">fun</span> <span class="fu">main</span><span class="op">()</span> <span class="op">{</span></span>
+<span id="cb31-2"><a href="probability-distribution-models.html#cb31-2" tabindex="-1"></a>    <span class="co">// make and use a Binomial(p, n) distribution</span></span>
+<span id="cb31-3"><a href="probability-distribution-models.html#cb31-3" tabindex="-1"></a>    <span class="kw">val</span> <span class="va">n</span> <span class="op">=</span> <span class="dv">10</span></span>
+<span id="cb31-4"><a href="probability-distribution-models.html#cb31-4" tabindex="-1"></a>    <span class="kw">val</span> <span class="va">p</span> <span class="op">=</span> <span class="fl">0.8</span></span>
+<span id="cb31-5"><a href="probability-distribution-models.html#cb31-5" tabindex="-1"></a>    println<span class="op">(</span><span class="st">&quot;n = </span><span class="ss">$n</span><span class="st">&quot;</span><span class="op">)</span></span>
+<span id="cb31-6"><a href="probability-distribution-models.html#cb31-6" tabindex="-1"></a>    println<span class="op">(</span><span class="st">&quot;p = </span><span class="ss">$p</span><span class="st">&quot;</span><span class="op">)</span></span>
+<span id="cb31-7"><a href="probability-distribution-models.html#cb31-7" tabindex="-1"></a>    <span class="kw">val</span> <span class="va">bnDF</span> <span class="op">=</span> Binomial<span class="op">(</span>p<span class="op">,</span> n<span class="op">)</span></span>
+<span id="cb31-8"><a href="probability-distribution-models.html#cb31-8" tabindex="-1"></a>    println<span class="op">(</span><span class="st">&quot;mean = &quot;</span> <span class="op">+</span> bnDF<span class="op">.</span>mean<span class="op">())</span></span>
+<span id="cb31-9"><a href="probability-distribution-models.html#cb31-9" tabindex="-1"></a>    println<span class="op">(</span><span class="st">&quot;variance = &quot;</span> <span class="op">+</span> bnDF<span class="op">.</span>variance<span class="op">())</span></span>
+<span id="cb31-10"><a href="probability-distribution-models.html#cb31-10" tabindex="-1"></a>    <span class="co">// compute some values</span></span>
+<span id="cb31-11"><a href="probability-distribution-models.html#cb31-11" tabindex="-1"></a>    System<span class="op">.</span><span class="kw">out</span><span class="op">.</span>printf<span class="op">(</span><span class="st">&quot;%3s %15s %15s %n&quot;</span><span class="op">,</span> <span class="st">&quot;k&quot;</span><span class="op">,</span> <span class="st">&quot;p(k)&quot;</span><span class="op">,</span> <span class="st">&quot;cdf(k)&quot;</span><span class="op">)</span></span>
+<span id="cb31-12"><a href="probability-distribution-models.html#cb31-12" tabindex="-1"></a>    <span class="cf">for</span> <span class="op">(</span>i <span class="kw">in</span> <span class="fl">0..10</span><span class="op">)</span> <span class="op">{</span></span>
+<span id="cb31-13"><a href="probability-distribution-models.html#cb31-13" tabindex="-1"></a>        System<span class="op">.</span><span class="kw">out</span><span class="op">.</span>printf<span class="op">(</span><span class="st">&quot;%3d %15.10f %15.10f %n&quot;</span><span class="op">,</span> i<span class="op">,</span> bnDF<span class="op">.</span>pmf<span class="op">(</span>i<span class="op">),</span> bnDF<span class="op">.</span>cdf<span class="op">(</span>i<span class="op">))</span></span>
+<span id="cb31-14"><a href="probability-distribution-models.html#cb31-14" tabindex="-1"></a>    <span class="op">}</span></span>
+<span id="cb31-15"><a href="probability-distribution-models.html#cb31-15" tabindex="-1"></a>    println<span class="op">()</span></span>
+<span id="cb31-16"><a href="probability-distribution-models.html#cb31-16" tabindex="-1"></a>    <span class="co">// change the probability and number of trials</span></span>
+<span id="cb31-17"><a href="probability-distribution-models.html#cb31-17" tabindex="-1"></a>    bnDF<span class="op">.</span>probOfSuccess <span class="op">=</span> <span class="fl">0.5</span></span>
+<span id="cb31-18"><a href="probability-distribution-models.html#cb31-18" tabindex="-1"></a>    bnDF<span class="op">.</span>numTrials <span class="op">=</span> <span class="dv">20</span></span>
+<span id="cb31-19"><a href="probability-distribution-models.html#cb31-19" tabindex="-1"></a>    println<span class="op">(</span><span class="st">&quot;mean = &quot;</span> <span class="op">+</span> bnDF<span class="op">.</span>mean<span class="op">())</span></span>
+<span id="cb31-20"><a href="probability-distribution-models.html#cb31-20" tabindex="-1"></a>    println<span class="op">(</span><span class="st">&quot;variance = &quot;</span> <span class="op">+</span> bnDF<span class="op">.</span>variance<span class="op">())</span></span>
+<span id="cb31-21"><a href="probability-distribution-models.html#cb31-21" tabindex="-1"></a>    <span class="co">// make random variables based on the distributions</span></span>
+<span id="cb31-22"><a href="probability-distribution-models.html#cb31-22" tabindex="-1"></a>    <span class="kw">val</span> <span class="va">brv</span> <span class="op">=</span> bnDF<span class="op">.</span>randomVariable</span>
+<span id="cb31-23"><a href="probability-distribution-models.html#cb31-23" tabindex="-1"></a>    System<span class="op">.</span><span class="kw">out</span><span class="op">.</span>printf<span class="op">(</span><span class="st">&quot;%3s %15s %n&quot;</span><span class="op">,</span> <span class="st">&quot;n&quot;</span><span class="op">,</span> <span class="st">&quot;Values&quot;</span><span class="op">)</span></span>
+<span id="cb31-24"><a href="probability-distribution-models.html#cb31-24" tabindex="-1"></a>    <span class="co">// generate some values</span></span>
+<span id="cb31-25"><a href="probability-distribution-models.html#cb31-25" tabindex="-1"></a>    <span class="cf">for</span> <span class="op">(</span>i <span class="kw">in</span> <span class="fl">1..5</span><span class="op">)</span> <span class="op">{</span></span>
+<span id="cb31-26"><a href="probability-distribution-models.html#cb31-26" tabindex="-1"></a>        <span class="co">// value property returns generated values</span></span>
+<span id="cb31-27"><a href="probability-distribution-models.html#cb31-27" tabindex="-1"></a>        <span class="kw">val</span> <span class="va">x</span> <span class="op">=</span> brv<span class="op">.</span>value<span class="op">.</span>toInt<span class="op">()</span></span>
+<span id="cb31-28"><a href="probability-distribution-models.html#cb31-28" tabindex="-1"></a>        System<span class="op">.</span><span class="kw">out</span><span class="op">.</span>printf<span class="op">(</span><span class="st">&quot;%3d %15d %n&quot;</span><span class="op">,</span> i<span class="op">,</span> x<span class="op">)</span></span>
+<span id="cb31-29"><a href="probability-distribution-models.html#cb31-29" tabindex="-1"></a>    <span class="op">}</span></span>
+<span id="cb31-30"><a href="probability-distribution-models.html#cb31-30" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
 <p>The output shows the mean, variance, and basic probability calculations.</p>
 <pre><code>n = 10
 p = 0.8
