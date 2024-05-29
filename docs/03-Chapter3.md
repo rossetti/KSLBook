@@ -1522,7 +1522,7 @@ The results indicate that on average about 5.71 boxes are inspected until the fi
 
 ## Stochastic Activity Networks
 
-A stochastic activity network (SAN) is a common modeling paradigm often used to represent project networks and other network representation. An activity network consists of a set of activities that have an ordered precedence indicating the dependence between the activities.  For example, an activity C might not be able to start until both activities A and B are completed. Thus, (A, B) precede C in the network. A common question in such networks is how to determine the critical path or the longest path in the network.  The following example will illustrate how to simulate a simple SAN to estimate the expected length of the critical path and estimate probabilities associated with time to complete the network.
+A stochastic activity network (SAN) is a common modeling paradigm often used to represent project networks and other forms of network modeling. An activity network consists of a set of activities that have an ordered precedence indicating the dependence between the activities.  For example, an activity C might not be able to start until both activities A and B are completed. Thus, (A, B) precede C in the network. A common question in such networks is how to determine the critical path or the longest path in the network.  The following example will illustrate how to simulate a simple SAN to estimate the expected length of the critical path and estimate probabilities associated with time to complete the network.
 
 ***
 ::: {.example #SANex name="Project Network"}
