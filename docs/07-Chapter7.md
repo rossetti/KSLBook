@@ -20,6 +20,11 @@ Many realistic modeling situations have non-stationary characteristics that requ
 
 Lastly, the chapter will look at a few miscellaneous modeling situations that should help you to develop ideas for effective modeling of a variety of situations. We will start by looking more closely at processes and resources.
 
+::: {.infobox .note data-latex="{note}"}
+**NOTE!**
+This chapter provides a series of example Kotlin code that illustrates the use of KSL constructs for implementing process and event view simulation models. The full source code of the examples can be found in the accompanying `KSLExamples` project associated with the [KSL repository](https://github.com/rossetti/KSL). The files for each example of this chapter can be found [here](https://github.com/rossetti/KSL/tree/main/KSLExamples/src/main/kotlin/ksl/examples/book/chapter7).
+:::
+
 ## Modeling with Processes and Resources
 
 In this section, we explore some of the nuances of modeling systems via process and resources.  Specifically, we will look more carefully at the KSL constructs for modeling resources.  In general, a resource is something that is required or used by the entities within a process.  In real systems, whenever there is requirement for an entity to wait, it is likely that a resource is needed.  Within the KSL, a resource has number of identical units which represent its capacity.  For the purposes of usage, the units of the resource are indistinguishable.  That is, there can be no requirement to use one of the units over some other of the units.  For the entity, it does not matter which unit is supplied for a request. It only matters that it gets the requested number of units from the resource. Resource units are allocated and deallocated to entities that request them. If a request for a specific number of units of the resource cannot be allocated immediately upon request, then the entity (generally) must wait for the units (or not proceed with the request).  If there is a preference between types of resources, then a pool of resources should be used.  Pools of resources will also be discussed in this section. We begin our study of resources by illustrating how resources can be used to model space.
@@ -28,6 +33,7 @@ In this section, we explore some of the nuances of modeling systems via process 
 
 We start the modeling of space with resources by looking at a simple system involving a tandem queue.  A tandem queue is a sequence of queues in order that must be visited to receive service from resources.  Let's setup the situation by first modeling the system without a space requirement between the queues.  The following example presents the specifics of the situation.
 
+***
 ::: {.example #exTandemQ name="Tandem Queueing System"}
 Suppose a service facility
 consists of two stations in series (tandem), each with its own FIFO
@@ -43,6 +49,7 @@ queue, and the expected utilization. In addition, estimate the average
 number of customers in the system and the average time spent in the
 system.
 :::
+***
 
 To model this situation, we need to use two resources, one for each server at the two stations. 
 
@@ -79,7 +86,7 @@ class TandemQueue(parent: ModelElement, name: String? = null) : ProcessModel(par
         get() = timeInSystem
 ```
 
-Since the resources will need a queue, we declare the two resources by using the `ResourceWithQ` class.  Then, we specify the random variables that will be used to represent the time between arrivals and the service time at the two stations. Finally, we define the response variables for collecting the number in the system and the time in the system. The process modeling is a straight-forward application of the seize-delay-release pattern that was presented in the previous chapter.
+Since the resources will need a queue, we declare the two resources by using the `ResourceWithQ` class.  Then, we specify the random variables that will be used to represent the time between arrivals and the service time at the two stations. Finally, we define the response variables for collecting the number in the system and the time in the system. The process modeling is a straight-forward application of the *(seize-delay-release)* pattern that was presented in the previous chapter.
 
 ```kt
     private inner class Customer : Entity(){
@@ -97,7 +104,7 @@ Since the resources will need a queue, we declare the two resources by using the
         }
 ```
 
-Notice that this code does not save the allocations that are returned by the call to the `seize` method.  This is possible because of two reasons.  First, the KSL overloads the `release` method to allow for the specification of the resource to be released. This overloaded method will release **all** previously returned allocations that the entity holds of the named resource. Secondly, this situation is a perfect use case for this, because the entity only has seized the worker *once* before the specified release. Thus, we are simplying releasing the last allocation held by the entity via the `release` method.  It really is user preference whether to save the allocation and then release the allocation or to use the approach of specifying the name of the resource. Of course, this works because releasing **all** previous allocations is the same as releasing the last one in this situation. In fact, this situation is so common that the KSL provides an additional short cut as illustrated in the following code.
+Notice that this code does not save the allocations that are returned by the call to the `seize` method.  This is possible because of two reasons.  First, the KSL overloads the `release` method to allow for the specification of the resource to be released. This overloaded method will release **all** previously returned allocations that the entity holds of the named resource. Secondly, this situation is a perfect use case for this, because the entity only has seized the worker *once* before the specified release. Thus, we are simply releasing the last allocation held by the entity via the `release()` function.  It really is user preference whether to save the allocation and then release the allocation or to use the approach of specifying the name of the resource. Of course, this works because releasing **all** previous allocations is the same as releasing the last one in this situation. In fact, this situation is so common that the KSL provides an additional short cut as illustrated in the following code.
 
 ```kt
     private inner class Customer : Entity(){
@@ -112,7 +119,7 @@ Notice that this code does not save the allocations that are returned by the cal
     }
 ```
 
-The `use` method combines the seize-delay-release pattern into one method call.  The results are not very remarkable.
+The `use` method combines the *(seize-delay-release)* pattern into one method call.  The results are not very remarkable.
 
 |Name| Count| Average| Half-Width|
 |:---:| :---:| :---:| :---:|
@@ -129,12 +136,18 @@ The `use` method combines the seize-delay-release pattern into one method call. 
 |TandemQModel:NumInSystem| 30| 1.36| 0.014|
 |TandemQModel:TimeInSystem| 30| 2.723| 0.02|
 
-Now we are ready to study the situation of modeling finite space between the two stations. Imagine that at the first station there is a chair for the customer to sit in while receiving service from the first worker.  Any customers that arrive while a customer is receiving service at the first station must wait for the server to be free (i.e. the chair to be available).  We assume that there is (at least conceptually) an infinite amount of space for the waiting customers at the first station.  Now, at the second station, there are two chairs.  The customer arriving to the second station will sit in the first chair when receiving service from the server. The second chair is provided for one waiting customer and there is no space for any other customers to wait at the second station.  Thus, a customer finishing service at the first station cannot move into (use) the second station if there is a customer waiting at the second station. If a customer at the first station cannot move into the waiting line (2nd chair) at the second station, then the customer is considered blocked.  What does this customer do? Well, they are selfish and do not give up their current chair until they can get a chair at the second station. Thus, waiting at the second station may cause waiting to occur at the first station.  This situation is called a tandem queue with blocking, as illustrated in Figure \@ref(fig:Ch7TandemQWithBlocking).
+Now we are ready to study the situation of modeling finite space between the two stations. 
+
+***
+::: {.example #exTandemQWB name="Tandem Queueing System With Blocking"}
+Imagine that at the first station there is a chair for the customer to sit in while receiving service from the first worker.  Any customers that arrive while a customer is receiving service at the first station must wait for the server to be free (i.e. the chair to be available).  We assume that there is (at least conceptually) an infinite amount of space for the waiting customers at the first station.  Now, at the second station, there are two chairs.  The customer arriving to the second station will sit in the first chair when receiving service from the server. The second chair is provided for one waiting customer and there is no space for any other customers to wait at the second station.  Thus, a customer finishing service at the first station cannot move into (use) the second station if there is a customer waiting at the second station. If a customer at the first station cannot move into the waiting line (2nd chair) at the second station, then the customer is considered blocked.  What does this customer do? Well, they are selfish and do not give up their current chair until they can get a chair at the second station. Thus, waiting at the second station may cause waiting to occur at the first station.  This situation is called a tandem queue with blocking, as illustrated in Figure \@ref(fig:Ch7TandemQWithBlocking).
 
 <div class="figure" style="text-align: center">
 <img src="./figures2/ch7/TandemQWithBlocking.png" alt="Tandem Queue with Blocking" width="65%" height="65%" />
 <p class="caption">(\#fig:Ch7TandemQWithBlocking)Tandem Queue with Blocking</p>
 </div>
+:::
+***
 
 Let's see how to model this situation using KSL constructs.  The key is to model the chair that represents the waiting line at the second station with a resource. This is essentially modeling the waiting space with a resource. In the above scenario, there was one space for waiting. 
 
@@ -246,9 +259,13 @@ These two interfaces can be used in combination to form various selection and al
 
 It is important to note that the `ResourceSelectionRuleIfc` interface may return an empty list if the request cannot be met.  This is used to determine if the entity must wait. 
 
-The KSL provides a default instance of the `AllocationRuleIfc` interface called `DefaultAllocationRule.` This rule takes in a list of resources that in total has enough units available and allocates from each listed resource (in the order listed) until the entire amount requested is filled. Thus, in both the selection rule and the allocation rule, the order of the resources within the pool are important.  Again, if you want or need to have different rules, then you can implement these interfaces and supply your instances to the `ResourcePool` and `ResourcePoolWithQ` classes to use instead of the default implementations. 
+The KSL provides a default instance of the `AllocationRuleIfc` interface called `DefaultAllocationRule.` This rule takes in a list of resources that in total has enough units available and allocates from each listed resource (in the order listed) until the entire amount requested is filled. Thus, in both the selection rule and the allocation rule, the order of the resources within the pool are important.  Again, if you want or need to have different rules, then you can implement these interfaces and supply your instances to the `ResourcePool` and `ResourcePoolWithQ` classes to use instead of the default implementations. Let's take a look at an example situation involving resource pools. 
 
-Let's take a look at an example situation involving resource pools.  In this example, there are two pools. The first pool will have 3 resources (john, paul, and george) and the second pool will have 2 resources (ringo and george).  One of the resources (george) is shared (in common) between the two pools.  The following code creates the four resources, adds them to lists, and then supplies the lists to instances of the `ResourcePoolWithQ` class. 
+***
+::: {.example #exResPool name="Resource Pools"}
+In this example, there are two pools. The first pool will have 3 resources (john, paul, and george) and the second pool will have 2 resources (ringo and george).  One of the resources (george) is shared (in common) between the two pools.  The following code creates the four resources, adds them to lists, and then supplies the lists to instances of the `ResourcePoolWithQ` class. 
+:::
+***
 
 ```kt
 class ResourcePoolExample(parent: ModelElement) : ProcessModel(parent, null) {
@@ -271,7 +288,7 @@ class ResourcePoolExample(parent: ModelElement) : ProcessModel(parent, null) {
     private val generator = EventGenerator(this, this::arrivals, tba, tba)
 ```
 
-The two pools are shared between two processes using straightforward seize-delay-release logic.
+The two pools are shared between two processes using straightforward *(seize-delay-release)* logic.  Notice that the `addToSequence` parameter of the `process()` function is set to false. This is done because the `Customer` class has two processes defined and we do not need the second process (`usePool2`) to start immediately after the first process completes.
 
 ```kt
     private inner class Customer: Entity() {
@@ -345,6 +362,11 @@ Resource pools can be helpful when modeling the sharing of resources between act
 
 ### Computer Test and Repair Shop Example 
 
+This section presents a common modeling situation in which entities follow a processing plan until they are completed. The KSL makes this type of modeling easy because it can leverage the full functionality of the Kotlin language.
+
+
+***
+::: {.example #exTestAndRepair name="Computer Test and Repair Shop"}
 Consider a test and repair shop for computer parts (e.g. circuit boards,
 hard drives, etc.) The system consists of an initial diagnostic station
 through which all newly arriving parts must be processed. Currently,
@@ -372,6 +394,8 @@ that the sequences in Table \@ref(tab:TestPlans) constituted the vast majority o
 
   Table: (\#tab:TestPlans) Test plan sequences
 :::
+:::
+***
 
 For example, 25% of the newly arriving parts follow test plan 1, which
 consists of visiting test stations 2, 3, 2, and 1 prior to proceeding to
@@ -871,10 +895,13 @@ horizon, such as:
 $$\lambda^{*} = \max\limits_{t} \lbrace \lambda(t) \rbrace$$
 
 In the example, $\lambda^{*}$ would be the mean of the 5 pm to 8 pm
-interval, $\lambda^{*} = 11.645$. The following code for
+interval, $\lambda^{*} = 11.645$. 
+
+***
+::: {.example #exThinning name="Thinning Algorithm Implementation"}
+The following code for
 implementing the thinning method creates event times at the maximum rate
 and thins them according to the current time.
-
 ```kt
 fun nhppThinning(rateFunc: RateFunctionIfc, maxTime: Double) : DoubleArray {
     val list = mutableListOf<Double>()
@@ -894,6 +921,8 @@ fun nhppThinning(rateFunc: RateFunctionIfc, maxTime: Double) : DoubleArray {
     return list.toDoubleArray()
 }
 ```
+:::
+***
 
 The function returns the time of the events. To be able to use such numbers in an event generator, we need to generate the time between random events for the non-homogeneous Poisson process. The KSL provides such a random variable via the `NHPPTimeBtwEventRV` class found in the `ksl.modeling.nhpp` package.  The above code, which can be found in the examples for this chapter, uses an instance that implements the `RateFunctionIfc` interface. The `ksl.modeling.nhpp` package provides implementations for piecewise constant and piecewise linear rate functions.  The following code illustrates how to create and simulate a piecewise constant rate function using the thinning method.
 
@@ -947,7 +976,11 @@ $n = n + 1$
 
 The resulting array, $a_i$ holds the generated event times. This algorithm is discussed further in [@ross1997introduction]. The algorithm generates a rate 1.0 Poisson process and transforms the resulting event times to the times on the $m^{-1}(t)$ axis.  The resulting event times will be from a non-homogeneous Poisson process.
 
-The KSL provides classes for piecewise constant and piecewise linear rate functions and their inverse cumulative rate functions. The following example illustrates how to setup a piecewise linear rate function and generate from it using a `NHPPEventGenerator` instance.
+The KSL provides classes for piecewise constant and piecewise linear rate functions and their inverse cumulative rate functions.
+
+***
+::: {.example #exPWRate name="Piecewise Constant Rate Function"}
+The following example illustrates how to setup a piecewise linear rate function and generate from it using a `NHPPEventGenerator` instance.
 
 ```kt
 class NHPPPWLinearExample(parent: ModelElement, f: PiecewiseRateFunction, name: String? = null) 
@@ -972,6 +1005,8 @@ class NHPPPWLinearExample(parent: ModelElement, f: PiecewiseRateFunction, name: 
     }
 }
 ```
+:::
+***
 
 In the code, a list of counters is defined to collect the counts within the intervals of the function.  The end points of the segments are the rates at the beginning and end of the segments.  The rate at the beginning of the segment can be the same as the rate at the end of the segment.  The example has two arrays, one for the rate values and one for the duration values.  In the example, the first segment has beginning rate $\lambda_0 = 0.5$, duration 200.0, and ending rate, $\lambda_1 = 0.5$.  The second segment begins with $\lambda_1 = 0.5$, has duration 400.0, and ending rate $\lambda_2 = 0.9$.  Thus, there will be one more specified rate value than there will be duration values. To specify a piecewise linear rate function, you must have at least one segment.
 
@@ -1068,7 +1103,7 @@ line may experience random failures that require repair. During the
 repair time, the machine is not available for production. The KSL provides
 constructs for modeling scheduled capacity changes. 
 
-Currently, the KSL permits resources that use a singular request queue to experience capacity changes.  That is, the `ResourceWithQ` implementation can handle capacity changes; however, the `Resource` class implementation does not permit the capacity to change.  If you need a resource that experiences capacity changes, then you need to declare it as a `ResourceWithQ` instance.  This limitation occurs because capacity increases require the newly available units to be allocated to any waiting requests. In general, an instance of `Resource` can be involved with more than one request queue due to arbitrary combinations of `seize()` calls involving the resource.  That is, the requests for an instance of `Resource` may in fact wait in different queues due to the flexible modeling provided by the implementations of the `seize()` method.  Currently, the possible multiple instances of `RequestQ` that could be involved with a `Resource` is not tracked. Even if the tracking occurred, then issues would still remain about how to allocate the new capacity across requests that are waiting in different instances of `RequestQ.` Future work may consider solutions to these issues; however, the current implementation of capacity schedules simplifies this situation by only permitting capacity changes for instances of the `ResourceWithQ` class.  Finally, the modeling of resources that can fail is under consideration for future development.
+Currently, the KSL permits resources that use a singular request queue to experience capacity changes.  That is, the `ResourceWithQ` implementation can handle capacity changes; however, the `Resource` class implementation does not permit the capacity to change.  If you need a resource that experiences capacity changes, then you need to declare it as a `ResourceWithQ` instance.  This limitation occurs because capacity increases require the newly available units to be allocated to any waiting requests. In general, an instance of a `Resource` can be involved with more than one request queue due to arbitrary combinations of `seize()` calls involving the resource.  That is, the requests for an instance of `Resource` may in fact wait in different queues due to the flexible modeling provided by the implementations of the `seize()` method.  Currently, the possible multiple instances of `RequestQ` that could be involved with a `Resource` is not tracked. Even if the tracking occurred, then issues would still remain about how to allocate the new capacity across requests that are waiting in different instances of `RequestQ.` Future work may consider solutions to these issues; however, the current implementation of capacity schedules simplifies this situation by only permitting capacity changes for instances of the `ResourceWithQ` class.  Finally, the modeling of resources that can fail is under consideration for future development.
 
 There are two key resource variables for understanding resources and
 their states.
@@ -1329,13 +1364,14 @@ time than it is scheduled, you would definitely want to know.
 
 The choice of which rule to use comes down to what is given priority. The Ignore rule gives priority to the entity by cutting short the scheduled change.  The Wait rule gives priority to the resource by ensuring that the scheduled change always occurs. If the resources are people, then using the Wait rule seems more appropriate.  Of course, if these rules do not meet the requirements of your modeling situation, you are always free to implement difference rules.  In the next section, the arrival schedules and capacity schedules are used to enhance the STEM Career Mixer modeling.
 
-### Enhancing the STEM Career Mixer Example
+### Enhancing the STEM Career Mixer Model
 
 In Chapter \@ref(processview), we discussed the implementation of a model for the
-STEM Career Fair Mixer of Example \@ref(exm:exSTEMCareerFair). In this section, we are going to embellish the system to add a few modeling issues that will make the
-model a bit more realistic in order to illustrate the non-stationary modeling constructs provided by the KSL.
+STEM Career Fair Mixer of Example \@ref(exm:exSTEMCareerFair). In this section, we put the non-stationary modeling concepts of the previous sections into practice by exploring an enhanced version of the STEM Career Fair Mixer system.
 
-The following issues will be addressed in the new model.
+***
+::: {.example #exSTEMEnhanced name="Non-Stationary STEM Career Fair Mixer"}
+In this example, we embellish the STEM Career Fair mixer model to add a few modeling issues that will make the model a bit more realistic in order to illustrate the non-stationary modeling constructs provided by the KSL.  The following issues will be addressed in the new model.
 
 -   In reality, those students that wander around before deciding to
     visit the recruiters actually visit the conversation area associated
@@ -1373,6 +1409,8 @@ time, we can assume the following:
 -   Any students already at the recruiting stations, either in line
     waiting, or talking with the recruiter are allowed to finish up
     their visit and then depart the mixer.
+:::
+***
 
 Based on additional observations and discussion with the STEM mixer
 organizer, the following changes can be assumed:
@@ -1641,6 +1679,11 @@ a sample average across 8 days. We cannot compute statistics over observations t
 
 A `ResponseInterval` permits collection of statistics over a specific interval, which might repeat. Often we want to collect statistics across many intervals according to some timed pattern.  The `ResponseSchedule` class facilitates the modeling of this situation.  
 
+<div class="figure" style="text-align: center">
+<img src="./figures2/ch7/ResponseInterval.png" alt="ResponseInterval Class" width="60%" height="60%" />
+<p class="caption">(\#fig:ResponseInterval)ResponseInterval Class</p>
+</div>
+
 The `ResponseSchedule` class allows the creation of a schedule that represents a list of
 intervals of time. The starting length of a schedule is
 0.0. The length of a schedule depends upon the intervals added to it.
@@ -1661,6 +1704,11 @@ The schedule can be repeated after the cycle length of the schedule is
 reached. The default is for the schedule to automatically repeat.
 Note that depending on the simulation run length only a portion of the
 scheduled intervals may be executed.
+
+<div class="figure" style="text-align: center">
+<img src="./figures2/ch7/ResponseSchedule.png" alt="ResponseSchedule and ResponseScheduleItem Classes" width="75%" height="75%" />
+<p class="caption">(\#fig:ResponseSchedule)ResponseSchedule and ResponseScheduleItem Classes</p>
+</div>
 
 The classic use case of this class is to collect statistics for each hour of the day.
 In this case, the user would use the `addIntervals()` method to add 24 intervals of 1 hour duration.
@@ -1862,7 +1910,9 @@ At the start of the replication, we need to schedule the closing of the mixer at
     }
 ```
 
-The `initialize()` method is used to schedule the closing of the mixer.  In the event action associated with the closing, we turn off the student generation process and we capture the required statistics about the state of the mixer at that time. Notice the action associated with the event generator.  In this case, we are not using an entity generator so that we can activate the process associated with whether the student visits the conversation area or not.  Let's first take a look at the process for those students that visit the conversation area. It is quite a lengthy process routine.  In the following code, first we define two properties that capture whether the student mixes (`isMixer`) and whether they leave early (`isLeaver`). Then, the mixing student process is defined.  In the definition, note that we do not add the process to the entity's process sequence.  This is because we will have another process (for non-mixing students) and we do not want the processes to automatically start. We controlled the starting of the processes within the event generator action.
+The `initialize()` method is used to schedule the closing of the mixer.  In the event action associated with the closing, we turn off the student generation process and we capture the required statistics about the state of the mixer at that time. Notice the action associated with the event generator.  In this case, we are not using an entity generator so that we can activate the process associated with whether the student visits the conversation area or not.  
+
+Let's first take a look at the process for those students that visit the conversation area. It is quite a lengthy process routine.  In the following code, first we define two properties that capture whether the student mixes (`isMixer`) and whether they leave early (`isLeaver`). Then, the mixing student process is defined.  In the definition, note that we do not add the process to the entity's process sequence.  This is because we will have another process (for non-mixing students) and we do not want the processes to automatically start. We controlled the starting of the processes within the event generator action.
 
 ```kt
     private inner class Student : Entity() {
@@ -1874,14 +1924,14 @@ The `initialize()` method is used to schedule the closing of the mixer.  In the 
             delay(walkToNameTags)
             // at name tag station
             if (isClosed) {
-                // mixture closed during walking
+                // mixer closed during walking
                 delay(walkFromNameTagsToExit)
                 departMixer(this@Student)
             } else {
                 // get name tags
                 delay(myNameTagTimeRV)
                 if (isClosed) {
-                    // mixture closed during name tag
+                    // mixer closed during name tag
                     delay(walkFromNameTagsToExit)
                     departMixer(this@Student)
                 } else {
@@ -1959,13 +2009,13 @@ The `decideRecruiter()` function compares the recruiting stations based on the n
             delay(walkToNameTags)
             // at name tag station
             if (isClosed) {
-                // mixture closed during walking
+                // mixer closed during walking
                 delay(walkFromNameTagsToExit)
                 departMixer(this@Student)
             } else {
                 delay(myNameTagTimeRV)
                 if (isClosed) {
-                    // mixture closed during name tag
+                    // mixer closed during name tag
                     delay(walkFromNameTagsToExit)
                     departMixer(this@Student)
                 } else {
@@ -2258,8 +2308,7 @@ priorities, different service times, and in the case of one type of
 customer, the desire (or ability) to renege from the system. You can find the completed model file for this section in the chapter files under the name, `WalkInHealthClinic.`
 
 ***
-
-::: {.example #exWinHCC name="Walk-in health care clinic"}
+::: {.example #exWinHCC name="Walk-in Health Care Clinic"}
 A walk-in care
 clinic has analyzed their operations and they have found that they can
 classify their walk-in patients into three categories: high priority
@@ -2276,7 +2325,6 @@ priority. Patients with higher priority are placed at the front of the
 line. Patients with the same priority are ordered based on a first-come
 first served basis. The service time distributions of the customers are
 given as follows.
-:::
 
   Priority   Service Time Distribution (in minutes)
   ---------- ----------------------------------------
@@ -2300,7 +2348,7 @@ clinic would like to estimate the following:
 2.  the probability that low priority patients balk
 
 3.  the probability that low priority patients renege
-
+:::
 ***
 
 **Solution to Example \@ref(exm:exWinHCC)**
@@ -2436,7 +2484,7 @@ balking and reneging, simulation allows for the modeling of more
 realistic types of queueing situations as well as even more complicated
 systems.  The next subsection will explore such a situation.
 
-### Modeling a Reorder Point, Reorder Quantity Inventory Policy 
+### Modeling a Reorder Point, Reorder Quantity Inventory Policy {#rqModel}
 
 In an inventory system, there are units of an item (e.g. computer
 printers, etc.) for which customers make demands. If the item is
@@ -2609,8 +2657,7 @@ these variables can be found in Chapter 6 of [@zipkin2000foundations].
 Let's take a look at an example that illustrates an inventory situation and simulates it using the KSL.
 
 ***
-
-::: {.example #exRQModel}
+::: {.example #exRQModel name="Reorder Point, Reorder Quantity Inventory Model"}
 An inventory manager is
 interested in understanding the cost and service trade-offs related to
 the inventory management of computer printers. Suppose customer demand
@@ -2623,7 +2670,6 @@ approximately \$0.15 to prepare and process the order. The inventory
 manager has set the reorder point to 1 units and the reorder quantity to
 2 units. Develop a simulation model that estimates the following
 quantities:
-:::
 
 1.  Average inventory on hand and back ordered
 
@@ -2631,7 +2677,7 @@ quantities:
 
 3.  Probability that an arriving customer does not have their demand
     immediately filled.
-    
+:::   
 ***
 
 The examples associated with this chapter provide for a framework to model this kind of situation as well as to expand to model other inventory policies. We start the modeling by first defining an interface to represent something that can fill demand.
@@ -2802,7 +2848,7 @@ Notice that the constructor for the class requires the reorder point and reorder
     }
 ```
 
-To fill the inventory, we simply need to check if the amount on hand is sufficient, if so, the amount if filled, if not the amount to back order is determined. Because the filling of demand or the back ordering of demand may cause the change of the inventory position, the inventory position must be checked to see if a replenishment is required. 
+To fill the inventory, we simply need to check if the amount on hand is sufficient, if so, the amount is filled, if not the amount to back order is determined. Because the filling of demand or the back ordering of demand may cause the change of the inventory position, the inventory position must be checked to see if a replenishment is required. 
 
 ```kt
     override fun fillInventory(demand: Int) {

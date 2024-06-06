@@ -6,7 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>6.2 The Process View | Simulation Modeling using the Kotlin Simulation Library (KSL)</title>
   <meta name="description" content="A book that illustrates the basics of using the KSL. The output format for this book is bookdown::gitbook." />
-  <meta name="generator" content="bookdown 0.34 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.39 and GitBook 2.6.7" />
 
   <meta property="og:title" content="6.2 The Process View | Simulation Modeling using the Kotlin Simulation Library (KSL)" />
   <meta property="og:type" content="book" />
@@ -23,7 +23,7 @@
 <meta name="author" content="Manuel D. Rossetti" />
 
 
-<meta name="date" content="2024-05-28" />
+<meta name="date" content="2024-06-06" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -58,7 +58,7 @@
 
 <style type="text/css">
 pre > code.sourceCode { white-space: pre; position: relative; }
-pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span { line-height: 1.25; }
 pre > code.sourceCode > span:empty { height: 1.2em; }
 .sourceCode { overflow: visible; }
 code.sourceCode > span { color: inherit; text-decoration: inherit; }
@@ -130,6 +130,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 div.csl-bib-body { }
 div.csl-entry {
   clear: both;
+  margin-bottom: 0em;
 }
 .hanging div.csl-entry {
   margin-left:2em;
@@ -200,7 +201,7 @@ div.csl-indent {
 <ul>
 <li class="chapter" data-level="2.2.1" data-path="rvg.html"><a href="rvg.html#basic-random-variate-generation"><i class="fa fa-check"></i><b>2.2.1</b> Basic Random Variate Generation</a></li>
 <li class="chapter" data-level="2.2.2" data-path="rvg.html"><a href="rvg.html#rvg_dists"><i class="fa fa-check"></i><b>2.2.2</b> Continuous and Discrete Random Variables</a></li>
-<li class="chapter" data-level="2.2.3" data-path="rvg.html"><a href="rvg.html#rvg_use"><i class="fa fa-check"></i><b>2.2.3</b> Creating and Using Random Variables</a></li>
+<li class="chapter" data-level="2.2.3" data-path="rvg.html"><a href="rvg.html#rvguse"><i class="fa fa-check"></i><b>2.2.3</b> Creating and Using Random Variables</a></li>
 <li class="chapter" data-level="2.2.4" data-path="rvg.html"><a href="rvg.html#functions-of-random-variables"><i class="fa fa-check"></i><b>2.2.4</b> Functions of Random Variables</a></li>
 </ul></li>
 <li class="chapter" data-level="2.3" data-path="probModels.html"><a href="probModels.html"><i class="fa fa-check"></i><b>2.3</b> Probability Distribution Models</a></li>
@@ -231,31 +232,30 @@ div.csl-indent {
 </ul></li>
 <li class="chapter" data-level="3.4" data-path="craps.html"><a href="craps.html"><i class="fa fa-check"></i><b>3.4</b> Simulating the Game of Craps</a></li>
 <li class="chapter" data-level="3.5" data-path="the-news-vendor-problem.html"><a href="the-news-vendor-problem.html"><i class="fa fa-check"></i><b>3.5</b> The News Vendor Problem</a></li>
-<li class="chapter" data-level="3.6" data-path="a-simple-inspection-process.html"><a href="a-simple-inspection-process.html"><i class="fa fa-check"></i><b>3.6</b> A Simple Inspection Process</a></li>
-<li class="chapter" data-level="3.7" data-path="stochastic-activity-networks.html"><a href="stochastic-activity-networks.html"><i class="fa fa-check"></i><b>3.7</b> Stochastic Activity Networks</a></li>
+<li class="chapter" data-level="3.6" data-path="ch3InsProcess.html"><a href="ch3InsProcess.html"><i class="fa fa-check"></i><b>3.6</b> A Simple Inspection Process</a></li>
+<li class="chapter" data-level="3.7" data-path="ch3SAN.html"><a href="ch3SAN.html"><i class="fa fa-check"></i><b>3.7</b> Stochastic Activity Networks</a></li>
 <li class="chapter" data-level="3.8" data-path="mcmExperiments.html"><a href="mcmExperiments.html"><i class="fa fa-check"></i><b>3.8</b> Monte-Carlo Experiments</a></li>
 <li class="chapter" data-level="3.9" data-path="summary-1.html"><a href="summary-1.html"><i class="fa fa-check"></i><b>3.9</b> Summary</a></li>
 <li class="chapter" data-level="3.10" data-path="exercises-2.html"><a href="exercises-2.html"><i class="fa fa-check"></i><b>3.10</b> Exercises</a></li>
 </ul></li>
 <li class="chapter" data-level="4" data-path="introDEDS.html"><a href="introDEDS.html"><i class="fa fa-check"></i><b>4</b> Introduction to Discrete Event Modeling</a>
 <ul>
-<li class="chapter" data-level="4.1" data-path="introDEDSIntro.html"><a href="introDEDSIntro.html"><i class="fa fa-check"></i><b>4.1</b> Introduction</a></li>
-<li class="chapter" data-level="4.2" data-path="introDEDSdeds.html"><a href="introDEDSdeds.html"><i class="fa fa-check"></i><b>4.2</b> Discrete-Event Dynamic Systems</a></li>
-<li class="chapter" data-level="4.3" data-path="HowDEDSClockWorks.html"><a href="HowDEDSClockWorks.html"><i class="fa fa-check"></i><b>4.3</b> How the Discrete-Event Clock Works</a></li>
-<li class="chapter" data-level="4.4" data-path="QHandExample.html"><a href="QHandExample.html"><i class="fa fa-check"></i><b>4.4</b> Simulating a Queueing System By Hand</a></li>
-<li class="chapter" data-level="4.5" data-path="introDEDSdedsKSL.html"><a href="introDEDSdedsKSL.html"><i class="fa fa-check"></i><b>4.5</b> Modeling DEDS in the KSL</a>
+<li class="chapter" data-level="4.1" data-path="introDEDSdeds.html"><a href="introDEDSdeds.html"><i class="fa fa-check"></i><b>4.1</b> Discrete-Event Dynamic Systems</a></li>
+<li class="chapter" data-level="4.2" data-path="HowDEDSClockWorks.html"><a href="HowDEDSClockWorks.html"><i class="fa fa-check"></i><b>4.2</b> How the Discrete-Event Clock Works</a></li>
+<li class="chapter" data-level="4.3" data-path="QHandExample.html"><a href="QHandExample.html"><i class="fa fa-check"></i><b>4.3</b> Simulating a Queueing System By Hand</a></li>
+<li class="chapter" data-level="4.4" data-path="introDEDSdedsKSL.html"><a href="introDEDSdedsKSL.html"><i class="fa fa-check"></i><b>4.4</b> Modeling DEDS in the KSL</a>
 <ul>
-<li class="chapter" data-level="4.5.1" data-path="introDEDSdedsKSL.html"><a href="introDEDSdedsKSL.html#event-scheduling"><i class="fa fa-check"></i><b>4.5.1</b> Event Scheduling</a></li>
-<li class="chapter" data-level="4.5.2" data-path="introDEDSdedsKSL.html"><a href="introDEDSdedsKSL.html#introDEDSschedExamples"><i class="fa fa-check"></i><b>4.5.2</b> Simple Event Scheduling Examples</a></li>
-<li class="chapter" data-level="4.5.3" data-path="introDEDSdedsKSL.html"><a href="introDEDSdedsKSL.html#introDEDSUpDown"><i class="fa fa-check"></i><b>4.5.3</b> Up and Down Component Example</a></li>
-<li class="chapter" data-level="4.5.4" data-path="introDEDSdedsKSL.html"><a href="introDEDSdedsKSL.html#introDEDSPharmacy"><i class="fa fa-check"></i><b>4.5.4</b> Modeling a Simple Queueing System</a></li>
-<li class="chapter" data-level="4.5.5" data-path="introDEDSdedsKSL.html"><a href="introDEDSdedsKSL.html#more-details-about-the-pharmacy-model-implementation"><i class="fa fa-check"></i><b>4.5.5</b> More Details About the Pharmacy Model Implementation</a></li>
+<li class="chapter" data-level="4.4.1" data-path="introDEDSdedsKSL.html"><a href="introDEDSdedsKSL.html#event-scheduling"><i class="fa fa-check"></i><b>4.4.1</b> Event Scheduling</a></li>
+<li class="chapter" data-level="4.4.2" data-path="introDEDSdedsKSL.html"><a href="introDEDSdedsKSL.html#introDEDSschedExamples"><i class="fa fa-check"></i><b>4.4.2</b> Simple Event Scheduling Examples</a></li>
+<li class="chapter" data-level="4.4.3" data-path="introDEDSdedsKSL.html"><a href="introDEDSdedsKSL.html#introDEDSUpDown"><i class="fa fa-check"></i><b>4.4.3</b> Up and Down Component Example</a></li>
+<li class="chapter" data-level="4.4.4" data-path="introDEDSdedsKSL.html"><a href="introDEDSdedsKSL.html#introDEDSPharmacy"><i class="fa fa-check"></i><b>4.4.4</b> Modeling a Simple Queueing System</a></li>
+<li class="chapter" data-level="4.4.5" data-path="introDEDSdedsKSL.html"><a href="introDEDSdedsKSL.html#more-details-about-the-pharmacy-model-implementation"><i class="fa fa-check"></i><b>4.4.5</b> More Details About the Pharmacy Model Implementation</a></li>
 </ul></li>
-<li class="chapter" data-level="4.6" data-path="enhancing-the-drive-through-pharmacy-model.html"><a href="enhancing-the-drive-through-pharmacy-model.html"><i class="fa fa-check"></i><b>4.6</b> Enhancing the Drive Through Pharmacy Model</a></li>
-<li class="chapter" data-level="4.7" data-path="introDEDSSummary.html"><a href="introDEDSSummary.html"><i class="fa fa-check"></i><b>4.7</b> Summary</a></li>
-<li class="chapter" data-level="4.8" data-path="exercises-3.html"><a href="exercises-3.html"><i class="fa fa-check"></i><b>4.8</b> Exercises</a></li>
+<li class="chapter" data-level="4.5" data-path="enhancing-the-drive-through-pharmacy-model.html"><a href="enhancing-the-drive-through-pharmacy-model.html"><i class="fa fa-check"></i><b>4.5</b> Enhancing the Drive Through Pharmacy Model</a></li>
+<li class="chapter" data-level="4.6" data-path="introDEDSSummary.html"><a href="introDEDSSummary.html"><i class="fa fa-check"></i><b>4.6</b> Summary</a></li>
+<li class="chapter" data-level="4.7" data-path="exercises-3.html"><a href="exercises-3.html"><i class="fa fa-check"></i><b>4.7</b> Exercises</a></li>
 </ul></li>
-<li class="chapter" data-level="5" data-path="simoa.html"><a href="simoa.html"><i class="fa fa-check"></i><b>5</b> Analyzing Simulation Output</a>
+<li class="chapter" data-level="5" data-path="simoa.html"><a href="simoa.html"><i class="fa fa-check"></i><b>5</b> Analyzing and Accessing Simulation Output</a>
 <ul>
 <li class="chapter" data-level="5.1" data-path="simoadatatypes.html"><a href="simoadatatypes.html"><i class="fa fa-check"></i><b>5.1</b> Types of Statistical Variables</a></li>
 <li class="chapter" data-level="5.2" data-path="simoasimtypes.html"><a href="simoasimtypes.html"><i class="fa fa-check"></i><b>5.2</b> Types of Simulation With Respect To Output Analysis</a></li>
@@ -277,10 +277,18 @@ div.csl-indent {
 <li class="chapter" data-level="5.7" data-path="simoacomparingSystems.html"><a href="simoacomparingSystems.html"><i class="fa fa-check"></i><b>5.7</b> Comparing System Configurations</a>
 <ul>
 <li class="chapter" data-level="5.7.1" data-path="simoacomparingSystems.html"><a href="simoacomparingSystems.html#simoacomparingSystems:two"><i class="fa fa-check"></i><b>5.7.1</b> Comparing Two Systems</a></li>
-<li class="chapter" data-level="5.7.2" data-path="simoacomparingSystems.html"><a href="simoacomparingSystems.html#simoacomparingSystemsMCB"><i class="fa fa-check"></i><b>5.7.2</b> Multiple Comparisons</a></li>
+<li class="chapter" data-level="5.7.2" data-path="simoacomparingSystems.html"><a href="simoacomparingSystems.html#simoacomparingSystemsMCB"><i class="fa fa-check"></i><b>5.7.2</b> Concepts for Comparing Systems</a></li>
+<li class="chapter" data-level="5.7.3" data-path="simoacomparingSystems.html"><a href="simoacomparingSystems.html#multiple-comparison-with-the-best-procedures-mcb"><i class="fa fa-check"></i><b>5.7.3</b> Multiple Comparison with the Best Procedures (MCB)</a></li>
+<li class="chapter" data-level="5.7.4" data-path="simoacomparingSystems.html"><a href="simoacomparingSystems.html#ch5Screening"><i class="fa fa-check"></i><b>5.7.4</b> Screening Procedures</a></li>
 </ul></li>
-<li class="chapter" data-level="5.8" data-path="simoasummary.html"><a href="simoasummary.html"><i class="fa fa-check"></i><b>5.8</b> Summary</a></li>
-<li class="chapter" data-level="5.9" data-path="exercises-4.html"><a href="exercises-4.html"><i class="fa fa-check"></i><b>5.9</b> Exercises</a></li>
+<li class="chapter" data-level="5.8" data-path="ch5Scenarios.html"><a href="ch5Scenarios.html"><i class="fa fa-check"></i><b>5.8</b> Simulating Many Scenarios</a>
+<ul>
+<li class="chapter" data-level="5.8.1" data-path="ch5Scenarios.html"><a href="ch5Scenarios.html#controlAntns"><i class="fa fa-check"></i><b>5.8.1</b> Control Annotations</a></li>
+<li class="chapter" data-level="5.8.2" data-path="ch5Scenarios.html"><a href="ch5Scenarios.html#random-variable-parameters"><i class="fa fa-check"></i><b>5.8.2</b> Random Variable Parameters</a></li>
+<li class="chapter" data-level="5.8.3" data-path="ch5Scenarios.html"><a href="ch5Scenarios.html#kslScenarios"><i class="fa fa-check"></i><b>5.8.3</b> Setting Up and Running Multiple Scenarios</a></li>
+</ul></li>
+<li class="chapter" data-level="5.9" data-path="simoasummary.html"><a href="simoasummary.html"><i class="fa fa-check"></i><b>5.9</b> Summary</a></li>
+<li class="chapter" data-level="5.10" data-path="exercises-4.html"><a href="exercises-4.html"><i class="fa fa-check"></i><b>5.10</b> Exercises</a></li>
 </ul></li>
 <li class="chapter" data-level="6" data-path="processview.html"><a href="processview.html"><i class="fa fa-check"></i><b>6</b> Process View Modeling Using the KSL</a>
 <ul>
@@ -312,12 +320,12 @@ div.csl-indent {
 <ul>
 <li class="chapter" data-level="7.2.1" data-path="modeling-non-stationary-systems.html"><a href="modeling-non-stationary-systems.html#ch7secNSPP"><i class="fa fa-check"></i><b>7.2.1</b> Non-Stationary Arrival Processes</a></li>
 <li class="chapter" data-level="7.2.2" data-path="modeling-non-stationary-systems.html"><a href="modeling-non-stationary-systems.html#modeling-resources-under-non-stationary-conditions"><i class="fa fa-check"></i><b>7.2.2</b> Modeling Resources Under Non-Stationary Conditions</a></li>
-<li class="chapter" data-level="7.2.3" data-path="modeling-non-stationary-systems.html"><a href="modeling-non-stationary-systems.html#enhancing-the-stem-career-mixer-example"><i class="fa fa-check"></i><b>7.2.3</b> Enhancing the STEM Career Mixer Example</a></li>
+<li class="chapter" data-level="7.2.3" data-path="modeling-non-stationary-systems.html"><a href="modeling-non-stationary-systems.html#enhancing-the-stem-career-mixer-model"><i class="fa fa-check"></i><b>7.2.3</b> Enhancing the STEM Career Mixer Model</a></li>
 </ul></li>
 <li class="chapter" data-level="7.3" data-path="examples-of-advanced-event-models.html"><a href="examples-of-advanced-event-models.html"><i class="fa fa-check"></i><b>7.3</b> Examples of Advanced Event Models</a>
 <ul>
 <li class="chapter" data-level="7.3.1" data-path="examples-of-advanced-event-models.html"><a href="examples-of-advanced-event-models.html#ch6s1sb4sub3"><i class="fa fa-check"></i><b>7.3.1</b> Modeling Balking and Reneging</a></li>
-<li class="chapter" data-level="7.3.2" data-path="examples-of-advanced-event-models.html"><a href="examples-of-advanced-event-models.html#modeling-a-reorder-point-reorder-quantity-inventory-policy"><i class="fa fa-check"></i><b>7.3.2</b> Modeling a Reorder Point, Reorder Quantity Inventory Policy</a></li>
+<li class="chapter" data-level="7.3.2" data-path="examples-of-advanced-event-models.html"><a href="examples-of-advanced-event-models.html#rqModel"><i class="fa fa-check"></i><b>7.3.2</b> Modeling a Reorder Point, Reorder Quantity Inventory Policy</a></li>
 </ul></li>
 <li class="chapter" data-level="7.4" data-path="summary-3.html"><a href="summary-3.html"><i class="fa fa-check"></i><b>7.4</b> Summary</a></li>
 <li class="chapter" data-level="7.5" data-path="exercises-6.html"><a href="exercises-6.html"><i class="fa fa-check"></i><b>7.5</b> Exercises</a></li>
@@ -432,11 +440,13 @@ div.csl-indent {
 <li class="chapter" data-level="D.1" data-path="the-outputdirectory-class-and-ksl-object.html"><a href="the-outputdirectory-class-and-ksl-object.html"><i class="fa fa-check"></i><b>D.1</b> The <code>OutputDirectory</code> Class and <code>KSL</code> Object</a></li>
 <li class="chapter" data-level="D.2" data-path="logging-options.html"><a href="logging-options.html"><i class="fa fa-check"></i><b>D.2</b> Logging Options</a></li>
 <li class="chapter" data-level="D.3" data-path="the-kslfileutil-object.html"><a href="the-kslfileutil-object.html"><i class="fa fa-check"></i><b>D.3</b> The <code>KSLFileUtil</code> Object</a></li>
-<li class="chapter" data-level="D.4" data-path="csv-excel-and-tabular-data-files.html"><a href="csv-excel-and-tabular-data-files.html"><i class="fa fa-check"></i><b>D.4</b> CSV, Excel, and Tabular Data Files</a></li>
-<li class="chapter" data-level="D.5" data-path="the-dataframeutil-object.html"><a href="the-dataframeutil-object.html"><i class="fa fa-check"></i><b>D.5</b> The <code>DataFrameUtil</code> Object</a></li>
+<li class="chapter" data-level="D.4" data-path="appDCSVEtc.html"><a href="appDCSVEtc.html"><i class="fa fa-check"></i><b>D.4</b> CSV, Excel, and Tabular Data Files</a></li>
+<li class="chapter" data-level="D.5" data-path="dfUtil.html"><a href="dfUtil.html"><i class="fa fa-check"></i><b>D.5</b> The <code>DataFrameUtil</code> Object</a></li>
 <li class="chapter" data-level="D.6" data-path="ksl-database-utilities.html"><a href="ksl-database-utilities.html"><i class="fa fa-check"></i><b>D.6</b> KSL Database Utilities</a></li>
 <li class="chapter" data-level="D.7" data-path="appUtilitiesArrays.html"><a href="appUtilitiesArrays.html"><i class="fa fa-check"></i><b>D.7</b> Array Utilities</a></li>
-<li class="chapter" data-level="D.8" data-path="appUtilitiesMisc.html"><a href="appUtilitiesMisc.html"><i class="fa fa-check"></i><b>D.8</b> Miscellaneous Utilities</a></li>
+<li class="chapter" data-level="D.8" data-path="appPlotting.html"><a href="appPlotting.html"><i class="fa fa-check"></i><b>D.8</b> KSL Plotting Utilities</a></li>
+<li class="chapter" data-level="D.9" data-path="appExpDesign.html"><a href="appExpDesign.html"><i class="fa fa-check"></i><b>D.9</b> Experimental Design Utilities</a></li>
+<li class="chapter" data-level="D.10" data-path="appUtilitiesMisc.html"><a href="appUtilitiesMisc.html"><i class="fa fa-check"></i><b>D.10</b> Miscellaneous Utilities</a></li>
 </ul></li>
 <li class="chapter" data-level="E" data-path="distributions.html"><a href="distributions.html"><i class="fa fa-check"></i><b>E</b> Distributions</a>
 <ul>
@@ -485,7 +495,7 @@ Figure 6.2: Drive Through Pharmacy
 </div>
 <p>The drive through pharmacy system can be conceptualized as a single
 server waiting line system, where the server is the pharmacist. An
-idealized representation of this system is shown in Figure <a href="pvIntro.html#fig:Ch5DriveThruPharmacy">6.2</a>. In Section <a href="introDEDSdedsKSL.html#introDEDSPharmacy">4.5.4</a> of Chapter <a href="introDEDS.html#introDEDS">4</a>, we presented an activity diagram for the pharmacy.</p>
+idealized representation of this system is shown in Figure <a href="pvIntro.html#fig:Ch5DriveThruPharmacy">6.2</a>. In Section <a href="introDEDSdedsKSL.html#introDEDSPharmacy">4.4.4</a> of Chapter <a href="introDEDS.html#introDEDS">4</a>, we presented an activity diagram for the pharmacy.</p>
 <div class="figure"><span style="display:block;" id="fig:Ch5DTPActivityDiagram"></span>
 <img src="figures2/ch4/ch4fig9.png" alt="Activity Diagram of Drive through Pharmacy" width="75%" height="75%" />
 <p class="caption">
@@ -494,78 +504,83 @@ Figure 6.3: Activity Diagram of Drive through Pharmacy
 </div>
 <p>The activity diagram is a basic description of the process experienced by the customer. In Chapter <a href="introDEDS.html#introDEDS">4</a>, we used the activity diagram to identify the arrival and end of service events. In this chapter, we will almost directly translate the activity diagram to KSL code.</p>
 <p>Here is the portion of the KSL code to model the process for the customers of the drive through pharmacy:</p>
-<div class="sourceCode" id="cb167"><pre class="sourceCode kt"><code class="sourceCode kotlin"><span id="cb167-1"><a href="pvIntro.html#cb167-1" tabindex="-1"></a>    <span class="kw">private</span> <span class="kw">inner</span> <span class="kw">class</span> Customer <span class="op">:</span> <span class="dt">Entity</span><span class="op">()</span> <span class="op">{</span></span>
-<span id="cb167-2"><a href="pvIntro.html#cb167-2" tabindex="-1"></a>        <span class="kw">val</span> <span class="va">pharmacyProcess</span><span class="op">:</span> KSLProcess <span class="op">=</span> process<span class="op">()</span> <span class="op">{</span></span>
-<span id="cb167-3"><a href="pvIntro.html#cb167-3" tabindex="-1"></a>            wip<span class="op">.</span>increment<span class="op">()</span></span>
-<span id="cb167-4"><a href="pvIntro.html#cb167-4" tabindex="-1"></a>            timeStamp <span class="op">=</span> time</span>
-<span id="cb167-5"><a href="pvIntro.html#cb167-5" tabindex="-1"></a>            <span class="kw">val</span> <span class="va">a</span> <span class="op">=</span> seize<span class="op">(</span>worker<span class="op">)</span></span>
-<span id="cb167-6"><a href="pvIntro.html#cb167-6" tabindex="-1"></a>            delay<span class="op">(</span>serviceTime<span class="op">)</span></span>
-<span id="cb167-7"><a href="pvIntro.html#cb167-7" tabindex="-1"></a>            release<span class="op">(</span>a<span class="op">)</span></span>
-<span id="cb167-8"><a href="pvIntro.html#cb167-8" tabindex="-1"></a>            timeInSystem<span class="op">.</span>value <span class="op">=</span> time <span class="op">-</span> timeStamp</span>
-<span id="cb167-9"><a href="pvIntro.html#cb167-9" tabindex="-1"></a>            wip<span class="op">.</span>decrement<span class="op">()</span></span>
-<span id="cb167-10"><a href="pvIntro.html#cb167-10" tabindex="-1"></a>            numCustomers<span class="op">.</span>increment<span class="op">()</span></span>
-<span id="cb167-11"><a href="pvIntro.html#cb167-11" tabindex="-1"></a>        <span class="op">}</span></span>
-<span id="cb167-12"><a href="pvIntro.html#cb167-12" tabindex="-1"></a>    <span class="op">}</span></span></code></pre></div>
-<p>The code defines a class called <code>Customer</code> which is a subclass of <code>Entity.</code> The <code>Entity</code> class is a base class that encapsulates the ability to experience processes. Now, notice the definition and initialization of the variable <code>pharmacyProcess</code> within the <code>Customer</code> class. This is a very special function builder that allows for the definition of a <em>coroutine</em> that defines the process for the entity. Coroutines are software constructs that permit the suspension and resumption of programming statements. Kotlin supports the use of coroutines for asynchronous programming. In this situation, the KSL leverages Kotlin’s coroutine library to implement the process view. Here is the entire KSL program.</p>
-<div class="sourceCode" id="cb168"><pre class="sourceCode kt"><code class="sourceCode kotlin"><span id="cb168-1"><a href="pvIntro.html#cb168-1" tabindex="-1"></a><span class="kw">class</span> DriveThroughPharmacy<span class="op">(</span></span>
-<span id="cb168-2"><a href="pvIntro.html#cb168-2" tabindex="-1"></a>    <span class="va">parent</span><span class="op">:</span> <span class="dt">ModelElement</span><span class="op">,</span></span>
-<span id="cb168-3"><a href="pvIntro.html#cb168-3" tabindex="-1"></a>    <span class="va">numPharmacists</span><span class="op">:</span> <span class="dt">Int</span> <span class="op">=</span> <span class="dv">1</span><span class="op">,</span></span>
-<span id="cb168-4"><a href="pvIntro.html#cb168-4" tabindex="-1"></a>    <span class="va">ad</span><span class="op">:</span> <span class="dt">RandomIfc</span> <span class="op">=</span> ExponentialRV<span class="op">(</span><span class="fl">1.0</span>, <span class="dv">1</span><span class="op">),</span></span>
-<span id="cb168-5"><a href="pvIntro.html#cb168-5" tabindex="-1"></a>    <span class="va">sd</span><span class="op">:</span> <span class="dt">RandomIfc</span> <span class="op">=</span> ExponentialRV<span class="op">(</span><span class="fl">0.5</span>, <span class="dv">2</span><span class="op">),</span></span>
-<span id="cb168-6"><a href="pvIntro.html#cb168-6" tabindex="-1"></a>    <span class="va">name</span><span class="op">:</span> <span class="dt">String</span><span class="op">?</span> <span class="op">=</span> null</span>
-<span id="cb168-7"><a href="pvIntro.html#cb168-7" tabindex="-1"></a><span class="op">)</span> <span class="op">:</span> <span class="dt">ProcessModel</span><span class="op">(</span><span class="va">parent</span><span class="op">,</span> <span class="va">name</span><span class="op">)</span> <span class="op">{</span></span>
-<span id="cb168-8"><a href="pvIntro.html#cb168-8" tabindex="-1"></a>    init <span class="op">{</span></span>
-<span id="cb168-9"><a href="pvIntro.html#cb168-9" tabindex="-1"></a>        require<span class="op">(</span>numPharmacists <span class="op">&gt;</span> <span class="dv">0</span><span class="op">)</span> <span class="op">{</span> <span class="st">&quot;The number of pharmacists must be &gt;= 1&quot;</span> <span class="op">}</span></span>
-<span id="cb168-10"><a href="pvIntro.html#cb168-10" tabindex="-1"></a>    <span class="op">}</span></span>
-<span id="cb168-11"><a href="pvIntro.html#cb168-11" tabindex="-1"></a></span>
-<span id="cb168-12"><a href="pvIntro.html#cb168-12" tabindex="-1"></a>    <span class="kw">private</span> <span class="kw">val</span> <span class="va">pharmacists</span><span class="op">:</span> ResourceWithQ <span class="op">=</span> ResourceWithQ<span class="op">(</span><span class="kw">this</span><span class="op">,</span> <span class="st">&quot;Pharmacists&quot;</span><span class="op">,</span> numPharmacists<span class="op">)</span></span>
-<span id="cb168-13"><a href="pvIntro.html#cb168-13" tabindex="-1"></a></span>
-<span id="cb168-14"><a href="pvIntro.html#cb168-14" tabindex="-1"></a>    <span class="kw">private</span> <span class="kw">var</span> <span class="va">serviceTime</span><span class="op">:</span> RandomVariable <span class="op">=</span> RandomVariable<span class="op">(</span><span class="kw">this</span><span class="op">,</span> sd<span class="op">)</span></span>
-<span id="cb168-15"><a href="pvIntro.html#cb168-15" tabindex="-1"></a>    <span class="kw">val</span> <span class="va">serviceRV</span><span class="op">:</span> RandomSourceCIfc</span>
-<span id="cb168-16"><a href="pvIntro.html#cb168-16" tabindex="-1"></a>        <span class="kw">get</span><span class="op">()</span> <span class="op">=</span> serviceTime</span>
-<span id="cb168-17"><a href="pvIntro.html#cb168-17" tabindex="-1"></a>    <span class="kw">private</span> <span class="kw">var</span> <span class="va">timeBetweenArrivals</span><span class="op">:</span> RandomVariable <span class="op">=</span> RandomVariable<span class="op">(</span>parent<span class="op">,</span> ad<span class="op">)</span></span>
-<span id="cb168-18"><a href="pvIntro.html#cb168-18" tabindex="-1"></a>    <span class="kw">val</span> <span class="va">arrivalRV</span><span class="op">:</span> RandomSourceCIfc</span>
-<span id="cb168-19"><a href="pvIntro.html#cb168-19" tabindex="-1"></a>        <span class="kw">get</span><span class="op">()</span> <span class="op">=</span> timeBetweenArrivals</span>
-<span id="cb168-20"><a href="pvIntro.html#cb168-20" tabindex="-1"></a>    <span class="kw">private</span> <span class="kw">val</span> <span class="va">wip</span><span class="op">:</span> TWResponse <span class="op">=</span> TWResponse<span class="op">(</span><span class="kw">this</span><span class="op">,</span> <span class="st">&quot;</span><span class="ss">${</span><span class="kw">this</span><span class="op">.</span>name<span class="ss">}</span><span class="st">:NumInSystem&quot;</span><span class="op">)</span></span>
-<span id="cb168-21"><a href="pvIntro.html#cb168-21" tabindex="-1"></a>    <span class="kw">val</span> <span class="va">numInSystem</span><span class="op">:</span> TWResponseCIfc</span>
-<span id="cb168-22"><a href="pvIntro.html#cb168-22" tabindex="-1"></a>        <span class="kw">get</span><span class="op">()</span> <span class="op">=</span> wip</span>
-<span id="cb168-23"><a href="pvIntro.html#cb168-23" tabindex="-1"></a>    <span class="kw">private</span> <span class="kw">val</span> <span class="va">timeInSystem</span><span class="op">:</span> Response <span class="op">=</span> Response<span class="op">(</span><span class="kw">this</span><span class="op">,</span> <span class="st">&quot;</span><span class="ss">${</span><span class="kw">this</span><span class="op">.</span>name<span class="ss">}</span><span class="st">:TimeInSystem&quot;</span><span class="op">)</span></span>
-<span id="cb168-24"><a href="pvIntro.html#cb168-24" tabindex="-1"></a>    <span class="kw">val</span> <span class="va">systemTime</span><span class="op">:</span> ResponseCIfc</span>
-<span id="cb168-25"><a href="pvIntro.html#cb168-25" tabindex="-1"></a>        <span class="kw">get</span><span class="op">()</span> <span class="op">=</span> timeInSystem</span>
-<span id="cb168-26"><a href="pvIntro.html#cb168-26" tabindex="-1"></a>    <span class="kw">private</span> <span class="kw">val</span> <span class="va">numCustomers</span><span class="op">:</span> Counter <span class="op">=</span> Counter<span class="op">(</span><span class="kw">this</span><span class="op">,</span> <span class="st">&quot;</span><span class="ss">${</span><span class="kw">this</span><span class="op">.</span>name<span class="ss">}</span><span class="st">:NumServed&quot;</span><span class="op">)</span></span>
-<span id="cb168-27"><a href="pvIntro.html#cb168-27" tabindex="-1"></a>    <span class="kw">val</span> <span class="va">numCustomersServed</span><span class="op">:</span> CounterCIfc</span>
-<span id="cb168-28"><a href="pvIntro.html#cb168-28" tabindex="-1"></a>        <span class="kw">get</span><span class="op">()</span> <span class="op">=</span> numCustomers</span>
-<span id="cb168-29"><a href="pvIntro.html#cb168-29" tabindex="-1"></a>    <span class="kw">private</span> <span class="kw">val</span> <span class="va">mySTGT4</span><span class="op">:</span> IndicatorResponse <span class="op">=</span> IndicatorResponse<span class="op">({</span> x <span class="op">-&gt;</span> x <span class="op">&gt;=</span> <span class="fl">4.0</span> <span class="op">},</span> timeInSystem<span class="op">,</span> <span class="st">&quot;SysTime &gt; 4.0 minutes&quot;</span><span class="op">)</span></span>
-<span id="cb168-30"><a href="pvIntro.html#cb168-30" tabindex="-1"></a>    <span class="kw">val</span> <span class="va">probSystemTimeGT4Minutes</span><span class="op">:</span> ResponseCIfc</span>
-<span id="cb168-31"><a href="pvIntro.html#cb168-31" tabindex="-1"></a>        <span class="kw">get</span><span class="op">()</span> <span class="op">=</span> mySTGT4</span>
-<span id="cb168-32"><a href="pvIntro.html#cb168-32" tabindex="-1"></a></span>
-<span id="cb168-33"><a href="pvIntro.html#cb168-33" tabindex="-1"></a>    <span class="kw">override</span> <span class="kw">fun</span> <span class="fu">initialize</span><span class="op">()</span> <span class="op">{</span></span>
-<span id="cb168-34"><a href="pvIntro.html#cb168-34" tabindex="-1"></a>        schedule<span class="op">(</span><span class="kw">this</span><span class="op">::</span>arrival<span class="op">,</span> timeBetweenArrivals<span class="op">)</span></span>
-<span id="cb168-35"><a href="pvIntro.html#cb168-35" tabindex="-1"></a>    <span class="op">}</span></span>
-<span id="cb168-36"><a href="pvIntro.html#cb168-36" tabindex="-1"></a></span>
-<span id="cb168-37"><a href="pvIntro.html#cb168-37" tabindex="-1"></a>    <span class="kw">private</span> <span class="kw">fun</span> <span class="fu">arrival</span><span class="op">(</span><span class="va">event</span><span class="op">:</span> <span class="dt">KSLEvent</span>&lt;<span class="va">Nothing</span>&gt;<span class="op">)</span> <span class="op">{</span></span>
-<span id="cb168-38"><a href="pvIntro.html#cb168-38" tabindex="-1"></a>        <span class="kw">val</span> <span class="va">c</span> <span class="op">=</span> Customer<span class="op">()</span></span>
-<span id="cb168-39"><a href="pvIntro.html#cb168-39" tabindex="-1"></a>        activate<span class="op">(</span>c<span class="op">.</span>pharmacyProcess<span class="op">)</span></span>
-<span id="cb168-40"><a href="pvIntro.html#cb168-40" tabindex="-1"></a>        schedule<span class="op">(</span><span class="kw">this</span><span class="op">::</span>arrival<span class="op">,</span> timeBetweenArrivals<span class="op">)</span></span>
-<span id="cb168-41"><a href="pvIntro.html#cb168-41" tabindex="-1"></a>    <span class="op">}</span></span>
-<span id="cb168-42"><a href="pvIntro.html#cb168-42" tabindex="-1"></a></span>
-<span id="cb168-43"><a href="pvIntro.html#cb168-43" tabindex="-1"></a>    <span class="kw">private</span> <span class="kw">inner</span> <span class="kw">class</span> Customer <span class="op">:</span> <span class="dt">Entity</span><span class="op">()</span> <span class="op">{</span></span>
-<span id="cb168-44"><a href="pvIntro.html#cb168-44" tabindex="-1"></a>        <span class="kw">val</span> <span class="va">pharmacyProcess</span><span class="op">:</span> KSLProcess <span class="op">=</span> process<span class="op">()</span> <span class="op">{</span></span>
-<span id="cb168-45"><a href="pvIntro.html#cb168-45" tabindex="-1"></a>            wip<span class="op">.</span>increment<span class="op">()</span></span>
-<span id="cb168-46"><a href="pvIntro.html#cb168-46" tabindex="-1"></a>            timeStamp <span class="op">=</span> time</span>
-<span id="cb168-47"><a href="pvIntro.html#cb168-47" tabindex="-1"></a>            <span class="kw">val</span> <span class="va">a</span> <span class="op">=</span> seize<span class="op">(</span>pharmacists<span class="op">)</span></span>
-<span id="cb168-48"><a href="pvIntro.html#cb168-48" tabindex="-1"></a>            delay<span class="op">(</span>serviceTime<span class="op">)</span></span>
-<span id="cb168-49"><a href="pvIntro.html#cb168-49" tabindex="-1"></a>            release<span class="op">(</span>a<span class="op">)</span></span>
-<span id="cb168-50"><a href="pvIntro.html#cb168-50" tabindex="-1"></a>            timeInSystem<span class="op">.</span>value <span class="op">=</span> time <span class="op">-</span> timeStamp</span>
-<span id="cb168-51"><a href="pvIntro.html#cb168-51" tabindex="-1"></a>            wip<span class="op">.</span>decrement<span class="op">()</span></span>
-<span id="cb168-52"><a href="pvIntro.html#cb168-52" tabindex="-1"></a>            numCustomers<span class="op">.</span>increment<span class="op">()</span></span>
-<span id="cb168-53"><a href="pvIntro.html#cb168-53" tabindex="-1"></a>        <span class="op">}</span></span>
-<span id="cb168-54"><a href="pvIntro.html#cb168-54" tabindex="-1"></a>    <span class="op">}</span></span>
-<span id="cb168-55"><a href="pvIntro.html#cb168-55" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
+<div class="sourceCode" id="cb182"><pre class="sourceCode kt"><code class="sourceCode kotlin"><span id="cb182-1"><a href="pvIntro.html#cb182-1" tabindex="-1"></a>    <span class="kw">private</span> <span class="kw">inner</span> <span class="kw">class</span> Customer <span class="op">:</span> <span class="dt">Entity</span><span class="op">()</span> <span class="op">{</span></span>
+<span id="cb182-2"><a href="pvIntro.html#cb182-2" tabindex="-1"></a>        <span class="kw">val</span> <span class="va">pharmacyProcess</span><span class="op">:</span> KSLProcess <span class="op">=</span> process<span class="op">()</span> <span class="op">{</span></span>
+<span id="cb182-3"><a href="pvIntro.html#cb182-3" tabindex="-1"></a>            wip<span class="op">.</span>increment<span class="op">()</span></span>
+<span id="cb182-4"><a href="pvIntro.html#cb182-4" tabindex="-1"></a>            timeStamp <span class="op">=</span> time</span>
+<span id="cb182-5"><a href="pvIntro.html#cb182-5" tabindex="-1"></a>            <span class="kw">val</span> <span class="va">a</span> <span class="op">=</span> seize<span class="op">(</span>worker<span class="op">)</span></span>
+<span id="cb182-6"><a href="pvIntro.html#cb182-6" tabindex="-1"></a>            delay<span class="op">(</span>serviceTime<span class="op">)</span></span>
+<span id="cb182-7"><a href="pvIntro.html#cb182-7" tabindex="-1"></a>            release<span class="op">(</span>a<span class="op">)</span></span>
+<span id="cb182-8"><a href="pvIntro.html#cb182-8" tabindex="-1"></a>            timeInSystem<span class="op">.</span>value <span class="op">=</span> time <span class="op">-</span> timeStamp</span>
+<span id="cb182-9"><a href="pvIntro.html#cb182-9" tabindex="-1"></a>            wip<span class="op">.</span>decrement<span class="op">()</span></span>
+<span id="cb182-10"><a href="pvIntro.html#cb182-10" tabindex="-1"></a>            numCustomers<span class="op">.</span>increment<span class="op">()</span></span>
+<span id="cb182-11"><a href="pvIntro.html#cb182-11" tabindex="-1"></a>        <span class="op">}</span></span>
+<span id="cb182-12"><a href="pvIntro.html#cb182-12" tabindex="-1"></a>    <span class="op">}</span></span></code></pre></div>
+<p>The code defines a class called <code>Customer</code> which is a subclass of <code>Entity.</code> The <code>Entity</code> class is a base class that encapsulates the ability to experience processes. Now, notice the definition and initialization of the variable <code>pharmacyProcess</code> within the <code>Customer</code> class. This is a very special function builder that allows for the definition of a <em>coroutine</em> that defines the process for the entity. Coroutines are software constructs that permit the suspension and resumption of programming statements. Kotlin supports the use of coroutines for asynchronous programming. In this situation, the KSL leverages Kotlin’s coroutine library to implement the process view.</p>
+<hr />
+<div class="example">
+<p><span id="exm:ch6ex1" class="example"><strong>Example 6.1  (Process View Model for Drive Through Pharmacy System) </strong></span>This example illustrates how to represent the previously presented drive through pharmacy model of Example <a href="introDEDSdedsKSL.html#exm:ch4ex4">4.4</a> in Section <a href="introDEDSdedsKSL.html#introDEDSPharmacy">4.4.4</a> using KSL process view constructs.</p>
+<div class="sourceCode" id="cb183"><pre class="sourceCode kt"><code class="sourceCode kotlin"><span id="cb183-1"><a href="pvIntro.html#cb183-1" tabindex="-1"></a><span class="kw">class</span> DriveThroughPharmacy<span class="op">(</span></span>
+<span id="cb183-2"><a href="pvIntro.html#cb183-2" tabindex="-1"></a>    <span class="va">parent</span><span class="op">:</span> <span class="dt">ModelElement</span><span class="op">,</span></span>
+<span id="cb183-3"><a href="pvIntro.html#cb183-3" tabindex="-1"></a>    <span class="va">numPharmacists</span><span class="op">:</span> <span class="dt">Int</span> <span class="op">=</span> <span class="dv">1</span><span class="op">,</span></span>
+<span id="cb183-4"><a href="pvIntro.html#cb183-4" tabindex="-1"></a>    <span class="va">ad</span><span class="op">:</span> <span class="dt">RandomIfc</span> <span class="op">=</span> ExponentialRV<span class="op">(</span><span class="fl">1.0</span>, <span class="dv">1</span><span class="op">),</span></span>
+<span id="cb183-5"><a href="pvIntro.html#cb183-5" tabindex="-1"></a>    <span class="va">sd</span><span class="op">:</span> <span class="dt">RandomIfc</span> <span class="op">=</span> ExponentialRV<span class="op">(</span><span class="fl">0.5</span>, <span class="dv">2</span><span class="op">),</span></span>
+<span id="cb183-6"><a href="pvIntro.html#cb183-6" tabindex="-1"></a>    <span class="va">name</span><span class="op">:</span> <span class="dt">String</span><span class="op">?</span> <span class="op">=</span> null</span>
+<span id="cb183-7"><a href="pvIntro.html#cb183-7" tabindex="-1"></a><span class="op">)</span> <span class="op">:</span> <span class="dt">ProcessModel</span><span class="op">(</span><span class="va">parent</span><span class="op">,</span> <span class="va">name</span><span class="op">)</span> <span class="op">{</span></span>
+<span id="cb183-8"><a href="pvIntro.html#cb183-8" tabindex="-1"></a>    init <span class="op">{</span></span>
+<span id="cb183-9"><a href="pvIntro.html#cb183-9" tabindex="-1"></a>        require<span class="op">(</span>numPharmacists <span class="op">&gt;</span> <span class="dv">0</span><span class="op">)</span> <span class="op">{</span> <span class="st">&quot;The number of pharmacists must be &gt;= 1&quot;</span> <span class="op">}</span></span>
+<span id="cb183-10"><a href="pvIntro.html#cb183-10" tabindex="-1"></a>    <span class="op">}</span></span>
+<span id="cb183-11"><a href="pvIntro.html#cb183-11" tabindex="-1"></a></span>
+<span id="cb183-12"><a href="pvIntro.html#cb183-12" tabindex="-1"></a>    <span class="kw">private</span> <span class="kw">val</span> <span class="va">pharmacists</span><span class="op">:</span> ResourceWithQ <span class="op">=</span> ResourceWithQ<span class="op">(</span><span class="kw">this</span><span class="op">,</span> <span class="st">&quot;Pharmacists&quot;</span><span class="op">,</span> numPharmacists<span class="op">)</span></span>
+<span id="cb183-13"><a href="pvIntro.html#cb183-13" tabindex="-1"></a></span>
+<span id="cb183-14"><a href="pvIntro.html#cb183-14" tabindex="-1"></a>    <span class="kw">private</span> <span class="kw">var</span> <span class="va">serviceTime</span><span class="op">:</span> RandomVariable <span class="op">=</span> RandomVariable<span class="op">(</span><span class="kw">this</span><span class="op">,</span> sd<span class="op">)</span></span>
+<span id="cb183-15"><a href="pvIntro.html#cb183-15" tabindex="-1"></a>    <span class="kw">val</span> <span class="va">serviceRV</span><span class="op">:</span> RandomSourceCIfc</span>
+<span id="cb183-16"><a href="pvIntro.html#cb183-16" tabindex="-1"></a>        <span class="kw">get</span><span class="op">()</span> <span class="op">=</span> serviceTime</span>
+<span id="cb183-17"><a href="pvIntro.html#cb183-17" tabindex="-1"></a>    <span class="kw">private</span> <span class="kw">var</span> <span class="va">timeBetweenArrivals</span><span class="op">:</span> RandomVariable <span class="op">=</span> RandomVariable<span class="op">(</span>parent<span class="op">,</span> ad<span class="op">)</span></span>
+<span id="cb183-18"><a href="pvIntro.html#cb183-18" tabindex="-1"></a>    <span class="kw">val</span> <span class="va">arrivalRV</span><span class="op">:</span> RandomSourceCIfc</span>
+<span id="cb183-19"><a href="pvIntro.html#cb183-19" tabindex="-1"></a>        <span class="kw">get</span><span class="op">()</span> <span class="op">=</span> timeBetweenArrivals</span>
+<span id="cb183-20"><a href="pvIntro.html#cb183-20" tabindex="-1"></a>    <span class="kw">private</span> <span class="kw">val</span> <span class="va">wip</span><span class="op">:</span> TWResponse <span class="op">=</span> TWResponse<span class="op">(</span><span class="kw">this</span><span class="op">,</span> <span class="st">&quot;</span><span class="ss">${</span><span class="kw">this</span><span class="op">.</span>name<span class="ss">}</span><span class="st">:NumInSystem&quot;</span><span class="op">)</span></span>
+<span id="cb183-21"><a href="pvIntro.html#cb183-21" tabindex="-1"></a>    <span class="kw">val</span> <span class="va">numInSystem</span><span class="op">:</span> TWResponseCIfc</span>
+<span id="cb183-22"><a href="pvIntro.html#cb183-22" tabindex="-1"></a>        <span class="kw">get</span><span class="op">()</span> <span class="op">=</span> wip</span>
+<span id="cb183-23"><a href="pvIntro.html#cb183-23" tabindex="-1"></a>    <span class="kw">private</span> <span class="kw">val</span> <span class="va">timeInSystem</span><span class="op">:</span> Response <span class="op">=</span> Response<span class="op">(</span><span class="kw">this</span><span class="op">,</span> <span class="st">&quot;</span><span class="ss">${</span><span class="kw">this</span><span class="op">.</span>name<span class="ss">}</span><span class="st">:TimeInSystem&quot;</span><span class="op">)</span></span>
+<span id="cb183-24"><a href="pvIntro.html#cb183-24" tabindex="-1"></a>    <span class="kw">val</span> <span class="va">systemTime</span><span class="op">:</span> ResponseCIfc</span>
+<span id="cb183-25"><a href="pvIntro.html#cb183-25" tabindex="-1"></a>        <span class="kw">get</span><span class="op">()</span> <span class="op">=</span> timeInSystem</span>
+<span id="cb183-26"><a href="pvIntro.html#cb183-26" tabindex="-1"></a>    <span class="kw">private</span> <span class="kw">val</span> <span class="va">numCustomers</span><span class="op">:</span> Counter <span class="op">=</span> Counter<span class="op">(</span><span class="kw">this</span><span class="op">,</span> <span class="st">&quot;</span><span class="ss">${</span><span class="kw">this</span><span class="op">.</span>name<span class="ss">}</span><span class="st">:NumServed&quot;</span><span class="op">)</span></span>
+<span id="cb183-27"><a href="pvIntro.html#cb183-27" tabindex="-1"></a>    <span class="kw">val</span> <span class="va">numCustomersServed</span><span class="op">:</span> CounterCIfc</span>
+<span id="cb183-28"><a href="pvIntro.html#cb183-28" tabindex="-1"></a>        <span class="kw">get</span><span class="op">()</span> <span class="op">=</span> numCustomers</span>
+<span id="cb183-29"><a href="pvIntro.html#cb183-29" tabindex="-1"></a>    <span class="kw">private</span> <span class="kw">val</span> <span class="va">mySTGT4</span><span class="op">:</span> IndicatorResponse <span class="op">=</span> IndicatorResponse<span class="op">({</span> x <span class="op">-&gt;</span> x <span class="op">&gt;=</span> <span class="fl">4.0</span> <span class="op">},</span> timeInSystem<span class="op">,</span> <span class="st">&quot;SysTime &gt; 4.0 minutes&quot;</span><span class="op">)</span></span>
+<span id="cb183-30"><a href="pvIntro.html#cb183-30" tabindex="-1"></a>    <span class="kw">val</span> <span class="va">probSystemTimeGT4Minutes</span><span class="op">:</span> ResponseCIfc</span>
+<span id="cb183-31"><a href="pvIntro.html#cb183-31" tabindex="-1"></a>        <span class="kw">get</span><span class="op">()</span> <span class="op">=</span> mySTGT4</span>
+<span id="cb183-32"><a href="pvIntro.html#cb183-32" tabindex="-1"></a></span>
+<span id="cb183-33"><a href="pvIntro.html#cb183-33" tabindex="-1"></a>    <span class="kw">override</span> <span class="kw">fun</span> <span class="fu">initialize</span><span class="op">()</span> <span class="op">{</span></span>
+<span id="cb183-34"><a href="pvIntro.html#cb183-34" tabindex="-1"></a>        schedule<span class="op">(</span><span class="kw">this</span><span class="op">::</span>arrival<span class="op">,</span> timeBetweenArrivals<span class="op">)</span></span>
+<span id="cb183-35"><a href="pvIntro.html#cb183-35" tabindex="-1"></a>    <span class="op">}</span></span>
+<span id="cb183-36"><a href="pvIntro.html#cb183-36" tabindex="-1"></a></span>
+<span id="cb183-37"><a href="pvIntro.html#cb183-37" tabindex="-1"></a>    <span class="kw">private</span> <span class="kw">fun</span> <span class="fu">arrival</span><span class="op">(</span><span class="va">event</span><span class="op">:</span> <span class="dt">KSLEvent</span>&lt;<span class="va">Nothing</span>&gt;<span class="op">)</span> <span class="op">{</span></span>
+<span id="cb183-38"><a href="pvIntro.html#cb183-38" tabindex="-1"></a>        <span class="kw">val</span> <span class="va">c</span> <span class="op">=</span> Customer<span class="op">()</span></span>
+<span id="cb183-39"><a href="pvIntro.html#cb183-39" tabindex="-1"></a>        activate<span class="op">(</span>c<span class="op">.</span>pharmacyProcess<span class="op">)</span></span>
+<span id="cb183-40"><a href="pvIntro.html#cb183-40" tabindex="-1"></a>        schedule<span class="op">(</span><span class="kw">this</span><span class="op">::</span>arrival<span class="op">,</span> timeBetweenArrivals<span class="op">)</span></span>
+<span id="cb183-41"><a href="pvIntro.html#cb183-41" tabindex="-1"></a>    <span class="op">}</span></span>
+<span id="cb183-42"><a href="pvIntro.html#cb183-42" tabindex="-1"></a></span>
+<span id="cb183-43"><a href="pvIntro.html#cb183-43" tabindex="-1"></a>    <span class="kw">private</span> <span class="kw">inner</span> <span class="kw">class</span> Customer <span class="op">:</span> <span class="dt">Entity</span><span class="op">()</span> <span class="op">{</span></span>
+<span id="cb183-44"><a href="pvIntro.html#cb183-44" tabindex="-1"></a>        <span class="kw">val</span> <span class="va">pharmacyProcess</span><span class="op">:</span> KSLProcess <span class="op">=</span> process<span class="op">()</span> <span class="op">{</span></span>
+<span id="cb183-45"><a href="pvIntro.html#cb183-45" tabindex="-1"></a>            wip<span class="op">.</span>increment<span class="op">()</span></span>
+<span id="cb183-46"><a href="pvIntro.html#cb183-46" tabindex="-1"></a>            timeStamp <span class="op">=</span> time</span>
+<span id="cb183-47"><a href="pvIntro.html#cb183-47" tabindex="-1"></a>            <span class="kw">val</span> <span class="va">a</span> <span class="op">=</span> seize<span class="op">(</span>pharmacists<span class="op">)</span></span>
+<span id="cb183-48"><a href="pvIntro.html#cb183-48" tabindex="-1"></a>            delay<span class="op">(</span>serviceTime<span class="op">)</span></span>
+<span id="cb183-49"><a href="pvIntro.html#cb183-49" tabindex="-1"></a>            release<span class="op">(</span>a<span class="op">)</span></span>
+<span id="cb183-50"><a href="pvIntro.html#cb183-50" tabindex="-1"></a>            timeInSystem<span class="op">.</span>value <span class="op">=</span> time <span class="op">-</span> timeStamp</span>
+<span id="cb183-51"><a href="pvIntro.html#cb183-51" tabindex="-1"></a>            wip<span class="op">.</span>decrement<span class="op">()</span></span>
+<span id="cb183-52"><a href="pvIntro.html#cb183-52" tabindex="-1"></a>            numCustomers<span class="op">.</span>increment<span class="op">()</span></span>
+<span id="cb183-53"><a href="pvIntro.html#cb183-53" tabindex="-1"></a>        <span class="op">}</span></span>
+<span id="cb183-54"><a href="pvIntro.html#cb183-54" tabindex="-1"></a>    <span class="op">}</span></span>
+<span id="cb183-55"><a href="pvIntro.html#cb183-55" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
+</div>
+<hr />
 <p>Most of this code should look very familiar. It includes the definition of the random variables to model the time between arrivals and service time. It also defines the responses to collect statistics on the performance of the system. In addition, it uses the functional notation for referencing functional interfaces to schedule the arrival events. Within the arrival event, the customer is created and it is told to <code>activate()</code> its process.</p>
-<p>The process called <code>pharmacyProcess</code> has a nice linear flow and avoids the event call back approach of the event-view. The first line <code>wip.increment()</code> simply increments the number of customers in the system. The next line involving <code>timeStamp</code> assigns the arrival time of the customer. Then, the customer attempts to seize the pharmacist. If the pharmacist is available, it is allocated to the customer. The variable “a” holds the allocation information. If the pharmacists is not available, the customer is held in a queue related to the seize call. The <code>seize()</code> call is a <em>suspending</em> function. This is the magic of coroutines. The execution of the coroutine literally stops at the seize call if the pharmacist is not available. When the pharmacist becomes available, the customer (and suspended code) resumes moving through the process. The <code>delay()</code> is another <em>suspending</em> function. The delay function essentially schedules an event to represent the service time and when the event occurs the coroutine is resumed. The <code>release()</code> deallocates the resource from the customer. The final three lines simply collect statistical quantities.</p>
+<p>The process called <code>pharmacyProcess</code> has a nice linear flow and avoids the event call back approach of the event-view. The first line <code>wip.increment()</code> simply increments the number of customers in the system. The next line involving <code>timeStamp</code> assigns the arrival time of the customer. Then, the customer attempts to seize the pharmacist. If the pharmacist is available, it is allocated to the customer. The variable “a” holds the allocation information. If a pharmacist is not available, the customer is held in a queue related to the invocation of the <code>seize()</code> function. The <code>seize()</code> function is a <em>suspending</em> function. This is the magic of coroutines. The execution of the coroutine literally stops at within the <code>seize()</code> function if the pharmacist is not available. When the pharmacist becomes available, the customer (and suspended code) resumes moving through the process. The <code>delay()</code> function is another <em>suspending</em> function. The delay function essentially schedules an event to represent the service time and when the event occurs the coroutine is resumed. The <code>release()</code> deallocates the resource from the customer. The final three lines simply collect statistical quantities.</p>
 <p>It is critical to understand that 1) there are many entities created via the <code>arrival</code> method, 2) they all experience the same process, and 3) they may all be at different points of their processes at different times. Since many customers are active at the same time (in a pseudo-parallelism) they compete for the pharmacist. This causes queueing. This process view depends on shared state. The primary shared state is via the resource. This is a new construct and was defined with the following line.</p>
-<div class="sourceCode" id="cb169"><pre class="sourceCode kt"><code class="sourceCode kotlin"><span id="cb169-1"><a href="pvIntro.html#cb169-1" tabindex="-1"></a><span class="kw">private</span> <span class="kw">val</span> <span class="va">pharmacists</span><span class="op">:</span> ResourceWithQ <span class="op">=</span> ResourceWithQ<span class="op">(</span><span class="kw">this</span><span class="op">,</span> <span class="st">&quot;Pharmacists&quot;</span><span class="op">,</span> numPharmacists<span class="op">)</span></span></code></pre></div>
+<div class="sourceCode" id="cb184"><pre class="sourceCode kt"><code class="sourceCode kotlin"><span id="cb184-1"><a href="pvIntro.html#cb184-1" tabindex="-1"></a><span class="kw">private</span> <span class="kw">val</span> <span class="va">pharmacists</span><span class="op">:</span> ResourceWithQ <span class="op">=</span> ResourceWithQ<span class="op">(</span><span class="kw">this</span><span class="op">,</span> <span class="st">&quot;Pharmacists&quot;</span><span class="op">,</span> numPharmacists<span class="op">)</span></span></code></pre></div>
 <p>A <code>ResourceWithQ</code> is a construct that can be used in <code>ProcessModel</code> instances. These resources track the number of entities that are allocated and can hold them in a common queue while they wait. The ability to describe processes in this manner is what makes the process view very popular and often serves as the basis for commercial software. The KSL provides this view in open-source code.</p>
 <p>If we run the code, we get the following results.</p>
 <pre><code>Half-Width Statistical Summary Report - Confidence Level (95.000)% 
@@ -580,13 +595,13 @@ PharmacyQ:TimeInQ                          30          2.9961          0.1235
 SysTime &gt; 4.0 minutes                      30          0.5136          0.0071 
 Num Served                                 30       2513.2667         17.6883 
 ----------------------------------------------------------------------------------------- </code></pre>
-<p>If you look back at the previous results, you will see that these results are exactly the same! Thus, we can model the pharmacy with either the event-view or the process view with confidence.</p>
+<p>If you look back at the previous results, you will see that these results are exactly the same! Thus, we can model the pharmacy with either the event view or the process view with confidence.</p>
 <p>Before discussing additional functionality enabled within the <code>KSLProcessBuilder,</code> we present some functionality that facilitates the creation and activation of entities. Notice that within the pharmacy model that after an customer is created to start its process we must schedule its activation.</p>
-<div class="sourceCode" id="cb171"><pre class="sourceCode kt"><code class="sourceCode kotlin"><span id="cb171-1"><a href="pvIntro.html#cb171-1" tabindex="-1"></a>    <span class="kw">private</span> <span class="kw">fun</span> <span class="fu">arrival</span><span class="op">(</span><span class="va">event</span><span class="op">:</span> <span class="dt">KSLEvent</span>&lt;<span class="va">Nothing</span>&gt;<span class="op">)</span> <span class="op">{</span></span>
-<span id="cb171-2"><a href="pvIntro.html#cb171-2" tabindex="-1"></a>        <span class="kw">val</span> <span class="va">c</span> <span class="op">=</span> Customer<span class="op">()</span></span>
-<span id="cb171-3"><a href="pvIntro.html#cb171-3" tabindex="-1"></a>        activate<span class="op">(</span>c<span class="op">.</span>pharmacyProcess<span class="op">)</span></span>
-<span id="cb171-4"><a href="pvIntro.html#cb171-4" tabindex="-1"></a>        schedule<span class="op">(</span><span class="kw">this</span><span class="op">::</span>arrival<span class="op">,</span> timeBetweenArrivals<span class="op">)</span></span>
-<span id="cb171-5"><a href="pvIntro.html#cb171-5" tabindex="-1"></a>    <span class="op">}</span></span></code></pre></div>
+<div class="sourceCode" id="cb186"><pre class="sourceCode kt"><code class="sourceCode kotlin"><span id="cb186-1"><a href="pvIntro.html#cb186-1" tabindex="-1"></a>    <span class="kw">private</span> <span class="kw">fun</span> <span class="fu">arrival</span><span class="op">(</span><span class="va">event</span><span class="op">:</span> <span class="dt">KSLEvent</span>&lt;<span class="va">Nothing</span>&gt;<span class="op">)</span> <span class="op">{</span></span>
+<span id="cb186-2"><a href="pvIntro.html#cb186-2" tabindex="-1"></a>        <span class="kw">val</span> <span class="va">c</span> <span class="op">=</span> Customer<span class="op">()</span></span>
+<span id="cb186-3"><a href="pvIntro.html#cb186-3" tabindex="-1"></a>        activate<span class="op">(</span>c<span class="op">.</span>pharmacyProcess<span class="op">)</span></span>
+<span id="cb186-4"><a href="pvIntro.html#cb186-4" tabindex="-1"></a>        schedule<span class="op">(</span><span class="kw">this</span><span class="op">::</span>arrival<span class="op">,</span> timeBetweenArrivals<span class="op">)</span></span>
+<span id="cb186-5"><a href="pvIntro.html#cb186-5" tabindex="-1"></a>    <span class="op">}</span></span></code></pre></div>
 <p>This is so common the KSL provides a class called <code>EntityGenerator</code> that automates this process. The <code>EntityGenerator</code> class subclassed from <code>EventGenerator</code> and allows for a creation pattern to be specified. Figure <a href="pvIntro.html#fig:Ch5EntityGenerator">6.4</a> illustrates this relationship.</p>
 <div class="figure" style="text-align: center"><span style="display:block;" id="fig:Ch5EntityGenerator"></span>
 <img src="figures2/ch6/EntityGenerator.png" alt="Overview of the ProcessModel Class" width="50%" height="50%" />
@@ -595,56 +610,68 @@ Figure 6.4: Overview of the ProcessModel Class
 </p>
 </div>
 <p>The <code>EntityGenerator</code> class is defined as an inner class of <code>ProcessModel.</code> Reviewing its code is useful.</p>
-<div class="sourceCode" id="cb172"><pre class="sourceCode kt"><code class="sourceCode kotlin"><span id="cb172-1"><a href="pvIntro.html#cb172-1" tabindex="-1"></a>    <span class="kw">protected</span> <span class="kw">inner</span> <span class="kw">class</span> EntityGenerator<span class="op">&lt;</span><span class="dt">T</span> <span class="op">:</span> <span class="dt">Entity</span><span class="op">&gt;(</span></span>
-<span id="cb172-2"><a href="pvIntro.html#cb172-2" tabindex="-1"></a>        <span class="kw">private</span> <span class="kw">val</span> <span class="va">entityCreator</span><span class="op">:</span> <span class="op">()</span> <span class="op">-&gt;</span> <span class="dt">T</span><span class="op">,</span></span>
-<span id="cb172-3"><a href="pvIntro.html#cb172-3" tabindex="-1"></a>        <span class="va">timeUntilTheFirstEntity</span><span class="op">:</span> <span class="dt">RandomIfc</span> <span class="op">=</span> ConstantRV<span class="op">.</span>ZERO<span class="op">,</span></span>
-<span id="cb172-4"><a href="pvIntro.html#cb172-4" tabindex="-1"></a>        <span class="va">timeBtwEvents</span><span class="op">:</span> <span class="dt">RandomIfc</span> <span class="op">=</span> ConstantRV<span class="op">.</span>POSITIVE_INFINITY<span class="op">,</span></span>
-<span id="cb172-5"><a href="pvIntro.html#cb172-5" tabindex="-1"></a>        <span class="va">maxNumberOfEvents</span><span class="op">:</span> <span class="dt">Long</span> <span class="op">=</span> Long<span class="op">.</span>MAX_VALUE<span class="op">,</span></span>
-<span id="cb172-6"><a href="pvIntro.html#cb172-6" tabindex="-1"></a>        <span class="va">timeOfTheLastEvent</span><span class="op">:</span> <span class="dt">Double</span> <span class="op">=</span> Double<span class="op">.</span>POSITIVE_INFINITY<span class="op">,</span></span>
-<span id="cb172-7"><a href="pvIntro.html#cb172-7" tabindex="-1"></a>        <span class="kw">var</span> <span class="va">activationPriority</span><span class="op">:</span> <span class="dt">Int</span> <span class="op">=</span> KSLEvent<span class="op">.</span>DEFAULT_PRIORITY + <span class="dv">1</span><span class="op">,</span></span>
-<span id="cb172-8"><a href="pvIntro.html#cb172-8" tabindex="-1"></a>        <span class="va">name</span><span class="op">:</span> <span class="dt">String</span><span class="op">?</span> <span class="op">=</span> null</span>
-<span id="cb172-9"><a href="pvIntro.html#cb172-9" tabindex="-1"></a>    <span class="op">)</span> <span class="op">:</span> <span class="dt">EventGenerator</span><span class="op">(</span></span>
-<span id="cb172-10"><a href="pvIntro.html#cb172-10" tabindex="-1"></a>        <span class="va">this</span>@<span class="va">ProcessModel</span><span class="op">,</span> <span class="va">null</span><span class="op">,</span> <span class="va">timeUntilTheFirstEntity</span><span class="op">,</span></span>
-<span id="cb172-11"><a href="pvIntro.html#cb172-11" tabindex="-1"></a>        <span class="va">timeBtwEvents</span><span class="op">,</span> <span class="va">maxNumberOfEvents</span><span class="op">,</span> <span class="va">timeOfTheLastEvent</span><span class="op">,</span> <span class="va">name</span></span>
-<span id="cb172-12"><a href="pvIntro.html#cb172-12" tabindex="-1"></a>    <span class="op">)</span> <span class="op">{</span></span>
-<span id="cb172-13"><a href="pvIntro.html#cb172-13" tabindex="-1"></a>        <span class="kw">override</span> <span class="kw">fun</span> <span class="fu">generate</span><span class="op">()</span> <span class="op">{</span></span>
-<span id="cb172-14"><a href="pvIntro.html#cb172-14" tabindex="-1"></a>            <span class="kw">val</span> <span class="va">entity</span> <span class="op">=</span> entityCreator<span class="op">()</span></span>
-<span id="cb172-15"><a href="pvIntro.html#cb172-15" tabindex="-1"></a>            startProcessSequence<span class="op">(</span>entity<span class="op">,</span> priority <span class="op">=</span> activationPriority<span class="op">)</span></span>
-<span id="cb172-16"><a href="pvIntro.html#cb172-16" tabindex="-1"></a>        <span class="op">}</span></span>
-<span id="cb172-17"><a href="pvIntro.html#cb172-17" tabindex="-1"></a></span>
-<span id="cb172-18"><a href="pvIntro.html#cb172-18" tabindex="-1"></a>    <span class="op">}</span></span></code></pre></div>
-<p>As shown in the code, the key additional functionality is that the <code>EntityGenerator</code> takes in a <em>function</em> that knows how to create subclasses of type <code>Entity.</code> The simpliest way to provide such a function is to provide a reference to the subclass’s constructor function. This is illustrated in the following simplified re-do of the pharmacy model.</p>
-<div class="sourceCode" id="cb173"><pre class="sourceCode kt"><code class="sourceCode kotlin"><span id="cb173-1"><a href="pvIntro.html#cb173-1" tabindex="-1"></a><span class="kw">class</span> EntityGeneratorExample<span class="op">(</span><span class="va">parent</span><span class="op">:</span> <span class="dt">ModelElement</span><span class="op">,</span> <span class="va">name</span><span class="op">:</span> <span class="dt">String</span><span class="op">?</span> <span class="op">=</span> null<span class="op">)</span> <span class="op">:</span> <span class="dt">ProcessModel</span><span class="op">(</span><span class="va">parent</span><span class="op">,</span> <span class="va">name</span><span class="op">)</span> <span class="op">{</span></span>
-<span id="cb173-2"><a href="pvIntro.html#cb173-2" tabindex="-1"></a></span>
-<span id="cb173-3"><a href="pvIntro.html#cb173-3" tabindex="-1"></a>    <span class="kw">private</span> <span class="kw">val</span> <span class="va">worker</span><span class="op">:</span> ResourceWithQ <span class="op">=</span> ResourceWithQ<span class="op">(</span><span class="kw">this</span><span class="op">,</span> <span class="st">&quot;worker&quot;</span><span class="op">)</span></span>
-<span id="cb173-4"><a href="pvIntro.html#cb173-4" tabindex="-1"></a>    <span class="kw">private</span> <span class="kw">val</span> <span class="va">tba</span> <span class="op">=</span> ExponentialRV<span class="op">(</span><span class="fl">6.0</span><span class="op">,</span> <span class="dv">1</span><span class="op">)</span></span>
-<span id="cb173-5"><a href="pvIntro.html#cb173-5" tabindex="-1"></a>    <span class="kw">private</span> <span class="kw">val</span> <span class="va">st</span> <span class="op">=</span> RandomVariable<span class="op">(</span><span class="kw">this</span><span class="op">,</span> ExponentialRV<span class="op">(</span><span class="fl">3.0</span><span class="op">,</span> <span class="dv">2</span><span class="op">))</span></span>
-<span id="cb173-6"><a href="pvIntro.html#cb173-6" tabindex="-1"></a>    <span class="kw">private</span> <span class="kw">val</span> <span class="va">wip</span> <span class="op">=</span> TWResponse<span class="op">(</span><span class="kw">this</span><span class="op">,</span> <span class="st">&quot;</span><span class="ss">${</span><span class="kw">this</span><span class="op">.</span>name<span class="ss">}</span><span class="st">:WIP&quot;</span><span class="op">)</span></span>
-<span id="cb173-7"><a href="pvIntro.html#cb173-7" tabindex="-1"></a>    <span class="kw">private</span> <span class="kw">val</span> <span class="va">tip</span> <span class="op">=</span> Response<span class="op">(</span><span class="kw">this</span><span class="op">,</span> <span class="st">&quot;</span><span class="ss">${</span><span class="kw">this</span><span class="op">.</span>name<span class="ss">}</span><span class="st">:TimeInSystem&quot;</span><span class="op">)</span></span>
-<span id="cb173-8"><a href="pvIntro.html#cb173-8" tabindex="-1"></a>    <span class="kw">private</span> <span class="kw">val</span> <span class="va">generator</span> <span class="op">=</span> EntityGenerator<span class="op">(::</span>Customer<span class="op">,</span> tba<span class="op">,</span> tba<span class="op">)</span></span>
-<span id="cb173-9"><a href="pvIntro.html#cb173-9" tabindex="-1"></a>    <span class="kw">private</span> <span class="kw">val</span> <span class="va">counter</span> <span class="op">=</span> Counter<span class="op">(</span><span class="kw">this</span><span class="op">,</span> <span class="st">&quot;</span><span class="ss">${</span><span class="kw">this</span><span class="op">.</span>name<span class="ss">}</span><span class="st">:NumServed&quot;</span> <span class="op">)</span></span>
-<span id="cb173-10"><a href="pvIntro.html#cb173-10" tabindex="-1"></a></span>
-<span id="cb173-11"><a href="pvIntro.html#cb173-11" tabindex="-1"></a>    <span class="kw">private</span> <span class="kw">inner</span> <span class="kw">class</span> Customer<span class="op">:</span> <span class="dt">Entity</span><span class="op">()</span> <span class="op">{</span></span>
-<span id="cb173-12"><a href="pvIntro.html#cb173-12" tabindex="-1"></a>        <span class="kw">val</span> <span class="va">mm1</span><span class="op">:</span> KSLProcess <span class="op">=</span> process<span class="op">{</span></span>
-<span id="cb173-13"><a href="pvIntro.html#cb173-13" tabindex="-1"></a>            wip<span class="op">.</span>increment<span class="op">()</span></span>
-<span id="cb173-14"><a href="pvIntro.html#cb173-14" tabindex="-1"></a>            timeStamp <span class="op">=</span> time</span>
-<span id="cb173-15"><a href="pvIntro.html#cb173-15" tabindex="-1"></a>            <span class="kw">val</span> <span class="va">a</span>  <span class="op">=</span> seize<span class="op">(</span>worker<span class="op">)</span></span>
-<span id="cb173-16"><a href="pvIntro.html#cb173-16" tabindex="-1"></a>            delay<span class="op">(</span>st<span class="op">)</span></span>
-<span id="cb173-17"><a href="pvIntro.html#cb173-17" tabindex="-1"></a>            release<span class="op">(</span>a<span class="op">)</span></span>
-<span id="cb173-18"><a href="pvIntro.html#cb173-18" tabindex="-1"></a>            tip<span class="op">.</span>value <span class="op">=</span> time <span class="op">-</span> timeStamp</span>
-<span id="cb173-19"><a href="pvIntro.html#cb173-19" tabindex="-1"></a>            wip<span class="op">.</span>decrement<span class="op">()</span></span>
-<span id="cb173-20"><a href="pvIntro.html#cb173-20" tabindex="-1"></a>            counter<span class="op">.</span>increment<span class="op">()</span></span>
-<span id="cb173-21"><a href="pvIntro.html#cb173-21" tabindex="-1"></a>        <span class="op">}</span></span>
-<span id="cb173-22"><a href="pvIntro.html#cb173-22" tabindex="-1"></a>    <span class="op">}</span></span>
-<span id="cb173-23"><a href="pvIntro.html#cb173-23" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
-<p>Notice the following line which takes in a reference to the <code>Customer</code> class constructor.</p>
-<div class="sourceCode" id="cb174"><pre class="sourceCode kt"><code class="sourceCode kotlin"><span id="cb174-1"><a href="pvIntro.html#cb174-1" tabindex="-1"></a><span class="kw">private</span> <span class="kw">val</span> <span class="va">generator</span> <span class="op">=</span> EntityGenerator<span class="op">(::</span>Customer<span class="op">,</span> tba<span class="op">,</span> tba<span class="op">)</span></span></code></pre></div>
+<div class="sourceCode" id="cb187"><pre class="sourceCode kt"><code class="sourceCode kotlin"><span id="cb187-1"><a href="pvIntro.html#cb187-1" tabindex="-1"></a>    <span class="kw">protected</span> <span class="kw">inner</span> <span class="kw">class</span> EntityGenerator<span class="op">&lt;</span><span class="dt">T</span> <span class="op">:</span> <span class="dt">Entity</span><span class="op">&gt;(</span></span>
+<span id="cb187-2"><a href="pvIntro.html#cb187-2" tabindex="-1"></a>        <span class="kw">private</span> <span class="kw">val</span> <span class="va">entityCreator</span><span class="op">:</span> <span class="op">()</span> <span class="op">-&gt;</span> <span class="dt">T</span><span class="op">,</span></span>
+<span id="cb187-3"><a href="pvIntro.html#cb187-3" tabindex="-1"></a>        <span class="va">timeUntilTheFirstEntity</span><span class="op">:</span> <span class="dt">RandomIfc</span> <span class="op">=</span> ConstantRV<span class="op">.</span>ZERO<span class="op">,</span></span>
+<span id="cb187-4"><a href="pvIntro.html#cb187-4" tabindex="-1"></a>        <span class="va">timeBtwEvents</span><span class="op">:</span> <span class="dt">RandomIfc</span> <span class="op">=</span> ConstantRV<span class="op">.</span>POSITIVE_INFINITY<span class="op">,</span></span>
+<span id="cb187-5"><a href="pvIntro.html#cb187-5" tabindex="-1"></a>        <span class="va">maxNumberOfEvents</span><span class="op">:</span> <span class="dt">Long</span> <span class="op">=</span> Long<span class="op">.</span>MAX_VALUE<span class="op">,</span></span>
+<span id="cb187-6"><a href="pvIntro.html#cb187-6" tabindex="-1"></a>        <span class="va">timeOfTheLastEvent</span><span class="op">:</span> <span class="dt">Double</span> <span class="op">=</span> Double<span class="op">.</span>POSITIVE_INFINITY<span class="op">,</span></span>
+<span id="cb187-7"><a href="pvIntro.html#cb187-7" tabindex="-1"></a>        <span class="kw">var</span> <span class="va">activationPriority</span><span class="op">:</span> <span class="dt">Int</span> <span class="op">=</span> KSLEvent<span class="op">.</span>DEFAULT_PRIORITY + <span class="dv">1</span><span class="op">,</span></span>
+<span id="cb187-8"><a href="pvIntro.html#cb187-8" tabindex="-1"></a>        <span class="va">name</span><span class="op">:</span> <span class="dt">String</span><span class="op">?</span> <span class="op">=</span> null</span>
+<span id="cb187-9"><a href="pvIntro.html#cb187-9" tabindex="-1"></a>    <span class="op">)</span> <span class="op">:</span> <span class="dt">EventGenerator</span><span class="op">(</span></span>
+<span id="cb187-10"><a href="pvIntro.html#cb187-10" tabindex="-1"></a>        <span class="va">this</span>@<span class="va">ProcessModel</span><span class="op">,</span> <span class="va">null</span><span class="op">,</span> <span class="va">timeUntilTheFirstEntity</span><span class="op">,</span></span>
+<span id="cb187-11"><a href="pvIntro.html#cb187-11" tabindex="-1"></a>        <span class="va">timeBtwEvents</span><span class="op">,</span> <span class="va">maxNumberOfEvents</span><span class="op">,</span> <span class="va">timeOfTheLastEvent</span><span class="op">,</span> <span class="va">name</span></span>
+<span id="cb187-12"><a href="pvIntro.html#cb187-12" tabindex="-1"></a>    <span class="op">)</span> <span class="op">{</span></span>
+<span id="cb187-13"><a href="pvIntro.html#cb187-13" tabindex="-1"></a>        <span class="kw">override</span> <span class="kw">fun</span> <span class="fu">generate</span><span class="op">()</span> <span class="op">{</span></span>
+<span id="cb187-14"><a href="pvIntro.html#cb187-14" tabindex="-1"></a>            <span class="kw">val</span> <span class="va">entity</span> <span class="op">=</span> entityCreator<span class="op">()</span></span>
+<span id="cb187-15"><a href="pvIntro.html#cb187-15" tabindex="-1"></a>            startProcessSequence<span class="op">(</span>entity<span class="op">,</span> priority <span class="op">=</span> activationPriority<span class="op">)</span></span>
+<span id="cb187-16"><a href="pvIntro.html#cb187-16" tabindex="-1"></a>        <span class="op">}</span></span>
+<span id="cb187-17"><a href="pvIntro.html#cb187-17" tabindex="-1"></a></span>
+<span id="cb187-18"><a href="pvIntro.html#cb187-18" tabindex="-1"></a>    <span class="op">}</span></span></code></pre></div>
+<p>As shown in the code, the key additional functionality is that the <code>EntityGenerator</code> takes in a <em>function</em> that knows how to create a subclass of type <code>Entity.</code> The simplest way to provide such a function is to provide a reference to the constructor function of the subclass. This is illustrated in the following simplified re-do of the pharmacy model.</p>
+<hr />
+<div class="example">
+<p><span id="exm:ch6ex2" class="example"><strong>Example 6.2  (Demonstrating an Entity Generator) </strong></span>This example illustrates how to construct an instance of the <code>EntityGenerator</code> class and use it to create entity instances according to a time between event pattern.</p>
+<div class="sourceCode" id="cb188"><pre class="sourceCode kt"><code class="sourceCode kotlin"><span id="cb188-1"><a href="pvIntro.html#cb188-1" tabindex="-1"></a><span class="kw">class</span> EntityGeneratorExample<span class="op">(</span></span>
+<span id="cb188-2"><a href="pvIntro.html#cb188-2" tabindex="-1"></a>    <span class="va">parent</span><span class="op">:</span> <span class="dt">ModelElement</span><span class="op">,</span></span>
+<span id="cb188-3"><a href="pvIntro.html#cb188-3" tabindex="-1"></a>    <span class="va">name</span><span class="op">:</span> <span class="dt">String</span><span class="op">?</span> <span class="op">=</span> null</span>
+<span id="cb188-4"><a href="pvIntro.html#cb188-4" tabindex="-1"></a><span class="op">)</span> <span class="op">:</span> <span class="dt">ProcessModel</span><span class="op">(</span><span class="va">parent</span><span class="op">,</span> <span class="va">name</span><span class="op">)</span> <span class="op">{</span></span>
+<span id="cb188-5"><a href="pvIntro.html#cb188-5" tabindex="-1"></a></span>
+<span id="cb188-6"><a href="pvIntro.html#cb188-6" tabindex="-1"></a>    <span class="kw">private</span> <span class="kw">val</span> <span class="va">worker</span><span class="op">:</span> ResourceWithQ <span class="op">=</span> ResourceWithQ<span class="op">(</span><span class="kw">this</span><span class="op">,</span> <span class="st">&quot;worker&quot;</span><span class="op">)</span></span>
+<span id="cb188-7"><a href="pvIntro.html#cb188-7" tabindex="-1"></a>    <span class="kw">private</span> <span class="kw">val</span> <span class="va">tba</span> <span class="op">=</span> ExponentialRV<span class="op">(</span><span class="fl">6.0</span><span class="op">,</span> <span class="dv">1</span><span class="op">)</span></span>
+<span id="cb188-8"><a href="pvIntro.html#cb188-8" tabindex="-1"></a>    <span class="kw">private</span> <span class="kw">val</span> <span class="va">st</span> <span class="op">=</span> RandomVariable<span class="op">(</span><span class="kw">this</span><span class="op">,</span> ExponentialRV<span class="op">(</span><span class="fl">3.0</span><span class="op">,</span> <span class="dv">2</span><span class="op">))</span></span>
+<span id="cb188-9"><a href="pvIntro.html#cb188-9" tabindex="-1"></a>    <span class="kw">private</span> <span class="kw">val</span> <span class="va">wip</span> <span class="op">=</span> TWResponse<span class="op">(</span><span class="kw">this</span><span class="op">,</span> <span class="st">&quot;</span><span class="ss">${</span><span class="kw">this</span><span class="op">.</span>name<span class="ss">}</span><span class="st">:WIP&quot;</span><span class="op">)</span></span>
+<span id="cb188-10"><a href="pvIntro.html#cb188-10" tabindex="-1"></a>    <span class="kw">private</span> <span class="kw">val</span> <span class="va">tip</span> <span class="op">=</span> Response<span class="op">(</span><span class="kw">this</span><span class="op">,</span> <span class="st">&quot;</span><span class="ss">${</span><span class="kw">this</span><span class="op">.</span>name<span class="ss">}</span><span class="st">:TimeInSystem&quot;</span><span class="op">)</span></span>
+<span id="cb188-11"><a href="pvIntro.html#cb188-11" tabindex="-1"></a>    <span class="kw">private</span> <span class="kw">val</span> <span class="va">generator</span> <span class="op">=</span> EntityGenerator<span class="op">(::</span>Customer<span class="op">,</span> tba<span class="op">,</span> tba<span class="op">)</span></span>
+<span id="cb188-12"><a href="pvIntro.html#cb188-12" tabindex="-1"></a>    <span class="kw">private</span> <span class="kw">val</span> <span class="va">counter</span> <span class="op">=</span> Counter<span class="op">(</span><span class="kw">this</span><span class="op">,</span> <span class="st">&quot;</span><span class="ss">${</span><span class="kw">this</span><span class="op">.</span>name<span class="ss">}</span><span class="st">:NumServed&quot;</span> <span class="op">)</span></span>
+<span id="cb188-13"><a href="pvIntro.html#cb188-13" tabindex="-1"></a></span>
+<span id="cb188-14"><a href="pvIntro.html#cb188-14" tabindex="-1"></a>    <span class="kw">private</span> <span class="kw">inner</span> <span class="kw">class</span> Customer<span class="op">:</span> <span class="dt">Entity</span><span class="op">()</span> <span class="op">{</span></span>
+<span id="cb188-15"><a href="pvIntro.html#cb188-15" tabindex="-1"></a>        <span class="kw">val</span> <span class="va">mm1</span><span class="op">:</span> KSLProcess <span class="op">=</span> process<span class="op">{</span></span>
+<span id="cb188-16"><a href="pvIntro.html#cb188-16" tabindex="-1"></a>            wip<span class="op">.</span>increment<span class="op">()</span></span>
+<span id="cb188-17"><a href="pvIntro.html#cb188-17" tabindex="-1"></a>            timeStamp <span class="op">=</span> time</span>
+<span id="cb188-18"><a href="pvIntro.html#cb188-18" tabindex="-1"></a>            <span class="kw">val</span> <span class="va">a</span>  <span class="op">=</span> seize<span class="op">(</span>worker<span class="op">)</span></span>
+<span id="cb188-19"><a href="pvIntro.html#cb188-19" tabindex="-1"></a>            delay<span class="op">(</span>st<span class="op">)</span></span>
+<span id="cb188-20"><a href="pvIntro.html#cb188-20" tabindex="-1"></a>            release<span class="op">(</span>a<span class="op">)</span></span>
+<span id="cb188-21"><a href="pvIntro.html#cb188-21" tabindex="-1"></a>            tip<span class="op">.</span>value <span class="op">=</span> time <span class="op">-</span> timeStamp</span>
+<span id="cb188-22"><a href="pvIntro.html#cb188-22" tabindex="-1"></a>            wip<span class="op">.</span>decrement<span class="op">()</span></span>
+<span id="cb188-23"><a href="pvIntro.html#cb188-23" tabindex="-1"></a>            counter<span class="op">.</span>increment<span class="op">()</span></span>
+<span id="cb188-24"><a href="pvIntro.html#cb188-24" tabindex="-1"></a>        <span class="op">}</span></span>
+<span id="cb188-25"><a href="pvIntro.html#cb188-25" tabindex="-1"></a>    <span class="op">}</span></span>
+<span id="cb188-26"><a href="pvIntro.html#cb188-26" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
+</div>
+<hr />
+<p>Notice the following line which takes in a reference to the <code>Customer</code> class constructor using the functional syntax <code>::Customer.</code></p>
+<div class="sourceCode" id="cb189"><pre class="sourceCode kt"><code class="sourceCode kotlin"><span id="cb189-1"><a href="pvIntro.html#cb189-1" tabindex="-1"></a><span class="kw">private</span> <span class="kw">val</span> <span class="va">generator</span> <span class="op">=</span> EntityGenerator<span class="op">(::</span>Customer<span class="op">,</span> tba<span class="op">,</span> tba<span class="op">)</span></span></code></pre></div>
 <p>There is no arrival method necessary because that logic is within the entity generator’s <code>generate()</code> method:</p>
-<div class="sourceCode" id="cb175"><pre class="sourceCode kt"><code class="sourceCode kotlin"><span id="cb175-1"><a href="pvIntro.html#cb175-1" tabindex="-1"></a>        <span class="kw">override</span> <span class="kw">fun</span> <span class="fu">generate</span><span class="op">()</span> <span class="op">{</span></span>
-<span id="cb175-2"><a href="pvIntro.html#cb175-2" tabindex="-1"></a>            <span class="kw">val</span> <span class="va">entity</span> <span class="op">=</span> entityCreator<span class="op">()</span></span>
-<span id="cb175-3"><a href="pvIntro.html#cb175-3" tabindex="-1"></a>            startProcessSequence<span class="op">(</span>entity<span class="op">,</span> priority <span class="op">=</span> activationPriority<span class="op">)</span></span>
-<span id="cb175-4"><a href="pvIntro.html#cb175-4" tabindex="-1"></a>        <span class="op">}</span></span></code></pre></div>
-<p>The entity is created using the passed in constructor function and the entity’s default sequence of processes is started. By default, the <code>process()</code> function of the <code>KSLProcessBuilder</code> class automatically adds each newly defined process to the entity’s default sequence of processes unless indicated not to do so. Thus, by using an instance of an <code>EntityGenerator</code> associated with a particular subclass of <code>Entity</code>, we can automatically create the instances of the subclass and activate their processes. Of course, the creation of the subclass (e.g. <code>Customer</code>) might be much more complex; however, the <code>EntityGenerator</code> takes in a <em>function</em> that creates the instance of the subclass. Thus, it can be any function, not just the constructor function. Therefore, instances can be configured in complex ways before they are activated.</p>
+<div class="sourceCode" id="cb190"><pre class="sourceCode kt"><code class="sourceCode kotlin"><span id="cb190-1"><a href="pvIntro.html#cb190-1" tabindex="-1"></a>        <span class="kw">override</span> <span class="kw">fun</span> <span class="fu">generate</span><span class="op">()</span> <span class="op">{</span></span>
+<span id="cb190-2"><a href="pvIntro.html#cb190-2" tabindex="-1"></a>            <span class="kw">val</span> <span class="va">entity</span> <span class="op">=</span> entityCreator<span class="op">()</span></span>
+<span id="cb190-3"><a href="pvIntro.html#cb190-3" tabindex="-1"></a>            startProcessSequence<span class="op">(</span>entity<span class="op">,</span> priority <span class="op">=</span> activationPriority<span class="op">)</span></span>
+<span id="cb190-4"><a href="pvIntro.html#cb190-4" tabindex="-1"></a>        <span class="op">}</span></span></code></pre></div>
+<p>The entity is created using the passed in constructor function and the entity’s default sequence of processes is started. By default, the <code>process()</code> function of the <code>KSLProcessBuilder</code> class automatically adds each newly defined process to the entity’s default sequence of processes unless indicated not to do so. Thus, by using an instance of an <code>EntityGenerator</code> associated with a particular subclass of <code>Entity</code>, we can automatically create the instances of the subclass and activate their processes. Of course, the creation of the subclass (e.g. <code>Customer</code>) might be much more complex; however, the <code>EntityGenerator</code> takes in a <em>function</em> that creates the instance of the subclass. Thus, it can be any function, not just the constructor function. Therefore, instances can be configured in complex ways before they are activated by supplying an appropriate function.</p>
+<div class="infobox important">
+<p><strong>IMPORTANT!</strong>
+Note that an <code>EntityGenerator</code> relies on the entity having at least one process that has been added to its process sequence via the <code>process()</code> method’s <code>addToSequence</code> parameter being true. The default setting of this parameter is true. An entity generator will create the entity and start the process that is listed <em>first</em> in its process sequence. If there are no processes in the sequence then although the entity is created, it will not start the process. Thus, if you create a process with <code>addToSequence = false,</code> that process will not be in the entity’s process sequence to be started by an <code>EntityGenerator.</code> By default, the code-listing order of the <code>process()</code> function definitions in the class, defines the order in which the processes are added to the entity’s process sequence when <code>addToSequence</code> is true. The entity’s <code>processSequence</code> property provides access to the list, which is mutable. This allows full control over the ordering via code.</p>
+</div>
 <p>In the next section, we will take a closer look at how the KSL makes the process view possible. This will help you to better use the process modeling capabilities found in the KSL.</p>
 </div>
             </section>

@@ -1,18 +1,20 @@
-# Analyzing Simulation Output {#simoa}
+# Analyzing and Accessing Simulation Output {#simoa}
 
 **[LEARNING OBJECTIVES]{.smallcaps}**
 
 -   To be able to recognize the different types of statistical
-    quantities used within and produced by simulation models
+    quantities used within and produced by simulation models.
 
 -   To be able to analyze finite horizon simulations via the method of
-    replications
+    replications.
 
 -   To be able to analyze infinite horizon simulations via the method of
-    batch means and the method of replication-deletion
+    batch means and the method of replication-deletion.
 
 -   To be able to compare simulation alternatives and make valid
-    decisions based on the statistical output of a simulation
+    decisions based on the statistical output of a simulation.
+    
+-   To be able to access output from KSL simulation models in many different forms.
 
 Because the inputs to the simulation are random, the outputs from the simulation
 are also random. You can think of a simulation model as
@@ -46,6 +48,11 @@ are simulating a different design alternative.
 This chapter describes how to analyze the output from a single design
 alternative and how to analyze the results of multiple design
 alternatives. The focus of this chapter is on understanding the types of data produced by a discrete-event simulation and how to analyze that data.  The KSL facilitates the capture and analysis of various statistical quantities. This chapter will present the most common and useful approaches to instrumenting a model and extracting the captured data. Although the focus will be on demonstrating this functionality on simple models, you will readily see how easily the approaches can be scaled up to larger models with substantial output requirements.
+
+::: {.infobox .note data-latex="{note}"}
+**NOTE!**
+This chapter provides a series of example Kotlin code that illustrates the use of KSL constructs for working with data generated from KSL models. The full source code of the examples can be found in the accompanying `KSLExamples` project associated with the [KSL repository](https://github.com/rossetti/KSL). The files for each example of this chapter can be found [here](https://github.com/rossetti/KSL/tree/main/KSLExamples/src/main/kotlin/ksl/examples/book/chapter5).
+:::
 
 To begin the discussion you need to build an understanding
 of the types of statistical quantities that may be produced by a
@@ -407,8 +414,8 @@ Thus, all of the sample size determination methods discussed in Section \@ref(ch
 In this section, we will build a model for a simple finite horizon simulation with a couple of new modeling issues to handle.  However, the primary focus of this section is to illustrate how to capture and report statistical results using the KSL.  Let's start with an outline of the example system to be modeled.
 
 ***
-::: {.example #simpleFHS}
-A truckload of pallets arrives overnight to a facility. Within the truck there are a random number of pallets.  The number of pallets can be modeled with a binomial random variable with mean of 80 and a variance of 16. This translates to parameters $n=100$ and $p=0.8$.  Each individual pallet is unloaded and transported to a workcenter for processing, one at a time, sequentially until all pallets are delivered.  The unloading and transport time is exponentially distributed with a mean of 5 minutes.  Once a pallet arrives at the workcenter it requires 1 of 2 workers to be processed. If a worker is available, the pallet is immediately processed by a worker.  If no workers are available, the pallet waits in a FIFO line until a worker becomes available.  The time to process the pallet involves breaking down and processing each package on the pallet. The time to process an entire pallet can be modeled with a triangular distribution with a minimum time of 8 minutes, a most likely time of 12 minutes, and a maximum time of 15 minutes.  The work at the workcenter continues until all pallets are processed for the day. The facility manager is interested in how long the pallets wait at the workcenter and  how long it takes for all pallets to be completed on a given day. In addition, the manager is interested in the probability that there is overtime.  That is, the chance that the total time to process the pallets is more than 480 minutes.
+::: {.example #simpleFHS name="Pallet Processing Work Center"}
+A truckload of pallets arrives overnight to a facility. Within the truck there are a random number of pallets.  The number of pallets can be modeled with a binomial random variable with mean of 80 and a variance of 16. This translates to parameters $n=100$ and $p=0.8$.  Each individual pallet is unloaded and transported to a work center for processing, one at a time, sequentially until all pallets are delivered.  The unloading and transport time is exponentially distributed with a mean of 5 minutes.  Once a pallet arrives at the workcenter it requires 1 of 2 workers to be processed. If a worker is available, the pallet is immediately processed by a worker.  If no workers are available, the pallet waits in a FIFO line until a worker becomes available.  The time to process the pallet involves breaking down and processing each package on the pallet. The time to process an entire pallet can be modeled with a triangular distribution with a minimum time of 8 minutes, a most likely time of 12 minutes, and a maximum time of 15 minutes.  The work at the workcenter continues until all pallets are processed for the day. The facility manager is interested in how long the pallets wait at the workcenter and  how long it takes for all pallets to be completed on a given day. In addition, the manager is interested in the probability that there is overtime.  That is, the chance that the total time to process the pallets is more than 480 minutes.
 :::
 
 ***
@@ -604,7 +611,7 @@ The first thing to note is how the output from a KSL simulation is organized. Th
 Figure \@ref(fig:KSLOutputDir) illustrates the output directory after running the pallet model. You should see the `kslOutput` directory and a directory called `Pallet_Processing_OutputDir.` Within the  `Pallet_Processing_OutputDir` directory there are folders called `db` and `excel.`  These folders are the default directories for holding database related files and Excel related output files.  Within the `db` folder there is a file called `MainModel.db,` which is an SQLite database that was created to hold the KSL simulation results. Then, there are two files called `hwSummary.md` and `kslOutput.txt.` There are also three CSV files, two labeled with `_ExperimentReport.csv` and `_ReplicationReport.csv`, and one labeled with `_Trace.csv.` This labeling scheme is the default and is derived from the context of the item.  The setting of the `autoCSVReports` option to true when creating the model is what caused the two files labeled with `_ExperimentReport.csv` and with  `_ReplicationReport.csv` to be produced. The following table is from `MainModel_CSVReplicationReport.csv.`
 
 <table class="table" style="font-size: 10px; margin-left: auto; margin-right: auto;">
-<caption style="font-size: initial !important;">(\#tab:Ch5WRD)First 8 columns and 5 Rows of MainModel_CSVReplicationReport.csv.</caption>
+<caption style="font-size: initial !important;">(\#tab:unnamed-chunk-1)(\#tab:Ch5WRD)First 8 columns and 5 Rows of MainModel_CSVReplicationReport.csv.</caption>
  <thead>
   <tr>
    <th style="text-align:left;"> SimName </th>
@@ -686,7 +693,7 @@ As can be seen in the previous table, the replication report has information abo
 The following table illustrates columns 8 through 12 of the file. 
 
 <table class="table" style="font-size: 10px; margin-left: auto; margin-right: auto;">
-<caption style="font-size: initial !important;">(\#tab:Ch5WRD)Next 5 columns and 5 Rows of MainModel_CSVReplicationReport.csv.</caption>
+<caption style="font-size: initial !important;">(\#tab:unnamed-chunk-2)(\#tab:Ch5WRD)Next 5 columns and 5 Rows of MainModel_CSVReplicationReport.csv.</caption>
  <thead>
   <tr>
    <th style="text-align:left;"> Statistic.Name </th>
@@ -744,7 +751,7 @@ The following table illustrates columns 8 through 12 of the file.
 This data can be easily processed by other of statistical programs such as R or opened directly within Excel.  The following table is from `MainModel_CSVExperimentReport.csv` and represents the across replication summary statistics for the responses and counters in the model.
 
 <table class="table" style="font-size: 10px; margin-left: auto; margin-right: auto;">
-<caption style="font-size: initial !important;">(\#tab:Ch5ARD)Columns 7-15 and 9 Rows of MainModel_CSVExperimentReport.csv.</caption>
+<caption style="font-size: initial !important;">(\#tab:unnamed-chunk-3)(\#tab:Ch5ARD)Columns 7-15 and 9 Rows of MainModel_CSVExperimentReport.csv.</caption>
  <thead>
   <tr>
    <th style="text-align:left;"> Statistic.Name </th>
@@ -863,7 +870,7 @@ This data can be easily processed by other of statistical programs such as R or 
 
 As can be noted in the table, this is essentially the same information as reported in the output summary statistics. Again, these responses are automatically captured by simply setting the `autoCSVReports` option to true when creating the model.  
 
-A user may want to trace the values of specific response variables to files for post processing or display.  This can be accomplished by using the `ResponseTrace` class. This code snippet, attaches an instance of the `ResponseTrace` class to the number in system response variable (`palletWorkCenter.numInSystem`) via the property that exposes the response to clients of the class.  The user needs either an instance of the response variable or the exact name of the variable.  This one reason why the public property `numInSystem` was supplied.
+A user may want to trace the values of specific response variables to files for post processing or display.  This can be accomplished by using the `ResponseTrace` class. This code snippet, attaches an instance of the `ResponseTrace` class to the number in system response variable (`palletWorkCenter.numInSystem`) via the property that exposes the response to clients of the class.  The user needs either an instance of the response variable or the exact name of the variable.  This is one reason why the public property `numInSystem` was supplied.
 
 
 ```kt
@@ -874,7 +881,7 @@ A user may want to trace the values of specific response variables to files for 
 Attaching an instance of the `ResponseTrace` class to a response causes the trace to observe any value changes of the variable. 
 
 <table class="table" style="font-size: 10px; margin-left: auto; margin-right: auto;">
-<caption style="font-size: initial !important;">(\#tab:Ch5Trace)First 10 rows of Num Pallets at WC_Trace.csv.</caption>
+<caption style="font-size: initial !important;">(\#tab:unnamed-chunk-4)(\#tab:Ch5Trace)First 10 rows of Num Pallets at WC_Trace.csv.</caption>
  <thead>
   <tr>
    <th style="text-align:right;"> n </th>
@@ -1065,7 +1072,7 @@ The `ReplicationDataCollector` class and the `ExperimentDataCollector` class (no
     repData.addResponse(palletWorkCenter.probOfOverTime)
 ```
 
-This code creates a `ReplicationDataCollector` instance and configures the instance to collect the replication data for the total processing time and probability of over time responses. A simple output of the first 5 values of the data arrays is shown here.
+This code creates a `ReplicationDataCollector` instance and configures the instance to collect the replication data for the total processing time and probability of over time responses. A simple output of the first 10 values of the data arrays is shown here.
 
 ```
    Total Processing Time P{total time > 480 minutes}
@@ -1101,11 +1108,11 @@ Figure \@ref(fig:KSLDatabaseClass) presents the functionality of the `KSLDatabas
     // demonstrate capturing data to database with an observer
     val kslDatabaseObserver = KSLDatabaseObserver(model)
 ```
-This code creates an observer that accesses the simulation data after each replication and stores it within a database. The database will be stored within the `db` folder of the simulation output directory. Note that if you execute **any** simulation that has the **same name**
+This code creates an observer that accesses the simulation data after each replication and stores it within a database. The database will be stored within the `dbDir` folder of the simulation model's output directory. Note that if you execute **any** simulation that has the **same name**
 as a previously executed simulation then the previous database will be deleted and recreated. This might cause you to lose previous simulation results.
 This behavior is the default because generally, when you re-run your
 simulation you want the results of that run to be written into the
-database. However, it is possible to not overwrite the database and store additional experiments within the same database. To do this, get an instance of an existing KSL database before creating the `KSLDatabaseObserver.` In addition, by changing the name of the experiment associated with the model, then the results from different experiments can be stored in the `same` database. This approach is useful when comparing results across simulation configurations. 
+database. However, it is possible to not overwrite the database and store additional experiments within the same database. To do this, get an instance of an existing KSL database before creating the `KSLDatabaseObserver.` In addition, by changing the name of the experiment associated with the model, then the results from different experiments can be stored in the *same* database. This approach is useful when comparing results across simulation configurations. 
 
 The database will have the table structure shown in Figure \@ref(fig:KSLDatabaseTables).
 
@@ -1149,14 +1156,14 @@ database schema.
     statistics associated with `TWResponse,` `Response,` and
     `Counter` instances within the model. Statistical summary information across
     the replications is automatically stored.
--   BATCH_STAT contains information about the batch statistics
+-   `BATCH_STAT` contains information about the batch statistics
     associated with `TWResponse,` `Response,` and
     `Counter` instances within the model. Statistical summary information across the batches is
     automatically stored.
 
 In addition to the base tables, the KSL database contains views of its
 underlying tables to facilitate simpler data extraction. Figure \@ref(fig:KSLDatabaseViews)
-presents the pre-defined views for the JSL database. The views, in
+presents the pre-defined views for the KSL database. The views, in
 essence, reduce the amount of information to the most likely used sets
 of data for the across replication, batch, and within replication
 captured statistical quantities. In addition, the
@@ -1323,6 +1330,11 @@ The data frame functionality was illustrated in the following code from the main
     println(dataFrame)
 ```
 
+::: {.infobox .note data-latex="{note}"}
+**NOTE!**
+The Kotlin [data frames](https://kotlin.github.io/dataframe/overview.html) library has excellent capabilities for processing data within a tablular format. The KSL has additional functionality for processing files via its utilities as described in Section \@ref(appDCSVEtc) of Appendix \@ref(appUtilities).  Also, you might want to explore the extensions for data frames described in Section \@ref(dfUtil) of Appendix \@ref(appUtilities).
+:::
+
 Once you have the data frame you can employ whatever data wrangling and extraction methods that you need. Finally, because the KSL database is a *database*, it can be accessed via R or other software programs such as [IntelliJ's DataGrip](https://www.jetbrains.com/datagrip/) or [DBeaver](https://dbeaver.io/) and additional analysis performed on the KSL simulation data.
 
 Based on the discussion in this section, the KSL has very useful functionality for working with the data generated from your simulation models. 
@@ -1427,6 +1439,7 @@ fun timeWeightedResponse(name: String): TWResponse?
 fun counter(name: String): Counter? 
 ```
 
+::: {.example #ch5ex2 name="Sequential Sampling"}
 The following code listing illustrates how to set up half-width checking for the pallet processing model. 
 
 ```kt
@@ -1450,6 +1463,8 @@ fun main() {
 
 }
 ```
+:::
+
 Notice that the number of replications is set to an arbitrarily high value (10000) and the desired half-width is specified as 5.0.  In the original example, the half-width for the total processing time was 16.3269 based on 10 replications. As we can see from the following output, the half-width criteria has been met with 149 replications. 
 
 ```
@@ -1539,6 +1554,7 @@ $$L_q = \dfrac{0.7 \times 0.7}{1 - 0.7} = 1.6\bar{33}$$
 
 $$W_q = \dfrac{L_q}{\lambda} = 1.6\bar{33} \; \text{minutes}$$
 
+::: {.example #ch5ex3 name="Lindley Equation"}
 Lindley's equation can be readily implemented in using KSL constructs as illustrated in the following code listing.
 
 ```kt
@@ -1596,6 +1612,7 @@ class LindleyEquation(
 
 }
 ```
+:::
 
 This implementation can be readily extended to capture the data to files for display in spreadsheets or other plotting software. As part of the plotting process it is useful to display the cumulative sum and cumulative average of the data values.
 
@@ -2091,6 +2108,9 @@ goal is to determine the number of observations of the response to
 delete at the beginning of the simulation. We can collect the relevant
 data by attaching an observer to the response variable. 
 
+::: {.example #ch5ex4 name="Welch Plot Analysis"}
+This code illustrates how to capture Welch plot data and to show the Welch
+plot within a browser window.
 ```kt
 fun main(){
     val model = Model("Drive Through Pharmacy")
@@ -2121,6 +2141,7 @@ fun main(){
 
 }
 ```
+:::
 
 In the code, we create two instances of `WelchFileObserver` one for the system time (`systemTime`) and one for the number in the system (`numInSyste`) both referenced from the exposed properties of the drive through pharmacy class.  Since the number in the system is a time-persistent variable, it is discretized based on intervals of 10 time units. The concept of discretizing the time-persistent data is illustrated in Figure \@ref(fig:DiscretizeTBD). The `WelchFileObserver` instances are used to create `WelchDataFileAnalyzer` instances, which are used to make the data for plotting.  You can use any plotting program that you want to display the plot. 
 
@@ -2439,6 +2460,9 @@ is supplied, then the algorithm ensures that the initial number of
 batches collected before applying the previously described batching
 algorithm is 512.
 
+::: {.example #ch5ex5 name="Performing a Batch Means Analysis"}
+This code illustrates how to perform a single run, batch means analysis, by
+adding a batching element to the model.
 ```kt
 fun main(){
     val model = Model("Drive Through Pharmacy")
@@ -2455,6 +2479,7 @@ fun main(){
     println(sr.halfWidthSummaryReport())
 }
 ```
+:::
 
 The analysis performed to determine the warm up period should give you
 some information concerning how long to make this single run and how
@@ -2547,7 +2572,7 @@ half-width criteria is met for the batch means. Currently, the KSL does not faci
 Once the warm up period has been analyzed, performing infinite horizon
 simulations using the batch means method is relatively straight forward.
 A disadvantage of the batch means method is that it will be more
-difficult to use the statistical classical experimental design methods.
+difficult to use classical experimental design methods.
 If you are faced with an infinite horizon simulation, then you can use
 either the replication-deletion approach or the batch means method
 readily within the KSL. In either case, you should investigate if there
@@ -3063,6 +3088,9 @@ We should note the sample standard deviation on the difference, $s_d = 57.8792$.
 
 Because the simulation experiments were executed sequentially within the same invocation of the program, the random number streams in the three worker simulation continued from where the streams ended for the two worker simulation.  Thus, the two experiments used different underlying random numbers and can be considered as independent sampling.  To utilize common random numbers we must manipulate the streams.  The following code illustrates how to implement common random numbers within the KSL.
 
+::: {.example #ch5ex6 name="Performing a CRN Analysis"}
+This code example illustrates how to perform a common random number analysis for two systems
+by running them within the same execution frame and setting the reset start stream option to true.
 ```kt
 fun withCommonRandomNumbers(){
     val model = Model("Pallet Model Experiments")
@@ -3089,6 +3117,7 @@ fun withCommonRandomNumbers(){
     println(comparisonAnalyzer)
 }
 ```
+:::
 
 The only difference between this code and the previous code is the addition of line 9:
 
@@ -3114,7 +3143,7 @@ We see the that the sample standard deviation on the difference, $s_d = 33.0561$
 
 It is important to note that setting the reset start stream option to true as indicated here is predicated on running both models in the same program execution.  If we had run the two worker model today and then changed the number of workers to 3 for a run tomorrow, the simulations would have used the same random number streams (common random numbers by default).  If we had saved the results in the database *and* reattached the same database to the execution, we would capture the results from both runs (just like we did in this example).  Thus, we would still have used common random numbers. You need to be careful if you take this approach not to over write your earlier results by properly utilizing the KSL database functionality.
 
-### Multiple Comparisons {#simoacomparingSystemsMCB}
+### Concepts for Comparing Systems {#simoacomparingSystemsMCB}
 
 The analysis of multiple systems stems from a number of objectives. First, you may want to perform a *sensitivity analysis* on the
 simulation model. In a sensitivity analysis, you want to measure the
@@ -3257,6 +3286,8 @@ Multiple comparison procedures are described in [@goldsman1998comparing] and the
 therein. See also [@law2007simulation] for how these methods relate to
 other ranking and selection methods.
 
+### Multiple Comparison with the Best Procedures (MCB)
+
 While it is beyond the scope of this textbook to review multiple comparison with the best (MCB) procedures, it is useful to have a basic understanding of the form of the confidence interval constructed by these procedures.  To see how MCB procedures avoid part of the issues with having a large number of confidence intervals, we can note that the confidence interval is based on the difference between the best and the best of the rest.  Suppose we have $k$ system configurations to compare and suppose that somehow you knew that the $i^{th}$ system *is the best*.  Now, consider a confidence interval for system's $i$ performance metric, $\theta_i$, of the following form:
 
 $$
@@ -3317,6 +3348,7 @@ The `MultipleComparisonAnalyzer` class will automatically compute the following:
 - the pair-wise difference that is the largest and its value
 - multiple comparison confidence intervals based on finding the maximum value
 - multiple comparison confidence intervals based on finding the minimum value
+- screening intervals for best designs by constructing subsets containing the best configuration
  
 The user can specify the indifference zone parameter to be included in the confidence interval calculations.  The `MultipleComparisonAnalyzer` class does not utilize the probability of correct selection or assume some underlying distribution.  The confidence intervals that are computed have the following forms.  Define $Y_{ij}$ as the $i^{th}$ observation of system $j$. Thus, $\bar{Y}_{\cdot j}$ is the mean performance of system $j$. Let $\delta$ be the indifference zone parameter.  When selecting the system with the largest $\bar{Y}_{\cdot j}$ as the best, the confidence intervals for configurations $i=1,2,\dots,k$ are computed by:
 
@@ -3386,7 +3418,6 @@ If minimizing, form the confidence intervals:
 
 $\min\{0, \bar{Y}_{\cdot j} - \min_{j \neq i}\bar{Y}_{\cdot j}- \delta \} \leq \theta_i - \max_{j \neq i} \theta_j \leq \max\{0, \bar{Y}_{\cdot j} - \min_{j \neq i}\bar{Y}_{\cdot j}- \delta \}$
 
-To apply the `MultipleComparisonAnalyzer` class on a KSL simulation, we can just attach a `KSLDatabaseObserver` instance and ask for the `MultipleComparisonAnalyzer` instance as previously illustrated for the pallet model.  
 
 The `MultipleComparisonAnalyzer` class automatically computes everything that is needed to apply the Two-Stage Bonferroni procedure. The `toString()` method can be used to see all the results. The second stage sample size can be computed via the function `secondStageSampleSizeNM(),` and the maximum variance can be found from property, `maxVarianceOfDifferences.` In addition, the maximum or minimum performer can be noted from the `nameOfMaximumAverageOfData` and `nameOfMinimumAverageOfData` properties. The respective performance of the maximum and minimum via the `maximumAverageOfData` and `minimumAverageOfData` properties. Finally, the MCB intervals for each case are found from the `mcbMaxIntervals(delta)` and `mcbMinIntervals(delta)` functions respectively. Note that if $n = n_0$ in step 5, then no additional replications are required and the PCS will still be met.  [@nelsonMatejcik1995] recommend that the initial number of replications in the first stage should be greater than or equal to 10 ($n_0 \geq 10$). The two-stage Bonferroni procedure is somewhat conservative in recommending the sample size requirements. If the number of replications is of concern, then the reader should consult [@banks2005discreteevent] for other procedures.
 
@@ -3482,6 +3513,409 @@ num data sets: 4
 [One, Two, Three, Four]
 Second stage sampling recommendation R = 45
 ```
+
+### Screening Procedures {#ch5Screening}
+
+Assuming that the data are normally distributed (with or without CRN), screening procedures can be designed to select a subset of the system designs such that the retained subset will contain the true best system with probability greater than $1-\alpha$. Such procedures are useful when there are a large number of designs or during automated search procedures. Once a reliable subset has been found then MCB procedures can be used to select the best from the designated subset. The following screening procedure is based on [@nelson2001].
+
+- Step 1: Specify the PCS as $(1-\alpha)$, a common sample size, $n \ge 2$, and compute $t= t_{1-\alpha/(k-1),n - 1}$
+- Step 2: Execute the $n$ replications for each system and capture $Y_{ij}$ as the $i^{th}$ observation of system $j$
+- Step 3: Compute $\bar{Y}_{\cdot j}$ as the mean performance of system $j$, for $j=1,2,\cdots,k$. Then for all $i \neq j$, compute the sample variance of the differences:
+  
+$$
+S^{2}_{ij} = \frac{1}{n_0 - 1} \sum_{r=1}^{n_0} ((Y_{ri} - Y_{rj})  - (\bar{Y}_{\cdot i} - \bar{Y}_{\cdot j}))^2
+$$
+
+- Step 4: If bigger is better, then place system $i$ in the selection subset if for all $j \ne i$:
+$$
+\bar{Y}_{\cdot i} \ge \bar{Y}_{\cdot j} - t \frac{S_{ij}}{\sqrt{n}}
+$$
+If smaller is better, then place system $i$ in the selection subset if for all $j \ne i$:
+$$
+\bar{Y}_{\cdot i} \le \bar{Y}_{\cdot j} + t \frac{S_{ij}}{\sqrt{n}}
+$$
+
+Suppose we want to apply the screening procedure to the pairwise comparison data and assume that smaller is better.  The screening procedure essentially says to add the system to the subset of remaining alternatives if its sample average is smaller than all the other sample means that have been adjusted by a positive quantity that accounts for sampling error. In the pairwise difference data, we have $\bar{Y}_{\cdot i}$ and $S_{ij}$.
+
+Let's take a look at a simplified example. Note that $\hat{se}_{ij} = S_{ij}/\sqrt{n}$. If smaller is better, then place system $i$ in the selection subset if for all $j \ne i$, $\bar{Y}_{\cdot i} \le \bar{Y}_{\cdot j} + t * \hat{se}_{ij}$.  In this example suppose $k=4$, $\alpha = 0.05$, $n=10$, $t= t_{1-\alpha/(k-1),n - 1} = 2.5096$.  In the following the sample average for system 1, $\bar{Y}_{\cdot 1} = 50.036$ is compared to the computed upper limits for all the other configurations.
+
+$$
+\begin{aligned}
+\bar{Y}_{\cdot 1} = 50.036 & \overset{?}{\le} \bar{Y}_{\cdot 2} + t * \hat{se}_{12} = 49.236 + 2.5096 \times 0.6707=50.9191\\
+& \overset{?}{\le} \bar{Y}_{\cdot 3} + t * \hat{se}_{13} = 44.35 + 2.5096 \times 1.6881 = 48.5865\\
+& \overset{?}{\le} \bar{Y}_{\cdot 4} + t * \hat{se}_{14} = 48.778 + 2.5096 \times 0.7409 = 50.6374\\
+\end{aligned}
+$$
+
+Note that system 1 fails to be less than **all** the limits. Thus, system 1 is eliminated. This calculation is continued for all the systems to form the subset holding the remaining systems that were not eliminated during the screening process.
+
+To apply the `MultipleComparisonAnalyzer` class on a KSL simulation, we can just attach a `KSLDatabaseObserver` instance and ask for the `MultipleComparisonAnalyzer` instance as illustrated in the following code for the pallet model. 
+
+::: {.example #ch5ex7 name="Performing a MCB Analysis"}
+In this KSL code example, three configurations are compared using CRN and MCB.
+```kt
+fun main() {
+    val model = Model("Pallet Model MCB")
+
+    // add the model element to the main model
+    val palletWorkCenter = PalletWorkCenter(model)
+    // use a database to capture the response data
+    val kslDatabaseObserver = KSLDatabaseObserver(model)
+    // simulate the model
+    model.experimentName = "One Worker"
+    palletWorkCenter.numWorkers = 1
+    model.resetStartStreamOption = true
+    model.numberOfReplications = 30
+    model.simulate()
+
+    model.experimentName = "Two Workers"
+    palletWorkCenter.numWorkers = 2
+    model.simulate()
+
+    model.experimentName = "Three Workers"
+    palletWorkCenter.numWorkers = 3
+    model.simulate()
+
+    val responseName = palletWorkCenter.totalProcessingTime.name
+    val db = kslDatabaseObserver.db
+
+    val expNames = listOf("One Worker","Two Workers", "Three Workers")
+    val comparisonAnalyzer = db.multipleComparisonAnalyzerFor(expNames, responseName)
+    println(comparisonAnalyzer)
+}
+```
+:::
+
+It should be obvious that 3 workers results in the smallest total processing time.  Notice in the
+screening output that the 3 worker case is the only system that passes all the screening tests.
+
+```
+MCB Minimum Intervals
+Indifference delta: 0.0
+Name	 	Interval
+One Worker	 	[0.0, 517.7287463179446]
+Two Workers	 	[0.0, 64.92148814275674]
+Three Workers	 	[-64.92148814275674, 0.0]
+
+Min Screening Intervals
+One Worker	average = 943.8223691355911		Two Workers	[-Infinity, 499.44125093353716]
+One Worker	average = 943.8223691355911		Three Workers	[-Infinity, 444.40016711694113]
+Two Workers	average = 491.0151109604032		One Worker	[-Infinity, 952.2485091087251]
+Two Workers	average = 491.0151109604032		Three Workers	[-Infinity, 438.43696524296155]
+Three Workers	average = 426.09362281764646		One Worker	[-Infinity, 962.1289134348857]
+Three Workers	average = 426.09362281764646		Two Workers	[-Infinity, 503.3584533857183]
+
+Alternatives remaining after screening for minimum:
+[Three Workers]
+```
+
+## Simulating Many Scenarios {#ch5Scenarios}
+
+As illustrated in the previous section, there is often a need to simulate many variations of the same or different models and capture the results for further analysis. This section provides an overview of the KSL constructs that facilitate the running of many scenarios. The primary purpose of this section is to explain the built in constructs and illustrate their use within simple examples.  In most realistic situations, the models will have more complex input and output mapping than illustrated in this section. The illustrated constructs can be readily scaled up to larger models and more complex situations, perhaps even running models in parallel computing environments. However, this section only presents the basic use case.  We start by understanding controls and how to manage the parameters of random variables.
+
+### Control Annotations {#controlAntns}
+
+Because simulation models may have many types of inputs variables that may need to be changed by the modeler, the KSL defines an access protocol based on Kotlin property variables that have been annotated to define them as a controllable variable. The annotations provide meta-data about the KSL model element that can be used to define a generic protocol for setting the values of the properties prior to running a simulation model. This functionality is implemented in the `ksl.controls` package.
+
+The `KSLControl` annotation can be used on the setter method of properties within model elements to indicate that those properties can be used to control the execution of the simulation model. The annotation field type must be supplied and must be one of the valid control types as specified by the enum `ControlType.` The user is responsible for making sure that the type field matches (or is consistent with) the type of the property.  Even though the optional annotation fields (lowerBound and upperBound) are specified as double values, they will be converted to an appropriate value for the specified type.  Boolean properties are represented as a 1.0 (true) and 0.0 (false) within the numerical conversion for the controls.  If a control is BOOLEAN, then the user can supply a 1.0 to represent true and a 0.0 to represent false when setting the control, which will then be set to true or false, appropriately. Current control types include (Double, Int, Long, Short, Byte, Float) and Boolean. In essence, the numeric types are all represented as a Double with appropriate conversions occurring when the property is assigned.
+
+The `PalletWorkCenter` model that has been illustrated in this chapter has an annotated property for control.  In the follow code, we see the Kotlin annotation syntax `@set:KSLControl` to annotate the `numWorkers` property for the `PalletWorkCenter` model.  
+
+```kt
+    @set:KSLControl(
+        controlType = ControlType.INTEGER,
+        lowerBound = 1.0
+    )
+    var numWorkers = numWorkers
+        set(value) {
+            require(value >= 1) { "The number of workers must be >= 1" }
+            require(!model.isRunning) { "Cannot change the number of workers while the model is running!" }
+            field = value
+        }
+```
+
+The annotation `KSLControl` has been defined with properties `controlType,` `name,` `lowerBound,` `upperBound,` `comment,` and `include.`  The most important properties are `controlType` and the bounds. By default the bounds are positive and negative infinity.  In the example code for the `numWorker` property the lower bound has been specified as 1.0 to indicate that the value of this property cannot be less than 1.0. The control type of `ControlType.INTEGER` ensures that even though the control's value is specified as a `Double,` the supplied value will be converted to an `Int` when it is applied. This approach simplifies the specification of parameter values. 
+
+Model elements can have many properties that have been annotated as a `KSLControl.`  For example, the initial value property for a `Variable` has been annotated as follows.
+
+```kt
+@set:KSLControl(
+    controlType = ControlType.DOUBLE
+)
+override var initialValue: Double = theInitialValue
+    set(value) {
+        require(domain.contains(value)) { "The initial value, $value must be within the specified range for the variable: $domain" }
+        if (model.isRunning) {
+            Model.logger.info { "The user set the initial value during the replication. The next replication will use a different initial value" }
+        }
+        field = value
+    }
+```
+
+These annotations indicate in a generic manner which properties can be controllable. When you develop your own model elements, you can take advantage of the generic access protocol and build interesting ways to set the controls of your models. In what follows, we will illustrate how to use controls. 
+
+The `Model` class has a `controls()` function that returns all of the controls associated with every model element within a model. The following code illustrates how to access the controls for a model and print out their key values.
+
+::: {.example #ch5ex8 name="Illustrating a Control"}
+The following example code illustrates how to access a control and change its value, resulting in the change of the associated property.
+```kt
+fun main() {
+    val model = Model("Pallet Model MCB")
+    // add the model element to the main model
+    val palletWorkCenter = PalletWorkCenter(model, name ="PWC")
+    println("Original value of property:")
+    println("num workers = ${palletWorkCenter.numWorkers}")
+    println()
+    val controls =  model.controls()
+    println("Control keys:")
+    for (controlKey in controls.controlKeys()) {
+        println(controlKey)
+    }
+    // find the control with the desired key
+    val control = controls.control("PWC.numWorkers")!!
+    // set the value of the control
+    control.value = 3.0
+    println()
+    println("Current value of property:")
+    println("num workers = ${palletWorkCenter.numWorkers}")
+}
+```
+:::
+
+This results in the following output.
+
+```
+Original value of property:
+num workers = 2
+
+Control keys:
+PWC.numWorkers
+NumBusyWorkers.initialValue
+PalletQ:NumInQ.initialValue
+Num Pallets at WC.initialValue
+Num Processed.initialCounterLimit
+Num Processed.initialValue
+P{total time > 480 minutes}.initialValue
+
+Current value of property:
+num workers = 3
+```
+
+The important aspect of this output to notice are the keys associated with the controls.  The `numWorkers` property associated with the `PalletWorkCenter` class has the key `PWC.numWorkers`.  The `PWC` portion of the key has been derived from the assigned name of the created instance of the `PalletWorkCenter` class.  Since the name of the model element is unique and the Kotlin property name `numWorkers` must be unique, this combination is unique and can be used to look up the control associated with the annotated property. 
+
+The second aspect of this example is the fact that prior to setting the control, the underlying `numWorkers` property had a value of 2.0.  Then, after accessing the control and changing its value, the `numWorkers` property value was updated to 3.0.  Now, this is a bit of overkill for changing the value of a single property; however, this illustrates the basic mechanics of using controls. Because the key for a control is unique, as long as you know the associated key you can change the value of the associated property via its associated control. A more useful use case would be to store the key-value pairs in a file and read in the new values of the properties from the file. Then, a generic procedure can be written to change all the controls.
+
+### Random Variable Parameters
+
+Stochastic simulation models use random variables. Thus, it is common to need to change the values of the parameters associated with the random variables when running experiments. The architecture of the KSL with respect to random variables can be somewhat daunting. The key issue is that changing out the random variable or its parameters requires careful methods because random variables are immutable and changing their values must ensure that replications start with same settings (so that they are truly replicates). The second complicating factor is that the number of parameters associated with random variables varies widely by type of random variable.  For example, an exponential random variable has one parameter, its mean, while a triangular random variable has three parameters (min, mode, max).  Because of these challenges, the KSL provides a generic protocol for accessing and changing the parameter values of every random variable associated with a KSL model. This is accomplished via the `RVParameterSetter` class and its associated supporting classes within the `ksl.rvariable.parameters` package. This section will provide a brief overview of how to utilize this generic protocol for changing the parameters associated with the random variables of a KSL model.
+
+::: {.example #ch5ex9 name="Changing Random Variable Parameters"}
+The following example code illustrates how to access the parameters of a random variable and how to apply the change within the model.
+```kt
+fun main() {
+    val model = Model("Pallet Model MCB")
+    // add the model element to the main model
+    val palletWorkCenter = PalletWorkCenter(model, name ="PWC")
+    println(palletWorkCenter.processingTimeRV)
+    val tmpSetter = RVParameterSetter(model)
+    val map = tmpSetter.rvParameters
+    println()
+    println("Standard Map Representation:")
+    for ((key, value) in map) {
+        println("$key -> $value")
+    }
+    val rv  = map["ProcessingTimeRV"]!!
+    rv.changeDoubleParameter("mode", 14.0)
+    tmpSetter.applyParameterChanges(model)
+    println()
+    println(palletWorkCenter.processingTimeRV)
+}
+```
+:::
+
+Similar to how controls function, the parameters associated with a model can be retrieved by creating an instance of the `RVParameterSetter` class. The `RVParameterSetter` class has many representations of the parameters associated with random variables within the model. An instance of the `RVParameterSetter` class holds a map that uses the name of the random variable from the model as the key and returns an instance of the `RVParameters` class. The `RVParameters` class holds information about the parameters of the random variable based on their types (Double, Int, DoubleArray).  Currently the `RVParameterSetter` class only holds random variables that have integer or double type parameters. 
+
+In the code example, first the string representation of the random variable is printed. We can see from the output that its name is `ProcessingTimeRV` and its underlying source of randomness is a triangular distributed random variable with minimum 8, mode 12, and maximum 15, using stream 3.  The returned map of random variable parameters is used to get the `RVParameters` associated with the `ProcessingTimeRV` and then the mode parameter is changed to the value of 14.
+
+```
+ModelElement{Class Name=RandomVariable, Id=4, Name='ProcessingTimeRV', Parent Name='PWC, Parent ID=3, Model=Pallet_Model_MCB}
+Initial random Source: TriangularRV(min=8.0, mode=12.0, max=15.0) with stream 3
+
+Standard Map Representation:
+Pallet_Model_MCB:DefaultUniformRV -> RV Type = Uniform
+Double Parameters {min=0.0, max=1.0}
+ProcessingTimeRV -> RV Type = Triangular
+Double Parameters {min=8.0, mode=12.0, max=15.0}
+TransportTimeRV -> RV Type = Exponential
+Double Parameters {mean=5.0}
+NumPalletsRV -> RV Type = Binomial
+Double Parameters {probOfSuccess=0.8, numTrials=100.0}
+
+ModelElement{Class Name=RandomVariable, Id=4, Name='ProcessingTimeRV', Parent Name='PWC, Parent ID=3, Model=Pallet_Model_MCB}
+Initial random Source: TriangularRV(min=8.0, mode=14.0, max=15.0) with stream 3
+```
+Then the code, applies the parameter change to the model. It is important to note that changing parameter value in the map **does not** change the parameter in the model. The change is only applied to the model when the `applyParameterChanges()` function is invoked. As we can see from the printed output for the associated random variable, the mode has been updated to 14.  As was the case for controls, changing individual parameter values via this generic protocol is a bit of overkill for a single parameter. However, this protocol defines a general approach that will work as long as you know the name of the random variable within the model and the name of the parameter to change. The code prints out the map relationship from which you can easily make note of the associated names of the random variables and the names of their defined parameters.
+
+The `RVParameterSetter` class also has a flattened structure for holding parameter values similar to how controls work. The name of the random variable is concatenated with its associated parameter name to form a unique key. The following code illustrates this representation.
+
+```kt
+    val flatMap = tmpSetter.flatParametersAsDoubles
+    println("Flat Map Representation:")
+    for ((key, value) in flatMap) {
+        println("$key -> $value")
+    }
+```
+
+The resulting print out of the map is show here.
+
+```
+Flat Map Representation:
+Pallet_Model_MCB:DefaultUniformRV.min -> 0.0
+Pallet_Model_MCB:DefaultUniformRV.max -> 1.0
+ProcessingTimeRV.min -> 8.0
+ProcessingTimeRV.mode -> 14.0
+ProcessingTimeRV.max -> 15.0
+TransportTimeRV.mean -> 5.0
+NumPalletsRV.probOfSuccess -> 0.8
+NumPalletsRV.numTrials -> 100.0
+```
+
+Notice that the name of the processing time random variable `ProcessingTimeRV` has been concatenated with its parameter names `min,` `mode,` and `max.` This representation is useful for storing controls and random variable parameters within the same file or data structure for generic processing. 
+
+### Setting Up and Running Multiple Scenarios {#kslScenarios}
+
+This section puts the concepts presented in the last two sections into practice by illustrating how to construct scenarios and how to execute the scenarios.  
+
+The code found in Example \@ref(exm:ch5ex7) has a very common pattern.
+
+- create a model and its elements
+- set up the model
+- simulate the model
+- create another model or change the previous model's parameters
+- simulate the model
+- repeat for each experimental configuration
+
+Within the KSL these concepts have been generalized by providing the `Scenario` class and the `ScenarioRunner` class. A scenario represents the specification of a model to run, with some inputs.  Each scenario will produce a simulation run (`SimulationRun`). The naming of a scenario is important. The name of the scenario should be unique within the context of running multiple scenarios with a `ScenarioRunner` instance. The name of the scenario is used to assign the name of the model's experiment.  If the scenario names are unique, then the experiment names will be unique. In the context of running multiple scenarios, it is important that the experiment names be unique to permit automated storage within the associated KSL database.
+
+The following code presents the constructor of a scenario.  Notice that the key parameters of the constructor are a model, a map of inputs, and the name of the scenario. The input map represents (key, value) pairs specifying controls or random variable names (in flat map form) along with its assigned value.
+
+```kt
+class Scenario(
+    val model: Model,
+    inputs: Map<String, Double>,
+    name: String,
+    numberReplications: Int = model.numberOfReplications,
+    lengthOfReplication: Double = model.lengthOfReplication,
+    lengthOfReplicationWarmUp: Double = model.lengthOfReplicationWarmUp,
+) : Identity(name), ExperimentIfc by model {
+...
+```
+
+Once a scenario is defined, a list of scenarios can be provided to the `ScenarioRunner` class. The purpose of the `ScenarioRunner` class is to facilitate the batch running of all the defined scenarios and the collection of the simulation results from the scenarios into a `KSLDatabase` instance.  Let's take a look at how to use the `ScenarioRunner` class.
+
+::: {.example #ch5ex10 name="Using a ScenarioRunner"}
+In this code example, we see that an instance of the `ScenarioRunner` class can be used to run many scenarios.  The loop after running the scenarios is simply for the purpose of displaying the results.
+
+```kt
+fun main() {
+    val scenarioRunner = ScenarioRunner("Example5_10", buildScenarios())
+    scenarioRunner.simulate()
+    for (s in scenarioRunner.scenarioList) {
+        val sr = s.simulationRun?.statisticalReporter()
+        val r = sr?.halfWidthSummaryReport(title = s.name)
+        println(r)
+        println()
+    }
+}
+```
+:::
+
+The `buildScenarios()` function is simply a function that returns a list of scenarios. This is where the real magic happens.  The first thing to note about the following code is that scenarios can be defined on the same or different models.  It makes no difference to the `ScenarioRunner` class whether the scenarios are related to one or more models. The `ScenarioRunner` will simply execute all the scenarios that it is supplied.  In the following code, the `PalletWorkCenter` model is again used in the illustration as one of the scenario models. Here, maps of inputs using the controls and random variable parameters, are used to configure the inputs to three different scenarios.  For illustrative purposes only, a fourth scenario is created and configured using the drive through pharmacy model. 
+
+```kt
+fun buildScenarios() : List<Scenario> {
+    val model = Model("Pallet Model", autoCSVReports = true)
+    // add the model element to the main model
+    val palletWorkCenter = PalletWorkCenter(model, name = "PWC")
+    // set up the model
+    model.resetStartStreamOption = true
+    model.numberOfReplications = 30
+
+    val sim1Inputs = mapOf(
+        "ProcessingTimeRV.mode" to 14.0,
+        "PWC.numWorkers" to 1.0,
+        )
+
+    val sim2Inputs = mapOf(
+        "ProcessingTimeRV.mode" to 14.0,
+        "PWC.numWorkers" to 2.0,
+    )
+
+    val sim3Inputs = mapOf(
+        "ProcessingTimeRV.mode" to 14.0,
+        "PWC.numWorkers" to 3.0,
+    )
+
+    val dtpModel = Model("DTP Model", autoCSVReports = true)
+    dtpModel.numberOfReplications = 30
+    dtpModel.lengthOfReplication = 20000.0
+    dtpModel.lengthOfReplicationWarmUp = 5000.0
+    val dtp = DriveThroughPharmacyWithQ(dtpModel, name = "DTP")
+    val sim4Inputs = mapOf(
+        "DTP.numPharmacists" to 2.0,
+    )
+
+    val s1 = Scenario(model = model, inputs = sim1Inputs, name = "One Worker")
+    val s2 = Scenario(model = model, inputs = sim2Inputs, name = "Two Worker")
+    val s3 = Scenario(model = model, inputs = sim3Inputs, name = "Three Worker")
+    val s4 = Scenario(model = dtpModel, inputs = sim4Inputs, name = "DTP_Experiment")
+
+    return listOf(s1, s2, s3, s4)
+}
+```
+
+::: {.infobox .warning data-latex="{warning}"}
+**WARNING!**
+When configuring the scenarios do not forget to specify the model's experimental run parameters. That is, make sure to provide the run length, number of replications, and the warm up period (if needed). This can be achieved by setting the parameters of the model or by providing the values when constructing a scenario.
+:::
+
+The running of the many scenarios will produce much output. The resulting output from running the code from Example \@ref(exm:ch5ex10) in shown is Figure \@ref(fig:exmScenarios).
+
+<div class="figure" style="text-align: center">
+<img src="./figures2/ch5/ScenarioOutputs.png" alt="Output from Running Scenarios" width="35%" height="35%" />
+<p class="caption">(\#fig:exmScenarios)Output from Running Scenarios</p>
+</div>
+
+We see from Figure \@ref(fig:exmScenarios) that an output directory is created having the name of the `ScenarioRunner` instance associated with it. Within that output directory is an output directory for each of the scenarios.  In addition, for this example, a KSL database has been created, `Example5_10.db,` which holds all of the simulation results from the scenario runs.  As we can see from the constructor of the `ScenarioRunner` class, a property is available to access the KSL database within code.  As previously illustrated in Example \@ref(exm:ch5ex7) the KSL database reference could be used to create a `MultipleComparisonAnalyzer` instance and perform a MCB analysis. Or as illustrated in Section \@ref(simoaCapture), the database can be used to access the statistical results and export results to CSV (or Excel) files.
+
+```kt
+class ScenarioRunner(
+    name: String,
+    scenarioList: List<Scenario> = emptyList(),
+    val pathToOutputDirectory: Path = KSL.createSubDirectory(name.replace(" ", "_") + "_OutputDir"),
+    val kslDb: KSLDatabase = KSLDatabase("${name}.db".replace(" ", "_"), pathToOutputDirectory)
+) : Identity(name) {
+```
+
+Also, the properties `scenarioList` and `scenariosByName` allow access to the scenarios. The `scenarioList` property was used in illustrating the output from the scenarios as per the code in Example \@ref(exm:ch5ex10).  
+
+::: {.infobox .note data-latex="{note}"}
+**BTW**
+Configuring a scenario based on only controls and random variable parameters may be difficult for complex models. Because of this the `Scenario` class has a property called `setup` which can hold a reference to a functional interface `ScenarioSetupIfc` that can be supplied and executed prior to simulating the scenario.
+```kt
+fun interface ScenarioSetupIfc {
+    fun setup(model: Model)
+}
+```
+By supplying a setup function, you can invoke any logic that you need to configure the model prior to simulating the scenario.
+:::
+
+As you can see, the KSL provides functionality to run many scenarios and collect the statistical results associated with the scenarios with a simple to use protocol.
+
+::: {.infobox .note data-latex="{note}"}
+**NOTE!**
+The KSL also supports the construction and simulation of experimental designs. This functionality is described in Section \@ref(appExpDesign) of Appendix \@ref(appUtilities).
+:::
 
 ## Summary {#simoasummary}
 

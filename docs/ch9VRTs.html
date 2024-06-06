@@ -6,7 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>8.2 Variance Reduction Techniques | Simulation Modeling using the Kotlin Simulation Library (KSL)</title>
   <meta name="description" content="A book that illustrates the basics of using the KSL. The output format for this book is bookdown::gitbook." />
-  <meta name="generator" content="bookdown 0.34 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.39 and GitBook 2.6.7" />
 
   <meta property="og:title" content="8.2 Variance Reduction Techniques | Simulation Modeling using the Kotlin Simulation Library (KSL)" />
   <meta property="og:type" content="book" />
@@ -23,7 +23,7 @@
 <meta name="author" content="Manuel D. Rossetti" />
 
 
-<meta name="date" content="2024-05-28" />
+<meta name="date" content="2024-06-06" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -58,7 +58,7 @@
 
 <style type="text/css">
 pre > code.sourceCode { white-space: pre; position: relative; }
-pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span { line-height: 1.25; }
 pre > code.sourceCode > span:empty { height: 1.2em; }
 .sourceCode { overflow: visible; }
 code.sourceCode > span { color: inherit; text-decoration: inherit; }
@@ -130,6 +130,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 div.csl-bib-body { }
 div.csl-entry {
   clear: both;
+  margin-bottom: 0em;
 }
 .hanging div.csl-entry {
   margin-left:2em;
@@ -200,7 +201,7 @@ div.csl-indent {
 <ul>
 <li class="chapter" data-level="2.2.1" data-path="rvg.html"><a href="rvg.html#basic-random-variate-generation"><i class="fa fa-check"></i><b>2.2.1</b> Basic Random Variate Generation</a></li>
 <li class="chapter" data-level="2.2.2" data-path="rvg.html"><a href="rvg.html#rvg_dists"><i class="fa fa-check"></i><b>2.2.2</b> Continuous and Discrete Random Variables</a></li>
-<li class="chapter" data-level="2.2.3" data-path="rvg.html"><a href="rvg.html#rvg_use"><i class="fa fa-check"></i><b>2.2.3</b> Creating and Using Random Variables</a></li>
+<li class="chapter" data-level="2.2.3" data-path="rvg.html"><a href="rvg.html#rvguse"><i class="fa fa-check"></i><b>2.2.3</b> Creating and Using Random Variables</a></li>
 <li class="chapter" data-level="2.2.4" data-path="rvg.html"><a href="rvg.html#functions-of-random-variables"><i class="fa fa-check"></i><b>2.2.4</b> Functions of Random Variables</a></li>
 </ul></li>
 <li class="chapter" data-level="2.3" data-path="probModels.html"><a href="probModels.html"><i class="fa fa-check"></i><b>2.3</b> Probability Distribution Models</a></li>
@@ -231,31 +232,30 @@ div.csl-indent {
 </ul></li>
 <li class="chapter" data-level="3.4" data-path="craps.html"><a href="craps.html"><i class="fa fa-check"></i><b>3.4</b> Simulating the Game of Craps</a></li>
 <li class="chapter" data-level="3.5" data-path="the-news-vendor-problem.html"><a href="the-news-vendor-problem.html"><i class="fa fa-check"></i><b>3.5</b> The News Vendor Problem</a></li>
-<li class="chapter" data-level="3.6" data-path="a-simple-inspection-process.html"><a href="a-simple-inspection-process.html"><i class="fa fa-check"></i><b>3.6</b> A Simple Inspection Process</a></li>
-<li class="chapter" data-level="3.7" data-path="stochastic-activity-networks.html"><a href="stochastic-activity-networks.html"><i class="fa fa-check"></i><b>3.7</b> Stochastic Activity Networks</a></li>
+<li class="chapter" data-level="3.6" data-path="ch3InsProcess.html"><a href="ch3InsProcess.html"><i class="fa fa-check"></i><b>3.6</b> A Simple Inspection Process</a></li>
+<li class="chapter" data-level="3.7" data-path="ch3SAN.html"><a href="ch3SAN.html"><i class="fa fa-check"></i><b>3.7</b> Stochastic Activity Networks</a></li>
 <li class="chapter" data-level="3.8" data-path="mcmExperiments.html"><a href="mcmExperiments.html"><i class="fa fa-check"></i><b>3.8</b> Monte-Carlo Experiments</a></li>
 <li class="chapter" data-level="3.9" data-path="summary-1.html"><a href="summary-1.html"><i class="fa fa-check"></i><b>3.9</b> Summary</a></li>
 <li class="chapter" data-level="3.10" data-path="exercises-2.html"><a href="exercises-2.html"><i class="fa fa-check"></i><b>3.10</b> Exercises</a></li>
 </ul></li>
 <li class="chapter" data-level="4" data-path="introDEDS.html"><a href="introDEDS.html"><i class="fa fa-check"></i><b>4</b> Introduction to Discrete Event Modeling</a>
 <ul>
-<li class="chapter" data-level="4.1" data-path="introDEDSIntro.html"><a href="introDEDSIntro.html"><i class="fa fa-check"></i><b>4.1</b> Introduction</a></li>
-<li class="chapter" data-level="4.2" data-path="introDEDSdeds.html"><a href="introDEDSdeds.html"><i class="fa fa-check"></i><b>4.2</b> Discrete-Event Dynamic Systems</a></li>
-<li class="chapter" data-level="4.3" data-path="HowDEDSClockWorks.html"><a href="HowDEDSClockWorks.html"><i class="fa fa-check"></i><b>4.3</b> How the Discrete-Event Clock Works</a></li>
-<li class="chapter" data-level="4.4" data-path="QHandExample.html"><a href="QHandExample.html"><i class="fa fa-check"></i><b>4.4</b> Simulating a Queueing System By Hand</a></li>
-<li class="chapter" data-level="4.5" data-path="introDEDSdedsKSL.html"><a href="introDEDSdedsKSL.html"><i class="fa fa-check"></i><b>4.5</b> Modeling DEDS in the KSL</a>
+<li class="chapter" data-level="4.1" data-path="introDEDSdeds.html"><a href="introDEDSdeds.html"><i class="fa fa-check"></i><b>4.1</b> Discrete-Event Dynamic Systems</a></li>
+<li class="chapter" data-level="4.2" data-path="HowDEDSClockWorks.html"><a href="HowDEDSClockWorks.html"><i class="fa fa-check"></i><b>4.2</b> How the Discrete-Event Clock Works</a></li>
+<li class="chapter" data-level="4.3" data-path="QHandExample.html"><a href="QHandExample.html"><i class="fa fa-check"></i><b>4.3</b> Simulating a Queueing System By Hand</a></li>
+<li class="chapter" data-level="4.4" data-path="introDEDSdedsKSL.html"><a href="introDEDSdedsKSL.html"><i class="fa fa-check"></i><b>4.4</b> Modeling DEDS in the KSL</a>
 <ul>
-<li class="chapter" data-level="4.5.1" data-path="introDEDSdedsKSL.html"><a href="introDEDSdedsKSL.html#event-scheduling"><i class="fa fa-check"></i><b>4.5.1</b> Event Scheduling</a></li>
-<li class="chapter" data-level="4.5.2" data-path="introDEDSdedsKSL.html"><a href="introDEDSdedsKSL.html#introDEDSschedExamples"><i class="fa fa-check"></i><b>4.5.2</b> Simple Event Scheduling Examples</a></li>
-<li class="chapter" data-level="4.5.3" data-path="introDEDSdedsKSL.html"><a href="introDEDSdedsKSL.html#introDEDSUpDown"><i class="fa fa-check"></i><b>4.5.3</b> Up and Down Component Example</a></li>
-<li class="chapter" data-level="4.5.4" data-path="introDEDSdedsKSL.html"><a href="introDEDSdedsKSL.html#introDEDSPharmacy"><i class="fa fa-check"></i><b>4.5.4</b> Modeling a Simple Queueing System</a></li>
-<li class="chapter" data-level="4.5.5" data-path="introDEDSdedsKSL.html"><a href="introDEDSdedsKSL.html#more-details-about-the-pharmacy-model-implementation"><i class="fa fa-check"></i><b>4.5.5</b> More Details About the Pharmacy Model Implementation</a></li>
+<li class="chapter" data-level="4.4.1" data-path="introDEDSdedsKSL.html"><a href="introDEDSdedsKSL.html#event-scheduling"><i class="fa fa-check"></i><b>4.4.1</b> Event Scheduling</a></li>
+<li class="chapter" data-level="4.4.2" data-path="introDEDSdedsKSL.html"><a href="introDEDSdedsKSL.html#introDEDSschedExamples"><i class="fa fa-check"></i><b>4.4.2</b> Simple Event Scheduling Examples</a></li>
+<li class="chapter" data-level="4.4.3" data-path="introDEDSdedsKSL.html"><a href="introDEDSdedsKSL.html#introDEDSUpDown"><i class="fa fa-check"></i><b>4.4.3</b> Up and Down Component Example</a></li>
+<li class="chapter" data-level="4.4.4" data-path="introDEDSdedsKSL.html"><a href="introDEDSdedsKSL.html#introDEDSPharmacy"><i class="fa fa-check"></i><b>4.4.4</b> Modeling a Simple Queueing System</a></li>
+<li class="chapter" data-level="4.4.5" data-path="introDEDSdedsKSL.html"><a href="introDEDSdedsKSL.html#more-details-about-the-pharmacy-model-implementation"><i class="fa fa-check"></i><b>4.4.5</b> More Details About the Pharmacy Model Implementation</a></li>
 </ul></li>
-<li class="chapter" data-level="4.6" data-path="enhancing-the-drive-through-pharmacy-model.html"><a href="enhancing-the-drive-through-pharmacy-model.html"><i class="fa fa-check"></i><b>4.6</b> Enhancing the Drive Through Pharmacy Model</a></li>
-<li class="chapter" data-level="4.7" data-path="introDEDSSummary.html"><a href="introDEDSSummary.html"><i class="fa fa-check"></i><b>4.7</b> Summary</a></li>
-<li class="chapter" data-level="4.8" data-path="exercises-3.html"><a href="exercises-3.html"><i class="fa fa-check"></i><b>4.8</b> Exercises</a></li>
+<li class="chapter" data-level="4.5" data-path="enhancing-the-drive-through-pharmacy-model.html"><a href="enhancing-the-drive-through-pharmacy-model.html"><i class="fa fa-check"></i><b>4.5</b> Enhancing the Drive Through Pharmacy Model</a></li>
+<li class="chapter" data-level="4.6" data-path="introDEDSSummary.html"><a href="introDEDSSummary.html"><i class="fa fa-check"></i><b>4.6</b> Summary</a></li>
+<li class="chapter" data-level="4.7" data-path="exercises-3.html"><a href="exercises-3.html"><i class="fa fa-check"></i><b>4.7</b> Exercises</a></li>
 </ul></li>
-<li class="chapter" data-level="5" data-path="simoa.html"><a href="simoa.html"><i class="fa fa-check"></i><b>5</b> Analyzing Simulation Output</a>
+<li class="chapter" data-level="5" data-path="simoa.html"><a href="simoa.html"><i class="fa fa-check"></i><b>5</b> Analyzing and Accessing Simulation Output</a>
 <ul>
 <li class="chapter" data-level="5.1" data-path="simoadatatypes.html"><a href="simoadatatypes.html"><i class="fa fa-check"></i><b>5.1</b> Types of Statistical Variables</a></li>
 <li class="chapter" data-level="5.2" data-path="simoasimtypes.html"><a href="simoasimtypes.html"><i class="fa fa-check"></i><b>5.2</b> Types of Simulation With Respect To Output Analysis</a></li>
@@ -277,10 +277,18 @@ div.csl-indent {
 <li class="chapter" data-level="5.7" data-path="simoacomparingSystems.html"><a href="simoacomparingSystems.html"><i class="fa fa-check"></i><b>5.7</b> Comparing System Configurations</a>
 <ul>
 <li class="chapter" data-level="5.7.1" data-path="simoacomparingSystems.html"><a href="simoacomparingSystems.html#simoacomparingSystems:two"><i class="fa fa-check"></i><b>5.7.1</b> Comparing Two Systems</a></li>
-<li class="chapter" data-level="5.7.2" data-path="simoacomparingSystems.html"><a href="simoacomparingSystems.html#simoacomparingSystemsMCB"><i class="fa fa-check"></i><b>5.7.2</b> Multiple Comparisons</a></li>
+<li class="chapter" data-level="5.7.2" data-path="simoacomparingSystems.html"><a href="simoacomparingSystems.html#simoacomparingSystemsMCB"><i class="fa fa-check"></i><b>5.7.2</b> Concepts for Comparing Systems</a></li>
+<li class="chapter" data-level="5.7.3" data-path="simoacomparingSystems.html"><a href="simoacomparingSystems.html#multiple-comparison-with-the-best-procedures-mcb"><i class="fa fa-check"></i><b>5.7.3</b> Multiple Comparison with the Best Procedures (MCB)</a></li>
+<li class="chapter" data-level="5.7.4" data-path="simoacomparingSystems.html"><a href="simoacomparingSystems.html#ch5Screening"><i class="fa fa-check"></i><b>5.7.4</b> Screening Procedures</a></li>
 </ul></li>
-<li class="chapter" data-level="5.8" data-path="simoasummary.html"><a href="simoasummary.html"><i class="fa fa-check"></i><b>5.8</b> Summary</a></li>
-<li class="chapter" data-level="5.9" data-path="exercises-4.html"><a href="exercises-4.html"><i class="fa fa-check"></i><b>5.9</b> Exercises</a></li>
+<li class="chapter" data-level="5.8" data-path="ch5Scenarios.html"><a href="ch5Scenarios.html"><i class="fa fa-check"></i><b>5.8</b> Simulating Many Scenarios</a>
+<ul>
+<li class="chapter" data-level="5.8.1" data-path="ch5Scenarios.html"><a href="ch5Scenarios.html#controlAntns"><i class="fa fa-check"></i><b>5.8.1</b> Control Annotations</a></li>
+<li class="chapter" data-level="5.8.2" data-path="ch5Scenarios.html"><a href="ch5Scenarios.html#random-variable-parameters"><i class="fa fa-check"></i><b>5.8.2</b> Random Variable Parameters</a></li>
+<li class="chapter" data-level="5.8.3" data-path="ch5Scenarios.html"><a href="ch5Scenarios.html#kslScenarios"><i class="fa fa-check"></i><b>5.8.3</b> Setting Up and Running Multiple Scenarios</a></li>
+</ul></li>
+<li class="chapter" data-level="5.9" data-path="simoasummary.html"><a href="simoasummary.html"><i class="fa fa-check"></i><b>5.9</b> Summary</a></li>
+<li class="chapter" data-level="5.10" data-path="exercises-4.html"><a href="exercises-4.html"><i class="fa fa-check"></i><b>5.10</b> Exercises</a></li>
 </ul></li>
 <li class="chapter" data-level="6" data-path="processview.html"><a href="processview.html"><i class="fa fa-check"></i><b>6</b> Process View Modeling Using the KSL</a>
 <ul>
@@ -312,12 +320,12 @@ div.csl-indent {
 <ul>
 <li class="chapter" data-level="7.2.1" data-path="modeling-non-stationary-systems.html"><a href="modeling-non-stationary-systems.html#ch7secNSPP"><i class="fa fa-check"></i><b>7.2.1</b> Non-Stationary Arrival Processes</a></li>
 <li class="chapter" data-level="7.2.2" data-path="modeling-non-stationary-systems.html"><a href="modeling-non-stationary-systems.html#modeling-resources-under-non-stationary-conditions"><i class="fa fa-check"></i><b>7.2.2</b> Modeling Resources Under Non-Stationary Conditions</a></li>
-<li class="chapter" data-level="7.2.3" data-path="modeling-non-stationary-systems.html"><a href="modeling-non-stationary-systems.html#enhancing-the-stem-career-mixer-example"><i class="fa fa-check"></i><b>7.2.3</b> Enhancing the STEM Career Mixer Example</a></li>
+<li class="chapter" data-level="7.2.3" data-path="modeling-non-stationary-systems.html"><a href="modeling-non-stationary-systems.html#enhancing-the-stem-career-mixer-model"><i class="fa fa-check"></i><b>7.2.3</b> Enhancing the STEM Career Mixer Model</a></li>
 </ul></li>
 <li class="chapter" data-level="7.3" data-path="examples-of-advanced-event-models.html"><a href="examples-of-advanced-event-models.html"><i class="fa fa-check"></i><b>7.3</b> Examples of Advanced Event Models</a>
 <ul>
 <li class="chapter" data-level="7.3.1" data-path="examples-of-advanced-event-models.html"><a href="examples-of-advanced-event-models.html#ch6s1sb4sub3"><i class="fa fa-check"></i><b>7.3.1</b> Modeling Balking and Reneging</a></li>
-<li class="chapter" data-level="7.3.2" data-path="examples-of-advanced-event-models.html"><a href="examples-of-advanced-event-models.html#modeling-a-reorder-point-reorder-quantity-inventory-policy"><i class="fa fa-check"></i><b>7.3.2</b> Modeling a Reorder Point, Reorder Quantity Inventory Policy</a></li>
+<li class="chapter" data-level="7.3.2" data-path="examples-of-advanced-event-models.html"><a href="examples-of-advanced-event-models.html#rqModel"><i class="fa fa-check"></i><b>7.3.2</b> Modeling a Reorder Point, Reorder Quantity Inventory Policy</a></li>
 </ul></li>
 <li class="chapter" data-level="7.4" data-path="summary-3.html"><a href="summary-3.html"><i class="fa fa-check"></i><b>7.4</b> Summary</a></li>
 <li class="chapter" data-level="7.5" data-path="exercises-6.html"><a href="exercises-6.html"><i class="fa fa-check"></i><b>7.5</b> Exercises</a></li>
@@ -432,11 +440,13 @@ div.csl-indent {
 <li class="chapter" data-level="D.1" data-path="the-outputdirectory-class-and-ksl-object.html"><a href="the-outputdirectory-class-and-ksl-object.html"><i class="fa fa-check"></i><b>D.1</b> The <code>OutputDirectory</code> Class and <code>KSL</code> Object</a></li>
 <li class="chapter" data-level="D.2" data-path="logging-options.html"><a href="logging-options.html"><i class="fa fa-check"></i><b>D.2</b> Logging Options</a></li>
 <li class="chapter" data-level="D.3" data-path="the-kslfileutil-object.html"><a href="the-kslfileutil-object.html"><i class="fa fa-check"></i><b>D.3</b> The <code>KSLFileUtil</code> Object</a></li>
-<li class="chapter" data-level="D.4" data-path="csv-excel-and-tabular-data-files.html"><a href="csv-excel-and-tabular-data-files.html"><i class="fa fa-check"></i><b>D.4</b> CSV, Excel, and Tabular Data Files</a></li>
-<li class="chapter" data-level="D.5" data-path="the-dataframeutil-object.html"><a href="the-dataframeutil-object.html"><i class="fa fa-check"></i><b>D.5</b> The <code>DataFrameUtil</code> Object</a></li>
+<li class="chapter" data-level="D.4" data-path="appDCSVEtc.html"><a href="appDCSVEtc.html"><i class="fa fa-check"></i><b>D.4</b> CSV, Excel, and Tabular Data Files</a></li>
+<li class="chapter" data-level="D.5" data-path="dfUtil.html"><a href="dfUtil.html"><i class="fa fa-check"></i><b>D.5</b> The <code>DataFrameUtil</code> Object</a></li>
 <li class="chapter" data-level="D.6" data-path="ksl-database-utilities.html"><a href="ksl-database-utilities.html"><i class="fa fa-check"></i><b>D.6</b> KSL Database Utilities</a></li>
 <li class="chapter" data-level="D.7" data-path="appUtilitiesArrays.html"><a href="appUtilitiesArrays.html"><i class="fa fa-check"></i><b>D.7</b> Array Utilities</a></li>
-<li class="chapter" data-level="D.8" data-path="appUtilitiesMisc.html"><a href="appUtilitiesMisc.html"><i class="fa fa-check"></i><b>D.8</b> Miscellaneous Utilities</a></li>
+<li class="chapter" data-level="D.8" data-path="appPlotting.html"><a href="appPlotting.html"><i class="fa fa-check"></i><b>D.8</b> KSL Plotting Utilities</a></li>
+<li class="chapter" data-level="D.9" data-path="appExpDesign.html"><a href="appExpDesign.html"><i class="fa fa-check"></i><b>D.9</b> Experimental Design Utilities</a></li>
+<li class="chapter" data-level="D.10" data-path="appUtilitiesMisc.html"><a href="appUtilitiesMisc.html"><i class="fa fa-check"></i><b>D.10</b> Miscellaneous Utilities</a></li>
 </ul></li>
 <li class="chapter" data-level="E" data-path="distributions.html"><a href="distributions.html"><i class="fa fa-check"></i><b>E</b> Distributions</a>
 <ul>
@@ -642,33 +652,33 @@ where the correlation is defined as:</p>
 </ul>
 <p>If the underlying random variables map to outputs monotonically, similar to the CRN situation, then the negative correlation may be preserved within the pairs for the <em>simulation</em> performance measures, which will cause a variance reduction. Just like in CRN, synchronization is important and the same best practices are recommended.</p>
 <p>An example of how to perform an antithetic experiment within a Monte Carlo context was presented in <a href="ch2generator.html#ch2antitheticStreams">2.1.4</a>. Within a simple Monte Carlo context the implementation of antithetic variates is relatively straight-forward. Reviewing the implementation of the class <code>MC1DIntegration</code> within the <code>ksl.utilities.mcintegration</code> package is illustrative of the basic approach. The <code>MC1DIntegration</code> class provides for the use of antithetic variates when estimating the area of a 1-dimensional function. In the following Kotlin code, we see that in the <code>init</code> block if the <code>antitheticOption</code> is true an antithetic instance is created from the random variable used in the sampling.</p>
-<div class="sourceCode" id="cb277"><pre class="sourceCode kotlin"><code class="sourceCode kotlin"><span id="cb277-1"><a href="ch9VRTs.html#cb277-1" tabindex="-1"></a><span class="kw">class</span> MC1DIntegration <span class="op">(</span></span>
-<span id="cb277-2"><a href="ch9VRTs.html#cb277-2" tabindex="-1"></a>    <span class="va">function</span><span class="op">:</span> <span class="dt">FunctionIfc</span><span class="op">,</span></span>
-<span id="cb277-3"><a href="ch9VRTs.html#cb277-3" tabindex="-1"></a>    <span class="va">sampler</span><span class="op">:</span> <span class="dt">RVariableIfc</span><span class="op">,</span></span>
-<span id="cb277-4"><a href="ch9VRTs.html#cb277-4" tabindex="-1"></a>    <span class="va">antitheticOption</span><span class="op">:</span> <span class="dt">Boolean</span> <span class="op">=</span> true</span>
-<span id="cb277-5"><a href="ch9VRTs.html#cb277-5" tabindex="-1"></a><span class="op">)</span> <span class="op">:</span> <span class="dt">MCExperiment</span><span class="op">()</span> <span class="op">{</span></span>
-<span id="cb277-6"><a href="ch9VRTs.html#cb277-6" tabindex="-1"></a>    <span class="kw">protected</span> <span class="kw">val</span> <span class="va">myFunction</span><span class="op">:</span> FunctionIfc</span>
-<span id="cb277-7"><a href="ch9VRTs.html#cb277-7" tabindex="-1"></a>    <span class="kw">protected</span> <span class="kw">val</span> <span class="va">mySampler</span><span class="op">:</span> RVariableIfc</span>
-<span id="cb277-8"><a href="ch9VRTs.html#cb277-8" tabindex="-1"></a>    <span class="kw">protected</span> <span class="kw">var</span> <span class="va">myAntitheticSampler</span><span class="op">:</span> RVariableIfc<span class="op">?</span> <span class="op">=</span> <span class="kw">null</span></span>
-<span id="cb277-9"><a href="ch9VRTs.html#cb277-9" tabindex="-1"></a></span>
-<span id="cb277-10"><a href="ch9VRTs.html#cb277-10" tabindex="-1"></a>    init <span class="op">{</span></span>
-<span id="cb277-11"><a href="ch9VRTs.html#cb277-11" tabindex="-1"></a>        myFunction <span class="op">=</span> function</span>
-<span id="cb277-12"><a href="ch9VRTs.html#cb277-12" tabindex="-1"></a>        mySampler <span class="op">=</span> sampler</span>
-<span id="cb277-13"><a href="ch9VRTs.html#cb277-13" tabindex="-1"></a>        <span class="cf">if</span> <span class="op">(</span>antitheticOption<span class="op">){</span></span>
-<span id="cb277-14"><a href="ch9VRTs.html#cb277-14" tabindex="-1"></a>            myAntitheticSampler <span class="op">=</span> sampler<span class="op">.</span>antitheticInstance<span class="op">()</span></span>
-<span id="cb277-15"><a href="ch9VRTs.html#cb277-15" tabindex="-1"></a>        <span class="op">}</span></span>
-<span id="cb277-16"><a href="ch9VRTs.html#cb277-16" tabindex="-1"></a>        confidenceLevel <span class="op">=</span> <span class="fl">0.99</span></span>
-<span id="cb277-17"><a href="ch9VRTs.html#cb277-17" tabindex="-1"></a>    <span class="op">}</span></span></code></pre></div>
+<div class="sourceCode" id="cb292"><pre class="sourceCode kotlin"><code class="sourceCode kotlin"><span id="cb292-1"><a href="ch9VRTs.html#cb292-1" tabindex="-1"></a><span class="kw">class</span> MC1DIntegration <span class="op">(</span></span>
+<span id="cb292-2"><a href="ch9VRTs.html#cb292-2" tabindex="-1"></a>    <span class="va">function</span><span class="op">:</span> <span class="dt">FunctionIfc</span><span class="op">,</span></span>
+<span id="cb292-3"><a href="ch9VRTs.html#cb292-3" tabindex="-1"></a>    <span class="va">sampler</span><span class="op">:</span> <span class="dt">RVariableIfc</span><span class="op">,</span></span>
+<span id="cb292-4"><a href="ch9VRTs.html#cb292-4" tabindex="-1"></a>    <span class="va">antitheticOption</span><span class="op">:</span> <span class="dt">Boolean</span> <span class="op">=</span> true</span>
+<span id="cb292-5"><a href="ch9VRTs.html#cb292-5" tabindex="-1"></a><span class="op">)</span> <span class="op">:</span> <span class="dt">MCExperiment</span><span class="op">()</span> <span class="op">{</span></span>
+<span id="cb292-6"><a href="ch9VRTs.html#cb292-6" tabindex="-1"></a>    <span class="kw">protected</span> <span class="kw">val</span> <span class="va">myFunction</span><span class="op">:</span> FunctionIfc</span>
+<span id="cb292-7"><a href="ch9VRTs.html#cb292-7" tabindex="-1"></a>    <span class="kw">protected</span> <span class="kw">val</span> <span class="va">mySampler</span><span class="op">:</span> RVariableIfc</span>
+<span id="cb292-8"><a href="ch9VRTs.html#cb292-8" tabindex="-1"></a>    <span class="kw">protected</span> <span class="kw">var</span> <span class="va">myAntitheticSampler</span><span class="op">:</span> RVariableIfc<span class="op">?</span> <span class="op">=</span> <span class="kw">null</span></span>
+<span id="cb292-9"><a href="ch9VRTs.html#cb292-9" tabindex="-1"></a></span>
+<span id="cb292-10"><a href="ch9VRTs.html#cb292-10" tabindex="-1"></a>    init <span class="op">{</span></span>
+<span id="cb292-11"><a href="ch9VRTs.html#cb292-11" tabindex="-1"></a>        myFunction <span class="op">=</span> function</span>
+<span id="cb292-12"><a href="ch9VRTs.html#cb292-12" tabindex="-1"></a>        mySampler <span class="op">=</span> sampler</span>
+<span id="cb292-13"><a href="ch9VRTs.html#cb292-13" tabindex="-1"></a>        <span class="cf">if</span> <span class="op">(</span>antitheticOption<span class="op">){</span></span>
+<span id="cb292-14"><a href="ch9VRTs.html#cb292-14" tabindex="-1"></a>            myAntitheticSampler <span class="op">=</span> sampler<span class="op">.</span>antitheticInstance<span class="op">()</span></span>
+<span id="cb292-15"><a href="ch9VRTs.html#cb292-15" tabindex="-1"></a>        <span class="op">}</span></span>
+<span id="cb292-16"><a href="ch9VRTs.html#cb292-16" tabindex="-1"></a>        confidenceLevel <span class="op">=</span> <span class="fl">0.99</span></span>
+<span id="cb292-17"><a href="ch9VRTs.html#cb292-17" tabindex="-1"></a>    <span class="op">}</span></span></code></pre></div>
 <p>Recall that the <code>MCExperiment</code> class, see Section <a href="mcmExperiments.html#mcmExperiments">3.8</a>, requires the user to provide an implementation of the <code>MCReplicationIfc</code> interface. In the <code>MC1DIntegration</code> class we have the following implementation.</p>
-<div class="sourceCode" id="cb278"><pre class="sourceCode kotlin"><code class="sourceCode kotlin"><span id="cb278-1"><a href="ch9VRTs.html#cb278-1" tabindex="-1"></a>    <span class="kw">override</span> <span class="kw">fun</span> <span class="fu">replication</span><span class="op">(</span><span class="va">j</span><span class="op">:</span> <span class="dt">Int</span><span class="op">):</span> <span class="dt">Double</span> <span class="op">{</span></span>
-<span id="cb278-2"><a href="ch9VRTs.html#cb278-2" tabindex="-1"></a>        <span class="kw">return</span> <span class="cf">if</span> <span class="op">(</span>isAntitheticOptionOn<span class="op">)</span> <span class="op">{</span></span>
-<span id="cb278-3"><a href="ch9VRTs.html#cb278-3" tabindex="-1"></a>            <span class="kw">val</span> <span class="va">y1</span> <span class="op">=</span> myFunction<span class="op">.</span>f<span class="op">(</span>mySampler<span class="op">.</span>sample<span class="op">())</span></span>
-<span id="cb278-4"><a href="ch9VRTs.html#cb278-4" tabindex="-1"></a>            <span class="kw">val</span> <span class="va">y2</span> <span class="op">=</span> myFunction<span class="op">.</span>f<span class="op">(</span>myAntitheticSampler<span class="op">!!.</span>sample<span class="op">())</span></span>
-<span id="cb278-5"><a href="ch9VRTs.html#cb278-5" tabindex="-1"></a>            <span class="op">(</span>y1 <span class="op">+</span> y2<span class="op">)</span> <span class="op">/</span> <span class="fl">2.0</span></span>
-<span id="cb278-6"><a href="ch9VRTs.html#cb278-6" tabindex="-1"></a>        <span class="op">}</span> <span class="cf">else</span> <span class="op">{</span></span>
-<span id="cb278-7"><a href="ch9VRTs.html#cb278-7" tabindex="-1"></a>            myFunction<span class="op">.</span>f<span class="op">(</span>mySampler<span class="op">.</span>sample<span class="op">())</span></span>
-<span id="cb278-8"><a href="ch9VRTs.html#cb278-8" tabindex="-1"></a>        <span class="op">}</span></span>
-<span id="cb278-9"><a href="ch9VRTs.html#cb278-9" tabindex="-1"></a>    <span class="op">}</span></span></code></pre></div>
+<div class="sourceCode" id="cb293"><pre class="sourceCode kotlin"><code class="sourceCode kotlin"><span id="cb293-1"><a href="ch9VRTs.html#cb293-1" tabindex="-1"></a>    <span class="kw">override</span> <span class="kw">fun</span> <span class="fu">replication</span><span class="op">(</span><span class="va">j</span><span class="op">:</span> <span class="dt">Int</span><span class="op">):</span> <span class="dt">Double</span> <span class="op">{</span></span>
+<span id="cb293-2"><a href="ch9VRTs.html#cb293-2" tabindex="-1"></a>        <span class="kw">return</span> <span class="cf">if</span> <span class="op">(</span>isAntitheticOptionOn<span class="op">)</span> <span class="op">{</span></span>
+<span id="cb293-3"><a href="ch9VRTs.html#cb293-3" tabindex="-1"></a>            <span class="kw">val</span> <span class="va">y1</span> <span class="op">=</span> myFunction<span class="op">.</span>f<span class="op">(</span>mySampler<span class="op">.</span>sample<span class="op">())</span></span>
+<span id="cb293-4"><a href="ch9VRTs.html#cb293-4" tabindex="-1"></a>            <span class="kw">val</span> <span class="va">y2</span> <span class="op">=</span> myFunction<span class="op">.</span>f<span class="op">(</span>myAntitheticSampler<span class="op">!!.</span>sample<span class="op">())</span></span>
+<span id="cb293-5"><a href="ch9VRTs.html#cb293-5" tabindex="-1"></a>            <span class="op">(</span>y1 <span class="op">+</span> y2<span class="op">)</span> <span class="op">/</span> <span class="fl">2.0</span></span>
+<span id="cb293-6"><a href="ch9VRTs.html#cb293-6" tabindex="-1"></a>        <span class="op">}</span> <span class="cf">else</span> <span class="op">{</span></span>
+<span id="cb293-7"><a href="ch9VRTs.html#cb293-7" tabindex="-1"></a>            myFunction<span class="op">.</span>f<span class="op">(</span>mySampler<span class="op">.</span>sample<span class="op">())</span></span>
+<span id="cb293-8"><a href="ch9VRTs.html#cb293-8" tabindex="-1"></a>        <span class="op">}</span></span>
+<span id="cb293-9"><a href="ch9VRTs.html#cb293-9" tabindex="-1"></a>    <span class="op">}</span></span></code></pre></div>
 <p>Note that if the antithetic variate option is turned on, then the <code>replication(j: Int)</code> function returns</p>
 <p><span class="math display">\[
 \hat{Y_j} =\frac{Y_{2j-1} + Y_{2j}}{2}
@@ -697,25 +707,25 @@ w_{1}, w_{2}, w_{3}, \cdots, w_{m} \rightarrow \bar{w}_{2j}
 \]</span>
 This should cause the pairs <span class="math inline">\((\bar{W}_{2j-1}, \bar{W}_{2j})\)</span> to have negative correlation. Again the actual realization of some variance reduction will depend upon synchronization strategies and responses, such as the waiting time, responding in a monotonic fashion to the antithetic sampling.</p>
 <p>Within a DEDS context, the KSL permits the model to be executed and the streams controlled to implement antithetic sampling. The property <code>antitheticOption</code> of the <code>Model</code> class controls whether the streams use antithetic sampling. It may be instructive to see how this is implemented within the <code>Model</code> class.</p>
-<div class="sourceCode" id="cb279"><pre class="sourceCode kotlin"><code class="sourceCode kotlin"><span id="cb279-1"><a href="ch9VRTs.html#cb279-1" tabindex="-1"></a>    <span class="kw">private</span> <span class="kw">fun</span> <span class="fu">handleAntitheticReplications</span><span class="op">()</span> <span class="op">{</span></span>
-<span id="cb279-2"><a href="ch9VRTs.html#cb279-2" tabindex="-1"></a>        <span class="co">// handle antithetic replications</span></span>
-<span id="cb279-3"><a href="ch9VRTs.html#cb279-3" tabindex="-1"></a>        <span class="cf">if</span> <span class="op">(</span>antitheticOption<span class="op">)</span> <span class="op">{</span></span>
-<span id="cb279-4"><a href="ch9VRTs.html#cb279-4" tabindex="-1"></a>            logger<span class="op">.</span>info <span class="op">{</span> <span class="st">&quot;Executing handleAntitheticReplications() setup&quot;</span> <span class="op">}</span></span>
-<span id="cb279-5"><a href="ch9VRTs.html#cb279-5" tabindex="-1"></a>            <span class="cf">if</span> <span class="op">(</span>currentReplicationNumber <span class="op">%</span> <span class="dv">2</span> <span class="op">==</span> <span class="dv">0</span><span class="op">)</span> <span class="op">{</span></span>
-<span id="cb279-6"><a href="ch9VRTs.html#cb279-6" tabindex="-1"></a>                <span class="co">// even number replication</span></span>
-<span id="cb279-7"><a href="ch9VRTs.html#cb279-7" tabindex="-1"></a>                <span class="co">// return to beginning of sub-stream</span></span>
-<span id="cb279-8"><a href="ch9VRTs.html#cb279-8" tabindex="-1"></a>                resetStartSubStream<span class="op">()</span></span>
-<span id="cb279-9"><a href="ch9VRTs.html#cb279-9" tabindex="-1"></a>                <span class="co">// turn on antithetic sampling</span></span>
-<span id="cb279-10"><a href="ch9VRTs.html#cb279-10" tabindex="-1"></a>                antitheticOption<span class="op">(</span><span class="kw">true</span><span class="op">)</span></span>
-<span id="cb279-11"><a href="ch9VRTs.html#cb279-11" tabindex="-1"></a>            <span class="op">}</span> <span class="cf">else</span>  <span class="co">// odd number replication</span></span>
-<span id="cb279-12"><a href="ch9VRTs.html#cb279-12" tabindex="-1"></a>                <span class="cf">if</span> <span class="op">(</span>currentReplicationNumber <span class="op">&gt;</span> <span class="dv">1</span><span class="op">)</span> <span class="op">{</span></span>
-<span id="cb279-13"><a href="ch9VRTs.html#cb279-13" tabindex="-1"></a>                    <span class="co">// turn off antithetic sampling</span></span>
-<span id="cb279-14"><a href="ch9VRTs.html#cb279-14" tabindex="-1"></a>                    antitheticOption<span class="op">(</span><span class="kw">false</span><span class="op">)</span></span>
-<span id="cb279-15"><a href="ch9VRTs.html#cb279-15" tabindex="-1"></a>                    <span class="co">// advance to next sub-stream</span></span>
-<span id="cb279-16"><a href="ch9VRTs.html#cb279-16" tabindex="-1"></a>                    advanceToNextSubStream<span class="op">()</span></span>
-<span id="cb279-17"><a href="ch9VRTs.html#cb279-17" tabindex="-1"></a>                <span class="op">}</span></span>
-<span id="cb279-18"><a href="ch9VRTs.html#cb279-18" tabindex="-1"></a>        <span class="op">}</span></span>
-<span id="cb279-19"><a href="ch9VRTs.html#cb279-19" tabindex="-1"></a>    <span class="op">}</span></span></code></pre></div>
+<div class="sourceCode" id="cb294"><pre class="sourceCode kotlin"><code class="sourceCode kotlin"><span id="cb294-1"><a href="ch9VRTs.html#cb294-1" tabindex="-1"></a>    <span class="kw">private</span> <span class="kw">fun</span> <span class="fu">handleAntitheticReplications</span><span class="op">()</span> <span class="op">{</span></span>
+<span id="cb294-2"><a href="ch9VRTs.html#cb294-2" tabindex="-1"></a>        <span class="co">// handle antithetic replications</span></span>
+<span id="cb294-3"><a href="ch9VRTs.html#cb294-3" tabindex="-1"></a>        <span class="cf">if</span> <span class="op">(</span>antitheticOption<span class="op">)</span> <span class="op">{</span></span>
+<span id="cb294-4"><a href="ch9VRTs.html#cb294-4" tabindex="-1"></a>            logger<span class="op">.</span>info <span class="op">{</span> <span class="st">&quot;Executing handleAntitheticReplications() setup&quot;</span> <span class="op">}</span></span>
+<span id="cb294-5"><a href="ch9VRTs.html#cb294-5" tabindex="-1"></a>            <span class="cf">if</span> <span class="op">(</span>currentReplicationNumber <span class="op">%</span> <span class="dv">2</span> <span class="op">==</span> <span class="dv">0</span><span class="op">)</span> <span class="op">{</span></span>
+<span id="cb294-6"><a href="ch9VRTs.html#cb294-6" tabindex="-1"></a>                <span class="co">// even number replication</span></span>
+<span id="cb294-7"><a href="ch9VRTs.html#cb294-7" tabindex="-1"></a>                <span class="co">// return to beginning of sub-stream</span></span>
+<span id="cb294-8"><a href="ch9VRTs.html#cb294-8" tabindex="-1"></a>                resetStartSubStream<span class="op">()</span></span>
+<span id="cb294-9"><a href="ch9VRTs.html#cb294-9" tabindex="-1"></a>                <span class="co">// turn on antithetic sampling</span></span>
+<span id="cb294-10"><a href="ch9VRTs.html#cb294-10" tabindex="-1"></a>                antitheticOption<span class="op">(</span><span class="kw">true</span><span class="op">)</span></span>
+<span id="cb294-11"><a href="ch9VRTs.html#cb294-11" tabindex="-1"></a>            <span class="op">}</span> <span class="cf">else</span>  <span class="co">// odd number replication</span></span>
+<span id="cb294-12"><a href="ch9VRTs.html#cb294-12" tabindex="-1"></a>                <span class="cf">if</span> <span class="op">(</span>currentReplicationNumber <span class="op">&gt;</span> <span class="dv">1</span><span class="op">)</span> <span class="op">{</span></span>
+<span id="cb294-13"><a href="ch9VRTs.html#cb294-13" tabindex="-1"></a>                    <span class="co">// turn off antithetic sampling</span></span>
+<span id="cb294-14"><a href="ch9VRTs.html#cb294-14" tabindex="-1"></a>                    antitheticOption<span class="op">(</span><span class="kw">false</span><span class="op">)</span></span>
+<span id="cb294-15"><a href="ch9VRTs.html#cb294-15" tabindex="-1"></a>                    <span class="co">// advance to next sub-stream</span></span>
+<span id="cb294-16"><a href="ch9VRTs.html#cb294-16" tabindex="-1"></a>                    advanceToNextSubStream<span class="op">()</span></span>
+<span id="cb294-17"><a href="ch9VRTs.html#cb294-17" tabindex="-1"></a>                <span class="op">}</span></span>
+<span id="cb294-18"><a href="ch9VRTs.html#cb294-18" tabindex="-1"></a>        <span class="op">}</span></span>
+<span id="cb294-19"><a href="ch9VRTs.html#cb294-19" tabindex="-1"></a>    <span class="op">}</span></span></code></pre></div>
 <p>In the previous code, we see that if the replication number is even (a multiple of 2), the the streams are reset to the beginning of their current sub-stream and the antithetic option is turned on for <em>every</em> random variable (instance of the <code>RandomVariable</code> class) used within the model. This causes the sampling performed during an even run to use antithetic pseudo-random numbers. Then, for odd replications, the antithetic option is turned off and the normal stream advancement occurs. Thus, within the KSL a simple change of a property permits antithetic sampling.</p>
 </div>
 <div id="indirect-estimation" class="section level3 hasAnchor" number="8.2.3">
@@ -736,20 +746,22 @@ This should cause the pairs <span class="math inline">\((\bar{W}_{2j-1}, \bar{W}
 <div id="control-variates-cv" class="section level3 hasAnchor" number="8.2.4">
 <h3><span class="header-section-number">8.2.4</span> Control Variates (CV)<a href="ch9VRTs.html#control-variates-cv" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>The idea is to exploit knowledge of the system by other variables for which the true mean is known and exploit any dependence that it might have with our parameter of interest. Let’s consider a simplified example.</p>
+<hr />
 <div class="example">
-<p><span id="exm:CVExample" class="example"><strong>Example 8.1  (Simple Health Clinic) </strong></span>Suppose that we are simulating a heart disease reduction program operating between 10am and Noon. Suppose that 30 patients per day are scheduled at 5 minute intervals. The clinic process is as follows. The patient first visits a clerk to gather their medical information. Then, the patient visits a medical technician where blood pressure and vitals are recorded and it is determined whether or not the patient should visit the nurse. If the patient visits the nurse practioner, then they receive some medical service and return to a clerk for payment. If the patient does not need to see the nurse practioner, then the patient goes directly to the clerk for checkout.</p>
+<p><span id="exm:CVExample" class="example"><strong>Example 8.5  (Simple Health Clinic) </strong></span>Suppose that we are simulating a heart disease reduction program operating between 10am and Noon. Suppose that 30 patients per day are scheduled at 5 minute intervals. The clinic process is as follows. The patient first visits a clerk to gather their medical information. Then, the patient visits a medical technician where blood pressure and vitals are recorded and it is determined whether or not the patient should visit the nurse. If the patient visits the nurse practitioner, then they receive some medical service and return to a clerk for payment. If the patient does not need to see the nurse practitioner, then the patient goes directly to the clerk for checkout.</p>
 <ul>
 <li><p>Let <span class="math inline">\(Y_j\)</span> be the utilization of the nurse on the <span class="math inline">\(j^{th}\)</span> day. We are interested in estimating the utilization of the nurse on any given day.</p></li>
 <li><p>Let <span class="math inline">\(X_j\)</span> be the number of patients who consulted with the nurse on the <span class="math inline">\(j^{th}\)</span> day.</p></li>
 <li><p>Let <span class="math inline">\(p\)</span> be the proportion of patients that see the nurse. Because there are 30 patients per day, we have <span class="math inline">\(E[X_j] = 30p = \mu\)</span>, which is a known quantity.</p></li>
 </ul>
-</div>
 <div class="figure" style="text-align: center"><span style="display:block;" id="fig:CVFigure"></span>
 <img src="figures2/ch9/ControlVariateExample.PNG" alt="Simple Health Clinic" width="90%" height="90%" />
 <p class="caption">
 Figure 8.4: Simple Health Clinic
 </p>
 </div>
+</div>
+<hr />
 <p>To build up a control variate estimator, define the following random variable, <span class="math inline">\(Z_j = Y_j + C(X_j - \mu)\)</span>, where <span class="math inline">\(C\)</span> is assumed to be a known constant. Since, our parameter of interest is <span class="math inline">\(E[Y_j]\)</span> consider <span class="math inline">\(E[Z_j]\)</span>
 <span class="math display">\[
 E[Z_j] = E[Y_j + C(X_j - \mu)] = E[Y_j]+C(E[X_j] -\mu)= E[Y_j]
@@ -825,21 +837,24 @@ var[\hat{\beta_0}]= (1-R^{2}_{XY})\bigg(\frac{n-2}{n-q-2}\bigg)\frac{\sigma^2_{Y
 There will be a variance reduction if <span class="math inline">\(R^{2}_{XY} \geq \frac{q}{n-2}\)</span>, where <span class="math inline">\(R_{XY}\)</span> is the multiple correlation of <span class="math inline">\(Y\)</span> on <span class="math inline">\(X\)</span>. The control variate estimator for <span class="math inline">\(\theta = E[Y]\)</span> will be <span class="math inline">\(\hat{\beta_0}\)</span>, which is the intercept term for the regression. Thus, any standard regression program can be used to compute the estimate. Everything works if the linear relationship holds and the <span class="math inline">\(Y\)</span> and <span class="math inline">\(X_j\)</span> are multi-variate normal. If the assumptions do not hold, then the control variate estimator will, in general, be biased. It may have smaller variance, but it may not be unbiased. The recommendation is to use a small number of controls <span class="math inline">\(1\leq q\leq 10\)</span> and batch the replications if necessary to make the data more normal. If <span class="math inline">\(n\)</span> is the number of replications and <span class="math inline">\(n \geq 100\)</span> with <span class="math inline">\(1\leq q\leq 5\)</span>, then batch <span class="math inline">\(n\)</span> into between <span class="math inline">\(30 \leq k\leq 60\)</span> batches.</p>
 <p>Control variates is a general variance reduction technique. In general within a DEDS situation, there will be many possible controls because any of the input distributions with their known mean values are candidates for controls. With many possible controls, you should think about which input distributions might have more influence over the estimated performance measure as a method for selecting controls. In addition, there is little extra programming that needs to be implemented other than capturing the output of the <span class="math inline">\(Y\)</span> and the controls <span class="math inline">\(X\)</span> and their mean values. There is little possibility that control variates will backfire (increase the variance); however, you need to be aware of the previously mentioned possibility of bias. Thus, checking for the normality of the responses and controls is essential. As mentioned, batching the output might be useful. In addition, jackknifing the estimator may help in reducing possible bias. However, these fixes required advanced sophistication from the analyst and will likely need to be implemented.</p>
 <p>The KSL has support for using control variates within the context of a DEDS simulation via the <code>ControlVariateDataCollector</code> class. The <code>ControlVariateDataCollector</code> class works in a similar fashion as the <code>ReplicationDataCollector</code> class that was discussed in Section <a href="simoafinhorizonex.html#simoaCapture">5.4.1</a>. The following code illustrates its use.</p>
-<div class="sourceCode" id="cb280"><pre class="sourceCode kotlin"><code class="sourceCode kotlin"><span id="cb280-1"><a href="ch9VRTs.html#cb280-1" tabindex="-1"></a>    <span class="kw">val</span> <span class="va">model</span> <span class="op">=</span> Model<span class="op">(</span><span class="st">&quot;CV Example&quot;</span><span class="op">)</span></span>
-<span id="cb280-2"><a href="ch9VRTs.html#cb280-2" tabindex="-1"></a>    model<span class="op">.</span>numberOfReplications <span class="op">=</span> <span class="dv">100</span></span>
-<span id="cb280-3"><a href="ch9VRTs.html#cb280-3" tabindex="-1"></a>    <span class="kw">val</span> <span class="va">palletWorkCenter</span> <span class="op">=</span> PalletWorkCenter<span class="op">(</span>model<span class="op">)</span></span>
-<span id="cb280-4"><a href="ch9VRTs.html#cb280-4" tabindex="-1"></a>    <span class="kw">val</span> <span class="va">cvCollector</span> <span class="op">=</span> ControlVariateDataCollector<span class="op">(</span>model<span class="op">)</span></span>
-<span id="cb280-5"><a href="ch9VRTs.html#cb280-5" tabindex="-1"></a>    cvCollector<span class="op">.</span>addResponse<span class="op">(</span>palletWorkCenter<span class="op">.</span>totalProcessingTime<span class="op">,</span> <span class="st">&quot;TotalTime&quot;</span><span class="op">)</span></span>
-<span id="cb280-6"><a href="ch9VRTs.html#cb280-6" tabindex="-1"></a>    cvCollector<span class="op">.</span>addControlVariate<span class="op">(</span>palletWorkCenter<span class="op">.</span>processingTimeRV<span class="op">,</span> <span class="op">(</span><span class="fl">8.0</span><span class="op">+</span> <span class="fl">12.0</span><span class="op">+</span> <span class="fl">15.0</span><span class="op">)/</span><span class="fl">3.0</span><span class="op">,</span> <span class="st">&quot;PalletTime&quot;</span><span class="op">)</span></span>
-<span id="cb280-7"><a href="ch9VRTs.html#cb280-7" tabindex="-1"></a>    cvCollector<span class="op">.</span>addControlVariate<span class="op">(</span>palletWorkCenter<span class="op">.</span>numPalletsRV<span class="op">,</span> <span class="op">(</span><span class="fl">100.0</span><span class="op">*</span><span class="fl">0.8</span><span class="op">),</span> <span class="st">&quot;NumPallets&quot;</span><span class="op">)</span></span>
-<span id="cb280-8"><a href="ch9VRTs.html#cb280-8" tabindex="-1"></a>    model<span class="op">.</span>simulate<span class="op">()</span></span>
-<span id="cb280-9"><a href="ch9VRTs.html#cb280-9" tabindex="-1"></a>    model<span class="op">.</span>print<span class="op">()</span></span>
-<span id="cb280-10"><a href="ch9VRTs.html#cb280-10" tabindex="-1"></a>    println<span class="op">(</span>cvCollector<span class="op">)</span></span>
-<span id="cb280-11"><a href="ch9VRTs.html#cb280-11" tabindex="-1"></a>    <span class="kw">val</span> <span class="va">regressionData</span> <span class="op">=</span> cvCollector<span class="op">.</span>collectedData<span class="op">(</span><span class="st">&quot;TotalTime&quot;</span><span class="op">,</span> <span class="dv">20</span><span class="op">)</span></span>
-<span id="cb280-12"><a href="ch9VRTs.html#cb280-12" tabindex="-1"></a>    println<span class="op">(</span>regressionData<span class="op">)</span></span>
-<span id="cb280-13"><a href="ch9VRTs.html#cb280-13" tabindex="-1"></a>    println<span class="op">()</span></span>
-<span id="cb280-14"><a href="ch9VRTs.html#cb280-14" tabindex="-1"></a>    <span class="kw">val</span> <span class="va">regressionResults</span> <span class="op">=</span> cvCollector<span class="op">.</span>regressionResults<span class="op">(</span>regressionData<span class="op">)</span></span>
-<span id="cb280-15"><a href="ch9VRTs.html#cb280-15" tabindex="-1"></a>    println<span class="op">(</span>regressionResults<span class="op">)</span></span></code></pre></div>
+<div class="example">
+<p><span id="exm:exControlVar" class="example"><strong>Example 8.6  (Illustrating Control Variates) </strong></span>This example illustrates how to define controls, collect the responses, and compute the control variate estimators using KSL regression constructs.</p>
+<div class="sourceCode" id="cb295"><pre class="sourceCode kotlin"><code class="sourceCode kotlin"><span id="cb295-1"><a href="ch9VRTs.html#cb295-1" tabindex="-1"></a>    <span class="kw">val</span> <span class="va">model</span> <span class="op">=</span> Model<span class="op">(</span><span class="st">&quot;CV Example&quot;</span><span class="op">)</span></span>
+<span id="cb295-2"><a href="ch9VRTs.html#cb295-2" tabindex="-1"></a>    model<span class="op">.</span>numberOfReplications <span class="op">=</span> <span class="dv">100</span></span>
+<span id="cb295-3"><a href="ch9VRTs.html#cb295-3" tabindex="-1"></a>    <span class="kw">val</span> <span class="va">palletWorkCenter</span> <span class="op">=</span> PalletWorkCenter<span class="op">(</span>model<span class="op">)</span></span>
+<span id="cb295-4"><a href="ch9VRTs.html#cb295-4" tabindex="-1"></a>    <span class="kw">val</span> <span class="va">cvCollector</span> <span class="op">=</span> ControlVariateDataCollector<span class="op">(</span>model<span class="op">)</span></span>
+<span id="cb295-5"><a href="ch9VRTs.html#cb295-5" tabindex="-1"></a>    cvCollector<span class="op">.</span>addResponse<span class="op">(</span>palletWorkCenter<span class="op">.</span>totalProcessingTime<span class="op">,</span> <span class="st">&quot;TotalTime&quot;</span><span class="op">)</span></span>
+<span id="cb295-6"><a href="ch9VRTs.html#cb295-6" tabindex="-1"></a>    cvCollector<span class="op">.</span>addControlVariate<span class="op">(</span>palletWorkCenter<span class="op">.</span>processingTimeRV<span class="op">,</span> <span class="op">(</span><span class="fl">8.0</span><span class="op">+</span> <span class="fl">12.0</span><span class="op">+</span> <span class="fl">15.0</span><span class="op">)/</span><span class="fl">3.0</span><span class="op">,</span> <span class="st">&quot;PalletTime&quot;</span><span class="op">)</span></span>
+<span id="cb295-7"><a href="ch9VRTs.html#cb295-7" tabindex="-1"></a>    cvCollector<span class="op">.</span>addControlVariate<span class="op">(</span>palletWorkCenter<span class="op">.</span>numPalletsRV<span class="op">,</span> <span class="op">(</span><span class="fl">100.0</span><span class="op">*</span><span class="fl">0.8</span><span class="op">),</span> <span class="st">&quot;NumPallets&quot;</span><span class="op">)</span></span>
+<span id="cb295-8"><a href="ch9VRTs.html#cb295-8" tabindex="-1"></a>    model<span class="op">.</span>simulate<span class="op">()</span></span>
+<span id="cb295-9"><a href="ch9VRTs.html#cb295-9" tabindex="-1"></a>    model<span class="op">.</span>print<span class="op">()</span></span>
+<span id="cb295-10"><a href="ch9VRTs.html#cb295-10" tabindex="-1"></a>    println<span class="op">(</span>cvCollector<span class="op">)</span></span>
+<span id="cb295-11"><a href="ch9VRTs.html#cb295-11" tabindex="-1"></a>    <span class="kw">val</span> <span class="va">regressionData</span> <span class="op">=</span> cvCollector<span class="op">.</span>collectedData<span class="op">(</span><span class="st">&quot;TotalTime&quot;</span><span class="op">,</span> <span class="dv">20</span><span class="op">)</span></span>
+<span id="cb295-12"><a href="ch9VRTs.html#cb295-12" tabindex="-1"></a>    println<span class="op">(</span>regressionData<span class="op">)</span></span>
+<span id="cb295-13"><a href="ch9VRTs.html#cb295-13" tabindex="-1"></a>    println<span class="op">()</span></span>
+<span id="cb295-14"><a href="ch9VRTs.html#cb295-14" tabindex="-1"></a>    <span class="kw">val</span> <span class="va">regressionResults</span> <span class="op">=</span> cvCollector<span class="op">.</span>regressionResults<span class="op">(</span>regressionData<span class="op">)</span></span>
+<span id="cb295-15"><a href="ch9VRTs.html#cb295-15" tabindex="-1"></a>    println<span class="op">(</span>regressionResults<span class="op">)</span></span></code></pre></div>
+</div>
 <p>Notice the use of the method, <code>cvCollector.collectedData("TotalTime", 20)</code>. This method prepares the data for a regression analysis. The value 20 tells the method to form 20 batches from the 100 replications into 20 batches of size 5. The following output is the standard half-width report for the 100 replications.</p>
 <pre><code>Half-Width Statistical Summary Report - Confidence Level (95.000)% 
 
@@ -906,7 +921,7 @@ Parameter Estimation Results
  2 NumPallets   6.943175    1.339181   5.184644 0.000075   4.117751   9.768599
 -------------------------------------------------------------------------------------</code></pre>
 <p>Notice that the estimated response is different than the standard estimate (497.7907) versus (494.631368). In addition,
-the half-width of the control variate estimator is smaller. Further analysis should be performed to check the normality assumptions and assess the quality of the estimated value. The KSL <code>RegressionResultsIfcThis</code> interface has the ability to check the normality of the residuals perform additional regression analysis operations. This analysis is left as an exercise for the reader.</p>
+the half-width of the control variate estimator is smaller. Further analysis should be performed to check the normality assumptions and assess the quality of the estimated value. The KSL <code>RegressionResultsIfc</code> interface has the ability to check the normality of the residuals perform additional regression analysis operations. This analysis is left as an exercise for the reader.</p>
 </div>
 <div id="stratified-and-post-stratified-sampling" class="section level3 hasAnchor" number="8.2.5">
 <h3><span class="header-section-number">8.2.5</span> Stratified and Post Stratified Sampling<a href="ch9VRTs.html#stratified-and-post-stratified-sampling" class="anchor-section" aria-label="Anchor link to header"></a></h3>
@@ -956,7 +971,7 @@ In essence, the minimal variance will occur if <span class="math inline">\(n_j\)
 \]</span>
 This technique relies on being able to derive the function <span class="math inline">\(E[Y|X=x]\)</span> from the problem situation, which can be very problem dependent. We will demonstrate this via an example involving a stochastic activity network.</p>
 <div class="figure" style="text-align: center"><span style="display:block;" id="fig:SAN"></span>
-<img src="figures2/ch9/SAN.PNG" alt="Example Stochastic Activity Network" width="90%" height="90%" />
+<img src="figures2/ch9/SAN.PNG" alt="Example Stochastic Activity Network" width="60%" height="60%" />
 <p class="caption">
 Figure 8.5: Example Stochastic Activity Network
 </p>
@@ -1130,7 +1145,7 @@ VR = \frac{\text{Var}(\hat{\theta})}{\text{Var}(\bar{Y}(n))}=\frac{\frac{1}{n}\b
 \]</span></p>
 <p>There will be a significant variance reduction with this choice of <span class="math inline">\(w(x)\)</span> over using the standard uniform distribution.</p>
 <div class="figure" style="text-align: center"><span style="display:block;" id="fig:ISExample"></span>
-<img src="figures2/ch9/ISExample.PNG" alt="Importance Sampling Based on w(x)" width="90%" height="90%" />
+<img src="figures2/ch9/ISExample.PNG" alt="Importance Sampling Based on w(x)" width="60%" height="60%" />
 <p class="caption">
 Figure 8.6: Importance Sampling Based on w(x)
 </p>
@@ -1147,7 +1162,7 @@ Figure 8.6: Importance Sampling Based on w(x)
 </div>
 </div>
 <h3><span class="header-section-number">G</span> References<a href="references.html#references" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<div id="refs" class="references csl-bib-body hanging-indent">
+<div id="refs" class="references csl-bib-body hanging-indent" entry-spacing="0">
 <div id="ref-law2007simulation" class="csl-entry">
 Law, A. 2007. <em>Simulation Modeling and Analysis</em>. 4th ed. McGraw-Hill.
 </div>

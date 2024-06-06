@@ -21,6 +21,11 @@ by the pharmacist was an activity. The representation of the dynamic
 behavior of the system by describing the process flows of the entities
 moving through the system is called process-oriented modeling. The modeling perspective based on identifying and describing the system's processes is called the process-view.
 
+::: {.infobox .note data-latex="{note}"}
+**NOTE!**
+This chapter provides a series of example Kotlin code that illustrates the use of KSL constructs for implementing process view simulation models. The full source code of the examples can be found in the accompanying `KSLExamples` project associated with the [KSL repository](https://github.com/rossetti/KSL). The files for each example of this chapter can be found [here](https://github.com/rossetti/KSL/tree/main/KSLExamples/src/main/kotlin/ksl/examples/book/chapter6).
+:::
+
 ## What are Entities? {#ch6Entities}
 
 When modeling a system, there are often many entity types. For
@@ -136,7 +141,11 @@ Here is the portion of the KSL code to model the process for the customers of th
     }
 ```
 
-The code defines a class called `Customer` which is a subclass of `Entity.`  The `Entity` class is a base class that encapsulates the ability to experience processes.  Now, notice the definition and initialization of the variable `pharmacyProcess` within the `Customer` class. This is a very special function builder that allows for the definition of a *coroutine* that defines the process for the entity.  Coroutines are software constructs that permit the suspension and resumption of programming statements.  Kotlin supports the use of coroutines for asynchronous programming.  In this situation, the KSL leverages Kotlin's coroutine library to implement the process view. Here is the entire KSL program.
+The code defines a class called `Customer` which is a subclass of `Entity.`  The `Entity` class is a base class that encapsulates the ability to experience processes.  Now, notice the definition and initialization of the variable `pharmacyProcess` within the `Customer` class. This is a very special function builder that allows for the definition of a *coroutine* that defines the process for the entity.  Coroutines are software constructs that permit the suspension and resumption of programming statements.  Kotlin supports the use of coroutines for asynchronous programming.  In this situation, the KSL leverages Kotlin's coroutine library to implement the process view. 
+
+***
+::: {.example #ch6ex1 name="Process View Model for Drive Through Pharmacy System"}
+This example illustrates how to represent the previously presented drive through pharmacy model of Example \@ref(exm:ch4ex4) in Section \@ref(introDEDSPharmacy) using KSL process view constructs.
 
 ```kt
 class DriveThroughPharmacy(
@@ -195,9 +204,13 @@ class DriveThroughPharmacy(
     }
 }
 ```
+:::
+
+***
+
 Most of this code should look very familiar. It includes the definition of the random variables to model the time between arrivals and service time. It also defines the responses to collect statistics on the performance of the system.  In addition, it uses the functional notation for referencing functional interfaces to schedule the arrival events.  Within the arrival event, the customer is created and it is told to `activate()` its process.
 
-The process called `pharmacyProcess` has a nice linear flow and avoids the event call back approach of the event-view. The first line `wip.increment()` simply increments the number of customers in the system. The next line involving `timeStamp` assigns the arrival time of the customer. Then, the customer attempts to seize the pharmacist.  If the pharmacist is available, it is allocated to the customer. The variable "a" holds the allocation information. If the pharmacists is not available, the customer is held in a queue related to the seize call. The `seize()` call is a *suspending* function.  This is the magic of coroutines. The execution of the coroutine literally stops at the seize call if the pharmacist is not available. When the pharmacist becomes available, the customer (and suspended code) resumes moving through the process. The `delay()` is another *suspending* function. The delay function essentially schedules an event to represent the service time and when the event occurs the coroutine is resumed.  The `release()` deallocates the resource from the customer.  The final three lines simply collect statistical quantities. 
+The process called `pharmacyProcess` has a nice linear flow and avoids the event call back approach of the event-view. The first line `wip.increment()` simply increments the number of customers in the system. The next line involving `timeStamp` assigns the arrival time of the customer. Then, the customer attempts to seize the pharmacist.  If the pharmacist is available, it is allocated to the customer. The variable "a" holds the allocation information. If a pharmacist is not available, the customer is held in a queue related to the invocation of the `seize()` function. The `seize()` function is a *suspending* function.  This is the magic of coroutines. The execution of the coroutine literally stops at within the `seize()` function if the pharmacist is not available. When the pharmacist becomes available, the customer (and suspended code) resumes moving through the process. The `delay()` function is another *suspending* function. The delay function essentially schedules an event to represent the service time and when the event occurs the coroutine is resumed.  The `release()` deallocates the resource from the customer.  The final three lines simply collect statistical quantities. 
 
 It is critical to understand that 1) there are many entities created via the `arrival` method, 2) they all experience the same process, and 3) they may all be at different points of their processes at different times. Since many customers are active at the same time (in a pseudo-parallelism) they compete for the pharmacist. This causes queueing. This process view depends on shared state. The primary shared state is via the resource. This is a new construct and was defined with the following line. 
 
@@ -223,7 +236,7 @@ SysTime > 4.0 minutes                      30 	       0.5136 	       0.0071
 Num Served                                 30 	    2513.2667 	      17.6883 
 ----------------------------------------------------------------------------------------- 
 ```
-If you look back at the previous results, you will see that these results are exactly the same! Thus, we can model the pharmacy with either the event-view or the process view with confidence. 
+If you look back at the previous results, you will see that these results are exactly the same! Thus, we can model the pharmacy with either the event view or the process view with confidence. 
 
 Before discussing additional functionality enabled within the `KSLProcessBuilder,` we present some functionality that facilitates the creation and activation of entities.  Notice that within the pharmacy model that after an customer is created to start its process we must schedule its activation. 
 
@@ -266,10 +279,16 @@ The `EntityGenerator` class is defined as an inner class of `ProcessModel.` Revi
     }
 ```
 
-As shown in the code, the key additional functionality is that the `EntityGenerator` takes in a *function* that knows how to create subclasses of type `Entity.`  The simpliest way to provide such a function is to provide a reference to the subclass's constructor function.  This is illustrated in the following simplified re-do of the pharmacy model.
+As shown in the code, the key additional functionality is that the `EntityGenerator` takes in a *function* that knows how to create a subclass of type `Entity.`  The simplest way to provide such a function is to provide a reference to the constructor function of the subclass.  This is illustrated in the following simplified re-do of the pharmacy model.
 
+***
+::: {.example #ch6ex2 name="Demonstrating an Entity Generator"}
+This example illustrates how to construct an instance of the `EntityGenerator` class and use it to create entity instances according to a time between event pattern.
 ```kt
-class EntityGeneratorExample(parent: ModelElement, name: String? = null) : ProcessModel(parent, name) {
+class EntityGeneratorExample(
+    parent: ModelElement,
+    name: String? = null
+) : ProcessModel(parent, name) {
 
     private val worker: ResourceWithQ = ResourceWithQ(this, "worker")
     private val tba = ExponentialRV(6.0, 1)
@@ -293,8 +312,10 @@ class EntityGeneratorExample(parent: ModelElement, name: String? = null) : Proce
     }
 }
 ```
+:::
+***
 
-Notice the following line which takes in a reference to the `Customer` class constructor.  
+Notice the following line which takes in a reference to the `Customer` class constructor using the functional syntax `::Customer.`  
 
 ```kt
 private val generator = EntityGenerator(::Customer, tba, tba)
@@ -308,7 +329,12 @@ There is no arrival method necessary because that logic is within the entity gen
             startProcessSequence(entity, priority = activationPriority)
         }
 ```
-The entity is created using the passed in constructor function and the entity's default sequence of processes is started.  By default, the `process()` function of the `KSLProcessBuilder` class automatically adds each newly defined process to the entity's default sequence of processes unless indicated not to do so. Thus, by using an instance of an `EntityGenerator` associated with a particular subclass of `Entity`, we can automatically create the instances of the subclass and activate their processes. Of course, the creation of the subclass (e.g. `Customer`) might be much more complex; however, the `EntityGenerator` takes in a *function* that creates the instance of the subclass.  Thus, it can be any function, not just the constructor function.  Therefore, instances can be configured in complex ways before they are activated.
+The entity is created using the passed in constructor function and the entity's default sequence of processes is started.  By default, the `process()` function of the `KSLProcessBuilder` class automatically adds each newly defined process to the entity's default sequence of processes unless indicated not to do so. Thus, by using an instance of an `EntityGenerator` associated with a particular subclass of `Entity`, we can automatically create the instances of the subclass and activate their processes. Of course, the creation of the subclass (e.g. `Customer`) might be much more complex; however, the `EntityGenerator` takes in a *function* that creates the instance of the subclass.  Thus, it can be any function, not just the constructor function.  Therefore, instances can be configured in complex ways before they are activated by supplying an appropriate function.
+
+::: {.infobox .important data-latex="{important}"}
+**IMPORTANT!**
+Note that an `EntityGenerator` relies on the entity having at least one process that has been added to its process sequence via the `process()` method's `addToSequence` parameter being true. The default setting of this parameter is true.  An entity generator will create the entity and start the process that is listed *first* in its process sequence.  If there are no processes in the sequence then although the entity is created, it will not start the process.  Thus, if you create a process with `addToSequence = false,` that process will not be in the entity's process sequence to be started by an `EntityGenerator.` By default, the code-listing order of the `process()` function definitions in the class, defines the order in which the processes are added to the entity's process sequence when `addToSequence` is true. The entity's `processSequence` property provides access to the list, which is mutable.  This allows full control over the ordering via code.
+:::
 
 In the next section, we will take a closer look at how the KSL makes the process view possible.  This will help you to better use the process modeling capabilities found in the KSL.
 
@@ -316,8 +342,8 @@ In the next section, we will take a closer look at how the KSL makes the process
 
 Entities can experience many processes.  Thus, there needs to be a mechanism to activate the processes and to cleanup after the processes have completed. The `ProcessModel` class facilitates the modeling of entities experiencing processes. A `ProcessModel` has inner classes (`Entity,` `EntityGenerator,` etc.) that can be used to describe entities and the processes that they experience. 
 
-<div class="figure">
-<img src="./figures2/ch6/ProcessModelOverview.png" alt="Overview of the ProcessModel Class" width="90%" height="90%" />
+<div class="figure" style="text-align: center">
+<img src="./figures2/ch6/ProcessModelOverview.png" alt="Overview of the ProcessModel Class" width="100%" height="100%" />
 <p class="caption">(\#fig:Ch5ProcessModelOverview)Overview of the ProcessModel Class</p>
 </div>
 
@@ -337,7 +363,7 @@ This provides the modeler with access to the inner classes e.g. `Entity` that ar
 
 The key inner class is `Entity,` which has a function `process()` that uses a builder to describe the entity's process in the form of a coroutine.  An entity can have many processes described that it may follow based on different modeling logic. A process model facilitates the running of a sequence of processes that are stored in an entity's `processSequence` property. An entity can **experience only one process at a time**. After completing the process, the entity will try to use its sequence to run the next process (if available). Individual processes can be activated for specific entities. But, again, an entity instance may only be activated to experience 1 process at a time, even if it has many defined processes. The entity experiences processes *sequentially.*  
  
-An `Entity` instance is something that can experience processes and as such may wait in queues. `Entity` is a subclass of `QObject.`  Thus, statistics can be automatically collected on entities if they experience waiting. The general approach to defining a process for an entity is to use the `process()` function to define a process that a subclass of Entity can follow.  Entity instances may use resources, signals, hold queues, etc. as shared mutable state.  Entities may follow a process sequence if defined.  An entity can have many properties that define different processes that it might experience. The user can store the processes in data structures. In fact, there is a `processSequence` property for this purpose that defines a list of processes that the entity will follow. As previously mentioned, the `process()` function automatically adds each defined process (in the order of definition via the class body) to the `processSequence` property unless told not to do so as an optional argument to the `process()` function. The following code defines a process and assigns the function to the property `pharmacyProcess.`  This property is of type `KSLProcess.` Because there were no arguments to the `process()` function, the process is automatically added to the list of processes for this entity found in the `processSequence` property.  Each process can also be provided a string name via an argument of the `process()` function.
+An `Entity` instance is something that can experience processes and as such may wait in queues. `Entity` is a subclass of `QObject.`  Thus, statistics can be automatically collected on entities if they experience waiting. The general approach to defining a process for an entity is to use the `process()` function to define a process that a subclass of Entity can follow.  Entity instances may use resources, signals, hold queues, etc. as shared mutable state.  Entities may follow a process sequence if defined.  An entity can have many properties that define different processes that it might experience. The user can store the processes in data structures. In fact, there is a `processSequence` property for this purpose that defines a list of processes that the entity will follow. As previously mentioned, the `process()` function automatically adds each defined process (in the order of definition via the class body) to the `processSequence` property unless told not to do so as an optional argument to the `process()` function. The following code defines a process and assigns the function to the property `pharmacyProcess.`  This property is of type `KSLProcess.` Because there were no arguments to the `process()` function, the process is automatically added to the list of processes for this entity found in the `processSequence` property.  Each process can also be provided a string name via an argument of the `process()` function. The name of a process can be useful in tracing and debugging process code.
 
 ```kt
     private inner class Customer : Entity() {
@@ -362,7 +388,7 @@ interface KSLProcess {
 }
 ```
   
-The `process()` function is a special builder function related to a `KSLProcessBuilder.` A `KSLProcessBuilder` provides the functionality for describing a process.  A process is an instance of a coroutine that can be suspended and resumed.  The methods of the `KSLProcessBuilder` are the suspending methods that are allowed within the process modeling paradigm of the KSL.  The various suspend methods have an optional string name parameter to identify the name of the suspension point.  While not required for basic modeling, identifying the suspension point can be useful for more advanced modeling involving the cancellation or interrupting of a process.  A unique name can be used to determine which suspension point is suspending the process when the process has many suspension points.  We will examine the functionality of a `KSLProcessBuilder` later in this section.
+The `process()` function is a special builder function related to a `KSLProcessBuilder.` A `KSLProcessBuilder` provides the functionality for describing a process.  A process is an instance of a coroutine that can be suspended and resumed.  The methods of the `KSLProcessBuilder` are the suspending functions that are allowed within the process modeling paradigm of the KSL.  The various suspending functions have an optional string name parameter to identify the name of the suspension point.  While not required for basic modeling, identifying the suspension point can be useful for more advanced modeling involving the cancellation or interrupting of a process.  A unique name can be used to determine which suspension point is suspending the process when the process has many suspension points.  We will examine the functionality of a `KSLProcessBuilder` later in this section.
 
 First and foremost, process modeling starts with understanding and using instances of the `Entity` class. 
 
@@ -416,19 +442,20 @@ The following section will illustrate through some simple models some of the fun
 
 ## Examples of Process Modeling
 
-The following example illustrates how to use a hold queue (`HoldQueue`).  A `HoldQueue` holds an entity within a queue until it is removed.  It is important to note that the entity that goes into the hold queue cannot remove itself. Thus, as you will see in the following code, we schedule an event that causes the entities to be removed at a specific time. The hold queue is created and an event action defined to represent the event. The entity process is simple, when the entity enters the process it immediately enters the hold queue. The process will be suspended.  After being removed and resumed, the entity continues through a couple of delays. 
+The following example illustrates how to use a hold queue via the `HoldQueue` class.  A hold queue holds an entity within a queue until it is removed.  It is important to note that the entity that goes into the hold queue cannot remove itself. Thus, as you will see in the following code, we schedule an event that causes the entities to be removed at a specific time. The hold queue is created and an event action defined to represent the event. The entity process is simple, when the entity enters the process it immediately enters the hold queue. The process will be suspended.  After being removed and resumed, the entity continues through a couple of delays. 
 
+***
+::: {.example #ch6ex3 name="Illustrating a HoldQueue"}
+This example illustrates how to create an instance of the `HoldQueue` class and how to use it to hold entities until they can be released. An event is scheduled to cause held entities to be removed and to resume their processing. 
 ```kt
-class Example2(parent: ModelElement) : ProcessModel(parent, null)  {
-
-    private val holdQueue = HoldQueue(this, "hold")
-
+class HoldQExample(parent: ModelElement) : ProcessModel(parent, null)  {
+    private val myHoldQueue: HoldQueue = HoldQueue(this, "hold")
     private val myEventActionOne: EventActionOne = EventActionOne()
 
-    private inner class Customer: ProcessModel.Entity() {
+    private inner class Customer: Entity() {
         val holdProcess : KSLProcess = process() {
             println("time = $time : before being held customer = ${this@Customer.name}")
-            hold(holdQueue)
+            hold(myHoldQueue)
             println("time = $time : after being held customer = ${this@Customer.name}")
             delay(10.0)
             println("time = $time after the first delay for customer = ${this@Customer.name}")
@@ -445,16 +472,18 @@ class Example2(parent: ModelElement) : ProcessModel(parent, null)  {
         schedule(myEventActionOne, 5.0)
     }
 
-    private inner class EventActionOne : ModelElement.EventAction<Nothing>() {
+    private inner class EventActionOne : EventAction<Nothing>() {
         override fun action(event: KSLEvent<Nothing>) {
             println("Removing and resuming held entities at time : $time")
-            holdQueue.removeAllAndResume()
+            myHoldQueue.removeAllAndResume()
         }
     }
 }
 ```
+:::
+***
 
-The `initialize()` method creates a couple of entities and activates their hold process. In addition, the event representing the release from the hold queue is scheduled for time 5.0.  In the event logic, we see that the hold queue instance is used to call its `removeAllAndResume()` method. The `HoldQueue` class is a subclass of the `Queue` class. Thus, statistics are collected when it is used. In addition, it can be iterated and searched.  If a reference to a particular entity is available, then the `removeAndResume()` can be used to remove and resume a specific entity.  These two methods automatically resume the entity's process. Other methods inherited from the `Queue` class allows for the entities to be removed *without* resuming their processes. It is then the responsibility of the user to properly resume the suspended processes by directly using the entity instance. There are also methods for terminating the held entity's processes.  The output from this simple simulation is as follows:
+The `initialize()` method creates a couple of entities and activates their hold process. In addition, the event representing the release from the hold queue is scheduled for time 5.0.  In the event logic, we see that the hold queue instance is used to call its `removeAllAndResume()` function. The `HoldQueue` class is a subclass of the `Queue` class. Thus, statistics are collected when it is used. In addition, it can be iterated and searched.  If a reference to a particular entity is available, then the `removeAndResume()` function can be used to remove and resume a specific entity.  These two methods automatically resume the entity's process. Other methods inherited from the `Queue` class allows for the entities to be removed *without* resuming their processes. It is then the responsibility of the user to properly resume the suspended processes by directly using the entity instance. There are also methods for terminating the held entity's processes.  The output from this simple simulation is as follows:
 
 ```
 time = 0.0 : before being held customer = ID_1
@@ -470,18 +499,29 @@ time = 35.0 after the second delay for customer = ID_2
 
 We see that the two customers are held in the queue right after activation. Then, the event at time 5.0 occurs which removes and resumes the held entities. The rest of the output indicates the the entities continue their processes.
 
-The next example illustrates the use of the `Signal` class, which build off of the `HoldQueue` class, as shown in Figure \@ref(fig:Ch5HQandSignalClass). 
+The next example illustrates the use of the `Signal` class, which builds off of the `HoldQueue` class, as shown in Figure \@ref(fig:Ch5HQandSignalClass). 
 
-<div class="figure">
-<img src="./figures2/ch6/SignalClass.png" alt="HoldQueue and Signal Classes" width="75%" height="75%" />
+<div class="figure" style="text-align: center">
+<img src="./figures2/ch6/SignalClass.png" alt="HoldQueue and Signal Classes" width="70%" height="70%" />
 <p class="caption">(\#fig:Ch5HQandSignalClass)HoldQueue and Signal Classes</p>
 </div>
 
 The `Signal` class uses an instance of the `HoldQueue` class to hold entities until they are notified to move via the index of their rank in the queue.  If you want the first entity to be signaled, then you call `signal(0).` The entity is notified that its suspension is over and it removes itself from the hold queue.  Thus, contrary to the `HoldQueue` class the user does not have to remove and resume the corresponding entity. 
-
 Here is some example code. Notice that the code subclasses from `ProcessModel.` All implementations that use the process modeling constructs must subclass from `ProcessModel.`  Then, the instance of the `Signal` is created. An inner class implements and entity that uses the signal. In the process, the entity immediately waits for the signal. After the signal, the entity has a simple delay and then the process ends.
 
+***
+::: {.example #ch6ex4 name="Illustrating how to Hold and Signal Entities"}
+This example illustrates how to use the `Signal` class to hold entities until a signal is sent.  Once the signal is received the entity continues its processing. 
 ```kt
+fun main(){
+    val m = Model()
+    SignalExample(m)
+    m.numberOfReplications = 1
+    m.lengthOfReplication = 50.0
+    m.simulate()
+    m.print()
+}
+
 class SignalExample(parent: ModelElement, name: String? = null) : ProcessModel(parent, name) {
 
     private val signal = Signal(this, "SignalExample")
@@ -508,18 +548,11 @@ class SignalExample(parent: ModelElement, name: String? = null) : ProcessModel(p
         signal.signal(0..4)
     }
 }
-
-fun main(){
-    val m = Model()
-    SignalExample(m)
-    m.numberOfReplications = 1
-    m.lengthOfReplication = 50.0
-    m.simulate()
-    m.print()
-}
 ```
+:::
+***
 
-The `initialize()` method creates 10 instances of `SignalEntity` and activates each entity's `waitForSignalProcess` process. It also schedules an event to cause the signal to occur at time 3.0.  In the signal event, the reference to the signal, `signal,` is used to call the `signal()` method of of the `Signal` class.  The first 5 waiting entities are signaled using a Kotlin [range.](https://kotlinlang.org/docs/ranges.html)  The output from the process is as follows.
+The `initialize()` method creates 10 instances of the `SignalEntity` subclass of the `Entity` class and activates each entity's `waitForSignalProcess` process. It also schedules an event to cause the signal to occur at time 3.0.  In the signal event, the reference to the signal, `signal,` is used to call the `signal()` method of of the `Signal` class.  The first 5 waiting entities are signaled using a Kotlin [range.](https://kotlinlang.org/docs/ranges.html)  The output from the process is as follows.
 
 ```
 0.0 > before waiting for the signal: ID_1
@@ -550,32 +583,41 @@ The `initialize()` method creates 10 instances of `SignalEntity` and activates e
 8.0 > exiting the process of entity: ID_5
 ```
 
-We see that at time 0.0, the 10 entities are created and their process activated so that they wait for the signal.  Then, at time 3.0, the signal occurs and each of the signaled entities (in turn) resume their processes.  Eventually, they complete their process after the 5.0 time unit delay.  Notice that since the simulation run length was 50.0 time units that the simulation continues until that time.  However, since there are no more signals, the last 5 entities remain waiting (suspended) at the end of the simulation. As previously mentioned, the `ProcessModel` class is responsible for removing these entities that are suspended after the replication has completed.  Thus, when the next replication starts, there will not be 5 entities still waiting.  The KSL takes care of these common clean up actions automatically.
+We see that at time 0.0, the 10 entities are created and their process activated so that they wait for the signal.  Then, at time 3.0, the signal occurs and each of the signaled entities (in turn) resume their processes.  Eventually, they complete their process after the 5.0 time unit delay.  Notice that since the simulation run length was 50.0 time units, the simulation continues until that time.  However, since there are no more signals, the last 5 entities remain waiting (suspended) at the end of the simulation. As previously mentioned, the `ProcessModel` class is responsible for removing these entities that are suspended after the replication has completed.  Thus, when the next replication starts, there will not be 5 entities still waiting.  The KSL takes care of these common clean up actions automatically.
 
-This next example illustrates the use of a [blocking queue](https://jenkov.com/tutorials/java-concurrency/blocking-queues.html). Blocking queues are often used in asynchronous programs to communicated between different threads.  In the case of KSL process models, we can use the concept of blocking queues to assist with communication between two processes. Blocking queues can block on sending or on receiving. The typical use is to block when trying to dequeue an item from the queue when the queue is empty or if you try to enqueue an item and the queue is full.  A process trying to dequeue from an empty queue is blocked until some other process inserts an item into the queue. A process trying to enqueue an item in a full queue is blocked until some other process makes space in the queue, either by dequeuing one or more items or clearing the queue completely. The KSL provides a class called `BlockingQueue` that facilitates this kind of modeling. In the case of the KSL, depending on the configuration of the queue, both the sender and the receiver may block.
+This next example illustrates the use of a [blocking queue](https://jenkov.com/tutorials/java-concurrency/blocking-queues.html). Blocking queues are often used in asynchronous programs to communicated between different threads.  In the case of KSL process models, we can use the concept of blocking queues to assist with communication between two processes. 
 
+Blocking queues can block on sending or on receiving. The typical use is to block when trying to dequeue an item from the queue when the queue is empty or if you try to enqueue an item and the queue is full.  A process trying to dequeue from an empty queue is blocked until some other process inserts an item into the queue. A process trying to enqueue an item in a full queue is blocked until some other process makes space in the queue, either by dequeuing one or more items or clearing the queue completely. The KSL provides a class called `BlockingQueue` that facilitates this kind of modeling. In the case of the KSL, depending on the configuration of the queue, both the sender and the receiver may block.
 
-<div class="figure">
-<img src="./figures2/ch6/BlockingQueue.png" alt="The BlockingQueue Class" width="75%" height="75%" />
+<div class="figure" style="text-align: center">
+<img src="./figures2/ch6/BlockingQueue.png" alt="The BlockingQueue Class" width="80%" height="80%" />
 <p class="caption">(\#fig:Ch5EBlockingQ)The BlockingQueue Class</p>
 </div>
 
-There are actually three queues used in the implementation of the `BlockingQueue` class. One queue called the `senderQ` will hold entities that place items into the blocking queue if the queue is full.  Another queue, called the `receiverQ`, will hold entities that are waiting for items to be placed in the queue to be removed.  Lastly, is the blocking queue, itself, which is better conceptualized as a channel between the sender and the receiver. This queue is called the `channelQ` and holds items that are placed into it for eventual removal.  Statistics can be collected (or not) on any of these queues. The sender and receiver queues are essentially instances of the KSL `Queue` class. As such, they have no capacity limitation.  The channel queue can have a capacity. If a capacity is not provided, it is `Int.MAX_VALUE`, which is essentially infinite.
+There are actually three queues used in the implementation of the `BlockingQueue` class. One queue called the `senderQ` will hold entities that place items into the blocking queue if the queue is full.  Another queue, called the `receiverQ,` will hold entities that are waiting for items to be placed in the queue to be removed.  Lastly, is the blocking queue, itself, which is better conceptualized as a channel between the sender and the receiver. This queue is called the `channelQ` and holds items that are placed into it for eventual removal.  Statistics can be collected (or not) on any of these queues. The sender and receiver queues are essentially instances of the KSL `Queue` class. As such, they have no capacity limitation.  The channel queue can have a capacity. If a capacity is not provided, it is `Int.MAX_VALUE,` which is essentially infinite.
 
 As noted in Figure \@ref(fig:Ch5EBlockingQ) we see that the items within the queue are requested from the receiver. These requests can have a specific amount. The receiver will need to wait until the specific amount of their request becomes available in the queue (channel). Users can provide a selection rule for the requests to determine which requests will be selected for filling when new items arrive within the channel. The default request selection rule is to select the next request. The following code illustrates the basic creation and use of a blocking queue.
 
+::: {.example #ch6ex5 name="Illustrating a Blocking Queue"}
+This example illustrates how to use a blocking queue.  A blocking queue can cause an entity to wait until an item is available in the channel or cause an entity to wait until there is space in the channel.
 ```kt
-class BlockingQExample(parent: ModelElement, name: String? = null) : ProcessModel(parent, name) {
+class BlockingQExample(
+    parent: ModelElement,
+    name: String? = null
+) : ProcessModel(parent, name) {
 
 //    val blockingQ: BlockingQueue<QObject> = BlockingQueue(this)
     val blockingQ: BlockingQueue<QObject> = BlockingQueue(this, capacity = 10)
+    
     init {
 //        blockingQ.waitTimeStatisticsOption(false)
     }
-    
 ```
+:::
 
-You can create a blocking queue with a capacity (or not) and you can specify whether the statistics are collected (or not) as noted in the comments of the example. In this example, the queue (channel) has a capacity of 10 items. In the following code, we implement the process for receiving items from the blocking queue. Notice that there is a loop within the process.  This illustrates that all normal [Kotlin control structures](https://kotlinlang.org/docs/control-flow.html) are available with process routines. The entity (receiver) will loop through this process 15 time and essentially wait for single item to be placed in the blocking queue. If the entity hits the `waitForItems()` function call and there is an item in the queue, then it immediately receives the item and continues with its process. If an item is not available in the blocking queue, then the entity will wait until an item becomes available and does not proceed.  After receiving its requested item, the entity continues with its process.
+You can create a blocking queue with a capacity (or not) and you can specify whether the statistics are collected (or not) as noted by the commented code of the example. In this example, the queue (channel) has a capacity of 10 items. 
+
+In the following code, we implement the process for receiving items from the blocking queue. Notice that there is a loop within the process.  This illustrates that all normal [Kotlin control structures](https://kotlinlang.org/docs/control-flow.html) are available within process routines. The entity (receiver) will loop through this process 15 time and essentially wait for single item to be placed in the blocking queue. If the entity hits the `waitForItems()` suspending function call and there is an item in the queue, then it immediately receives the item and continues with its process. If an item is not available in the blocking queue when the entity reaches the `waitForItems()` suspending function, then the requesting entity will wait until an item becomes available and will not proceed until it receives the requested amount of items.  After receiving its requested items, the entity continues with its process.
 
 ```kt
     private inner class Receiver: Entity() {
@@ -593,7 +635,7 @@ You can create a blocking queue with a capacity (or not) and you can specify whe
         }
     }
 ```
-In this code snippet, the entity (sender), also loops 15 times. Each time within the loop, the entity creates an instance of a `QObject` and places it in the blocking queue via the `send()` method.  Since the blocking queue has capacity 10, and the time between requests by the receive is a little longer than the time between sends, the blocking queue will reach its capacity.  If it does reach its capacity, then the sender will have to wait (blocking) at the `send()` method until space becomes available in the channel.
+In this code snippet, the entity (sender), also loops 15 times. Each time within the loop, the entity creates an instance of a `QObject` and places it in the blocking queue via the `send()` method.  Since the blocking queue has capacity 10, and the time between requests by the receive is a little longer than the time between sends, the blocking queue will reach its capacity.  If it does reach its capacity, then the sender will have to wait (blocking) at the `send()` suspending function until space becomes available in the channel.
 
 ```kt
 
@@ -636,7 +678,7 @@ fun main(){
 }
 ```
 
-The output of the simulation is illustrative of the coordination that occurs between the receiver and the sender. We see in this output the the receiving entity blocks at time 1.0.  Finally, at time 5.0 the sender sends an item and it is received by the receiving entity. Both processes continue.
+The output of the simulation is illustrative of the coordination that occurs between the receiver and the sender. We see in this output that the the receiving entity blocks at time 1.0.  Finally, at time 5.0 the sender sends an item and it is received by the receiving entity. Both processes continue.
 
 ```
 0.0 > before the first delay for receiving entity: ID_1
@@ -693,6 +735,9 @@ In the previous three examples, we saw how we can use a hold queue, a signal, an
 ```
 The `waitFor(process: KSLProcess)` suspending function activates the named process and suspends the current process until the activated process completes. Then, the suspending process is resumed.  Let's take a look at a simple example.  Most of this class is simply to define the two interacting processes.
 
+***
+::: {.example #ch6ex6 name="Illustrating Waiting for a Process"}
+This example illustrates how you can use one process to start another process. In addition, the process that starts the secondary process will wait until the secondary process completes before continuing. 
 ```kt
 class WaitForProcessExample(parent: ModelElement) : ProcessModel(parent, null) {
     private val worker: ResourceWithQ = ResourceWithQ(this, "worker", 1)
@@ -741,8 +786,10 @@ class WaitForProcessExample(parent: ModelElement) : ProcessModel(parent, null) {
 
 }
 ```
+:::
+***
 
-The `Customer` class is very similar to previous examples of a simple queueing situation. However, notice the used of the `use()` function.  Because the combination of seize-delay-release is so common, the KSL provides the `use()` function to combine these into a convenient suspending function. It is illustrative to see the implementation:
+The `Customer` class is very similar to previous examples of a simple queueing situation. However, notice the use of the `use()` function.  Because the combination of seize-delay-release is so common, the KSL provides the `use()` function to combine these into a convenient suspending function. It is illustrative to see the implementation:
 
 ```kt
     suspend fun use(
@@ -758,7 +805,7 @@ The `Customer` class is very similar to previous examples of a simple queueing s
     }
 ```
 
-Then, the code defines a process called `WaitForAnotherProcess.` The sole purpose of this process is to create an instance of the customer, activate its simple process, and wait for it to complete.  The output from activating one instance of the wait for another process is as follows:
+Getting back to Example \@ref(exm:ch6ex6), the code defines a process called `WaitForAnotherProcess.` The sole purpose of this process is to create an instance of the customer, activate its simple process, and wait for it to complete.  The output from activating one instance of the wait for another process is as follows:
 
 ```
 0.8149947795247992 > activating the waitFor process for entity: ID_1
@@ -767,7 +814,7 @@ Then, the code defines a process called `WaitForAnotherProcess.` The sole purpos
 	 5.091121672376351 > completed simple process for entity: ID_2
 5.091121672376351 > after waitFor simple process for entity: ID_1
 ```
-We see that entity ID_1 activation occurs at time 0.81, when it then subsequently activates entity ID_2's simple process.  Then, entity ID_2 executes its simple process, which completes at time 5.09. Then, entity ID_1's process is allowed to complete. Thus, we see that it is easy to activate separate processes and to coordinate their completion.
+We see that the activation of entity ID_1 occurs at time 0.81, when it then subsequently activates entity ID_2's simple process.  Entity ID_1 then suspends while entity ID_2 executes its simple process, which completes at time 5.09. Then, entity ID_1's process is allowed to complete. Thus, we see that it is easy to activate separate processes and to coordinate their completion.
 
 In the next section, we will develop a more realistically sized process model for a STEM Career Mixer involving students and recruiters.
 
@@ -782,7 +829,7 @@ In this section, we model the operation of a STEM Career Fair mixer during a six
 - Using the `seize(),` `delay(),` and `release()` functions of the `KSLProcessBuilder` class
 
 ***
-::: {.example #exSTEMCareerFair}
+::: {.example #exSTEMCareerFair name="STEM Career Mixer System"}
 Students arrive to a STEM career mixer event according to a Poisson
 process at a rate of 0.5 student per minute. The students first go to
 the name tag station, where it takes between 15 and 45 seconds uniformly
@@ -815,7 +862,6 @@ recruiter interact at the JHBunt station is also exponentially
 distribution, but with a mean of 6 minutes. After visiting the JHBunt
 station, the student departs the mixer.
 :::
-
 ***
 
 The organizer of the mixer is interested in collecting statistics on the
@@ -944,7 +990,7 @@ drawing and write a useful narrative description of what you are
 modeling.
 
 <div class="figure" style="text-align: center">
-<img src="./figures2/ch6/JFERichPicture.png" alt="Rich picture system drawing of STEM Career Mixer" width="80%" height="80%" />
+<img src="./figures2/ch6/JFERichPicture.png" alt="Rich picture system drawing of STEM Career Mixer" width="70%" height="70%" />
 <p class="caption">(\#fig:JFERichPicture)Rich picture system drawing of STEM Career Mixer</p>
 </div>
 
@@ -1177,7 +1223,7 @@ show the paths taken. Figure \@ref(fig:JFEActivityDiagram) presents the activity
 situation.
 
 <div class="figure" style="text-align: center">
-<img src="./figures2/ch6/JFEActivityDiagram.png" alt="Activity diagram for STEM Career Mixer" width="60%" height="60%" />
+<img src="./figures2/ch6/JFEActivityDiagram.png" alt="Activity diagram for STEM Career Mixer" width="50%" height="50%" />
 <p class="caption">(\#fig:JFEActivityDiagram)Activity diagram for STEM Career Mixer</p>
 </div>
 
@@ -1206,32 +1252,41 @@ ready to represent to start representing this system in KSL code.
 The first thing that should be done is to prepare to use a process model by defining the model element that will contain the system. So, we start the modeling by defining a class that is a subclass of `ProcessModel`:
 
 ```kt
-class StemFairMixer(parent: ModelElement, name: String? = null) : ProcessModel(parent, name) {
-}
+class StemFairMixer(
+    parent: ModelElement,
+    name: String? = null
+) : ProcessModel(parent, name) {
 ```
 
 We will place the model elements needed within this class. We have already identified the need for many random variables. So, let's add those next.
 
 ```kt
-class StemFairMixer(parent: ModelElement, name: String? = null) : ProcessModel(parent, name) {
-
+class StemFairMixer(
+    parent: ModelElement,
+    name: String? = null
+) : ProcessModel(parent, name) {
     private val myTBArrivals: RVariableIfc = ExponentialRV(2.0, 1)
-    private val myNameTagTimeRV = RandomVariable(this, UniformRV((15.0 / 60.0), (45.0 / 60.0), 2))
-    private val myWanderingTimeRV = RandomVariable(this, TriangularRV(15.0, 20.0, 45.0, 3))
+    private val myNameTagTimeRV = RandomVariable(this, UniformRV((15.0/60.0), (45.0/60.0), 2))
+    private val myWanderingTimeRV = RandomVariable(this, TriangularRV(15.0, 20.0, 45.0, 3),
+        name = "WanderingT")
     private val myTalkWithJHBunt = RandomVariable(this, ExponentialRV(6.0, 4))
     private val myTalkWithMalMart = RandomVariable(this, ExponentialRV(3.0, 5))
     private val myDecideToWander = RandomVariable(this, BernoulliRV(0.5, 6))
     private val myDecideToLeave = RandomVariable(this, BernoulliRV(0.1, 7))
-
 ```
-Notice that I have converted the time for performing the name tag activity to minutes and that all other time units are in minutes.  We know that we need to collect statistics.  So, using the KSL `Response` and `TWResponse` classes these KSL constructs can be added.
+Notice that I have converted the time for performing the name tag activity to minutes and that all other time units are in minutes. Also, the random variables have specific stream numbers specified. 
+
+We know that we need to collect statistics.  So, using the KSL `Response` and `TWResponse` classes these KSL constructs can be added next.
 
 ```kt
-class StemFairMixer(parent: ModelElement, name: String? = null) : ProcessModel(parent, name) {
-
+class StemFairMixer(
+    parent: ModelElement,
+    name: String? = null
+) : ProcessModel(parent, name) {
     private val myTBArrivals: RVariableIfc = ExponentialRV(2.0, 1)
     private val myNameTagTimeRV = RandomVariable(this, UniformRV((15.0 / 60.0), (45.0 / 60.0), 2))
-    private val myWanderingTimeRV = RandomVariable(this, TriangularRV(15.0, 20.0, 45.0, 3))
+    private val myWanderingTimeRV = RandomVariable(this, TriangularRV(15.0, 20.0, 45.0, 3),
+        name = "WanderingT")
     private val myTalkWithJHBunt = RandomVariable(this, ExponentialRV(6.0, 4))
     private val myTalkWithMalMart = RandomVariable(this, ExponentialRV(3.0, 5))
     private val myDecideToWander = RandomVariable(this, BernoulliRV(0.5, 6))
@@ -1247,11 +1302,15 @@ class StemFairMixer(parent: ModelElement, name: String? = null) : ProcessModel(p
 Finally, we are ready to add the elements necessary for the process model.
 
 ```kt
-class StemFairMixer(parent: ModelElement, name: String? = null) : ProcessModel(parent, name) {
+class StemFairMixer(
+    parent: ModelElement,
+    name: String? = null
+) : ProcessModel(parent, name) {
 
     private val myTBArrivals: RVariableIfc = ExponentialRV(2.0, 1)
-    private val myNameTagTimeRV = RandomVariable(this, UniformRV((15.0 / 60.0), (45.0 / 60.0), 2))
-    private val myWanderingTimeRV = RandomVariable(this, TriangularRV(15.0, 20.0, 45.0, 3))
+    private val myNameTagTimeRV = RandomVariable(this, UniformRV((15.0/60.0), (45.0/60.0), 2))
+    private val myWanderingTimeRV = RandomVariable(this, TriangularRV(15.0, 20.0, 45.0, 3),
+        name = "WanderingT")
     private val myTalkWithJHBunt = RandomVariable(this, ExponentialRV(6.0, 4))
     private val myTalkWithMalMart = RandomVariable(this, ExponentialRV(3.0, 5))
     private val myDecideToWander = RandomVariable(this, BernoulliRV(0.5, 6))
@@ -1263,14 +1322,22 @@ class StemFairMixer(parent: ModelElement, name: String? = null) : ProcessModel(p
     private val mySystemTimeL = Response(this, "LeaverSystemTime")
     private val myNumInSystem = TWResponse(this, "NumInSystem")
 
-    private val myJHBuntRecruiters: ResourceWithQ = ResourceWithQ(this, capacity = 3, name = "JHBuntR")
-    private val myMalWartRecruiters: ResourceWithQ = ResourceWithQ(this, capacity = 2, name = "MalWartR")
+    private val myJHBuntRecruiters: ResourceWithQ = ResourceWithQ(this, 
+      capacity = 3, name = "JHBuntR")
+    val jhBuntRecruiters : ResourceWithQCIfc
+        get() = myJHBuntRecruiters
+
+    private val myMalWartRecruiters: ResourceWithQ = ResourceWithQ(this, 
+      capacity = 2, name = "MalWartR")
+    val malWartRecruiters : ResourceWithQCIfc
+        get() = myMalWartRecruiters
+
     private val generator = EntityGenerator(::Student, myTBArrivals, myTBArrivals)
 ```
 
 Well, actually, we cannot really add the `EntityGenerator` until we have defined the class `Student.`  This is done as an inner class of `StemFairMixer.`  Because it is an inner class of `StemFairMixer,` it will have access to all the previously defined random variables, resources, and statistical responses.
 
-In the following code, two attributes, `isWanderer` and `isLeaver` are defined as properties of `Student.`  Notice how the values of these properties are assigned upon creation using the random variables and how the values of 1.0 or 0.0 are converted to boolean values.  This is performed by using an extension function found in the `ksl.utilities.random.rvariable` package within the `KSLRandom` class file. It is very convenient for use with if statements.
+In the following code, two attributes, `isWanderer` and `isLeaver` are defined as properties of `Student.`  Notice how the values of these properties are assigned upon creation using the random variables and how the values of 1.0 or 0.0 are converted to boolean values.  This is performed by using an extension function found in the `ksl.utilities.random.rvariable` package within the `KSLRandom` class file. It is very convenient for use with if statements.  It is important to note that individual instances of the `Student` class will get different values for their `isWanderer` and `isLeaver` properties. When the object instance is created, the assignment to the property occurs. At that time, a new random value is generated, converted from 1.0 or 0.0 to true or false and then assigned to the created student object.
 
 ```kt
     private inner class Student : Entity() {
@@ -1295,14 +1362,13 @@ In the following code, two attributes, `isWanderer` and `isLeaver` are defined a
             release(jhb)
             departMixer(this@Student)
         }
-        
 ```
 
-The process followed by each student is defined in the process property called `stemFairProcess.` Notice how we first increment the number in the system and start the delay for the name tag activity.  If the student is a wandering student, we experience the delay for wandering. And, if the student is a wandering student that leaves early, then the `departingMixer()` method is called. As we will see in a moment, this method will be used to collect statistics on departing students. 
+The process followed by each student is defined in the process property called `stemFairProcess.` Notice how we first increment the number in the system and start the delay for the name tag activity.  If the student is a wandering student, we experience the delay for wandering. And, if the student is a wandering student that leaves early, then the `departingMixer()` function is called. As we will see in a moment, this function will be used to collect statistics on departing students. 
 
-Now we have something new, we have a `return` statement within a process.  As previously noted, Kotlin flow of control statements are available within coroutines and `return` is such as statement.  Because the return is within a process builder, we need to be more specific about the return label.  This can be specified by the name of the builder function. In this case `process.` Kotlin also allows you to [explicitly label the return](https://kotlinlang.org/docs/returns.html#return-to-labels).  This return statement will cause the normal exit from the process routine for those students that leave without visiting recruiters.
+Now we have something new, we have a `return` statement within a process.  As previously noted, Kotlin flow of control statements are available within coroutines and `return` is a flow of control statement.  Because the return is within a process builder, we need to be more specific about the return label.  This can be specified by the name of the builder function. In this case `process.` Kotlin also allows you to [explicitly label the return](https://kotlinlang.org/docs/returns.html#return-to-labels).  This return statement will cause the normal exit from the process routine for those students that leave without visiting recruiters.
 
-The students that visit the recruiter seize-delay-release the related resources and then depart. The following code shows the `departMixer()` method.  In this method, we decrement the number in the system and collect the system time statistics. Notice how we use the attributes within the boolean conditions of the if statements to get the correct system time response variables.
+The students that visit the recruiter *(seize-delay-release)* the related resources and then depart. The following code shows the `departMixer()` function.  In this function, we decrement the number in the system and collect the system time statistics. Notice how we use the attributes within the boolean conditions of the if statements to get the correct system time response variables.
 
 ```kt
         private fun departMixer(departingStudent: Student) {
@@ -1351,7 +1417,7 @@ The results produced by the KSL are within statistical variation of the same sys
 This section presents another process modeling situation using the KSL. In this modeling situation the key feature to be illustrated is the use of a `BlockingQueue` to communicate and coordinate between two processes. We will also see that a process can spawn another process.
 
 ***
-::: {.example #exTieDyeTShirts}
+::: {.example #exTieDyeTShirts name="Tie Dye T-Shirts System"}
 Suppose production orders for tie-dye T-shirts arrive to a production
 facility according to a Poisson process with a mean rate of 1 per hour.
 There are two basic psychedelic designs involving either red or blue
@@ -1379,7 +1445,6 @@ triangular distribution with a minimum of 5 minutes, a most likely value
 of 10 minutes, and a maximum value of 15 minutes. Finally, the boxed
 customer order is sent to shipping.
 :::
-
 ***
 
 ### Implementing the Tie-Dye T-Shirt Model {#ch4:TieDyeTShirtsSub1}
@@ -1443,7 +1508,10 @@ the final packaging process share the packager as a resource.
 Just as in the previous example, you should start by subclassing from `ProcessModel` and add the necessary random variables and responses. This is illustrated in the following code. In this situation, we use a discrete empirical distribution to model the type and size of the order. The other random variables are straight forward applications of the `RandomVariable` class. We define two responses to track the total time in the system and the total number of orders in the system.
 
 ```kt
-class TieDyeTShirts(parent: ModelElement, theName: String? = null) : ProcessModel(parent, theName) {
+class TieDyeTShirts(
+    parent: ModelElement,
+    name: String? = null
+) : ProcessModel(parent, name) {
 
     private val myTBOrders: RVariableIfc = ExponentialRV(60.0)
     private val myType: RVariableIfc = DEmpiricalRV(doubleArrayOf(1.0, 2.0), doubleArrayOf(0.7, 1.0))
@@ -1453,9 +1521,10 @@ class TieDyeTShirts(parent: ModelElement, theName: String? = null) : ProcessMode
     private val myShirtMakingTime = RandomVariable(this, UniformRV(15.0, 25.0))
     private val myPaperWorkTime = RandomVariable(this, UniformRV(8.0, 10.0))
     private val myPackagingTime = RandomVariable(this, TriangularRV(5.0, 10.0, 15.0))
-    
+
     private val mySystemTime = Response(this, "System Time")
     private val myNumInSystem = TWResponse(this, "Num in System")
+
 ```
 
 Now we can develop the process modeling constructs. We will use an `EntityGenerator,` resources to represent the shirt makers and the packager. Notice that we use a `RequestQ` to represent the queue for the orders.  A `RequestQ` is a subclass of the Queue class that is specifically designed to work with seize requests for resources.  In general, the `seize()` suspend function allows both the specification of the resource being seized and the queue that will hold the entity if the seize request is not immediately filled. As noted in the activity diagram, there are actually two queues involving the use of the packager.  The queue that holds the orders and a queue that holds the completed orders for final packaging. We will see the use of these constructs in the process description. Finally, we use an instance of a `BlockingQueue` to hold completed shirts and communicate that they are ready.
@@ -1468,7 +1537,7 @@ Now we can develop the process modeling constructs. We will use an `EntityGenera
     private val completedShirtQ: BlockingQueue<Shirt> = BlockingQueue(this, name = "Completed Shirt Q")
 ```
 
-The order process follows the basic outline of the activity diagram. As we have previously seen, we design a class to represent the orders and the order making process by subclassing from `Entity.` Similar to the previous example, this code uses two properties to hold the type and size of the order and assigns their values based on the random variable instances of the outer class.  We also have a list to hold the complete orders.
+The order process follows the basic outline of the activity diagram. As we have previously seen, we design a class to represent the orders and the order making process by creating a subclass of the `Entity` class.  Similar to the previous examples, this code uses two properties to hold the type and size of the order and assigns their values based on the random variable instances of the outer class. As note in the code, the `type` property is never used in the rest of the model; however, it could be useful if we wanted to count the type of shirts produced or for other statistics by type. We also have a list to hold the complete orders. Again, as noted in the code, the list is not really used in a meaningful manner. In this case, it is used to capture the list of items from the `waitForItems()` function, but not subsequently used.  If a future process required the created shirts, then the list could be useful.
 
 ```kt
     private inner class Order: Entity() {
@@ -1498,13 +1567,14 @@ The order process follows the basic outline of the activity diagram. As we have 
 
 When the order making process is activated, there is a for-loop that makes the shirts and activates the shirt making process. This activates the process at the current time. It is important to note that the activated shirt making processes are scheduled to be activated at the current time. Since those events are on the event calendar, they will not be executed until the current event finishes.  The current event is essentially the code in the process before the next suspension point. This provides the notion of pseudo-parallelism. The shirt making processes are really pending activation.
 
-Meanwhile, the order continues with its process by using the packager in the classic seize-delay-release pattern.  However, note the signature of the `seize()` method, which specifies the queue for waiting orders.
+Meanwhile, the order continues with its process by using the packager in the classic *(seize-delay-release)* pattern.  However, note the signature of the `seize()` method, which specifies the queue for waiting orders.
 
 ```kt
             var a = seize(myPackager, queue = myOrderQ)
 ```
+Thus, this use of the packager causes the entity (the order) to wait in the queue for orders. The later seize of the packager cause the order to wait in the pre-defined queue associated with the `ResourceWithQ` class defined for the packager.
 
-After the paper work is done, the order is ready to start final packaging if it has the shirts associated with the order. This is where the blocking queue is used. The `waitForItems()` call will be explained more fully shortly.  However, at this point, we can think of the order waiting for the correct number of shirts to arrive that are associated with this particular order. After the shirts arrive, the order process continues and again seizes the packager for the packaging time. In this usage of the `seize()` method, just specify an instance of a `ResourceWithQ.` A `ResourceWithQ` has a pre-defined `RequestQ` that holds the requests for the resource.  We see that it is simple to share a resource between two different activities. The `seize()` method also takes in an optional argument that specifies the priority of the seize request.  If there are more that one suspending `seize()` functions that compete for the same resource, you can used the priority parameter to specify which seize request has the priority if more than one is waiting at the same time.  Finally, the statistics on the order are collected before its process ends. Now, let's look at the shirt making process.
+After the paper work is done, the order is ready to start final packaging if it has the shirts associated with the order. This is where the blocking queue is used. The `waitForItems()` call will be explained more fully shortly.  However, at this point, we can think of the order waiting for the correct number of shirts to arrive that are associated with this particular order. After the shirts arrive, the order process continues and again seizes the packager for the packaging time. In this usage of the `seize()` method, we need only specify an instance of a `ResourceWithQ.` A `ResourceWithQ` has a pre-defined `RequestQ` that holds the requests for the resource.  We see that it is simple to share a resource between two different activities. The `seize()` method also takes in an optional argument that specifies the priority of the seize request.  If there are more that one suspending `seize()` functions that compete for the same resource, you can used the priority parameter to specify which seize request has the priority if more than one is waiting at the same time.  Finally, the statistics on the order are collected before its process ends. Now, let's look at the shirt making process.
 
 ```kt
     private inner class Shirt(val orderNum: Long): Entity() {
@@ -1518,7 +1588,9 @@ After the paper work is done, the order is ready to start final packaging if it 
     }
 ```
 
-The shirt making process is constructed based on a different entity that represents what happens to a shirt.  There are a couple of interesting things to note.  First a property `orderNum` is defined using Kotlin's [concise syntax](https://kotlinlang.org/docs/classes.html#constructors) for declaring properties in the default constructor. The property `orderNum` is used to identify, for the shirt, which order created it.  Then, the shirt uses the shirt makers to make the shirt via the seize-delay-release code.  Finally, the blocking queue that was defined as part of the process model is used to send a reference to the shirt to the channel queue that connects the shirt process with the ordering process. A Kotlin [qualified this](https://kotlinlang.org/docs/this-expressions.html) reference must be used to identify the shirt within the `KSLProcessBuilder.` As the shirts are made, they are sent to the channel. When the correct number of shirts for the order are made the waiting order can pull them from the channel and continue with its process.  Now, let's take a closer look at the blocking code statement in the order process:
+The shirt making process is constructed based on a different entity that represents what happens to a shirt.  There are a couple of interesting things to note.  First a property `orderNum` is defined using Kotlin's [concise syntax](https://kotlinlang.org/docs/classes.html#constructors) for declaring properties in the default constructor. The property `orderNum` is used to identify, for the shirt, which order created it.  Then, the shirt uses the shirt makers resource to make the shirt via the *(seize-delay-release)* code.  
+
+Finally, the blocking queue that was defined as part of the process model is used to send a reference to the shirt to the channel queue that connects the shirt process with the ordering process. A Kotlin [qualified this](https://kotlinlang.org/docs/this-expressions.html) reference must be used to identify the shirt within the `KSLProcessBuilder.` As the shirts are made, they are sent to the channel. When the correct number of shirts for the order are made the waiting order can pull them from the channel and continue with its process.  Now, let's take a closer look at the blocking code statement in the order process:
 
 ```kt
 completedShirts = waitForItems(completedShirtQ, size, {it.orderNum == this@Order.id})
@@ -1548,13 +1620,15 @@ To understand this code fragment, we need to see some of the implementation of t
     ): List<T>
 ```
 
-The first thing to note is the parameter `amount.` This parameter specified how many items are being requested from the blocking queue.  The next parameter is the `predicate.` This parameter represents a function that takes in the type being held in the queue and returns true or false depending on some condition. In this case, the type is `Shirt.` This is a common functional idiom found in functional programming languages such as Kotlin. The predicate is defined as [lambda expression](https://kotlinlang.org/docs/lambdas.html#lambda-expressions-and-anonymous-functions) that checks if the order number of the shirt (`it.orderNum`) is equal to the order number of the current order (`this@Order.id`).  If so, the shirt belongs to the order. Once the specified amount is found within the channel the suspension will end and the ordering process will continue.
+The first thing to note is the parameter `amount.` This parameter specifies how many items are being requested from the blocking queue.  The next parameter is the `predicate.` This parameter represents a function that takes in the type being held in the queue and returns true or false depending on some condition. In this case, the type is `Shirt.` This is a common functional idiom found in functional programming languages such as Kotlin. The predicate is defined as [lambda expression](https://kotlinlang.org/docs/lambdas.html#lambda-expressions-and-anonymous-functions) that checks if the order number of the shirt `it.orderNum` is equal to the order number of the current order (`this@Order.id`).  If so, the shirt belongs to the order. Once the specified amount is found within the channel the suspension will end and the ordering process will continue.
 
 ```kt
 completedShirts = waitForItems(completedShirtQ, size, {it.orderNum == this@Order.id})
 ```
 
-Whenever an item is sent to a blocking queue, the blocking queue will check to see if there are any receivers waiting for items.  If there are receivers waiting for items, then the blocking queue will use the blocking queue's request selector to select the next request to be filled.  The request is examined to see if it can be filled.  That is, the blocking queue checks to see if all the items requested that meet the request criteria are in the queue. In this case, the request criteria is specified by the previously mentioned lambda expression.  If the request can be filled, the items are given to the waiting receiver and the receiver's process can continue. As discussed in the previous section introducing blocking queues, the default request selector simply looks only at the next waiting request.  Other rules for selecting requests can also be provided when configuring the blocking queue. For example, you can provide an instance of a `FirstFillableRequest` selector as shown in the following code. This class is available as in inner class of `BlockingQueue.` As can be seen here, this selector will scan the waiting requests and return the first request that can be filled or null if no requests can be filled.
+Whenever an item is sent to a blocking queue, the blocking queue will check to see if there are any receivers waiting for items.  If there are receivers waiting for items, then the blocking queue will use the blocking queue's request selector to select the next request to be filled.  The request is examined to see if it can be filled.  That is, the blocking queue checks to see if all the items requested that meet the request criteria are in the queue. In this case, the request criteria is specified by the previously mentioned lambda expression.  If the request can be filled, the items are given to the waiting receiver and the receiver's process can continue. 
+
+As discussed in the previous section introducing blocking queues, the default request selector simply looks only at the next waiting request.  Other rules for selecting requests can also be provided when configuring the blocking queue. For example, you can provide an instance of a `FirstFillableRequest` selector as shown in the following code. This class is available as in inner class of `BlockingQueue.` As can be seen here, this selector will scan the waiting requests and return the first request that can be filled or null if no requests can be filled.
 
 ```kt
     /**

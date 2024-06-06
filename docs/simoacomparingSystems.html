@@ -6,7 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>5.7 Comparing System Configurations | Simulation Modeling using the Kotlin Simulation Library (KSL)</title>
   <meta name="description" content="A book that illustrates the basics of using the KSL. The output format for this book is bookdown::gitbook." />
-  <meta name="generator" content="bookdown 0.34 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.39 and GitBook 2.6.7" />
 
   <meta property="og:title" content="5.7 Comparing System Configurations | Simulation Modeling using the Kotlin Simulation Library (KSL)" />
   <meta property="og:type" content="book" />
@@ -23,7 +23,7 @@
 <meta name="author" content="Manuel D. Rossetti" />
 
 
-<meta name="date" content="2024-05-28" />
+<meta name="date" content="2024-06-06" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -31,7 +31,7 @@
   
   
 <link rel="prev" href="simoainfhorizon.html"/>
-<link rel="next" href="simoasummary.html"/>
+<link rel="next" href="ch5Scenarios.html"/>
 <script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
@@ -58,7 +58,7 @@
 
 <style type="text/css">
 pre > code.sourceCode { white-space: pre; position: relative; }
-pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span { line-height: 1.25; }
 pre > code.sourceCode > span:empty { height: 1.2em; }
 .sourceCode { overflow: visible; }
 code.sourceCode > span { color: inherit; text-decoration: inherit; }
@@ -130,6 +130,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 div.csl-bib-body { }
 div.csl-entry {
   clear: both;
+  margin-bottom: 0em;
 }
 .hanging div.csl-entry {
   margin-left:2em;
@@ -200,7 +201,7 @@ div.csl-indent {
 <ul>
 <li class="chapter" data-level="2.2.1" data-path="rvg.html"><a href="rvg.html#basic-random-variate-generation"><i class="fa fa-check"></i><b>2.2.1</b> Basic Random Variate Generation</a></li>
 <li class="chapter" data-level="2.2.2" data-path="rvg.html"><a href="rvg.html#rvg_dists"><i class="fa fa-check"></i><b>2.2.2</b> Continuous and Discrete Random Variables</a></li>
-<li class="chapter" data-level="2.2.3" data-path="rvg.html"><a href="rvg.html#rvg_use"><i class="fa fa-check"></i><b>2.2.3</b> Creating and Using Random Variables</a></li>
+<li class="chapter" data-level="2.2.3" data-path="rvg.html"><a href="rvg.html#rvguse"><i class="fa fa-check"></i><b>2.2.3</b> Creating and Using Random Variables</a></li>
 <li class="chapter" data-level="2.2.4" data-path="rvg.html"><a href="rvg.html#functions-of-random-variables"><i class="fa fa-check"></i><b>2.2.4</b> Functions of Random Variables</a></li>
 </ul></li>
 <li class="chapter" data-level="2.3" data-path="probModels.html"><a href="probModels.html"><i class="fa fa-check"></i><b>2.3</b> Probability Distribution Models</a></li>
@@ -231,31 +232,30 @@ div.csl-indent {
 </ul></li>
 <li class="chapter" data-level="3.4" data-path="craps.html"><a href="craps.html"><i class="fa fa-check"></i><b>3.4</b> Simulating the Game of Craps</a></li>
 <li class="chapter" data-level="3.5" data-path="the-news-vendor-problem.html"><a href="the-news-vendor-problem.html"><i class="fa fa-check"></i><b>3.5</b> The News Vendor Problem</a></li>
-<li class="chapter" data-level="3.6" data-path="a-simple-inspection-process.html"><a href="a-simple-inspection-process.html"><i class="fa fa-check"></i><b>3.6</b> A Simple Inspection Process</a></li>
-<li class="chapter" data-level="3.7" data-path="stochastic-activity-networks.html"><a href="stochastic-activity-networks.html"><i class="fa fa-check"></i><b>3.7</b> Stochastic Activity Networks</a></li>
+<li class="chapter" data-level="3.6" data-path="ch3InsProcess.html"><a href="ch3InsProcess.html"><i class="fa fa-check"></i><b>3.6</b> A Simple Inspection Process</a></li>
+<li class="chapter" data-level="3.7" data-path="ch3SAN.html"><a href="ch3SAN.html"><i class="fa fa-check"></i><b>3.7</b> Stochastic Activity Networks</a></li>
 <li class="chapter" data-level="3.8" data-path="mcmExperiments.html"><a href="mcmExperiments.html"><i class="fa fa-check"></i><b>3.8</b> Monte-Carlo Experiments</a></li>
 <li class="chapter" data-level="3.9" data-path="summary-1.html"><a href="summary-1.html"><i class="fa fa-check"></i><b>3.9</b> Summary</a></li>
 <li class="chapter" data-level="3.10" data-path="exercises-2.html"><a href="exercises-2.html"><i class="fa fa-check"></i><b>3.10</b> Exercises</a></li>
 </ul></li>
 <li class="chapter" data-level="4" data-path="introDEDS.html"><a href="introDEDS.html"><i class="fa fa-check"></i><b>4</b> Introduction to Discrete Event Modeling</a>
 <ul>
-<li class="chapter" data-level="4.1" data-path="introDEDSIntro.html"><a href="introDEDSIntro.html"><i class="fa fa-check"></i><b>4.1</b> Introduction</a></li>
-<li class="chapter" data-level="4.2" data-path="introDEDSdeds.html"><a href="introDEDSdeds.html"><i class="fa fa-check"></i><b>4.2</b> Discrete-Event Dynamic Systems</a></li>
-<li class="chapter" data-level="4.3" data-path="HowDEDSClockWorks.html"><a href="HowDEDSClockWorks.html"><i class="fa fa-check"></i><b>4.3</b> How the Discrete-Event Clock Works</a></li>
-<li class="chapter" data-level="4.4" data-path="QHandExample.html"><a href="QHandExample.html"><i class="fa fa-check"></i><b>4.4</b> Simulating a Queueing System By Hand</a></li>
-<li class="chapter" data-level="4.5" data-path="introDEDSdedsKSL.html"><a href="introDEDSdedsKSL.html"><i class="fa fa-check"></i><b>4.5</b> Modeling DEDS in the KSL</a>
+<li class="chapter" data-level="4.1" data-path="introDEDSdeds.html"><a href="introDEDSdeds.html"><i class="fa fa-check"></i><b>4.1</b> Discrete-Event Dynamic Systems</a></li>
+<li class="chapter" data-level="4.2" data-path="HowDEDSClockWorks.html"><a href="HowDEDSClockWorks.html"><i class="fa fa-check"></i><b>4.2</b> How the Discrete-Event Clock Works</a></li>
+<li class="chapter" data-level="4.3" data-path="QHandExample.html"><a href="QHandExample.html"><i class="fa fa-check"></i><b>4.3</b> Simulating a Queueing System By Hand</a></li>
+<li class="chapter" data-level="4.4" data-path="introDEDSdedsKSL.html"><a href="introDEDSdedsKSL.html"><i class="fa fa-check"></i><b>4.4</b> Modeling DEDS in the KSL</a>
 <ul>
-<li class="chapter" data-level="4.5.1" data-path="introDEDSdedsKSL.html"><a href="introDEDSdedsKSL.html#event-scheduling"><i class="fa fa-check"></i><b>4.5.1</b> Event Scheduling</a></li>
-<li class="chapter" data-level="4.5.2" data-path="introDEDSdedsKSL.html"><a href="introDEDSdedsKSL.html#introDEDSschedExamples"><i class="fa fa-check"></i><b>4.5.2</b> Simple Event Scheduling Examples</a></li>
-<li class="chapter" data-level="4.5.3" data-path="introDEDSdedsKSL.html"><a href="introDEDSdedsKSL.html#introDEDSUpDown"><i class="fa fa-check"></i><b>4.5.3</b> Up and Down Component Example</a></li>
-<li class="chapter" data-level="4.5.4" data-path="introDEDSdedsKSL.html"><a href="introDEDSdedsKSL.html#introDEDSPharmacy"><i class="fa fa-check"></i><b>4.5.4</b> Modeling a Simple Queueing System</a></li>
-<li class="chapter" data-level="4.5.5" data-path="introDEDSdedsKSL.html"><a href="introDEDSdedsKSL.html#more-details-about-the-pharmacy-model-implementation"><i class="fa fa-check"></i><b>4.5.5</b> More Details About the Pharmacy Model Implementation</a></li>
+<li class="chapter" data-level="4.4.1" data-path="introDEDSdedsKSL.html"><a href="introDEDSdedsKSL.html#event-scheduling"><i class="fa fa-check"></i><b>4.4.1</b> Event Scheduling</a></li>
+<li class="chapter" data-level="4.4.2" data-path="introDEDSdedsKSL.html"><a href="introDEDSdedsKSL.html#introDEDSschedExamples"><i class="fa fa-check"></i><b>4.4.2</b> Simple Event Scheduling Examples</a></li>
+<li class="chapter" data-level="4.4.3" data-path="introDEDSdedsKSL.html"><a href="introDEDSdedsKSL.html#introDEDSUpDown"><i class="fa fa-check"></i><b>4.4.3</b> Up and Down Component Example</a></li>
+<li class="chapter" data-level="4.4.4" data-path="introDEDSdedsKSL.html"><a href="introDEDSdedsKSL.html#introDEDSPharmacy"><i class="fa fa-check"></i><b>4.4.4</b> Modeling a Simple Queueing System</a></li>
+<li class="chapter" data-level="4.4.5" data-path="introDEDSdedsKSL.html"><a href="introDEDSdedsKSL.html#more-details-about-the-pharmacy-model-implementation"><i class="fa fa-check"></i><b>4.4.5</b> More Details About the Pharmacy Model Implementation</a></li>
 </ul></li>
-<li class="chapter" data-level="4.6" data-path="enhancing-the-drive-through-pharmacy-model.html"><a href="enhancing-the-drive-through-pharmacy-model.html"><i class="fa fa-check"></i><b>4.6</b> Enhancing the Drive Through Pharmacy Model</a></li>
-<li class="chapter" data-level="4.7" data-path="introDEDSSummary.html"><a href="introDEDSSummary.html"><i class="fa fa-check"></i><b>4.7</b> Summary</a></li>
-<li class="chapter" data-level="4.8" data-path="exercises-3.html"><a href="exercises-3.html"><i class="fa fa-check"></i><b>4.8</b> Exercises</a></li>
+<li class="chapter" data-level="4.5" data-path="enhancing-the-drive-through-pharmacy-model.html"><a href="enhancing-the-drive-through-pharmacy-model.html"><i class="fa fa-check"></i><b>4.5</b> Enhancing the Drive Through Pharmacy Model</a></li>
+<li class="chapter" data-level="4.6" data-path="introDEDSSummary.html"><a href="introDEDSSummary.html"><i class="fa fa-check"></i><b>4.6</b> Summary</a></li>
+<li class="chapter" data-level="4.7" data-path="exercises-3.html"><a href="exercises-3.html"><i class="fa fa-check"></i><b>4.7</b> Exercises</a></li>
 </ul></li>
-<li class="chapter" data-level="5" data-path="simoa.html"><a href="simoa.html"><i class="fa fa-check"></i><b>5</b> Analyzing Simulation Output</a>
+<li class="chapter" data-level="5" data-path="simoa.html"><a href="simoa.html"><i class="fa fa-check"></i><b>5</b> Analyzing and Accessing Simulation Output</a>
 <ul>
 <li class="chapter" data-level="5.1" data-path="simoadatatypes.html"><a href="simoadatatypes.html"><i class="fa fa-check"></i><b>5.1</b> Types of Statistical Variables</a></li>
 <li class="chapter" data-level="5.2" data-path="simoasimtypes.html"><a href="simoasimtypes.html"><i class="fa fa-check"></i><b>5.2</b> Types of Simulation With Respect To Output Analysis</a></li>
@@ -277,10 +277,18 @@ div.csl-indent {
 <li class="chapter" data-level="5.7" data-path="simoacomparingSystems.html"><a href="simoacomparingSystems.html"><i class="fa fa-check"></i><b>5.7</b> Comparing System Configurations</a>
 <ul>
 <li class="chapter" data-level="5.7.1" data-path="simoacomparingSystems.html"><a href="simoacomparingSystems.html#simoacomparingSystems:two"><i class="fa fa-check"></i><b>5.7.1</b> Comparing Two Systems</a></li>
-<li class="chapter" data-level="5.7.2" data-path="simoacomparingSystems.html"><a href="simoacomparingSystems.html#simoacomparingSystemsMCB"><i class="fa fa-check"></i><b>5.7.2</b> Multiple Comparisons</a></li>
+<li class="chapter" data-level="5.7.2" data-path="simoacomparingSystems.html"><a href="simoacomparingSystems.html#simoacomparingSystemsMCB"><i class="fa fa-check"></i><b>5.7.2</b> Concepts for Comparing Systems</a></li>
+<li class="chapter" data-level="5.7.3" data-path="simoacomparingSystems.html"><a href="simoacomparingSystems.html#multiple-comparison-with-the-best-procedures-mcb"><i class="fa fa-check"></i><b>5.7.3</b> Multiple Comparison with the Best Procedures (MCB)</a></li>
+<li class="chapter" data-level="5.7.4" data-path="simoacomparingSystems.html"><a href="simoacomparingSystems.html#ch5Screening"><i class="fa fa-check"></i><b>5.7.4</b> Screening Procedures</a></li>
 </ul></li>
-<li class="chapter" data-level="5.8" data-path="simoasummary.html"><a href="simoasummary.html"><i class="fa fa-check"></i><b>5.8</b> Summary</a></li>
-<li class="chapter" data-level="5.9" data-path="exercises-4.html"><a href="exercises-4.html"><i class="fa fa-check"></i><b>5.9</b> Exercises</a></li>
+<li class="chapter" data-level="5.8" data-path="ch5Scenarios.html"><a href="ch5Scenarios.html"><i class="fa fa-check"></i><b>5.8</b> Simulating Many Scenarios</a>
+<ul>
+<li class="chapter" data-level="5.8.1" data-path="ch5Scenarios.html"><a href="ch5Scenarios.html#controlAntns"><i class="fa fa-check"></i><b>5.8.1</b> Control Annotations</a></li>
+<li class="chapter" data-level="5.8.2" data-path="ch5Scenarios.html"><a href="ch5Scenarios.html#random-variable-parameters"><i class="fa fa-check"></i><b>5.8.2</b> Random Variable Parameters</a></li>
+<li class="chapter" data-level="5.8.3" data-path="ch5Scenarios.html"><a href="ch5Scenarios.html#kslScenarios"><i class="fa fa-check"></i><b>5.8.3</b> Setting Up and Running Multiple Scenarios</a></li>
+</ul></li>
+<li class="chapter" data-level="5.9" data-path="simoasummary.html"><a href="simoasummary.html"><i class="fa fa-check"></i><b>5.9</b> Summary</a></li>
+<li class="chapter" data-level="5.10" data-path="exercises-4.html"><a href="exercises-4.html"><i class="fa fa-check"></i><b>5.10</b> Exercises</a></li>
 </ul></li>
 <li class="chapter" data-level="6" data-path="processview.html"><a href="processview.html"><i class="fa fa-check"></i><b>6</b> Process View Modeling Using the KSL</a>
 <ul>
@@ -312,12 +320,12 @@ div.csl-indent {
 <ul>
 <li class="chapter" data-level="7.2.1" data-path="modeling-non-stationary-systems.html"><a href="modeling-non-stationary-systems.html#ch7secNSPP"><i class="fa fa-check"></i><b>7.2.1</b> Non-Stationary Arrival Processes</a></li>
 <li class="chapter" data-level="7.2.2" data-path="modeling-non-stationary-systems.html"><a href="modeling-non-stationary-systems.html#modeling-resources-under-non-stationary-conditions"><i class="fa fa-check"></i><b>7.2.2</b> Modeling Resources Under Non-Stationary Conditions</a></li>
-<li class="chapter" data-level="7.2.3" data-path="modeling-non-stationary-systems.html"><a href="modeling-non-stationary-systems.html#enhancing-the-stem-career-mixer-example"><i class="fa fa-check"></i><b>7.2.3</b> Enhancing the STEM Career Mixer Example</a></li>
+<li class="chapter" data-level="7.2.3" data-path="modeling-non-stationary-systems.html"><a href="modeling-non-stationary-systems.html#enhancing-the-stem-career-mixer-model"><i class="fa fa-check"></i><b>7.2.3</b> Enhancing the STEM Career Mixer Model</a></li>
 </ul></li>
 <li class="chapter" data-level="7.3" data-path="examples-of-advanced-event-models.html"><a href="examples-of-advanced-event-models.html"><i class="fa fa-check"></i><b>7.3</b> Examples of Advanced Event Models</a>
 <ul>
 <li class="chapter" data-level="7.3.1" data-path="examples-of-advanced-event-models.html"><a href="examples-of-advanced-event-models.html#ch6s1sb4sub3"><i class="fa fa-check"></i><b>7.3.1</b> Modeling Balking and Reneging</a></li>
-<li class="chapter" data-level="7.3.2" data-path="examples-of-advanced-event-models.html"><a href="examples-of-advanced-event-models.html#modeling-a-reorder-point-reorder-quantity-inventory-policy"><i class="fa fa-check"></i><b>7.3.2</b> Modeling a Reorder Point, Reorder Quantity Inventory Policy</a></li>
+<li class="chapter" data-level="7.3.2" data-path="examples-of-advanced-event-models.html"><a href="examples-of-advanced-event-models.html#rqModel"><i class="fa fa-check"></i><b>7.3.2</b> Modeling a Reorder Point, Reorder Quantity Inventory Policy</a></li>
 </ul></li>
 <li class="chapter" data-level="7.4" data-path="summary-3.html"><a href="summary-3.html"><i class="fa fa-check"></i><b>7.4</b> Summary</a></li>
 <li class="chapter" data-level="7.5" data-path="exercises-6.html"><a href="exercises-6.html"><i class="fa fa-check"></i><b>7.5</b> Exercises</a></li>
@@ -432,11 +440,13 @@ div.csl-indent {
 <li class="chapter" data-level="D.1" data-path="the-outputdirectory-class-and-ksl-object.html"><a href="the-outputdirectory-class-and-ksl-object.html"><i class="fa fa-check"></i><b>D.1</b> The <code>OutputDirectory</code> Class and <code>KSL</code> Object</a></li>
 <li class="chapter" data-level="D.2" data-path="logging-options.html"><a href="logging-options.html"><i class="fa fa-check"></i><b>D.2</b> Logging Options</a></li>
 <li class="chapter" data-level="D.3" data-path="the-kslfileutil-object.html"><a href="the-kslfileutil-object.html"><i class="fa fa-check"></i><b>D.3</b> The <code>KSLFileUtil</code> Object</a></li>
-<li class="chapter" data-level="D.4" data-path="csv-excel-and-tabular-data-files.html"><a href="csv-excel-and-tabular-data-files.html"><i class="fa fa-check"></i><b>D.4</b> CSV, Excel, and Tabular Data Files</a></li>
-<li class="chapter" data-level="D.5" data-path="the-dataframeutil-object.html"><a href="the-dataframeutil-object.html"><i class="fa fa-check"></i><b>D.5</b> The <code>DataFrameUtil</code> Object</a></li>
+<li class="chapter" data-level="D.4" data-path="appDCSVEtc.html"><a href="appDCSVEtc.html"><i class="fa fa-check"></i><b>D.4</b> CSV, Excel, and Tabular Data Files</a></li>
+<li class="chapter" data-level="D.5" data-path="dfUtil.html"><a href="dfUtil.html"><i class="fa fa-check"></i><b>D.5</b> The <code>DataFrameUtil</code> Object</a></li>
 <li class="chapter" data-level="D.6" data-path="ksl-database-utilities.html"><a href="ksl-database-utilities.html"><i class="fa fa-check"></i><b>D.6</b> KSL Database Utilities</a></li>
 <li class="chapter" data-level="D.7" data-path="appUtilitiesArrays.html"><a href="appUtilitiesArrays.html"><i class="fa fa-check"></i><b>D.7</b> Array Utilities</a></li>
-<li class="chapter" data-level="D.8" data-path="appUtilitiesMisc.html"><a href="appUtilitiesMisc.html"><i class="fa fa-check"></i><b>D.8</b> Miscellaneous Utilities</a></li>
+<li class="chapter" data-level="D.8" data-path="appPlotting.html"><a href="appPlotting.html"><i class="fa fa-check"></i><b>D.8</b> KSL Plotting Utilities</a></li>
+<li class="chapter" data-level="D.9" data-path="appExpDesign.html"><a href="appExpDesign.html"><i class="fa fa-check"></i><b>D.9</b> Experimental Design Utilities</a></li>
+<li class="chapter" data-level="D.10" data-path="appUtilitiesMisc.html"><a href="appUtilitiesMisc.html"><i class="fa fa-check"></i><b>D.10</b> Miscellaneous Utilities</a></li>
 </ul></li>
 <li class="chapter" data-level="E" data-path="distributions.html"><a href="distributions.html"><i class="fa fa-check"></i><b>E</b> Distributions</a>
 <ul>
@@ -1009,6 +1019,9 @@ Two Workers - Three Workers                            30         64.7723       
 Two Workers - Three Workers [43.15986335728935, 86.38476883829914]</code></pre>
 <p>We should note the sample standard deviation on the difference, <span class="math inline">\(s_d = 57.8792\)</span>. Since the confidence interval does not contain zero, we can conclude with 95% confidence that the system with two workers has a longer time to complete the processing of the pallets. Of course, this result should be expected.</p>
 <p>Because the simulation experiments were executed sequentially within the same invocation of the program, the random number streams in the three worker simulation continued from where the streams ended for the two worker simulation. Thus, the two experiments used different underlying random numbers and can be considered as independent sampling. To utilize common random numbers we must manipulate the streams. The following code illustrates how to implement common random numbers within the KSL.</p>
+<div class="example">
+<p><span id="exm:ch5ex6" class="example"><strong>Example 5.6  (Performing a CRN Analysis) </strong></span>This code example illustrates how to perform a common random number analysis for two systems
+by running them within the same execution frame and setting the reset start stream option to true.</p>
 <div class="sourceCode" id="cb160"><pre class="sourceCode kt"><code class="sourceCode kotlin"><span id="cb160-1"><a href="simoacomparingSystems.html#cb160-1" tabindex="-1"></a><span class="kw">fun</span> <span class="fu">withCommonRandomNumbers</span><span class="op">(){</span></span>
 <span id="cb160-2"><a href="simoacomparingSystems.html#cb160-2" tabindex="-1"></a>    <span class="kw">val</span> <span class="va">model</span> <span class="op">=</span> Model<span class="op">(</span><span class="st">&quot;Pallet Model Experiments&quot;</span><span class="op">)</span></span>
 <span id="cb160-3"><a href="simoacomparingSystems.html#cb160-3" tabindex="-1"></a>    model<span class="op">.</span>numberOfReplications <span class="op">=</span> <span class="dv">30</span></span>
@@ -1033,6 +1046,7 @@ Two Workers - Three Workers [43.15986335728935, 86.38476883829914]</code></pre>
 <span id="cb160-22"><a href="simoacomparingSystems.html#cb160-22" tabindex="-1"></a>    <span class="kw">val</span> <span class="va">comparisonAnalyzer</span> <span class="op">=</span> db<span class="op">.</span>multipleComparisonAnalyzerFor<span class="op">(</span>expNames<span class="op">,</span> responseName<span class="op">)</span></span>
 <span id="cb160-23"><a href="simoacomparingSystems.html#cb160-23" tabindex="-1"></a>    println<span class="op">(</span>comparisonAnalyzer<span class="op">)</span></span>
 <span id="cb160-24"><a href="simoacomparingSystems.html#cb160-24" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
+</div>
 <p>The only difference between this code and the previous code is the addition of line 9:</p>
 <div class="sourceCode" id="cb161"><pre class="sourceCode kt"><code class="sourceCode kotlin"><span id="cb161-1"><a href="simoacomparingSystems.html#cb161-1" tabindex="-1"></a>    model<span class="op">.</span>resetStartStreamOption <span class="op">=</span> <span class="kw">true</span></span></code></pre></div>
 <p>This line tells the model to automatically reset the streams of all of the random variables (and other constructs that use streams) back to their starting point in their stream prior to executing the replications of the experiment. This causes the three worker simulation to start in the streams in the same location as the two worker simulation. This facilitates the syncronization of the use of the random numbers. In addition, there are two other methods that the KSL automatically performs to assist in syncronization. First, each random variable utilizes its own dedicated stream, by default, and secondly, at the end of each replication, the random number streams are advanced (automatically) to the next substream in their main stream. This ensures that every replication starts in the same place in the streams. The effect of common random numbers on variance reduction can be dramatic. The results for this situation are as follows:</p>
@@ -1050,7 +1064,7 @@ Two Workers - Three Workers [52.57814571744155, 77.26483056807177]</code></pre>
 </div>
 </div>
 <div id="simoacomparingSystemsMCB" class="section level3 hasAnchor" number="5.7.2">
-<h3><span class="header-section-number">5.7.2</span> Multiple Comparisons<a href="simoacomparingSystems.html#simoacomparingSystemsMCB" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<h3><span class="header-section-number">5.7.2</span> Concepts for Comparing Systems<a href="simoacomparingSystems.html#simoacomparingSystemsMCB" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>The analysis of multiple systems stems from a number of objectives. First, you may want to perform a <em>sensitivity analysis</em> on the
 simulation model. In a sensitivity analysis, you want to measure the
 effect of small changes to key input parameters to the simulation. For
@@ -1169,6 +1183,9 @@ and still guarantee an overall pre-specified confidence in the decision.
 Multiple comparison procedures are described in <span class="citation">(<a href="#ref-goldsman1998comparing">Goldsman and Nelson 1998</a>)</span> and the references
 therein. See also <span class="citation">(<a href="#ref-law2007simulation">Law 2007</a>)</span> for how these methods relate to
 other ranking and selection methods.</p>
+</div>
+<div id="multiple-comparison-with-the-best-procedures-mcb" class="section level3 hasAnchor" number="5.7.3">
+<h3><span class="header-section-number">5.7.3</span> Multiple Comparison with the Best Procedures (MCB)<a href="simoacomparingSystems.html#multiple-comparison-with-the-best-procedures-mcb" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>While it is beyond the scope of this textbook to review multiple comparison with the best (MCB) procedures, it is useful to have a basic understanding of the form of the confidence interval constructed by these procedures. To see how MCB procedures avoid part of the issues with having a large number of confidence intervals, we can note that the confidence interval is based on the difference between the best and the best of the rest. Suppose we have <span class="math inline">\(k\)</span> system configurations to compare and suppose that somehow you knew that the <span class="math inline">\(i^{th}\)</span> system <em>is the best</em>. Now, consider a confidence interval for system’s <span class="math inline">\(i\)</span> performance metric, <span class="math inline">\(\theta_i\)</span>, of the following form:</p>
 <p><span class="math display">\[
 \theta_i - \max_{j \neq i} \theta_j
@@ -1220,6 +1237,7 @@ Figure 5.22: Properties and Methods of the MultipleComparisonAnalyzer Class
 <li>the pair-wise difference that is the largest and its value</li>
 <li>multiple comparison confidence intervals based on finding the maximum value</li>
 <li>multiple comparison confidence intervals based on finding the minimum value</li>
+<li>screening intervals for best designs by constructing subsets containing the best configuration</li>
 </ul>
 <p>The user can specify the indifference zone parameter to be included in the confidence interval calculations. The <code>MultipleComparisonAnalyzer</code> class does not utilize the probability of correct selection or assume some underlying distribution. The confidence intervals that are computed have the following forms. Define <span class="math inline">\(Y_{ij}\)</span> as the <span class="math inline">\(i^{th}\)</span> observation of system <span class="math inline">\(j\)</span>. Thus, <span class="math inline">\(\bar{Y}_{\cdot j}\)</span> is the mean performance of system <span class="math inline">\(j\)</span>. Let <span class="math inline">\(\delta\)</span> be the indifference zone parameter. When selecting the system with the largest <span class="math inline">\(\bar{Y}_{\cdot j}\)</span> as the best, the confidence intervals for configurations <span class="math inline">\(i=1,2,\dots,k\)</span> are computed by:</p>
 <p><span class="math inline">\(\min\{0, \bar{Y}_{\cdot j} - \max_{j \neq i}\bar{Y}_{\cdot j}- \delta \} \leq \theta_i - \max_{j \neq i} \theta_j \leq \max\{0, \bar{Y}_{\cdot j} - \max_{j \neq i}\bar{Y}_{\cdot j}- \delta \}\)</span></p>
@@ -1272,7 +1290,6 @@ n = max \Bigl\{ n_0, \Bigl \lceil \frac{t^2\hat{S}^2}{\delta^2} \Bigr \rceil \Bi
 <p><span class="math inline">\(\min\{0, \bar{Y}_{\cdot j} - \max_{j \neq i}\bar{Y}_{\cdot j}- \delta \} \leq \theta_i - \max_{j \neq i} \theta_j \leq \max\{0, \bar{Y}_{\cdot j} - \max_{j \neq i}\bar{Y}_{\cdot j}- \delta \}\)</span></p>
 <p>If minimizing, form the confidence intervals:</p>
 <p><span class="math inline">\(\min\{0, \bar{Y}_{\cdot j} - \min_{j \neq i}\bar{Y}_{\cdot j}- \delta \} \leq \theta_i - \max_{j \neq i} \theta_j \leq \max\{0, \bar{Y}_{\cdot j} - \min_{j \neq i}\bar{Y}_{\cdot j}- \delta \}\)</span></p>
-<p>To apply the <code>MultipleComparisonAnalyzer</code> class on a KSL simulation, we can just attach a <code>KSLDatabaseObserver</code> instance and ask for the <code>MultipleComparisonAnalyzer</code> instance as previously illustrated for the pallet model.</p>
 <p>The <code>MultipleComparisonAnalyzer</code> class automatically computes everything that is needed to apply the Two-Stage Bonferroni procedure. The <code>toString()</code> method can be used to see all the results. The second stage sample size can be computed via the function <code>secondStageSampleSizeNM(),</code> and the maximum variance can be found from property, <code>maxVarianceOfDifferences.</code> In addition, the maximum or minimum performer can be noted from the <code>nameOfMaximumAverageOfData</code> and <code>nameOfMinimumAverageOfData</code> properties. The respective performance of the maximum and minimum via the <code>maximumAverageOfData</code> and <code>minimumAverageOfData</code> properties. Finally, the MCB intervals for each case are found from the <code>mcbMaxIntervals(delta)</code> and <code>mcbMinIntervals(delta)</code> functions respectively. Note that if <span class="math inline">\(n = n_0\)</span> in step 5, then no additional replications are required and the PCS will still be met. <span class="citation">(<a href="#ref-nelsonMatejcik1995">Matejcik and Nelson 1995</a>)</span> recommend that the initial number of replications in the first stage should be greater than or equal to 10 (<span class="math inline">\(n_0 \geq 10\)</span>). The two-stage Bonferroni procedure is somewhat conservative in recommending the sample size requirements. If the number of replications is of concern, then the reader should consult <span class="citation">(<a href="#ref-banks2005discreteevent">Banks et al. 2005</a>)</span> for other procedures.</p>
 <p>The following KSL code illustrates the basic use of the <code>MultipleComparisonAnalyzer</code> class on some data.</p>
 <div class="sourceCode" id="cb165"><pre class="sourceCode kt"><code class="sourceCode kotlin"><span id="cb165-1"><a href="simoacomparingSystems.html#cb165-1" tabindex="-1"></a><span class="kw">fun</span> <span class="fu">main</span><span class="op">()</span> <span class="op">{</span></span>
@@ -1360,9 +1377,93 @@ num data sets: 4
 [One, Two, Three, Four]
 Second stage sampling recommendation R = 45</code></pre>
 </div>
+<div id="ch5Screening" class="section level3 hasAnchor" number="5.7.4">
+<h3><span class="header-section-number">5.7.4</span> Screening Procedures<a href="simoacomparingSystems.html#ch5Screening" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Assuming that the data are normally distributed (with or without CRN), screening procedures can be designed to select a subset of the system designs such that the retained subset will contain the true best system with probability greater than <span class="math inline">\(1-\alpha\)</span>. Such procedures are useful when there are a large number of designs or during automated search procedures. Once a reliable subset has been found then MCB procedures can be used to select the best from the designated subset. The following screening procedure is based on <span class="citation">(<a href="#ref-nelson2001">B. L. Nelson et al. 2001</a>)</span>.</p>
+<ul>
+<li>Step 1: Specify the PCS as <span class="math inline">\((1-\alpha)\)</span>, a common sample size, <span class="math inline">\(n \ge 2\)</span>, and compute <span class="math inline">\(t= t_{1-\alpha/(k-1),n - 1}\)</span></li>
+<li>Step 2: Execute the <span class="math inline">\(n\)</span> replications for each system and capture <span class="math inline">\(Y_{ij}\)</span> as the <span class="math inline">\(i^{th}\)</span> observation of system <span class="math inline">\(j\)</span></li>
+<li>Step 3: Compute <span class="math inline">\(\bar{Y}_{\cdot j}\)</span> as the mean performance of system <span class="math inline">\(j\)</span>, for <span class="math inline">\(j=1,2,\cdots,k\)</span>. Then for all <span class="math inline">\(i \neq j\)</span>, compute the sample variance of the differences:</li>
+</ul>
+<p><span class="math display">\[
+S^{2}_{ij} = \frac{1}{n_0 - 1} \sum_{r=1}^{n_0} ((Y_{ri} - Y_{rj})  - (\bar{Y}_{\cdot i} - \bar{Y}_{\cdot j}))^2
+\]</span></p>
+<ul>
+<li>Step 4: If bigger is better, then place system <span class="math inline">\(i\)</span> in the selection subset if for all <span class="math inline">\(j \ne i\)</span>:
+<span class="math display">\[
+\bar{Y}_{\cdot i} \ge \bar{Y}_{\cdot j} - t \frac{S_{ij}}{\sqrt{n}}
+\]</span>
+If smaller is better, then place system <span class="math inline">\(i\)</span> in the selection subset if for all <span class="math inline">\(j \ne i\)</span>:
+<span class="math display">\[
+\bar{Y}_{\cdot i} \le \bar{Y}_{\cdot j} + t \frac{S_{ij}}{\sqrt{n}}
+\]</span></li>
+</ul>
+<p>Suppose we want to apply the screening procedure to the pairwise comparison data and assume that smaller is better. The screening procedure essentially says to add the system to the subset of remaining alternatives if its sample average is smaller than all the other sample means that have been adjusted by a positive quantity that accounts for sampling error. In the pairwise difference data, we have <span class="math inline">\(\bar{Y}_{\cdot i}\)</span> and <span class="math inline">\(S_{ij}\)</span>.</p>
+<p>Let’s take a look at a simplified example. Note that <span class="math inline">\(\hat{se}_{ij} = S_{ij}/\sqrt{n}\)</span>. If smaller is better, then place system <span class="math inline">\(i\)</span> in the selection subset if for all <span class="math inline">\(j \ne i\)</span>, <span class="math inline">\(\bar{Y}_{\cdot i} \le \bar{Y}_{\cdot j} + t * \hat{se}_{ij}\)</span>. In this example suppose <span class="math inline">\(k=4\)</span>, <span class="math inline">\(\alpha = 0.05\)</span>, <span class="math inline">\(n=10\)</span>, <span class="math inline">\(t= t_{1-\alpha/(k-1),n - 1} = 2.5096\)</span>. In the following the sample average for system 1, <span class="math inline">\(\bar{Y}_{\cdot 1} = 50.036\)</span> is compared to the computed upper limits for all the other configurations.</p>
+<p><span class="math display">\[
+\begin{aligned}
+\bar{Y}_{\cdot 1} = 50.036 &amp; \overset{?}{\le} \bar{Y}_{\cdot 2} + t * \hat{se}_{12} = 49.236 + 2.5096 \times 0.6707=50.9191\\
+&amp; \overset{?}{\le} \bar{Y}_{\cdot 3} + t * \hat{se}_{13} = 44.35 + 2.5096 \times 1.6881 = 48.5865\\
+&amp; \overset{?}{\le} \bar{Y}_{\cdot 4} + t * \hat{se}_{14} = 48.778 + 2.5096 \times 0.7409 = 50.6374\\
+\end{aligned}
+\]</span></p>
+<p>Note that system 1 fails to be less than <strong>all</strong> the limits. Thus, system 1 is eliminated. This calculation is continued for all the systems to form the subset holding the remaining systems that were not eliminated during the screening process.</p>
+<p>To apply the <code>MultipleComparisonAnalyzer</code> class on a KSL simulation, we can just attach a <code>KSLDatabaseObserver</code> instance and ask for the <code>MultipleComparisonAnalyzer</code> instance as illustrated in the following code for the pallet model.</p>
+<div class="example">
+<p><span id="exm:ch5ex7" class="example"><strong>Example 5.7  (Performing a MCB Analysis) </strong></span>In this KSL code example, three configurations are compared using CRN and MCB.</p>
+<div class="sourceCode" id="cb167"><pre class="sourceCode kt"><code class="sourceCode kotlin"><span id="cb167-1"><a href="simoacomparingSystems.html#cb167-1" tabindex="-1"></a><span class="kw">fun</span> <span class="fu">main</span><span class="op">()</span> <span class="op">{</span></span>
+<span id="cb167-2"><a href="simoacomparingSystems.html#cb167-2" tabindex="-1"></a>    <span class="kw">val</span> <span class="va">model</span> <span class="op">=</span> Model<span class="op">(</span><span class="st">&quot;Pallet Model MCB&quot;</span><span class="op">)</span></span>
+<span id="cb167-3"><a href="simoacomparingSystems.html#cb167-3" tabindex="-1"></a></span>
+<span id="cb167-4"><a href="simoacomparingSystems.html#cb167-4" tabindex="-1"></a>    <span class="co">// add the model element to the main model</span></span>
+<span id="cb167-5"><a href="simoacomparingSystems.html#cb167-5" tabindex="-1"></a>    <span class="kw">val</span> <span class="va">palletWorkCenter</span> <span class="op">=</span> PalletWorkCenter<span class="op">(</span>model<span class="op">)</span></span>
+<span id="cb167-6"><a href="simoacomparingSystems.html#cb167-6" tabindex="-1"></a>    <span class="co">// use a database to capture the response data</span></span>
+<span id="cb167-7"><a href="simoacomparingSystems.html#cb167-7" tabindex="-1"></a>    <span class="kw">val</span> <span class="va">kslDatabaseObserver</span> <span class="op">=</span> KSLDatabaseObserver<span class="op">(</span>model<span class="op">)</span></span>
+<span id="cb167-8"><a href="simoacomparingSystems.html#cb167-8" tabindex="-1"></a>    <span class="co">// simulate the model</span></span>
+<span id="cb167-9"><a href="simoacomparingSystems.html#cb167-9" tabindex="-1"></a>    model<span class="op">.</span>experimentName <span class="op">=</span> <span class="st">&quot;One Worker&quot;</span></span>
+<span id="cb167-10"><a href="simoacomparingSystems.html#cb167-10" tabindex="-1"></a>    palletWorkCenter<span class="op">.</span>numWorkers <span class="op">=</span> <span class="dv">1</span></span>
+<span id="cb167-11"><a href="simoacomparingSystems.html#cb167-11" tabindex="-1"></a>    model<span class="op">.</span>resetStartStreamOption <span class="op">=</span> <span class="kw">true</span></span>
+<span id="cb167-12"><a href="simoacomparingSystems.html#cb167-12" tabindex="-1"></a>    model<span class="op">.</span>numberOfReplications <span class="op">=</span> <span class="dv">30</span></span>
+<span id="cb167-13"><a href="simoacomparingSystems.html#cb167-13" tabindex="-1"></a>    model<span class="op">.</span>simulate<span class="op">()</span></span>
+<span id="cb167-14"><a href="simoacomparingSystems.html#cb167-14" tabindex="-1"></a></span>
+<span id="cb167-15"><a href="simoacomparingSystems.html#cb167-15" tabindex="-1"></a>    model<span class="op">.</span>experimentName <span class="op">=</span> <span class="st">&quot;Two Workers&quot;</span></span>
+<span id="cb167-16"><a href="simoacomparingSystems.html#cb167-16" tabindex="-1"></a>    palletWorkCenter<span class="op">.</span>numWorkers <span class="op">=</span> <span class="dv">2</span></span>
+<span id="cb167-17"><a href="simoacomparingSystems.html#cb167-17" tabindex="-1"></a>    model<span class="op">.</span>simulate<span class="op">()</span></span>
+<span id="cb167-18"><a href="simoacomparingSystems.html#cb167-18" tabindex="-1"></a></span>
+<span id="cb167-19"><a href="simoacomparingSystems.html#cb167-19" tabindex="-1"></a>    model<span class="op">.</span>experimentName <span class="op">=</span> <span class="st">&quot;Three Workers&quot;</span></span>
+<span id="cb167-20"><a href="simoacomparingSystems.html#cb167-20" tabindex="-1"></a>    palletWorkCenter<span class="op">.</span>numWorkers <span class="op">=</span> <span class="dv">3</span></span>
+<span id="cb167-21"><a href="simoacomparingSystems.html#cb167-21" tabindex="-1"></a>    model<span class="op">.</span>simulate<span class="op">()</span></span>
+<span id="cb167-22"><a href="simoacomparingSystems.html#cb167-22" tabindex="-1"></a></span>
+<span id="cb167-23"><a href="simoacomparingSystems.html#cb167-23" tabindex="-1"></a>    <span class="kw">val</span> <span class="va">responseName</span> <span class="op">=</span> palletWorkCenter<span class="op">.</span>totalProcessingTime<span class="op">.</span>name</span>
+<span id="cb167-24"><a href="simoacomparingSystems.html#cb167-24" tabindex="-1"></a>    <span class="kw">val</span> <span class="va">db</span> <span class="op">=</span> kslDatabaseObserver<span class="op">.</span>db</span>
+<span id="cb167-25"><a href="simoacomparingSystems.html#cb167-25" tabindex="-1"></a></span>
+<span id="cb167-26"><a href="simoacomparingSystems.html#cb167-26" tabindex="-1"></a>    <span class="kw">val</span> <span class="va">expNames</span> <span class="op">=</span> listOf<span class="op">(</span><span class="st">&quot;One Worker&quot;</span><span class="op">,</span><span class="st">&quot;Two Workers&quot;</span><span class="op">,</span> <span class="st">&quot;Three Workers&quot;</span><span class="op">)</span></span>
+<span id="cb167-27"><a href="simoacomparingSystems.html#cb167-27" tabindex="-1"></a>    <span class="kw">val</span> <span class="va">comparisonAnalyzer</span> <span class="op">=</span> db<span class="op">.</span>multipleComparisonAnalyzerFor<span class="op">(</span>expNames<span class="op">,</span> responseName<span class="op">)</span></span>
+<span id="cb167-28"><a href="simoacomparingSystems.html#cb167-28" tabindex="-1"></a>    println<span class="op">(</span>comparisonAnalyzer<span class="op">)</span></span>
+<span id="cb167-29"><a href="simoacomparingSystems.html#cb167-29" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
+</div>
+<p>It should be obvious that 3 workers results in the smallest total processing time. Notice in the
+screening output that the 3 worker case is the only system that passes all the screening tests.</p>
+<pre><code>MCB Minimum Intervals
+Indifference delta: 0.0
+Name        Interval
+One Worker      [0.0, 517.7287463179446]
+Two Workers     [0.0, 64.92148814275674]
+Three Workers       [-64.92148814275674, 0.0]
+
+Min Screening Intervals
+One Worker  average = 943.8223691355911     Two Workers [-Infinity, 499.44125093353716]
+One Worker  average = 943.8223691355911     Three Workers   [-Infinity, 444.40016711694113]
+Two Workers average = 491.0151109604032     One Worker  [-Infinity, 952.2485091087251]
+Two Workers average = 491.0151109604032     Three Workers   [-Infinity, 438.43696524296155]
+Three Workers   average = 426.09362281764646        One Worker  [-Infinity, 962.1289134348857]
+Three Workers   average = 426.09362281764646        Two Workers [-Infinity, 503.3584533857183]
+
+Alternatives remaining after screening for minimum:
+[Three Workers]</code></pre>
+</div>
 </div>
 <h3><span class="header-section-number">G</span> References<a href="references.html#references" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<div id="refs" class="references csl-bib-body hanging-indent">
+<div id="refs" class="references csl-bib-body hanging-indent" entry-spacing="0">
 <div id="ref-banks2005discreteevent" class="csl-entry">
 Banks, J., J. Carson, B. Nelson, and D. Nicol. 2005. <em>Discrete-Event System Simulation</em>. 4th ed. Prentice Hall.
 </div>
@@ -1378,6 +1479,9 @@ Matejcik, F. J., and B. L. Nelson. 1995. <span>“Two-Stage Multiple Comparisons
 <div id="ref-montgomery2006applied" class="csl-entry">
 Montgomery, D. C., and G. C. Runger. 2006. <em>Applied Statistics and Probability for Engineers</em>. 4th ed. John Wiley &amp; Sons.
 </div>
+<div id="ref-nelson2001" class="csl-entry">
+Nelson, B. L., J. Swan, D. Goldsman, and W. Song. 2001. <span>“Simple Procedures for Selecting the Best Simulated System When the Number of Alternatives Is Large.”</span> <em>Operations Research</em> 49 (6): 950–63.
+</div>
 </div>
             </section>
 
@@ -1385,7 +1489,7 @@ Montgomery, D. C., and G. C. Runger. 2006. <em>Applied Statistics and Probabilit
         </div>
       </div>
 <a href="simoainfhorizon.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="simoasummary.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="ch5Scenarios.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>

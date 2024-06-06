@@ -6,7 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>6.3 Understanding KSL Processes and Entities | Simulation Modeling using the Kotlin Simulation Library (KSL)</title>
   <meta name="description" content="A book that illustrates the basics of using the KSL. The output format for this book is bookdown::gitbook." />
-  <meta name="generator" content="bookdown 0.34 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.39 and GitBook 2.6.7" />
 
   <meta property="og:title" content="6.3 Understanding KSL Processes and Entities | Simulation Modeling using the Kotlin Simulation Library (KSL)" />
   <meta property="og:type" content="book" />
@@ -23,7 +23,7 @@
 <meta name="author" content="Manuel D. Rossetti" />
 
 
-<meta name="date" content="2024-05-28" />
+<meta name="date" content="2024-06-06" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -58,7 +58,7 @@
 
 <style type="text/css">
 pre > code.sourceCode { white-space: pre; position: relative; }
-pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span { line-height: 1.25; }
 pre > code.sourceCode > span:empty { height: 1.2em; }
 .sourceCode { overflow: visible; }
 code.sourceCode > span { color: inherit; text-decoration: inherit; }
@@ -130,6 +130,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 div.csl-bib-body { }
 div.csl-entry {
   clear: both;
+  margin-bottom: 0em;
 }
 .hanging div.csl-entry {
   margin-left:2em;
@@ -200,7 +201,7 @@ div.csl-indent {
 <ul>
 <li class="chapter" data-level="2.2.1" data-path="rvg.html"><a href="rvg.html#basic-random-variate-generation"><i class="fa fa-check"></i><b>2.2.1</b> Basic Random Variate Generation</a></li>
 <li class="chapter" data-level="2.2.2" data-path="rvg.html"><a href="rvg.html#rvg_dists"><i class="fa fa-check"></i><b>2.2.2</b> Continuous and Discrete Random Variables</a></li>
-<li class="chapter" data-level="2.2.3" data-path="rvg.html"><a href="rvg.html#rvg_use"><i class="fa fa-check"></i><b>2.2.3</b> Creating and Using Random Variables</a></li>
+<li class="chapter" data-level="2.2.3" data-path="rvg.html"><a href="rvg.html#rvguse"><i class="fa fa-check"></i><b>2.2.3</b> Creating and Using Random Variables</a></li>
 <li class="chapter" data-level="2.2.4" data-path="rvg.html"><a href="rvg.html#functions-of-random-variables"><i class="fa fa-check"></i><b>2.2.4</b> Functions of Random Variables</a></li>
 </ul></li>
 <li class="chapter" data-level="2.3" data-path="probModels.html"><a href="probModels.html"><i class="fa fa-check"></i><b>2.3</b> Probability Distribution Models</a></li>
@@ -231,31 +232,30 @@ div.csl-indent {
 </ul></li>
 <li class="chapter" data-level="3.4" data-path="craps.html"><a href="craps.html"><i class="fa fa-check"></i><b>3.4</b> Simulating the Game of Craps</a></li>
 <li class="chapter" data-level="3.5" data-path="the-news-vendor-problem.html"><a href="the-news-vendor-problem.html"><i class="fa fa-check"></i><b>3.5</b> The News Vendor Problem</a></li>
-<li class="chapter" data-level="3.6" data-path="a-simple-inspection-process.html"><a href="a-simple-inspection-process.html"><i class="fa fa-check"></i><b>3.6</b> A Simple Inspection Process</a></li>
-<li class="chapter" data-level="3.7" data-path="stochastic-activity-networks.html"><a href="stochastic-activity-networks.html"><i class="fa fa-check"></i><b>3.7</b> Stochastic Activity Networks</a></li>
+<li class="chapter" data-level="3.6" data-path="ch3InsProcess.html"><a href="ch3InsProcess.html"><i class="fa fa-check"></i><b>3.6</b> A Simple Inspection Process</a></li>
+<li class="chapter" data-level="3.7" data-path="ch3SAN.html"><a href="ch3SAN.html"><i class="fa fa-check"></i><b>3.7</b> Stochastic Activity Networks</a></li>
 <li class="chapter" data-level="3.8" data-path="mcmExperiments.html"><a href="mcmExperiments.html"><i class="fa fa-check"></i><b>3.8</b> Monte-Carlo Experiments</a></li>
 <li class="chapter" data-level="3.9" data-path="summary-1.html"><a href="summary-1.html"><i class="fa fa-check"></i><b>3.9</b> Summary</a></li>
 <li class="chapter" data-level="3.10" data-path="exercises-2.html"><a href="exercises-2.html"><i class="fa fa-check"></i><b>3.10</b> Exercises</a></li>
 </ul></li>
 <li class="chapter" data-level="4" data-path="introDEDS.html"><a href="introDEDS.html"><i class="fa fa-check"></i><b>4</b> Introduction to Discrete Event Modeling</a>
 <ul>
-<li class="chapter" data-level="4.1" data-path="introDEDSIntro.html"><a href="introDEDSIntro.html"><i class="fa fa-check"></i><b>4.1</b> Introduction</a></li>
-<li class="chapter" data-level="4.2" data-path="introDEDSdeds.html"><a href="introDEDSdeds.html"><i class="fa fa-check"></i><b>4.2</b> Discrete-Event Dynamic Systems</a></li>
-<li class="chapter" data-level="4.3" data-path="HowDEDSClockWorks.html"><a href="HowDEDSClockWorks.html"><i class="fa fa-check"></i><b>4.3</b> How the Discrete-Event Clock Works</a></li>
-<li class="chapter" data-level="4.4" data-path="QHandExample.html"><a href="QHandExample.html"><i class="fa fa-check"></i><b>4.4</b> Simulating a Queueing System By Hand</a></li>
-<li class="chapter" data-level="4.5" data-path="introDEDSdedsKSL.html"><a href="introDEDSdedsKSL.html"><i class="fa fa-check"></i><b>4.5</b> Modeling DEDS in the KSL</a>
+<li class="chapter" data-level="4.1" data-path="introDEDSdeds.html"><a href="introDEDSdeds.html"><i class="fa fa-check"></i><b>4.1</b> Discrete-Event Dynamic Systems</a></li>
+<li class="chapter" data-level="4.2" data-path="HowDEDSClockWorks.html"><a href="HowDEDSClockWorks.html"><i class="fa fa-check"></i><b>4.2</b> How the Discrete-Event Clock Works</a></li>
+<li class="chapter" data-level="4.3" data-path="QHandExample.html"><a href="QHandExample.html"><i class="fa fa-check"></i><b>4.3</b> Simulating a Queueing System By Hand</a></li>
+<li class="chapter" data-level="4.4" data-path="introDEDSdedsKSL.html"><a href="introDEDSdedsKSL.html"><i class="fa fa-check"></i><b>4.4</b> Modeling DEDS in the KSL</a>
 <ul>
-<li class="chapter" data-level="4.5.1" data-path="introDEDSdedsKSL.html"><a href="introDEDSdedsKSL.html#event-scheduling"><i class="fa fa-check"></i><b>4.5.1</b> Event Scheduling</a></li>
-<li class="chapter" data-level="4.5.2" data-path="introDEDSdedsKSL.html"><a href="introDEDSdedsKSL.html#introDEDSschedExamples"><i class="fa fa-check"></i><b>4.5.2</b> Simple Event Scheduling Examples</a></li>
-<li class="chapter" data-level="4.5.3" data-path="introDEDSdedsKSL.html"><a href="introDEDSdedsKSL.html#introDEDSUpDown"><i class="fa fa-check"></i><b>4.5.3</b> Up and Down Component Example</a></li>
-<li class="chapter" data-level="4.5.4" data-path="introDEDSdedsKSL.html"><a href="introDEDSdedsKSL.html#introDEDSPharmacy"><i class="fa fa-check"></i><b>4.5.4</b> Modeling a Simple Queueing System</a></li>
-<li class="chapter" data-level="4.5.5" data-path="introDEDSdedsKSL.html"><a href="introDEDSdedsKSL.html#more-details-about-the-pharmacy-model-implementation"><i class="fa fa-check"></i><b>4.5.5</b> More Details About the Pharmacy Model Implementation</a></li>
+<li class="chapter" data-level="4.4.1" data-path="introDEDSdedsKSL.html"><a href="introDEDSdedsKSL.html#event-scheduling"><i class="fa fa-check"></i><b>4.4.1</b> Event Scheduling</a></li>
+<li class="chapter" data-level="4.4.2" data-path="introDEDSdedsKSL.html"><a href="introDEDSdedsKSL.html#introDEDSschedExamples"><i class="fa fa-check"></i><b>4.4.2</b> Simple Event Scheduling Examples</a></li>
+<li class="chapter" data-level="4.4.3" data-path="introDEDSdedsKSL.html"><a href="introDEDSdedsKSL.html#introDEDSUpDown"><i class="fa fa-check"></i><b>4.4.3</b> Up and Down Component Example</a></li>
+<li class="chapter" data-level="4.4.4" data-path="introDEDSdedsKSL.html"><a href="introDEDSdedsKSL.html#introDEDSPharmacy"><i class="fa fa-check"></i><b>4.4.4</b> Modeling a Simple Queueing System</a></li>
+<li class="chapter" data-level="4.4.5" data-path="introDEDSdedsKSL.html"><a href="introDEDSdedsKSL.html#more-details-about-the-pharmacy-model-implementation"><i class="fa fa-check"></i><b>4.4.5</b> More Details About the Pharmacy Model Implementation</a></li>
 </ul></li>
-<li class="chapter" data-level="4.6" data-path="enhancing-the-drive-through-pharmacy-model.html"><a href="enhancing-the-drive-through-pharmacy-model.html"><i class="fa fa-check"></i><b>4.6</b> Enhancing the Drive Through Pharmacy Model</a></li>
-<li class="chapter" data-level="4.7" data-path="introDEDSSummary.html"><a href="introDEDSSummary.html"><i class="fa fa-check"></i><b>4.7</b> Summary</a></li>
-<li class="chapter" data-level="4.8" data-path="exercises-3.html"><a href="exercises-3.html"><i class="fa fa-check"></i><b>4.8</b> Exercises</a></li>
+<li class="chapter" data-level="4.5" data-path="enhancing-the-drive-through-pharmacy-model.html"><a href="enhancing-the-drive-through-pharmacy-model.html"><i class="fa fa-check"></i><b>4.5</b> Enhancing the Drive Through Pharmacy Model</a></li>
+<li class="chapter" data-level="4.6" data-path="introDEDSSummary.html"><a href="introDEDSSummary.html"><i class="fa fa-check"></i><b>4.6</b> Summary</a></li>
+<li class="chapter" data-level="4.7" data-path="exercises-3.html"><a href="exercises-3.html"><i class="fa fa-check"></i><b>4.7</b> Exercises</a></li>
 </ul></li>
-<li class="chapter" data-level="5" data-path="simoa.html"><a href="simoa.html"><i class="fa fa-check"></i><b>5</b> Analyzing Simulation Output</a>
+<li class="chapter" data-level="5" data-path="simoa.html"><a href="simoa.html"><i class="fa fa-check"></i><b>5</b> Analyzing and Accessing Simulation Output</a>
 <ul>
 <li class="chapter" data-level="5.1" data-path="simoadatatypes.html"><a href="simoadatatypes.html"><i class="fa fa-check"></i><b>5.1</b> Types of Statistical Variables</a></li>
 <li class="chapter" data-level="5.2" data-path="simoasimtypes.html"><a href="simoasimtypes.html"><i class="fa fa-check"></i><b>5.2</b> Types of Simulation With Respect To Output Analysis</a></li>
@@ -277,10 +277,18 @@ div.csl-indent {
 <li class="chapter" data-level="5.7" data-path="simoacomparingSystems.html"><a href="simoacomparingSystems.html"><i class="fa fa-check"></i><b>5.7</b> Comparing System Configurations</a>
 <ul>
 <li class="chapter" data-level="5.7.1" data-path="simoacomparingSystems.html"><a href="simoacomparingSystems.html#simoacomparingSystems:two"><i class="fa fa-check"></i><b>5.7.1</b> Comparing Two Systems</a></li>
-<li class="chapter" data-level="5.7.2" data-path="simoacomparingSystems.html"><a href="simoacomparingSystems.html#simoacomparingSystemsMCB"><i class="fa fa-check"></i><b>5.7.2</b> Multiple Comparisons</a></li>
+<li class="chapter" data-level="5.7.2" data-path="simoacomparingSystems.html"><a href="simoacomparingSystems.html#simoacomparingSystemsMCB"><i class="fa fa-check"></i><b>5.7.2</b> Concepts for Comparing Systems</a></li>
+<li class="chapter" data-level="5.7.3" data-path="simoacomparingSystems.html"><a href="simoacomparingSystems.html#multiple-comparison-with-the-best-procedures-mcb"><i class="fa fa-check"></i><b>5.7.3</b> Multiple Comparison with the Best Procedures (MCB)</a></li>
+<li class="chapter" data-level="5.7.4" data-path="simoacomparingSystems.html"><a href="simoacomparingSystems.html#ch5Screening"><i class="fa fa-check"></i><b>5.7.4</b> Screening Procedures</a></li>
 </ul></li>
-<li class="chapter" data-level="5.8" data-path="simoasummary.html"><a href="simoasummary.html"><i class="fa fa-check"></i><b>5.8</b> Summary</a></li>
-<li class="chapter" data-level="5.9" data-path="exercises-4.html"><a href="exercises-4.html"><i class="fa fa-check"></i><b>5.9</b> Exercises</a></li>
+<li class="chapter" data-level="5.8" data-path="ch5Scenarios.html"><a href="ch5Scenarios.html"><i class="fa fa-check"></i><b>5.8</b> Simulating Many Scenarios</a>
+<ul>
+<li class="chapter" data-level="5.8.1" data-path="ch5Scenarios.html"><a href="ch5Scenarios.html#controlAntns"><i class="fa fa-check"></i><b>5.8.1</b> Control Annotations</a></li>
+<li class="chapter" data-level="5.8.2" data-path="ch5Scenarios.html"><a href="ch5Scenarios.html#random-variable-parameters"><i class="fa fa-check"></i><b>5.8.2</b> Random Variable Parameters</a></li>
+<li class="chapter" data-level="5.8.3" data-path="ch5Scenarios.html"><a href="ch5Scenarios.html#kslScenarios"><i class="fa fa-check"></i><b>5.8.3</b> Setting Up and Running Multiple Scenarios</a></li>
+</ul></li>
+<li class="chapter" data-level="5.9" data-path="simoasummary.html"><a href="simoasummary.html"><i class="fa fa-check"></i><b>5.9</b> Summary</a></li>
+<li class="chapter" data-level="5.10" data-path="exercises-4.html"><a href="exercises-4.html"><i class="fa fa-check"></i><b>5.10</b> Exercises</a></li>
 </ul></li>
 <li class="chapter" data-level="6" data-path="processview.html"><a href="processview.html"><i class="fa fa-check"></i><b>6</b> Process View Modeling Using the KSL</a>
 <ul>
@@ -312,12 +320,12 @@ div.csl-indent {
 <ul>
 <li class="chapter" data-level="7.2.1" data-path="modeling-non-stationary-systems.html"><a href="modeling-non-stationary-systems.html#ch7secNSPP"><i class="fa fa-check"></i><b>7.2.1</b> Non-Stationary Arrival Processes</a></li>
 <li class="chapter" data-level="7.2.2" data-path="modeling-non-stationary-systems.html"><a href="modeling-non-stationary-systems.html#modeling-resources-under-non-stationary-conditions"><i class="fa fa-check"></i><b>7.2.2</b> Modeling Resources Under Non-Stationary Conditions</a></li>
-<li class="chapter" data-level="7.2.3" data-path="modeling-non-stationary-systems.html"><a href="modeling-non-stationary-systems.html#enhancing-the-stem-career-mixer-example"><i class="fa fa-check"></i><b>7.2.3</b> Enhancing the STEM Career Mixer Example</a></li>
+<li class="chapter" data-level="7.2.3" data-path="modeling-non-stationary-systems.html"><a href="modeling-non-stationary-systems.html#enhancing-the-stem-career-mixer-model"><i class="fa fa-check"></i><b>7.2.3</b> Enhancing the STEM Career Mixer Model</a></li>
 </ul></li>
 <li class="chapter" data-level="7.3" data-path="examples-of-advanced-event-models.html"><a href="examples-of-advanced-event-models.html"><i class="fa fa-check"></i><b>7.3</b> Examples of Advanced Event Models</a>
 <ul>
 <li class="chapter" data-level="7.3.1" data-path="examples-of-advanced-event-models.html"><a href="examples-of-advanced-event-models.html#ch6s1sb4sub3"><i class="fa fa-check"></i><b>7.3.1</b> Modeling Balking and Reneging</a></li>
-<li class="chapter" data-level="7.3.2" data-path="examples-of-advanced-event-models.html"><a href="examples-of-advanced-event-models.html#modeling-a-reorder-point-reorder-quantity-inventory-policy"><i class="fa fa-check"></i><b>7.3.2</b> Modeling a Reorder Point, Reorder Quantity Inventory Policy</a></li>
+<li class="chapter" data-level="7.3.2" data-path="examples-of-advanced-event-models.html"><a href="examples-of-advanced-event-models.html#rqModel"><i class="fa fa-check"></i><b>7.3.2</b> Modeling a Reorder Point, Reorder Quantity Inventory Policy</a></li>
 </ul></li>
 <li class="chapter" data-level="7.4" data-path="summary-3.html"><a href="summary-3.html"><i class="fa fa-check"></i><b>7.4</b> Summary</a></li>
 <li class="chapter" data-level="7.5" data-path="exercises-6.html"><a href="exercises-6.html"><i class="fa fa-check"></i><b>7.5</b> Exercises</a></li>
@@ -432,11 +440,13 @@ div.csl-indent {
 <li class="chapter" data-level="D.1" data-path="the-outputdirectory-class-and-ksl-object.html"><a href="the-outputdirectory-class-and-ksl-object.html"><i class="fa fa-check"></i><b>D.1</b> The <code>OutputDirectory</code> Class and <code>KSL</code> Object</a></li>
 <li class="chapter" data-level="D.2" data-path="logging-options.html"><a href="logging-options.html"><i class="fa fa-check"></i><b>D.2</b> Logging Options</a></li>
 <li class="chapter" data-level="D.3" data-path="the-kslfileutil-object.html"><a href="the-kslfileutil-object.html"><i class="fa fa-check"></i><b>D.3</b> The <code>KSLFileUtil</code> Object</a></li>
-<li class="chapter" data-level="D.4" data-path="csv-excel-and-tabular-data-files.html"><a href="csv-excel-and-tabular-data-files.html"><i class="fa fa-check"></i><b>D.4</b> CSV, Excel, and Tabular Data Files</a></li>
-<li class="chapter" data-level="D.5" data-path="the-dataframeutil-object.html"><a href="the-dataframeutil-object.html"><i class="fa fa-check"></i><b>D.5</b> The <code>DataFrameUtil</code> Object</a></li>
+<li class="chapter" data-level="D.4" data-path="appDCSVEtc.html"><a href="appDCSVEtc.html"><i class="fa fa-check"></i><b>D.4</b> CSV, Excel, and Tabular Data Files</a></li>
+<li class="chapter" data-level="D.5" data-path="dfUtil.html"><a href="dfUtil.html"><i class="fa fa-check"></i><b>D.5</b> The <code>DataFrameUtil</code> Object</a></li>
 <li class="chapter" data-level="D.6" data-path="ksl-database-utilities.html"><a href="ksl-database-utilities.html"><i class="fa fa-check"></i><b>D.6</b> KSL Database Utilities</a></li>
 <li class="chapter" data-level="D.7" data-path="appUtilitiesArrays.html"><a href="appUtilitiesArrays.html"><i class="fa fa-check"></i><b>D.7</b> Array Utilities</a></li>
-<li class="chapter" data-level="D.8" data-path="appUtilitiesMisc.html"><a href="appUtilitiesMisc.html"><i class="fa fa-check"></i><b>D.8</b> Miscellaneous Utilities</a></li>
+<li class="chapter" data-level="D.8" data-path="appPlotting.html"><a href="appPlotting.html"><i class="fa fa-check"></i><b>D.8</b> KSL Plotting Utilities</a></li>
+<li class="chapter" data-level="D.9" data-path="appExpDesign.html"><a href="appExpDesign.html"><i class="fa fa-check"></i><b>D.9</b> Experimental Design Utilities</a></li>
+<li class="chapter" data-level="D.10" data-path="appUtilitiesMisc.html"><a href="appUtilitiesMisc.html"><i class="fa fa-check"></i><b>D.10</b> Miscellaneous Utilities</a></li>
 </ul></li>
 <li class="chapter" data-level="E" data-path="distributions.html"><a href="distributions.html"><i class="fa fa-check"></i><b>E</b> Distributions</a>
 <ul>
@@ -468,40 +478,40 @@ div.csl-indent {
 <div id="understanding-ksl-processes-and-entities" class="section level2 hasAnchor" number="6.3">
 <h2><span class="header-section-number">6.3</span> Understanding KSL Processes and Entities<a href="understanding-ksl-processes-and-entities.html#understanding-ksl-processes-and-entities" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>Entities can experience many processes. Thus, there needs to be a mechanism to activate the processes and to cleanup after the processes have completed. The <code>ProcessModel</code> class facilitates the modeling of entities experiencing processes. A <code>ProcessModel</code> has inner classes (<code>Entity,</code> <code>EntityGenerator,</code> etc.) that can be used to describe entities and the processes that they experience.</p>
-<div class="figure"><span style="display:block;" id="fig:Ch5ProcessModelOverview"></span>
-<img src="figures2/ch6/ProcessModelOverview.png" alt="Overview of the ProcessModel Class" width="90%" height="90%" />
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:Ch5ProcessModelOverview"></span>
+<img src="figures2/ch6/ProcessModelOverview.png" alt="Overview of the ProcessModel Class" width="100%" height="100%" />
 <p class="caption">
 Figure 6.5: Overview of the ProcessModel Class
 </p>
 </div>
 <p>As noted in Figure <a href="understanding-ksl-processes-and-entities.html#fig:Ch5ProcessModelOverview">6.5</a> a <code>ProcessModel</code> can activate KSL processes, can start entity process sequences, can dispose of entities, and can perform some after replication cleanup. One of the activities that a process model must perform is to terminate any processes that are still suspended after the replication is completed. In addition, it ensures that no entity terminates its process while still having allocations to a resource. Thus, a <code>ProcessModel</code> is needed to manage the entities and processes that it represents. This is why in the pharmacy code example, the pharmacy model is a subclass of <code>ProcessModel.</code></p>
-<div class="sourceCode" id="cb176"><pre class="sourceCode kt"><code class="sourceCode kotlin"><span id="cb176-1"><a href="understanding-ksl-processes-and-entities.html#cb176-1" tabindex="-1"></a><span class="kw">class</span> DriveThroughPharmacy<span class="op">(</span></span>
-<span id="cb176-2"><a href="understanding-ksl-processes-and-entities.html#cb176-2" tabindex="-1"></a>    <span class="va">parent</span><span class="op">:</span> <span class="dt">ModelElement</span><span class="op">,</span></span>
-<span id="cb176-3"><a href="understanding-ksl-processes-and-entities.html#cb176-3" tabindex="-1"></a>    <span class="va">numPharmacists</span><span class="op">:</span> <span class="dt">Int</span> <span class="op">=</span> <span class="dv">1</span><span class="op">,</span></span>
-<span id="cb176-4"><a href="understanding-ksl-processes-and-entities.html#cb176-4" tabindex="-1"></a>    <span class="va">ad</span><span class="op">:</span> <span class="dt">RandomIfc</span> <span class="op">=</span> ExponentialRV<span class="op">(</span><span class="fl">1.0</span>, <span class="dv">1</span><span class="op">),</span></span>
-<span id="cb176-5"><a href="understanding-ksl-processes-and-entities.html#cb176-5" tabindex="-1"></a>    <span class="va">sd</span><span class="op">:</span> <span class="dt">RandomIfc</span> <span class="op">=</span> ExponentialRV<span class="op">(</span><span class="fl">0.5</span>, <span class="dv">2</span><span class="op">),</span></span>
-<span id="cb176-6"><a href="understanding-ksl-processes-and-entities.html#cb176-6" tabindex="-1"></a>    <span class="va">name</span><span class="op">:</span> <span class="dt">String</span><span class="op">?</span> <span class="op">=</span> null</span>
-<span id="cb176-7"><a href="understanding-ksl-processes-and-entities.html#cb176-7" tabindex="-1"></a><span class="op">)</span> <span class="op">:</span> <span class="dt">ProcessModel</span><span class="op">(</span><span class="va">parent</span><span class="op">,</span> <span class="va">name</span><span class="op">)</span></span></code></pre></div>
+<div class="sourceCode" id="cb191"><pre class="sourceCode kt"><code class="sourceCode kotlin"><span id="cb191-1"><a href="understanding-ksl-processes-and-entities.html#cb191-1" tabindex="-1"></a><span class="kw">class</span> DriveThroughPharmacy<span class="op">(</span></span>
+<span id="cb191-2"><a href="understanding-ksl-processes-and-entities.html#cb191-2" tabindex="-1"></a>    <span class="va">parent</span><span class="op">:</span> <span class="dt">ModelElement</span><span class="op">,</span></span>
+<span id="cb191-3"><a href="understanding-ksl-processes-and-entities.html#cb191-3" tabindex="-1"></a>    <span class="va">numPharmacists</span><span class="op">:</span> <span class="dt">Int</span> <span class="op">=</span> <span class="dv">1</span><span class="op">,</span></span>
+<span id="cb191-4"><a href="understanding-ksl-processes-and-entities.html#cb191-4" tabindex="-1"></a>    <span class="va">ad</span><span class="op">:</span> <span class="dt">RandomIfc</span> <span class="op">=</span> ExponentialRV<span class="op">(</span><span class="fl">1.0</span>, <span class="dv">1</span><span class="op">),</span></span>
+<span id="cb191-5"><a href="understanding-ksl-processes-and-entities.html#cb191-5" tabindex="-1"></a>    <span class="va">sd</span><span class="op">:</span> <span class="dt">RandomIfc</span> <span class="op">=</span> ExponentialRV<span class="op">(</span><span class="fl">0.5</span>, <span class="dv">2</span><span class="op">),</span></span>
+<span id="cb191-6"><a href="understanding-ksl-processes-and-entities.html#cb191-6" tabindex="-1"></a>    <span class="va">name</span><span class="op">:</span> <span class="dt">String</span><span class="op">?</span> <span class="op">=</span> null</span>
+<span id="cb191-7"><a href="understanding-ksl-processes-and-entities.html#cb191-7" tabindex="-1"></a><span class="op">)</span> <span class="op">:</span> <span class="dt">ProcessModel</span><span class="op">(</span><span class="va">parent</span><span class="op">,</span> <span class="va">name</span><span class="op">)</span></span></code></pre></div>
 <p>This provides the modeler with access to the inner classes e.g. <code>Entity</code> that are inherited by the subclass for use in process modeling.</p>
 <p>The key inner class is <code>Entity,</code> which has a function <code>process()</code> that uses a builder to describe the entity’s process in the form of a coroutine. An entity can have many processes described that it may follow based on different modeling logic. A process model facilitates the running of a sequence of processes that are stored in an entity’s <code>processSequence</code> property. An entity can <strong>experience only one process at a time</strong>. After completing the process, the entity will try to use its sequence to run the next process (if available). Individual processes can be activated for specific entities. But, again, an entity instance may only be activated to experience 1 process at a time, even if it has many defined processes. The entity experiences processes <em>sequentially.</em></p>
-<p>An <code>Entity</code> instance is something that can experience processes and as such may wait in queues. <code>Entity</code> is a subclass of <code>QObject.</code> Thus, statistics can be automatically collected on entities if they experience waiting. The general approach to defining a process for an entity is to use the <code>process()</code> function to define a process that a subclass of Entity can follow. Entity instances may use resources, signals, hold queues, etc. as shared mutable state. Entities may follow a process sequence if defined. An entity can have many properties that define different processes that it might experience. The user can store the processes in data structures. In fact, there is a <code>processSequence</code> property for this purpose that defines a list of processes that the entity will follow. As previously mentioned, the <code>process()</code> function automatically adds each defined process (in the order of definition via the class body) to the <code>processSequence</code> property unless told not to do so as an optional argument to the <code>process()</code> function. The following code defines a process and assigns the function to the property <code>pharmacyProcess.</code> This property is of type <code>KSLProcess.</code> Because there were no arguments to the <code>process()</code> function, the process is automatically added to the list of processes for this entity found in the <code>processSequence</code> property. Each process can also be provided a string name via an argument of the <code>process()</code> function.</p>
-<div class="sourceCode" id="cb177"><pre class="sourceCode kt"><code class="sourceCode kotlin"><span id="cb177-1"><a href="understanding-ksl-processes-and-entities.html#cb177-1" tabindex="-1"></a>    <span class="kw">private</span> <span class="kw">inner</span> <span class="kw">class</span> Customer <span class="op">:</span> <span class="dt">Entity</span><span class="op">()</span> <span class="op">{</span></span>
-<span id="cb177-2"><a href="understanding-ksl-processes-and-entities.html#cb177-2" tabindex="-1"></a>        <span class="kw">val</span> <span class="va">pharmacyProcess</span><span class="op">:</span> KSLProcess <span class="op">=</span> process<span class="op">()</span> <span class="op">{</span></span>
-<span id="cb177-3"><a href="understanding-ksl-processes-and-entities.html#cb177-3" tabindex="-1"></a>        <span class="op">...</span></span>
-<span id="cb177-4"><a href="understanding-ksl-processes-and-entities.html#cb177-4" tabindex="-1"></a>        <span class="op">}</span></span></code></pre></div>
+<p>An <code>Entity</code> instance is something that can experience processes and as such may wait in queues. <code>Entity</code> is a subclass of <code>QObject.</code> Thus, statistics can be automatically collected on entities if they experience waiting. The general approach to defining a process for an entity is to use the <code>process()</code> function to define a process that a subclass of Entity can follow. Entity instances may use resources, signals, hold queues, etc. as shared mutable state. Entities may follow a process sequence if defined. An entity can have many properties that define different processes that it might experience. The user can store the processes in data structures. In fact, there is a <code>processSequence</code> property for this purpose that defines a list of processes that the entity will follow. As previously mentioned, the <code>process()</code> function automatically adds each defined process (in the order of definition via the class body) to the <code>processSequence</code> property unless told not to do so as an optional argument to the <code>process()</code> function. The following code defines a process and assigns the function to the property <code>pharmacyProcess.</code> This property is of type <code>KSLProcess.</code> Because there were no arguments to the <code>process()</code> function, the process is automatically added to the list of processes for this entity found in the <code>processSequence</code> property. Each process can also be provided a string name via an argument of the <code>process()</code> function. The name of a process can be useful in tracing and debugging process code.</p>
+<div class="sourceCode" id="cb192"><pre class="sourceCode kt"><code class="sourceCode kotlin"><span id="cb192-1"><a href="understanding-ksl-processes-and-entities.html#cb192-1" tabindex="-1"></a>    <span class="kw">private</span> <span class="kw">inner</span> <span class="kw">class</span> Customer <span class="op">:</span> <span class="dt">Entity</span><span class="op">()</span> <span class="op">{</span></span>
+<span id="cb192-2"><a href="understanding-ksl-processes-and-entities.html#cb192-2" tabindex="-1"></a>        <span class="kw">val</span> <span class="va">pharmacyProcess</span><span class="op">:</span> KSLProcess <span class="op">=</span> process<span class="op">()</span> <span class="op">{</span></span>
+<span id="cb192-3"><a href="understanding-ksl-processes-and-entities.html#cb192-3" tabindex="-1"></a>        <span class="op">...</span></span>
+<span id="cb192-4"><a href="understanding-ksl-processes-and-entities.html#cb192-4" tabindex="-1"></a>        <span class="op">}</span></span></code></pre></div>
 <p><code>KSLProcess</code> is an interface that provides a limited view of a KSL process instance. The interface allows the user to check the state of the process, get its identification (id, and name) and access the entity that is associated with the process. Underneath, the instance of a <code>KSLProcess</code> is mapped onto a specially constructed Kotlin coroutine.</p>
-<div class="sourceCode" id="cb178"><pre class="sourceCode kt"><code class="sourceCode kotlin"><span id="cb178-1"><a href="understanding-ksl-processes-and-entities.html#cb178-1" tabindex="-1"></a><span class="kw">interface</span> KSLProcess <span class="op">{</span></span>
-<span id="cb178-2"><a href="understanding-ksl-processes-and-entities.html#cb178-2" tabindex="-1"></a>    <span class="kw">val</span> <span class="va">id</span><span class="op">:</span> <span class="kw">Int</span></span>
-<span id="cb178-3"><a href="understanding-ksl-processes-and-entities.html#cb178-3" tabindex="-1"></a>    <span class="kw">val</span> <span class="va">name</span><span class="op">:</span> <span class="kw">String</span></span>
-<span id="cb178-4"><a href="understanding-ksl-processes-and-entities.html#cb178-4" tabindex="-1"></a>    <span class="kw">val</span> <span class="va">isCreated</span><span class="op">:</span> <span class="kw">Boolean</span></span>
-<span id="cb178-5"><a href="understanding-ksl-processes-and-entities.html#cb178-5" tabindex="-1"></a>    <span class="kw">val</span> <span class="va">isSuspended</span><span class="op">:</span> <span class="kw">Boolean</span></span>
-<span id="cb178-6"><a href="understanding-ksl-processes-and-entities.html#cb178-6" tabindex="-1"></a>    <span class="kw">val</span> <span class="va">isTerminated</span><span class="op">:</span> <span class="kw">Boolean</span></span>
-<span id="cb178-7"><a href="understanding-ksl-processes-and-entities.html#cb178-7" tabindex="-1"></a>    <span class="kw">val</span> <span class="va">isCompleted</span><span class="op">:</span> <span class="kw">Boolean</span></span>
-<span id="cb178-8"><a href="understanding-ksl-processes-and-entities.html#cb178-8" tabindex="-1"></a>    <span class="kw">val</span> <span class="va">isRunning</span><span class="op">:</span> <span class="kw">Boolean</span></span>
-<span id="cb178-9"><a href="understanding-ksl-processes-and-entities.html#cb178-9" tabindex="-1"></a>    <span class="kw">val</span> <span class="va">isActivated</span><span class="op">:</span> <span class="kw">Boolean</span></span>
-<span id="cb178-10"><a href="understanding-ksl-processes-and-entities.html#cb178-10" tabindex="-1"></a>    <span class="kw">val</span> <span class="va">entity</span><span class="op">:</span> ProcessModel<span class="op">.</span>Entity</span>
-<span id="cb178-11"><a href="understanding-ksl-processes-and-entities.html#cb178-11" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
-<p>The <code>process()</code> function is a special builder function related to a <code>KSLProcessBuilder.</code> A <code>KSLProcessBuilder</code> provides the functionality for describing a process. A process is an instance of a coroutine that can be suspended and resumed. The methods of the <code>KSLProcessBuilder</code> are the suspending methods that are allowed within the process modeling paradigm of the KSL. The various suspend methods have an optional string name parameter to identify the name of the suspension point. While not required for basic modeling, identifying the suspension point can be useful for more advanced modeling involving the cancellation or interrupting of a process. A unique name can be used to determine which suspension point is suspending the process when the process has many suspension points. We will examine the functionality of a <code>KSLProcessBuilder</code> later in this section.</p>
+<div class="sourceCode" id="cb193"><pre class="sourceCode kt"><code class="sourceCode kotlin"><span id="cb193-1"><a href="understanding-ksl-processes-and-entities.html#cb193-1" tabindex="-1"></a><span class="kw">interface</span> KSLProcess <span class="op">{</span></span>
+<span id="cb193-2"><a href="understanding-ksl-processes-and-entities.html#cb193-2" tabindex="-1"></a>    <span class="kw">val</span> <span class="va">id</span><span class="op">:</span> <span class="kw">Int</span></span>
+<span id="cb193-3"><a href="understanding-ksl-processes-and-entities.html#cb193-3" tabindex="-1"></a>    <span class="kw">val</span> <span class="va">name</span><span class="op">:</span> <span class="kw">String</span></span>
+<span id="cb193-4"><a href="understanding-ksl-processes-and-entities.html#cb193-4" tabindex="-1"></a>    <span class="kw">val</span> <span class="va">isCreated</span><span class="op">:</span> <span class="kw">Boolean</span></span>
+<span id="cb193-5"><a href="understanding-ksl-processes-and-entities.html#cb193-5" tabindex="-1"></a>    <span class="kw">val</span> <span class="va">isSuspended</span><span class="op">:</span> <span class="kw">Boolean</span></span>
+<span id="cb193-6"><a href="understanding-ksl-processes-and-entities.html#cb193-6" tabindex="-1"></a>    <span class="kw">val</span> <span class="va">isTerminated</span><span class="op">:</span> <span class="kw">Boolean</span></span>
+<span id="cb193-7"><a href="understanding-ksl-processes-and-entities.html#cb193-7" tabindex="-1"></a>    <span class="kw">val</span> <span class="va">isCompleted</span><span class="op">:</span> <span class="kw">Boolean</span></span>
+<span id="cb193-8"><a href="understanding-ksl-processes-and-entities.html#cb193-8" tabindex="-1"></a>    <span class="kw">val</span> <span class="va">isRunning</span><span class="op">:</span> <span class="kw">Boolean</span></span>
+<span id="cb193-9"><a href="understanding-ksl-processes-and-entities.html#cb193-9" tabindex="-1"></a>    <span class="kw">val</span> <span class="va">isActivated</span><span class="op">:</span> <span class="kw">Boolean</span></span>
+<span id="cb193-10"><a href="understanding-ksl-processes-and-entities.html#cb193-10" tabindex="-1"></a>    <span class="kw">val</span> <span class="va">entity</span><span class="op">:</span> ProcessModel<span class="op">.</span>Entity</span>
+<span id="cb193-11"><a href="understanding-ksl-processes-and-entities.html#cb193-11" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
+<p>The <code>process()</code> function is a special builder function related to a <code>KSLProcessBuilder.</code> A <code>KSLProcessBuilder</code> provides the functionality for describing a process. A process is an instance of a coroutine that can be suspended and resumed. The methods of the <code>KSLProcessBuilder</code> are the suspending functions that are allowed within the process modeling paradigm of the KSL. The various suspending functions have an optional string name parameter to identify the name of the suspension point. While not required for basic modeling, identifying the suspension point can be useful for more advanced modeling involving the cancellation or interrupting of a process. A unique name can be used to determine which suspension point is suspending the process when the process has many suspension points. We will examine the functionality of a <code>KSLProcessBuilder</code> later in this section.</p>
 <p>First and foremost, process modeling starts with understanding and using instances of the <code>Entity</code> class.</p>
 <div class="figure" style="text-align: center"><span style="display:block;" id="fig:Ch5EnityStates"></span>
 <img src="figures2/ch6/EntityStates.png" alt="Defined Entity States"  />

@@ -12,8 +12,6 @@
 -   To be able to create, run, and examine the results of a KSL model of
     a simple DEDS
 
-## Introduction {#introDEDSIntro}
-
 In Chapter \@ref(mcm), we
 explored how to develop models in the KSL for which time is not a
 significant factor. In the case of the news vendor problem, where we
@@ -62,11 +60,16 @@ essentially the collection of states associated with all the objects in
 the system. The notion of modeling what happens to a system at
 particular events in time is the basis of discrete event modeling.
 
+::: {.infobox .note data-latex="{note}"}
+**NOTE!**
+This chapter provides a series of example Kotlin code that illustrates the use of KSL constructs for discrete-event dynamic systems. The full source code of the examples can be found in the accompanying `KSLExamples` project associated with the [KSL repository](https://github.com/rossetti/KSL). The files for each example of this chapter can be found [here](https://github.com/rossetti/KSL/tree/main/KSLExamples/src/main/kotlin/ksl/examples/book/chapter4).
+:::
+
 ## Discrete-Event Dynamic Systems {#introDEDSdeds}
 
-Nelson (1995) states that the event-view "defines system events by
+[@nelson1995] states that the event-view "defines system events by
 describing what happens to the system as it encounters entities". In
-addition, Nelson (1995) states that the process view "implies system
+addition, [@nelson1995] states that the process view "implies system
 events by describing what happens to an entity as it encounters the
 system". One can consider the event-view as taking the perspective of
 the system and the process-view as taking the perspective of the entity.
@@ -79,7 +82,7 @@ term, object, will be used to encompass non-flowing objects as well as
 flowing objects within the system.
 
 To understand the event-view, the concepts of event, activity, state,
-and process must be clearly defined. Rumbaugh et al. (1991) defines
+and process must be clearly defined. [@rumbaugh1991] defines
 state and its relationship to events and activities as "an abstraction
 of the attribute values and links of an object. Sets of values are
 grouped together into a state according to properties that affect the
@@ -191,7 +194,7 @@ bank?
     in the line until a teller becomes available.
 
 Now, consider the arrival of the first customer. Since the bank opens at
-9 am with no customer and all the tellers idle, the first customer will
+9 am with no customers and all the tellers idle, the first customer will
 enter and immediately exit the queue at time 9:02 am (or time 2) and
 then begin service. After the customer completes service, the customer
 will exit the bank. When a customer completes service (and departs the
@@ -424,7 +427,7 @@ processed. To make this easier, we will keep track of the system
 variables and the entity attributes within a table as follows.
 
 <table class="table" style="font-size: 10px; margin-left: auto; margin-right: auto;">
-<caption style="font-size: initial !important;">(\#tab:SQBH1)Hand Bank Simulation Bookkeeping Table.</caption>
+<caption style="font-size: initial !important;">(\#tab:unnamed-chunk-1)(\#tab:SQBH1)Hand Bank Simulation Bookkeeping Table.</caption>
  <thead>
 <tr>
 <th style="border-bottom:hidden;padding-bottom:0; padding-left:3px;padding-right:3px;text-align: center; " colspan="5"><div style="border-bottom: 1px solid #ddd; padding-bottom: 5px; ">System Variables</div></th>
@@ -479,7 +482,7 @@ spend any time waiting in the queue. Thus, $S_{1} = 3$ and $W_{1} = 0$.
 The table has been updated as follows.
 
 <table class="table" style="font-size: 10px; margin-left: auto; margin-right: auto;">
-<caption style="font-size: initial !important;">(\#tab:SQBH2)Hand Bank Simulation Bookkeeping Table.</caption>
+<caption style="font-size: initial !important;">(\#tab:unnamed-chunk-2)(\#tab:SQBH2)Hand Bank Simulation Bookkeeping Table.</caption>
  <thead>
 <tr>
 <th style="border-bottom:hidden;padding-bottom:0; padding-left:3px;padding-right:3px;text-align: center; " colspan="5"><div style="border-bottom: 1px solid #ddd; padding-bottom: 5px; ">System Variables</div></th>
@@ -553,7 +556,7 @@ of the first customer. Thus, our bookkeeping table can be updated as
 follows.
 
 <table class="table" style="font-size: 10px; margin-left: auto; margin-right: auto;">
-<caption style="font-size: initial !important;">(\#tab:SQBH3)Hand Bank Simulation Bookkeeping Table.</caption>
+<caption style="font-size: initial !important;">(\#tab:unnamed-chunk-3)(\#tab:SQBH3)Hand Bank Simulation Bookkeeping Table.</caption>
  <thead>
 <tr>
 <th style="border-bottom:hidden;padding-bottom:0; padding-left:3px;padding-right:3px;text-align: center; " colspan="5"><div style="border-bottom: 1px solid #ddd; padding-bottom: 5px; ">System Variables</div></th>
@@ -630,7 +633,7 @@ the next event will be the arrival of customer 2 at time 11. The table
 can be updated as follows.
 
 <table class="table" style="font-size: 10px; margin-left: auto; margin-right: auto;">
-<caption style="font-size: initial !important;">(\#tab:SQBH4)Hand Bank Simulation Bookkeeping Table.</caption>
+<caption style="font-size: initial !important;">(\#tab:unnamed-chunk-4)(\#tab:SQBH4)Hand Bank Simulation Bookkeeping Table.</caption>
  <thead>
 <tr>
 <th style="border-bottom:hidden;padding-bottom:0; padding-left:3px;padding-right:3px;text-align: center; " colspan="5"><div style="border-bottom: 1px solid #ddd; padding-bottom: 5px; ">System Variables</div></th>
@@ -723,7 +726,7 @@ departure of the second customer at time 15. We will now have a queue
 form. Updating our bookkeeping table, yields:
 
 <table class="table" style="font-size: 10px; margin-left: auto; margin-right: auto;">
-<caption style="font-size: initial !important;">(\#tab:SQBH5)Hand Bank Simulation Bookkeeping Table.</caption>
+<caption style="font-size: initial !important;">(\#tab:unnamed-chunk-5)(\#tab:SQBH5)Hand Bank Simulation Bookkeeping Table.</caption>
  <thead>
 <tr>
 <th style="border-bottom:hidden;padding-bottom:0; padding-left:3px;padding-right:3px;text-align: center; " colspan="5"><div style="border-bottom: 1px solid #ddd; padding-bottom: 5px; ">System Variables</div></th>
@@ -833,7 +836,7 @@ arrival of customer 4 at time 14, which yields the following bookkeeping
 table.
 
 <table class="table" style="font-size: 10px; margin-left: auto; margin-right: auto;">
-<caption style="font-size: initial !important;">(\#tab:SQBH6)Hand Bank Simulation Bookkeeping Table.</caption>
+<caption style="font-size: initial !important;">(\#tab:unnamed-chunk-6)(\#tab:SQBH6)Hand Bank Simulation Bookkeeping Table.</caption>
  <thead>
 <tr>
 <th style="border-bottom:hidden;padding-bottom:0; padding-left:3px;padding-right:3px;text-align: center; " colspan="5"><div style="border-bottom: 1px solid #ddd; padding-bottom: 5px; ">System Variables</div></th>
@@ -955,7 +958,7 @@ waiting in the queue. Reviewing the pending event set, we see that
 customer 2 will finally complete service and depart at time 15.
 
 <table class="table" style="font-size: 10px; margin-left: auto; margin-right: auto;">
-<caption style="font-size: initial !important;">(\#tab:SQBH7)Hand Bank Simulation Bookkeeping Table.</caption>
+<caption style="font-size: initial !important;">(\#tab:unnamed-chunk-7)(\#tab:SQBH7)Hand Bank Simulation Bookkeeping Table.</caption>
  <thead>
 <tr>
 <th style="border-bottom:hidden;padding-bottom:0; padding-left:3px;padding-right:3px;text-align: center; " colspan="5"><div style="border-bottom: 1px solid #ddd; padding-bottom: 5px; ">System Variables</div></th>
@@ -1096,7 +1099,7 @@ accordingly and indicates that the next event will be the arrival of
 customer 5 at time 17.
 
 <table class="table" style="font-size: 10px; margin-left: auto; margin-right: auto;">
-<caption style="font-size: initial !important;">(\#tab:SQBH8)Hand Bank Simulation Bookkeeping Table.</caption>
+<caption style="font-size: initial !important;">(\#tab:unnamed-chunk-8)(\#tab:SQBH8)Hand Bank Simulation Bookkeeping Table.</caption>
  <thead>
 <tr>
 <th style="border-bottom:hidden;padding-bottom:0; padding-left:3px;padding-right:3px;text-align: center; " colspan="5"><div style="border-bottom: 1px solid #ddd; padding-bottom: 5px; ">System Variables</div></th>
@@ -1264,7 +1267,7 @@ to continue the processing of the customers. The completed bookkeeping table at
 time 31 is as follows.
 
 <table class="table" style="font-size: 10px; margin-left: auto; margin-right: auto;">
-<caption style="font-size: initial !important;">(\#tab:SQBHFull)Hand Bank Simulation Bookkeeping Table.</caption>
+<caption style="font-size: initial !important;">(\#tab:unnamed-chunk-9)(\#tab:SQBHFull)Hand Bank Simulation Bookkeeping Table.</caption>
  <thead>
 <tr>
 <th style="border-bottom:hidden;padding-bottom:0; padding-left:3px;padding-right:3px;text-align: center; " colspan="5"><div style="border-bottom: 1px solid #ddd; padding-bottom: 5px; ">System Variables</div></th>
@@ -1924,6 +1927,8 @@ the `initialize()` method does two things:
 2.  schedules the first action two event at time 20.0 via the call:
     `scheduleEvent(myEventActionTwo, 20.0)`
 
+::: {.example #ch4ex1 name="Scheduling Events"}
+This example code illustrates how to create event actions and to schedule their occurrence at specific event times.
 ```kt
 class SchedulingEventExamples (parent: ModelElement, name: String? = null) :
     ModelElement(parent, name) {
@@ -1954,6 +1959,8 @@ class SchedulingEventExamples (parent: ModelElement, name: String? = null) :
     }
 }
 ```
+:::
+
 The the function call `scheduleEvent(myEventActionTwo, 20.0)` schedules an event 20 time
 units into the future where the event will be handled via the instance
 of the class `EventActionTwo`, which implements the `EventActionIfc` interface.
@@ -2057,6 +2064,16 @@ executive because the events are scheduled. Thus, if you schedule
 events, you can be assured that the logic associated with the events
 will be executed.
 
+::: {.infobox .important data-latex="{important}"}
+**IMPORTANT!**
+In upcoming examples, we will provide names for the model elements. The most
+important point to remember is that the name of a model element must be unique.
+If you do not provide a name for a model element, then a unique name will be created 
+for you. The name of a model element should not contain the period "." character. If 
+it does, the period will be replaced with an underscore "_" character. If you happen to specify the same name for more than one model element, an error will be reported. 
+**Bottom line: Provide unique names for model elements.**
+:::
+
 #### Simulating a Poisson Process {#introDEDSPois}
 
 The second simple example illustrates how to simulate a Poisson process.
@@ -2069,6 +2086,9 @@ mean time between events is 1.0 time unit.  In this case the action is very simp
 occurred.
 
 The code for this example is as follows. 
+
+::: {.example #ch4ex2 name="Simulating a Poisson Process"}
+This code example illustrates how to generate a Poisson process by scheduling events that have an inter-event time that is exponentially distributed. The code also illustrates how to use a `Counter` to collect statistics.
 
 ```kt
 class SimplePoissonProcess (parent: ModelElement, name: String? = null) :
@@ -2090,6 +2110,7 @@ class SimplePoissonProcess (parent: ModelElement, name: String? = null) :
     }
 }
 ```
+:::
 
 There are a few new elements of this code to
 note. First, this example uses two new KSL model elements:
@@ -2179,7 +2200,10 @@ Counts events                  	    20.060000 	     3.235076 	    50.000000
 ### Up and Down Component Example {#introDEDSUpDown}
 
 This section further illustrates DEDS modeling with a component of a
-system that is subject to random failures. The component has two states
+system that is subject to random failures. 
+
+::: {.example #ch4ex3 name="Up and Down Component"}
+Consider a component subject to random breakdowns that has two states
 UP and DOWN. The time until failure is random and governed by an
 exponential distribution with a mean of 1.0 time units. This represents
 the time that the component is in the UP state. Once the component
@@ -2197,6 +2221,7 @@ spent in the up and down states.
 <img src="./figures2/ch4/UpDownComponent.png" alt="Up and Down Component Process"  />
 <p class="caption">(\#fig:UpDownComponent)Up and Down Component Process</p>
 </div>
+:::
 
 Figure \@ref(fig:UpDownComponent) illustrates the dynamics of the
 component over time. 
@@ -2274,7 +2299,9 @@ Lines 3 and 4 define two constants to represent
 the up and down states within the companion object. Lines 5-9 declare additional references
 needed to represent the up and down time random variables and the
 variables that need statistical collection (`myState,` `myCycleLength,` and
-`myCountFailures`). Lines 10 and 11 define and create the event actions
+`myCountFailures`). Notice how **unique** names have been provided for the random variables and for the response variables.
+
+Lines 10 and 11 define and create the event actions
 associated with the end of the up-time and the end of the down time. The
 variable `myTimeLastUp` is used to keep track of the time that the
 component last changed into the UP state, which allows the cycle length
@@ -2394,6 +2421,9 @@ next chapter.
 
 ### Modeling a Simple Queueing System {#introDEDSPharmacy}
 
+This section present a simple queueuing system considering of one server with a single waiting line. The logic of this system is essentially the same as that presented in Section \@ref(QHandExample) for the example where we simulated the queue by hand.
+
+::: {.example #ch4ex4 name="Drive Through Pharmacy"}
 This example considers a small pharmacy that has a single line for
 waiting customers and only one pharmacist. Assume that customers arrive
 at a drive through pharmacy window according to a Poisson distribution
@@ -2408,6 +2438,7 @@ grocery store to accommodate any waiting customers.
 <img src="./figures2/ch4/ch4fig8.png" alt="Drive Through Pharmacy" width="80%" height="80%" />
 <p class="caption">(\#fig:DriveThruPharmacy)Drive Through Pharmacy</p>
 </div>
+:::
 
 The drive through pharmacy system can be conceptualized as a single
 server waiting line system, where the server is the pharmacist. An
@@ -2907,7 +2938,20 @@ In the next section, we redo the pharmacy model using some new KSL constructs th
 
 ## Enhancing the Drive Through Pharmacy Model
 
-In this section, we re-implement the drive through pharmacy model to illustrate a few more KSL constructs. Specifically, we will introduce the `Queue`  and `QObject` classes and the `EventGenerator` class.  The purpose is to cover the basics of these classes for future modeling.  The `Queue`  and `QObject` classes facilitate the holding of entities within waiting lines or queues, while the `EventGenerator` class codifies the basics of generating events according to a repetitive pattern.  We start with the `Queue`  and `QObject` classes.
+In this section, we re-implement the drive through pharmacy model to illustrate a few more KSL constructs.
+
+::: {.example #ch4ex5 name="Enhance Drive Through Pharmacy"}
+Consider again the drive through pharmacy situation. Assume that customers arrive
+at a drive through pharmacy window according to a Poisson distribution
+with a mean of 10 per hour. The time that it takes the pharmacist to
+serve the customer is random and data has indicated that the time is
+well modeled with an exponential distribution with a mean of 3 minutes.
+Customers who arrive to the pharmacy are served in the order of arrival
+and enough space is available within the parking area of the adjacent
+grocery store to accommodate any waiting customers. In this situation, we desire to estimate the time spent waiting in the queue. In addition, we would like to collect a histogram on the total time spent in the system.
+:::
+
+Specifically, we will introduce the `Queue`  and `QObject` classes and the `EventGenerator` class.  The purpose is to cover the basics of these classes for future modeling.  The `Queue`  and `QObject` classes facilitate the holding of entities within waiting lines or queues, while the `EventGenerator` class codifies the basics of generating events according to a repetitive pattern.  We start with the `Queue`  and `QObject` classes.
 
 The `Queue` class, is used to model waiting lines. The `Queue` class is a sub-class
 of `ModelElement` that is able to hold instances of the class `QObject` and
@@ -3063,7 +3107,7 @@ action invokes the `resume()` method. Obviously, this can be within a
 sub-class of `EventGenerator` or within another class that has a reference
 to the event generator.
 
-Now we are ready to review the revised implementation of the drive through pharmacy model which puts the `Queue,` `QObject,` and `EventGenerator` classes into action.  Only portions of the code are illustrated here.  For full details see the Example4 file in the `ksl.examples.book.chapter4` package. To declare an instance of the Queue class, we use the following code.
+Now we are ready to review the revised implementation of the drive through pharmacy model which puts the `Queue,` `QObject,` and `EventGenerator` classes into action.  Only portions of the code are illustrated here.  For full details see the example files in the `ksl.examples.book.chapter4` package. To declare an instance of the Queue class, we use the following code.
 
 ```kt
     private val mySTGT4: IndicatorResponse = IndicatorResponse({ x -> x >= 4.0 }, mySysTime, "SysTime > 4.0 minutes")

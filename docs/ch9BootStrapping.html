@@ -6,7 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>8.1 Bootstrap Methods | Simulation Modeling using the Kotlin Simulation Library (KSL)</title>
   <meta name="description" content="A book that illustrates the basics of using the KSL. The output format for this book is bookdown::gitbook." />
-  <meta name="generator" content="bookdown 0.34 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.39 and GitBook 2.6.7" />
 
   <meta property="og:title" content="8.1 Bootstrap Methods | Simulation Modeling using the Kotlin Simulation Library (KSL)" />
   <meta property="og:type" content="book" />
@@ -23,7 +23,7 @@
 <meta name="author" content="Manuel D. Rossetti" />
 
 
-<meta name="date" content="2024-05-28" />
+<meta name="date" content="2024-06-06" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -58,7 +58,7 @@
 
 <style type="text/css">
 pre > code.sourceCode { white-space: pre; position: relative; }
-pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span { line-height: 1.25; }
 pre > code.sourceCode > span:empty { height: 1.2em; }
 .sourceCode { overflow: visible; }
 code.sourceCode > span { color: inherit; text-decoration: inherit; }
@@ -130,6 +130,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 div.csl-bib-body { }
 div.csl-entry {
   clear: both;
+  margin-bottom: 0em;
 }
 .hanging div.csl-entry {
   margin-left:2em;
@@ -200,7 +201,7 @@ div.csl-indent {
 <ul>
 <li class="chapter" data-level="2.2.1" data-path="rvg.html"><a href="rvg.html#basic-random-variate-generation"><i class="fa fa-check"></i><b>2.2.1</b> Basic Random Variate Generation</a></li>
 <li class="chapter" data-level="2.2.2" data-path="rvg.html"><a href="rvg.html#rvg_dists"><i class="fa fa-check"></i><b>2.2.2</b> Continuous and Discrete Random Variables</a></li>
-<li class="chapter" data-level="2.2.3" data-path="rvg.html"><a href="rvg.html#rvg_use"><i class="fa fa-check"></i><b>2.2.3</b> Creating and Using Random Variables</a></li>
+<li class="chapter" data-level="2.2.3" data-path="rvg.html"><a href="rvg.html#rvguse"><i class="fa fa-check"></i><b>2.2.3</b> Creating and Using Random Variables</a></li>
 <li class="chapter" data-level="2.2.4" data-path="rvg.html"><a href="rvg.html#functions-of-random-variables"><i class="fa fa-check"></i><b>2.2.4</b> Functions of Random Variables</a></li>
 </ul></li>
 <li class="chapter" data-level="2.3" data-path="probModels.html"><a href="probModels.html"><i class="fa fa-check"></i><b>2.3</b> Probability Distribution Models</a></li>
@@ -231,31 +232,30 @@ div.csl-indent {
 </ul></li>
 <li class="chapter" data-level="3.4" data-path="craps.html"><a href="craps.html"><i class="fa fa-check"></i><b>3.4</b> Simulating the Game of Craps</a></li>
 <li class="chapter" data-level="3.5" data-path="the-news-vendor-problem.html"><a href="the-news-vendor-problem.html"><i class="fa fa-check"></i><b>3.5</b> The News Vendor Problem</a></li>
-<li class="chapter" data-level="3.6" data-path="a-simple-inspection-process.html"><a href="a-simple-inspection-process.html"><i class="fa fa-check"></i><b>3.6</b> A Simple Inspection Process</a></li>
-<li class="chapter" data-level="3.7" data-path="stochastic-activity-networks.html"><a href="stochastic-activity-networks.html"><i class="fa fa-check"></i><b>3.7</b> Stochastic Activity Networks</a></li>
+<li class="chapter" data-level="3.6" data-path="ch3InsProcess.html"><a href="ch3InsProcess.html"><i class="fa fa-check"></i><b>3.6</b> A Simple Inspection Process</a></li>
+<li class="chapter" data-level="3.7" data-path="ch3SAN.html"><a href="ch3SAN.html"><i class="fa fa-check"></i><b>3.7</b> Stochastic Activity Networks</a></li>
 <li class="chapter" data-level="3.8" data-path="mcmExperiments.html"><a href="mcmExperiments.html"><i class="fa fa-check"></i><b>3.8</b> Monte-Carlo Experiments</a></li>
 <li class="chapter" data-level="3.9" data-path="summary-1.html"><a href="summary-1.html"><i class="fa fa-check"></i><b>3.9</b> Summary</a></li>
 <li class="chapter" data-level="3.10" data-path="exercises-2.html"><a href="exercises-2.html"><i class="fa fa-check"></i><b>3.10</b> Exercises</a></li>
 </ul></li>
 <li class="chapter" data-level="4" data-path="introDEDS.html"><a href="introDEDS.html"><i class="fa fa-check"></i><b>4</b> Introduction to Discrete Event Modeling</a>
 <ul>
-<li class="chapter" data-level="4.1" data-path="introDEDSIntro.html"><a href="introDEDSIntro.html"><i class="fa fa-check"></i><b>4.1</b> Introduction</a></li>
-<li class="chapter" data-level="4.2" data-path="introDEDSdeds.html"><a href="introDEDSdeds.html"><i class="fa fa-check"></i><b>4.2</b> Discrete-Event Dynamic Systems</a></li>
-<li class="chapter" data-level="4.3" data-path="HowDEDSClockWorks.html"><a href="HowDEDSClockWorks.html"><i class="fa fa-check"></i><b>4.3</b> How the Discrete-Event Clock Works</a></li>
-<li class="chapter" data-level="4.4" data-path="QHandExample.html"><a href="QHandExample.html"><i class="fa fa-check"></i><b>4.4</b> Simulating a Queueing System By Hand</a></li>
-<li class="chapter" data-level="4.5" data-path="introDEDSdedsKSL.html"><a href="introDEDSdedsKSL.html"><i class="fa fa-check"></i><b>4.5</b> Modeling DEDS in the KSL</a>
+<li class="chapter" data-level="4.1" data-path="introDEDSdeds.html"><a href="introDEDSdeds.html"><i class="fa fa-check"></i><b>4.1</b> Discrete-Event Dynamic Systems</a></li>
+<li class="chapter" data-level="4.2" data-path="HowDEDSClockWorks.html"><a href="HowDEDSClockWorks.html"><i class="fa fa-check"></i><b>4.2</b> How the Discrete-Event Clock Works</a></li>
+<li class="chapter" data-level="4.3" data-path="QHandExample.html"><a href="QHandExample.html"><i class="fa fa-check"></i><b>4.3</b> Simulating a Queueing System By Hand</a></li>
+<li class="chapter" data-level="4.4" data-path="introDEDSdedsKSL.html"><a href="introDEDSdedsKSL.html"><i class="fa fa-check"></i><b>4.4</b> Modeling DEDS in the KSL</a>
 <ul>
-<li class="chapter" data-level="4.5.1" data-path="introDEDSdedsKSL.html"><a href="introDEDSdedsKSL.html#event-scheduling"><i class="fa fa-check"></i><b>4.5.1</b> Event Scheduling</a></li>
-<li class="chapter" data-level="4.5.2" data-path="introDEDSdedsKSL.html"><a href="introDEDSdedsKSL.html#introDEDSschedExamples"><i class="fa fa-check"></i><b>4.5.2</b> Simple Event Scheduling Examples</a></li>
-<li class="chapter" data-level="4.5.3" data-path="introDEDSdedsKSL.html"><a href="introDEDSdedsKSL.html#introDEDSUpDown"><i class="fa fa-check"></i><b>4.5.3</b> Up and Down Component Example</a></li>
-<li class="chapter" data-level="4.5.4" data-path="introDEDSdedsKSL.html"><a href="introDEDSdedsKSL.html#introDEDSPharmacy"><i class="fa fa-check"></i><b>4.5.4</b> Modeling a Simple Queueing System</a></li>
-<li class="chapter" data-level="4.5.5" data-path="introDEDSdedsKSL.html"><a href="introDEDSdedsKSL.html#more-details-about-the-pharmacy-model-implementation"><i class="fa fa-check"></i><b>4.5.5</b> More Details About the Pharmacy Model Implementation</a></li>
+<li class="chapter" data-level="4.4.1" data-path="introDEDSdedsKSL.html"><a href="introDEDSdedsKSL.html#event-scheduling"><i class="fa fa-check"></i><b>4.4.1</b> Event Scheduling</a></li>
+<li class="chapter" data-level="4.4.2" data-path="introDEDSdedsKSL.html"><a href="introDEDSdedsKSL.html#introDEDSschedExamples"><i class="fa fa-check"></i><b>4.4.2</b> Simple Event Scheduling Examples</a></li>
+<li class="chapter" data-level="4.4.3" data-path="introDEDSdedsKSL.html"><a href="introDEDSdedsKSL.html#introDEDSUpDown"><i class="fa fa-check"></i><b>4.4.3</b> Up and Down Component Example</a></li>
+<li class="chapter" data-level="4.4.4" data-path="introDEDSdedsKSL.html"><a href="introDEDSdedsKSL.html#introDEDSPharmacy"><i class="fa fa-check"></i><b>4.4.4</b> Modeling a Simple Queueing System</a></li>
+<li class="chapter" data-level="4.4.5" data-path="introDEDSdedsKSL.html"><a href="introDEDSdedsKSL.html#more-details-about-the-pharmacy-model-implementation"><i class="fa fa-check"></i><b>4.4.5</b> More Details About the Pharmacy Model Implementation</a></li>
 </ul></li>
-<li class="chapter" data-level="4.6" data-path="enhancing-the-drive-through-pharmacy-model.html"><a href="enhancing-the-drive-through-pharmacy-model.html"><i class="fa fa-check"></i><b>4.6</b> Enhancing the Drive Through Pharmacy Model</a></li>
-<li class="chapter" data-level="4.7" data-path="introDEDSSummary.html"><a href="introDEDSSummary.html"><i class="fa fa-check"></i><b>4.7</b> Summary</a></li>
-<li class="chapter" data-level="4.8" data-path="exercises-3.html"><a href="exercises-3.html"><i class="fa fa-check"></i><b>4.8</b> Exercises</a></li>
+<li class="chapter" data-level="4.5" data-path="enhancing-the-drive-through-pharmacy-model.html"><a href="enhancing-the-drive-through-pharmacy-model.html"><i class="fa fa-check"></i><b>4.5</b> Enhancing the Drive Through Pharmacy Model</a></li>
+<li class="chapter" data-level="4.6" data-path="introDEDSSummary.html"><a href="introDEDSSummary.html"><i class="fa fa-check"></i><b>4.6</b> Summary</a></li>
+<li class="chapter" data-level="4.7" data-path="exercises-3.html"><a href="exercises-3.html"><i class="fa fa-check"></i><b>4.7</b> Exercises</a></li>
 </ul></li>
-<li class="chapter" data-level="5" data-path="simoa.html"><a href="simoa.html"><i class="fa fa-check"></i><b>5</b> Analyzing Simulation Output</a>
+<li class="chapter" data-level="5" data-path="simoa.html"><a href="simoa.html"><i class="fa fa-check"></i><b>5</b> Analyzing and Accessing Simulation Output</a>
 <ul>
 <li class="chapter" data-level="5.1" data-path="simoadatatypes.html"><a href="simoadatatypes.html"><i class="fa fa-check"></i><b>5.1</b> Types of Statistical Variables</a></li>
 <li class="chapter" data-level="5.2" data-path="simoasimtypes.html"><a href="simoasimtypes.html"><i class="fa fa-check"></i><b>5.2</b> Types of Simulation With Respect To Output Analysis</a></li>
@@ -277,10 +277,18 @@ div.csl-indent {
 <li class="chapter" data-level="5.7" data-path="simoacomparingSystems.html"><a href="simoacomparingSystems.html"><i class="fa fa-check"></i><b>5.7</b> Comparing System Configurations</a>
 <ul>
 <li class="chapter" data-level="5.7.1" data-path="simoacomparingSystems.html"><a href="simoacomparingSystems.html#simoacomparingSystems:two"><i class="fa fa-check"></i><b>5.7.1</b> Comparing Two Systems</a></li>
-<li class="chapter" data-level="5.7.2" data-path="simoacomparingSystems.html"><a href="simoacomparingSystems.html#simoacomparingSystemsMCB"><i class="fa fa-check"></i><b>5.7.2</b> Multiple Comparisons</a></li>
+<li class="chapter" data-level="5.7.2" data-path="simoacomparingSystems.html"><a href="simoacomparingSystems.html#simoacomparingSystemsMCB"><i class="fa fa-check"></i><b>5.7.2</b> Concepts for Comparing Systems</a></li>
+<li class="chapter" data-level="5.7.3" data-path="simoacomparingSystems.html"><a href="simoacomparingSystems.html#multiple-comparison-with-the-best-procedures-mcb"><i class="fa fa-check"></i><b>5.7.3</b> Multiple Comparison with the Best Procedures (MCB)</a></li>
+<li class="chapter" data-level="5.7.4" data-path="simoacomparingSystems.html"><a href="simoacomparingSystems.html#ch5Screening"><i class="fa fa-check"></i><b>5.7.4</b> Screening Procedures</a></li>
 </ul></li>
-<li class="chapter" data-level="5.8" data-path="simoasummary.html"><a href="simoasummary.html"><i class="fa fa-check"></i><b>5.8</b> Summary</a></li>
-<li class="chapter" data-level="5.9" data-path="exercises-4.html"><a href="exercises-4.html"><i class="fa fa-check"></i><b>5.9</b> Exercises</a></li>
+<li class="chapter" data-level="5.8" data-path="ch5Scenarios.html"><a href="ch5Scenarios.html"><i class="fa fa-check"></i><b>5.8</b> Simulating Many Scenarios</a>
+<ul>
+<li class="chapter" data-level="5.8.1" data-path="ch5Scenarios.html"><a href="ch5Scenarios.html#controlAntns"><i class="fa fa-check"></i><b>5.8.1</b> Control Annotations</a></li>
+<li class="chapter" data-level="5.8.2" data-path="ch5Scenarios.html"><a href="ch5Scenarios.html#random-variable-parameters"><i class="fa fa-check"></i><b>5.8.2</b> Random Variable Parameters</a></li>
+<li class="chapter" data-level="5.8.3" data-path="ch5Scenarios.html"><a href="ch5Scenarios.html#kslScenarios"><i class="fa fa-check"></i><b>5.8.3</b> Setting Up and Running Multiple Scenarios</a></li>
+</ul></li>
+<li class="chapter" data-level="5.9" data-path="simoasummary.html"><a href="simoasummary.html"><i class="fa fa-check"></i><b>5.9</b> Summary</a></li>
+<li class="chapter" data-level="5.10" data-path="exercises-4.html"><a href="exercises-4.html"><i class="fa fa-check"></i><b>5.10</b> Exercises</a></li>
 </ul></li>
 <li class="chapter" data-level="6" data-path="processview.html"><a href="processview.html"><i class="fa fa-check"></i><b>6</b> Process View Modeling Using the KSL</a>
 <ul>
@@ -312,12 +320,12 @@ div.csl-indent {
 <ul>
 <li class="chapter" data-level="7.2.1" data-path="modeling-non-stationary-systems.html"><a href="modeling-non-stationary-systems.html#ch7secNSPP"><i class="fa fa-check"></i><b>7.2.1</b> Non-Stationary Arrival Processes</a></li>
 <li class="chapter" data-level="7.2.2" data-path="modeling-non-stationary-systems.html"><a href="modeling-non-stationary-systems.html#modeling-resources-under-non-stationary-conditions"><i class="fa fa-check"></i><b>7.2.2</b> Modeling Resources Under Non-Stationary Conditions</a></li>
-<li class="chapter" data-level="7.2.3" data-path="modeling-non-stationary-systems.html"><a href="modeling-non-stationary-systems.html#enhancing-the-stem-career-mixer-example"><i class="fa fa-check"></i><b>7.2.3</b> Enhancing the STEM Career Mixer Example</a></li>
+<li class="chapter" data-level="7.2.3" data-path="modeling-non-stationary-systems.html"><a href="modeling-non-stationary-systems.html#enhancing-the-stem-career-mixer-model"><i class="fa fa-check"></i><b>7.2.3</b> Enhancing the STEM Career Mixer Model</a></li>
 </ul></li>
 <li class="chapter" data-level="7.3" data-path="examples-of-advanced-event-models.html"><a href="examples-of-advanced-event-models.html"><i class="fa fa-check"></i><b>7.3</b> Examples of Advanced Event Models</a>
 <ul>
 <li class="chapter" data-level="7.3.1" data-path="examples-of-advanced-event-models.html"><a href="examples-of-advanced-event-models.html#ch6s1sb4sub3"><i class="fa fa-check"></i><b>7.3.1</b> Modeling Balking and Reneging</a></li>
-<li class="chapter" data-level="7.3.2" data-path="examples-of-advanced-event-models.html"><a href="examples-of-advanced-event-models.html#modeling-a-reorder-point-reorder-quantity-inventory-policy"><i class="fa fa-check"></i><b>7.3.2</b> Modeling a Reorder Point, Reorder Quantity Inventory Policy</a></li>
+<li class="chapter" data-level="7.3.2" data-path="examples-of-advanced-event-models.html"><a href="examples-of-advanced-event-models.html#rqModel"><i class="fa fa-check"></i><b>7.3.2</b> Modeling a Reorder Point, Reorder Quantity Inventory Policy</a></li>
 </ul></li>
 <li class="chapter" data-level="7.4" data-path="summary-3.html"><a href="summary-3.html"><i class="fa fa-check"></i><b>7.4</b> Summary</a></li>
 <li class="chapter" data-level="7.5" data-path="exercises-6.html"><a href="exercises-6.html"><i class="fa fa-check"></i><b>7.5</b> Exercises</a></li>
@@ -432,11 +440,13 @@ div.csl-indent {
 <li class="chapter" data-level="D.1" data-path="the-outputdirectory-class-and-ksl-object.html"><a href="the-outputdirectory-class-and-ksl-object.html"><i class="fa fa-check"></i><b>D.1</b> The <code>OutputDirectory</code> Class and <code>KSL</code> Object</a></li>
 <li class="chapter" data-level="D.2" data-path="logging-options.html"><a href="logging-options.html"><i class="fa fa-check"></i><b>D.2</b> Logging Options</a></li>
 <li class="chapter" data-level="D.3" data-path="the-kslfileutil-object.html"><a href="the-kslfileutil-object.html"><i class="fa fa-check"></i><b>D.3</b> The <code>KSLFileUtil</code> Object</a></li>
-<li class="chapter" data-level="D.4" data-path="csv-excel-and-tabular-data-files.html"><a href="csv-excel-and-tabular-data-files.html"><i class="fa fa-check"></i><b>D.4</b> CSV, Excel, and Tabular Data Files</a></li>
-<li class="chapter" data-level="D.5" data-path="the-dataframeutil-object.html"><a href="the-dataframeutil-object.html"><i class="fa fa-check"></i><b>D.5</b> The <code>DataFrameUtil</code> Object</a></li>
+<li class="chapter" data-level="D.4" data-path="appDCSVEtc.html"><a href="appDCSVEtc.html"><i class="fa fa-check"></i><b>D.4</b> CSV, Excel, and Tabular Data Files</a></li>
+<li class="chapter" data-level="D.5" data-path="dfUtil.html"><a href="dfUtil.html"><i class="fa fa-check"></i><b>D.5</b> The <code>DataFrameUtil</code> Object</a></li>
 <li class="chapter" data-level="D.6" data-path="ksl-database-utilities.html"><a href="ksl-database-utilities.html"><i class="fa fa-check"></i><b>D.6</b> KSL Database Utilities</a></li>
 <li class="chapter" data-level="D.7" data-path="appUtilitiesArrays.html"><a href="appUtilitiesArrays.html"><i class="fa fa-check"></i><b>D.7</b> Array Utilities</a></li>
-<li class="chapter" data-level="D.8" data-path="appUtilitiesMisc.html"><a href="appUtilitiesMisc.html"><i class="fa fa-check"></i><b>D.8</b> Miscellaneous Utilities</a></li>
+<li class="chapter" data-level="D.8" data-path="appPlotting.html"><a href="appPlotting.html"><i class="fa fa-check"></i><b>D.8</b> KSL Plotting Utilities</a></li>
+<li class="chapter" data-level="D.9" data-path="appExpDesign.html"><a href="appExpDesign.html"><i class="fa fa-check"></i><b>D.9</b> Experimental Design Utilities</a></li>
+<li class="chapter" data-level="D.10" data-path="appUtilitiesMisc.html"><a href="appUtilitiesMisc.html"><i class="fa fa-check"></i><b>D.10</b> Miscellaneous Utilities</a></li>
 </ul></li>
 <li class="chapter" data-level="E" data-path="distributions.html"><a href="distributions.html"><i class="fa fa-check"></i><b>E</b> Distributions</a>
 <ul>
@@ -583,7 +593,7 @@ t^{*}_{b} = \frac{\hat{\theta}^{*}_{b}-\hat{\theta}}{\widehat{se}(\hat{\theta}^{
 <p>We compute <span class="math inline">\(\widehat{se}(\hat{\theta}^{*})\)</span>, <span class="math inline">\(t^{*}_{\alpha/2 }\)</span>, and <span class="math inline">\(t^{*}_{1-\alpha/2 }\)</span> as follows:</p>
 <ol style="list-style-type: decimal">
 <li>Compute <span class="math inline">\(\hat{\theta}\)</span> from <span class="math inline">\(\vec{x}=(x_{1}, x_{2},...x_{n})\)</span></li>
-<li>For <span class="math inline">\(b = 1 \; \text{to} \; B\)</span></li>
+<li>For <span class="math inline">\(b = 1 \; \text{to} \;  B\)</span></li>
 </ol>
 <ol style="list-style-type: lower-alpha">
 <li>Sample from <span class="math inline">\(\vec{x}^{*}_{b}\)</span> with replacement from <span class="math inline">\(\vec{x}\)</span>.</li>
@@ -606,17 +616,20 @@ t^{*}_{b} = \frac{\hat{\theta}^{*}_{b}-\hat{\theta}}{\widehat{se}(\hat{\theta}^{
 <div id="bootstrapping-using-the-ksl" class="section level3 hasAnchor" number="8.1.1">
 <h3><span class="header-section-number">8.1.1</span> Bootstrapping Using the KSL<a href="ch9BootStrapping.html#bootstrapping-using-the-ksl" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>In this section, we will explore how the KSL supports the application of bootstrapping. First, we will illustrate how to do bootstrapping using basic KSL constructs. This is intended to illustrate the overall bootstrapping process. Then we will discuss KSL constructs that encapsulate the bootstrapping process within classes. In essence, bootstrapping is just sampling again and again from some discrete population. Thus, the KSL <code>DPopulation</code> class can serve as a starting point. Alternatively, the KSL <code>EmpiricalRV</code> class can be used. Let’s start with a simple example that has an original sample size of 10 elements. For example, assume through some sampling process we have selected 10 students (at random) and counted the number of books in their backpack. The following code illustrates placing the data in an array and computing some basic statistics related to the sample.</p>
-<div class="sourceCode" id="cb260"><pre class="sourceCode kt"><code class="sourceCode kotlin"><span id="cb260-1"><a href="ch9BootStrapping.html#cb260-1" tabindex="-1"></a><span class="co">// make a population for illustrating bootstrapping</span></span>
-<span id="cb260-2"><a href="ch9BootStrapping.html#cb260-2" tabindex="-1"></a><span class="kw">val</span> <span class="va">mainSample</span> <span class="op">=</span> doubleArrayOf<span class="op">(</span><span class="fl">6.0</span><span class="op">,</span> <span class="fl">7.0</span><span class="op">,</span> <span class="fl">5.0</span><span class="op">,</span> <span class="fl">1.0</span><span class="op">,</span> <span class="fl">0.0</span><span class="op">,</span> <span class="fl">4.0</span><span class="op">,</span> <span class="fl">6.0</span><span class="op">,</span> <span class="fl">0.0</span><span class="op">,</span> <span class="fl">6.0</span><span class="op">,</span> <span class="fl">1.0</span><span class="op">)</span></span>
-<span id="cb260-3"><a href="ch9BootStrapping.html#cb260-3" tabindex="-1"></a>println<span class="op">(</span><span class="st">&quot;Sample of size 10 from original population&quot;</span><span class="op">)</span></span>
-<span id="cb260-4"><a href="ch9BootStrapping.html#cb260-4" tabindex="-1"></a>println<span class="op">(</span>mainSample<span class="op">.</span>joinToString<span class="op">())</span></span>
-<span id="cb260-5"><a href="ch9BootStrapping.html#cb260-5" tabindex="-1"></a>println<span class="op">()</span></span>
-<span id="cb260-6"><a href="ch9BootStrapping.html#cb260-6" tabindex="-1"></a><span class="co">// compute statistics on main sample</span></span>
-<span id="cb260-7"><a href="ch9BootStrapping.html#cb260-7" tabindex="-1"></a><span class="kw">val</span> <span class="va">mainSampleStats</span> <span class="op">=</span> Statistic<span class="op">(</span>mainSample<span class="op">)</span></span>
-<span id="cb260-8"><a href="ch9BootStrapping.html#cb260-8" tabindex="-1"></a>println<span class="op">(</span><span class="st">&quot;Main Sample&quot;</span><span class="op">)</span></span>
-<span id="cb260-9"><a href="ch9BootStrapping.html#cb260-9" tabindex="-1"></a>println<span class="op">(</span><span class="st">&quot;average = </span><span class="ss">${</span>mainSampleStats<span class="op">.</span>average<span class="ss">}</span><span class="st">&quot;</span><span class="op">)</span></span>
-<span id="cb260-10"><a href="ch9BootStrapping.html#cb260-10" tabindex="-1"></a>println<span class="op">(</span><span class="st">&quot;90% CI = </span><span class="ss">${</span>mainSampleStats<span class="op">.</span>confidenceInterval<span class="op">(</span><span class="fl">.90</span><span class="op">)</span><span class="ss">}</span><span class="st">&quot;</span><span class="op">)</span></span>
-<span id="cb260-11"><a href="ch9BootStrapping.html#cb260-11" tabindex="-1"></a>println<span class="op">()</span></span></code></pre></div>
+<div class="example">
+<p><span id="exm:exBS1" class="example"><strong>Example 8.1  (Bootstraping Example 1) </strong></span>This example defines a population of values within an array. Then, the example uses the <code>DPopulation</code> class to sample from the population. Statistics on the samples are captured and used to form a confidence interval.</p>
+<div class="sourceCode" id="cb275"><pre class="sourceCode kt"><code class="sourceCode kotlin"><span id="cb275-1"><a href="ch9BootStrapping.html#cb275-1" tabindex="-1"></a><span class="co">// make a population for illustrating bootstrapping</span></span>
+<span id="cb275-2"><a href="ch9BootStrapping.html#cb275-2" tabindex="-1"></a><span class="kw">val</span> <span class="va">mainSample</span> <span class="op">=</span> doubleArrayOf<span class="op">(</span><span class="fl">6.0</span><span class="op">,</span> <span class="fl">7.0</span><span class="op">,</span> <span class="fl">5.0</span><span class="op">,</span> <span class="fl">1.0</span><span class="op">,</span> <span class="fl">0.0</span><span class="op">,</span> <span class="fl">4.0</span><span class="op">,</span> <span class="fl">6.0</span><span class="op">,</span> <span class="fl">0.0</span><span class="op">,</span> <span class="fl">6.0</span><span class="op">,</span> <span class="fl">1.0</span><span class="op">)</span></span>
+<span id="cb275-3"><a href="ch9BootStrapping.html#cb275-3" tabindex="-1"></a>println<span class="op">(</span><span class="st">&quot;Sample of size 10 from original population&quot;</span><span class="op">)</span></span>
+<span id="cb275-4"><a href="ch9BootStrapping.html#cb275-4" tabindex="-1"></a>println<span class="op">(</span>mainSample<span class="op">.</span>joinToString<span class="op">())</span></span>
+<span id="cb275-5"><a href="ch9BootStrapping.html#cb275-5" tabindex="-1"></a>println<span class="op">()</span></span>
+<span id="cb275-6"><a href="ch9BootStrapping.html#cb275-6" tabindex="-1"></a><span class="co">// compute statistics on main sample</span></span>
+<span id="cb275-7"><a href="ch9BootStrapping.html#cb275-7" tabindex="-1"></a><span class="kw">val</span> <span class="va">mainSampleStats</span> <span class="op">=</span> Statistic<span class="op">(</span>mainSample<span class="op">)</span></span>
+<span id="cb275-8"><a href="ch9BootStrapping.html#cb275-8" tabindex="-1"></a>println<span class="op">(</span><span class="st">&quot;Main Sample&quot;</span><span class="op">)</span></span>
+<span id="cb275-9"><a href="ch9BootStrapping.html#cb275-9" tabindex="-1"></a>println<span class="op">(</span><span class="st">&quot;average = </span><span class="ss">${</span>mainSampleStats<span class="op">.</span>average<span class="ss">}</span><span class="st">&quot;</span><span class="op">)</span></span>
+<span id="cb275-10"><a href="ch9BootStrapping.html#cb275-10" tabindex="-1"></a>println<span class="op">(</span><span class="st">&quot;90% CI = </span><span class="ss">${</span>mainSampleStats<span class="op">.</span>confidenceInterval<span class="op">(</span><span class="fl">.90</span><span class="op">)</span><span class="ss">}</span><span class="st">&quot;</span><span class="op">)</span></span>
+<span id="cb275-11"><a href="ch9BootStrapping.html#cb275-11" tabindex="-1"></a>println<span class="op">()</span></span></code></pre></div>
+</div>
 <p>Running this code results in the following:</p>
 <pre><code>Sample of size 10 from original population
 6.0, 7.0, 5.0, 1.0, 0.0, 4.0, 6.0, 0.0, 6.0, 1.0
@@ -625,22 +638,22 @@ Main Sample
 average = 3.599999999999999
 90% CI = [1.978733917471777, 5.221266082528222]</code></pre>
 <p>In the notation that we have been using <span class="math inline">\(\bar{x} = \hat{\theta} = 3.5\bar{9}\)</span>. The sample size is small and it is very unlikely that the distribution of the number books in a student’s backpack would be normally distributed. Therefore, the reported confidence interval is certainly approximate. The KSL <code>Statistic</code> class reports its confidence interval assuming a Student-T distribution. We would like to use bootstrapping to produce a confidence interval. We can get started by treating our original sample as if it is the population and sampling from it. Here is some KSL code to illustrate this process.</p>
-<div class="sourceCode" id="cb262"><pre class="sourceCode kt"><code class="sourceCode kotlin"><span id="cb262-1"><a href="ch9BootStrapping.html#cb262-1" tabindex="-1"></a><span class="co">// make the sample our pseudo-population</span></span>
-<span id="cb262-2"><a href="ch9BootStrapping.html#cb262-2" tabindex="-1"></a><span class="kw">val</span> <span class="va">samplePopulation</span> <span class="op">=</span> DPopulation<span class="op">(</span>mainSample<span class="op">)</span></span>
-<span id="cb262-3"><a href="ch9BootStrapping.html#cb262-3" tabindex="-1"></a><span class="kw">val</span> <span class="va">bootStrapAverages</span> <span class="op">=</span> mutableListOf<span class="op">&lt;</span><span class="kw">Double</span><span class="op">&gt;()</span></span>
-<span id="cb262-4"><a href="ch9BootStrapping.html#cb262-4" tabindex="-1"></a><span class="co">// illustrate 10 bootstrap samples</span></span>
-<span id="cb262-5"><a href="ch9BootStrapping.html#cb262-5" tabindex="-1"></a>println<span class="op">(</span><span class="st">&quot;BootStrap Samples:&quot;</span><span class="op">)</span></span>
-<span id="cb262-6"><a href="ch9BootStrapping.html#cb262-6" tabindex="-1"></a><span class="cf">for</span> <span class="op">(</span>i <span class="kw">in</span> <span class="fl">1..10</span><span class="op">){</span></span>
-<span id="cb262-7"><a href="ch9BootStrapping.html#cb262-7" tabindex="-1"></a>    <span class="kw">val</span> <span class="va">bootStrapSample</span> <span class="op">=</span> samplePopulation<span class="op">.</span>sample<span class="op">(</span><span class="dv">10</span><span class="op">)</span></span>
-<span id="cb262-8"><a href="ch9BootStrapping.html#cb262-8" tabindex="-1"></a>    <span class="kw">val</span> <span class="va">avg</span> <span class="op">=</span> bootStrapSample<span class="op">.</span>average<span class="op">()</span></span>
-<span id="cb262-9"><a href="ch9BootStrapping.html#cb262-9" tabindex="-1"></a>    println<span class="op">(</span><span class="st">&quot;sample_</span><span class="ss">$i</span><span class="st">  = (</span><span class="ss">${</span>bootStrapSample<span class="op">.</span>joinToString<span class="op">()</span><span class="ss">}</span><span class="st">) with average = </span><span class="ss">$avg</span><span class="st">&quot;</span><span class="op">)</span></span>
-<span id="cb262-10"><a href="ch9BootStrapping.html#cb262-10" tabindex="-1"></a>   bootStrapAverages<span class="op">.</span>add<span class="op">(</span>avg<span class="op">)</span></span>
-<span id="cb262-11"><a href="ch9BootStrapping.html#cb262-11" tabindex="-1"></a><span class="op">}</span></span>
-<span id="cb262-12"><a href="ch9BootStrapping.html#cb262-12" tabindex="-1"></a>println<span class="op">()</span></span>
-<span id="cb262-13"><a href="ch9BootStrapping.html#cb262-13" tabindex="-1"></a><span class="kw">val</span> <span class="va">lcl</span> <span class="op">=</span> Statistic<span class="op">.</span>percentile<span class="op">(</span>bootStrapAverages<span class="op">.</span>toDoubleArray<span class="op">(),</span> <span class="fl">0.05</span><span class="op">)</span></span>
-<span id="cb262-14"><a href="ch9BootStrapping.html#cb262-14" tabindex="-1"></a><span class="kw">val</span> <span class="va">ucl</span> <span class="op">=</span> Statistic<span class="op">.</span>percentile<span class="op">(</span>bootStrapAverages<span class="op">.</span>toDoubleArray<span class="op">(),</span> <span class="fl">0.95</span><span class="op">)</span></span>
-<span id="cb262-15"><a href="ch9BootStrapping.html#cb262-15" tabindex="-1"></a><span class="kw">val</span> <span class="va">ci</span> <span class="op">=</span> Interval<span class="op">(</span>lcl<span class="op">,</span> ucl<span class="op">)</span></span>
-<span id="cb262-16"><a href="ch9BootStrapping.html#cb262-16" tabindex="-1"></a>println<span class="op">(</span><span class="st">&quot;Percentile based 90% ci = </span><span class="ss">$ci</span><span class="st">&quot;</span><span class="op">)</span></span></code></pre></div>
+<div class="sourceCode" id="cb277"><pre class="sourceCode kt"><code class="sourceCode kotlin"><span id="cb277-1"><a href="ch9BootStrapping.html#cb277-1" tabindex="-1"></a><span class="co">// make the sample our pseudo-population</span></span>
+<span id="cb277-2"><a href="ch9BootStrapping.html#cb277-2" tabindex="-1"></a><span class="kw">val</span> <span class="va">samplePopulation</span> <span class="op">=</span> DPopulation<span class="op">(</span>mainSample<span class="op">)</span></span>
+<span id="cb277-3"><a href="ch9BootStrapping.html#cb277-3" tabindex="-1"></a><span class="kw">val</span> <span class="va">bootStrapAverages</span> <span class="op">=</span> mutableListOf<span class="op">&lt;</span><span class="kw">Double</span><span class="op">&gt;()</span></span>
+<span id="cb277-4"><a href="ch9BootStrapping.html#cb277-4" tabindex="-1"></a><span class="co">// illustrate 10 bootstrap samples</span></span>
+<span id="cb277-5"><a href="ch9BootStrapping.html#cb277-5" tabindex="-1"></a>println<span class="op">(</span><span class="st">&quot;BootStrap Samples:&quot;</span><span class="op">)</span></span>
+<span id="cb277-6"><a href="ch9BootStrapping.html#cb277-6" tabindex="-1"></a><span class="cf">for</span> <span class="op">(</span>i <span class="kw">in</span> <span class="fl">1..10</span><span class="op">){</span></span>
+<span id="cb277-7"><a href="ch9BootStrapping.html#cb277-7" tabindex="-1"></a>    <span class="kw">val</span> <span class="va">bootStrapSample</span> <span class="op">=</span> samplePopulation<span class="op">.</span>sample<span class="op">(</span><span class="dv">10</span><span class="op">)</span></span>
+<span id="cb277-8"><a href="ch9BootStrapping.html#cb277-8" tabindex="-1"></a>    <span class="kw">val</span> <span class="va">avg</span> <span class="op">=</span> bootStrapSample<span class="op">.</span>average<span class="op">()</span></span>
+<span id="cb277-9"><a href="ch9BootStrapping.html#cb277-9" tabindex="-1"></a>    println<span class="op">(</span><span class="st">&quot;sample_</span><span class="ss">$i</span><span class="st">  = (</span><span class="ss">${</span>bootStrapSample<span class="op">.</span>joinToString<span class="op">()</span><span class="ss">}</span><span class="st">) with average = </span><span class="ss">$avg</span><span class="st">&quot;</span><span class="op">)</span></span>
+<span id="cb277-10"><a href="ch9BootStrapping.html#cb277-10" tabindex="-1"></a>   bootStrapAverages<span class="op">.</span>add<span class="op">(</span>avg<span class="op">)</span></span>
+<span id="cb277-11"><a href="ch9BootStrapping.html#cb277-11" tabindex="-1"></a><span class="op">}</span></span>
+<span id="cb277-12"><a href="ch9BootStrapping.html#cb277-12" tabindex="-1"></a>println<span class="op">()</span></span>
+<span id="cb277-13"><a href="ch9BootStrapping.html#cb277-13" tabindex="-1"></a><span class="kw">val</span> <span class="va">lcl</span> <span class="op">=</span> Statistic<span class="op">.</span>percentile<span class="op">(</span>bootStrapAverages<span class="op">.</span>toDoubleArray<span class="op">(),</span> <span class="fl">0.05</span><span class="op">)</span></span>
+<span id="cb277-14"><a href="ch9BootStrapping.html#cb277-14" tabindex="-1"></a><span class="kw">val</span> <span class="va">ucl</span> <span class="op">=</span> Statistic<span class="op">.</span>percentile<span class="op">(</span>bootStrapAverages<span class="op">.</span>toDoubleArray<span class="op">(),</span> <span class="fl">0.95</span><span class="op">)</span></span>
+<span id="cb277-15"><a href="ch9BootStrapping.html#cb277-15" tabindex="-1"></a><span class="kw">val</span> <span class="va">ci</span> <span class="op">=</span> Interval<span class="op">(</span>lcl<span class="op">,</span> ucl<span class="op">)</span></span>
+<span id="cb277-16"><a href="ch9BootStrapping.html#cb277-16" tabindex="-1"></a>println<span class="op">(</span><span class="st">&quot;Percentile based 90% ci = </span><span class="ss">$ci</span><span class="st">&quot;</span><span class="op">)</span></span></code></pre></div>
 <p>In this code, we first create an instance of <code>DPopulation</code> using the array of observations of the book count data. Then, a list is created to hold the averages of each bootstrap sample. The loop creates 10 bootstrap samples and captures the average of each sample. Notice that the <code>DPopulation</code> is used to sample <em>with replacement</em> a sample of size 10. It is important that the sample size, 10, be the same as the size of the original sample because our confidence statements are about the original sample (with size 10). Given the bootstrap averages are captured in a list, <code>bootStrapAverages,</code> we can then use the percentile method to get the lower and upper limits for the confidence interval based on the bootstrap reference distribution.</p>
 <pre><code>BootStrap Samples:
 sample_1  = (0.0, 1.0, 1.0, 7.0, 1.0, 1.0, 1.0, 0.0, 1.0, 1.0) with average = 1.4
@@ -660,24 +673,24 @@ Bootstrap sample averages
 Percentile based 90% ci = [1.4, 4.3]</code></pre>
 <p>The results show 10 bootstrap samples. Notice that due to sampling with replacement, we can have values in the bootstrap samples that repeat and that it is clearly possible that some observations within the original sample, do not appear in the bootstrap samples. It is important to note that this bootstrap confidence interval is for our original estimate, <span class="math inline">\(\bar{x} = \hat{\theta} = 3.5\bar{9}\)</span>. The bootstrap sample averages, <span class="math inline">\((1.4, 3.6, 3.4, 3.8, 2.5, 2.0, 4.3, 4.0, 3.7, 3.6)\)</span> represent the bootstrap estimate of the sampling distribution of <span class="math inline">\(\hat{\theta}^{*}_{b}\)</span>, <span class="math inline">\(F_{\hat{\theta}^{*}_{b}}(\cdot)\)</span>, which we are using as an approximation for the sampling distribution of <span class="math inline">\(\hat{\theta}\)</span>.</p>
 <p>The idea of repeatedly sampling from a given population has been implemented into a set of classes within the KSL that will perform the bootstrapping process and compute a variety of quantities (including confidence intervals) based on the bootstrap samples. Figure <a href="ch9BootStrapping.html#fig:BootstrapFig">8.1</a> presents the <code>BootstrapEstimateIfc</code> interface, the main implementation of this interface (<code>Bootstrap</code>), and a data class, <code>BootstrapEstimate,</code> that is useful when building approaches that require bootstrapping.</p>
-<div class="figure"><span style="display:block;" id="fig:BootstrapFig"></span>
-<img src="figures2/ch9/Bootstrap.png" alt="KSL Bootstrap Classes" width="80%" height="80%" />
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:BootstrapFig"></span>
+<img src="figures2/ch9/Bootstrap.png" alt="KSL Bootstrap Classes" width="90%" height="90%" />
 <p class="caption">
 Figure 8.1: KSL Bootstrap Classes
 </p>
 </div>
 <p>The <code>Bootstrap</code> class requires an array of doubles that represents the original data from which resampling will occur. While implementing the <code>BootstrapEstimateIfc</code> interface, the <code>Bootstrap</code> class also implements the <code>RNStreamControlIfc,</code> and <code>RNStreamChangeIfc</code> interfaces, which allow for the control of the underlying random numbers used within the sampling. It is useful to review the constructor of the <code>Bootstrap</code> class.</p>
-<div class="sourceCode" id="cb264"><pre class="sourceCode kt"><code class="sourceCode kotlin"><span id="cb264-1"><a href="ch9BootStrapping.html#cb264-1" tabindex="-1"></a><span class="kw">open</span> <span class="kw">class</span> Bootstrap<span class="op">(</span></span>
-<span id="cb264-2"><a href="ch9BootStrapping.html#cb264-2" tabindex="-1"></a>    <span class="va">originalData</span><span class="op">:</span> <span class="dt">DoubleArray</span><span class="op">,</span></span>
-<span id="cb264-3"><a href="ch9BootStrapping.html#cb264-3" tabindex="-1"></a>    <span class="kw">val</span> <span class="va">estimator</span><span class="op">:</span> <span class="dt">BSEstimatorIfc</span> <span class="op">=</span> BSEstimatorIfc<span class="op">.</span>Average<span class="op">(),</span></span>
-<span id="cb264-4"><a href="ch9BootStrapping.html#cb264-4" tabindex="-1"></a>    <span class="va">stream</span><span class="op">:</span> <span class="dt">RNStreamIfc</span> <span class="op">=</span> KSLRandom<span class="op">.</span>nextRNStream<span class="op">(),</span></span>
-<span id="cb264-5"><a href="ch9BootStrapping.html#cb264-5" tabindex="-1"></a>    <span class="va">name</span><span class="op">:</span> <span class="dt">String</span><span class="op">?</span> <span class="op">=</span> null</span>
-<span id="cb264-6"><a href="ch9BootStrapping.html#cb264-6" tabindex="-1"></a><span class="op">)</span> <span class="op">:</span> <span class="dt">IdentityIfc</span> <span class="kw">by</span> Identity<span class="op">(</span>name<span class="op">),</span> RNStreamControlIfc<span class="op">,</span> RNStreamChangeIfc<span class="op">,</span> BootstrapEstimateIfc</span></code></pre></div>
+<div class="sourceCode" id="cb279"><pre class="sourceCode kt"><code class="sourceCode kotlin"><span id="cb279-1"><a href="ch9BootStrapping.html#cb279-1" tabindex="-1"></a><span class="kw">open</span> <span class="kw">class</span> Bootstrap<span class="op">(</span></span>
+<span id="cb279-2"><a href="ch9BootStrapping.html#cb279-2" tabindex="-1"></a>    <span class="va">originalData</span><span class="op">:</span> <span class="dt">DoubleArray</span><span class="op">,</span></span>
+<span id="cb279-3"><a href="ch9BootStrapping.html#cb279-3" tabindex="-1"></a>    <span class="kw">val</span> <span class="va">estimator</span><span class="op">:</span> <span class="dt">BSEstimatorIfc</span> <span class="op">=</span> BSEstimatorIfc<span class="op">.</span>Average<span class="op">(),</span></span>
+<span id="cb279-4"><a href="ch9BootStrapping.html#cb279-4" tabindex="-1"></a>    <span class="va">stream</span><span class="op">:</span> <span class="dt">RNStreamIfc</span> <span class="op">=</span> KSLRandom<span class="op">.</span>nextRNStream<span class="op">(),</span></span>
+<span id="cb279-5"><a href="ch9BootStrapping.html#cb279-5" tabindex="-1"></a>    <span class="va">name</span><span class="op">:</span> <span class="dt">String</span><span class="op">?</span> <span class="op">=</span> null</span>
+<span id="cb279-6"><a href="ch9BootStrapping.html#cb279-6" tabindex="-1"></a><span class="op">)</span> <span class="op">:</span> <span class="dt">IdentityIfc</span> <span class="kw">by</span> Identity<span class="op">(</span>name<span class="op">),</span> RNStreamControlIfc<span class="op">,</span> RNStreamChangeIfc<span class="op">,</span> BootstrapEstimateIfc</span></code></pre></div>
 <p>As noted in the constructor, the class requires an array holding the original data, an instance of the <code>BSEstimatorIfc</code> interface, the stream for the random sampling and an optional name. The <code>BSEstimatorIfc</code> interface is a functional interface with an <code>estimate()</code> function. Thus, this implementation assumes that the estimate can be computed from a uni-variate array of data and produces a single estimated quantity. The KSL also supports multiple estimated quantities from a uni-variate array of data.</p>
 <p>As can be noted from the default parameter for the estimator, the <code>BSEstimatorIfc</code> interface provides some basic statistical estimators (average, variance, median, minimum, maximum). Of course, the user should be able to implement others as needed.</p>
-<div class="sourceCode" id="cb265"><pre class="sourceCode kt"><code class="sourceCode kotlin"><span id="cb265-1"><a href="ch9BootStrapping.html#cb265-1" tabindex="-1"></a><span class="kw">fun</span> <span class="kw">interface</span> <span class="fu">BSEstimatorIfc</span> <span class="op">{</span></span>
-<span id="cb265-2"><a href="ch9BootStrapping.html#cb265-2" tabindex="-1"></a>    <span class="kw">fun</span> <span class="fu">estimate</span><span class="op">(</span><span class="kw">data</span><span class="op">:</span> <span class="dt">DoubleArray</span><span class="op">):</span> <span class="dt">Double</span></span>
-<span id="cb265-3"><a href="ch9BootStrapping.html#cb265-3" tabindex="-1"></a>}</span></code></pre></div>
+<div class="sourceCode" id="cb280"><pre class="sourceCode kt"><code class="sourceCode kotlin"><span id="cb280-1"><a href="ch9BootStrapping.html#cb280-1" tabindex="-1"></a><span class="kw">fun</span> <span class="kw">interface</span> <span class="fu">BSEstimatorIfc</span> <span class="op">{</span></span>
+<span id="cb280-2"><a href="ch9BootStrapping.html#cb280-2" tabindex="-1"></a>    <span class="kw">fun</span> <span class="fu">estimate</span><span class="op">(</span><span class="kw">data</span><span class="op">:</span> <span class="dt">DoubleArray</span><span class="op">):</span> <span class="dt">Double</span></span>
+<span id="cb280-3"><a href="ch9BootStrapping.html#cb280-3" tabindex="-1"></a>}</span></code></pre></div>
 <p>According to Figure <a href="ch9BootStrapping.html#fig:BootstrapFig">8.1</a>, the <code>Bootstrap</code> class also will compute the following:</p>
 <ul>
 <li>the bootstrap replicates, <span class="math inline">\(\hat{\theta}^{*}_{b}\)</span></li>
@@ -693,54 +706,57 @@ Figure 8.1: KSL Bootstrap Classes
 <li>bootstrap-t confidence interval</li>
 </ul>
 <p>Once constructing an instance of the <code>Bootstrap</code> class is complete, you can call the <code>generateSamples()</code> function. The following code shows the <code>generateSamples()</code> function. The function requires the number of bootstrap samples to generate, and optionally, you can have the bootstrap samples saved, and indicate if the bootstrap-t samples are required.</p>
-<div class="sourceCode" id="cb266"><pre class="sourceCode kt"><code class="sourceCode kotlin"><span id="cb266-1"><a href="ch9BootStrapping.html#cb266-1" tabindex="-1"></a>    <span class="kw">fun</span> <span class="fu">generateSamples</span><span class="op">(</span><span class="va">numBootstrapSamples</span><span class="op">:</span> <span class="dt">Int</span><span class="op">,</span> <span class="va">saveBootstrapSamples</span><span class="op">:</span> <span class="dt">Boolean</span> <span class="op">=</span> false<span class="op">,</span></span>
-<span id="cb266-2"><a href="ch9BootStrapping.html#cb266-2" tabindex="-1"></a>        <span class="va">numBootstrapTSamples</span><span class="op">:</span> <span class="dt">Int</span> <span class="op">=</span> <span class="dv">0</span></span>
-<span id="cb266-3"><a href="ch9BootStrapping.html#cb266-3" tabindex="-1"></a>    <span class="op">)</span> <span class="op">{</span></span>
-<span id="cb266-4"><a href="ch9BootStrapping.html#cb266-4" tabindex="-1"></a>        require<span class="op">(</span>numBootstrapSamples <span class="op">&gt;</span> <span class="dv">1</span><span class="op">)</span> <span class="op">{</span> <span class="st">&quot;The number of bootstrap samples must be greater than 1&quot;</span> <span class="op">}</span></span>
-<span id="cb266-5"><a href="ch9BootStrapping.html#cb266-5" tabindex="-1"></a>        <span class="cf">if</span> <span class="op">(</span>numBootstrapTSamples <span class="op">&gt;</span> <span class="dv">0</span><span class="op">)</span> <span class="op">{</span></span>
-<span id="cb266-6"><a href="ch9BootStrapping.html#cb266-6" tabindex="-1"></a>            require<span class="op">(</span>numBootstrapTSamples <span class="op">&gt;</span> <span class="dv">1</span><span class="op">)</span> <span class="op">{</span> <span class="st">&quot;The number of bootstrap-t samples must be greater than 1&quot;</span> <span class="op">}</span></span>
-<span id="cb266-7"><a href="ch9BootStrapping.html#cb266-7" tabindex="-1"></a>        <span class="op">}</span></span>
-<span id="cb266-8"><a href="ch9BootStrapping.html#cb266-8" tabindex="-1"></a>        <span class="kw">this</span><span class="op">.</span>numBootstrapSamples <span class="op">=</span> numBootstrapSamples</span>
-<span id="cb266-9"><a href="ch9BootStrapping.html#cb266-9" tabindex="-1"></a>        myAcrossBSStat<span class="op">.</span>reset<span class="op">()</span></span>
-<span id="cb266-10"><a href="ch9BootStrapping.html#cb266-10" tabindex="-1"></a>        myBSEstimates<span class="op">.</span>clearData<span class="op">()</span></span>
-<span id="cb266-11"><a href="ch9BootStrapping.html#cb266-11" tabindex="-1"></a>        myStudentizedTValues<span class="op">.</span>clearData<span class="op">()</span></span>
-<span id="cb266-12"><a href="ch9BootStrapping.html#cb266-12" tabindex="-1"></a>        <span class="cf">for</span> <span class="op">(</span>s <span class="kw">in</span> myBSArrayList<span class="op">)</span> <span class="op">{</span></span>
-<span id="cb266-13"><a href="ch9BootStrapping.html#cb266-13" tabindex="-1"></a>            s<span class="op">.</span>clearData<span class="op">()</span></span>
-<span id="cb266-14"><a href="ch9BootStrapping.html#cb266-14" tabindex="-1"></a>        <span class="op">}</span></span>
-<span id="cb266-15"><a href="ch9BootStrapping.html#cb266-15" tabindex="-1"></a>        myBSArrayList<span class="op">.</span>clear<span class="op">()</span></span>
-<span id="cb266-16"><a href="ch9BootStrapping.html#cb266-16" tabindex="-1"></a>        originalDataEstimate <span class="op">=</span> estimator<span class="op">.</span>estimate<span class="op">(</span>myOriginalData<span class="op">)</span></span>
-<span id="cb266-17"><a href="ch9BootStrapping.html#cb266-17" tabindex="-1"></a>        <span class="cf">for</span> <span class="op">(</span>i <span class="kw">in</span> <span class="dv">0</span> until numBootstrapSamples<span class="op">)</span> <span class="op">{</span></span>
-<span id="cb266-18"><a href="ch9BootStrapping.html#cb266-18" tabindex="-1"></a>            <span class="kw">val</span> <span class="va">sample</span><span class="op">:</span> DoubleArray <span class="op">=</span> myOriginalPop<span class="op">.</span>sample<span class="op">(</span>myOriginalPop<span class="op">.</span>size<span class="op">())</span></span>
-<span id="cb266-19"><a href="ch9BootStrapping.html#cb266-19" tabindex="-1"></a>            <span class="kw">val</span> <span class="va">x</span> <span class="op">=</span> estimator<span class="op">.</span>estimate<span class="op">(</span>sample<span class="op">)</span></span>
-<span id="cb266-20"><a href="ch9BootStrapping.html#cb266-20" tabindex="-1"></a>            myAcrossBSStat<span class="op">.</span>collect<span class="op">(</span>x<span class="op">)</span></span>
-<span id="cb266-21"><a href="ch9BootStrapping.html#cb266-21" tabindex="-1"></a>            myBSEstimates<span class="op">.</span>save<span class="op">(</span>x<span class="op">)</span></span>
-<span id="cb266-22"><a href="ch9BootStrapping.html#cb266-22" tabindex="-1"></a>            <span class="cf">if</span> <span class="op">(</span>saveBootstrapSamples<span class="op">)</span> <span class="op">{</span></span>
-<span id="cb266-23"><a href="ch9BootStrapping.html#cb266-23" tabindex="-1"></a>                <span class="kw">val</span> <span class="va">das</span> <span class="op">=</span> DoubleArraySaver<span class="op">()</span></span>
-<span id="cb266-24"><a href="ch9BootStrapping.html#cb266-24" tabindex="-1"></a>                das<span class="op">.</span>save<span class="op">(</span>sample<span class="op">)</span></span>
-<span id="cb266-25"><a href="ch9BootStrapping.html#cb266-25" tabindex="-1"></a>                myBSArrayList<span class="op">.</span>add<span class="op">(</span>das<span class="op">)</span></span>
-<span id="cb266-26"><a href="ch9BootStrapping.html#cb266-26" tabindex="-1"></a>            <span class="op">}</span></span>
-<span id="cb266-27"><a href="ch9BootStrapping.html#cb266-27" tabindex="-1"></a>            <span class="cf">if</span> <span class="op">(</span>numBootstrapTSamples <span class="op">&gt;</span> <span class="dv">1</span><span class="op">)</span> <span class="op">{</span></span>
-<span id="cb266-28"><a href="ch9BootStrapping.html#cb266-28" tabindex="-1"></a>                bootstrapTSampling<span class="op">(</span>numBootstrapTSamples<span class="op">,</span> x<span class="op">,</span> sample<span class="op">)</span></span>
-<span id="cb266-29"><a href="ch9BootStrapping.html#cb266-29" tabindex="-1"></a>            <span class="op">}</span></span>
-<span id="cb266-30"><a href="ch9BootStrapping.html#cb266-30" tabindex="-1"></a>            innerBoot<span class="op">(</span>x<span class="op">,</span> sample<span class="op">)</span></span>
-<span id="cb266-31"><a href="ch9BootStrapping.html#cb266-31" tabindex="-1"></a>        <span class="op">}</span></span>
-<span id="cb266-32"><a href="ch9BootStrapping.html#cb266-32" tabindex="-1"></a>    <span class="op">}</span></span></code></pre></div>
-<p>This code is rather straightforward, having a loop to implement the sampling. In essence, it is not much different conceptually than the previously code using the <code>DPopulation</code> class. To setup and run bootstrapping for the book example, we have the following code:</p>
-<div class="sourceCode" id="cb267"><pre class="sourceCode kt"><code class="sourceCode kotlin"><span id="cb267-1"><a href="ch9BootStrapping.html#cb267-1" tabindex="-1"></a>    <span class="co">// make a population for illustrating bootstrapping</span></span>
-<span id="cb267-2"><a href="ch9BootStrapping.html#cb267-2" tabindex="-1"></a>    <span class="kw">val</span> <span class="va">mainSample</span> <span class="op">=</span> doubleArrayOf<span class="op">(</span><span class="fl">6.0</span><span class="op">,</span> <span class="fl">7.0</span><span class="op">,</span> <span class="fl">5.0</span><span class="op">,</span> <span class="fl">1.0</span><span class="op">,</span> <span class="fl">0.0</span><span class="op">,</span> <span class="fl">4.0</span><span class="op">,</span> <span class="fl">6.0</span><span class="op">,</span> <span class="fl">0.0</span><span class="op">,</span> <span class="fl">6.0</span><span class="op">,</span> <span class="fl">1.0</span><span class="op">)</span></span>
-<span id="cb267-3"><a href="ch9BootStrapping.html#cb267-3" tabindex="-1"></a>    println<span class="op">(</span><span class="st">&quot;Sample of size 10 from original population&quot;</span><span class="op">)</span></span>
-<span id="cb267-4"><a href="ch9BootStrapping.html#cb267-4" tabindex="-1"></a>    println<span class="op">(</span>mainSample<span class="op">.</span>joinToString<span class="op">())</span></span>
-<span id="cb267-5"><a href="ch9BootStrapping.html#cb267-5" tabindex="-1"></a>    println<span class="op">()</span></span>
-<span id="cb267-6"><a href="ch9BootStrapping.html#cb267-6" tabindex="-1"></a>    <span class="co">// compute statistics on main sample</span></span>
-<span id="cb267-7"><a href="ch9BootStrapping.html#cb267-7" tabindex="-1"></a>    <span class="kw">val</span> <span class="va">mainSampleStats</span> <span class="op">=</span> Statistic<span class="op">(</span>mainSample<span class="op">)</span></span>
-<span id="cb267-8"><a href="ch9BootStrapping.html#cb267-8" tabindex="-1"></a>    println<span class="op">(</span><span class="st">&quot;Main Sample&quot;</span><span class="op">)</span></span>
-<span id="cb267-9"><a href="ch9BootStrapping.html#cb267-9" tabindex="-1"></a>    println<span class="op">(</span><span class="st">&quot;average = </span><span class="ss">${</span>mainSampleStats<span class="op">.</span>average<span class="ss">}</span><span class="st">&quot;</span><span class="op">)</span></span>
-<span id="cb267-10"><a href="ch9BootStrapping.html#cb267-10" tabindex="-1"></a>    println<span class="op">(</span><span class="st">&quot;90% CI = </span><span class="ss">${</span>mainSampleStats<span class="op">.</span>confidenceInterval<span class="op">(</span><span class="fl">.90</span><span class="op">)</span><span class="ss">}</span><span class="st">&quot;</span><span class="op">)</span></span>
-<span id="cb267-11"><a href="ch9BootStrapping.html#cb267-11" tabindex="-1"></a>    println<span class="op">()</span></span>
-<span id="cb267-12"><a href="ch9BootStrapping.html#cb267-12" tabindex="-1"></a>    <span class="co">// now to the bootstrapping</span></span>
-<span id="cb267-13"><a href="ch9BootStrapping.html#cb267-13" tabindex="-1"></a>    <span class="kw">val</span> <span class="va">bs</span> <span class="op">=</span> Bootstrap<span class="op">(</span>mainSample<span class="op">,</span> estimator <span class="op">=</span> BSEstimatorIfc<span class="op">.</span>Average<span class="op">(),</span> KSLRandom<span class="op">.</span>rnStream<span class="op">(</span><span class="dv">3</span><span class="op">))</span></span>
-<span id="cb267-14"><a href="ch9BootStrapping.html#cb267-14" tabindex="-1"></a>    bs<span class="op">.</span>generateSamples<span class="op">(</span><span class="dv">400</span><span class="op">,</span> numBootstrapTSamples <span class="op">=</span> <span class="dv">399</span><span class="op">)</span></span>
-<span id="cb267-15"><a href="ch9BootStrapping.html#cb267-15" tabindex="-1"></a>    println<span class="op">(</span>bs<span class="op">)</span></span></code></pre></div>
+<div class="sourceCode" id="cb281"><pre class="sourceCode kt"><code class="sourceCode kotlin"><span id="cb281-1"><a href="ch9BootStrapping.html#cb281-1" tabindex="-1"></a>    <span class="kw">fun</span> <span class="fu">generateSamples</span><span class="op">(</span><span class="va">numBootstrapSamples</span><span class="op">:</span> <span class="dt">Int</span><span class="op">,</span> <span class="va">saveBootstrapSamples</span><span class="op">:</span> <span class="dt">Boolean</span> <span class="op">=</span> false<span class="op">,</span></span>
+<span id="cb281-2"><a href="ch9BootStrapping.html#cb281-2" tabindex="-1"></a>        <span class="va">numBootstrapTSamples</span><span class="op">:</span> <span class="dt">Int</span> <span class="op">=</span> <span class="dv">0</span></span>
+<span id="cb281-3"><a href="ch9BootStrapping.html#cb281-3" tabindex="-1"></a>    <span class="op">)</span> <span class="op">{</span></span>
+<span id="cb281-4"><a href="ch9BootStrapping.html#cb281-4" tabindex="-1"></a>        require<span class="op">(</span>numBootstrapSamples <span class="op">&gt;</span> <span class="dv">1</span><span class="op">)</span> <span class="op">{</span> <span class="st">&quot;The number of bootstrap samples must be greater than 1&quot;</span> <span class="op">}</span></span>
+<span id="cb281-5"><a href="ch9BootStrapping.html#cb281-5" tabindex="-1"></a>        <span class="cf">if</span> <span class="op">(</span>numBootstrapTSamples <span class="op">&gt;</span> <span class="dv">0</span><span class="op">)</span> <span class="op">{</span></span>
+<span id="cb281-6"><a href="ch9BootStrapping.html#cb281-6" tabindex="-1"></a>            require<span class="op">(</span>numBootstrapTSamples <span class="op">&gt;</span> <span class="dv">1</span><span class="op">)</span> <span class="op">{</span> <span class="st">&quot;The number of bootstrap-t samples must be greater than 1&quot;</span> <span class="op">}</span></span>
+<span id="cb281-7"><a href="ch9BootStrapping.html#cb281-7" tabindex="-1"></a>        <span class="op">}</span></span>
+<span id="cb281-8"><a href="ch9BootStrapping.html#cb281-8" tabindex="-1"></a>        <span class="kw">this</span><span class="op">.</span>numBootstrapSamples <span class="op">=</span> numBootstrapSamples</span>
+<span id="cb281-9"><a href="ch9BootStrapping.html#cb281-9" tabindex="-1"></a>        myAcrossBSStat<span class="op">.</span>reset<span class="op">()</span></span>
+<span id="cb281-10"><a href="ch9BootStrapping.html#cb281-10" tabindex="-1"></a>        myBSEstimates<span class="op">.</span>clearData<span class="op">()</span></span>
+<span id="cb281-11"><a href="ch9BootStrapping.html#cb281-11" tabindex="-1"></a>        myStudentizedTValues<span class="op">.</span>clearData<span class="op">()</span></span>
+<span id="cb281-12"><a href="ch9BootStrapping.html#cb281-12" tabindex="-1"></a>        <span class="cf">for</span> <span class="op">(</span>s <span class="kw">in</span> myBSArrayList<span class="op">)</span> <span class="op">{</span></span>
+<span id="cb281-13"><a href="ch9BootStrapping.html#cb281-13" tabindex="-1"></a>            s<span class="op">.</span>clearData<span class="op">()</span></span>
+<span id="cb281-14"><a href="ch9BootStrapping.html#cb281-14" tabindex="-1"></a>        <span class="op">}</span></span>
+<span id="cb281-15"><a href="ch9BootStrapping.html#cb281-15" tabindex="-1"></a>        myBSArrayList<span class="op">.</span>clear<span class="op">()</span></span>
+<span id="cb281-16"><a href="ch9BootStrapping.html#cb281-16" tabindex="-1"></a>        originalDataEstimate <span class="op">=</span> estimator<span class="op">.</span>estimate<span class="op">(</span>myOriginalData<span class="op">)</span></span>
+<span id="cb281-17"><a href="ch9BootStrapping.html#cb281-17" tabindex="-1"></a>        <span class="cf">for</span> <span class="op">(</span>i <span class="kw">in</span> <span class="dv">0</span> until numBootstrapSamples<span class="op">)</span> <span class="op">{</span></span>
+<span id="cb281-18"><a href="ch9BootStrapping.html#cb281-18" tabindex="-1"></a>            <span class="kw">val</span> <span class="va">sample</span><span class="op">:</span> DoubleArray <span class="op">=</span> myOriginalPop<span class="op">.</span>sample<span class="op">(</span>myOriginalPop<span class="op">.</span>size<span class="op">())</span></span>
+<span id="cb281-19"><a href="ch9BootStrapping.html#cb281-19" tabindex="-1"></a>            <span class="kw">val</span> <span class="va">x</span> <span class="op">=</span> estimator<span class="op">.</span>estimate<span class="op">(</span>sample<span class="op">)</span></span>
+<span id="cb281-20"><a href="ch9BootStrapping.html#cb281-20" tabindex="-1"></a>            myAcrossBSStat<span class="op">.</span>collect<span class="op">(</span>x<span class="op">)</span></span>
+<span id="cb281-21"><a href="ch9BootStrapping.html#cb281-21" tabindex="-1"></a>            myBSEstimates<span class="op">.</span>save<span class="op">(</span>x<span class="op">)</span></span>
+<span id="cb281-22"><a href="ch9BootStrapping.html#cb281-22" tabindex="-1"></a>            <span class="cf">if</span> <span class="op">(</span>saveBootstrapSamples<span class="op">)</span> <span class="op">{</span></span>
+<span id="cb281-23"><a href="ch9BootStrapping.html#cb281-23" tabindex="-1"></a>                <span class="kw">val</span> <span class="va">das</span> <span class="op">=</span> DoubleArraySaver<span class="op">()</span></span>
+<span id="cb281-24"><a href="ch9BootStrapping.html#cb281-24" tabindex="-1"></a>                das<span class="op">.</span>save<span class="op">(</span>sample<span class="op">)</span></span>
+<span id="cb281-25"><a href="ch9BootStrapping.html#cb281-25" tabindex="-1"></a>                myBSArrayList<span class="op">.</span>add<span class="op">(</span>das<span class="op">)</span></span>
+<span id="cb281-26"><a href="ch9BootStrapping.html#cb281-26" tabindex="-1"></a>            <span class="op">}</span></span>
+<span id="cb281-27"><a href="ch9BootStrapping.html#cb281-27" tabindex="-1"></a>            <span class="cf">if</span> <span class="op">(</span>numBootstrapTSamples <span class="op">&gt;</span> <span class="dv">1</span><span class="op">)</span> <span class="op">{</span></span>
+<span id="cb281-28"><a href="ch9BootStrapping.html#cb281-28" tabindex="-1"></a>                bootstrapTSampling<span class="op">(</span>numBootstrapTSamples<span class="op">,</span> x<span class="op">,</span> sample<span class="op">)</span></span>
+<span id="cb281-29"><a href="ch9BootStrapping.html#cb281-29" tabindex="-1"></a>            <span class="op">}</span></span>
+<span id="cb281-30"><a href="ch9BootStrapping.html#cb281-30" tabindex="-1"></a>            innerBoot<span class="op">(</span>x<span class="op">,</span> sample<span class="op">)</span></span>
+<span id="cb281-31"><a href="ch9BootStrapping.html#cb281-31" tabindex="-1"></a>        <span class="op">}</span></span>
+<span id="cb281-32"><a href="ch9BootStrapping.html#cb281-32" tabindex="-1"></a>    <span class="op">}</span></span></code></pre></div>
+<p>This code is rather straightforward, having a loop to implement the sampling. In essence, it is not much different conceptually than the previously code using the <code>DPopulation</code> class.</p>
+<div class="example">
+<p><span id="exm:exBS2" class="example"><strong>Example 8.2  (Bootstraping Example 2) </strong></span>To setup and run bootstrapping using the <code>Bootstrap</code> class, we have the following code:</p>
+<div class="sourceCode" id="cb282"><pre class="sourceCode kt"><code class="sourceCode kotlin"><span id="cb282-1"><a href="ch9BootStrapping.html#cb282-1" tabindex="-1"></a>    <span class="co">// make a population for illustrating bootstrapping</span></span>
+<span id="cb282-2"><a href="ch9BootStrapping.html#cb282-2" tabindex="-1"></a>    <span class="kw">val</span> <span class="va">mainSample</span> <span class="op">=</span> doubleArrayOf<span class="op">(</span><span class="fl">6.0</span><span class="op">,</span> <span class="fl">7.0</span><span class="op">,</span> <span class="fl">5.0</span><span class="op">,</span> <span class="fl">1.0</span><span class="op">,</span> <span class="fl">0.0</span><span class="op">,</span> <span class="fl">4.0</span><span class="op">,</span> <span class="fl">6.0</span><span class="op">,</span> <span class="fl">0.0</span><span class="op">,</span> <span class="fl">6.0</span><span class="op">,</span> <span class="fl">1.0</span><span class="op">)</span></span>
+<span id="cb282-3"><a href="ch9BootStrapping.html#cb282-3" tabindex="-1"></a>    println<span class="op">(</span><span class="st">&quot;Sample of size 10 from original population&quot;</span><span class="op">)</span></span>
+<span id="cb282-4"><a href="ch9BootStrapping.html#cb282-4" tabindex="-1"></a>    println<span class="op">(</span>mainSample<span class="op">.</span>joinToString<span class="op">())</span></span>
+<span id="cb282-5"><a href="ch9BootStrapping.html#cb282-5" tabindex="-1"></a>    println<span class="op">()</span></span>
+<span id="cb282-6"><a href="ch9BootStrapping.html#cb282-6" tabindex="-1"></a>    <span class="co">// compute statistics on main sample</span></span>
+<span id="cb282-7"><a href="ch9BootStrapping.html#cb282-7" tabindex="-1"></a>    <span class="kw">val</span> <span class="va">mainSampleStats</span> <span class="op">=</span> Statistic<span class="op">(</span>mainSample<span class="op">)</span></span>
+<span id="cb282-8"><a href="ch9BootStrapping.html#cb282-8" tabindex="-1"></a>    println<span class="op">(</span><span class="st">&quot;Main Sample&quot;</span><span class="op">)</span></span>
+<span id="cb282-9"><a href="ch9BootStrapping.html#cb282-9" tabindex="-1"></a>    println<span class="op">(</span><span class="st">&quot;average = </span><span class="ss">${</span>mainSampleStats<span class="op">.</span>average<span class="ss">}</span><span class="st">&quot;</span><span class="op">)</span></span>
+<span id="cb282-10"><a href="ch9BootStrapping.html#cb282-10" tabindex="-1"></a>    println<span class="op">(</span><span class="st">&quot;90% CI = </span><span class="ss">${</span>mainSampleStats<span class="op">.</span>confidenceInterval<span class="op">(</span><span class="fl">.90</span><span class="op">)</span><span class="ss">}</span><span class="st">&quot;</span><span class="op">)</span></span>
+<span id="cb282-11"><a href="ch9BootStrapping.html#cb282-11" tabindex="-1"></a>    println<span class="op">()</span></span>
+<span id="cb282-12"><a href="ch9BootStrapping.html#cb282-12" tabindex="-1"></a>    <span class="co">// now to the bootstrapping</span></span>
+<span id="cb282-13"><a href="ch9BootStrapping.html#cb282-13" tabindex="-1"></a>    <span class="kw">val</span> <span class="va">bs</span> <span class="op">=</span> Bootstrap<span class="op">(</span>mainSample<span class="op">,</span> estimator <span class="op">=</span> BSEstimatorIfc<span class="op">.</span>Average<span class="op">(),</span> KSLRandom<span class="op">.</span>rnStream<span class="op">(</span><span class="dv">3</span><span class="op">))</span></span>
+<span id="cb282-14"><a href="ch9BootStrapping.html#cb282-14" tabindex="-1"></a>    bs<span class="op">.</span>generateSamples<span class="op">(</span><span class="dv">400</span><span class="op">,</span> numBootstrapTSamples <span class="op">=</span> <span class="dv">399</span><span class="op">)</span></span>
+<span id="cb282-15"><a href="ch9BootStrapping.html#cb282-15" tabindex="-1"></a>    println<span class="op">(</span>bs<span class="op">)</span></span></code></pre></div>
+</div>
 <p>Running this code results in the following:</p>
 <pre><code>Sample of size 10 from original population
 6.0, 7.0, 5.0, 1.0, 0.0, 4.0, 6.0, 0.0, 6.0, 1.0
@@ -769,69 +785,71 @@ bootstrap-t c.i. = [1.9000000000000001, 5.062949171806798]
 ------------------------------------------------------</code></pre>
 <p>In these results, it just happens that the BCa and bootstrap-t result in the same intervals. The main question that comes up when bootstrapping is what value should be used for the number of bootstrap samples, <span class="math inline">\(B\)</span>. <span class="citation">(<a href="#ref-efron-tibshirani">B. Efron and Tibshirani 1994</a>)</span> provide some guidance indicating a range at least starting in the hundreds. There has been some work that suggests the the quality of the process is a function of <span class="math inline">\(n\)</span>, the size of the original sample. The work suggests that larger <span class="math inline">\(n\)</span> requires larger <span class="math inline">\(B\)</span>. The relationship <span class="math inline">\(B \approx 40n\)</span> has been suggested.</p>
 <p>As previously mentioned, the KSL also supports the estimation of multiple quantities from the sample. This functionality is used extensively within the distribution modeling functionality of the KSL to provide confidence intervals on the parameters of distributions. Figure <a href="ch9BootStrapping.html#fig:MVBootstrapFig">8.2</a> presents the <code>BootstrapSampler</code> class, which will compute multiple estimators on a sample using the <code>MVBSEstimatorIfc</code> interface.</p>
-<div class="figure"><span style="display:block;" id="fig:MVBootstrapFig"></span>
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:MVBootstrapFig"></span>
 <img src="figures2/ch9/BootstrapSampler.png" alt="KSL BootstrapSampler Classes" width="80%" height="80%" />
 <p class="caption">
 Figure 8.2: KSL BootstrapSampler Classes
 </p>
 </div>
 <p>As shown in the following code, the <code>MVBSEstimatorIfc</code> interface defines a function that takes in a sample and returns many estimated quantities.</p>
-<div class="sourceCode" id="cb269"><pre class="sourceCode kt"><code class="sourceCode kotlin"><span id="cb269-1"><a href="ch9BootStrapping.html#cb269-1" tabindex="-1"></a><span class="co">/**</span></span>
-<span id="cb269-2"><a href="ch9BootStrapping.html#cb269-2" tabindex="-1"></a><span class="co"> *  Given some data, produce multiple estimated statistics</span></span>
-<span id="cb269-3"><a href="ch9BootStrapping.html#cb269-3" tabindex="-1"></a><span class="co"> *  from the data and store the estimated quantities in</span></span>
-<span id="cb269-4"><a href="ch9BootStrapping.html#cb269-4" tabindex="-1"></a><span class="co"> *  the returned array. It is up to the user to interpret</span></span>
-<span id="cb269-5"><a href="ch9BootStrapping.html#cb269-5" tabindex="-1"></a><span class="co"> *  the array values appropriately.</span></span>
-<span id="cb269-6"><a href="ch9BootStrapping.html#cb269-6" tabindex="-1"></a><span class="co"> */</span></span>
-<span id="cb269-7"><a href="ch9BootStrapping.html#cb269-7" tabindex="-1"></a><span class="kw">interface</span> MVBSEstimatorIfc <span class="op">{</span></span>
-<span id="cb269-8"><a href="ch9BootStrapping.html#cb269-8" tabindex="-1"></a>    <span class="co">/**</span></span>
-<span id="cb269-9"><a href="ch9BootStrapping.html#cb269-9" tabindex="-1"></a><span class="co">     * The name to associate with each dimension of the</span></span>
-<span id="cb269-10"><a href="ch9BootStrapping.html#cb269-10" tabindex="-1"></a><span class="co">     * array that is returned by estimate(). The names</span></span>
-<span id="cb269-11"><a href="ch9BootStrapping.html#cb269-11" tabindex="-1"></a><span class="co">     * should be unique. The order of the list of names should</span></span>
-<span id="cb269-12"><a href="ch9BootStrapping.html#cb269-12" tabindex="-1"></a><span class="co">     * match the order of elements in the returned array.</span></span>
-<span id="cb269-13"><a href="ch9BootStrapping.html#cb269-13" tabindex="-1"></a><span class="co">     */</span></span>
-<span id="cb269-14"><a href="ch9BootStrapping.html#cb269-14" tabindex="-1"></a>    <span class="kw">val</span> <span class="va">names</span><span class="op">:</span> List<span class="op">&lt;</span><span class="kw">String</span><span class="op">&gt;</span></span>
-<span id="cb269-15"><a href="ch9BootStrapping.html#cb269-15" tabindex="-1"></a></span>
-<span id="cb269-16"><a href="ch9BootStrapping.html#cb269-16" tabindex="-1"></a>    <span class="kw">fun</span> <span class="fu">estimate</span><span class="op">(</span><span class="kw">data</span><span class="op">:</span> <span class="dt">DoubleArray</span><span class="op">):</span> <span class="dt">DoubleArray</span></span>
-<span id="cb269-17"><a href="ch9BootStrapping.html#cb269-17" tabindex="-1"></a>}</span></code></pre></div>
-<p>The following code illustrates the use of the <code>BootstrapSampler</code> class.</p>
-<div class="sourceCode" id="cb270"><pre class="sourceCode kt"><code class="sourceCode kotlin"><span id="cb270-1"><a href="ch9BootStrapping.html#cb270-1" tabindex="-1"></a><span class="kw">val</span> <span class="va">ed</span> <span class="op">=</span> ExponentialRV<span class="op">(</span><span class="fl">10.0</span><span class="op">)</span></span>
-<span id="cb270-2"><a href="ch9BootStrapping.html#cb270-2" tabindex="-1"></a><span class="kw">val</span> <span class="va">data</span> <span class="op">=</span> ed<span class="op">.</span>sample<span class="op">(</span><span class="dv">50</span><span class="op">)</span></span>
-<span id="cb270-3"><a href="ch9BootStrapping.html#cb270-3" tabindex="-1"></a><span class="kw">val</span> <span class="va">stat</span> <span class="op">=</span> Statistic<span class="op">(</span><span class="kw">data</span><span class="op">)</span></span>
-<span id="cb270-4"><a href="ch9BootStrapping.html#cb270-4" tabindex="-1"></a>println<span class="op">(</span>stat<span class="op">)</span></span>
-<span id="cb270-5"><a href="ch9BootStrapping.html#cb270-5" tabindex="-1"></a>println<span class="op">()</span></span>
-<span id="cb270-6"><a href="ch9BootStrapping.html#cb270-6" tabindex="-1"></a><span class="kw">val</span> <span class="va">bss</span> <span class="op">=</span> BootstrapSampler<span class="op">(</span><span class="kw">data</span><span class="op">,</span> BasicStatistics<span class="op">())</span></span>
-<span id="cb270-7"><a href="ch9BootStrapping.html#cb270-7" tabindex="-1"></a><span class="kw">val</span> <span class="va">estimates</span> <span class="op">=</span> bss<span class="op">.</span>bootStrapEstimates<span class="op">(</span><span class="dv">300</span><span class="op">)</span></span>
-<span id="cb270-8"><a href="ch9BootStrapping.html#cb270-8" tabindex="-1"></a><span class="cf">for</span><span class="op">(</span>e <span class="kw">in</span> estimates<span class="op">){</span></span>
-<span id="cb270-9"><a href="ch9BootStrapping.html#cb270-9" tabindex="-1"></a>  println<span class="op">(</span>e<span class="op">.</span>asString<span class="op">())</span></span>
-<span id="cb270-10"><a href="ch9BootStrapping.html#cb270-10" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
+<div class="sourceCode" id="cb284"><pre class="sourceCode kt"><code class="sourceCode kotlin"><span id="cb284-1"><a href="ch9BootStrapping.html#cb284-1" tabindex="-1"></a><span class="co">/**</span></span>
+<span id="cb284-2"><a href="ch9BootStrapping.html#cb284-2" tabindex="-1"></a><span class="co"> *  Given some data, produce multiple estimated statistics</span></span>
+<span id="cb284-3"><a href="ch9BootStrapping.html#cb284-3" tabindex="-1"></a><span class="co"> *  from the data and store the estimated quantities in</span></span>
+<span id="cb284-4"><a href="ch9BootStrapping.html#cb284-4" tabindex="-1"></a><span class="co"> *  the returned array. It is up to the user to interpret</span></span>
+<span id="cb284-5"><a href="ch9BootStrapping.html#cb284-5" tabindex="-1"></a><span class="co"> *  the array values appropriately.</span></span>
+<span id="cb284-6"><a href="ch9BootStrapping.html#cb284-6" tabindex="-1"></a><span class="co"> */</span></span>
+<span id="cb284-7"><a href="ch9BootStrapping.html#cb284-7" tabindex="-1"></a><span class="kw">interface</span> MVBSEstimatorIfc <span class="op">{</span></span>
+<span id="cb284-8"><a href="ch9BootStrapping.html#cb284-8" tabindex="-1"></a>    <span class="co">/**</span></span>
+<span id="cb284-9"><a href="ch9BootStrapping.html#cb284-9" tabindex="-1"></a><span class="co">     * The name to associate with each dimension of the</span></span>
+<span id="cb284-10"><a href="ch9BootStrapping.html#cb284-10" tabindex="-1"></a><span class="co">     * array that is returned by estimate(). The names</span></span>
+<span id="cb284-11"><a href="ch9BootStrapping.html#cb284-11" tabindex="-1"></a><span class="co">     * should be unique. The order of the list of names should</span></span>
+<span id="cb284-12"><a href="ch9BootStrapping.html#cb284-12" tabindex="-1"></a><span class="co">     * match the order of elements in the returned array.</span></span>
+<span id="cb284-13"><a href="ch9BootStrapping.html#cb284-13" tabindex="-1"></a><span class="co">     */</span></span>
+<span id="cb284-14"><a href="ch9BootStrapping.html#cb284-14" tabindex="-1"></a>    <span class="kw">val</span> <span class="va">names</span><span class="op">:</span> List<span class="op">&lt;</span><span class="kw">String</span><span class="op">&gt;</span></span>
+<span id="cb284-15"><a href="ch9BootStrapping.html#cb284-15" tabindex="-1"></a></span>
+<span id="cb284-16"><a href="ch9BootStrapping.html#cb284-16" tabindex="-1"></a>    <span class="kw">fun</span> <span class="fu">estimate</span><span class="op">(</span><span class="kw">data</span><span class="op">:</span> <span class="dt">DoubleArray</span><span class="op">):</span> <span class="dt">DoubleArray</span></span>
+<span id="cb284-17"><a href="ch9BootStrapping.html#cb284-17" tabindex="-1"></a>}</span></code></pre></div>
+<div class="example">
+<p><span id="exm:exBS3" class="example"><strong>Example 8.3  (Illustrating the BootstrapSampler Class) </strong></span>The following code illustrates the use of the <code>BootstrapSampler</code> class. This provides bootstrap estimates for basic statistics.</p>
+<div class="sourceCode" id="cb285"><pre class="sourceCode kt"><code class="sourceCode kotlin"><span id="cb285-1"><a href="ch9BootStrapping.html#cb285-1" tabindex="-1"></a><span class="kw">val</span> <span class="va">ed</span> <span class="op">=</span> ExponentialRV<span class="op">(</span><span class="fl">10.0</span><span class="op">)</span></span>
+<span id="cb285-2"><a href="ch9BootStrapping.html#cb285-2" tabindex="-1"></a><span class="kw">val</span> <span class="va">data</span> <span class="op">=</span> ed<span class="op">.</span>sample<span class="op">(</span><span class="dv">50</span><span class="op">)</span></span>
+<span id="cb285-3"><a href="ch9BootStrapping.html#cb285-3" tabindex="-1"></a><span class="kw">val</span> <span class="va">stat</span> <span class="op">=</span> Statistic<span class="op">(</span><span class="kw">data</span><span class="op">)</span></span>
+<span id="cb285-4"><a href="ch9BootStrapping.html#cb285-4" tabindex="-1"></a>println<span class="op">(</span>stat<span class="op">)</span></span>
+<span id="cb285-5"><a href="ch9BootStrapping.html#cb285-5" tabindex="-1"></a>println<span class="op">()</span></span>
+<span id="cb285-6"><a href="ch9BootStrapping.html#cb285-6" tabindex="-1"></a><span class="kw">val</span> <span class="va">bss</span> <span class="op">=</span> BootstrapSampler<span class="op">(</span><span class="kw">data</span><span class="op">,</span> BasicStatistics<span class="op">())</span></span>
+<span id="cb285-7"><a href="ch9BootStrapping.html#cb285-7" tabindex="-1"></a><span class="kw">val</span> <span class="va">estimates</span> <span class="op">=</span> bss<span class="op">.</span>bootStrapEstimates<span class="op">(</span><span class="dv">300</span><span class="op">)</span></span>
+<span id="cb285-8"><a href="ch9BootStrapping.html#cb285-8" tabindex="-1"></a><span class="cf">for</span><span class="op">(</span>e <span class="kw">in</span> estimates<span class="op">){</span></span>
+<span id="cb285-9"><a href="ch9BootStrapping.html#cb285-9" tabindex="-1"></a>  println<span class="op">(</span>e<span class="op">.</span>asString<span class="op">())</span></span>
+<span id="cb285-10"><a href="ch9BootStrapping.html#cb285-10" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
+</div>
 <p>This code samples from an exponential distribution to get the initial sample and then uses the <code>BootstrapSampler</code> class to provide bootstrap estimates for the basic statistics. The <code>BasicStatistics</code> class is just a simple implementation of the <code>MVBSEstimatorIfc</code> interface that computes the average, variance, minimum, maximum, skewness, kurtosis, lag-1 correlation, and lag-1 covariance.</p>
-<div class="sourceCode" id="cb271"><pre class="sourceCode kt"><code class="sourceCode kotlin"><span id="cb271-1"><a href="ch9BootStrapping.html#cb271-1" tabindex="-1"></a><span class="kw">class</span> BasicStatistics <span class="op">:</span> <span class="dt">MVBSEstimatorIfc</span><span class="op">{</span></span>
-<span id="cb271-2"><a href="ch9BootStrapping.html#cb271-2" tabindex="-1"></a></span>
-<span id="cb271-3"><a href="ch9BootStrapping.html#cb271-3" tabindex="-1"></a>    <span class="kw">private</span> <span class="kw">val</span> <span class="va">stat</span> <span class="op">=</span> Statistic<span class="op">()</span></span>
-<span id="cb271-4"><a href="ch9BootStrapping.html#cb271-4" tabindex="-1"></a></span>
-<span id="cb271-5"><a href="ch9BootStrapping.html#cb271-5" tabindex="-1"></a>    <span class="kw">override</span> <span class="kw">val</span> <span class="va">names</span><span class="op">:</span> List<span class="op">&lt;</span><span class="kw">String</span><span class="op">&gt;</span> <span class="op">=</span> listOf<span class="op">(</span></span>
-<span id="cb271-6"><a href="ch9BootStrapping.html#cb271-6" tabindex="-1"></a>        <span class="st">&quot;average&quot;</span><span class="op">,</span> <span class="st">&quot;variance&quot;</span><span class="op">,</span> <span class="st">&quot;min&quot;</span><span class="op">,</span> <span class="st">&quot;max&quot;</span><span class="op">,</span> <span class="st">&quot;skewness&quot;</span><span class="op">,</span> <span class="st">&quot;kurtosis&quot;</span><span class="op">,</span></span>
-<span id="cb271-7"><a href="ch9BootStrapping.html#cb271-7" tabindex="-1"></a>        <span class="st">&quot;lag1Correlation&quot;</span><span class="op">,</span> <span class="st">&quot;lag1Covariance&quot;</span><span class="op">)</span></span>
-<span id="cb271-8"><a href="ch9BootStrapping.html#cb271-8" tabindex="-1"></a></span>
-<span id="cb271-9"><a href="ch9BootStrapping.html#cb271-9" tabindex="-1"></a>    <span class="kw">override</span> <span class="kw">fun</span> <span class="fu">estimate</span><span class="op">(</span><span class="kw">data</span><span class="op">:</span> <span class="dt">DoubleArray</span><span class="op">):</span> <span class="dt">DoubleArray</span> <span class="op">{</span></span>
-<span id="cb271-10"><a href="ch9BootStrapping.html#cb271-10" tabindex="-1"></a>        stat<span class="op">.</span>reset<span class="op">()</span></span>
-<span id="cb271-11"><a href="ch9BootStrapping.html#cb271-11" tabindex="-1"></a>        stat<span class="op">.</span>collect<span class="op">(</span><span class="kw">data</span><span class="op">)</span></span>
-<span id="cb271-12"><a href="ch9BootStrapping.html#cb271-12" tabindex="-1"></a>        <span class="kw">val</span> <span class="va">array</span> <span class="op">=</span> DoubleArray<span class="op">(</span><span class="dv">8</span><span class="op">)</span></span>
-<span id="cb271-13"><a href="ch9BootStrapping.html#cb271-13" tabindex="-1"></a>        array<span class="op">[</span><span class="dv">0</span><span class="op">]</span> <span class="op">=</span> stat<span class="op">.</span>average</span>
-<span id="cb271-14"><a href="ch9BootStrapping.html#cb271-14" tabindex="-1"></a>        array<span class="op">[</span><span class="dv">1</span><span class="op">]</span> <span class="op">=</span> stat<span class="op">.</span>variance</span>
-<span id="cb271-15"><a href="ch9BootStrapping.html#cb271-15" tabindex="-1"></a>        array<span class="op">[</span><span class="dv">2</span><span class="op">]</span> <span class="op">=</span> stat<span class="op">.</span>min</span>
-<span id="cb271-16"><a href="ch9BootStrapping.html#cb271-16" tabindex="-1"></a>        array<span class="op">[</span><span class="dv">3</span><span class="op">]</span> <span class="op">=</span> stat<span class="op">.</span>max</span>
-<span id="cb271-17"><a href="ch9BootStrapping.html#cb271-17" tabindex="-1"></a>        array<span class="op">[</span><span class="dv">4</span><span class="op">]</span> <span class="op">=</span> stat<span class="op">.</span>skewness</span>
-<span id="cb271-18"><a href="ch9BootStrapping.html#cb271-18" tabindex="-1"></a>        array<span class="op">[</span><span class="dv">5</span><span class="op">]</span> <span class="op">=</span> stat<span class="op">.</span>kurtosis</span>
-<span id="cb271-19"><a href="ch9BootStrapping.html#cb271-19" tabindex="-1"></a>        array<span class="op">[</span><span class="dv">6</span><span class="op">]</span> <span class="op">=</span> stat<span class="op">.</span>lag1Correlation</span>
-<span id="cb271-20"><a href="ch9BootStrapping.html#cb271-20" tabindex="-1"></a>        array<span class="op">[</span><span class="dv">7</span><span class="op">]</span> <span class="op">=</span> stat<span class="op">.</span>lag1Covariance</span>
-<span id="cb271-21"><a href="ch9BootStrapping.html#cb271-21" tabindex="-1"></a>        <span class="kw">return</span> array</span>
-<span id="cb271-22"><a href="ch9BootStrapping.html#cb271-22" tabindex="-1"></a>    <span class="op">}</span></span>
-<span id="cb271-23"><a href="ch9BootStrapping.html#cb271-23" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
+<div class="sourceCode" id="cb286"><pre class="sourceCode kt"><code class="sourceCode kotlin"><span id="cb286-1"><a href="ch9BootStrapping.html#cb286-1" tabindex="-1"></a><span class="kw">class</span> BasicStatistics <span class="op">:</span> <span class="dt">MVBSEstimatorIfc</span><span class="op">{</span></span>
+<span id="cb286-2"><a href="ch9BootStrapping.html#cb286-2" tabindex="-1"></a></span>
+<span id="cb286-3"><a href="ch9BootStrapping.html#cb286-3" tabindex="-1"></a>    <span class="kw">private</span> <span class="kw">val</span> <span class="va">stat</span> <span class="op">=</span> Statistic<span class="op">()</span></span>
+<span id="cb286-4"><a href="ch9BootStrapping.html#cb286-4" tabindex="-1"></a></span>
+<span id="cb286-5"><a href="ch9BootStrapping.html#cb286-5" tabindex="-1"></a>    <span class="kw">override</span> <span class="kw">val</span> <span class="va">names</span><span class="op">:</span> List<span class="op">&lt;</span><span class="kw">String</span><span class="op">&gt;</span> <span class="op">=</span> listOf<span class="op">(</span></span>
+<span id="cb286-6"><a href="ch9BootStrapping.html#cb286-6" tabindex="-1"></a>        <span class="st">&quot;average&quot;</span><span class="op">,</span> <span class="st">&quot;variance&quot;</span><span class="op">,</span> <span class="st">&quot;min&quot;</span><span class="op">,</span> <span class="st">&quot;max&quot;</span><span class="op">,</span> <span class="st">&quot;skewness&quot;</span><span class="op">,</span> <span class="st">&quot;kurtosis&quot;</span><span class="op">,</span></span>
+<span id="cb286-7"><a href="ch9BootStrapping.html#cb286-7" tabindex="-1"></a>        <span class="st">&quot;lag1Correlation&quot;</span><span class="op">,</span> <span class="st">&quot;lag1Covariance&quot;</span><span class="op">)</span></span>
+<span id="cb286-8"><a href="ch9BootStrapping.html#cb286-8" tabindex="-1"></a></span>
+<span id="cb286-9"><a href="ch9BootStrapping.html#cb286-9" tabindex="-1"></a>    <span class="kw">override</span> <span class="kw">fun</span> <span class="fu">estimate</span><span class="op">(</span><span class="kw">data</span><span class="op">:</span> <span class="dt">DoubleArray</span><span class="op">):</span> <span class="dt">DoubleArray</span> <span class="op">{</span></span>
+<span id="cb286-10"><a href="ch9BootStrapping.html#cb286-10" tabindex="-1"></a>        stat<span class="op">.</span>reset<span class="op">()</span></span>
+<span id="cb286-11"><a href="ch9BootStrapping.html#cb286-11" tabindex="-1"></a>        stat<span class="op">.</span>collect<span class="op">(</span><span class="kw">data</span><span class="op">)</span></span>
+<span id="cb286-12"><a href="ch9BootStrapping.html#cb286-12" tabindex="-1"></a>        <span class="kw">val</span> <span class="va">array</span> <span class="op">=</span> DoubleArray<span class="op">(</span><span class="dv">8</span><span class="op">)</span></span>
+<span id="cb286-13"><a href="ch9BootStrapping.html#cb286-13" tabindex="-1"></a>        array<span class="op">[</span><span class="dv">0</span><span class="op">]</span> <span class="op">=</span> stat<span class="op">.</span>average</span>
+<span id="cb286-14"><a href="ch9BootStrapping.html#cb286-14" tabindex="-1"></a>        array<span class="op">[</span><span class="dv">1</span><span class="op">]</span> <span class="op">=</span> stat<span class="op">.</span>variance</span>
+<span id="cb286-15"><a href="ch9BootStrapping.html#cb286-15" tabindex="-1"></a>        array<span class="op">[</span><span class="dv">2</span><span class="op">]</span> <span class="op">=</span> stat<span class="op">.</span>min</span>
+<span id="cb286-16"><a href="ch9BootStrapping.html#cb286-16" tabindex="-1"></a>        array<span class="op">[</span><span class="dv">3</span><span class="op">]</span> <span class="op">=</span> stat<span class="op">.</span>max</span>
+<span id="cb286-17"><a href="ch9BootStrapping.html#cb286-17" tabindex="-1"></a>        array<span class="op">[</span><span class="dv">4</span><span class="op">]</span> <span class="op">=</span> stat<span class="op">.</span>skewness</span>
+<span id="cb286-18"><a href="ch9BootStrapping.html#cb286-18" tabindex="-1"></a>        array<span class="op">[</span><span class="dv">5</span><span class="op">]</span> <span class="op">=</span> stat<span class="op">.</span>kurtosis</span>
+<span id="cb286-19"><a href="ch9BootStrapping.html#cb286-19" tabindex="-1"></a>        array<span class="op">[</span><span class="dv">6</span><span class="op">]</span> <span class="op">=</span> stat<span class="op">.</span>lag1Correlation</span>
+<span id="cb286-20"><a href="ch9BootStrapping.html#cb286-20" tabindex="-1"></a>        array<span class="op">[</span><span class="dv">7</span><span class="op">]</span> <span class="op">=</span> stat<span class="op">.</span>lag1Covariance</span>
+<span id="cb286-21"><a href="ch9BootStrapping.html#cb286-21" tabindex="-1"></a>        <span class="kw">return</span> array</span>
+<span id="cb286-22"><a href="ch9BootStrapping.html#cb286-22" tabindex="-1"></a>    <span class="op">}</span></span>
+<span id="cb286-23"><a href="ch9BootStrapping.html#cb286-23" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
 <p>This same approach could be used to add additional statistics. The output from the sampling can be quite extensive and thus is not provided here. For a final discussion of bootstrapping, we discuss the KSL capabilities for bootstrapping cases and illustrate its application to bootstrapping a simple regression model.</p>
 <p>The previous KSL bootstrapping functionality focused on uni-variate data. The same concepts can also be applied to multi-variate data. Since the data structures to hold multi-variate data can be complex, we focus on representing the population of items via identifiers. That is, we assume that each item in the population can be assigned a unique label and that the sampling and resampling process takes place on the set of identifiers. The sampled identifiers then can be used to index into some complex data structure to select the sampled items. Then from each item, a set of values are observed. Thus, each sampled item, <span class="math inline">\(i\)</span>, results in a set of observations <span class="math inline">\(\vec{x_i}=x_1, x_2, \cdots, x_m\)</span>, where <span class="math inline">\(m\)</span> is the number of attributes observed about each item. In some bootstrapping literature, the set of sampled items is called the cases, with each item called a case. Thus, in this situation, the bootstrapping process is sometimes called case based bootstrapping.</p>
 <p>Within a programming context, we can represent each item with an object, which has some attributes. The attributes represent the data observed about the object. Placing the objects into a collection, permits sampling from the collection. For example, the cases could be the rows in a regression data set. The data could be stored in arrays, in data frames, database tables, etc. As long as each item the population can be uniquely labeled, we can sample the labels, and then select the items based on their identifiers.</p>
-<div class="figure"><span style="display:block;" id="fig:CaseBootstrapFig"></span>
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:CaseBootstrapFig"></span>
 <img src="figures2/ch9/CaseBootstrapSampler.png" alt="KSL CaseBootstrapSampler Classes" width="80%" height="80%" />
 <p class="caption">
 Figure 8.3: KSL CaseBootstrapSampler Classes
@@ -839,78 +857,81 @@ Figure 8.3: KSL CaseBootstrapSampler Classes
 </div>
 <p>Figure <a href="ch9BootStrapping.html#fig:CaseBootstrapFig">8.3</a> presents the <code>CaseBootstrapSampler</code> class, which will compute multiple estimators using case based sample via the <code>CaseBootEstimatorIfc</code> interface. This sampler has similar functionality as the <code>BootstrapSampler</code> class. As in the <code>BootstrapSampler</code> situation, we assume that the estimation process may result in one or more estimated quantities; however, in this situation, the estimation process requires a set of items from which the quantities will be computed.</p>
 <p>It should be instructive to review the associated interfaces in Figure <a href="ch9BootStrapping.html#fig:CaseBootstrapFig">8.3</a>. The <code>CaseBootstrapSampler</code> class requires an instance of the <code>CaseBootEstimatorIfc</code> interface. The <code>CaseBootEstimatorIfc</code> interface does not define the data structure associated with the sampling process. Instead, it defines a list of identifiers that represent the finite sample from which bootstrap sampling occurs.</p>
-<div class="sourceCode" id="cb272"><pre class="sourceCode kt"><code class="sourceCode kotlin"><span id="cb272-1"><a href="ch9BootStrapping.html#cb272-1" tabindex="-1"></a><span class="kw">interface</span> CaseBootEstimatorIfc <span class="op">{</span></span>
-<span id="cb272-2"><a href="ch9BootStrapping.html#cb272-2" tabindex="-1"></a></span>
-<span id="cb272-3"><a href="ch9BootStrapping.html#cb272-3" tabindex="-1"></a>    <span class="co">/**</span></span>
-<span id="cb272-4"><a href="ch9BootStrapping.html#cb272-4" tabindex="-1"></a><span class="co">     * The name to associate with each dimension of the</span></span>
-<span id="cb272-5"><a href="ch9BootStrapping.html#cb272-5" tabindex="-1"></a><span class="co">     * array that is returned by estimate(). The names</span></span>
-<span id="cb272-6"><a href="ch9BootStrapping.html#cb272-6" tabindex="-1"></a><span class="co">     * should be unique. The order of the list of names should</span></span>
-<span id="cb272-7"><a href="ch9BootStrapping.html#cb272-7" tabindex="-1"></a><span class="co">     * match the order of elements in the returned array. This</span></span>
-<span id="cb272-8"><a href="ch9BootStrapping.html#cb272-8" tabindex="-1"></a><span class="co">     * list is used to label the elements that are estimated.</span></span>
-<span id="cb272-9"><a href="ch9BootStrapping.html#cb272-9" tabindex="-1"></a><span class="co">     */</span></span>
-<span id="cb272-10"><a href="ch9BootStrapping.html#cb272-10" tabindex="-1"></a>    <span class="kw">val</span> <span class="va">names</span><span class="op">:</span> List<span class="op">&lt;</span><span class="kw">String</span><span class="op">&gt;</span></span>
-<span id="cb272-11"><a href="ch9BootStrapping.html#cb272-11" tabindex="-1"></a></span>
-<span id="cb272-12"><a href="ch9BootStrapping.html#cb272-12" tabindex="-1"></a>    <span class="co">/**</span></span>
-<span id="cb272-13"><a href="ch9BootStrapping.html#cb272-13" tabindex="-1"></a><span class="co">     *  The estimates from the estimator based on the original (not resampled) data.</span></span>
-<span id="cb272-14"><a href="ch9BootStrapping.html#cb272-14" tabindex="-1"></a><span class="co">     */</span></span>
-<span id="cb272-15"><a href="ch9BootStrapping.html#cb272-15" tabindex="-1"></a>    <span class="kw">val</span> <span class="va">originalEstimates</span><span class="op">:</span> DoubleArray</span>
-<span id="cb272-16"><a href="ch9BootStrapping.html#cb272-16" tabindex="-1"></a></span>
-<span id="cb272-17"><a href="ch9BootStrapping.html#cb272-17" tabindex="-1"></a>    <span class="co">/**</span></span>
-<span id="cb272-18"><a href="ch9BootStrapping.html#cb272-18" tabindex="-1"></a><span class="co">     *  The set of case identifiers. This set must hold unique</span></span>
-<span id="cb272-19"><a href="ch9BootStrapping.html#cb272-19" tabindex="-1"></a><span class="co">     *  integers that serve as the sampling population. Elements (cases)</span></span>
-<span id="cb272-20"><a href="ch9BootStrapping.html#cb272-20" tabindex="-1"></a><span class="co">     *  are sampled with replacement from this set to specify</span></span>
-<span id="cb272-21"><a href="ch9BootStrapping.html#cb272-21" tabindex="-1"></a><span class="co">     *  the data that will be used in the estimation process.</span></span>
-<span id="cb272-22"><a href="ch9BootStrapping.html#cb272-22" tabindex="-1"></a><span class="co">     */</span></span>
-<span id="cb272-23"><a href="ch9BootStrapping.html#cb272-23" tabindex="-1"></a>    <span class="kw">val</span> <span class="va">caseIdentifiers</span><span class="op">:</span> List<span class="op">&lt;</span><span class="kw">Int</span><span class="op">&gt;</span></span>
-<span id="cb272-24"><a href="ch9BootStrapping.html#cb272-24" tabindex="-1"></a></span>
-<span id="cb272-25"><a href="ch9BootStrapping.html#cb272-25" tabindex="-1"></a>    <span class="co">/**</span></span>
-<span id="cb272-26"><a href="ch9BootStrapping.html#cb272-26" tabindex="-1"></a><span class="co">     *  The [caseIndices] array contains the case identifiers that</span></span>
-<span id="cb272-27"><a href="ch9BootStrapping.html#cb272-27" tabindex="-1"></a><span class="co">     *  should be used to select the data on which the estimation</span></span>
-<span id="cb272-28"><a href="ch9BootStrapping.html#cb272-28" tabindex="-1"></a><span class="co">     *  process should be executed. The function produces an</span></span>
-<span id="cb272-29"><a href="ch9BootStrapping.html#cb272-29" tabindex="-1"></a><span class="co">     *  array of estimates during the estimation process, which</span></span>
-<span id="cb272-30"><a href="ch9BootStrapping.html#cb272-30" tabindex="-1"></a><span class="co">     *  are associated with the labels in the names list. The</span></span>
-<span id="cb272-31"><a href="ch9BootStrapping.html#cb272-31" tabindex="-1"></a><span class="co">     *  case indices array may have repeated case identifiers</span></span>
-<span id="cb272-32"><a href="ch9BootStrapping.html#cb272-32" tabindex="-1"></a><span class="co">     *  due to sampling with replacement.</span></span>
-<span id="cb272-33"><a href="ch9BootStrapping.html#cb272-33" tabindex="-1"></a><span class="co">     */</span></span>
-<span id="cb272-34"><a href="ch9BootStrapping.html#cb272-34" tabindex="-1"></a>    <span class="kw">fun</span> <span class="fu">estimate</span><span class="op">(</span><span class="va">caseIndices</span><span class="op">:</span> <span class="dt">IntArray</span><span class="op">):</span> <span class="dt">DoubleArray</span></span>
-<span id="cb272-35"><a href="ch9BootStrapping.html#cb272-35" tabindex="-1"></a>}</span></code></pre></div>
+<div class="sourceCode" id="cb287"><pre class="sourceCode kt"><code class="sourceCode kotlin"><span id="cb287-1"><a href="ch9BootStrapping.html#cb287-1" tabindex="-1"></a><span class="kw">interface</span> CaseBootEstimatorIfc <span class="op">{</span></span>
+<span id="cb287-2"><a href="ch9BootStrapping.html#cb287-2" tabindex="-1"></a></span>
+<span id="cb287-3"><a href="ch9BootStrapping.html#cb287-3" tabindex="-1"></a>    <span class="co">/**</span></span>
+<span id="cb287-4"><a href="ch9BootStrapping.html#cb287-4" tabindex="-1"></a><span class="co">     * The name to associate with each dimension of the</span></span>
+<span id="cb287-5"><a href="ch9BootStrapping.html#cb287-5" tabindex="-1"></a><span class="co">     * array that is returned by estimate(). The names</span></span>
+<span id="cb287-6"><a href="ch9BootStrapping.html#cb287-6" tabindex="-1"></a><span class="co">     * should be unique. The order of the list of names should</span></span>
+<span id="cb287-7"><a href="ch9BootStrapping.html#cb287-7" tabindex="-1"></a><span class="co">     * match the order of elements in the returned array. This</span></span>
+<span id="cb287-8"><a href="ch9BootStrapping.html#cb287-8" tabindex="-1"></a><span class="co">     * list is used to label the elements that are estimated.</span></span>
+<span id="cb287-9"><a href="ch9BootStrapping.html#cb287-9" tabindex="-1"></a><span class="co">     */</span></span>
+<span id="cb287-10"><a href="ch9BootStrapping.html#cb287-10" tabindex="-1"></a>    <span class="kw">val</span> <span class="va">names</span><span class="op">:</span> List<span class="op">&lt;</span><span class="kw">String</span><span class="op">&gt;</span></span>
+<span id="cb287-11"><a href="ch9BootStrapping.html#cb287-11" tabindex="-1"></a></span>
+<span id="cb287-12"><a href="ch9BootStrapping.html#cb287-12" tabindex="-1"></a>    <span class="co">/**</span></span>
+<span id="cb287-13"><a href="ch9BootStrapping.html#cb287-13" tabindex="-1"></a><span class="co">     *  The estimates from the estimator based on the original (not resampled) data.</span></span>
+<span id="cb287-14"><a href="ch9BootStrapping.html#cb287-14" tabindex="-1"></a><span class="co">     */</span></span>
+<span id="cb287-15"><a href="ch9BootStrapping.html#cb287-15" tabindex="-1"></a>    <span class="kw">val</span> <span class="va">originalEstimates</span><span class="op">:</span> DoubleArray</span>
+<span id="cb287-16"><a href="ch9BootStrapping.html#cb287-16" tabindex="-1"></a></span>
+<span id="cb287-17"><a href="ch9BootStrapping.html#cb287-17" tabindex="-1"></a>    <span class="co">/**</span></span>
+<span id="cb287-18"><a href="ch9BootStrapping.html#cb287-18" tabindex="-1"></a><span class="co">     *  The set of case identifiers. This set must hold unique</span></span>
+<span id="cb287-19"><a href="ch9BootStrapping.html#cb287-19" tabindex="-1"></a><span class="co">     *  integers that serve as the sampling population. Elements (cases)</span></span>
+<span id="cb287-20"><a href="ch9BootStrapping.html#cb287-20" tabindex="-1"></a><span class="co">     *  are sampled with replacement from this set to specify</span></span>
+<span id="cb287-21"><a href="ch9BootStrapping.html#cb287-21" tabindex="-1"></a><span class="co">     *  the data that will be used in the estimation process.</span></span>
+<span id="cb287-22"><a href="ch9BootStrapping.html#cb287-22" tabindex="-1"></a><span class="co">     */</span></span>
+<span id="cb287-23"><a href="ch9BootStrapping.html#cb287-23" tabindex="-1"></a>    <span class="kw">val</span> <span class="va">caseIdentifiers</span><span class="op">:</span> List<span class="op">&lt;</span><span class="kw">Int</span><span class="op">&gt;</span></span>
+<span id="cb287-24"><a href="ch9BootStrapping.html#cb287-24" tabindex="-1"></a></span>
+<span id="cb287-25"><a href="ch9BootStrapping.html#cb287-25" tabindex="-1"></a>    <span class="co">/**</span></span>
+<span id="cb287-26"><a href="ch9BootStrapping.html#cb287-26" tabindex="-1"></a><span class="co">     *  The [caseIndices] array contains the case identifiers that</span></span>
+<span id="cb287-27"><a href="ch9BootStrapping.html#cb287-27" tabindex="-1"></a><span class="co">     *  should be used to select the data on which the estimation</span></span>
+<span id="cb287-28"><a href="ch9BootStrapping.html#cb287-28" tabindex="-1"></a><span class="co">     *  process should be executed. The function produces an</span></span>
+<span id="cb287-29"><a href="ch9BootStrapping.html#cb287-29" tabindex="-1"></a><span class="co">     *  array of estimates during the estimation process, which</span></span>
+<span id="cb287-30"><a href="ch9BootStrapping.html#cb287-30" tabindex="-1"></a><span class="co">     *  are associated with the labels in the names list. The</span></span>
+<span id="cb287-31"><a href="ch9BootStrapping.html#cb287-31" tabindex="-1"></a><span class="co">     *  case indices array may have repeated case identifiers</span></span>
+<span id="cb287-32"><a href="ch9BootStrapping.html#cb287-32" tabindex="-1"></a><span class="co">     *  due to sampling with replacement.</span></span>
+<span id="cb287-33"><a href="ch9BootStrapping.html#cb287-33" tabindex="-1"></a><span class="co">     */</span></span>
+<span id="cb287-34"><a href="ch9BootStrapping.html#cb287-34" tabindex="-1"></a>    <span class="kw">fun</span> <span class="fu">estimate</span><span class="op">(</span><span class="va">caseIndices</span><span class="op">:</span> <span class="dt">IntArray</span><span class="op">):</span> <span class="dt">DoubleArray</span></span>
+<span id="cb287-35"><a href="ch9BootStrapping.html#cb287-35" tabindex="-1"></a>}</span></code></pre></div>
 <p>As we can see from the previous Kotlin code, the <code>names</code> and <code>originalEstimates</code> properties have a similar functionality as in the <code>BootstrapSampler</code> class. The names are the labels for the things estimated from the sample.</p>
 <p>The property, <code>caseIdentifiers</code> is a list holding the identifiers for the cases. For example, if the cases are rows in a regression dataset, then the list might hold the values <span class="math inline">\((0,1,2,\cdots,n-1)\)</span>, where <span class="math inline">\(n\)</span> is the number of rows. That is, the list holds the <em>indices</em> of the rows. The sampling process will sample from the identifier population and use the identifiers to access the actual items. This approach necessitates a different <code>estimate()</code> function. Here, the estimation process, requires an array of integers that represent the identifiers of the cases selected to be included in the estimation process. Note that because the sampling is with replacement, the same item can be selected multiple times (or not at all) during the bootstrap sampling. Conceptually, this is no different from what we have previously illustrated, but now our population is simply a set of identifiers.</p>
 <p>The class <code>MatrixBootEstimator</code> is simply an implementation of the <code>CaseBootEstimatorIfc</code> interface designed to work with a rectangular array (i.e. a matrix) of data, where the rows are the cases. The interface <code>MatrixEstimatorIfc</code> is a convenience interface for directly computing the statistical quantities from a supplied matrix. The selection process for <code>MatrixBootEstimator</code> is simply to select the rows as shown in the following code.</p>
-<div class="sourceCode" id="cb273"><pre class="sourceCode kt"><code class="sourceCode kotlin"><span id="cb273-1"><a href="ch9BootStrapping.html#cb273-1" tabindex="-1"></a>    <span class="kw">override</span> <span class="kw">fun</span> <span class="fu">estimate</span><span class="op">(</span><span class="va">caseIndices</span><span class="op">:</span> <span class="dt">IntArray</span><span class="op">):</span> <span class="dt">DoubleArray</span> <span class="op">{</span></span>
-<span id="cb273-2"><a href="ch9BootStrapping.html#cb273-2" tabindex="-1"></a>        <span class="co">// select the rows of the matrix from the supplied indices</span></span>
-<span id="cb273-3"><a href="ch9BootStrapping.html#cb273-3" tabindex="-1"></a>        <span class="kw">val</span> <span class="va">m</span> <span class="op">=</span> Array<span class="op">(</span>matrix<span class="op">.</span>size<span class="op">)</span> <span class="op">{</span> matrix<span class="op">[</span>caseIndices<span class="op">[</span>it<span class="op">]]</span> <span class="op">}</span></span>
-<span id="cb273-4"><a href="ch9BootStrapping.html#cb273-4" tabindex="-1"></a>        <span class="kw">return</span> matrixEstimator<span class="op">.</span>estimate<span class="op">(</span>m<span class="op">)</span></span>
-<span id="cb273-5"><a href="ch9BootStrapping.html#cb273-5" tabindex="-1"></a>    <span class="op">}</span></span></code></pre></div>
+<div class="sourceCode" id="cb288"><pre class="sourceCode kt"><code class="sourceCode kotlin"><span id="cb288-1"><a href="ch9BootStrapping.html#cb288-1" tabindex="-1"></a>    <span class="kw">override</span> <span class="kw">fun</span> <span class="fu">estimate</span><span class="op">(</span><span class="va">caseIndices</span><span class="op">:</span> <span class="dt">IntArray</span><span class="op">):</span> <span class="dt">DoubleArray</span> <span class="op">{</span></span>
+<span id="cb288-2"><a href="ch9BootStrapping.html#cb288-2" tabindex="-1"></a>        <span class="co">// select the rows of the matrix from the supplied indices</span></span>
+<span id="cb288-3"><a href="ch9BootStrapping.html#cb288-3" tabindex="-1"></a>        <span class="kw">val</span> <span class="va">m</span> <span class="op">=</span> Array<span class="op">(</span>matrix<span class="op">.</span>size<span class="op">)</span> <span class="op">{</span> matrix<span class="op">[</span>caseIndices<span class="op">[</span>it<span class="op">]]</span> <span class="op">}</span></span>
+<span id="cb288-4"><a href="ch9BootStrapping.html#cb288-4" tabindex="-1"></a>        <span class="kw">return</span> matrixEstimator<span class="op">.</span>estimate<span class="op">(</span>m<span class="op">)</span></span>
+<span id="cb288-5"><a href="ch9BootStrapping.html#cb288-5" tabindex="-1"></a>    <span class="op">}</span></span></code></pre></div>
 <p>The <code>CaseBootstrapSampler</code> class samples the indices (<code>mySample</code>) in the following code, which is then supplied to the <code>estimate(caseIndices: IntArray)</code> function.</p>
-<div class="sourceCode" id="cb274"><pre class="sourceCode kt"><code class="sourceCode kotlin"><span id="cb274-1"><a href="ch9BootStrapping.html#cb274-1" tabindex="-1"></a>    <span class="kw">fun</span> <span class="fu">sampleCases</span><span class="op">():</span> <span class="dt">IntArray</span> <span class="op">{</span></span>
-<span id="cb274-2"><a href="ch9BootStrapping.html#cb274-2" tabindex="-1"></a>        <span class="cf">for</span> <span class="op">(</span>i <span class="kw">in</span> myOriginalPopulation<span class="op">.</span>indices<span class="op">)</span> <span class="op">{</span></span>
-<span id="cb274-3"><a href="ch9BootStrapping.html#cb274-3" tabindex="-1"></a>            <span class="kw">val</span> <span class="va">index</span> <span class="op">=</span> rnStream<span class="op">.</span>randInt<span class="op">(</span><span class="dv">0</span><span class="op">,</span> myOriginalPopulation<span class="op">.</span>size <span class="op">-</span> <span class="dv">1</span><span class="op">)</span></span>
-<span id="cb274-4"><a href="ch9BootStrapping.html#cb274-4" tabindex="-1"></a>            mySample<span class="op">[</span>i<span class="op">]</span> <span class="op">=</span> myOriginalPopulation<span class="op">[</span>index<span class="op">]</span></span>
-<span id="cb274-5"><a href="ch9BootStrapping.html#cb274-5" tabindex="-1"></a>        <span class="op">}</span></span>
-<span id="cb274-6"><a href="ch9BootStrapping.html#cb274-6" tabindex="-1"></a>        <span class="kw">return</span> mySample</span>
-<span id="cb274-7"><a href="ch9BootStrapping.html#cb274-7" tabindex="-1"></a>    <span class="op">}</span></span></code></pre></div>
+<div class="sourceCode" id="cb289"><pre class="sourceCode kt"><code class="sourceCode kotlin"><span id="cb289-1"><a href="ch9BootStrapping.html#cb289-1" tabindex="-1"></a>    <span class="kw">fun</span> <span class="fu">sampleCases</span><span class="op">():</span> <span class="dt">IntArray</span> <span class="op">{</span></span>
+<span id="cb289-2"><a href="ch9BootStrapping.html#cb289-2" tabindex="-1"></a>        <span class="cf">for</span> <span class="op">(</span>i <span class="kw">in</span> myOriginalPopulation<span class="op">.</span>indices<span class="op">)</span> <span class="op">{</span></span>
+<span id="cb289-3"><a href="ch9BootStrapping.html#cb289-3" tabindex="-1"></a>            <span class="kw">val</span> <span class="va">index</span> <span class="op">=</span> rnStream<span class="op">.</span>randInt<span class="op">(</span><span class="dv">0</span><span class="op">,</span> myOriginalPopulation<span class="op">.</span>size <span class="op">-</span> <span class="dv">1</span><span class="op">)</span></span>
+<span id="cb289-4"><a href="ch9BootStrapping.html#cb289-4" tabindex="-1"></a>            mySample<span class="op">[</span>i<span class="op">]</span> <span class="op">=</span> myOriginalPopulation<span class="op">[</span>index<span class="op">]</span></span>
+<span id="cb289-5"><a href="ch9BootStrapping.html#cb289-5" tabindex="-1"></a>        <span class="op">}</span></span>
+<span id="cb289-6"><a href="ch9BootStrapping.html#cb289-6" tabindex="-1"></a>        <span class="kw">return</span> mySample</span>
+<span id="cb289-7"><a href="ch9BootStrapping.html#cb289-7" tabindex="-1"></a>    <span class="op">}</span></span></code></pre></div>
 <p>Finally, the object <code>OLSBootEstimator,</code> in Figure <a href="ch9BootStrapping.html#fig:CaseBootstrapFig">8.3</a>, is an object that implements the <code>MatrixEstimatorIfc</code> interface an computes the regression coefficients by assuming that the first column of the matrix is the regressor, <span class="math inline">\(Y\)</span>, and the remaining columns represent the predictor matrix <span class="math inline">\(X\)</span>. Because of the fact that we use the ordinary least squares estimation routines from the <a href="https://hipparchus.org/">Hipparchus library</a>, the <span class="math inline">\(X\)</span> matrix does not need to include the column for estimating the intercept term.</p>
-<p>Putting all of these concepts together, we can illustrate the bootstrapping of a regression estimation process. As shown in the following code, we generate some regression data. For simiplicity, we assume normally distributed predictors and error.</p>
-<div class="sourceCode" id="cb275"><pre class="sourceCode kt"><code class="sourceCode kotlin"><span id="cb275-1"><a href="ch9BootStrapping.html#cb275-1" tabindex="-1"></a>    <span class="co">// first make some data for the example</span></span>
-<span id="cb275-2"><a href="ch9BootStrapping.html#cb275-2" tabindex="-1"></a>    <span class="kw">val</span> <span class="va">n1</span> <span class="op">=</span> NormalRV<span class="op">(</span><span class="fl">10.0</span><span class="op">,</span> <span class="fl">3.0</span><span class="op">)</span></span>
-<span id="cb275-3"><a href="ch9BootStrapping.html#cb275-3" tabindex="-1"></a>    <span class="kw">val</span> <span class="va">n2</span> <span class="op">=</span> NormalRV<span class="op">(</span><span class="fl">5.0</span><span class="op">,</span> <span class="fl">1.5</span><span class="op">)</span></span>
-<span id="cb275-4"><a href="ch9BootStrapping.html#cb275-4" tabindex="-1"></a>    <span class="kw">val</span> <span class="va">e</span> <span class="op">=</span> NormalRV<span class="op">()</span></span>
-<span id="cb275-5"><a href="ch9BootStrapping.html#cb275-5" tabindex="-1"></a>    <span class="co">// make a simple linear model with some error</span></span>
-<span id="cb275-6"><a href="ch9BootStrapping.html#cb275-6" tabindex="-1"></a>    <span class="kw">val</span> <span class="va">data</span> <span class="op">=</span> Array<span class="op">&lt;</span>DoubleArray<span class="op">&gt;(</span><span class="dv">100</span><span class="op">)</span> <span class="op">{</span></span>
-<span id="cb275-7"><a href="ch9BootStrapping.html#cb275-7" tabindex="-1"></a>        <span class="kw">val</span> <span class="va">x1</span> <span class="op">=</span> n1<span class="op">.</span>value</span>
-<span id="cb275-8"><a href="ch9BootStrapping.html#cb275-8" tabindex="-1"></a>        <span class="kw">val</span> <span class="va">x2</span> <span class="op">=</span> n2<span class="op">.</span>value</span>
-<span id="cb275-9"><a href="ch9BootStrapping.html#cb275-9" tabindex="-1"></a>        <span class="kw">val</span> <span class="va">y</span> <span class="op">=</span> <span class="fl">10.0</span> <span class="op">+</span> <span class="fl">2.0</span><span class="op">*</span>x1 <span class="op">+</span> <span class="fl">5.0</span><span class="op">*</span>x2 <span class="op">+</span> e<span class="op">.</span>value</span>
-<span id="cb275-10"><a href="ch9BootStrapping.html#cb275-10" tabindex="-1"></a>        doubleArrayOf<span class="op">(</span>y<span class="op">,</span> x1<span class="op">,</span> x2<span class="op">)</span></span>
-<span id="cb275-11"><a href="ch9BootStrapping.html#cb275-11" tabindex="-1"></a>    <span class="op">}</span></span>
-<span id="cb275-12"><a href="ch9BootStrapping.html#cb275-12" tabindex="-1"></a>    <span class="co">//data.write()</span></span>
-<span id="cb275-13"><a href="ch9BootStrapping.html#cb275-13" tabindex="-1"></a>    <span class="co">// apply bootstrapping to get bootstrap confidence intervals on regression parameters</span></span>
-<span id="cb275-14"><a href="ch9BootStrapping.html#cb275-14" tabindex="-1"></a>    <span class="kw">val</span> <span class="va">cbs</span> <span class="op">=</span> CaseBootstrapSampler<span class="op">(</span>MatrixBootEstimator<span class="op">(</span><span class="kw">data</span><span class="op">,</span> OLSBootEstimator<span class="op">))</span></span>
-<span id="cb275-15"><a href="ch9BootStrapping.html#cb275-15" tabindex="-1"></a>    <span class="kw">val</span> <span class="va">estimates</span> <span class="op">=</span> cbs<span class="op">.</span>bootStrapEstimates<span class="op">(</span><span class="dv">399</span><span class="op">)</span></span>
-<span id="cb275-16"><a href="ch9BootStrapping.html#cb275-16" tabindex="-1"></a>    <span class="co">// print out the bootstrap estimates</span></span>
-<span id="cb275-17"><a href="ch9BootStrapping.html#cb275-17" tabindex="-1"></a>    <span class="cf">for</span><span class="op">(</span>be <span class="kw">in</span> estimates<span class="op">){</span></span>
-<span id="cb275-18"><a href="ch9BootStrapping.html#cb275-18" tabindex="-1"></a>        println<span class="op">(</span>be<span class="op">)</span></span>
-<span id="cb275-19"><a href="ch9BootStrapping.html#cb275-19" tabindex="-1"></a>    <span class="op">}</span></span></code></pre></div>
+<p>Putting all of these concepts together, we can illustrate the bootstrapping of a regression estimation process. As shown in the following code, we generate some regression data. For simplicity, we assume normally distributed predictors and error.</p>
+<div class="example">
+<p><span id="exm:exBS4" class="example"><strong>Example 8.4  (Illustrating Case Based Bootstrapping) </strong></span>This example illustrates case based bootstrapping for a linear regression model.</p>
+<div class="sourceCode" id="cb290"><pre class="sourceCode kt"><code class="sourceCode kotlin"><span id="cb290-1"><a href="ch9BootStrapping.html#cb290-1" tabindex="-1"></a>    <span class="co">// first make some data for the example</span></span>
+<span id="cb290-2"><a href="ch9BootStrapping.html#cb290-2" tabindex="-1"></a>    <span class="kw">val</span> <span class="va">n1</span> <span class="op">=</span> NormalRV<span class="op">(</span><span class="fl">10.0</span><span class="op">,</span> <span class="fl">3.0</span><span class="op">)</span></span>
+<span id="cb290-3"><a href="ch9BootStrapping.html#cb290-3" tabindex="-1"></a>    <span class="kw">val</span> <span class="va">n2</span> <span class="op">=</span> NormalRV<span class="op">(</span><span class="fl">5.0</span><span class="op">,</span> <span class="fl">1.5</span><span class="op">)</span></span>
+<span id="cb290-4"><a href="ch9BootStrapping.html#cb290-4" tabindex="-1"></a>    <span class="kw">val</span> <span class="va">e</span> <span class="op">=</span> NormalRV<span class="op">()</span></span>
+<span id="cb290-5"><a href="ch9BootStrapping.html#cb290-5" tabindex="-1"></a>    <span class="co">// make a simple linear model with some error</span></span>
+<span id="cb290-6"><a href="ch9BootStrapping.html#cb290-6" tabindex="-1"></a>    <span class="kw">val</span> <span class="va">data</span> <span class="op">=</span> Array<span class="op">&lt;</span>DoubleArray<span class="op">&gt;(</span><span class="dv">100</span><span class="op">)</span> <span class="op">{</span></span>
+<span id="cb290-7"><a href="ch9BootStrapping.html#cb290-7" tabindex="-1"></a>        <span class="kw">val</span> <span class="va">x1</span> <span class="op">=</span> n1<span class="op">.</span>value</span>
+<span id="cb290-8"><a href="ch9BootStrapping.html#cb290-8" tabindex="-1"></a>        <span class="kw">val</span> <span class="va">x2</span> <span class="op">=</span> n2<span class="op">.</span>value</span>
+<span id="cb290-9"><a href="ch9BootStrapping.html#cb290-9" tabindex="-1"></a>        <span class="kw">val</span> <span class="va">y</span> <span class="op">=</span> <span class="fl">10.0</span> <span class="op">+</span> <span class="fl">2.0</span><span class="op">*</span>x1 <span class="op">+</span> <span class="fl">5.0</span><span class="op">*</span>x2 <span class="op">+</span> e<span class="op">.</span>value</span>
+<span id="cb290-10"><a href="ch9BootStrapping.html#cb290-10" tabindex="-1"></a>        doubleArrayOf<span class="op">(</span>y<span class="op">,</span> x1<span class="op">,</span> x2<span class="op">)</span></span>
+<span id="cb290-11"><a href="ch9BootStrapping.html#cb290-11" tabindex="-1"></a>    <span class="op">}</span></span>
+<span id="cb290-12"><a href="ch9BootStrapping.html#cb290-12" tabindex="-1"></a>    <span class="co">//data.write()</span></span>
+<span id="cb290-13"><a href="ch9BootStrapping.html#cb290-13" tabindex="-1"></a>    <span class="co">// apply bootstrapping to get bootstrap confidence intervals on regression parameters</span></span>
+<span id="cb290-14"><a href="ch9BootStrapping.html#cb290-14" tabindex="-1"></a>    <span class="kw">val</span> <span class="va">cbs</span> <span class="op">=</span> CaseBootstrapSampler<span class="op">(</span>MatrixBootEstimator<span class="op">(</span><span class="kw">data</span><span class="op">,</span> OLSBootEstimator<span class="op">))</span></span>
+<span id="cb290-15"><a href="ch9BootStrapping.html#cb290-15" tabindex="-1"></a>    <span class="kw">val</span> <span class="va">estimates</span> <span class="op">=</span> cbs<span class="op">.</span>bootStrapEstimates<span class="op">(</span><span class="dv">399</span><span class="op">)</span></span>
+<span id="cb290-16"><a href="ch9BootStrapping.html#cb290-16" tabindex="-1"></a>    <span class="co">// print out the bootstrap estimates</span></span>
+<span id="cb290-17"><a href="ch9BootStrapping.html#cb290-17" tabindex="-1"></a>    <span class="cf">for</span><span class="op">(</span>be <span class="kw">in</span> estimates<span class="op">){</span></span>
+<span id="cb290-18"><a href="ch9BootStrapping.html#cb290-18" tabindex="-1"></a>        println<span class="op">(</span>be<span class="op">)</span></span>
+<span id="cb290-19"><a href="ch9BootStrapping.html#cb290-19" tabindex="-1"></a>    <span class="op">}</span></span></code></pre></div>
+</div>
 <p>The results of the bootstrapping process are as follows. As we can see, the confidence intervals for the known regression coefficients <span class="math inline">\((\beta_0=10.0, \beta_1=2.0, \beta_2=5.0\)</span>) do a reasonable job of covering the known quantities.</p>
 <pre><code>------------------------------------------------------
 Bootstrap statistical results:
@@ -960,7 +981,7 @@ percentile c.i. = [4.766482975132659, 5.08397699968846]</code></pre>
 </div>
 </div>
 <h3><span class="header-section-number">G</span> References<a href="references.html#references" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<div id="refs" class="references csl-bib-body hanging-indent">
+<div id="refs" class="references csl-bib-body hanging-indent" entry-spacing="0">
 <div id="ref-davison-hinkley" class="csl-entry">
 Davison AC, Hinkley DV. 1997. <em>Bootstrap Methods and Their Application</em>. Cambridge University Press.
 </div>

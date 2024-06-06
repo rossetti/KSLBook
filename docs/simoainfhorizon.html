@@ -6,7 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>5.6 Analysis of Infinite Horizon Simulations | Simulation Modeling using the Kotlin Simulation Library (KSL)</title>
   <meta name="description" content="A book that illustrates the basics of using the KSL. The output format for this book is bookdown::gitbook." />
-  <meta name="generator" content="bookdown 0.34 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.39 and GitBook 2.6.7" />
 
   <meta property="og:title" content="5.6 Analysis of Infinite Horizon Simulations | Simulation Modeling using the Kotlin Simulation Library (KSL)" />
   <meta property="og:type" content="book" />
@@ -23,7 +23,7 @@
 <meta name="author" content="Manuel D. Rossetti" />
 
 
-<meta name="date" content="2024-05-28" />
+<meta name="date" content="2024-06-06" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -58,7 +58,7 @@
 
 <style type="text/css">
 pre > code.sourceCode { white-space: pre; position: relative; }
-pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span { line-height: 1.25; }
 pre > code.sourceCode > span:empty { height: 1.2em; }
 .sourceCode { overflow: visible; }
 code.sourceCode > span { color: inherit; text-decoration: inherit; }
@@ -130,6 +130,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 div.csl-bib-body { }
 div.csl-entry {
   clear: both;
+  margin-bottom: 0em;
 }
 .hanging div.csl-entry {
   margin-left:2em;
@@ -200,7 +201,7 @@ div.csl-indent {
 <ul>
 <li class="chapter" data-level="2.2.1" data-path="rvg.html"><a href="rvg.html#basic-random-variate-generation"><i class="fa fa-check"></i><b>2.2.1</b> Basic Random Variate Generation</a></li>
 <li class="chapter" data-level="2.2.2" data-path="rvg.html"><a href="rvg.html#rvg_dists"><i class="fa fa-check"></i><b>2.2.2</b> Continuous and Discrete Random Variables</a></li>
-<li class="chapter" data-level="2.2.3" data-path="rvg.html"><a href="rvg.html#rvg_use"><i class="fa fa-check"></i><b>2.2.3</b> Creating and Using Random Variables</a></li>
+<li class="chapter" data-level="2.2.3" data-path="rvg.html"><a href="rvg.html#rvguse"><i class="fa fa-check"></i><b>2.2.3</b> Creating and Using Random Variables</a></li>
 <li class="chapter" data-level="2.2.4" data-path="rvg.html"><a href="rvg.html#functions-of-random-variables"><i class="fa fa-check"></i><b>2.2.4</b> Functions of Random Variables</a></li>
 </ul></li>
 <li class="chapter" data-level="2.3" data-path="probModels.html"><a href="probModels.html"><i class="fa fa-check"></i><b>2.3</b> Probability Distribution Models</a></li>
@@ -231,31 +232,30 @@ div.csl-indent {
 </ul></li>
 <li class="chapter" data-level="3.4" data-path="craps.html"><a href="craps.html"><i class="fa fa-check"></i><b>3.4</b> Simulating the Game of Craps</a></li>
 <li class="chapter" data-level="3.5" data-path="the-news-vendor-problem.html"><a href="the-news-vendor-problem.html"><i class="fa fa-check"></i><b>3.5</b> The News Vendor Problem</a></li>
-<li class="chapter" data-level="3.6" data-path="a-simple-inspection-process.html"><a href="a-simple-inspection-process.html"><i class="fa fa-check"></i><b>3.6</b> A Simple Inspection Process</a></li>
-<li class="chapter" data-level="3.7" data-path="stochastic-activity-networks.html"><a href="stochastic-activity-networks.html"><i class="fa fa-check"></i><b>3.7</b> Stochastic Activity Networks</a></li>
+<li class="chapter" data-level="3.6" data-path="ch3InsProcess.html"><a href="ch3InsProcess.html"><i class="fa fa-check"></i><b>3.6</b> A Simple Inspection Process</a></li>
+<li class="chapter" data-level="3.7" data-path="ch3SAN.html"><a href="ch3SAN.html"><i class="fa fa-check"></i><b>3.7</b> Stochastic Activity Networks</a></li>
 <li class="chapter" data-level="3.8" data-path="mcmExperiments.html"><a href="mcmExperiments.html"><i class="fa fa-check"></i><b>3.8</b> Monte-Carlo Experiments</a></li>
 <li class="chapter" data-level="3.9" data-path="summary-1.html"><a href="summary-1.html"><i class="fa fa-check"></i><b>3.9</b> Summary</a></li>
 <li class="chapter" data-level="3.10" data-path="exercises-2.html"><a href="exercises-2.html"><i class="fa fa-check"></i><b>3.10</b> Exercises</a></li>
 </ul></li>
 <li class="chapter" data-level="4" data-path="introDEDS.html"><a href="introDEDS.html"><i class="fa fa-check"></i><b>4</b> Introduction to Discrete Event Modeling</a>
 <ul>
-<li class="chapter" data-level="4.1" data-path="introDEDSIntro.html"><a href="introDEDSIntro.html"><i class="fa fa-check"></i><b>4.1</b> Introduction</a></li>
-<li class="chapter" data-level="4.2" data-path="introDEDSdeds.html"><a href="introDEDSdeds.html"><i class="fa fa-check"></i><b>4.2</b> Discrete-Event Dynamic Systems</a></li>
-<li class="chapter" data-level="4.3" data-path="HowDEDSClockWorks.html"><a href="HowDEDSClockWorks.html"><i class="fa fa-check"></i><b>4.3</b> How the Discrete-Event Clock Works</a></li>
-<li class="chapter" data-level="4.4" data-path="QHandExample.html"><a href="QHandExample.html"><i class="fa fa-check"></i><b>4.4</b> Simulating a Queueing System By Hand</a></li>
-<li class="chapter" data-level="4.5" data-path="introDEDSdedsKSL.html"><a href="introDEDSdedsKSL.html"><i class="fa fa-check"></i><b>4.5</b> Modeling DEDS in the KSL</a>
+<li class="chapter" data-level="4.1" data-path="introDEDSdeds.html"><a href="introDEDSdeds.html"><i class="fa fa-check"></i><b>4.1</b> Discrete-Event Dynamic Systems</a></li>
+<li class="chapter" data-level="4.2" data-path="HowDEDSClockWorks.html"><a href="HowDEDSClockWorks.html"><i class="fa fa-check"></i><b>4.2</b> How the Discrete-Event Clock Works</a></li>
+<li class="chapter" data-level="4.3" data-path="QHandExample.html"><a href="QHandExample.html"><i class="fa fa-check"></i><b>4.3</b> Simulating a Queueing System By Hand</a></li>
+<li class="chapter" data-level="4.4" data-path="introDEDSdedsKSL.html"><a href="introDEDSdedsKSL.html"><i class="fa fa-check"></i><b>4.4</b> Modeling DEDS in the KSL</a>
 <ul>
-<li class="chapter" data-level="4.5.1" data-path="introDEDSdedsKSL.html"><a href="introDEDSdedsKSL.html#event-scheduling"><i class="fa fa-check"></i><b>4.5.1</b> Event Scheduling</a></li>
-<li class="chapter" data-level="4.5.2" data-path="introDEDSdedsKSL.html"><a href="introDEDSdedsKSL.html#introDEDSschedExamples"><i class="fa fa-check"></i><b>4.5.2</b> Simple Event Scheduling Examples</a></li>
-<li class="chapter" data-level="4.5.3" data-path="introDEDSdedsKSL.html"><a href="introDEDSdedsKSL.html#introDEDSUpDown"><i class="fa fa-check"></i><b>4.5.3</b> Up and Down Component Example</a></li>
-<li class="chapter" data-level="4.5.4" data-path="introDEDSdedsKSL.html"><a href="introDEDSdedsKSL.html#introDEDSPharmacy"><i class="fa fa-check"></i><b>4.5.4</b> Modeling a Simple Queueing System</a></li>
-<li class="chapter" data-level="4.5.5" data-path="introDEDSdedsKSL.html"><a href="introDEDSdedsKSL.html#more-details-about-the-pharmacy-model-implementation"><i class="fa fa-check"></i><b>4.5.5</b> More Details About the Pharmacy Model Implementation</a></li>
+<li class="chapter" data-level="4.4.1" data-path="introDEDSdedsKSL.html"><a href="introDEDSdedsKSL.html#event-scheduling"><i class="fa fa-check"></i><b>4.4.1</b> Event Scheduling</a></li>
+<li class="chapter" data-level="4.4.2" data-path="introDEDSdedsKSL.html"><a href="introDEDSdedsKSL.html#introDEDSschedExamples"><i class="fa fa-check"></i><b>4.4.2</b> Simple Event Scheduling Examples</a></li>
+<li class="chapter" data-level="4.4.3" data-path="introDEDSdedsKSL.html"><a href="introDEDSdedsKSL.html#introDEDSUpDown"><i class="fa fa-check"></i><b>4.4.3</b> Up and Down Component Example</a></li>
+<li class="chapter" data-level="4.4.4" data-path="introDEDSdedsKSL.html"><a href="introDEDSdedsKSL.html#introDEDSPharmacy"><i class="fa fa-check"></i><b>4.4.4</b> Modeling a Simple Queueing System</a></li>
+<li class="chapter" data-level="4.4.5" data-path="introDEDSdedsKSL.html"><a href="introDEDSdedsKSL.html#more-details-about-the-pharmacy-model-implementation"><i class="fa fa-check"></i><b>4.4.5</b> More Details About the Pharmacy Model Implementation</a></li>
 </ul></li>
-<li class="chapter" data-level="4.6" data-path="enhancing-the-drive-through-pharmacy-model.html"><a href="enhancing-the-drive-through-pharmacy-model.html"><i class="fa fa-check"></i><b>4.6</b> Enhancing the Drive Through Pharmacy Model</a></li>
-<li class="chapter" data-level="4.7" data-path="introDEDSSummary.html"><a href="introDEDSSummary.html"><i class="fa fa-check"></i><b>4.7</b> Summary</a></li>
-<li class="chapter" data-level="4.8" data-path="exercises-3.html"><a href="exercises-3.html"><i class="fa fa-check"></i><b>4.8</b> Exercises</a></li>
+<li class="chapter" data-level="4.5" data-path="enhancing-the-drive-through-pharmacy-model.html"><a href="enhancing-the-drive-through-pharmacy-model.html"><i class="fa fa-check"></i><b>4.5</b> Enhancing the Drive Through Pharmacy Model</a></li>
+<li class="chapter" data-level="4.6" data-path="introDEDSSummary.html"><a href="introDEDSSummary.html"><i class="fa fa-check"></i><b>4.6</b> Summary</a></li>
+<li class="chapter" data-level="4.7" data-path="exercises-3.html"><a href="exercises-3.html"><i class="fa fa-check"></i><b>4.7</b> Exercises</a></li>
 </ul></li>
-<li class="chapter" data-level="5" data-path="simoa.html"><a href="simoa.html"><i class="fa fa-check"></i><b>5</b> Analyzing Simulation Output</a>
+<li class="chapter" data-level="5" data-path="simoa.html"><a href="simoa.html"><i class="fa fa-check"></i><b>5</b> Analyzing and Accessing Simulation Output</a>
 <ul>
 <li class="chapter" data-level="5.1" data-path="simoadatatypes.html"><a href="simoadatatypes.html"><i class="fa fa-check"></i><b>5.1</b> Types of Statistical Variables</a></li>
 <li class="chapter" data-level="5.2" data-path="simoasimtypes.html"><a href="simoasimtypes.html"><i class="fa fa-check"></i><b>5.2</b> Types of Simulation With Respect To Output Analysis</a></li>
@@ -277,10 +277,18 @@ div.csl-indent {
 <li class="chapter" data-level="5.7" data-path="simoacomparingSystems.html"><a href="simoacomparingSystems.html"><i class="fa fa-check"></i><b>5.7</b> Comparing System Configurations</a>
 <ul>
 <li class="chapter" data-level="5.7.1" data-path="simoacomparingSystems.html"><a href="simoacomparingSystems.html#simoacomparingSystems:two"><i class="fa fa-check"></i><b>5.7.1</b> Comparing Two Systems</a></li>
-<li class="chapter" data-level="5.7.2" data-path="simoacomparingSystems.html"><a href="simoacomparingSystems.html#simoacomparingSystemsMCB"><i class="fa fa-check"></i><b>5.7.2</b> Multiple Comparisons</a></li>
+<li class="chapter" data-level="5.7.2" data-path="simoacomparingSystems.html"><a href="simoacomparingSystems.html#simoacomparingSystemsMCB"><i class="fa fa-check"></i><b>5.7.2</b> Concepts for Comparing Systems</a></li>
+<li class="chapter" data-level="5.7.3" data-path="simoacomparingSystems.html"><a href="simoacomparingSystems.html#multiple-comparison-with-the-best-procedures-mcb"><i class="fa fa-check"></i><b>5.7.3</b> Multiple Comparison with the Best Procedures (MCB)</a></li>
+<li class="chapter" data-level="5.7.4" data-path="simoacomparingSystems.html"><a href="simoacomparingSystems.html#ch5Screening"><i class="fa fa-check"></i><b>5.7.4</b> Screening Procedures</a></li>
 </ul></li>
-<li class="chapter" data-level="5.8" data-path="simoasummary.html"><a href="simoasummary.html"><i class="fa fa-check"></i><b>5.8</b> Summary</a></li>
-<li class="chapter" data-level="5.9" data-path="exercises-4.html"><a href="exercises-4.html"><i class="fa fa-check"></i><b>5.9</b> Exercises</a></li>
+<li class="chapter" data-level="5.8" data-path="ch5Scenarios.html"><a href="ch5Scenarios.html"><i class="fa fa-check"></i><b>5.8</b> Simulating Many Scenarios</a>
+<ul>
+<li class="chapter" data-level="5.8.1" data-path="ch5Scenarios.html"><a href="ch5Scenarios.html#controlAntns"><i class="fa fa-check"></i><b>5.8.1</b> Control Annotations</a></li>
+<li class="chapter" data-level="5.8.2" data-path="ch5Scenarios.html"><a href="ch5Scenarios.html#random-variable-parameters"><i class="fa fa-check"></i><b>5.8.2</b> Random Variable Parameters</a></li>
+<li class="chapter" data-level="5.8.3" data-path="ch5Scenarios.html"><a href="ch5Scenarios.html#kslScenarios"><i class="fa fa-check"></i><b>5.8.3</b> Setting Up and Running Multiple Scenarios</a></li>
+</ul></li>
+<li class="chapter" data-level="5.9" data-path="simoasummary.html"><a href="simoasummary.html"><i class="fa fa-check"></i><b>5.9</b> Summary</a></li>
+<li class="chapter" data-level="5.10" data-path="exercises-4.html"><a href="exercises-4.html"><i class="fa fa-check"></i><b>5.10</b> Exercises</a></li>
 </ul></li>
 <li class="chapter" data-level="6" data-path="processview.html"><a href="processview.html"><i class="fa fa-check"></i><b>6</b> Process View Modeling Using the KSL</a>
 <ul>
@@ -312,12 +320,12 @@ div.csl-indent {
 <ul>
 <li class="chapter" data-level="7.2.1" data-path="modeling-non-stationary-systems.html"><a href="modeling-non-stationary-systems.html#ch7secNSPP"><i class="fa fa-check"></i><b>7.2.1</b> Non-Stationary Arrival Processes</a></li>
 <li class="chapter" data-level="7.2.2" data-path="modeling-non-stationary-systems.html"><a href="modeling-non-stationary-systems.html#modeling-resources-under-non-stationary-conditions"><i class="fa fa-check"></i><b>7.2.2</b> Modeling Resources Under Non-Stationary Conditions</a></li>
-<li class="chapter" data-level="7.2.3" data-path="modeling-non-stationary-systems.html"><a href="modeling-non-stationary-systems.html#enhancing-the-stem-career-mixer-example"><i class="fa fa-check"></i><b>7.2.3</b> Enhancing the STEM Career Mixer Example</a></li>
+<li class="chapter" data-level="7.2.3" data-path="modeling-non-stationary-systems.html"><a href="modeling-non-stationary-systems.html#enhancing-the-stem-career-mixer-model"><i class="fa fa-check"></i><b>7.2.3</b> Enhancing the STEM Career Mixer Model</a></li>
 </ul></li>
 <li class="chapter" data-level="7.3" data-path="examples-of-advanced-event-models.html"><a href="examples-of-advanced-event-models.html"><i class="fa fa-check"></i><b>7.3</b> Examples of Advanced Event Models</a>
 <ul>
 <li class="chapter" data-level="7.3.1" data-path="examples-of-advanced-event-models.html"><a href="examples-of-advanced-event-models.html#ch6s1sb4sub3"><i class="fa fa-check"></i><b>7.3.1</b> Modeling Balking and Reneging</a></li>
-<li class="chapter" data-level="7.3.2" data-path="examples-of-advanced-event-models.html"><a href="examples-of-advanced-event-models.html#modeling-a-reorder-point-reorder-quantity-inventory-policy"><i class="fa fa-check"></i><b>7.3.2</b> Modeling a Reorder Point, Reorder Quantity Inventory Policy</a></li>
+<li class="chapter" data-level="7.3.2" data-path="examples-of-advanced-event-models.html"><a href="examples-of-advanced-event-models.html#rqModel"><i class="fa fa-check"></i><b>7.3.2</b> Modeling a Reorder Point, Reorder Quantity Inventory Policy</a></li>
 </ul></li>
 <li class="chapter" data-level="7.4" data-path="summary-3.html"><a href="summary-3.html"><i class="fa fa-check"></i><b>7.4</b> Summary</a></li>
 <li class="chapter" data-level="7.5" data-path="exercises-6.html"><a href="exercises-6.html"><i class="fa fa-check"></i><b>7.5</b> Exercises</a></li>
@@ -432,11 +440,13 @@ div.csl-indent {
 <li class="chapter" data-level="D.1" data-path="the-outputdirectory-class-and-ksl-object.html"><a href="the-outputdirectory-class-and-ksl-object.html"><i class="fa fa-check"></i><b>D.1</b> The <code>OutputDirectory</code> Class and <code>KSL</code> Object</a></li>
 <li class="chapter" data-level="D.2" data-path="logging-options.html"><a href="logging-options.html"><i class="fa fa-check"></i><b>D.2</b> Logging Options</a></li>
 <li class="chapter" data-level="D.3" data-path="the-kslfileutil-object.html"><a href="the-kslfileutil-object.html"><i class="fa fa-check"></i><b>D.3</b> The <code>KSLFileUtil</code> Object</a></li>
-<li class="chapter" data-level="D.4" data-path="csv-excel-and-tabular-data-files.html"><a href="csv-excel-and-tabular-data-files.html"><i class="fa fa-check"></i><b>D.4</b> CSV, Excel, and Tabular Data Files</a></li>
-<li class="chapter" data-level="D.5" data-path="the-dataframeutil-object.html"><a href="the-dataframeutil-object.html"><i class="fa fa-check"></i><b>D.5</b> The <code>DataFrameUtil</code> Object</a></li>
+<li class="chapter" data-level="D.4" data-path="appDCSVEtc.html"><a href="appDCSVEtc.html"><i class="fa fa-check"></i><b>D.4</b> CSV, Excel, and Tabular Data Files</a></li>
+<li class="chapter" data-level="D.5" data-path="dfUtil.html"><a href="dfUtil.html"><i class="fa fa-check"></i><b>D.5</b> The <code>DataFrameUtil</code> Object</a></li>
 <li class="chapter" data-level="D.6" data-path="ksl-database-utilities.html"><a href="ksl-database-utilities.html"><i class="fa fa-check"></i><b>D.6</b> KSL Database Utilities</a></li>
 <li class="chapter" data-level="D.7" data-path="appUtilitiesArrays.html"><a href="appUtilitiesArrays.html"><i class="fa fa-check"></i><b>D.7</b> Array Utilities</a></li>
-<li class="chapter" data-level="D.8" data-path="appUtilitiesMisc.html"><a href="appUtilitiesMisc.html"><i class="fa fa-check"></i><b>D.8</b> Miscellaneous Utilities</a></li>
+<li class="chapter" data-level="D.8" data-path="appPlotting.html"><a href="appPlotting.html"><i class="fa fa-check"></i><b>D.8</b> KSL Plotting Utilities</a></li>
+<li class="chapter" data-level="D.9" data-path="appExpDesign.html"><a href="appExpDesign.html"><i class="fa fa-check"></i><b>D.9</b> Experimental Design Utilities</a></li>
+<li class="chapter" data-level="D.10" data-path="appUtilitiesMisc.html"><a href="appUtilitiesMisc.html"><i class="fa fa-check"></i><b>D.10</b> Miscellaneous Utilities</a></li>
 </ul></li>
 <li class="chapter" data-level="E" data-path="distributions.html"><a href="distributions.html"><i class="fa fa-check"></i><b>E</b> Distributions</a>
 <ul>
@@ -524,7 +534,8 @@ and <span class="math inline">\(\mu\)</span> = 10/7. Thus, based on traditional 
 <p><span class="math display">\[\rho = 0.7\]</span></p>
 <p><span class="math display">\[L_q = \dfrac{0.7 \times 0.7}{1 - 0.7} = 1.6\bar{33}\]</span></p>
 <p><span class="math display">\[W_q = \dfrac{L_q}{\lambda} = 1.6\bar{33} \; \text{minutes}\]</span></p>
-<p>Lindley’s equation can be readily implemented in using KSL constructs as illustrated in the following code listing.</p>
+<div class="example">
+<p><span id="exm:ch5ex3" class="example"><strong>Example 5.3  (Lindley Equation) </strong></span>Lindley’s equation can be readily implemented in using KSL constructs as illustrated in the following code listing.</p>
 <div class="sourceCode" id="cb155"><pre class="sourceCode kt"><code class="sourceCode kotlin"><span id="cb155-1"><a href="simoainfhorizon.html#cb155-1" tabindex="-1"></a><span class="kw">class</span> LindleyEquation<span class="op">(</span></span>
 <span id="cb155-2"><a href="simoainfhorizon.html#cb155-2" tabindex="-1"></a>    <span class="kw">var</span> <span class="va">tba</span><span class="op">:</span> <span class="dt">RandomIfc</span> <span class="op">=</span> ExponentialRV<span class="op">(</span><span class="fl">1.0</span><span class="op">),</span></span>
 <span id="cb155-3"><a href="simoainfhorizon.html#cb155-3" tabindex="-1"></a>    <span class="kw">var</span> <span class="va">st</span><span class="op">:</span> <span class="dt">RandomIfc</span> <span class="op">=</span> ExponentialRV<span class="op">(</span><span class="fl">0.7</span><span class="op">),</span></span>
@@ -578,6 +589,7 @@ and <span class="math inline">\(\mu\)</span> = 10/7. Thus, based on traditional 
 <span id="cb155-51"><a href="simoainfhorizon.html#cb155-51" tabindex="-1"></a>    <span class="op">}</span></span>
 <span id="cb155-52"><a href="simoainfhorizon.html#cb155-52" tabindex="-1"></a></span>
 <span id="cb155-53"><a href="simoainfhorizon.html#cb155-53" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
+</div>
 <p>This implementation can be readily extended to capture the data to files for display in spreadsheets or other plotting software. As part of the plotting process it is useful to display the cumulative sum and cumulative average of the data values.</p>
 <p><span class="math display">\[\sum_{i=1}^n W_i \; \text{for} \; n = 1,2,\ldots\]</span></p>
 <p><span class="math display">\[\dfrac{1}{n} \sum_{i=1}^n W_i \; \text{for} \; n = 1,2,\ldots\]</span></p>
@@ -698,7 +710,7 @@ within-replication data for infinite horizon simulations.</p>
 <p>Consider the output stochastic process <span class="math inline">\(X_i\)</span> of the simulation. Let
 <span class="math inline">\(F_i(x|I)\)</span> be the conditional cumulative distribution function of <span class="math inline">\(X_i\)</span>
 where <span class="math inline">\(I\)</span> represents the initial conditions used to start the simulation
-at time 0. If <span class="math inline">\(F_i(x|I) \rightarrow F(x)\)</span> when <span class="math inline">\(i \rightarrow \infty\)</span>,
+at time 0. If <span class="math inline">\(F_i(x|I)  \rightarrow F(x)\)</span> when <span class="math inline">\(i \rightarrow \infty\)</span>,
 for all initial conditions <span class="math inline">\(I\)</span>, then <span class="math inline">\(F(x)\)</span> is called the steady state
 distribution of the output process. (Law 2007).</p>
 <p>In infinite horizon simulations, estimating parameters of the steady
@@ -1164,6 +1176,9 @@ class produces files from which the plots can be made.</p>
 goal is to determine the number of observations of the response to
 delete at the beginning of the simulation. We can collect the relevant
 data by attaching an observer to the response variable.</p>
+<div class="example">
+<p><span id="exm:ch5ex4" class="example"><strong>Example 5.4  (Welch Plot Analysis) </strong></span>This code illustrates how to capture Welch plot data and to show the Welch
+plot within a browser window.</p>
 <div class="sourceCode" id="cb156"><pre class="sourceCode kt"><code class="sourceCode kotlin"><span id="cb156-1"><a href="simoainfhorizon.html#cb156-1" tabindex="-1"></a><span class="kw">fun</span> <span class="fu">main</span><span class="op">(){</span></span>
 <span id="cb156-2"><a href="simoainfhorizon.html#cb156-2" tabindex="-1"></a>    <span class="kw">val</span> <span class="va">model</span> <span class="op">=</span> Model<span class="op">(</span><span class="st">&quot;Drive Through Pharmacy&quot;</span><span class="op">)</span></span>
 <span id="cb156-3"><a href="simoainfhorizon.html#cb156-3" tabindex="-1"></a>    <span class="co">// add DriveThroughPharmacy to the main model</span></span>
@@ -1192,6 +1207,7 @@ data by attaching an observer to the response variable.</p>
 <span id="cb156-26"><a href="simoainfhorizon.html#cb156-26" tabindex="-1"></a>    wp<span class="op">.</span>saveToFile<span class="op">(</span><span class="st">&quot;SystemTimeWelchPlot&quot;</span><span class="op">)</span></span>
 <span id="cb156-27"><a href="simoainfhorizon.html#cb156-27" tabindex="-1"></a></span>
 <span id="cb156-28"><a href="simoainfhorizon.html#cb156-28" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
+</div>
 <p>In the code, we create two instances of <code>WelchFileObserver</code> one for the system time (<code>systemTime</code>) and one for the number in the system (<code>numInSyste</code>) both referenced from the exposed properties of the drive through pharmacy class. Since the number in the system is a time-persistent variable, it is discretized based on intervals of 10 time units. The concept of discretizing the time-persistent data is illustrated in Figure <a href="simoainfhorizon.html#fig:DiscretizeTBD">5.18</a>. The <code>WelchFileObserver</code> instances are used to create <code>WelchDataFileAnalyzer</code> instances, which are used to make the data for plotting. You can use any plotting program that you want to display the plot.</p>
 <div class="figure"><span style="display:block;" id="fig:WelchSysTimePlot"></span>
 <img src="05-Chapter5_files/figure-html/WelchSysTimePlot-1.svg" alt="Welch Plot for System Time Analysis" width="672" />
@@ -1381,7 +1397,7 @@ stationary, an assessment of the harm in ignoring the correlation can be
 made. For a series that is covariance stationary, one can show that</p>
 <p><span class="math display">\[Var(\bar{X}) = \dfrac{\gamma_0}{n} \left[1 + 2 \sum_{k=1}^{n-1} \left(1 - \dfrac{k}{n} \right) \rho_k \right]\]</span></p>
 <p>where <span class="math inline">\(\gamma_0 = Var(X_i)\)</span>, <span class="math inline">\(\gamma_k = Cov(X_i, X_{i + k})\)</span>, and
-<span class="math inline">\(\rho_k = \gamma_k/\gamma_0\)</span> for <span class="math inline">\(k = 1, 2, \ldots, n - 1\)</span>.</p>
+<span class="math inline">\(\rho_k =  \gamma_k/\gamma_0\)</span> for <span class="math inline">\(k = 1, 2, \ldots, n - 1\)</span>.</p>
 <p>When the data are correlated, <span class="math inline">\(S^2/n\)</span> is a biased estimator of
 <span class="math inline">\(Var(\bar{X})\)</span>. To show this, you need to compute the expected value of
 <span class="math inline">\(S^2/n\)</span> as follows:</p>
@@ -1508,6 +1524,9 @@ interval used to discretize the time weighted variables. If no interval
 is supplied, then the algorithm ensures that the initial number of
 batches collected before applying the previously described batching
 algorithm is 512.</p>
+<div class="example">
+<p><span id="exm:ch5ex5" class="example"><strong>Example 5.5  (Performing a Batch Means Analysis) </strong></span>This code illustrates how to perform a single run, batch means analysis, by
+adding a batching element to the model.</p>
 <div class="sourceCode" id="cb157"><pre class="sourceCode kt"><code class="sourceCode kotlin"><span id="cb157-1"><a href="simoainfhorizon.html#cb157-1" tabindex="-1"></a><span class="kw">fun</span> <span class="fu">main</span><span class="op">(){</span></span>
 <span id="cb157-2"><a href="simoainfhorizon.html#cb157-2" tabindex="-1"></a>    <span class="kw">val</span> <span class="va">model</span> <span class="op">=</span> Model<span class="op">(</span><span class="st">&quot;Drive Through Pharmacy&quot;</span><span class="op">)</span></span>
 <span id="cb157-3"><a href="simoainfhorizon.html#cb157-3" tabindex="-1"></a>    <span class="co">// add DriveThroughPharmacy to the main model</span></span>
@@ -1522,6 +1541,7 @@ algorithm is 512.</p>
 <span id="cb157-12"><a href="simoainfhorizon.html#cb157-12" tabindex="-1"></a>    <span class="kw">val</span> <span class="va">sr</span> <span class="op">=</span> batchingElement<span class="op">.</span>statisticReporter</span>
 <span id="cb157-13"><a href="simoainfhorizon.html#cb157-13" tabindex="-1"></a>    println<span class="op">(</span>sr<span class="op">.</span>halfWidthSummaryReport<span class="op">())</span></span>
 <span id="cb157-14"><a href="simoainfhorizon.html#cb157-14" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
+</div>
 <p>The analysis performed to determine the warm up period should give you
 some information concerning how long to make this single run and how
 long to set it’s warm up period. Assume that a warm up analysis has been
@@ -1703,7 +1723,7 @@ half-width criteria is met for the batch means. Currently, the KSL does not faci
 <p>Once the warm up period has been analyzed, performing infinite horizon
 simulations using the batch means method is relatively straight forward.
 A disadvantage of the batch means method is that it will be more
-difficult to use the statistical classical experimental design methods.
+difficult to use classical experimental design methods.
 If you are faced with an infinite horizon simulation, then you can use
 either the replication-deletion approach or the batch means method
 readily within the KSL. In either case, you should investigate if there
@@ -1737,7 +1757,7 @@ section discusses how to compare different system configurations.</p>
 </div>
 </div>
 <h3><span class="header-section-number">G</span> References<a href="references.html#references" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<div id="refs" class="references csl-bib-body hanging-indent">
+<div id="refs" class="references csl-bib-body hanging-indent" entry-spacing="0">
 <div id="ref-alexopoulos1998output" class="csl-entry">
 Alexopoulos, C., and A. F. Seila. 1998. <span>“Output Data Analysis.”</span> In <em>Handbook of Simulation</em>, edited by J. Banks. John Wiley &amp; Sons, New York.
 </div>

@@ -6,7 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>D.1 The OutputDirectory Class and KSL Object | Simulation Modeling using the Kotlin Simulation Library (KSL)</title>
   <meta name="description" content="A book that illustrates the basics of using the KSL. The output format for this book is bookdown::gitbook." />
-  <meta name="generator" content="bookdown 0.34 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.39 and GitBook 2.6.7" />
 
   <meta property="og:title" content="D.1 The OutputDirectory Class and KSL Object | Simulation Modeling using the Kotlin Simulation Library (KSL)" />
   <meta property="og:type" content="book" />
@@ -23,7 +23,7 @@
 <meta name="author" content="Manuel D. Rossetti" />
 
 
-<meta name="date" content="2024-05-28" />
+<meta name="date" content="2024-06-06" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -58,7 +58,7 @@
 
 <style type="text/css">
 pre > code.sourceCode { white-space: pre; position: relative; }
-pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span { line-height: 1.25; }
 pre > code.sourceCode > span:empty { height: 1.2em; }
 .sourceCode { overflow: visible; }
 code.sourceCode > span { color: inherit; text-decoration: inherit; }
@@ -130,6 +130,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 div.csl-bib-body { }
 div.csl-entry {
   clear: both;
+  margin-bottom: 0em;
 }
 .hanging div.csl-entry {
   margin-left:2em;
@@ -200,7 +201,7 @@ div.csl-indent {
 <ul>
 <li class="chapter" data-level="2.2.1" data-path="rvg.html"><a href="rvg.html#basic-random-variate-generation"><i class="fa fa-check"></i><b>2.2.1</b> Basic Random Variate Generation</a></li>
 <li class="chapter" data-level="2.2.2" data-path="rvg.html"><a href="rvg.html#rvg_dists"><i class="fa fa-check"></i><b>2.2.2</b> Continuous and Discrete Random Variables</a></li>
-<li class="chapter" data-level="2.2.3" data-path="rvg.html"><a href="rvg.html#rvg_use"><i class="fa fa-check"></i><b>2.2.3</b> Creating and Using Random Variables</a></li>
+<li class="chapter" data-level="2.2.3" data-path="rvg.html"><a href="rvg.html#rvguse"><i class="fa fa-check"></i><b>2.2.3</b> Creating and Using Random Variables</a></li>
 <li class="chapter" data-level="2.2.4" data-path="rvg.html"><a href="rvg.html#functions-of-random-variables"><i class="fa fa-check"></i><b>2.2.4</b> Functions of Random Variables</a></li>
 </ul></li>
 <li class="chapter" data-level="2.3" data-path="probModels.html"><a href="probModels.html"><i class="fa fa-check"></i><b>2.3</b> Probability Distribution Models</a></li>
@@ -231,31 +232,30 @@ div.csl-indent {
 </ul></li>
 <li class="chapter" data-level="3.4" data-path="craps.html"><a href="craps.html"><i class="fa fa-check"></i><b>3.4</b> Simulating the Game of Craps</a></li>
 <li class="chapter" data-level="3.5" data-path="the-news-vendor-problem.html"><a href="the-news-vendor-problem.html"><i class="fa fa-check"></i><b>3.5</b> The News Vendor Problem</a></li>
-<li class="chapter" data-level="3.6" data-path="a-simple-inspection-process.html"><a href="a-simple-inspection-process.html"><i class="fa fa-check"></i><b>3.6</b> A Simple Inspection Process</a></li>
-<li class="chapter" data-level="3.7" data-path="stochastic-activity-networks.html"><a href="stochastic-activity-networks.html"><i class="fa fa-check"></i><b>3.7</b> Stochastic Activity Networks</a></li>
+<li class="chapter" data-level="3.6" data-path="ch3InsProcess.html"><a href="ch3InsProcess.html"><i class="fa fa-check"></i><b>3.6</b> A Simple Inspection Process</a></li>
+<li class="chapter" data-level="3.7" data-path="ch3SAN.html"><a href="ch3SAN.html"><i class="fa fa-check"></i><b>3.7</b> Stochastic Activity Networks</a></li>
 <li class="chapter" data-level="3.8" data-path="mcmExperiments.html"><a href="mcmExperiments.html"><i class="fa fa-check"></i><b>3.8</b> Monte-Carlo Experiments</a></li>
 <li class="chapter" data-level="3.9" data-path="summary-1.html"><a href="summary-1.html"><i class="fa fa-check"></i><b>3.9</b> Summary</a></li>
 <li class="chapter" data-level="3.10" data-path="exercises-2.html"><a href="exercises-2.html"><i class="fa fa-check"></i><b>3.10</b> Exercises</a></li>
 </ul></li>
 <li class="chapter" data-level="4" data-path="introDEDS.html"><a href="introDEDS.html"><i class="fa fa-check"></i><b>4</b> Introduction to Discrete Event Modeling</a>
 <ul>
-<li class="chapter" data-level="4.1" data-path="introDEDSIntro.html"><a href="introDEDSIntro.html"><i class="fa fa-check"></i><b>4.1</b> Introduction</a></li>
-<li class="chapter" data-level="4.2" data-path="introDEDSdeds.html"><a href="introDEDSdeds.html"><i class="fa fa-check"></i><b>4.2</b> Discrete-Event Dynamic Systems</a></li>
-<li class="chapter" data-level="4.3" data-path="HowDEDSClockWorks.html"><a href="HowDEDSClockWorks.html"><i class="fa fa-check"></i><b>4.3</b> How the Discrete-Event Clock Works</a></li>
-<li class="chapter" data-level="4.4" data-path="QHandExample.html"><a href="QHandExample.html"><i class="fa fa-check"></i><b>4.4</b> Simulating a Queueing System By Hand</a></li>
-<li class="chapter" data-level="4.5" data-path="introDEDSdedsKSL.html"><a href="introDEDSdedsKSL.html"><i class="fa fa-check"></i><b>4.5</b> Modeling DEDS in the KSL</a>
+<li class="chapter" data-level="4.1" data-path="introDEDSdeds.html"><a href="introDEDSdeds.html"><i class="fa fa-check"></i><b>4.1</b> Discrete-Event Dynamic Systems</a></li>
+<li class="chapter" data-level="4.2" data-path="HowDEDSClockWorks.html"><a href="HowDEDSClockWorks.html"><i class="fa fa-check"></i><b>4.2</b> How the Discrete-Event Clock Works</a></li>
+<li class="chapter" data-level="4.3" data-path="QHandExample.html"><a href="QHandExample.html"><i class="fa fa-check"></i><b>4.3</b> Simulating a Queueing System By Hand</a></li>
+<li class="chapter" data-level="4.4" data-path="introDEDSdedsKSL.html"><a href="introDEDSdedsKSL.html"><i class="fa fa-check"></i><b>4.4</b> Modeling DEDS in the KSL</a>
 <ul>
-<li class="chapter" data-level="4.5.1" data-path="introDEDSdedsKSL.html"><a href="introDEDSdedsKSL.html#event-scheduling"><i class="fa fa-check"></i><b>4.5.1</b> Event Scheduling</a></li>
-<li class="chapter" data-level="4.5.2" data-path="introDEDSdedsKSL.html"><a href="introDEDSdedsKSL.html#introDEDSschedExamples"><i class="fa fa-check"></i><b>4.5.2</b> Simple Event Scheduling Examples</a></li>
-<li class="chapter" data-level="4.5.3" data-path="introDEDSdedsKSL.html"><a href="introDEDSdedsKSL.html#introDEDSUpDown"><i class="fa fa-check"></i><b>4.5.3</b> Up and Down Component Example</a></li>
-<li class="chapter" data-level="4.5.4" data-path="introDEDSdedsKSL.html"><a href="introDEDSdedsKSL.html#introDEDSPharmacy"><i class="fa fa-check"></i><b>4.5.4</b> Modeling a Simple Queueing System</a></li>
-<li class="chapter" data-level="4.5.5" data-path="introDEDSdedsKSL.html"><a href="introDEDSdedsKSL.html#more-details-about-the-pharmacy-model-implementation"><i class="fa fa-check"></i><b>4.5.5</b> More Details About the Pharmacy Model Implementation</a></li>
+<li class="chapter" data-level="4.4.1" data-path="introDEDSdedsKSL.html"><a href="introDEDSdedsKSL.html#event-scheduling"><i class="fa fa-check"></i><b>4.4.1</b> Event Scheduling</a></li>
+<li class="chapter" data-level="4.4.2" data-path="introDEDSdedsKSL.html"><a href="introDEDSdedsKSL.html#introDEDSschedExamples"><i class="fa fa-check"></i><b>4.4.2</b> Simple Event Scheduling Examples</a></li>
+<li class="chapter" data-level="4.4.3" data-path="introDEDSdedsKSL.html"><a href="introDEDSdedsKSL.html#introDEDSUpDown"><i class="fa fa-check"></i><b>4.4.3</b> Up and Down Component Example</a></li>
+<li class="chapter" data-level="4.4.4" data-path="introDEDSdedsKSL.html"><a href="introDEDSdedsKSL.html#introDEDSPharmacy"><i class="fa fa-check"></i><b>4.4.4</b> Modeling a Simple Queueing System</a></li>
+<li class="chapter" data-level="4.4.5" data-path="introDEDSdedsKSL.html"><a href="introDEDSdedsKSL.html#more-details-about-the-pharmacy-model-implementation"><i class="fa fa-check"></i><b>4.4.5</b> More Details About the Pharmacy Model Implementation</a></li>
 </ul></li>
-<li class="chapter" data-level="4.6" data-path="enhancing-the-drive-through-pharmacy-model.html"><a href="enhancing-the-drive-through-pharmacy-model.html"><i class="fa fa-check"></i><b>4.6</b> Enhancing the Drive Through Pharmacy Model</a></li>
-<li class="chapter" data-level="4.7" data-path="introDEDSSummary.html"><a href="introDEDSSummary.html"><i class="fa fa-check"></i><b>4.7</b> Summary</a></li>
-<li class="chapter" data-level="4.8" data-path="exercises-3.html"><a href="exercises-3.html"><i class="fa fa-check"></i><b>4.8</b> Exercises</a></li>
+<li class="chapter" data-level="4.5" data-path="enhancing-the-drive-through-pharmacy-model.html"><a href="enhancing-the-drive-through-pharmacy-model.html"><i class="fa fa-check"></i><b>4.5</b> Enhancing the Drive Through Pharmacy Model</a></li>
+<li class="chapter" data-level="4.6" data-path="introDEDSSummary.html"><a href="introDEDSSummary.html"><i class="fa fa-check"></i><b>4.6</b> Summary</a></li>
+<li class="chapter" data-level="4.7" data-path="exercises-3.html"><a href="exercises-3.html"><i class="fa fa-check"></i><b>4.7</b> Exercises</a></li>
 </ul></li>
-<li class="chapter" data-level="5" data-path="simoa.html"><a href="simoa.html"><i class="fa fa-check"></i><b>5</b> Analyzing Simulation Output</a>
+<li class="chapter" data-level="5" data-path="simoa.html"><a href="simoa.html"><i class="fa fa-check"></i><b>5</b> Analyzing and Accessing Simulation Output</a>
 <ul>
 <li class="chapter" data-level="5.1" data-path="simoadatatypes.html"><a href="simoadatatypes.html"><i class="fa fa-check"></i><b>5.1</b> Types of Statistical Variables</a></li>
 <li class="chapter" data-level="5.2" data-path="simoasimtypes.html"><a href="simoasimtypes.html"><i class="fa fa-check"></i><b>5.2</b> Types of Simulation With Respect To Output Analysis</a></li>
@@ -277,10 +277,18 @@ div.csl-indent {
 <li class="chapter" data-level="5.7" data-path="simoacomparingSystems.html"><a href="simoacomparingSystems.html"><i class="fa fa-check"></i><b>5.7</b> Comparing System Configurations</a>
 <ul>
 <li class="chapter" data-level="5.7.1" data-path="simoacomparingSystems.html"><a href="simoacomparingSystems.html#simoacomparingSystems:two"><i class="fa fa-check"></i><b>5.7.1</b> Comparing Two Systems</a></li>
-<li class="chapter" data-level="5.7.2" data-path="simoacomparingSystems.html"><a href="simoacomparingSystems.html#simoacomparingSystemsMCB"><i class="fa fa-check"></i><b>5.7.2</b> Multiple Comparisons</a></li>
+<li class="chapter" data-level="5.7.2" data-path="simoacomparingSystems.html"><a href="simoacomparingSystems.html#simoacomparingSystemsMCB"><i class="fa fa-check"></i><b>5.7.2</b> Concepts for Comparing Systems</a></li>
+<li class="chapter" data-level="5.7.3" data-path="simoacomparingSystems.html"><a href="simoacomparingSystems.html#multiple-comparison-with-the-best-procedures-mcb"><i class="fa fa-check"></i><b>5.7.3</b> Multiple Comparison with the Best Procedures (MCB)</a></li>
+<li class="chapter" data-level="5.7.4" data-path="simoacomparingSystems.html"><a href="simoacomparingSystems.html#ch5Screening"><i class="fa fa-check"></i><b>5.7.4</b> Screening Procedures</a></li>
 </ul></li>
-<li class="chapter" data-level="5.8" data-path="simoasummary.html"><a href="simoasummary.html"><i class="fa fa-check"></i><b>5.8</b> Summary</a></li>
-<li class="chapter" data-level="5.9" data-path="exercises-4.html"><a href="exercises-4.html"><i class="fa fa-check"></i><b>5.9</b> Exercises</a></li>
+<li class="chapter" data-level="5.8" data-path="ch5Scenarios.html"><a href="ch5Scenarios.html"><i class="fa fa-check"></i><b>5.8</b> Simulating Many Scenarios</a>
+<ul>
+<li class="chapter" data-level="5.8.1" data-path="ch5Scenarios.html"><a href="ch5Scenarios.html#controlAntns"><i class="fa fa-check"></i><b>5.8.1</b> Control Annotations</a></li>
+<li class="chapter" data-level="5.8.2" data-path="ch5Scenarios.html"><a href="ch5Scenarios.html#random-variable-parameters"><i class="fa fa-check"></i><b>5.8.2</b> Random Variable Parameters</a></li>
+<li class="chapter" data-level="5.8.3" data-path="ch5Scenarios.html"><a href="ch5Scenarios.html#kslScenarios"><i class="fa fa-check"></i><b>5.8.3</b> Setting Up and Running Multiple Scenarios</a></li>
+</ul></li>
+<li class="chapter" data-level="5.9" data-path="simoasummary.html"><a href="simoasummary.html"><i class="fa fa-check"></i><b>5.9</b> Summary</a></li>
+<li class="chapter" data-level="5.10" data-path="exercises-4.html"><a href="exercises-4.html"><i class="fa fa-check"></i><b>5.10</b> Exercises</a></li>
 </ul></li>
 <li class="chapter" data-level="6" data-path="processview.html"><a href="processview.html"><i class="fa fa-check"></i><b>6</b> Process View Modeling Using the KSL</a>
 <ul>
@@ -312,12 +320,12 @@ div.csl-indent {
 <ul>
 <li class="chapter" data-level="7.2.1" data-path="modeling-non-stationary-systems.html"><a href="modeling-non-stationary-systems.html#ch7secNSPP"><i class="fa fa-check"></i><b>7.2.1</b> Non-Stationary Arrival Processes</a></li>
 <li class="chapter" data-level="7.2.2" data-path="modeling-non-stationary-systems.html"><a href="modeling-non-stationary-systems.html#modeling-resources-under-non-stationary-conditions"><i class="fa fa-check"></i><b>7.2.2</b> Modeling Resources Under Non-Stationary Conditions</a></li>
-<li class="chapter" data-level="7.2.3" data-path="modeling-non-stationary-systems.html"><a href="modeling-non-stationary-systems.html#enhancing-the-stem-career-mixer-example"><i class="fa fa-check"></i><b>7.2.3</b> Enhancing the STEM Career Mixer Example</a></li>
+<li class="chapter" data-level="7.2.3" data-path="modeling-non-stationary-systems.html"><a href="modeling-non-stationary-systems.html#enhancing-the-stem-career-mixer-model"><i class="fa fa-check"></i><b>7.2.3</b> Enhancing the STEM Career Mixer Model</a></li>
 </ul></li>
 <li class="chapter" data-level="7.3" data-path="examples-of-advanced-event-models.html"><a href="examples-of-advanced-event-models.html"><i class="fa fa-check"></i><b>7.3</b> Examples of Advanced Event Models</a>
 <ul>
 <li class="chapter" data-level="7.3.1" data-path="examples-of-advanced-event-models.html"><a href="examples-of-advanced-event-models.html#ch6s1sb4sub3"><i class="fa fa-check"></i><b>7.3.1</b> Modeling Balking and Reneging</a></li>
-<li class="chapter" data-level="7.3.2" data-path="examples-of-advanced-event-models.html"><a href="examples-of-advanced-event-models.html#modeling-a-reorder-point-reorder-quantity-inventory-policy"><i class="fa fa-check"></i><b>7.3.2</b> Modeling a Reorder Point, Reorder Quantity Inventory Policy</a></li>
+<li class="chapter" data-level="7.3.2" data-path="examples-of-advanced-event-models.html"><a href="examples-of-advanced-event-models.html#rqModel"><i class="fa fa-check"></i><b>7.3.2</b> Modeling a Reorder Point, Reorder Quantity Inventory Policy</a></li>
 </ul></li>
 <li class="chapter" data-level="7.4" data-path="summary-3.html"><a href="summary-3.html"><i class="fa fa-check"></i><b>7.4</b> Summary</a></li>
 <li class="chapter" data-level="7.5" data-path="exercises-6.html"><a href="exercises-6.html"><i class="fa fa-check"></i><b>7.5</b> Exercises</a></li>
@@ -432,11 +440,13 @@ div.csl-indent {
 <li class="chapter" data-level="D.1" data-path="the-outputdirectory-class-and-ksl-object.html"><a href="the-outputdirectory-class-and-ksl-object.html"><i class="fa fa-check"></i><b>D.1</b> The <code>OutputDirectory</code> Class and <code>KSL</code> Object</a></li>
 <li class="chapter" data-level="D.2" data-path="logging-options.html"><a href="logging-options.html"><i class="fa fa-check"></i><b>D.2</b> Logging Options</a></li>
 <li class="chapter" data-level="D.3" data-path="the-kslfileutil-object.html"><a href="the-kslfileutil-object.html"><i class="fa fa-check"></i><b>D.3</b> The <code>KSLFileUtil</code> Object</a></li>
-<li class="chapter" data-level="D.4" data-path="csv-excel-and-tabular-data-files.html"><a href="csv-excel-and-tabular-data-files.html"><i class="fa fa-check"></i><b>D.4</b> CSV, Excel, and Tabular Data Files</a></li>
-<li class="chapter" data-level="D.5" data-path="the-dataframeutil-object.html"><a href="the-dataframeutil-object.html"><i class="fa fa-check"></i><b>D.5</b> The <code>DataFrameUtil</code> Object</a></li>
+<li class="chapter" data-level="D.4" data-path="appDCSVEtc.html"><a href="appDCSVEtc.html"><i class="fa fa-check"></i><b>D.4</b> CSV, Excel, and Tabular Data Files</a></li>
+<li class="chapter" data-level="D.5" data-path="dfUtil.html"><a href="dfUtil.html"><i class="fa fa-check"></i><b>D.5</b> The <code>DataFrameUtil</code> Object</a></li>
 <li class="chapter" data-level="D.6" data-path="ksl-database-utilities.html"><a href="ksl-database-utilities.html"><i class="fa fa-check"></i><b>D.6</b> KSL Database Utilities</a></li>
 <li class="chapter" data-level="D.7" data-path="appUtilitiesArrays.html"><a href="appUtilitiesArrays.html"><i class="fa fa-check"></i><b>D.7</b> Array Utilities</a></li>
-<li class="chapter" data-level="D.8" data-path="appUtilitiesMisc.html"><a href="appUtilitiesMisc.html"><i class="fa fa-check"></i><b>D.8</b> Miscellaneous Utilities</a></li>
+<li class="chapter" data-level="D.8" data-path="appPlotting.html"><a href="appPlotting.html"><i class="fa fa-check"></i><b>D.8</b> KSL Plotting Utilities</a></li>
+<li class="chapter" data-level="D.9" data-path="appExpDesign.html"><a href="appExpDesign.html"><i class="fa fa-check"></i><b>D.9</b> Experimental Design Utilities</a></li>
+<li class="chapter" data-level="D.10" data-path="appUtilitiesMisc.html"><a href="appUtilitiesMisc.html"><i class="fa fa-check"></i><b>D.10</b> Miscellaneous Utilities</a></li>
 </ul></li>
 <li class="chapter" data-level="E" data-path="distributions.html"><a href="distributions.html"><i class="fa fa-check"></i><b>E</b> Distributions</a>
 <ul>
@@ -470,38 +480,38 @@ div.csl-indent {
 <p>We often need to get data into a program or to write data out. Because of the plethora of file formats and differing methods for creating and using files, the KSL provides some utilities for working with comma separated value (CSV), Excel, Markdown, text, and database files. The most relevant classes include <code>OutputDirectory</code> class, the <code>KSL</code> <em>object</em> and the <code>KSLFileUtil</code> class.
 Figure <a href="the-outputdirectory-class-and-ksl-object.html#fig:FileUtilities">D.1</a> illustrates the functions and properties of the <code>KSL</code> object and the <code>OutputDirectory</code> class.</p>
 <div class="figure" style="text-align: center"><span style="display:block;" id="fig:FileUtilities"></span>
-<img src="figures2/ch13/KSL.png" alt="OutputDirectory and KSL"  />
+<img src="figures2/ch13/KSL.png" alt="OutputDirectory and KSL" width="90%" height="90%" />
 <p class="caption">
 Figure D.1: OutputDirectory and KSL
 </p>
 </div>
 <p>The <code>OutputDirectory</code> class is an abstraction for a file directory to store output. When working with a particular simulation model, it is useful to store all of the results and files generated by the model in one directory. The <code>OutputDirectory</code> class facilitates this common use case. An instance of <code>OutputDirectory</code> requires a path to the file directory and then forms some standard sub-directories (<code>excelDir</code>, <code>dbDir</code>, <code>csvDir</code>, <code>outDir</code>) to hold various files that may be generated for these common types of files. The <code>KSL</code> object is, in essence, a default directory to hold all KSL output. Notice that <code>OutputDirectory</code> provides functions for creating files and directories within it. The most useful of the functions is the <code>createPrintWriter(name: String)</code> function which takes in the name of the file and creates a <code>PrintWriter</code> set up to write to the file. Also, notice the <code>createSubDirectory()</code> function. The directories created by this function are relative to the defined output directory. This alleviates the burden of fully specifying path strings and working with paths.</p>
 <p>Here is some sample code that uses the <code>OutputDirectory</code> class.</p>
-<div class="sourceCode" id="cb400"><pre class="sourceCode kt"><code class="sourceCode kotlin"><span id="cb400-1"><a href="the-outputdirectory-class-and-ksl-object.html#cb400-1" tabindex="-1"></a>    <span class="co">// get the working directory</span></span>
-<span id="cb400-2"><a href="the-outputdirectory-class-and-ksl-object.html#cb400-2" tabindex="-1"></a>    <span class="kw">val</span> <span class="va">path</span> <span class="op">=</span> Paths<span class="op">.</span><span class="kw">get</span><span class="op">(</span><span class="st">&quot;&quot;</span><span class="op">).</span>toAbsolutePath<span class="op">()</span></span>
-<span id="cb400-3"><a href="the-outputdirectory-class-and-ksl-object.html#cb400-3" tabindex="-1"></a>    println<span class="op">(</span><span class="st">&quot;Working Directory = </span><span class="ss">$path</span><span class="st">&quot;</span><span class="op">)</span></span>
-<span id="cb400-4"><a href="the-outputdirectory-class-and-ksl-object.html#cb400-4" tabindex="-1"></a>    <span class="co">// creates a directory called TestOutputDir in the current working directory</span></span>
-<span id="cb400-5"><a href="the-outputdirectory-class-and-ksl-object.html#cb400-5" tabindex="-1"></a>    <span class="co">// Creates subdirectories: csvDir, dbDir, excelDir and file out.txt</span></span>
-<span id="cb400-6"><a href="the-outputdirectory-class-and-ksl-object.html#cb400-6" tabindex="-1"></a>    <span class="kw">val</span> <span class="va">outDir</span> <span class="op">=</span> OutputDirectory<span class="op">(</span>path<span class="op">.</span>resolve<span class="op">(</span><span class="st">&quot;TestOutputDir&quot;</span><span class="op">))</span></span>
-<span id="cb400-7"><a href="the-outputdirectory-class-and-ksl-object.html#cb400-7" tabindex="-1"></a>    <span class="co">// write to the default file</span></span>
-<span id="cb400-8"><a href="the-outputdirectory-class-and-ksl-object.html#cb400-8" tabindex="-1"></a>    outDir<span class="op">.</span><span class="kw">out</span><span class="op">.</span>println<span class="op">(</span><span class="st">&quot;Use out property to write out text to a file.&quot;</span><span class="op">)</span></span>
-<span id="cb400-9"><a href="the-outputdirectory-class-and-ksl-object.html#cb400-9" tabindex="-1"></a>    <span class="co">// Creates a PrintWriter (and file) to write to within TestOutputDir</span></span>
-<span id="cb400-10"><a href="the-outputdirectory-class-and-ksl-object.html#cb400-10" tabindex="-1"></a>    <span class="kw">val</span> <span class="va">pw</span> <span class="op">=</span> outDir<span class="op">.</span>createPrintWriter<span class="op">(</span><span class="st">&quot;PW_File.txt&quot;</span><span class="op">)</span></span>
-<span id="cb400-11"><a href="the-outputdirectory-class-and-ksl-object.html#cb400-11" tabindex="-1"></a>    pw<span class="op">.</span>println<span class="op">(</span><span class="st">&quot;Hello, World&quot;</span><span class="op">)</span></span>
-<span id="cb400-12"><a href="the-outputdirectory-class-and-ksl-object.html#cb400-12" tabindex="-1"></a>    <span class="kw">val</span> <span class="va">subDir</span> <span class="op">=</span> outDir<span class="op">.</span>createSubDirectory<span class="op">(</span><span class="st">&quot;SubDir&quot;</span><span class="op">)</span></span>
-<span id="cb400-13"><a href="the-outputdirectory-class-and-ksl-object.html#cb400-13" tabindex="-1"></a>    println<span class="op">(</span>outDir<span class="op">)</span></span></code></pre></div>
+<div class="sourceCode" id="cb415"><pre class="sourceCode kt"><code class="sourceCode kotlin"><span id="cb415-1"><a href="the-outputdirectory-class-and-ksl-object.html#cb415-1" tabindex="-1"></a>    <span class="co">// get the working directory</span></span>
+<span id="cb415-2"><a href="the-outputdirectory-class-and-ksl-object.html#cb415-2" tabindex="-1"></a>    <span class="kw">val</span> <span class="va">path</span> <span class="op">=</span> Paths<span class="op">.</span><span class="kw">get</span><span class="op">(</span><span class="st">&quot;&quot;</span><span class="op">).</span>toAbsolutePath<span class="op">()</span></span>
+<span id="cb415-3"><a href="the-outputdirectory-class-and-ksl-object.html#cb415-3" tabindex="-1"></a>    println<span class="op">(</span><span class="st">&quot;Working Directory = </span><span class="ss">$path</span><span class="st">&quot;</span><span class="op">)</span></span>
+<span id="cb415-4"><a href="the-outputdirectory-class-and-ksl-object.html#cb415-4" tabindex="-1"></a>    <span class="co">// creates a directory called TestOutputDir in the current working directory</span></span>
+<span id="cb415-5"><a href="the-outputdirectory-class-and-ksl-object.html#cb415-5" tabindex="-1"></a>    <span class="co">// Creates subdirectories: csvDir, dbDir, excelDir and file out.txt</span></span>
+<span id="cb415-6"><a href="the-outputdirectory-class-and-ksl-object.html#cb415-6" tabindex="-1"></a>    <span class="kw">val</span> <span class="va">outDir</span> <span class="op">=</span> OutputDirectory<span class="op">(</span>path<span class="op">.</span>resolve<span class="op">(</span><span class="st">&quot;TestOutputDir&quot;</span><span class="op">))</span></span>
+<span id="cb415-7"><a href="the-outputdirectory-class-and-ksl-object.html#cb415-7" tabindex="-1"></a>    <span class="co">// write to the default file</span></span>
+<span id="cb415-8"><a href="the-outputdirectory-class-and-ksl-object.html#cb415-8" tabindex="-1"></a>    outDir<span class="op">.</span><span class="kw">out</span><span class="op">.</span>println<span class="op">(</span><span class="st">&quot;Use out property to write out text to a file.&quot;</span><span class="op">)</span></span>
+<span id="cb415-9"><a href="the-outputdirectory-class-and-ksl-object.html#cb415-9" tabindex="-1"></a>    <span class="co">// Creates a PrintWriter (and file) to write to within TestOutputDir</span></span>
+<span id="cb415-10"><a href="the-outputdirectory-class-and-ksl-object.html#cb415-10" tabindex="-1"></a>    <span class="kw">val</span> <span class="va">pw</span> <span class="op">=</span> outDir<span class="op">.</span>createPrintWriter<span class="op">(</span><span class="st">&quot;PW_File.txt&quot;</span><span class="op">)</span></span>
+<span id="cb415-11"><a href="the-outputdirectory-class-and-ksl-object.html#cb415-11" tabindex="-1"></a>    pw<span class="op">.</span>println<span class="op">(</span><span class="st">&quot;Hello, World&quot;</span><span class="op">)</span></span>
+<span id="cb415-12"><a href="the-outputdirectory-class-and-ksl-object.html#cb415-12" tabindex="-1"></a>    <span class="kw">val</span> <span class="va">subDir</span> <span class="op">=</span> outDir<span class="op">.</span>createSubDirectory<span class="op">(</span><span class="st">&quot;SubDir&quot;</span><span class="op">)</span></span>
+<span id="cb415-13"><a href="the-outputdirectory-class-and-ksl-object.html#cb415-13" tabindex="-1"></a>    println<span class="op">(</span>outDir<span class="op">)</span></span></code></pre></div>
 <p>The <code>KSL</code> object is essentially a predefined instance of <code>OutputDirectory</code> that creates a default directory called <code>kslOutput</code> within the current working directory. The property <code>out</code> is an instance of a <code>LogPrintWriter</code>, which is a class that wraps a <code>PrintWriter</code> but also has a property called <code>OUTPUT_ON</code>, which has type boolean, where true indicates that output will be written and false turns off the output. You can use this to stop excessive print messages globally. I find this useful for simple debugging messages. Besides this field, <code>KSL</code> has a standard logger for logging program messages.</p>
-<div class="sourceCode" id="cb401"><pre class="sourceCode kt"><code class="sourceCode kotlin"><span id="cb401-1"><a href="the-outputdirectory-class-and-ksl-object.html#cb401-1" tabindex="-1"></a>    <span class="co">// use KSL like you use OutputDirectory but with some added functionality</span></span>
-<span id="cb401-2"><a href="the-outputdirectory-class-and-ksl-object.html#cb401-2" tabindex="-1"></a>    <span class="co">// The PW_File.txt file with be within the kslOutput directory within the working directory</span></span>
-<span id="cb401-3"><a href="the-outputdirectory-class-and-ksl-object.html#cb401-3" tabindex="-1"></a>    <span class="kw">val</span> <span class="va">pw</span> <span class="op">=</span> KSL<span class="op">.</span>createPrintWriter<span class="op">(</span><span class="st">&quot;PW_File.txt&quot;</span><span class="op">)</span></span>
-<span id="cb401-4"><a href="the-outputdirectory-class-and-ksl-object.html#cb401-4" tabindex="-1"></a>    pw<span class="op">.</span>println<span class="op">(</span><span class="st">&quot;Hello, World!&quot;</span><span class="op">)</span></span>
-<span id="cb401-5"><a href="the-outputdirectory-class-and-ksl-object.html#cb401-5" tabindex="-1"></a>    <span class="co">// Creates subdirectory SubDir within the kslOutput directory</span></span>
-<span id="cb401-6"><a href="the-outputdirectory-class-and-ksl-object.html#cb401-6" tabindex="-1"></a>    KSL<span class="op">.</span>createSubDirectory<span class="op">(</span><span class="st">&quot;SubDir&quot;</span><span class="op">)</span></span>
-<span id="cb401-7"><a href="the-outputdirectory-class-and-ksl-object.html#cb401-7" tabindex="-1"></a>    <span class="co">// use KSL.out to write to kslOutput.txt</span></span>
-<span id="cb401-8"><a href="the-outputdirectory-class-and-ksl-object.html#cb401-8" tabindex="-1"></a>    KSL<span class="op">.</span><span class="kw">out</span><span class="op">.</span>println<span class="op">(</span><span class="st">&quot;Information written into kslOutput.txt&quot;</span><span class="op">)</span></span>
-<span id="cb401-9"><a href="the-outputdirectory-class-and-ksl-object.html#cb401-9" tabindex="-1"></a>    println<span class="op">(</span>KSL<span class="op">)</span></span>
-<span id="cb401-10"><a href="the-outputdirectory-class-and-ksl-object.html#cb401-10" tabindex="-1"></a>    <span class="co">// KSL also has logger. This logs to logs/ksl.log</span></span>
-<span id="cb401-11"><a href="the-outputdirectory-class-and-ksl-object.html#cb401-11" tabindex="-1"></a>    KSL<span class="op">.</span>logger<span class="op">.</span>info <span class="op">{</span> <span class="st">&quot;This is an informational log comment!&quot;</span> <span class="op">}</span></span></code></pre></div>
+<div class="sourceCode" id="cb416"><pre class="sourceCode kt"><code class="sourceCode kotlin"><span id="cb416-1"><a href="the-outputdirectory-class-and-ksl-object.html#cb416-1" tabindex="-1"></a>    <span class="co">// use KSL like you use OutputDirectory but with some added functionality</span></span>
+<span id="cb416-2"><a href="the-outputdirectory-class-and-ksl-object.html#cb416-2" tabindex="-1"></a>    <span class="co">// The PW_File.txt file with be within the kslOutput directory within the working directory</span></span>
+<span id="cb416-3"><a href="the-outputdirectory-class-and-ksl-object.html#cb416-3" tabindex="-1"></a>    <span class="kw">val</span> <span class="va">pw</span> <span class="op">=</span> KSL<span class="op">.</span>createPrintWriter<span class="op">(</span><span class="st">&quot;PW_File.txt&quot;</span><span class="op">)</span></span>
+<span id="cb416-4"><a href="the-outputdirectory-class-and-ksl-object.html#cb416-4" tabindex="-1"></a>    pw<span class="op">.</span>println<span class="op">(</span><span class="st">&quot;Hello, World!&quot;</span><span class="op">)</span></span>
+<span id="cb416-5"><a href="the-outputdirectory-class-and-ksl-object.html#cb416-5" tabindex="-1"></a>    <span class="co">// Creates subdirectory SubDir within the kslOutput directory</span></span>
+<span id="cb416-6"><a href="the-outputdirectory-class-and-ksl-object.html#cb416-6" tabindex="-1"></a>    KSL<span class="op">.</span>createSubDirectory<span class="op">(</span><span class="st">&quot;SubDir&quot;</span><span class="op">)</span></span>
+<span id="cb416-7"><a href="the-outputdirectory-class-and-ksl-object.html#cb416-7" tabindex="-1"></a>    <span class="co">// use KSL.out to write to kslOutput.txt</span></span>
+<span id="cb416-8"><a href="the-outputdirectory-class-and-ksl-object.html#cb416-8" tabindex="-1"></a>    KSL<span class="op">.</span><span class="kw">out</span><span class="op">.</span>println<span class="op">(</span><span class="st">&quot;Information written into kslOutput.txt&quot;</span><span class="op">)</span></span>
+<span id="cb416-9"><a href="the-outputdirectory-class-and-ksl-object.html#cb416-9" tabindex="-1"></a>    println<span class="op">(</span>KSL<span class="op">)</span></span>
+<span id="cb416-10"><a href="the-outputdirectory-class-and-ksl-object.html#cb416-10" tabindex="-1"></a>    <span class="co">// KSL also has logger. This logs to logs/ksl.log</span></span>
+<span id="cb416-11"><a href="the-outputdirectory-class-and-ksl-object.html#cb416-11" tabindex="-1"></a>    KSL<span class="op">.</span>logger<span class="op">.</span>info <span class="op">{</span> <span class="st">&quot;This is an informational log comment!&quot;</span> <span class="op">}</span></span></code></pre></div>
 </div>
             </section>
 

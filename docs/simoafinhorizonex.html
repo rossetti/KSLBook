@@ -6,7 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>5.4 Capturing Output for a Simple Finite Horizon Simulation | Simulation Modeling using the Kotlin Simulation Library (KSL)</title>
   <meta name="description" content="A book that illustrates the basics of using the KSL. The output format for this book is bookdown::gitbook." />
-  <meta name="generator" content="bookdown 0.34 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.39 and GitBook 2.6.7" />
 
   <meta property="og:title" content="5.4 Capturing Output for a Simple Finite Horizon Simulation | Simulation Modeling using the Kotlin Simulation Library (KSL)" />
   <meta property="og:type" content="book" />
@@ -23,7 +23,7 @@
 <meta name="author" content="Manuel D. Rossetti" />
 
 
-<meta name="date" content="2024-05-28" />
+<meta name="date" content="2024-06-06" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -58,7 +58,7 @@
 
 <style type="text/css">
 pre > code.sourceCode { white-space: pre; position: relative; }
-pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span { line-height: 1.25; }
 pre > code.sourceCode > span:empty { height: 1.2em; }
 .sourceCode { overflow: visible; }
 code.sourceCode > span { color: inherit; text-decoration: inherit; }
@@ -130,6 +130,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 div.csl-bib-body { }
 div.csl-entry {
   clear: both;
+  margin-bottom: 0em;
 }
 .hanging div.csl-entry {
   margin-left:2em;
@@ -200,7 +201,7 @@ div.csl-indent {
 <ul>
 <li class="chapter" data-level="2.2.1" data-path="rvg.html"><a href="rvg.html#basic-random-variate-generation"><i class="fa fa-check"></i><b>2.2.1</b> Basic Random Variate Generation</a></li>
 <li class="chapter" data-level="2.2.2" data-path="rvg.html"><a href="rvg.html#rvg_dists"><i class="fa fa-check"></i><b>2.2.2</b> Continuous and Discrete Random Variables</a></li>
-<li class="chapter" data-level="2.2.3" data-path="rvg.html"><a href="rvg.html#rvg_use"><i class="fa fa-check"></i><b>2.2.3</b> Creating and Using Random Variables</a></li>
+<li class="chapter" data-level="2.2.3" data-path="rvg.html"><a href="rvg.html#rvguse"><i class="fa fa-check"></i><b>2.2.3</b> Creating and Using Random Variables</a></li>
 <li class="chapter" data-level="2.2.4" data-path="rvg.html"><a href="rvg.html#functions-of-random-variables"><i class="fa fa-check"></i><b>2.2.4</b> Functions of Random Variables</a></li>
 </ul></li>
 <li class="chapter" data-level="2.3" data-path="probModels.html"><a href="probModels.html"><i class="fa fa-check"></i><b>2.3</b> Probability Distribution Models</a></li>
@@ -231,31 +232,30 @@ div.csl-indent {
 </ul></li>
 <li class="chapter" data-level="3.4" data-path="craps.html"><a href="craps.html"><i class="fa fa-check"></i><b>3.4</b> Simulating the Game of Craps</a></li>
 <li class="chapter" data-level="3.5" data-path="the-news-vendor-problem.html"><a href="the-news-vendor-problem.html"><i class="fa fa-check"></i><b>3.5</b> The News Vendor Problem</a></li>
-<li class="chapter" data-level="3.6" data-path="a-simple-inspection-process.html"><a href="a-simple-inspection-process.html"><i class="fa fa-check"></i><b>3.6</b> A Simple Inspection Process</a></li>
-<li class="chapter" data-level="3.7" data-path="stochastic-activity-networks.html"><a href="stochastic-activity-networks.html"><i class="fa fa-check"></i><b>3.7</b> Stochastic Activity Networks</a></li>
+<li class="chapter" data-level="3.6" data-path="ch3InsProcess.html"><a href="ch3InsProcess.html"><i class="fa fa-check"></i><b>3.6</b> A Simple Inspection Process</a></li>
+<li class="chapter" data-level="3.7" data-path="ch3SAN.html"><a href="ch3SAN.html"><i class="fa fa-check"></i><b>3.7</b> Stochastic Activity Networks</a></li>
 <li class="chapter" data-level="3.8" data-path="mcmExperiments.html"><a href="mcmExperiments.html"><i class="fa fa-check"></i><b>3.8</b> Monte-Carlo Experiments</a></li>
 <li class="chapter" data-level="3.9" data-path="summary-1.html"><a href="summary-1.html"><i class="fa fa-check"></i><b>3.9</b> Summary</a></li>
 <li class="chapter" data-level="3.10" data-path="exercises-2.html"><a href="exercises-2.html"><i class="fa fa-check"></i><b>3.10</b> Exercises</a></li>
 </ul></li>
 <li class="chapter" data-level="4" data-path="introDEDS.html"><a href="introDEDS.html"><i class="fa fa-check"></i><b>4</b> Introduction to Discrete Event Modeling</a>
 <ul>
-<li class="chapter" data-level="4.1" data-path="introDEDSIntro.html"><a href="introDEDSIntro.html"><i class="fa fa-check"></i><b>4.1</b> Introduction</a></li>
-<li class="chapter" data-level="4.2" data-path="introDEDSdeds.html"><a href="introDEDSdeds.html"><i class="fa fa-check"></i><b>4.2</b> Discrete-Event Dynamic Systems</a></li>
-<li class="chapter" data-level="4.3" data-path="HowDEDSClockWorks.html"><a href="HowDEDSClockWorks.html"><i class="fa fa-check"></i><b>4.3</b> How the Discrete-Event Clock Works</a></li>
-<li class="chapter" data-level="4.4" data-path="QHandExample.html"><a href="QHandExample.html"><i class="fa fa-check"></i><b>4.4</b> Simulating a Queueing System By Hand</a></li>
-<li class="chapter" data-level="4.5" data-path="introDEDSdedsKSL.html"><a href="introDEDSdedsKSL.html"><i class="fa fa-check"></i><b>4.5</b> Modeling DEDS in the KSL</a>
+<li class="chapter" data-level="4.1" data-path="introDEDSdeds.html"><a href="introDEDSdeds.html"><i class="fa fa-check"></i><b>4.1</b> Discrete-Event Dynamic Systems</a></li>
+<li class="chapter" data-level="4.2" data-path="HowDEDSClockWorks.html"><a href="HowDEDSClockWorks.html"><i class="fa fa-check"></i><b>4.2</b> How the Discrete-Event Clock Works</a></li>
+<li class="chapter" data-level="4.3" data-path="QHandExample.html"><a href="QHandExample.html"><i class="fa fa-check"></i><b>4.3</b> Simulating a Queueing System By Hand</a></li>
+<li class="chapter" data-level="4.4" data-path="introDEDSdedsKSL.html"><a href="introDEDSdedsKSL.html"><i class="fa fa-check"></i><b>4.4</b> Modeling DEDS in the KSL</a>
 <ul>
-<li class="chapter" data-level="4.5.1" data-path="introDEDSdedsKSL.html"><a href="introDEDSdedsKSL.html#event-scheduling"><i class="fa fa-check"></i><b>4.5.1</b> Event Scheduling</a></li>
-<li class="chapter" data-level="4.5.2" data-path="introDEDSdedsKSL.html"><a href="introDEDSdedsKSL.html#introDEDSschedExamples"><i class="fa fa-check"></i><b>4.5.2</b> Simple Event Scheduling Examples</a></li>
-<li class="chapter" data-level="4.5.3" data-path="introDEDSdedsKSL.html"><a href="introDEDSdedsKSL.html#introDEDSUpDown"><i class="fa fa-check"></i><b>4.5.3</b> Up and Down Component Example</a></li>
-<li class="chapter" data-level="4.5.4" data-path="introDEDSdedsKSL.html"><a href="introDEDSdedsKSL.html#introDEDSPharmacy"><i class="fa fa-check"></i><b>4.5.4</b> Modeling a Simple Queueing System</a></li>
-<li class="chapter" data-level="4.5.5" data-path="introDEDSdedsKSL.html"><a href="introDEDSdedsKSL.html#more-details-about-the-pharmacy-model-implementation"><i class="fa fa-check"></i><b>4.5.5</b> More Details About the Pharmacy Model Implementation</a></li>
+<li class="chapter" data-level="4.4.1" data-path="introDEDSdedsKSL.html"><a href="introDEDSdedsKSL.html#event-scheduling"><i class="fa fa-check"></i><b>4.4.1</b> Event Scheduling</a></li>
+<li class="chapter" data-level="4.4.2" data-path="introDEDSdedsKSL.html"><a href="introDEDSdedsKSL.html#introDEDSschedExamples"><i class="fa fa-check"></i><b>4.4.2</b> Simple Event Scheduling Examples</a></li>
+<li class="chapter" data-level="4.4.3" data-path="introDEDSdedsKSL.html"><a href="introDEDSdedsKSL.html#introDEDSUpDown"><i class="fa fa-check"></i><b>4.4.3</b> Up and Down Component Example</a></li>
+<li class="chapter" data-level="4.4.4" data-path="introDEDSdedsKSL.html"><a href="introDEDSdedsKSL.html#introDEDSPharmacy"><i class="fa fa-check"></i><b>4.4.4</b> Modeling a Simple Queueing System</a></li>
+<li class="chapter" data-level="4.4.5" data-path="introDEDSdedsKSL.html"><a href="introDEDSdedsKSL.html#more-details-about-the-pharmacy-model-implementation"><i class="fa fa-check"></i><b>4.4.5</b> More Details About the Pharmacy Model Implementation</a></li>
 </ul></li>
-<li class="chapter" data-level="4.6" data-path="enhancing-the-drive-through-pharmacy-model.html"><a href="enhancing-the-drive-through-pharmacy-model.html"><i class="fa fa-check"></i><b>4.6</b> Enhancing the Drive Through Pharmacy Model</a></li>
-<li class="chapter" data-level="4.7" data-path="introDEDSSummary.html"><a href="introDEDSSummary.html"><i class="fa fa-check"></i><b>4.7</b> Summary</a></li>
-<li class="chapter" data-level="4.8" data-path="exercises-3.html"><a href="exercises-3.html"><i class="fa fa-check"></i><b>4.8</b> Exercises</a></li>
+<li class="chapter" data-level="4.5" data-path="enhancing-the-drive-through-pharmacy-model.html"><a href="enhancing-the-drive-through-pharmacy-model.html"><i class="fa fa-check"></i><b>4.5</b> Enhancing the Drive Through Pharmacy Model</a></li>
+<li class="chapter" data-level="4.6" data-path="introDEDSSummary.html"><a href="introDEDSSummary.html"><i class="fa fa-check"></i><b>4.6</b> Summary</a></li>
+<li class="chapter" data-level="4.7" data-path="exercises-3.html"><a href="exercises-3.html"><i class="fa fa-check"></i><b>4.7</b> Exercises</a></li>
 </ul></li>
-<li class="chapter" data-level="5" data-path="simoa.html"><a href="simoa.html"><i class="fa fa-check"></i><b>5</b> Analyzing Simulation Output</a>
+<li class="chapter" data-level="5" data-path="simoa.html"><a href="simoa.html"><i class="fa fa-check"></i><b>5</b> Analyzing and Accessing Simulation Output</a>
 <ul>
 <li class="chapter" data-level="5.1" data-path="simoadatatypes.html"><a href="simoadatatypes.html"><i class="fa fa-check"></i><b>5.1</b> Types of Statistical Variables</a></li>
 <li class="chapter" data-level="5.2" data-path="simoasimtypes.html"><a href="simoasimtypes.html"><i class="fa fa-check"></i><b>5.2</b> Types of Simulation With Respect To Output Analysis</a></li>
@@ -277,10 +277,18 @@ div.csl-indent {
 <li class="chapter" data-level="5.7" data-path="simoacomparingSystems.html"><a href="simoacomparingSystems.html"><i class="fa fa-check"></i><b>5.7</b> Comparing System Configurations</a>
 <ul>
 <li class="chapter" data-level="5.7.1" data-path="simoacomparingSystems.html"><a href="simoacomparingSystems.html#simoacomparingSystems:two"><i class="fa fa-check"></i><b>5.7.1</b> Comparing Two Systems</a></li>
-<li class="chapter" data-level="5.7.2" data-path="simoacomparingSystems.html"><a href="simoacomparingSystems.html#simoacomparingSystemsMCB"><i class="fa fa-check"></i><b>5.7.2</b> Multiple Comparisons</a></li>
+<li class="chapter" data-level="5.7.2" data-path="simoacomparingSystems.html"><a href="simoacomparingSystems.html#simoacomparingSystemsMCB"><i class="fa fa-check"></i><b>5.7.2</b> Concepts for Comparing Systems</a></li>
+<li class="chapter" data-level="5.7.3" data-path="simoacomparingSystems.html"><a href="simoacomparingSystems.html#multiple-comparison-with-the-best-procedures-mcb"><i class="fa fa-check"></i><b>5.7.3</b> Multiple Comparison with the Best Procedures (MCB)</a></li>
+<li class="chapter" data-level="5.7.4" data-path="simoacomparingSystems.html"><a href="simoacomparingSystems.html#ch5Screening"><i class="fa fa-check"></i><b>5.7.4</b> Screening Procedures</a></li>
 </ul></li>
-<li class="chapter" data-level="5.8" data-path="simoasummary.html"><a href="simoasummary.html"><i class="fa fa-check"></i><b>5.8</b> Summary</a></li>
-<li class="chapter" data-level="5.9" data-path="exercises-4.html"><a href="exercises-4.html"><i class="fa fa-check"></i><b>5.9</b> Exercises</a></li>
+<li class="chapter" data-level="5.8" data-path="ch5Scenarios.html"><a href="ch5Scenarios.html"><i class="fa fa-check"></i><b>5.8</b> Simulating Many Scenarios</a>
+<ul>
+<li class="chapter" data-level="5.8.1" data-path="ch5Scenarios.html"><a href="ch5Scenarios.html#controlAntns"><i class="fa fa-check"></i><b>5.8.1</b> Control Annotations</a></li>
+<li class="chapter" data-level="5.8.2" data-path="ch5Scenarios.html"><a href="ch5Scenarios.html#random-variable-parameters"><i class="fa fa-check"></i><b>5.8.2</b> Random Variable Parameters</a></li>
+<li class="chapter" data-level="5.8.3" data-path="ch5Scenarios.html"><a href="ch5Scenarios.html#kslScenarios"><i class="fa fa-check"></i><b>5.8.3</b> Setting Up and Running Multiple Scenarios</a></li>
+</ul></li>
+<li class="chapter" data-level="5.9" data-path="simoasummary.html"><a href="simoasummary.html"><i class="fa fa-check"></i><b>5.9</b> Summary</a></li>
+<li class="chapter" data-level="5.10" data-path="exercises-4.html"><a href="exercises-4.html"><i class="fa fa-check"></i><b>5.10</b> Exercises</a></li>
 </ul></li>
 <li class="chapter" data-level="6" data-path="processview.html"><a href="processview.html"><i class="fa fa-check"></i><b>6</b> Process View Modeling Using the KSL</a>
 <ul>
@@ -312,12 +320,12 @@ div.csl-indent {
 <ul>
 <li class="chapter" data-level="7.2.1" data-path="modeling-non-stationary-systems.html"><a href="modeling-non-stationary-systems.html#ch7secNSPP"><i class="fa fa-check"></i><b>7.2.1</b> Non-Stationary Arrival Processes</a></li>
 <li class="chapter" data-level="7.2.2" data-path="modeling-non-stationary-systems.html"><a href="modeling-non-stationary-systems.html#modeling-resources-under-non-stationary-conditions"><i class="fa fa-check"></i><b>7.2.2</b> Modeling Resources Under Non-Stationary Conditions</a></li>
-<li class="chapter" data-level="7.2.3" data-path="modeling-non-stationary-systems.html"><a href="modeling-non-stationary-systems.html#enhancing-the-stem-career-mixer-example"><i class="fa fa-check"></i><b>7.2.3</b> Enhancing the STEM Career Mixer Example</a></li>
+<li class="chapter" data-level="7.2.3" data-path="modeling-non-stationary-systems.html"><a href="modeling-non-stationary-systems.html#enhancing-the-stem-career-mixer-model"><i class="fa fa-check"></i><b>7.2.3</b> Enhancing the STEM Career Mixer Model</a></li>
 </ul></li>
 <li class="chapter" data-level="7.3" data-path="examples-of-advanced-event-models.html"><a href="examples-of-advanced-event-models.html"><i class="fa fa-check"></i><b>7.3</b> Examples of Advanced Event Models</a>
 <ul>
 <li class="chapter" data-level="7.3.1" data-path="examples-of-advanced-event-models.html"><a href="examples-of-advanced-event-models.html#ch6s1sb4sub3"><i class="fa fa-check"></i><b>7.3.1</b> Modeling Balking and Reneging</a></li>
-<li class="chapter" data-level="7.3.2" data-path="examples-of-advanced-event-models.html"><a href="examples-of-advanced-event-models.html#modeling-a-reorder-point-reorder-quantity-inventory-policy"><i class="fa fa-check"></i><b>7.3.2</b> Modeling a Reorder Point, Reorder Quantity Inventory Policy</a></li>
+<li class="chapter" data-level="7.3.2" data-path="examples-of-advanced-event-models.html"><a href="examples-of-advanced-event-models.html#rqModel"><i class="fa fa-check"></i><b>7.3.2</b> Modeling a Reorder Point, Reorder Quantity Inventory Policy</a></li>
 </ul></li>
 <li class="chapter" data-level="7.4" data-path="summary-3.html"><a href="summary-3.html"><i class="fa fa-check"></i><b>7.4</b> Summary</a></li>
 <li class="chapter" data-level="7.5" data-path="exercises-6.html"><a href="exercises-6.html"><i class="fa fa-check"></i><b>7.5</b> Exercises</a></li>
@@ -432,11 +440,13 @@ div.csl-indent {
 <li class="chapter" data-level="D.1" data-path="the-outputdirectory-class-and-ksl-object.html"><a href="the-outputdirectory-class-and-ksl-object.html"><i class="fa fa-check"></i><b>D.1</b> The <code>OutputDirectory</code> Class and <code>KSL</code> Object</a></li>
 <li class="chapter" data-level="D.2" data-path="logging-options.html"><a href="logging-options.html"><i class="fa fa-check"></i><b>D.2</b> Logging Options</a></li>
 <li class="chapter" data-level="D.3" data-path="the-kslfileutil-object.html"><a href="the-kslfileutil-object.html"><i class="fa fa-check"></i><b>D.3</b> The <code>KSLFileUtil</code> Object</a></li>
-<li class="chapter" data-level="D.4" data-path="csv-excel-and-tabular-data-files.html"><a href="csv-excel-and-tabular-data-files.html"><i class="fa fa-check"></i><b>D.4</b> CSV, Excel, and Tabular Data Files</a></li>
-<li class="chapter" data-level="D.5" data-path="the-dataframeutil-object.html"><a href="the-dataframeutil-object.html"><i class="fa fa-check"></i><b>D.5</b> The <code>DataFrameUtil</code> Object</a></li>
+<li class="chapter" data-level="D.4" data-path="appDCSVEtc.html"><a href="appDCSVEtc.html"><i class="fa fa-check"></i><b>D.4</b> CSV, Excel, and Tabular Data Files</a></li>
+<li class="chapter" data-level="D.5" data-path="dfUtil.html"><a href="dfUtil.html"><i class="fa fa-check"></i><b>D.5</b> The <code>DataFrameUtil</code> Object</a></li>
 <li class="chapter" data-level="D.6" data-path="ksl-database-utilities.html"><a href="ksl-database-utilities.html"><i class="fa fa-check"></i><b>D.6</b> KSL Database Utilities</a></li>
 <li class="chapter" data-level="D.7" data-path="appUtilitiesArrays.html"><a href="appUtilitiesArrays.html"><i class="fa fa-check"></i><b>D.7</b> Array Utilities</a></li>
-<li class="chapter" data-level="D.8" data-path="appUtilitiesMisc.html"><a href="appUtilitiesMisc.html"><i class="fa fa-check"></i><b>D.8</b> Miscellaneous Utilities</a></li>
+<li class="chapter" data-level="D.8" data-path="appPlotting.html"><a href="appPlotting.html"><i class="fa fa-check"></i><b>D.8</b> KSL Plotting Utilities</a></li>
+<li class="chapter" data-level="D.9" data-path="appExpDesign.html"><a href="appExpDesign.html"><i class="fa fa-check"></i><b>D.9</b> Experimental Design Utilities</a></li>
+<li class="chapter" data-level="D.10" data-path="appUtilitiesMisc.html"><a href="appUtilitiesMisc.html"><i class="fa fa-check"></i><b>D.10</b> Miscellaneous Utilities</a></li>
 </ul></li>
 <li class="chapter" data-level="E" data-path="distributions.html"><a href="distributions.html"><i class="fa fa-check"></i><b>E</b> Distributions</a>
 <ul>
@@ -470,10 +480,10 @@ div.csl-indent {
 <p>In this section, we will build a model for a simple finite horizon simulation with a couple of new modeling issues to handle. However, the primary focus of this section is to illustrate how to capture and report statistical results using the KSL. Let’s start with an outline of the example system to be modeled.</p>
 <hr />
 <div class="example">
-<p><span id="exm:simpleFHS" class="example"><strong>Example 5.1  </strong></span>A truckload of pallets arrives overnight to a facility. Within the truck there are a random number of pallets. The number of pallets can be modeled with a binomial random variable with mean of 80 and a variance of 16. This translates to parameters <span class="math inline">\(n=100\)</span> and <span class="math inline">\(p=0.8\)</span>. Each individual pallet is unloaded and transported to a workcenter for processing, one at a time, sequentially until all pallets are delivered. The unloading and transport time is exponentially distributed with a mean of 5 minutes. Once a pallet arrives at the workcenter it requires 1 of 2 workers to be processed. If a worker is available, the pallet is immediately processed by a worker. If no workers are available, the pallet waits in a FIFO line until a worker becomes available. The time to process the pallet involves breaking down and processing each package on the pallet. The time to process an entire pallet can be modeled with a triangular distribution with a minimum time of 8 minutes, a most likely time of 12 minutes, and a maximum time of 15 minutes. The work at the workcenter continues until all pallets are processed for the day. The facility manager is interested in how long the pallets wait at the workcenter and how long it takes for all pallets to be completed on a given day. In addition, the manager is interested in the probability that there is overtime. That is, the chance that the total time to process the pallets is more than 480 minutes.</p>
+<p><span id="exm:simpleFHS" class="example"><strong>Example 5.1  (Pallet Processing Work Center) </strong></span>A truckload of pallets arrives overnight to a facility. Within the truck there are a random number of pallets. The number of pallets can be modeled with a binomial random variable with mean of 80 and a variance of 16. This translates to parameters <span class="math inline">\(n=100\)</span> and <span class="math inline">\(p=0.8\)</span>. Each individual pallet is unloaded and transported to a work center for processing, one at a time, sequentially until all pallets are delivered. The unloading and transport time is exponentially distributed with a mean of 5 minutes. Once a pallet arrives at the workcenter it requires 1 of 2 workers to be processed. If a worker is available, the pallet is immediately processed by a worker. If no workers are available, the pallet waits in a FIFO line until a worker becomes available. The time to process the pallet involves breaking down and processing each package on the pallet. The time to process an entire pallet can be modeled with a triangular distribution with a minimum time of 8 minutes, a most likely time of 12 minutes, and a maximum time of 15 minutes. The work at the workcenter continues until all pallets are processed for the day. The facility manager is interested in how long the pallets wait at the workcenter and how long it takes for all pallets to be completed on a given day. In addition, the manager is interested in the probability that there is overtime. That is, the chance that the total time to process the pallets is more than 480 minutes.</p>
 </div>
 <hr />
-<p>This example is a finite horizon simulation because there are a finite (but random) number of pallets to be processed such that the simulation will run until all pallets are processed. The system starts with an arrival of a random number of pallets, that are then processed until all pallets are completed. Therefore there is a well defined starting and ending point for the simulation. Although we do no know when the simulation will end, there is a well-specified condition (all pallets processed) that governs the ending of the simulation. Thus, while the time horizon may be random, it is still finite. Conceptually, this modeling situation is very similar to the pharmacy model discussed in Section <a href="introDEDSdedsKSL.html#introDEDSPharmacy">4.5.4</a>. Thus, the implementation of the model will be very similar to the pharmacy model example, but with a couple of minor differences to handle the finite number of pallets that arrive and to capture statistics about the total processing time. The full code is available with the examples. This presentation focuses on new concepts.</p>
+<p>This example is a finite horizon simulation because there are a finite (but random) number of pallets to be processed such that the simulation will run until all pallets are processed. The system starts with an arrival of a random number of pallets, that are then processed until all pallets are completed. Therefore there is a well defined starting and ending point for the simulation. Although we do no know when the simulation will end, there is a well-specified condition (all pallets processed) that governs the ending of the simulation. Thus, while the time horizon may be random, it is still finite. Conceptually, this modeling situation is very similar to the pharmacy model discussed in Section <a href="introDEDSdedsKSL.html#introDEDSPharmacy">4.4.4</a>. Thus, the implementation of the model will be very similar to the pharmacy model example, but with a couple of minor differences to handle the finite number of pallets that arrive and to capture statistics about the total processing time. The full code is available with the examples. This presentation focuses on new concepts.</p>
 <p>As for previous modeling, we define and use random variables to represent the randomness within the model.</p>
 <div class="sourceCode" id="cb137"><pre class="sourceCode kt"><code class="sourceCode kotlin"><span id="cb137-1"><a href="simoafinhorizonex.html#cb137-1" tabindex="-1"></a><span class="kw">class</span> PalletWorkCenter<span class="op">(</span></span>
 <span id="cb137-2"><a href="simoafinhorizonex.html#cb137-2" tabindex="-1"></a>    <span class="va">parent</span><span class="op">:</span> <span class="dt">ModelElement</span><span class="op">,</span></span>
@@ -555,7 +565,7 @@ div.csl-indent {
 <span id="cb141-7"><a href="simoafinhorizonex.html#cb141-7" tabindex="-1"></a>    <span class="kw">override</span> <span class="kw">fun</span> <span class="fu">replicationEnded</span><span class="op">()</span> <span class="op">{</span></span>
 <span id="cb141-8"><a href="simoafinhorizonex.html#cb141-8" tabindex="-1"></a>        myTotalProcessingTime<span class="op">.</span>value <span class="op">=</span> time</span>
 <span id="cb141-9"><a href="simoafinhorizonex.html#cb141-9" tabindex="-1"></a>    <span class="op">}</span></span></code></pre></div>
-<p>Recall the overview of how the underlying simulation code is processed from Section <a href="introDEDSdedsKSL.html#introDEDSOverview">4.5.2.2</a> of Chapter <a href="introDEDS.html#introDEDS">4</a>. Step 2(e) of that discussion notes that the actions associated with the end of replication logic is automatically executed. Just like the <code>initialize()</code> method every model element has a <code>replicationEnded()</code> method. This method is called automatically for every model element infinitesimally before the end of the simulation replication. Thus, statistical collection can be implemented without the concern that the statistical accumulators will be cleared <em>after</em> the replication. Thus, observations within the <code>replicationEnded()</code> method are still within the replication (i.e. they produce within replication data). In the above code snippet, the <code>Response</code> <code>myTotalProcessingTime</code> is assigned the current simulation time, which happens to be the time at which the processing of the pallets was completed. This occurs because after the appropriate number of transports are scheduled, no further pallets arrive to be processed at the work center. Thus, eventually, there will be no more events to process, and according to Step 2(d) of Section <a href="introDEDSdedsKSL.html#introDEDSOverview">4.5.2.2</a>, this will cause the execution of the current replication to stop and proceed with any end of replication model logic. Thus, this logic captures the total time to process the pallets. In addition, because an <code>IndicatorResponse</code> was also attached to <code>myTotalProcessingTime</code> the collection of the probability of over time will also be captured. The basic results of the model are as follows:</p>
+<p>Recall the overview of how the underlying simulation code is processed from Section <a href="introDEDSdedsKSL.html#introDEDSOverview">4.4.2.2</a> of Chapter <a href="introDEDS.html#introDEDS">4</a>. Step 2(e) of that discussion notes that the actions associated with the end of replication logic is automatically executed. Just like the <code>initialize()</code> method every model element has a <code>replicationEnded()</code> method. This method is called automatically for every model element infinitesimally before the end of the simulation replication. Thus, statistical collection can be implemented without the concern that the statistical accumulators will be cleared <em>after</em> the replication. Thus, observations within the <code>replicationEnded()</code> method are still within the replication (i.e. they produce within replication data). In the above code snippet, the <code>Response</code> <code>myTotalProcessingTime</code> is assigned the current simulation time, which happens to be the time at which the processing of the pallets was completed. This occurs because after the appropriate number of transports are scheduled, no further pallets arrive to be processed at the work center. Thus, eventually, there will be no more events to process, and according to Step 2(d) of Section <a href="introDEDSdedsKSL.html#introDEDSOverview">4.4.2.2</a>, this will cause the execution of the current replication to stop and proceed with any end of replication model logic. Thus, this logic captures the total time to process the pallets. In addition, because an <code>IndicatorResponse</code> was also attached to <code>myTotalProcessingTime</code> the collection of the probability of over time will also be captured. The basic results of the model are as follows:</p>
 <p><strong>Statistical Summary Report</strong></p>
 <table>
 <thead>
@@ -684,7 +694,7 @@ Figure 5.2: Organization of KSL Output Directories
 <p>Figure <a href="simoafinhorizonex.html#fig:KSLOutputDir">5.2</a> illustrates the output directory after running the pallet model. You should see the <code>kslOutput</code> directory and a directory called <code>Pallet_Processing_OutputDir.</code> Within the <code>Pallet_Processing_OutputDir</code> directory there are folders called <code>db</code> and <code>excel.</code> These folders are the default directories for holding database related files and Excel related output files. Within the <code>db</code> folder there is a file called <code>MainModel.db,</code> which is an SQLite database that was created to hold the KSL simulation results. Then, there are two files called <code>hwSummary.md</code> and <code>kslOutput.txt.</code> There are also three CSV files, two labeled with <code>_ExperimentReport.csv</code> and <code>_ReplicationReport.csv</code>, and one labeled with <code>_Trace.csv.</code> This labeling scheme is the default and is derived from the context of the item. The setting of the <code>autoCSVReports</code> option to true when creating the model is what caused the two files labeled with <code>_ExperimentReport.csv</code> and with <code>_ReplicationReport.csv</code> to be produced. The following table is from <code>MainModel_CSVReplicationReport.csv.</code></p>
 <table class="table" style="font-size: 10px; margin-left: auto; margin-right: auto;">
 <caption style="font-size: initial !important;">
-<span id="tab:Ch5WRD">Table 5.1: </span>First 8 columns and 5 Rows of MainModel_CSVReplicationReport.csv.
+<span id="tab:unnamed-chunk-1">Table 4.3: </span><span id="tab:Ch5WRD">Table 5.1: </span>First 8 columns and 5 Rows of MainModel_CSVReplicationReport.csv.
 </caption>
 <thead>
 <tr>
@@ -877,7 +887,7 @@ Total Processing Time
 <p>The following table illustrates columns 8 through 12 of the file.</p>
 <table class="table" style="font-size: 10px; margin-left: auto; margin-right: auto;">
 <caption style="font-size: initial !important;">
-<span id="tab:Ch5WRD">Table 5.1: </span>Next 5 columns and 5 Rows of MainModel_CSVReplicationReport.csv.
+<span id="tab:unnamed-chunk-2">Table 4.5: </span><span id="tab:Ch5WRD">Table 5.1: </span>Next 5 columns and 5 Rows of MainModel_CSVReplicationReport.csv.
 </caption>
 <thead>
 <tr>
@@ -1006,7 +1016,7 @@ Total Processing Time
 <p>This data can be easily processed by other of statistical programs such as R or opened directly within Excel. The following table is from <code>MainModel_CSVExperimentReport.csv</code> and represents the across replication summary statistics for the responses and counters in the model.</p>
 <table class="table" style="font-size: 10px; margin-left: auto; margin-right: auto;">
 <caption style="font-size: initial !important;">
-<span id="tab:Ch5ARD">Table 5.2: </span>Columns 7-15 and 9 Rows of MainModel_CSVExperimentReport.csv.
+<span id="tab:unnamed-chunk-3">Table 4.7: </span><span id="tab:Ch5ARD">Table 5.2: </span>Columns 7-15 and 9 Rows of MainModel_CSVExperimentReport.csv.
 </caption>
 <thead>
 <tr>
@@ -1304,13 +1314,13 @@ NumBusyWorkers
 </tbody>
 </table>
 <p>As can be noted in the table, this is essentially the same information as reported in the output summary statistics. Again, these responses are automatically captured by simply setting the <code>autoCSVReports</code> option to true when creating the model.</p>
-<p>A user may want to trace the values of specific response variables to files for post processing or display. This can be accomplished by using the <code>ResponseTrace</code> class. This code snippet, attaches an instance of the <code>ResponseTrace</code> class to the number in system response variable (<code>palletWorkCenter.numInSystem</code>) via the property that exposes the response to clients of the class. The user needs either an instance of the response variable or the exact name of the variable. This one reason why the public property <code>numInSystem</code> was supplied.</p>
+<p>A user may want to trace the values of specific response variables to files for post processing or display. This can be accomplished by using the <code>ResponseTrace</code> class. This code snippet, attaches an instance of the <code>ResponseTrace</code> class to the number in system response variable (<code>palletWorkCenter.numInSystem</code>) via the property that exposes the response to clients of the class. The user needs either an instance of the response variable or the exact name of the variable. This is one reason why the public property <code>numInSystem</code> was supplied.</p>
 <div class="sourceCode" id="cb143"><pre class="sourceCode kt"><code class="sourceCode kotlin"><span id="cb143-1"><a href="simoafinhorizonex.html#cb143-1" tabindex="-1"></a>    <span class="co">// demonstrate how to capture a trace of a response variable</span></span>
 <span id="cb143-2"><a href="simoafinhorizonex.html#cb143-2" tabindex="-1"></a>    <span class="kw">val</span> <span class="va">trace</span> <span class="op">=</span> ResponseTrace<span class="op">(</span>palletWorkCenter<span class="op">.</span>numInSystem<span class="op">)</span></span></code></pre></div>
 <p>Attaching an instance of the <code>ResponseTrace</code> class to a response causes the trace to observe any value changes of the variable.</p>
 <table class="table" style="font-size: 10px; margin-left: auto; margin-right: auto;">
 <caption style="font-size: initial !important;">
-<span id="tab:Ch5Trace">Table 5.3: </span>First 10 rows of Num Pallets at WC_Trace.csv.
+<span id="tab:unnamed-chunk-4">Table 4.9: </span><span id="tab:Ch5Trace">Table 5.3: </span>First 10 rows of Num Pallets at WC_Trace.csv.
 </caption>
 <thead>
 <tr>
@@ -1755,7 +1765,7 @@ Figure 5.3: The Functionality of the SimulationReporter Class
 <span id="cb145-2"><a href="simoafinhorizonex.html#cb145-2" tabindex="-1"></a>    <span class="kw">val</span> <span class="va">repData</span> <span class="op">=</span> ReplicationDataCollector<span class="op">(</span>model<span class="op">)</span></span>
 <span id="cb145-3"><a href="simoafinhorizonex.html#cb145-3" tabindex="-1"></a>    repData<span class="op">.</span>addResponse<span class="op">(</span>palletWorkCenter<span class="op">.</span>totalProcessingTime<span class="op">)</span></span>
 <span id="cb145-4"><a href="simoafinhorizonex.html#cb145-4" tabindex="-1"></a>    repData<span class="op">.</span>addResponse<span class="op">(</span>palletWorkCenter<span class="op">.</span>probOfOverTime<span class="op">)</span></span></code></pre></div>
-<p>This code creates a <code>ReplicationDataCollector</code> instance and configures the instance to collect the replication data for the total processing time and probability of over time responses. A simple output of the first 5 values of the data arrays is shown here.</p>
+<p>This code creates a <code>ReplicationDataCollector</code> instance and configures the instance to collect the replication data for the total processing time and probability of over time responses. A simple output of the first 10 values of the data arrays is shown here.</p>
 <pre><code>   Total Processing Time P{total time &gt; 480 minutes}
  0            482.417201                         1.0
  1            461.544205                         0.0
@@ -1784,11 +1794,11 @@ Figure 5.5: The Functionality of the KSLDatabase Class
 <p>Figure <a href="simoafinhorizonex.html#fig:KSLDatabaseClass">5.5</a> presents the functionality of the <code>KSLDatabase</code> class. This class is built on top of functionality within the KSL <code>ksl.utilities.io.dbutil</code> package for creating databases via the <code>DatabaseIfc</code> interface and the <code>Database</code> class. Here our focus is on how the data from a KSL simulation is captured and stored. The capturing occurs because the user attaches an instance of a <code>KSLDatabaseObserver</code> to a model as shown in this code snippet.</p>
 <div class="sourceCode" id="cb147"><pre class="sourceCode kt"><code class="sourceCode kotlin"><span id="cb147-1"><a href="simoafinhorizonex.html#cb147-1" tabindex="-1"></a>    <span class="co">// demonstrate capturing data to database with an observer</span></span>
 <span id="cb147-2"><a href="simoafinhorizonex.html#cb147-2" tabindex="-1"></a>    <span class="kw">val</span> <span class="va">kslDatabaseObserver</span> <span class="op">=</span> KSLDatabaseObserver<span class="op">(</span>model<span class="op">)</span></span></code></pre></div>
-<p>This code creates an observer that accesses the simulation data after each replication and stores it within a database. The database will be stored within the <code>db</code> folder of the simulation output directory. Note that if you execute <strong>any</strong> simulation that has the <strong>same name</strong>
+<p>This code creates an observer that accesses the simulation data after each replication and stores it within a database. The database will be stored within the <code>dbDir</code> folder of the simulation model’s output directory. Note that if you execute <strong>any</strong> simulation that has the <strong>same name</strong>
 as a previously executed simulation then the previous database will be deleted and recreated. This might cause you to lose previous simulation results.
 This behavior is the default because generally, when you re-run your
 simulation you want the results of that run to be written into the
-database. However, it is possible to not overwrite the database and store additional experiments within the same database. To do this, get an instance of an existing KSL database before creating the <code>KSLDatabaseObserver.</code> In addition, by changing the name of the experiment associated with the model, then the results from different experiments can be stored in the <code>same</code> database. This approach is useful when comparing results across simulation configurations.</p>
+database. However, it is possible to not overwrite the database and store additional experiments within the same database. To do this, get an instance of an existing KSL database before creating the <code>KSLDatabaseObserver.</code> In addition, by changing the name of the experiment associated with the model, then the results from different experiments can be stored in the <em>same</em> database. This approach is useful when comparing results across simulation configurations.</p>
 <p>The database will have the table structure shown in Figure <a href="simoafinhorizonex.html#fig:KSLDatabaseTables">5.6</a>.</p>
 <div class="figure" style="text-align: center"><span style="display:block;" id="fig:KSLDatabaseTables"></span>
 <img src="figures2/ch5/KSLDatabaseTables.png" alt="KSL Database Tables" width="80%" height="80%" />
@@ -1831,14 +1841,14 @@ replications of the simulation.</li>
 statistics associated with <code>TWResponse,</code> <code>Response,</code> and
 <code>Counter</code> instances within the model. Statistical summary information across
 the replications is automatically stored.</li>
-<li>BATCH_STAT contains information about the batch statistics
+<li><code>BATCH_STAT</code> contains information about the batch statistics
 associated with <code>TWResponse,</code> <code>Response,</code> and
 <code>Counter</code> instances within the model. Statistical summary information across the batches is
 automatically stored.</li>
 </ul>
 <p>In addition to the base tables, the KSL database contains views of its
 underlying tables to facilitate simpler data extraction. Figure <a href="simoafinhorizonex.html#fig:KSLDatabaseViews">5.7</a>
-presents the pre-defined views for the JSL database. The views, in
+presents the pre-defined views for the KSL database. The views, in
 essence, reduce the amount of information to the most likely used sets
 of data for the across replication, batch, and within replication
 captured statistical quantities. In addition, the
@@ -2109,6 +2119,10 @@ has a few methods to be aware of, including:</p>
 <div class="sourceCode" id="cb150"><pre class="sourceCode kt"><code class="sourceCode kotlin"><span id="cb150-1"><a href="simoafinhorizonex.html#cb150-1" tabindex="-1"></a>    <span class="co">// use the database to create a Kotlin DataFrame</span></span>
 <span id="cb150-2"><a href="simoafinhorizonex.html#cb150-2" tabindex="-1"></a>    <span class="kw">val</span> <span class="va">dataFrame</span> <span class="op">=</span> kslDatabaseObserver<span class="op">.</span>db<span class="op">.</span>acrossReplicationViewStatistics</span>
 <span id="cb150-3"><a href="simoafinhorizonex.html#cb150-3" tabindex="-1"></a>    println<span class="op">(</span>dataFrame<span class="op">)</span></span></code></pre></div>
+<div class="infobox note">
+<p><strong>NOTE!</strong>
+The Kotlin <a href="https://kotlin.github.io/dataframe/overview.html">data frames</a> library has excellent capabilities for processing data within a tablular format. The KSL has additional functionality for processing files via its utilities as described in Section <a href="appDCSVEtc.html#appDCSVEtc">D.4</a> of Appendix <a href="appUtilities.html#appUtilities">D</a>. Also, you might want to explore the extensions for data frames described in Section <a href="dfUtil.html#dfUtil">D.5</a> of Appendix <a href="appUtilities.html#appUtilities">D</a>.</p>
+</div>
 <p>Once you have the data frame you can employ whatever data wrangling and extraction methods that you need. Finally, because the KSL database is a <em>database</em>, it can be accessed via R or other software programs such as <a href="https://www.jetbrains.com/datagrip/">IntelliJ’s DataGrip</a> or <a href="https://dbeaver.io/">DBeaver</a> and additional analysis performed on the KSL simulation data.</p>
 <p>Based on the discussion in this section, the KSL has very useful functionality for working with the data generated from your simulation models.</p>
 </div>

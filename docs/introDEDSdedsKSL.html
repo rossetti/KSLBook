@@ -4,18 +4,18 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>4.5 Modeling DEDS in the KSL | Simulation Modeling using the Kotlin Simulation Library (KSL)</title>
+  <title>4.4 Modeling DEDS in the KSL | Simulation Modeling using the Kotlin Simulation Library (KSL)</title>
   <meta name="description" content="A book that illustrates the basics of using the KSL. The output format for this book is bookdown::gitbook." />
-  <meta name="generator" content="bookdown 0.34 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.39 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="4.5 Modeling DEDS in the KSL | Simulation Modeling using the Kotlin Simulation Library (KSL)" />
+  <meta property="og:title" content="4.4 Modeling DEDS in the KSL | Simulation Modeling using the Kotlin Simulation Library (KSL)" />
   <meta property="og:type" content="book" />
   
   <meta property="og:description" content="A book that illustrates the basics of using the KSL. The output format for this book is bookdown::gitbook." />
   
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="4.5 Modeling DEDS in the KSL | Simulation Modeling using the Kotlin Simulation Library (KSL)" />
+  <meta name="twitter:title" content="4.4 Modeling DEDS in the KSL | Simulation Modeling using the Kotlin Simulation Library (KSL)" />
   
   <meta name="twitter:description" content="A book that illustrates the basics of using the KSL. The output format for this book is bookdown::gitbook." />
   
@@ -23,7 +23,7 @@
 <meta name="author" content="Manuel D. Rossetti" />
 
 
-<meta name="date" content="2024-05-28" />
+<meta name="date" content="2024-06-06" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -58,7 +58,7 @@
 
 <style type="text/css">
 pre > code.sourceCode { white-space: pre; position: relative; }
-pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span { line-height: 1.25; }
 pre > code.sourceCode > span:empty { height: 1.2em; }
 .sourceCode { overflow: visible; }
 code.sourceCode > span { color: inherit; text-decoration: inherit; }
@@ -130,6 +130,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 div.csl-bib-body { }
 div.csl-entry {
   clear: both;
+  margin-bottom: 0em;
 }
 .hanging div.csl-entry {
   margin-left:2em;
@@ -200,7 +201,7 @@ div.csl-indent {
 <ul>
 <li class="chapter" data-level="2.2.1" data-path="rvg.html"><a href="rvg.html#basic-random-variate-generation"><i class="fa fa-check"></i><b>2.2.1</b> Basic Random Variate Generation</a></li>
 <li class="chapter" data-level="2.2.2" data-path="rvg.html"><a href="rvg.html#rvg_dists"><i class="fa fa-check"></i><b>2.2.2</b> Continuous and Discrete Random Variables</a></li>
-<li class="chapter" data-level="2.2.3" data-path="rvg.html"><a href="rvg.html#rvg_use"><i class="fa fa-check"></i><b>2.2.3</b> Creating and Using Random Variables</a></li>
+<li class="chapter" data-level="2.2.3" data-path="rvg.html"><a href="rvg.html#rvguse"><i class="fa fa-check"></i><b>2.2.3</b> Creating and Using Random Variables</a></li>
 <li class="chapter" data-level="2.2.4" data-path="rvg.html"><a href="rvg.html#functions-of-random-variables"><i class="fa fa-check"></i><b>2.2.4</b> Functions of Random Variables</a></li>
 </ul></li>
 <li class="chapter" data-level="2.3" data-path="probModels.html"><a href="probModels.html"><i class="fa fa-check"></i><b>2.3</b> Probability Distribution Models</a></li>
@@ -231,31 +232,30 @@ div.csl-indent {
 </ul></li>
 <li class="chapter" data-level="3.4" data-path="craps.html"><a href="craps.html"><i class="fa fa-check"></i><b>3.4</b> Simulating the Game of Craps</a></li>
 <li class="chapter" data-level="3.5" data-path="the-news-vendor-problem.html"><a href="the-news-vendor-problem.html"><i class="fa fa-check"></i><b>3.5</b> The News Vendor Problem</a></li>
-<li class="chapter" data-level="3.6" data-path="a-simple-inspection-process.html"><a href="a-simple-inspection-process.html"><i class="fa fa-check"></i><b>3.6</b> A Simple Inspection Process</a></li>
-<li class="chapter" data-level="3.7" data-path="stochastic-activity-networks.html"><a href="stochastic-activity-networks.html"><i class="fa fa-check"></i><b>3.7</b> Stochastic Activity Networks</a></li>
+<li class="chapter" data-level="3.6" data-path="ch3InsProcess.html"><a href="ch3InsProcess.html"><i class="fa fa-check"></i><b>3.6</b> A Simple Inspection Process</a></li>
+<li class="chapter" data-level="3.7" data-path="ch3SAN.html"><a href="ch3SAN.html"><i class="fa fa-check"></i><b>3.7</b> Stochastic Activity Networks</a></li>
 <li class="chapter" data-level="3.8" data-path="mcmExperiments.html"><a href="mcmExperiments.html"><i class="fa fa-check"></i><b>3.8</b> Monte-Carlo Experiments</a></li>
 <li class="chapter" data-level="3.9" data-path="summary-1.html"><a href="summary-1.html"><i class="fa fa-check"></i><b>3.9</b> Summary</a></li>
 <li class="chapter" data-level="3.10" data-path="exercises-2.html"><a href="exercises-2.html"><i class="fa fa-check"></i><b>3.10</b> Exercises</a></li>
 </ul></li>
 <li class="chapter" data-level="4" data-path="introDEDS.html"><a href="introDEDS.html"><i class="fa fa-check"></i><b>4</b> Introduction to Discrete Event Modeling</a>
 <ul>
-<li class="chapter" data-level="4.1" data-path="introDEDSIntro.html"><a href="introDEDSIntro.html"><i class="fa fa-check"></i><b>4.1</b> Introduction</a></li>
-<li class="chapter" data-level="4.2" data-path="introDEDSdeds.html"><a href="introDEDSdeds.html"><i class="fa fa-check"></i><b>4.2</b> Discrete-Event Dynamic Systems</a></li>
-<li class="chapter" data-level="4.3" data-path="HowDEDSClockWorks.html"><a href="HowDEDSClockWorks.html"><i class="fa fa-check"></i><b>4.3</b> How the Discrete-Event Clock Works</a></li>
-<li class="chapter" data-level="4.4" data-path="QHandExample.html"><a href="QHandExample.html"><i class="fa fa-check"></i><b>4.4</b> Simulating a Queueing System By Hand</a></li>
-<li class="chapter" data-level="4.5" data-path="introDEDSdedsKSL.html"><a href="introDEDSdedsKSL.html"><i class="fa fa-check"></i><b>4.5</b> Modeling DEDS in the KSL</a>
+<li class="chapter" data-level="4.1" data-path="introDEDSdeds.html"><a href="introDEDSdeds.html"><i class="fa fa-check"></i><b>4.1</b> Discrete-Event Dynamic Systems</a></li>
+<li class="chapter" data-level="4.2" data-path="HowDEDSClockWorks.html"><a href="HowDEDSClockWorks.html"><i class="fa fa-check"></i><b>4.2</b> How the Discrete-Event Clock Works</a></li>
+<li class="chapter" data-level="4.3" data-path="QHandExample.html"><a href="QHandExample.html"><i class="fa fa-check"></i><b>4.3</b> Simulating a Queueing System By Hand</a></li>
+<li class="chapter" data-level="4.4" data-path="introDEDSdedsKSL.html"><a href="introDEDSdedsKSL.html"><i class="fa fa-check"></i><b>4.4</b> Modeling DEDS in the KSL</a>
 <ul>
-<li class="chapter" data-level="4.5.1" data-path="introDEDSdedsKSL.html"><a href="introDEDSdedsKSL.html#event-scheduling"><i class="fa fa-check"></i><b>4.5.1</b> Event Scheduling</a></li>
-<li class="chapter" data-level="4.5.2" data-path="introDEDSdedsKSL.html"><a href="introDEDSdedsKSL.html#introDEDSschedExamples"><i class="fa fa-check"></i><b>4.5.2</b> Simple Event Scheduling Examples</a></li>
-<li class="chapter" data-level="4.5.3" data-path="introDEDSdedsKSL.html"><a href="introDEDSdedsKSL.html#introDEDSUpDown"><i class="fa fa-check"></i><b>4.5.3</b> Up and Down Component Example</a></li>
-<li class="chapter" data-level="4.5.4" data-path="introDEDSdedsKSL.html"><a href="introDEDSdedsKSL.html#introDEDSPharmacy"><i class="fa fa-check"></i><b>4.5.4</b> Modeling a Simple Queueing System</a></li>
-<li class="chapter" data-level="4.5.5" data-path="introDEDSdedsKSL.html"><a href="introDEDSdedsKSL.html#more-details-about-the-pharmacy-model-implementation"><i class="fa fa-check"></i><b>4.5.5</b> More Details About the Pharmacy Model Implementation</a></li>
+<li class="chapter" data-level="4.4.1" data-path="introDEDSdedsKSL.html"><a href="introDEDSdedsKSL.html#event-scheduling"><i class="fa fa-check"></i><b>4.4.1</b> Event Scheduling</a></li>
+<li class="chapter" data-level="4.4.2" data-path="introDEDSdedsKSL.html"><a href="introDEDSdedsKSL.html#introDEDSschedExamples"><i class="fa fa-check"></i><b>4.4.2</b> Simple Event Scheduling Examples</a></li>
+<li class="chapter" data-level="4.4.3" data-path="introDEDSdedsKSL.html"><a href="introDEDSdedsKSL.html#introDEDSUpDown"><i class="fa fa-check"></i><b>4.4.3</b> Up and Down Component Example</a></li>
+<li class="chapter" data-level="4.4.4" data-path="introDEDSdedsKSL.html"><a href="introDEDSdedsKSL.html#introDEDSPharmacy"><i class="fa fa-check"></i><b>4.4.4</b> Modeling a Simple Queueing System</a></li>
+<li class="chapter" data-level="4.4.5" data-path="introDEDSdedsKSL.html"><a href="introDEDSdedsKSL.html#more-details-about-the-pharmacy-model-implementation"><i class="fa fa-check"></i><b>4.4.5</b> More Details About the Pharmacy Model Implementation</a></li>
 </ul></li>
-<li class="chapter" data-level="4.6" data-path="enhancing-the-drive-through-pharmacy-model.html"><a href="enhancing-the-drive-through-pharmacy-model.html"><i class="fa fa-check"></i><b>4.6</b> Enhancing the Drive Through Pharmacy Model</a></li>
-<li class="chapter" data-level="4.7" data-path="introDEDSSummary.html"><a href="introDEDSSummary.html"><i class="fa fa-check"></i><b>4.7</b> Summary</a></li>
-<li class="chapter" data-level="4.8" data-path="exercises-3.html"><a href="exercises-3.html"><i class="fa fa-check"></i><b>4.8</b> Exercises</a></li>
+<li class="chapter" data-level="4.5" data-path="enhancing-the-drive-through-pharmacy-model.html"><a href="enhancing-the-drive-through-pharmacy-model.html"><i class="fa fa-check"></i><b>4.5</b> Enhancing the Drive Through Pharmacy Model</a></li>
+<li class="chapter" data-level="4.6" data-path="introDEDSSummary.html"><a href="introDEDSSummary.html"><i class="fa fa-check"></i><b>4.6</b> Summary</a></li>
+<li class="chapter" data-level="4.7" data-path="exercises-3.html"><a href="exercises-3.html"><i class="fa fa-check"></i><b>4.7</b> Exercises</a></li>
 </ul></li>
-<li class="chapter" data-level="5" data-path="simoa.html"><a href="simoa.html"><i class="fa fa-check"></i><b>5</b> Analyzing Simulation Output</a>
+<li class="chapter" data-level="5" data-path="simoa.html"><a href="simoa.html"><i class="fa fa-check"></i><b>5</b> Analyzing and Accessing Simulation Output</a>
 <ul>
 <li class="chapter" data-level="5.1" data-path="simoadatatypes.html"><a href="simoadatatypes.html"><i class="fa fa-check"></i><b>5.1</b> Types of Statistical Variables</a></li>
 <li class="chapter" data-level="5.2" data-path="simoasimtypes.html"><a href="simoasimtypes.html"><i class="fa fa-check"></i><b>5.2</b> Types of Simulation With Respect To Output Analysis</a></li>
@@ -277,10 +277,18 @@ div.csl-indent {
 <li class="chapter" data-level="5.7" data-path="simoacomparingSystems.html"><a href="simoacomparingSystems.html"><i class="fa fa-check"></i><b>5.7</b> Comparing System Configurations</a>
 <ul>
 <li class="chapter" data-level="5.7.1" data-path="simoacomparingSystems.html"><a href="simoacomparingSystems.html#simoacomparingSystems:two"><i class="fa fa-check"></i><b>5.7.1</b> Comparing Two Systems</a></li>
-<li class="chapter" data-level="5.7.2" data-path="simoacomparingSystems.html"><a href="simoacomparingSystems.html#simoacomparingSystemsMCB"><i class="fa fa-check"></i><b>5.7.2</b> Multiple Comparisons</a></li>
+<li class="chapter" data-level="5.7.2" data-path="simoacomparingSystems.html"><a href="simoacomparingSystems.html#simoacomparingSystemsMCB"><i class="fa fa-check"></i><b>5.7.2</b> Concepts for Comparing Systems</a></li>
+<li class="chapter" data-level="5.7.3" data-path="simoacomparingSystems.html"><a href="simoacomparingSystems.html#multiple-comparison-with-the-best-procedures-mcb"><i class="fa fa-check"></i><b>5.7.3</b> Multiple Comparison with the Best Procedures (MCB)</a></li>
+<li class="chapter" data-level="5.7.4" data-path="simoacomparingSystems.html"><a href="simoacomparingSystems.html#ch5Screening"><i class="fa fa-check"></i><b>5.7.4</b> Screening Procedures</a></li>
 </ul></li>
-<li class="chapter" data-level="5.8" data-path="simoasummary.html"><a href="simoasummary.html"><i class="fa fa-check"></i><b>5.8</b> Summary</a></li>
-<li class="chapter" data-level="5.9" data-path="exercises-4.html"><a href="exercises-4.html"><i class="fa fa-check"></i><b>5.9</b> Exercises</a></li>
+<li class="chapter" data-level="5.8" data-path="ch5Scenarios.html"><a href="ch5Scenarios.html"><i class="fa fa-check"></i><b>5.8</b> Simulating Many Scenarios</a>
+<ul>
+<li class="chapter" data-level="5.8.1" data-path="ch5Scenarios.html"><a href="ch5Scenarios.html#controlAntns"><i class="fa fa-check"></i><b>5.8.1</b> Control Annotations</a></li>
+<li class="chapter" data-level="5.8.2" data-path="ch5Scenarios.html"><a href="ch5Scenarios.html#random-variable-parameters"><i class="fa fa-check"></i><b>5.8.2</b> Random Variable Parameters</a></li>
+<li class="chapter" data-level="5.8.3" data-path="ch5Scenarios.html"><a href="ch5Scenarios.html#kslScenarios"><i class="fa fa-check"></i><b>5.8.3</b> Setting Up and Running Multiple Scenarios</a></li>
+</ul></li>
+<li class="chapter" data-level="5.9" data-path="simoasummary.html"><a href="simoasummary.html"><i class="fa fa-check"></i><b>5.9</b> Summary</a></li>
+<li class="chapter" data-level="5.10" data-path="exercises-4.html"><a href="exercises-4.html"><i class="fa fa-check"></i><b>5.10</b> Exercises</a></li>
 </ul></li>
 <li class="chapter" data-level="6" data-path="processview.html"><a href="processview.html"><i class="fa fa-check"></i><b>6</b> Process View Modeling Using the KSL</a>
 <ul>
@@ -312,12 +320,12 @@ div.csl-indent {
 <ul>
 <li class="chapter" data-level="7.2.1" data-path="modeling-non-stationary-systems.html"><a href="modeling-non-stationary-systems.html#ch7secNSPP"><i class="fa fa-check"></i><b>7.2.1</b> Non-Stationary Arrival Processes</a></li>
 <li class="chapter" data-level="7.2.2" data-path="modeling-non-stationary-systems.html"><a href="modeling-non-stationary-systems.html#modeling-resources-under-non-stationary-conditions"><i class="fa fa-check"></i><b>7.2.2</b> Modeling Resources Under Non-Stationary Conditions</a></li>
-<li class="chapter" data-level="7.2.3" data-path="modeling-non-stationary-systems.html"><a href="modeling-non-stationary-systems.html#enhancing-the-stem-career-mixer-example"><i class="fa fa-check"></i><b>7.2.3</b> Enhancing the STEM Career Mixer Example</a></li>
+<li class="chapter" data-level="7.2.3" data-path="modeling-non-stationary-systems.html"><a href="modeling-non-stationary-systems.html#enhancing-the-stem-career-mixer-model"><i class="fa fa-check"></i><b>7.2.3</b> Enhancing the STEM Career Mixer Model</a></li>
 </ul></li>
 <li class="chapter" data-level="7.3" data-path="examples-of-advanced-event-models.html"><a href="examples-of-advanced-event-models.html"><i class="fa fa-check"></i><b>7.3</b> Examples of Advanced Event Models</a>
 <ul>
 <li class="chapter" data-level="7.3.1" data-path="examples-of-advanced-event-models.html"><a href="examples-of-advanced-event-models.html#ch6s1sb4sub3"><i class="fa fa-check"></i><b>7.3.1</b> Modeling Balking and Reneging</a></li>
-<li class="chapter" data-level="7.3.2" data-path="examples-of-advanced-event-models.html"><a href="examples-of-advanced-event-models.html#modeling-a-reorder-point-reorder-quantity-inventory-policy"><i class="fa fa-check"></i><b>7.3.2</b> Modeling a Reorder Point, Reorder Quantity Inventory Policy</a></li>
+<li class="chapter" data-level="7.3.2" data-path="examples-of-advanced-event-models.html"><a href="examples-of-advanced-event-models.html#rqModel"><i class="fa fa-check"></i><b>7.3.2</b> Modeling a Reorder Point, Reorder Quantity Inventory Policy</a></li>
 </ul></li>
 <li class="chapter" data-level="7.4" data-path="summary-3.html"><a href="summary-3.html"><i class="fa fa-check"></i><b>7.4</b> Summary</a></li>
 <li class="chapter" data-level="7.5" data-path="exercises-6.html"><a href="exercises-6.html"><i class="fa fa-check"></i><b>7.5</b> Exercises</a></li>
@@ -432,11 +440,13 @@ div.csl-indent {
 <li class="chapter" data-level="D.1" data-path="the-outputdirectory-class-and-ksl-object.html"><a href="the-outputdirectory-class-and-ksl-object.html"><i class="fa fa-check"></i><b>D.1</b> The <code>OutputDirectory</code> Class and <code>KSL</code> Object</a></li>
 <li class="chapter" data-level="D.2" data-path="logging-options.html"><a href="logging-options.html"><i class="fa fa-check"></i><b>D.2</b> Logging Options</a></li>
 <li class="chapter" data-level="D.3" data-path="the-kslfileutil-object.html"><a href="the-kslfileutil-object.html"><i class="fa fa-check"></i><b>D.3</b> The <code>KSLFileUtil</code> Object</a></li>
-<li class="chapter" data-level="D.4" data-path="csv-excel-and-tabular-data-files.html"><a href="csv-excel-and-tabular-data-files.html"><i class="fa fa-check"></i><b>D.4</b> CSV, Excel, and Tabular Data Files</a></li>
-<li class="chapter" data-level="D.5" data-path="the-dataframeutil-object.html"><a href="the-dataframeutil-object.html"><i class="fa fa-check"></i><b>D.5</b> The <code>DataFrameUtil</code> Object</a></li>
+<li class="chapter" data-level="D.4" data-path="appDCSVEtc.html"><a href="appDCSVEtc.html"><i class="fa fa-check"></i><b>D.4</b> CSV, Excel, and Tabular Data Files</a></li>
+<li class="chapter" data-level="D.5" data-path="dfUtil.html"><a href="dfUtil.html"><i class="fa fa-check"></i><b>D.5</b> The <code>DataFrameUtil</code> Object</a></li>
 <li class="chapter" data-level="D.6" data-path="ksl-database-utilities.html"><a href="ksl-database-utilities.html"><i class="fa fa-check"></i><b>D.6</b> KSL Database Utilities</a></li>
 <li class="chapter" data-level="D.7" data-path="appUtilitiesArrays.html"><a href="appUtilitiesArrays.html"><i class="fa fa-check"></i><b>D.7</b> Array Utilities</a></li>
-<li class="chapter" data-level="D.8" data-path="appUtilitiesMisc.html"><a href="appUtilitiesMisc.html"><i class="fa fa-check"></i><b>D.8</b> Miscellaneous Utilities</a></li>
+<li class="chapter" data-level="D.8" data-path="appPlotting.html"><a href="appPlotting.html"><i class="fa fa-check"></i><b>D.8</b> KSL Plotting Utilities</a></li>
+<li class="chapter" data-level="D.9" data-path="appExpDesign.html"><a href="appExpDesign.html"><i class="fa fa-check"></i><b>D.9</b> Experimental Design Utilities</a></li>
+<li class="chapter" data-level="D.10" data-path="appUtilitiesMisc.html"><a href="appUtilitiesMisc.html"><i class="fa fa-check"></i><b>D.10</b> Miscellaneous Utilities</a></li>
 </ul></li>
 <li class="chapter" data-level="E" data-path="distributions.html"><a href="distributions.html"><i class="fa fa-check"></i><b>E</b> Distributions</a>
 <ul>
@@ -465,15 +475,15 @@ div.csl-indent {
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="introDEDSdedsKSL" class="section level2 hasAnchor" number="4.5">
-<h2><span class="header-section-number">4.5</span> Modeling DEDS in the KSL<a href="introDEDSdedsKSL.html#introDEDSdedsKSL" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="introDEDSdedsKSL" class="section level2 hasAnchor" number="4.4">
+<h2><span class="header-section-number">4.4</span> Modeling DEDS in the KSL<a href="introDEDSdedsKSL.html#introDEDSdedsKSL" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>Discrete event modeling within the KSL is facilitated by two packages:
 1) the <code>ksl.simulation</code> package and 2) the <code>ksl.calendar</code> package. The <code>ksl.simulation</code>
 package has classes that implement behavior associated with simulation
 events and models. The <code>ksl.calendar</code> package has classes that facilitate the
 scheduling and processing of events.</p>
-<div id="event-scheduling" class="section level3 hasAnchor" number="4.5.1">
-<h3><span class="header-section-number">4.5.1</span> Event Scheduling<a href="introDEDSdedsKSL.html#event-scheduling" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div id="event-scheduling" class="section level3 hasAnchor" number="4.4.1">
+<h3><span class="header-section-number">4.4.1</span> Event Scheduling<a href="introDEDSdedsKSL.html#event-scheduling" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>The following classes within the <code>ksl.simulation</code> package work together to
 provide for the scheduling and execution of events:</p>
 <ul>
@@ -598,13 +608,13 @@ by treating the <code>EventActionIfc</code> as a functional interface and using 
 <span id="cb106-28"><a href="introDEDSdedsKSL.html#cb106-28" tabindex="-1"></a>    <span class="op">}</span></span></code></pre></div>
 <p>These scheduling methods have also been overloaded to allow the specification of time via instances that implement the <code>GetValueIfc.</code> This allows instances of random variables to be used directly with the time until the event ultimately being randomly drawn from the distribution.</p>
 </div>
-<div id="introDEDSschedExamples" class="section level3 hasAnchor" number="4.5.2">
-<h3><span class="header-section-number">4.5.2</span> Simple Event Scheduling Examples<a href="introDEDSdedsKSL.html#introDEDSschedExamples" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div id="introDEDSschedExamples" class="section level3 hasAnchor" number="4.4.2">
+<h3><span class="header-section-number">4.4.2</span> Simple Event Scheduling Examples<a href="introDEDSdedsKSL.html#introDEDSschedExamples" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>This section presents two simple examples to illustrate event
 scheduling. The first example illustrates the scheduling of events using the <code>EventActionIfc</code> interface. The second example shows how to simulate a Poisson process and collect
 simple statistics.</p>
-<div id="implementing-event-actions-using-the-eventactionifc-interface" class="section level4 hasAnchor" number="4.5.2.1">
-<h4><span class="header-section-number">4.5.2.1</span> Implementing Event Actions Using the EventActionIfc Interface<a href="introDEDSdedsKSL.html#implementing-event-actions-using-the-eventactionifc-interface" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<div id="implementing-event-actions-using-the-eventactionifc-interface" class="section level4 hasAnchor" number="4.4.2.1">
+<h4><span class="header-section-number">4.4.2.1</span> Implementing Event Actions Using the EventActionIfc Interface<a href="introDEDSdedsKSL.html#implementing-event-actions-using-the-eventactionifc-interface" class="anchor-section" aria-label="Anchor link to header"></a></h4>
 <p>In the first example, there will be two events scheduled with actions.
 The time between the events will all be deterministic. The specifics of
 the events are as follows:</p>
@@ -635,6 +645,8 @@ the <code>initialize()</code> method does two things:</p>
 <li>schedules the first action two event at time 20.0 via the call:
 <code>scheduleEvent(myEventActionTwo, 20.0)</code></li>
 </ol>
+<div class="example">
+<p><span id="exm:ch4ex1" class="example"><strong>Example 4.1  (Scheduling Events) </strong></span>This example code illustrates how to create event actions and to schedule their occurrence at specific event times.</p>
 <div class="sourceCode" id="cb107"><pre class="sourceCode kt"><code class="sourceCode kotlin"><span id="cb107-1"><a href="introDEDSdedsKSL.html#cb107-1" tabindex="-1"></a><span class="kw">class</span> SchedulingEventExamples <span class="op">(</span><span class="va">parent</span><span class="op">:</span> <span class="dt">ModelElement</span><span class="op">,</span> <span class="va">name</span><span class="op">:</span> <span class="dt">String</span><span class="op">?</span> <span class="op">=</span> null<span class="op">)</span> <span class="op">:</span></span>
 <span id="cb107-2"><a href="introDEDSdedsKSL.html#cb107-2" tabindex="-1"></a>    <span class="dt">ModelElement</span><span class="op">(</span><span class="va">parent</span><span class="op">,</span> <span class="va">name</span><span class="op">)</span> <span class="op">{</span></span>
 <span id="cb107-3"><a href="introDEDSdedsKSL.html#cb107-3" tabindex="-1"></a>    <span class="kw">private</span> <span class="kw">val</span> <span class="va">myEventActionOne</span><span class="op">:</span> EventActionOne <span class="op">=</span> EventActionOne<span class="op">()</span></span>
@@ -663,6 +675,7 @@ the <code>initialize()</code> method does two things:</p>
 <span id="cb107-26"><a href="introDEDSdedsKSL.html#cb107-26" tabindex="-1"></a>        <span class="op">}</span></span>
 <span id="cb107-27"><a href="introDEDSdedsKSL.html#cb107-27" tabindex="-1"></a>    <span class="op">}</span></span>
 <span id="cb107-28"><a href="introDEDSdedsKSL.html#cb107-28" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
+</div>
 <p>The the function call <code>scheduleEvent(myEventActionTwo, 20.0)</code> schedules an event 20 time
 units into the future where the event will be handled via the instance
 of the class <code>EventActionTwo</code>, which implements the <code>EventActionIfc</code> interface.
@@ -699,8 +712,8 @@ EventActionOne at time : 95.0
 EventActionTwo at time : 100.0</code></pre>
 <p>Notice that event action one output occurs at time 10.0. This is due to the event that was scheduled within the <code>initialize()</code> method. Event action two occurs for the first time at time 20.0 and then every 20 time units. Notice that event action one occurs at time 35.0. This is due to the event being scheduled in the action method of event action two.</p>
 </div>
-<div id="introDEDSOverview" class="section level4 hasAnchor" number="4.5.2.2">
-<h4><span class="header-section-number">4.5.2.2</span> Overview of Simuation Run Context<a href="introDEDSdedsKSL.html#introDEDSOverview" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<div id="introDEDSOverview" class="section level4 hasAnchor" number="4.4.2.2">
+<h4><span class="header-section-number">4.4.2.2</span> Overview of Simuation Run Context<a href="introDEDSdedsKSL.html#introDEDSOverview" class="anchor-section" aria-label="Anchor link to header"></a></h4>
 <p>When the simulation runs, much underlying code is executed. At this
 stage it is not critically important to understand how this code works;
 however, it is useful to understand, in a general sense, what is
@@ -746,9 +759,18 @@ not directly call the event logic it is still invoked by the simulation
 executive because the events are scheduled. Thus, if you schedule
 events, you can be assured that the logic associated with the events
 will be executed.</p>
+<div class="infobox important">
+<p><strong>IMPORTANT!</strong>
+In upcoming examples, we will provide names for the model elements. The most
+important point to remember is that the name of a model element must be unique.
+If you do not provide a name for a model element, then a unique name will be created
+for you. The name of a model element should not contain the period “.” character. If
+it does, the period will be replaced with an underscore “_” character. If you happen to specify the same name for more than one model element, an error will be reported.
+<strong>Bottom line: Provide unique names for model elements.</strong></p>
 </div>
-<div id="introDEDSPois" class="section level4 hasAnchor" number="4.5.2.3">
-<h4><span class="header-section-number">4.5.2.3</span> Simulating a Poisson Process<a href="introDEDSdedsKSL.html#introDEDSPois" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+</div>
+<div id="introDEDSPois" class="section level4 hasAnchor" number="4.4.2.3">
+<h4><span class="header-section-number">4.4.2.3</span> Simulating a Poisson Process<a href="introDEDSdedsKSL.html#introDEDSPois" class="anchor-section" aria-label="Anchor link to header"></a></h4>
 <p>The second simple example illustrates how to simulate a Poisson process.
 Recall that a Poisson process models the number of events that occur
 within some time interval. For a Poisson process the time between events
@@ -758,6 +780,8 @@ simulates a Poisson process with rate 1 arrival per unit time. Thus, the
 mean time between events is 1.0 time unit. In this case the action is very simple, increment a counter that is tracking the number of events that have
 occurred.</p>
 <p>The code for this example is as follows.</p>
+<div class="example">
+<p><span id="exm:ch4ex2" class="example"><strong>Example 4.2  (Simulating a Poisson Process) </strong></span>This code example illustrates how to generate a Poisson process by scheduling events that have an inter-event time that is exponentially distributed. The code also illustrates how to use a <code>Counter</code> to collect statistics.</p>
 <div class="sourceCode" id="cb111"><pre class="sourceCode kt"><code class="sourceCode kotlin"><span id="cb111-1"><a href="introDEDSdedsKSL.html#cb111-1" tabindex="-1"></a><span class="kw">class</span> SimplePoissonProcess <span class="op">(</span><span class="va">parent</span><span class="op">:</span> <span class="dt">ModelElement</span><span class="op">,</span> <span class="va">name</span><span class="op">:</span> <span class="dt">String</span><span class="op">?</span> <span class="op">=</span> null<span class="op">)</span> <span class="op">:</span></span>
 <span id="cb111-2"><a href="introDEDSdedsKSL.html#cb111-2" tabindex="-1"></a>    <span class="dt">ModelElement</span><span class="op">(</span><span class="va">parent</span><span class="op">,</span> <span class="va">name</span><span class="op">)</span> <span class="op">{</span></span>
 <span id="cb111-3"><a href="introDEDSdedsKSL.html#cb111-3" tabindex="-1"></a>    <span class="kw">private</span> <span class="kw">val</span> <span class="va">myTBE</span><span class="op">:</span> RandomVariable <span class="op">=</span> RandomVariable<span class="op">(</span><span class="kw">this</span><span class="op">,</span> ExponentialRV<span class="op">(</span><span class="fl">1.0</span><span class="op">))</span></span>
@@ -776,6 +800,7 @@ occurred.</p>
 <span id="cb111-16"><a href="introDEDSdedsKSL.html#cb111-16" tabindex="-1"></a>        <span class="op">}</span></span>
 <span id="cb111-17"><a href="introDEDSdedsKSL.html#cb111-17" tabindex="-1"></a>    <span class="op">}</span></span>
 <span id="cb111-18"><a href="introDEDSdedsKSL.html#cb111-18" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
+</div>
 <p>There are a few new elements of this code to
 note. First, this example uses two new KSL model elements:
 <code>RandomVariable</code> and <code>Counter.</code> A <code>RandomVariable</code> is a sub-class of
@@ -851,10 +876,12 @@ Counts events                       20.060000        3.235076       50.000000
 -------------------------------------------------------------------------------</code></pre>
 </div>
 </div>
-<div id="introDEDSUpDown" class="section level3 hasAnchor" number="4.5.3">
-<h3><span class="header-section-number">4.5.3</span> Up and Down Component Example<a href="introDEDSdedsKSL.html#introDEDSUpDown" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div id="introDEDSUpDown" class="section level3 hasAnchor" number="4.4.3">
+<h3><span class="header-section-number">4.4.3</span> Up and Down Component Example<a href="introDEDSdedsKSL.html#introDEDSUpDown" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>This section further illustrates DEDS modeling with a component of a
-system that is subject to random failures. The component has two states
+system that is subject to random failures.</p>
+<div class="example">
+<p><span id="exm:ch4ex3" class="example"><strong>Example 4.3  (Up and Down Component) </strong></span>Consider a component subject to random breakdowns that has two states
 UP and DOWN. The time until failure is random and governed by an
 exponential distribution with a mean of 1.0 time units. This represents
 the time that the component is in the UP state. Once the component
@@ -872,6 +899,7 @@ spent in the up and down states.</p>
 <p class="caption">
 Figure 4.7: Up and Down Component Process
 </p>
+</div>
 </div>
 <p>Figure <a href="introDEDSdedsKSL.html#fig:UpDownComponent">4.7</a> illustrates the dynamics of the
 component over time.</p>
@@ -940,7 +968,8 @@ use within the class, as shown in the following code fragment.</p>
 the up and down states within the companion object. Lines 5-9 declare additional references
 needed to represent the up and down time random variables and the
 variables that need statistical collection (<code>myState,</code> <code>myCycleLength,</code> and
-<code>myCountFailures</code>). Lines 10 and 11 define and create the event actions
+<code>myCountFailures</code>). Notice how <strong>unique</strong> names have been provided for the random variables and for the response variables.</p>
+<p>Lines 10 and 11 define and create the event actions
 associated with the end of the up-time and the end of the down time. The
 variable <code>myTimeLastUp</code> is used to keep track of the time that the
 component last changed into the UP state, which allows the cycle length
@@ -1047,9 +1076,11 @@ of modeling can be achieved by making the individual model elements
 interact in complex ways. More complex modeling will be the focus of the
 next chapter.</p>
 </div>
-<div id="introDEDSPharmacy" class="section level3 hasAnchor" number="4.5.4">
-<h3><span class="header-section-number">4.5.4</span> Modeling a Simple Queueing System<a href="introDEDSdedsKSL.html#introDEDSPharmacy" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<p>This example considers a small pharmacy that has a single line for
+<div id="introDEDSPharmacy" class="section level3 hasAnchor" number="4.4.4">
+<h3><span class="header-section-number">4.4.4</span> Modeling a Simple Queueing System<a href="introDEDSdedsKSL.html#introDEDSPharmacy" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>This section present a simple queueuing system considering of one server with a single waiting line. The logic of this system is essentially the same as that presented in Section <a href="QHandExample.html#QHandExample">4.3</a> for the example where we simulated the queue by hand.</p>
+<div class="example">
+<p><span id="exm:ch4ex4" class="example"><strong>Example 4.4  (Drive Through Pharmacy) </strong></span>This example considers a small pharmacy that has a single line for
 waiting customers and only one pharmacist. Assume that customers arrive
 at a drive through pharmacy window according to a Poisson distribution
 with a mean of 10 per hour. The time that it takes the pharmacist to
@@ -1063,6 +1094,7 @@ grocery store to accommodate any waiting customers.</p>
 <p class="caption">
 Figure 4.8: Drive Through Pharmacy
 </p>
+</div>
 </div>
 <p>The drive through pharmacy system can be conceptualized as a single
 server waiting line system, where the server is the pharmacist. An
@@ -1203,7 +1235,7 @@ teller example. Let’s define the following variable:</p>
 <li>Let <span class="math inline">\(E_s\)</span> represent the end of service event.</li>
 <li>Let <span class="math inline">\(K\)</span> represent the number of customers processed</li>
 </ul>
-<p>Within the KSL model, we will model <span class="math inline">\(N(t)\)</span>, <span class="math inline">\(Q(t)\)</span>, and <span class="math inline">\(B(t)\)</span> with instances of the <code>TWResponse</code> class The use of the <code>TWResponse</code> class will automate the collection of time averages for these variables as discussed in Section <a href="QHandExample.html#QHandExample">4.4</a>. Both <span class="math inline">\(TBA_i\)</span> and <span class="math inline">\(ST_i\)</span> will be modeled with instances of the <code>RandomVariable</code> class instantiated with instances of the <code>ExponentialRV</code> class. The pseudo-code for this situation is as follows.</p>
+<p>Within the KSL model, we will model <span class="math inline">\(N(t)\)</span>, <span class="math inline">\(Q(t)\)</span>, and <span class="math inline">\(B(t)\)</span> with instances of the <code>TWResponse</code> class The use of the <code>TWResponse</code> class will automate the collection of time averages for these variables as discussed in Section <a href="QHandExample.html#QHandExample">4.3</a>. Both <span class="math inline">\(TBA_i\)</span> and <span class="math inline">\(ST_i\)</span> will be modeled with instances of the <code>RandomVariable</code> class instantiated with instances of the <code>ExponentialRV</code> class. The pseudo-code for this situation is as follows.</p>
 <p><em>Arrival Actions for Event <span class="math inline">\(E_a\)</span></em></p>
 <pre><code>N(t) = N(t) + 1
 if (B(t) &lt; c)
@@ -1407,8 +1439,8 @@ interest for wide ranging queuing situations. For example, through
 simulation you can easily estimate the chance that there are 3 or more
 cars waiting.</p>
 </div>
-<div id="more-details-about-the-pharmacy-model-implementation" class="section level3 hasAnchor" number="4.5.5">
-<h3><span class="header-section-number">4.5.5</span> More Details About the Pharmacy Model Implementation<a href="introDEDSdedsKSL.html#more-details-about-the-pharmacy-model-implementation" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div id="more-details-about-the-pharmacy-model-implementation" class="section level3 hasAnchor" number="4.4.5">
+<h3><span class="header-section-number">4.4.5</span> More Details About the Pharmacy Model Implementation<a href="introDEDSdedsKSL.html#more-details-about-the-pharmacy-model-implementation" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>There are a few additional concepts to note about the implementation of the pharmacy model. The first set of items to notice is how the random variables and statistical response variables were implemented. In the following code snippet, we see that random variables for the service time and time between arrives were defined using Kotlin private properties. This encapsulates the random variables within the simulation model. However, it can be useful to allow users of the code to have some access to the underlying objects. For this purpose, two public properties <code>serviceRV</code> and <code>arrivalRV</code> were defined.</p>
 <div class="sourceCode" id="cb125"><pre class="sourceCode kt"><code class="sourceCode kotlin"><span id="cb125-1"><a href="introDEDSdedsKSL.html#cb125-1" tabindex="-1"></a>    <span class="kw">private</span> <span class="kw">val</span> <span class="va">myServiceRV</span><span class="op">:</span> RandomVariable <span class="op">=</span> RandomVariable<span class="op">(</span><span class="kw">this</span><span class="op">,</span> serviceTime<span class="op">,</span> <span class="st">&quot;Service RV&quot;</span><span class="op">)</span></span>
 <span id="cb125-2"><a href="introDEDSdedsKSL.html#cb125-2" tabindex="-1"></a>    <span class="kw">val</span> <span class="va">serviceRV</span><span class="op">:</span> RandomSourceCIfc</span>

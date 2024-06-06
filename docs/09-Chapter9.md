@@ -9,6 +9,11 @@
 
 This chapter builds on the methods presented in Appendix \@ref(appRNRV), Chapter \@ref(ch2rng), and Chapter \@ref(mcm) to present advanced Monte Carlo techniques that are often applied in practice.  The chapter begins with a discussion of bootstrap sampling methods.  Bootstrap sampling was popularized by [@efron-tibshirani] and remains a practical and useful technique that every simulation practitioner should be able understand and apply. Then, the chapter presents more details on the application of variance reduction techniques (VRTs). While some of the facilities of the KSL for the application of two variance reduction techniques (common random numbers and antithetic variates) have already been presented, this chapter will provide more details on the theory of those and other variance reduction techniques. In addition, the application of the techniques will be illustrated via some simple examples.  As discussed in Chapter \@ref(ch2rng), the KSL has exceptional functionality for the generation from uni-variate distributions.  In this chapter, the capabilities for generating from multi-variate distributions will be reviewed and illustrated via some simple examples. Finally, a brief discussion of the important topic of Markov Chain Monte Carlo (MCMC) will be provided. Then, the KSL's framework for performing MCMC will be illustrated.  This chapter assumes that the reader is familiar with the general concepts presented in Appendix \@ref(appRNRV), Chapter \@ref(ch2rng), and Chapter \@ref(mcm).
 
+::: {.infobox .note data-latex="{note}"}
+**NOTE!**
+This chapter provides example code of using the KSL to implement advanced Monte Carlo techniques. The full source code of the examples can be found in the accompanying `KSLExamples` project associated with the [KSL repository](https://github.com/rossetti/KSL). The files for each example of this chapter can be found [here](https://github.com/rossetti/KSL/tree/main/KSLExamples/src/main/kotlin/ksl/examples/book/chapter9).
+:::
+
 ## Bootstrap Methods {#ch9BootStrapping}
 
 Bootstrapping is a statistical procedure that resamples from a sample to create many simulated samples. Although there are some parametric bootstrapping approaches, bootstrapping is generally considered a non-parametric Monte Carlo method that estimates characteristics of a population by resampling. The samples from the original sample are used to make inferences about the population and about the statistical properties computed from the original sample. The intuitions associated with bootstrapping come from a deep understanding of what it means to sample.
@@ -196,6 +201,8 @@ $$
 
 In this section, we will explore how the KSL supports the application of bootstrapping. First, we will illustrate how to do bootstrapping using basic KSL constructs.  This is intended to illustrate the overall bootstrapping process.  Then we will discuss KSL constructs that encapsulate the bootstrapping process within classes.  In essence, bootstrapping is just sampling again and again from some discrete population.  Thus, the KSL `DPopulation` class can serve as a starting point.  Alternatively, the KSL `EmpiricalRV` class can be used. Let's start with a simple example that has an original sample size of 10 elements. For example, assume through some sampling process we have selected 10 students (at random) and counted the number of books in their backpack. The following code illustrates placing the data in an array and computing some basic statistics related to the sample.
 
+::: {.example #exBS1 name="Bootstraping Example 1"}
+This example defines a population of values within an array. Then, the example uses the `DPopulation` class to sample from the population. Statistics on the samples are captured and used to form a confidence interval.
 ```kt
 // make a population for illustrating bootstrapping
 val mainSample = doubleArrayOf(6.0, 7.0, 5.0, 1.0, 0.0, 4.0, 6.0, 0.0, 6.0, 1.0)
@@ -209,6 +216,7 @@ println("average = ${mainSampleStats.average}")
 println("90% CI = ${mainSampleStats.confidenceInterval(.90)}")
 println()
 ```
+:::
 
 Running this code results in the following:
 
@@ -267,8 +275,8 @@ The results show 10 bootstrap samples.  Notice that due to sampling with replace
 
 The idea of repeatedly sampling from a given population has been implemented into a set of classes within the KSL that will perform the bootstrapping process and compute a variety of quantities (including confidence intervals) based on the bootstrap samples.  Figure \@ref(fig:BootstrapFig) presents the `BootstrapEstimateIfc` interface, the main implementation of this interface (`Bootstrap`), and a data class, `BootstrapEstimate,` that is useful when building approaches that require bootstrapping.
 
-<div class="figure">
-<img src="./figures2/ch9/Bootstrap.png" alt="KSL Bootstrap Classes" width="80%" height="80%" />
+<div class="figure" style="text-align: center">
+<img src="./figures2/ch9/Bootstrap.png" alt="KSL Bootstrap Classes" width="90%" height="90%" />
 <p class="caption">(\#fig:BootstrapFig)KSL Bootstrap Classes</p>
 </div>
 
@@ -344,7 +352,10 @@ Once constructing an instance of the `Bootstrap` class is complete, you can call
     }
 ```
 
-This code is rather straightforward, having a loop to implement the sampling. In essence, it is not much different conceptually than the previously code using the `DPopulation` class. To setup and run bootstrapping for the book example, we have the following code:
+This code is rather straightforward, having a loop to implement the sampling. In essence, it is not much different conceptually than the previously code using the `DPopulation` class. 
+
+::: {.example #exBS2 name="Bootstraping Example 2"}
+To setup and run bootstrapping using the `Bootstrap` class, we have the following code:
 
 ```kt
     // make a population for illustrating bootstrapping
@@ -363,6 +374,7 @@ This code is rather straightforward, having a loop to implement the sampling. In
     bs.generateSamples(400, numBootstrapTSamples = 399)
     println(bs)
 ```
+:::
 
 Running this code results in the following:
 
@@ -398,7 +410,7 @@ In these results, it just happens that the BCa and bootstrap-t result in the sam
 
 As previously mentioned, the KSL also supports the estimation of multiple quantities from the sample. This functionality is used extensively within the distribution modeling functionality of the KSL to provide confidence intervals on the parameters of distributions.  Figure \@ref(fig:MVBootstrapFig) presents the `BootstrapSampler` class, which will compute multiple estimators on a sample using the `MVBSEstimatorIfc` interface.
 
-<div class="figure">
+<div class="figure" style="text-align: center">
 <img src="./figures2/ch9/BootstrapSampler.png" alt="KSL BootstrapSampler Classes" width="80%" height="80%" />
 <p class="caption">(\#fig:MVBootstrapFig)KSL BootstrapSampler Classes</p>
 </div>
@@ -425,8 +437,8 @@ interface MVBSEstimatorIfc {
 }
 ```
 
-The following code illustrates the use of the `BootstrapSampler` class.
-
+::: {.example #exBS3 name="Illustrating the BootstrapSampler Class"}
+The following code illustrates the use of the `BootstrapSampler` class. This provides bootstrap estimates for basic statistics.
 ```kt
 val ed = ExponentialRV(10.0)
 val data = ed.sample(50)
@@ -439,6 +451,7 @@ for(e in estimates){
   println(e.asString())
 }
 ```
+:::
 
 This code samples from an exponential distribution to get the initial sample and then uses the `BootstrapSampler` class to provide bootstrap estimates for the basic statistics.  The `BasicStatistics` class is just a simple implementation of the `MVBSEstimatorIfc` interface that computes the average, variance, minimum, maximum, skewness, kurtosis, lag-1 correlation, and lag-1 covariance. 
 
@@ -474,7 +487,7 @@ The previous KSL bootstrapping functionality focused on uni-variate data.  The s
 
 Within a programming context, we can represent each item with an object, which has some attributes. The attributes represent the data observed about the object. Placing the objects into a collection, permits sampling from the collection.  For example, the cases could be the rows in a regression data set. The data could be stored in arrays, in data frames, database tables, etc.  As long as each item the population can be uniquely labeled, we can sample the labels, and then select the items based on their identifiers.
 
-<div class="figure">
+<div class="figure" style="text-align: center">
 <img src="./figures2/ch9/CaseBootstrapSampler.png" alt="KSL CaseBootstrapSampler Classes" width="80%" height="80%" />
 <p class="caption">(\#fig:CaseBootstrapFig)KSL CaseBootstrapSampler Classes</p>
 </div>
@@ -550,8 +563,10 @@ The `CaseBootstrapSampler` class samples the indices (`mySample`) in the followi
 
 Finally, the object `OLSBootEstimator,` in Figure \@ref(fig:CaseBootstrapFig), is an object that implements the `MatrixEstimatorIfc` interface an computes the regression coefficients by assuming that the first column of the matrix is the regressor, $Y$, and the remaining columns represent the predictor matrix $X$. Because of the fact that we use the ordinary least squares estimation routines from the [Hipparchus library](https://hipparchus.org/), the $X$ matrix does not need to include the column for estimating the intercept term. 
 
-Putting all of these concepts together, we can illustrate the bootstrapping of a regression estimation process. As shown in the following code, we generate some regression data. For simiplicity, we assume normally distributed predictors and error.
+Putting all of these concepts together, we can illustrate the bootstrapping of a regression estimation process. As shown in the following code, we generate some regression data. For simplicity, we assume normally distributed predictors and error.
 
+::: {.example #exBS4 name="Illustrating Case Based Bootstrapping"}
+This example illustrates case based bootstrapping for a linear regression model.
 ```kt
     // first make some data for the example
     val n1 = NormalRV(10.0, 3.0)
@@ -573,6 +588,7 @@ Putting all of these concepts together, we can illustrate the bootstrapping of a
         println(be)
     }
 ```
+:::
 
 The results of the bootstrapping process are as follows. As we can see, the confidence intervals for the known regression coefficients $(\beta_0=10.0, \beta_1=2.0, \beta_2=5.0$) do a reasonable job of covering the known quantities.
 
@@ -882,7 +898,6 @@ class MC1DIntegration (
         }
         confidenceLevel = 0.99
     }
-
 ```
 
 Recall that the `MCExperiment` class, see Section \@ref(mcmExperiments), requires the user to provide an implementation of the `MCReplicationIfc` interface. In the `MC1DIntegration` class we have the following implementation. 
@@ -977,8 +992,9 @@ Notice that known quantities $E[ST]$ and $\lambda$ are used. This replaces varia
 ### Control Variates (CV)
 The idea is to exploit knowledge of the system by other variables for which the true mean is known and exploit any dependence that it might have with our parameter of interest. Let's consider a simplified example.
 
+***
 ::: {.example #CVExample name="Simple Health Clinic"}
-Suppose that we are simulating a heart disease reduction program operating between 10am and Noon. Suppose that 30 patients per day are scheduled at 5 minute intervals. The clinic process is as follows. The patient first visits a clerk to gather their medical information. Then, the patient visits a medical technician where blood pressure and vitals are recorded and it is determined whether or not the patient should visit the nurse. If the patient visits the nurse practioner, then they receive some medical service and return to a clerk for payment. If the patient does not need to see the nurse practioner, then the patient goes directly to the clerk for checkout.
+Suppose that we are simulating a heart disease reduction program operating between 10am and Noon. Suppose that 30 patients per day are scheduled at 5 minute intervals. The clinic process is as follows. The patient first visits a clerk to gather their medical information. Then, the patient visits a medical technician where blood pressure and vitals are recorded and it is determined whether or not the patient should visit the nurse. If the patient visits the nurse practitioner, then they receive some medical service and return to a clerk for payment. If the patient does not need to see the nurse practitioner, then the patient goes directly to the clerk for checkout.
 
 - Let $Y_j$ be the utilization of the nurse on the $j^{th}$ day. We are interested in estimating the utilization of the nurse on any given day.
 
@@ -986,12 +1002,13 @@ Suppose that we are simulating a heart disease reduction program operating betwe
 
 - Let $p$ be the proportion of patients that see the nurse. Because there are 30 patients per day, we have $E[X_j] = 30p = \mu$, which is a known quantity.
 
-:::
 
 <div class="figure" style="text-align: center">
 <img src="./figures2/ch9/ControlVariateExample.png" alt="Simple Health Clinic" width="90%" height="90%" />
 <p class="caption">(\#fig:CVFigure)Simple Health Clinic</p>
 </div>
+:::
+***
 
 To build up a control variate estimator, define the following random variable, $Z_j = Y_j + C(X_j - \mu)$, where $C$ is assumed to be a known constant.  Since, our parameter of interest is $E[Y_j]$ consider $E[Z_j]$
 $$
@@ -1003,7 +1020,7 @@ $$
 \bar{Z}= \frac{1}{n}\sum_{i=1}^{n}Z_i
 $$
 
-The sample average, $\bar{Z}$, will be an unbiased estimator of $E[Y_j]$ if $C$ is a constant known in advance.  The random variable $Z_j$ forms our control variate estimator and the quantity $X_j$ with known mean $\mu$ is called the control variate. Intuitively, we can see that $X_j$ should be related to the utilization of the nurse. For example, if $X_j$ is high for a particular simulation run, then the nurse should see more patients and thus have a higher utilization. Similarly, if $X_j$ is low for a particular simulation run, then the nurse should see less patients and thus have a lower utilization. Thus, we can conclude that $X_j$ is correlated with our quantity of interest $Y_j$.  The linear form $Z_j = Y_j + C(X_j - \mu)$ adjusts $Y_j$ up or down based on what is observed for $X_j$. Why would we want to do this?  That is why does using a control variate work?
+The sample average, $\bar{Z}$, will be an unbiased estimator of $E[Y_j]$ if $a$ is a constant known in advance.  The random variable $Z_j$ forms our control variate estimator and the quantity $X_j$ with known mean $\mu$ is called the control variate. Intuitively, we can see that $X_j$ should be related to the utilization of the nurse. For example, if $X_j$ is high for a particular simulation run, then the nurse should see more patients and thus have a higher utilization. Similarly, if $X_j$ is low for a particular simulation run, then the nurse should see less patients and thus have a lower utilization. Thus, we can conclude that $X_j$ is correlated with our quantity of interest $Y_j$.  The linear form $Z_j = Y_j + C(X_j - \mu)$ adjusts $Y_j$ up or down based on what is observed for $X_j$. Why would we want to do this?  That is why does using a control variate work?
 
 Consider deriving the variance of our control variate estimator, $\text{Var}[Z_j]$. This results in:
 
@@ -1102,6 +1119,8 @@ Control variates is a general variance reduction technique. In general within a 
 
 The KSL has support for using control variates within the context of a DEDS simulation via the `ControlVariateDataCollector` class.  The `ControlVariateDataCollector` class works in a similar fashion as the `ReplicationDataCollector` class that was discussed in Section \@ref(simoaCapture). The following code illustrates its use.
 
+::: {.example #exControlVar name="Illustrating Control Variates"}
+This example illustrates how to define controls, collect the responses, and compute the control variate estimators using KSL regression constructs.
 ```kotlin
     val model = Model("CV Example")
     model.numberOfReplications = 100
@@ -1119,6 +1138,7 @@ The KSL has support for using control variates within the context of a DEDS simu
     val regressionResults = cvCollector.regressionResults(regressionData)
     println(regressionResults)
 ```
+:::
 
 Notice the use of the method, `cvCollector.collectedData("TotalTime", 20)`. This method prepares the data for a regression analysis. The value 20 tells the method to form 20 batches from the 100 replications into 20 batches of size 5. The following output is the standard half-width report for the 100 replications. 
 
@@ -1204,7 +1224,7 @@ Parameter Estimation Results
 ```
 
 Notice that the estimated response is different than the standard estimate (497.7907) versus (494.631368). In addition,
-the half-width of the control variate estimator is smaller.  Further analysis should be performed to check the normality assumptions and assess the quality of the estimated value. The KSL `RegressionResultsIfcThis` interface has the ability to check the normality of the residuals perform additional regression analysis operations. This analysis is left as an exercise for the reader.
+the half-width of the control variate estimator is smaller.  Further analysis should be performed to check the normality assumptions and assess the quality of the estimated value. The KSL `RegressionResultsIfc` interface has the ability to check the normality of the residuals perform additional regression analysis operations. This analysis is left as an exercise for the reader.
 
 ### Stratified and Post Stratified Sampling
 
@@ -1276,7 +1296,7 @@ $$
 This technique relies on being able to derive the function $E[Y|X=x]$ from the problem situation, which can be very problem dependent. We will demonstrate this via an example involving a stochastic activity network.
 
 <div class="figure" style="text-align: center">
-<img src="./figures2/ch9/SAN.png" alt="Example Stochastic Activity Network" width="90%" height="90%" />
+<img src="./figures2/ch9/SAN.png" alt="Example Stochastic Activity Network" width="60%" height="60%" />
 <p class="caption">(\#fig:SAN)Example Stochastic Activity Network</p>
 </div>
 
@@ -1489,7 +1509,7 @@ $$
 There will be a significant variance reduction with this choice of $w(x)$ over using the standard uniform distribution.
 
 <div class="figure" style="text-align: center">
-<img src="./figures2/ch9/ISExample.png" alt="Importance Sampling Based on w(x)" width="90%" height="90%" />
+<img src="./figures2/ch9/ISExample.png" alt="Importance Sampling Based on w(x)" width="60%" height="60%" />
 <p class="caption">(\#fig:ISExample)Importance Sampling Based on w(x)</p>
 </div>
 
@@ -1885,6 +1905,7 @@ When we discussed importance sampling, we noted that $g(\vec{x})$ can be factori
 $$
 \hat{\theta} = \bar{Y}(n) = \frac{1}{n}\sum_{i=1}^{n}Y_i=\frac{1}{n}\sum_{i=1}^{n}\frac{g(\vec{X}_i)}{w(\vec{X}_i)}=\frac{1}{n}\sum_{i=1}^{n}h(\vec{X}_i)
 $$
+
 We know that independent $\vec{X}_i$ ensures that the law of large numbers has, $\hat{\theta} \rightarrow \theta$ as $n \rightarrow \infty$ with probability 1.  But what happens if the $\vec{X}_i$ are dependent? Under some technical conditions, it can still be shown that $\hat{\theta} \rightarrow \theta$.  Thus, sequences of dependent $\vec{X}_i$ could be used. One method for generating depended $\vec{X}_i$ would be from a Markov chain that has $w(\vec{X})$ as its stationary limiting distribution. In the Markov Chain literature, $w(\vec{X})$ is often denoted as $\pi(\vec{X})$.  
 
 For simplicity in what follows, we will focus on the univariate case, with the understanding that the presentation can be extended to a multi-dimensional setting. Because it should make it easier to conceptualize the approach, we will first present some basic concepts using discrete Markov Chains. 
@@ -1912,6 +1933,8 @@ end for;
 
 The KSL `DMarkovChain` class in the `ksl.utilities.random.markovchain` package facilitates the simulation of simple discrete state Markov Chains. 
 
+::: {.example #exMC1 name="Simulating a Markov Chain"}
+An ergodic Markov Chain is setup and simulated with statistics collected on the probability of being within the states. 
 ```kotlin
     val p = arrayOf(
         doubleArrayOf(0.3, 0.1, 0.6),
@@ -1933,6 +1956,7 @@ The KSL `DMarkovChain` class in the `ksl.utilities.random.markovchain` package f
     println("Observed Steady State Distribution")
     println(f)
 ```
+:::
 
 This code results in the following output.
 
@@ -2106,7 +2130,6 @@ $$
   a) Develop a MCMC independent sampler to generate $(X_1, X_2)$ from this distribution.
   b) Develop a MCMC random walk sampler to generate $(X_1, X_2)$ from this distribution.
 :::
-
 ***
 
 The key issue is developing a suitable proposal function. Recall that for an independence sampler, we have $q(\vec{y}|\vec{x}) = q(\vec{y})$.  The function, $q(\vec{y})$ is a probability density function and it must be a function of $\vec{y} = (y_1, y_2)^T$. That is, $q(y_1, y_2)$ is a joint density function for random variables $Y_1$ and $Y_2$. Now, it might be more readily apparent as to the reason an independence sampler is common. Notice that the general proposal function $q(\vec{y}|\vec{x})$ would be a conditional distribution of the form $q(y_1,y_2|X_1=x_1,X_2=x_2)$. Thus, an independence sampler avoids having to develop a function that includes $X_1=x_1,X_2=x_2$ in its functional form. So, we need a joint density function that will generate, $(Y_1, Y_2)$.  

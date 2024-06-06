@@ -9,7 +9,10 @@
 
 This chapter overviews the functionality of the KSL for modeling randomness within simulation models.  The focus of this chapter is on getting started using the basic classes and functionality of the KSL.  The theory and methods related to random number generation and random variate generation are provided in Appendix \@ref(appRNRV).  In that appendix, the underlying theory of the inverse transform method, convolution, acceptance rejection, and particular distribution modeling concepts are reviewed. In addition, the concepts of pseudo-random number generation are discussed. This chapter assumes that the reader has some familiarity with the general concepts presented in Appendix \@ref(appRNRV).
 
+::: {.infobox .note data-latex="{note}"}
+**NOTE!**
 This chapter provides a series of example Kotlin code that illustrates the use of KSL constructs for generating random numbers and random variates. The full source code of the examples can be found in the accompanying `KSLExamples` project associated with the [KSL repository](https://github.com/rossetti/KSL). The files for each example of this chapter can be found [here](https://github.com/rossetti/KSL/tree/main/KSLExamples/src/main/kotlin/ksl/examples/book/chapter2).
+:::
 
 ## Random Number Generator {#ch2generator}
 
@@ -571,7 +574,7 @@ all of the required interfaces. The key method to implement is the
 protected `generate()` method, which should return the generated random
 value according to some algorithm.
 
-In almost all cases, the KSL utilizes the inverse transform algorithm for generating random variates. Thus, there is a one to one mapping of the underlying pseudo-random number and the resulting random variate. Even in the case of distributions that do not have closed form inverse cumulative distribution functions, the KSL utilizes numerical methods to approximate the function whenever feasible. For example, the KSL uses a rational function approximation, see Cody (1969), to
+In almost all cases, the KSL utilizes the inverse transform algorithm for generating random variates. Thus, there is a one to one mapping of the underlying pseudo-random number and the resulting random variate. Even in the case of distributions that do not have closed form inverse cumulative distribution functions, the KSL utilizes numerical methods to approximate the function whenever feasible. For example, the KSL uses a rational function approximation, see [@cody1969], to
 implement the inverse cumulative distribution function for the standard
 normal distribution. The inversion for the gamma distribution is based
 on Algorithm AS 91 for inverting the chi-squared distribution and
@@ -593,7 +596,7 @@ cumulative distribution function.
 
 The following sections will overview the generation algorithms and provide examples for using some of these distributions.
 
-### Creating and Using Random Variables {#rvg_use}
+### Creating and Using Random Variables {#rvguse}
 
 This section presents how to create and use random variables via KSL constructs. The basic approach is to create an instance of a specific type of random variable and use the instance to generate observations.
 
@@ -626,7 +629,16 @@ The resulting output is what you would expect.
   5       23.858350 
 ```
 
-Alternatively, the user can use the `sample()` method to generate an array of values that can be later processed. The following code illustrates how to do that with a triangular distribution.
+Alternatively, the user can use the `sample()` method to generate an array of values that can be later processed. The `SampleIfc` interface has the following useful functions:
+
+- `sample()` returns a new value
+- `sample(sampleSize: Int)` returns an array of values
+- `sampleInto(values: DoubleArray)` fills an array with values
+- `sampleAsRows(sampleSize: Int, nRows: Int = 1)` makes a 2-D array with samples in the rows
+- `sampleAsColumns(sampleSize: Int, nRows: Int = 1)` makes a 2-D array with samples in the columns
+- `sampleInto(matrix: Array<DoubleArray>)` fills a 2-D array with samples
+
+The following code illustrates how to use the `sample()` function with a triangular distribution.
 
 ::: {.example #ch2ex10 name="Using the sample() function"}
 The following example code illustrates how to create a triangular random variable and how to generate values using the `sample()` function.
@@ -655,6 +667,12 @@ Again, the output is what we would expect.
   4        3.661241 
   5        8.963572
 ```
+
+::: {.infobox .note data-latex="{note}"}
+**NOTE!**
+The `SampleIfc` interface provides functionality to generate arrays of observations. The KSL provides extensive functionality for working with arrays within its utilities. This functionality is briefly discussed in Section \@ref(appUtilitiesArrays) of Appendix \@ref(appUtilities).
+:::
+
 It is important to note that the full range of functionality related to stream control is also available for random variables.  That is, the underlying stream can be reset to its start, can be advanced to the next substream, can generate antithetic variates, etc.  Each new instance of a random variable is supplied with its own *unique* stream that is not shared with another other random variable instances.  Since the underlying random number generator has an enormous number of streams, approximately $1.8 \times 10^{19}$, it is very unlikely that the user will not create so many streams as to start reusing them.  However, the streams that are used by random variable instances can be supplied directly so that they may be shared.
 
 ::: {.example #ch2ex11 name="Specifying a Stream"}
@@ -876,7 +894,7 @@ $$
 </div>
 :::
 
-As discussed in Example \@ref(ARExampleRV) of Appendix \@ref(appRNRV), we can use $g(x) = 3/4$ as the majorizing function, which results in $c=3/2$, and $w(x)$
+As discussed in Example \@ref(exm:ARExampleRV) of Appendix \@ref(appRNRV), we can use $g(x) = 3/4$ as the majorizing function, which results in $c=3/2$, and $w(x)$
 
 $$
 w(x) =
@@ -936,7 +954,7 @@ fun main() {
     val v = rUniform(10.0, 15.0) // generate a U(10, 15) value
     val x = rNormal(5.0, 2.0) // generate a Normal(mu=5.0, var= 2.0) value
     val n = rPoisson(4.0).toDouble() //generate from a Poisson(mu=4.0) value
-    System.out.printf("v = %f, x = %f, n = %f %n", v, x, n)
+    print(String.format("v = %f, x = %f, n = %f %n", v, x, n))
 }
 ```
 :::
@@ -1178,9 +1196,9 @@ fun main() {
     println("mean = " + bnDF.mean())
     println("variance = " + bnDF.variance())
     // compute some values
-    System.out.printf("%3s %15s %15s %n", "k", "p(k)", "cdf(k)")
+    print(String.format("%3s %15s %15s %n", "k", "p(k)", "cdf(k)"))
     for (i in 0..10) {
-        System.out.printf("%3d %15.10f %15.10f %n", i, bnDF.pmf(i), bnDF.cdf(i))
+        print(String.format("%3d %15.10f %15.10f %n", i, bnDF.pmf(i), bnDF.cdf(i)))
     }
     println()
     // change the probability and number of trials
@@ -1190,12 +1208,12 @@ fun main() {
     println("variance = " + bnDF.variance())
     // make random variables based on the distributions
     val brv = bnDF.randomVariable
-    System.out.printf("%3s %15s %n", "n", "Values")
+    print(String.format("%3s %15s %n", "n", "Values"))
     // generate some values
     for (i in 1..5) {
         // value property returns generated values
         val x = brv.value.toInt()
-        System.out.printf("%3d %15d %n", i, x)
+        print(String.format("%3d %15d %n", i, x))
     }
 }
 ```
@@ -1467,6 +1485,9 @@ Then, the P-P Plot sum of squared error criterion is defined as:
 $$
 \text{PP Squared Error} = \sum_{i = 1}^n (\tilde{F}_n(x_{(i)}) - \hat{F}(x_{(i)}))^2
 $$
+
+- P-P Correlation - Based on the concepts found in [@gan-koehler], the P-P correlation scoring model computes the Pearson correlation associated with a P-P plot.  That is, the scoring model computes the correlation between $(\tilde{F}_n(x_{(i)}), \hat{F}(x_{(i)}))$.
+
 These scoring models avoid summarizing the data based on a histogram, which requires a specification of the bin sizes (or widths) and tabulation of frequencies or proportions associated with the bins.  
 
 The companion object of the `Statistic` class will compute the K-S test statistic and Anderson Darling test statistic.   These functions directly compute the test statistic value. In addition, as illustrated in Figure \@ref(fig:ScoringModelLabel), each of these statistics, as well as the `PPSSEScoringModel` have been implemented as PDF scoring models. 
@@ -1733,6 +1754,10 @@ The p-value = 0.31539706650371313 is >= 0.05 : Do not reject hypothesis.
 
 This section illustrates how to use the KSL probability distribution modeling frameworks by applying the previously discussed constructs to two examples from Appendix \@ref(appidm). We will start with the fitting of Poisson distribution to the data from Example \@ref(exm:PoissonFit), which is repeated here for convenience.  The data associated with the examples of this section can be found in the chapter [files](https://github.com/rossetti/KSL/tree/main/KSLExamples/chapterFiles/Appendix-Distribution%20Fitting) with in the `KSLExamples` project associated with the KSL source code repository.
 
+::: {.infobox .note data-latex="{note}"}
+**NOTE!**
+Distribution fitting often requires visualizing the data. The KSL provides support for making plots via the [lets-plot library](https://github.com/JetBrains/lets-plot-kotlin).  Section \@ref(appPlotting) of Appendix \@ref(appUtilities) illustrates the basics of KSL plotting functionality. This section illustrates some plots that are important for distribution modeling.
+:::
 
 ***
 ::: {.example #ch2ex26 name="Fitting a Poisson Distribution"}
@@ -1772,7 +1797,7 @@ an appropriate model for this data.
 
 ***
 
-Since the testing of dependence on the day of the week or the period of observation was already performed in Appendix \@ref(appidm), we focus on the distribution fitting process in this demonstration of the KSL constructs.  Here, we need to fit a Poisson distribution to the data. The first step is reading the data from the CSV file.  This can be readily accomplished by using the CSV file reading capabilities of Kotlin's `DataFrame` library. The following code uses the KSL's `KSLFileUtil` object to open a file choosing dialog for the user to select the file, which then has its contents read in using the CSV file processing function for the `DataFrame` object. This data is converted into an integer array and returned.
+Since the testing of dependence on the day of the week or the period of observation was already performed in Appendix \@ref(appidm), we focus on the distribution fitting process in this demonstration of the KSL constructs.  Here, we need to fit a Poisson distribution to the data. The first step is reading the data from the CSV file.  This can be readily accomplished by using the CSV file reading capabilities of [Kotlin's `DataFrame` library]((https://github.com/Kotlin/dataframe)). The following code uses the KSL's `KSLFileUtil` object to open a file choosing dialog for the user to select the file, which then has its contents read in using the CSV file processing function for the `DataFrame` object. This data is converted into an integer array and returned.  A discussion of CSV file processing and data frames can be found in Sections \@ref(appDCSVEtc) and \@ref(dfUtil) of Appendix \@ref(appUtilities).
 
 ```kt
 fun readCountData(): IntArray {
@@ -1809,8 +1834,8 @@ fp.saveToFile("Lab_Count_Freq_Plot")
 Figure \@ref(fig:LCFreqPlot) clearly indicates that the Poisson distribution is a candidate model.
 
 <div class="figure">
-<img src="./figures2/ch2/Lab_Count_Freq_Plot.png" alt="Integer Frequence Plot of Lab Count Data" width="80%" height="80%" />
-<p class="caption">(\#fig:LCFreqPlot)Integer Frequence Plot of Lab Count Data</p>
+<img src="./figures2/ch2/Lab_Count_Freq_Plot.png" alt="Integer Frequency Plot of Lab Count Data" width="80%" height="80%" />
+<p class="caption">(\#fig:LCFreqPlot)Integer Frequency Plot of Lab Count Data</p>
 </div>
 
 The following code will create a time series observation plot of the data and an auto correlation plot of the data. The use of both of these plots for analysis of data is discussed in Appendix \@ref(appidm). This code will also save the plots to files and display the plots within a browser window.
