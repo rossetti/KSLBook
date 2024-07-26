@@ -4,18 +4,18 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>B.8 Summary | Simulation Modeling using the Kotlin Simulation Library (KSL)</title>
+  <title>1.7 Simulation Methodology | Simulation Modeling using the Kotlin Simulation Library (KSL)</title>
   <meta name="description" content="A book that illustrates the basics of using the KSL. The output format for this book is bookdown::gitbook." />
   <meta name="generator" content="bookdown 0.39 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="B.8 Summary | Simulation Modeling using the Kotlin Simulation Library (KSL)" />
+  <meta property="og:title" content="1.7 Simulation Methodology | Simulation Modeling using the Kotlin Simulation Library (KSL)" />
   <meta property="og:type" content="book" />
   
   <meta property="og:description" content="A book that illustrates the basics of using the KSL. The output format for this book is bookdown::gitbook." />
   
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="B.8 Summary | Simulation Modeling using the Kotlin Simulation Library (KSL)" />
+  <meta name="twitter:title" content="1.7 Simulation Methodology | Simulation Modeling using the Kotlin Simulation Library (KSL)" />
   
   <meta name="twitter:description" content="A book that illustrates the basics of using the KSL. The output format for this book is bookdown::gitbook." />
   
@@ -30,8 +30,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-<link rel="prev" href="appdistfitidms2sb4.html"/>
-<link rel="next" href="exercises-9.html"/>
+<link rel="prev" href="simulation-languages.html"/>
+<link rel="next" href="overview-of-the-kotlin-simulation-library.html"/>
 <script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
@@ -482,34 +482,344 @@ div.csl-indent {
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="appidmSummary" class="section level2 hasAnchor" number="10.8">
-<h2><span class="header-section-number">B.8</span> Summary<a href="appidmSummary.html#appidmSummary" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p>In this chapter you learned how to analyze data in order to model the
-input distributions for a simulation model. The input distributions
-drive the stochastic behavior of the simulation model.</p>
-<p>The modeling of the input distributions requires:</p>
+<div id="ch1secsimMeth" class="section level2 hasAnchor" number="1.7">
+<h2><span class="header-section-number">1.7</span> Simulation Methodology<a href="ch1secsimMeth.html#ch1secsimMeth" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>This section presents a brief overview of the steps of simulation
+modeling by discussing the process in the context of a methodology. A
+methodology is simply a series of steps to follow. Since simulation
+involves systems modeling, a simulation methodology based on the general
+precepts of solving a problem through systems analysis is presented
+here. A general methodology for solving problems can be stated as
+follows:</p>
+<ol style="list-style-type: decimal">
+<li><p>Define the problem</p></li>
+<li><p>Establish measures of performance for evaluation</p></li>
+<li><p>Generate alternative solutions</p></li>
+<li><p>Rank alternative solutions</p></li>
+<li><p>Evaluate and Iterate during process</p></li>
+<li><p>Execute and evaluate the solution</p></li>
+</ol>
+<p>This methodology can be referred to by using the first letter of each
+step. The DEGREE methodology for problem solving represents a series of
+steps that can be used during the problem solving process. The first
+step helps to ensure that you are solving the right problem. The second
+step helps to ensure that you are solving the problem for the right
+reason, i.e. your metrics must be coherent with your problem. Steps 3
+and 4 ensure that the analyst looks at and evaluates multiple solutions
+to the problem. In other words, these steps help to ensure that you
+develop the right solution to the problem. A good methodology recognizes
+that the analyst needs to evaluate how well the methodology is doing. In
+step 5, the analyst evaluates how the process is proceeding and allows
+for iteration. Iteration is an important concept that is foreign to many
+modelers. The concept of iteration recognizes that the problem solving
+process can be repeated until the desired degree of modeling fidelity
+has been achieved. Start the modeling at a level that allows it to be
+initiated and do not try to address the entire situation in each of the
+steps. Start with small models that work and build them up until you
+have reached your desired goals. It is important to get started and get
+something established on each step and continually go back in order to
+ensure that the model is representing reality in the way that you
+intended. The final step is often over looked. Simulation is often used
+to recommend a solution to a problem. Step 6 indicates that if you have
+the opportunity you should execute the solution by implementing the
+decisions. Finally, you should always follow up to ensure that the
+projected benefits of the solution were obtained.</p>
+<p>The DEGREE problem solving methodology should serve you well; however,
+simulation involves certain unique actions that must be performed during
+the general overall problem solving process. When applying DEGREE to a
+problem that may require simulation, the general DEGREE approach needs
+to be modified to explicitly consider how simulation will interact with
+the overall problem solving process.</p>
+<p>Figure <a href="ch1secsimMeth.html#fig:ch1SimMethodology">1.4</a> represents a refined general
+methodology for applying simulation to problem solving.</p>
+<ol style="list-style-type: decimal">
+<li><p>Problem Formulation</p>
+<ol style="list-style-type: decimal">
+<li><p>Define the problem</p></li>
+<li><p>Define the system</p></li>
+<li><p>Establish performance metrics</p></li>
+<li><p>Build conceptual model</p></li>
+<li><p>Document model assumptions</p></li>
+</ol></li>
+<li><p>Simulation Model Building</p>
+<ol style="list-style-type: decimal">
+<li><p>Model translation</p></li>
+<li><p>Input data modeling</p></li>
+<li><p>Verification</p></li>
+<li><p>Validation</p></li>
+</ol></li>
+<li><p>Experimental Design and Analysis</p>
+<ol style="list-style-type: decimal">
+<li><p>Preliminary Runs</p></li>
+<li><p>Final experiments</p></li>
+<li><p>Analysis of results</p></li>
+</ol></li>
+<li><p>Evaluate and Iterate</p>
+<ol style="list-style-type: decimal">
+<li><p>Documentation</p></li>
+<li><p>Model manual</p></li>
+<li><p>User manual</p></li>
+</ol></li>
+<li><p>Implementation</p></li>
+</ol>
+<p>The first phase, problem formulation, captures the essence of the first
+two steps in the DEGREE process. The second phase, model building,
+captures the essence of step 3 of the DEGREE process. When building
+models, you are either explicitly or implicitly developing certain
+design alternatives. The third phase, experimental design and analysis,
+encapsulates some of steps 3 and 4 of the DEGREE process. In designing
+experiments, design alternatives are specified and when analyzing
+experiments their worth is being evaluated with respect to problem
+objectives. The fourth phase, evaluate and iterate, captures the notion
+of iteration. Finally, the fifth and sixth phases, documentation and
+implementation complete the simulation process. Documentation is
+essential when trying to ensure the ongoing and future use of the
+simulation model, and implementation recognizes that simulation projects
+often fail if there is no follow through on the recommended solutions.</p>
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:ch1SimMethodology"></span>
+<img src="figures2/ch1/ch1fig4.jpg" alt="General Simulation Methodology"  />
+<p class="caption">
+Figure 1.4: General Simulation Methodology
+</p>
+</div>
+<!-- ![General Simulation -->
+<!-- Methodology](./figures/ch1/ch1fig4.jpg){#fig:ch1SimMethodology -->
+<!-- width="\\textwidth"} -->
+<p>The problem formulation phase of the study consists of five primary
+activities:</p>
+<ol style="list-style-type: decimal">
+<li><p>Defining the problem</p></li>
+<li><p>Defining the system</p></li>
+<li><p>Establishing performance metrics.</p></li>
+<li><p>Building conceptual models</p></li>
+<li><p>Documenting modeling assumptions</p></li>
+</ol>
+<p>A problem starts with a perceived need. These activities are useful in
+developing an appreciation for and an understanding of what needs to be
+solved. The basic output of the problem definition activity is a problem
+definition statement. A problem definition statement is a narrative
+discussion of the problem. A problem definition statement is necessary
+to accurately and concisely represent the problem for the analyst and
+for the problem stakeholders. This should include all the required
+assumptions made during the modeling process. It is important to
+document your assumptions so that you can examine their effect on the
+model during the verification, validation, and experimental analysis
+steps of the methodology. This ensures that the problem is well
+understood and that all parties agree upon the nature of the problem and
+the goals of the study. The general goals of a simulation study often
+include:</p>
 <ul>
-<li><p>Understanding how the system being modeled works. This understanding
-improves overall model construction in an iterative fashion: model
-the system, observe some data, model the data, model the system,
-etc.</p></li>
-<li><p>Carefully collecting the data using well thought out collection and
-sampling plans</p></li>
-<li><p>Analyzing the data using appropriate statistical techniques</p></li>
-<li><p>Hypothesizing and testing appropriate probability distributions</p></li>
-<li><p>Incorporating the models in to your simulations</p></li>
+<li><p>Comparison: To compare system alternatives and their performance
+measures across various factors (decision variables) with respect to
+some objectives</p></li>
+<li><p>Optimization: This is a special case of comparison in which you try
+to find the system configuration that optimizes performance subject
+to constraints.</p></li>
+<li><p>Prediction: To predict the behavior of the system at some future
+point in time.</p></li>
+<li><p>Investigation: To learn about and gain insight into the behavior of
+the system given various inputs.</p></li>
 </ul>
-<p>Properly modeling the inputs to the simulation model form a critical
-foundation to increasing the validity of the simulation model and
-subsequently, the credibility of the simulation outputs.</p>
+<p>These general goals will need to be specialized to the problem under
+study. The problem definition should include a detailed description of
+the objectives of the study, the desired outputs from the model, and the
+types of scenarios to be examined or decisions to be made.</p>
+<p>The second activity of this phase produces a definition of the system. A
+system definition statement is necessary to accurately and concisely
+define the system, particularly its boundaries. The system definition
+statement is a narrative, which often contains a pictorial
+representation of the major elements of the system. This ensures that
+the simulation study is focused on the appropriate areas of interest to
+the stakeholders and that the scope of the project is well understood.</p>
+<p>When defining the problem and the system, one should naturally begin to
+develop an understanding of how to measure system performance. The third
+activity of problem formulation makes this explicit by encouraging the
+analyst to define the required performance measures for the model. To
+meaningfully compare alternative scenarios, objective and measurable
+metrics describing the performance of the system are necessary. The
+performance metrics should include quantitative statistical measures
+from any models used in the analysis (e.g. simulation models),
+quantitative measures from the systems analysis, (e.g. cost/benefits),
+and qualitative assessments (e.g. technical feasibility, human,
+operational feasibility). The focus should be placed on the performance
+measures that are considered to be the most important to system
+decision-makers and tied directly to the objectives of the simulation
+study. Evaluation of alternatives can then proceed in an objective and
+unbiased manner to determine which system scenario performs the best
+according to the decision maker’s preferences.</p>
+<p>The problem definition statement, the system definition statement, and
+explicit performance metrics set the stage for more detailed modeling.
+These activities should be captured in a written form. Within this text,
+you will develop models of certain “ready-made” book problems. One way
+to accomplish the problem formulation phase of a simulation study is to
+consider writing yourself a "book problem". You will need enough
+detail in these documents that a simulation analyst (you) can develop a
+model in any simulation language for the given situation.</p>
+<p>With a good understanding of the problem and of the system under study,
+you should be ready to begin your detailed model formulations. Model
+formulation does not mean a computer program. You should instead use
+conceptual modeling tools: conceptual diagrams, flow charts, etc. prior
+to any use of software to implement a model. The purpose of conceptual
+modeling tools is to convey a more detailed system description so that
+the model may be translated into a computer representation. General
+descriptions help to highlight the areas and processes of the system
+that the model will simulate. Detailed descriptions assist in simulation
+model development and coding efforts. Some relevant diagramming
+constructs include:</p>
+<ol style="list-style-type: decimal">
+<li><p>Context Diagrams: A context diagram assists in conveying the general
+system description. The diagram is a pictorial representation of the
+system that often includes flow patterns typically encountered.
+Context diagrams are often part of the system description document.
+There are no rules for developing context diagrams. If you have an
+artistic side, here is your opportunity to shine!</p></li>
+<li><p>Activity Diagrams: An activity diagram is a pictorial representation
+of the process for an entity and its interaction with resources
+while within the system. If the entity is a temporary entity (i.e.
+it flows through the system) the activity diagram is called an
+activity flow diagram. If the entity is permanent (i.e. it remains
+in the system throughout its life) the activity diagram is called an
+activity cycle diagram. Activity diagrams will be used extensively
+within this text.</p></li>
+<li><p>Software engineering diagrams: Because simulation entails software
+development, the wide-variety of software engineering diagramming
+techniques can be utilized to provide information for the model
+builder. Diagrams such as flow charts, database diagrams, IDEF (ICAM
+DEFinition language) diagrams, UML (unified modeling language)
+diagrams, state charts, etc are all useful in documenting complex
+modeling situations. These techniques assist development and coding
+efforts by focusing attention on describing, and thus understanding,
+the elements within the system. Within this text, activity diagrams
+will be augmented with some simple flow chart symbols and some
+simple state diagrams will be used to illustrate a variety of
+concepts.</p></li>
+</ol>
+<p>In your modeling, you should start with an easy conceptual model that
+captures the basic aspects and behaviors of the system. Then, you should
+begin to add details, considering additional functionality. Finally, you
+should always remember that the complexity of the model has to remain
+proportional to the quality of the available data and the degree of
+validity necessary to meet the objectives of the study. In other words,
+don’t try to model the world!</p>
+<p>After developing a solid conceptual model of the situation, simulation
+model building can begin. During the simulation model building phase,
+alternative system design configurations are developed based on the
+previously developed conceptual models. Additional project planning is
+also performed to yield specifications for the equipment, resources, and
+timing required for the development of the simulation models. The
+simulation models used to evaluate the alternative solutions are then
+developed, verified, validated, and prepared for analysis. Within the
+context of a simulation project this process includes:</p>
+<ul>
+<li><p>Input Data Preparation: Input data is analyzed to determine the
+nature of the data and to determine further data collection needs.
+Necessary data is also classified into several areas. This
+classification establishes different aspects of the model that are
+used in model development.</p></li>
+<li><p>Model Translation: Description of the procedure for coding the
+model, including timing and general procedures and the translation
+of the conceptual models into computer simulation program
+representations.</p></li>
+<li><p>Verification: Verification of the computer simulation model is
+performed to determine whether or not the program performs as
+intended. To perform model verification, model debugging is
+performed to locate any errors in the simulation code. Errors of
+particular importance include improper flow control or entity
+creation, failure to release resources, and logical/arithmetic
+errors or incorrectly observed statistics. Model debugging also
+includes scenario repetition utilizing identical random number
+seeds, "stressing" the model through a sensitivity analysis
+(varying factors and their levels) to ensure compliance with
+anticipated behavior, and testing of individual modules within the
+simulation code.</p></li>
+<li><p>Validation: Validation of the simulation model is performed to
+determine whether or not the simulation model adequately represents
+the real system. The simulation model is shown to personnel (of
+various levels) associated with the system in question. Their input
+concerning the realism of the model is critical in establishing the
+validity of the simulation. In addition, further observations of the
+system are performed to ensure model validity with respect to actual
+system performance. A simple technique is to statistically compare
+the output of the simulation model to the output from the real
+system and to analyze whether there is a significant (and practical)
+difference between the two.</p></li>
+</ul>
+<p>Model translation will be a large component of each chapter as you learn
+how to develop simulation models. Verification and validation techniques
+will not be a major component of this text, primarily because the models
+will be examples made for educational purposes. This does not mean that
+you should ignore this important topic. You are encouraged to examine
+many of the useful references on validation, see for example
+<span class="citation">(<a href="#ref-balci1997principles">Balci 1997</a>)</span> and <span class="citation">(<a href="#ref-balci1998verification">Balci 1998</a>)</span>.</p>
+<p>After you are confident that your model has been verified and validated
+to suit your purposes, you can begin to use the model to perform
+experiments that investigate the goals and objectives of the project.
+Preliminary simulation experiments should be performed to set the
+statistical parameters associated with the main experimental study. The
+experimental method should use the simulation model to generate
+benchmark statistics of current system operations. The simulation model
+is then altered to conform to a potential scenario and is re-run to
+generate comparative statistics. This process is continued, cycling
+through suggested scenarios and generating comparative statistics to
+allow evaluation of alternative solutions. In this manner, objective
+assessments of alternative scenarios can be made.</p>
+<p>For a small set of alternatives, this “one at a time” approach is
+reasonable; however, often there are a significant number of design
+factors that can affect the performance of the model. In this situation,
+the analyst should consider utilizing formal experimental design
+techniques. This step should include a detailed specification of the
+experimental design (e.g. factorial, etc) and any advanced output
+analysis techniques (e.g. batching, initialization bias prevention,
+variance reduction techniques, multiple comparison procedures, etc.)
+that may be required during the execution of the experiments. During
+this step of the process, any quantitative models developed during the
+previous steps are exercised. Within the context of a simulation
+project, the computer simulation model is exercised at each of the
+design points within the stipulated experimental design.</p>
+<p>Utilizing the criteria specified by system decision-makers, and
+utilizing the simulation model’s statistical results, alternative
+scenarios should then be analyzed and ranked. A methodology should be
+used to allow the comparison of the scenarios that have multiple
+performance measures that trade-off against each other.</p>
+<p>If you are satisfied that the simulation has achieved your objectives
+then you should document and implement the recommended solutions. If
+not, you can iterate as necessary and determine if any additional data,
+models, experimentation, or analysis is needed to achieve your modeling
+objectives. Good documentation should consist of at least two parts: a
+technical manual, which can be used by the same analyst or by other
+analysts, and a user manual. A good technical manual is very useful when
+the project has to be modified, and it can be a very important
+contribution to software reusability and portability. The approach to
+documenting the example models in this text can be used as an example
+for how to document your models. In addition to good model development
+documentation, often the simulation model will be used by non-analysts.
+In this situation, a good user manual for how to use and exercise the
+model is imperative. The user manual is a product for the user who may
+not be an expert in programming or simulation issues; therefore
+clearness and simplicity should be its main characteristics. If within
+the scope of the project, the analyst should also develop implementation
+plans and follow through with the installation and integration of the
+proposed solutions. After implementation, the project should be
+evaluated as to whether or not the proposed solution met the intended
+objectives.</p>
+<p>In this textbook, we will use an open source library for performing stochastic discrete event simulation called the Kotlin Simulation Library (KSL). The next section provides a brief overview.</p>
+</div>
+<h3><span class="header-section-number">G</span> References<a href="references.html#references" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div id="refs" class="references csl-bib-body hanging-indent" entry-spacing="0">
+<div id="ref-balci1997principles" class="csl-entry">
+Balci, O. 1997. <span>“Principles of Simulation Model Validation, Verification, and Testing.”</span> <em>Transactions of the Society for Computer Simulation International</em>.
+</div>
+<div id="ref-balci1998verification" class="csl-entry">
+———. 1998. <span>“Verification, Validation, and Testing.”</span> In <em>The Handbook of Simulation</em>, 335–93. John Wiley &amp; Sons.
+</div>
 </div>
             </section>
 
           </div>
         </div>
       </div>
-<a href="appdistfitidms2sb4.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="exercises-9.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="simulation-languages.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="overview-of-the-kotlin-simulation-library.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>

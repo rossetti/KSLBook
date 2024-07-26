@@ -13,7 +13,7 @@
 When performing a simulation study, there is no substitution for
 actually observing the system and collecting the data required for the
 modeling effort. As outlined in
-Section \@ref(ch1:sec:simMeth), a good simulation methodology recognizes
+Section \@ref(ch1secsimMeth), a good simulation methodology recognizes
 that modeling and data collection often occurs in parallel. That is,
 observing the system allows conceptual modeling which allows for an
 understanding of the input models that are needed for the simulation.

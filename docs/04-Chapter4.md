@@ -2597,7 +2597,7 @@ teller example.  Let's define the following variable:
 
 Within the KSL model, we will model $N(t)$, $Q(t)$, and $B(t)$ with instances of the `TWResponse` class  The use of the `TWResponse` class will automate the collection of time averages for these variables as discussed in Section \@ref(QHandExample).   Both $TBA_i$ and $ST_i$ will be modeled with instances of the `RandomVariable` class instantiated with instances of the `ExponentialRV` class.  The pseudo-code for this situation is as follows.
 
-*Arrival Actions for Event $E_a$*
+**Arrival Actions for Event $E_a$**
 ```
 N(t) = N(t) + 1
 if (B(t) < c)
@@ -2611,7 +2611,7 @@ schedule E_a at time t + TBA_i
 
 In the arrival actions, first we increment the number of customers in the system.  Then, the number of busy pharmacists is compared to the number of pharmacists that are available.  If there is an available pharmacist, the number of busy pharmacists is incremented and the end of service for the arriving customer is scheduled.  If all the pharmacists are busy, then the customer must wait in the queue, which is indicated by incrementing the number in the queue. To continue the arrival process, the arrival of the next customer is scheduled.
 
-*End of Service Actions for Event $E_s$*
+**End of Service Actions for Event $E_s$**
 ```
 B(t) = B(t) - 1
 if (Q(t) > 0)
@@ -3200,6 +3200,330 @@ In the results, we see the system time and the queueing time reported.  We also 
 ```
 This allow a probability to be estimated.  In this case, we estimated the probability that a customer's system time was more than 4.0 minutes.
 
+## More Drive Through Fun {#DTPExpanded}
+
+Many fast food franchises have configured their restaurants such that customers using the drive through option first place an order at an ordering station and then pickup and pay at following station. This situation is called a tandem queueing system as illustrated in Figure \@ref(fig:Ch4TandemQ). This section presents KSL constructs that facilitate the modeling of simple queueing situation like that faced by fast food drive through lines. 
+
+<div class="figure" style="text-align: center">
+<img src="./figures2/ch7/TandemQ.png" alt="Tandem Queue" width="65%" height="65%" />
+<p class="caption">(\#fig:Ch4TandemQ)Tandem Queue</p>
+</div>
+
+A tandem queue is a sequence of queues that must be visited (in order) to receive service from resources. The following example presents an illustrative situation.
+
+***
+::: {.example #exCh4TandemQ name="Tandem Queueing System"}
+Suppose a service facility
+consists of two stations in series (tandem), each with its own FIFO
+queue. Each station consists of a queue and a single server. A customer
+completing service at station 1 proceeds to station 2, while a customer
+completing service at station 2 leaves the facility. Assume that the
+inter-arrival times of customers to station 1 are IID exponential random
+variables with a mean of 6 minutes. Service times of customers at station
+1 are exponential random variables with a mean of 4 minute, and at
+station 2 are exponential random variables with mean 3 minute. Develop
+an model for this system. Run the simulation for exactly 20000 minutes and estimate for each station the expected average delay in queue for the customer, the expected time-average number of customers in
+queue, and the expected utilization. In addition, estimate the average
+number of customers in the system and the average time spent in the system.
+:::
+***
+
+The first thing to note about this situation is that the system consists of two very similar components: station 1 and station 2. The second thing to note is that the same *types* of events occur for each of the two components.  That is, there are arrival and departure events for each station. The state change logic for the arrival and departure events is exactly the same as we saw for the pharmacy situation:
+
+**Arrival Actions for Event $E_a$**
+```
+N(t) = N(t) + 1
+if (B(t) < c)
+  B(t) = B(t) + 1
+  schedule E_s at time t + ST_i
+else
+  Q(t) = Q(t) + 1
+endif
+schedule E_a at time t + TBA_i
+```
+
+**End of Service Actions for Event $E_s$**
+```
+B(t) = B(t) - 1
+if (Q(t) > 0)
+  Q(t) = Q(t) - 1
+  B(t) = B(t) + 1
+  schedule E_s at time t + ST_i
+endif
+N(t) = N(t) - 1
+```
+
+Since the same logic will need to be implemented for each station, it makes sense from an object-oriented perspective, to conceptualize a class that encapsulates the data and behavior to represent this situation.  
+
+Figure \@ref(fig:Ch4TandemQ) should give an idea of what the class should represent.  In the figure, there are two stations with each station containing a queue and a server (or resource).  Thus, we should build a class that models a single queue that holds objects that must wait for a server to be available. We are going to call this thing a `SingleQStation.`  Notice that the input to the first station is a customer from some arrival process and that the input to the second station is a customer departing the first station. Thus, the main difference between how these components act is where they receive customers from and where they send completed customers. Notice that a station needs to know where to send its completed customers. What else does a station need to know in order to process the customers?  The station will need to know how many servers are available at the station and will need to know how to determine the processing time for the customers. For this modeling, we need to expand on the concept of a resource.
+
+### Modeling a Simple Resource
+
+As we saw in the drive through pharmacy example, when the customer arrives they need the pharmacist in order to proceed. As noted in the activity diagram depicted in Figure \@ref(fig:DTPActivityDiagram), we denoted the pharmacist as a resource (circle) in the diagram. A resource is something that is needed by the objects *(or entities)* that experience the system's activities.  In the pharmacy model, the resource (pharmacist) was required to start the service activity, denoted with a arrow with the word "seize" in the activity diagram, pointing from the resource to the start of the activity.  After the activity is completed, there is a corresponding arrow labeled "release" pointing from the end of the activity back to the resource. This arrow denotes the returning of the used resource units back to the pool of available units.  
+
+As we can see from Figure \@ref(fig:Ch4TandemQ) our concept of a `SingleQStation` also contains a resource.  Since the same concept is within both stations, it seems useful to represent the concept of a resource with a class. For the purposes of this situation, we are going to denote the concept of a simple resource with the aptly named `SResource` class (for simple resource). Let's take a look at how the KSL represents a simple resource.
+
+<div class="figure" style="text-align: center">
+<img src="./figures2/ch4/SResource.png" alt="A Simple Resource Class" width="80%" height="80%" />
+<p class="caption">(\#fig:SResource)A Simple Resource Class</p>
+</div>
+
+A resource has a capacity that represents the maximum number of units that it can have available at any time.  When a resource is seized some amount of units become busy (or allocated). When the units are no longer needed, they are released. If we let $A(t)$ be the number of available units, $B(t)$ be the number of busy units and $c$ be the capacity of the resource, we have that $c = A(t) + B(t)$ or $A(t) = c - B(t)$. A resource is considered busy if $B(t) > 0$. That is, a resource is busy if some units are allocated.  A resource is considered idle if no units are busy. That is, $B(t) = 0$, which implies that $A(t) = c$.  If the number of available units of a resource are unable to meet the number of units required by a "customer", then we need to decide what to do. To simplify this modeling, we are going to assume two things 1) customers only request 1 unit at a time, and 2) if the request cannot be immediately supplied the customer will wait in an associated queue. These latter two assumptions are essentially what we have assumed in the modeling of the pharmacy situation and in the situation described in Example \@ref(exm:exCh4TandemQ).  Modeling often requires the use of simplifying assumptions. 
+
+The `SResource` class of Figure \@ref(fig:SResource) has functions `seize()` and `release()` which take (seize) and return (release) units of the resource.  It also has properties (`busy` and `idle`) that indicate if the resource is busy or idle, respectively. In addition, the property `numBusyUnits` represents $B(t)$ and the property `numAvailableUnits` represents $A(t)$. For convenience, the `hasAvailableUnits` property indicates if the resource has units that can be seized. Finally, the number of times the resource is seized and released are tabulated. The main performance measures are time weighted response variables for tabulating the time-average number of busy units and the time-average instantaneous utilization of the resource. Instantaneous utilization, $U(t)$ is governed by tracking $U(t) = B(t)/c$.  Now that we have a way to represent a resource, let's put the resource together with a queue to get a station for processing in the `SingleQStation` class.
+
+### Modeling a Resource with a Waiting Line
+
+The `SingleQStation` class will use an instance of the `SResource` class to represent its resource. In addition, the `SingleQStation` class will use an instance of the `Queue` class presented in the previous section to represent the waiting line for the customers that need to wait for their requested units of the resource. The customers that use the single queue station will be represented by instances of the `QObject` class.   We are now ready to put most of these pieces together to construct the `SingleQStation` class. Once we have an understanding of the `SingleQStation` class, we will be ready to model Example \@ref(exm:exCh4TandemQ).
+
+<div class="figure" style="text-align: center">
+<img src="./figures2/ch4/SingleQStation.png" alt="The SingleQStation Class" width="80%" height="80%" />
+<p class="caption">(\#fig:SingleQStation)The SingleQStation Class</p>
+</div>
+
+Let's start with an overview of the functionality of the `SingleQStation` class and then review the code implementation. Figure \@ref(fig:SingleQStation) presents the constructor, functions, and properties of the `SingleQStation` class. The main item to note about the constructor is that it can take in an instance of the `SResource` class.  The second thing to note is that instances can receive instances of the `QObject` class via the `receive()` function for processing. The `receive()` function represents the actions that should occur when something arrives to the station. The `endOfProcessing()` function represents what should happen when the processing is completed. That is, the `receive()` function is the "arrival event" and the `endOfProcessing()` function is the "departure event".  Let's look at the code.
+
+The logic of the `receive()` function should look very familiar. The call to `super.receive()` causes the arriving `qObject` to be increment the number in the system and capture the time that the customer arrived by assigning the current time to the `timeStamp` property of the `QObject` instance.  Just as was done in previous examples, the arriving customer immediately enters the queue. Then, if the resource is available, the next customer is placed into service. 
+
+```kt
+    /**
+     *  Receives the qObject instance for processing. Handle the queuing
+     *  if the resource is not available and begins service for the next customer.
+     */
+    final override fun receive(arrivingQObject: QObject) {
+        super.receive(arrivingQObject)
+        // enqueue the newly arriving qObject
+        myWaitingQ.enqueue(arrivingQObject)
+        if (isResourceAvailable) {
+            serveNext()
+        }
+    }
+```
+
+The `serveNext()` function removes the next customer from the queue, seizes the resource, and schedules the end of processing event for the customer. Notice that the customer starting service is attached to the event. Note that the purpose of the `delayTime()` function is to determine the processing time for the customer when using the resource. There are two default options available. The delay can be supplied from the `QObject` instance via the `valueObject` property. If attached to the `QObject` instance the `valueObject` property returns something that returns a `Double` value. This value can be used for anything you want it to represent. In this case, it can be used to supply a delay time. The second option is to use the processing time that was specified for the station if the value object is not attached to the `QObject` instance. 
+
+```kt
+    /**
+     * Called to determine which waiting QObject will be served next Determines
+     * the next customer, seizes the resource, and schedules the end of the
+     * service.
+     */
+    protected fun serveNext() {
+        //remove the next customer
+        val nextCustomer = myWaitingQ.removeNext()!!
+        myResource.seize()
+        // schedule end of service, if the customer can supply a value,
+        // use it otherwise use the processing time RV
+        schedule(this::endOfProcessing, delayTime(nextCustomer), nextCustomer)
+    }
+
+    /**
+     *  Could be overridden to supply different approach for determining the service delay
+     */
+    protected fun delayTime(qObject: QObject) : Double {
+        return qObject.valueObject?.value ?: myActivityTimeRV.value
+    }
+```
+
+As mentioned, the `endOfProcessing()` function represents the logic that should occur after the customer completes its use of the resource for the processing time. In the following code, first the customer completing service is grabbed from the event's message. After releasing the resource, the queue is checked and if it is not empty the next customer is started into service. Then, the leaving customer exits the station and is sent to the next location. The function `sendToNextReceiver()` will be discussed further within the context of the example.
+
+```kt
+    /**
+     *  The end of processing event actions. Collect departing statistics and send the qObject
+     *  to its next receiver. If the queue is not empty, continue processing the next qObject.
+     */
+    private fun endOfProcessing(event: KSLEvent<QObject>) {
+        val leaving: QObject = event.message!!
+        myResource.release()
+        if (isQueueNotEmpty) { // queue is not empty
+            serveNext()
+        }
+        sendToNextReceiver(leaving)
+    }
+```
+
+We now have a new KSL class that can be used to model many different situations (like the drive through pharmacy) that involve the use of resources and waiting lines. Let's continue this by implementing the model for Example \@ref(exm:exCh4TandemQ). This will motivate how to send and receive `QObject` instances.
+
+### Modeling the Tandem Queue of Example \@ref(exm:exCh4TandemQ)
+
+The main concepts needed to put the pieces together to model the tandem queue described in Example \@ref(exm:exCh4TandemQ) are now modeled.  The main remaining concept needed is how to send and receive customers within such systems.  Since this is a very common requirement, the KSL provides basic functionality to help with this modeling task.  Two new KSL constructs will be introduced and then used within the implementation of the tandem queue model.  The first is an interface that promises to allow the receiving of `QObject` instances: the `QObjectReceiverIfc` interface. 
+
+```kt
+fun interface QObjectReceiverIfc {
+    fun receive(qObject: ModelElement.QObject)
+}
+```
+
+Classes that implement the `QObjectReceiverIfc` interface promise to have a `receive()` function. The idea is to have a defined protocol for system components that will do *something* with the received `QObject` instance.  As you may now realize, the `SingleQStation` class implements the `QObjectReceiverIfc` interface.  As shown in the following code, the `SingleQStation` class extends the `Station` class, which implements the `QObjectReceiverIfc` interface.
+
+```kt
+open class SingleQStation(
+    parent: ModelElement,
+    activityTime: RandomIfc,
+    resource: SResource? = null,
+    nextReceiver: QObjectReceiverIfc = NotImplementedReceiver,
+    name: String? = null
+) : Station(parent, nextReceiver, name = name), SingleQStationCIfc {
+...
+}
+```
+
+Figure \@ref(fig:StationPkg) presents the major classes and interfaces of the `ksl.modeling.station` package. Central to the functionality is the `Station` class and the `QObjectReceiverIfc` interface.  
+
+<div class="figure" style="text-align: center">
+<img src="./figures2/ch4/StationPkg.png" alt="Major Classes and Interfaces of the Station Package" width="80%" height="80%" />
+<p class="caption">(\#fig:StationPkg)Major Classes and Interfaces of the Station Package</p>
+</div>
+
+The `QObjectReceiverIfc` interface defines a protocol for receiving `QObject` instances and the `Station` class provides default functionality for receiving an arriving `QObject` instance and for sending a completed `QObject` instance to its next location.  Reviewing the `Station` class's code is useful to understanding how this works. The `Station` class is an *abstract* class that provides the `sendToNextReceiver()` function.
+
+```kt
+abstract class Station(
+    parent: ModelElement,
+    var nextReceiver: QObjectReceiverIfc = NotImplementedReceiver,
+    name: String? = null
+) : ModelElement(parent, name), QObjectReceiverIfc, StationCIfc {
+.
+.
+    protected fun sendToNextReceiver(completedQObject: QObject) {
+        onExit(completedQObject)
+        if (completedQObject.sender != null){
+            completedQObject.sender!!.send()
+        } else {
+            nextReceiver.receive(completedQObject)
+        }
+    }
+```
+
+There are two default mechanisms for determining where to send the departing `QObject` instance. The first approach supplies the destination as part of the creation of the station instance. Notice that the `Station` class takes in a parameter called `nextReceiver` which represents an object that implements the `QObjectReceiverIfc` interface. This parameter can be used to specify where the departing `QObject` instance should be sent. That is, the next thing that should receive the departing object. The default value for this parameter is the `NotImplementedReceiver` object. This object will throw a not implemented yet exception if you do not replace it with something that models the situation. 
+
+The second approach stores the knowledge of where to go with the `QObject` itself.  Every `QObject` has an (optional) property called `sender` that (if set) should return an instance of a `QObjectSenderIfc` interface. 
+
+```kt
+/**
+ *  A functional interface that promises to send. Within the
+ *  context of qObjects a sender will cause a qObject
+ *  to be (eventually) received by a receiver.
+ */
+fun interface QObjectSenderIfc {
+    fun send()
+}
+```
+
+The idea is that the sender will know how to send its related `QObject` instance to a suitable receiver.  Thus, complex routing logic could be attached to the `QObject` instance.  The `sendToNextReceiver()` function checks to see if the the `QObject` instance has a sender to assist with its routing. If it does, the sender is used to get the next location and then sends the `QObject` instance to the location by telling the location to receive the object.  If the sender is not present, then the `nextReceiver` property is used to send the `QObject` instance to the specified receiver. The receiver's behavior determines what happens to the `QObject` instance next.
+
+::: {.infobox .note data-latex="{note}"}
+**NOTE!**
+As you will soon see in the following example, creating a station without specifying a receiver can be very convenient. This is why the `NotImplementedReceiver` object is the default. However, if you forget to set the receiver to something useful, you will get the not implemented yet error.
+:::
+
+The approach of specifying the receivers to visit allows for the modeling of very complex systems by simply "hooking" up the object instances in the correct order. We can now illustrate this with the implementation of the example.
+
+The following code presents the class constructor for the `TandemQueue` class. The class takes in the random variables need for the arrival and two service processes. Then, because of the requirement to report the total system time and the total number of customers in the system, we have standard definitions for time-weighted response variables and a counter. This is very similar to how we defined the pharmacy system. 
+
+```kt
+class TandemQueue(
+    parent: ModelElement,
+    ad: RandomIfc = ExponentialRV(6.0, 1),
+    sd1: RandomIfc = ExponentialRV(4.0, 2),
+    sd2: RandomIfc = ExponentialRV(3.0, 3),
+    name: String? = null
+): ModelElement(parent, name) {
+
+    private val myNS: TWResponse = TWResponse(this, "${this.name}:NS")
+    val numInSystem: TWResponseCIfc
+        get() = myNS
+
+    private val mySysTime: Response = Response(this, "${this.name}:TotalSystemTime")
+    val totalSystemTime: ResponseCIfc
+        get() = mySysTime
+
+    private val myNumProcessed: Counter = Counter(this, "${this.name}:TotalProcessed")
+    val totalProcessed: CounterCIfc
+        get() = myNumProcessed
+...
+```
+
+Now, the real magic of the station package can be used.  The following code represents the *rest* of the implementation of the tandem queue system. The code uses an `EventGenerator` instance to model the arrival process to the first station. Then, two instances of the `SingleQStation` class are created to represent the first and second station in the system. Notice the implementation of the `init{}` block. The `nextReceiver` property for station 1 is set to be the second station and the `nextReceiver` property for station 2 is set to an instance of the `ExitSystem` inner class. This approach relies on using the default `NotImplementedReceiver` receiver. Notice that if you did not rely on this default, you would need to create the stations (receivers) in the reverse order so that you could supply the correct receiver within the station's constructor. The `init{}` block would not be necessary with that approach.
+
+```kt
+
+    private val myArrivalGenerator: EventGenerator = EventGenerator(this,
+        this::arrivalEvent, ad, ad)
+
+    private val myStation1: SingleQStation = SingleQStation(this, sd1, name= "${this.name}:Station1")
+    val station1: SingleQStationCIfc
+        get() = myStation1
+
+    private val myStation2: SingleQStation = SingleQStation(this, sd2, name= "${this.name}:Station2")
+    val station2: SingleQStationCIfc
+        get() = myStation2
+
+    init {
+        myStation1.nextReceiver = myStation2
+        myStation2.nextReceiver = ExitSystem()
+    }
+
+    private fun arrivalEvent(generator: EventGenerator){
+        val customer = QObject()
+        myNS.increment()
+        myStation1.receive(customer)
+    }
+
+    private inner class ExitSystem : QObjectReceiverIfc {
+        override fun receive(qObject: QObject) {
+            mySysTime.value = time - qObject.createTime
+            myNumProcessed.increment()
+            myNS.decrement()
+        }
+    }
+}
+```
+
+The arrival process shown in the `arrivalEvent()` function creates the arriving customer, increments the number in the system, and tells station 1 to receive the customer. This will set off a set of events which will occur within the `SingleQStation` instances that eventually result in the customer being received by the `ExitSystem` instance. The `ExitSystem` instance is used to collect statistics on the departing customer.  The modeling involves hooking up the system components so that they work together to process the customers. This creation and use of objects in this manner is a hallmark of object-oriented programming.  The following code can be used to simulate the system.
+
+```kt
+fun main(){
+    val sim = Model("TandemQ Model")
+    sim.numberOfReplications = 30
+    sim.lengthOfReplication = 20000.0
+    sim.lengthOfReplicationWarmUp = 5000.0
+    val tq = TandemQueue(sim, name = "TandemQ")
+    sim.simulate()
+    sim.print()
+}
+```
+
+The results from running the following code are not very interesting except for noticing the number of statistics that are are *automatically* captured within the output.  Notice for example that the resources automatically report the average number of busy units and the utilization of the resource.  
+
+**Statistical Summary Report**
+
+|Name| Count| Average| Half-Width|
+|:---:| :---:| :---:| :---:|
+|TandemQ:NS| 30| 3.04| 0.093|
+|TandemQ:TotalSystemTime| 30| 18.132| 0.5|
+|TandemQ:Station1:R:NumBusy| 30| 0.671| 0.008|
+|TandemQ:Station1:R:Util| 30| 0.671| 0.008|
+|TandemQ:Station1:NS| 30| 2.031| 0.088|
+|TandemQ:Station1:StationTime| 30| 12.107| 0.483|
+|TandemQ:Station1:Q:NumInQ| 30| 1.359| 0.081|
+|TandemQ:Station1:Q:TimeInQ| 30| 8.101| 0.457|
+|TandemQ:Station2:R:NumBusy| 30| 0.5| 0.004|
+|TandemQ:Station2:R:Util| 30| 0.5| 0.004|
+|TandemQ:Station2:NS| 30| 1.01| 0.023|
+|TandemQ:Station2:StationTime| 30| 6.029| 0.135|
+|TandemQ:Station2:Q:NumInQ| 30| 0.51| 0.02|
+|TandemQ:Station2:Q:TimeInQ| 30| 3.042| 0.12|
+|TandemQ:TotalProcessed| 30| 2512.667| 17.41|
+|TandemQ:Station1:NumProcessed| 30| 2512.7| 17.535|
+|TandemQ:Station2:NumProcessed| 30| 2512.667| 17.41|
+
+Now imagine if the tandem queue consisted of 100 stations.  How might you model that situation? You would need to make 100 instances of the `SingleQStation` class. This could easily be accomplished in a for-loop which captures the instances into a list of stations. Then, the list could be iterated to assign the `nextReceiver` property of the station. Or, better yet, when creating the customer you could assign an instance of a `ReceiverSequence` class as the sender for the `QObject` instance.  The `ReceiverSequence` uses a list iterator to send its associated `QObject` instance to a sequence of receivers. 
+
+In reviewing Figure \@ref(fig:StationPkg) you may also notice the `ActivityStation,` the `TwoWayByChanceSender,` and `NWayByChanceSender` classes.  The `ActivityStation` class models a station that does not have a resource by implementing a simple scheduled delay for a specified activity time. The `TwoWayByChanceSender` class provides probabilistic routing between two specified receivers according to a Bernoulli random variable.  The `NWayByChanceSender` class provides probabilistic routing from a list of receivers according to a discrete empirical distribution. I hope that you can now imagine how very large and complex queueing models can be built using the relatively simple framework provided by the `ksl.modeling.station` package.
+
+The next chapter will present many ways in which you can capture and use the simulation results to make decisions based on the statistical results.
+
 ## Summary {#introDEDSSummary}
 
 This chapter introduced how to model discrete event dynamic systems
@@ -3244,6 +3568,10 @@ The main model elements covered included:
 
 `GeneratorActionIfc:` An interface used to implement the actions associated with event generators.
 
+`SResource:`  A simple resource that has 1 or more units that represent its capacity. The units can be seized and released. Statistics on the utilization and number of busy units are automatically reported.
+
+`SingleQStation:` A station that has a single waiting line for customers to wait in when its associated resource does not have available units. Statistics on time spent at the station, number of customers at the station, and number of customers processed are automatically reported.
+
 The KSL has many other facets that have yet to be touched upon. Not only
 does the KSL allow the modeler to build and analyze simulation models,
 but it also facilitates data collection, statistical analysis, and
@@ -3254,22 +3582,19 @@ The next chapter will dive deeper into how to use the KSL to capture, analyze, a
 ## Exercises
 
 ***
-
 ::: {.exercise #ch4P1}
 Using the supplied
 data set, draw the sample path for the state variable, $Y(t)$. Assume
 that the value of $Y(t)$ is the value of the state variable just after
 time $t$. Compute the time average over the supplied time range.
 
-:::
-
   -------- --- --- --- ---- ---- ---- ---- ---- ---- ---- ---- ----
     $t$     0   1   6   10   15   18   20   25   30   34   39   42
    $Y(t)$   1   2   1   1    1    2    2    3    2    1    0    1
   -------- --- --- --- ---- ---- ---- ---- ---- ---- ---- ---- ----
+:::
 
 ***
-
 ::: {.exercise #ch4P2}
 Using the supplied data set, draw the sample path for the state
 variable, $N(t)$. Give a formula for estimating the time average number
@@ -3277,15 +3602,14 @@ in the system, $N(t)$, and then use the data to compute the time average
 number in the system over the range from 0 to 25. Assume that the value
 of $N(t$ is the value of the state variable just after time $t$.
 
-:::
-
   -------- --- --- --- ---- ---- ---- ---- ---- ----
     $t$     0   2   4   5    7    10   12   15   20 
    $N(t)$   0   1   0   1    2    3    2    1    0  
   -------- --- --- --- ---- ---- ---- ---- ---- ----
 
-***
+:::
 
+***
 ::: {.exercise #ch4P3}
 Consider the banking situation described within the chapter.
 A simulation analyst observed the operation of the bank and recorded the
@@ -3293,7 +3617,6 @@ information given in the following table. The information was recorded
 right after the bank opened during a period of time for which there was
 only one teller working. From this information, you would like to
 re-create the operation of the system.
-:::
 
   ---------- --------- ---------
    Customer   Time of   Service
@@ -3317,13 +3640,12 @@ re-create the operation of the system.
 
 Complete a table similar to that used in the chapter and compute the average of 
 the system times for the customers. What percentage of the total time was the teller idle? Compute the percentage of time that there were 0, 1, 2, and 3 customers in the queue.
+:::
 
 ***
-
 ::: {.exercise #ch4P4}
 Consider the following inter-arrival and service times for the first 25
 customers to a single server queuing system.
-:::
 
   ---------- --------------- --------- ---------
    Customer   Inter-Arrival   Service   Time of
@@ -3363,19 +3685,18 @@ for the variable $B(t)$ which represents the number of servers busy at
 any time t. Compute the average number of busy servers in the system
 over the time period from 0 to 700. Compute the average time spent in
 the system for the customers.
+:::
 
 ***
-
 ::: {.exercise #ch4P5}
 Parts arrive at a station with a single machine according to a Poisson
 process with the rate of 1.5 per minute. The time it takes to process
-the part has an exponential distribution with a mean of 30 second. There
+the part has an exponential distribution with a mean of 30 seconds. There
 is no upper limit on the number of parts that wait for process. Setup an
 model to estimate the expected number of parts waiting in the queue and
-the utilization of the machine. Run your model for 10000 seconds for 30
-replications and report the results. Use M/M/1 queueing results from the 
-chatper to verify that your simulation is working as intended.
-
+the utilization of the machine. Run your model for 1,000,000 seconds for 30
+replications and report the results. Use stream 1 for the time between arrivals and stream 2 for the service times. Use M/M/1 queueing results from the 
+chapter to verify that your simulation is working as intended.
 :::
 
 ***
@@ -3394,44 +3715,54 @@ a model to estimate the expected time within the shop for the cars and
 the utilization of the mechanic. Run your model for 10000 days for 30
 replications and report the results. Estimate the total cost per day to
 the dealer for this policy. Use the M/M/1 queueing results from the chapter
- to verify that your simulation is working as intended.
-
+ to verify that your simulation is working as intended. Use stream 1 for the time between arrivals and stream 2 for the service times.
 :::
 
 ***
-
 ::: {.exercise #ch4P7}
 YBox video game players arrive according to a Poisson process with rate
 10 per hour to a two-person station for inspection. The inspection time
-per YBox set is EXPO(10) minutes. On the average 82\% of the sets pass
-inspection. The remaining 18\% are routed to an adjustment station with a
-single operator. Adjustment time per YBox is UNIF(7,14) minutes. After
+per YBox set is exponentially distributed with a mean of 10 minutes. On the average 82\% of the sets pass inspection. The remaining 18\% are routed to an adjustment station with a
+single operator. Adjustment time per YBox is uniformly distributed between 7 and 14 minutes. After
 adjustments are made, the units depart the system. The company is
 interested in the total time spent in the system. Run your model for
-10000 minutes for 30 replications and report the results.
-
+10000 minutes for 30 replications and report the results. Use stream 1 for the time between arrivals, stream 2 for inspection times, stream 3 for inspections, and stream 4 for adjustments.
 :::
 
 ***
-
 ::: {.exercise #ch4P8}
 Referring to the pharmacy model discussed in Section \@ref(introDEDSPharmacy), suppose that the customers arriving to the drive through pharmacy can decide to enter the
 store instead of entering the drive through lane. Assume a 90% chance
 that the arriving customer decides to use the drive through pharmacy and
 a 10% chance that the customer decides to use the store. Model this
 situation with and discuss the effect on the performance of the drive
-through lane. Run your model for 1 year, with 20 replications.
+through lane. Use stream 3 for the decision process. Run your model for 30 replications of length 20000 minutes and a warm up period of 5000 minutes.
 :::
 
 ***
-
 ::: {.exercise #ch4P9}
 SQL queries arrive to a
 database server according to a Poisson process with a rate of 1 query
 every minute. The time that it takes to execute the query on the server
 is typically between 0.6 and 0.8 minutes uniformly distributed. The
 server can only execute 1 query at a time. Develop a simulation model to
-estimate the average delay time for a query
-
+estimate the average delay time for a query. Use stream 1 for the time between query arrivals and stream 2 for the query execution time. Run your model for 30 replications having a length of 100,000 minutes.
 :::
+
+***
+
+::: {.exercise #ch4P10}
+Passengers arrive to an airport security check point at a small airport for identification inspection according to a Poisson process with a rate of 30 per hour.  Assume that the check point is staffed by a single security officer. The officer can check the passenger’s identification with a minimum time of .75 minute, most likely value of 1.5 minutes, and a maximum of 3 minutes, triangularly distributed.  Past data has shown that 93% of the passengers immediately pass the identification inspection.  Those passengers that immediately pass move on to the security area.  Those that do not pass are sent to a separate area for further investigation.  For the purposes of this exercise, the activities after the determination of passing identification inspection are outside the scope of this modeling.  Develop a simulation model that can estimate the following quantities:
+
+- utilization of the security officer
+- average number of passengers waiting for identification inspection
+- average time spent by passengers waiting for identification inspection
+- the probability that a passenger must wait longer than 5 minutes for identification inspection
+- the average number of passengers cleared per day
+- the average number of passengers denied per day
+
+Assume that the check point operates for 10 hours per day, starting at 8 am. Also, assume that when the check point opens, there are no passengers waiting.  Finally, for simplicity, assume that we are only interested in the statistics collected during the 10-hour time span. Analyze this situation for 20 independent days of operation.
+:::
+
+
 

@@ -484,7 +484,7 @@ using the process-view library extensions , the modeler describes the process th
 while flowing through or using the elements of the system. You will
 learn about how the KSL facilitates both the event-view and the process modeling view throughout this textbook.
 
-## Simulation Methodology {#ch1:sec:simMeth}
+## Simulation Methodology {#ch1secsimMeth}
 
 This section presents a brief overview of the steps of simulation
 modeling by discussing the process in the context of a methodology. A
@@ -857,9 +857,9 @@ When teaching simulation, especially at the undergraduate level, simulation lang
 
 The KSL also supports research within simulation.  Naturally, the KSL can be used as a modeling tool to simulate complex systems.  Simulators, such as a Supply Chain Simulator, can be built based on the KSL framework.  In addition, the design of the KSL provides a framework for the testing of simulation artifacts through a well-defined class and interface hierarchy.  The structure of the KSL permits the easy switching of various components within a simulation, the event calendar, random number generator, statistics, etc.  For example, the efficiency of different event calendars can be  tested by  providing an event calendar to the KSL that implements the `CalendarIfc` interface.  Different algorithms can be “plugged into” the framework for testing.
 
-This book presents an overview of a simulation library for Kotlin (KSL).  The library is divided into packages (calendar, controls, modeling, observers, simulation, and utilities).  As necessary, these packages may contain sub-packages, which implement various aspects of the library. The KSL is organized as two open source projects: KSLCore and KSLExamples.  Each of these projects is further organized into packages.
+This book presents an overview of a simulation library for Kotlin (KSL).  The library is divided into packages (calendar, controls, modeling, observers, simulation, and utilities).  As necessary, these packages may contain sub-packages, which implement various aspects of the library. The KSL is organized as two open source projects: `KSLCore` and `KSLExamples.`  Each of these projects is further organized into packages.
 
-KSLCore - ksl is the main package that holds all sub-packages
+`KSLCore` - ksl is the main package that holds all sub-packages
 
   * [calendar](https://github.com/rossetti/KSL/tree/main/KSLCore/src/main/kotlin/ksl/calendar) - The calendar package implements classes that provide event calendar processing
   * [simulation](https://github.com/rossetti/KSL/tree/main/KSLCore/src/main/kotlin/ksl/simulation) - The simulation package implements the main classes involved in constructing and running simulation models.
@@ -872,7 +872,7 @@ KSLExamples - examples is the main package that holds all sub-packages
   * [book](https://github.com/rossetti/KSL/tree/main/KSLExamples/src/main/kotlin/ksl/examples/book) - packages containing the examples of this book
   * [general](https://github.com/rossetti/KSL/tree/main/KSLExamples/src/main/kotlin/ksl/examples/general) - examples of the use of various KSL constructs that are not necessarily discussed within the book.
 
-The purpose of the KSL is to provide support for the development of discrete-event simulation programs within Kotlin  This document provides and overview of the functionality and use of the classes found within the KSL.  Additional information is available through the documentation API.  We begin our discussion in the next chapter with the *utilities* package within the KSLCore.  These support packages can be used independently of building discrete-event simulation models.
+The purpose of the KSL is to provide support for the development of discrete-event simulation programs within Kotlin.   This document provides and overview of the functionality and use of the classes found within the KSL.  Additional information is available through the documentation API.  We begin our discussion in the next chapter with the *utilities* package within the `KSLCore.`  These support packages can be used independently of building discrete-event simulation models.
 
 ## Exercises
 

@@ -1677,7 +1677,7 @@ This chapter introduced the concepts involved in process view modeling.  The pro
 
 ## Exercises
 
-::: {.exercise #ch6P1}
+:::{.exercise #ch6P1}
 Suppose that a customer arriving to the drive through pharmacy will decide to balk if
 the number of cars waiting in line is 4 or more. A customer is said to
 *balk* if he or she refuses to enter the system and simply departs
@@ -1688,7 +1688,7 @@ your model for 1 year, with 20 replications.
 
 ***
 
-::: {.exercise #ch6P2}
+:::{.exercise #ch6P2}
 Samples of 20 parts from a metal grinding process are selected every hour. Typically 2\% of
 the parts need rework. Let X denote the number of parts in the sample of
 20 that require rework. A process problem is suspected if X exceeds its
@@ -1699,7 +1699,7 @@ exceeds its expected value by more than 1 standard deviation.
 
 ***
 
-::: {.exercise #ch6P3}
+:::{.exercise #ch6P3}
 Samples of 20 parts
 from a metal grinding process are selected every hour. Typically 2\% of
 the parts need rework. Let X denote the number of parts in the sample of
@@ -1722,7 +1722,7 @@ takes a part to be repaired.
 
 ***
 
-::: {.exercise #ch6P5}
+:::{.exercise #ch6P5}
 TV sets arrive at a two-inspector station for testing. The time between
 arrivals is exponential with a mean of 15 minutes. The inspection time
 per TV set is exponential with a mean of 10 minutes. On the average, 82
@@ -1741,7 +1741,7 @@ adjusted.
 
 ***
 
-::: {.exercise #ch6P6}
+:::{.exercise #ch6P6}
 A simple manufacturing system is staffed by 3 operators. Parts arrive
 according to a Poisson process with a mean rate of 2 per minute to a
 workstation for a drilling process at one of three identical drill
@@ -1761,7 +1761,7 @@ time for the parts based on 20 replications of 4800 minutes.
 
 ***
 
-::: {.exercise #ch6P7}
+:::{.exercise #ch6P7}
 The Hog BBQ Joint is interested in understanding the flow of customers
 for diner (5 pm to 9 pm). Customers arrive in parties of 2, 3, 4, or 5
 with probabilities 0.4, 0.3, 0.2, 0.1, respectively. The time between
@@ -1781,8 +1781,6 @@ minutes.
 
 Develop an model for this situation. Simulate 30 days of operation. Make
 a table like the following to summarize your results.
-:::
-
 
                                                        Average   Half-width
   --------------------------------------------------- --------- ------------
@@ -1794,9 +1792,11 @@ a table like the following to summarize your results.
            Customer System Time (in minutes)                    
    Probability of waiting to be seated $>$ 5 minutes            
 
+:::
+
 ***
 
-::: {.exercise #ch6P8}
+:::{.exercise #ch6P8}
 In the Tie-Dye T-Shirt model, the owner is expecting the business to grow during the
 summer season. The owner is interested in estimating the average time to
 produce an order and the utilization of the workers if the arrival rate
@@ -1807,7 +1807,7 @@ have trouble meeting the demand? Use the statistics to justify your conclusions.
 
 ***
 
-::: {.exercise #ch6P9}
+:::{.exercise #ch6P9}
 Suppose that the inspection and packaging process has been split into two processes for
 the Tie-Dye T-Shirt system and assume that there an additional worker to
 perform inspection. The inspection process is uniformly distributed
@@ -1825,7 +1825,7 @@ produced per day) change in response to the increasing demand rate?
 
 ***
 
-::: {.exercise #ch6P10}
+:::{.exercise #ch6P10}
 Hungry customers arrive to a Mickey R's drive through restaurant at a
 mean rate of 10 per hour according to a Poisson process. Management is
 interested in improving the total time spent within the system (i.e.
@@ -1863,7 +1863,7 @@ time spent in the system for the customers based on 30 days.
 
 ***
 
-::: {.exercise #ch6P11}
+:::{.exercise #ch6P11}
 The city is considering improving its hazardous waste and bulk item drop
 off area to improve service. Cars arrive to the drop off area at a rate
 of 10 per hour according to a Poisson process. Each car contains items
@@ -1897,7 +1897,6 @@ items that require disassembly. Each electronic item takes between 8 to
 The hazardous waste recycling center is open for 7 hours per day, 5 days
 per week. Simulate 12 weeks of performance and estimate the following
 quantities:
-:::
 
 -   Utilization of the workers
 
@@ -1913,9 +1912,11 @@ quantities:
 
 -   Average waiting time for items waiting to be disassembled.
 
+:::
+
 ***
 
-::: {.exercise #ch6P12}
+:::{.exercise #ch6P12}
 Orders for street lighting poles require the production of the tapered pole, the base
 assembly, and the wiring/lighting assembly package. Orders are released
 to the shop floor with an exponential time between arrival of 20
@@ -1969,7 +1970,7 @@ assuming 52 weeks per year to report your results.
 
 ***
 
-::: {.exercise #ch6P13}
+:::{.exercise #ch6P13}
 Patients arrive at an emergency room where they are treated and then
 depart. Arrivals are exponentially distributed with a mean time between
 arrivals of 0.3 hours. Upon arrival, patients are assigned a rating of 1
@@ -1981,16 +1982,14 @@ completed. They then proceed to a bed.
 
 The emergency room has three beds, one registration nurse, and two
 doctors. In all cases, the priority for allocating these resources is
-based on the severity of the ailment. Hint: Read the help for the QUEUE
-module and rank the queue by the severity attribute. The registration
-time for patients in Categories 2 through 5 is Uniform (0.1, 0.2) hours.
+based on the severity of the ailment. Hint: Read the [documentation](https://rossetti.github.io/KSLDocs/-k-s-l-core/ksl.modeling.queue/-queue/index.html) for the `Queue` class and rank the queue by a severity attribute represented by the `QObject` priority property.
+
+The registration time for patients in Categories 2 through 5 is Uniform (0.1, 0.2) hours.
 The treatment time for all patients is triangularly distributed with the
 minimum, most likely, and maximum values differing according to the
 patient's category. The distribution of patients by category and the
 corresponding minimum, most likely, and maximum treatment times are
 summarized below.
-
-:::
 
     Category      1     2      3      4      5
   ------------- ----- ------ ------ ------ ------
@@ -2011,10 +2010,11 @@ The required responses for this simulation include:
 Using a run length of 30 days, develop a model to estimate the required responses. Report
 the responses based on estimating the system time of a patient
 regardless of type based on 50 replications.
+:::
 
 ***
 
-::: {.exercise #ch6P14}
+:::{.exercise #ch6P14}
 Customers enter a fast-food restaurant according to an exponential
 inter-arrival time with a mean of 0.7 minutes (use stream 1). Customers
 have a choice of ordering one of three kinds of meals: (1) a soft drink,
@@ -2027,8 +2027,6 @@ customer exits. A cashier may not take any additional orders until the
 current customer has paid. In this system, there are two cooks and two
 cashiers. The time to order and pay is represented by a triangular
 distribution with parameters (0.4, 0.8, 1.2) minutes and (0.2, 0.4, 0.6) minutes, respectively. The cooking time depends on the order as follows:
-:::
-
 
    Type   Percentage     Cooking Time
   ------ ------------ -------------------
@@ -2053,9 +2051,11 @@ replications.
    Customer Waiting Time (in minutes)            
    Probability of wait $>$ 5 minutes             
 
+:::
+
 ***
 
-::: {.exercise #ch6P15}
+:::{.exercise #ch6P15}
 Jobs arrive in batches of ten items each. The inter-arrival time is EXPO(2) hours. The
 machine shop contains 2 milling machines and one drill press. About 30%
 of the items require drilling before being processed on the milling
@@ -2070,12 +2070,11 @@ within plus or minus 5 jobs with 95\% confidence. What is your
 replication length? Number of replications? Determine the utilization of
 the drill press and the milling machines as well as the average time an
 item spends in the system.
-
 :::
 
 ***
 
-::: {.exercise #ch6P16}
+:::{.exercise #ch6P16}
 A repair and inspection facility consists of two stations, a repair station with two
 technicians, and an inspection station with 1 inspector. Each repair
 technician works at a rate of 3 items per hour, while the inspector can
@@ -2097,7 +2096,6 @@ the $1^{st}$ shift of the next day. Any jobs left over at the end of the
 week are handled by a separate weekend staff that is not of concern to
 the current study. Estimate the following:
   
-:::
 -   The average system time of items that pass inspection on the first
     attempt. Measure this quantity such that you are 95\% confident to
     within +/- 3 minutes.
@@ -2113,10 +2111,11 @@ a model for this situation.
 c. Assume that there are 2 technicians at the repair station and 1 inspector at the
 inspection station. The disassembly station is also staffed by the 2
 technicians that are assigned to the repair station. Develop a model for this situation.
+:::
 
 ***
 
-::: {.exercise #ch6P17}
+:::{.exercise #ch6P17}
 As part of a diabetes prevention program, a clinic is considering
 setting up a screening service in a local mall. They are considering two
 designs: Design A: After waiting in a single line, each walk-in patient
@@ -2160,12 +2159,11 @@ schedule a follow up visit is a WEIB(2.6, 7.3) distribution using stream 6.
 Make a statistically valid recommendation as to the best design based on
 the average system time of the patients. We want to be 95\% confident of
 our recommendation to within 2 minutes.
-
 :::
 
 ***
 
-::: {.exercise #ch6P18}
+:::{.exercise #ch6P18}
 A copy center has one fast copier
 and one slow copier. The copy time per page for the fast copier is
 thought to be lognormally distributed with a mean of 1.6 seconds and a
@@ -2225,7 +2223,7 @@ spends in the system is longer than 4 minutes.
 
 ***
 
-::: {.exercise #ch6P19}
+:::{.exercise #ch6P19}
 Passengers arrive at
 an airline terminal according to an exponential distribution for the
 time between arrivals with a mean of 1.5 minutes (stream 1). Of the
@@ -2263,7 +2261,6 @@ measured overall and by type (frequent flyer versus non-frequent flyer).
 
 Assume that the system should be studied for 16 hours per day.
 
-:::
 a. Report the average and 95\% confidence interval half-width on the following based on
 the simulation of 10 days of operation. Report all time units in
 minutes.
@@ -2285,6 +2282,7 @@ minutes.
 b. Based on the results of part (a) determine the number of replications
 necessary to estimate the total time to reach their gate regardless of
 type to within $\pm$ 1 minute with 95\% confidence.
+:::
 
 ***
 

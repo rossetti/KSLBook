@@ -116,7 +116,7 @@ These functions are used in a number of other packages when working with data an
 
 ## CSV, Excel, and Tabular Data Files {#appDCSVEtc}
 
-The KSL also has simple utilities to work with comma separated value (CSV) files and Excel files. The underlying CSV file processing library used by the KSL is [opencsv](https://opencsv.sourceforge.net/). The KSL provision of working with CSV files is not meant to replace the functionality of those libraries. Instead, the purpose is to provide a simple facade so that users can do some simple processing without worrying about the complexities of a full featured CSV library.  Figure \@ref(fig:CSVUtil) illustrates the functions and properties of the `CSVUtil` object
+The KSL also has simple utilities to work with comma separated value (CSV) files and Excel files. The underlying CSV file processing library used by the KSL is [Commons CSV](https://commons.apache.org/proper/commons-csv/). The KSL provision of working with CSV files is not meant to replace the functionality of those libraries. Instead, the purpose is to provide a simple facade so that users can do some simple processing without worrying about the complexities of a full featured CSV library.  Figure \@ref(fig:CSVUtil) illustrates the functions and properties of the `CSVUtil` object
 
 <div class="figure" style="text-align: center">
 <img src="./figures2/ch13/CSVUtil.png" alt="CSVUtil Class" width="60%" height="60%" />
@@ -149,16 +149,16 @@ The following code illustrates the use of the `CSVUtil` class.  An instance of a
     }
     val h = listOf("col1", "col2", "col3", "col4")
     val p = KSL.csvDir.resolve("data.csv")
-    CSVUtil.writeArrayToCSVFile(matrix, header = h.toMutableList(), applyQuotesToData = false, pathToFile = p)
+    CSVUtil.writeArrayToCSVFile(matrix, header = h.toMutableList(), pathToFile = p)
     println()
-    val dataAsList: List<Array<String>> = CSVUtil.readRows(p, skipLines = 1)
+    val dataAsList: List<Array<String>> = CSVUtil.readRowsToListOfStringArrays(p, skipLines = 1)
     val m = KSLArrays.parseTo2DArray(dataAsList)
     for(i in matrix.indices){
-        println(m[i].contentToString())
+        println(m[i].joinToString(prefix = "[", postfix = "]"))
     }
 ```
 
-The contents of the matrix are printed to console. The header is made for the CSV file and then the matrix is written to the file using the `CSVUtil` function to write an array to a CSV file.  Then, the `CSVUtil` object is used to read the data into list of strings, which are parsed to double values. Of course, you can use the [`OpenCSV`](https://opencsv.sourceforge.net/) functionality to read and write values via its API, which is expose through the KSL API. The approach illustrated here is only meant for simple file processing. 
+The contents of the matrix are printed to console. The header is made for the CSV file and then the matrix is written to the file using the `CSVUtil` function to write an array to a CSV file.  Then, the `CSVUtil` object is used to read the data into list of strings, which are parsed to double values. You can use the [Commons CSV](https://commons.apache.org/proper/commons-csv/) functionality to read and write values via its API. The approach illustrated here is only meant for simple file processing. 
 
 Excel file operations are available within the KSL through the [Apache POI library](https://poi.apache.org/). The KSL provision of working with Excel files is not meant to replace the functionality of the POI library. Instead, the purpose is to provide a simple facade so that users can do some simple processing without worrying about the complexities of a full featured POI library.  Figure \@ref(fig:ExcelUtil) illustrates the functions and properties of the `ExcelUtil` object.
 
@@ -370,7 +370,7 @@ Much of this functionality is used within the implementation of the KSL database
 
 ## The `DataFrameUtil` Object {#dfUtil}
 
-A data frame is an in-memory data structure that holds tabular data. That is, data having rows and columns. Kotlin has a library to support this type of functionality and the `DataFrameUtil` object has been designed to facilitate the use of data frame within the `KSL.`. Documentation, examples, and the basic functionality of Kotlin data frames can be found on at this [repository](https://github.com/Kotlin/dataframe). Kotlin data frames provide similar functionality as that found in other data frame libraries such as R. Figure \@ref(fig:DataFrameUtil) illustrates the functions and properties of the `DataFrameUtil` object.
+A data frame is an in-memory data structure that holds tabular data. That is, data having rows and columns. Kotlin has a library to support this type of functionality and the `DataFrameUtil` object has been designed to facilitate the use of data frame within the `KSL.` Documentation, examples, and the basic functionality of Kotlin data frames can be found at this [repository](https://github.com/Kotlin/dataframe). Kotlin data frames provide similar functionality as that found in other data frame libraries such as R. Figure \@ref(fig:DataFrameUtil) illustrates the functions and properties of the `DataFrameUtil` object.
 
 
 <div class="figure" style="text-align: center">
@@ -398,11 +398,11 @@ The main functionality added by `DataFrameUtil` is sampling from rows and column
   + frequencies(DataColumn$<Int>$) IntegerFrequency
   + boxPlotSummary(DataColumn$<Double>$) BoxPlotSummary
   
-Extension functions are also available for the data frame and columns. The Kotlin data frame library has been included in the KSL as part of the API. Thus, clients also have access to the full features associated with the library. The main usage within the KSL is in the capturing of simulation output data. The easiest way to do this is by using the `KSLDatabase` class. Data frame instances can be requested as part of the database functionality of the KSL. 
+Extension functions are also available for a data frame and its columns. The Kotlin data frame library has been included in the KSL as part of the API. Thus, clients also have access to the full features associated with the library. The main usage within the KSL is in the capturing of simulation output data. The easiest way to do this is by using the `KSLDatabase` class. Data frame instances can be requested as part of the database functionality of the KSL. 
 
 ## KSL Database Utilities
 
-Some of the database functionality for use when accessing simulation results has already been discused in Chapter 5.  This section presents some of the more general database utilities available within the KSL framework. These utilities basically exist to help with implementing the KSL database functionality. However, users may find some of this functionality useful for other purpose.  However, these utilities are not meant as a substitute for more advanced database frameworks such as [JOOQ](https://www.jooq.org/), [Exposed](https://github.com/JetBrains/Exposed), and [KTorm](https://www.ktorm.org/). We refer the interested reader to those libraries for more advanced work for database processing using Kotlin. 
+Some of the database functionality for use when accessing simulation results has already been discussed in Chapter \@ref(simoa).  This section presents some of the more general database utilities available within the KSL framework. These utilities basically exist to help with implementing the KSL database functionality. However, users may find some of this functionality useful for other purpose.  However, these utilities are not meant as a substitute for more advanced database frameworks such as [JOOQ](https://www.jooq.org/), [Exposed](https://github.com/JetBrains/Exposed), and [KTorm](https://www.ktorm.org/). We refer the interested reader to those libraries for more advanced work for database processing using Kotlin. 
 
 Figure \@ref(fig:DbProperties) illustrates the properties of the interfaces, `DatabaseIOIfc` and `DatabaseIfc` which represent the main functionality for working with databases.  
 
@@ -483,14 +483,14 @@ When working with the database it is useful to get a connection, access table me
   
 We refer the interested reader to the [KSL KDoc](https://rossetti.github.io/KSLDocs/) documentation for further details about using these methods. 
 
-The `Database` functionality defines basic capabilities for working with any database implementation. The KSL provides functionality to create [SQLite](https://www.sqlite.org/index.html) and [Derby](https://db.apache.org/derby/) embedded databases. In addition, the KSL facilitates the creation of a database on a [Postgres](https://www.postgresql.org/) database server. 
+The `DatabaseIfc` functionality defines basic capabilities for working with any database implementation. The KSL provides functionality to create [SQLite](https://www.sqlite.org/index.html), [Derby](https://db.apache.org/derby/) , and [DuckDb](https://duckdb.org/) embedded databases. In addition, the KSL facilitates the creation of a database on a [Postgres](https://www.postgresql.org/) database server. 
 
 <div class="figure" style="text-align: center">
-<img src="./figures2/ch13/EmbeddedDb.png" alt="Working with Embedded Databases" width="90%" height="90%" />
+<img src="./figures2/ch13/EmbeddedDb.png" alt="Working with Embedded Databases" width="95%" height="95%" />
 <p class="caption">(\#fig:EmbeddedDb)Working with Embedded Databases</p>
 </div>
 
-Figure \@ref(fig:EmbeddedDb) illustrates the functionality of the `EmbeddedDbIfc` interface, and its SQLite and Derby implementations. Readers interested in other databases can review these implementations for how to structure code for other databases. The `PostgresDb` class provides similar functionality. The main purpose is to be able to supply a data source to the `Database` class.
+Figure \@ref(fig:EmbeddedDb) illustrates the functionality of the `EmbeddedDbIfc` interface, and its SQLite, Derby, and DuckDb implementations. Readers interested in other databases can review these implementations for how to structure code for other databases. The `PostgresDb` class provides similar functionality. The main purpose is to be able to supply a data source to the `Database` class.
 
 Figure \@ref(fig:Ch13KSLDatabase) provides the functionality for the `KSLDatabase` class. Although most of this functionality has been mentioned within Chapter 5, it is useful to note that since the `KSLDatabase` class is a database, it also has all of the previously mentioned database functionality.
 
@@ -506,7 +506,39 @@ The main notable methods involve the export, printing, or writing of the underly
 <p class="caption">(\#fig:WithinRepStatTableData)Within Replication Statistical Data</p>
 </div>
 
-The within replication statistical data represents the summary statistics of the data collected during a replication.  The most relevant properties are the `average`, `minimum`, and `maximum`.  To compute across replication statistics we can use the `average` for each replication. The statistical quantities are captured within the underlying database as discussed in Chapter 5.  The user can post-process any of this data using commonly available database technology and SQL.
+The within replication statistical data represents the summary statistics of the data collected during a replication.  The most relevant properties are the `average`, `minimum`, and `maximum`.  To compute across replication statistics we can use the `average` for each replication. The statistical quantities are captured within the underlying database as discussed in Chapter \@ref(simoa).  The user can post-process any of this data using commonly available database technology and SQL.
+
+The database utilities also offers the ability to quickly create simple databases via the `Database` companion object's `createSimpleDb()` function. The purpose of this function is to allow the creation of a quick and dirty database solution based on the `DbTableData` data classes.  By defining data classes that are sub-classes of `DbTableData`, a `CREATE TABLE` specification can be obtained and the database created. Then, the database can be used to insert data from instances of the `DbTableData` sub-classes.  The following code illustrates this possibility.
+
+First, we define two data classes that extend the `DbTableData` class. In this code, we define a `Person` and a `City` class, each with a property `id` that will act as the primary key of the table.  The primary key must be specified; however, the use of an auto-generated (surrogate) key is not supported at this time. 
+
+```kt
+data class Person(
+    var id: Int,
+    var name: String,
+    var age: Int
+) : DbTableData("Persons", listOf("id"))
+
+data class City(
+    var id: Int,
+    var name: String,
+    var population: Int
+) : DbTableData("Cities", listOf("id"))
+```
+
+Then, by providing a simple instance of these classes to the `SimpleDb` class constructor, we will cause a database to be created that is setup to hold the data from the supplied data classes. If you want to see the `CREATE TABLE` statements used to define the tables, then uncomment the two print statements in the following code.
+
+```kt
+    val p = Person(1, "manuel", age = 10)
+//    println(p.createTableSQLStatement())
+    val c = City(1, "London", population = 1000)
+//    println(c.createTableSQLStatement())
+    val db = Database.createSimpleDb(setOf(p, c), "TestSimpleDb")
+    db.insertDbDataIntoTable(p)
+    db.insertDbDataIntoTable(c)
+```
+
+You can then used the full functionality provided by the KSL database utilities because the `createSimpleDb()` function returns an instance of the `DatabaseIfc` and `DatabaseIOIfc` interfaces. This functionality is useful for setting up small databases to hold generated data.  It does not facilitate more advanced data definition or object-relational mappings.  Please see more advanced database frameworks such as [JOOQ](https://www.jooq.org/), [Exposed](https://github.com/JetBrains/Exposed), and [KTorm](https://www.ktorm.org/) for more robust solutions.
 
 ## Array Utilities {#appUtilitiesArrays}
 
@@ -706,7 +738,7 @@ The following code illustrates how to display multiple box plots.
     plot.saveToFile("BoxPlotDemo", plotTitle = "Box Plots")
 ```
 
-The code make a map of `BoxPlot` instances indexed by their names and then displays them together on a single plot axis.
+The code makes a map of `BoxPlot` instances indexed by their names and then displays them together on a single plot axis.
 
 <div class="figure" style="text-align: center">
 <img src="./figures2/AppUtilities/BoxPlotDemo.png" alt="Example Multiple Box Plots" width="70%" height="70%" />
@@ -727,7 +759,7 @@ The following code illustrates how to display multiple confidence intervals on t
     plot.saveToFile("ConfidenceIntervalsPlot", plotTitle = "Confidence Intervals")
 ```
 
-The code make a map of `Interval` instances indexed by the names of their associated statistics and then displays them together on a single plot axis.
+The code makes a map of `Interval` instances indexed by the names of their associated statistics and then displays them together on a single plot axis.
 
 <div class="figure" style="text-align: center">
 <img src="./figures2/AppUtilities/ConfidenceIntervalsDemo.png" alt="Example Multiple Confidence Interval Plots" width="70%" height="70%" />

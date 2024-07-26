@@ -1057,7 +1057,7 @@ Before discussing the KSL database, note that the previously mentioned MarkDown 
 This code uses the model's output directory property to create a file based on a `PrintWriter` in the directory and then uses the `PrintWriter` instance via the `SimulationReporter` class.  The KSL has a utility class found in the `ksl.io` package called `MarkDown` that facilitates simple construction of MarkDown text constructs, especially tables and rows within tables. 
 
 <div class="figure" style="text-align: center">
-<img src="./figures2/ch5/SimulationReporter.png" alt="The Functionality of the SimulationReporter Class" width="40%" height="40%" />
+<img src="./figures2/ch5/SimulationReporter.png" alt="The Functionality of the SimulationReporter Class" width="50%" height="50%" />
 <p class="caption">(\#fig:SimualationReporter)The Functionality of the SimulationReporter Class</p>
 </div>
 
@@ -1089,7 +1089,7 @@ This code creates a `ReplicationDataCollector` instance and configures the insta
 ```
 
 <div class="figure" style="text-align: center">
-<img src="./figures2/ch5/ReplicationDataCollector.png" alt="The Functionality of the ReplicationDataCollector Class" width="40%" height="40%" />
+<img src="./figures2/ch5/ReplicationDataCollector.png" alt="The Functionality of the ReplicationDataCollector Class" width="50%" height="50%" />
 <p class="caption">(\#fig:ReplicationDataCollector)The Functionality of the ReplicationDataCollector Class</p>
 </div>
 
@@ -1098,7 +1098,7 @@ The most notable functionality shown in Figure \@ref(fig:ReplicationDataCollecto
 Now, let's discuss the most useful KSL functionality for capturing simulation data, the `KSLDatabase` class. The following code creates an observer of the model in the form of a `KSLDatabaseObserver.` This class can be attached to a model and then will collect and insert all response and counter related statistical quantities into a well-structured database. The default database is an SQLite database but other database engines will also work. There is built in functionality for creating Derby and PostgreSQL based databases. 
 
 <div class="figure" style="text-align: center">
-<img src="./figures2/ch5/KSLDatabaseClass.png" alt="The Functionality of the KSLDatabase Class" width="50%" height="50%" />
+<img src="./figures2/ch5/KSLDatabaseClass.png" alt="The Functionality of the KSLDatabase Class" width="55%" height="55%" />
 <p class="caption">(\#fig:KSLDatabaseClass)The Functionality of the KSLDatabase Class</p>
 </div>
 
@@ -1117,7 +1117,7 @@ database. However, it is possible to not overwrite the database and store additi
 The database will have the table structure shown in Figure \@ref(fig:KSLDatabaseTables).
 
 <div class="figure" style="text-align: center">
-<img src="./figures2/ch5/KSLDatabaseTables.png" alt="KSL Database Tables" width="80%" height="80%" />
+<img src="./figures2/ch5/KSLDatabaseTables.png" alt="KSL Database Tables" width="100%" height="100%" />
 <p class="caption">(\#fig:KSLDatabaseTables)KSL Database Tables</p>
 </div>
 
@@ -1160,6 +1160,11 @@ database schema.
     associated with `TWResponse,` `Response,` and
     `Counter` instances within the model. Statistical summary information across the batches is
     automatically stored.
+-   `HISTOGRAM` contains the results from `HistogramResponse` instances when they are used within a model.
+-   `FREQUENCY` contains the results from `IntegerFrequencyResponse` instances when they are used within a model.
+-   `EXPERIMENT` holds information across experimental runs. This is illustrate in Section \@ref(ch5Scenarios) and Section \@ref(appExpDesign) of Appendix \@ref(appUtilities).
+-   `CONTROL` holds the controls associated with a model as discussed in Section \@ref(controlAntns).
+-   `RV_PARAMETER` holds the random variables and their parameters as discussed in Section \@ref(rvParameters).
 
 In addition to the base tables, the KSL database contains views of its
 underlying tables to facilitate simpler data extraction. Figure \@ref(fig:KSLDatabaseViews)
@@ -3705,7 +3710,7 @@ The important aspect of this output to notice are the keys associated with the c
 
 The second aspect of this example is the fact that prior to setting the control, the underlying `numWorkers` property had a value of 2.0.  Then, after accessing the control and changing its value, the `numWorkers` property value was updated to 3.0.  Now, this is a bit of overkill for changing the value of a single property; however, this illustrates the basic mechanics of using controls. Because the key for a control is unique, as long as you know the associated key you can change the value of the associated property via its associated control. A more useful use case would be to store the key-value pairs in a file and read in the new values of the properties from the file. Then, a generic procedure can be written to change all the controls.
 
-### Random Variable Parameters
+### Random Variable Parameters {#rvParameters}
 
 Stochastic simulation models use random variables. Thus, it is common to need to change the values of the parameters associated with the random variables when running experiments. The architecture of the KSL with respect to random variables can be somewhat daunting. The key issue is that changing out the random variable or its parameters requires careful methods because random variables are immutable and changing their values must ensure that replications start with same settings (so that they are truly replicates). The second complicating factor is that the number of parameters associated with random variables varies widely by type of random variable.  For example, an exponential random variable has one parameter, its mean, while a triangular random variable has three parameters (min, mode, max).  Because of these challenges, the KSL provides a generic protocol for accessing and changing the parameter values of every random variable associated with a KSL model. This is accomplished via the `RVParameterSetter` class and its associated supporting classes within the `ksl.rvariable.parameters` package. This section will provide a brief overview of how to utilize this generic protocol for changing the parameters associated with the random variables of a KSL model.
 
@@ -3950,10 +3955,8 @@ more complicated systems. The next chapter describes how to use the KSL for proc
 ## Exercises
 
 ***
-
 ::: {.exercise #ch5P1}
 Indicate whether or not the statistical quantity should be classified as tally-based or time-persistent.
-:::
 
 |     Classification    |     Description                                                            |
 |-----------------------|----------------------------------------------------------------------------|
@@ -3967,6 +3970,7 @@ Indicate whether or not the statistical quantity should be classified as tally-b
 |                       |     The time that it takes a bus to complete its entire route              |
 |                       |     The number of passengers departing the bus at Dickson   street         |
 |                       |     The amount of miles that a truck travel empty during a   week          |
+:::
 
 ***
 
@@ -3975,7 +3979,6 @@ Indicate whether or not the statistical quantity should be classified as tally-b
 :::
 
 ***
-
 ::: {.exercise #ch5P3}
 In a $\underline{\hspace{3cm}}$ horizon simulation, a well defined ending time or ending condition can be specified which clearly demarks the end of the simulation.
 :::
@@ -3983,31 +3986,30 @@ In a $\underline{\hspace{3cm}}$ horizon simulation, a well defined ending time o
 ***
 ::: {.exercise #ch5P4}
 Which of the following are finite horizon situations? Select all that apply.
-:::
+
 a. Bank: bank doors open at 9 am and close at 5 pm
 b. Military battle: simulate until force strength reaches a critical value
 c. A factory where we are interested in measuring the steady state throughput
 d. A hospital emergency room which is open 24 hours a day, 7 days a week
+:::
 
 ***
-
 ::: {.exercise #ch5P5}
 Consider a manufacturing system comprising two different machines and
 two operators. Each operator is assigned to run a single machine. Parts
 arrive with an exponentially distributed inter-arrival time with a mean
-of 3 minutes. The arriving parts are one of two types. Sixty percent of
+of 4 minutes. The arriving parts are one of two types. Sixty percent of
 the arriving parts are Type 1 and are processed on Machine 1. These
 parts require the assigned operator for a one-minute setup operation.
 The remaining 40 percent of the parts are Type 2 parts and are processed
 on Machine 2. These parts require the assigned operator for a 1.5-minute
 setup operation. The service times (excluding the setup time) are
-lognormally distributed with a mean of 4.5 minutes and a standard
-deviation of 1 minute for Type 1 parts and a mean of 7.5 minutes and a
-standard deviation of 1.5 minutes for Type 2 parts. The operator of the machine is required to both setup and operate the machine.
+lognormally distributed with a mean of 4.5 minutes and a variance of 1 minute for Type 1 parts and a mean of 7.5 minutes and a
+variance of $(1.5)^2$ minutes for Type 2 parts. The operator of the machine is required to both setup and operate the machine.
 
-Run your model for 20000 minutes, with 10 replications. 
+Run your model for 20000 minutes, with 10 replications. Use stream 1 for the arrival process, stream 2 for machine 1 processing, stream 3 for machine 2 processing, and stream 4 for the part type determination.
 
-(a) Report the utilization of the machines and operators. In addition, report the total time spent in the
+(a) Report the utilization of the operators. In addition, report the total time spent in the
 system for each type of part. 
 (b) Perform a warm up analysis on this system.
 :::
@@ -4015,15 +4017,14 @@ system for each type of part.
 ***
 
 ::: {.exercise #ch5P6}
-YBox video game players arrive at a two-person station for testing. The inspection time
-per YBox set is EXPO(10) minutes. On the average 82\% of the sets pass
-inspection. The remaining 18\% are routed to an adjustment station with a
-single operator. Adjustment time per YBox is UNIF(7,14) minutes. After
+YBox video game players arrive according to a Poisson process with rate
+10 per hour to a two-person station for inspection. The inspection time
+per YBox set is exponentially distributed with a mean of 10 minutes. On the average 82\% of the sets pass inspection. The remaining 18\% are routed to an adjustment station with a
+single operator. Adjustment time per YBox is uniformly distributed between 7 and 14 minutes. After
 adjustments are made, the units are routed back to the inspection
-station to be retested. Build an simulation model of this system. Use a
-replication length of 30,000 minutes.
+station to be retested. Assume that a part can be adjusted as many times as needed until it passes inspection. Build an simulation model of this system. Use a
+replication length of 30,000 minutes. Use stream 1 for the arrival process, stream 2 for the inspection time, and stream 3 to determine if the part passes inspection.
 
-:::
 a. Perform a warm up analysis of the total time a set spends in the system and estimate the
 system time to within 2 minutes with 95% confidence.
 
@@ -4032,9 +4033,9 @@ b. Collect statistics to estimate the average number of times a given job is adj
 c. Suppose that any one job is not allowed more than two adjustments, after which time the
 job must be discarded. Modify your simulation model and estimate the
 number of discarded jobs.
+:::
 
 ***
-
 ::: {.exercise #ch5P7}
 Create a model to simulate observations from a $N(\mu, \sigma^2)$ random variable. Use your
 simulation to generate two independent samples of size $n_1 = 20$ and
@@ -4045,7 +4046,6 @@ of independent samples to test whether $\mu_2 > \mu_1$.
 :::
 
 ***
-
 ::: {.exercise #ch5P8}
 Create a model to simulate observations from a $N(\mu, \sigma^2)$ random variable. Use your
 simulation to generate two independent samples of size $n_1 = 20$ and
@@ -4056,7 +4056,6 @@ independent samples to test whether $\mu_2 > \mu_1$.
 :::
 
 ***
-
 ::: {.exercise #ch5P9}
 Create a model to simulate observations from a $N(\mu, \sigma^2)$ random variable. Use your
 simulation to generate two independent samples of size $n_1 = 30$ and
@@ -4067,7 +4066,6 @@ method to test whether $\mu_2 > \mu_1$.
 :::
 
 ***
-
 ::: {.exercise #ch5P10}
 Create a model to simulate observations from a $N(\mu, \sigma^2)$ random variable. Use your
 simulation to generate two dependent samples of size $n_1 = 30$ and
@@ -4080,7 +4078,6 @@ method to test whether $\mu_2 > \mu_1$.
 
 ::: {.exercise #ch5P11}
 Implement the Lindley equation using the KSL, perform the following:
-:::
 
 a. Develop a 95\% confidence interval for your estimate of the mean waiting time based on
 the data from 1 replication. Discuss why this is inappropriate. How does
@@ -4107,6 +4104,20 @@ waiting time using the 40 batches.
 f. Use the method of replication deletion to develop a 95\% confidence interval for the mean
 waiting time. Use your warm period from part (c). Compare the result
 with that of (a) and (e) and discuss.
+:::
 
+***
+::: {.exercise #ch5P12}
+Reconsider Exercise \@ref(exr:ch4P10) of Chapter \@ref(introDEDS). Suppose that after the passenger identification inspection, we now need to model a simplified version of the baggage screening process.
+
+Once passengers clear the identification check, they proceed to the X-ray baggage screening. At a minimum, it takes 1.5 minutes per passenger for the X-ray process to complete. Typically, this process takes 2.5 minutes. At the most, this process can last 7 minutes. There are two X-ray machines.
+
+- What is the maximum time that a passenger had to wait in line for the X-ray machine? 
+- What is the utilization of the X-ray machines?
+
+To increase security measures, a more extensive security check of passengers is performed after the baggage scan. Every 15th passenger will go through a full-body scan and manual baggage review. This inspection usually takes 5 minutes. At the least, it will take 3 minutes and at the most 10 minutes. Assume there is unlimited availability of resources to model this extra security check. 
+
+- What is the overall average cycle time of passengers (from the time they enter the system until they are through all security points) who are selected for this check?
+:::
 
 

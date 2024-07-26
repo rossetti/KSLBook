@@ -81,7 +81,7 @@ The concepts within L'Ecuyer et al. (2002) have been implemented within the `ksl
 certain behaviors (i.e. methods). The KSL utilizes interfaces to
 separate random number generation concepts from stream control concepts.
 
-<div class="figure">
+<div class="figure" style="text-align: center">
 <img src="./figures/RNStreamInterfaces.png" alt="Random Number Stream Interfaces"  />
 <p class="caption">(\#fig:RNStreamInterfaces)Random Number Stream Interfaces</p>
 </div>
@@ -126,7 +126,7 @@ methods allow the user to move within the streams. Classes that
 implement the `RNStreamControlIfc` can manipulate the streams in a
 well-defined manner. 
 
-<div class="figure">
+<div class="figure" style="text-align: center">
 <img src="./figures/RNStreamProvider.png" alt="RNStreamProviderIfc Interface"  />
 <p class="caption">(\#fig:RNStreamProvider)RNStreamProviderIfc Interface</p>
 </div>
@@ -527,7 +527,7 @@ this context it returns a random value from the random variable. For
 example, if `d` is a reference to an instance of a sub-class of type
 `RVariable`, then `d.value` generates a random value.
 
-<div class="figure">
+<div class="figure" style="text-align: center">
 <img src="./figures/RVariableIfc.png" alt="Random Variable Interfaces"  />
 <p class="caption">(\#fig:RVariableIfc)Random Variable Interfaces</p>
 </div>
@@ -1121,7 +1121,7 @@ Number of missing observations 0.0
 Lead-Digit Rule(1) -1
 ```
 
-<div class="figure">
+<div class="figure" style="text-align: center">
 <img src="02-Chapter2_files/figure-html/ErlangHist-1.svg" alt="Histogram for Erlang Generated Data" width="672" />
 <p class="caption">(\#fig:ErlangHist)Histogram for Erlang Generated Data</p>
 </div>
@@ -1159,7 +1159,7 @@ One method for generating Beta random variables exploits its relationship with t
 
 The `ksl.utilities.random.rvariable` package is the key package for generating random variables; however, it does not facilitate performing calculations involving the underlying probability distributions. To perform calculations involving probability distributions, you should use the `ksl.utilities.distributions` package.  This package has almost all the same distributions represented within the `ksl.utilities.random.rvariable` package.  
 
-<div class="figure">
+<div class="figure" style="text-align: center">
 <img src="./figures/Distributions.png" alt="Distribution Interfaces"  />
 <p class="caption">(\#fig:DistPackage)Distribution Interfaces</p>
 </div>
@@ -1284,7 +1284,7 @@ As discussed in Appendix \@ref(appidm) a key step in the distribution fitting pr
 
 The estimation of the parameters of a distribution requires the execution of an algorithm.  As mentioned in Appendix \@ref(appidm), the maximum likelihood estimation method is commonly used because it often produces estimates that have desirable statistical properties.  However, the maximum likelihood method may require the solving of a non-linear optimization problem.  The method of moments is also a common algorithm that is used to estimate the parameters of various distributions. In the method of moments, the theoretical moment equations are matched with the statistically computed moments resulting in a set of equations that must be solved to form the parameter estimators.  In some cases, the method of moments results in simple equations, but for some distributions it may result in the need to solve a system of non-linear equations. Many other methods of parameter estimation exist, such as the percentile method, which may be general or targeted to specific distributions. The KSL facilitates the development of routines to estimate parameters by providing a well-defined parameter estimation interface.  By implementing the `ParameterEstimatorIfc` interface, KSL users can incorporate additional distributions and estimation methods into the estimation framework.
 
-<div class="figure">
+<div class="figure" style="text-align: center">
 <img src="./figures2/ch2/ParameterEstimatorIfc.png" alt="Important Classes for Parameter Estimation" width="80%" height="80%" />
 <p class="caption">(\#fig:ParameterEstimatorLabel)Important Classes for Parameter Estimation</p>
 </div>
@@ -1435,7 +1435,7 @@ As described in Appendix \@ref(appidm), the distribution modeling process may re
 
 Rather than relying on statistical tests, the KSL's distribution recommendation framework defines a set of criteria for assessing the quality of the probability model's representation. These criteria are called *scoring models*. Figure \@ref(fig:ScoringModelLabel) illustrates the scoring models that the KSL uses within its automated fitting process. To implement your own scoring model, you need to sub-class from the abstract base class `PDFScoringModel.` 
 
-<div class="figure">
+<div class="figure" style="text-align: center">
 <img src="./figures2/ch2/PDFScoringModel.png" alt="Important Classes for PDF Scoring" width="80%" height="80%" />
 <p class="caption">(\#fig:ScoringModelLabel)Important Classes for PDF Scoring</p>
 </div>
@@ -1448,9 +1448,62 @@ abstract fun score(data: DoubleArray, cdf: ContinuousDistributionIfc) : Score
 
 The contract for this function is it will return a numerical value that measures the quality of the distribution fit given the observed data and a hypothesized continuous distribution function. In addition, the function, `badScore(),` should return the worse possible score for the metric. The `badScore()` function should be used if there is some error or issue that prevents the scoring procedure from determining a score for the fit.  A `Score` is a data class that indicates whether the score is `valid` or not and provides the metric that determined the score. You can think of the metric as the units of measure. The metric defines the domain (or set of legal values) for the metric and its direction.  By direction, we mean whether bigger scores are better than smaller scores or vice versa. This information is used when a set of scores are combined into an overall score. 
 
-The KSL has many pre-defined scoring models; however, only three are specified to be used by default during the standard automated distribution process.
+The KSL has many pre-defined scoring models. The user can specify the criteria to use for the scoring evaluation process or accept the defaults. Two of the scoring models are based on a histogram summary of the data. This involves dividing the range of observations via break points $b_j$ and tabulating frequencies or proportions of the data falling with the defined intervals or bins. The KSL does not use arbitrary break points from a histogram binning process. Instead the KSL attempts to define the break points for the intervals such that each interval has the *same* probability of occurrence.  This ensures that the expected number of observations within each interval is the same. The theoretical basis for this approach can be found in [@CAWilliams1950].
 
-- Kolmogorov-Smirnov criterion - The Kolmogorov-Smirnov (K-S) criterion is based on the K-S test statistic, where, $D_{n} = \max \lbrace D^{+}_{n}, D^{-}_{n} \rbrace$, represents the largest vertical
+The scoring criteria based on a binning process are the sum of squared errors (SSE), Chi-Squared (CSQ), and the Mallows L2 (ML2) criterion. For these models, let $c_{j}$ be the observed count of the $x$ values contained in
+the $j^{th}$ interval $\left(b_{j-1}, b_{j} \right]$, let $h_j = c_j/n$ be the relative frequency for the $j^{th}$ interval, and let $p_j$ be defined as:
+
+$$
+p_j = P\{b_{j-1} \leq X \leq b_{j}\} = \int\limits_{b_{j-1}}^{b_{j}} f(x) \mathrm{d}x
+$$
+Thus, we can define SSE, CSQ, and ML2 as follows:
+
+- Sum of Squared Error (SSE) criterion - The squared error is defined as the sum over the intervals of the squared difference between the relative frequency and the theoretical probability associated with each interval:
+
+$$
+\text{SSE} = \sum_{j = 1}^k (h_j - p_j)^2
+$$
+
+- Chi-Squared criterion (CSQ) - The chi-squared criterion is the $\chi^{2}$ test statistic value that compares the observed counts $c_j$ to the expected counts $np_j$ over the intervals. 
+
+$$
+\chi^{2}_{0} = \sum\limits_{j=1}^{k} \frac{\left( c_{j} - np_{j} \right)^{2}}{np_{j}}
+$$
+
+- Mallows L2 Criterion - [@levina-bickel2001] provide the definition of the Mallows L2 distance, also known as the earthmovers distance. In terms of $p_j$ and $h_j$, this is:
+
+$$
+M_{L_2} = \Bigg( \frac{1}{k} \sum_{j=1}^{k}(h_j - p_j)^2\Bigg)^{\frac{1}{2}}
+$$
+
+Note that under the specification of the breakpoints resulting in intervals with equal probabilities, we have $p_j = p$ and $p = k/n$.  This allows the SSE criterion to be simplified as follows:
+
+$$
+\text{SSE} = \sum_{j = 1}^k (h_j - p_j)^2  = \sum_{j = 1}^k (h_j - p)^2
+$$
+
+In addition, the Mallows criterion can be written in terms of the SSE as follows:
+
+$$
+M_{L_2} = \Bigg( \frac{1}{k} \sum_{j=1}^{k}(h_j - p_j)^2\Bigg)^{\frac{1}{2}} = \Bigg( \frac{\text{SSE} }{k} \Bigg)^{\frac{1}{2}}
+$$
+
+Thus, we have $M^2_{L_2} = \frac{\text{SSE} }{k}$.  Finally, notice that the chi-squared criterion (CSQ) under the assumption that $p_j = p$ can be simplified as:
+
+$$
+\chi^{2}_{0} = \sum\limits_{j=1}^{k} \frac{\left( c_{j} - np_{j} \right)^{2}}{np_{j}}= n \sum\limits_{j=1}^{k} \frac{\left( h_{j} - p_{j} \right)^{2}}{p_{j}} = \frac{n}{p}\sum\limits_{j=1}^{k} \left( h_{j} - p \right)^{2} = \frac{n}{p}\text{SSE}
+$$
+
+Therefore, under the assumption that $p_j = p$, that is equally probable intervals, we have that:
+
+$$
+\chi^{2}_{0} = \frac{n^2}{k}\text{SSE}=n^2M^2_{L_2} 
+$$
+The relationships between CSQ, SSE, and ML2 are important to note because during the scoring process, the metrics are converted to a common scale. If a linear transformation is chosen for the transformation (which is the default), then the resulting values for CSQ, SSE, and ML2 will be the same in terms of their *scaled* values. Thus, under a linear transformation, only one of CSQ, SSE, and ML2 should be included in the evaluation process. 
+
+The metrics that do not depend on a histogram binning process include the Kolmogorov-Smirnov (KS) criterion, Cramer Von Mises (CVM) criterion, Anderson-Darling (AD) criterion, P-P plot sum of squared errors (PPSSE), P-P plot correlation (PPC), Q-Q plot sum of squared errors (QQSSE), Q-Q plot correlation (QQC), Bayesian Information Criterion (BIC), and the Akaike Information Criterion (AIC). These scoring metrics are defined as follows:
+
+- Kolmogorov-Smirnov criterion - The Kolmogorov-Smirnov (KS) criterion is based on the K-S test statistic, where, $D_{n} = \max \lbrace D^{+}_{n}, D^{-}_{n} \rbrace$, represents the largest vertical
 distance between the hypothesized distribution and the empirical
 distribution over the range of the distribution.
 
@@ -1459,6 +1512,7 @@ $$
 D^{+}_{n} & = \underset{1 \leq i \leq n}{\max} \Bigl\lbrace \tilde{F}_{n} \left( x_{(i)} \right) -  \hat{F}(x_{(i)}) \Bigr\rbrace \\
   & = \underset{1 \leq i \leq n}{\max} \Bigl\lbrace \frac{i}{n} -  \hat{F}(x_{(i)}) \Bigr\rbrace \end{aligned}
 $$
+
 $$
 \begin{aligned}
 D^{-}_{n} & = \underset{1 \leq i \leq n}{\max} \Bigl\lbrace \hat{F}(x_{(i)}) - \tilde{F}_{n} \left( x_{(i-1)} \right) \Bigr\rbrace \\
@@ -1466,31 +1520,85 @@ D^{-}_{n} & = \underset{1 \leq i \leq n}{\max} \Bigl\lbrace \hat{F}(x_{(i)}) - \
 \end{aligned}
 $$
 
-- Anderson Darling criterion - The Anderson-Darling criterion is similar in spirit to the Cramer Von Mises test statistic except that it is designed to detect discrepancies in the tails of the distribution. 
+- Cramer Von Mises criterion (CVM) - The Cramer Von Mises criterion is a distance measure used to compare the goodness of fit of a cumulative distribution function, $F(x)$ to the empirical distribution, $F_n(x)$.  The distance is defined as:
+
+\begin{equation}
+\omega^2 = \int_{-\infty}^{+\infty}\Big[ F_n(x) - F(x) \Big]^2\,dF(x)
+\end{equation}
+
+The CVM metric can be computed from data sorted in ascending order ($x_1, x_2, \cdots, x_n$), i.e. the order statistics, as:
+
+\begin{equation}
+T = n\omega^2 = \frac{1}{12n} + \sum_{i=1}^{n}\Big[ \frac{2i-1}{2n} - F(x_i) \Big]^2
+\end{equation} 
+
+- Anderson Darling criterion (AD) - The Anderson-Darling criterion is similar in spirit to the Cramer Von Mises test statistic except that it is designed to detect discrepancies in the tails of the distribution. 
 
 \begin{equation}
 A^2 = n\int_{-\infty}^{+\infty}\frac{\Big[ F_n(x) - F(x) \Big]^2}{F(x)(1-F(x))}\,dF(x)
 \end{equation}
 
-This metric can be computed from data sorted in ascending order ($x_1, x_2, \cdots, x_n$), i.e. the order statistics, as:
+The AD metric can be computed from data sorted in ascending order ($x_1, x_2, \cdots, x_n$), i.e. the order statistics, as:
+
 \begin{equation}
 A^2 = -n - \sum_{i=1}^{n}\frac{2i-1}{n}\Big[ \ln(F(x_i)) + \ln(1-F(x_{n+1-i})) \Big]
 \end{equation} 
 
-- P-P Plot Sum of Squared Errors - Based on the concepts found in [@gan-koehler], the sum of squared error related to the P-P plot of the theoretical distribution versus the empirical distribution was developed as a scoring criterion. Let $(x_{(1)}, x_{(2)}, \ldots x_{(n)})$ be the order statistics. Let the theoretical distribution be represented with $\hat{F}(x_{(i)})$ for i= 1, 2, $\ldots$ n where $\hat{F}$ is the CDF of the hypothesized distribution. Define the empirical distribution as
+- P-P Plot Sum of Squared Errors (PPSSE) - Based on the concepts found in [@gan-koehler], the sum of squared error related to the P-P plot of the theoretical distribution versus the empirical distribution was developed as a scoring criterion. Let $(x_{(1)}, x_{(2)}, \ldots x_{(n)})$ be the order statistics. Let the theoretical distribution be represented with $\hat{F}(x_{(i)})$ for $i= 1, 2, \ldots n$ where $\hat{F}$ is the CDF of the hypothesized distribution. Define the empirical distribution as
 
 $$\tilde{F}_n(x_{(i)}) = \dfrac{i - 0.5}{n}$$
-Then, the P-P Plot sum of squared error criterion is defined as:
+
+Then, the P-P Plot sum of squared error (PPSSE) criterion is defined as:
 
 $$
 \text{PP Squared Error} = \sum_{i = 1}^n (\tilde{F}_n(x_{(i)}) - \hat{F}(x_{(i)}))^2
 $$
 
-- P-P Correlation - Based on the concepts found in [@gan-koehler], the P-P correlation scoring model computes the Pearson correlation associated with a P-P plot.  That is, the scoring model computes the correlation between $(\tilde{F}_n(x_{(i)}), \hat{F}(x_{(i)}))$.
+Notice that the Cramer-Von-Mises criterion and the PPSSE criterion are related as follows:
+
+$$
+T = \frac{1}{12n} + SSE
+$$
+
+Therefore, under a linear transformation, it is not recommended to include both PPSSE and CVM in the evaluation process.
+
+- P-P Correlation (PPC) - Based on the concepts found in [@gan-koehler], the P-P correlation scoring model computes the Pearson correlation associated with a P-P plot.  That is, the scoring model computes the correlation between $(\tilde{F}_n(x_{(i)}), \hat{F}(x_{(i)}))$ for $i= 1, 2, \ldots n$.
+
+- Q-Q Plot Sum of Squared Error (QQSSE) - Again, based on the concepts found in [@gan-koehler], the sum of squared error related to the Q-Q plot of the theoretical quantiles versus the empirical quantiles was developed as a scoring criterion. For a Q-Q plot define $q_i = (i - 0.5)/n$, for $i= 1, 2, \ldots n$ and $x_{q_i} = \hat{F}^{-1} (q_i)$ where $\hat{F}^{-1}(\cdot)$ is the inverse CDF of the hypothesized distribution. Finally, let  $(x_{(1}, x_{(2)}, \ldots x_{(n)})$ be the order statistics. Then, the QQSSE is the sum of the squared error as follows:
+
+$$
+\text{QQSSE} = \sum_{i = 1}^n (x_{(i)} - x_{q_i})^2
+$$
+
+- Q-Q Plot Correlation (QQC) - Similar to PPC, the Q-Q plot correlation criterion is the Pearson correlation of $(x_{(i)},x_{q_i})$ for $i= 1, 2, \ldots n$, with values closer to 1.0 indicating a good fit. 
+
+- Bayesian Information Criterion (BIC) - Developed by [@schwarz1978], the BIC is used for model selection where models with lower BIC are preferred.  The BIC is based on the log-likelihood function. Let $f(x;\vec{\theta})$ be the theoretical probability density function with parameters $\vec{\theta}$. The likelihood function of a sample of $\vec{x} = (x_1,x_2, \cdots, x_n)$ is:
+
+$$
+L(\vec{\theta};\vec{x}) = \prod_{i=1}^{n}f(x_i;\vec{\theta})
+$$
+The likelihood function of the sample, measures the likelihood that the sample came from the distribution with the given parameters. The log-likelihood function for an observation $x_i$ is $\ln \big(f(x_i;\vec{\theta}\big)$. Thus, the log-likelihood function for the sample is: 
+
+$$
+\text{LL}(\vec{\theta};\vec{x}) = \sum_{i=1}^{n}ln(f(x_i;\vec{\theta}))
+$$
+The BIC is defined in terms of the value of the log-likelihood of the sample as follows:
+
+$$
+\text{BIC} = k\ln(n) - 2\text{LL}(\hat{\vec{\theta}};\vec{x})
+$$
+
+where $n$ is the sample size, $k$ is the number of parameters estimated for the model, $\hat{\vec{\theta}}$ are the estimated parameter values.
+
+- Akaike Information Criterion (AIC) - Developed by [@akaike74], the AIC is used for model selection where models with lower AIC are preferred.  Like the BIC, the AIC is defined in terms of the log-likelihood function of the sample. The KSL uses the formulation described in [@vose2010] as follows:
+
+$$
+\text{AIC} = \Bigg( \frac{n-2k +2}{n-k+1}\Bigg) -2\text{LL}(\hat{\vec{\theta}};\vec{x})
+$$
 
 These scoring models avoid summarizing the data based on a histogram, which requires a specification of the bin sizes (or widths) and tabulation of frequencies or proportions associated with the bins.  
 
-The companion object of the `Statistic` class will compute the K-S test statistic and Anderson Darling test statistic.   These functions directly compute the test statistic value. In addition, as illustrated in Figure \@ref(fig:ScoringModelLabel), each of these statistics, as well as the `PPSSEScoringModel` have been implemented as PDF scoring models. 
+As illustrated in Figure \@ref(fig:ScoringModelLabel), the scoring models are implemented by sub-classing from the `PDFScoringModel` abstract base class. Users of the KSL distribution recommendation framework can select which scoring models to include during the evaluation process. The default set of scoring models are BIC, AD, CVM, and QQC. During testing, the BIC criterion performed very well across all but very low sample sizes. The AD and CVM criteria tend to perform better for lower sample sizes, while the QQC criterion tends to perform better for higher sample sizes and for particular distribution families.
 
 The quality of a parametric fit for a specific distribution can be evaluated by one or more scoring models. Since distribution quality metrics have been designed to measure different aspects of the fit, the KSL allows the scoring results to be combined into an overall score.  Suppose distribution $F_k$ is evaluated by the the scoring models, each resulting in score $S_i$ for $i=1,2,\cdots, m$, where $m$ is the number of scoring models. In general, the scores may not have the same scales and the same direction of *goodness*. The KSL scoring system translates and scales each score $S_i$ in to a value, $M_i$ measure, that has a common scale and direction (a bigger score is better).  These value measures are then combined into an overall value ($V_k$) for the distribution using weights ($w_i$) across the scoring criteria:
 
@@ -1683,14 +1791,14 @@ For discrete distributions, the KSL provides the `PMFModeler` class. Since there
 Figure \@ref(fig:PMFMEstimationLabel) presents the PMF estimation framework. As indicated the key function is the `estimateParameters()` function. Note also that the companion object for the `PMFModeler` class has the function `equalizedPMFBreakPoints(),` which can be useful during the goodness of fit testing of the distribution. The purpose of the function is to attempt to form intervals that have similar probabilities.
 
 
-<div class="figure">
+<div class="figure" style="text-align: center">
 <img src="./figures2/ch2/PMFModeler.png" alt="PMF Estimation Framework" width="70%" height="70%" />
 <p class="caption">(\#fig:PMFMEstimationLabel)PMF Estimation Framework</p>
 </div>
 
 The application of the `estimateParameters()` function results in the creation of a list that contains instances of `EstimationResult,` one for each of the estimation methods.
 
-<div class="figure">
+<div class="figure" style="text-align: center">
 <img src="./figures2/ch2/DiscretePMFGoodnessOfFit.png" alt="Discrete Distribution Goodness of Fit Framework" width="90%" height="90%" />
 <p class="caption">(\#fig:DiscretePMFGoodnessOfFitLabel)Discrete Distribution Goodness of Fit Framework</p>
 </div>
@@ -1833,7 +1941,7 @@ fp.saveToFile("Lab_Count_Freq_Plot")
 
 Figure \@ref(fig:LCFreqPlot) clearly indicates that the Poisson distribution is a candidate model.
 
-<div class="figure">
+<div class="figure" style="text-align: center">
 <img src="./figures2/ch2/Lab_Count_Freq_Plot.png" alt="Integer Frequency Plot of Lab Count Data" width="80%" height="80%" />
 <p class="caption">(\#fig:LCFreqPlot)Integer Frequency Plot of Lab Count Data</p>
 </div>
@@ -1852,14 +1960,14 @@ println(f)
 
 Just as in Appendix \@ref(appidm), the time series plot does not indicate a trend or pattern with respect to time as shown in Figure \@ref(fig:LCObsPlot).
 
-<div class="figure">
+<div class="figure" style="text-align: center">
 <img src="./figures2/ch2/Lab_Count_Obs_Plot.png" alt="Time Series Plot of Lab Count Data" width="80%" height="80%" />
 <p class="caption">(\#fig:LCObsPlot)Time Series Plot of Lab Count Data</p>
 </div>
 
 Again, the ACF plot, see Figure \@ref(fig:LCACFPlot), does not indicate that the data has any significant concerns with respect to autocorrelation.
 
-<div class="figure">
+<div class="figure" style="text-align: center">
 <img src="./figures2/ch2/Lab_Count_ACF_Plot.png" alt="Autocorrelation Plot of Lab Count Data" width="80%" height="80%" />
 <p class="caption">(\#fig:LCACFPlot)Autocorrelation Plot of Lab Count Data</p>
 </div>
@@ -1915,7 +2023,7 @@ Hypothesis test at 0.05 level:
 The p-value = 0.9894603477732713 is >= 0.05 : Do not reject hypothesis.
 ```
 
-<div class="figure">
+<div class="figure" style="text-align: center">
 <img src="./figures2/ch2/Lab_Count_PMF_Plot.png" alt="PMF Comparison Plot of Lab Count Data" width="80%" height="80%" />
 <p class="caption">(\#fig:LCPMFPlot)PMF Comparison Plot of Lab Count Data</p>
 </div>
@@ -2001,19 +2109,19 @@ Bin Range        Count CumTot Frac  CumFrac
 
 Figure \@ref(fig:ch2PharmacyHistPlot) clearly shows an exponential shape for the distribution.
 
-<div class="figure">
+<div class="figure" style="text-align: center">
 <img src="./figures2/ch2/pdfModelingResults_Hist_Plot.png" alt="Histogram of the Pharmacy Data" width="80%" height="80%" />
 <p class="caption">(\#fig:ch2PharmacyHistPlot)Histogram of the Pharmacy Data</p>
 </div>
 
 Similar to the analysis in Appendix \@ref(appidm), the time series plot, Figure \@ref(fig:ch2PharmachyObsPlot), and the ACF plot, Figure \@ref(fig:ch2PharmacyACFPlot) do not indicate any issues with non-stationary behavior or with dependence within the observations.
 
-<div class="figure">
+<div class="figure" style="text-align: center">
 <img src="./figures2/ch2/pdfModelingResults_Obs_Plot.png" alt="Time Series Observation Plot for Pharmacy Data" width="80%" height="80%" />
 <p class="caption">(\#fig:ch2PharmachyObsPlot)Time Series Observation Plot for Pharmacy Data</p>
 </div>
 
-<div class="figure">
+<div class="figure" style="text-align: center">
 <img src="./figures2/ch2/pdfModelingResults_ACF_Plot.png" alt="ACF Plot for Pharmacy Data" width="80%" height="80%" />
 <p class="caption">(\#fig:ch2PharmacyACFPlot)ACF Plot for Pharmacy Data</p>
 </div>
@@ -2039,21 +2147,47 @@ println("** Recommended Distribution** ${topResult.name}")
 println()
 ```
 
-The following table displays the distribution fitting scores.
+The following table displays the distribution fitting scores for the Bayesian Information Criterion (BIC), Anderson-Darling (AD), Cramer Von Mises (CVM), and Q-Q plot correlation criteria.
 
-<div class="figure">
+<div class="figure" style="text-align: center">
 <img src="./figures2/ch2/pdfModelingResults_Scores.png" alt="Scoring Model Results" width="100%" height="100%" />
 <p class="caption">(\#fig:ch2PharmacyScores)Scoring Model Results</p>
 </div>
 
-By applying the value scoring model and sorting, we can see the top performing distribution with overall value of 0.9696257711895793 in the following table.  Thus, the recommended distribution is: 36.83628655364795 + Exponential(mean=145.94151344635202). Notice that the shift parameter was automatically estimated for this situation.
+By applying the value scoring model and sorting, we can see in Figure \@ref(fig:ch2PharmacyOveralScores) that the top performing distribution is the exponential distribution with an overall value of 0.9484545.  Thus, the recommended distribution is: 36.83628655364795 + Exponential(mean=145.94151344635202). Notice that the shift parameter was automatically estimated for this situation.
 
-<div class="figure">
+<div class="figure" style="text-align: center">
 <img src="./figures2/ch2/pdfModelingResults_OverallScores.png" alt="Overall Scoring Results" width="100%" height="100%" />
 <p class="caption">(\#fig:ch2PharmacyOveralScores)Overall Scoring Results</p>
 </div>
 
-We can use the following code to perform a goodness of fit analysis on the recommended distribution.
+The KSL distribution recommendation framework also evaluates each distribution based on the rank obtained by each metric. The distribution that had the most first place ranks can be considered the top performing distribution.  As shown in Figure \@ref(fig:ch2PharmacyOveralRanks), we again see that the exponential distribution is the top distribution based on rankings.
+
+<div class="figure" style="text-align: center">
+<img src="./figures2/ch2/pdfModelingResults_RankingResults.png" alt="Overall Ranking Results" width="100%" height="100%" />
+<p class="caption">(\#fig:ch2PharmacyOveralRanks)Overall Ranking Results</p>
+</div>
+
+If you are unsure of the recommended distribution or you want to better understand the sensitivity of the recommendation, the `PDFModeler` companion object provides support for bootstrapping the distribution family recommendation. Assuming that the observations are in an array called `data,` the following code will repeatedly sample from the data using a bootstrapping approach to tabulate the frequency that each possible distribution is recommended by the framework. 
+
+```kt
+val df = PDFModeler.bootstrapFamilyFrequencyAsDataFrame(data)
+println(df)
+```
+
+Running the bootstrapping family frequency tabulation process on the pharamacy model data yields the following results.
+
+```
+      Distribution Ranked First cum_count proportion cumProportion
+ 0      Triangular          1.0       1.0     0.0025      0.002500
+ 1 GeneralizedBeta          2.0       3.0     0.0050      0.007500
+ 2     Exponential        321.0     324.0     0.8025      0.810000
+ 3           Gamma         76.0     400.0     0.1900      1.000000
+```
+
+Clearly, the exponential distribution is the most likely distribution to be recommended using the average scoring criterion. This process can be used before going through the PDF modeling process to suggest distributions to consider, or, as done here, it can be performed after the distribution recommendation process to provide some confidence in the recommended distribution. 
+
+After we are comfortable with the recommended distribution, we can use the following code to perform a goodness of fit analysis.
 
 ```kt
 val gof = ContinuousCDFGoodnessOfFit(topResult.estimationResult.testData,
@@ -2113,7 +2247,7 @@ Cramer-Von-Mises test p-value = 0.9893094979248238
 
 Finally, we can review the distribution plot, Figure \@ref(fig:ch2PharmacyPDFPlot), and see that according the the P-P plot, Q-Q plot, histogram overlay, and empirical cumulative distribution overlay plot that the exponential distribution is an excellent probability model for this data.
 
-<div class="figure">
+<div class="figure" style="text-align: center">
 <img src="./figures2/ch2/pdfModelingResults_PDF_Plot.png" alt="Distribution Plot for Pharmacy Data" width="80%" height="80%" />
 <p class="caption">(\#fig:ch2PharmacyPDFPlot)Distribution Plot for Pharmacy Data</p>
 </div>
@@ -2151,17 +2285,16 @@ Some of these more advanced capabilities will be illustrated in future chapters.
 ## Exercises
 
 ***
-
 ::: {.exercise #Ch2Ex1}
 Consider the following discrete distribution of the random variable $X$ whose
 probability mass function is $p(x)$.
-:::
 
     $x$      0     1     2     3     4
   -------- ----- ----- ----- ----- -----
    $p(x)$   0.3   0.2   0.2   0.1   0.2
 
 Write a KSL program to generate 4 random variates from this distribution using stream 1.
+:::
 
 ***
 
@@ -2296,14 +2429,15 @@ Write a KSL program to generate 10 observations from this distribution using str
 
 ::: {.exercise #Ch2Ex13}
 Consider the following probability density function:
-:::
+
 $$f(x) = 
   \begin{cases}
      \dfrac{3x^2}{2} & -1 \leq x \leq 1\\
      0 & \text{otherwise} \\
   \end{cases}$$
 
-Write a KSL program to generate 10 observations from this distribution using the acceptance-rejection technique.
+Write a KSL program to generate 10 observations from this distribution using the acceptance-rejection technique. Use stream 1 in your implementation. 
+:::
 
 ***
 
@@ -2316,11 +2450,11 @@ $$f(x) =
      0 & \text{otherwise} \\
   \end{cases}
 $$
-:::
 
 a. Determine the value of $c$ that will turn $g(x)$ into a probability density function. The resulting probability density function is called a parabolic distribution.
 b. Denote the probability density function found in part (a), $f(x)$.  Let $X$ be a random variable from $f(x)$.  Derive the inverse cumulative distribution function for $f(x)$.
-c. Write a KSL program to generate 10 observations from this distribution over the range of $a=4$ and $b=12$ using your work from part (a) and (b).
+c. Write a KSL program to generate 10 observations from this distribution over the range of $a=4$ and $b=12$ using your work from part (a) and (b). Use stream 1 in your implementation.
+:::
 
 ***
 
@@ -2334,7 +2468,7 @@ $$f(x) =
   \end{cases}
 $$
   
-Derive an inverse cumulative distribution algorithm for generating from $f(x)$. Write a KSL program to generate 10 observations from this distribution for $c=5$.
+Derive an inverse cumulative distribution algorithm for generating from $f(x)$. Write a KSL program to generate 10 observations from this distribution for $c=5$. Use stream 1 in your implementation.
 :::
 
 ***

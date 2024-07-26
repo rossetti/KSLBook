@@ -63,6 +63,7 @@ fig:ch2PharmachyObsPlot
 fig:ch2PharmacyACFPlot
 fig:ch2PharmacyScores
 fig:ch2PharmacyOveralScores
+fig:ch2PharmacyOveralRanks
 fig:ch2PharmacyPDFPlot
 exr:Ch2Ex1
 exr:Ch2Ex2
@@ -188,6 +189,11 @@ fig:ResponseCIfc
 exm:ch4ex5
 fig:QOverview
 fig:QandQObject
+fig:Ch4TandemQ
+exm:exCh4TandemQ
+fig:SResource
+fig:SingleQStation
+fig:StationPkg
 exr:ch4P1
 exr:ch4P2
 exr:ch4P3
@@ -197,6 +203,7 @@ exr:ch4P6
 exr:ch4P7
 exr:ch4P8
 exr:ch4P9
+exr:ch4P10
 def:WRS
 def:ARS
 fig:TallyTimePersistent
@@ -247,6 +254,7 @@ exr:ch5P8
 exr:ch5P9
 exr:ch5P10
 exr:ch5P11
+exr:ch5P12
 fig:Ch5WarehouseSystem
 fig:Ch5DriveThruPharmacy
 fig:Ch5DTPActivityDiagram
@@ -591,7 +599,7 @@ types-of-systems-and-simulation-models
 simulation-descriptive-or-prescriptive-modeling
 randomness-in-simulation
 simulation-languages
-ch1:sec:simMeth
+ch1secsimMeth
 overview-of-the-kotlin-simulation-library
 exercises
 ch2rng
@@ -619,6 +627,7 @@ kslStatistics
 creating-and-using-a-statistic
 histFreq
 ch3batchStats
+ch3StatSummary
 ssMC
 ch3StatReview
 point-estimates-and-confidence-intervals
@@ -645,6 +654,10 @@ introDEDSUpDown
 introDEDSPharmacy
 more-details-about-the-pharmacy-model-implementation
 enhancing-the-drive-through-pharmacy-model
+DTPExpanded
+modeling-a-simple-resource
+modeling-a-resource-with-a-waiting-line
+modeling-the-tandem-queue-of-example-refexmexch4tandemq
 introDEDSSummary
 exercises-3
 simoa
@@ -672,7 +685,7 @@ multiple-comparison-with-the-best-procedures-mcb
 ch5Screening
 ch5Scenarios
 controlAntns
-random-variable-parameters
+rvParameters
 kslScenarios
 simoasummary
 exercises-4

@@ -39,7 +39,7 @@ This chapter provides a series of example Kotlin code that illustrates the use o
 
 The KSL has a wide variety of classes that support statistic computations.  A main theme in understanding the usage of the classes within the `ksl.utilities.statistics` package is the concept of collection.  This concept is encapsulated within the interface, `CollectorIfc` interface.  The methods of the `CollectorIfc` interface are illustrated in Figure \@ref(fig:CollectorIfc).
 
-<div class="figure">
+<div class="figure" style="text-align: center">
 <img src="./figures/CollectInterface.png" alt="CollectorIfc Interface"  />
 <p class="caption">(\#fig:CollectorIfc)CollectorIfc Interface</p>
 </div>
@@ -48,7 +48,7 @@ Something is a collector, if it implements the `CollectorIfc` interface. The imp
 
 Figure \@ref(fig:Statistics) presents the major classes and interfaces within the statistics package. The `CollectIfc` interface is implemented within the abstract base class `Collector`, which serves as the basis for various concrete implementations of statistical collectors. There are two major kinds of statistics, one of which assumes that the values presented must be weighted, the `WeightedStatisticIfc` interface and the `WeightedStatistic` class. The other branch of classes, derived from `AbstractStatistic` do not necessarily have to be weighted. The main classes to be discussed in this chapter are `Statistic` and `Histogram`.
 
-<div class="figure">
+<div class="figure" style="text-align: center">
 <img src="./figures/Statistics.png" alt="Major Classes and Interfaces in the Statistics Package"  />
 <p class="caption">(\#fig:Statistics)Major Classes and Interfaces in the Statistics Package</p>
 </div>
@@ -603,6 +603,8 @@ fun main() {
 ```
 :::
 
+### Statistics Summary {#ch3StatSummary}
+
 The `ksl.utilities.statistic` package defines a lot of functionality.  Here is a summary of some of the useful classes and interfaces.
 
 1. `CollectorIfc` defines a set of collect() methods for collecting data. The method is overridden to permit the collection of a wide variety of data types. The collect() method is designed to collect values and a weight associated with the value. This allows the collection of weighted statistics. `Collector` is an abstract base class for building concrete sub-classes.
@@ -618,6 +620,9 @@ summarizing data via a batching process.
 8. `IntegerFrequency` tabulates integer values into a frequencies by observed values, similar to a histogram.
 9. `StateFrequency` facilitates defining labeled states and tabulating visitation and transition statistics.
 10. `StatisticXY` collects statistics on $(x,y)$ pairs computing statistics on the $x$ and $y$ values separately, as well as the covariance and correlation between the observations within a pair.
+11. `BoxPlotSummary` produces the summary statistics necessary for the construction of a box plot.
+12. `OLSRegression,` `RegressionResultsIfc,` and `RegressionData` facilitate performing multiple variable regression. The basic use of these classes is illustrated in Section \@ref(appExpDesign) of Appendix \@ref(appUtilities).
+13. `BootstrapSampler` facilitates the bootstrap statistical analysis technique. Its use is describe in Section \@ref(ch9BootStrapping) of Chapter \@ref(ch9AdvMC).
 
 The most important class within the statistics package is probably the
 `Statistic` class. This class summarizes the observed data into summary
@@ -903,7 +908,7 @@ p = 0.975 dof = 5.0 t-value = 2.5705818445939186
 ### Sample Size Determination {#ch3SampleSize}
 
 The confidence interval for a point estimator can serve as the basis for
-determining how many observations to have in the sample. From Equation (\@ref(eq:ci)), the quantity:
+determining how many observations to have in the sample. From Equation \@ref(eq:ci), the quantity:
 
 \begin{equation}
 h = t_{1-(\alpha/2), n-1} \dfrac{s}{\sqrt{n}}
@@ -919,10 +924,10 @@ h = t_{1-(\alpha/2), n-1} \dfrac{s}{\sqrt{n}} \leq \epsilon
 \end{equation}
 
 We call $\epsilon$ the margin of error for the bound.  Unfortunately, $t_{1-(\alpha/2), n-1}$ depends on $n$, and thus
-Equation (\@ref(eq:hwBound)) is an iterative equation. That is, you must try different values of $n$ until the condition is satisfied. Within this text, we call this method for determining the sample size the *Student-T iterative method*.
+Equation \@ref(eq:hwBound) is an iterative equation. That is, you must try different values of $n$ until the condition is satisfied. Within this text, we call this method for determining the sample size the *Student-T iterative method*.
 
 Alternatively, the required sample size can be approximated using the
-normal distribution. Solving Equation (\@ref(eq:hwBound)) for $n$ yields:
+normal distribution. Solving Equation \@ref(eq:hwBound) for $n$ yields:
 
 $$n \geq \left(\dfrac{t_{1-(\alpha/2), n-1} \; s}{\epsilon}\right)^2$$
 
@@ -974,7 +979,7 @@ mean. After taking a pilot sample of size $n=10$, we have estimated $s=6$. What 
 
 ***
 
-We will use Equation (\@ref(eq:zSampleSize)) to determine the sample size requirement. For a 99% confidence interval, we have
+We will use Equation \@ref(eq:zSampleSize) to determine the sample size requirement. For a 99% confidence interval, we have
 $\alpha = 0.01$ and $\alpha/2 = 0.005$. Thus, $z_{1-0.005} = z_{0.995} = 2.5758293064439264$. Because the margin of error, $\epsilon$ is $0.1$, we have that,
 
 $$n \geq \left(\dfrac{z_{1-(\alpha/2)}\; s}{\epsilon}\right)^2 = \left(\dfrac{2.5758293064439264 \times 6}{0.1}\right)^2 = 23885.63 \approx 23886$$
@@ -1034,7 +1039,7 @@ measures. Now, let's illustrate these methods based on a small simulation.
 
 ### Determining the Sample Size for a Monte Carlo Simulation Experiment
 
-To facilitate some of the calculations related to determining the sample size for a simulation experiment, I have constructed a spreadsheet called *SampleSizeDetermination.xlsx*, which is found in the book support files for this chapter. You may want to utilize that spreadsheet as you go through this an subsequent sections. 
+To facilitate some of the calculations related to determining the sample size for a simulation experiment, I have constructed a spreadsheet called *SampleSizeDetermination.xlsx*, which is found in the book support files for this chapter. You may want to utilize that spreadsheet as you go through this and subsequent sections. 
 
 Using a simple example, we will illustrate how to determine the sample size necessary to estimate a quantity of interest with a high level of confidence.
 
@@ -1122,7 +1127,7 @@ s_0 = \dfrac{h\sqrt{n_0}}{t_{1-(\alpha/2), n_0-1}} = \dfrac{2.2248\sqrt{20}}{t_{
 $$
 
 Now, we can use Equation \@ref(eq:zSampleSize) to determine the sample size requirement. For a 99% confidence interval, we have
-$\alpha = 0.01$ and $\alpha/2 = 0.005$. Thus, $z_{0.995} = 2.576$. Because the margin of error, $\epsilon$ is $0.5$, we have that,
+$\alpha = 0.01$ and $\alpha/2 = 0.005$. Thus, $z_{0.995} = 2.576$. Because the margin of error, $\epsilon$ is $0.5,$ we have that,
 
 $$n \geq \left(\dfrac{z_{1-(\alpha/2)}\; s}{\epsilon}\right)^2 = \left(\dfrac{2.5758293064439264 \times 4.7536998}{0.5}\right)^2 = 599.73 \approx 600$$
 To determine the sample size for estimating $p=P(X>8)$ with 95% confidence to $\pm 0.1$, we can use Equation \@ref(eq:pSampleSize)
@@ -1468,9 +1473,8 @@ The following example illustrates how to model a simple inspection process that 
 
 ***
 ::: {.example #Inspection name="Simple Inspection Process"}
-A manufacturing process has a simple inspection process. The process manufactures items and places them in boxes of with four items per box.  The manufacturing process has a defect rate of 15%. That is, the probability of an individual item being defective is 0.15. Assume that the chance of an item being defective is independent of any other item being defective. An inspector tests each box by randomly sampling one item from the box. If the selected item is good, the box is passed; if the selected item is defective, the box is rejected.  We are interested in estimating the expected number of boxes that the inspector will look at before the first box is rejected.
+A manufacturing process has a simple inspection process. The process produces items and places them in boxes with four items per box.  The manufacturing process has a defect rate of 15%. That is, the probability of an individual item being defective is 0.15. Assume that the chance of an item being defective is independent of any other item being defective. An inspector tests each box by randomly sampling one item from the box. If the selected item is good, the box is passed; if the selected item is defective, the box is rejected.  We are interested in estimating the expected number of boxes that the inspector will look at before the first box is rejected.
 :::
-
 ***
 
 This situation could be modeled using the concepts of probability theory; however, we will simulate the process to illustrate the use of KSL constructs.  The probability that an item is defective can be modeled with a Bernoulli random variable with probability of success equal 0.15.  In the following code, we model the inspection process with a function that counts the number of boxes that are inspected until the first rejected box.
@@ -1511,7 +1515,7 @@ fun numUntilFirstRejection(itemRV: BernoulliRV, itemsPerBox: Int): Double {
 }
 ```
 
-Notice that first a sample from the Bernoulli random variable is obtained. The size of this sample is the number of items per box (equal to 4 in this example).  The returned sample array contains element with values 1.0 or 0.0, with 1.0 indicating a defective item. Then, the `KSLRandom` functionality is used to randomly select from the sample "box" on element (item). If the item is good, the sampling continues with a new box. If the selected item is bad, then the sampling stops and returns the number of sample boxes inspected until the first bad box is found. 
+Notice that first a sample from the Bernoulli random variable is obtained. The size of this sample is the number of items per box (equal to 4 in this example).  The returned sample array contains elements with values 1.0 or 0.0, with 1.0 indicating a defective item. Then, the `KSLRandom` functionality is used to randomly select from the sample "box" an element (item). If the item is good, the sampling continues with a new box. If the selected item is bad, then the sampling stops and returns the number of sample boxes inspected until the first bad box is found. 
 
 ```
 Count =  	 100.000000 
@@ -1553,7 +1557,7 @@ Develop a simulation model that will estimate the expected time to completion fo
 
 ***
 
-The key to modeling this situation is representing the data associated with the network. The longest path in the network will depend upon the random activity times.  A simple approach to the determining the longest path in the network is to enumerate the paths.  Then, we can randomly generate the time associated with each activity. From the random times, we can determine the length of each path.  If we know the length of each path, then we can compute the path that is the longest.
+The key to modeling this situation is representing the data associated with the network. The longest path in the network will depend upon the random activity times.  A simple approach to the determining the longest path in the network is to enumerate the paths.  Then, we can randomly generate the time associated with each activity. From the random times, we can determine the length of each path.  If we know the length of each path, then we can compute the path that is the longest. 
 
 In the following code, we represent the activities and the associated activity time (triangular) distributions using a map.
 
@@ -1665,7 +1669,7 @@ From this sample, the number of macro replications needed to meet the criteria i
 
 The simulation is performed in two loops: an outer loop called the macro replications and an inner loop called the micro replications. The user specifies a desired (half-width) error bound ($\epsilon$), an initial sample size ($k$), and a maximum sample size limit ($M$) for the macro replications.  The initial sample size is used to generate a pilot sample from which an estimate of the number of samples needed to meet the half-width criteria. Let's call the estimated sample size, $m$.  If $m > k$, then an additional $(m-k)$ samples will be taken or until the error criteria is met or the maximum number of samples $M$ is reached. Thus, if $m > M$, and the error criterion is not met during the macro replications a total of $M$ observations will be observed.  Thus, the total number of macro replications will not exceed $M$.  If the error criteria is met before $M$ is reached, the number of macro replications $n$ will be somewhere between $k$ and $M$.  For each of the $n$, macro replications, a set of micro replications will be executed. Let $r$ be the number of micro replications. The micro replications represent the evaluation of $r$ observations of the Monte-Carlo evaluation. Thus, the total number of observations will be $n \times r$.
 
-By default, the number of macro replications should be relatively small and the number of micro replications large.  Specific settings will be problem dependent.  The default initial sample size, $k$ is 30, with a maximum number of macro replications of$ M = 10000$.  The default half-width error bound is $0.001$.  The default setting
+By default, the number of macro replications should be relatively small and the number of micro replications large.  Specific settings will be problem dependent.  The default initial sample size, $k$ is 30, with a maximum number of macro replications of $M = 10000$.  The default half-width error bound is $0.001$.  The default setting
 of the number of micro replications, $r$, is 100.  Again, these are all adjustable by the user via the properties of the `MCExperiment` class.  The initial pilot sample is executed automatically as part of the overall sampling; however, using the `runInitialSample()` method, the user can just execute the initial sample and review the results before setting up the overall sampling. In the following code, we re-implement the news vendor problem using the `MCExperiment` class. 
 
 To use the `MCExperiment` class the user can either subclass `MCExperiment` or provide a function that represents a replication of an individual observation.  This can be done by using the `MCReplicationIfc` functional interface. 
@@ -1680,7 +1684,7 @@ fun interface MCReplicationIfc {
 }
 ```
 
-A Kotlin functional interface allows the function to be supplied easily as a parameter of a function.  An interface with only one abstract method is called a functional interface, or a Single Abstract Method (SAM) interface. Using the functional programming constructs of Kotlin the user can supply a lamda expression as the function, implement the interface, or reference a class or object method that has the same functional signature. In the example presented here, for simplicity and clarity, we implement the interface.
+A Kotlin functional interface allows the function to be supplied easily as a parameter of a function.  An interface with only one abstract method is called a functional interface, or a [Single Abstract Method](https://kotlinlang.org/docs/fun-interfaces.html) (SAM) interface. Using the functional programming constructs of Kotlin the user can supply a lambda expression as the function, implement the interface, or reference a class or object method that has the same functional signature. In the example presented here, for simplicity and clarity, we implement the interface.
 
 ```kt
 class NewsVendor(var demand: RVariableIfc) : MCReplicationIfc {
@@ -1765,9 +1769,9 @@ Confidence Level 0.95
 Confidence Interval [1.494972104789197, 1.5149717154355216]
 ```
 
-As we can see from the results, the desired half-width criteria of 0.01 was met based on 2045 macro replications. 
+As we can see from the results, the desired half-width criteria of 0.01 was met based on 2047 macro replications. 
 
-The KSL also provides a class called `MC1DIntegration` that is a subclass of `MCExperiment` which facilitates the evaluation of 1-dimensional integration as previously illustrated in Section \@ref(ssMC).  For that situation a function and a sampling distribution can be provided. 
+The KSL also provides a class called `MC1DIntegration` that is a subclass of `MCExperiment` which facilitates the evaluation of 1-dimensional integrals as previously illustrated in Section \@ref(ssMC).  For that situation a function and a sampling distribution can be provided. 
 
  * Let $f(x)$ be the probability distribution for the random variable supplied by the sampler.
  * Let $g(x)$ be the function that needs to be integrated.
@@ -1881,13 +1885,14 @@ Find the approximate number of *additional* replications in order to have a 99\%
 ::: {.exercise #ch3P4}
 Suppose $n=10$ observations were collected on the time spent in a manufacturing system for a part. The analysis determined a 95\% confidence interval for the
 mean system time of $[18.595, 32.421]$.
-:::
+
 a. Find the approximate number of samples needed to have a 95\% confidence
 interval that is within plus or minus 2 minutes of the true mean system
 time.
 b. Find the approximate number of samples needed to have a 99\% confidence
 interval that is within plus or minus 1 minute of the true mean system
 time.
+:::
 
 ***
 
@@ -1900,7 +1905,6 @@ Using the half-width ratio sample size determination techniques, recommend a sam
 
 ::: {.exercise #ch3P6}
 Assume that the following table represents the summary statistics for a pilot run of 10 replications from a simulation. 
-:::
 
 | Simulation Statistics |  NPV  | P(NPV $<$ 0) |
 |:---------------------:|:-----:|:------------:|
@@ -1911,17 +1915,17 @@ Assume that the following table represents the summary statistics for a pilot ru
 a. Find the approximate number of additional replications to execute in order to have a 99% confidence interval that is within plus or minus 20 dollars of the true mean net present value using the normal approximation method.
 
 b. Find the number of replications necessary to be 99% confident that you have an interval within plus or minus 2% of the true probability of negative present value.
+:::
 
 ***
 
 ::: {.exercise #ch3P7}
-The service
-times for a automated storage and retrieval system has a shifted
+The service times for a automated storage and retrieval system has a shifted
 exponential distribution. It is known that it takes a minimum of 15
 seconds for any retrieval. The rate parameter of the exponential distribution
 is $\lambda = 45$ retrievals per second. Setup a model that will generate 20 observations of
 the retrieval times. Report the minimum, maximum, sample average, and 95\%
-confidence interval half-width of the observations.
+confidence interval half-width of the observations. Use stream 1 for your sampling.
 :::
 
 ***
@@ -1931,7 +1935,7 @@ The time to failure for a computer printer fan has a Weibull
 distribution with shape parameter $\alpha = 2$ and scale parameter
 $\beta = 3$. Setup a model that will generate 50 observations of the
 failure times. Report the minimum, maximum, sample average, and 95\%
-confidence interval half-width of the observations.
+confidence interval half-width of the observations. Use stream 1 for your sampling.
 :::
 
 ***
@@ -1943,7 +1947,7 @@ and scale parameter $\beta = 3$. Testing has indicated that the
 distribution is limited to the range from 1.5 to 4.5. Set up a model to
 generate 100 observations from this truncated distribution. Report the
 minimum, maximum, sample average, and 95\% confidence interval half-width
-of the observations.
+of the observations. Use stream 1 for your sampling.
 :::
 
 ***
@@ -1956,7 +1960,7 @@ range is equally likely. You are tasked with generating interest rates
 for a cash flow analysis of the project. Set up a model to generate 100
 observations of the interest rate values for the capital project
 analysis. Report the minimum, maximum, sample average, and 95\%
-confidence interval half-width of the observations.
+confidence interval half-width of the observations. Use stream 1 for your sampling.
 :::
 
 ***
@@ -1972,7 +1976,7 @@ f(x) =
      0 & \text{otherwise} \\
   \end{cases}
 $$ 
-Report the minimum, maximum, sample average, and 95\% confidence interval half-width of the observations.
+Report the minimum, maximum, sample average, and 95\% confidence interval half-width of the observations. Use stream 1 for your sampling.
 :::
 
 ***
@@ -1982,7 +1986,7 @@ Suppose that the service time for a patient consists of two distributions. There
 is a 25% chance that the service time is uniformly distributed with
 minimum of 20 minutes and a maximum of 25 minutes, and a 75\% chance that
 the time is distributed according to a Weibull distribution with shape
-of 2 and a scale of 4.5.
+of 2 and a scale of 4.5. Use stream 1 for your sampling. 
 
 Setup a model to generate 100 observations of the service time. Compute
 the theoretical expected value of the distribution. Estimate the expected
@@ -1995,14 +1999,14 @@ expected value of the distribution?
 
 ::: {.exercise #ch3P13}
 Suppose that $X$ is a random variable with a $N(\mu = 2, \sigma = 1.5)$ normal distribution.
-Generate 100 observations of $X$ using a simulation model.
+Generate 100 observations of $X$ using a simulation model. Use stream 1 for your sampling.
 
-Estimate the mean from your observations. Report a 95\% confidence interval for your point estimate.
+- Estimate the mean from your observations. Report a 95\% confidence interval for your point estimate.
 
-Estimate the variance from your observations. Report a 95\% confidence interval for
+- Estimate the variance from your observations. Report a 95\% confidence interval for
 your point estimate.
 
-Estimate the $P(X>3)$ from your observations. Report a 95\% confidence interval for your point estimate.
+- Estimate the $P(X>3)$ from your observations. Report a 95\% confidence interval for your point estimate.
 :::
 
 ***
@@ -2015,56 +2019,58 @@ of 20 that require rework. A process problem is suspected if $X$ exceeds
 its mean by more than 3 standard deviations. Simulate 30
 hours of the process, i.e. 30 samples of size 20, and estimate the
 chance that $X$ exceeds its expected value by more than 3 standard
-deviations.
+deviations. Use stream 1 for your sampling.
 :::
 
 ***
 
 ::: {.exercise #ch3P15}
 Consider the following discrete distribution of the random variable $X$ whose
-probability mass function is $p(x)$. Setup a model to generate 30 observations of the random variable $X$. Report the minimum, maximum, sample average, and 95\% confidence interval half-width of the observations.
-:::
+probability mass function is $p(x)$. Setup a model to generate 30 observations of the random variable $X$. Use stream 1 for your sampling. Report the minimum, maximum, sample average, and 95\% confidence interval half-width of the observations.
 
     $x$      0     1     2     3     4
   -------- ----- ----- ----- ----- -----
    $p(x)$   0.3   0.2   0.2   0.1   0.2
+:::
 
 ***
 
 ::: {.exercise #ch3P16}
 The demand for parts
 at a repair bench per day can be described by the following discrete
-probability mass function. Setup a model to generate 30 observations of the demand. Report the minimum, maximum, sample average, and 95\% confidence interval half-width
+probability mass function. Setup a model to generate 30 observations of the demand. Use stream 1 for your sampling. Report the minimum, maximum, sample average, and 95\% confidence interval half-width
 of the observations.
-:::
 
      Demand       0     1     2
   ------------- ----- ----- -----
    Probability   0.3   0.2   0.5
+:::
 
 ***
 
 ::: {.exercise #ch3P17}
 Use the Monte Carlo method estimate the following integral with 95\% confidence
-to within $\pm 0.01$.
+to within $\pm 0.01$. Use stream 1 for your sampling.
 
 $$\int\limits_{1}^{4} \left( \sqrt{x} + \frac{1}{2\sqrt{x}}\right) \mathrm{d}x$$
+
 :::
 
 ***
 
 ::: {.exercise #ch3P18}
 Use the Monte Carlo method estimate the following integral with 99\% confidence
-to within $\pm 0.01$.
+to within $\pm 0.01$. Use stream 1 for your sampling.
 
 $$\int\limits_{0}^{\pi} \left( \sin (x) - 8x^{2}\right) \mathrm{d}x$$
 
 :::
 
 ***
+
 ::: {.exercise #ch3P19}
 Use the Monte Carlo method estimate the following integral with 99\% confidence
-to within $\pm 0.01$.
+to within $\pm 0.01$. Use stream 1 for your sampling.
 
 $$\theta = \int\limits_{0}^{1} \int\limits_{0}^{1} \left( 4x^{2}y + y^{2}\right) \mathrm{d}x \mathrm{d}y$$
 
@@ -2078,15 +2084,14 @@ to check a package filling line in the plant. The scale would allow for
 better control over the filling operation and result in less
 overfilling. It is known for certain that the scale costs \$800
 initially. The annual cost has been estimated to be normally distributed
-with a mean of \$100 and a standard deviation of \$10. The extra savings
+with a mean of \$100 and a standard deviation of \$10 (stream 1). The extra savings
 associated with better control of the filling process has been estimated
 to be normally distributed with a mean of \$300 and a standard deviation
-of \$50. The salvage value has been estimated to be uniformly
-distributed between \$90 and \$100. The useful life of the scale varies
+of \$50 (stream 2). The salvage value has been estimated to be uniformly
+distributed between \$90 and \$100 (stream 3). The useful life of the scale varies
 according to the amount of usage of the scale. The manufacturing has
 estimated that the useful life can vary between 4 to 7 years with the
-chances given in the following table.
-:::
+chances given in the following table (stream 4).
 
     years      4     5     6     7
   ---------- ----- ----- ----- -----
@@ -2096,7 +2101,7 @@ chances given in the following table.
 The interest rate has been varying recently and the firm is unsure of
 the rate for performing the analysis. To be safe, they have decided that
 the interest rate should be modeled as a beta random variable over the
-range from 6 to 9 percent with alpha = 5.0 and beta = 1.5. Given all the
+range from 6 to 9 percent with alpha = 5.0 and beta = 1.5 (stream 5). Given all the
 uncertain elements in the situation, they have decided to perform a
 simulation analysis in order to assess the expected present value of the
 decision and the chance that the decision has a negative return.
@@ -2104,14 +2109,15 @@ decision and the chance that the decision has a negative return.
 We desire to be 95% confident that our estimate of the true expected
 present value is within $\pm$ 10 dollars. Develop a model for this
 situation.
+:::
 
 ***
+
 ::: {.exercise #ch3P21}
 A firm is trying to decide whether or not to invest in two proposals A
 and B that have the net cash flows shown in the following table, where
 $N(\mu, \sigma)$ represents that the cash flow value comes from a normal
 distribution with the provided mean and standard deviation.
-:::
 
    End of Year         0              1              2              3              4
   ------------- --------------- -------------- -------------- -------------- --------------
@@ -2126,39 +2132,43 @@ Given all the uncertain elements in the situation, they have decided to
 perform a simulation analysis in order to assess the situation. Use to
 answer the following questions:
 
-Compare the expected present worth of the two alternatives. Estimate the
+- Compare the expected present worth of the two alternatives. Estimate the
 probability that alternative A has a higher present worth than
 alternative B.
 
-Determine the number of samples needed to be 95\% confidence that you
+- Determine the number of samples needed to be 95\% confidence that you
 have estimated the $P[PW(A) > PW(B)]$ to within $\pm$ 0.10.
 
+Use stream 1 for the cash flows and stream 2 for the interest rate.
+:::
+
 ***
+
 ::: {.exercise #ch3P22}
 A U-shaped component is to be formed from
 the three parts A, B, and C. The picture is shown in the figure below.
 The length of A is lognormally distributed with a mean of 20 millimeters
-and a standard deviation of 0.2 millimeter. The thickness of parts B and
-C is uniformly distributed with a minimum of 4.98 millimeters and a
+and a standard deviation of 0.2 millimeter (stream 1). The thickness of parts B (stream 2) and
+C (stream 3) is uniformly distributed with a minimum of 4.98 millimeters and a
 maximum of 5.02 millimeters. Assume all dimensions are independent.
 
 Develop a model to estimate the probability that the gap $D$ is less
 than 10.1 millimeters with 95\% confidence to within plus or minus 0.01.
-
-:::
 
 <div class="figure" style="text-align: center">
 <img src="./figures2/ch2/exrUShapedComponentProblem.png" alt="U-Shaped Component"  />
 <p class="caption">(\#fig:UShappedComponent)U-Shaped Component</p>
 </div>
 
+:::
+
 ***
+
 ::: {.exercise #ch3P23}
 Shipments can be transported by rail or trucks between New York and Los
 Angeles. Both modes of transport go through the city of St. Louis. The
 mean travel time and standard deviations between the major cities for
 each mode of transportation are shown in the following figure.
-:::
 
 <div class="figure" style="text-align: center">
 <img src="./figures2/ch2/exrTruckProblem.png" alt="Truck Paths"  />
@@ -2187,6 +2197,7 @@ will be able to deliver the shipment within 85 hours.
 
 d. Estimate the probability that a shipping combination will be the
 shortest.
+:::
 
 ***
 
@@ -2197,8 +2208,6 @@ $$\text{Profit} = (\text{unit price} - \text{unit cost})\times(\text{quantity so
 
 Suppose that the unit price is \$200 per gaming station, and that the
 other variables have the following probability distributions:
-  
-:::
 
      Unit Cost      80      90      100    110
   --------------- ------- ------- ------- ------
@@ -2208,12 +2217,12 @@ other variables have the following probability distributions:
     Fixed Cost     50000   65000   80000  
     Probability    0.40    0.30    0.30   
 
-Use a simulation model to generate 1000 observations of the profit.
+Use a simulation model to generate 1000 observations of the profit. Use stream 1 for the unit cost distribution, stream 2 for the quantity sold distribution, and stream 3 for the fixed cost distribution.
 
 Estimate the mean profit from your sample and compute a 95\% confidence
 interval for the mean profit. Estimate the probability that the profit
 will be positive.
-
+:::
 
 ***
 
@@ -2239,8 +2248,6 @@ opponent, and whether or not there are other special events planned for
 the game day weekend. There are three types of game days demand: high,
 medium, low. The type of day has a probability distribution associated
 with it.
-
-:::
 
    Type of Day   High   Medium   Low
   ------------- ------ -------- ------
@@ -2269,7 +2276,8 @@ that he has determined that $Q = 50$.
 
 Make sure that you can estimate the average profit and the probability
 that the profit is greater than zero for Mr. Wilson. Develop a model to
-estimate the average profit based on 100 observations.
+estimate the average profit based on 100 observations.  Use stream 1 for the type of day distribution and streams 2, 3, 4 for the demand for each type of day.
+:::
 
 ***
 
@@ -2281,11 +2289,11 @@ location along the aisle. And let $Z$ be the time to travel up to the
 correct location on the shelves. Assume that the distributions of $X$,
 $Y$, and $Z$ are as follows:
 
-$X \sim$ lognormal with mean 20 and standard deviation 10 seconds
+$X \sim$ lognormal with mean 20 and standard deviation 10 seconds (stream 1)
 
-$Y \sim$ uniform with minimum 10 and maximum 15 seconds
+$Y \sim$ uniform with minimum 10 and maximum 15 seconds (stream 2)
 
-$Z \sim$ uniform with minimum of 5 and a maximum of 10 seconds
+$Z \sim$ uniform with minimum of 5 and a maximum of 10 seconds (stream 3)
 
 Develop a model that can estimate the average total time that it takes
 to locate a part and can estimate the probability that the time to
@@ -2308,9 +2316,7 @@ is determined by simulating many cycles of lead-time and the demands
 that occur during the lead-time to get many realizations of the random
 variable LDT. Notice that LDT is the *convolution* of a random number of
 random demands. Suppose that the daily demand for an item is given by
-the following probability mass function:
-  
-:::
+the following probability mass function (stream 1):
 
    Daily Demand (items)    4      5      6      7      8
   ---------------------- ------ ------ ------ ------ ------
@@ -2325,10 +2331,11 @@ simulate 1000 instances of LDT. Report the summary statistics for the
 to 10. Report a 95% confidence interval on your estimate.
 
 Assume that the lead-time has a shifted geometric distribution with
-probability parameter equal to 0.2 Use a model to simulate 1000
+probability parameter equal to 0.2 (stream 2). Use a model to simulate 1000
 instances of LDT. Report the summary statistics for the 1000
 observations. Estimate the chance that LDT is greater than or equal to
 10. Report a 95\% confidence interval on your estimate.
+:::
 
 ***
 
@@ -2337,8 +2344,7 @@ If $Z \sim N(0,1)$, and $Y = \sum_{i=1}^k Z_i^2$ then $Y \sim \chi_k^2$,
 where $\chi_k^2$ is a chi-squared random variable with $k$ degrees of
 freedom. Setup a model to generate 50 $\chi_5^2$ random variates.
 Report the minimum, maximum, sample average, and 95\% confidence interval
-half-width of the observations.
-
+half-width of the observations.  Use stream 1 for your sampling.
 :::
 
 ***
@@ -2347,7 +2353,7 @@ half-width of the observations.
 Setup a model that
 will generate 30 observations from the following probability density
 function using the Acceptance-Rejection algorithm for generating random
-variates.
+variates. Use stream 1 for your sampling.
 
 $$f(x) = 
   \begin{cases}
@@ -2371,15 +2377,15 @@ random variables, i.e. $N(0,1)$. Use to implement the Box and Muller
 algorithm for generating normal random variables. Generate 1000
 $N(\mu = 2, \sigma = 0.75)$ random variables via this method. Report the
 minimum, maximum, sample average, and 95\% confidence interval half-width
-of the observations.
-
+of the observations.  Assign stream 1 to $U_1$ and stream 2 $U_2$.
 :::
 
 ***
+
 :::{.exercise #ch3P31}
 In the popular English game of Hazard, a player must first determine which of the five numbers from 5-9 will be the “main” point. The player does this by rolling two dice until such time as the point sum equals one of these five numbers. The player then rolls again. He/she wins if the point sum of this roll corresponds with the “main” point as follows: main 5 corresponds with a point sum of 5, main 6 corresponds with a point sum of 6 or 7, main 7 corresponds with sum 7 or 11, main 8 corresponds with sum 8 or 12, and main 9 corresponds with sum 9.
 The player loses if, having taken on a main point of 5 or 9, he/she then rolls a sum of 11 or 12, or by rolling a sum of 11 against a main of 6 or 8, or by rolling a sum of 12 against a main of 7. In every other situation, the sum thrown becomes the player’s “chance” point. From here on the player rolls two dice until either the “chance” point (player wins) or the “main” point (player loses) reappears. 
 
-Using the KSL verify via simulation that the probability of the player winning is equal to 0.5228, where the main and the chance points contribute 0.1910 and 0.3318, respectively, to the probability of winning. Estimate the probabilities to within 4 decimal places of accuracy.
+Using the KSL verify via simulation that the probability of the player winning is equal to 0.5228, where the main and the chance points contribute 0.1910 and 0.3318, respectively, to the probability of winning. Estimate the probabilities to within 4 decimal places of accuracy.  Use stream 1 for your sampling.
 :::
 
