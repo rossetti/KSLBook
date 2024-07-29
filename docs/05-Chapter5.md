@@ -4023,7 +4023,7 @@ per YBox set is exponentially distributed with a mean of 10 minutes. On the aver
 single operator. Adjustment time per YBox is uniformly distributed between 7 and 14 minutes. After
 adjustments are made, the units are routed back to the inspection
 station to be retested. Assume that a part can be adjusted as many times as needed until it passes inspection. Build an simulation model of this system. Use a
-replication length of 30,000 minutes. Use stream 1 for the arrival process, stream 2 for the inspection time, and stream 3 to determine if the part passes inspection.
+replication length of 30,000 minutes. Use stream 1 for the arrival process, stream 2 for the inspection time, stream 3 for the adjustment time, and stream 4 to determine if the part needs adjustment.
 
 a. Perform a warm up analysis of the total time a set spends in the system and estimate the
 system time to within 2 minutes with 95% confidence.

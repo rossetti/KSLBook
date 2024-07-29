@@ -3202,7 +3202,7 @@ This allow a probability to be estimated.  In this case, we estimated the probab
 
 ## More Drive Through Fun {#DTPExpanded}
 
-Many fast food franchises have configured their restaurants such that customers using the drive through option first place an order at an ordering station and then pickup and pay at following station. This situation is called a tandem queueing system as illustrated in Figure \@ref(fig:Ch4TandemQ). This section presents KSL constructs that facilitate the modeling of simple queueing situation like that faced by fast food drive through lines. 
+Many fast food franchises have configured their restaurants such that customers using the drive through option first place an order at an ordering station and then pickup and pay at following station. This situation is called a tandem queueing system as illustrated in Figure \@ref(fig:Ch4TandemQ). This section presents KSL constructs that facilitate the modeling of simple queueing situations, like that faced by fast food drive through lines. 
 
 <div class="figure" style="text-align: center">
 <img src="./figures2/ch7/TandemQ.png" alt="Tandem Queue" width="65%" height="65%" />
@@ -3222,7 +3222,7 @@ inter-arrival times of customers to station 1 are IID exponential random
 variables with a mean of 6 minutes. Service times of customers at station
 1 are exponential random variables with a mean of 4 minute, and at
 station 2 are exponential random variables with mean 3 minute. Develop
-an model for this system. Run the simulation for exactly 20000 minutes and estimate for each station the expected average delay in queue for the customer, the expected time-average number of customers in
+an model for this system. Run the simulation for 30 replications of 20000 minutes, with a warm up period of 5000 minutes.  Estimate for each station the expected average delay in queue for the customer, the expected time-average number of customers in
 queue, and the expected utilization. In addition, estimate the average
 number of customers in the system and the average time spent in the system.
 :::
@@ -3242,6 +3242,8 @@ endif
 schedule E_a at time t + TBA_i
 ```
 
+We increase the number in the system $N(t)$ by 1 and check if the number of busy servers $B(t)$ is less than the capacity $c$.  If so, we start the customer into service; otherwise, we place the customer in the queue.
+
 **End of Service Actions for Event $E_s$**
 ```
 B(t) = B(t) - 1
@@ -3253,7 +3255,7 @@ endif
 N(t) = N(t) - 1
 ```
 
-Since the same logic will need to be implemented for each station, it makes sense from an object-oriented perspective, to conceptualize a class that encapsulates the data and behavior to represent this situation.  
+The end of service actions are as previously seen. There is one less server busy and if the queue has customers, it is processed and the customer's service starts.  Since the same logic will need to be implemented for each station, it makes sense from an object-oriented perspective, to conceptualize a class that encapsulates the data and behavior to represent this situation.  
 
 Figure \@ref(fig:Ch4TandemQ) should give an idea of what the class should represent.  In the figure, there are two stations with each station containing a queue and a server (or resource).  Thus, we should build a class that models a single queue that holds objects that must wait for a server to be available. We are going to call this thing a `SingleQStation.`  Notice that the input to the first station is a customer from some arrival process and that the input to the second station is a customer departing the first station. Thus, the main difference between how these components act is where they receive customers from and where they send completed customers. Notice that a station needs to know where to send its completed customers. What else does a station need to know in order to process the customers?  The station will need to know how many servers are available at the station and will need to know how to determine the processing time for the customers. For this modeling, we need to expand on the concept of a resource.
 
@@ -3268,7 +3270,9 @@ As we can see from Figure \@ref(fig:Ch4TandemQ) our concept of a `SingleQStation
 <p class="caption">(\#fig:SResource)A Simple Resource Class</p>
 </div>
 
-A resource has a capacity that represents the maximum number of units that it can have available at any time.  When a resource is seized some amount of units become busy (or allocated). When the units are no longer needed, they are released. If we let $A(t)$ be the number of available units, $B(t)$ be the number of busy units and $c$ be the capacity of the resource, we have that $c = A(t) + B(t)$ or $A(t) = c - B(t)$. A resource is considered busy if $B(t) > 0$. That is, a resource is busy if some units are allocated.  A resource is considered idle if no units are busy. That is, $B(t) = 0$, which implies that $A(t) = c$.  If the number of available units of a resource are unable to meet the number of units required by a "customer", then we need to decide what to do. To simplify this modeling, we are going to assume two things 1) customers only request 1 unit at a time, and 2) if the request cannot be immediately supplied the customer will wait in an associated queue. These latter two assumptions are essentially what we have assumed in the modeling of the pharmacy situation and in the situation described in Example \@ref(exm:exCh4TandemQ).  Modeling often requires the use of simplifying assumptions. 
+A resource has a capacity that represents the maximum number of units that it can have available at any time.  When a resource is seized some amount of units become busy (or allocated). When the units are no longer needed, they are released. If we let $A(t)$ be the number of available units, $B(t)$ be the number of busy units and $c$ be the capacity of the resource, we have that $c = A(t) + B(t)$ or $A(t) = c - B(t)$. A resource is considered busy if $B(t) > 0$. That is, a resource is busy if some units are allocated.  A resource is considered idle if no units are busy. That is, $B(t) = 0$, which implies that $A(t) = c$.  
+
+If the number of available units of a resource are unable to meet the number of units required by a "customer", then we need to decide what to do. To simplify this modeling, we are going to assume two things 1) customers only request 1 unit at a time, and 2) if the request cannot be immediately supplied the customer will wait in an associated queue. These latter two assumptions are essentially what we have assumed in the modeling of the pharmacy situation and in the situation described in Example \@ref(exm:exCh4TandemQ).  Modeling often requires the use of simplifying assumptions. 
 
 The `SResource` class of Figure \@ref(fig:SResource) has functions `seize()` and `release()` which take (seize) and return (release) units of the resource.  It also has properties (`busy` and `idle`) that indicate if the resource is busy or idle, respectively. In addition, the property `numBusyUnits` represents $B(t)$ and the property `numAvailableUnits` represents $A(t)$. For convenience, the `hasAvailableUnits` property indicates if the resource has units that can be seized. Finally, the number of times the resource is seized and released are tabulated. The main performance measures are time weighted response variables for tabulating the time-average number of busy units and the time-average instantaneous utilization of the resource. Instantaneous utilization, $U(t)$ is governed by tracking $U(t) = B(t)/c$.  Now that we have a way to represent a resource, let's put the resource together with a queue to get a station for processing in the `SingleQStation` class.
 
@@ -3281,17 +3285,16 @@ The `SingleQStation` class will use an instance of the `SResource` class to repr
 <p class="caption">(\#fig:SingleQStation)The SingleQStation Class</p>
 </div>
 
-Let's start with an overview of the functionality of the `SingleQStation` class and then review the code implementation. Figure \@ref(fig:SingleQStation) presents the constructor, functions, and properties of the `SingleQStation` class. The main item to note about the constructor is that it can take in an instance of the `SResource` class.  The second thing to note is that instances can receive instances of the `QObject` class via the `receive()` function for processing. The `receive()` function represents the actions that should occur when something arrives to the station. The `endOfProcessing()` function represents what should happen when the processing is completed. That is, the `receive()` function is the "arrival event" and the `endOfProcessing()` function is the "departure event".  Let's look at the code.
+Let's start with an overview of the functionality of the `SingleQStation` class and then review the code implementation. Figure \@ref(fig:SingleQStation) presents the constructor, functions, and properties of the `SingleQStation` class. The main item to note about the constructor is that it can take in an instance of the `SResource` class.  The second thing to note is that instances can process instances of the `QObject` class via the `process()` function. The `process()` function represents the actions that should occur when something arrives to the station. The `endOfProcessing()` function represents what should happen when the processing is completed. That is, the `process()` function is the "arrival event" and the `endOfProcessing()` function is the "departure event".  Let's look at the code.
 
-The logic of the `receive()` function should look very familiar. The call to `super.receive()` causes the arriving `qObject` to be increment the number in the system and capture the time that the customer arrived by assigning the current time to the `timeStamp` property of the `QObject` instance.  Just as was done in previous examples, the arriving customer immediately enters the queue. Then, if the resource is available, the next customer is placed into service. 
+The logic of the `process()` function should look very familiar. Just as was done in previous examples, the arriving customer immediately enters the queue. Then, if the resource is available, the next customer is placed into service. 
 
 ```kt
     /**
      *  Receives the qObject instance for processing. Handle the queuing
      *  if the resource is not available and begins service for the next customer.
      */
-    final override fun receive(arrivingQObject: QObject) {
-        super.receive(arrivingQObject)
+    override fun process(arrivingQObject: QObject) {
         // enqueue the newly arriving qObject
         myWaitingQ.enqueue(arrivingQObject)
         if (isResourceAvailable) {
@@ -3342,11 +3345,13 @@ As mentioned, the `endOfProcessing()` function represents the logic that should 
     }
 ```
 
+There is a lot more happening withing the `SingleQStation` class than presented here.  As you can see from Figure \@ref(fig:SingleQStation), the `SingleQStation` class inherits from the `Station` class, which is an abstract base class.  The `Station` class ensures that statistics that are common to all station types are collected.  In addition, the `Station` class provides for the attachment of functions that may be executed when something arrives to the station and also when something departs. Such *entry* and *exit* actions provide users the ability to add behavior to a station without having to use inheritance via the use of Kotlin [*lambda* functions](https://kotlinlang.org/docs/lambdas.html). Entry and exit actions are represented by [single abstract method (SAM)](https://kotlinlang.org/docs/fun-interfaces.html) via the `EntryActionIfc` and `ExitActionIfc` interfaces. Lambda expressions can be attached to a station to effect useful logic.
+
 We now have a new KSL class that can be used to model many different situations (like the drive through pharmacy) that involve the use of resources and waiting lines. Let's continue this by implementing the model for Example \@ref(exm:exCh4TandemQ). This will motivate how to send and receive `QObject` instances.
 
 ### Modeling the Tandem Queue of Example \@ref(exm:exCh4TandemQ)
 
-The main concepts needed to put the pieces together to model the tandem queue described in Example \@ref(exm:exCh4TandemQ) are now modeled.  The main remaining concept needed is how to send and receive customers within such systems.  Since this is a very common requirement, the KSL provides basic functionality to help with this modeling task.  Two new KSL constructs will be introduced and then used within the implementation of the tandem queue model.  The first is an interface that promises to allow the receiving of `QObject` instances: the `QObjectReceiverIfc` interface. 
+The main concepts needed to put the pieces together to represent the tandem queue described in Example \@ref(exm:exCh4TandemQ) are now modeled.  The main remaining concept needed is how to send and receive customers within such systems.  Since this is a very common requirement, the KSL provides basic functionality to help with this modeling task.  Two new KSL constructs will be introduced and then used within the implementation of the tandem queue model.  The first is an interface that promises to allow the receiving of `QObject` instances: the `QObjectReceiverIfc` interface. 
 
 ```kt
 fun interface QObjectReceiverIfc {
@@ -3354,7 +3359,7 @@ fun interface QObjectReceiverIfc {
 }
 ```
 
-Classes that implement the `QObjectReceiverIfc` interface promise to have a `receive()` function. The idea is to have a defined protocol for system components that will do *something* with the received `QObject` instance.  As you may now realize, the `SingleQStation` class implements the `QObjectReceiverIfc` interface.  As shown in the following code, the `SingleQStation` class extends the `Station` class, which implements the `QObjectReceiverIfc` interface.
+Note that the `QObjectReceiverIfc` interface is SAM functional interface. Classes that implement the `QObjectReceiverIfc` interface promise to have a `receive()` function. The idea is to have a defined protocol for system components that will do *something* with the received `QObject` instance.  As you may now realize, the `SingleQStation` class implements the `QObjectReceiverIfc` interface via its inheritance from the `Station` class.  As shown in the following code, the `SingleQStation` class extends the `Station` class, which implements the `QObjectReceiverIfc` interface.
 
 ```kt
 open class SingleQStation(
@@ -3375,46 +3380,69 @@ Figure \@ref(fig:StationPkg) presents the major classes and interfaces of the `k
 <p class="caption">(\#fig:StationPkg)Major Classes and Interfaces of the Station Package</p>
 </div>
 
-The `QObjectReceiverIfc` interface defines a protocol for receiving `QObject` instances and the `Station` class provides default functionality for receiving an arriving `QObject` instance and for sending a completed `QObject` instance to its next location.  Reviewing the `Station` class's code is useful to understanding how this works. The `Station` class is an *abstract* class that provides the `sendToNextReceiver()` function.
+The `QObjectReceiverIfc` interface defines a protocol for receiving `QObject` instances and the `Station` class provides default functionality for receiving an arriving `QObject` instance and for *sending* a completed `QObject` instance to its next location.  Reviewing the `Station` class's code is useful to understanding how this works. The `Station` class is an *abstract* class that provides the `sendToNextReceiver()` function.
 
 ```kt
 abstract class Station(
     parent: ModelElement,
-    var nextReceiver: QObjectReceiverIfc = NotImplementedReceiver,
+    private var nextReceiver: QObjectReceiverIfc = NotImplementedReceiver,
     name: String? = null
 ) : ModelElement(parent, name), QObjectReceiverIfc, StationCIfc {
+
+    /**
+     *  Sets the receiver of qObject instances from this station
+     */
+    fun nextReceiver(receiver: QObjectReceiverIfc) {
+        nextReceiver = receiver
+    }
 .
 .
     protected fun sendToNextReceiver(completedQObject: QObject) {
+        departureCollection(completedQObject)
+        exitAction?.onExit(completedQObject)
         onExit(completedQObject)
-        if (completedQObject.sender != null){
-            completedQObject.sender!!.send()
+        if (sender != null) {
+            sender!!.send(completedQObject)
         } else {
-            nextReceiver.receive(completedQObject)
+            if (completedQObject.sender != null) {
+                completedQObject.sender!!.send(completedQObject)
+            } else {
+                nextReceiver.receive(completedQObject)
+            }
         }
+    }
+    
+    /**
+     *  Can be used to supply a sender that will be used instead of
+     *  the default behavior. The default behavior uses a sender attached
+     *  to the QObject instance and if not attached will send the QObject
+     *  to the next receiver.
+     */
+    fun sender(sender: QObjectSenderIfc?) {
+        this.sender = sender
     }
 ```
 
-There are two default mechanisms for determining where to send the departing `QObject` instance. The first approach supplies the destination as part of the creation of the station instance. Notice that the `Station` class takes in a parameter called `nextReceiver` which represents an object that implements the `QObjectReceiverIfc` interface. This parameter can be used to specify where the departing `QObject` instance should be sent. That is, the next thing that should receive the departing object. The default value for this parameter is the `NotImplementedReceiver` object. This object will throw a not implemented yet exception if you do not replace it with something that models the situation. 
-
-The second approach stores the knowledge of where to go with the `QObject` itself.  Every `QObject` has an (optional) property called `sender` that (if set) should return an instance of a `QObjectSenderIfc` interface. 
+There are three mechanisms for determining where to send the departing `QObject` instance. The first mechanism allows the user to attach a `QObjectSenderIfc` instance via the `sender()` function.  As you can see from the code, if this mechanism is supplied, then it is used to send the completed `QObject` instance somewhere (i.e. to some receiver). If this first mechanism is not supplied, then the station looks to see if the completed `QObject` instance has a specified sender.  If it does, then the `QObject` instance's sender is used for sending. Every `QObject` has an (optional) property called `sender` that (if set) should return an instance of a `QObjectSenderIfc` interface. 
 
 ```kt
 /**
  *  A functional interface that promises to send. Within the
- *  context of qObjects a sender will cause a qObject
+ *  context of qObjects a sender should cause a qObject
  *  to be (eventually) received by a receiver.
  */
 fun interface QObjectSenderIfc {
-    fun send()
+    fun send(qObject: ModelElement.QObject)
 }
 ```
 
 The idea is that the sender will know how to send its related `QObject` instance to a suitable receiver.  Thus, complex routing logic could be attached to the `QObject` instance.  The `sendToNextReceiver()` function checks to see if the the `QObject` instance has a sender to assist with its routing. If it does, the sender is used to get the next location and then sends the `QObject` instance to the location by telling the location to receive the object.  If the sender is not present, then the `nextReceiver` property is used to send the `QObject` instance to the specified receiver. The receiver's behavior determines what happens to the `QObject` instance next.
 
+The final approach supplies the destination (receiver) as part of the creation of the station instance. Notice that the `Station` class takes in a parameter called `nextReceiver` which represents an object that implements the `QObjectReceiverIfc` interface. This parameter can be used to specify where the departing `QObject` instance should be sent. That is, the next object that should receive the departing object. The default value for this parameter is the `NotImplementedReceiver` object. This object will throw a not implemented yet exception if you do not replace it with something that models the situation. You need to replace the default `NotImplementedReceiver` object only if one of the other two mechanisms are not being used by the station.
+
 ::: {.infobox .note data-latex="{note}"}
 **NOTE!**
-As you will soon see in the following example, creating a station without specifying a receiver can be very convenient. This is why the `NotImplementedReceiver` object is the default. However, if you forget to set the receiver to something useful, you will get the not implemented yet error.
+As you will soon see in the following example, creating a station without specifying a receiver can be very convenient. This is why the `NotImplementedReceiver` object is the default. However, if you forget to set the receiver to something useful or do not use one of the other mechanisms, you will get the not implemented yet error.
 :::
 
 The approach of specifying the receivers to visit allows for the modeling of very complex systems by simply "hooking" up the object instances in the correct order. We can now illustrate this with the implementation of the example.
@@ -3444,7 +3472,7 @@ class TandemQueue(
 ...
 ```
 
-Now, the real magic of the station package can be used.  The following code represents the *rest* of the implementation of the tandem queue system. The code uses an `EventGenerator` instance to model the arrival process to the first station. Then, two instances of the `SingleQStation` class are created to represent the first and second station in the system. Notice the implementation of the `init{}` block. The `nextReceiver` property for station 1 is set to be the second station and the `nextReceiver` property for station 2 is set to an instance of the `ExitSystem` inner class. This approach relies on using the default `NotImplementedReceiver` receiver. Notice that if you did not rely on this default, you would need to create the stations (receivers) in the reverse order so that you could supply the correct receiver within the station's constructor. The `init{}` block would not be necessary with that approach.
+Now, the real magic of the station package can be used.  The following code represents the *rest* of the implementation of the tandem queue system. The code uses an `EventGenerator` instance to model the arrival process to the first station. Then, two instances of the `SingleQStation` class are created to represent the first and second station in the system. Notice the implementation of the `init{}` block. The `nextReceiver` property for station 1 is set to be the second station and the `nextReceiver` property for station 2 is set to an instance of the `ExitSystem` inner class. This approach relies on *replacing* the default `NotImplementedReceiver` receiver. Notice that if you did not rely on this default, you would need to create the stations (receivers) in the reverse order so that you could supply the correct receiver within the station's constructor. The `init{}` block would not be necessary with that approach.
 
 ```kt
 
@@ -3480,7 +3508,7 @@ Now, the real magic of the station package can be used.  The following code repr
 }
 ```
 
-The arrival process shown in the `arrivalEvent()` function creates the arriving customer, increments the number in the system, and tells station 1 to receive the customer. This will set off a set of events which will occur within the `SingleQStation` instances that eventually result in the customer being received by the `ExitSystem` instance. The `ExitSystem` instance is used to collect statistics on the departing customer.  The modeling involves hooking up the system components so that they work together to process the customers. This creation and use of objects in this manner is a hallmark of object-oriented programming.  The following code can be used to simulate the system.
+The arrival process shown in the `arrivalEvent()` function creates the arriving customer, increments the number in the system, and tells station 1 to receive the customer. This will set off a series of events which will occur within the `SingleQStation` instances that eventually result in the customer being received by the `ExitSystem` instance. The `ExitSystem` instance is used to collect statistics on the departing customer.  The modeling involves hooking up the system components so that they work together to process the customers. This creation and use of objects in this manner is a hallmark of object-oriented programming.  The following code can be used to simulate the system.
 
 ```kt
 fun main(){
@@ -3494,7 +3522,7 @@ fun main(){
 }
 ```
 
-The results from running the following code are not very interesting except for noticing the number of statistics that are are *automatically* captured within the output.  Notice for example that the resources automatically report the average number of busy units and the utilization of the resource.  
+The results from running the following code are not very interesting except for noticing the number of statistics that are are *automatically* captured within the output.  Notice for example that the resources automatically report the average number of busy units and the utilization of the resource. In addition, stations automatically report the total time spent at a station, the number of objects at the station, and the number completed by the station.
 
 **Statistical Summary Report**
 
@@ -3520,7 +3548,7 @@ The results from running the following code are not very interesting except for 
 
 Now imagine if the tandem queue consisted of 100 stations.  How might you model that situation? You would need to make 100 instances of the `SingleQStation` class. This could easily be accomplished in a for-loop which captures the instances into a list of stations. Then, the list could be iterated to assign the `nextReceiver` property of the station. Or, better yet, when creating the customer you could assign an instance of a `ReceiverSequence` class as the sender for the `QObject` instance.  The `ReceiverSequence` uses a list iterator to send its associated `QObject` instance to a sequence of receivers. 
 
-In reviewing Figure \@ref(fig:StationPkg) you may also notice the `ActivityStation,` the `TwoWayByChanceSender,` and `NWayByChanceSender` classes.  The `ActivityStation` class models a station that does not have a resource by implementing a simple scheduled delay for a specified activity time. The `TwoWayByChanceSender` class provides probabilistic routing between two specified receivers according to a Bernoulli random variable.  The `NWayByChanceSender` class provides probabilistic routing from a list of receivers according to a discrete empirical distribution. I hope that you can now imagine how very large and complex queueing models can be built using the relatively simple framework provided by the `ksl.modeling.station` package.
+In reviewing Figure \@ref(fig:StationPkg) you may also notice the `ActivityStation,` the `TwoWayByChanceSender,` and `NWayByChanceSender` classes.  The `ActivityStation` class models a station that does not have a resource by implementing a simple scheduled delay for a specified activity time. The `TwoWayByChanceSender` class provides probabilistic routing between two specified receivers according to a Bernoulli random variable.  The `NWayByChanceSender` class provides probabilistic routing from a list of receivers according to a discrete empirical distribution. Using these constructs, the KSL can model very large and complex queueing situations using the relatively simple framework provided by the `ksl.modeling.station` package.
 
 The next chapter will present many ways in which you can capture and use the simulation results to make decisions based on the statistical results.
 
