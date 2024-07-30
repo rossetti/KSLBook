@@ -427,7 +427,7 @@ processed. To make this easier, we will keep track of the system
 variables and the entity attributes within a table as follows.
 
 <table class="table" style="font-size: 10px; margin-left: auto; margin-right: auto;">
-<caption style="font-size: initial !important;">(\#tab:unnamed-chunk-1)(\#tab:SQBH1)Hand Bank Simulation Bookkeeping Table.</caption>
+<caption style="font-size: initial !important;">(\#tab:SQBH1)Hand Bank Simulation Bookkeeping Table.</caption>
  <thead>
 <tr>
 <th style="border-bottom:hidden;padding-bottom:0; padding-left:3px;padding-right:3px;text-align: center; " colspan="5"><div style="border-bottom: 1px solid #ddd; padding-bottom: 5px; ">System Variables</div></th>
@@ -482,7 +482,7 @@ spend any time waiting in the queue. Thus, $S_{1} = 3$ and $W_{1} = 0$.
 The table has been updated as follows.
 
 <table class="table" style="font-size: 10px; margin-left: auto; margin-right: auto;">
-<caption style="font-size: initial !important;">(\#tab:unnamed-chunk-2)(\#tab:SQBH2)Hand Bank Simulation Bookkeeping Table.</caption>
+<caption style="font-size: initial !important;">(\#tab:SQBH2)Hand Bank Simulation Bookkeeping Table.</caption>
  <thead>
 <tr>
 <th style="border-bottom:hidden;padding-bottom:0; padding-left:3px;padding-right:3px;text-align: center; " colspan="5"><div style="border-bottom: 1px solid #ddd; padding-bottom: 5px; ">System Variables</div></th>
@@ -556,7 +556,7 @@ of the first customer. Thus, our bookkeeping table can be updated as
 follows.
 
 <table class="table" style="font-size: 10px; margin-left: auto; margin-right: auto;">
-<caption style="font-size: initial !important;">(\#tab:unnamed-chunk-3)(\#tab:SQBH3)Hand Bank Simulation Bookkeeping Table.</caption>
+<caption style="font-size: initial !important;">(\#tab:SQBH3)Hand Bank Simulation Bookkeeping Table.</caption>
  <thead>
 <tr>
 <th style="border-bottom:hidden;padding-bottom:0; padding-left:3px;padding-right:3px;text-align: center; " colspan="5"><div style="border-bottom: 1px solid #ddd; padding-bottom: 5px; ">System Variables</div></th>
@@ -633,7 +633,7 @@ the next event will be the arrival of customer 2 at time 11. The table
 can be updated as follows.
 
 <table class="table" style="font-size: 10px; margin-left: auto; margin-right: auto;">
-<caption style="font-size: initial !important;">(\#tab:unnamed-chunk-4)(\#tab:SQBH4)Hand Bank Simulation Bookkeeping Table.</caption>
+<caption style="font-size: initial !important;">(\#tab:SQBH4)Hand Bank Simulation Bookkeeping Table.</caption>
  <thead>
 <tr>
 <th style="border-bottom:hidden;padding-bottom:0; padding-left:3px;padding-right:3px;text-align: center; " colspan="5"><div style="border-bottom: 1px solid #ddd; padding-bottom: 5px; ">System Variables</div></th>
@@ -726,7 +726,7 @@ departure of the second customer at time 15. We will now have a queue
 form. Updating our bookkeeping table, yields:
 
 <table class="table" style="font-size: 10px; margin-left: auto; margin-right: auto;">
-<caption style="font-size: initial !important;">(\#tab:unnamed-chunk-5)(\#tab:SQBH5)Hand Bank Simulation Bookkeeping Table.</caption>
+<caption style="font-size: initial !important;">(\#tab:SQBH5)Hand Bank Simulation Bookkeeping Table.</caption>
  <thead>
 <tr>
 <th style="border-bottom:hidden;padding-bottom:0; padding-left:3px;padding-right:3px;text-align: center; " colspan="5"><div style="border-bottom: 1px solid #ddd; padding-bottom: 5px; ">System Variables</div></th>
@@ -836,7 +836,7 @@ arrival of customer 4 at time 14, which yields the following bookkeeping
 table.
 
 <table class="table" style="font-size: 10px; margin-left: auto; margin-right: auto;">
-<caption style="font-size: initial !important;">(\#tab:unnamed-chunk-6)(\#tab:SQBH6)Hand Bank Simulation Bookkeeping Table.</caption>
+<caption style="font-size: initial !important;">(\#tab:SQBH6)Hand Bank Simulation Bookkeeping Table.</caption>
  <thead>
 <tr>
 <th style="border-bottom:hidden;padding-bottom:0; padding-left:3px;padding-right:3px;text-align: center; " colspan="5"><div style="border-bottom: 1px solid #ddd; padding-bottom: 5px; ">System Variables</div></th>
@@ -958,7 +958,7 @@ waiting in the queue. Reviewing the pending event set, we see that
 customer 2 will finally complete service and depart at time 15.
 
 <table class="table" style="font-size: 10px; margin-left: auto; margin-right: auto;">
-<caption style="font-size: initial !important;">(\#tab:unnamed-chunk-7)(\#tab:SQBH7)Hand Bank Simulation Bookkeeping Table.</caption>
+<caption style="font-size: initial !important;">(\#tab:SQBH7)Hand Bank Simulation Bookkeeping Table.</caption>
  <thead>
 <tr>
 <th style="border-bottom:hidden;padding-bottom:0; padding-left:3px;padding-right:3px;text-align: center; " colspan="5"><div style="border-bottom: 1px solid #ddd; padding-bottom: 5px; ">System Variables</div></th>
@@ -1099,7 +1099,7 @@ accordingly and indicates that the next event will be the arrival of
 customer 5 at time 17.
 
 <table class="table" style="font-size: 10px; margin-left: auto; margin-right: auto;">
-<caption style="font-size: initial !important;">(\#tab:unnamed-chunk-8)(\#tab:SQBH8)Hand Bank Simulation Bookkeeping Table.</caption>
+<caption style="font-size: initial !important;">(\#tab:SQBH8)Hand Bank Simulation Bookkeeping Table.</caption>
  <thead>
 <tr>
 <th style="border-bottom:hidden;padding-bottom:0; padding-left:3px;padding-right:3px;text-align: center; " colspan="5"><div style="border-bottom: 1px solid #ddd; padding-bottom: 5px; ">System Variables</div></th>
@@ -1267,7 +1267,7 @@ to continue the processing of the customers. The completed bookkeeping table at
 time 31 is as follows.
 
 <table class="table" style="font-size: 10px; margin-left: auto; margin-right: auto;">
-<caption style="font-size: initial !important;">(\#tab:unnamed-chunk-9)(\#tab:SQBHFull)Hand Bank Simulation Bookkeeping Table.</caption>
+<caption style="font-size: initial !important;">(\#tab:SQBHFull)Hand Bank Simulation Bookkeeping Table.</caption>
  <thead>
 <tr>
 <th style="border-bottom:hidden;padding-bottom:0; padding-left:3px;padding-right:3px;text-align: center; " colspan="5"><div style="border-bottom: 1px solid #ddd; padding-bottom: 5px; ">System Variables</div></th>
@@ -3546,11 +3546,111 @@ The results from running the following code are not very interesting except for 
 |TandemQ:Station1:NumProcessed| 30| 2512.7| 17.535|
 |TandemQ:Station2:NumProcessed| 30| 2512.667| 17.41|
 
-Now imagine if the tandem queue consisted of 100 stations.  How might you model that situation? You would need to make 100 instances of the `SingleQStation` class. This could easily be accomplished in a for-loop which captures the instances into a list of stations. Then, the list could be iterated to assign the `nextReceiver` property of the station. Or, better yet, when creating the customer you could assign an instance of a `ReceiverSequence` class as the sender for the `QObject` instance.  The `ReceiverSequence` uses a list iterator to send its associated `QObject` instance to a sequence of receivers. 
+### Modeling with the Station Package
 
-In reviewing Figure \@ref(fig:StationPkg) you may also notice the `ActivityStation,` the `TwoWayByChanceSender,` and `NWayByChanceSender` classes.  The `ActivityStation` class models a station that does not have a resource by implementing a simple scheduled delay for a specified activity time. The `TwoWayByChanceSender` class provides probabilistic routing between two specified receivers according to a Bernoulli random variable.  The `NWayByChanceSender` class provides probabilistic routing from a list of receivers according to a discrete empirical distribution. Using these constructs, the KSL can model very large and complex queueing situations using the relatively simple framework provided by the `ksl.modeling.station` package.
+The `ksl.modeling.station` package has many options that can be utilized to model complex situations. This section discusses some of the options and offers some reasons and strategies for their application.
 
-The next chapter will present many ways in which you can capture and use the simulation results to make decisions based on the statistical results.
+Imagine if the tandem queue system consisted of 100 stations.  How might you model that situation? You would need to make 100 instances of the `SingleQStation` class. This could easily be accomplished in a for-loop which captures the instances into a list of stations. Then, the list could be iterated to assign the `nextReceiver` property of the station.  That is, iterate the list and assign each station's receiver to the next element in the list.  This approach builds on the notion of directly connecting the receivers as illustrated in the tandem queue example.  However, there may be better approaches.
+
+A better approach is to use the sending option that is attached to the `QObject` instance when the instance is created and let every created `QObject` instance follow their own *sequence* through the system.  This can be accomplished by using an instance of the `ReceiverSequence` class.
+
+The `ReceiverSequence` class sub-classes from the `QObjectSender` class.  As previously mentioned *senders* implement the `QObjectSenderIfc` interface. That is, they know how or where to send the `QObject` instance. The main variation between senders is the selection of the next `QObjectReceiverIfc` instance to receive the `QObject` instance. The `QObjectSender` class is an abstract base class that requires the implementation of the `selectNextReceiver()` function.
+
+```kt
+abstract class QObjectSender() :  QObjectSenderIfc {
+
+    /**
+     *  Can be used to supply logic if the iterator does not have
+     *  more receivers.
+     */
+    private var noNextReceiverHandler: ((ModelElement.QObject) -> Unit)? = null
+
+    fun noNextReceiverHandler(fn: ((ModelElement.QObject) -> Unit)?){
+        noNextReceiverHandler = fn
+    }
+
+    abstract fun selectNextReceiver(): QObjectReceiverIfc?
+
+    final override fun send(qObject: ModelElement.QObject) {
+        val selected = selectNextReceiver()
+        if (selected != null) {
+            beforeSendingAction?.action(selected, qObject)
+            selected.receive(qObject)
+            afterSendingAction?.action(selected, qObject)
+        } else {
+            noNextReceiverHandler?.invoke(qObject)
+        }
+    }
+
+    private var beforeSendingAction: SendingActionIfc? = null
+
+    fun beforeSendingAction(action : SendingActionIfc){
+        beforeSendingAction = action
+    }
+
+    private var afterSendingAction: SendingActionIfc? = null
+
+    fun afterSendingAction(action : SendingActionIfc){
+        afterSendingAction = action
+    }
+}
+```
+
+The `QObjectSender` class defines how `QObject` instances will be *sent* and allows for the handling of a receiver not being selected.  In addition, you can use *lambda* expressions to add actions prior to and after sending the `QObject` instance.  Let's review the implementation of the `ReceiverSequence` class.
+
+```kt
+class ReceiverSequence(
+    private val receiverItr: ListIterator<QObjectReceiverIfc>
+) : QObjectSender() {
+
+    override fun selectNextReceiver(): QObjectReceiverIfc? {
+        return if (receiverItr.hasNext()){
+            receiverItr.next()
+        } else {
+            null
+        }
+    }
+}
+```
+
+As can be seen in the code for the `ReceiverSequence` class, a list iterator is used and checked. If the next receiver is found, it is returned and the `QObject` instance will be sent to the receiver.  So imagine that you have a list of `QObjectReceiverIfc` instances, in a list called `stations`, then the following code could be implemented to assign the sequence to the `QObject` instance when it is created.
+
+```kt
+    private fun arrivalEvent(generator: EventGenerator){
+        val itr = stations.listIterator()
+        val customer = QObject()
+        customer.sender = ReceiverSequence(itr)
+        customer.sender.send(customer)
+    }
+```
+
+The sender will cause the customer to go to the first receiver presented by the iterator and then after that each station will automatically cause the customer to continue using the iterator until there are no more receivers. The trick is handling the last receiver, which could easily be a receiver like the `ExitSystem` receiver used in the tandem queue implementation that does not cause further use of the iterator.  This approach is very flexible. For example, imagine different types of customers being assigned different iterators (based on different lists of stations).  The approach would allow stations to be visited multiple times, skipped, etc. all based on the ordering of stations in a list and the resulting iterators from those lists.
+
+As previously mentioned, there are actually 3 mechanisms (or options) for sending `QObject` instances: 1) directly specifying a receiver (illustrated in the tandem queue model), 2) attaching a sender to the `QObject` instance (discussed in this section), and 3) specifying a sender for the station. We have already discussed options 1 and 2. For option 3, while it is possible that every station may have its own unique instance of a sender (i.e. a `QObjectSenderIfc` instance), a more plausible approach would be that the stations *share* a global sender.  In this approach you simply defer the sending functionality to some complex object at the system level that determines where to send the `QObject` instance next.  Since system control logic may take into account the entire state of the system in order to optimally route the workload among the stations, this approach seems extremely useful. 
+
+In reviewing Figure \@ref(fig:StationPkg) you may also notice the `ActivityStation,` the `TwoWayByChanceSender,` and `NWayByChanceSender` classes.  The `ActivityStation` class models a station that does not have a resource by implementing a simple scheduled delay for a specified activity time. The `TwoWayByChanceSender` class provides probabilistic routing between two specified receivers according to a Bernoulli random variable.  The `NWayByChanceSender` class provides probabilistic routing from a list of receivers according to a discrete empirical distribution. The `TwoWayByChanceSender` and `NWayByChanceSender` classes are special in that they behave as both *senders* and *receivers* of `QObject` instances. That is, they implement both the `QObjectReceiverIfc` interface and the `QObjectSenderIfc` interface. Essentially, their receiving action is to immediately execute the sending action. This dual behavior allows them to be used in any of the three options for sending `QObject` instances. 
+
+As one final point of discussion, the ability to attach Kotlin *lambda* expressions within the stations package should not be under appreciated.  Let's suppose you were simulating a system where parts might need to repeatedly visit a particular station and you wanted to count the number of times that the part visited the station in order to invoke control logic based on the count.  How might you model this situation using stations?  The first task would be to subclass `QObject` to have a sub-type that had an attribute to hold the visit count.
+
+```kt
+private inner class Part(var visitCount: Int = 0) : QObject()
+```
+
+Now, suppose the station for which we wanted to track the visits was the drilling station (called `drilling`).  Then, when setting up the initialization logic within the `init{}` block we can attach a lambda expression to the drilling station and ensure that every time that the station is visited, the part increments the visitation count. The code might look something like this:
+
+```kt
+    init {
+        myArrivalGenerator.generatorAction { drilling.receive(Part()) }
+        drilling.exitAction { (it as Part).visitCount++ }
+        drilling.nextReceiver(grinding)
+        // etc.
+        grinding.nextReceiver(exit)
+    }
+```
+
+Since the `GeneratorActionIfc` is a SAM functional interface, the code takes advantage of this by supplying the generation logic as a lambda expression.  In addition, the exit action for the drilling station is specified as a lambda expression. In this case, the reference object of the lambda is cast to an instance of the Part class and then the visit count attribute is incremented.  This code illustrates a single line lambda; however, there is no limitation on the number of lines of the lambda expression. Also, if you do not like lambda expressions, you can simply make an inner class that implements the `ExitActionIfc` interface and use the syntax which best matches your programming style.
+
+Using these constructs, the KSL can model very large and complex queueing situations using the relatively simple framework provided by the `ksl.modeling.station` package.  The next chapter will present many ways in which you can capture and use the simulation results to make decisions based on the statistical results.
 
 ## Summary {#introDEDSSummary}
 
@@ -3789,7 +3889,7 @@ Passengers arrive to an airport security check point at a small airport for iden
 - the average number of passengers cleared per day
 - the average number of passengers denied per day
 
-Assume that the check point operates for 10 hours per day, starting at 8 am. Also, assume that when the check point opens, there are no passengers waiting.  Finally, for simplicity, assume that we are only interested in the statistics collected during the 10-hour time span. Analyze this situation for 20 independent days of operation.
+Assume that the check point operates for 10 hours per day, starting at 8 am. Also, assume that when the check point opens, there are no passengers waiting.  Finally, for simplicity, assume that we are only interested in the statistics collected during the 10-hour time span. Analyze this situation for 20 independent days of operation. Use stream 1 for the arrival process, stream 2 for the service process, and stream 3 for the inspection process.
 :::
 
 

@@ -611,7 +611,7 @@ The first thing to note is how the output from a KSL simulation is organized. Th
 Figure \@ref(fig:KSLOutputDir) illustrates the output directory after running the pallet model. You should see the `kslOutput` directory and a directory called `Pallet_Processing_OutputDir.` Within the  `Pallet_Processing_OutputDir` directory there are folders called `db` and `excel.`  These folders are the default directories for holding database related files and Excel related output files.  Within the `db` folder there is a file called `MainModel.db,` which is an SQLite database that was created to hold the KSL simulation results. Then, there are two files called `hwSummary.md` and `kslOutput.txt.` There are also three CSV files, two labeled with `_ExperimentReport.csv` and `_ReplicationReport.csv`, and one labeled with `_Trace.csv.` This labeling scheme is the default and is derived from the context of the item.  The setting of the `autoCSVReports` option to true when creating the model is what caused the two files labeled with `_ExperimentReport.csv` and with  `_ReplicationReport.csv` to be produced. The following table is from `MainModel_CSVReplicationReport.csv.`
 
 <table class="table" style="font-size: 10px; margin-left: auto; margin-right: auto;">
-<caption style="font-size: initial !important;">(\#tab:unnamed-chunk-1)(\#tab:Ch5WRD)First 8 columns and 5 Rows of MainModel_CSVReplicationReport.csv.</caption>
+<caption style="font-size: initial !important;">(\#tab:Ch5WRD)First 8 columns and 5 Rows of MainModel_CSVReplicationReport.csv.</caption>
  <thead>
   <tr>
    <th style="text-align:left;"> SimName </th>
@@ -693,7 +693,7 @@ As can be seen in the previous table, the replication report has information abo
 The following table illustrates columns 8 through 12 of the file. 
 
 <table class="table" style="font-size: 10px; margin-left: auto; margin-right: auto;">
-<caption style="font-size: initial !important;">(\#tab:unnamed-chunk-2)(\#tab:Ch5WRD)Next 5 columns and 5 Rows of MainModel_CSVReplicationReport.csv.</caption>
+<caption style="font-size: initial !important;">(\#tab:Ch5WRD)Next 5 columns and 5 Rows of MainModel_CSVReplicationReport.csv.</caption>
  <thead>
   <tr>
    <th style="text-align:left;"> Statistic.Name </th>
@@ -751,7 +751,7 @@ The following table illustrates columns 8 through 12 of the file.
 This data can be easily processed by other of statistical programs such as R or opened directly within Excel.  The following table is from `MainModel_CSVExperimentReport.csv` and represents the across replication summary statistics for the responses and counters in the model.
 
 <table class="table" style="font-size: 10px; margin-left: auto; margin-right: auto;">
-<caption style="font-size: initial !important;">(\#tab:unnamed-chunk-3)(\#tab:Ch5ARD)Columns 7-15 and 9 Rows of MainModel_CSVExperimentReport.csv.</caption>
+<caption style="font-size: initial !important;">(\#tab:Ch5ARD)Columns 7-15 and 9 Rows of MainModel_CSVExperimentReport.csv.</caption>
  <thead>
   <tr>
    <th style="text-align:left;"> Statistic.Name </th>
@@ -881,7 +881,7 @@ A user may want to trace the values of specific response variables to files for 
 Attaching an instance of the `ResponseTrace` class to a response causes the trace to observe any value changes of the variable. 
 
 <table class="table" style="font-size: 10px; margin-left: auto; margin-right: auto;">
-<caption style="font-size: initial !important;">(\#tab:unnamed-chunk-4)(\#tab:Ch5Trace)First 10 rows of Num Pallets at WC_Trace.csv.</caption>
+<caption style="font-size: initial !important;">(\#tab:Ch5Trace)First 10 rows of Num Pallets at WC_Trace.csv.</caption>
  <thead>
   <tr>
    <th style="text-align:right;"> n </th>
@@ -4077,10 +4077,10 @@ method to test whether $\mu_2 > \mu_1$.
 ***
 
 ::: {.exercise #ch5P11}
-Implement the Lindley equation using the KSL, perform the following:
+Consider a M/M/1 queueing system with arrival rate of 1 customer per minute and a service rate of 1.2 customers per minute. Use stream 1 for the arrival process and stream 2 for the service process and perform the following:
 
 a. Develop a 95\% confidence interval for your estimate of the mean waiting time based on
-the data from 1 replication. Discuss why this is inappropriate. How does
+the data from 1 replication of 1000 customers. Discuss why this is inappropriate. How does
 your simulation estimate compare to the theoretical value?
 
 b. How does your running average track the theoretical value? What would happen if you
@@ -4089,8 +4089,7 @@ increased the number of customers?
 c. Construct a Welch plot using 5 replications of the 1000 customers. Determine a warm up
 point for this simulation. Do you think that 1000 customers are enough?
 
-d. Make an autocorrelation plot of your 1000 customer wait times using your
-favorite statistical analysis package. What are the assumptions for
+d. Make an autocorrelation plot of the first 1000 customer wait times. What are the assumptions for
 forming the confidence interval in part (a). Is this data independent
 and identically distributed? What is the implication of your answer for
 your confidence interval in part (a)?
@@ -4103,18 +4102,20 @@ waiting time using the 40 batches.
 
 f. Use the method of replication deletion to develop a 95\% confidence interval for the mean
 waiting time. Use your warm period from part (c). Compare the result
-with that of (a) and (e) and discuss.
+with that of (a) and (e) and discuss.  What do you recommend for the warmup period?
 :::
 
 ***
 ::: {.exercise #ch5P12}
 Reconsider Exercise \@ref(exr:ch4P10) of Chapter \@ref(introDEDS). Suppose that after the passenger identification inspection, we now need to model a simplified version of the baggage screening process.
 
-Once passengers clear the identification check, they proceed to the X-ray baggage screening. At a minimum, it takes 1.5 minutes per passenger for the X-ray process to complete. Typically, this process takes 2.5 minutes. At the most, this process can last 7 minutes. There are two X-ray machines.
+Part (a):
+Once passengers clear the identification check, they proceed to the X-ray baggage screening. Those that were denied, exit the system. For those proceeding to X-ray screening, at a minimum, it takes 1.5 minutes per passenger for the X-ray process to complete. Typically, this process takes 2.5 minutes. At the most, this process can last 7 minutes. There are two X-ray machines.
 
 - What is the maximum time that a passenger had to wait in line for the X-ray machine? 
 - What is the utilization of the X-ray machines?
 
+Part (b):
 To increase security measures, a more extensive security check of passengers is performed after the baggage scan. Every 15th passenger will go through a full-body scan and manual baggage review. This inspection usually takes 5 minutes. At the least, it will take 3 minutes and at the most 10 minutes. Assume there is unlimited availability of resources to model this extra security check. 
 
 - What is the overall average cycle time of passengers (from the time they enter the system until they are through all security points) who are selected for this check?

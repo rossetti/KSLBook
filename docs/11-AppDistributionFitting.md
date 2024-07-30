@@ -465,31 +465,139 @@ period, day combinations. The variable, $p\$N$, is subsequently used in
 the *hist*, *plot*, and *acf* commands.
 
 
-
-Table: (\#tab:PCntData)Computer Lab Arrival Data.
-
-| Week | Period | Day | N  |
-|:----:|:------:|:---:|:--:|
-|  1   |   1    |  M  | 8  |
-|  1   |   2    |  M  | 8  |
-|  1   |   3    |  M  | 9  |
-|  1   |   4    |  M  | 10 |
-|  1   |   5    |  M  | 6  |
-|  1   |   6    |  M  | 11 |
-|  1   |   7    |  M  | 12 |
-|  1   |   8    |  M  | 8  |
-|  2   |   1    |  M  | 10 |
-|  2   |   2    |  M  | 6  |
-|  2   |   3    |  M  | 7  |
-|  2   |   4    |  M  | 11 |
-|  2   |   5    |  M  | 10 |
-|  2   |   6    |  M  | 10 |
-|  2   |   7    |  M  | 5  |
-|  2   |   8    |  M  | 13 |
-|  3   |   1    |  M  | 5  |
-|  3   |   2    |  M  | 15 |
-|  3   |   3    |  M  | 5  |
-|  3   |   4    |  M  | 7  |
+<table>
+<caption>(\#tab:PCntData)Computer Lab Arrival Data.</caption>
+ <thead>
+  <tr>
+   <th style="text-align:center;"> Week </th>
+   <th style="text-align:center;"> Period </th>
+   <th style="text-align:center;"> Day </th>
+   <th style="text-align:center;"> N </th>
+  </tr>
+ </thead>
+<tbody>
+  <tr>
+   <td style="text-align:center;"> 1 </td>
+   <td style="text-align:center;"> 1 </td>
+   <td style="text-align:center;"> M </td>
+   <td style="text-align:center;"> 8 </td>
+  </tr>
+  <tr>
+   <td style="text-align:center;"> 1 </td>
+   <td style="text-align:center;"> 2 </td>
+   <td style="text-align:center;"> M </td>
+   <td style="text-align:center;"> 8 </td>
+  </tr>
+  <tr>
+   <td style="text-align:center;"> 1 </td>
+   <td style="text-align:center;"> 3 </td>
+   <td style="text-align:center;"> M </td>
+   <td style="text-align:center;"> 9 </td>
+  </tr>
+  <tr>
+   <td style="text-align:center;"> 1 </td>
+   <td style="text-align:center;"> 4 </td>
+   <td style="text-align:center;"> M </td>
+   <td style="text-align:center;"> 10 </td>
+  </tr>
+  <tr>
+   <td style="text-align:center;"> 1 </td>
+   <td style="text-align:center;"> 5 </td>
+   <td style="text-align:center;"> M </td>
+   <td style="text-align:center;"> 6 </td>
+  </tr>
+  <tr>
+   <td style="text-align:center;"> 1 </td>
+   <td style="text-align:center;"> 6 </td>
+   <td style="text-align:center;"> M </td>
+   <td style="text-align:center;"> 11 </td>
+  </tr>
+  <tr>
+   <td style="text-align:center;"> 1 </td>
+   <td style="text-align:center;"> 7 </td>
+   <td style="text-align:center;"> M </td>
+   <td style="text-align:center;"> 12 </td>
+  </tr>
+  <tr>
+   <td style="text-align:center;"> 1 </td>
+   <td style="text-align:center;"> 8 </td>
+   <td style="text-align:center;"> M </td>
+   <td style="text-align:center;"> 8 </td>
+  </tr>
+  <tr>
+   <td style="text-align:center;"> 2 </td>
+   <td style="text-align:center;"> 1 </td>
+   <td style="text-align:center;"> M </td>
+   <td style="text-align:center;"> 10 </td>
+  </tr>
+  <tr>
+   <td style="text-align:center;"> 2 </td>
+   <td style="text-align:center;"> 2 </td>
+   <td style="text-align:center;"> M </td>
+   <td style="text-align:center;"> 6 </td>
+  </tr>
+  <tr>
+   <td style="text-align:center;"> 2 </td>
+   <td style="text-align:center;"> 3 </td>
+   <td style="text-align:center;"> M </td>
+   <td style="text-align:center;"> 7 </td>
+  </tr>
+  <tr>
+   <td style="text-align:center;"> 2 </td>
+   <td style="text-align:center;"> 4 </td>
+   <td style="text-align:center;"> M </td>
+   <td style="text-align:center;"> 11 </td>
+  </tr>
+  <tr>
+   <td style="text-align:center;"> 2 </td>
+   <td style="text-align:center;"> 5 </td>
+   <td style="text-align:center;"> M </td>
+   <td style="text-align:center;"> 10 </td>
+  </tr>
+  <tr>
+   <td style="text-align:center;"> 2 </td>
+   <td style="text-align:center;"> 6 </td>
+   <td style="text-align:center;"> M </td>
+   <td style="text-align:center;"> 10 </td>
+  </tr>
+  <tr>
+   <td style="text-align:center;"> 2 </td>
+   <td style="text-align:center;"> 7 </td>
+   <td style="text-align:center;"> M </td>
+   <td style="text-align:center;"> 5 </td>
+  </tr>
+  <tr>
+   <td style="text-align:center;"> 2 </td>
+   <td style="text-align:center;"> 8 </td>
+   <td style="text-align:center;"> M </td>
+   <td style="text-align:center;"> 13 </td>
+  </tr>
+  <tr>
+   <td style="text-align:center;"> 3 </td>
+   <td style="text-align:center;"> 1 </td>
+   <td style="text-align:center;"> M </td>
+   <td style="text-align:center;"> 5 </td>
+  </tr>
+  <tr>
+   <td style="text-align:center;"> 3 </td>
+   <td style="text-align:center;"> 2 </td>
+   <td style="text-align:center;"> M </td>
+   <td style="text-align:center;"> 15 </td>
+  </tr>
+  <tr>
+   <td style="text-align:center;"> 3 </td>
+   <td style="text-align:center;"> 3 </td>
+   <td style="text-align:center;"> M </td>
+   <td style="text-align:center;"> 5 </td>
+  </tr>
+  <tr>
+   <td style="text-align:center;"> 3 </td>
+   <td style="text-align:center;"> 4 </td>
+   <td style="text-align:center;"> M </td>
+   <td style="text-align:center;"> 7 </td>
+  </tr>
+</tbody>
+</table>
 
 As can be seen in Figure \@ref(fig:PCntHist) the data has a somewhat symmetric shape
 with nothing unusual appearing in the figure. The shape of the histogram is consistent with possible shapes associated with the Poisson distribution.
@@ -912,7 +1020,7 @@ from the hypothesized distribution.
 Let's perform a Chi-squared goodness of fit test of computer lab data for the Poisson distribution.  A good first step in analyzing discrete data is to summarize the observations in a table. We can do that easily with the R *table()* function.
 
 
-``` r
+```r
 # tabulate the counts
 tCnts = table(p2$N)
 tCnts
@@ -927,7 +1035,7 @@ tCnts
 From this analysis, we see that there were no week-period combinations that had 0 observations, 1 that had 1 count, 3 that had 2 counts, and so forth. Now, we will estimate the rate parameter of the hypothesized Poisson distribution using Equation \@ref(eq:PoissonMLE) and tabulate the expected number of observations for a proposed set of classes.
 
 
-``` r
+```r
 # get number of observations
 n = length(p2$N)
 n
@@ -937,7 +1045,7 @@ n
 ## [1] 160
 ```
 
-``` r
+```r
 # estimate the rate for Poisson from the data
 lambda = mean(p2$N)
 lambda
@@ -947,7 +1055,7 @@ lambda
 ## [1] 8.275
 ```
 
-``` r
+```r
 # setup vector of x's across domain of Poisson
 x = 0:15
 x
@@ -957,7 +1065,7 @@ x
 ##  [1]  0  1  2  3  4  5  6  7  8  9 10 11 12 13 14 15
 ```
 
-``` r
+```r
 # compute the probability for Poisson
 prob = dpois(x, lambda)
 prob
@@ -970,7 +1078,7 @@ prob
 ## [16] 0.0113823933
 ```
 
-``` r
+```r
 # view the expected counts for these probabilities
 prob*n
 ```
@@ -989,7 +1097,7 @@ $$
 Then, by multiplying each probability, $P\left\{X=i\right\} = p_i$ by the number of observations $n=160$, we can get the expected number, $n\times p_i$, that we should observed under the hypothesized distribution.  Since the expected values for $x = 0, 1, 2, 3, 4$ are so small, we consolidate them in to one class to have the expected number to be at least 5. We will also consolidate the range $x \geq 13$ into a single class and the values of 11 and 12 into a class.
 
 
-``` r
+```r
 # compute the probability for the classes
 # the vector is indexed starting at 1, prob[1] = P(X=0)
 cProb = c(sum(prob[1:5]), prob[6:11], sum(prob[12:13]), ppois(12, lambda, lower.tail = FALSE))
@@ -1001,7 +1109,7 @@ cProb
 ## [8] 0.13436467 0.07795112
 ```
 
-``` r
+```r
 # compute the expected counts for each of the classes
 expected = cProb*n
 expected
@@ -1015,7 +1123,7 @@ expected
 Thus, we will use the following $k=9$ classes: \{0,1,2,3,4\}, \{5\}, $\cdots$, \{10\}, \{11,12\}, and \{13 or more \}.  Now, we need to summarize the observed frequencies for the proposed classes.
 
 
-``` r
+```r
 # transform tabulated counts to data frame
 dfCnts = as.data.frame(tCnts)
 # extract only frequencies
@@ -1027,7 +1135,7 @@ cnts
 ##  [1]  1  3  2  7 13 16 21 25 20 21 11  7  5  6  1  1
 ```
 
-``` r
+```r
 # consolidate classes for observed
 observed = c(sum(cnts[1:4]), cnts[5:10], sum(cnts[11:12]), sum(cnts[13:16]))
 observed
@@ -1040,7 +1148,7 @@ observed
 Now, we have both the observed and expected tabulated and can proceed with the chi-squared goodness of fit test.  We will compute the result directly using Equation \@ref(eq:chisq).
 
 
-``` r
+```r
 # compute the observed minus expected components
 chisq = ((observed - expected)^2)/expected
 # compute the chi-squared test statistic
@@ -1053,7 +1161,7 @@ print(sumchisq)
 ## [1] 2.233903
 ```
 
-``` r
+```r
 # set the degrees of freedom, with 1 estimated parameter s = 1
 df = length(expected) - 1 - 1
 # compute the p-value
@@ -1101,7 +1209,7 @@ gofstat(fp)
 ```
 
 
-``` r
+```r
 fp = fitdist(p2$N, "pois")
 summary(fp)
 ```
@@ -1114,7 +1222,7 @@ summary(fp)
 ## Loglikelihood:  -393.7743   AIC:  789.5485   BIC:  792.6237
 ```
 
-``` r
+```r
 gofstat(fp)
 ```
 
@@ -1219,7 +1327,7 @@ dividing by 40 (the total number of observations), we can get the
 proportions as show in the $R$ listing. 
 
 
-``` r
+```r
 tp = table(packageCnt)
 tp/length(packageCnt)
 ```
@@ -1477,7 +1585,7 @@ easily accomplished in R using the *summary*, *mean*, *var*, *sd*, and
 of the minimum, maximum, median, and 1st and 3rd quartiles of the data.
 
 
-``` r
+```r
 summary(y)
 ```
 
@@ -1490,7 +1598,7 @@ The *mean*, *var*, *sd* commands compute the sample average, sample
 variance, and sample standard deviation of the data. 
 
 
-``` r
+```r
 mean(y)
 ```
 
@@ -1498,7 +1606,7 @@ mean(y)
 ## [1] 13.412
 ```
 
-``` r
+```r
 var(y)
 ```
 
@@ -1506,7 +1614,7 @@ var(y)
 ## [1] 50.44895
 ```
 
-``` r
+```r
 sd(y)
 ```
 
@@ -1518,7 +1626,7 @@ Finally, the *t.test* command can be used to form a 95% confidence interval on t
 mean and test if the true mean is significantly different from zero. 
 
 
-``` r
+```r
 t.test(y)
 ```
 
@@ -1540,7 +1648,7 @@ The *descdist* command of the *fitdistrplus* package will also provide a
 description of the distribution's properties.
 
 
-``` r
+```r
 descdist(y, graph=FALSE)
 ```
 
@@ -1660,7 +1768,7 @@ in a vector. The *hist()* function will automatically compute the counts
 associated with the intervals. 
 
 
-``` r
+```r
 # make histogram with no plot
 h = hist(y, plot = FALSE)
 # show the histogram object components
@@ -1697,7 +1805,7 @@ variable *h\$counts* shows the tabulation of the counts based on the
 default breakpoints. 
 
 
-``` r
+```r
 h$counts
 ```
 
@@ -1725,7 +1833,7 @@ want to use the default breakpoints. The following listing illustrates
 how to do this.
 
 
-``` r
+```r
 # set up some new break points
 b = c(0,4,8,12,16,20,24,28,32)
 b
@@ -1735,7 +1843,7 @@ b
 ## [1]  0  4  8 12 16 20 24 28 32
 ```
 
-``` r
+```r
 # make histogram with no plot for new breakpoints
 hb = hist(y, breaks = b, plot = FALSE)
 # show the histogram object components
@@ -1771,7 +1879,7 @@ counts using the *cut()* and the *table()* commands without using the
 *hist* command. The following listing illustrates how to do this.
 
 
-``` r
+```r
 #define the intervals
 y.cut = cut(y, breaks=b)
 # tabulate the counts in the intervals
@@ -1885,7 +1993,7 @@ The following listing provides a script that will compute the chi-square
 test statistic and its p-value within R.
 
 
-``` r
+```r
 a = mean(y)*mean(y)/var(y) #estimate alpha
 b = var(y)/mean(y) #estmate beta
 hy = hist(y, plot=FALSE) # make histogram
@@ -1908,7 +2016,7 @@ print(sumchisq) # print test statistic
 ## [1] 2.742749
 ```
 
-``` r
+```r
 print(pvalue) #print p-value
 ```
 
@@ -2023,7 +2131,7 @@ hand (which is quite unnecessary) because you can simply use the
 *ks.test* command as illustrated.
 
 
-``` r
+```r
 j = 1:length(y) # make a vector to count y's
 yj = sort(y) # sort the y's
 Fj = pgamma(yj, shape = a, scale = b)  #compute F(yj)
@@ -2037,7 +2145,7 @@ print(D)
 ```
 
 
-``` r
+```r
 ks.test(y, 'pgamma', shape=a, scale =b) # compute k-s test
 ```
 
@@ -2206,7 +2314,7 @@ easy it can be using the *fitdistrplus* package. Notice that the
 *fitdist* command will fit the parameters of the distribution. 
 
 
-``` r
+```r
 library(fitdistrplus)
 fy = fitdist(y, "gamma")
 print(fy)
@@ -2224,7 +2332,7 @@ of fit, K-S test statistic, as well as other goodness of fit criteria.
 The results lead to the same conclusion that we had before: the gamma
 distribution is a good model for this data.
 
-``` r
+```r
 gfy = gofstat(fy)
 print(gfy)
 ```
@@ -2242,7 +2350,7 @@ print(gfy)
 ## Bayesian Information Criterion    668.5260
 ```
 
-``` r
+```r
 print(gfy$chisq) # chi-squared test statistic
 ```
 
@@ -2250,7 +2358,7 @@ print(gfy$chisq) # chi-squared test statistic
 ## [1] 3.544766
 ```
 
-``` r
+```r
 print(gfy$chisqpvalue) # chi-squared p-value
 ```
 
@@ -2258,7 +2366,7 @@ print(gfy$chisqpvalue) # chi-squared p-value
 ## [1] 0.8956877
 ```
 
-``` r
+```r
 print(gfy$chisqdf)  # chi-squared degrees of freedom
 ```
 
@@ -2752,7 +2860,7 @@ would not reject the hypothesis that the observed data is $U(0,1)$.  This proces
 perform the test:\
 
 
-``` r
+```r
 data = scan(file="data/AppDistFitting/u01data.txt") # read in the file
 b = seq(0,1, by = 0.1) # set up the break points
 h = hist(data, b, right = FALSE, plot = FALSE) # tabulate the counts
@@ -2983,7 +3091,7 @@ contains the data for this example, then the following R commands will
 perform the test:\
 
 
-``` r
+```r
 data = scan(file="data/AppDistFitting/u01data.txt") # read in the file
 ks.test(data,"punif",0,1) # perform the test
 ```
@@ -3023,7 +3131,7 @@ band, we can conclude that the data are likely independent observations.
 </div>
 
 
-``` r
+```r
 rho
 ```
 

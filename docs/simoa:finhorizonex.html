@@ -1,0 +1,1280 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>6.4 Finite Horizon Example | Simulation Modeling using the Kotlin Simulation Library</title>
+  <meta name="description" content="A book that illustrates the basics of using the KSL. The output format for this book is bookdown::gitbook." />
+  <meta name="generator" content="bookdown 0.30 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="6.4 Finite Horizon Example | Simulation Modeling using the Kotlin Simulation Library" />
+  <meta property="og:type" content="book" />
+  
+  <meta property="og:description" content="A book that illustrates the basics of using the KSL. The output format for this book is bookdown::gitbook." />
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="6.4 Finite Horizon Example | Simulation Modeling using the Kotlin Simulation Library" />
+  
+  <meta name="twitter:description" content="A book that illustrates the basics of using the KSL. The output format for this book is bookdown::gitbook." />
+  
+
+<meta name="author" content="Manuel D. Rossetti" />
+
+
+<meta name="date" content="2022-11-30" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="simoa:finhorizon.html"/>
+<link rel="next" href="simoa:infhorizon.html"/>
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
+<link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
+<script src="libs/kePrint-0.0.1/kePrint.js"></script>
+<link href="libs/lightable-0.0.1/lightable.css" rel="stylesheet" />
+
+
+<style type="text/css">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { color: #008000; } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { color: #008000; font-weight: bold; } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<style type="text/css">
+/* Used with Pandoc 2.11+ new --citeproc when CSL is used */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+}
+.hanging div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}
+</style>
+
+<link rel="stylesheet" href="css/style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">Simulation Modeling using the Kotlin Simulation Library</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Preface</a></li>
+<li class="chapter" data-level="" data-path="about-the-author.html"><a href="about-the-author.html"><i class="fa fa-check"></i>About the Author</a></li>
+<li class="chapter" data-level="1" data-path="ch1.html"><a href="ch1.html"><i class="fa fa-check"></i><b>1</b> Simulation Modeling</a>
+<ul>
+<li class="chapter" data-level="1.1" data-path="simulation-modeling.html"><a href="simulation-modeling.html"><i class="fa fa-check"></i><b>1.1</b> Simulation Modeling</a></li>
+<li class="chapter" data-level="1.2" data-path="why-simulate.html"><a href="why-simulate.html"><i class="fa fa-check"></i><b>1.2</b> Why Simulate?</a></li>
+<li class="chapter" data-level="1.3" data-path="types-of-systems-and-simulation-models.html"><a href="types-of-systems-and-simulation-models.html"><i class="fa fa-check"></i><b>1.3</b> Types of Systems and Simulation Models</a></li>
+<li class="chapter" data-level="1.4" data-path="simulation-descriptive-or-prescriptive-modeling.html"><a href="simulation-descriptive-or-prescriptive-modeling.html"><i class="fa fa-check"></i><b>1.4</b> Simulation: Descriptive or Prescriptive Modeling?</a></li>
+<li class="chapter" data-level="1.5" data-path="randomness-in-simulation.html"><a href="randomness-in-simulation.html"><i class="fa fa-check"></i><b>1.5</b> Randomness in Simulation</a></li>
+<li class="chapter" data-level="1.6" data-path="simulation-languages.html"><a href="simulation-languages.html"><i class="fa fa-check"></i><b>1.6</b> Simulation Languages</a></li>
+<li class="chapter" data-level="1.7" data-path="ch1:sec:simMeth.html"><a href="ch1:sec:simMeth.html"><i class="fa fa-check"></i><b>1.7</b> Simulation Methodology</a></li>
+<li class="chapter" data-level="1.8" data-path="overview-of-the-kotline-simulation-library.html"><a href="overview-of-the-kotline-simulation-library.html"><i class="fa fa-check"></i><b>1.8</b> Overview of the Kotline Simulation Library</a></li>
+<li class="chapter" data-level="1.9" data-path="exercises.html"><a href="exercises.html"><i class="fa fa-check"></i><b>1.9</b> Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="ch2rng.html"><a href="ch2rng.html"><i class="fa fa-check"></i><b>2</b> Modeling Randomness</a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="ch2generator.html"><a href="ch2generator.html"><i class="fa fa-check"></i><b>2.1</b> Random Number Generator</a>
+<ul>
+<li class="chapter" data-level="2.1.1" data-path="ch2generator.html"><a href="ch2generator.html#ch2randompkg"><i class="fa fa-check"></i><b>2.1.1</b> Random Package</a></li>
+<li class="chapter" data-level="2.1.2" data-path="ch2generator.html"><a href="ch2generator.html#ch2creatingStreams"><i class="fa fa-check"></i><b>2.1.2</b> Creating and Using Streams</a></li>
+<li class="chapter" data-level="2.1.3" data-path="ch2generator.html"><a href="ch2generator.html#ch2crn"><i class="fa fa-check"></i><b>2.1.3</b> Common Random Numbers</a></li>
+<li class="chapter" data-level="2.1.4" data-path="ch2generator.html"><a href="ch2generator.html#ch2antitheticStreams"><i class="fa fa-check"></i><b>2.1.4</b> Creating and Using Antithetic Streams</a></li>
+<li class="chapter" data-level="2.1.5" data-path="ch2generator.html"><a href="ch2generator.html#ch2rnFAQ"><i class="fa fa-check"></i><b>2.1.5</b> Frequently Asked Questions about Random Numbers</a></li>
+</ul></li>
+<li class="chapter" data-level="2.2" data-path="rvg.html"><a href="rvg.html"><i class="fa fa-check"></i><b>2.2</b> Random Variate Generation</a>
+<ul>
+<li class="chapter" data-level="2.2.1" data-path="rvg.html"><a href="rvg.html#rvg_dists"><i class="fa fa-check"></i><b>2.2.1</b> Continuous and Discrete Random Variables</a></li>
+<li class="chapter" data-level="2.2.2" data-path="rvg.html"><a href="rvg.html#rvg_algo"><i class="fa fa-check"></i><b>2.2.2</b> Overview of Generation Algorithms</a></li>
+<li class="chapter" data-level="2.2.3" data-path="rvg.html"><a href="rvg.html#rvg_use"><i class="fa fa-check"></i><b>2.2.3</b> Creating and Using Random Variables</a></li>
+</ul></li>
+<li class="chapter" data-level="2.3" data-path="probability-distribution-models.html"><a href="probability-distribution-models.html"><i class="fa fa-check"></i><b>2.3</b> Probability Distribution Models</a></li>
+<li class="chapter" data-level="2.4" data-path="summary.html"><a href="summary.html"><i class="fa fa-check"></i><b>2.4</b> Summary</a></li>
+<li class="chapter" data-level="2.5" data-path="exercises-1.html"><a href="exercises-1.html"><i class="fa fa-check"></i><b>2.5</b> Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="mcm.html"><a href="mcm.html"><i class="fa fa-check"></i><b>3</b> Monte Carlo Methods</a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="kslStatistics.html"><a href="kslStatistics.html"><i class="fa fa-check"></i><b>3.1</b> Collecting Statistics</a>
+<ul>
+<li class="chapter" data-level="3.1.1" data-path="kslStatistics.html"><a href="kslStatistics.html#creating-and-using-a-statistic"><i class="fa fa-check"></i><b>3.1.1</b> Creating and Using a Statistic</a></li>
+<li class="chapter" data-level="3.1.2" data-path="kslStatistics.html"><a href="kslStatistics.html#histograms-and-frequencies"><i class="fa fa-check"></i><b>3.1.2</b> Histograms and Frequencies</a></li>
+</ul></li>
+<li class="chapter" data-level="3.2" data-path="ch3batchStats.html"><a href="ch3batchStats.html"><i class="fa fa-check"></i><b>3.2</b> Batch Statistics</a></li>
+<li class="chapter" data-level="3.3" data-path="ssMC.html"><a href="ssMC.html"><i class="fa fa-check"></i><b>3.3</b> Simple Monte Carlo Integration</a></li>
+<li class="chapter" data-level="3.4" data-path="ch3StatReview.html"><a href="ch3StatReview.html"><i class="fa fa-check"></i><b>3.4</b> Review of Statistical Concepts</a>
+<ul>
+<li class="chapter" data-level="3.4.1" data-path="ch3StatReview.html"><a href="ch3StatReview.html#point-estimates-and-confidence-intervals"><i class="fa fa-check"></i><b>3.4.1</b> Point Estimates and Confidence Intervals</a></li>
+<li class="chapter" data-level="3.4.2" data-path="ch3StatReview.html"><a href="ch3StatReview.html#ch3SampleSize"><i class="fa fa-check"></i><b>3.4.2</b> Sample Size Determination</a></li>
+<li class="chapter" data-level="3.4.3" data-path="ch3StatReview.html"><a href="ch3StatReview.html#determining-the-sample-size-for-a-monte-carlo-simulation-experiment"><i class="fa fa-check"></i><b>3.4.3</b> Determining the Sample Size for a Monte Carlo Simulation Experiment</a></li>
+</ul></li>
+<li class="chapter" data-level="3.5" data-path="craps.html"><a href="craps.html"><i class="fa fa-check"></i><b>3.5</b> Simulating the Game of Craps</a></li>
+<li class="chapter" data-level="3.6" data-path="the-news-vendor-problem.html"><a href="the-news-vendor-problem.html"><i class="fa fa-check"></i><b>3.6</b> The News Vendor Problem</a></li>
+<li class="chapter" data-level="3.7" data-path="summary-1.html"><a href="summary-1.html"><i class="fa fa-check"></i><b>3.7</b> Summary</a></li>
+<li class="chapter" data-level="3.8" data-path="exercises-2.html"><a href="exercises-2.html"><i class="fa fa-check"></i><b>3.8</b> Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="introDEDS.html"><a href="introDEDS.html"><i class="fa fa-check"></i><b>4</b> Introduction to Discrete Event Modeling</a>
+<ul>
+<li class="chapter" data-level="4.1" data-path="introDEDSIntro.html"><a href="introDEDSIntro.html"><i class="fa fa-check"></i><b>4.1</b> Introduction</a></li>
+<li class="chapter" data-level="4.2" data-path="introDEDSdeds.html"><a href="introDEDSdeds.html"><i class="fa fa-check"></i><b>4.2</b> Discrete-Event Dynamic Systems</a></li>
+<li class="chapter" data-level="4.3" data-path="HowDEDSClockWorks.html"><a href="HowDEDSClockWorks.html"><i class="fa fa-check"></i><b>4.3</b> How the Discrete-Event Clock Works</a></li>
+<li class="chapter" data-level="4.4" data-path="QHandExample.html"><a href="QHandExample.html"><i class="fa fa-check"></i><b>4.4</b> Simulating a Queueing System By Hand</a></li>
+<li class="chapter" data-level="4.5" data-path="introDEDSdedsKSL.html"><a href="introDEDSdedsKSL.html"><i class="fa fa-check"></i><b>4.5</b> Modeling DEDS in the KSL</a>
+<ul>
+<li class="chapter" data-level="4.5.1" data-path="introDEDSdedsKSL.html"><a href="introDEDSdedsKSL.html#event-scheduling"><i class="fa fa-check"></i><b>4.5.1</b> Event Scheduling</a></li>
+<li class="chapter" data-level="4.5.2" data-path="introDEDSdedsKSL.html"><a href="introDEDSdedsKSL.html#introDEDSschedExamples"><i class="fa fa-check"></i><b>4.5.2</b> Simple Event Scheduling Examples</a></li>
+<li class="chapter" data-level="4.5.3" data-path="introDEDSdedsKSL.html"><a href="introDEDSdedsKSL.html#introDEDSUpDown"><i class="fa fa-check"></i><b>4.5.3</b> Up and Down Component Example</a></li>
+<li class="chapter" data-level="4.5.4" data-path="introDEDSdedsKSL.html"><a href="introDEDSdedsKSL.html#introDEDSPharmacy"><i class="fa fa-check"></i><b>4.5.4</b> Modeling a Simple Queueing System</a></li>
+<li class="chapter" data-level="4.5.5" data-path="introDEDSdedsKSL.html"><a href="introDEDSdedsKSL.html#more-details-about-the-pharmacy-model-implementation"><i class="fa fa-check"></i><b>4.5.5</b> More Details About the Pharmacy Model Implementation</a></li>
+</ul></li>
+<li class="chapter" data-level="4.6" data-path="introDEDSSummary.html"><a href="introDEDSSummary.html"><i class="fa fa-check"></i><b>4.6</b> Summary</a></li>
+<li class="chapter" data-level="4.7" data-path="exercises-3.html"><a href="exercises-3.html"><i class="fa fa-check"></i><b>4.7</b> Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="dem.html"><a href="dem.html"><i class="fa fa-check"></i><b>5</b> Modeling with Queues, Resources, and Stations</a>
+<ul>
+<li class="chapter" data-level="5.1" data-path="terminology-of-simulation-modeling.html"><a href="terminology-of-simulation-modeling.html"><i class="fa fa-check"></i><b>5.1</b> Terminology of Simulation Modeling</a></li>
+<li class="chapter" data-level="5.2" data-path="dem:entities.html"><a href="dem:entities.html"><i class="fa fa-check"></i><b>5.2</b> Entities and Attributes</a></li>
+<li class="chapter" data-level="5.3" data-path="dem:eg.html"><a href="dem:eg.html"><i class="fa fa-check"></i><b>5.3</b> Event Generators</a></li>
+<li class="chapter" data-level="5.4" data-path="dem:station.html"><a href="dem:station.html"><i class="fa fa-check"></i><b>5.4</b> The Station Package</a>
+<ul>
+<li class="chapter" data-level="5.4.1" data-path="dem:station.html"><a href="dem:station.html#modeling-simple-queueing-stations"><i class="fa fa-check"></i><b>5.4.1</b> Modeling Simple Queueing Stations</a></li>
+</ul></li>
+<li class="chapter" data-level="5.5" data-path="dem:sharedResources.html"><a href="dem:sharedResources.html"><i class="fa fa-check"></i><b>5.5</b> Sharing a Resource</a></li>
+<li class="chapter" data-level="5.6" data-path="dem:tiedyeShirts.html"><a href="dem:tiedyeShirts.html"><i class="fa fa-check"></i><b>5.6</b> Complex System Example</a>
+<ul>
+<li class="chapter" data-level="5.6.1" data-path="dem:tiedyeShirts.html"><a href="dem:tiedyeShirts.html#dem:tiedyeShirts:cm"><i class="fa fa-check"></i><b>5.6.1</b> Conceptualizing the Model</a></li>
+<li class="chapter" data-level="5.6.2" data-path="dem:tiedyeShirts.html"><a href="dem:tiedyeShirts.html#dem:tiedyeShirts:im"><i class="fa fa-check"></i><b>5.6.2</b> Implementing the Model</a></li>
+<li class="chapter" data-level="5.6.3" data-path="dem:tiedyeShirts.html"><a href="dem:tiedyeShirts.html#dem:tiedyeShirts:results"><i class="fa fa-check"></i><b>5.6.3</b> Model Results</a></li>
+</ul></li>
+<li class="chapter" data-level="5.7" data-path="dem:summary.html"><a href="dem:summary.html"><i class="fa fa-check"></i><b>5.7</b> Summary</a></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="simoa.html"><a href="simoa.html"><i class="fa fa-check"></i><b>6</b> Analyzing Simulation Output</a>
+<ul>
+<li class="chapter" data-level="6.1" data-path="simoa:datatypes.html"><a href="simoa:datatypes.html"><i class="fa fa-check"></i><b>6.1</b> Types of Statistical Variables</a></li>
+<li class="chapter" data-level="6.2" data-path="simoa:simtypes.html"><a href="simoa:simtypes.html"><i class="fa fa-check"></i><b>6.2</b> Types of Simulation With Respect To Output Analysis</a></li>
+<li class="chapter" data-level="6.3" data-path="simoa:finhorizon.html"><a href="simoa:finhorizon.html"><i class="fa fa-check"></i><b>6.3</b> Analysis of Finite Horizon Simulations</a>
+<ul>
+<li class="chapter" data-level="6.3.1" data-path="simoa:finhorizon.html"><a href="simoa:finhorizon.html#simoa:finhorizon:samplesize"><i class="fa fa-check"></i><b>6.3.1</b> Determining the Number of Replications</a></li>
+</ul></li>
+<li class="chapter" data-level="6.4" data-path="simoa:finhorizonex.html"><a href="simoa:finhorizonex.html"><i class="fa fa-check"></i><b>6.4</b> Finite Horizon Example</a>
+<ul>
+<li class="chapter" data-level="6.4.1" data-path="simoa:finhorizonex.html"><a href="simoa:finhorizonex.html#conceptualizing-the-model"><i class="fa fa-check"></i><b>6.4.1</b> Conceptualizing the Model</a></li>
+<li class="chapter" data-level="6.4.2" data-path="simoa:finhorizonex.html"><a href="simoa:finhorizonex.html#simoa:seqsampling"><i class="fa fa-check"></i><b>6.4.2</b> Sequential Sampling for Finite Horizon Simulations</a></li>
+</ul></li>
+<li class="chapter" data-level="6.5" data-path="simoa:infhorizon.html"><a href="simoa:infhorizon.html"><i class="fa fa-check"></i><b>6.5</b> Analysis of Infinite Horizon Simulations</a>
+<ul>
+<li class="chapter" data-level="6.5.1" data-path="simoa:infhorizon.html"><a href="simoa:infhorizon.html#simoa:infhorizon:initialbias"><i class="fa fa-check"></i><b>6.5.1</b> Assessing the Effect of Initial Conditions</a></li>
+<li class="chapter" data-level="6.5.2" data-path="simoa:infhorizon.html"><a href="simoa:infhorizon.html#simoa:infhorizon:repDeletion"><i class="fa fa-check"></i><b>6.5.2</b> Performing the Method of Replication-Deletion</a></li>
+<li class="chapter" data-level="6.5.3" data-path="simoa:infhorizon.html"><a href="simoa:infhorizon.html#simoa:infhorizon:batchmeans"><i class="fa fa-check"></i><b>6.5.3</b> The Method of Batch Means</a></li>
+<li class="chapter" data-level="6.5.4" data-path="simoa:infhorizon.html"><a href="simoa:infhorizon.html#simoa:infhorizon:jslbatching"><i class="fa fa-check"></i><b>6.5.4</b> Performing the Method of Batch Means</a></li>
+</ul></li>
+<li class="chapter" data-level="6.6" data-path="simoa:comparingSystems.html"><a href="simoa:comparingSystems.html"><i class="fa fa-check"></i><b>6.6</b> Comparing System Configurations</a>
+<ul>
+<li class="chapter" data-level="6.6.1" data-path="simoa:comparingSystems.html"><a href="simoa:comparingSystems.html#simoa:comparingSystems:two"><i class="fa fa-check"></i><b>6.6.1</b> Comparing Two Systems</a></li>
+<li class="chapter" data-level="6.6.2" data-path="simoa:comparingSystems.html"><a href="simoa:comparingSystems.html#simoa:comparingSystems:MCB"><i class="fa fa-check"></i><b>6.6.2</b> Multiple Comparisons</a></li>
+</ul></li>
+<li class="chapter" data-level="6.7" data-path="simoa:summary.html"><a href="simoa:summary.html"><i class="fa fa-check"></i><b>6.7</b> Summary</a></li>
+</ul></li>
+<li class="appendix"><span><b>Appendix</b></span></li>
+<li class="chapter" data-level="A" data-path="miscellaneous-utility-classes.html"><a href="miscellaneous-utility-classes.html"><i class="fa fa-check"></i><b>A</b> Miscellaneous Utility Classes</a>
+<ul>
+<li class="chapter" data-level="A.1" data-path="reporting.html"><a href="reporting.html"><i class="fa fa-check"></i><b>A.1</b> Reporting</a></li>
+<li class="chapter" data-level="A.2" data-path="jslmath-class.html"><a href="jslmath-class.html"><i class="fa fa-check"></i><b>A.2</b> <code>JSLMath</code> Class</a></li>
+<li class="chapter" data-level="A.3" data-path="the-jsl-database.html"><a href="the-jsl-database.html"><i class="fa fa-check"></i><b>A.3</b> The JSL Database</a>
+<ul>
+<li class="chapter" data-level="A.3.1" data-path="the-jsl-database.html"><a href="the-jsl-database.html#the-jsl-database-structure"><i class="fa fa-check"></i><b>A.3.1</b> The JSL Database Structure</a></li>
+<li class="chapter" data-level="A.3.2" data-path="the-jsl-database.html"><a href="the-jsl-database.html#creating-and-using-a-default-jsl-database"><i class="fa fa-check"></i><b>A.3.2</b> Creating and Using a Default JSL Database</a></li>
+<li class="chapter" data-level="A.3.3" data-path="the-jsl-database.html"><a href="the-jsl-database.html#creating-and-using-jsl-databases"><i class="fa fa-check"></i><b>A.3.3</b> Creating and Using JSL Databases</a></li>
+<li class="chapter" data-level="A.3.4" data-path="the-jsl-database.html"><a href="the-jsl-database.html#querying-the-jsl-database"><i class="fa fa-check"></i><b>A.3.4</b> Querying the JSL Database</a></li>
+<li class="chapter" data-level="A.3.5" data-path="the-jsl-database.html"><a href="the-jsl-database.html#additional-functionality"><i class="fa fa-check"></i><b>A.3.5</b> Additional Functionality</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="B" data-path="appRNRV.html"><a href="appRNRV.html"><i class="fa fa-check"></i><b>B</b> Generating Pseudo-Random Numbers and Random Variates</a>
+<ul>
+<li class="chapter" data-level="B.1" data-path="appRNRVPRN.html"><a href="appRNRVPRN.html"><i class="fa fa-check"></i><b>B.1</b> Pseudo Random Numbers</a>
+<ul>
+<li class="chapter" data-level="B.1.1" data-path="appRNRVPRN.html"><a href="appRNRVPRN.html#appRNRVRNGs"><i class="fa fa-check"></i><b>B.1.1</b> Random Number Generators</a></li>
+</ul></li>
+<li class="chapter" data-level="B.2" data-path="appRNRVs.html"><a href="appRNRVs.html"><i class="fa fa-check"></i><b>B.2</b> Generating Random Variates from Distributions</a>
+<ul>
+<li class="chapter" data-level="B.2.1" data-path="appRNRVs.html"><a href="appRNRVs.html#inverse-transform-method"><i class="fa fa-check"></i><b>B.2.1</b> Inverse Transform Method</a></li>
+<li class="chapter" data-level="B.2.2" data-path="appRNRVs.html"><a href="appRNRVs.html#convolution"><i class="fa fa-check"></i><b>B.2.2</b> Convolution</a></li>
+<li class="chapter" data-level="B.2.3" data-path="appRNRVs.html"><a href="appRNRVs.html#acceptancerejection"><i class="fa fa-check"></i><b>B.2.3</b> Acceptance/Rejection</a></li>
+<li class="chapter" data-level="B.2.4" data-path="appRNRVs.html"><a href="appRNRVs.html#appRNRVsubsecMTSRV"><i class="fa fa-check"></i><b>B.2.4</b> Mixture Distributions, Truncated Distributions, and Shifted Random Variables</a></li>
+</ul></li>
+<li class="chapter" data-level="B.3" data-path="summary-2.html"><a href="summary-2.html"><i class="fa fa-check"></i><b>B.3</b> Summary</a></li>
+<li class="chapter" data-level="B.4" data-path="exercises-4.html"><a href="exercises-4.html"><i class="fa fa-check"></i><b>B.4</b> Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="C" data-path="appidm.html"><a href="appidm.html"><i class="fa fa-check"></i><b>C</b> Probability Distribution Modeling</a>
+<ul>
+<li class="chapter" data-level="C.1" data-path="appidmsecrvPD.html"><a href="appidmsecrvPD.html"><i class="fa fa-check"></i><b>C.1</b> Random Variables and Probability Distributions</a></li>
+<li class="chapter" data-level="C.2" data-path="appidmsecMDD.html"><a href="appidmsecMDD.html"><i class="fa fa-check"></i><b>C.2</b> Modeling with Discrete Distributions</a></li>
+<li class="chapter" data-level="C.3" data-path="appidmsecfitDiscrete.html"><a href="appidmsecfitDiscrete.html"><i class="fa fa-check"></i><b>C.3</b> Fitting Discrete Distributions</a>
+<ul>
+<li class="chapter" data-level="C.3.1" data-path="appidmsecfitDiscrete.html"><a href="appidmsecfitDiscrete.html#AppDisFitPoissonFit"><i class="fa fa-check"></i><b>C.3.1</b> Fitting a Poisson Distribution</a></li>
+<li class="chapter" data-level="C.3.2" data-path="appidmsecfitDiscrete.html"><a href="appidmsecfitDiscrete.html#visualizing-the-data"><i class="fa fa-check"></i><b>C.3.2</b> Visualizing the Data</a></li>
+<li class="chapter" data-level="C.3.3" data-path="appidmsecfitDiscrete.html"><a href="appidmsecfitDiscrete.html#estimating-the-rate-parameter-for-the-poisson-distribution"><i class="fa fa-check"></i><b>C.3.3</b> Estimating the Rate Parameter for the Poisson Distribution</a></li>
+<li class="chapter" data-level="C.3.4" data-path="appidmsecfitDiscrete.html"><a href="appidmsecfitDiscrete.html#chi-squared-goodness-of-fit-test-for-poisson-distribution"><i class="fa fa-check"></i><b>C.3.4</b> Chi-Squared Goodness of Fit Test for Poisson Distribution</a></li>
+<li class="chapter" data-level="C.3.5" data-path="appidmsecfitDiscrete.html"><a href="appidmsecfitDiscrete.html#subsubchisqGOF"><i class="fa fa-check"></i><b>C.3.5</b> Chi-Squared Goodness of Fit Test</a></li>
+<li class="chapter" data-level="C.3.6" data-path="appidmsecfitDiscrete.html"><a href="appidmsecfitDiscrete.html#using-the-fitdistrplus-r-package-on-discrete-data"><i class="fa fa-check"></i><b>C.3.6</b> Using the fitdistrplus R Package on Discrete Data</a></li>
+<li class="chapter" data-level="C.3.7" data-path="appidmsecfitDiscrete.html"><a href="appidmsecfitDiscrete.html#fitting-a-discrete-empirical-distribution"><i class="fa fa-check"></i><b>C.3.7</b> Fitting a Discrete Empirical Distribution</a></li>
+</ul></li>
+<li class="chapter" data-level="C.4" data-path="appidmsecMCD.html"><a href="appidmsecMCD.html"><i class="fa fa-check"></i><b>C.4</b> Modeling with Continuous Distributions</a></li>
+<li class="chapter" data-level="C.5" data-path="appidmsecfitContinuous.html"><a href="appidmsecfitContinuous.html"><i class="fa fa-check"></i><b>C.5</b> Fitting Continuous Distributions</a>
+<ul>
+<li class="chapter" data-level="C.5.1" data-path="appidmsecfitContinuous.html"><a href="appidmsecfitContinuous.html#appidmsubsecvisualizedata"><i class="fa fa-check"></i><b>C.5.1</b> Visualizing the Data</a></li>
+<li class="chapter" data-level="C.5.2" data-path="appidmsecfitContinuous.html"><a href="appidmsecfitContinuous.html#appidmsubsecstatsdata"><i class="fa fa-check"></i><b>C.5.2</b> Statistically Summarize the Data</a></li>
+<li class="chapter" data-level="C.5.3" data-path="appidmsecfitContinuous.html"><a href="appidmsecfitContinuous.html#appidmsubsechypothDist"><i class="fa fa-check"></i><b>C.5.3</b> Hypothesizing and Testing a Distribution</a></li>
+<li class="chapter" data-level="C.5.4" data-path="appidmsecfitContinuous.html"><a href="appidmsecfitContinuous.html#kolmogorov-smirnov-test"><i class="fa fa-check"></i><b>C.5.4</b> Kolmogorov-Smirnov Test</a></li>
+<li class="chapter" data-level="C.5.5" data-path="appidmsecfitContinuous.html"><a href="appidmsecfitContinuous.html#appidmsubsecvisFit"><i class="fa fa-check"></i><b>C.5.5</b> Visualizing the Fit</a></li>
+<li class="chapter" data-level="C.5.6" data-path="appidmsecfitContinuous.html"><a href="appidmsecfitContinuous.html#appidms2sb3"><i class="fa fa-check"></i><b>C.5.6</b> Using the Input Analyzer</a></li>
+</ul></li>
+<li class="chapter" data-level="C.6" data-path="appdistfittestU01.html"><a href="appdistfittestU01.html"><i class="fa fa-check"></i><b>C.6</b> Testing Uniform (0,1) Pseudo-Random Numbers</a>
+<ul>
+<li class="chapter" data-level="C.6.1" data-path="appdistfittestU01.html"><a href="appdistfittestU01.html#chi-squared-goodness-of-fit-tests-for-pseudo-random-numbers"><i class="fa fa-check"></i><b>C.6.1</b> Chi-Squared Goodness of Fit Tests for Pseudo-Random Numbers</a></li>
+<li class="chapter" data-level="C.6.2" data-path="appdistfittestU01.html"><a href="appdistfittestU01.html#higher-dimensional-chi-squared-test"><i class="fa fa-check"></i><b>C.6.2</b> Higher Dimensional Chi-Squared Test</a></li>
+<li class="chapter" data-level="C.6.3" data-path="appdistfittestU01.html"><a href="appdistfittestU01.html#kolmogorov-smirnov-test-for-pseudo-random-numbers"><i class="fa fa-check"></i><b>C.6.3</b> Kolmogorov-Smirnov Test for Pseudo-Random Numbers</a></li>
+<li class="chapter" data-level="C.6.4" data-path="appdistfittestU01.html"><a href="appdistfittestU01.html#testing-for-independence-and-patterns-in-pseudo-random-numbers"><i class="fa fa-check"></i><b>C.6.4</b> Testing for Independence and Patterns in Pseudo-Random Numbers</a></li>
+</ul></li>
+<li class="chapter" data-level="C.7" data-path="appdistfitidms2sb4.html"><a href="appdistfitidms2sb4.html"><i class="fa fa-check"></i><b>C.7</b> Additional Distribution Modeling Concepts</a></li>
+<li class="chapter" data-level="C.8" data-path="appidmSummary.html"><a href="appidmSummary.html"><i class="fa fa-check"></i><b>C.8</b> Summary</a></li>
+<li class="chapter" data-level="C.9" data-path="exercises-5.html"><a href="exercises-5.html"><i class="fa fa-check"></i><b>C.9</b> Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="D" data-path="appqtAndInvT.html"><a href="appqtAndInvT.html"><i class="fa fa-check"></i><b>D</b> Queueing Theory</a>
+<ul>
+<li class="chapter" data-level="D.1" data-path="appqts1.html"><a href="appqts1.html"><i class="fa fa-check"></i><b>D.1</b> Single Line Queueing Stations</a>
+<ul>
+<li class="chapter" data-level="D.1.1" data-path="appqts1.html"><a href="appqts1.html#queueing-notation"><i class="fa fa-check"></i><b>D.1.1</b> Queueing Notation</a></li>
+<li class="chapter" data-level="D.1.2" data-path="appqts1.html"><a href="appqts1.html#littles-formula"><i class="fa fa-check"></i><b>D.1.2</b> Little’s Formula</a></li>
+<li class="chapter" data-level="D.1.3" data-path="appqts1.html"><a href="appqts1.html#appqts1sb1"><i class="fa fa-check"></i><b>D.1.3</b> Deriving Formulas for Markovian Single Queue Systems</a></li>
+</ul></li>
+<li class="chapter" data-level="D.2" data-path="appqts1sb2.html"><a href="appqts1sb2.html"><i class="fa fa-check"></i><b>D.2</b> Examples and Applications of Queueing Analysis</a>
+<ul>
+<li class="chapter" data-level="D.2.1" data-path="appqts1sb2.html"><a href="appqts1sb2.html#infinite-queue-examples"><i class="fa fa-check"></i><b>D.2.1</b> Infinite Queue Examples</a></li>
+<li class="chapter" data-level="D.2.2" data-path="appqts1sb2.html"><a href="appqts1sb2.html#finite-queue-examples"><i class="fa fa-check"></i><b>D.2.2</b> Finite Queue Examples</a></li>
+</ul></li>
+<li class="chapter" data-level="D.3" data-path="appqts1sb3.html"><a href="appqts1sb3.html"><i class="fa fa-check"></i><b>D.3</b> Non-Markovian Queues and Approximations</a></li>
+<li class="chapter" data-level="D.4" data-path="appqtsecformulas.html"><a href="appqtsecformulas.html"><i class="fa fa-check"></i><b>D.4</b> Summary of Queueing Formulas</a>
+<ul>
+<li class="chapter" data-level="D.4.1" data-path="appqtsecformulas.html"><a href="appqtsecformulas.html#mm1-queue"><i class="fa fa-check"></i><b>D.4.1</b> M/M/1 Queue</a></li>
+<li class="chapter" data-level="D.4.2" data-path="appqtsecformulas.html"><a href="appqtsecformulas.html#mmc-queue"><i class="fa fa-check"></i><b>D.4.2</b> M/M/c Queue</a></li>
+<li class="chapter" data-level="D.4.3" data-path="appqtsecformulas.html"><a href="appqtsecformulas.html#mmck-queue"><i class="fa fa-check"></i><b>D.4.3</b> M/M/c/k Queue</a></li>
+<li class="chapter" data-level="D.4.4" data-path="appqtsecformulas.html"><a href="appqtsecformulas.html#mgcc-queue"><i class="fa fa-check"></i><b>D.4.4</b> M/G/c/c Queue</a></li>
+<li class="chapter" data-level="D.4.5" data-path="appqtsecformulas.html"><a href="appqtsecformulas.html#mm1k-queue"><i class="fa fa-check"></i><b>D.4.5</b> M/M/1/k Queue</a></li>
+<li class="chapter" data-level="D.4.6" data-path="appqtsecformulas.html"><a href="appqtsecformulas.html#mmck-queue-1"><i class="fa fa-check"></i><b>D.4.6</b> M/M/c/k Queue</a></li>
+<li class="chapter" data-level="D.4.7" data-path="appqtsecformulas.html"><a href="appqtsecformulas.html#mm1kk-queue"><i class="fa fa-check"></i><b>D.4.7</b> M/M/1/k/k Queue</a></li>
+<li class="chapter" data-level="D.4.8" data-path="appqtsecformulas.html"><a href="appqtsecformulas.html#mmckk-queue"><i class="fa fa-check"></i><b>D.4.8</b> M/M/c/k/k Queue</a></li>
+</ul></li>
+<li class="chapter" data-level="D.5" data-path="exercises-6.html"><a href="exercises-6.html"><i class="fa fa-check"></i><b>D.5</b> Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="E" data-path="distributions.html"><a href="distributions.html"><i class="fa fa-check"></i><b>E</b> Distributions</a>
+<ul>
+<li class="chapter" data-level="E.1" data-path="appDiscreteDistributions.html"><a href="appDiscreteDistributions.html"><i class="fa fa-check"></i><b>E.1</b> Discrete Distrbutions</a></li>
+<li class="chapter" data-level="E.2" data-path="appContinuousDistributions.html"><a href="appContinuousDistributions.html"><i class="fa fa-check"></i><b>E.2</b> Continuous Distrbutions</a></li>
+</ul></li>
+<li class="chapter" data-level="F" data-path="appStatTables.html"><a href="appStatTables.html"><i class="fa fa-check"></i><b>F</b> Statistical Tables</a></li>
+<li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
+<li class="divider"></li>
+<li><a href="https://bookdown.org" target="_blank">Published with bookdown</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Simulation Modeling using the Kotlin Simulation Library</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="simoa:finhorizonex" class="section level2 hasAnchor" number="6.4">
+<h2><span class="header-section-number">6.4</span> Finite Horizon Example<a href="simoa:finhorizonex.html#simoa:finhorizonex" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>This section presents a fictitious system involving the production of rings. The example illustrates how to collect tally based
+statistics, time based statistics, and statistics that can only be
+collected at the end of a replication. The analysis of a finite horizon
+simulation will be illustrated. In addition, the
+system also represents another example of how to use the station package.</p>
+<p>Every morning the sales force at LOTR Makers, Inc. makes a number of confirmation
+calls to customers who have previously been visited by the sales force.
+They have tracked the success rate of their confirmation calls over time
+and have determined that the chance of success varies from day to day.
+They have modeled the probability of success for a given day as a beta
+random variable with parameters <span class="math inline">\(\alpha_1 = 5\)</span> and <span class="math inline">\(\alpha_2 = 1.5\)</span> so
+that the mean success rate is about 77%. They always make 100 calls
+every morning. Each sales call will or will not result in an order for a
+pair of magical rings for that day. Thus, the number of pairs of rings
+to produce every day is a binomial random variable, with <span class="math inline">\(p\)</span> determined
+by the success rate for the day and <span class="math inline">\(n = 100\)</span> representing the total
+number of calls made. Note that <span class="math inline">\(p\)</span> is random in this modeling.</p>
+<p>The sales force is large enough and the time to make the confirmation
+calls small enough so as to be able to complete all the calls before
+releasing a production run for the day. In essence, ring production does
+not start until all the orders have been confirmed, but the actual
+number of ring pairs produced every day is unknown until the sales call
+confirmation process is completed. The time to make the calls is
+negligible when compared to the overall production time.</p>
+<p>Besides being magical, one ring is smaller than the other ring so that
+the smaller ring must fit snuggly inside the larger ring. The pair of
+rings is produced by a master ring maker and takes uniformly between 5
+to 15 minutes. The rings are then scrutinized by an inspector with the
+time (in minutes) being distributed according to a triangular
+distribution with parameters (2, 4, 7) for the minimum, the mode, and
+the maximum. The inspection determines whether the smaller ring is too
+big or too small when fit inside the bigger outer ring. The inside
+diameter of the bigger ring, <span class="math inline">\(D_b\)</span>, is normally distributed with a mean
+of 1.5 cm and a standard deviation of 0.002. The outside diameter of the
+smaller ring, <span class="math inline">\(D_s\)</span>, is normally distributed with a mean of 1.49 and a
+standard deviation of 0.005. If <span class="math inline">\(D_s &gt; D_b\)</span>, then the smaller ring will
+not fit in the bigger ring; however, if <span class="math inline">\(D_b - D_s &gt; tol\)</span>, then the
+rings are considered too loose. The tolerance is currently set at 0.02
+cm.</p>
+<p>If there are no problems with the rings, the rings are sent to a packer
+for custom packaging for shipment. A time study of the packaging time
+indicates that it is distributed according to a log-normal distribution
+with a mean of 7 minutes and a standard deviation of 1 minute. If the
+inspection shows that there is a problem with the pair of rings they are
+sent to a rework craftsman. The minimum time that it takes to rework the
+pair of rings has been determined to be 5 minutes plus some random time
+that is distributed according to a Weibull distribution with a scale
+parameter of 15 and a shape parameter of 5. After the rework is
+completed, the pair of rings is sent to packaging.</p>
+<p>Currently, the company runs two shifts of 480 minutes each. Time after
+the end of the second shift is considered overtime. Management is
+interested in investigating the following:</p>
+<ul>
+<li><p>The daily production time.</p></li>
+<li><p>The probability of overtime.</p></li>
+<li><p>The average number of pairs of rings in both the ring making process
+and the ring inspection process.</p></li>
+<li><p>The average time that it takes for a pair of rings to go through
+both the ring making process and the ring inspection process. In
+addition, a 95% confidence interval for the mean time to complete
+these processes to within <span class="math inline">\(\pm\)</span> 20 minutes is desired.</p></li>
+</ul>
+<div id="conceptualizing-the-model" class="section level3 hasAnchor" number="6.4.1">
+<h3><span class="header-section-number">6.4.1</span> Conceptualizing the Model<a href="simoa:finhorizonex.html#conceptualizing-the-model" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Now let’s proceed with the modeling of this situation. We start with answering the basic model
+building questions.</p>
+<p><em>What is the system? What information is known by the system?</em></p>
+<p>The system is the LOTR Makers, Inc. sales calls and ring production
+processes. The system starts every day with the initiation of sales
+calls and ends when the last pair of rings produced for the day is
+shipped. The system knows the following:</p>
+<ul>
+<li><p>Sales call success probability distribution:
+<span class="math inline">\(p \sim beta(\alpha_1 = 5,\alpha_2 = 1.5)\)</span></p></li>
+<li><p>Number of calls to be made every morning: <span class="math inline">\(n = 100\)</span></p></li>
+<li><p>Distribution of time to make the pair of rings: <span class="math inline">\(U(5,15)\)</span></p></li>
+<li><p>Distributions associated with the big and small ring diameters:
+N(<span class="math inline">\(\mu\)</span> = 1.5, <span class="math inline">\(\sigma\)</span> = 0.002) and N(<span class="math inline">\(\mu\)</span> = 1.49, <span class="math inline">\(\sigma\)</span> =
+0.005), respectively</p></li>
+<li><p>Distribution of ring-inspection time: triangular(2,4,7)</p></li>
+<li><p>Distribution of packaging time: lognormal(<span class="math inline">\(\mu_{l}\)</span> = 7,<span class="math inline">\(\sigma_{l}\)</span>
+= 1)</p></li>
+<li><p>Distribution of rework time, 5 + Weibull(scale =15, shape =3)</p></li>
+<li><p>Length of a shift: 480 minutes</p></li>
+</ul>
+<p><em>What are the entities? What information must be recorded for each entity?</em></p>
+<p>Possible entities are the sales calls and the production job (pair of
+rings) for every successful sales call. For every pair of rings, the
+diameters must be known.</p>
+<p><em>What are the resources that are used by the entities?</em></p>
+<p>The sales calls do not use any resources. The production job uses a
+master craftsman, an inspector, and a packager. It might also use a
+rework craftsman.</p>
+<p><em>What are the activities? What are the processes? What are the events associated with the processes and activities? Write out or draw sketches of the process.</em></p>
+<p>There are two processes: sales order and production. An outline of the
+sales order process should look like this:</p>
+<ol style="list-style-type: decimal">
+<li><p>Start the day.</p></li>
+<li><p>Determine the likelihood of calls being successful.</p></li>
+<li><p>Make the calls.</p></li>
+<li><p>Determine the total number of successful calls.</p></li>
+<li><p>Start the production jobs.</p></li>
+</ol>
+<p>Notice that the sales order process takes zero time and that it occurs
+at the beginning of each day. Thus, there appears to be an event that
+occurs at time 0.0, that determines the number of production jobs and
+sends them to production. This type of situation is best modeled using
+the initialize() method to make the orders to be placed into production.
+From the problem statement, the number of production jobs is a binomial
+random variable with <span class="math inline">\(n= 100\)</span> and
+<span class="math inline">\(p \sim BETA(\alpha_1 = 5,\alpha_2 = 1.5)\)</span>.</p>
+<p>The following listing shows the constructor for this model and the
+initialize() method.</p>
+<div class="sourceCode" id="cb94"><pre class="sourceCode java"><code class="sourceCode java"><span id="cb94-1"><a href="simoa:finhorizonex.html#cb94-1" aria-hidden="true" tabindex="-1"></a><span class="kw">public</span> <span class="fu">LOTR</span><span class="op">(</span>ModelElement parent<span class="op">,</span> <span class="bu">String</span> name<span class="op">)</span> <span class="op">{</span></span>
+<span id="cb94-2"><a href="simoa:finhorizonex.html#cb94-2" aria-hidden="true" tabindex="-1"></a>    <span class="kw">super</span><span class="op">(</span>parent<span class="op">,</span> name<span class="op">);</span></span>
+<span id="cb94-3"><a href="simoa:finhorizonex.html#cb94-3" aria-hidden="true" tabindex="-1"></a>    mySalesCallProb <span class="op">=</span> <span class="kw">new</span> <span class="fu">RandomVariable</span><span class="op">(</span><span class="kw">this</span><span class="op">,</span> <span class="kw">new</span> <span class="fu">BetaRV</span><span class="op">(</span><span class="fl">5.0</span><span class="op">,</span> <span class="fl">1.5</span><span class="op">));</span></span>
+<span id="cb94-4"><a href="simoa:finhorizonex.html#cb94-4" aria-hidden="true" tabindex="-1"></a>    myMakeRingTimeRV <span class="op">=</span> <span class="kw">new</span> <span class="fu">RandomVariable</span><span class="op">(</span><span class="kw">this</span><span class="op">,</span> <span class="kw">new</span> <span class="fu">UniformRV</span><span class="op">(</span><span class="dv">5</span><span class="op">,</span> <span class="dv">15</span><span class="op">));</span></span>
+<span id="cb94-5"><a href="simoa:finhorizonex.html#cb94-5" aria-hidden="true" tabindex="-1"></a>    mySmallRingODRV <span class="op">=</span> <span class="kw">new</span> <span class="fu">RandomVariable</span><span class="op">(</span><span class="kw">this</span><span class="op">,</span> <span class="kw">new</span> <span class="fu">NormalRV</span><span class="op">(</span><span class="fl">1.49</span><span class="op">,</span> <span class="fl">0.005</span> <span class="op">*</span> <span class="fl">0.005</span><span class="op">));</span></span>
+<span id="cb94-6"><a href="simoa:finhorizonex.html#cb94-6" aria-hidden="true" tabindex="-1"></a>    myBigRingIDRV <span class="op">=</span> <span class="kw">new</span> <span class="fu">RandomVariable</span><span class="op">(</span><span class="kw">this</span><span class="op">,</span> <span class="kw">new</span> <span class="fu">NormalRV</span><span class="op">(</span><span class="fl">1.5</span><span class="op">,</span> <span class="fl">0.002</span> <span class="op">*</span> <span class="fl">0.002</span><span class="op">));</span></span>
+<span id="cb94-7"><a href="simoa:finhorizonex.html#cb94-7" aria-hidden="true" tabindex="-1"></a>    myInspectTimeRV <span class="op">=</span> <span class="kw">new</span> <span class="fu">RandomVariable</span><span class="op">(</span><span class="kw">this</span><span class="op">,</span> <span class="kw">new</span> <span class="fu">TriangularRV</span><span class="op">(</span><span class="dv">2</span><span class="op">,</span> <span class="dv">4</span><span class="op">,</span> <span class="dv">7</span><span class="op">));</span></span>
+<span id="cb94-8"><a href="simoa:finhorizonex.html#cb94-8" aria-hidden="true" tabindex="-1"></a>    myPackingTimeRV <span class="op">=</span> <span class="kw">new</span> <span class="fu">RandomVariable</span><span class="op">(</span><span class="kw">this</span><span class="op">,</span> <span class="kw">new</span> <span class="fu">LognormalRV</span><span class="op">(</span><span class="dv">7</span><span class="op">,</span> <span class="dv">1</span><span class="op">));</span></span>
+<span id="cb94-9"><a href="simoa:finhorizonex.html#cb94-9" aria-hidden="true" tabindex="-1"></a>    myReworkTimeRV <span class="op">=</span> <span class="kw">new</span> <span class="fu">RandomVariable</span><span class="op">(</span><span class="kw">this</span><span class="op">,</span> <span class="kw">new</span> <span class="fu">ShiftedRV</span><span class="op">(</span><span class="fl">5.0</span><span class="op">,</span> <span class="kw">new</span> <span class="fu">WeibullRV</span><span class="op">(</span><span class="dv">3</span><span class="op">,</span> <span class="dv">15</span><span class="op">)));</span></span>
+<span id="cb94-10"><a href="simoa:finhorizonex.html#cb94-10" aria-hidden="true" tabindex="-1"></a>    myRingMakingStation <span class="op">=</span> <span class="kw">new</span> <span class="fu">SingleQueueStation</span><span class="op">(</span><span class="kw">this</span><span class="op">,</span> myMakeRingTimeRV<span class="op">,</span></span>
+<span id="cb94-11"><a href="simoa:finhorizonex.html#cb94-11" aria-hidden="true" tabindex="-1"></a>            <span class="st">&quot;RingMakingStation&quot;</span><span class="op">);</span></span>
+<span id="cb94-12"><a href="simoa:finhorizonex.html#cb94-12" aria-hidden="true" tabindex="-1"></a>    myInspectionStation <span class="op">=</span> <span class="kw">new</span> <span class="fu">SingleQueueStation</span><span class="op">(</span><span class="kw">this</span><span class="op">,</span> myInspectTimeRV<span class="op">,</span></span>
+<span id="cb94-13"><a href="simoa:finhorizonex.html#cb94-13" aria-hidden="true" tabindex="-1"></a>            <span class="st">&quot;InspectStation&quot;</span><span class="op">);</span></span>
+<span id="cb94-14"><a href="simoa:finhorizonex.html#cb94-14" aria-hidden="true" tabindex="-1"></a>    myReworkStation <span class="op">=</span> <span class="kw">new</span> <span class="fu">SingleQueueStation</span><span class="op">(</span><span class="kw">this</span><span class="op">,</span> myReworkTimeRV<span class="op">,</span></span>
+<span id="cb94-15"><a href="simoa:finhorizonex.html#cb94-15" aria-hidden="true" tabindex="-1"></a>            <span class="st">&quot;ReworkStation&quot;</span><span class="op">);</span></span>
+<span id="cb94-16"><a href="simoa:finhorizonex.html#cb94-16" aria-hidden="true" tabindex="-1"></a>    myPackagingStation <span class="op">=</span> <span class="kw">new</span> <span class="fu">SingleQueueStation</span><span class="op">(</span><span class="kw">this</span><span class="op">,</span> myPackingTimeRV<span class="op">,</span></span>
+<span id="cb94-17"><a href="simoa:finhorizonex.html#cb94-17" aria-hidden="true" tabindex="-1"></a>            <span class="st">&quot;PackingStation&quot;</span><span class="op">);</span></span>
+<span id="cb94-18"><a href="simoa:finhorizonex.html#cb94-18" aria-hidden="true" tabindex="-1"></a>    myRingMakingStation<span class="op">.</span><span class="fu">setNextReceiver</span><span class="op">(</span>myInspectionStation<span class="op">);</span></span>
+<span id="cb94-19"><a href="simoa:finhorizonex.html#cb94-19" aria-hidden="true" tabindex="-1"></a>    myInspectionStation<span class="op">.</span><span class="fu">setNextReceiver</span><span class="op">(</span><span class="kw">new</span> <span class="fu">AfterInspection</span><span class="op">());</span></span>
+<span id="cb94-20"><a href="simoa:finhorizonex.html#cb94-20" aria-hidden="true" tabindex="-1"></a>    myReworkStation<span class="op">.</span><span class="fu">setNextReceiver</span><span class="op">(</span>myPackagingStation<span class="op">);</span></span>
+<span id="cb94-21"><a href="simoa:finhorizonex.html#cb94-21" aria-hidden="true" tabindex="-1"></a>    myPackagingStation<span class="op">.</span><span class="fu">setNextReceiver</span><span class="op">(</span><span class="kw">new</span> <span class="fu">Dispose</span><span class="op">());</span></span>
+<span id="cb94-22"><a href="simoa:finhorizonex.html#cb94-22" aria-hidden="true" tabindex="-1"></a>    mySystemTime <span class="op">=</span> <span class="kw">new</span> <span class="fu">ResponseVariable</span><span class="op">(</span><span class="kw">this</span><span class="op">,</span> <span class="st">&quot;System Time&quot;</span><span class="op">);</span></span>
+<span id="cb94-23"><a href="simoa:finhorizonex.html#cb94-23" aria-hidden="true" tabindex="-1"></a>    myNumInSystem <span class="op">=</span> <span class="kw">new</span> <span class="fu">TimeWeighted</span><span class="op">(</span><span class="kw">this</span><span class="op">,</span> <span class="st">&quot;Num in System&quot;</span><span class="op">);</span></span>
+<span id="cb94-24"><a href="simoa:finhorizonex.html#cb94-24" aria-hidden="true" tabindex="-1"></a>    myNumCompleted <span class="op">=</span> <span class="kw">new</span> <span class="fu">Counter</span><span class="op">(</span><span class="kw">this</span><span class="op">,</span> <span class="st">&quot;Num Completed&quot;</span><span class="op">);</span></span>
+<span id="cb94-25"><a href="simoa:finhorizonex.html#cb94-25" aria-hidden="true" tabindex="-1"></a>    myProbTooBig <span class="op">=</span> <span class="kw">new</span> <span class="fu">ResponseVariable</span><span class="op">(</span><span class="kw">this</span><span class="op">,</span> <span class="st">&quot;Prob too Big&quot;</span><span class="op">);</span></span>
+<span id="cb94-26"><a href="simoa:finhorizonex.html#cb94-26" aria-hidden="true" tabindex="-1"></a>    myProbTooSmall <span class="op">=</span> <span class="kw">new</span> <span class="fu">ResponseVariable</span><span class="op">(</span><span class="kw">this</span><span class="op">,</span> <span class="st">&quot;Prob too Small&quot;</span><span class="op">);</span></span>
+<span id="cb94-27"><a href="simoa:finhorizonex.html#cb94-27" aria-hidden="true" tabindex="-1"></a>    myProbOT <span class="op">=</span> <span class="kw">new</span> <span class="fu">ResponseVariable</span><span class="op">(</span><span class="kw">this</span><span class="op">,</span> <span class="st">&quot;Prob of Over Time&quot;</span><span class="op">);</span></span>
+<span id="cb94-28"><a href="simoa:finhorizonex.html#cb94-28" aria-hidden="true" tabindex="-1"></a>    myEndTime <span class="op">=</span> <span class="kw">new</span> <span class="fu">ResponseVariable</span><span class="op">(</span><span class="kw">this</span><span class="op">,</span> <span class="st">&quot;Time to Make Orders&quot;</span><span class="op">);</span></span>
+<span id="cb94-29"><a href="simoa:finhorizonex.html#cb94-29" aria-hidden="true" tabindex="-1"></a>    myNumInRMandInspection <span class="op">=</span> <span class="kw">new</span> <span class="fu">TimeWeighted</span><span class="op">(</span><span class="kw">this</span><span class="op">,</span> <span class="st">&quot;Num in RM and Inspection&quot;</span><span class="op">);</span></span>
+<span id="cb94-30"><a href="simoa:finhorizonex.html#cb94-30" aria-hidden="true" tabindex="-1"></a>    myTimeInRMandInspection <span class="op">=</span> <span class="kw">new</span> <span class="fu">ResponseVariable</span><span class="op">(</span><span class="kw">this</span><span class="op">,</span> <span class="st">&quot;Time in RM and Inspection&quot;</span><span class="op">);</span></span>
+<span id="cb94-31"><a href="simoa:finhorizonex.html#cb94-31" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span>
+<span id="cb94-32"><a href="simoa:finhorizonex.html#cb94-32" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb94-33"><a href="simoa:finhorizonex.html#cb94-33" aria-hidden="true" tabindex="-1"></a><span class="at">@Override</span></span>
+<span id="cb94-34"><a href="simoa:finhorizonex.html#cb94-34" aria-hidden="true" tabindex="-1"></a><span class="kw">protected</span> <span class="dt">void</span> <span class="fu">initialize</span><span class="op">()</span> <span class="op">{</span></span>
+<span id="cb94-35"><a href="simoa:finhorizonex.html#cb94-35" aria-hidden="true" tabindex="-1"></a>    <span class="kw">super</span><span class="op">.</span><span class="fu">initialize</span><span class="op">();</span></span>
+<span id="cb94-36"><a href="simoa:finhorizonex.html#cb94-36" aria-hidden="true" tabindex="-1"></a>    <span class="dt">double</span> p <span class="op">=</span> mySalesCallProb<span class="op">.</span><span class="fu">getValue</span><span class="op">();</span></span>
+<span id="cb94-37"><a href="simoa:finhorizonex.html#cb94-37" aria-hidden="true" tabindex="-1"></a>    <span class="dt">int</span> n <span class="op">=</span> JSLRandom<span class="op">.</span><span class="fu">rBinomial</span><span class="op">(</span>p<span class="op">,</span> myNumDailyCalls<span class="op">);</span></span>
+<span id="cb94-38"><a href="simoa:finhorizonex.html#cb94-38" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> <span class="op">(</span><span class="dt">int</span> i <span class="op">=</span> <span class="dv">0</span><span class="op">;</span> i <span class="op">&lt;</span> n<span class="op">;</span> i<span class="op">++)</span> <span class="op">{</span></span>
+<span id="cb94-39"><a href="simoa:finhorizonex.html#cb94-39" aria-hidden="true" tabindex="-1"></a>        myRingMakingStation<span class="op">.</span><span class="fu">receive</span><span class="op">(</span><span class="kw">new</span> <span class="fu">RingOrder</span><span class="op">());</span></span>
+<span id="cb94-40"><a href="simoa:finhorizonex.html#cb94-40" aria-hidden="true" tabindex="-1"></a>        myNumInSystem<span class="op">.</span><span class="fu">increment</span><span class="op">();</span></span>
+<span id="cb94-41"><a href="simoa:finhorizonex.html#cb94-41" aria-hidden="true" tabindex="-1"></a>        myNumInRMandInspection<span class="op">.</span><span class="fu">increment</span><span class="op">();</span></span>
+<span id="cb94-42"><a href="simoa:finhorizonex.html#cb94-42" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
+<span id="cb94-43"><a href="simoa:finhorizonex.html#cb94-43" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
+<p>The constructor makes the random variables that
+model the number of successful calls and the probability that a call is
+successful. Then, the initialize() method, which is automatically called
+at the beginning of a replication (essentially at time 0.0), uses the
+random variables to first determine the probability of a successful call
+and then determines the number of successful calls.
+Finally, a for-loop is used to make the orders (new RingOrder()) and
+send them into production at the ring making station. Also,
+the number of orders in the system and the number of orders at the ring
+making and inspection stations is incremented.</p>
+<p>The following code listing illustrates the modeling of the orders within
+the system.</p>
+<div class="sourceCode" id="cb95"><pre class="sourceCode java"><code class="sourceCode java"><span id="cb95-1"><a href="simoa:finhorizonex.html#cb95-1" aria-hidden="true" tabindex="-1"></a><span class="kw">private</span> <span class="kw">class</span> RingOrder <span class="kw">extends</span> QObject <span class="op">{</span></span>
+<span id="cb95-2"><a href="simoa:finhorizonex.html#cb95-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb95-3"><a href="simoa:finhorizonex.html#cb95-3" aria-hidden="true" tabindex="-1"></a>    <span class="kw">private</span> <span class="dt">double</span> myBigRingID<span class="op">;</span></span>
+<span id="cb95-4"><a href="simoa:finhorizonex.html#cb95-4" aria-hidden="true" tabindex="-1"></a>    <span class="kw">private</span> <span class="dt">double</span> mySmallRingOuterD<span class="op">;</span></span>
+<span id="cb95-5"><a href="simoa:finhorizonex.html#cb95-5" aria-hidden="true" tabindex="-1"></a>    <span class="kw">private</span> <span class="dt">double</span> myGap<span class="op">;</span></span>
+<span id="cb95-6"><a href="simoa:finhorizonex.html#cb95-6" aria-hidden="true" tabindex="-1"></a>    <span class="kw">private</span> <span class="dt">boolean</span> myNeedsReworkFlag <span class="op">=</span> <span class="kw">false</span><span class="op">;</span></span>
+<span id="cb95-7"><a href="simoa:finhorizonex.html#cb95-7" aria-hidden="true" tabindex="-1"></a>    <span class="kw">private</span> <span class="dt">boolean</span> myTooBigFlag <span class="op">=</span> <span class="kw">false</span><span class="op">;</span></span>
+<span id="cb95-8"><a href="simoa:finhorizonex.html#cb95-8" aria-hidden="true" tabindex="-1"></a>    <span class="kw">private</span> <span class="dt">boolean</span> myTooSmallFlag <span class="op">=</span> <span class="kw">false</span><span class="op">;</span></span>
+<span id="cb95-9"><a href="simoa:finhorizonex.html#cb95-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb95-10"><a href="simoa:finhorizonex.html#cb95-10" aria-hidden="true" tabindex="-1"></a>    <span class="kw">public</span> <span class="fu">RingOrder</span><span class="op">()</span> <span class="op">{</span></span>
+<span id="cb95-11"><a href="simoa:finhorizonex.html#cb95-11" aria-hidden="true" tabindex="-1"></a>        <span class="kw">this</span><span class="op">(</span><span class="fu">getTime</span><span class="op">(),</span> <span class="kw">null</span><span class="op">);</span></span>
+<span id="cb95-12"><a href="simoa:finhorizonex.html#cb95-12" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
+<span id="cb95-13"><a href="simoa:finhorizonex.html#cb95-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb95-14"><a href="simoa:finhorizonex.html#cb95-14" aria-hidden="true" tabindex="-1"></a>    <span class="kw">public</span> <span class="fu">RingOrder</span><span class="op">(</span><span class="dt">double</span> creationTime<span class="op">,</span> <span class="bu">String</span> name<span class="op">)</span> <span class="op">{</span></span>
+<span id="cb95-15"><a href="simoa:finhorizonex.html#cb95-15" aria-hidden="true" tabindex="-1"></a>        <span class="kw">super</span><span class="op">(</span>creationTime<span class="op">,</span> name<span class="op">);</span></span>
+<span id="cb95-16"><a href="simoa:finhorizonex.html#cb95-16" aria-hidden="true" tabindex="-1"></a>        myBigRingID <span class="op">=</span> myBigRingIDRV<span class="op">.</span><span class="fu">getValue</span><span class="op">();</span></span>
+<span id="cb95-17"><a href="simoa:finhorizonex.html#cb95-17" aria-hidden="true" tabindex="-1"></a>        mySmallRingOuterD <span class="op">=</span> mySmallRingODRV<span class="op">.</span><span class="fu">getValue</span><span class="op">();</span></span>
+<span id="cb95-18"><a href="simoa:finhorizonex.html#cb95-18" aria-hidden="true" tabindex="-1"></a>        myGap <span class="op">=</span> myBigRingID <span class="op">-</span> mySmallRingOuterD<span class="op">;</span></span>
+<span id="cb95-19"><a href="simoa:finhorizonex.html#cb95-19" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> <span class="op">(</span>mySmallRingOuterD <span class="op">&gt;</span> myBigRingID<span class="op">)</span> <span class="op">{</span></span>
+<span id="cb95-20"><a href="simoa:finhorizonex.html#cb95-20" aria-hidden="true" tabindex="-1"></a>            myTooBigFlag <span class="op">=</span> <span class="kw">true</span><span class="op">;</span></span>
+<span id="cb95-21"><a href="simoa:finhorizonex.html#cb95-21" aria-hidden="true" tabindex="-1"></a>            myNeedsReworkFlag <span class="op">=</span> <span class="kw">true</span><span class="op">;</span></span>
+<span id="cb95-22"><a href="simoa:finhorizonex.html#cb95-22" aria-hidden="true" tabindex="-1"></a>        <span class="op">}</span> <span class="cf">else</span> <span class="cf">if</span> <span class="op">(</span>myGap <span class="op">&gt;</span> myRingTol<span class="op">)</span> <span class="op">{</span></span>
+<span id="cb95-23"><a href="simoa:finhorizonex.html#cb95-23" aria-hidden="true" tabindex="-1"></a>            myTooSmallFlag <span class="op">=</span> <span class="kw">true</span><span class="op">;</span></span>
+<span id="cb95-24"><a href="simoa:finhorizonex.html#cb95-24" aria-hidden="true" tabindex="-1"></a>            myNeedsReworkFlag <span class="op">=</span> <span class="kw">true</span><span class="op">;</span></span>
+<span id="cb95-25"><a href="simoa:finhorizonex.html#cb95-25" aria-hidden="true" tabindex="-1"></a>        <span class="op">}</span></span>
+<span id="cb95-26"><a href="simoa:finhorizonex.html#cb95-26" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
+<span id="cb95-27"><a href="simoa:finhorizonex.html#cb95-27" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb95-28"><a href="simoa:finhorizonex.html#cb95-28" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
+<p>A RingOrder represents an order for a pair of rings.
+RingOrder is an inner class of LOTR. This was done so that the RingOrder
+has easy access to the random variables defined within the LOTR class.
+The outer ring’s inner diameter and the inner ring’s outer diameter are
+modeled using attributes for the order. The values for these attributes
+are set using the random variables that were defined as instance
+variables of the LOTR class and instantiated within the LOTR class’s
+constructor. The size of the gap and whether or not the ring needs
+rework is also computed. The condition of the ring in terms of whether
+the gap is too big or too small is specified. Since the RingOrder class
+extends the QObject class it has the ability to be held by instances of
+the Queue class. Once the order for the rings is made it is passed into
+production.</p>
+<p>An outline of the production process should be something like this:</p>
+<ol style="list-style-type: decimal">
+<li><p>Make the rings (determine sizes).</p></li>
+<li><p>Inspect the rings.</p></li>
+<li><p>If rings do not pass inspection, perform rework</p></li>
+<li><p>Package rings and ship.</p></li>
+</ol>
+<p>Notice that in the production of the rings there are a number of
+activities that take place during which various resources are used. This
+situation is very similar to the Tie-Dye T-Shirt example in that the
+rings move from ring making to inspection (possibly rework) and finally
+to packaging. Each of these areas can be modeled using the
+SingleQueueStation class. The
+events associated with this situation include arrival to ring making,
+departure from ring making, arrival to inspection, departure from
+inspection, arrvial to rework, departure from rework, arrival to
+packaging and departure from packaging. Since the departure from an
+upstream station also represents an arrival to the downstream station,
+the number of events needed to model this situation can be consolidated.
+As mentioned, the SingleQueueStation can be used to model this situation
+by connecting the stations together. The construction of the stations
+and their connection is illustrated in the constructor for the LOTR system. Notice that the setNextReceiver() methods
+are used to connect the ring making station to the inspection station
+and to have the rework station send work to the packaging station.</p>
+<p>One conceptually challenging aspect of this model is the fact that the
+rings will probabilistically go to the rework station or the packaging
+station. To model this situation, an inner class called AfterInspection
+was designed that implements the ReceiveQObjectIfc interface. An
+instance of this class is provided as the receiver for the inspection
+station. Thus, after the inspection station is done,
+the order for the ring (in the form of a QObject) will be sent to this
+logic.</p>
+<p>In the following listing, lines 4 and 5 finish out the collection of
+the number of orders in the ring making and inspection stations and the
+collection of the time spent within those stations. Then, starting in
+line 6, the order is checked if it needs rework and if so, the rework
+station is told to receive it; otherwise, the packaging station is told
+to receive it.</p>
+<div class="sourceCode" id="cb96"><pre class="sourceCode java"><code class="sourceCode java"><span id="cb96-1"><a href="simoa:finhorizonex.html#cb96-1" aria-hidden="true" tabindex="-1"></a><span class="kw">protected</span> <span class="kw">class</span> AfterInspection <span class="kw">implements</span> ReceiveQObjectIfc <span class="op">{</span></span>
+<span id="cb96-2"><a href="simoa:finhorizonex.html#cb96-2" aria-hidden="true" tabindex="-1"></a>    <span class="at">@Override</span></span>
+<span id="cb96-3"><a href="simoa:finhorizonex.html#cb96-3" aria-hidden="true" tabindex="-1"></a>    <span class="kw">public</span> <span class="dt">void</span> <span class="fu">receive</span><span class="op">(</span>QObject qObj<span class="op">)</span> <span class="op">{</span></span>
+<span id="cb96-4"><a href="simoa:finhorizonex.html#cb96-4" aria-hidden="true" tabindex="-1"></a>        myNumInRMandInspection<span class="op">.</span><span class="fu">decrement</span><span class="op">();</span></span>
+<span id="cb96-5"><a href="simoa:finhorizonex.html#cb96-5" aria-hidden="true" tabindex="-1"></a>        myTimeInRMandInspection<span class="op">.</span><span class="fu">setValue</span><span class="op">(</span><span class="fu">getTime</span><span class="op">()</span> <span class="op">-</span> qObj<span class="op">.</span><span class="fu">getCreateTime</span><span class="op">());</span></span>
+<span id="cb96-6"><a href="simoa:finhorizonex.html#cb96-6" aria-hidden="true" tabindex="-1"></a>        RingOrder order <span class="op">=</span> <span class="op">(</span>RingOrder<span class="op">)</span> qObj<span class="op">;</span></span>
+<span id="cb96-7"><a href="simoa:finhorizonex.html#cb96-7" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> <span class="op">(</span>order<span class="op">.</span><span class="fu">myNeedsReworkFlag</span><span class="op">)</span> <span class="op">{</span></span>
+<span id="cb96-8"><a href="simoa:finhorizonex.html#cb96-8" aria-hidden="true" tabindex="-1"></a>            myReworkStation<span class="op">.</span><span class="fu">receive</span><span class="op">(</span>order<span class="op">);</span></span>
+<span id="cb96-9"><a href="simoa:finhorizonex.html#cb96-9" aria-hidden="true" tabindex="-1"></a>        <span class="op">}</span> <span class="cf">else</span> <span class="op">{</span></span>
+<span id="cb96-10"><a href="simoa:finhorizonex.html#cb96-10" aria-hidden="true" tabindex="-1"></a>            myPackagingStation<span class="op">.</span><span class="fu">receive</span><span class="op">(</span>order<span class="op">);</span></span>
+<span id="cb96-11"><a href="simoa:finhorizonex.html#cb96-11" aria-hidden="true" tabindex="-1"></a>        <span class="op">}</span></span>
+<span id="cb96-12"><a href="simoa:finhorizonex.html#cb96-12" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
+<span id="cb96-13"><a href="simoa:finhorizonex.html#cb96-13" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span>
+<span id="cb96-14"><a href="simoa:finhorizonex.html#cb96-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb96-15"><a href="simoa:finhorizonex.html#cb96-15" aria-hidden="true" tabindex="-1"></a><span class="kw">protected</span> <span class="kw">class</span> Dispose <span class="kw">implements</span> ReceiveQObjectIfc <span class="op">{</span></span>
+<span id="cb96-16"><a href="simoa:finhorizonex.html#cb96-16" aria-hidden="true" tabindex="-1"></a>    <span class="at">@Override</span></span>
+<span id="cb96-17"><a href="simoa:finhorizonex.html#cb96-17" aria-hidden="true" tabindex="-1"></a>    <span class="kw">public</span> <span class="dt">void</span> <span class="fu">receive</span><span class="op">(</span>QObject qObj<span class="op">)</span> <span class="op">{</span></span>
+<span id="cb96-18"><a href="simoa:finhorizonex.html#cb96-18" aria-hidden="true" tabindex="-1"></a>        <span class="co">// collect final statistics</span></span>
+<span id="cb96-19"><a href="simoa:finhorizonex.html#cb96-19" aria-hidden="true" tabindex="-1"></a>        RingOrder order <span class="op">=</span> <span class="op">(</span>RingOrder<span class="op">)</span> qObj<span class="op">;</span></span>
+<span id="cb96-20"><a href="simoa:finhorizonex.html#cb96-20" aria-hidden="true" tabindex="-1"></a>        myNumInSystem<span class="op">.</span><span class="fu">decrement</span><span class="op">();</span></span>
+<span id="cb96-21"><a href="simoa:finhorizonex.html#cb96-21" aria-hidden="true" tabindex="-1"></a>        mySystemTime<span class="op">.</span><span class="fu">setValue</span><span class="op">(</span><span class="fu">getTime</span><span class="op">()</span> <span class="op">-</span> order<span class="op">.</span><span class="fu">getCreateTime</span><span class="op">());</span></span>
+<span id="cb96-22"><a href="simoa:finhorizonex.html#cb96-22" aria-hidden="true" tabindex="-1"></a>        myNumCompleted<span class="op">.</span><span class="fu">increment</span><span class="op">();</span></span>
+<span id="cb96-23"><a href="simoa:finhorizonex.html#cb96-23" aria-hidden="true" tabindex="-1"></a>        myProbTooBig<span class="op">.</span><span class="fu">setValue</span><span class="op">(</span>order<span class="op">.</span><span class="fu">myTooBigFlag</span><span class="op">);</span></span>
+<span id="cb96-24"><a href="simoa:finhorizonex.html#cb96-24" aria-hidden="true" tabindex="-1"></a>        myProbTooSmall<span class="op">.</span><span class="fu">setValue</span><span class="op">(</span>order<span class="op">.</span><span class="fu">myTooSmallFlag</span><span class="op">);</span></span>
+<span id="cb96-25"><a href="simoa:finhorizonex.html#cb96-25" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
+<span id="cb96-26"><a href="simoa:finhorizonex.html#cb96-26" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span>
+<span id="cb96-27"><a href="simoa:finhorizonex.html#cb96-27" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb96-28"><a href="simoa:finhorizonex.html#cb96-28" aria-hidden="true" tabindex="-1"></a><span class="at">@Override</span></span>
+<span id="cb96-29"><a href="simoa:finhorizonex.html#cb96-29" aria-hidden="true" tabindex="-1"></a><span class="kw">protected</span> <span class="dt">void</span> <span class="fu">replicationEnded</span><span class="op">()</span> <span class="op">{</span></span>
+<span id="cb96-30"><a href="simoa:finhorizonex.html#cb96-30" aria-hidden="true" tabindex="-1"></a>    <span class="kw">super</span><span class="op">.</span><span class="fu">replicationEnded</span><span class="op">();</span></span>
+<span id="cb96-31"><a href="simoa:finhorizonex.html#cb96-31" aria-hidden="true" tabindex="-1"></a>    myProbOT<span class="op">.</span><span class="fu">setValue</span><span class="op">(</span><span class="fu">getTime</span><span class="op">()</span> <span class="op">&gt;</span> myOTLimit<span class="op">);</span></span>
+<span id="cb96-32"><a href="simoa:finhorizonex.html#cb96-32" aria-hidden="true" tabindex="-1"></a>    myEndTime<span class="op">.</span><span class="fu">setValue</span><span class="op">(</span><span class="fu">getTime</span><span class="op">());</span></span>
+<span id="cb96-33"><a href="simoa:finhorizonex.html#cb96-33" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
+<p>Similar to previous examples, the Dispose inner class collects
+statistics at the system level and on the orders as they depart the
+system. Besides the collection of the number orders in the ring making
+and inspection stations, management also desired the collection of the
+probability of over time and the time that the production run will be
+completed. The collection of the chance of over time depends on when all
+of the production are completed. The problem statement requests the
+estimation of the probability of overtime work. The sales order process
+determines the number of rings to produce. The production process
+continues until there are no more rings to produce for that day. The
+number of rings to produce is a binomial random variable as determined
+by the sales order confirmation process. Thus, there is no clear run
+length for this simulation.</p>
+<p>In the JSL, a replication of a simulation can end based on three
+situations:</p>
+<ol style="list-style-type: decimal">
+<li><p>A scheduled run length</p></li>
+<li><p>A terminating condition is met</p></li>
+<li><p>No more events to process</p></li>
+</ol>
+<p>Because the production for the day stops when all the rings are
+produced, the third situation applies for this model. The simulation
+will end automatically after all the rings are produced. In essence, a
+day’s worth of production is simulated. Because the number of rings to
+produce is random and it takes a random amount of time to make, inspect,
+rework, and package the rings, the time that the simulation will end is
+a random variable. If this time is less than 960 (the time of two
+shifts), there will not be any overtime. If this time is greater than
+960, production will have lasted past two shifts and thus overtime will
+be necessary. To assess the chance that there is overtime, you need to
+record statistics on how often the end of the simulation is past 960.</p>
+<p>Thus, the easiest way to observe the over time is to understand that a
+replication of the simulation will end when there are no more events to
+process. Just like in the case of the initialize() method being called
+at the start of a replication, the replicationEnded() method of all
+model elements will be called when the simulation replication ends. This
+provides for the opportunity to supply code that will be executed when
+the replication ends. Also note that the replicationEnded() method is
+called <em>before</em> any logic that might clear statistical quantities and
+that no additional events happen after the replication ends. Lines 3 and 4 of the
+replicationEnded() method implement the collection of the probability
+of over time and the time that the simulation ends. This is accomplished
+with instances of the ResponseVariable class, which were declared as
+instance variables of the LOTR class and instantiated within its
+constructor.</p>
+<p>The method getTime() available on all model elements provides the
+current time of the simulation. Thus, when the simulation ends, The
+method getTime() will be the time that the simulation ended. In this
+case, it will represent the time that the last ring completed
+processing. To estimate the chance that there is overtime, we use a
+ResponseVariable to capture the time. Since this occurs one time for
+each replication, the number of observations of the over time will be
+equal to the number of replications.</p>
+<p>Running the model results in the user defined statistics for the
+probability of overtime and the average time to produce the orders as
+shown in in the folloing table. The probability of overtime appears to be about
+3%, but their is a lot of variation for these 30 replications. The
+average time to produce an order is about 770 minutes. While the average
+is under 960, there still appears to be a reasonable chance of overtime
+occurring. What do you think causes the overtime? Can you ecommend an alternative to reduce the likelihood of overtime?</p>
+<table>
+<caption>Across Replication Statistics for LOTR Example</caption>
+<thead>
+<tr class="header">
+<th align="left">Response Name</th>
+<th align="center"><span class="math inline">\(\bar{x}\)</span></th>
+<th align="center"><span class="math inline">\(s\)</span></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">RingMakingStation:R:Util</td>
+<td align="center">0.980777</td>
+<td align="center">0.007716</td>
+</tr>
+<tr class="even">
+<td align="left">RingMakingStation:R:BusyUnits</td>
+<td align="center">0.980777</td>
+<td align="center">0.007716</td>
+</tr>
+<tr class="odd">
+<td align="left">RingMakingStation:Q:Num In Q</td>
+<td align="center">36.877643</td>
+<td align="center">7.949062</td>
+</tr>
+<tr class="even">
+<td align="left">RingMakingStation:Q:Time In Q</td>
+<td align="center">374.334264</td>
+<td align="center">79.128277</td>
+</tr>
+<tr class="odd">
+<td align="left">RingMakingStation:NS</td>
+<td align="center">37.858420</td>
+<td align="center">7.952406</td>
+</tr>
+<tr class="even">
+<td align="left">InspectStation:R:Util</td>
+<td align="center">0.426290</td>
+<td align="center">0.022779</td>
+</tr>
+<tr class="odd">
+<td align="left">InspectStation:R:BusyUnits</td>
+<td align="center">0.426290</td>
+<td align="center">0.022779</td>
+</tr>
+<tr class="even">
+<td align="left">InspectStation:Q:Num In Q</td>
+<td align="center">0.001148</td>
+<td align="center">0.001260</td>
+</tr>
+<tr class="odd">
+<td align="left">InspectStation:Q:Time In Q</td>
+<td align="center">0.011508</td>
+<td align="center">0.012382</td>
+</tr>
+<tr class="even">
+<td align="left">InspectStation:NS</td>
+<td align="center">0.427438</td>
+<td align="center">0.023260</td>
+</tr>
+<tr class="odd">
+<td align="left">ReworkStation:R:Util</td>
+<td align="center">0.127256</td>
+<td align="center">0.050377</td>
+</tr>
+<tr class="even">
+<td align="left">ReworkStation:R:BusyUnits</td>
+<td align="center">0.127256</td>
+<td align="center">0.050377</td>
+</tr>
+<tr class="odd">
+<td align="left">ReworkStation:Q:Num In Q</td>
+<td align="center">0.003795</td>
+<td align="center">0.006096</td>
+</tr>
+<tr class="even">
+<td align="left">ReworkStation:Q:Time In Q</td>
+<td align="center">0.493970</td>
+<td align="center">0.794616</td>
+</tr>
+<tr class="odd">
+<td align="left">ReworkStation:NS</td>
+<td align="center">0.131051</td>
+<td align="center">0.052790</td>
+</tr>
+<tr class="even">
+<td align="left">PackingStation:R:Util</td>
+<td align="center">0.690843</td>
+<td align="center">0.033373</td>
+</tr>
+<tr class="odd">
+<td align="left">PackingStation:R:BusyUnits</td>
+<td align="center">0.690843</td>
+<td align="center">0.033373</td>
+</tr>
+<tr class="even">
+<td align="left">PackingStation:Q:Num In Q</td>
+<td align="center">0.108125</td>
+<td align="center">0.043984</td>
+</tr>
+<tr class="odd">
+<td align="left">PackingStation:Q:Time In Q</td>
+<td align="center">1.087263</td>
+<td align="center">0.411139</td>
+</tr>
+<tr class="even">
+<td align="left">PackingStation:NS</td>
+<td align="center">0.798968</td>
+<td align="center">0.071767</td>
+</tr>
+<tr class="odd">
+<td align="left">System Time</td>
+<td align="center">398.068177</td>
+<td align="center">79.425695</td>
+</tr>
+<tr class="even">
+<td align="left">Num in System</td>
+<td align="center">39.215877</td>
+<td align="center">7.992176</td>
+</tr>
+<tr class="odd">
+<td align="left">Prob too Big</td>
+<td align="center">0.026853</td>
+<td align="center">0.019754</td>
+</tr>
+<tr class="even">
+<td align="left">Prob too Small</td>
+<td align="center">0.041889</td>
+<td align="center">0.019552</td>
+</tr>
+<tr class="odd">
+<td align="left">Prob of Over Time</td>
+<td align="center">0.033333</td>
+<td align="center">0.182574</td>
+</tr>
+<tr class="even">
+<td align="left">Time to Make Orders</td>
+<td align="center">770.286991</td>
+<td align="center">159.076748</td>
+</tr>
+<tr class="odd">
+<td align="left">Num in RM and Inspection</td>
+<td align="center">38.285858</td>
+<td align="center">7.954368</td>
+</tr>
+<tr class="even">
+<td align="left">Time in RM and Inspection</td>
+<td align="center">388.641522</td>
+<td align="center">79.155138</td>
+</tr>
+<tr class="odd">
+<td align="left">Across Rep Stat Num Completed</td>
+<td align="center">75.866667</td>
+<td align="center">15.904312</td>
+</tr>
+<tr class="even">
+<td align="left">Number of Replications 30</td>
+<td align="center"></td>
+<td align="center"></td>
+</tr>
+</tbody>
+</table>
+<p>The final issue to be handled in this example is to specify the number
+of replications. Based on this initial run of 30 replication, the
+required number of replications will be computed to ensure a 95%
+confidence interval for the mean time to complete the ring making and
+inspection processes with an error bound of <span class="math inline">\(\pm\)</span> 20 minutes. The
+estimated standard deviation for this time was 79.155138.</p>
+<p>Using the normal approximation with <span class="math inline">\(\alpha = 0.05\)</span>, <span class="math inline">\(n_0\)</span> = 30, <span class="math inline">\(s_0\)</span> =
+79.155138, and <span class="math inline">\(E = 20\)</span>, indicates that approximately <span class="math inline">\(n = 61\)</span>
+replications are needed to meet the criteria.</p>
+<p><span class="math display">\[
+n \geq \biggl(\dfrac{z_{\alpha/2} s_0}{E}\biggr)^2 = \biggl(\dfrac{1.96 \times 79.155138}{20}\biggr)^2 \approx 61
+\]</span></p>
+<p>If you wanted to use the iterative method, you must first determine the
+standard deviation from the pilot replications. In the case of multiple
+replications, you can use the half-width value and equation (<a href="simoa:finhorizon.html#eq:hNotc">(6.1)</a>) to compute <span class="math inline">\(s_0\)</span>.</p>
+<p>Rerunning the simulation with <span class="math inline">\(n = 61\)</span>, yields a half-width of 20.77,
+which is very close to the criteria of 20. Note that the make and
+inspection time is highly variable. The methods to determine the
+half-width assume that the standard deviation, <span class="math inline">\(s_0\)</span>, in the pilot runs
+will be similar to the standard deviation observed in the final set of
+replications. However, when the full set of replications is run, the
+actual standard deviation may be different than used in the pilot run.
+Thus, the half-width criterion might not be exactly met. If the
+assumptions are reasonably met, there will be a high likelihood that the
+desired half-width will be very close to the desired criteria, as show
+in this example.</p>
+</div>
+<div id="simoa:seqsampling" class="section level3 hasAnchor" number="6.4.2">
+<h3><span class="header-section-number">6.4.2</span> Sequential Sampling for Finite Horizon Simulations<a href="simoa:finhorizonex.html#simoa:seqsampling" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>The methods discussed for determining the sample size are based on
+pre-determining a <em>fixed</em> sample size and then making the replications.
+If the half-width equation is considered as an iterative function of
+<span class="math inline">\(n\)</span>:</p>
+<p><span class="math display">\[h(n) = t_{\alpha/2, n - 1} \dfrac{s(n)}{\sqrt{n}} \leq E\]</span></p>
+<p>Then, it becomes apparent that additional replications of the simulation
+can be executed until the desired half-with bound is met. This is called
+sequential sampling, and in this case the sample size of the experiment
+is not known in advance. The brute force method for implementing this
+approach would be to run and rerun the simulation each time increasing
+the number of replications until the criterion is met.</p>
+<p>To implement this within the JSL, we need a way to stop or end a
+simulation when a criteria or condition is met. Because of the
+hierarchical nature of the model elements within a model and because
+there are common actions that occur when running a model the <code>Observer</code>
+pattern can be used here.</p>
+<div class="figure"><span style="display:block;" id="fig:HWChecker"></span>
+<img src="figures/ch7/ch7VariableObservers.png" alt="Half-Width Observer Checking Code" width="80%" height="80%" />
+<p class="caption">
+Figure 6.3: Half-Width Observer Checking Code
+</p>
+</div>
+<p>Figure <a href="simoa:finhorizonex.html#fig:HWChecker">6.3</a> presents part of the
+<code>jsl.observers.variable</code> package which defines a base class called
+<code>ModelElementObserver</code> that can be attached to instances of <code>ModelElement</code>
+and then will be notified if various actions take place. There are a
+number of actions associated with a <code>ModelElement</code> that occur during a
+simulation that can be listened for by a <code>ModelElementObserver</code>:</p>
+<ul>
+<li><p><code>beforeExperiment()</code> - This occurs prior to the first replication and
+before any events are executed.</p></li>
+<li><p><code>beforeReplication()</code> - This occurs prior to each replication and
+before any events are executed. The event calendar is cleared after
+this action.</p></li>
+<li><p><code>initialize()</code> - This occurs at the start of every replication (after
+beforeReplication() and after the event calendar is cleared) but
+before any events are executed. As we have seen, it is safe to
+schedule events in this method.</p></li>
+<li><p><code>warmUp()</code> - This occurs during a replication if a warm up period has
+been specified for the model. The statistical accumulators are
+cleared during this action if applicable.</p></li>
+<li><p><code>replicationEnded()</code> - This occurs at the end of every replication
+prior to the clearing of any statistical accumulators.</p></li>
+<li><p><code>afterReplication()</code> - This occurs at the end of every replication
+after the statistical accumulators have been cleared for the
+replication.</p></li>
+<li><p><code>afterExperiment()</code> - This occurs after all replications have been
+executed and prior to the end of the simulation.</p></li>
+</ul>
+<p><code>ModelElementObservers</code> are notified right <em>after</em> the <code>ModelElement</code>
+experiences the above mentioned actions. Thus, users of the
+<code>ModelElementObserver</code> need to understand that the state of the model
+element is available after the simulation actions of the model element
+have occurred.</p>
+<p>The <code>AcrossReplicationHalfWidthChecker</code> class listens to the
+<code>afterReplication()</code> method of a <code>ResponseVariable</code> and checks the current
+value of the half-width. This is illustrated in the following code listing.</p>
+<div class="sourceCode" id="cb97"><pre class="sourceCode java"><code class="sourceCode java"><span id="cb97-1"><a href="simoa:finhorizonex.html#cb97-1" aria-hidden="true" tabindex="-1"></a><span class="kw">protected</span> <span class="dt">void</span> <span class="fu">afterReplication</span><span class="op">(</span>ModelElement m<span class="op">,</span> <span class="bu">Object</span> arg<span class="op">)</span> <span class="op">{</span></span>
+<span id="cb97-2"><a href="simoa:finhorizonex.html#cb97-2" aria-hidden="true" tabindex="-1"></a>    ResponseVariable x <span class="op">=</span> <span class="op">(</span>ResponseVariable<span class="op">)</span> m<span class="op">;</span></span>
+<span id="cb97-3"><a href="simoa:finhorizonex.html#cb97-3" aria-hidden="true" tabindex="-1"></a>    Simulation s <span class="op">=</span> x<span class="op">.</span><span class="fu">getSimulation</span><span class="op">();</span></span>
+<span id="cb97-4"><a href="simoa:finhorizonex.html#cb97-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb97-5"><a href="simoa:finhorizonex.html#cb97-5" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> <span class="op">(</span>s <span class="op">==</span> <span class="kw">null</span><span class="op">)</span> <span class="op">{</span></span>
+<span id="cb97-6"><a href="simoa:finhorizonex.html#cb97-6" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span><span class="op">;</span></span>
+<span id="cb97-7"><a href="simoa:finhorizonex.html#cb97-7" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
+<span id="cb97-8"><a href="simoa:finhorizonex.html#cb97-8" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> <span class="op">(</span>s<span class="op">.</span><span class="fu">getCurrentReplicationNumber</span><span class="op">()</span> <span class="op">&lt;=</span> <span class="fl">2.0</span><span class="op">)</span> <span class="op">{</span></span>
+<span id="cb97-9"><a href="simoa:finhorizonex.html#cb97-9" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span><span class="op">;</span></span>
+<span id="cb97-10"><a href="simoa:finhorizonex.html#cb97-10" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
+<span id="cb97-11"><a href="simoa:finhorizonex.html#cb97-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb97-12"><a href="simoa:finhorizonex.html#cb97-12" aria-hidden="true" tabindex="-1"></a>    StatisticAccessorIfc stat <span class="op">=</span> x<span class="op">.</span><span class="fu">getAcrossReplicationStatistic</span><span class="op">();</span></span>
+<span id="cb97-13"><a href="simoa:finhorizonex.html#cb97-13" aria-hidden="true" tabindex="-1"></a>    <span class="dt">double</span> hw <span class="op">=</span> stat<span class="op">.</span><span class="fu">getHalfWidth</span><span class="op">(</span><span class="fu">getConfidenceLevel</span><span class="op">());</span></span>
+<span id="cb97-14"><a href="simoa:finhorizonex.html#cb97-14" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> <span class="op">(</span>hw <span class="op">&lt;=</span> myDesiredHalfWidth<span class="op">)</span> <span class="op">{</span></span>
+<span id="cb97-15"><a href="simoa:finhorizonex.html#cb97-15" aria-hidden="true" tabindex="-1"></a>        s<span class="op">.</span><span class="fu">end</span><span class="op">(</span><span class="st">&quot;Half-width condition met for &quot;</span> <span class="op">+</span> x<span class="op">.</span><span class="fu">getName</span><span class="op">());</span></span>
+<span id="cb97-16"><a href="simoa:finhorizonex.html#cb97-16" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
+<span id="cb97-17"><a href="simoa:finhorizonex.html#cb97-17" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
+<p>Notice that a reference to the
+observed <code>ResponseVariable</code> is used to get access to the across
+replication statistics. If there are more than 2 replications, then the
+half-width is checked against a user supplied desired half-width. If the
+half-width criterion is met, then the simulation is told to end using
+the <code>Simulation</code> class’s <code>end()</code> method. The <code>end()</code> method causes the simulation to
+not execute any future replications and to halt further execution.</p>
+<p>The following code listing illustrates how to set up half-width
+checking.</p>
+<div class="sourceCode" id="cb98"><pre class="sourceCode java"><code class="sourceCode java"><span id="cb98-1"><a href="simoa:finhorizonex.html#cb98-1" aria-hidden="true" tabindex="-1"></a>Simulation sim <span class="op">=</span> <span class="kw">new</span> <span class="fu">Simulation</span><span class="op">(</span><span class="st">&quot;LOTR Example&quot;</span><span class="op">);</span></span>
+<span id="cb98-2"><a href="simoa:finhorizonex.html#cb98-2" aria-hidden="true" tabindex="-1"></a><span class="co">// get the model</span></span>
+<span id="cb98-3"><a href="simoa:finhorizonex.html#cb98-3" aria-hidden="true" tabindex="-1"></a>Model m <span class="op">=</span> sim<span class="op">.</span><span class="fu">getModel</span><span class="op">();</span></span>
+<span id="cb98-4"><a href="simoa:finhorizonex.html#cb98-4" aria-hidden="true" tabindex="-1"></a><span class="co">// add system to the main model</span></span>
+<span id="cb98-5"><a href="simoa:finhorizonex.html#cb98-5" aria-hidden="true" tabindex="-1"></a>LOTR system <span class="op">=</span> <span class="kw">new</span> <span class="fu">LOTR</span><span class="op">(</span>m<span class="op">,</span> <span class="st">&quot;LOTR&quot;</span><span class="op">);</span></span>
+<span id="cb98-6"><a href="simoa:finhorizonex.html#cb98-6" aria-hidden="true" tabindex="-1"></a>ResponseVariable rsv <span class="op">=</span> m<span class="op">.</span><span class="fu">getResponseVariable</span><span class="op">(</span><span class="st">&quot;Time in RM and Inspection&quot;</span><span class="op">);</span></span>
+<span id="cb98-7"><a href="simoa:finhorizonex.html#cb98-7" aria-hidden="true" tabindex="-1"></a>AcrossReplicationHalfWidthChecker hwc <span class="op">=</span> <span class="kw">new</span> <span class="fu">AcrossReplicationHalfWidthChecker</span><span class="op">(</span><span class="fl">20.0</span><span class="op">);</span></span>
+<span id="cb98-8"><a href="simoa:finhorizonex.html#cb98-8" aria-hidden="true" tabindex="-1"></a>rsv<span class="op">.</span><span class="fu">addObserver</span><span class="op">(</span>hwc<span class="op">);</span></span>
+<span id="cb98-9"><a href="simoa:finhorizonex.html#cb98-9" aria-hidden="true" tabindex="-1"></a><span class="co">// set the parameters of the experiment</span></span>
+<span id="cb98-10"><a href="simoa:finhorizonex.html#cb98-10" aria-hidden="true" tabindex="-1"></a>sim<span class="op">.</span><span class="fu">setNumberOfReplications</span><span class="op">(</span><span class="dv">1000</span><span class="op">);</span></span>
+<span id="cb98-11"><a href="simoa:finhorizonex.html#cb98-11" aria-hidden="true" tabindex="-1"></a><span class="bu">System</span><span class="op">.</span><span class="fu">out</span><span class="op">.</span><span class="fu">println</span><span class="op">(</span><span class="st">&quot;Simulation started.&quot;</span><span class="op">);</span></span>
+<span id="cb98-12"><a href="simoa:finhorizonex.html#cb98-12" aria-hidden="true" tabindex="-1"></a>sim<span class="op">.</span><span class="fu">run</span><span class="op">();</span></span>
+<span id="cb98-13"><a href="simoa:finhorizonex.html#cb98-13" aria-hidden="true" tabindex="-1"></a><span class="bu">System</span><span class="op">.</span><span class="fu">out</span><span class="op">.</span><span class="fu">println</span><span class="op">(</span><span class="st">&quot;Simulation completed.&quot;</span><span class="op">);</span></span>
+<span id="cb98-14"><a href="simoa:finhorizonex.html#cb98-14" aria-hidden="true" tabindex="-1"></a>sim<span class="op">.</span><span class="fu">printHalfWidthSummaryReport</span><span class="op">();</span></span></code></pre></div>
+<p>All that is needed is to get a reference to the response
+variable that needs to be check so that the observer can be attached.
+This can be done easily in the location of the code where the response
+variable is created or as in this example, the name of the response
+variable is used to get the reference from the model. Line 6 of the
+listing illustrates using the name to get the reference, followed by the
+construction of the checker (line 7) and attaching it as an observer
+(line 8).</p>
+<p>In the sequential sampling experiment there were 66 replications. This
+is actually more than the recommended 61 replications for the fixed
+half-width method. This is perfectly possible, and emphasizes the fact
+that in the sequential sampling method, the number of replications is
+actually a random variable. If you were to use different streams and
+re-run the sequential sampling experiment, the number of replications
+completed may be different each time.</p>
+<table>
+<caption>Half-Width Summary Report for Sequential Analysis</caption>
+<thead>
+<tr class="header">
+<th align="left">Response Name</th>
+<th align="center"><span class="math inline">\(\bar{x}\)</span></th>
+<th align="center"><span class="math inline">\(hw\)</span></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">RingMakingStation:R:Util</td>
+<td align="center">0.981083</td>
+<td align="center">0.002039</td>
+</tr>
+<tr class="even">
+<td align="left">RingMakingStation:R:BusyUnits</td>
+<td align="center">0.981083</td>
+<td align="center">0.002039</td>
+</tr>
+<tr class="odd">
+<td align="left">RingMakingStation:Q:Num In Q</td>
+<td align="center">37.364044</td>
+<td align="center">1.963297</td>
+</tr>
+<tr class="even">
+<td align="left">RingMakingStation:Q:Time In Q</td>
+<td align="center">380.608370</td>
+<td align="center">19.903070</td>
+</tr>
+<tr class="odd">
+<td align="left">RingMakingStation:NS</td>
+<td align="center">38.345127</td>
+<td align="center">1.964300</td>
+</tr>
+<tr class="even">
+<td align="left">InspectStation:R:Util</td>
+<td align="center">0.426379</td>
+<td align="center">0.005022</td>
+</tr>
+<tr class="odd">
+<td align="left">InspectStation:R:BusyUnits</td>
+<td align="center">0.426379</td>
+<td align="center">0.005022</td>
+</tr>
+<tr class="even">
+<td align="left">InspectStation:Q:Num In Q</td>
+<td align="center">0.000948</td>
+<td align="center">0.000263</td>
+</tr>
+<tr class="odd">
+<td align="left">InspectStation:Q:Time In Q</td>
+<td align="center">0.009558</td>
+<td align="center">0.002622</td>
+</tr>
+<tr class="even">
+<td align="left">InspectStation:NS</td>
+<td align="center">0.427327</td>
+<td align="center">0.005109</td>
+</tr>
+<tr class="odd">
+<td align="left">ReworkStation:R:Util</td>
+<td align="center">0.127123</td>
+<td align="center">0.011491</td>
+</tr>
+<tr class="even">
+<td align="left">ReworkStation:R:BusyUnits</td>
+<td align="center">0.127123</td>
+<td align="center">0.011491</td>
+</tr>
+<tr class="odd">
+<td align="left">ReworkStation:Q:Num In Q</td>
+<td align="center">0.004093</td>
+<td align="center">0.001949</td>
+</tr>
+<tr class="even">
+<td align="left">ReworkStation:Q:Time In Q</td>
+<td align="center">0.530734</td>
+<td align="center">0.255424</td>
+</tr>
+<tr class="odd">
+<td align="left">ReworkStation:NS</td>
+<td align="center">0.131216</td>
+<td align="center">0.012288</td>
+</tr>
+<tr class="even">
+<td align="left">PackingStation:R:Util</td>
+<td align="center">0.687782</td>
+<td align="center">0.006946</td>
+</tr>
+<tr class="odd">
+<td align="left">PackingStation:R:BusyUnits</td>
+<td align="center">0.687782</td>
+<td align="center">0.006946</td>
+</tr>
+<tr class="even">
+<td align="left">PackingStation:Q:Num In Q</td>
+<td align="center">0.103600</td>
+<td align="center">0.008483</td>
+</tr>
+<tr class="odd">
+<td align="left">PackingStation:Q:Time In Q</td>
+<td align="center">1.050310</td>
+<td align="center">0.080851</td>
+</tr>
+<tr class="even">
+<td align="left">PackingStation:NS</td>
+<td align="center">0.791382</td>
+<td align="center">0.013703</td>
+</tr>
+<tr class="odd">
+<td align="left">System Time</td>
+<td align="center">404.357533</td>
+<td align="center">19.948930</td>
+</tr>
+<tr class="even">
+<td align="left">Num in System</td>
+<td align="center">39.695052</td>
+<td align="center">1.969934</td>
+</tr>
+<tr class="odd">
+<td align="left">Prob too Big</td>
+<td align="center">0.031764</td>
+<td align="center">0.004634</td>
+</tr>
+<tr class="even">
+<td align="left">Prob too Small</td>
+<td align="center">0.038146</td>
+<td align="center">0.004449</td>
+</tr>
+<tr class="odd">
+<td align="left">Prob of Over Time</td>
+<td align="center">0.106061</td>
+<td align="center">0.076275</td>
+</tr>
+<tr class="even">
+<td align="left">Time to Make Orders</td>
+<td align="center">782.451179</td>
+<td align="center">39.996433</td>
+</tr>
+<tr class="odd">
+<td align="left">Num in RM and Inspection</td>
+<td align="center">38.772454</td>
+<td align="center">1.964935</td>
+</tr>
+<tr class="even">
+<td align="left">Time in RM and Inspection</td>
+<td align="center">394.965666</td>
+<td align="center">19.914630</td>
+</tr>
+<tr class="odd">
+<td align="left">Across Rep Stat Num Completed</td>
+<td align="center">76.803030</td>
+<td align="center">3.936414</td>
+</tr>
+<tr class="even">
+<td align="left">Number of replications: 66</td>
+<td align="center"></td>
+<td align="center"></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="simoa:finhorizon.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="simoa:infhorizon.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"whatsapp": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": null,
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": ["KSLBook.pdf"],
+"search": {
+"engine": "fuse",
+"options": null
+},
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/latest.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>

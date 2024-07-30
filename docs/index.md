@@ -1,7 +1,7 @@
 --- 
 title: "Simulation Modeling using the Kotlin Simulation Library (KSL)"
 author: "Manuel D. Rossetti"
-date: "2024-07-28"
+date: "2024-07-30"
 site: bookdown::bookdown_site
 output: bookdown::gitbook
 header-includes:
@@ -68,10 +68,11 @@ You are reading the on-line edition of *Simulation Modeling using the Kotlin Sim
 - 2nd Edition Version 2.0, released January 2024
   - Added distribution fitting Section \@ref(distFitting) to Chapter \@ref(ch2rng)
   - Added Chapter \@ref(ch9AdvMC) on advance Monte Carlo methods
-- 2nd Edition Version 2.1, released June 2024
+- 2nd Edition Version 2.1, released July 2024
   - Added numbered examples to each chapter corresponding to code in KSLExamples project
   - Added examples on generation from mixture, truncated, and shifted distributions to Section \@ref(rvguse) of Chapter \@ref(ch2rng). Also added how to generate using the acceptance-rejection technique to Section \@ref(rvguse).
-  - Added two new examples to Sections \@ref(ch3InsProcess) and \@ref(ch3SAN) to Chapter \@ref(mcm)
+  - Added two new examples to Sections \@ref(ch3InsProcess) and \@ref(ch3SAN) to Chapter \@ref(mcm).
+  - Added Section \@ref(DTPExpanded) on station modeling to Chapter \@ref(introDEDS).
   - Added Sections \@ref(ch5Screening) and \@ref(ch5Scenarios) for coverage of screening techniques and how to run many simulation scenarios.
   - Added Sections \@ref(appPlotting) and \@ref(appExpDesign) to Appendix \@ref(appUtilities) for coverage of plotting utilities and experimental design utilities.
 

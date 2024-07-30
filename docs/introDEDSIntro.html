@@ -6,7 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>4.1 Introduction | Simulation Modeling using the Kotlin Simulation Library (KSL)</title>
   <meta name="description" content="A book that illustrates the basics of using the KSL. The output format for this book is bookdown::gitbook." />
-  <meta name="generator" content="bookdown 0.34 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.35 and GitBook 2.6.7" />
 
   <meta property="og:title" content="4.1 Introduction | Simulation Modeling using the Kotlin Simulation Library (KSL)" />
   <meta property="og:type" content="book" />
@@ -23,7 +23,7 @@
 <meta name="author" content="Manuel D. Rossetti" />
 
 
-<meta name="date" content="2024-06-02" />
+<meta name="date" content="2024-06-27" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -58,7 +58,7 @@
 
 <style type="text/css">
 pre > code.sourceCode { white-space: pre; position: relative; }
-pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span { line-height: 1.25; }
 pre > code.sourceCode > span:empty { height: 1.2em; }
 .sourceCode { overflow: visible; }
 code.sourceCode > span { color: inherit; text-decoration: inherit; }
@@ -130,6 +130,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 div.csl-bib-body { }
 div.csl-entry {
   clear: both;
+  margin-bottom: 0em;
 }
 .hanging div.csl-entry {
   margin-left:2em;
@@ -255,7 +256,7 @@ div.csl-indent {
 <li class="chapter" data-level="4.7" data-path="introDEDSSummary.html"><a href="introDEDSSummary.html"><i class="fa fa-check"></i><b>4.7</b> Summary</a></li>
 <li class="chapter" data-level="4.8" data-path="exercises-3.html"><a href="exercises-3.html"><i class="fa fa-check"></i><b>4.8</b> Exercises</a></li>
 </ul></li>
-<li class="chapter" data-level="5" data-path="simoa.html"><a href="simoa.html"><i class="fa fa-check"></i><b>5</b> Analyzing and Accessing Simulation Output</a>
+<li class="chapter" data-level="5" data-path="simoa.html"><a href="simoa.html"><i class="fa fa-check"></i><b>5</b> Analyzing Simulation Output</a>
 <ul>
 <li class="chapter" data-level="5.1" data-path="simoadatatypes.html"><a href="simoadatatypes.html"><i class="fa fa-check"></i><b>5.1</b> Types of Statistical Variables</a></li>
 <li class="chapter" data-level="5.2" data-path="simoasimtypes.html"><a href="simoasimtypes.html"><i class="fa fa-check"></i><b>5.2</b> Types of Simulation With Respect To Output Analysis</a></li>
@@ -277,18 +278,10 @@ div.csl-indent {
 <li class="chapter" data-level="5.7" data-path="simoacomparingSystems.html"><a href="simoacomparingSystems.html"><i class="fa fa-check"></i><b>5.7</b> Comparing System Configurations</a>
 <ul>
 <li class="chapter" data-level="5.7.1" data-path="simoacomparingSystems.html"><a href="simoacomparingSystems.html#simoacomparingSystems:two"><i class="fa fa-check"></i><b>5.7.1</b> Comparing Two Systems</a></li>
-<li class="chapter" data-level="5.7.2" data-path="simoacomparingSystems.html"><a href="simoacomparingSystems.html#simoacomparingSystemsMCB"><i class="fa fa-check"></i><b>5.7.2</b> Concepts for Comparing Systems</a></li>
-<li class="chapter" data-level="5.7.3" data-path="simoacomparingSystems.html"><a href="simoacomparingSystems.html#multiple-comparison-with-the-best-procedures-mcb"><i class="fa fa-check"></i><b>5.7.3</b> Multiple Comparison with the Best Procedures (MCB)</a></li>
-<li class="chapter" data-level="5.7.4" data-path="simoacomparingSystems.html"><a href="simoacomparingSystems.html#screening-procedures"><i class="fa fa-check"></i><b>5.7.4</b> Screening Procedures</a></li>
+<li class="chapter" data-level="5.7.2" data-path="simoacomparingSystems.html"><a href="simoacomparingSystems.html#simoacomparingSystemsMCB"><i class="fa fa-check"></i><b>5.7.2</b> Multiple Comparisons</a></li>
 </ul></li>
-<li class="chapter" data-level="5.8" data-path="simulating-many-scenarios.html"><a href="simulating-many-scenarios.html"><i class="fa fa-check"></i><b>5.8</b> Simulating Many Scenarios</a>
-<ul>
-<li class="chapter" data-level="5.8.1" data-path="simulating-many-scenarios.html"><a href="simulating-many-scenarios.html#control-annotations"><i class="fa fa-check"></i><b>5.8.1</b> Control Annotations</a></li>
-<li class="chapter" data-level="5.8.2" data-path="simulating-many-scenarios.html"><a href="simulating-many-scenarios.html#random-variable-parameters"><i class="fa fa-check"></i><b>5.8.2</b> Random Variable Parameters</a></li>
-<li class="chapter" data-level="5.8.3" data-path="simulating-many-scenarios.html"><a href="simulating-many-scenarios.html#setting-up-and-running-multiple-scenarios"><i class="fa fa-check"></i><b>5.8.3</b> Setting Up and Running Multiple Scenarios</a></li>
-</ul></li>
-<li class="chapter" data-level="5.9" data-path="simoasummary.html"><a href="simoasummary.html"><i class="fa fa-check"></i><b>5.9</b> Summary</a></li>
-<li class="chapter" data-level="5.10" data-path="exercises-4.html"><a href="exercises-4.html"><i class="fa fa-check"></i><b>5.10</b> Exercises</a></li>
+<li class="chapter" data-level="5.8" data-path="simoasummary.html"><a href="simoasummary.html"><i class="fa fa-check"></i><b>5.8</b> Summary</a></li>
+<li class="chapter" data-level="5.9" data-path="exercises-4.html"><a href="exercises-4.html"><i class="fa fa-check"></i><b>5.9</b> Exercises</a></li>
 </ul></li>
 <li class="chapter" data-level="6" data-path="processview.html"><a href="processview.html"><i class="fa fa-check"></i><b>6</b> Process View Modeling Using the KSL</a>
 <ul>
@@ -440,8 +433,8 @@ div.csl-indent {
 <li class="chapter" data-level="D.1" data-path="the-outputdirectory-class-and-ksl-object.html"><a href="the-outputdirectory-class-and-ksl-object.html"><i class="fa fa-check"></i><b>D.1</b> The <code>OutputDirectory</code> Class and <code>KSL</code> Object</a></li>
 <li class="chapter" data-level="D.2" data-path="logging-options.html"><a href="logging-options.html"><i class="fa fa-check"></i><b>D.2</b> Logging Options</a></li>
 <li class="chapter" data-level="D.3" data-path="the-kslfileutil-object.html"><a href="the-kslfileutil-object.html"><i class="fa fa-check"></i><b>D.3</b> The <code>KSLFileUtil</code> Object</a></li>
-<li class="chapter" data-level="D.4" data-path="appDCSVEtc.html"><a href="appDCSVEtc.html"><i class="fa fa-check"></i><b>D.4</b> CSV, Excel, and Tabular Data Files</a></li>
-<li class="chapter" data-level="D.5" data-path="dfUtil.html"><a href="dfUtil.html"><i class="fa fa-check"></i><b>D.5</b> The <code>DataFrameUtil</code> Object</a></li>
+<li class="chapter" data-level="D.4" data-path="csv-excel-and-tabular-data-files.html"><a href="csv-excel-and-tabular-data-files.html"><i class="fa fa-check"></i><b>D.4</b> CSV, Excel, and Tabular Data Files</a></li>
+<li class="chapter" data-level="D.5" data-path="the-dataframeutil-object.html"><a href="the-dataframeutil-object.html"><i class="fa fa-check"></i><b>D.5</b> The <code>DataFrameUtil</code> Object</a></li>
 <li class="chapter" data-level="D.6" data-path="ksl-database-utilities.html"><a href="ksl-database-utilities.html"><i class="fa fa-check"></i><b>D.6</b> KSL Database Utilities</a></li>
 <li class="chapter" data-level="D.7" data-path="appUtilitiesArrays.html"><a href="appUtilitiesArrays.html"><i class="fa fa-check"></i><b>D.7</b> Array Utilities</a></li>
 <li class="chapter" data-level="D.8" data-path="appUtilitiesMisc.html"><a href="appUtilitiesMisc.html"><i class="fa fa-check"></i><b>D.8</b> Miscellaneous Utilities</a></li>
@@ -518,10 +511,6 @@ system state evolves through time. The state of the system is
 essentially the collection of states associated with all the objects in
 the system. The notion of modeling what happens to a system at
 particular events in time is the basis of discrete event modeling.</p>
-<div class="infobox note">
-<p><strong>NOTE!</strong>
-This chapter provides a series of example Kotlin code that illustrates the use of KSL constructs for discrete-event dynamic systems. The full source code of the examples can be found in the accompanying <code>KSLExamples</code> project associated with the <a href="https://github.com/rossetti/KSL">KSL repository</a>. The files for each example of this chapter can be found <a href="https://github.com/rossetti/KSL/tree/main/KSLExamples/src/main/kotlin/ksl/examples/book/chapter4">here</a>.</p>
-</div>
 </div>
             </section>
 

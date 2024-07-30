@@ -91,11 +91,11 @@
 <line x1='192.25' y1='278.13' x2='192.25' y2='227.57' style='stroke-width: 0.75;' />
 <line x1='202.04' y1='278.13' x2='202.04' y2='269.71' style='stroke-width: 0.75;' />
 <line x1='211.82' y1='278.13' x2='211.82' y2='269.71' style='stroke-width: 0.75;' />
-<rect x='159.45' y='59.04' width='62.31' height='25.92' style='stroke-width: 0.75; fill: #FFFFFF;' />
-<line x1='165.93' y1='67.68' x2='178.89' y2='67.68' style='stroke-width: 0.75;' />
-<line x1='165.93' y1='76.32' x2='178.89' y2='76.32' style='stroke-width: 0.75; stroke: #FF0000;' />
-<text x='185.37' y='70.26' style='font-size: 7.20px; font-family: "Arial";' textLength='28.76px' lengthAdjust='spacingAndGlyphs'>empirical</text>
-<text x='185.37' y='78.90' style='font-size: 7.20px; font-family: "Arial";' textLength='33.15px' lengthAdjust='spacingAndGlyphs'>theoretical</text>
+<rect x='160.31' y='59.04' width='61.45' height='25.92' style='stroke-width: 0.75; fill: #FFFFFF;' />
+<line x1='166.79' y1='67.68' x2='179.75' y2='67.68' style='stroke-width: 0.75;' />
+<line x1='166.79' y1='76.32' x2='179.75' y2='76.32' style='stroke-width: 0.75; stroke: #FF0000;' />
+<text x='186.23' y='70.26' style='font-size: 7.20px; font-family: "Arial";' textLength='28.76px' lengthAdjust='spacingAndGlyphs'>empirical</text>
+<text x='186.23' y='78.90' style='font-size: 7.20px; font-family: "Arial";' textLength='33.15px' lengthAdjust='spacingAndGlyphs'>theoretical</text>
 </g>
 <defs>
   <clipPath id='cpMzExLjA0fDQ3My43Nnw1OS4wNHwyODYuNTY='>
@@ -155,11 +155,11 @@
 <circle cx='444.25' cy='70.10' r='2.70' style='stroke-width: 0.75;' />
 <circle cx='454.04' cy='68.78' r='2.70' style='stroke-width: 0.75;' />
 <circle cx='463.82' cy='67.47' r='2.70' style='stroke-width: 0.75;' />
-<rect x='411.45' y='260.64' width='62.31' height='25.92' style='stroke-width: 0.75; fill: #FFFFFF;' />
-<line x1='417.93' y1='269.28' x2='430.89' y2='269.28' style='stroke-width: 0.75;' />
-<line x1='417.93' y1='277.92' x2='430.89' y2='277.92' style='stroke-width: 0.75; stroke: #FF0000;' />
-<text x='437.37' y='271.86' style='font-size: 7.20px; font-family: "Arial";' textLength='28.76px' lengthAdjust='spacingAndGlyphs'>empirical</text>
-<text x='437.37' y='280.50' style='font-size: 7.20px; font-family: "Arial";' textLength='33.15px' lengthAdjust='spacingAndGlyphs'>theoretical</text>
+<rect x='412.31' y='260.64' width='61.45' height='25.92' style='stroke-width: 0.75; fill: #FFFFFF;' />
+<line x1='418.79' y1='269.28' x2='431.75' y2='269.28' style='stroke-width: 0.75;' />
+<line x1='418.79' y1='277.92' x2='431.75' y2='277.92' style='stroke-width: 0.75; stroke: #FF0000;' />
+<text x='438.23' y='271.86' style='font-size: 7.20px; font-family: "Arial";' textLength='28.76px' lengthAdjust='spacingAndGlyphs'>empirical</text>
+<text x='438.23' y='280.50' style='font-size: 7.20px; font-family: "Arial";' textLength='33.15px' lengthAdjust='spacingAndGlyphs'>theoretical</text>
 </g>
 <defs>
   <clipPath id='cpNTkuMDR8NDczLjc2fDU5LjA0fDI4Ni41Ng=='>
