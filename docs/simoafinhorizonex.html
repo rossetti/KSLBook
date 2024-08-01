@@ -6,7 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>5.4 Capturing Output for a Simple Finite Horizon Simulation | Simulation Modeling using the Kotlin Simulation Library (KSL)</title>
   <meta name="description" content="A book that illustrates the basics of using the KSL. The output format for this book is bookdown::gitbook." />
-  <meta name="generator" content="bookdown 0.35 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.39 and GitBook 2.6.7" />
 
   <meta property="og:title" content="5.4 Capturing Output for a Simple Finite Horizon Simulation | Simulation Modeling using the Kotlin Simulation Library (KSL)" />
   <meta property="og:type" content="book" />
@@ -23,7 +23,7 @@
 <meta name="author" content="Manuel D. Rossetti" />
 
 
-<meta name="date" content="2024-07-30" />
+<meta name="date" content="2024-08-01" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -702,7 +702,7 @@ Figure 5.2: Organization of KSL Output Directories
 <p>Figure <a href="simoafinhorizonex.html#fig:KSLOutputDir">5.2</a> illustrates the output directory after running the pallet model. You should see the <code>kslOutput</code> directory and a directory called <code>Pallet_Processing_OutputDir.</code> Within the <code>Pallet_Processing_OutputDir</code> directory there are folders called <code>db</code> and <code>excel.</code> These folders are the default directories for holding database related files and Excel related output files. Within the <code>db</code> folder there is a file called <code>MainModel.db,</code> which is an SQLite database that was created to hold the KSL simulation results. Then, there are two files called <code>hwSummary.md</code> and <code>kslOutput.txt.</code> There are also three CSV files, two labeled with <code>_ExperimentReport.csv</code> and <code>_ReplicationReport.csv</code>, and one labeled with <code>_Trace.csv.</code> This labeling scheme is the default and is derived from the context of the item. The setting of the <code>autoCSVReports</code> option to true when creating the model is what caused the two files labeled with <code>_ExperimentReport.csv</code> and with <code>_ReplicationReport.csv</code> to be produced. The following table is from <code>MainModel_CSVReplicationReport.csv.</code></p>
 <table class="table" style="font-size: 10px; margin-left: auto; margin-right: auto;">
 <caption style="font-size: initial !important;">
-<span id="tab:Ch5WRD">Table 5.1: </span>First 8 columns and 5 Rows of MainModel_CSVReplicationReport.csv.
+<span id="tab:unnamed-chunk-1">Table 4.3: </span><span id="tab:Ch5WRD">Table 5.1: </span>First 8 columns and 5 Rows of MainModel_CSVReplicationReport.csv.
 </caption>
 <thead>
 <tr>
@@ -895,7 +895,7 @@ Total Processing Time
 <p>The following table illustrates columns 8 through 12 of the file.</p>
 <table class="table" style="font-size: 10px; margin-left: auto; margin-right: auto;">
 <caption style="font-size: initial !important;">
-<span id="tab:Ch5WRD">Table 5.1: </span>Next 5 columns and 5 Rows of MainModel_CSVReplicationReport.csv.
+<span id="tab:unnamed-chunk-2">Table 4.5: </span><span id="tab:Ch5WRD">Table 5.1: </span>Next 5 columns and 5 Rows of MainModel_CSVReplicationReport.csv.
 </caption>
 <thead>
 <tr>
@@ -1024,7 +1024,7 @@ Total Processing Time
 <p>This data can be easily processed by other of statistical programs such as R or opened directly within Excel. The following table is from <code>MainModel_CSVExperimentReport.csv</code> and represents the across replication summary statistics for the responses and counters in the model.</p>
 <table class="table" style="font-size: 10px; margin-left: auto; margin-right: auto;">
 <caption style="font-size: initial !important;">
-<span id="tab:Ch5ARD">Table 5.2: </span>Columns 7-15 and 9 Rows of MainModel_CSVExperimentReport.csv.
+<span id="tab:unnamed-chunk-3">Table 4.7: </span><span id="tab:Ch5ARD">Table 5.2: </span>Columns 7-15 and 9 Rows of MainModel_CSVExperimentReport.csv.
 </caption>
 <thead>
 <tr>
@@ -1328,7 +1328,7 @@ NumBusyWorkers
 <p>Attaching an instance of the <code>ResponseTrace</code> class to a response causes the trace to observe any value changes of the variable.</p>
 <table class="table" style="font-size: 10px; margin-left: auto; margin-right: auto;">
 <caption style="font-size: initial !important;">
-<span id="tab:Ch5Trace">Table 5.3: </span>First 10 rows of Num Pallets at WC_Trace.csv.
+<span id="tab:unnamed-chunk-4">Table 4.9: </span><span id="tab:Ch5Trace">Table 5.3: </span>First 10 rows of Num Pallets at WC_Trace.csv.
 </caption>
 <thead>
 <tr>

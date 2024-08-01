@@ -3005,15 +3005,12 @@ resources to be subjected to either scheduled capacity changes. Finally, a few i
 ## Exercises
 
 ***
-
 ::: {.exercise #ch7P1}
 Consider the testing and repair
 shop. Suppose instead of increasing the overall arrival rate of jobs to
 the system, the new contract will introduce a new type of component into
 the system that will require a new test plan sequence. The following two
 tables represent the specifics associated with the new testing plan.
-:::
-
 
   Test Plan    \% of parts   Sequence
   ----------- ------------- ----------
@@ -3042,18 +3039,28 @@ that the contract is going to last for 1 year (52 weeks). Build a
 simulation model that can assist the company in assessing the risks
 associated with the new contract.
 
+Use the following stream allocations:
+
+- Stream 1, part arrival process
+- Stream 2, diagnostic time
+- Stream 3, test plan distribution
+- Streams 4-8, test plan 1 testing times and repair
+- Streams 9-11, test plan 2 testing times and repair
+- Streams 12-15, test plan 3 testing times and repair
+- Streams 16-18, test plan 4 testing times and repair
+- Streams 19-22, test plan 5 testing times and repair
+:::
+
 ***
 
 ::: {.exercise #ch7P2}
 Parts arrive at a 4 workstation
 system according to an exponential inter-arrival distribution with a
-mean of 10 minutes. The workstation A has 2 machines. The three
+mean of 10 minutes (stream 1). The workstation A has 2 machines. The three
 workstations (B, C, D) each have a single machine. There are 3 part
-types, each with an equal probability of arriving. The process plan for
+types, each with an equal probability of arriving (stream 2). The process plan for
 the part types are given below. The entries are for exponential
 distributions with the mean processing time (MPT) parameter given.
-
-:::
 
   ------------------ ------------------ ------------------
   Workstation, MPT    Workstation, MPT   Workstation, MPT
@@ -3064,8 +3071,15 @@ distributions with the mean processing time (MPT) parameter given.
 
 Assume that the transfer time between arrival and the first station,
 between all stations, and between the last station and the system exit
-is 3 minutes. Simulate the system for 30000 minutes and discuss the potential bottlenecks in
+is 3 minutes (stream 3). Simulate the system for 30000 minutes and discuss the potential bottlenecks in
 the system.
+
+Use the following stream allocations for the process plans:
+
+- Streams 4-6, Plan 1
+- Streams 7-9, Plan 2
+- Streams 10-12, Plan 3
+:::
 
 ***
 
@@ -3115,8 +3129,7 @@ the tooling fixture. After the part is built, it leaves the system.
 In this problem, the steady state performance of this system is required
 in order to identify potential long-term bottlenecks in this process.
 For this analysis, collect statistics on the following quantities:
-  
-:::
+
 -   Queue statistics for all stations. Utilization statistics for all
     resources.
 
@@ -3126,6 +3139,18 @@ For this analysis, collect statistics on the following quantities:
 -   The average number of parts on the conveyor.
 
 Perform a warm up analysis on the system time of a part regardless of type.
+
+Use the following stream allocations:
+
+- Stream 1, part type distribution
+- Stream 2, arrival process
+- Streams 3-5, preparation time for types 1, 2, 3
+- Stream 6, part type 2 or 3 build time
+- Stream 7, part type 1 tooling placement time
+- Stream 8, part type 1 first operation time
+- Stream 9, part type 1 second operation time
+- Stream 10, part type 1, tooling removal time
+:::
 
 ***
 
@@ -3140,7 +3165,6 @@ up of 200 hours. Which configuration would you recommend?
 :::
 
 ***
-
 ::: {.exercise #ch7P5}
 A patient arrives at the Emergency Room about every 20 $\pm$ 10 minutes
 (stream 1). The notation X $\pm$ Y means uniformly distributed with
@@ -3185,11 +3209,9 @@ must get the same doctor for their final treatment as for their first
 treatment. For example, if a patient gets Dr. House for their first
 treatment, they must see Dr. House for their final treatment. You do not
 have to implement the changes.
-
 :::
 
 ***
-
 ::: {.exercise #ch7P6}
 Consider the M/G/1 queue with
 the following variation. The server works continuously as long as there
@@ -3202,10 +3224,12 @@ finds no customers waiting at the end of a vacation, it immediately
 takes another vacation, and continues in this manner until it finds at
 least one waiting customer upon return from a vacation. Assume that the
 time between customer arrivals is exponentially distributed with mean of
-3 minutes. The service distribution for each customer is a gamma
-distribution with a mean of 4.5 seconds and a variance of 3.375. The
+3 minutes (stream 1). The service distribution for each customer is a gamma
+distribution with a mean of 4.5 seconds and a variance of 3.375 (stream 2). The
 length of a vacation is a random variable uniformly distributed between
-8 and 12 minutes. Run the simulation long enough to adequately develop a
+8 and 12 minutes (stream 3). 
+
+Run the simulation long enough to adequately develop a
 95\% confidence interval on the expected wait time in the queue for a
 arbitrary customer arriving in steady state. In addition, develop an
 empirical distribution for the number of customers waiting upon the
@@ -3224,17 +3248,17 @@ available to take the call. If all eight phone lines (both agent lines
 and the hold lines) are busy, a potential customer gets a busy signal,
 and it is assumed that the call goes to another ticket office and that
 the business is lost. The calls and attempted calls occur randomly (i.e.
-according to Poisson process) at a mean rate of 15 per hour. The length
+according to Poisson process) at a mean rate of 15 per hour (stream 1). The length
 of a telephone conversation has an exponential distribution with a mean
-of 4 minutes.
+of 4 minutes (stream 2).
 
 In addition, the ticket office has instituted an automated caller identification system that
 automatically places First Class Business (FCB) passengers at the head
 of the queue, waiting for an agent. Of the original 15 calls per hour,
-they estimate that roughly one-third of these come from FCB customers.
+they estimate that roughly one-third of these come from FCB customers (stream 3).
 They have also noticed that FCB customers take approximately 3 minutes
-on average for the phone call, still exponentially distributed. Regular
-customers still take on average 4 minutes, exponentially distributed.
+on average for the phone call, still exponentially distributed (stream 4). Regular
+customers still take on average 4 minutes, exponentially distributed (stream 2).
 Simulate this system with and without the new prioritization scheme and
 compare the average waiting time for the two types of customers.
 :::
@@ -3248,9 +3272,9 @@ stoppages. Type 1 stoppage occurs after a fixed constant amount of
 machine running time, $1/\lambda_1$ = 30 minutes, and has a constant
 value of $1/\mu_1$ = 10 minutes as the service time for the stoppage.
 Type 2 stoppages occur after random intervals of time, negatively
-exponentially distributed, with a mean of $1/\lambda_2$ = 10 minutes.
+exponentially distributed, with a mean of $1/\lambda_2$ = 10 minutes (stream 1).
 Service times for type 2 stoppages are negative exponentially
-distributed with a mean of $1/\mu_2$ = 4 minutes. Both of the operators
+distributed with a mean of $1/\mu_2$ = 4 minutes (stream 2). Both of the operators
 have the same skills and can handle either type of stoppage. The
 machines wait for service from the operators in a first come first
 served queue with no priority given to either type of stoppage. Simulate
@@ -3269,11 +3293,11 @@ queue. Each station consists of a queue and a single server. A customer
 completing service at station 1 proceeds to station 2, while a customer
 completing service at station 2 leaves the facility. Assume that the
 inter-arrival times of customers to station 1 are IID exponential random
-variables with a mean of 1 minute. Service times of customers at station
-1 are exponential random variables with a mean of 0.7 minute, and at
-station 2 are exponential random variables with mean 0.9 minute. Develop
+variables with a mean of 1 minute (stream 1). Service times of customers at station
+1 are exponential random variables with a mean of 0.7 minute (stream 2), and at
+station 2 are exponential random variables with mean 0.9 minute (stream 3). Develop
 an model for this system.
-:::
+
 a. Run the simulation for exactly 20000 minutes and estimate for each station the expected average delay in queue for the customer, the expected time-average number of customers in
 queue, and the expected utilization. In addition, estimate the average
 number of customers in the system and the average time spent in the
@@ -3283,6 +3307,7 @@ b. Use the results of queueing theory to verify and validate your results for
 part (a)
 
 c. Suppose now there is a travel time from the exit of station 1 to the arrival to station 2. Assume that this travel time is distributed uniformly between 0 and 2 minutes. Modify your simulation and rerun it under the same conditions as in part (a).
+:::
 
 ***
 
@@ -3302,8 +3327,6 @@ removals. The operator attends to the parts in a first come, first
 served manner. The times for the preparation machines are given in the
 table below according to a triangular distribution with the provided
 parameters:
-
-:::
 
    Prep Machine   Setup Time   Process Time   Removal Time
   -------------- ------------ -------------- --------------
@@ -3343,6 +3366,21 @@ your work to justify your recommendation.
 c. Where is the bottleneck for this system? What would you recommend to
 improve the performance of this system?
 
+Use the following stream allocations:
+
+- Stream 1, part arrival process
+- Stream 2, preparation machine routing
+- Streams 3-5, setup, preparation, removal time for prep machine 1
+- Streams 6-8, setup, preparation, removal time for prep machine 2
+- Stream 9, sequence determination
+- Stream 10-13, sequence 1 processing times
+- Stream 14-16, sequence 2 processing times
+- Stream 17-20, sequence 3 processing times
+- Stream 21-24, sequence 4 processing times
+- Stream 25-27, sequence 5 processing times
+- Stream 28, transfer time
+:::
+
 ***
 
 ::: {.exercise #ch7P11}
@@ -3371,8 +3409,6 @@ Transfer times from the workstation to paint and from paint to pack are
 Work-In-Progress (WIP) at the workstation, paint and packaging
 operations. Figure \@ref(fig:SMPaintsExercise) provides an illustration of the system.
 
-:::
-
 *(This problem is based on an example on page 209 and continues on page 217 of [@pegden1995introduction]. Used with permission)*
 
 <div class="figure" style="text-align: center">
@@ -3399,6 +3435,7 @@ that follows a triangular distribution with a minimum value of 21, a
 mode of 23, and a maximum of 26 (stream 7). Run the model for 600,000
 minutes with a 50,000 minute warm up period. If you were to select a
 resource to add capacity, which would it be?
+:::
 
 ***
 
@@ -3409,9 +3446,9 @@ queue. Each station consists of a queue and a single server. A customer
 completing service at station 1 proceeds to station 2, while a customer
 completing service at station 2 leaves the facility. Assume that the
 inter-arrival times of customers to station 1 are IID exponential random
-variables with a mean of 1.25 minutes. Service times of customers at station
-1 are exponential random variables with a mean of 0.7 minute, and at
-station 2 are exponential random variables with mean 0.9 minute. 
+variables with a mean of 1.25 minutes (stream 1). Service times of customers at station
+1 are exponential random variables with a mean of 0.7 minute (stream 2), and at
+station 2 are exponential random variables with mean 0.9 minute (stream 3). 
 
 Suppose that there is limited space at the second
 station. In particular, there is room for 1 customer to be in service at
@@ -3431,7 +3468,7 @@ Develop a model for this system. Run the simulation for exactly 20000 minutes wi
 A particular stock keeping unit
 (SKU) has demand that averages 14 units per year and is Poisson
 distributed. That is, the time between demands is exponentially
-distributed with a mean a 1/14 years. Assume that 1 year = 360 days. The
+distributed with a mean a 1/14 years (stream 1). Assume that 1 year = 360 days. The
 inventory is managed according to a $(r, Q)$ inventory control policy
 with $r = 3$ and $Q = 4$. The SKU costs \$150. An inventory carrying
 charge of 0.20 is used and the annual holding cost for each unit has
@@ -3441,7 +3478,6 @@ materials required to place a purchase order is about \$15. It takes 45
 days to receive a replenishment order. The cost of back-ordering is very
 difficult to estimate, but a guess has been made that the annualized
 cost of a back-order is about \$25 per unit per year.
-:::
 
 a. Using simulate the performance of this
 system using $Q = 4$ and $r =3$. Report the average inventory on hand,
@@ -3450,9 +3486,10 @@ and the probability of a stock out for your model.
 
 b. Now suppose that the lead-time is
 stochastic and governed by a lognormal distribution with a mean of 45
-days and a standard deviation of 7 days. What assumptions do you have to
+days and a standard deviation of 7 days (stream 2). What assumptions do you have to
 make to simulate this situation? Simulate this situation and
 compare/contrast the results with part (a).
+:::
 
 ***
 
@@ -3475,7 +3512,9 @@ for credit card services, and 15% for travel services during the 8 am to
 8 pm time frame. For the other hours of the day, the proportion changes
 to 90% for auto service, 10% for credit card services, and 0% for travel
 services. A sample of call service times were recorded for each of the
-types as shown in Tables \@ref(tab:SRAC1), \@ref(tab:SRAC2), (\@ref(tab:SRAC3), and (\@ref(tab:SRAC3). You can find this data in the chapter files that accompany this chapter in the spreasheet called *Super Ready Auto Club.xlsx*.
+types as shown in Tables \@ref(tab:SRAC1), \@ref(tab:SRAC2), (\@ref(tab:SRAC3), and (\@ref(tab:SRAC3). You can find this data in the chapter files that accompany this chapter in the spreadsheet called *Super Ready Auto Club.xlsx*. 
+Use stream 1 for road side service calls, stream 2 for vacation service calls, and
+stream 3 for credit card service calls.
 
 Call center operators cost \$18 per hour including fringe benefits. It
 is important that the probability of a call waiting more than 3 minutes
@@ -3484,8 +3523,6 @@ each hour of the day for each day of the week that on-average meets the
 call probability waiting criteria. Measure the waiting time for a call,
 the average number of calls waiting, and the utilization of the
 operators. In addition, measure the waiting time of the calls by type. 
-
-:::
 
 a. What happens to the waiting times if
 road-side assistance calls are given priority over the credit card and
@@ -3497,6 +3534,7 @@ hours and a 30 minute food/beverage break every 4 hours. Discuss how you
 would staff the center under these conditions ensuring that there is
 always someone present (i.e. they are not all on break at the same
 time).
+:::
 
 ::: {#tab:SRAC1}
   Hour     Mon     Tue     Wed    Thur     Fri     Sat     Sun
@@ -3595,12 +3633,11 @@ queue. Each station consists of a queue and a single server. A customer
 completing service at station 1 proceeds to station 2, while a customer
 completing service at station 2 leaves the facility. Assume that the
 inter-arrival times of customers to station 1 are IID exponential random
-variables with a mean of 1 minute. Service times of customers at station
-1 are exponential random variables with a mean of 0.7 minute, and at
-station 2 are exponential random variables with mean 0.9 minute. Assume that the travel time between the two stations must be modeled. The travel time is distributed according to
-a triangular distribution with parameters (1, 2, 4) minutes.
+variables with a mean of 1 minute (stream 1). Service times of customers at station
+1 are exponential random variables with a mean of 0.7 minute (stream 2), and at
+station 2 are exponential random variables with mean 0.9 minute (stream 3). Assume that the travel time between the two stations must be modeled. The travel time is distributed according to
+a triangular distribution with parameters (1, 2, 4) minutes (stream 4).
 
-:::
 a. Model the system assuming that the worker from the first station moves the parts to the second station. The movement of the part should be given priority if there is another part
 waiting to be processed at the first station.
 
@@ -3608,6 +3645,7 @@ b. Model the system with a new worker (resource) to move the parts between the s
 
 From your models, estimate the total system time for the parts, the utilization of the workers, and the average number of parts waiting for the workers. Run the simulation for
 exactly 20000 minutes with a warm up period of 5000 minutes.
+:::
 
 ***
 
@@ -3647,7 +3685,7 @@ situation.
 Redo Exercise \@ref(exr:ch7P2) assuming that there is a pool of 3 workers that
 perform the transport between the stations. Assume that the transport
 time is triangularly distributed with parameters (2, 4, 6) all in
-minutes. Make an assessment for the company for the appropriate number
+minutes (stream 13). Make an assessment for the company for the appropriate number
 of workers to have in the transport worker pool.
 :::
 

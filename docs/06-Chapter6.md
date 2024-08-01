@@ -1683,7 +1683,7 @@ the number of cars waiting in line is 4 or more. A customer is said to
 *balk* if he or she refuses to enter the system and simply departs
 without receiving service. Model this situation using and estimate the
 probability that a customer will balk because the line is too long. Run
-your model for 1 year, with 20 replications. 
+your model for 1 year, with 20 replications. Use stream 1 for the arrival process and stream 2 for the service process.
 :::
 
 ***
@@ -1692,9 +1692,9 @@ your model for 1 year, with 20 replications.
 Samples of 20 parts from a metal grinding process are selected every hour. Typically 2\% of
 the parts need rework. Let X denote the number of parts in the sample of
 20 that require rework. A process problem is suspected if X exceeds its
-mean by more than 3 standard deviations. Using simulate 30 hours of the
+mean by more than 3 standard deviations. Simulate 30 hours of the
 process, i.e. 30 samples of size 20, and estimate the chance that X
-exceeds its expected value by more than 1 standard deviation.
+exceeds its expected value by more than 1 standard deviation.  Use stream 1.
 :::
 
 ***
@@ -1706,29 +1706,31 @@ the parts need rework. Let X denote the number of parts in the sample of
 20 that require rework. A process problem is suspected if X exceeds its
 mean by more than 1 standard deviations. Each time X exceeds its mean by
 more than 1 standard deviations all X of the parts requiring rework are
-sent to a rework station. Each part consists of two subcomponents, which
+sent to a rework station. Use stream 1 to determine if a sample requires rework.
+
+Each part consists of two subcomponents, which
 are split off and repaired separately. The splitting process takes 1
-worker and lasts U(10, 20) minutes per part. After the subcomponents
+worker and lasts U(10, 20) minutes per part (stream 2). After the subcomponents
 have been split, they are repaired in different processes. Subcomponent
-1 takes U(5, 10) minutes to repair with 1 worker at its repair process
-and subcomponent 2 takes expo(7.5) minutes to repair with 1 worker at
+1 takes U(5, 10) minutes (stream 3) to repair with 1 worker at its repair process
+and subcomponent 2 takes expo(7.5) minutes (stream 4) to repair with 1 worker at
 its repair process. Once both of the subcomponents have been repaired,
 they are joined back together to form the original part. The joining
 process takes 5 minutes with 1 worker. The part is then sent back to the
 main production area, which is outside the scope of this problem.
 Simulate 8 hours of production and estimate the average time that it
-takes a part to be repaired.
+takes a part to be repaired. Use 20 replications.
 :::
 
 ***
 
 :::{.exercise #ch6P5}
 TV sets arrive at a two-inspector station for testing. The time between
-arrivals is exponential with a mean of 15 minutes. The inspection time
-per TV set is exponential with a mean of 10 minutes. On the average, 82
-percent of the sets pass inspection. The remaining 18\% are routed to an
+arrivals is exponential with a mean of 15 minutes (stream 1). The inspection time
+per TV set is exponential with a mean of 10 minutes (stream 2). On the average, 82
+percent of the sets pass inspection (stream 3). The remaining 18\% are routed to an
 adjustment station with a single operator. Adjustment time per TV set is
-uniform between 7 and 14 minutes. After adjustments are made, sets are
+uniform between 7 and 14 minutes (stream 4). After adjustments are made, sets are
 routed back to the inspection station to be retested. We are interested
 in estimating the total time a TV set spends in the system before it is
 released.
@@ -1743,17 +1745,17 @@ adjusted.
 
 :::{.exercise #ch6P6}
 A simple manufacturing system is staffed by 3 operators. Parts arrive
-according to a Poisson process with a mean rate of 2 per minute to a
+according to a Poisson process with a mean rate of 15 per hour (stream 1) to a
 workstation for a drilling process at one of three identical drill
 presses. The parts wait in a single queue until a drill press is
 available. Each part has a particular number of holes that need to be
 drilled. Each hole takes a Lognormal time to be drilled with an
-approximate mean of 1 minute and a standard deviation of 30 seconds.
+approximate mean of 1 minute and a standard deviation of 30 seconds (stream 2).
 Once the holes are drilled, the part goes to the grinding operation. At
 the grinding operation, one of the 3 available operators grinds out the
 burrs on the part. This activity takes approximately 5 minutes plus or
-minus 30 seconds. After the grinding operation the part leaves the
-system.
+minus 30 seconds (stream 3). After the grinding operation the part leaves the
+system. Assume that the parts have a discrete uniform number of holes to drill over the range from 2 to 4 (stream 4) 
 
 Develop model for this situation. Report the average system
 time for the parts based on 20 replications of 4800 minutes.
@@ -1764,20 +1766,20 @@ time for the parts based on 20 replications of 4800 minutes.
 :::{.exercise #ch6P7}
 The Hog BBQ Joint is interested in understanding the flow of customers
 for diner (5 pm to 9 pm). Customers arrive in parties of 2, 3, 4, or 5
-with probabilities 0.4, 0.3, 0.2, 0.1, respectively. The time between
-arrivals is exponentially distributed with a mean of 1.4 minutes.
+with probabilities 0.4, 0.3, 0.2, 0.1, respectively (stream 1). The time between
+arrivals is exponentially distributed with a mean of 1.4 minutes (stream 2).
 Customers must arrive prior to 9 pm in order to be seated. The dining
 area has 50 tables. Each table can seat 2 people. For parties, with more
 than 2 customers, the tables are moved together. Each arriving group
 gets in line to be seated. If there are already 6 parties in line, the
 arriving group will leave and go to another restaurant. The time that it
 takes to be served is triangularly distributed with parameters (14, 19,
-24) in minutes. The time that it takes to eat is lognormally distributed
-with a mean of 24 minutes and a standard deviation of 5 minutes. When
+24) in minutes (stream 3). The time that it takes to eat is lognormally distributed
+with a mean of 24 minutes and a standard deviation of 5 minutes (stream 4). When
 customers are finished eating, they go to the cashier to pay their bill.
 The time that it takes the cashier to process the customers is gamma
 distributed with a mean of 1.5 minutes and a standard deviation of 0.5
-minutes.
+minutes (stream 5).
 
 Develop an model for this situation. Simulate 30 days of operation. Make
 a table like the following to summarize your results.
@@ -1803,6 +1805,15 @@ produce an order and the utilization of the workers if the arrival rate
 for orders increases. Re-run the model for 30 eight hour days with the
 arrival rate increased by 20, 40, 60, and 80 percent. Will the system
 have trouble meeting the demand? Use the statistics to justify your conclusions.
+
+Use the following stream allocations:
+
+- Stream 1, time between orders
+- Stream 2, order type
+- Stream 3, order size
+- Stream 4, shirt making time
+- Stream 5, paper work time
+- Stream 6, packaging time
 :::
 
 ***
@@ -1821,28 +1832,39 @@ minutes. Re-run the model for 30, 8-hour days, with the arrival rate
 increased by 20, 40, 60, and 80%. Will the system have trouble meeting
 the demand? In other words, how does the throughput (number of shirts
 produced per day) change in response to the increasing demand rate?
+
+Use the following stream allocations:
+
+- Stream 1, time between orders
+- Stream 2, order type
+- Stream 3, order size
+- Stream 4, shirt making time
+- Stream 5, paper work time
+- Stream 6, packaging time
+- Stream 7, inspection time
+- Stream 8, scrapping process
 :::
 
 ***
 
 :::{.exercise #ch6P10}
 Hungry customers arrive to a Mickey R's drive through restaurant at a
-mean rate of 10 per hour according to a Poisson process. Management is
+mean rate of 10 per hour according to a Poisson process (stream 1). Management is
 interested in improving the total time spent within the system (i.e.
 from arrival to departure with their food).
 
 Management is considering a proposed system that splits the order
 taking, payment activity and the order delivery processes. The first
 worker will take the orders from an order-taking speaker. This takes on
-average 1 minute plus or minus 20 seconds uniformly distributed. When
+average 1 minute plus or minus 20 seconds uniformly distributed (stream 2). When
 the order taking activity is completed, the making of the order will
 start. It takes approximately 3 minutes (plus or minus 20 seconds) to
-make the customer's order, uniformly distributed. Meanwhile, the
+make the customer's order, uniformly distributed (stream 3). Meanwhile, the
 customer will be instructed to drive to the first window to pay for the
 order. Assume that the time that it takes the customer to move forward
 is negligible. The first worker accepts the payment from the customer.
 This takes on average 45 seconds plus or minus 20 seconds uniformly
-distributed. After paying for the order the customer is instructed to
+distributed (stream 4). After paying for the order the customer is instructed to
 pull forward to the second window, where a second worker delivers the
 order. Assume that the time that it takes the customer to move forward
 is negligible.
@@ -1854,7 +1876,7 @@ completed. If the order is completed before the customer arrives to the
 order and the customer are at the 2nd window, the 2nd worker packages
 the customer's order and gives it to the customer. This takes
 approximately 30 seconds with a standard deviation of 10 seconds,
-lognormally distributed. After the customer receives their order they
+lognormally distributed (stream 5). After the customer receives their order they
 depart.
 
 Simulate this system for the period from 10 am to 2 pm. Report the total
@@ -1866,33 +1888,33 @@ time spent in the system for the customers based on 30 days.
 :::{.exercise #ch6P11}
 The city is considering improving its hazardous waste and bulk item drop
 off area to improve service. Cars arrive to the drop off area at a rate
-of 10 per hour according to a Poisson process. Each car contains items
+of 10 per hour according to a Poisson process (stream 1). Each car contains items
 for drop off. There is a 10% chance that the car will contain 1 item, a
 50% chance that the car will contain 2 items, and a 40% chance that the
-car will contain 3 items. There is an 80% chance that an item will be
+car will contain 3 items (stream 2). There is an 80% chance that an item will be
 hazardous (e.g. chemicals, light bulbs, electronic equipment, etc.) and
 a 20% chance that the item will be a bulk item, which cannot be picked
-up in the curbside recycling program. Of the 80% of items that have
+up in the curbside recycling program (stream 3). Of the 80% of items that have
 hazardous waste, about 10% are for electronic equipment that must be
-inspected and taken apart.
+inspected and taken apart (stream 4).
 
 A single worker assists the citizen in taking the material out of their
 car and moving the material to the recycling center. This typically
-takes between 0.5 to 1.5 minutes per item (uniformly distributed) if the
+takes between 0.5 to 1.5 minutes per item (uniformly distributed (stream 5)) if the
 item is not a bulk item. If the item is a bulk item, then the time takes
 a minimum of 1 minute, most likely 2.5 minutes, with a maximum of 4
-minutes per item triangularly distributed. The worker finishes all items
+minutes per item triangularly distributed (stream 6). The worker finishes all items
 in a car before processing the next car.
 
 Another worker will begin sorting the items immediately after the item
 is unloaded. This process takes 1-2 minutes per item uniformly
-distributed. If the item is electronic equipment, the items are placed
+distributed (stream 7). If the item is electronic equipment, the items are placed
 in front of a special disassembly station to be taken apart.
 
 The same worker that performs sorting also performs the disassembly of
 the electronic parts. Items that require sorting take priority over
 items that require disassembly. Each electronic item takes between 8 to
-16 minutes uniformly distributed to disassemble.
+16 minutes uniformly distributed to disassemble (stream 8).
 
 The hazardous waste recycling center is open for 7 hours per day, 5 days
 per week. Simulate 12 weeks of performance and estimate the following
@@ -1920,7 +1942,7 @@ quantities:
 Orders for street lighting poles require the production of the tapered pole, the base
 assembly, and the wiring/lighting assembly package. Orders are released
 to the shop floor with an exponential time between arrival of 20
-minutes. Assume that all the materials for the order are already
+minutes (stream 1). Assume that all the materials for the order are already
 available within the shop floor.
 
 Once the order arrives, the production of the pole begins. Pole
@@ -1929,7 +1951,7 @@ This process takes place on a cutting shear. After cutting, the pole is
 rolled using a press brake machine. This machine rolls the sheet to an
 almost closed form. After rolling, the pole is sealed on an automated
 welding machine. Each of these processes are uniformly distributed with
-ranges $[3, 5]$, $[6,10]$, and $[4,8]$ minutes respectively.
+ranges $[3, 5]$, $[6,10]$, and $[4,8]$ minutes, (streams 2, 3, 4) respectively.
 
 While the pole is being produced, the base is being prepared. The base
 is a square metal plate with four holes drilled for bolting the place to
@@ -1937,18 +1959,18 @@ the mounting piece and a large circular hole for attaching the pole to
 the base. The base plates are in stock so that only the holes need to be
 cut. This is done on a water jet cutting machine. This process takes
 approximately 20 minutes plus or minus 2 minutes, triangularly
-distributed. After the holes are cut, the plate goes to a
+distributed (stream 5). After the holes are cut, the plate goes to a
 grinding/deburring station, which takes between 10 minutes,
-exponentially distributed.
+exponentially distributed (stream 6).
 
 Once the plate and the pole are completed, they are transported to the
 inspection station. Inspection takes 20 minutes, exponentially
-distributed with 1 operator. There could be a quality problem with the
+distributed (stream 7) with 1 operator. There could be a quality problem with the
 pole or with the base (or both). The chance that the problem is with the
-base is 0.02 and the chance that the problem is with the pole is 0.01.
+base is 0.02 (stream 8) and the chance that the problem is with the pole is 0.01 (stream 9).
 If either or both have a quality issue, the pole and base go to a rework
 station for rework. Rework is performed by a single operator and
-typically takes between 100 minutes, exponentially distributed. After
+typically takes on average 100 minutes, exponentially distributed (stream 10). After
 rework, the pole and base are sent to final assembly. If no problems
 occur with the pole or the base, the pole and base are sent directly to
 final assembly.
@@ -1956,7 +1978,7 @@ final assembly.
 At the assembly station, the pole is fixed to the base plate and the
 wiring assembly is placed within the pole. This process takes 1 operator
 approximately 30 minutes with a standard deviation of 4 minutes
-according to a lognormal distribution. After assembly, the pole is sent
+according to a lognormal distribution (stream 11). After assembly, the pole is sent
 to the shipping area for final delivery.
 
 The shop is interested in taking on additional orders which would
@@ -1973,9 +1995,9 @@ assuming 52 weeks per year to report your results.
 :::{.exercise #ch6P13}
 Patients arrive at an emergency room where they are treated and then
 depart. Arrivals are exponentially distributed with a mean time between
-arrivals of 0.3 hours. Upon arrival, patients are assigned a rating of 1
-to 5, depending on the severity of their ailments. Patients in Category
-1 are the most severe, and they are immediately sent to a bed where they
+arrivals of 0.3 hours (stream 1). Upon arrival, patients are assigned a rating of 1
+to 5, depending on the severity of their ailments. Use stream 2 to determine the category.
+Patients in Category 1 are the most severe, and they are immediately sent to a bed where they
 await medical attention. All other patients must first wait in the
 receiving room until a basic registration form and medical record are
 completed. They then proceed to a bed.
@@ -1984,12 +2006,12 @@ The emergency room has three beds, one registration nurse, and two
 doctors. In all cases, the priority for allocating these resources is
 based on the severity of the ailment. Hint: Read the [documentation](https://rossetti.github.io/KSLDocs/-k-s-l-core/ksl.modeling.queue/-queue/index.html) for the `Queue` class and rank the queue by a severity attribute represented by the `QObject` priority property.
 
-The registration time for patients in Categories 2 through 5 is Uniform (0.1, 0.2) hours.
+The registration time for patients in Categories 2 through 5 is Uniform (0.1, 0.2) hours (stream 3).
 The treatment time for all patients is triangularly distributed with the
 minimum, most likely, and maximum values differing according to the
 patient's category. The distribution of patients by category and the
 corresponding minimum, most likely, and maximum treatment times are
-summarized below.
+summarized below. Use streams 4-8 for the treatment times of the categories of patients.
 
     Category      1     2      3      4      5
   ------------- ----- ------ ------ ------ ------
@@ -2056,12 +2078,11 @@ replications.
 ***
 
 :::{.exercise #ch6P15}
-Jobs arrive in batches of ten items each. The inter-arrival time is EXPO(2) hours. The
-machine shop contains 2 milling machines and one drill press. About 30%
+Jobs arrive in batches of ten items each. The inter-arrival time is exponentially distributed with a meand of 2 hours (stream 1). The machine shop contains 2 milling machines and one drill press. About 30%
 of the items require drilling before being processed on the milling
-machine. Drilling time per item is UNIF(10, 15) minutes. The milling
-time is EXPO(15) minutes for items that do not require drilling, and
-UNIF(15,20) for items that do. Assume that the shop has two 8-hour
+machine (stream 2). Drilling time per item is uniformly distributed between (10, 15) minutes (stream 3). The milling
+time is exponentially distributed (stream 4) with a mean of 15 minutes for items that do not require drilling, and
+uniformly distributed (stream 5) between (15,20) minutes for items that do. Assume that the shop has two 8-hour
 shifts each day and that you are only interested in the *first* shift's
 performance. Any jobs left over at the end of the first shift are left
 to be processed by the second shift. Estimate the average number of jobs
@@ -2074,43 +2095,58 @@ item spends in the system.
 
 ***
 
-:::{.exercise #ch6P16}
+:::{.exercise #ch6P16a}
 A repair and inspection facility consists of two stations, a repair station with two
 technicians, and an inspection station with 1 inspector. Each repair
-technician works at a rate of 3 items per hour, while the inspector can
-inspect 8 items per hour each exponentially distributed. Approximately
-10\% of all items fail inspection and are sent back to the repair station
+technician works at a rate of 7.5 items per hour (stream 2), while the inspector can
+inspect 15 items per hour (stream 3) each exponentially distributed. Approximately
+10\% (stream 5) of all items fail inspection and are sent back to the repair station
 (this percentage holds even for items that have been repaired two to
 three times). If an item fails inspection three times then it is
 scrapped. When an item is scrapped, the item is sent to a disassembly
-station to recover the usable parts. At the disassembly station, the
+station to recover the usable parts. 
+
+At the disassembly station, the
 items wait in a queue until a technician is available. The disassembly
-time is distributed according to a Lognormal distribution with a mean of
-20 minutes and a standard deviation of 10 minutes. Assume that items
-arrive according to a Poisson arrival process with a rate of 4 per hour.
+time is quite complex and is distributed according to a Lognormal distribution with a mean of
+200 minutes and a standard deviation of 10 minutes (stream 4). Assume that items
+arrive according to a Poisson arrival process with a rate of 12 per hour (stream 1).
+
 The weekly performance of the system is the key objective of this
 simulation analysis. Assume that the system starts empty and idle on
-Monday mornings and runs continuously for 2 shifts per day for 5 days.
-Any jobs not completed by the end of $2^{nd}$ shift are carried over to
-the $1^{st}$ shift of the next day. Any jobs left over at the end of the
+Monday mornings and runs continuously for 2 shifts per day for 5 days. Each shift has
+420 minutes of actual work time available.
+Any items not completed by the end of $2^{nd}$ shift are carried over to
+the $1^{st}$ shift of the next day. Any items left over at the end of the
 week are handled by a separate weekend staff that is not of concern to
-the current study. Estimate the following:
+the current study. 
+
+Estimate the following:
   
 -   The average system time of items that pass inspection on the first
     attempt. Measure this quantity such that you are 95\% confident to
     within +/- 3 minutes.
-
--   The average number of jobs completed per week.
+-   The average number of items in the system at any time.
+-   The system time (for completed items) regardless of the number of times the item
+failed inspection.
+-  The probability that an item will be scrapped.
+-   The average number of items completed per week.
+-   The average number of items scrapped per week.
+-   The average number of items left for the weekend staff.
 
 a. Sketch an activity diagram for this situation.
 
 b. Assume that there are 2 technicians at the repair station, 1 inspector at the
 inspection station, and 1 technician at the disassembly station. Develop
 a model for this situation.
+:::
 
-c. Assume that there are 2 technicians at the repair station and 1 inspector at the
+***
+
+:::{.exercise #ch6P16b}
+Reconsider Exercise \@ref(exr:ch6P16a) Assume that there are 2 technicians at the repair station and 1 inspector at the
 inspection station. The disassembly station is also staffed by the 2
-technicians that are assigned to the repair station. Develop a model for this situation.
+technicians that are assigned to the repair station. That is, the disassembly and repair stations share their technicians. The repair station should have priority over work at the disassembly station. Develop a model for this situation.  Compare your results to Exercise \@ref(exr:ch6P16a), which design do you recommend?
 :::
 
 ***
@@ -2154,7 +2190,7 @@ task times will decrease by 10\%.
 Assume that the clinic is open from 10 am to 8 pm (10
 hours each day) and that any patients in the clinic before 8 pm are
 still served. The distribution used to model the time that it takes to
-schedule a follow up visit is a WEIB(2.6, 7.3) distribution using stream 6.
+schedule a follow up visit is a Weibull distribution with shape 2.6 and scale 7.3 using stream 6.
 
 Make a statistically valid recommendation as to the best design based on
 the average system time of the patients. We want to be 95\% confident of
@@ -2167,9 +2203,10 @@ our recommendation to within 2 minutes.
 A copy center has one fast copier
 and one slow copier. The copy time per page for the fast copier is
 thought to be lognormally distributed with a mean of 1.6 seconds and a
-standard deviation of 0.3 seconds. A co-op Industrial Engineering
+standard deviation of 0.3 seconds (stream 2). A co-op Industrial Engineering
 student has collected some time study data on the time to copy a page
-for the slow copier. The times, in seconds, are given in the data set associated with Exercise \@ref(exr:AppDistFitP13).
+for the slow copier. The times, in seconds, are given in the data set 
+associated with Exercise \@ref(exr:AppDistFitP13). Use stream 3 for the fitted distribution.
 
 The copy times for the slow and fast copiers are given on a per page
 basis. Thus, the total time to perform a copy job of N pages is the sum
@@ -2177,9 +2214,9 @@ of the copy times for the N individual pages. Each individual page's
 time is random.
 
 Customers arrive to the copy center according to a Poisson process with
-a mean rate of 1 customer every 40 seconds. The number of copies
+a mean rate of 1 customer every 40 seconds (stream 1). The number of copies
 requested by each customer is equally likely over the range of 10 and 50
-copies. The customer is responsible for filling out a form that
+copies (stream 4). The customer is responsible for filling out a form that
 indicates the number of copies to be made. This results in a copy job
 which is processed by the copying machines in the copy center. The
 copying machines work on the entire job at one time.
@@ -2197,7 +2234,7 @@ personnel. In addition, assume that one cashier handles the payment
 counter only so that sufficient workers are available to run the copy
 machines. The time to complete the payment transaction is lognormally
 distributed with a mean of 20 seconds and a standard deviation of 10
-seconds. As soon as both the payment and the copying job are finished,
+seconds (stream 5). As soon as both the payment and the copying job are finished,
 the customer takes the copies and departs the copying center. The copy
 center starts out a day with no customers and is open for 10 hours per
 day.

@@ -427,7 +427,7 @@ processed. To make this easier, we will keep track of the system
 variables and the entity attributes within a table as follows.
 
 <table class="table" style="font-size: 10px; margin-left: auto; margin-right: auto;">
-<caption style="font-size: initial !important;">(\#tab:SQBH1)Hand Bank Simulation Bookkeeping Table.</caption>
+<caption style="font-size: initial !important;">(\#tab:unnamed-chunk-1)(\#tab:SQBH1)Hand Bank Simulation Bookkeeping Table.</caption>
  <thead>
 <tr>
 <th style="border-bottom:hidden;padding-bottom:0; padding-left:3px;padding-right:3px;text-align: center; " colspan="5"><div style="border-bottom: 1px solid #ddd; padding-bottom: 5px; ">System Variables</div></th>
@@ -482,7 +482,7 @@ spend any time waiting in the queue. Thus, $S_{1} = 3$ and $W_{1} = 0$.
 The table has been updated as follows.
 
 <table class="table" style="font-size: 10px; margin-left: auto; margin-right: auto;">
-<caption style="font-size: initial !important;">(\#tab:SQBH2)Hand Bank Simulation Bookkeeping Table.</caption>
+<caption style="font-size: initial !important;">(\#tab:unnamed-chunk-2)(\#tab:SQBH2)Hand Bank Simulation Bookkeeping Table.</caption>
  <thead>
 <tr>
 <th style="border-bottom:hidden;padding-bottom:0; padding-left:3px;padding-right:3px;text-align: center; " colspan="5"><div style="border-bottom: 1px solid #ddd; padding-bottom: 5px; ">System Variables</div></th>
@@ -556,7 +556,7 @@ of the first customer. Thus, our bookkeeping table can be updated as
 follows.
 
 <table class="table" style="font-size: 10px; margin-left: auto; margin-right: auto;">
-<caption style="font-size: initial !important;">(\#tab:SQBH3)Hand Bank Simulation Bookkeeping Table.</caption>
+<caption style="font-size: initial !important;">(\#tab:unnamed-chunk-3)(\#tab:SQBH3)Hand Bank Simulation Bookkeeping Table.</caption>
  <thead>
 <tr>
 <th style="border-bottom:hidden;padding-bottom:0; padding-left:3px;padding-right:3px;text-align: center; " colspan="5"><div style="border-bottom: 1px solid #ddd; padding-bottom: 5px; ">System Variables</div></th>
@@ -633,7 +633,7 @@ the next event will be the arrival of customer 2 at time 11. The table
 can be updated as follows.
 
 <table class="table" style="font-size: 10px; margin-left: auto; margin-right: auto;">
-<caption style="font-size: initial !important;">(\#tab:SQBH4)Hand Bank Simulation Bookkeeping Table.</caption>
+<caption style="font-size: initial !important;">(\#tab:unnamed-chunk-4)(\#tab:SQBH4)Hand Bank Simulation Bookkeeping Table.</caption>
  <thead>
 <tr>
 <th style="border-bottom:hidden;padding-bottom:0; padding-left:3px;padding-right:3px;text-align: center; " colspan="5"><div style="border-bottom: 1px solid #ddd; padding-bottom: 5px; ">System Variables</div></th>
@@ -726,7 +726,7 @@ departure of the second customer at time 15. We will now have a queue
 form. Updating our bookkeeping table, yields:
 
 <table class="table" style="font-size: 10px; margin-left: auto; margin-right: auto;">
-<caption style="font-size: initial !important;">(\#tab:SQBH5)Hand Bank Simulation Bookkeeping Table.</caption>
+<caption style="font-size: initial !important;">(\#tab:unnamed-chunk-5)(\#tab:SQBH5)Hand Bank Simulation Bookkeeping Table.</caption>
  <thead>
 <tr>
 <th style="border-bottom:hidden;padding-bottom:0; padding-left:3px;padding-right:3px;text-align: center; " colspan="5"><div style="border-bottom: 1px solid #ddd; padding-bottom: 5px; ">System Variables</div></th>
@@ -836,7 +836,7 @@ arrival of customer 4 at time 14, which yields the following bookkeeping
 table.
 
 <table class="table" style="font-size: 10px; margin-left: auto; margin-right: auto;">
-<caption style="font-size: initial !important;">(\#tab:SQBH6)Hand Bank Simulation Bookkeeping Table.</caption>
+<caption style="font-size: initial !important;">(\#tab:unnamed-chunk-6)(\#tab:SQBH6)Hand Bank Simulation Bookkeeping Table.</caption>
  <thead>
 <tr>
 <th style="border-bottom:hidden;padding-bottom:0; padding-left:3px;padding-right:3px;text-align: center; " colspan="5"><div style="border-bottom: 1px solid #ddd; padding-bottom: 5px; ">System Variables</div></th>
@@ -958,7 +958,7 @@ waiting in the queue. Reviewing the pending event set, we see that
 customer 2 will finally complete service and depart at time 15.
 
 <table class="table" style="font-size: 10px; margin-left: auto; margin-right: auto;">
-<caption style="font-size: initial !important;">(\#tab:SQBH7)Hand Bank Simulation Bookkeeping Table.</caption>
+<caption style="font-size: initial !important;">(\#tab:unnamed-chunk-7)(\#tab:SQBH7)Hand Bank Simulation Bookkeeping Table.</caption>
  <thead>
 <tr>
 <th style="border-bottom:hidden;padding-bottom:0; padding-left:3px;padding-right:3px;text-align: center; " colspan="5"><div style="border-bottom: 1px solid #ddd; padding-bottom: 5px; ">System Variables</div></th>
@@ -1099,7 +1099,7 @@ accordingly and indicates that the next event will be the arrival of
 customer 5 at time 17.
 
 <table class="table" style="font-size: 10px; margin-left: auto; margin-right: auto;">
-<caption style="font-size: initial !important;">(\#tab:SQBH8)Hand Bank Simulation Bookkeeping Table.</caption>
+<caption style="font-size: initial !important;">(\#tab:unnamed-chunk-8)(\#tab:SQBH8)Hand Bank Simulation Bookkeeping Table.</caption>
  <thead>
 <tr>
 <th style="border-bottom:hidden;padding-bottom:0; padding-left:3px;padding-right:3px;text-align: center; " colspan="5"><div style="border-bottom: 1px solid #ddd; padding-bottom: 5px; ">System Variables</div></th>
@@ -1267,7 +1267,7 @@ to continue the processing of the customers. The completed bookkeeping table at
 time 31 is as follows.
 
 <table class="table" style="font-size: 10px; margin-left: auto; margin-right: auto;">
-<caption style="font-size: initial !important;">(\#tab:SQBHFull)Hand Bank Simulation Bookkeeping Table.</caption>
+<caption style="font-size: initial !important;">(\#tab:unnamed-chunk-9)(\#tab:SQBHFull)Hand Bank Simulation Bookkeeping Table.</caption>
  <thead>
 <tr>
 <th style="border-bottom:hidden;padding-bottom:0; padding-left:3px;padding-right:3px;text-align: center; " colspan="5"><div style="border-bottom: 1px solid #ddd; padding-bottom: 5px; ">System Variables</div></th>
@@ -3874,7 +3874,7 @@ database server according to a Poisson process with a rate of 1 query
 every minute. The time that it takes to execute the query on the server
 is typically between 0.6 and 0.8 minutes uniformly distributed. The
 server can only execute 1 query at a time. Develop a simulation model to
-estimate the average delay time for a query. Use stream 1 for the time between query arrivals and stream 2 for the query execution time. Run your model for 30 replications having a length of 100,000 minutes.
+estimate the average delay time for a query. Use stream 1 for the time between query arrivals and stream 2 for the query execution time. Run your model for 30 replications having a length of 100,000 minutes. Use stream 1 for the query arrival process and stream 2 for the time to execute the query.
 :::
 
 ***

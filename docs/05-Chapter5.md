@@ -611,7 +611,7 @@ The first thing to note is how the output from a KSL simulation is organized. Th
 Figure \@ref(fig:KSLOutputDir) illustrates the output directory after running the pallet model. You should see the `kslOutput` directory and a directory called `Pallet_Processing_OutputDir.` Within the  `Pallet_Processing_OutputDir` directory there are folders called `db` and `excel.`  These folders are the default directories for holding database related files and Excel related output files.  Within the `db` folder there is a file called `MainModel.db,` which is an SQLite database that was created to hold the KSL simulation results. Then, there are two files called `hwSummary.md` and `kslOutput.txt.` There are also three CSV files, two labeled with `_ExperimentReport.csv` and `_ReplicationReport.csv`, and one labeled with `_Trace.csv.` This labeling scheme is the default and is derived from the context of the item.  The setting of the `autoCSVReports` option to true when creating the model is what caused the two files labeled with `_ExperimentReport.csv` and with  `_ReplicationReport.csv` to be produced. The following table is from `MainModel_CSVReplicationReport.csv.`
 
 <table class="table" style="font-size: 10px; margin-left: auto; margin-right: auto;">
-<caption style="font-size: initial !important;">(\#tab:Ch5WRD)First 8 columns and 5 Rows of MainModel_CSVReplicationReport.csv.</caption>
+<caption style="font-size: initial !important;">(\#tab:unnamed-chunk-1)(\#tab:Ch5WRD)First 8 columns and 5 Rows of MainModel_CSVReplicationReport.csv.</caption>
  <thead>
   <tr>
    <th style="text-align:left;"> SimName </th>
@@ -693,7 +693,7 @@ As can be seen in the previous table, the replication report has information abo
 The following table illustrates columns 8 through 12 of the file. 
 
 <table class="table" style="font-size: 10px; margin-left: auto; margin-right: auto;">
-<caption style="font-size: initial !important;">(\#tab:Ch5WRD)Next 5 columns and 5 Rows of MainModel_CSVReplicationReport.csv.</caption>
+<caption style="font-size: initial !important;">(\#tab:unnamed-chunk-2)(\#tab:Ch5WRD)Next 5 columns and 5 Rows of MainModel_CSVReplicationReport.csv.</caption>
  <thead>
   <tr>
    <th style="text-align:left;"> Statistic.Name </th>
@@ -751,7 +751,7 @@ The following table illustrates columns 8 through 12 of the file.
 This data can be easily processed by other of statistical programs such as R or opened directly within Excel.  The following table is from `MainModel_CSVExperimentReport.csv` and represents the across replication summary statistics for the responses and counters in the model.
 
 <table class="table" style="font-size: 10px; margin-left: auto; margin-right: auto;">
-<caption style="font-size: initial !important;">(\#tab:Ch5ARD)Columns 7-15 and 9 Rows of MainModel_CSVExperimentReport.csv.</caption>
+<caption style="font-size: initial !important;">(\#tab:unnamed-chunk-3)(\#tab:Ch5ARD)Columns 7-15 and 9 Rows of MainModel_CSVExperimentReport.csv.</caption>
  <thead>
   <tr>
    <th style="text-align:left;"> Statistic.Name </th>
@@ -881,7 +881,7 @@ A user may want to trace the values of specific response variables to files for 
 Attaching an instance of the `ResponseTrace` class to a response causes the trace to observe any value changes of the variable. 
 
 <table class="table" style="font-size: 10px; margin-left: auto; margin-right: auto;">
-<caption style="font-size: initial !important;">(\#tab:Ch5Trace)First 10 rows of Num Pallets at WC_Trace.csv.</caption>
+<caption style="font-size: initial !important;">(\#tab:unnamed-chunk-4)(\#tab:Ch5Trace)First 10 rows of Num Pallets at WC_Trace.csv.</caption>
  <thead>
   <tr>
    <th style="text-align:right;"> n </th>
@@ -4003,7 +4003,7 @@ the arriving parts are Type 1 and are processed on Machine 1. These
 parts require the assigned operator for a one-minute setup operation.
 The remaining 40 percent of the parts are Type 2 parts and are processed
 on Machine 2. These parts require the assigned operator for a 1.5-minute
-setup operation. The service times (excluding the setup time) are
+(constant) setup operation. The service times (excluding the setup time) are
 lognormally distributed with a mean of 4.5 minutes and a variance of 1 minute for Type 1 parts and a mean of 7.5 minutes and a
 variance of $(1.5)^2$ minutes for Type 2 parts. The operator of the machine is required to both setup and operate the machine.
 
@@ -4042,7 +4042,7 @@ simulation to generate two independent samples of size $n_1 = 20$ and
 $n_2 = 30$ from normal distributions
 having $\mu_1 = 2$, $\sigma_1^2 = 0.64$ and  $\mu_2 = 2.2, \sigma_2^2 = 0.64$.
 Assume that you don't know the true means and variances. Use the method
-of independent samples to test whether $\mu_2 > \mu_1$.
+of independent samples to test whether $\mu_2 > \mu_1$. 
 :::
 
 ***
@@ -4068,7 +4068,7 @@ method to test whether $\mu_2 > \mu_1$.
 ***
 ::: {.exercise #ch5P10}
 Create a model to simulate observations from a $N(\mu, \sigma^2)$ random variable. Use your
-simulation to generate two dependent samples of size $n_1 = 30$ and
+simulation to generate two *dependent* samples of size $n_1 = 30$ and
 $n_2 = 30$ from normal distributions having
 $\mu_1 = 2$, $\sigma_1^2 = 0.64$ and $\mu_2 = 2.2$, $\sigma_2^2 = 0.36$. Use the method of common random number.  Assume that you don't know the true means and variances. Use the paired-t
 method to test whether $\mu_2 > \mu_1$.
@@ -4107,16 +4107,16 @@ with that of (a) and (e) and discuss.  What do you recommend for the warmup peri
 
 ***
 ::: {.exercise #ch5P12}
-Reconsider Exercise \@ref(exr:ch4P10) of Chapter \@ref(introDEDS). Suppose that after the passenger identification inspection, we now need to model a simplified version of the baggage screening process.
+Reconsider Exercise \@ref(exr:ch4P10) of Chapter \@ref(introDEDS), with stream 1 for the arrival process, stream 2 for the service process, and stream 3 for the inspection process. Suppose that after the passenger identification inspection, we now need to model a simplified version of the baggage screening process.
 
 Part (a):
-Once passengers clear the identification check, they proceed to the X-ray baggage screening. Those that were denied, exit the system. For those proceeding to X-ray screening, at a minimum, it takes 1.5 minutes per passenger for the X-ray process to complete. Typically, this process takes 2.5 minutes. At the most, this process can last 7 minutes. There are two X-ray machines.
+Once passengers clear the identification check, they proceed to the X-ray baggage screening. Those that were denied, exit the system. For those proceeding to X-ray screening, at a minimum, it takes 1.5 minutes per passenger for the X-ray process to complete. Typically, this process takes 2.5 minutes. At the most, this process can last 7 minutes. There are two X-ray machines. Use stream 4 for the X-ray screening time.
 
 - What is the maximum time that a passenger had to wait in line for the X-ray machine? 
 - What is the utilization of the X-ray machines?
 
 Part (b):
-To increase security measures, a more extensive security check of passengers is performed after the baggage scan. Every 15th passenger will go through a full-body scan and manual baggage review. This inspection usually takes 5 minutes. At the least, it will take 3 minutes and at the most 10 minutes. Assume there is unlimited availability of resources to model this extra security check. 
+To increase security measures, a more extensive security check of passengers is performed after the baggage scan. Every 15th passenger will go through a full-body scan and manual baggage review. This inspection usually takes 5 minutes. At the least, it will take 3 minutes and at the most 10 minutes. Assume there is unlimited availability of resources to model this extra security check. Use stream 5 for the full-body scan and manual baggage review inspection.
 
 - What is the overall average cycle time of passengers (from the time they enter the system until they are through all security points) who are selected for this check?
 :::

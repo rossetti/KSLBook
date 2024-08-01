@@ -3,10 +3,10 @@
 # Statistical Tables {#appStatTables}
 
 <table class="table" style="font-size: 10px; margin-left: auto; margin-right: auto;">
-<caption style="font-size: initial !important;">(\#tab:LowerZTable)Cumulative standard normal distribution, z = -3.49 to 0</caption>
+<caption style="font-size: initial !important;">(\#tab:unnamed-chunk-1)(\#tab:LowerZTable)Cumulative standard normal distribution, z = -3.49 to 0</caption>
  <thead>
   <tr>
-   <th style="text-align:left;">   </th>
+   <th style="text-align:left;">  </th>
    <th style="text-align:right;"> -0.09 </th>
    <th style="text-align:right;"> -0.08 </th>
    <th style="text-align:right;"> -0.07 </th>
@@ -483,10 +483,10 @@
 \newpage
 
 <table class="table" style="font-size: 10px; margin-left: auto; margin-right: auto;">
-<caption style="font-size: initial !important;">(\#tab:UpperZTable)Cumulative standard normal distribution, z = 0.0 to 3.49</caption>
+<caption style="font-size: initial !important;">(\#tab:unnamed-chunk-2)(\#tab:UpperZTable)Cumulative standard normal distribution, z = 0.0 to 3.49</caption>
  <thead>
   <tr>
-   <th style="text-align:left;">   </th>
+   <th style="text-align:left;">  </th>
    <th style="text-align:right;"> 0 </th>
    <th style="text-align:right;"> 0.01 </th>
    <th style="text-align:right;"> 0.02 </th>

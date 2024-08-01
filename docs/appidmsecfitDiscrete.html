@@ -6,7 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>B.3 Fitting Discrete Distributions | Simulation Modeling using the Kotlin Simulation Library (KSL)</title>
   <meta name="description" content="A book that illustrates the basics of using the KSL. The output format for this book is bookdown::gitbook." />
-  <meta name="generator" content="bookdown 0.35 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.39 and GitBook 2.6.7" />
 
   <meta property="og:title" content="B.3 Fitting Discrete Distributions | Simulation Modeling using the Kotlin Simulation Library (KSL)" />
   <meta property="og:type" content="book" />
@@ -23,7 +23,7 @@
 <meta name="author" content="Manuel D. Rossetti" />
 
 
-<meta name="date" content="2024-07-30" />
+<meta name="date" content="2024-08-01" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -686,305 +686,135 @@ the reference, <span class="math inline">\(p\$N\)</span> accesses all the counts
 period, day combinations. The variable, <span class="math inline">\(p\$N\)</span>, is subsequently used in
 the <em>hist</em>, <em>plot</em>, and <em>acf</em> commands.</p>
 <table>
-<caption>
-<span id="tab:PCntData">Table B.3: </span>Computer Lab Arrival Data.
-</caption>
+<caption><span id="tab:PCntData">Table B.3: </span>Computer Lab Arrival Data.</caption>
 <thead>
-<tr>
-<th style="text-align:center;">
-Week
-</th>
-<th style="text-align:center;">
-Period
-</th>
-<th style="text-align:center;">
-Day
-</th>
-<th style="text-align:center;">
-N
-</th>
+<tr class="header">
+<th align="center">Week</th>
+<th align="center">Period</th>
+<th align="center">Day</th>
+<th align="center">N</th>
 </tr>
 </thead>
 <tbody>
-<tr>
-<td style="text-align:center;">
-1
-</td>
-<td style="text-align:center;">
-1
-</td>
-<td style="text-align:center;">
-M
-</td>
-<td style="text-align:center;">
-8
-</td>
+<tr class="odd">
+<td align="center">1</td>
+<td align="center">1</td>
+<td align="center">M</td>
+<td align="center">8</td>
 </tr>
-<tr>
-<td style="text-align:center;">
-1
-</td>
-<td style="text-align:center;">
-2
-</td>
-<td style="text-align:center;">
-M
-</td>
-<td style="text-align:center;">
-8
-</td>
+<tr class="even">
+<td align="center">1</td>
+<td align="center">2</td>
+<td align="center">M</td>
+<td align="center">8</td>
 </tr>
-<tr>
-<td style="text-align:center;">
-1
-</td>
-<td style="text-align:center;">
-3
-</td>
-<td style="text-align:center;">
-M
-</td>
-<td style="text-align:center;">
-9
-</td>
+<tr class="odd">
+<td align="center">1</td>
+<td align="center">3</td>
+<td align="center">M</td>
+<td align="center">9</td>
 </tr>
-<tr>
-<td style="text-align:center;">
-1
-</td>
-<td style="text-align:center;">
-4
-</td>
-<td style="text-align:center;">
-M
-</td>
-<td style="text-align:center;">
-10
-</td>
+<tr class="even">
+<td align="center">1</td>
+<td align="center">4</td>
+<td align="center">M</td>
+<td align="center">10</td>
 </tr>
-<tr>
-<td style="text-align:center;">
-1
-</td>
-<td style="text-align:center;">
-5
-</td>
-<td style="text-align:center;">
-M
-</td>
-<td style="text-align:center;">
-6
-</td>
+<tr class="odd">
+<td align="center">1</td>
+<td align="center">5</td>
+<td align="center">M</td>
+<td align="center">6</td>
 </tr>
-<tr>
-<td style="text-align:center;">
-1
-</td>
-<td style="text-align:center;">
-6
-</td>
-<td style="text-align:center;">
-M
-</td>
-<td style="text-align:center;">
-11
-</td>
+<tr class="even">
+<td align="center">1</td>
+<td align="center">6</td>
+<td align="center">M</td>
+<td align="center">11</td>
 </tr>
-<tr>
-<td style="text-align:center;">
-1
-</td>
-<td style="text-align:center;">
-7
-</td>
-<td style="text-align:center;">
-M
-</td>
-<td style="text-align:center;">
-12
-</td>
+<tr class="odd">
+<td align="center">1</td>
+<td align="center">7</td>
+<td align="center">M</td>
+<td align="center">12</td>
 </tr>
-<tr>
-<td style="text-align:center;">
-1
-</td>
-<td style="text-align:center;">
-8
-</td>
-<td style="text-align:center;">
-M
-</td>
-<td style="text-align:center;">
-8
-</td>
+<tr class="even">
+<td align="center">1</td>
+<td align="center">8</td>
+<td align="center">M</td>
+<td align="center">8</td>
 </tr>
-<tr>
-<td style="text-align:center;">
-2
-</td>
-<td style="text-align:center;">
-1
-</td>
-<td style="text-align:center;">
-M
-</td>
-<td style="text-align:center;">
-10
-</td>
+<tr class="odd">
+<td align="center">2</td>
+<td align="center">1</td>
+<td align="center">M</td>
+<td align="center">10</td>
 </tr>
-<tr>
-<td style="text-align:center;">
-2
-</td>
-<td style="text-align:center;">
-2
-</td>
-<td style="text-align:center;">
-M
-</td>
-<td style="text-align:center;">
-6
-</td>
+<tr class="even">
+<td align="center">2</td>
+<td align="center">2</td>
+<td align="center">M</td>
+<td align="center">6</td>
 </tr>
-<tr>
-<td style="text-align:center;">
-2
-</td>
-<td style="text-align:center;">
-3
-</td>
-<td style="text-align:center;">
-M
-</td>
-<td style="text-align:center;">
-7
-</td>
+<tr class="odd">
+<td align="center">2</td>
+<td align="center">3</td>
+<td align="center">M</td>
+<td align="center">7</td>
 </tr>
-<tr>
-<td style="text-align:center;">
-2
-</td>
-<td style="text-align:center;">
-4
-</td>
-<td style="text-align:center;">
-M
-</td>
-<td style="text-align:center;">
-11
-</td>
+<tr class="even">
+<td align="center">2</td>
+<td align="center">4</td>
+<td align="center">M</td>
+<td align="center">11</td>
 </tr>
-<tr>
-<td style="text-align:center;">
-2
-</td>
-<td style="text-align:center;">
-5
-</td>
-<td style="text-align:center;">
-M
-</td>
-<td style="text-align:center;">
-10
-</td>
+<tr class="odd">
+<td align="center">2</td>
+<td align="center">5</td>
+<td align="center">M</td>
+<td align="center">10</td>
 </tr>
-<tr>
-<td style="text-align:center;">
-2
-</td>
-<td style="text-align:center;">
-6
-</td>
-<td style="text-align:center;">
-M
-</td>
-<td style="text-align:center;">
-10
-</td>
+<tr class="even">
+<td align="center">2</td>
+<td align="center">6</td>
+<td align="center">M</td>
+<td align="center">10</td>
 </tr>
-<tr>
-<td style="text-align:center;">
-2
-</td>
-<td style="text-align:center;">
-7
-</td>
-<td style="text-align:center;">
-M
-</td>
-<td style="text-align:center;">
-5
-</td>
+<tr class="odd">
+<td align="center">2</td>
+<td align="center">7</td>
+<td align="center">M</td>
+<td align="center">5</td>
 </tr>
-<tr>
-<td style="text-align:center;">
-2
-</td>
-<td style="text-align:center;">
-8
-</td>
-<td style="text-align:center;">
-M
-</td>
-<td style="text-align:center;">
-13
-</td>
+<tr class="even">
+<td align="center">2</td>
+<td align="center">8</td>
+<td align="center">M</td>
+<td align="center">13</td>
 </tr>
-<tr>
-<td style="text-align:center;">
-3
-</td>
-<td style="text-align:center;">
-1
-</td>
-<td style="text-align:center;">
-M
-</td>
-<td style="text-align:center;">
-5
-</td>
+<tr class="odd">
+<td align="center">3</td>
+<td align="center">1</td>
+<td align="center">M</td>
+<td align="center">5</td>
 </tr>
-<tr>
-<td style="text-align:center;">
-3
-</td>
-<td style="text-align:center;">
-2
-</td>
-<td style="text-align:center;">
-M
-</td>
-<td style="text-align:center;">
-15
-</td>
+<tr class="even">
+<td align="center">3</td>
+<td align="center">2</td>
+<td align="center">M</td>
+<td align="center">15</td>
 </tr>
-<tr>
-<td style="text-align:center;">
-3
-</td>
-<td style="text-align:center;">
-3
-</td>
-<td style="text-align:center;">
-M
-</td>
-<td style="text-align:center;">
-5
-</td>
+<tr class="odd">
+<td align="center">3</td>
+<td align="center">3</td>
+<td align="center">M</td>
+<td align="center">5</td>
 </tr>
-<tr>
-<td style="text-align:center;">
-3
-</td>
-<td style="text-align:center;">
-4
-</td>
-<td style="text-align:center;">
-M
-</td>
-<td style="text-align:center;">
-7
-</td>
+<tr class="even">
+<td align="center">3</td>
+<td align="center">4</td>
+<td align="center">M</td>
+<td align="center">7</td>
 </tr>
 </tbody>
 </table>
