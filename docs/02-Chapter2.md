@@ -2308,7 +2308,7 @@ Write a KSL program that outputs the arrival time of the first 6 customers using
 ::: {.exercise #Ch2Ex3}
 The service times for a automated storage and retrieval system has a shifted
 exponential distribution. It is known that it takes a minimum of 15
-seconds for any retrieval. The parameter of the exponential distribution
+seconds for any retrieval. The rate parameter of the exponential distribution
 is $\lambda = 45$. Write a KSL program to generate 10 observations from this distribution using stream 1.
 :::
 

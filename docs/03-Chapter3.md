@@ -2016,10 +2016,10 @@ Samples of 20 parts
 from a metal grinding process are selected every hour. Typically 2\% of
 the parts need rework. Let $X$ denote the number of parts in the sample
 of 20 that require rework. A process problem is suspected if $X$ exceeds
-its mean by more than 3 standard deviations. Simulate 30
-hours of the process, i.e. 30 samples of size 20, and estimate the
-chance that $X$ exceeds its expected value by more than 3 standard
-deviations. Use stream 1 for your sampling.
+its mean by more than 1 standard deviation. Simulate 1000
+hours of the process, i.e. 1000 samples of size 20, and estimate the
+chance that $X$ exceeds its expected value by more than 1 standard
+deviation. Use stream 1 for your sampling.
 :::
 
 ***
@@ -2121,8 +2121,8 @@ distribution with the provided mean and standard deviation.
 
    End of Year         0              1              2              3              4
   ------------- --------------- -------------- -------------- -------------- --------------
-        A        $N(-250, 10)$   $N(75, 10)$    $N(75, 10)$    $N(175, 20)$   $N(150, 40)$
-        B        $N(-250, 5)$    $N(150, 10)$   $N(150, 10)$   $N(75, 20)$    $N(75, 30)$
+        A        $N(-150, 10)$   $N(475, 10)$   $N(275, 10)$    $N(275, 20)$   $N(250, 40)$
+        B        $N(-100, 5)$    $N(350, 10)$   $N(350, 10)$    $N(275, 20)$   $N(275, 30)$
 
 The interest rate has been varying recently and the firm is unsure of
 the rate for performing the analysis. To be safe, they have decided that
