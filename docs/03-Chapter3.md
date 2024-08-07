@@ -2129,7 +2129,7 @@ the rate for performing the analysis. To be safe, they have decided that
 the interest rate should be modeled as a beta random variable over the
 range from 2 to 7 percent with $\alpha_1 = 4.0$ and $\alpha_2 = 1.2$.
 Given all the uncertain elements in the situation, they have decided to
-perform a simulation analysis in order to assess the situation. Use to
+perform a simulation analysis in order to assess the situation. Use the KSL to
 answer the following questions:
 
 - Compare the expected present worth of the two alternatives. Estimate the
