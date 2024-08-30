@@ -1557,7 +1557,7 @@ $$
 Notice that the Cramer-Von-Mises criterion and the PPSSE criterion are related as follows:
 
 $$
-T = \frac{1}{12n} + SSE
+T = \frac{1}{12n} + PPSSE
 $$
 
 Therefore, under a linear transformation, it is not recommended to include both PPSSE and CVM in the evaluation process.
