@@ -753,9 +753,9 @@ simulation time to 0.0. Then, step 2(c) initializes the model. In this
 step, the initialize() methods of all of the model elements are
 executed. This is why it was important to implement the <code>initialize()</code>
 method in the example and have it schedule the initial events. Then,
-step 2(c) begins the execution of the events that were placed on the
+step 2(d) begins the execution of the events that were placed on the
 calendar. In looking at the code listings, it is not possible to ascertain how the <code>action()</code> methods are actually invoked unless you
-understand that during step 2(c) each scheduled event is removed from
+understand that during step 2(d) each scheduled event is removed from
 the calendar and its associated action called. In the case of the event action one
 and two events in the example, these actions are specified in the <code>action()</code> method of <code>EventActionOne</code> and <code>EventActionTwo.</code> After all the events in the
 calendar are executed or the simulation is not otherwise stopped, the
