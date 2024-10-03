@@ -6,7 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>B.5 Fitting Continuous Distributions | Simulation Modeling using the Kotlin Simulation Library (KSL)</title>
   <meta name="description" content="A book that illustrates the basics of using the KSL. The output format for this book is bookdown::gitbook." />
-  <meta name="generator" content="bookdown 0.39 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.40 and GitBook 2.6.7" />
 
   <meta property="og:title" content="B.5 Fitting Continuous Distributions | Simulation Modeling using the Kotlin Simulation Library (KSL)" />
   <meta property="og:type" content="book" />
@@ -23,7 +23,7 @@
 <meta name="author" content="Manuel D. Rossetti" />
 
 
-<meta name="date" content="2024-08-04" />
+<meta name="date" content="2024-10-03" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -68,7 +68,7 @@ div.sourceCode { overflow: auto; }
 }
 @media print {
 pre > code.sourceCode { white-space: pre-wrap; }
-pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
 }
 pre.numberSource code
   { counter-reset: source-line 0; }
@@ -1337,8 +1337,8 @@ easy it can be using the <em>fitdistrplus</em> package. Notice that the
 <pre><code>## Fitting of the distribution &#39; gamma &#39; by maximum likelihood 
 ## Parameters:
 ##        estimate Std. Error
-## shape 3.4098479 0.46055722
-## rate  0.2542252 0.03699365</code></pre>
+## shape 3.4091351 0.46045686
+## rate  0.2542441 0.03699664</code></pre>
 <p>Then, the <em>gofstat</em> function does all the work to compute the chi-square goodness
 of fit, K-S test statistic, as well as other goodness of fit criteria.
 The results lead to the same conclusion that we had before: the gamma
@@ -1347,18 +1347,18 @@ distribution is a good model for this data.</p>
 <span id="cb414-2"><a href="appidmsecfitContinuous.html#cb414-2" tabindex="-1"></a><span class="fu">print</span>(gfy)</span></code></pre></div>
 <pre><code>## Goodness-of-fit statistics
 ##                              1-mle-gamma
-## Kolmogorov-Smirnov statistic  0.04930008
-## Cramer-von Mises statistic    0.03754480
-## Anderson-Darling statistic    0.25485917
+## Kolmogorov-Smirnov statistic  0.04943982
+## Cramer-von Mises statistic    0.03747780
+## Anderson-Darling statistic    0.25508944
 ## 
 ## Goodness-of-fit criteria
 ##                                1-mle-gamma
 ## Akaike&#39;s Information Criterion    663.3157
 ## Bayesian Information Criterion    668.5260</code></pre>
 <div class="sourceCode" id="cb416"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb416-1"><a href="appidmsecfitContinuous.html#cb416-1" tabindex="-1"></a><span class="fu">print</span>(gfy<span class="sc">$</span>chisq) <span class="co"># chi-squared test statistic</span></span></code></pre></div>
-<pre><code>## [1] 3.544766</code></pre>
+<pre><code>## [1] 3.544039</code></pre>
 <div class="sourceCode" id="cb418"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb418-1"><a href="appidmsecfitContinuous.html#cb418-1" tabindex="-1"></a><span class="fu">print</span>(gfy<span class="sc">$</span>chisqpvalue) <span class="co"># chi-squared p-value</span></span></code></pre></div>
-<pre><code>## [1] 0.8956877</code></pre>
+<pre><code>## [1] 0.895745</code></pre>
 <div class="sourceCode" id="cb420"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb420-1"><a href="appidmsecfitContinuous.html#cb420-1" tabindex="-1"></a><span class="fu">print</span>(gfy<span class="sc">$</span>chisqdf)  <span class="co"># chi-squared degrees of freedom</span></span></code></pre></div>
 <pre><code>## [1] 8</code></pre>
 <!-- ``` -->

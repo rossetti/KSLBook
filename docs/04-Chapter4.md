@@ -3475,7 +3475,6 @@ class TandemQueue(
 Now, the real magic of the station package can be used.  The following code represents the *rest* of the implementation of the tandem queue system. The code uses an `EventGenerator` instance to model the arrival process to the first station. Then, two instances of the `SingleQStation` class are created to represent the first and second station in the system. Notice the implementation of the `init{}` block. The `nextReceiver` property for station 1 is set to be the second station and the `nextReceiver` property for station 2 is set to an instance of the `ExitSystem` inner class. This approach relies on *replacing* the default `NotImplementedReceiver` receiver. Notice that if you did not rely on this default, you would need to create the stations (receivers) in the reverse order so that you could supply the correct receiver within the station's constructor. The `init{}` block would not be necessary with that approach.
 
 ```kt
-
     private val myArrivalGenerator: EventGenerator = EventGenerator(this,
         this::arrivalEvent, ad, ad)
 
@@ -3488,8 +3487,8 @@ Now, the real magic of the station package can be used.  The following code repr
         get() = myStation2
 
     init {
-        myStation1.nextReceiver(myStation2)
-        myStation2.nextReceiver(ExitSystem())
+       myStation1.nextReceiver(myStation2)
+       myStation2.nextReceiver(ExitSystem())
     }
 
     private fun arrivalEvent(generator: EventGenerator){
@@ -3772,7 +3771,7 @@ the system times for the customers. What percentage of the total time was the te
 
 ***
 ::: {.exercise #ch4P4}
-Consider the following inter-arrival and service times for the first 25
+Consider the following inter-arrival and service times for the first 20
 customers to a single server queuing system.
 
   ---------- --------------- --------- ---------
