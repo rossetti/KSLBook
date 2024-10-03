@@ -3488,8 +3488,8 @@ Now, the real magic of the station package can be used.  The following code repr
         get() = myStation2
 
     init {
-        myStation1.nextReceiver = myStation2
-        myStation2.nextReceiver = ExitSystem()
+        myStation1.nextReceiver(myStation2)
+        myStation2.nextReceiver(ExitSystem())
     }
 
     private fun arrivalEvent(generator: EventGenerator){
