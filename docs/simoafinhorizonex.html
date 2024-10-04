@@ -23,7 +23,7 @@
 <meta name="author" content="Manuel D. Rossetti" />
 
 
-<meta name="date" content="2024-10-03" />
+<meta name="date" content="2024-10-04" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -699,10 +699,10 @@ div.csl-indent {
 Figure 5.2: Organization of KSL Output Directories
 </p>
 </div>
-<p>Figure <a href="simoafinhorizonex.html#fig:KSLOutputDir">5.2</a> illustrates the output directory after running the pallet model. You should see the <code>kslOutput</code> directory and a directory called <code>Pallet_Processing_OutputDir.</code> Within the <code>Pallet_Processing_OutputDir</code> directory there are folders called <code>db</code> and <code>excel.</code> These folders are the default directories for holding database related files and Excel related output files. Within the <code>db</code> folder there is a file called <code>MainModel.db,</code> which is an SQLite database that was created to hold the KSL simulation results. Then, there are two files called <code>hwSummary.md</code> and <code>kslOutput.txt.</code> There are also three CSV files, two labeled with <code>_ExperimentReport.csv</code> and <code>_ReplicationReport.csv</code>, and one labeled with <code>_Trace.csv.</code> This labeling scheme is the default and is derived from the context of the item. The setting of the <code>autoCSVReports</code> option to true when creating the model is what caused the two files labeled with <code>_ExperimentReport.csv</code> and with <code>_ReplicationReport.csv</code> to be produced. The following table is from <code>MainModel_CSVReplicationReport.csv.</code></p>
+<p>Figure <a href="simoafinhorizonex.html#fig:KSLOutputDir">5.2</a> illustrates the output directory after running the pallet model. You should see the <code>kslOutput</code> directory and a directory called <code>Pallet_Processing_OutputDir.</code> Within the <code>Pallet_Processing_OutputDir</code> directory there are folders called <code>db</code> and <code>excel.</code> These folders are the default directories for holding database related files and Excel related output files. Within the <code>db</code> folder there is a file called <code>MainModel.db,</code> which is an SQLite database that was created to hold the KSL simulation results. Then, there are two files called <code>hwSummary.md</code> and <code>kslOutput.txt.</code> There are also three CSV files, two labeled with <code>_ExperimentReport.csv</code> and <code>_ReplicationReport.csv</code>, and one labeled with <code>_Trace.csv.</code> This labeling scheme is the default and is derived from the context of the item. The setting of the <code>autoCSVReports</code> option to true when creating the model is what caused the two files labeled with <code>_ExperimentReport.csv</code> and with <code>_ReplicationReport.csv</code> to be produced. The following table is from <code>Pallet_Processing_CSVReplicationReport.csv.</code></p>
 <table class="table" style="font-size: 10px; margin-left: auto; margin-right: auto;">
 <caption style="font-size: initial !important;">
-<span id="tab:unnamed-chunk-1">Table 4.3: </span><span id="tab:Ch5WRD">Table 5.1: </span>First 8 columns and 5 Rows of MainModel_CSVReplicationReport.csv.
+<span id="tab:unnamed-chunk-1">Table 4.3: </span><span id="tab:Ch5WRD">Table 5.1: </span>First 8 columns and 5 Rows of Pallet_Processing_CSVReplicationReport.csv.
 </caption>
 <thead>
 <tr>
@@ -895,7 +895,7 @@ Total Processing Time
 <p>The following table illustrates columns 8 through 12 of the file.</p>
 <table class="table" style="font-size: 10px; margin-left: auto; margin-right: auto;">
 <caption style="font-size: initial !important;">
-<span id="tab:unnamed-chunk-2">Table 4.5: </span><span id="tab:Ch5WRD">Table 5.1: </span>Next 5 columns and 5 Rows of MainModel_CSVReplicationReport.csv.
+<span id="tab:unnamed-chunk-2">Table 4.5: </span><span id="tab:Ch5WRD">Table 5.1: </span>Next 5 columns and 5 Rows of Pallet_Processing_CSVReplicationReport.csv.
 </caption>
 <thead>
 <tr>
@@ -1021,10 +1021,10 @@ Total Processing Time
 </tr>
 </tbody>
 </table>
-<p>This data can be easily processed by other of statistical programs such as R or opened directly within Excel. The following table is from <code>MainModel_CSVExperimentReport.csv</code> and represents the across replication summary statistics for the responses and counters in the model.</p>
+<p>This data can be easily processed by other of statistical programs such as R or opened directly within Excel. The following table is from <code>Pallet_Processing_CSVExperimentReport.csv</code> and represents the across replication summary statistics for the responses and counters in the model.</p>
 <table class="table" style="font-size: 10px; margin-left: auto; margin-right: auto;">
 <caption style="font-size: initial !important;">
-<span id="tab:unnamed-chunk-3">Table 4.7: </span><span id="tab:Ch5ARD">Table 5.2: </span>Columns 7-15 and 9 Rows of MainModel_CSVExperimentReport.csv.
+<span id="tab:unnamed-chunk-3">Table 4.7: </span><span id="tab:Ch5ARD">Table 5.2: </span>Columns 7-15 and 9 Rows of Pallet_Processing_CSVExperimentReport.csv.
 </caption>
 <thead>
 <tr>

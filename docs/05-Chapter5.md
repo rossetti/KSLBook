@@ -608,10 +608,10 @@ The first thing to note is how the output from a KSL simulation is organized. Th
 <p class="caption">(\#fig:KSLOutputDir)Organization of KSL Output Directories</p>
 </div>
 
-Figure \@ref(fig:KSLOutputDir) illustrates the output directory after running the pallet model. You should see the `kslOutput` directory and a directory called `Pallet_Processing_OutputDir.` Within the  `Pallet_Processing_OutputDir` directory there are folders called `db` and `excel.`  These folders are the default directories for holding database related files and Excel related output files.  Within the `db` folder there is a file called `MainModel.db,` which is an SQLite database that was created to hold the KSL simulation results. Then, there are two files called `hwSummary.md` and `kslOutput.txt.` There are also three CSV files, two labeled with `_ExperimentReport.csv` and `_ReplicationReport.csv`, and one labeled with `_Trace.csv.` This labeling scheme is the default and is derived from the context of the item.  The setting of the `autoCSVReports` option to true when creating the model is what caused the two files labeled with `_ExperimentReport.csv` and with  `_ReplicationReport.csv` to be produced. The following table is from `MainModel_CSVReplicationReport.csv.`
+Figure \@ref(fig:KSLOutputDir) illustrates the output directory after running the pallet model. You should see the `kslOutput` directory and a directory called `Pallet_Processing_OutputDir.` Within the  `Pallet_Processing_OutputDir` directory there are folders called `db` and `excel.`  These folders are the default directories for holding database related files and Excel related output files.  Within the `db` folder there is a file called `MainModel.db,` which is an SQLite database that was created to hold the KSL simulation results. Then, there are two files called `hwSummary.md` and `kslOutput.txt.` There are also three CSV files, two labeled with `_ExperimentReport.csv` and `_ReplicationReport.csv`, and one labeled with `_Trace.csv.` This labeling scheme is the default and is derived from the context of the item.  The setting of the `autoCSVReports` option to true when creating the model is what caused the two files labeled with `_ExperimentReport.csv` and with  `_ReplicationReport.csv` to be produced. The following table is from `Pallet_Processing_CSVReplicationReport.csv.`
 
 <table class="table" style="font-size: 10px; margin-left: auto; margin-right: auto;">
-<caption style="font-size: initial !important;">(\#tab:unnamed-chunk-1)(\#tab:Ch5WRD)First 8 columns and 5 Rows of MainModel_CSVReplicationReport.csv.</caption>
+<caption style="font-size: initial !important;">(\#tab:unnamed-chunk-1)(\#tab:Ch5WRD)First 8 columns and 5 Rows of Pallet_Processing_CSVReplicationReport.csv.</caption>
  <thead>
   <tr>
    <th style="text-align:left;"> SimName </th>
@@ -693,7 +693,7 @@ As can be seen in the previous table, the replication report has information abo
 The following table illustrates columns 8 through 12 of the file. 
 
 <table class="table" style="font-size: 10px; margin-left: auto; margin-right: auto;">
-<caption style="font-size: initial !important;">(\#tab:unnamed-chunk-2)(\#tab:Ch5WRD)Next 5 columns and 5 Rows of MainModel_CSVReplicationReport.csv.</caption>
+<caption style="font-size: initial !important;">(\#tab:unnamed-chunk-2)(\#tab:Ch5WRD)Next 5 columns and 5 Rows of Pallet_Processing_CSVReplicationReport.csv.</caption>
  <thead>
   <tr>
    <th style="text-align:left;"> Statistic.Name </th>
@@ -748,10 +748,10 @@ The following table illustrates columns 8 through 12 of the file.
   </tr>
 </tbody>
 </table>
-This data can be easily processed by other of statistical programs such as R or opened directly within Excel.  The following table is from `MainModel_CSVExperimentReport.csv` and represents the across replication summary statistics for the responses and counters in the model.
+This data can be easily processed by other of statistical programs such as R or opened directly within Excel.  The following table is from `Pallet_Processing_CSVExperimentReport.csv` and represents the across replication summary statistics for the responses and counters in the model.
 
 <table class="table" style="font-size: 10px; margin-left: auto; margin-right: auto;">
-<caption style="font-size: initial !important;">(\#tab:unnamed-chunk-3)(\#tab:Ch5ARD)Columns 7-15 and 9 Rows of MainModel_CSVExperimentReport.csv.</caption>
+<caption style="font-size: initial !important;">(\#tab:unnamed-chunk-3)(\#tab:Ch5ARD)Columns 7-15 and 9 Rows of Pallet_Processing_CSVExperimentReport.csv.</caption>
  <thead>
   <tr>
    <th style="text-align:left;"> Statistic.Name </th>
