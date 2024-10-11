@@ -3947,6 +3947,44 @@ you should consider how and when to use the method of common random
 numbers and you should consider the impact of common random numbers on
 how you analyze the simulation results.
 
+The following new KSL constructs were discussed in this chapter:
+
+`replicationEnded()`: A function of model elements that can be overridden to provide logic and actions that occur at the end of a replication. An example illustrated how to use the function to collect statistics.
+
+`autoCSVReports`: A parameter of the `Model` class that can be used to indicate whether within replication statistics and across replication statistics are written to a comma separated value files.
+
+`ReplicationDataCollector`: A class that can be used to observe and collect across replication statistical values within arrays for further analysis.
+
+`ResponseTrace`: A class that can be used to capture observation based and time-persistent observations to a file, recording the value of the variable and the time that the variable changed.
+
+`SimulationReporter`: This class is similar to the `StatisticReporter` class and can be used to write out statistical summary reports containing KSL model outputs.
+
+`KSLDatabaseObserver`: This class can be attached to a KSL model instance to create a database for holding within replication and across replication statistical outputs. 
+
+`KSLDatabase`: This class allows access to a database containing within replication and across replication statistical outputs from a KSL model run. 
+
+`AcrossReplicationHalfWidthChecker`: This class can be attached to a response within a KSL model and permits sequential sampling until a desired half-width criteria is met.
+
+`WelchDataFileCollector`: This class captures data associated with simulation responses for the purpose of creating a Welch plot.
+
+`WelchDataFileAnalyzer`: This class produces data that can be used to make a Welch plot.
+
+`WelchPlot`: One of the KSL plots and facilitates the analysis of Welch data for the analysis of a warm up period for an infinite horizon simulation.
+
+`BatchingElement`: A model element that can be used to facilitate the application of the batch means method for infinite horizon simulation analysis.
+
+`resetStartStreamOption`: A property of the KSL `Model` class that can be used to cause the resetting of all random number streams to their starting point prior to a simulation run.
+
+`MultipleComparisonAnalyzer`: This class facilitates the analysis and comparison of multiple simulation experiments by computer pairwise statistics and computing MCB confidence intervals. It also facilitates applying screening methods to multiple simulation runs. 
+
+`KSLControl`: This annotation class allows properties to be annotated as a control for a simulation model. Controls can be used to change model inputs during experiments. 
+
+`RVParameterSetter`: This class facilitates changing the parameters of the random variables used within a KSL model. 
+
+`Scenario`: This class represents a KSL model and its inputs to be run by the `ScenarioRunner` class.
+
+`ScenarioRunner`: This class will run a set of scenarios and capture the results within a KSL database.
+
 Now that you have a solid understanding of how to program and model
 using the KSL and how to analyze your results, you are ready to explore
 the application of the KSL to additional modeling situations involving

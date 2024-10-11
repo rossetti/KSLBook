@@ -2998,7 +2998,27 @@ This chapter provided a discussion of miscellaneous modeling constructs
 that can improve your modeling. The modeling of non-stationary arrivals
 was discussed and it motivated the exploration of advanced resource
 modeling constructs. The advanced resource modeling constructs allow for
-resources to be subjected to either scheduled capacity changes. Finally, a few interesting and useful miscellaneous modeling constructs were presented. With all of these concepts within your simulation toolkit, you are now prepared to model very advanced situations.
+resources to be subjected to either scheduled capacity changes. Finally, a few interesting and useful miscellaneous modeling constructs were presented. 
+
+The following new KSL constructs were discussed in this chapter:
+
+`ResourcePool`: A class that represents a set of resources from which a resource can be selected and seized.
+
+`ResourcePoolWithQ`: A class that represents a set of resource from which a resource can be selected and seized with a specified queue to hold entities that are not immediately allocated a resource.
+
+`ResourceSelectionRuleIfc`: An interface that defines how a resource can be selected for allocation from a resource pool.
+
+`NHPPEventGenerator`: A class that models the time between events from a non-homogeneous Poisson process. 
+
+`NHPPTimeBtwEventRV`: A specialized random variable that models the time between events according to a non-homogeneous Poisson process.
+
+`CapacitySchedule`: A class that specifies that amount of capacity and the duration of availability for a resource. 
+
+`ResponseInterval`: A class that represents an interval of time over which statistical collection should be performed. 
+
+`ResponseSchedule`: A class that permits the specification of many response intervals and allows the repeating of the intervals over time.
+
+With all of these concepts within your simulation toolkit, you are now prepared to model very advanced situations.
 
 \clearpage
 

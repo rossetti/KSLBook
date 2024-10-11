@@ -23,7 +23,7 @@
 <meta name="author" content="Manuel D. Rossetti" />
 
 
-<meta name="date" content="2024-10-04" />
+<meta name="date" content="2024-10-11" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -505,6 +505,25 @@ configurations must be carefully planned. When performing your analysis,
 you should consider how and when to use the method of common random
 numbers and you should consider the impact of common random numbers on
 how you analyze the simulation results.</p>
+<p>The following new KSL constructs were discussed in this chapter:</p>
+<p><code>replicationEnded()</code>: A function of model elements that can be overridden to provide logic and actions that occur at the end of a replication. An example illustrated how to use the function to collect statistics.</p>
+<p><code>autoCSVReports</code>: A parameter of the <code>Model</code> class that can be used to indicate whether within replication statistics and across replication statistics are written to a comma separated value files.</p>
+<p><code>ReplicationDataCollector</code>: A class that can be used to observe and collect across replication statistical values within arrays for further analysis.</p>
+<p><code>ResponseTrace</code>: A class that can be used to capture observation based and time-persistent observations to a file, recording the value of the variable and the time that the variable changed.</p>
+<p><code>SimulationReporter</code>: This class is similar to the <code>StatisticReporter</code> class and can be used to write out statistical summary reports containing KSL model outputs.</p>
+<p><code>KSLDatabaseObserver</code>: This class can be attached to a KSL model instance to create a database for holding within replication and across replication statistical outputs.</p>
+<p><code>KSLDatabase</code>: This class allows access to a database containing within replication and across replication statistical outputs from a KSL model run.</p>
+<p><code>AcrossReplicationHalfWidthChecker</code>: This class can be attached to a response within a KSL model and permits sequential sampling until a desired half-width criteria is met.</p>
+<p><code>WelchDataFileCollector</code>: This class captures data associated with simulation responses for the purpose of creating a Welch plot.</p>
+<p><code>WelchDataFileAnalyzer</code>: This class produces data that can be used to make a Welch plot.</p>
+<p><code>WelchPlot</code>: One of the KSL plots and facilitates the analysis of Welch data for the analysis of a warm up period for an infinite horizon simulation.</p>
+<p><code>BatchingElement</code>: A model element that can be used to facilitate the application of the batch means method for infinite horizon simulation analysis.</p>
+<p><code>resetStartStreamOption</code>: A property of the KSL <code>Model</code> class that can be used to cause the resetting of all random number streams to their starting point prior to a simulation run.</p>
+<p><code>MultipleComparisonAnalyzer</code>: This class facilitates the analysis and comparison of multiple simulation experiments by computer pairwise statistics and computing MCB confidence intervals. It also facilitates applying screening methods to multiple simulation runs.</p>
+<p><code>KSLControl</code>: This annotation class allows properties to be annotated as a control for a simulation model. Controls can be used to change model inputs during experiments.</p>
+<p><code>RVParameterSetter</code>: This class facilitates changing the parameters of the random variables used within a KSL model.</p>
+<p><code>Scenario</code>: This class represents a KSL model and its inputs to be run by the <code>ScenarioRunner</code> class.</p>
+<p><code>ScenarioRunner</code>: This class will run a set of scenarios and capture the results within a KSL database.</p>
 <p>Now that you have a solid understanding of how to program and model
 using the KSL and how to analyze your results, you are ready to explore
 the application of the KSL to additional modeling situations involving

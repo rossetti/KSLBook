@@ -271,9 +271,11 @@ The `EntityGenerator` class is defined as an inner class of `ProcessModel.` Revi
         this@ProcessModel, null, timeUntilTheFirstEntity,
         timeBtwEvents, maxNumberOfEvents, timeOfTheLastEvent, name
     ) {
+
         override fun generate() {
             val entity = entityCreator()
-            startProcessSequence(entity, priority = activationPriority)
+            require(entity.defaultProcess != null) {"There was no initial process specified for the entity"}
+            activate(entity.defaultProcess!!, priority = activationPriority)
         }
 
     }
@@ -326,14 +328,15 @@ There is no arrival method necessary because that logic is within the entity gen
 ```kt
         override fun generate() {
             val entity = entityCreator()
-            startProcessSequence(entity, priority = activationPriority)
+            require(entity.defaultProcess != null) {"There was no initial process specified for the entity"}
+            activate(entity.defaultProcess!!, priority = activationPriority)
         }
 ```
-The entity is created using the passed in constructor function and the entity's default sequence of processes is started.  By default, the `process()` function of the `KSLProcessBuilder` class automatically adds each newly defined process to the entity's default sequence of processes unless indicated not to do so. Thus, by using an instance of an `EntityGenerator` associated with a particular subclass of `Entity`, we can automatically create the instances of the subclass and activate their processes. Of course, the creation of the subclass (e.g. `Customer`) might be much more complex; however, the `EntityGenerator` takes in a *function* that creates the instance of the subclass.  Thus, it can be any function, not just the constructor function.  Therefore, instances can be configured in complex ways before they are activated by supplying an appropriate function.
+The entity is created using the passed in constructor function and the entity's default process is started.  By default, the `process()` function of the `KSLProcessBuilder` class automatically adds each newly defined process to the entity's map of named processes. By default, the first defined process will be the default process. Thus, by using an instance of an `EntityGenerator` associated with a particular subclass of `Entity`, we can automatically create the instances of the subclass and activate their processes. Of course, the creation of the subclass (e.g. `Customer`) might be much more complex; however, the `EntityGenerator` takes in a *function* that creates the instance of the subclass.  Thus, it can be any function, not just the constructor function.  Therefore, instances can be configured in complex ways before they are activated by supplying an appropriate function.
 
 ::: {.infobox .important data-latex="{important}"}
 **IMPORTANT!**
-Note that an `EntityGenerator` relies on the entity having at least one process that has been added to its process sequence via the `process()` method's `addToSequence` parameter being true. The default setting of this parameter is true.  An entity generator will create the entity and start the process that is listed *first* in its process sequence.  If there are no processes in the sequence then although the entity is created, it will not start the process.  Thus, if you create a process with `addToSequence = false,` that process will not be in the entity's process sequence to be started by an `EntityGenerator.` By default, the code-listing order of the `process()` function definitions in the class, defines the order in which the processes are added to the entity's process sequence when `addToSequence` is true. The entity's `processSequence` property provides access to the list, which is mutable.  This allows full control over the ordering via code.
+Note that an `EntityGenerator` relies on the entity having at least one process that has been added to its processes via the `process()` method. An entity generator will create the entity and start the process that is defined *first*.  By default, the code-listing order of the `process()` function definitions in the class, defines the order in which the processes are added to the entity's processes.
 :::
 
 In the next section, we will take a closer look at how the KSL makes the process view possible.  This will help you to better use the process modeling capabilities found in the KSL.
@@ -1673,7 +1676,39 @@ Completed Shirt Q:ChannelQ:TimeInQ       	           30 	      14.8315 	       0
 
 ## Summary
 
-This chapter introduced the concepts involved in process view modeling.  The process view perspective enables the modeler to imagine that they are the entity, experiencing different activities while using resources. The model development approach focuses on what happens to an entity and results in a process description.  A process is a set of activities that change the state of the system.  The execution of a process by an entity causes events and state changes. As such, the underlying mechanisms for implementing the process view are still predicated on understanding the event view. However, the process view allows for a more natural modeling of the flow of events.  Based on the constructs discussed so far, very complex systems can be modeled using the KSL.  In the next chapter, we explore additional advanced modeling constructs.
+This chapter introduced the concepts involved in process view modeling.  The process view perspective enables the modeler to imagine that they are the entity, experiencing different activities while using resources. The model development approach focuses on what happens to an entity and results in a process description.  A process is a set of activities that change the state of the system.  The execution of a process by an entity causes events and state changes. As such, the underlying mechanisms for implementing the process view are still predicated on understanding the event view. However, the process view allows for a more natural modeling of the flow of events.
+
+The following new KSL constructs were discussed in this chapter:
+
+`Entity`: An inner class of the `ProcessModel` class that facilitates the definition of processes for the process view.
+
+`ProcessModel`: A sub-class of the `ModelElement` class that contains the architecture for defining and running coroutines that form the basis for the process view.
+
+`KSLProcess`: The class that wraps the Kotlin coroutine functionality to enable the process view. Instances of this class are created by the `process()` function builder.
+
+`ResourceWithQ`: This KSL construct provides a resource with a queue that can be seized and release by entities within a process.
+
+`EntityGenerator`: This KSL class provides functionality to create entities according to a pattern represented by a time between creation and time between creations. Once the entity is created it will be automatically activated.
+
+`HoldQueue`: This class will hold an entity in a queue until the entity is removed. It provides a `hold()` function that suspend the process until the entity is removed and resumed.
+
+`Signal`: This class allows the entity to wait for a signal to occur before proceeding within a process.
+
+`BlockingQueue`: This class will hold entities in a channel for receivers and senders of entities.  Receivers may block waiting for an entity to appear in the channel and senders may block if space is not available in the channel. 
+
+`activite()`: This function is used to schedule the start of an entity's process.
+
+`seize()`: This suspending function allows an entity to request a resource and if not available suspend.
+
+`release()`: This function causes an allocation of a resource to be returned.
+
+`delay()`: This suspending function suspends the process until a time period has elapsed.
+
+`use()`: This suspeding function combines the seize, delay, release functions.
+
+`waitFor()`: This suspending function allows a process to suspend until another process completes or to suspend until a signal occurs.
+
+Based on the constructs discussed so far, very complex systems can be modeled using the KSL.  In the next chapter, we explore additional advanced modeling constructs.
 
 ## Exercises
 
