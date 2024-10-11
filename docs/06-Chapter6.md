@@ -1704,7 +1704,7 @@ The following new KSL constructs were discussed in this chapter:
 
 `delay()`: This suspending function suspends the process until a time period has elapsed.
 
-`use()`: This suspeding function combines the seize, delay, release functions.
+`use()`: This suspending function combines the seize, delay, release functions.
 
 `waitFor()`: This suspending function allows a process to suspend until another process completes or to suspend until a signal occurs.
 
