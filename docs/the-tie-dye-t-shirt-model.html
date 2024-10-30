@@ -23,7 +23,7 @@
 <meta name="author" content="Manuel D. Rossetti" />
 
 
-<meta name="date" content="2024-10-11" />
+<meta name="date" content="2024-10-30" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -671,23 +671,31 @@ Figure 6.14: Activity diagram for Tie Dye T-Shirts example
 <p>The results of running the Tie-Dye T-Shirt model indicate that there is substantial waiting done by the order until the shirts are completed.</p>
 <pre><code>Half-Width Statistical Summary Report - Confidence Level (95.000)% 
 
-Name                                                Count         Average      Half-Width 
-------------------------------------------------------------------------------------------
-ShirtMakers_R:BusyUnits                                30          1.0997          0.1407 
-ShirtMakers_R:Util                                     30          0.5499          0.0703 
-ShirtMakers_R:Q:NumInQ                                 30          1.6911          0.6280 
-ShirtMakers_R:Q:TimeInQ                                30         23.3987          5.8618 
-Packager_R:BusyUnits                                   30          0.2968          0.0376 
-Packager_R:Util                                        30          0.2968          0.0376 
-Packager_R:Q:NumInQ                                    30          0.0424          0.0248 
-Packager_R:Q:TimeInQ                                   30          1.0717          0.5204 
-System Time                                            30         66.9589          6.3726 
-Num in System                                          30          1.1446          0.2502 
-Completed Shirt Q:RequestQ:NumInQ                      30          0.8054          0.1983 
-Completed Shirt Q:RequestQ:TimeInQ                     30         46.1496          5.8560 
-Completed Shirt Q:ChannelQ:NumInQ                      30          0.8047          0.1134 
-Completed Shirt Q:ChannelQ:TimeInQ                     30         14.8315          0.8088 
-------------------------------------------------------------------------------------------</code></pre>
+Name                                          Count           Average      Half-Width 
+------------------------------------------------------------------------------------- 
+System Time                                    30         75.4521          7.2003 
+Num in System                                  30          1.2393          0.2535 
+ShirtMakers_R:InstantaneousUtil                30          0.5050          0.0712 
+ShirtMakers_R:NumBusyUnits                     30          1.0100          0.1425 
+ShirtMakers_R:ScheduledUtil                    30          0.5050          0.0712 
+ShirtMakers_R:WIP                              30          2.4023          0.5867 
+ShirtMakers_R:Q:NumInQ                         30          1.3924          0.4646 
+ShirtMakers_R:Q:TimeInQ                        30         21.4801          5.0255 
+OrderQ:NumInQ                                  30          0.1870          0.0880 
+OrderQ:TimeInQ                                 30          8.9210          5.6039 
+Packager_R:InstantaneousUtil                   30          0.2737          0.0406 
+Packager_R:NumBusyUnits                        30          0.2737          0.0406 
+Packager_R:ScheduledUtil                       30          0.2737          0.0406 
+Packager_R:WIP                                 30          0.3958          0.0919 
+Packager_R:Q:NumInQ                            30          0.1221          0.0600 
+Packager_R:Q:TimeInQ                           30          6.8163          2.9580 
+Completed Shirt Q:RequestQ:NumInQ              30          0.6565          0.1435 
+Completed Shirt Q:RequestQ:TimeInQ             30         41.6290          5.1649 
+Completed Shirt Q:ChannelQ:NumInQ              30          1.0645          0.2204 
+Completed Shirt Q:ChannelQ:TimeInQ             30         20.5181          4.8296 
+ShirtMakers_R:SeizeCount                       30         24.6667          3.4923 
+Packager_R:SeizeCount                          30         14.0333          2.0767 
+------------------------------------------------------------------------------------</code></pre>
 </div>
 </div>
             </section>

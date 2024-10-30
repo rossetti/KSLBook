@@ -126,15 +126,19 @@ The `use` method combines the *(seize-delay-release)* pattern into one method ca
 |worker1:InstantaneousUtil| 30| 0.351| 0.002|
 |worker1:NumBusyUnits| 30| 0.351| 0.002|
 |worker1:ScheduledUtil| 30| 0.351| 0.002|
+|worker1:WIP| 30| 0.54| 0.007|
 |worker1:Q:NumInQ| 30| 0.189| 0.005|
 |worker1:Q:TimeInQ| 30| 0.379| 0.008|
 |worker2:InstantaneousUtil| 30| 0.45| 0.003|
 |worker2:NumBusyUnits| 30| 0.45| 0.003|
 |worker2:ScheduledUtil| 30| 0.45| 0.003|
+|worker2:WIP| 30| 0.82| 0.01|
 |worker2:Q:NumInQ| 30| 0.37| 0.008|
 |worker2:Q:TimeInQ| 30| 0.741| 0.014|
 |TandemQModel:NumInSystem| 30| 1.36| 0.014|
 |TandemQModel:TimeInSystem| 30| 2.723| 0.02|
+|worker1:SeizeCount| 30| 7492.333| 32.526|
+|worker2:SeizeCount| 30| 7492.533| 32.356|
 
 Now we are ready to study the situation of modeling finite space between the two stations. 
 
@@ -199,20 +203,26 @@ For the given arrival rate and service parameters, the results indicate that the
 |buffer:InstantaneousUtil| 30| 0.196| 0.003|
 |buffer:NumBusyUnits| 30| 0.196| 0.003|
 |buffer:ScheduledUtil| 30| 0.196| 0.003|
+|buffer:WIP| 30| 0.267| 0.004|
 |buffer:Q:NumInQ| 30| 0.071| 0.002|
 |buffer:Q:TimeInQ| 30| 0.143| 0.003|
 |worker1:InstantaneousUtil| 30| 0.422| 0.003|
 |worker1:NumBusyUnits| 30| 0.422| 0.003|
 |worker1:ScheduledUtil| 30| 0.422| 0.003|
+|worker1:WIP| 30| 0.761| 0.012|
 |worker1:Q:NumInQ| 30| 0.339| 0.009|
 |worker1:Q:TimeInQ| 30| 0.678| 0.016|
 |worker2:InstantaneousUtil| 30| 0.45| 0.003|
 |worker2:NumBusyUnits| 30| 0.45| 0.003|
 |worker2:ScheduledUtil| 30| 0.45| 0.003|
+|worker2:WIP| 30| 0.646| 0.005|
 |worker2:Q:NumInQ| 30| 0.196| 0.003|
 |worker2:Q:TimeInQ| 30| 0.392| 0.004|
 |TandemQModelWithBlocking:NumInSystem| 30| 1.406| 0.016|
 |TandemQModelWithBlocking:TimeInSystem| 30| 2.815| 0.023|
+|buffer:SeizeCount| 30| 7492.467| 32.384|
+|worker1:SeizeCount| 30| 7492.333| 32.406|
+|worker2:SeizeCount| 30| 7492.5| 32.367|
 
 However, the exercises ask the reader to explore what happens if the arrival rate is increased.  A tandem queueing system is just a series of stations. The concept of having stations where work is performed is very useful. A later section illustrates how to generalize these ideas, but first we explore how to organize resources into sets or pools from which resources can be selected.
 
@@ -292,7 +302,7 @@ The two pools are shared between two processes using straightforward *(seize-del
 
 ```kt
     private inner class Customer: Entity() {
-        val usePool1: KSLProcess = process(addToSequence = false) {
+        val usePool1: KSLProcess = process("Pool 1 Process") {
             wip1.increment()
             timeStamp = time
             val a  = seize(pool1, 1)
@@ -302,7 +312,7 @@ The two pools are shared between two processes using straightforward *(seize-del
             wip1.decrement()
         }
 
-        val usePool2: KSLProcess = process(addToSequence = false) {
+        val usePool2: KSLProcess = process("Pool 2 Process") {
             wip2.increment()
             timeStamp = time
             val a  = seize(pool2, 1)
@@ -333,30 +343,34 @@ Since there are four resources and two pools, the performance reports on all the
   
 |Name| Count| Average| Half-Width|
 |:---:| :---:| :---:| :---:|
-|John:InstantaneousUtil| 30| 0.82| 0.002|
-|John:NumBusyUnits| 30| 0.82| 0.002|
-|John:ScheduledUtil| 30| 0.82| 0.002|
-|Paul:InstantaneousUtil| 30| 0.747| 0.003|
-|Paul:NumBusyUnits| 30| 0.747| 0.003|
-|Paul:ScheduledUtil| 30| 0.747| 0.003|
-|George:InstantaneousUtil| 30| 0.763| 0.003|
-|George:NumBusyUnits| 30| 0.763| 0.003|
-|George:ScheduledUtil| 30| 0.763| 0.003|
-|Ringo:InstantaneousUtil| 30| 0.662| 0.004|
-|Ringo:NumBusyUnits| 30| 0.662| 0.004|
-|Ringo:ScheduledUtil| 30| 0.662| 0.004|
-|pool1:NumBusy| 30| 2.33| 0.008|
-|pool1:FractionBusy| 30| 0.777| 0.003|
-|pool1:Q:NumInQ| 30| 1.597| 0.05|
-|pool1:Q:TimeInQ| 30| 2.286| 0.067|
-|pool2:NumBusy| 30| 1.425| 0.007|
-|pool2:FractionBusy| 30| 0.713| 0.003|
-|pool2:Q:NumInQ| 30| 0.935| 0.036|
-|pool2:Q:TimeInQ| 30| 3.111| 0.115|
-|ResourcePoolExample_3:WIP1| 30| 3.684| 0.056|
-|ResourcePoolExample_3:TimeInSystem1| 30| 5.276| 0.07|
-|ResourcePoolExample_3:WIP2| 30| 1.841| 0.041|
-|ResourcePoolExample_3:TimeInSystem2| 30| 6.121| 0.126|
+|John:InstantaneousUtil| 30| 0.663| 0.003|
+|John:NumBusyUnits| 30| 0.663| 0.003|
+|John:ScheduledUtil| 30| 0.663| 0.003|
+|Paul:InstantaneousUtil| 30| 0.663| 0.003|
+|Paul:NumBusyUnits| 30| 0.663| 0.003|
+|Paul:ScheduledUtil| 30| 0.663| 0.003|
+|George:InstantaneousUtil| 30| 0.834| 0.003|
+|George:NumBusyUnits| 30| 0.834| 0.003|
+|George:ScheduledUtil| 30| 0.834| 0.003|
+|Ringo:InstantaneousUtil| 30| 0.833| 0.003|
+|Ringo:NumBusyUnits| 30| 0.833| 0.003|
+|Ringo:ScheduledUtil| 30| 0.833| 0.003|
+|pool1:NumBusy| 30| 2.16| 0.007|
+|pool1:FractionBusy| 30| 0.72| 0.002|
+|pool1:Q:NumInQ| 30| 0.851| 0.023|
+|pool1:Q:TimeInQ| 30| 1.708| 0.044|
+|pool2:NumBusy| 30| 1.666| 0.007|
+|pool2:FractionBusy| 30| 0.833| 0.003|
+|pool2:Q:NumInQ| 30| 2.631| 0.101|
+|pool2:Q:TimeInQ| 30| 5.253| 0.193|
+|ResourcePoolExample_3:WIP1| 30| 2.34| 0.028|
+|ResourcePoolExample_3:TimeInSystem1| 30| 4.698| 0.05|
+|ResourcePoolExample_3:WIP2| 30| 4.134| 0.108|
+|ResourcePoolExample_3:TimeInSystem2| 30| 8.255| 0.201|
+|John:SeizeCount| 30| 3318.533| 19.247|
+|Paul:SeizeCount| 30| 3335.833| 24.126|
+|George:SeizeCount| 30| 4174.967| 24.294|
+|Ringo:SeizeCount| 30| 4151.9| 23.655|
 
 Resource pools can be helpful when modeling the sharing of resources between activities. In the next section, we discuss a more complex situation involving a flow shop.
 
@@ -620,34 +634,44 @@ The output is quite lengthy so the code captures it as a Markdown table.
 
 |Name| Count| Average| Half-Width|
 |:---:| :---:| :---:| :---:|
-|Diagnostics:InstantaneousUtil| 10| 0.75| 0.009|
-|Diagnostics:NumBusyUnits| 10| 1.5| 0.018|
-|Diagnostics:ScheduledUtil| 10| 0.75| 0.009|
-|Diagnostics:Q:NumInQ| 10| 2.017| 0.19|
-|Diagnostics:Q:TimeInQ| 10| 40.366| 3.672|
-|Test1:InstantaneousUtil| 10| 0.78| 0.004|
-|Test1:NumBusyUnits| 10| 0.78| 0.004|
-|Test1:ScheduledUtil| 10| 0.78| 0.004|
-|Test1:Q:NumInQ| 10| 1.454| 0.099|
-|Test1:Q:TimeInQ| 10| 28.375| 1.819|
-|Test2:InstantaneousUtil| 10| 0.834| 0.007|
-|Test2:NumBusyUnits| 10| 0.834| 0.007|
-|Test2:ScheduledUtil| 10| 0.834| 0.007|
-|Test2:Q:NumInQ| 10| 2.253| 0.181|
-|Test2:Q:TimeInQ| 10| 56.326| 4.057|
-|Test3:InstantaneousUtil| 10| 0.901| 0.006|
-|Test3:NumBusyUnits| 10| 0.901| 0.006|
-|Test3:ScheduledUtil| 10| 0.901| 0.006|
-|Test3:Q:NumInQ| 10| 3.76| 0.569|
-|Test3:Q:TimeInQ| 10| 75.238| 11.03|
-|Repair:InstantaneousUtil| 10| 0.877| 0.005|
-|Repair:NumBusyUnits| 10| 2.632| 0.014|
-|Repair:ScheduledUtil| 10| 0.877| 0.005|
-|Repair:Q:NumInQ| 10| 1.151| 0.138|
-|Repair:Q:TimeInQ| 10| 23.06| 2.681|
-|TestAndRepair:NumInSystem| 10| 17.703| 1.005|
-|TestAndRepair:TimeInSystem| 10| 354.6| 18.447|
-|ProbWithinLimit| 10| 0.814| 0.037|
+|Diagnostics:InstantaneousUtil| 10| 0.744| 0.007|
+|Diagnostics:NumBusyUnits| 10| 1.489| 0.013|
+|Diagnostics:ScheduledUtil| 10| 0.744| 0.007|
+|Diagnostics:WIP| 10| 3.332| 0.123|
+|Diagnostics:Q:NumInQ| 10| 1.844| 0.11|
+|Diagnostics:Q:TimeInQ| 10| 36.964| 2.043|
+|Test1:InstantaneousUtil| 10| 0.855| 0.005|
+|Test1:NumBusyUnits| 10| 0.855| 0.005|
+|Test1:ScheduledUtil| 10| 0.855| 0.005|
+|Test1:WIP| 10| 4.1| 0.283|
+|Test1:Q:NumInQ| 10| 3.245| 0.279|
+|Test1:Q:TimeInQ| 10| 57.692| 4.736|
+|Test2:InstantaneousUtil| 10| 0.773| 0.006|
+|Test2:NumBusyUnits| 10| 0.773| 0.006|
+|Test2:ScheduledUtil| 10| 0.773| 0.006|
+|Test2:WIP| 10| 2.319| 0.132|
+|Test2:Q:NumInQ| 10| 1.546| 0.126|
+|Test2:Q:TimeInQ| 10| 41.279| 3.062|
+|Test3:InstantaneousUtil| 10| 0.858| 0.006|
+|Test3:NumBusyUnits| 10| 0.858| 0.006|
+|Test3:ScheduledUtil| 10| 0.858| 0.006|
+|Test3:WIP| 10| 3.417| 0.273|
+|Test3:Q:NumInQ| 10| 2.559| 0.269|
+|Test3:Q:TimeInQ| 10| 51.318| 5.176|
+|Repair:InstantaneousUtil| 10| 0.864| 0.006|
+|Repair:NumBusyUnits| 10| 2.591| 0.017|
+|Repair:ScheduledUtil| 10| 0.864| 0.006|
+|Repair:WIP| 10| 3.824| 0.135|
+|Repair:Q:NumInQ| 10| 1.233| 0.12|
+|Repair:Q:TimeInQ| 10| 24.733| 2.273|
+|TestAndRepair:NumInSystem| 10| 17.572| 0.803|
+|TestAndRepair:TimeInSystem| 10| 352.487| 14.262|
+|ProbWithinLimit| 10| 0.817| 0.028|
+|Diagnostics:SeizeCount| 10| 12443.4| 75.921|
+|Test1:SeizeCount| 10| 14027| 76.189|
+|Test2:SeizeCount| 10| 9337.3| 77.976|
+|Test3:SeizeCount| 10| 12436.4| 76.419|
+|Repair:SeizeCount| 10| 12430.7| 75.528|
 
 It looks like test machine 3 and the repair station have the highest estimated utilization values. An increase in the amount of work to the test and repair shop may have issues at those stations.  The reader is asked to explore the performance of this situation in the exercises.
 
@@ -2073,96 +2097,100 @@ The non-stationary aspects of this situation definitely have an effect on the pe
 
 |Name| Count| Average| Half-Width|
 |:---:| :---:| :---:| :---:|
-|OverallSystemTime| 400| 65.372| 1.524|
-|RecruitingOnlySystemTime| 400| 57.673| 1.518|
-|P(Recruiting Only < 30 minutes)| 400| 0.343| 0.01|
-|MixingStudentSystemTime| 400| 76.858| 1.625|
-|MixingStudentThatLeavesSystemTime| 400| 19.653| 0.166|
-|NumInSystem| 400| 26.898| 0.574|
-|NumInConversationArea| 400| 3.036| 0.034|
-|NumAtJHBuntAtClosing| 400| 35.197| 1.253|
-|NumAtMalWartAtClosing| 400| 7.96| 0.867|
-|NumAtConversationAtClosing| 400| 0.622| 0.076|
-|NumInSystemAtClosing| 400| 44.12| 1.618|
-|JHBuntR:InstantaneousUtil| 400| 0.784| 0.004|
-|JHBuntR:NumBusyUnits| 400| 2.352| 0.011|
-|JHBuntR:ScheduledUtil| 400| 0.784| 0.004|
-|JHBuntR:Q:NumInQ| 400| 13.42| 0.426|
-|JHBuntR:Q:TimeInQ| 400| 34.318| 1.205|
-|MalWartR:InstantaneousUtil| 400| 0.591| 0.006|
-|MalWartR:NumBusyUnits| 400| 1.182| 0.012|
-|MalWartR:ScheduledUtil| 400| 0.591| 0.006|
-|MalWartR:Q:NumInQ| 400| 6.308| 0.259|
-|MalWartR:Q:TimeInQ| 400| 15.925| 0.642|
-|StudentsAtRecruiters| 400| 23.261| 0.576|
-|JHBuntR:NumBusyUnits:IntervalAvg:Hourly:01:[0.0,60.0]| 400| 0.443| 0.027|
-|JHBuntR:NumBusyUnits:ValueAtStart:Hourly:01:[0.0,60.0]| 400| 0| 0|
-|JHBuntR:NumBusyUnits:IntervalAvg:Hourly:02:[60.0,120.0]| 400| 1.4| 0.047|
-|JHBuntR:NumBusyUnits:ValueAtStart:Hourly:02:[60.0,120.0]| 400| 0.872| 0.087|
-|JHBuntR:NumBusyUnits:IntervalAvg:Hourly:03:[120.0,180.0]| 400| 2.712| 0.028|
-|JHBuntR:NumBusyUnits:ValueAtStart:Hourly:03:[120.0,180.0]| 400| 2.13| 0.093|
-|JHBuntR:NumBusyUnits:IntervalAvg:Hourly:04:[180.0,240.0]| 400| 2.994| 0.004|
-|JHBuntR:NumBusyUnits:ValueAtStart:Hourly:04:[180.0,240.0]| 400| 2.962| 0.024|
-|JHBuntR:NumBusyUnits:IntervalAvg:Hourly:05:[240.0,300.0]| 400| 3| 0|
-|JHBuntR:NumBusyUnits:ValueAtStart:Hourly:05:[240.0,300.0]| 400| 3| 0|
-|JHBuntR:NumBusyUnits:IntervalAvg:Hourly:06:[300.0,360.0]| 400| 2.996| 0.005|
-|JHBuntR:NumBusyUnits:ValueAtStart:Hourly:06:[300.0,360.0]| 400| 3| 0|
-|MalWartR:NumBusyUnits:IntervalAvg:Hourly:01:[0.0,60.0]| 400| 0.254| 0.015|
-|MalWartR:NumBusyUnits:ValueAtStart:Hourly:01:[0.0,60.0]| 400| 0| 0|
-|MalWartR:NumBusyUnits:IntervalAvg:Hourly:02:[60.0,120.0]| 400| 0.713| 0.025|
-|MalWartR:NumBusyUnits:ValueAtStart:Hourly:02:[60.0,120.0]| 400| 0.41| 0.06|
-|MalWartR:NumBusyUnits:IntervalAvg:Hourly:03:[120.0,180.0]| 400| 1.628| 0.024|
-|MalWartR:NumBusyUnits:ValueAtStart:Hourly:03:[120.0,180.0]| 400| 1.133| 0.075|
-|MalWartR:NumBusyUnits:IntervalAvg:Hourly:04:[180.0,240.0]| 400| 1.97| 0.008|
-|MalWartR:NumBusyUnits:ValueAtStart:Hourly:04:[180.0,240.0]| 400| 1.898| 0.036|
-|MalWartR:NumBusyUnits:IntervalAvg:Hourly:05:[240.0,300.0]| 400| 1.995| 0.003|
-|MalWartR:NumBusyUnits:ValueAtStart:Hourly:05:[240.0,300.0]| 400| 1.99| 0.012|
-|MalWartR:NumBusyUnits:IntervalAvg:Hourly:06:[300.0,360.0]| 400| 1.82| 0.031|
-|MalWartR:NumBusyUnits:ValueAtStart:Hourly:06:[300.0,360.0]| 400| 1.992| 0.011|
-|JHBuntR:Q:TimeInQ:IntervalAvg:Hourly:01:[0.0,60.0]| 400| 0.019| 0.011|
-|JHBuntR:Q:TimeInQ:IntervalAvg:Hourly:02:[60.0,120.0]| 400| 0.558| 0.086|
-|JHBuntR:Q:TimeInQ:IntervalAvg:Hourly:03:[120.0,180.0]| 400| 5.71| 0.388|
-|JHBuntR:Q:TimeInQ:IntervalAvg:Hourly:04:[180.0,240.0]| 400| 20.728| 0.795|
-|JHBuntR:Q:TimeInQ:IntervalAvg:Hourly:05:[240.0,300.0]| 400| 38.722| 0.997|
-|JHBuntR:Q:TimeInQ:IntervalAvg:Hourly:06:[300.0,360.0]| 400| 56.541| 1.371|
-|MalWartR:Q:TimeInQ:IntervalAvg:Hourly:01:[0.0,60.0]| 398| 0.023| 0.013|
-|MalWartR:Q:TimeInQ:IntervalAvg:Hourly:02:[60.0,120.0]| 400| 0.304| 0.05|
-|MalWartR:Q:TimeInQ:IntervalAvg:Hourly:03:[120.0,180.0]| 400| 3.142| 0.211|
-|MalWartR:Q:TimeInQ:IntervalAvg:Hourly:04:[180.0,240.0]| 400| 12.294| 0.565|
-|MalWartR:Q:TimeInQ:IntervalAvg:Hourly:05:[240.0,300.0]| 400| 24.848| 0.835|
-|MalWartR:Q:TimeInQ:IntervalAvg:Hourly:06:[300.0,360.0]| 400| 31.393| 1.422|
-|JHBuntR:InstantaneousUtil:IntervalAvg:Hourly:01:[0.0,60.0]| 400| 0.148| 0.009|
-|JHBuntR:InstantaneousUtil:ValueAtStart:Hourly:01:[0.0,60.0]| 400| 0| 0|
-|JHBuntR:InstantaneousUtil:IntervalAvg:Hourly:02:[60.0,120.0]| 400| 0.467| 0.016|
-|JHBuntR:InstantaneousUtil:ValueAtStart:Hourly:02:[60.0,120.0]| 400| 0.291| 0.029|
-|JHBuntR:InstantaneousUtil:IntervalAvg:Hourly:03:[120.0,180.0]| 400| 0.904| 0.009|
-|JHBuntR:InstantaneousUtil:ValueAtStart:Hourly:03:[120.0,180.0]| 400| 0.71| 0.031|
-|JHBuntR:InstantaneousUtil:IntervalAvg:Hourly:04:[180.0,240.0]| 400| 0.998| 0.001|
-|JHBuntR:InstantaneousUtil:ValueAtStart:Hourly:04:[180.0,240.0]| 400| 0.988| 0.008|
-|JHBuntR:InstantaneousUtil:IntervalAvg:Hourly:05:[240.0,300.0]| 400| 1| 0|
-|JHBuntR:InstantaneousUtil:ValueAtStart:Hourly:05:[240.0,300.0]| 400| 1| 0|
-|JHBuntR:InstantaneousUtil:IntervalAvg:Hourly:06:[300.0,360.0]| 400| 0.999| 0.002|
-|JHBuntR:InstantaneousUtil:ValueAtStart:Hourly:06:[300.0,360.0]| 400| 1| 0|
-|MalWartR:InstantaneousUtil:IntervalAvg:Hourly:01:[0.0,60.0]| 400| 0.127| 0.008|
-|MalWartR:InstantaneousUtil:ValueAtStart:Hourly:01:[0.0,60.0]| 400| 0| 0|
-|MalWartR:InstantaneousUtil:IntervalAvg:Hourly:02:[60.0,120.0]| 400| 0.356| 0.013|
-|MalWartR:InstantaneousUtil:ValueAtStart:Hourly:02:[60.0,120.0]| 400| 0.205| 0.03|
-|MalWartR:InstantaneousUtil:IntervalAvg:Hourly:03:[120.0,180.0]| 400| 0.814| 0.012|
-|MalWartR:InstantaneousUtil:ValueAtStart:Hourly:03:[120.0,180.0]| 400| 0.566| 0.038|
-|MalWartR:InstantaneousUtil:IntervalAvg:Hourly:04:[180.0,240.0]| 400| 0.985| 0.004|
-|MalWartR:InstantaneousUtil:ValueAtStart:Hourly:04:[180.0,240.0]| 400| 0.949| 0.018|
-|MalWartR:InstantaneousUtil:IntervalAvg:Hourly:05:[240.0,300.0]| 400| 0.997| 0.002|
-|MalWartR:InstantaneousUtil:ValueAtStart:Hourly:05:[240.0,300.0]| 400| 0.995| 0.006|
-|MalWartR:InstantaneousUtil:IntervalAvg:Hourly:06:[300.0,360.0]| 400| 0.91| 0.015|
-|MalWartR:InstantaneousUtil:ValueAtStart:Hourly:06:[300.0,360.0]| 400| 0.996| 0.005|
-|StudentsAtRecruiters:IntervalAvg:PeakPeriod:[150.0,270.0]| 400| 30.487| 0.788|
-|StudentsAtRecruiters:ValueAtStart:PeakPeriod:[150.0,270.0]| 400| 9.56| 0.485|
-|JHBuntR:InstantaneousUtil:IntervalAvg:PeakPeriod:[150.0,270.0]| 400| 0.991| 0.002|
-|JHBuntR:InstantaneousUtil:ValueAtStart:PeakPeriod:[150.0,270.0]| 400| 0.924| 0.019|
-|MalWartR:InstantaneousUtil:IntervalAvg:PeakPeriod:[150.0,270.0]| 400| 0.97| 0.004|
-|MalWartR:InstantaneousUtil:ValueAtStart:PeakPeriod:[150.0,270.0]| 400| 0.854| 0.028|
-|Mixer Ending Time| 400| 429.813| 3.247|
-|Prob(EndTime>360.0)| 400| 0.998| 0.005|
+|OverallSystemTime| 400| 65.9| 1.495|
+|RecruitingOnlySystemTime| 400| 58.287| 1.486|
+|P(Recruiting Only < 30 minutes)| 400| 0.341| 0.011|
+|MixingStudentSystemTime| 400| 77.295| 1.586|
+|MixingStudentThatLeavesSystemTime| 400| 19.738| 0.167|
+|NumInSystem| 400| 27.092| 0.569|
+|NumInConversationArea| 400| 3.033| 0.034|
+|NumAtJHBuntAtClosing| 400| 35.618| 1.232|
+|NumAtMalWartAtClosing| 400| 8.057| 0.827|
+|NumAtConversationAtClosing| 400| 0.635| 0.077|
+|NumInSystemAtClosing| 400| 44.615| 1.601|
+|JHBuntR:InstantaneousUtil| 400| 0.785| 0.004|
+|JHBuntR:NumBusyUnits| 400| 2.356| 0.011|
+|JHBuntR:ScheduledUtil| 400| 0.785| 0.004|
+|JHBuntR:WIP| 400| 15.739| 0.422|
+|JHBuntR:Q:NumInQ| 400| 13.384| 0.417|
+|JHBuntR:Q:TimeInQ| 400| 34.2| 1.164|
+|MalWartR:InstantaneousUtil| 400| 0.595| 0.006|
+|MalWartR:NumBusyUnits| 400| 1.191| 0.011|
+|MalWartR:ScheduledUtil| 400| 0.595| 0.006|
+|MalWartR:WIP| 400| 7.72| 0.257|
+|MalWartR:Q:NumInQ| 400| 6.529| 0.251|
+|MalWartR:Q:TimeInQ| 400| 16.474| 0.614|
+|StudentsAtRecruiters| 400| 23.459| 0.571|
+|JHBuntR:NumBusyUnits:IntervalAvg:Hourly:01:[0_0,60_0]| 400| 0.455| 0.028|
+|JHBuntR:NumBusyUnits:ValueAtStart:Hourly:01:[0_0,60_0]| 400| 0| 0|
+|JHBuntR:NumBusyUnits:IntervalAvg:Hourly:02:[60_0,120_0]| 400| 1.396| 0.046|
+|JHBuntR:NumBusyUnits:ValueAtStart:Hourly:02:[60_0,120_0]| 400| 0.818| 0.083|
+|JHBuntR:NumBusyUnits:IntervalAvg:Hourly:03:[120_0,180_0]| 400| 2.716| 0.029|
+|JHBuntR:NumBusyUnits:ValueAtStart:Hourly:03:[120_0,180_0]| 400| 2.165| 0.097|
+|JHBuntR:NumBusyUnits:IntervalAvg:Hourly:04:[180_0,240_0]| 400| 2.996| 0.002|
+|JHBuntR:NumBusyUnits:ValueAtStart:Hourly:04:[180_0,240_0]| 400| 2.983| 0.015|
+|JHBuntR:NumBusyUnits:IntervalAvg:Hourly:05:[240_0,300_0]| 400| 3| 0|
+|JHBuntR:NumBusyUnits:ValueAtStart:Hourly:05:[240_0,300_0]| 400| 3| 0|
+|JHBuntR:NumBusyUnits:IntervalAvg:Hourly:06:[300_0,360_0]| 400| 2.998| 0.002|
+|JHBuntR:NumBusyUnits:ValueAtStart:Hourly:06:[300_0,360_0]| 400| 3| 0|
+|MalWartR:NumBusyUnits:IntervalAvg:Hourly:01:[0_0,60_0]| 400| 0.25| 0.014|
+|MalWartR:NumBusyUnits:ValueAtStart:Hourly:01:[0_0,60_0]| 400| 0| 0|
+|MalWartR:NumBusyUnits:IntervalAvg:Hourly:02:[60_0,120_0]| 400| 0.755| 0.026|
+|MalWartR:NumBusyUnits:ValueAtStart:Hourly:02:[60_0,120_0]| 400| 0.465| 0.064|
+|MalWartR:NumBusyUnits:IntervalAvg:Hourly:03:[120_0,180_0]| 400| 1.638| 0.025|
+|MalWartR:NumBusyUnits:ValueAtStart:Hourly:03:[120_0,180_0]| 400| 1.152| 0.077|
+|MalWartR:NumBusyUnits:IntervalAvg:Hourly:04:[180_0,240_0]| 400| 1.976| 0.006|
+|MalWartR:NumBusyUnits:ValueAtStart:Hourly:04:[180_0,240_0]| 400| 1.92| 0.032|
+|MalWartR:NumBusyUnits:IntervalAvg:Hourly:05:[240_0,300_0]| 400| 1.997| 0.003|
+|MalWartR:NumBusyUnits:ValueAtStart:Hourly:05:[240_0,300_0]| 400| 1.995| 0.007|
+|MalWartR:NumBusyUnits:IntervalAvg:Hourly:06:[300_0,360_0]| 400| 1.834| 0.03|
+|MalWartR:NumBusyUnits:ValueAtStart:Hourly:06:[300_0,360_0]| 400| 1.982| 0.016|
+|JHBuntR:Q:TimeInQ:IntervalAvg:Hourly:01:[0_0,60_0]| 399| 0.04| 0.023|
+|JHBuntR:Q:TimeInQ:IntervalAvg:Hourly:02:[60_0,120_0]| 400| 0.557| 0.098|
+|JHBuntR:Q:TimeInQ:IntervalAvg:Hourly:03:[120_0,180_0]| 400| 5.856| 0.376|
+|JHBuntR:Q:TimeInQ:IntervalAvg:Hourly:04:[180_0,240_0]| 400| 20.507| 0.776|
+|JHBuntR:Q:TimeInQ:IntervalAvg:Hourly:05:[240_0,300_0]| 400| 38.733| 1.04|
+|JHBuntR:Q:TimeInQ:IntervalAvg:Hourly:06:[300_0,360_0]| 400| 56.158| 1.319|
+|MalWartR:Q:TimeInQ:IntervalAvg:Hourly:01:[0_0,60_0]| 399| 0.03| 0.013|
+|MalWartR:Q:TimeInQ:IntervalAvg:Hourly:02:[60_0,120_0]| 400| 0.324| 0.046|
+|MalWartR:Q:TimeInQ:IntervalAvg:Hourly:03:[120_0,180_0]| 400| 3.524| 0.247|
+|MalWartR:Q:TimeInQ:IntervalAvg:Hourly:04:[180_0,240_0]| 400| 12.886| 0.572|
+|MalWartR:Q:TimeInQ:IntervalAvg:Hourly:05:[240_0,300_0]| 400| 26.028| 0.843|
+|MalWartR:Q:TimeInQ:IntervalAvg:Hourly:06:[300_0,360_0]| 400| 31.864| 1.39|
+|JHBuntR:InstantaneousUtil:IntervalAvg:Hourly:01:[0_0,60_0]| 400| 0.152| 0.009|
+|JHBuntR:InstantaneousUtil:ValueAtStart:Hourly:01:[0_0,60_0]| 400| 0| 0|
+|JHBuntR:InstantaneousUtil:IntervalAvg:Hourly:02:[60_0,120_0]| 400| 0.465| 0.015|
+|JHBuntR:InstantaneousUtil:ValueAtStart:Hourly:02:[60_0,120_0]| 400| 0.272| 0.028|
+|JHBuntR:InstantaneousUtil:IntervalAvg:Hourly:03:[120_0,180_0]| 400| 0.905| 0.01|
+|JHBuntR:InstantaneousUtil:ValueAtStart:Hourly:03:[120_0,180_0]| 400| 0.722| 0.032|
+|JHBuntR:InstantaneousUtil:IntervalAvg:Hourly:04:[180_0,240_0]| 400| 0.999| 0.001|
+|JHBuntR:InstantaneousUtil:ValueAtStart:Hourly:04:[180_0,240_0]| 400| 0.994| 0.005|
+|JHBuntR:InstantaneousUtil:IntervalAvg:Hourly:05:[240_0,300_0]| 400| 1| 0|
+|JHBuntR:InstantaneousUtil:ValueAtStart:Hourly:05:[240_0,300_0]| 400| 1| 0|
+|JHBuntR:InstantaneousUtil:IntervalAvg:Hourly:06:[300_0,360_0]| 400| 0.999| 0.001|
+|JHBuntR:InstantaneousUtil:ValueAtStart:Hourly:06:[300_0,360_0]| 400| 1| 0|
+|MalWartR:InstantaneousUtil:IntervalAvg:Hourly:01:[0_0,60_0]| 400| 0.125| 0.007|
+|MalWartR:InstantaneousUtil:ValueAtStart:Hourly:01:[0_0,60_0]| 400| 0| 0|
+|MalWartR:InstantaneousUtil:IntervalAvg:Hourly:02:[60_0,120_0]| 400| 0.378| 0.013|
+|MalWartR:InstantaneousUtil:ValueAtStart:Hourly:02:[60_0,120_0]| 400| 0.232| 0.032|
+|MalWartR:InstantaneousUtil:IntervalAvg:Hourly:03:[120_0,180_0]| 400| 0.819| 0.012|
+|MalWartR:InstantaneousUtil:ValueAtStart:Hourly:03:[120_0,180_0]| 400| 0.576| 0.039|
+|MalWartR:InstantaneousUtil:IntervalAvg:Hourly:04:[180_0,240_0]| 400| 0.988| 0.003|
+|MalWartR:InstantaneousUtil:ValueAtStart:Hourly:04:[180_0,240_0]| 400| 0.96| 0.016|
+|MalWartR:InstantaneousUtil:IntervalAvg:Hourly:05:[240_0,300_0]| 400| 0.998| 0.001|
+|MalWartR:InstantaneousUtil:ValueAtStart:Hourly:05:[240_0,300_0]| 400| 0.998| 0.003|
+|MalWartR:InstantaneousUtil:IntervalAvg:Hourly:06:[300_0,360_0]| 400| 0.917| 0.015|
+|MalWartR:InstantaneousUtil:ValueAtStart:Hourly:06:[300_0,360_0]| 400| 0.991| 0.008|
+|StudentsAtRecruiters:IntervalAvg:PeakPeriod:[150_0,270_0]| 400| 30.891| 0.809|
+|StudentsAtRecruiters:ValueAtStart:PeakPeriod:[150_0,270_0]| 400| 9.905| 0.494|
+|JHBuntR:InstantaneousUtil:IntervalAvg:PeakPeriod:[150_0,270_0]| 400| 0.992| 0.002|
+|JHBuntR:InstantaneousUtil:ValueAtStart:PeakPeriod:[150_0,270_0]| 400| 0.94| 0.017|
+|MalWartR:InstantaneousUtil:IntervalAvg:PeakPeriod:[150_0,270_0]| 400| 0.971| 0.004|
+|MalWartR:InstantaneousUtil:ValueAtStart:PeakPeriod:[150_0,270_0]| 400| 0.85| 0.029|
+|Mixer Ending Time| 400| 430.291| 3.258|
+|Prob(EndTime>360_0)| 400| 0.998| 0.005|
+|JHBuntR:SeizeCount| 400| 169.798| 1.25|
+|MalWartR:SeizeCount| 400| 169.798| 1.25|
 
 To further investigate this situation, the same model was run but with the capacity of the resources set at infinity.  This will cause no queueing to occur, but will indicate the number of busy resources by hour of the day. This can help in specifying the required staffing. In the following results, only the critical performance measures are presented.
 
@@ -2170,21 +2198,33 @@ To further investigate this situation, the same model was run but with the capac
 
 |Name| Count| Average| Half-Width|
 |:---:| :---:| :---:| :---:|
-|OverallSystemTime| 400| 17.356| 0.082|
-|JHBuntR:NumBusyUnits:IntervalAvg:Hourly:01:[0.0,60.0]| 400| 0.444| 0.027|
-|JHBuntR:NumBusyUnits:IntervalAvg:Hourly:02:[60.0,120.0]| 400| 1.461| 0.051|
-|JHBuntR:NumBusyUnits:IntervalAvg:Hourly:03:[120.0,180.0]| 400| 3.645| 0.078|
-|JHBuntR:NumBusyUnits:IntervalAvg:Hourly:04:[180.0,240.0]| 400| 5.128| 0.089|
-|JHBuntR:NumBusyUnits:IntervalAvg:Hourly:05:[240.0,300.0]| 400| 4.977| 0.096|
-|JHBuntR:NumBusyUnits:IntervalAvg:Hourly:06:[300.0,360.0]| 400| 1.626| 0.067|
-|MalWartR:NumBusyUnits:IntervalAvg:Hourly:01:[0.0,60.0]| 400| 0.255| 0.016|
-|MalWartR:NumBusyUnits:IntervalAvg:Hourly:02:[60.0,120.0]| 400| 0.732| 0.027|
-|MalWartR:NumBusyUnits:IntervalAvg:Hourly:03:[120.0,180.0]| 400| 1.921| 0.04|
-|MalWartR:NumBusyUnits:IntervalAvg:Hourly:04:[180.0,240.0]| 400| 2.575| 0.048|
-|MalWartR:NumBusyUnits:IntervalAvg:Hourly:05:[240.0,300.0]| 400| 2.458| 0.048|
-|MalWartR:NumBusyUnits:IntervalAvg:Hourly:06:[300.0,360.0]| 400| 0.704| 0.032|
-|Mixer Ending Time| 400| 363.996| 0.717|
-|Prob(EndTime>360.0)| 400| 0.447| 0.049|
+|OverallSystemTime| 400| 17.389| 0.082|
+|JHBuntR:NumBusyUnits:IntervalAvg:Hourly:01:[0_0,60_0]| 400| 0.458| 0.029|
+|JHBuntR:NumBusyUnits:IntervalAvg:Hourly:02:[60_0,120_0]| 400| 1.456| 0.051|
+|JHBuntR:NumBusyUnits:IntervalAvg:Hourly:03:[120_0,180_0]| 400| 3.693| 0.08|
+|JHBuntR:NumBusyUnits:IntervalAvg:Hourly:04:[180_0,240_0]| 400| 5.115| 0.092|
+|JHBuntR:NumBusyUnits:IntervalAvg:Hourly:05:[240_0,300_0]| 400| 4.973| 0.095|
+|JHBuntR:NumBusyUnits:IntervalAvg:Hourly:06:[300_0,360_0]| 400| 1.62| 0.064|
+|MalWartR:NumBusyUnits:IntervalAvg:Hourly:01:[0_0,60_0]| 400| 0.252| 0.015|
+|MalWartR:NumBusyUnits:IntervalAvg:Hourly:02:[60_0,120_0]| 400| 0.773| 0.027|
+|MalWartR:NumBusyUnits:IntervalAvg:Hourly:03:[120_0,180_0]| 400| 1.961| 0.044|
+|MalWartR:NumBusyUnits:IntervalAvg:Hourly:04:[180_0,240_0]| 400| 2.618| 0.047|
+|MalWartR:NumBusyUnits:IntervalAvg:Hourly:05:[240_0,300_0]| 400| 2.407| 0.046|
+|MalWartR:NumBusyUnits:IntervalAvg:Hourly:06:[300_0,360_0]| 400| 0.716| 0.034|
+|JHBuntR:InstantaneousUtil:IntervalAvg:Hourly:01:[0_0,60_0]| 400| 0| 0|
+|JHBuntR:InstantaneousUtil:IntervalAvg:Hourly:02:[60_0,120_0]| 400| 0| 0|
+|JHBuntR:InstantaneousUtil:IntervalAvg:Hourly:03:[120_0,180_0]| 400| 0| 0|
+|JHBuntR:InstantaneousUtil:IntervalAvg:Hourly:04:[180_0,240_0]| 400| 0| 0|
+|JHBuntR:InstantaneousUtil:IntervalAvg:Hourly:05:[240_0,300_0]| 400| 0| 0|
+|JHBuntR:InstantaneousUtil:IntervalAvg:Hourly:06:[300_0,360_0]| 400| 0| 0|
+|MalWartR:InstantaneousUtil:IntervalAvg:Hourly:01:[0_0,60_0]| 400| 0| 0|
+|MalWartR:InstantaneousUtil:IntervalAvg:Hourly:02:[60_0,120_0]| 400| 0| 0|
+|MalWartR:InstantaneousUtil:IntervalAvg:Hourly:03:[120_0,180_0]| 400| 0| 0|
+|MalWartR:InstantaneousUtil:IntervalAvg:Hourly:04:[180_0,240_0]| 400| 0| 0|
+|MalWartR:InstantaneousUtil:IntervalAvg:Hourly:05:[240_0,300_0]| 400| 0| 0|
+|MalWartR:InstantaneousUtil:IntervalAvg:Hourly:06:[300_0,360_0]| 400| 0| 0|
+|Mixer Ending Time| 400| 363.773| 0.699|
+|Prob(EndTime>360_0)| 400| 0.427| 0.049|
 
 The results of running the non-stationary arrival schedule with infinite capacity for the recruiting resources indicate the effect on the resources. Notice how the estimated number busy units for the resources track the arrival pattern.  Now considering the JHBunt recruiting station during the fourth hour of the day, we see an average number of recruiters busy of 5.128.  Thus, if we set the resource capacity of the JHBunt recruiting station to 6 recruiters during the fourth hour of the day, we would expect to achieve a utilization of about 88\%, ($5.128/6 = 0.8547$).  With this thinking in mind we can determine the required capacity for each hour of the day and the expected utilization.  
 
@@ -2221,77 +2261,108 @@ A portion of the results are shown here.  Notice that when using a capacity sche
 
 |Name| Count| Average| Half-Width|
 |:---:| :---:| :---:| :---:|
-|OverallSystemTime| 400| 19.938| 0.258|
-|RecruitingOnlySystemTime| 400| 13.185| 0.27|
-|P(Recruiting Only < 30 minutes)| 400| 0.958| 0.006|
-|MixingStudentSystemTime| 400| 30.031| 0.254|
-|MixingStudentThatLeavesSystemTime| 400| 19.657| 0.165|
-|NumInSystem| 400| 9.695| 0.162|
+|OverallSystemTime| 400| 19.939| 0.241|
+|RecruitingOnlySystemTime| 400| 13.179| 0.25|
+|P(Recruiting Only < 30 minutes)| 400| 0.958| 0.005|
+|MixingStudentSystemTime| 400| 30.054| 0.24|
+|MixingStudentThatLeavesSystemTime| 400| 19.766| 0.166|
+|NumInSystem| 400| 9.696| 0.155|
 |NumInConversationArea| 400| 3.558| 0.042|
-|NumAtJHBuntAtClosing| 400| 1.24| 0.186|
-|NumAtMalWartAtClosing| 400| 0.307| 0.052|
-|NumAtConversationAtClosing| 400| 0.675| 0.081|
-|NumInSystemAtClosing| 400| 2.373| 0.217|
+|NumAtJHBuntAtClosing| 400| 1.137| 0.173|
+|NumAtMalWartAtClosing| 400| 0.357| 0.057|
+|NumAtConversationAtClosing| 400| 0.678| 0.081|
+|NumInSystemAtClosing| 400| 2.315| 0.206|
 |JHBuntR:PTimeInactive| 400| 0| 0|
-|JHBuntR:PTimeIdle| 400| 0.223| 0.005|
-|JHBuntR:PTimeBusy| 400| 0.777| 0.005|
-|JHBuntR:InstantaneousUtil| 400| 0.622| 0.007|
+|JHBuntR:PTimeIdle| 400| 0.224| 0.005|
+|JHBuntR:PTimeBusy| 400| 0.776| 0.005|
+|JHBuntR:InstantaneousUtil| 400| 0.621| 0.007|
 |JHBuntR:NumActiveUnits| 400| 4.008| 0.002|
-|JHBuntR:NumBusyUnits| 400| 2.773| 0.029|
+|JHBuntR:NumBusyUnits| 400| 2.773| 0.028|
 |JHBuntR:ScheduledUtil| 400| 0.692| 0.007|
-|JHBuntR:Q:NumInQ| 400| 1.217| 0.114|
-|JHBuntR:Q:TimeInQ| 400| 2.567| 0.232|
+|JHBuntR:WIP| 400| 3.974| 0.127|
+|JHBuntR:Q:NumInQ| 400| 1.201| 0.107|
+|JHBuntR:Q:TimeInQ| 400| 2.53| 0.215|
 |MalWartR:PTimeInactive| 400| 0| 0|
-|MalWartR:PTimeIdle| 400| 0.375| 0.004|
-|MalWartR:PTimeBusy| 400| 0.625| 0.004|
-|MalWartR:InstantaneousUtil| 400| 0.343| 0.004|
+|MalWartR:PTimeIdle| 400| 0.369| 0.004|
+|MalWartR:PTimeBusy| 400| 0.631| 0.004|
+|MalWartR:InstantaneousUtil| 400| 0.348| 0.004|
 |MalWartR:NumActiveUnits| 400| 3.661| 0.001|
-|MalWartR:NumBusyUnits| 400| 1.383| 0.015|
-|MalWartR:ScheduledUtil| 400| 0.378| 0.004|
-|MalWartR:Q:NumInQ| 400| 0.06| 0.006|
-|MalWartR:Q:TimeInQ| 400| 0.128| 0.012|
-|StudentsAtRecruiters| 400| 5.433| 0.142|
-|JHBuntR:NumBusyUnits:IntervalAvg:Hourly:01:[0.0,60.0]| 400| 0.384| 0.02|
-|JHBuntR:NumBusyUnits:IntervalAvg:Hourly:02:[60.0,120.0]| 400| 1.342| 0.038|
-|JHBuntR:NumBusyUnits:IntervalAvg:Hourly:03:[120.0,180.0]| 400| 3.389| 0.049|
-|JHBuntR:NumBusyUnits:IntervalAvg:Hourly:04:[180.0,240.0]| 400| 5.506| 0.09|
-|JHBuntR:NumBusyUnits:IntervalAvg:Hourly:05:[240.0,300.0]| 400| 5.066| 0.095|
-|JHBuntR:NumBusyUnits:IntervalAvg:Hourly:06:[300.0,360.0]| 400| 1.907| 0.066|
-|MalWartR:NumBusyUnits:IntervalAvg:Hourly:01:[0.0,60.0]| 400| 0.244| 0.014|
-|MalWartR:NumBusyUnits:IntervalAvg:Hourly:02:[60.0,120.0]| 400| 0.736| 0.025|
-|MalWartR:NumBusyUnits:IntervalAvg:Hourly:03:[120.0,180.0]| 400| 1.935| 0.04|
-|MalWartR:NumBusyUnits:IntervalAvg:Hourly:04:[180.0,240.0]| 400| 2.583| 0.049|
-|MalWartR:NumBusyUnits:IntervalAvg:Hourly:05:[240.0,300.0]| 400| 2.459| 0.048|
-|MalWartR:NumBusyUnits:IntervalAvg:Hourly:06:[300.0,360.0]| 400| 0.845| 0.038|
-|JHBuntR:Q:TimeInQ:IntervalAvg:Hourly:01:[0.0,60.0]| 400| 2.255| 0.306|
-|JHBuntR:Q:TimeInQ:IntervalAvg:Hourly:02:[60.0,120.0]| 400| 3.338| 0.346|
-|JHBuntR:Q:TimeInQ:IntervalAvg:Hourly:03:[120.0,180.0]| 400| 4.016| 0.364|
-|JHBuntR:Q:TimeInQ:IntervalAvg:Hourly:04:[180.0,240.0]| 400| 2.22| 0.324|
-|JHBuntR:Q:TimeInQ:IntervalAvg:Hourly:05:[240.0,300.0]| 400| 1.392| 0.259|
-|JHBuntR:Q:TimeInQ:IntervalAvg:Hourly:06:[300.0,360.0]| 400| 1.653| 0.416|
-|MalWartR:Q:TimeInQ:IntervalAvg:Hourly:01:[0.0,60.0]| 398| 0.627| 0.114|
-|MalWartR:Q:TimeInQ:IntervalAvg:Hourly:02:[60.0,120.0]| 400| 0.356| 0.057|
-|MalWartR:Q:TimeInQ:IntervalAvg:Hourly:03:[120.0,180.0]| 400| 0.176| 0.026|
-|MalWartR:Q:TimeInQ:IntervalAvg:Hourly:04:[180.0,240.0]| 400| 0.03| 0.009|
-|MalWartR:Q:TimeInQ:IntervalAvg:Hourly:05:[240.0,300.0]| 400| 0.026| 0.007|
-|MalWartR:Q:TimeInQ:IntervalAvg:Hourly:06:[300.0,360.0]| 399| 0.036| 0.012|
-|JHBuntR:InstantaneousUtil:IntervalAvg:Hourly:01:[0.0,60.0]| 400| 0.382| 0.02|
-|JHBuntR:InstantaneousUtil:IntervalAvg:Hourly:02:[60.0,120.0]| 400| 0.695| 0.018|
-|JHBuntR:InstantaneousUtil:IntervalAvg:Hourly:03:[120.0,180.0]| 400| 0.851| 0.012|
-|JHBuntR:InstantaneousUtil:IntervalAvg:Hourly:04:[180.0,240.0]| 400| 0.788| 0.013|
-|JHBuntR:InstantaneousUtil:IntervalAvg:Hourly:05:[240.0,300.0]| 400| 0.719| 0.014|
-|JHBuntR:InstantaneousUtil:IntervalAvg:Hourly:06:[300.0,360.0]| 400| 0.576| 0.019|
-|MalWartR:InstantaneousUtil:IntervalAvg:Hourly:01:[0.0,60.0]| 400| 0.235| 0.014|
-|MalWartR:InstantaneousUtil:IntervalAvg:Hourly:02:[60.0,120.0]| 400| 0.392| 0.013|
-|MalWartR:InstantaneousUtil:IntervalAvg:Hourly:03:[120.0,180.0]| 400| 0.49| 0.01|
-|MalWartR:InstantaneousUtil:IntervalAvg:Hourly:04:[180.0,240.0]| 400| 0.432| 0.008|
-|MalWartR:InstantaneousUtil:IntervalAvg:Hourly:05:[240.0,300.0]| 400| 0.405| 0.008|
-|MalWartR:InstantaneousUtil:IntervalAvg:Hourly:06:[300.0,360.0]| 400| 0.274| 0.012|
-|StudentsAtRecruiters:IntervalAvg:PeakPeriod:[150.0,270.0]| 400| 9.977| 0.31|
-|JHBuntR:InstantaneousUtil:IntervalAvg:PeakPeriod:[150.0,270.0]| 400| 0.818| 0.009|
-|MalWartR:InstantaneousUtil:IntervalAvg:PeakPeriod:[150.0,270.0]| 400| 0.474| 0.006|
-|Mixer Ending Time| 400| 363.454| 0.489|
-|Prob(EndTime>360.0)| 400| 0.502| 0.049|
+|MalWartR:NumBusyUnits| 400| 1.396| 0.014|
+|MalWartR:ScheduledUtil| 400| 0.381| 0.004|
+|MalWartR:WIP| 400| 1.46| 0.017|
+|MalWartR:Q:NumInQ| 400| 0.064| 0.006|
+|MalWartR:Q:TimeInQ| 400| 0.135| 0.012|
+|StudentsAtRecruiters| 400| 5.434| 0.135|
+|JHBuntR:NumBusyUnits:IntervalAvg:Hourly:01:[0_0,60_0]| 400| 0.388| 0.02|
+|JHBuntR:NumBusyUnits:ValueAtStart:Hourly:01:[0_0,60_0]| 400| 0| 0|
+|JHBuntR:NumBusyUnits:IntervalAvg:Hourly:02:[60_0,120_0]| 400| 1.339| 0.037|
+|JHBuntR:NumBusyUnits:ValueAtStart:Hourly:02:[60_0,120_0]| 400| 1.072| 0.085|
+|JHBuntR:NumBusyUnits:IntervalAvg:Hourly:03:[120_0,180_0]| 400| 3.395| 0.049|
+|JHBuntR:NumBusyUnits:ValueAtStart:Hourly:03:[120_0,180_0]| 400| 2.983| 0.122|
+|JHBuntR:NumBusyUnits:IntervalAvg:Hourly:04:[180_0,240_0]| 400| 5.52| 0.091|
+|JHBuntR:NumBusyUnits:ValueAtStart:Hourly:04:[180_0,240_0]| 400| 5.92| 0.171|
+|JHBuntR:NumBusyUnits:IntervalAvg:Hourly:05:[240_0,300_0]| 400| 5.069| 0.091|
+|JHBuntR:NumBusyUnits:ValueAtStart:Hourly:05:[240_0,300_0]| 400| 5.303| 0.177|
+|JHBuntR:NumBusyUnits:IntervalAvg:Hourly:06:[300_0,360_0]| 400| 1.884| 0.068|
+|JHBuntR:NumBusyUnits:ValueAtStart:Hourly:06:[300_0,360_0]| 400| 3.555| 0.182|
+|MalWartR:NumBusyUnits:IntervalAvg:Hourly:01:[0_0,60_0]| 400| 0.241| 0.013|
+|MalWartR:NumBusyUnits:ValueAtStart:Hourly:01:[0_0,60_0]| 400| 0| 0|
+|MalWartR:NumBusyUnits:IntervalAvg:Hourly:02:[60_0,120_0]| 400| 0.776| 0.027|
+|MalWartR:NumBusyUnits:ValueAtStart:Hourly:02:[60_0,120_0]| 400| 0.603| 0.074|
+|MalWartR:NumBusyUnits:IntervalAvg:Hourly:03:[120_0,180_0]| 400| 1.979| 0.043|
+|MalWartR:NumBusyUnits:ValueAtStart:Hourly:03:[120_0,180_0]| 400| 1.48| 0.122|
+|MalWartR:NumBusyUnits:IntervalAvg:Hourly:04:[180_0,240_0]| 400| 2.626| 0.048|
+|MalWartR:NumBusyUnits:ValueAtStart:Hourly:04:[180_0,240_0]| 400| 2.67| 0.166|
+|MalWartR:NumBusyUnits:IntervalAvg:Hourly:05:[240_0,300_0]| 400| 2.403| 0.046|
+|MalWartR:NumBusyUnits:ValueAtStart:Hourly:05:[240_0,300_0]| 400| 2.692| 0.144|
+|MalWartR:NumBusyUnits:IntervalAvg:Hourly:06:[300_0,360_0]| 400| 0.848| 0.041|
+|MalWartR:NumBusyUnits:ValueAtStart:Hourly:06:[300_0,360_0]| 400| 1.452| 0.111|
+|JHBuntR:Q:TimeInQ:IntervalAvg:Hourly:01:[0_0,60_0]| 399| 2.221| 0.291|
+|JHBuntR:Q:TimeInQ:IntervalAvg:Hourly:02:[60_0,120_0]| 400| 3.317| 0.361|
+|JHBuntR:Q:TimeInQ:IntervalAvg:Hourly:03:[120_0,180_0]| 400| 4.105| 0.368|
+|JHBuntR:Q:TimeInQ:IntervalAvg:Hourly:04:[180_0,240_0]| 400| 2.196| 0.305|
+|JHBuntR:Q:TimeInQ:IntervalAvg:Hourly:05:[240_0,300_0]| 400| 1.327| 0.237|
+|JHBuntR:Q:TimeInQ:IntervalAvg:Hourly:06:[300_0,360_0]| 399| 1.396| 0.385|
+|MalWartR:Q:TimeInQ:IntervalAvg:Hourly:01:[0_0,60_0]| 399| 0.604| 0.102|
+|MalWartR:Q:TimeInQ:IntervalAvg:Hourly:02:[60_0,120_0]| 400| 0.377| 0.048|
+|MalWartR:Q:TimeInQ:IntervalAvg:Hourly:03:[120_0,180_0]| 400| 0.195| 0.032|
+|MalWartR:Q:TimeInQ:IntervalAvg:Hourly:04:[180_0,240_0]| 400| 0.034| 0.009|
+|MalWartR:Q:TimeInQ:IntervalAvg:Hourly:05:[240_0,300_0]| 400| 0.022| 0.007|
+|MalWartR:Q:TimeInQ:IntervalAvg:Hourly:06:[300_0,360_0]| 398| 0.03| 0.012|
+|JHBuntR:InstantaneousUtil:IntervalAvg:Hourly:01:[0_0,60_0]| 400| 0.38| 0.02|
+|JHBuntR:InstantaneousUtil:ValueAtStart:Hourly:01:[0_0,60_0]| 400| 0| 0|
+|JHBuntR:InstantaneousUtil:IntervalAvg:Hourly:02:[60_0,120_0]| 400| 0.696| 0.017|
+|JHBuntR:InstantaneousUtil:ValueAtStart:Hourly:02:[60_0,120_0]| 400| 0.536| 0.042|
+|JHBuntR:InstantaneousUtil:IntervalAvg:Hourly:03:[120_0,180_0]| 400| 0.852| 0.012|
+|JHBuntR:InstantaneousUtil:ValueAtStart:Hourly:03:[120_0,180_0]| 400| 0.746| 0.031|
+|JHBuntR:InstantaneousUtil:IntervalAvg:Hourly:04:[180_0,240_0]| 400| 0.789| 0.013|
+|JHBuntR:InstantaneousUtil:ValueAtStart:Hourly:04:[180_0,240_0]| 400| 0.846| 0.024|
+|JHBuntR:InstantaneousUtil:IntervalAvg:Hourly:05:[240_0,300_0]| 400| 0.72| 0.013|
+|JHBuntR:InstantaneousUtil:ValueAtStart:Hourly:05:[240_0,300_0]| 400| 0.757| 0.025|
+|JHBuntR:InstantaneousUtil:IntervalAvg:Hourly:06:[300_0,360_0]| 400| 0.566| 0.019|
+|JHBuntR:InstantaneousUtil:ValueAtStart:Hourly:06:[300_0,360_0]| 400| 0.724| 0.024|
+|MalWartR:InstantaneousUtil:IntervalAvg:Hourly:01:[0_0,60_0]| 400| 0.235| 0.013|
+|MalWartR:InstantaneousUtil:ValueAtStart:Hourly:01:[0_0,60_0]| 400| 0| 0|
+|MalWartR:InstantaneousUtil:IntervalAvg:Hourly:02:[60_0,120_0]| 400| 0.41| 0.013|
+|MalWartR:InstantaneousUtil:ValueAtStart:Hourly:02:[60_0,120_0]| 400| 0.301| 0.037|
+|MalWartR:InstantaneousUtil:IntervalAvg:Hourly:03:[120_0,180_0]| 400| 0.5| 0.011|
+|MalWartR:InstantaneousUtil:ValueAtStart:Hourly:03:[120_0,180_0]| 400| 0.37| 0.031|
+|MalWartR:InstantaneousUtil:IntervalAvg:Hourly:04:[180_0,240_0]| 400| 0.439| 0.008|
+|MalWartR:InstantaneousUtil:ValueAtStart:Hourly:04:[180_0,240_0]| 400| 0.445| 0.028|
+|MalWartR:InstantaneousUtil:IntervalAvg:Hourly:05:[240_0,300_0]| 400| 0.396| 0.008|
+|MalWartR:InstantaneousUtil:ValueAtStart:Hourly:05:[240_0,300_0]| 400| 0.449| 0.024|
+|MalWartR:InstantaneousUtil:IntervalAvg:Hourly:06:[300_0,360_0]| 400| 0.277| 0.013|
+|MalWartR:InstantaneousUtil:ValueAtStart:Hourly:06:[300_0,360_0]| 400| 0.452| 0.031|
+|StudentsAtRecruiters:IntervalAvg:PeakPeriod:[150_0,270_0]| 400| 9.985| 0.3|
+|StudentsAtRecruiters:ValueAtStart:PeakPeriod:[150_0,270_0]| 400| 7.843| 0.416|
+|JHBuntR:InstantaneousUtil:IntervalAvg:PeakPeriod:[150_0,270_0]| 400| 0.818| 0.009|
+|JHBuntR:InstantaneousUtil:ValueAtStart:PeakPeriod:[150_0,270_0]| 400| 0.867| 0.022|
+|MalWartR:InstantaneousUtil:IntervalAvg:PeakPeriod:[150_0,270_0]| 400| 0.476| 0.006|
+|MalWartR:InstantaneousUtil:ValueAtStart:PeakPeriod:[150_0,270_0]| 400| 0.481| 0.03|
+|Mixer Ending Time| 400| 363.422| 0.487|
+|Prob(EndTime>360_0)| 400| 0.505| 0.049|
+|JHBuntR:SeizeCount| 400| 168.56| 1.244|
+|MalWartR:SeizeCount| 400| 168.56| 1.244|
 
 Non-stationary arrival patterns are a fact of life in many systems that handle people.  The natural daily processes of waking up, working, etc. all contribute to processes that depend on time.  This section illustrated how to model non-stationary arrival processes and illustrated some of the concepts necessary when developing staffing plans for such systems.  Incorporating these modeling issues into your simulation models allows for more realistic analysis; however, this also necessitates much more complex statistical analysis of the input distributions and requires careful capture of meaningful statistics.  Capturing statistics by time periods is especially important because the statistical results that do not account for the time varying nature of the performance measures may mask what may be actually happening within the model.  The overall average across the entire simulation time horizon may be significantly different than what occurs during individual periods of time that correspond to non-stationary situations.  A good design must reflect these variations due to time.  
 
@@ -2456,25 +2527,29 @@ The results from simulating the clinic for 30 days of operation are as follows.
 
 |Name| Count| Average| Half-Width|
 |:---:| :---:| :---:| :---:|
-|DoctorQ:NumInQ| 30| 0.999| 0.349|
-|DoctorQ:TimeInQ| 30| 5.37| 1.863|
-|Doctors:InstantaneousUtil| 30| 0.769| 0.03|
-|Doctors:NumBusyUnits| 30| 3.847| 0.148|
-|Doctors:ScheduledUtil| 30| 0.769| 0.03|
+|DoctorQ:NumInQ| 30| 0.93| 0.232|
+|DoctorQ:TimeInQ| 30| 4.79| 1.078|
+|Doctors:InstantaneousUtil| 30| 0.779| 0.026|
+|Doctors:NumBusyUnits| 30| 3.897| 0.129|
+|Doctors:ScheduledUtil| 30| 0.779| 0.026|
+|Doctors:WIP| 30| 4.828| 0.339|
 |TriageNurse:InstantaneousUtil| 30| 0.421| 0.016|
 |TriageNurse:NumBusyUnits| 30| 0.421| 0.016|
 |TriageNurse:ScheduledUtil| 30| 0.421| 0.016|
+|TriageNurse:WIP| 30| 0.575| 0.037|
 |TriageNurse:Q:NumInQ| 30| 0.154| 0.022|
-|TriageNurse:Q:TimeInQ| 30| 0.888| 0.106|
-|Walk-In Clinic:TimeInSystem| 30| 33.334| 2.38|
-|Walk-In Clinic:TimeInSystemHigh| 30| 43.738| 0.902|
-|Walk-In Clinic:TimeInSystemMedium| 30| 32.619| 3.07|
-|Walk-In Clinic:TimeInSystemLow| 30| 16.819| 0.622|
-|Walk-In Clinic:ProbBalking| 30| 0.001| 0.003|
-|Walk-In Clinic:ProbReneging| 30| 0.281| 0.084|
-|Walk-In Clinic:NumServed| 30| 91.133| 2.227|
-|Walk-In Clinic:NumBalked| 30| 0.033| 0.068|
-|Walk-In Clinic:NumReneged| 30| 4.4| 1.453|
+|TriageNurse:Q:TimeInQ| 30| 0.889| 0.107|
+|Walk-In Clinic:TimeInSystem| 30| 33.165| 1.445|
+|Walk-In Clinic:TimeInSystemHigh| 30| 43.77| 0.851|
+|Walk-In Clinic:TimeInSystemMedium| 30| 31.47| 1.626|
+|Walk-In Clinic:TimeInSystemLow| 30| 17.188| 0.653|
+|Walk-In Clinic:ProbBalking| 30| 0| 0|
+|Walk-In Clinic:ProbReneging| 30| 0.293| 0.075|
+|Doctors:SeizeCount| 30| 94.733| 2.442|
+|TriageNurse:SeizeCount| 30| 101.233| 3.791|
+|Walk-In Clinic:NumServed| 30| 90.633| 2.273|
+|Walk-In Clinic:NumBalked| 30| 0| 0|
+|Walk-In Clinic:NumReneged| 30| 4.367| 1.325|
 
 Notice that a fairly high (28\%) of the low priority patients renege before seeing the doctor.  This may
 or may not be acceptable in light of the other performance measures for
@@ -2950,8 +3025,8 @@ fun main() {
     val reorderPoint = 1
     val reorderQty = 2
     val rqModel = RQInventorySystem(m, reorderPoint, reorderQty, "RQ Inventory Model")
-    rqModel.setInitialOnHand(0)
-    rqModel.timeBetweenDemandRV.initialRandomSource = ExponentialRV(1.0 / 3.6)
+    rqModel.initialOnHand = 0
+    rqModel.timeBetweenDemand.initialRandomSource = ExponentialRV(1.0 / 3.6)
     rqModel.leadTime.initialRandomSource = ConstantRV(0.5)
 
     m.lengthOfReplication = 110000.0
@@ -2960,7 +3035,8 @@ fun main() {
     m.simulate()
     m.print()
     val r = m.simulationReporter
-    r.writeHalfWidthSummaryReportAsMarkDown(KSL.out, df = MarkDown.D3FORMAT)
+    val out = m.outputDirectory.createPrintWriter("R-Q Inventory Results.md")
+    r.writeHalfWidthSummaryReportAsMarkDown(out, df = MarkDown.D3FORMAT)
 }
 ```
 
@@ -2970,13 +3046,19 @@ The results for this simulation match the theoretical expected analytical result
 
 |Name| Count| Average| Half-Width|
 |:---:| :---:| :---:| :---:|
-|Item:AmountBackOrdered| 40| 0.294| 0|
-|Item:OnOrder| 40| 1.8| 0.001|
-|Item:OnHand| 40| 0.993| 0.001|
-|Item:PTimeWithStockOnHand| 40| 0.536| 0|
-|Item:BackOrderQ:NumInQ| 40| 0.294| 0|
-|Item:BackOrderQ:TimeInQ| 40| 0.202| 0|
-|Item:FillRate| 40| 0.597| 0|
+|RQ Inventory Model:Item:OnHand| 40| 1.804| 0.001|
+|RQ Inventory Model:Item:PTimeWithStockOnHand| 40| 0.72| 0|
+|RQ Inventory Model:Item:AmountBackOrdered| 40| 0.104| 0|
+|RQ Inventory Model:Item:OnOrder| 40| 1.801| 0.001|
+|RQ Inventory Model:Item:BackOrderQ:NumInQ| 40| 0.104| 0|
+|RQ Inventory Model:Item:BackOrderQ:TimeInQ| 40| 0.153| 0|
+|RQ Inventory Model:Item:FillRate| 40| 0.811| 0|
+|RQ Inventory Model:Item:OrderingFrequency| 40| 1.801| 0.001|
+|RQ Inventory Model:Item:TotalCost| 40| 3.709| 0.001|
+|RQ Inventory Model:Item:OrderingCost| 40| 1.801| 0.001|
+|RQ Inventory Model:Item:HoldingCost| 40| 1.804| 0.001|
+|RQ Inventory Model:Item:BackorderCost| 40| 0.104| 0|
+|RQ Inventory Model:Item:NumReplenishmentOrders| 40| 180060.8| 100.105|
 
 This example should give you a solid basis for developing more
 sophisticated inventory models. While analytical results are available

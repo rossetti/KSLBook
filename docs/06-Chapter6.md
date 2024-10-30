@@ -1395,22 +1395,28 @@ The results of this simulation indicate that the JHBunt recruiters have the high
 ```
 Half-Width Statistical Summary Report - Confidence Level (95.000)% 
 
-Name                                     	        Count 	      Average 	   Half-Width 
------------------------------------------------------------------------------------------ 
-JHBuntR:BusyUnits                        	          400 	       2.5219 	       0.0196 
-JHBuntR:Util                             	          400 	       0.8406 	       0.0065 
-JHBuntR:Q:NumInQ                         	          400 	       4.9292 	       0.3765 
-JHBuntR:Q:TimeInQ                        	          400 	      10.5192 	       0.7647 
-MalWartR:BusyUnits                       	          400 	       1.3565 	       0.0138 
-MalWartR:Util                            	          400 	       0.6783 	       0.0069 
-MalWartR:Q:NumInQ                        	          400 	       1.3083 	       0.1109 
-MalWartR:Q:TimeInQ                       	          400 	       2.7696 	       0.2162 
-OverallSystemTime                        	          400 	      34.0890 	       0.8409 
-NonWanderSystemTime                      	          400 	      22.1052 	       0.8451 
-WanderSystemTime                         	          400 	      47.1148 	       0.8315 
-LeaverSystemTime                         	          400 	      27.0520 	       0.2334 
-NumInSystem                              	          400 	      16.7704 	       0.4829 
------------------------------------------------------------------------------------------
+Name                                 Count 	      Average 	   Half-Width 
+------------------------------------------------------------------------------ 
+OverallSystemTime                     400 	      34.3985 	    0.8019 
+NonWanderSystemTime                   400 	      22.3367 	    0.8123 
+WanderSystemTime                      400 	      47.1614 	    0.7897 
+LeaverSystemTime                      400 	      27.0096 	    0.2321 
+NumInSystem                           400 	      16.9105 	    0.4610 
+JHBuntR:InstantaneousUtil             400 	       0.8411 	    0.0065 
+JHBuntR:NumBusyUnits                  400 	       2.5232 	    0.0195 
+JHBuntR:ScheduledUtil                 400 	       0.8411 	    0.0065 
+JHBuntR:WIP                           400 	       7.5014 	    0.3772 
+JHBuntR:Q:NumInQ                      400 	       4.9783 	    0.3648 
+JHBuntR:Q:TimeInQ                     400 	      10.6658 	    0.7411 
+MalWartR:InstantaneousUtil            400 	       0.6766 	    0.0071 
+MalWartR:NumBusyUnits                 400 	       1.3531 	    0.0142 
+MalWartR:ScheduledUtil                400 	       0.6766 	    0.0071 
+MalWartR:WIP                          400 	       2.6757 	    0.1209 
+MalWartR:Q:NumInQ                     400 	       1.3226 	    0.1105 
+MalWartR:Q:TimeInQ                    400 	       2.7871 	    0.2147 
+JHBuntR:SeizeCount                    400 	     154.4125 	    1.0191 
+MalWartR:SeizeCount                   400 	     164.1375 	    1.2031 
+------------------------------------------------------------------------------
 ```
 
 The results produced by the KSL are within statistical variation of the same system modeled with a commercial simulation language discussed in this [book.](https://rossetti.github.io/RossettiArenaBook/modeling-a-stem-career-mixer.html)
@@ -1655,23 +1661,31 @@ The results of running the Tie-Dye T-Shirt model indicate that there is substant
 ```
 Half-Width Statistical Summary Report - Confidence Level (95.000)% 
 
-Name                                     	        Count 	      Average 	   Half-Width 
-------------------------------------------------------------------------------------------
-ShirtMakers_R:BusyUnits                  	           30 	       1.0997 	       0.1407 
-ShirtMakers_R:Util                       	           30 	       0.5499 	       0.0703 
-ShirtMakers_R:Q:NumInQ                   	           30 	       1.6911 	       0.6280 
-ShirtMakers_R:Q:TimeInQ                  	           30 	      23.3987 	       5.8618 
-Packager_R:BusyUnits                     	           30 	       0.2968 	       0.0376 
-Packager_R:Util                          	           30 	       0.2968 	       0.0376 
-Packager_R:Q:NumInQ                      	           30 	       0.0424 	       0.0248 
-Packager_R:Q:TimeInQ                     	           30 	       1.0717 	       0.5204 
-System Time                              	           30 	      66.9589 	       6.3726 
-Num in System                            	           30 	       1.1446 	       0.2502 
-Completed Shirt Q:RequestQ:NumInQ        	           30 	       0.8054 	       0.1983 
-Completed Shirt Q:RequestQ:TimeInQ       	           30 	      46.1496 	       5.8560 
-Completed Shirt Q:ChannelQ:NumInQ        	           30 	       0.8047 	       0.1134 
-Completed Shirt Q:ChannelQ:TimeInQ       	           30 	      14.8315 	       0.8088 
-------------------------------------------------------------------------------------------
+Name                                          Count 	      Average 	   Half-Width 
+------------------------------------------------------------------------------------- 
+System Time                                    30 	      75.4521 	       7.2003 
+Num in System                                  30 	       1.2393 	       0.2535 
+ShirtMakers_R:InstantaneousUtil                30 	       0.5050 	       0.0712 
+ShirtMakers_R:NumBusyUnits                     30 	       1.0100 	       0.1425 
+ShirtMakers_R:ScheduledUtil                    30 	       0.5050 	       0.0712 
+ShirtMakers_R:WIP                              30 	       2.4023 	       0.5867 
+ShirtMakers_R:Q:NumInQ                         30 	       1.3924 	       0.4646 
+ShirtMakers_R:Q:TimeInQ                        30 	      21.4801 	       5.0255 
+OrderQ:NumInQ                                  30 	       0.1870 	       0.0880 
+OrderQ:TimeInQ                                 30 	       8.9210 	       5.6039 
+Packager_R:InstantaneousUtil                   30 	       0.2737 	       0.0406 
+Packager_R:NumBusyUnits                        30 	       0.2737 	       0.0406 
+Packager_R:ScheduledUtil                       30 	       0.2737 	       0.0406 
+Packager_R:WIP                                 30 	       0.3958 	       0.0919 
+Packager_R:Q:NumInQ                            30 	       0.1221 	       0.0600 
+Packager_R:Q:TimeInQ                           30 	       6.8163 	       2.9580 
+Completed Shirt Q:RequestQ:NumInQ              30 	       0.6565 	       0.1435 
+Completed Shirt Q:RequestQ:TimeInQ             30 	      41.6290 	       5.1649 
+Completed Shirt Q:ChannelQ:NumInQ              30 	       1.0645 	       0.2204 
+Completed Shirt Q:ChannelQ:TimeInQ             30 	      20.5181 	       4.8296 
+ShirtMakers_R:SeizeCount                       30 	      24.6667 	       3.4923 
+Packager_R:SeizeCount                          30 	      14.0333 	       2.0767 
+------------------------------------------------------------------------------------
 ```
 
 ## Summary

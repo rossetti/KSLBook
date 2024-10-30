@@ -23,7 +23,7 @@
 <meta name="author" content="Manuel D. Rossetti" />
 
 
-<meta name="date" content="2024-10-11" />
+<meta name="date" content="2024-10-30" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -644,50 +644,62 @@ the patient, setting an alarm clock (the event scheduled by the entity) for when
 <tr class="odd">
 <td align="center">DoctorQ:NumInQ</td>
 <td align="center">30</td>
-<td align="center">0.999</td>
-<td align="center">0.349</td>
+<td align="center">0.93</td>
+<td align="center">0.232</td>
 </tr>
 <tr class="even">
 <td align="center">DoctorQ:TimeInQ</td>
 <td align="center">30</td>
-<td align="center">5.37</td>
-<td align="center">1.863</td>
+<td align="center">4.79</td>
+<td align="center">1.078</td>
 </tr>
 <tr class="odd">
 <td align="center">Doctors:InstantaneousUtil</td>
 <td align="center">30</td>
-<td align="center">0.769</td>
-<td align="center">0.03</td>
+<td align="center">0.779</td>
+<td align="center">0.026</td>
 </tr>
 <tr class="even">
 <td align="center">Doctors:NumBusyUnits</td>
 <td align="center">30</td>
-<td align="center">3.847</td>
-<td align="center">0.148</td>
+<td align="center">3.897</td>
+<td align="center">0.129</td>
 </tr>
 <tr class="odd">
 <td align="center">Doctors:ScheduledUtil</td>
 <td align="center">30</td>
-<td align="center">0.769</td>
-<td align="center">0.03</td>
+<td align="center">0.779</td>
+<td align="center">0.026</td>
 </tr>
 <tr class="even">
+<td align="center">Doctors:WIP</td>
+<td align="center">30</td>
+<td align="center">4.828</td>
+<td align="center">0.339</td>
+</tr>
+<tr class="odd">
 <td align="center">TriageNurse:InstantaneousUtil</td>
 <td align="center">30</td>
 <td align="center">0.421</td>
 <td align="center">0.016</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td align="center">TriageNurse:NumBusyUnits</td>
 <td align="center">30</td>
 <td align="center">0.421</td>
 <td align="center">0.016</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td align="center">TriageNurse:ScheduledUtil</td>
 <td align="center">30</td>
 <td align="center">0.421</td>
 <td align="center">0.016</td>
+</tr>
+<tr class="even">
+<td align="center">TriageNurse:WIP</td>
+<td align="center">30</td>
+<td align="center">0.575</td>
+<td align="center">0.037</td>
 </tr>
 <tr class="odd">
 <td align="center">TriageNurse:Q:NumInQ</td>
@@ -698,62 +710,74 @@ the patient, setting an alarm clock (the event scheduled by the entity) for when
 <tr class="even">
 <td align="center">TriageNurse:Q:TimeInQ</td>
 <td align="center">30</td>
-<td align="center">0.888</td>
-<td align="center">0.106</td>
+<td align="center">0.889</td>
+<td align="center">0.107</td>
 </tr>
 <tr class="odd">
 <td align="center">Walk-In Clinic:TimeInSystem</td>
 <td align="center">30</td>
-<td align="center">33.334</td>
-<td align="center">2.38</td>
+<td align="center">33.165</td>
+<td align="center">1.445</td>
 </tr>
 <tr class="even">
 <td align="center">Walk-In Clinic:TimeInSystemHigh</td>
 <td align="center">30</td>
-<td align="center">43.738</td>
-<td align="center">0.902</td>
+<td align="center">43.77</td>
+<td align="center">0.851</td>
 </tr>
 <tr class="odd">
 <td align="center">Walk-In Clinic:TimeInSystemMedium</td>
 <td align="center">30</td>
-<td align="center">32.619</td>
-<td align="center">3.07</td>
+<td align="center">31.47</td>
+<td align="center">1.626</td>
 </tr>
 <tr class="even">
 <td align="center">Walk-In Clinic:TimeInSystemLow</td>
 <td align="center">30</td>
-<td align="center">16.819</td>
-<td align="center">0.622</td>
+<td align="center">17.188</td>
+<td align="center">0.653</td>
 </tr>
 <tr class="odd">
 <td align="center">Walk-In Clinic:ProbBalking</td>
 <td align="center">30</td>
-<td align="center">0.001</td>
-<td align="center">0.003</td>
+<td align="center">0</td>
+<td align="center">0</td>
 </tr>
 <tr class="even">
 <td align="center">Walk-In Clinic:ProbReneging</td>
 <td align="center">30</td>
-<td align="center">0.281</td>
-<td align="center">0.084</td>
+<td align="center">0.293</td>
+<td align="center">0.075</td>
+</tr>
+<tr class="odd">
+<td align="center">Doctors:SeizeCount</td>
+<td align="center">30</td>
+<td align="center">94.733</td>
+<td align="center">2.442</td>
+</tr>
+<tr class="even">
+<td align="center">TriageNurse:SeizeCount</td>
+<td align="center">30</td>
+<td align="center">101.233</td>
+<td align="center">3.791</td>
 </tr>
 <tr class="odd">
 <td align="center">Walk-In Clinic:NumServed</td>
 <td align="center">30</td>
-<td align="center">91.133</td>
-<td align="center">2.227</td>
+<td align="center">90.633</td>
+<td align="center">2.273</td>
 </tr>
 <tr class="even">
 <td align="center">Walk-In Clinic:NumBalked</td>
 <td align="center">30</td>
-<td align="center">0.033</td>
-<td align="center">0.068</td>
+<td align="center">0</td>
+<td align="center">0</td>
 </tr>
 <tr class="odd">
 <td align="center">Walk-In Clinic:NumReneged</td>
 <td align="center">30</td>
-<td align="center">4.4</td>
-<td align="center">1.453</td>
+<td align="center">4.367</td>
+<td align="center">1.325</td>
 </tr>
 </tbody>
 </table>
@@ -1161,8 +1185,8 @@ immediately filled.</p></li>
 <span id="cb293-3"><a href="examples-of-advanced-event-models.html#cb293-3" tabindex="-1"></a>    <span class="kw">val</span> <span class="va">reorderPoint</span> <span class="op">=</span> <span class="dv">1</span></span>
 <span id="cb293-4"><a href="examples-of-advanced-event-models.html#cb293-4" tabindex="-1"></a>    <span class="kw">val</span> <span class="va">reorderQty</span> <span class="op">=</span> <span class="dv">2</span></span>
 <span id="cb293-5"><a href="examples-of-advanced-event-models.html#cb293-5" tabindex="-1"></a>    <span class="kw">val</span> <span class="va">rqModel</span> <span class="op">=</span> RQInventorySystem<span class="op">(</span>m<span class="op">,</span> reorderPoint<span class="op">,</span> reorderQty<span class="op">,</span> <span class="st">&quot;RQ Inventory Model&quot;</span><span class="op">)</span></span>
-<span id="cb293-6"><a href="examples-of-advanced-event-models.html#cb293-6" tabindex="-1"></a>    rqModel<span class="op">.</span>setInitialOnHand<span class="op">(</span><span class="dv">0</span><span class="op">)</span></span>
-<span id="cb293-7"><a href="examples-of-advanced-event-models.html#cb293-7" tabindex="-1"></a>    rqModel<span class="op">.</span>timeBetweenDemandRV<span class="op">.</span>initialRandomSource <span class="op">=</span> ExponentialRV<span class="op">(</span><span class="fl">1.0</span> <span class="op">/</span> <span class="fl">3.6</span><span class="op">)</span></span>
+<span id="cb293-6"><a href="examples-of-advanced-event-models.html#cb293-6" tabindex="-1"></a>    rqModel<span class="op">.</span>initialOnHand <span class="op">=</span> <span class="dv">0</span></span>
+<span id="cb293-7"><a href="examples-of-advanced-event-models.html#cb293-7" tabindex="-1"></a>    rqModel<span class="op">.</span>timeBetweenDemand<span class="op">.</span>initialRandomSource <span class="op">=</span> ExponentialRV<span class="op">(</span><span class="fl">1.0</span> <span class="op">/</span> <span class="fl">3.6</span><span class="op">)</span></span>
 <span id="cb293-8"><a href="examples-of-advanced-event-models.html#cb293-8" tabindex="-1"></a>    rqModel<span class="op">.</span>leadTime<span class="op">.</span>initialRandomSource <span class="op">=</span> ConstantRV<span class="op">(</span><span class="fl">0.5</span><span class="op">)</span></span>
 <span id="cb293-9"><a href="examples-of-advanced-event-models.html#cb293-9" tabindex="-1"></a></span>
 <span id="cb293-10"><a href="examples-of-advanced-event-models.html#cb293-10" tabindex="-1"></a>    m<span class="op">.</span>lengthOfReplication <span class="op">=</span> <span class="fl">110000.0</span></span>
@@ -1171,8 +1195,9 @@ immediately filled.</p></li>
 <span id="cb293-13"><a href="examples-of-advanced-event-models.html#cb293-13" tabindex="-1"></a>    m<span class="op">.</span>simulate<span class="op">()</span></span>
 <span id="cb293-14"><a href="examples-of-advanced-event-models.html#cb293-14" tabindex="-1"></a>    m<span class="op">.</span>print<span class="op">()</span></span>
 <span id="cb293-15"><a href="examples-of-advanced-event-models.html#cb293-15" tabindex="-1"></a>    <span class="kw">val</span> <span class="va">r</span> <span class="op">=</span> m<span class="op">.</span>simulationReporter</span>
-<span id="cb293-16"><a href="examples-of-advanced-event-models.html#cb293-16" tabindex="-1"></a>    r<span class="op">.</span>writeHalfWidthSummaryReportAsMarkDown<span class="op">(</span>KSL<span class="op">.</span><span class="kw">out</span><span class="op">,</span> df <span class="op">=</span> MarkDown<span class="op">.</span>D3FORMAT<span class="op">)</span></span>
-<span id="cb293-17"><a href="examples-of-advanced-event-models.html#cb293-17" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
+<span id="cb293-16"><a href="examples-of-advanced-event-models.html#cb293-16" tabindex="-1"></a>    <span class="kw">val</span> <span class="va">out</span> <span class="op">=</span> m<span class="op">.</span>outputDirectory<span class="op">.</span>createPrintWriter<span class="op">(</span><span class="st">&quot;R-Q Inventory Results.md&quot;</span><span class="op">)</span></span>
+<span id="cb293-17"><a href="examples-of-advanced-event-models.html#cb293-17" tabindex="-1"></a>    r<span class="op">.</span>writeHalfWidthSummaryReportAsMarkDown<span class="op">(</span><span class="kw">out</span><span class="op">,</span> df <span class="op">=</span> MarkDown<span class="op">.</span>D3FORMAT<span class="op">)</span></span>
+<span id="cb293-18"><a href="examples-of-advanced-event-models.html#cb293-18" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
 <p>The results for this simulation match the theoretical expected analytical results for this situation.</p>
 <p><strong>Inventory Model Statistical Summary Report</strong></p>
 <table>
@@ -1186,46 +1211,82 @@ immediately filled.</p></li>
 </thead>
 <tbody>
 <tr class="odd">
-<td align="center">Item:AmountBackOrdered</td>
+<td align="center">RQ Inventory Model:Item:OnHand</td>
 <td align="center">40</td>
-<td align="center">0.294</td>
-<td align="center">0</td>
-</tr>
-<tr class="even">
-<td align="center">Item:OnOrder</td>
-<td align="center">40</td>
-<td align="center">1.8</td>
-<td align="center">0.001</td>
-</tr>
-<tr class="odd">
-<td align="center">Item:OnHand</td>
-<td align="center">40</td>
-<td align="center">0.993</td>
+<td align="center">1.804</td>
 <td align="center">0.001</td>
 </tr>
 <tr class="even">
-<td align="center">Item:PTimeWithStockOnHand</td>
+<td align="center">RQ Inventory Model:Item:PTimeWithStockOnHand</td>
 <td align="center">40</td>
-<td align="center">0.536</td>
+<td align="center">0.72</td>
 <td align="center">0</td>
 </tr>
 <tr class="odd">
-<td align="center">Item:BackOrderQ:NumInQ</td>
+<td align="center">RQ Inventory Model:Item:AmountBackOrdered</td>
 <td align="center">40</td>
-<td align="center">0.294</td>
+<td align="center">0.104</td>
 <td align="center">0</td>
 </tr>
 <tr class="even">
-<td align="center">Item:BackOrderQ:TimeInQ</td>
+<td align="center">RQ Inventory Model:Item:OnOrder</td>
 <td align="center">40</td>
-<td align="center">0.202</td>
+<td align="center">1.801</td>
+<td align="center">0.001</td>
+</tr>
+<tr class="odd">
+<td align="center">RQ Inventory Model:Item:BackOrderQ:NumInQ</td>
+<td align="center">40</td>
+<td align="center">0.104</td>
+<td align="center">0</td>
+</tr>
+<tr class="even">
+<td align="center">RQ Inventory Model:Item:BackOrderQ:TimeInQ</td>
+<td align="center">40</td>
+<td align="center">0.153</td>
 <td align="center">0</td>
 </tr>
 <tr class="odd">
-<td align="center">Item:FillRate</td>
+<td align="center">RQ Inventory Model:Item:FillRate</td>
 <td align="center">40</td>
-<td align="center">0.597</td>
+<td align="center">0.811</td>
 <td align="center">0</td>
+</tr>
+<tr class="even">
+<td align="center">RQ Inventory Model:Item:OrderingFrequency</td>
+<td align="center">40</td>
+<td align="center">1.801</td>
+<td align="center">0.001</td>
+</tr>
+<tr class="odd">
+<td align="center">RQ Inventory Model:Item:TotalCost</td>
+<td align="center">40</td>
+<td align="center">3.709</td>
+<td align="center">0.001</td>
+</tr>
+<tr class="even">
+<td align="center">RQ Inventory Model:Item:OrderingCost</td>
+<td align="center">40</td>
+<td align="center">1.801</td>
+<td align="center">0.001</td>
+</tr>
+<tr class="odd">
+<td align="center">RQ Inventory Model:Item:HoldingCost</td>
+<td align="center">40</td>
+<td align="center">1.804</td>
+<td align="center">0.001</td>
+</tr>
+<tr class="even">
+<td align="center">RQ Inventory Model:Item:BackorderCost</td>
+<td align="center">40</td>
+<td align="center">0.104</td>
+<td align="center">0</td>
+</tr>
+<tr class="odd">
+<td align="center">RQ Inventory Model:Item:NumReplenishmentOrders</td>
+<td align="center">40</td>
+<td align="center">180060.8</td>
+<td align="center">100.105</td>
 </tr>
 </tbody>
 </table>

@@ -23,7 +23,7 @@
 <meta name="author" content="Manuel D. Rossetti" />
 
 
-<meta name="date" content="2024-10-11" />
+<meta name="date" content="2024-10-30" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -592,34 +592,46 @@ Figure 7.1: Tandem Queue
 <td align="center">0.002</td>
 </tr>
 <tr class="even">
+<td align="center">worker1:WIP</td>
+<td align="center">30</td>
+<td align="center">0.54</td>
+<td align="center">0.007</td>
+</tr>
+<tr class="odd">
 <td align="center">worker1:Q:NumInQ</td>
 <td align="center">30</td>
 <td align="center">0.189</td>
 <td align="center">0.005</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td align="center">worker1:Q:TimeInQ</td>
 <td align="center">30</td>
 <td align="center">0.379</td>
 <td align="center">0.008</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td align="center">worker2:InstantaneousUtil</td>
 <td align="center">30</td>
 <td align="center">0.45</td>
 <td align="center">0.003</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td align="center">worker2:NumBusyUnits</td>
 <td align="center">30</td>
 <td align="center">0.45</td>
 <td align="center">0.003</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td align="center">worker2:ScheduledUtil</td>
 <td align="center">30</td>
 <td align="center">0.45</td>
 <td align="center">0.003</td>
+</tr>
+<tr class="even">
+<td align="center">worker2:WIP</td>
+<td align="center">30</td>
+<td align="center">0.82</td>
+<td align="center">0.01</td>
 </tr>
 <tr class="odd">
 <td align="center">worker2:Q:NumInQ</td>
@@ -644,6 +656,18 @@ Figure 7.1: Tandem Queue
 <td align="center">30</td>
 <td align="center">2.723</td>
 <td align="center">0.02</td>
+</tr>
+<tr class="odd">
+<td align="center">worker1:SeizeCount</td>
+<td align="center">30</td>
+<td align="center">7492.333</td>
+<td align="center">32.526</td>
+</tr>
+<tr class="even">
+<td align="center">worker2:SeizeCount</td>
+<td align="center">30</td>
+<td align="center">7492.533</td>
+<td align="center">32.356</td>
 </tr>
 </tbody>
 </table>
@@ -721,34 +745,46 @@ Figure 7.3: Activity Diagram Tandem Queue with Blocking
 <td align="center">0.003</td>
 </tr>
 <tr class="even">
+<td align="center">buffer:WIP</td>
+<td align="center">30</td>
+<td align="center">0.267</td>
+<td align="center">0.004</td>
+</tr>
+<tr class="odd">
 <td align="center">buffer:Q:NumInQ</td>
 <td align="center">30</td>
 <td align="center">0.071</td>
 <td align="center">0.002</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td align="center">buffer:Q:TimeInQ</td>
 <td align="center">30</td>
 <td align="center">0.143</td>
 <td align="center">0.003</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td align="center">worker1:InstantaneousUtil</td>
 <td align="center">30</td>
 <td align="center">0.422</td>
 <td align="center">0.003</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td align="center">worker1:NumBusyUnits</td>
 <td align="center">30</td>
 <td align="center">0.422</td>
 <td align="center">0.003</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td align="center">worker1:ScheduledUtil</td>
 <td align="center">30</td>
 <td align="center">0.422</td>
 <td align="center">0.003</td>
+</tr>
+<tr class="even">
+<td align="center">worker1:WIP</td>
+<td align="center">30</td>
+<td align="center">0.761</td>
+<td align="center">0.012</td>
 </tr>
 <tr class="odd">
 <td align="center">worker1:Q:NumInQ</td>
@@ -781,28 +817,52 @@ Figure 7.3: Activity Diagram Tandem Queue with Blocking
 <td align="center">0.003</td>
 </tr>
 <tr class="even">
+<td align="center">worker2:WIP</td>
+<td align="center">30</td>
+<td align="center">0.646</td>
+<td align="center">0.005</td>
+</tr>
+<tr class="odd">
 <td align="center">worker2:Q:NumInQ</td>
 <td align="center">30</td>
 <td align="center">0.196</td>
 <td align="center">0.003</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td align="center">worker2:Q:TimeInQ</td>
 <td align="center">30</td>
 <td align="center">0.392</td>
 <td align="center">0.004</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td align="center">TandemQModelWithBlocking:NumInSystem</td>
 <td align="center">30</td>
 <td align="center">1.406</td>
 <td align="center">0.016</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td align="center">TandemQModelWithBlocking:TimeInSystem</td>
 <td align="center">30</td>
 <td align="center">2.815</td>
 <td align="center">0.023</td>
+</tr>
+<tr class="odd">
+<td align="center">buffer:SeizeCount</td>
+<td align="center">30</td>
+<td align="center">7492.467</td>
+<td align="center">32.384</td>
+</tr>
+<tr class="even">
+<td align="center">worker1:SeizeCount</td>
+<td align="center">30</td>
+<td align="center">7492.333</td>
+<td align="center">32.406</td>
+</tr>
+<tr class="odd">
+<td align="center">worker2:SeizeCount</td>
+<td align="center">30</td>
+<td align="center">7492.5</td>
+<td align="center">32.367</td>
 </tr>
 </tbody>
 </table>
@@ -872,7 +932,7 @@ Figure 7.3: Activity Diagram Tandem Queue with Blocking
 <span id="cb250-18"><a href="modeling-with-processes-and-resources.html#cb250-18" tabindex="-1"></a>    <span class="kw">private</span> <span class="kw">val</span> <span class="va">generator</span> <span class="op">=</span> EventGenerator<span class="op">(</span><span class="kw">this</span><span class="op">,</span> <span class="kw">this</span><span class="op">::</span>arrivals<span class="op">,</span> tba<span class="op">,</span> tba<span class="op">)</span></span></code></pre></div>
 <p>The two pools are shared between two processes using straightforward <em>(seize-delay-release)</em> logic. Notice that the <code>addToSequence</code> parameter of the <code>process()</code> function is set to false. This is done because the <code>Customer</code> class has two processes defined and we do not need the second process (<code>usePool2</code>) to start immediately after the first process completes.</p>
 <div class="sourceCode" id="cb251"><pre class="sourceCode kt"><code class="sourceCode kotlin"><span id="cb251-1"><a href="modeling-with-processes-and-resources.html#cb251-1" tabindex="-1"></a>    <span class="kw">private</span> <span class="kw">inner</span> <span class="kw">class</span> Customer<span class="op">:</span> <span class="dt">Entity</span><span class="op">()</span> <span class="op">{</span></span>
-<span id="cb251-2"><a href="modeling-with-processes-and-resources.html#cb251-2" tabindex="-1"></a>        <span class="kw">val</span> <span class="va">usePool1</span><span class="op">:</span> KSLProcess <span class="op">=</span> process<span class="op">(</span>addToSequence <span class="op">=</span> <span class="kw">false</span><span class="op">)</span> <span class="op">{</span></span>
+<span id="cb251-2"><a href="modeling-with-processes-and-resources.html#cb251-2" tabindex="-1"></a>        <span class="kw">val</span> <span class="va">usePool1</span><span class="op">:</span> KSLProcess <span class="op">=</span> process<span class="op">(</span><span class="st">&quot;Pool 1 Process&quot;</span><span class="op">)</span> <span class="op">{</span></span>
 <span id="cb251-3"><a href="modeling-with-processes-and-resources.html#cb251-3" tabindex="-1"></a>            wip1<span class="op">.</span>increment<span class="op">()</span></span>
 <span id="cb251-4"><a href="modeling-with-processes-and-resources.html#cb251-4" tabindex="-1"></a>            timeStamp <span class="op">=</span> time</span>
 <span id="cb251-5"><a href="modeling-with-processes-and-resources.html#cb251-5" tabindex="-1"></a>            <span class="kw">val</span> <span class="va">a</span>  <span class="op">=</span> seize<span class="op">(</span>pool1<span class="op">,</span> <span class="dv">1</span><span class="op">)</span></span>
@@ -882,7 +942,7 @@ Figure 7.3: Activity Diagram Tandem Queue with Blocking
 <span id="cb251-9"><a href="modeling-with-processes-and-resources.html#cb251-9" tabindex="-1"></a>            wip1<span class="op">.</span>decrement<span class="op">()</span></span>
 <span id="cb251-10"><a href="modeling-with-processes-and-resources.html#cb251-10" tabindex="-1"></a>        <span class="op">}</span></span>
 <span id="cb251-11"><a href="modeling-with-processes-and-resources.html#cb251-11" tabindex="-1"></a></span>
-<span id="cb251-12"><a href="modeling-with-processes-and-resources.html#cb251-12" tabindex="-1"></a>        <span class="kw">val</span> <span class="va">usePool2</span><span class="op">:</span> KSLProcess <span class="op">=</span> process<span class="op">(</span>addToSequence <span class="op">=</span> <span class="kw">false</span><span class="op">)</span> <span class="op">{</span></span>
+<span id="cb251-12"><a href="modeling-with-processes-and-resources.html#cb251-12" tabindex="-1"></a>        <span class="kw">val</span> <span class="va">usePool2</span><span class="op">:</span> KSLProcess <span class="op">=</span> process<span class="op">(</span><span class="st">&quot;Pool 2 Process&quot;</span><span class="op">)</span> <span class="op">{</span></span>
 <span id="cb251-13"><a href="modeling-with-processes-and-resources.html#cb251-13" tabindex="-1"></a>            wip2<span class="op">.</span>increment<span class="op">()</span></span>
 <span id="cb251-14"><a href="modeling-with-processes-and-resources.html#cb251-14" tabindex="-1"></a>            timeStamp <span class="op">=</span> time</span>
 <span id="cb251-15"><a href="modeling-with-processes-and-resources.html#cb251-15" tabindex="-1"></a>            <span class="kw">val</span> <span class="va">a</span>  <span class="op">=</span> seize<span class="op">(</span>pool2<span class="op">,</span> <span class="dv">1</span><span class="op">)</span></span>
@@ -916,146 +976,170 @@ Figure 7.3: Activity Diagram Tandem Queue with Blocking
 <tr class="odd">
 <td align="center">John:InstantaneousUtil</td>
 <td align="center">30</td>
-<td align="center">0.82</td>
-<td align="center">0.002</td>
+<td align="center">0.663</td>
+<td align="center">0.003</td>
 </tr>
 <tr class="even">
 <td align="center">John:NumBusyUnits</td>
 <td align="center">30</td>
-<td align="center">0.82</td>
-<td align="center">0.002</td>
+<td align="center">0.663</td>
+<td align="center">0.003</td>
 </tr>
 <tr class="odd">
 <td align="center">John:ScheduledUtil</td>
 <td align="center">30</td>
-<td align="center">0.82</td>
-<td align="center">0.002</td>
+<td align="center">0.663</td>
+<td align="center">0.003</td>
 </tr>
 <tr class="even">
 <td align="center">Paul:InstantaneousUtil</td>
 <td align="center">30</td>
-<td align="center">0.747</td>
+<td align="center">0.663</td>
 <td align="center">0.003</td>
 </tr>
 <tr class="odd">
 <td align="center">Paul:NumBusyUnits</td>
 <td align="center">30</td>
-<td align="center">0.747</td>
+<td align="center">0.663</td>
 <td align="center">0.003</td>
 </tr>
 <tr class="even">
 <td align="center">Paul:ScheduledUtil</td>
 <td align="center">30</td>
-<td align="center">0.747</td>
+<td align="center">0.663</td>
 <td align="center">0.003</td>
 </tr>
 <tr class="odd">
 <td align="center">George:InstantaneousUtil</td>
 <td align="center">30</td>
-<td align="center">0.763</td>
+<td align="center">0.834</td>
 <td align="center">0.003</td>
 </tr>
 <tr class="even">
 <td align="center">George:NumBusyUnits</td>
 <td align="center">30</td>
-<td align="center">0.763</td>
+<td align="center">0.834</td>
 <td align="center">0.003</td>
 </tr>
 <tr class="odd">
 <td align="center">George:ScheduledUtil</td>
 <td align="center">30</td>
-<td align="center">0.763</td>
+<td align="center">0.834</td>
 <td align="center">0.003</td>
 </tr>
 <tr class="even">
 <td align="center">Ringo:InstantaneousUtil</td>
 <td align="center">30</td>
-<td align="center">0.662</td>
-<td align="center">0.004</td>
+<td align="center">0.833</td>
+<td align="center">0.003</td>
 </tr>
 <tr class="odd">
 <td align="center">Ringo:NumBusyUnits</td>
 <td align="center">30</td>
-<td align="center">0.662</td>
-<td align="center">0.004</td>
+<td align="center">0.833</td>
+<td align="center">0.003</td>
 </tr>
 <tr class="even">
 <td align="center">Ringo:ScheduledUtil</td>
 <td align="center">30</td>
-<td align="center">0.662</td>
-<td align="center">0.004</td>
+<td align="center">0.833</td>
+<td align="center">0.003</td>
 </tr>
 <tr class="odd">
 <td align="center">pool1:NumBusy</td>
 <td align="center">30</td>
-<td align="center">2.33</td>
-<td align="center">0.008</td>
+<td align="center">2.16</td>
+<td align="center">0.007</td>
 </tr>
 <tr class="even">
 <td align="center">pool1:FractionBusy</td>
 <td align="center">30</td>
-<td align="center">0.777</td>
-<td align="center">0.003</td>
+<td align="center">0.72</td>
+<td align="center">0.002</td>
 </tr>
 <tr class="odd">
 <td align="center">pool1:Q:NumInQ</td>
 <td align="center">30</td>
-<td align="center">1.597</td>
-<td align="center">0.05</td>
+<td align="center">0.851</td>
+<td align="center">0.023</td>
 </tr>
 <tr class="even">
 <td align="center">pool1:Q:TimeInQ</td>
 <td align="center">30</td>
-<td align="center">2.286</td>
-<td align="center">0.067</td>
+<td align="center">1.708</td>
+<td align="center">0.044</td>
 </tr>
 <tr class="odd">
 <td align="center">pool2:NumBusy</td>
 <td align="center">30</td>
-<td align="center">1.425</td>
+<td align="center">1.666</td>
 <td align="center">0.007</td>
 </tr>
 <tr class="even">
 <td align="center">pool2:FractionBusy</td>
 <td align="center">30</td>
-<td align="center">0.713</td>
+<td align="center">0.833</td>
 <td align="center">0.003</td>
 </tr>
 <tr class="odd">
 <td align="center">pool2:Q:NumInQ</td>
 <td align="center">30</td>
-<td align="center">0.935</td>
-<td align="center">0.036</td>
+<td align="center">2.631</td>
+<td align="center">0.101</td>
 </tr>
 <tr class="even">
 <td align="center">pool2:Q:TimeInQ</td>
 <td align="center">30</td>
-<td align="center">3.111</td>
-<td align="center">0.115</td>
+<td align="center">5.253</td>
+<td align="center">0.193</td>
 </tr>
 <tr class="odd">
 <td align="center">ResourcePoolExample_3:WIP1</td>
 <td align="center">30</td>
-<td align="center">3.684</td>
-<td align="center">0.056</td>
+<td align="center">2.34</td>
+<td align="center">0.028</td>
 </tr>
 <tr class="even">
 <td align="center">ResourcePoolExample_3:TimeInSystem1</td>
 <td align="center">30</td>
-<td align="center">5.276</td>
-<td align="center">0.07</td>
+<td align="center">4.698</td>
+<td align="center">0.05</td>
 </tr>
 <tr class="odd">
 <td align="center">ResourcePoolExample_3:WIP2</td>
 <td align="center">30</td>
-<td align="center">1.841</td>
-<td align="center">0.041</td>
+<td align="center">4.134</td>
+<td align="center">0.108</td>
 </tr>
 <tr class="even">
 <td align="center">ResourcePoolExample_3:TimeInSystem2</td>
 <td align="center">30</td>
-<td align="center">6.121</td>
-<td align="center">0.126</td>
+<td align="center">8.255</td>
+<td align="center">0.201</td>
+</tr>
+<tr class="odd">
+<td align="center">John:SeizeCount</td>
+<td align="center">30</td>
+<td align="center">3318.533</td>
+<td align="center">19.247</td>
+</tr>
+<tr class="even">
+<td align="center">Paul:SeizeCount</td>
+<td align="center">30</td>
+<td align="center">3335.833</td>
+<td align="center">24.126</td>
+</tr>
+<tr class="odd">
+<td align="center">George:SeizeCount</td>
+<td align="center">30</td>
+<td align="center">4174.967</td>
+<td align="center">24.294</td>
+</tr>
+<tr class="even">
+<td align="center">Ringo:SeizeCount</td>
+<td align="center">30</td>
+<td align="center">4151.9</td>
+<td align="center">23.655</td>
 </tr>
 </tbody>
 </table>
@@ -1339,170 +1423,230 @@ is built by simply providing the list of steps that must be visited. We will use
 <tr class="odd">
 <td align="center">Diagnostics:InstantaneousUtil</td>
 <td align="center">10</td>
-<td align="center">0.75</td>
-<td align="center">0.009</td>
+<td align="center">0.744</td>
+<td align="center">0.007</td>
 </tr>
 <tr class="even">
 <td align="center">Diagnostics:NumBusyUnits</td>
 <td align="center">10</td>
-<td align="center">1.5</td>
-<td align="center">0.018</td>
+<td align="center">1.489</td>
+<td align="center">0.013</td>
 </tr>
 <tr class="odd">
 <td align="center">Diagnostics:ScheduledUtil</td>
 <td align="center">10</td>
-<td align="center">0.75</td>
-<td align="center">0.009</td>
+<td align="center">0.744</td>
+<td align="center">0.007</td>
 </tr>
 <tr class="even">
+<td align="center">Diagnostics:WIP</td>
+<td align="center">10</td>
+<td align="center">3.332</td>
+<td align="center">0.123</td>
+</tr>
+<tr class="odd">
 <td align="center">Diagnostics:Q:NumInQ</td>
 <td align="center">10</td>
-<td align="center">2.017</td>
-<td align="center">0.19</td>
+<td align="center">1.844</td>
+<td align="center">0.11</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td align="center">Diagnostics:Q:TimeInQ</td>
 <td align="center">10</td>
-<td align="center">40.366</td>
-<td align="center">3.672</td>
-</tr>
-<tr class="even">
-<td align="center">Test1:InstantaneousUtil</td>
-<td align="center">10</td>
-<td align="center">0.78</td>
-<td align="center">0.004</td>
+<td align="center">36.964</td>
+<td align="center">2.043</td>
 </tr>
 <tr class="odd">
-<td align="center">Test1:NumBusyUnits</td>
+<td align="center">Test1:InstantaneousUtil</td>
 <td align="center">10</td>
-<td align="center">0.78</td>
-<td align="center">0.004</td>
+<td align="center">0.855</td>
+<td align="center">0.005</td>
 </tr>
 <tr class="even">
+<td align="center">Test1:NumBusyUnits</td>
+<td align="center">10</td>
+<td align="center">0.855</td>
+<td align="center">0.005</td>
+</tr>
+<tr class="odd">
 <td align="center">Test1:ScheduledUtil</td>
 <td align="center">10</td>
-<td align="center">0.78</td>
-<td align="center">0.004</td>
+<td align="center">0.855</td>
+<td align="center">0.005</td>
+</tr>
+<tr class="even">
+<td align="center">Test1:WIP</td>
+<td align="center">10</td>
+<td align="center">4.1</td>
+<td align="center">0.283</td>
 </tr>
 <tr class="odd">
 <td align="center">Test1:Q:NumInQ</td>
 <td align="center">10</td>
-<td align="center">1.454</td>
-<td align="center">0.099</td>
+<td align="center">3.245</td>
+<td align="center">0.279</td>
 </tr>
 <tr class="even">
 <td align="center">Test1:Q:TimeInQ</td>
 <td align="center">10</td>
-<td align="center">28.375</td>
-<td align="center">1.819</td>
+<td align="center">57.692</td>
+<td align="center">4.736</td>
 </tr>
 <tr class="odd">
 <td align="center">Test2:InstantaneousUtil</td>
 <td align="center">10</td>
-<td align="center">0.834</td>
-<td align="center">0.007</td>
+<td align="center">0.773</td>
+<td align="center">0.006</td>
 </tr>
 <tr class="even">
 <td align="center">Test2:NumBusyUnits</td>
 <td align="center">10</td>
-<td align="center">0.834</td>
-<td align="center">0.007</td>
+<td align="center">0.773</td>
+<td align="center">0.006</td>
 </tr>
 <tr class="odd">
 <td align="center">Test2:ScheduledUtil</td>
 <td align="center">10</td>
-<td align="center">0.834</td>
-<td align="center">0.007</td>
+<td align="center">0.773</td>
+<td align="center">0.006</td>
 </tr>
 <tr class="even">
+<td align="center">Test2:WIP</td>
+<td align="center">10</td>
+<td align="center">2.319</td>
+<td align="center">0.132</td>
+</tr>
+<tr class="odd">
 <td align="center">Test2:Q:NumInQ</td>
 <td align="center">10</td>
-<td align="center">2.253</td>
-<td align="center">0.181</td>
+<td align="center">1.546</td>
+<td align="center">0.126</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td align="center">Test2:Q:TimeInQ</td>
 <td align="center">10</td>
-<td align="center">56.326</td>
-<td align="center">4.057</td>
+<td align="center">41.279</td>
+<td align="center">3.062</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td align="center">Test3:InstantaneousUtil</td>
 <td align="center">10</td>
-<td align="center">0.901</td>
+<td align="center">0.858</td>
+<td align="center">0.006</td>
+</tr>
+<tr class="even">
+<td align="center">Test3:NumBusyUnits</td>
+<td align="center">10</td>
+<td align="center">0.858</td>
 <td align="center">0.006</td>
 </tr>
 <tr class="odd">
-<td align="center">Test3:NumBusyUnits</td>
+<td align="center">Test3:ScheduledUtil</td>
 <td align="center">10</td>
-<td align="center">0.901</td>
+<td align="center">0.858</td>
 <td align="center">0.006</td>
 </tr>
 <tr class="even">
-<td align="center">Test3:ScheduledUtil</td>
+<td align="center">Test3:WIP</td>
 <td align="center">10</td>
-<td align="center">0.901</td>
-<td align="center">0.006</td>
+<td align="center">3.417</td>
+<td align="center">0.273</td>
 </tr>
 <tr class="odd">
 <td align="center">Test3:Q:NumInQ</td>
 <td align="center">10</td>
-<td align="center">3.76</td>
-<td align="center">0.569</td>
+<td align="center">2.559</td>
+<td align="center">0.269</td>
 </tr>
 <tr class="even">
 <td align="center">Test3:Q:TimeInQ</td>
 <td align="center">10</td>
-<td align="center">75.238</td>
-<td align="center">11.03</td>
+<td align="center">51.318</td>
+<td align="center">5.176</td>
 </tr>
 <tr class="odd">
 <td align="center">Repair:InstantaneousUtil</td>
 <td align="center">10</td>
-<td align="center">0.877</td>
-<td align="center">0.005</td>
+<td align="center">0.864</td>
+<td align="center">0.006</td>
 </tr>
 <tr class="even">
 <td align="center">Repair:NumBusyUnits</td>
 <td align="center">10</td>
-<td align="center">2.632</td>
-<td align="center">0.014</td>
+<td align="center">2.591</td>
+<td align="center">0.017</td>
 </tr>
 <tr class="odd">
 <td align="center">Repair:ScheduledUtil</td>
 <td align="center">10</td>
-<td align="center">0.877</td>
-<td align="center">0.005</td>
+<td align="center">0.864</td>
+<td align="center">0.006</td>
 </tr>
 <tr class="even">
+<td align="center">Repair:WIP</td>
+<td align="center">10</td>
+<td align="center">3.824</td>
+<td align="center">0.135</td>
+</tr>
+<tr class="odd">
 <td align="center">Repair:Q:NumInQ</td>
 <td align="center">10</td>
-<td align="center">1.151</td>
-<td align="center">0.138</td>
+<td align="center">1.233</td>
+<td align="center">0.12</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td align="center">Repair:Q:TimeInQ</td>
 <td align="center">10</td>
-<td align="center">23.06</td>
-<td align="center">2.681</td>
-</tr>
-<tr class="even">
-<td align="center">TestAndRepair:NumInSystem</td>
-<td align="center">10</td>
-<td align="center">17.703</td>
-<td align="center">1.005</td>
+<td align="center">24.733</td>
+<td align="center">2.273</td>
 </tr>
 <tr class="odd">
-<td align="center">TestAndRepair:TimeInSystem</td>
+<td align="center">TestAndRepair:NumInSystem</td>
 <td align="center">10</td>
-<td align="center">354.6</td>
-<td align="center">18.447</td>
+<td align="center">17.572</td>
+<td align="center">0.803</td>
 </tr>
 <tr class="even">
+<td align="center">TestAndRepair:TimeInSystem</td>
+<td align="center">10</td>
+<td align="center">352.487</td>
+<td align="center">14.262</td>
+</tr>
+<tr class="odd">
 <td align="center">ProbWithinLimit</td>
 <td align="center">10</td>
-<td align="center">0.814</td>
-<td align="center">0.037</td>
+<td align="center">0.817</td>
+<td align="center">0.028</td>
+</tr>
+<tr class="even">
+<td align="center">Diagnostics:SeizeCount</td>
+<td align="center">10</td>
+<td align="center">12443.4</td>
+<td align="center">75.921</td>
+</tr>
+<tr class="odd">
+<td align="center">Test1:SeizeCount</td>
+<td align="center">10</td>
+<td align="center">14027</td>
+<td align="center">76.189</td>
+</tr>
+<tr class="even">
+<td align="center">Test2:SeizeCount</td>
+<td align="center">10</td>
+<td align="center">9337.3</td>
+<td align="center">77.976</td>
+</tr>
+<tr class="odd">
+<td align="center">Test3:SeizeCount</td>
+<td align="center">10</td>
+<td align="center">12436.4</td>
+<td align="center">76.419</td>
+</tr>
+<tr class="even">
+<td align="center">Repair:SeizeCount</td>
+<td align="center">10</td>
+<td align="center">12430.7</td>
+<td align="center">75.528</td>
 </tr>
 </tbody>
 </table>
