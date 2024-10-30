@@ -1943,7 +1943,7 @@ Let's first take a look at the process for those students that visit the convers
         val isMixer = myDecideToMix.value.toBoolean()
         val isLeaver = myDecideToLeave.value.toBoolean()
 
-        val mixingStudentProcess = process(addToSequence = false) {
+        val mixingStudentProcess = process {
             myNumInSystem.increment()
             delay(walkToNameTags)
             // at name tag station
@@ -2028,7 +2028,7 @@ The process description is lengthy but fairly self-explanatory. The key complica
 The `decideRecruiter()` function compares the recruiting stations based on the number waiting and in service. If they are the same, we randomly pick between them; otherwise, we pick the recruiter that has less activity. To show no preference to either recruiter, it is important to first check the equality case.  For example, if we were to select the recruiter with the least activity first, then whichever one we listed would be checked in the order of the if statement and thus a preference established. The process for the students that only visit the recruiting area is less complicated. 
 
 ```kt
-        val recruitingOnlyStudentProcess = process(addToSequence = false) {
+        val recruitingOnlyStudentProcess = process {
             myNumInSystem.increment()
             delay(walkToNameTags)
             // at name tag station
