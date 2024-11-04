@@ -23,7 +23,7 @@
 <meta name="author" content="Manuel D. Rossetti" />
 
 
-<meta name="date" content="2024-10-30" />
+<meta name="date" content="2024-11-04" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -303,7 +303,14 @@ div.csl-indent {
 <li class="chapter" data-level="6.1" data-path="ch6Entities.html"><a href="ch6Entities.html"><i class="fa fa-check"></i><b>6.1</b> What are Entities?</a></li>
 <li class="chapter" data-level="6.2" data-path="pvIntro.html"><a href="pvIntro.html"><i class="fa fa-check"></i><b>6.2</b> The Process View</a></li>
 <li class="chapter" data-level="6.3" data-path="understanding-ksl-processes-and-entities.html"><a href="understanding-ksl-processes-and-entities.html"><i class="fa fa-check"></i><b>6.3</b> Understanding KSL Processes and Entities</a></li>
-<li class="chapter" data-level="6.4" data-path="examples-of-process-modeling.html"><a href="examples-of-process-modeling.html"><i class="fa fa-check"></i><b>6.4</b> Examples of Process Modeling</a></li>
+<li class="chapter" data-level="6.4" data-path="examples-of-process-modeling.html"><a href="examples-of-process-modeling.html"><i class="fa fa-check"></i><b>6.4</b> Examples of Process Modeling</a>
+<ul>
+<li class="chapter" data-level="6.4.1" data-path="examples-of-process-modeling.html"><a href="examples-of-process-modeling.html#holding-entities-in-a-queue-holdqueue-class"><i class="fa fa-check"></i><b>6.4.1</b> Holding Entities in a Queue: <code>HoldQueue</code> Class</a></li>
+<li class="chapter" data-level="6.4.2" data-path="examples-of-process-modeling.html"><a href="examples-of-process-modeling.html#signaling-entities"><i class="fa fa-check"></i><b>6.4.2</b> Signaling Entities</a></li>
+<li class="chapter" data-level="6.4.3" data-path="examples-of-process-modeling.html"><a href="examples-of-process-modeling.html#understanding-blocking-queues"><i class="fa fa-check"></i><b>6.4.3</b> Understanding Blocking Queues</a></li>
+<li class="chapter" data-level="6.4.4" data-path="examples-of-process-modeling.html"><a href="examples-of-process-modeling.html#allowing-entities-to-wait-for-a-process"><i class="fa fa-check"></i><b>6.4.4</b> Allowing Entities to Wait for a Process</a></li>
+<li class="chapter" data-level="6.4.5" data-path="examples-of-process-modeling.html"><a href="examples-of-process-modeling.html#process-interaction"><i class="fa fa-check"></i><b>6.4.5</b> Process Interaction</a></li>
+</ul></li>
 <li class="chapter" data-level="6.5" data-path="modeling-a-stem-career-mixer.html"><a href="modeling-a-stem-career-mixer.html"><i class="fa fa-check"></i><b>6.5</b> Modeling a STEM Career Mixer</a>
 <ul>
 <li class="chapter" data-level="6.5.1" data-path="modeling-a-stem-career-mixer.html"><a href="modeling-a-stem-career-mixer.html#conceptualizing-the-system"><i class="fa fa-check"></i><b>6.5.1</b> Conceptualizing the System</a></li>
@@ -797,10 +804,10 @@ Computing the p-value for <span class="math inline">\(k-s-1=10-0-1=9\)</span> de
 would not reject the hypothesis that the observed data is <span class="math inline">\(U(0,1)\)</span>. This process can be readily implemented within a spreadsheet or performed using R. Assuming that the file, u01data.txt, contains the PRNs for this example, then the following R commands will
 perform the test:<br />
 </p>
-<div class="sourceCode" id="cb425"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb425-1"><a href="appdistfittestU01.html#cb425-1" tabindex="-1"></a>data <span class="ot">=</span> <span class="fu">scan</span>(<span class="at">file=</span><span class="st">&quot;data/AppDistFitting/u01data.txt&quot;</span>) <span class="co"># read in the file</span></span>
-<span id="cb425-2"><a href="appdistfittestU01.html#cb425-2" tabindex="-1"></a>b <span class="ot">=</span> <span class="fu">seq</span>(<span class="dv">0</span>,<span class="dv">1</span>, <span class="at">by =</span> <span class="fl">0.1</span>) <span class="co"># set up the break points</span></span>
-<span id="cb425-3"><a href="appdistfittestU01.html#cb425-3" tabindex="-1"></a>h <span class="ot">=</span> <span class="fu">hist</span>(data, b, <span class="at">right =</span> <span class="cn">FALSE</span>, <span class="at">plot =</span> <span class="cn">FALSE</span>) <span class="co"># tabulate the counts</span></span>
-<span id="cb425-4"><a href="appdistfittestU01.html#cb425-4" tabindex="-1"></a><span class="fu">chisq.test</span>(h<span class="sc">$</span>counts) <span class="co"># perform the test</span></span></code></pre></div>
+<div class="sourceCode" id="cb429"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb429-1"><a href="appdistfittestU01.html#cb429-1" tabindex="-1"></a>data <span class="ot">=</span> <span class="fu">scan</span>(<span class="at">file=</span><span class="st">&quot;data/AppDistFitting/u01data.txt&quot;</span>) <span class="co"># read in the file</span></span>
+<span id="cb429-2"><a href="appdistfittestU01.html#cb429-2" tabindex="-1"></a>b <span class="ot">=</span> <span class="fu">seq</span>(<span class="dv">0</span>,<span class="dv">1</span>, <span class="at">by =</span> <span class="fl">0.1</span>) <span class="co"># set up the break points</span></span>
+<span id="cb429-3"><a href="appdistfittestU01.html#cb429-3" tabindex="-1"></a>h <span class="ot">=</span> <span class="fu">hist</span>(data, b, <span class="at">right =</span> <span class="cn">FALSE</span>, <span class="at">plot =</span> <span class="cn">FALSE</span>) <span class="co"># tabulate the counts</span></span>
+<span id="cb429-4"><a href="appdistfittestU01.html#cb429-4" tabindex="-1"></a><span class="fu">chisq.test</span>(h<span class="sc">$</span>counts) <span class="co"># perform the test</span></span></code></pre></div>
 <pre><code>## 
 ##  Chi-squared test for given probabilities
 ## 
@@ -1107,8 +1114,8 @@ statistical software <span class="math inline">\(R\)</span>. Assuming that the f
 contains the data for this example, then the following R commands will
 perform the test:<br />
 </p>
-<div class="sourceCode" id="cb429"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb429-1"><a href="appdistfittestU01.html#cb429-1" tabindex="-1"></a>data <span class="ot">=</span> <span class="fu">scan</span>(<span class="at">file=</span><span class="st">&quot;data/AppDistFitting/u01data.txt&quot;</span>) <span class="co"># read in the file</span></span>
-<span id="cb429-2"><a href="appdistfittestU01.html#cb429-2" tabindex="-1"></a><span class="fu">ks.test</span>(data,<span class="st">&quot;punif&quot;</span>,<span class="dv">0</span>,<span class="dv">1</span>) <span class="co"># perform the test</span></span></code></pre></div>
+<div class="sourceCode" id="cb433"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb433-1"><a href="appdistfittestU01.html#cb433-1" tabindex="-1"></a>data <span class="ot">=</span> <span class="fu">scan</span>(<span class="at">file=</span><span class="st">&quot;data/AppDistFitting/u01data.txt&quot;</span>) <span class="co"># read in the file</span></span>
+<span id="cb433-2"><a href="appdistfittestU01.html#cb433-2" tabindex="-1"></a><span class="fu">ks.test</span>(data,<span class="st">&quot;punif&quot;</span>,<span class="dv">0</span>,<span class="dv">1</span>) <span class="co"># perform the test</span></span></code></pre></div>
 <pre><code>## 
 ##  Asymptotic one-sample Kolmogorov-Smirnov test
 ## 
@@ -1138,7 +1145,7 @@ band, we can conclude that the data are likely independent observations.</p>
 Figure B.28: Autocorrelation Plot for u01data.txt Data Set
 </p>
 </div>
-<div class="sourceCode" id="cb431"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb431-1"><a href="appdistfittestU01.html#cb431-1" tabindex="-1"></a>rho</span></code></pre></div>
+<div class="sourceCode" id="cb435"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb435-1"><a href="appdistfittestU01.html#cb435-1" tabindex="-1"></a>rho</span></code></pre></div>
 <pre><code>## 
 ## Autocorrelations of series &#39;data&#39;, by lag
 ## 

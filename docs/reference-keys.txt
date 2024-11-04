@@ -272,6 +272,7 @@ exm:ch6ex4
 fig:Ch5EBlockingQ
 exm:ch6ex5
 exm:ch6ex6
+exm:ch6ex7
 exm:exSTEMCareerFair
 fig:JFERichPicture
 fig:JFEActivityDiagram
@@ -696,6 +697,11 @@ ch6Entities
 pvIntro
 understanding-ksl-processes-and-entities
 examples-of-process-modeling
+holding-entities-in-a-queue-holdqueue-class
+signaling-entities
+understanding-blocking-queues
+allowing-entities-to-wait-for-a-process
+process-interaction
 modeling-a-stem-career-mixer
 conceptualizing-the-system
 implementing-the-stem-mixer-model

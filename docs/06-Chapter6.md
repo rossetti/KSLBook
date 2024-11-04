@@ -447,6 +447,8 @@ The following section will illustrate through some simple models some of the fun
 
 The following example illustrates how to use a hold queue via the `HoldQueue` class.  A hold queue holds an entity within a queue until it is removed.  It is important to note that the entity that goes into the hold queue cannot remove itself. Thus, as you will see in the following code, we schedule an event that causes the entities to be removed at a specific time. The hold queue is created and an event action defined to represent the event. The entity process is simple, when the entity enters the process it immediately enters the hold queue. The process will be suspended.  After being removed and resumed, the entity continues through a couple of delays. 
 
+### Holding Entities in a Queue: `HoldQueue` Class
+
 ***
 ::: {.example #ch6ex3 name="Illustrating a HoldQueue"}
 This example illustrates how to create an instance of the `HoldQueue` class and how to use it to hold entities until they can be released. An event is scheduled to cause held entities to be removed and to resume their processing. 
@@ -501,6 +503,8 @@ time = 35.0 after the second delay for customer = ID_2
 ```
 
 We see that the two customers are held in the queue right after activation. Then, the event at time 5.0 occurs which removes and resumes the held entities. The rest of the output indicates the the entities continue their processes.
+
+### Signaling Entities
 
 The next example illustrates the use of the `Signal` class, which builds off of the `HoldQueue` class, as shown in Figure \@ref(fig:Ch5HQandSignalClass). 
 
@@ -587,6 +591,8 @@ The `initialize()` method creates 10 instances of the `SignalEntity` subclass of
 ```
 
 We see that at time 0.0, the 10 entities are created and their process activated so that they wait for the signal.  Then, at time 3.0, the signal occurs and each of the signaled entities (in turn) resume their processes.  Eventually, they complete their process after the 5.0 time unit delay.  Notice that since the simulation run length was 50.0 time units, the simulation continues until that time.  However, since there are no more signals, the last 5 entities remain waiting (suspended) at the end of the simulation. As previously mentioned, the `ProcessModel` class is responsible for removing these entities that are suspended after the replication has completed.  Thus, when the next replication starts, there will not be 5 entities still waiting.  The KSL takes care of these common clean up actions automatically.
+
+### Understanding Blocking Queues
 
 This next example illustrates the use of a [blocking queue](https://jenkov.com/tutorials/java-concurrency/blocking-queues.html). Blocking queues are often used in asynchronous programs to communicated between different threads.  In the case of KSL process models, we can use the concept of blocking queues to assist with communication between two processes. 
 
@@ -718,6 +724,8 @@ BlockingQueue_4:ChannelQ:TimeInQ         	            1 	       2.2000 	        
 
 As illustrated in this example, a blocking queue can facilitate the passing of information between two processes. These types of constructs can serve as the basis for communicating between agents which can invoke different procedures for different messages and wait until receiving and or sending messages.  We will see another example of using a blocking queue later in this chapter.  
 
+### Allowing Entities to Wait for a Process
+
 In the previous three examples, we saw how we can use a hold queue, a signal, and a blocking queue within a process description. In the case of the blocking queue, we saw how two processes communicated.  In this next simple example, we also see how to processes can coordinate their flow via the use of the `waitFor(process: KSLProcess)` suspending function.  The purpose of the `waitFor(process: KSLProcess)` suspending function is to allow one entity to start another process and have the entity that starts the process wait until the newly activated process is completed.  The following code indicates the signature of the `waitFor(process: KSLProcess)` suspending function.
 
 ```kt
@@ -818,6 +826,140 @@ Getting back to Example \@ref(exm:ch6ex6), the code defines a process called `Wa
 5.091121672376351 > after waitFor simple process for entity: ID_1
 ```
 We see that the activation of entity ID_1 occurs at time 0.81, when it then subsequently activates entity ID_2's simple process.  Entity ID_1 then suspends while entity ID_2 executes its simple process, which completes at time 5.09. Then, entity ID_1's process is allowed to complete. Thus, we see that it is easy to activate separate processes and to coordinate their completion.
+
+### Process Interaction
+
+In this final example, we will explore how processes associated with two different entities can interact during their execution by directly suspending and resuming each other. The previous process constructs are built upon the general lower level functionality of suspending the process and then resuming the process. For example, for the wait and signal construct, the entity will wait on a particular signal. During the wait, the entity's process is *suspended.*  The signal causes the waiting entities to resume their process from the wait for signal suspension point. The KSL implements the previously described suspension functions by using the low-level `suspend()` function. Once an entity's process is suspended, it needs to be resumed.  The entity's `resumeProcess()` function provides this capability. The following example illustrates how to facilitate the direct suspension and resumption of processes. 
+
+***
+::: {.example #ch6ex7 name="Direct Process Interaction"}
+Consider modeling the interaction between a soccer mom and her daughter. The soccer mom has a daughter who plays forward on a soccer team. The game day proceeds as follows. First, the mom drives the daughter to the game. The drive takes 30 minutes.  After arriving to the field, the daughter exits the mini-van, which takes 2 minutes. After the daughter exits the van, the mom departs to run some errands, meanwhile the daughter plays soccer. The mom's errands take approximately 45 minutes. The soccer game takes approximately 60 minutes. If the mom returns from the errands before the game ends, the mom waits patiently to pick up her daughter to go home. If the game ends, before the mom returns, the daughter waits patiently for the mom to return. Once the mother and daughter are together, the daughter loads up her soccer gear and enters the van. This loading time takes 2 minutes. After all is loaded, the happy mom and daughter drive home, which takes 30 minutes.
+:::
+***
+
+We can build a process model for this situation and use the `suspend()` and `resumeProcess()` functions within the implementation. The key to implementing this situation is to have variables that indicate the current state of the entity and to share the references of the entities. Let's start with the mom's process.  The following code shows the mom's process with extensive print statements added to illustrate the interaction.
+
+```kt
+    private inner class Mom : Entity() {
+
+        var errandsCompleted = false
+
+        val momProcess = process {
+            println("$time> starting mom = ${this@Mom.name}")
+            println("$time> mom = ${this@Mom.name} driving to game")
+            delay(30.0)
+            println("$time> mom = ${this@Mom.name} arrived at game")
+            val daughter = Daughter(this@Mom)
+            activate(daughter.daughterProcess)
+            println("$time> mom = ${this@Mom.name} suspending for daughter to exit van")
+            suspend("mom suspended for daughter to exit van")
+            .
+            .
+        }
+    }
+```
+
+The first concept to grasp is that the mom's process activates the daughter's process. The mom's process creates an instance of the daughter and then activates the daughter's process. The mom's process captures a reference to the `Daughter` in the `daughter` variable.  
+
+The activation of a process schedules an event to occur. In this case, the event is scheduled for the current time. Note that the daughter's process starts after the mom completes the delay for driving to the field. Then, the mom immediately suspends using the `suspend()` function. The `suspend()` function takes in an optional string parameter that labels the suspension point. Now, let's look at the daughter's process.
+
+When the mom process activates the daughter, the daughter starts the delay to exit the van. After exiting the van, the daughter tells the mom process via the `resumeProcess()` function to resume.  Recall, that the mom process immediately suspended while the daughter exited the van. The critical item to note is that a reference to the `Mom` entity is required to create the daughter instance. Thus, the daughter has a reference to the mom instance in the process routine.  
+
+In the following code, the daughter indicates that she is playing by changing the value of the `isPlaying` property to true. This property can be used by the mom to check if the daughter is still playing after the mom returns from running the errands. 
+
+```kt
+    private inner class Daughter(val mom: Mom) : Entity() {
+
+        var isPlaying = false
+
+        val daughterProcess = process {
+            println("$time> starting daughter ${this@Daughter.name}")
+            println("$time> daughter, ${this@Daughter.name}, exiting the van")
+            delay(2.0)
+            println("$time> daughter, ${this@Daughter.name}, exited the van")
+            println("$time> daughter, ${this@Daughter.name}, resuming mom")
+            mom.resumeProcess()
+            println("$time> daughter, ${this@Daughter.name}, starting playing")
+            isPlaying = true
+           // delay(30.0)
+            delay(60.0)
+            isPlaying = false
+            println("$time> daughter, ${this@Daughter.name}, finished playing")
+            if (!mom.errandsCompleted){
+                println("$time> daughter, ${this@Daughter.name}, mom errands not completed suspending")
+                suspend("daughter waiting on mom to complete errand")
+            }
+            println("$time> daughter, ${this@Daughter.name}, entering van")
+            delay(2.0)
+            println("$time> daughter, ${this@Daughter.name}, entered van")
+            println("$time> daughter, ${this@Daughter.name}, entered van, resuming mom")
+            mom.resumeProcess()
+        }
+    }
+```
+
+After playing the daughter can use the `errandsCompleted` property of the mom instance to suspend if her mother has not returned from the errands. 
+
+Now, let's look at the rest of the mom's process.  We see that after suspending to let the daughter exit the van, the mom will run her errands and change the property `errandsCompleted` to true when she is done. Since the mom could return early, she checks if the daughter is playing, and if so, suspends. If the daughter is not playing, then the mom tells the daughter's process to resume, and then the mom process immediately suspends to allow the daughter to enter the van.  
+
+```kt
+    private inner class Mom : Entity() {
+
+        var errandsCompleted = false
+
+        val momProcess = process {
+            println("$time> starting mom = ${this@Mom.name}")
+            println("$time> mom = ${this@Mom.name} driving to game")
+            delay(30.0)
+            println("$time> mom = ${this@Mom.name} arrived at game")
+            val daughter = Daughter(this@Mom)
+            activate(daughter.daughterProcess)
+            println("$time> mom = ${this@Mom.name} suspending for daughter to exit van")
+            suspend("mom suspended for daughter to exit van")
+            println("$time> mom = ${this@Mom.name} running errands...")
+            delay(45.0)
+            println("$time> mom = ${this@Mom.name} completed errands")
+            errandsCompleted = true
+            if (daughter.isPlaying){
+                println("$time> mom, ${this@Mom.name}, mom suspending because daughter is still playing")
+                suspend("mom suspended for daughter playing")
+            } else {
+                println("$time> mom, ${this@Mom.name}, mom resuming daughter done playing after errands")
+                daughter.resumeProcess()
+                suspend("mom suspended for daughter entering van")
+            }
+            println("$time> mom = ${this@Mom.name} driving home")
+            delay(30.0)
+            println("$time> mom = ${this@Mom.name} arrived home")
+        }
+    }
+```
+After being resumed by the daughter to indicate that the loading is complete, the mom delays for the drive home. The following output illustrates what happens for the case of the mother's errand time being less than the playing time of the daughter.
+
+```
+0.0> starting mom = ID_1
+0.0> mom = ID_1 driving to game
+30.0> mom = ID_1 arrived at game
+30.0> mom = ID_1 suspending for daughter to exit van
+30.0> starting daughter ID_2
+30.0> daughter, ID_2, exiting the van
+32.0> daughter, ID_2, exited the van
+32.0> daughter, ID_2, resuming mom
+32.0> daughter, ID_2, starting playing
+32.0> mom = ID_1 running errands...
+77.0> mom = ID_1 completed errands
+77.0> mom, ID_1, mom suspending because daughter is still playing
+92.0> daughter, ID_2, finished playing
+92.0> daughter, ID_2, entering van
+94.0> daughter, ID_2, entered van
+94.0> daughter, ID_2, entered van, resuming mom
+94.0> mom = ID_1 driving home
+124.0> mom = ID_1 arrived home
+```
+
+We see in this output that the mom suspends at time 30, while the daughter exits the van. The daughter starts playing and the mom starts her errands at time 32. The mom completes her errands at time 77 and suspends until the daughter is done playing at time 92. At which time, the daughter enters the van at time 94. They both drive off "together" starting at time 94.  
+
+We encourage the interested reader to re-run the code after changing the playing time to a smaller value, for example, 30 minutes. Then, you will see that the daughter suspends until the mother completes her errands. Thus, by carefully suspending and resuming processes, we can coordinate their interaction as they proceed through time. This is the essence of the process interaction approach to simulation model representation.  However, this low level coordination requires special attention to shared state and a deep understanding of how the processes interact, which can be error prone.
 
 In the next section, we will develop a more realistically sized process model for a STEM Career Mixer involving students and recruiters.
 
