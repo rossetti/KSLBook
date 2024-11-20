@@ -676,14 +676,14 @@ The major types of variance reduction techniques to be discussed in this section
     a. Common Random Numbers (CRN)
     b. Antithetic Variates (AV)
 
-2. Exploits process knowledge
+2. Exploiting process knowledge
     a. Indirect Estimation (IE)
     b. Control Variates (CV)
     c. Stratified and Post Stratified Sampling (PS)
     d. Conditional Expectation (CE)
     e. Importance Sampling (IS)
 
-Manipulating randomness refers to the judicious us of the random number streams. Exploiting process knowledge refers to the general intuition that more information reduces uncertainty.
+Manipulating randomness refers to the judicious use of the random number streams. Exploiting process knowledge refers to the general intuition that more information reduces uncertainty.
 
 ### Common Random Numbers (CRN)
 
