@@ -322,6 +322,10 @@ fig:ResponseSchedule
 exm:exWinHCC
 fig:Inventory
 exm:exRQModel
+exm:ch7exSmallMfgSys
+fig:MfgFlowDiagram
+tab:MMCFormulas
+tab:MMCResults
 exr:ch7P1
 exr:ch7P2
 exr:ch7P3
@@ -728,6 +732,13 @@ running-the-revised-stem-mixer-model
 examples-of-advanced-event-models
 ch6s1sb4sub3
 rqModel
+ch7VandV
+analyzing-the-preparation-station
+analyzing-the-build-lines
+analyzing-the-packaging-station
+analyzing-the-palletizing-station
+analyzing-the-total-system-time
+other-issues-for-verification-and-validation
 summary-3
 exercises-6
 ch9AdvMC

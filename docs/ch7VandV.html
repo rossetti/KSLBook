@@ -4,18 +4,18 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>C.1 Single Line Queueing Stations | Simulation Modeling using the Kotlin Simulation Library (KSL)</title>
+  <title>7.4 Applying Queueing Theory Results to Verify and Validate a Simulation | Simulation Modeling using the Kotlin Simulation Library (KSL)</title>
   <meta name="description" content="A book that illustrates the basics of using the KSL. The output format for this book is bookdown::gitbook." />
   <meta name="generator" content="bookdown 0.40 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="C.1 Single Line Queueing Stations | Simulation Modeling using the Kotlin Simulation Library (KSL)" />
+  <meta property="og:title" content="7.4 Applying Queueing Theory Results to Verify and Validate a Simulation | Simulation Modeling using the Kotlin Simulation Library (KSL)" />
   <meta property="og:type" content="book" />
   
   <meta property="og:description" content="A book that illustrates the basics of using the KSL. The output format for this book is bookdown::gitbook." />
   
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="C.1 Single Line Queueing Stations | Simulation Modeling using the Kotlin Simulation Library (KSL)" />
+  <meta name="twitter:title" content="7.4 Applying Queueing Theory Results to Verify and Validate a Simulation | Simulation Modeling using the Kotlin Simulation Library (KSL)" />
   
   <meta name="twitter:description" content="A book that illustrates the basics of using the KSL. The output format for this book is bookdown::gitbook." />
   
@@ -30,8 +30,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-<link rel="prev" href="appqtAndInvT.html"/>
-<link rel="next" href="appqts1sb2.html"/>
+<link rel="prev" href="examples-of-advanced-event-models.html"/>
+<link rel="next" href="summary-3.html"/>
 <script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
@@ -499,653 +499,507 @@ div.csl-indent {
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="appqts1" class="section level2 hasAnchor" number="11.1">
-<h2><span class="header-section-number">C.1</span> Single Line Queueing Stations<a href="appqts1.html#appqts1" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p>Chapter <a href="introDEDS.html#introDEDS">4</a> presented
-the pharmacy model and analyzed it with a single server, single queue
-queueing system called the M/M/1. This section shows how the formulas
-for the M/M/1 model are derived and discusses the key notation and
-assumptions of analytical models for systems with a single queue. In
-addition, you will also learn how to simulate variations of these
-models.</p>
-<p>In a queueing system, there are customers that compete for resources by
-moving through processes. The competition for resources causes waiting
-lines (queues) to form and delays to occur within the customer’s
-process. In these systems, the arrivals and/or service processes are
-often stochastic. Queueing theory is a branch of mathematical analysis
-of systems that involve waiting lines in order to predict (and control)
-their behavior over time. The basic models within queueing theory
-involve a single line that is served by a set of servers.
-Figure <a href="appqts1.html#fig:SingleQueue">C.1</a> illustrates the major components of a
-queueing system with a single queue feeding into a set of servers.</p>
-<div class="figure" style="text-align: center"><span style="display:block;" id="fig:SingleQueue"></span>
-<img src="figures2/AppQueueing/fig1SingleQueue.png" alt="Example single queue system" width="75%" height="75%" />
+<div id="ch7VandV" class="section level2 hasAnchor" number="7.4">
+<h2><span class="header-section-number">7.4</span> Applying Queueing Theory Results to Verify and Validate a Simulation<a href="ch7VandV.html#ch7VandV" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>In this section, we overview some verification and validation methods to apply when developing and testing a simulation model.</p>
+<p>Verification is about checking if the model meets the desired output. In
+other words, does the model work correctly as designed? In verifying a
+model, you select a sample of test cases with known results and show
+that the model produces the expected output across the test cases. It is
+important to select the test cases in an unbiased manner and that the
+test cases encompass a large portion of the space that will be relevant
+when using the model. The test cases form the standard that the model
+must meet and thus are critical in convincing others that the
+verification process was of high quality.</p>
+<p>Validation is whether or not the model meets it intended purpose. When
+validating a model, we are trying to build credibility that the model
+can be used as intended. In other words, that the model adequately
+represents the system for its intended purpose. Obviously, verification
+is a necessary but not sufficient step in validation. Validation is
+predicated on how the model is intended to be used and what it is
+supposed to represent.</p>
+<p>In the following, we will illustrate a basic approach to verifying and
+validating the results of a simulation model by using some analytical
+approximations based on queueing theory and common sense. Let’s start
+with an example system to be simulated.</p>
+<hr />
+<div class="example">
+<p><span id="exm:ch7exSmallMfgSys" class="example"><strong>Example 7.10  (Small Manufacturing System) </strong></span>A small manufacturing system produces parts. The parts arrive from an
+upstream Poisson process with a rate of arrival of 1 part every 5
+minutes. All parts that enter the system must go through a preparation
+station where there are 2 preparation workers. A part requires only 1 of
+the 2 workers during preparation. The preparation time is exponentially
+distributed with means of 8 minutes. If all the workers at the
+preparation station are busy, then the part waits for the next available
+preparation worker.</p>
+<p>After preparation, the parts are processed on two different production
+lines. There is a 30% chance that the parts are built on line 1 and a
+70% chance that they go to line 2. Line 1 has a build station staffed by
+2 workers. Line 2 has a build station staffed by 3 workers. The time to
+build a part on line 1 is triangularly distributed with a (min = 2, mode
+= 6, max = 8) minutes. The time to build a part on line 2 is
+triangularly distributed with a (min = 3, mode = 6, max = 7) minutes.
+The build operation on the part only requires 1 of the workers available
+at the station. If all the workers at the station are busy, then the
+part waits for the next available worker.</p>
+<p>After the parts are built, they go to a packaging station. The packaging
+station is staffed by 2 workers. Only 1 of the 2 workers is needed
+during packaging. If all the workers at the packaging station are busy,
+then the part waits for the next available packaging worker. The time to
+individually wrap a part is exponential with a mean of 2 minutes. After
+each individual part is wrapped, the worker fills a box with packing
+peanuts, and places the part into a box for shipping. The time to fill
+the box with peanuts and seal the box is uniformly distribution between
+1 and 2 minutes. After the packaging, the box is placed on a pallet
+building machine. Once 10 boxes accumulate, the pallet machine wraps the
+pallet. The wrapping time takes 2 minutes. After the wrapping is
+completed, the pallet leaves the system.</p>
+<p>The production team believes that a batch run of production over 30
+days of operation is the best way to produce these parts. Thus, at the
+beginning of a month there are currently no parts in production.
+Simulate the system for 100 replications of one month (30 days) of
+operation. The base time unit for the simulation should be in minutes.
+We want to simulate this system in order to measure the following
+performance metrics with some high degree of confidence.</p>
+<table>
+<thead>
+<tr class="header">
+<th align="left"><strong>Performance Measures</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">System time for parts regardless of which build line prior to palletizer</td>
+</tr>
+<tr class="even">
+<td align="left">Prob. that the system time before palletizing of a part is less than 60 minutes</td>
+</tr>
+<tr class="odd">
+<td align="left">Utilization of preparation workers</td>
+</tr>
+<tr class="even">
+<td align="left">Utilization of packaging workers</td>
+</tr>
+<tr class="odd">
+<td align="left">Utilization of line 1 build workers</td>
+</tr>
+<tr class="even">
+<td align="left">Utilization of line 2 build workers</td>
+</tr>
+<tr class="odd">
+<td align="left">Utilization of the palletizer</td>
+</tr>
+<tr class="even">
+<td align="left">Total number of parts produced in 30 days</td>
+</tr>
+<tr class="odd">
+<td align="left">Total number of pallets completed in 30 days</td>
+</tr>
+</tbody>
+</table>
+</div>
+<hr />
+<p>Suppose you build a simulation model for this situation and get the
+following results. The building of the model is left as an exercise for
+the reader.</p>
+<table>
+<thead>
+<tr class="header">
+<th align="left"><strong>Performance Measures</strong></th>
+<th align="center"><strong>Average</strong></th>
+<th align="center"><strong>Half-width</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">System time for parts regardless of which build line prior to palletizer</td>
+<td align="center">31.73</td>
+<td align="center">0.44</td>
+</tr>
+<tr class="even">
+<td align="left">Prob. that the system time before palletizing of a part is less than 60 minutes</td>
+<td align="center">0.89</td>
+<td align="center">0.01</td>
+</tr>
+<tr class="odd">
+<td align="left">Utilization of preparation workers</td>
+<td align="center">0.80</td>
+<td align="center">0.00</td>
+</tr>
+<tr class="even">
+<td align="left">Utilization of packaging workers</td>
+<td align="center">0.35</td>
+<td align="center">0.00</td>
+</tr>
+<tr class="odd">
+<td align="left">Utilization of line 1 build workers</td>
+<td align="center">0.16</td>
+<td align="center">0.00</td>
+</tr>
+<tr class="even">
+<td align="left">Utilization of line 2 build workers</td>
+<td align="center">0.25</td>
+<td align="center">0.00</td>
+</tr>
+<tr class="odd">
+<td align="left">Utilization of the palletizer</td>
+<td align="center">0.039</td>
+<td align="center">0.00</td>
+</tr>
+<tr class="even">
+<td align="left">Total number of parts produced in 30 days</td>
+<td align="center">8623.36</td>
+<td align="center">17.75</td>
+</tr>
+<tr class="odd">
+<td align="left">Total number of pallets completed in 30 days</td>
+<td align="center">861.85</td>
+<td align="center">1.77</td>
+</tr>
+</tbody>
+</table>
+<p>How do you know if these results seem reasonable? You can use basic
+queueing analysis and some simple math to help verify and validate your
+results.</p>
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:MfgFlowDiagram"></span>
+<img src="figures2/ch7/MfgFlowDiagram.png" alt="Small manufacturing system with flow rates"  />
 <p class="caption">
-Figure C.1: Example single queue system
+Figure 7.10: Small manufacturing system with flow rates
 </p>
 </div>
-<p>In queueing theory the term customer is used as a generic term to
-describe the entities that flow and receive service. A resource is a
-generic term used to describe the components of the system that are
-required by a customer as the customer moves through the system. The
-individual units of the resource are often called servers. In
-Figure <a href="appqts1.html#fig:SingleQueue">C.1</a>, the potential customers can be
-described as coming from a calling population. The term calling
-population comes from the historical use of queueing models in the
-analysis of phone calls to telephone trunk lines. Customers within the
-calling population may arrive to the system according to an arrival
-process. In the finite population case, the arrival rate that the system
-experiences will quite naturally decrease as customers arrive since
-fewer customers are available to arrive if they are within the system.</p>
-<p>In the infinite calling population case, the rate of arrivals to the
-system does not depend upon on how many customers have already arrived.
-In other words, there are so many potential customers in the population
-that the arrival rate to the system is not affected by the current
-number of customers within the system. Besides characterizing the
-arrival process by the rate of arrivals, it is useful to think in terms
-of the inter-arrival times and in particular the inter-arrival time
-distribution. In general, the calling population may also have different
-types of customers that arrive at different rates. In the analytical
-analysis presented here, there will only be one type of customer.</p>
-<p>The queue is that portion of the system that holds waiting customers.
-The two main characteristics for the queue are its size or capacity, and
-its discipline. If the queue has a finite capacity, this indicates that
-there is only enough space in the queue for a certain number of
-customers to be waiting at any given time. The queue discipline refers
-to the rule that will be used to decide the order of the customers
-within the queue. A first-come, first-served (FCFS) queue discipline
-orders the queue by the order of arrival, with the most recent arrival
-always joining the end of the queue. A last-in, first out (LIFO) queue
-discipline has the most recent arrival joining the beginning of the
-queue. A last-in, first out queue discipline acts like a stack of
-dishes. The first dish is at the bottom of the stack, and the last dish
-added to the stack is at the top of the stack. Thus, when a dish is
-needed, the next dish to be used is the last one added to the stack.
-This type of discipline often appears in manufacturing settings when the
-items are placed in bins, with newly arriving items being placed on top
-of items that have previously arrived.</p>
-<p>Other disciplines include random and priority. You can think of a random
-discipline modeling the situation of a server randomly picking the next
-part to work on (e.g. reaches into a shallow bin and picks the next
-part). A priority discipline allows the customers to be ordered within
-the queue by a specified priority or characteristic. For example, the
-waiting items may be arranged by due-date for a customer order.</p>
-<p>The resource is that portion of the system that holds customers that are
-receiving service. Each customer that arrives to the system may require
-a particular number of units of the resource. The resource component of
-this system can have 1 or more servers. In the analytical treatment,
-each customer will required only one server and the service time will be
-governed by a probability distribution called the service time
-distribution. In addition, for the analytical analysis the service time
-distribution will be the same for all customers. Thus, the servers are
-all identical in how they operate and there is no reason to distinguish
-between them. Queueing systems that contain servers that operate in this
-fashion are often referred to as parallel server systems. When a
-customer arrives to the system, the customer will either be placed in
-the queue or placed in service. After waiting in line, the customer must
-select one of the (identical) servers to receive service. The following
-analytical analysis assumes that the only way for the customer to depart
-the system is to receive service.</p>
-<div id="queueing-notation" class="section level3 hasAnchor" number="11.1.1">
-<h3><span class="header-section-number">C.1.1</span> Queueing Notation<a href="appqts1.html#queueing-notation" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<p>The specification of how the major components of the system operate
-gives a basic system configuration. To help in classifying and
-identifying the appropriate modeling situations, Kendall’s notation
-(<span class="citation">(<a href="#ref-kendall1953stochastic">Kendall 1953</a>)</span>) can be used. The basic format is:</p>
-<blockquote>
-<p>arrival process <strong>/</strong> service process <strong>/</strong> number of servers <strong>/</strong>
-system capacity <strong>/</strong> size of the calling population <strong>/</strong> queue
-discipline</p>
-</blockquote>
-<p>For example, the notation M/M/1 specifies that the arrival process is
-Markovian (M) (exponential time between arrivals), the service process
-is Markovian (M) (exponentially distributed service times, and that
-there is 1 server. When the system capacity is not specified it is
-assumed to be infinite. Thus, in this case, there is a single queue that
-can hold any customer that arrives. The calling population is also
-assumed to be infinite if not explicitly specified. Unless otherwise
-noted the queue discipline is assumed to be FCFS.</p>
-<p>Traditionally, the first letter(s) of the appropriate distribution is
-used to denote the arrival and service processes. Thus, the case LN/D/2
-represents a queue with 2 servers having a lognormally (LN) distributed
-time between arrivals and deterministic (D) service times. Unless
-otherwise specified it is typically assumed that the arrival process is
-a renewal process, i.e. that the time between arrivals are independent
-and identically distributed and that the service times are also
-independent and identically distributed.</p>
-<p>Also, the standard models assume that the arrival process is independent
-of the service process and vice a versa. To denote any distribution, the
-letter G for general (any) distribution is used. The notation (GI) is
-often used to indicate a general distribution in which the random
-variables are independent. Thus, the G/G/5 represents a queue with an
-arrival process having any general distribution, a general distribution
-for the service times, and 5 servers. Figure <a href="appqts1.html#fig:CommonQueueing">C.2</a> illustrates some of the common queueing systems as denoted by Kendall’s notation.</p>
-<div class="figure" style="text-align: center"><span style="display:block;" id="fig:CommonQueueing"></span>
-<img src="figures2/AppQueueing/fig2CommonQueueing.png" alt="Illustrating some common queueing situations" width="85%" height="85%" />
-<p class="caption">
-Figure C.2: Illustrating some common queueing situations
-</p>
+<p>By examining Figure <a href="ch7VandV.html#fig:MfgFlowDiagram">7.10</a> and using a little flow analysis, we
+can get a pretty good approximation of the results. In the figure, we see each station (preparation, line 1, line 2, packaging, and the palletizer). The flow rate of
+the parts to each of the stations has also been noted. In what follows each of the stations
+will be analyzed (individually) and then the overall system will be
+analyzed using some basic queueing analysis using the results of Appendix <a href="appqtAndInvT.html#appqtAndInvT">C</a>.</p>
+<p>The approach is based on
+determining the rate of flow between the stations and using simple
+queueing formulas. Let’s start with the preparation station.</p>
+<div id="analyzing-the-preparation-station" class="section level3 hasAnchor" number="7.4.1">
+<h3><span class="header-section-number">7.4.1</span> Analyzing the Preparation Station<a href="ch7VandV.html#analyzing-the-preparation-station" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Let <span class="math inline">\(\lambda_{0}\)</span> be the arrival rate to the preparation station. Let
+<span class="math inline">\(\mu_{0}\)</span> be the service rate at the preparation station. This is the
+rate at which an individual preparation worker works. Let
+<span class="math inline">\(\text{MTBA}_{0}\)</span> be the mean time between arrivals for the preparation
+station and let <span class="math inline">\(E\lbrack\text{ST}_{0}\rbrack\)</span> be the mean service time
+at the preparation station. Clearly from the problem description, we
+have:</p>
+<p><span class="math display">\[\lambda_{0} = \frac{1}{\text{MTBA}_{0}} = \frac{1}{5\ \min} \times \frac{60\ \min}{1\ \text{hour}} = 12/\text{hour}\]</span></p>
+<p><span class="math display">\[\mu_{0} = \frac{1}{E\lbrack\text{ST}_{0}\rbrack} = \frac{1}{8\ \min} \times \frac{60\ \min}{1\ \text{hour}} = 7.5/\text{hour}\]</span></p>
+<p>Based on queueing theory, we have that the utilization, <span class="math inline">\(\rho,\)</span> is:</p>
+<p><span class="math display">\[\rho = \frac{\lambda}{c*\mu} = \frac{E\lbrack\text{ST}\rbrack}{c*\text{MTBA}}\]</span></p>
+<p>where <span class="math inline">\(c\)</span> is the number of servers at the station. For the preparation
+station, we have:</p>
+<p><span class="math display">\[\rho_{0} = \frac{\lambda_{0}}{c\mu_{0}} = \frac{12}{2 \times 7.5} = 0.8\]</span></p>
+<p>From the simulation output results, we see that the utilization of the
+simulation is exactly that as predicted from the basic flow analysis.
+Let’s examine the build lines.</p>
 </div>
-<p>There are a number of quantities that form the basis for measuring the
-performance of queueing systems:
-- The time that a customer spends waiting in the queue: <span class="math inline">\(T_q\)</span></p>
+<div id="analyzing-the-build-lines" class="section level3 hasAnchor" number="7.4.2">
+<h3><span class="header-section-number">7.4.2</span> Analyzing the Build Lines<a href="ch7VandV.html#analyzing-the-build-lines" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>In this case, we need to determine the arrival rate to each of the
+lines. First, we assume that the rate of arrivals out of the preparation
+station will be the same as the rate of arrivals into the preparation
+station. Since there is a probabilistic split of the flow to the lines,
+we can split the rate of parts flowing to line 1 and line 2 based on the
+probability of selecting the lines. Thus, we have that each line
+experiences the input rates as follows.</p>
 <ul>
-<li><p>The time that a customer spends in the system (queue time plus
-service time): <span class="math inline">\(T\)</span></p></li>
-<li><p>The number of customers in the queue at time <span class="math inline">\(t\)</span>: <span class="math inline">\(N_q(t)\)</span></p></li>
-<li><p>The number of customers that are in the system at time t: <span class="math inline">\(N(t)\)</span></p></li>
-<li><p>The number of customer in service at time <span class="math inline">\(t\)</span>: <span class="math inline">\(N_b(t)\)</span></p></li>
+<li><p>Let <span class="math inline">\(\lambda_{1}\)</span> be the arrival rate to the line 1 station and let
+<span class="math inline">\(\lambda_{2}\)</span> be the arrival rate to the line 2 station.</p></li>
+<li><p>Let <span class="math inline">\(p_{1}\)</span> be the probability that line 1 is selected and let
+<span class="math inline">\(p_{2}\)</span> be the probability that line 2 is selected.</p></li>
 </ul>
-<p>These quantities will be random variables when the queueing system has
-stochastic elements. We will assume that the system is work conserving,
-i.e. that the customers do not exit without received all of their
-required service and that a customer uses one and only one server to
-receive service. For a work conserving queue, the following is true:</p>
-<p><span class="math display">\[N(t) = N_q(t) + N_b(t)\]</span></p>
-<p>This indicates that the number of customers in the system must be equal
-to the number of customers in queue plus the number of customers in
-service. Since the number of servers is known, the number of busy
-servers can be determined from the number of customers in the system.
-Under the assumption that each customer requires 1 server (1 unit of the
-resource), then <span class="math inline">\(N_b(t)\)</span> is also the current number of busy servers. For
-example, if the number of servers is 3 and the number of customers in
-the system is 2, then there must be 2 customers in service (two servers
-that are busy). Therefore, knowledge of <span class="math inline">\(N(t)\)</span> is sufficient to describe
-the state of the system. Because <span class="math inline">\(N(t) = N_q(t) + N_b(t)\)</span> is true, the
-following relationship between expected values is also true:</p>
-<p><span class="math display">\[E[N(t)] = E[N_q(t)] + E[N_b(t)]\]</span></p>
-<p>If <span class="math inline">\(\mathit{ST}\)</span> is the service time of an arbitrary customer, then it
-should be clear that:</p>
-<p><span class="math display">\[E[T] = E[T_q] + E[\mathit{ST}]\]</span></p>
-<p>That is, the expected system time is equal to the expected waiting time
-in the queue plus the expected time spent in service.</p>
+<p>Thus, <span class="math inline">\(\lambda_{1} = p_{1} \times\)</span>
+<span class="math inline">\(\lambda_{0} = 0.3 \times 12 = 3.6\)</span> per hour and
+<span class="math inline">\(\lambda_{2} = p_{2} \times\)</span>
+<span class="math inline">\(\lambda_{0} = 0.7 \times 12 = 8.4\)</span> per hour. Now, we need to get the
+mean service time for the build lines. Because the service time
+distribution is triangular, we have that the mean of the triangular
+random variable, X, is:</p>
+<p><span class="math display">\[E\left\lbrack X \right\rbrack = \frac{(\min{+ \ \text{mode} + \max)}}{3}\]</span></p>
+<p>Therefore, we can compute the service rate for each of the lines, where
+<span class="math inline">\(\text{ST}_{1}\)</span> and <span class="math inline">\(\text{ST}_{2}\)</span> represent the service time random
+variable for line 1 and 2, respectively, as follows:</p>
+<p><span class="math display">\[\mu_{1} = \frac{1}{E\left\lbrack \text{ST}_{1} \right\rbrack} = \frac{1}{\frac{(2 + 6 + 8)}{3}} = \frac{1}{5.3\overline{3}\ \min} \times \frac{60\ \min}{1\ \text{hour}} = 11.25/\text{hour}\]</span></p>
+<p><span class="math display">\[\mu_{2} = \frac{1}{E\left\lbrack \text{ST}_{2} \right\rbrack} = \frac{1}{\frac{(3 + 6 + 7)}{3}} = \frac{1}{5.3\overline{3}\ \min} \times \frac{60\ \min}{1\ \text{hour}} = 11.25/\text{hour}\]</span></p>
+<p>And, then we can compute the utilization for each of the lines.</p>
+<p><span class="math display">\[\rho_{1} = \frac{\lambda_{1}}{c\mu_{1}} = \frac{3.6}{2 \times 11.25} = 0.16\]</span></p>
+<p><span class="math display">\[\rho_{2} = \frac{\lambda_{2}}{c\mu_{2}} = \frac{8.4}{3 \times 11.25} = 0.24\overline{8}\]</span></p>
+<p>Again, these results, match very closely the results from the simulation
+model. We can also approximate the results for packaging in the same
+manner.</p>
 </div>
-<div id="littles-formula" class="section level3 hasAnchor" number="11.1.2">
-<h3><span class="header-section-number">C.1.2</span> Little’s Formula<a href="appqts1.html#littles-formula" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<p>Chapter <a href="introDEDS.html#introDEDS">4</a> presented
-time persistent data and computed time-averages. For queueing systems,
-one can show that relationships exist between such quantities as the
-expected number in the queue and the expected waiting time in the queue.
-To understand these relationships, consider Figure <a href="appqts1.html#fig:NumInQPath">C.3</a> which illustrates the sample path for the
-number of customers in the queue over a period of time.</p>
-<div class="figure" style="text-align: center"><span style="display:block;" id="fig:NumInQPath"></span>
-<img src="figures2/AppQueueing/fig3NumInQPath.png" alt="Sample path for the number of customers in a queue" width="70%" height="70%" />
-<p class="caption">
-Figure C.3: Sample path for the number of customers in a queue
-</p>
+<div id="analyzing-the-packaging-station" class="section level3 hasAnchor" number="7.4.3">
+<h3><span class="header-section-number">7.4.3</span> Analyzing the Packaging Station<a href="ch7VandV.html#analyzing-the-packaging-station" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Again, we need to compute the incoming flow rate to the packaging
+station in order to compute the utilization at the station. Let
+<span class="math inline">\(\lambda_{3}\)</span> be the arrival rate to the packaging station. If we assume
+that everything that arrives to each of the two build lines eventually
+gets to packaging, we can see that
+<span class="math inline">\(\lambda_{3} = \lambda_{1} + \lambda_{2} = \lambda_{0} = 12\)</span> per hour.</p>
+<p>The mean service time at the packaging station is the sum of the mean
+wrapping process time and the mean box filling time. The wrapping
+process has an exponential distribution with a mean of 2 minutes while
+the filling process has a continuous uniform distribution on the range
+of 1 to 2 minutes. Thus, using the expected values for these respective
+distributions, we have:</p>
+<p><span class="math display">\[E\left\lbrack ST_{w} \right\rbrack = 2\ \min\]</span></p>
+<p><span class="math display">\[E\left\lbrack ST_{f} \right\rbrack = 1.5\ \min\]</span></p>
+<p>Let <span class="math inline">\(ST_{3}\)</span> be the service time at the packaging station. Because the
+time in service at the packaging station include both processing times,
+we have a utilization calculation as follows:</p>
+<p><span class="math display">\[E\left\lbrack ST_{3} \right\rbrack = \ E\left\lbrack ST_{w} \right\rbrack + E\left\lbrack ST_{f} \right\rbrack = 3.5\ \min\]</span></p>
+<p><span class="math display">\[\mu_{3} = \frac{1}{E\left\lbrack \text{ST}_{3} \right\rbrack} = \frac{1}{3.5\ \min} \times \frac{60\ \min}{1\ \text{hour}} = 17.1428\ \text{per}\ \text{hour}\]</span></p>
+<p><span class="math display">\[\rho_{3} = \frac{\lambda_{3}}{c\mu_{3}} = \frac{12}{2 \times 17.1428} = 0.35\]</span></p>
+<p>Again, the results match very closely to the simulation results. With
+some additional thinking, we can even approximate the utilization of the
+palletizer.</p>
 </div>
-<p>Let <span class="math inline">\(A_i; i = 1 \ldots n\)</span> represent the time that the <span class="math inline">\(i^{th}\)</span> customer
-enters the queue, <span class="math inline">\(D_i; i = 1 \ldots n\)</span> represent the time that the
-<span class="math inline">\(i^{th}\)</span> customer exits the queue, and <span class="math inline">\(T_{q_i}\)</span> = <span class="math inline">\(D_i\)</span> - <span class="math inline">\(A_i\)</span> for
-<span class="math inline">\(i = 1 \ldots n\)</span> represent the time that the <span class="math inline">\(i^{th}\)</span> customer spends in
-the queue. Recall that the average time spent in the queue was:</p>
-<p><span class="math display">\[\bar{T}_q  = \frac{\sum_{i=1}^n T_{q_i}}{n} =\frac{0 + 11 + 8 + 7 + 2 + 5 + 6 + 0}{8} = \frac{39}{8} = 4.875\]</span></p>
-<p>The average number of customers in the queue was:</p>
-<p><span class="math display">\[\begin{aligned}
-\bar{L}_q &amp; = \frac{0(2-0) + 1(7-2) + 2(10-7) + 3(13-10) + 2(15-13) + 1(16-15)}{25}\\
-&amp; + \frac{4(17-16) + 3(18-17) + 2(21-18) + 1(22-21) + 0(25-22)}{25} \\
-&amp; = \frac{39}{25} = 1.56\end{aligned}\]</span></p>
-<p>By considering the waiting time lengths within the figure, the area
-under the sample path curve can be computed as:</p>
-<p><span class="math display">\[\sum_{i=1}^n T_{q_i} = 39\]</span></p>
-<p>But, by definition the area should also be:</p>
-<p><span class="math display">\[\int_{t_0}^{t_n} q(t)\mathrm{d}t\]</span></p>
-<p>Thus, it is no coincidence that the computed value for the numerators in
-<span class="math inline">\(\bar{T}_q\)</span> and <span class="math inline">\(\bar{L}_q\)</span> for the example is 39. Operationally, this
-<em>must</em> be the case.</p>
-<p>Define <span class="math inline">\(\bar{R}\)</span> as the average rate that customers exit the queue. The
-average rate of customer exiting the queue can be estimated by counting
-the number of customers that exit the queue over a period of time. That
-is,</p>
-<p><span class="math display">\[\bar{R} = \frac{n}{t_n - t_0}\]</span></p>
-<p>where <span class="math inline">\(n\)</span> is the number of customers that departed the system during the
-time <span class="math inline">\(t_n - t_0\)</span>. This quantity is often called the average throughput
-rate. For this example, <span class="math inline">\(\bar{R}\)</span> = 8/25. By combining these equations,
-it becomes clear that the following relationship holds:</p>
-<p><span class="math display">\[\bar{L}_q = \frac{\int\limits_{t_0}^{t_n} q(t)\mathrm{d}t}{t_n - t_0} = \frac{n}{t_n - t_0} \times \frac{\sum_{i=1}^n T_{q_i}}{n} = \bar{R} \times \bar{T}_q\]</span></p>
-<p>This relationship is a conservation law and can also be applied to other
-portions of the queueing system as well. In words the relationship
-states that:</p>
-<p><em>Average number in queue = average throughput rate <span class="math inline">\(\times\)</span> average
-waiting time in queue</em></p>
-<p>When the service portion of the system is considered, then the
-relationship can be translated as:</p>
-<p><em>Average number in service = average throughput rate <span class="math inline">\(\times\)</span> average
-time in service</em></p>
-<p>When the entire queueing system is considered, the relationship yields:</p>
-<p><em>Average number in the system = average throughput rate <span class="math inline">\(\times\)</span> average
-time in the system</em></p>
-<p>These relationships hold operationally for these statistical quantities
-as well as for the expected values of the random variables that underlie
-the stochastic processes. This relationship is called Little’s formula
-after the queueing theorist who first formalized the technical
-conditions of its applicability to the stochastic processes within
-queues of this nature. The interested reader is referred to
-<span class="citation">(<a href="#ref-little1961a">Little 1961</a>)</span> and <span class="citation">(<a href="#ref-glynn1989extensions">Glynn and Whitt 1989</a>)</span> for more on these
-relationships. In particular, Little’s formula states a relationship
-between the steady state expected values for these processes.</p>
-<p>To develop these formulas, define <span class="math inline">\(N\)</span>, <span class="math inline">\(N_q\)</span>, <span class="math inline">\(N_b\)</span> as random variables
-that represent the number of customers in the system, in the queue, and
-in service at an arbitrary point in time in steady state. Also, let
-<span class="math inline">\(\lambda\)</span> be the expected arrival rate so that <span class="math inline">\(1/\lambda\)</span> is the mean
-of the inter-arrival time distribution and let <span class="math inline">\(\mu = 1/E[\mathit{ST}]\)</span>
-so that <span class="math inline">\(E[\mathit{ST}] = 1/\mu\)</span> is the mean of the service time
-distribution. The expected values of the quantities of interest can be
-defined as:</p>
-<p><span class="math display">\[\begin{aligned}
-L &amp; \equiv E[N] \\
-L_q &amp; \equiv E[N_q]\\
-B &amp; \equiv E[N_b]\\
-W &amp; \equiv E[T] \\
-W_q &amp; \equiv E[T_q]\end{aligned}\]</span></p>
-<p>Thus, it should be clear that</p>
-<p><span class="math display">\[\begin{aligned}
-L  &amp; =  L_q + B \\
-W &amp; =  W_q + E[\mathit{ST}]\end{aligned}\]</span></p>
-<p>In steady state, the mean arrival rate to the system should also be
-equal to the mean through put rate. Thus, from Little’s relationship the
-following are true:</p>
-<p><span class="math display">\[\begin{aligned}
-L &amp; =  \lambda W \\
-L_q &amp; =  \lambda W_q\\
-B &amp; = \lambda E[\mathit{ST}] = \frac{\lambda}{\mu}\end{aligned}\]</span></p>
-<p>To gain an intuitive understanding of Little’s formulas in this
-situation, consider that in steady state the mean rate that customers
-exit the queue must also be equal to the mean rate that customers enter
-the queue. Suppose that you are a customer that is departing the queue
-and you look behind yourself to see how many customers are left in the
-queue. This quantity should be <span class="math inline">\(L_q\)</span> on average. If it took you on
-average <span class="math inline">\(W_q\)</span> to get through the queue, how many customers would have
-arrived on average during this time? If the customers arrive at rate
-<span class="math inline">\(\lambda\)</span> then <span class="math inline">\(\lambda\)</span> <span class="math inline">\(\times\)</span> <span class="math inline">\(W_q\)</span> is the number of customers (on
-average) that would have arrived during your time in the queue, but
-these are the customers that you would see (on average) when looking
-behind you. Thus, <span class="math inline">\(L_q = \lambda W_q\)</span>.</p>
-<p>Notice that <span class="math inline">\(\lambda\)</span> and <span class="math inline">\(\mu\)</span> must be given and therefore <span class="math inline">\(B\)</span> is
-known. The quantity <span class="math inline">\(B\)</span> represents the expected number of customers in
-service in steady state, but since a customer uses only 1 server while
-in service, <span class="math inline">\(B\)</span> also represents the expected number of busy servers in
-steady state. If there are <span class="math inline">\(c\)</span> identical servers in the resource, then
-the quantity, <span class="math inline">\(B/c\)</span> represents the fraction of the servers that are
-busy. This quantity can be interpreted as the utilization of the
-resource as a whole or the average utilization of a server, since they
-are all identical. This quantity is defined as:</p>
-<p><span class="math display">\[\rho = \frac{B}{c} = \frac{\lambda}{c \mu}\]</span></p>
-<p>The quantity, <span class="math inline">\(c\mu\)</span>, represents the maximum rate at which the system
-can perform work on average. Because of this <span class="math inline">\(c\mu\)</span> can be interpreted
-as the mean capacity of the system. One of the technical conditions that
-is required for Little’s formula to be applicable is that <span class="math inline">\(\rho &lt; 1\)</span> or
-<span class="math inline">\(\lambda &lt; c \mu\)</span>. That is, the mean arrival rate to the system must be
-less than mean capacity of the system. This also implies that the
-utilization of the resource must be less than 100%.</p>
-<p>The queueing system can also be characterized in terms of the <em>offered
-load</em>. The offered load is a dimensionless quantity that gives the
-average amount of work offered per time unit to the <span class="math inline">\(c\)</span> servers. The
-offered load is defined as: <span class="math inline">\(r = \lambda/\mu\)</span>. Notice that this can be
-interpreted as each customer arriving with <span class="math inline">\(1/\mu\)</span> average units of work
-to be performed. The steady state conditions thus indicate that <span class="math inline">\(r &lt; c\)</span>.
-In other words, the arriving amount of work to the queue cannot exceed
-the number of servers. These conditions make sense for steady state
-results to be applicable, since if the mean arrival rate was greater
-than the mean capacity of the system, the waiting line would continue to
-grow over time.</p>
+<div id="analyzing-the-palletizing-station" class="section level3 hasAnchor" number="7.4.4">
+<h3><span class="header-section-number">7.4.4</span> Analyzing the Palletizing Station<a href="ch7VandV.html#analyzing-the-palletizing-station" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Assuming that all parts that arrive to packaging also arrive to the
+palletizer, we have a rate of arrivals to the palletizer of 12 per hour.
+However, we have to wait until there are 10 parts before they are sent
+to the palletizer. The rate of 12 per hour is a mean time between
+arrivals of 1 part every 5 minutes. To get 10 parts, it will take on
+average 50 minutes. Thus, the mean time between arrivals to the
+palletizer is 50 minutes. Let <span class="math inline">\(\lambda_{4}\)</span> be the arrival rate to the
+palletizer. Thus, the arrival rate to the palletizer is</p>
+<p><span class="math display">\[\lambda_{4} = \frac{1}{\text{MTBA}_{4}} = \frac{1}{50\ \min}\]</span></p>
+<p>Thus, the utilization for the palletizer should be:</p>
+<p><span class="math display">\[\rho_{4} = \frac{\lambda_{4}}{c\mu_{4}} = \frac{E\lbrack ST_{4}\rbrack}{c*\text{MTBA}_{4}} = \frac{2}{1 \times 50} = 0.04\]</span></p>
+<p>Again, this matches quite well with the simulation results. In general,
+as long as <span class="math inline">\(\lambda &lt; c\mu\ \)</span>the approximation of utilization will be
+quite accurate.</p>
 </div>
-<div id="appqts1sb1" class="section level3 hasAnchor" number="11.1.3">
-<h3><span class="header-section-number">C.1.3</span> Deriving Formulas for Markovian Single Queue Systems<a href="appqts1.html#appqts1sb1" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<p>Notice that with <span class="math inline">\(L = \lambda W\)</span> and the other relationships, all of the
-major performance measures for the queue can be computed if a formula
-for one of the major performance measures (e.g. <span class="math inline">\(L\)</span>, <span class="math inline">\(L_q\)</span>, <span class="math inline">\(W\)</span>, or
-<span class="math inline">\(W_q\)</span>) are available. In order to derive formulas for these performance
-measures, the arrival and service processes must be specified.</p>
-<p>This section shows that for the case of exponential time between
-arrivals and exponential service times, the necessary formulas can be
-derived. It is useful to go through the basic derivations in order to
-better understand the interpretation of the various performance
-measures, the implications of the assumptions, and the concept of steady
-state.</p>
-<p>To motivate the development, let’s consider a simple example. Suppose
-you want to model an old style telephone booth, which can hold only one
-person while the person uses the phone. Also assume that any people that
-arrive while the booth is in use immediately leave. In other words,
-nobody waits to use the booth.</p>
-<p>For this system, it is important to understand the behavior of the
-stochastic process <span class="math inline">\(N(t); t \geq 0\)</span>, where <span class="math inline">\(N(t)\)</span> represents the number
-of people that are in the phone booth at any time <span class="math inline">\(t\)</span>. Clearly, the
-possible values of <span class="math inline">\(N(t)\)</span> are 0 and 1, i.e.
-<span class="math inline">\(N(t) \in \lbrace 0, 1 \rbrace\)</span>. Developing formulas for the probability
-that there are 0 or 1 customers in the booth at any time <span class="math inline">\(t\)</span>, i.e.
-<span class="math inline">\(P_i(t) = P\lbrace N(t) = i\rbrace\)</span> will be the key to modeling this
-situation.</p>
-<p>Let <span class="math inline">\(\lambda\)</span> be the mean arrival rate of customers to the booth and let
-<span class="math inline">\(\mathit{ST} = 1/\mu\)</span> be the expected length of a telephone call. For
-example, if the mean time between arrivals is 12 minutes, then <span class="math inline">\(\lambda\)</span>
-= 5/hr, and if the mean length of a call is 10 minutes, then <span class="math inline">\(\mu\)</span> =
-6/hr. The following reasonable assumptions will be made:</p>
-<ol style="list-style-type: decimal">
-<li><p>The probability of a customer arriving in a small interval of time,
-<span class="math inline">\(\Delta t\)</span>, is roughly proportional to the length of the interval,
-with the proportionality constant equal to the mean rate of arrival,
-<span class="math inline">\(\lambda\)</span>.</p></li>
-<li><p>The probability of a customer completing an ongoing phone call
-during a small interval of time is roughly proportional to the
-length of the interval and the proportionality constant is equal to
-the mean service rate, <span class="math inline">\(\mu\)</span>.</p></li>
-<li><p>The probability of more than one arrival in an arbitrarily small
-interval, <span class="math inline">\(\Delta t\)</span>, is negligible. In other words, <span class="math inline">\(\Delta t\)</span>, can
-be made small enough so that only one arrival can occur in the
-interval.</p></li>
-<li><p>The probability of more than one service completion in an
-arbitrarily small interval, <span class="math inline">\(\Delta t\)</span>, is negligible. In other
-words, <span class="math inline">\(\Delta t\)</span>, can be made small enough so that only one service
-can occur in the interval.</p></li>
-</ol>
-<p>Let <span class="math inline">\(P_0(t)\)</span> and <span class="math inline">\(P_1(t)\)</span> represent the probability that there is 0 or 1
-customer using the booth, respectively. Suppose that you observe the
-system at time <span class="math inline">\(t\)</span> and you want to derive the probability for 0
-customers in the system at some future time, <span class="math inline">\(t + \Delta t\)</span>. Thus, you
-want, <span class="math inline">\(P_0(t + \Delta t)\)</span>.</p>
-<p>For there to be zero customers in the booth at time <span class="math inline">\(t + \Delta t\)</span>,
-there are two possible situations that could occur. First, there could
-have been no customers in the system at time <span class="math inline">\(t\)</span> and no arrivals during
-the interval <span class="math inline">\(\Delta t\)</span>, or there could have been one customer in the
-system at time <span class="math inline">\(t\)</span> and the customer completed service during <span class="math inline">\(\Delta t\)</span>.
-Thus, the following relationship should hold:</p>
-<p><span class="math display">\[\begin{aligned}
-\lbrace N(t + \Delta t) = 0\rbrace  = &amp; \lbrace\lbrace N(t) = 0\rbrace \cap \lbrace \text{no arrivals during} \; \Delta t\rbrace\rbrace \cup \\
-&amp; \lbrace\lbrace N(t) = 1\rbrace \cap \lbrace \text{service completed during} \; \Delta t\rbrace \rbrace\end{aligned}\]</span></p>
-<p>It follows that:</p>
-<p><span class="math display">\[P_0(t + \Delta t) = P_0(t)P\lbrace\text{no arrivals during} \Delta t\rbrace + P_1(t)P\lbrace\text{service completed during} \Delta t\rbrace\]</span></p>
-<p>In addition, at time <span class="math inline">\(t + \Delta t\)</span>, there might be a customer using the
-booth, <span class="math inline">\(P_1(t + \Delta t)\)</span>. For there to be one customer in the booth at
-time <span class="math inline">\(t + \Delta t\)</span>, there are two possible situations that could occur.
-First, there could have been no customers in the system at time <span class="math inline">\(t\)</span> and
-one arrival during the interval <span class="math inline">\(\Delta t\)</span>, or there could have been one
-customer in the system at time <span class="math inline">\(t\)</span> and the customer did not complete
-service during <span class="math inline">\(\Delta t\)</span>. Thus, the following holds:</p>
-<p><span class="math display">\[P_1(t + \Delta t) = P_0(t)P\lbrace\text{1 arrival during} \; \Delta t\rbrace + P_1(t)P\lbrace\text{no service completed during} \; \Delta t\rbrace\]</span></p>
-<p>Because of assumptions (1) and (2), the following probability statements
-can be used:</p>
-<p><span class="math display">\[\begin{aligned}
-P \lbrace \text{1 arrival during} \; \Delta t \rbrace &amp; \cong \lambda \Delta t\\
-P \lbrace \text{no arrivals during} \; \Delta t \rbrace &amp;\cong 1- \lambda \Delta t \\
-P \lbrace \text{service completed during} \; \Delta t \rbrace &amp; \cong \mu \Delta t \\
-P \lbrace \text{no service completed during} \; \Delta t \rbrace &amp; \cong 1-\mu \Delta t\end{aligned}\]</span></p>
-<p>This results in the following:</p>
-<p><span class="math display">\[\begin{aligned}
-P_0(t + \Delta t) &amp; = P_0(t)[1-\lambda \Delta t] + P_1(t)[\mu \Delta t]\\
-P_1(t + \Delta t) &amp; = P_0(t)[\lambda \Delta t] + P_1(t)[1-\mu \Delta t]\end{aligned}\]</span></p>
-<p>Collecting the terms in the equations, rearranging, dividing by
-<span class="math inline">\(\Delta t\)</span>, and taking the limit as goes <span class="math inline">\(\Delta t\)</span> to zero, yields the
-following set of differential equations:</p>
-<p><span class="math display">\[\begin{aligned}
-\frac{dP_0(t)}{dt} &amp; = \lim_{\Delta t \to 0}\frac{P_0(t + \Delta t) - P_0(t)}{\Delta t} = -\lambda P_0(t) + \mu P_1(t) \\
-\frac{dP_1(t)}{dt} &amp; = \lim_{\Delta t \to 0}\frac{P_1(t + \Delta t) - P_1(t)}{\Delta t} = \lambda P_0(t) - \mu P_1(t)\end{aligned}\]</span></p>
-<p>It is also true that <span class="math inline">\(P_0(t) + P_1(t) = 1\)</span>. Assuming that <span class="math inline">\(P_0(0) = 1\)</span>
-and <span class="math inline">\(P_1(0) = 0\)</span> as the initial conditions, the solutions to these
-differential equations are:</p>
-<p><span class="math display" id="eq:qtP0t">\[\begin{equation}
-P_0(t) = \biggl(\frac{\mu}{\lambda + \mu}\biggr) + \biggl(\frac{\lambda}{\lambda + \mu}\biggr)e^{-(\lambda + \mu)t}
-\tag{C.1}
-\end{equation}\]</span></p>
-<p><span class="math display" id="eq:qtP1t">\[\begin{equation}
-P_1(t) = \biggl(\frac{\lambda}{\lambda + \mu}\biggr) - \biggl(\frac{\lambda}{\lambda + \mu}\biggr)e^{-(\lambda + \mu)t}
-\tag{C.2}
-\end{equation}\]</span></p>
-<p>These equations represent the probability of having either 0 or 1
-customer in the booth at any time. If the limit as <span class="math inline">\(t\)</span> goes to infinity
-is considered, the <em>steady state probabilities</em>, <span class="math inline">\(P_0\)</span> and <span class="math inline">\(P_1\)</span> can be
-determined:</p>
-<p><span class="math display" id="eq:qtP0">\[\begin{equation}
-P_0 = \lim_{t \to \infty} P_0(t) = \frac{\mu}{\lambda + \mu}
-\tag{C.3}
-\end{equation}\]</span></p>
-<p><span class="math display" id="eq:qtP1">\[\begin{equation}
-P_1 = \lim_{t \to \infty} P_1(t) = \frac{\lambda}{\lambda + \mu}
-\tag{C.4}
-\end{equation}\]</span></p>
-<p>These probabilities can be interpreted as the chance that an arbitrary
-customer finds the booth either empty or busy after an infinitely long
-period of time has elapsed.</p>
-<p>If only the steady state probabilities are desired, there is an easier
-method to perform the derivation, both from a conceptual and a
-mathematical standpoint. The assumptions (1-4) that were made ensure
-that the arrival and service processes will be Markovian. In other
-words, that the time between arrivals of the customer is exponentially
-distributed and that the service times are exponentially distributed. In
-addition, the concept of steady state can be used.</p>
-<p>Consider the differential equations. These equations govern the rate of
-change of the <em>probabilities</em> over time. Consider the analogy of water
-to probability and think of a dam or container that holds an amount of
-water. The rate of change of the level of water in the container can be
-thought of as:</p>
-<p><em>Rate of change of level = rate into container – rate out of the
-container</em></p>
-<p>In steady state, the level of the water should not change, thus the rate
-into the container must equal the rate out of the container. Using this
-analogy,</p>
-<p><span class="math display">\[\dfrac{dP_i(t)}{dt} = \text{rate in - rate out}\]</span></p>
-<p>and for steady state: <em>rate in = rate out</em> with the probability
-<em>flowing</em> between the states.
-Figure <a href="appqts1.html#fig:TwoStates">C.4</a> illustrates this concept via a state
-transition diagram. If <span class="math inline">\(N\)</span> represents the steady state number of
-customers in the system (booth), the two possible states that the system
-can be in are 0 and 1. The rate of transition from state 0 to state 1 is
-the rate that an arrival occurs and the state of transition from state 1
-to state 0 is the service rate.</p>
-<div class="figure" style="text-align: center"><span style="display:block;" id="fig:TwoStates"></span>
-<img src="figures2/AppQueueing/fig4TwoStates.png" alt="Two state rate transition diagram" width="25%" height="25%" />
-<p class="caption">
-Figure C.4: Two state rate transition diagram
-</p>
-</div>
-<p>The rate of transition into state 0 can be thought of as the rate that
-probability flows from state 1 to state 0 times the chance of being in
-state 1, i.e. <span class="math inline">\(\mu P_1\)</span>. The rate of transition out of state 0 can be
-thought of as the rate from state 0 to state 1 times the chance of being
-in state 0, i.e. <span class="math inline">\(\lambda P_0\)</span>. Using these ideas yields:</p>
+<div id="analyzing-the-total-system-time" class="section level3 hasAnchor" number="7.4.5">
+<h3><span class="header-section-number">7.4.5</span> Analyzing the Total System Time<a href="ch7VandV.html#analyzing-the-total-system-time" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>We can go even further and approximate the total time spent in the
+system. If there is no waiting in any of the queues, the approximation
+is quite simple. We just need to total the time spent in service for the
+parts. Let <span class="math inline">\(E\lbrack ST\rbrack\)</span> be the total time spent in service. To
+compute this value, we can simply add up all of the mean service times
+for the stations visited. In the case of line 1 and line 2, we can take
+the weighted average based on the probability that the line is selected
+as follows:</p>
+<p><span class="math display">\[E\left\lbrack \text{ST} \right\rbrack = E\left\lbrack \text{ST}_{0} \right\rbrack + p_{1}E\left\lbrack \text{ST}_{1} \right\rbrack + p_{2}E\left\lbrack \text{ST}_{2} \right\rbrack + E\left\lbrack \text{ST}_{3} \right\rbrack + E\lbrack ST_{4}\rbrack\]</span></p>
+<p><span class="math display">\[E\left\lbrack \text{ST} \right\rbrack = 8 + 0.3 \times 5.3\overline{3} + 0.7 \times 5.3\overline{3} + 3.5 + 2.0 = 18.8\overline{3}\ \text{minutes}\]</span></p>
+<p>This can be easily tested within the simulation model by setting all the
+resource capacities to “infinite”. If you do this, the results will
+indicate that the expected time in the system is <span class="math inline">\(18.8951 \pm 0.06\)</span> with
+95% confidence. Clearly, these results are close enough to provide even
+more credibility to the simulation results.</p>
+<p>By using additional queueing theory, we can approximate total time spent
+at each station by approximating the time spent within the queues and
+then adding up the total time. This will require additional
+approximations. For a random variable, <span class="math inline">\(X\)</span>, the squared coefficient of
+variation is given by:</p>
+<p><span class="math display">\[c_{X}^{2} = \frac{\text{Var}(X)}{{(E\left\lbrack X \right\rbrack)}^{2}}\]</span></p>
+<p>Whitt (1983) suggests the following approximation for the queuing time
+in a GI/G/c queue, where GI is some general independent inter-arrival
+distribution, G is some general service distribution and c is the number
+of servers. The approximation has the following form:</p>
+<p><span class="math display">\[W_{q}(\text{GI}/G/c) \cong \left( \frac{c_{a}^{2} + c_{s}^{2}}{2} \right)W_{q}(M/M/c)\]</span></p>
+<p>Where <span class="math inline">\(c_{a}^{2}\)</span> and <span class="math inline">\(c_{s}^{2}\)</span> represent the squared coefficient of
+variation of the inter-arrival time distribution and the service time
+distribution respectively and <span class="math inline">\(W_{q}(M/M/c)\)</span> is the expected waiting
+time in a M/M/c queue.</p>
+<p>The main difficulty with applying this approximation is determining the
+variance of the inter-arrival time distribution. In what follows, we
+will simplify the approach even further and assume that the
+inter-arrival process at each station is a Poisson process. Thus, the
+inter-arrival distribution will be assumed to be exponential. Since the
+variance of an exponential distribution is the square of its mean, the
+squared coefficient of variation for all the arrival processes will be
+<span class="math inline">\(c_{a}^{2} = 1.\)</span> We will just need to compute the squared coefficient of
+variation for each of the service time distributions associated with
+each station. To determine the waiting time in queue, we will need the
+waiting time in queue equations for the M/M/c queueing model. The
+following table summarizes the formulas for the cases of 1, 2, and 3
+servers.</p>
+<div id="tab:MMCFormulas">
 <table>
+<caption><span id="tab:MMCFormulas">Table 7.7: </span> Formulas for expected waiting time for M/M/c queue <span class="math inline">\(\rho = \lambda/c \mu\)</span></caption>
 <thead>
 <tr class="header">
-<th align="left"><em>State</em></th>
-<th align="center"><em>rate in</em></th>
-<th align="center"><em>=</em></th>
-<th align="center"><em>rate out</em></th>
+<th align="left">c = # servers</th>
+<th align="left"><span class="math inline">\(W_{q} =\)</span>Expected Waiting time in Queue</th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
-<td align="left">0</td>
-<td align="center"><span class="math inline">\(\mu\)</span> <span class="math inline">\(P_1\)</span></td>
-<td align="center">=</td>
-<td align="center"><span class="math inline">\(\lambda\)</span> <span class="math inline">\(P_0\)</span></td>
+<td align="left">1</td>
+<td align="left"><span class="math display">\[\frac{\rho^{2}}{\lambda\left( 1 - \rho \right)}\]</span></td>
 </tr>
 <tr class="even">
-<td align="left">1</td>
-<td align="center"><span class="math inline">\(\lambda\)</span> <span class="math inline">\(P_0\)</span></td>
-<td align="center">=</td>
-<td align="center"><span class="math inline">\(\mu\)</span> <span class="math inline">\(P_1\)</span></td>
-</tr>
-</tbody>
-</table>
-<p>Notice that these are identical equations, but with the fact that
-<span class="math inline">\(P_0 + P_1 = 1\)</span>, we will have two equations and two unknowns
-(<span class="math inline">\(P_0 , P_1\)</span>). Thus, the equations can be easily solved to yield the
-same results as in Equation <a href="appqts1.html#eq:qtP0">(C.3)</a> and Equation <a href="appqts1.html#eq:qtP1">(C.4)</a>. Sets of equations derived in this manner are called <em>steady state</em> equations.</p>
-<p>Now, more general situations can be examined. Consider a general
-queueing system with some given number of servers. An arrival to the
-system represents an increase in the number of customers and a departure
-from the system represents a decrease in the number of customers in the
-system.</p>
-<div class="figure" style="text-align: center"><span style="display:block;" id="fig:GeneralStateDiagram"></span>
-<img src="figures2/AppQueueing/fig5GeneralStateDiagram.png" alt="General rate transition diagram for any number of states" width="85%" height="85%" />
-<p class="caption">
-Figure C.5: General rate transition diagram for any number of states
-</p>
-</div>
-<p>Figure <a href="appqts1.html#fig:GeneralStateDiagram">C.5</a> illustrates a general state transition
-diagram for this system. Let <span class="math inline">\(N\)</span> be the number of customers in the
-system in steady state and define:</p>
-<p><span class="math display">\[P_n = P\lbrace N=n\rbrace = \lim_{t \to \infty}P\lbrace N(t) = n\rbrace\]</span></p>
-<p>as the steady state probability that there are <span class="math inline">\(n\)</span> customers in the
-system. Let <span class="math inline">\(\lambda_n\)</span> be the mean arrival rate of customers entering
-the system when there are <span class="math inline">\(n\)</span> customers in the system,
-<span class="math inline">\(\lambda_n \geq 0\)</span>. Let <span class="math inline">\(\mu_n\)</span> be the mean service rate for the overall
-system when there are <span class="math inline">\(n\)</span> customers in the system. This is the rate, at
-which customers depart when there are <span class="math inline">\(n\)</span> customers in the system. In
-this situation, the number of customers may be infinite, i.e.
-<span class="math inline">\(N \in \lbrace 0,1,2,\ldots\rbrace\)</span>. The steady state equations for this
-situation are as follows:</p>
-<table>
-<thead>
-<tr class="header">
-<th align="left"><em>State</em></th>
-<th align="center"><em>rate in</em></th>
-<th align="center"><em>=</em></th>
-<th align="center"><em>rate out</em></th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td align="left">0</td>
-<td align="center"><span class="math inline">\(\mu_1 P_1\)</span></td>
-<td align="center">=</td>
-<td align="center"><span class="math inline">\(\lambda_0 P_0\)</span></td>
-</tr>
-<tr class="even">
-<td align="left">1</td>
-<td align="center"><span class="math inline">\(\lambda_0 P_0 + \mu_2 P_2\)</span></td>
-<td align="center">=</td>
-<td align="center"><span class="math inline">\(\mu_1 P_1 + \lambda_1 P_1\)</span></td>
-</tr>
-<tr class="odd">
 <td align="left">2</td>
-<td align="center"><span class="math inline">\(\lambda_1 P_1 + \mu_3 P_3\)</span></td>
-<td align="center">=</td>
-<td align="center"><span class="math inline">\(\mu_2 P_2 + \lambda_2 P_2\)</span></td>
-</tr>
-<tr class="even">
-<td align="left"><span class="math inline">\(\vdots\)</span></td>
-<td align="center"><span class="math inline">\(\vdots\)</span></td>
-<td align="center"><span class="math inline">\(\vdots\)</span></td>
-<td align="center"><span class="math inline">\(\vdots\)</span></td>
+<td align="left"><span class="math display">\[\frac{{2\rho}^{3}}{\lambda\left( 1 - \rho^{2} \right)}\]</span></td>
 </tr>
 <tr class="odd">
-<td align="left"><span class="math inline">\(n\)</span></td>
-<td align="center"><span class="math inline">\(\lambda_{n-1} P_{n-1} + \mu_{n+1} P_{n+1}\)</span></td>
-<td align="center">=</td>
-<td align="center"><span class="math inline">\(\mu_n P_n + \lambda_n P_n\)</span></td>
+<td align="left">3</td>
+<td align="left"><span class="math display">\[\frac{{9\rho}^{4}}{\lambda\left( 2 + 2\rho - \rho^{2} - 3\rho^{3} \right)}\]</span></td>
 </tr>
 </tbody>
 </table>
-<p>These equations can be solved recursively starting with state 0. This
-yields:</p>
-<p><span class="math display">\[
-P_1 =  \frac{\lambda_0}{\mu_1} P_0
-\]</span>
-<span class="math display">\[
-P_2 = \frac{\lambda_1 \lambda_0}{\mu_2 \mu_1} P_0
-\]</span></p>
-<p><span class="math display">\[
-\vdots
-\]</span>
-<span class="math display">\[
-P_n =  \frac{\lambda_{n-1} \lambda_{n-2}\cdots \lambda_0}{\mu_n \mu_{n-1} \cdots \mu_1} P_0 = \prod_{j+1}^{n-1}\biggl(\frac{\lambda_j}{\mu_{j+1}}\biggr) P_0
-\]</span></p>
-<p>for <span class="math inline">\(n = 1,2,3, \ldots\)</span>. Provided that <span class="math inline">\(\sum_{n=0}^{\infty} P_n = 1\)</span>,
-<span class="math inline">\(P_0\)</span> can be computed as:</p>
-<p><span class="math display">\[P_0 = \Biggl[\sum_{n=0}^{\infty} \prod_{j=0}^{n-1}\biggl(\dfrac{\lambda_j}{\mu_{j+1}}\biggr)\Biggr]^{-1}\]</span></p>
-<p>Therefore, for any given set of <span class="math inline">\(\lambda_n\)</span> and <span class="math inline">\(\mu_n\)</span>, one can compute
-<span class="math inline">\(P_n\)</span>. The <span class="math inline">\(P_n\)</span> represent the steady state probabilities of having <span class="math inline">\(n\)</span>
-customers in the system. Because <span class="math inline">\(P_n\)</span> is a probability distribution,
-the expected value of this distribution can be computed. What is the
-expected value for the <span class="math inline">\(P_n\)</span> distribution? The expected number of
-customers in the system in steady state. This is <span class="math inline">\(L\)</span>. The expected
-number of customers in the system and the queue are given by:</p>
-<p><span class="math display">\[\begin{aligned}
-L &amp; = \sum_{n=0}^{\infty} nP_n \\
-L_q &amp; = \sum_{n=c}^{\infty} (n-c)P_n\end{aligned}\]</span></p>
-<p>where <span class="math inline">\(c\)</span> is the number of servers.</p>
-<p>There is one additional formula that is needed before Little’s formula
-can be applied with other known relationships. For certain systems, e.g.
-finite system size, not all customers that arrive will enter the queue.
-Little’s formula is true for the customers that enter the system. Thus,
-the effective arrival rate must be defined. The effective arrival rate
-is the mean rate of arrivals that actually enter the system. This is
-given by computing the expected arrival rate across the states. For
-infinite system size, we have:</p>
-<p><span class="math display">\[\lambda_e = \sum_{n=0}^{\infty} \lambda_n P_n\]</span></p>
-<p>For finite system size, <span class="math inline">\(k\)</span>, we have:</p>
-<p><span class="math display">\[\lambda_e = \sum_{n=0}^{k-1} \lambda_n P_n\]</span></p>
-<p>since <span class="math inline">\(\lambda_n = 0\)</span> for <span class="math inline">\(n \geq k\)</span>. This is because nobody can enter
-when the system is full. All these relationships yield:</p>
-<p><span class="math display">\[\begin{aligned}
-L &amp; =  \lambda_e W \\
-L_q &amp; =  \lambda_e W_q\\
-B &amp; = \frac{\lambda_e}{\mu} \\
-\rho &amp; = \frac{\lambda_e}{c\mu}\\
-L &amp; = L_q + B \\
-W &amp; = W_q + \frac{1}{\mu}\end{aligned}\]</span></p>
-<p>Section <a href="appqtsecformulas.html#appqtsecformulas">C.4</a> presents the results of applying the general solution for <span class="math inline">\(P_n\)</span> to different queueing system configurations.
-Table <a href="appqts1.html#tab:mmcResults">C.1</a> presents specific results for the M/M/c
-queuing system for <span class="math inline">\(c = 1,2,3\)</span>. Using these results and those in
-Section <a href="appqtsecformulas.html#appqtsecformulas">C.4</a>, the analysis of a variety of different queueing situations is possible.</p>
-<div id="tab:mmcResults">
+</div>
+<p>We can now tabulate the waiting time in the queue for each of the
+stations. By using the variance associated with each service time
+distribution, as well as the mean, we can compute the squared
+coefficient of variation for the service time distribution for each
+station. The following table summarizes the results. The calculations
+are left to the reader.</p>
+<div id="tab:MMCResults">
 <table>
-<caption><span id="tab:mmcResults">Table C.1: </span> Results M/M/c <span class="math inline">\(\rho = \lambda/c \mu\)</span></caption>
+<caption><span id="tab:MMCResults">Table 7.8: </span> Summary queueing results for each station</caption>
 <thead>
 <tr class="header">
-<th align="center"><span class="math inline">\(c\)</span></th>
-<th align="center"><span class="math inline">\(P_0\)</span></th>
-<th align="center"><span class="math inline">\(L_q\)</span></th>
+<th align="left">Station</th>
+<th align="left">c</th>
+<th><span class="math display">\[\rho = \frac{\lambda}{\text{c}\mu}\]</span></th>
+<th align="center"><span class="math display">\[W_{q}(M/M/c)\]</span></th>
+<th align="right"><span class="math display">\[c_{a}^{2}\]</span></th>
+<th align="right"><span class="math display">\[c_{s}^{2}\]</span></th>
+<th align="right"><span class="math display">\[\frac{\left( c_{a}^{2} + c_{s}^{2} \right)}{2}\]</span></th>
+<th align="right"><span class="math display">\[W_{q}(\text{GI}/G/c)\]</span></th>
 </tr>
 </thead>
 <tbody>
 <tr class="odd">
-<td align="center">1</td>
-<td align="center"><span class="math inline">\(1 - \rho\)</span></td>
-<td align="center"><span class="math inline">\(\dfrac{\rho^2}{1 - \rho}\)</span></td>
+<td align="left">Preparation</td>
+<td align="left">2</td>
+<td><span class="math display">\[0.8\]</span></td>
+<td align="center"><span class="math display">\[14.\overline{22}\]</span></td>
+<td align="right">1</td>
+<td align="right">1</td>
+<td align="right">1</td>
+<td align="right"><span class="math display">\[14.\overline{22}\]</span></td>
 </tr>
 <tr class="even">
-<td align="center">2</td>
-<td align="center"><span class="math inline">\(\dfrac{1 - \rho}{1 + \rho}\)</span></td>
-<td align="center"><span class="math inline">\(\dfrac{2 \rho^3}{1 - \rho^2}\)</span></td>
+<td align="left">Line 1 Build</td>
+<td align="left">2</td>
+<td><span class="math display">\[0.16\]</span></td>
+<td align="center"><span class="math display">\[0.0420\]</span></td>
+<td align="right">1</td>
+<td align="right">0.0547</td>
+<td align="right">0.5274</td>
+<td align="right">0.0221</td>
 </tr>
 <tr class="odd">
-<td align="center">3</td>
-<td align="center"><span class="math inline">\(\dfrac{2(1 - \rho)}{2 + 4 \rho + 3 \rho^2}\)</span></td>
-<td align="center"><span class="math inline">\(\dfrac{9 \rho^4}{2 + 2 \rho - \rho^2 - 3 \rho^3}\)</span></td>
+<td align="left">Line 2 Build</td>
+<td align="left">3</td>
+<td><span class="math display">\[0.24\overline{8}\]</span></td>
+<td align="center"><span class="math display">\[0.0722\]</span></td>
+<td align="right">1</td>
+<td align="right">0.0254</td>
+<td align="right">0.5127</td>
+<td align="right">0.0370</td>
+</tr>
+<tr class="even">
+<td align="left">Packaging</td>
+<td align="left">2</td>
+<td><span class="math display">\[0.35\]</span></td>
+<td align="center"><span class="math display">\[0.4886\]</span></td>
+<td align="right">1</td>
+<td align="right">0.3333</td>
+<td align="right">0.6666</td>
+<td align="right">0.3259</td>
+</tr>
+<tr class="odd">
+<td align="left">Palletizing</td>
+<td align="left">1</td>
+<td><span class="math display">\[0.04\]</span></td>
+<td align="center"><span class="math display">\[0.0722\]</span></td>
+<td align="right">1</td>
+<td align="right">0</td>
+<td align="right">0.5</td>
+<td align="right">0.0361</td>
 </tr>
 </tbody>
 </table>
 </div>
-<p>This section has only scratched the surface of queueing theory. A vast
-amount of literature is available on queueing theory and its
-application. You should examine <span class="citation">(<a href="#ref-gross1998fundamentals">Gross and Harris 1998</a>)</span>,
-<span class="citation">(<a href="#ref-cooper1990introduction">Cooper 1990</a>)</span>, and <span class="citation">(<a href="#ref-kleinrock1975queueing">Kleinrock 1975</a>)</span> for a more in
-depth theoretical development of the topic. There are also a number of
-free on-line resources available on the topic. The interested reader
-should search on “Queueing Theory Books On Line”. The next section presents some simple examples to illustrate the use of the formulas.</p>
+<p>From these results, we can tabulate an approximation for the total time
+in the system. Let <span class="math inline">\(E\lbrack TW_{q}\rbrack\)</span> be the total expected
+waiting time of a part and <span class="math inline">\(E\lbrack T\rbrack\)</span> be the expected total
+time spent in the system for a part. Clearly, we have that,
+<span class="math inline">\(E\left\lbrack T \right\rbrack = E\lbrack TW_{q}\rbrack\)</span>
++<span class="math inline">\(\ E\left\lbrack \text{ST} \right\rbrack\)</span>, where <span class="math inline">\(E\lbrack ST\rbrack\)</span>
+is the total time spent in service for a part. Using the results of the
+table and taking a weighted average across the waiting time for the two
+build lines, we can see that the total expected waiting time in queue
+is:</p>
+<p><span class="math display">\[E\left\lbrack TW_{q} \right\rbrack = 14.22 + \left( 0.3 \right)*\left( 0.420 \right) + \left( 0.7 \right)*\left( 0.0722 \right) + 0.4886 + 0.0722 =14.957\]</span></p>
+<p>Thus, the total expected time spent in the system should be
+approximately, <span class="math inline">\(E\left\lbrack T \right\rbrack = E\lbrack TW_{q}\rbrack\)</span>
++<span class="math inline">\(\ E\left\lbrack \text{ST} \right\rbrack = 18.83 + 14.957 = 33.79\)</span>
+minutes. We can compare this value to the simulation result
+(<span class="math inline">\(31.73 \pm 0.44\)</span>) with 95% confidence.</p>
+<p>Based on this comparison, we can see that the approximation is very
+good. Again, this should add a great deal of credibility to the reported
+results. You might think that, in general, simulation models will be
+“too complex” for such validation methods. Well, sure, I agree that
+there can be very complex simulation models, but that does not mean that
+parts of the model would not lend themselves to a simple analysis as
+demonstrated here. If the individual parts of a simulation model can be
+validated. Then, as long as we believe that when putting the parts
+together to form the entire model, it is still valid, then why wouldn’t
+the overall results not be valid? By verifying and validating individual
+components of the model, we can build up the credibility in the overall
+model.</p>
 </div>
-</div>
-<h3><span class="header-section-number">G</span> References<a href="references.html#references" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<div id="refs" class="references csl-bib-body hanging-indent" entry-spacing="0">
-<div id="ref-cooper1990introduction" class="csl-entry">
-Cooper, R. B. 1990. <em>Introduction to Queueing Theory</em>. 3rd ed. CEEPress Books.
-</div>
-<div id="ref-glynn1989extensions" class="csl-entry">
-Glynn, P. W., and W. Whitt. 1989. <span>“Extensions of the Queueing Relation and <span class="math inline">\({L}=\lambda {W}\)</span> and <span class="math inline">\({H}=\lambda {G}\)</span>.”</span> <em>Operations Research</em> 37: 634–44.
-</div>
-<div id="ref-gross1998fundamentals" class="csl-entry">
-Gross, D., and C. M. Harris. 1998. <em>Fundamentals of Queueing Theory</em>. 3rd ed. New York: John Wiley &amp; Sons.
-</div>
-<div id="ref-kendall1953stochastic" class="csl-entry">
-Kendall, D. G. 1953. <span>“Stochastic Processes Occurring in the Theory of Queues and Their Analysis by the Method of Imbedded Markov Chains.”</span> <em>Annals of Mathematical Statistics</em> 24: 338–54.
-</div>
-<div id="ref-kleinrock1975queueing" class="csl-entry">
-Kleinrock, L. 1975. <em>Queueing Systems</em>. Vol. 1. John Wiley &amp; Sons.
-</div>
-<div id="ref-little1961a" class="csl-entry">
-Little, J. D. C. 1961. <span>“A Proof for the Queuing Formula <span class="math inline">\({L}=\lambda {W}\)</span>.”</span> <em>Operations Research</em> 9: 383–87.
+<div id="other-issues-for-verification-and-validation" class="section level3 hasAnchor" number="7.4.6">
+<h3><span class="header-section-number">7.4.6</span> Other Issues for Verification and Validation<a href="ch7VandV.html#other-issues-for-verification-and-validation" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>As previously noted, verification is about checking if the model or algorithm produces its desired output. Verification is an issue of software quality control. Since computer simulation relies on representing a system within software, we must ensure that we produce software (code) that is error-free. While it is beyond the scope of this book to fully discuss quality control issues within software development, we will not two major approaches that should be applied to simulation model development: 1) testing and 2) debugging.</p>
+<p>The test cases should be designed from simple tests to more complicated
+tests. Test cases can be designed to test individual components of the
+model. If each component passes its test, then testing all components
+together should occur. For a stochastic simulation, testing can be
+performed using statistical tests over the set of test cases that
+indicate with a high level of confidence that the model produces results
+that are not significantly different than the expected output. In
+addition, you might show that the model converges to the expected
+result. Here, error and relative error, their statistical properties,
+etc. are important metrics to use to provide overall confidence in the
+verification process.</p>
+<p>Testing a simulation model begins by developing the model <em>in stages</em>. You should first identify the key modeling issues and develop pseudo-code to address those issues. Then, you should map out a logical development process by which the components of the model can be constructed as independently of each other as possible. For example, for the small manufacturing system, the first stage of the model building process would be to simulate the preparation station. We can dispose of those parts that leave the preparation station and analyze whether or not the preparation station is working correctly. You should identify parts of the system that can be analyzes with very little dependence on the other components. If we only want to check if the logic of the component is working correctly, we can adjust the arrival process to have a simpler deterministic arrival pattern and step through the model logic. For example, create a single entity and send it through the model. Does it do what you intended? Force the entity to take a particular path through the system by setting appropriate attributes or changing appropriate flow of control statements. Does the entity do what it is supposed to do for the test? As noted in Example <a href="ch7VandV.html#exm:ch7exSmallMfgSys">7.10</a> another approach is to set the capacity of all resources to infinity and run the model. Then, you can check if the basic flow time is as expected without any queueing. A staged development process that starts with pseudo-code and tests each stage is critical to ensuring that the model works as intended. Start small. Build small. Test small. And, then integrate the components.</p>
+<p>The second recommended method of verification is debugging the model. Use the debugging capability of your software and step through the model. Check edge cases and debug the model. Run the model with watches on variables that stop the model if an
+invalid condition occurs, trace output through the debugger or by printing out data or logging the entity flow. Document what you did for the debugging. State what you did and what you found. The fact that you performed these verification steps is the essential first step in validating your model. Validation is whether or not the model meets its intended purpose. Validation cannot be accomplished unless verification steps have occurred.</p>
+<p>Validation cannot be done without convincing the user that the key
+conceptual elements of the system have been adequately represented in
+the model. This includes the modeling of the inputs to the system and
+how the conceptual model has been translated to a computerized
+representation. This is why documenting the input models and the
+conceptual model is so important. The old axiom, garbage in equals
+garbage out is pertinent here. The user must believe that the inputs
+have been well-modeled. The user must understand what is being modeled.</p>
+<p>It is also important that everyone agrees on how the model is intended
+to be used. If there is no agreement on the conceptual representation or
+on the model’s use, then validation will be unsuccessful. Validation is
+predicated on the model representing the system. Thus, validation often
+involves comparing the output of the model to the output of the real
+system. If the user of the model cannot tell the difference between
+model output and real system output, then the model’s representational
+power is quite high. If you have data from the real system, especially system output performance measures (e.g. throughput, system time, etc.), then you can compare the results of the simulation model to the actual results from the system. You can perform statistical tests to show that the results from the simulation model are not statistically different from the actual system. Again, a staged approach can be used. Do not feel that you have to validate the whole model against the whole system. Perhaps you can collect data on some critical sub-component of the system being modeled. You can then compare the results of your simulation of that critical sub-component to the actual results from that sub-component. Validating each sub-component goes a long way to validating the overall model. It may be easier to collect data from the actual system in stages or in these smaller components. Besides checking if the output matches the actual system output, you should check if the simulation model behaves as expected. The output of the model should react in the same
+manner as that expected for the real system or the conceptual understanding
+of how the system works. If you increase the arrival rate, does congestion go up? If not, it is likely something may be misrepresented within your model.</p>
+<p>In many situations, the real system does not exist yet. Thus, you will
+not have real data for validation purposes. This is often the case when
+simulation is being used to design a system. In such situations, you may
+be able to approximate the expected performance via “hand” calculations.
+In this context, you can and should approximation the performance of the
+simulation model using analytical methods, such as queuing theory. This
+can provide bounds on the expected performance and add to the
+credibility of the results. In addition, even if the whole system may not yet exist, perhaps sub-components of the real system exist. If so, you can test output from the sub-components to the associated sub-components of your model. Do not think like you have validate the whole model! Think about how you can validate parts of the model, with the validation of each part contributing the validation of the whole.</p>
+<p>Carefully documenting your conceptual model and your assumptions is also
+an important task for validation. If the user of your model does not
+understand it through its careful documentation, then they are less
+likely to believe the results from the model. Performing sensitivity
+analysis on a set of representative test cases can build credibility in
+the usage of the model. Validation is ultimately about believability.
+Does the user believe the results of the model?
+Validation is whether or not the model/algorithm meets it intended
+purpose. Verification is about checking if the model/algorithm meets the
+desired output. You must perform these functions when building a simulation model.</p>
 </div>
 </div>
             </section>
@@ -1153,8 +1007,8 @@ Little, J. D. C. 1961. <span>“A Proof for the Queuing Formula <span class="mat
           </div>
         </div>
       </div>
-<a href="appqtAndInvT.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="appqts1sb2.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="examples-of-advanced-event-models.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="summary-3.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>

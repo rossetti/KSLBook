@@ -4,18 +4,18 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>7.5 Exercises | Simulation Modeling using the Kotlin Simulation Library (KSL)</title>
+  <title>7.6 Exercises | Simulation Modeling using the Kotlin Simulation Library (KSL)</title>
   <meta name="description" content="A book that illustrates the basics of using the KSL. The output format for this book is bookdown::gitbook." />
   <meta name="generator" content="bookdown 0.40 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="7.5 Exercises | Simulation Modeling using the Kotlin Simulation Library (KSL)" />
+  <meta property="og:title" content="7.6 Exercises | Simulation Modeling using the Kotlin Simulation Library (KSL)" />
   <meta property="og:type" content="book" />
   
   <meta property="og:description" content="A book that illustrates the basics of using the KSL. The output format for this book is bookdown::gitbook." />
   
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="7.5 Exercises | Simulation Modeling using the Kotlin Simulation Library (KSL)" />
+  <meta name="twitter:title" content="7.6 Exercises | Simulation Modeling using the Kotlin Simulation Library (KSL)" />
   
   <meta name="twitter:description" content="A book that illustrates the basics of using the KSL. The output format for this book is bookdown::gitbook." />
   
@@ -23,7 +23,7 @@
 <meta name="author" content="Manuel D. Rossetti" />
 
 
-<meta name="date" content="2024-11-04" />
+<meta name="date" content="2024-11-21" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -342,8 +342,17 @@ div.csl-indent {
 <li class="chapter" data-level="7.3.1" data-path="examples-of-advanced-event-models.html"><a href="examples-of-advanced-event-models.html#ch6s1sb4sub3"><i class="fa fa-check"></i><b>7.3.1</b> Modeling Balking and Reneging</a></li>
 <li class="chapter" data-level="7.3.2" data-path="examples-of-advanced-event-models.html"><a href="examples-of-advanced-event-models.html#rqModel"><i class="fa fa-check"></i><b>7.3.2</b> Modeling a Reorder Point, Reorder Quantity Inventory Policy</a></li>
 </ul></li>
-<li class="chapter" data-level="7.4" data-path="summary-3.html"><a href="summary-3.html"><i class="fa fa-check"></i><b>7.4</b> Summary</a></li>
-<li class="chapter" data-level="7.5" data-path="exercises-6.html"><a href="exercises-6.html"><i class="fa fa-check"></i><b>7.5</b> Exercises</a></li>
+<li class="chapter" data-level="7.4" data-path="ch7VandV.html"><a href="ch7VandV.html"><i class="fa fa-check"></i><b>7.4</b> Applying Queueing Theory Results to Verify and Validate a Simulation</a>
+<ul>
+<li class="chapter" data-level="7.4.1" data-path="ch7VandV.html"><a href="ch7VandV.html#analyzing-the-preparation-station"><i class="fa fa-check"></i><b>7.4.1</b> Analyzing the Preparation Station</a></li>
+<li class="chapter" data-level="7.4.2" data-path="ch7VandV.html"><a href="ch7VandV.html#analyzing-the-build-lines"><i class="fa fa-check"></i><b>7.4.2</b> Analyzing the Build Lines</a></li>
+<li class="chapter" data-level="7.4.3" data-path="ch7VandV.html"><a href="ch7VandV.html#analyzing-the-packaging-station"><i class="fa fa-check"></i><b>7.4.3</b> Analyzing the Packaging Station</a></li>
+<li class="chapter" data-level="7.4.4" data-path="ch7VandV.html"><a href="ch7VandV.html#analyzing-the-palletizing-station"><i class="fa fa-check"></i><b>7.4.4</b> Analyzing the Palletizing Station</a></li>
+<li class="chapter" data-level="7.4.5" data-path="ch7VandV.html"><a href="ch7VandV.html#analyzing-the-total-system-time"><i class="fa fa-check"></i><b>7.4.5</b> Analyzing the Total System Time</a></li>
+<li class="chapter" data-level="7.4.6" data-path="ch7VandV.html"><a href="ch7VandV.html#other-issues-for-verification-and-validation"><i class="fa fa-check"></i><b>7.4.6</b> Other Issues for Verification and Validation</a></li>
+</ul></li>
+<li class="chapter" data-level="7.5" data-path="summary-3.html"><a href="summary-3.html"><i class="fa fa-check"></i><b>7.5</b> Summary</a></li>
+<li class="chapter" data-level="7.6" data-path="exercises-6.html"><a href="exercises-6.html"><i class="fa fa-check"></i><b>7.6</b> Exercises</a></li>
 </ul></li>
 <li class="chapter" data-level="8" data-path="ch9AdvMC.html"><a href="ch9AdvMC.html"><i class="fa fa-check"></i><b>8</b> Advanced Monte Carlo Methods</a>
 <ul>
@@ -490,8 +499,8 @@ div.csl-indent {
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="exercises-6" class="section level2 hasAnchor" number="7.5">
-<h2><span class="header-section-number">7.5</span> Exercises<a href="exercises-6.html#exercises-6" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="exercises-6" class="section level2 hasAnchor" number="7.6">
+<h2><span class="header-section-number">7.6</span> Exercises<a href="exercises-6.html#exercises-6" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <hr />
 <div class="exercise">
 <p><span id="exr:ch7P1" class="exercise"><strong>Exercise 7.1  </strong></span>Consider the testing and repair
@@ -995,12 +1004,12 @@ from the staging to the workstation and from pack to exit are 3 minutes.
 Transfer times from the workstation to paint and from paint to pack are
 2 minutes. The performance measures of interest are the utilization and
 Work-In-Progress (WIP) at the workstation, paint and packaging
-operations. Figure <a href="exercises-6.html#fig:SMPaintsExercise">7.10</a> provides an illustration of the system.</p>
+operations. Figure <a href="exercises-6.html#fig:SMPaintsExercise">7.11</a> provides an illustration of the system.</p>
 <p><em>(This problem is based on an example on page 209 and continues on page 217 of <span class="citation">(<a href="#ref-pegden1995introduction">Pegden, Shannon, and Sadowski 1995</a>)</span>. Used with permission)</em></p>
 <div class="figure" style="text-align: center"><span style="display:block;" id="fig:SMPaintsExercise"></span>
 <img src="figures2/ch7/figSMPaintsExercise.png" alt="Simple painting flow line" width="70%" height="70%" />
 <p class="caption">
-Figure 7.10: Simple painting flow line
+Figure 7.11: Simple painting flow line
 </p>
 </div>
 <p>Suppose that statistics on the part flow time, i.e. the total time a
@@ -1082,14 +1091,14 @@ packages with special discounts for members. Finally, the financial
 services issues credit cards for members at special interest rates.</p>
 <p>Super Ready Auto Club has regional call centers that handle incoming
 calls from members within a given region of the country.
-Table <a href="exercises-6.html#tab:SRAC1">7.7</a> presents the mean of the number of calls, recorded on an hourly basis
+Table <a href="exercises-6.html#tab:SRAC1">7.9</a> presents the mean of the number of calls, recorded on an hourly basis
 over a period of 7 days, aggregated over a three state region.</p>
 <p>The three types of service calls occur with 60% for auto service, 35%
 for credit card services, and 15% for travel services during the 8 am to
 8 pm time frame. For the other hours of the day, the proportion changes
 to 90% for auto service, 10% for credit card services, and 0% for travel
 services. A sample of call service times were recorded for each of the
-types as shown in Tables <a href="exercises-6.html#tab:SRAC1">7.7</a>, <a href="exercises-6.html#tab:SRAC2">7.8</a>, (<a href="exercises-6.html#tab:SRAC3">7.9</a>, and (<a href="exercises-6.html#tab:SRAC3">7.9</a>. You can find this data in the chapter files that accompany this chapter in the spreadsheet called <em>Super Ready Auto Club.xlsx</em>.
+types as shown in Tables <a href="exercises-6.html#tab:SRAC1">7.9</a>, <a href="exercises-6.html#tab:SRAC2">7.10</a>, (<a href="exercises-6.html#tab:SRAC3">7.11</a>, and (<a href="exercises-6.html#tab:SRAC3">7.11</a>. You can find this data in the chapter files that accompany this chapter in the spreadsheet called <em>Super Ready Auto Club.xlsx</em>.
 Use stream 1 for road side service calls, stream 2 for vacation service calls, and
 stream 3 for credit card service calls.</p>
 <p>Call center operators cost $18 per hour including fringe benefits. It
@@ -1113,7 +1122,7 @@ time).</p></li>
 </div>
 <div id="tab:SRAC1">
 <table>
-<caption><span id="tab:SRAC1">Table 7.7: </span> Mean Number of Calls Received for each Hour</caption>
+<caption><span id="tab:SRAC1">Table 7.9: </span> Mean Number of Calls Received for each Hour</caption>
 <thead>
 <tr class="header">
 <th align="left">Hour</th>
@@ -1372,7 +1381,7 @@ time).</p></li>
 </div>
 <div id="tab:SRAC2">
 <table>
-<caption><span id="tab:SRAC2">Table 7.8: </span> Road Side Service Call Times in Minutes</caption>
+<caption><span id="tab:SRAC2">Table 7.10: </span> Road Side Service Call Times in Minutes</caption>
 <tbody>
 <tr class="odd">
 <td align="left">33.6</td>
@@ -1499,7 +1508,7 @@ time).</p></li>
 </div>
 <div id="tab:SRAC3">
 <table>
-<caption><span id="tab:SRAC3">Table 7.9: </span> Vacation Package Service Call Times in Minutes</caption>
+<caption><span id="tab:SRAC3">Table 7.11: </span> Vacation Package Service Call Times in Minutes</caption>
 <tbody>
 <tr class="odd">
 <td align="left">52.2</td>
@@ -1626,7 +1635,7 @@ time).</p></li>
 </div>
 <div id="tab:SRAC4">
 <table>
-<caption><span id="tab:SRAC4">Table 7.10: </span> Credit Card Service Call Times in Minutes</caption>
+<caption><span id="tab:SRAC4">Table 7.12: </span> Credit Card Service Call Times in Minutes</caption>
 <tbody>
 <tr class="odd">
 <td align="left">13.5</td>

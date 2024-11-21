@@ -687,7 +687,7 @@ Manipulating randomness refers to the judicious use of the random number streams
 
 ### Common Random Numbers (CRN)
 
-In Section \@ref(simoacomparingSystemstwoDep), we already discussed use of common random numbers when comparing two systems. Here we will review the key result and mention a couple of implementation issues. 
+In Section \@ref(simoacomparingSystemstwoDep), we already discussed the use of common random numbers when comparing two systems. Here we will review the key results and mention a couple of implementation issues. 
 
 CRN exploits the idea that if each alternative experiences the same randomness, then the difference between the two alternatives will be because of a true underlying difference, rather than because of the randomness. Define $\theta = \theta_1 - \theta_2$ as the parameter of interest, and define $D_i = X_i - Y_i$ as the difference between the $i^{th}$ pairs of performance observations, for $i=1,2, \cdots, n$, where $n$ is the number of observations.  The point estimator is $\hat{\theta} = \bar{D} = \bar{X} - \bar{Y}$, with interval estimator:
 

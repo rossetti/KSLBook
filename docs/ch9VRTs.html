@@ -23,7 +23,7 @@
 <meta name="author" content="Manuel D. Rossetti" />
 
 
-<meta name="date" content="2024-11-04" />
+<meta name="date" content="2024-11-21" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -342,8 +342,17 @@ div.csl-indent {
 <li class="chapter" data-level="7.3.1" data-path="examples-of-advanced-event-models.html"><a href="examples-of-advanced-event-models.html#ch6s1sb4sub3"><i class="fa fa-check"></i><b>7.3.1</b> Modeling Balking and Reneging</a></li>
 <li class="chapter" data-level="7.3.2" data-path="examples-of-advanced-event-models.html"><a href="examples-of-advanced-event-models.html#rqModel"><i class="fa fa-check"></i><b>7.3.2</b> Modeling a Reorder Point, Reorder Quantity Inventory Policy</a></li>
 </ul></li>
-<li class="chapter" data-level="7.4" data-path="summary-3.html"><a href="summary-3.html"><i class="fa fa-check"></i><b>7.4</b> Summary</a></li>
-<li class="chapter" data-level="7.5" data-path="exercises-6.html"><a href="exercises-6.html"><i class="fa fa-check"></i><b>7.5</b> Exercises</a></li>
+<li class="chapter" data-level="7.4" data-path="ch7VandV.html"><a href="ch7VandV.html"><i class="fa fa-check"></i><b>7.4</b> Applying Queueing Theory Results to Verify and Validate a Simulation</a>
+<ul>
+<li class="chapter" data-level="7.4.1" data-path="ch7VandV.html"><a href="ch7VandV.html#analyzing-the-preparation-station"><i class="fa fa-check"></i><b>7.4.1</b> Analyzing the Preparation Station</a></li>
+<li class="chapter" data-level="7.4.2" data-path="ch7VandV.html"><a href="ch7VandV.html#analyzing-the-build-lines"><i class="fa fa-check"></i><b>7.4.2</b> Analyzing the Build Lines</a></li>
+<li class="chapter" data-level="7.4.3" data-path="ch7VandV.html"><a href="ch7VandV.html#analyzing-the-packaging-station"><i class="fa fa-check"></i><b>7.4.3</b> Analyzing the Packaging Station</a></li>
+<li class="chapter" data-level="7.4.4" data-path="ch7VandV.html"><a href="ch7VandV.html#analyzing-the-palletizing-station"><i class="fa fa-check"></i><b>7.4.4</b> Analyzing the Palletizing Station</a></li>
+<li class="chapter" data-level="7.4.5" data-path="ch7VandV.html"><a href="ch7VandV.html#analyzing-the-total-system-time"><i class="fa fa-check"></i><b>7.4.5</b> Analyzing the Total System Time</a></li>
+<li class="chapter" data-level="7.4.6" data-path="ch7VandV.html"><a href="ch7VandV.html#other-issues-for-verification-and-validation"><i class="fa fa-check"></i><b>7.4.6</b> Other Issues for Verification and Validation</a></li>
+</ul></li>
+<li class="chapter" data-level="7.5" data-path="summary-3.html"><a href="summary-3.html"><i class="fa fa-check"></i><b>7.5</b> Summary</a></li>
+<li class="chapter" data-level="7.6" data-path="exercises-6.html"><a href="exercises-6.html"><i class="fa fa-check"></i><b>7.6</b> Exercises</a></li>
 </ul></li>
 <li class="chapter" data-level="8" data-path="ch9AdvMC.html"><a href="ch9AdvMC.html"><i class="fa fa-check"></i><b>8</b> Advanced Monte Carlo Methods</a>
 <ul>
@@ -529,7 +538,7 @@ and thus because <span class="math inline">\(n_1 &lt; n_2\)</span>, we have that
 <p>Manipulating randomness refers to the judicious use of the random number streams. Exploiting process knowledge refers to the general intuition that more information reduces uncertainty.</p>
 <div id="common-random-numbers-crn" class="section level3 hasAnchor" number="8.2.1">
 <h3><span class="header-section-number">8.2.1</span> Common Random Numbers (CRN)<a href="ch9VRTs.html#common-random-numbers-crn" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<p>In Section <a href="simoacomparingSystems.html#simoacomparingSystemstwoDep">5.7.1.2</a>, we already discussed use of common random numbers when comparing two systems. Here we will review the key result and mention a couple of implementation issues.</p>
+<p>In Section <a href="simoacomparingSystems.html#simoacomparingSystemstwoDep">5.7.1.2</a>, we already discussed the use of common random numbers when comparing two systems. Here we will review the key results and mention a couple of implementation issues.</p>
 <p>CRN exploits the idea that if each alternative experiences the same randomness, then the difference between the two alternatives will be because of a true underlying difference, rather than because of the randomness. Define <span class="math inline">\(\theta = \theta_1 - \theta_2\)</span> as the parameter of interest, and define <span class="math inline">\(D_i = X_i - Y_i\)</span> as the difference between the <span class="math inline">\(i^{th}\)</span> pairs of performance observations, for <span class="math inline">\(i=1,2, \cdots, n\)</span>, where <span class="math inline">\(n\)</span> is the number of observations. The point estimator is <span class="math inline">\(\hat{\theta} = \bar{D} = \bar{X} - \bar{Y}\)</span>, with interval estimator:</p>
 <p><span class="math display">\[
 \bar{D} \pm t_{1-\alpha/2,n-1}\frac{s_D}{\sqrt{n}}

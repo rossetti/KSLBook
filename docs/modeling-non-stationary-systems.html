@@ -23,7 +23,7 @@
 <meta name="author" content="Manuel D. Rossetti" />
 
 
-<meta name="date" content="2024-11-04" />
+<meta name="date" content="2024-11-21" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -342,8 +342,17 @@ div.csl-indent {
 <li class="chapter" data-level="7.3.1" data-path="examples-of-advanced-event-models.html"><a href="examples-of-advanced-event-models.html#ch6s1sb4sub3"><i class="fa fa-check"></i><b>7.3.1</b> Modeling Balking and Reneging</a></li>
 <li class="chapter" data-level="7.3.2" data-path="examples-of-advanced-event-models.html"><a href="examples-of-advanced-event-models.html#rqModel"><i class="fa fa-check"></i><b>7.3.2</b> Modeling a Reorder Point, Reorder Quantity Inventory Policy</a></li>
 </ul></li>
-<li class="chapter" data-level="7.4" data-path="summary-3.html"><a href="summary-3.html"><i class="fa fa-check"></i><b>7.4</b> Summary</a></li>
-<li class="chapter" data-level="7.5" data-path="exercises-6.html"><a href="exercises-6.html"><i class="fa fa-check"></i><b>7.5</b> Exercises</a></li>
+<li class="chapter" data-level="7.4" data-path="ch7VandV.html"><a href="ch7VandV.html"><i class="fa fa-check"></i><b>7.4</b> Applying Queueing Theory Results to Verify and Validate a Simulation</a>
+<ul>
+<li class="chapter" data-level="7.4.1" data-path="ch7VandV.html"><a href="ch7VandV.html#analyzing-the-preparation-station"><i class="fa fa-check"></i><b>7.4.1</b> Analyzing the Preparation Station</a></li>
+<li class="chapter" data-level="7.4.2" data-path="ch7VandV.html"><a href="ch7VandV.html#analyzing-the-build-lines"><i class="fa fa-check"></i><b>7.4.2</b> Analyzing the Build Lines</a></li>
+<li class="chapter" data-level="7.4.3" data-path="ch7VandV.html"><a href="ch7VandV.html#analyzing-the-packaging-station"><i class="fa fa-check"></i><b>7.4.3</b> Analyzing the Packaging Station</a></li>
+<li class="chapter" data-level="7.4.4" data-path="ch7VandV.html"><a href="ch7VandV.html#analyzing-the-palletizing-station"><i class="fa fa-check"></i><b>7.4.4</b> Analyzing the Palletizing Station</a></li>
+<li class="chapter" data-level="7.4.5" data-path="ch7VandV.html"><a href="ch7VandV.html#analyzing-the-total-system-time"><i class="fa fa-check"></i><b>7.4.5</b> Analyzing the Total System Time</a></li>
+<li class="chapter" data-level="7.4.6" data-path="ch7VandV.html"><a href="ch7VandV.html#other-issues-for-verification-and-validation"><i class="fa fa-check"></i><b>7.4.6</b> Other Issues for Verification and Validation</a></li>
+</ul></li>
+<li class="chapter" data-level="7.5" data-path="summary-3.html"><a href="summary-3.html"><i class="fa fa-check"></i><b>7.5</b> Summary</a></li>
+<li class="chapter" data-level="7.6" data-path="exercises-6.html"><a href="exercises-6.html"><i class="fa fa-check"></i><b>7.6</b> Exercises</a></li>
 </ul></li>
 <li class="chapter" data-level="8" data-path="ch9AdvMC.html"><a href="ch9AdvMC.html"><i class="fa fa-check"></i><b>8</b> Advanced Monte Carlo Methods</a>
 <ul>
@@ -974,7 +983,7 @@ Interval FC 3                      209.719000       14.505532     1000.000000
 Interval FC 4                      315.231000       17.753502     1000.000000 
 Interval FC 5                      349.919000       18.208899     1000.000000 
 -------------------------------------------------------------------------------</code></pre>
-<p>The advantage of the rate inversion method is that there is a one for one mapping from the underlying pseudo-random numbers and the generated variates. Since the thinning method uses a form of acceptance-rejection, the one-for-one mapping cannot be preserved. The disadvantage of the rate inversion method is that the mean cumulative rate function, <span class="math inline">\(m(t)\)</span> must be inverted, which may require numerical methods. The following section discusses the issues involved when using resources under non-stationary conditions.</p>
+<p>The advantage of the rate inversion method is that there is a one for one mapping from the underlying pseudo-random numbers and the generated variates. Since the thinning method uses a form of acceptance-rejection, the one-for-one mapping can not be preserved. The disadvantage of the rate inversion method is that the mean cumulative rate function, <span class="math inline">\(m(t)\)</span> must be inverted, which may require numerical methods. The following section discusses the issues involved when using resources under non-stationary conditions.</p>
 </div>
 </div>
 <div id="modeling-resources-under-non-stationary-conditions" class="section level3 hasAnchor" number="7.2.2">
