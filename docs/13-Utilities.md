@@ -809,7 +809,7 @@ The KSL provides functionality to define and run experiments based on experiment
 <p class="caption">(\#fig:KSLFactors)KSL Factors</p>
 </div>
 
-When setting up an experimental design, the regressors (factors) are often coded in such a manner to facilitate the interpretation of the model coefficients.  Quite often they are scaled to a range of values between -1 and 1, or between 0 and 1.  Withing the KSL, the levels of the factors should be supplied via their uncoded values.  The KSL `Factor` class can perform the translation to and from the coded and uncoded design space. 
+When setting up an experimental design, the regressors (factors) are often coded in such a manner to facilitate the interpretation of the model coefficients.  Quite often they are scaled to a range of values between -1 and 1, or between 0 and 1.  Within the KSL, the levels of the factors should be supplied via their uncoded values.  The KSL `Factor` class can perform the translation to and from the coded and uncoded design space. 
 
 Suppose we have non-standardized factor $p$ and denoted as $w_p$. Suppose $w_p$ ranges between its lowest value, $l_p$ and its highest value $u_p$.  That is $w_p$ is in the interval, $w_p \in [l_p,u_p]$. For example, suppose $w_p$ is the mean of the service time distribution and $w_p$ has levels $[5,10,15,20,25]$. Thus, $l_p = 5$ and $u_p = 25$
   
