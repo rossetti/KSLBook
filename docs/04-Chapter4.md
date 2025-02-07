@@ -2948,10 +2948,45 @@ serve the customer is random and data has indicated that the time is
 well modeled with an exponential distribution with a mean of 3 minutes.
 Customers who arrive to the pharmacy are served in the order of arrival
 and enough space is available within the parking area of the adjacent
-grocery store to accommodate any waiting customers. In this situation, we desire to estimate the time spent waiting in the queue. In addition, we would like to collect a histogram on the total time spent in the system.
+grocery store to accommodate any waiting customers. For this situation, we
+are interested in estimating the following performance measures:
+
+a. Expected time spent waiting in the queue.
+b. Probability of having 0, 1, 2, 3, etc. in the queue upon arrival.
+c. The utilization of the pharmacist.
+d. The number of times that the pharmacist attempted to serve a customer.
+e. A histogram for the total time spent in the system.
 :::
 
-Specifically, we will introduce the `Queue`  and `QObject` classes and the `EventGenerator` class.  The purpose is to cover the basics of these classes for future modeling.  The `Queue`  and `QObject` classes facilitate the holding of entities within waiting lines or queues, while the `EventGenerator` class codifies the basics of generating events according to a repetitive pattern.  We start with the `Queue`  and `QObject` classes.
+The solution to this situation will involve five new KSL constructs.
+
+- `SResource` - To model the pharmacist as a resource and automatically collect resource statistics.
+- `Queue` - To model the customer waiting line.
+- `QObject` - To model the customers and facilitate statistical collection on waiting time in the queue.
+- `IntegerFrequencyResponse` - To collect statistics on the number of customers waiting when another customer arrives.
+- `HistogramResponse` - To collect a histogram on the system times of the customers.
+- `EventGenerator` - To model the arrival pattern of the customers. 
+
+The purpose is to cover the basics of these classes for future modeling.  The `SResource` class represents a *simple* resource that has a unchangeable capacity.  The `Queue`  and `QObject` classes facilitate the holding of entities within waiting lines or queues, while the `EventGenerator` class codifies the basics of generating events according to a repetitive pattern.  We will start by expanding on the concept of a resource.
+
+### Modeling a Simple Resource
+
+As we saw in the drive through pharmacy example, when the customer arrives they need the pharmacist in order to proceed. As noted in the activity diagram depicted in Figure \@ref(fig:DTPActivityDiagram), we denoted the pharmacist as a resource (circle) in the diagram. A resource is something that is needed by the objects *(or entities)* that experience the system's activities.  In the pharmacy example, the resource (pharmacist) was required to start the service activity, denoted with a arrow with the word "seize" in the activity diagram, pointing from the resource to the start of the activity.  After the activity is completed, there is a corresponding arrow labeled "release" pointing from the end of the activity back to the resource. This arrow denotes the returning of the used resource units back to the pool of available units.  
+
+For the purposes of this situation, we are going to represent the concept of a simple resource with the aptly named `SResource` class (for simple resource). Let's take a look at how the KSL represents a simple resource.
+
+<div class="figure" style="text-align: center">
+<img src="./figures2/ch4/SResource.png" alt="A Simple Resource Class" width="80%" height="80%" />
+<p class="caption">(\#fig:SResource)A Simple Resource Class</p>
+</div>
+
+A resource has a capacity that represents the maximum number of units that it can have available at any time.  When a resource is seized some amount of units become busy (or allocated). When the units are no longer needed, they are released. If we let $A(t)$ be the number of available units, $B(t)$ be the number of busy units and $c$ be the capacity of the resource, we have that $c = A(t) + B(t)$ or $A(t) = c - B(t)$. A resource is considered busy if $B(t) > 0$. That is, a resource is busy if some units are allocated.  A resource is considered idle if no units are busy. That is, $B(t) = 0$, which implies that $A(t) = c$.  
+
+If the number of available units of a resource are unable to meet the number of units required by a "customer", then we need to decide what to do. To simplify this modeling, we are going to assume two things 1) customers only request 1 unit of the resource at a time, and 2) if the request cannot be immediately supplied the customer will wait in an associated queue. These latter two assumptions are essentially what we have previously assumed in the modeling of the pharmacy situation. Modeling often requires the use of simplifying assumptions. 
+
+The `SResource` class of Figure \@ref(fig:SResource) has functions `seize()` and `release()` which take (seize) and return (release) units of the resource.  It also has properties (`busy` and `idle`) that indicate if the resource is busy or idle, respectively. In addition, the property `numBusyUnits` represents $B(t)$ and the property `numAvailableUnits` represents $A(t)$. For convenience, the `hasAvailableUnits` property indicates if the resource has units that can be seized. Finally, the number of times the resource is seized and released are tabulated. The main performance measures are time weighted response variables for tabulating the time-average number of busy units and the time-average instantaneous utilization of the resource. Instantaneous utilization, $U(t)$ is governed by tracking $U(t) = B(t)/c$.
+
+### Modeling a Queue with Statistical Collection
 
 The `Queue` class, is used to model waiting lines. The `Queue` class is a sub-class
 of `ModelElement` that is able to hold instances of the class `QObject` and
@@ -2981,6 +3016,8 @@ fun removeNext(): T?
 ```
 
 The `enqueue` method places `QObject` instances into the queue using the supplied priority. It also allows the user to attach an instance of `Any` to the `QObject` instance.  The `peekNext` method provides a reference to the next `QObject` to be removed according the specified queue discipline and the `removeNext` method will remove the next `QObject` instance.  During the enqueue and removal processes statistics are tabulated on the number of items in the queue and how much time the items spent in the queue. These responses are available via the `timeInQ` and `numInQ` properties.  We will see how to use these classes within the revised pharmacy model. Before proceeding with reviewing the implementation, let us examine the `EventGenerator` class.
+
+### Modeling a Repeating Event Pattern
 
 The `EventGenerator` class allows for the periodic generation of events
 similar to that achieved by "CREATE" modules in other simulation languages.
@@ -3107,51 +3144,82 @@ action invokes the `resume()` method. Obviously, this can be within a
 sub-class of `EventGenerator` or within another class that has a reference
 to the event generator.
 
-Now we are ready to review the revised implementation of the drive through pharmacy model which puts the `Queue,` `QObject,` and `EventGenerator` classes into action.  Only portions of the code are illustrated here.  For full details see the example files in the `ksl.examples.book.chapter4` package. To declare an instance of the Queue class, we use the following code.
+### Collecting More Detailed Statistics
+
+Example \@ref(exm:ch4ex5) also has requirements to collect the probability associated with the number of customers in the queue when a new customer arrives and for collecting a histogram for the time spent in the system for the customers. These requirements will be implemented using the `IntegerFrequencyResponse` and `HistogramResponse` classes. The `IntegerFrequencyResponse` and `HistogramResponse` classes are implementations of the `IntegerFrequency` and `Histogram` classes described in Section \@ref(histFreq).  The `HistogramResponse` class tabulates counts and frequencies of observed data over a set of contiguous intervals.  The `IntegerFrequencyResponse` class will also tabulate count frequencies when the values are only integers. Both of these classes are designed to be used withing a KSL discrete-event simulation.  One item to note is that both classes will collect statistics from within a warm up period (see Section \@ref(simoainfhorizoninitialbias)).  In fact, these classes report statistics based on observations from every replication of the simulation. 
+
+### Implementing the Enhanced Pharmacy Model
+
+Now we are ready to review the revised implementation of the drive through pharmacy model which puts the previously described classes into action.  Only portions of the code are illustrated here.  For full details see the example files in the `ksl.examples.book.chapter4` package. To declare an instance of the `SResource` class, the following pattern is recommended:
 
 ```kt
-    private val mySTGT4: IndicatorResponse = IndicatorResponse({ x -> x >= 4.0 }, mySysTime, "SysTime > 4.0 minutes")
+    private val myPharmacists: SResource = SResource(this, numServers, "${this.name}:Pharmacists")
+    val resource: SResourceCIfc
+        get() = myPharmacists
+```
 
-    private val mySysTime: Response = Response(this, "System Time")
+Notice that the name of the parent model element is used as a prefix for the name of the resource to ensure that the name for the pharmacist is unique.  Also note that exposure to useful components of `SResource` are made possible via the `SResourceCIfc` interface. Through this interface the initial capacity can be changed, the state of the resource can be accessed, and access to the statistical collection of the number busy and utilization are available.  
+
+To collect the histogram and integer frequency statistics, we can use the following declarations.
+
+```kt
+    private val mySysTime: Response = Response(this, "${this.name}:SystemTime")
     val systemTime: ResponseCIfc
         get() = mySysTime
         
-    private val myWaitingQ: Queue<QObject> = Queue(this, "PharmacyQ")
+    private val mySysTimeHistogram: HistogramResponse = HistogramResponse(mySysTime)
+    val systemTimeHistogram: HistogramIfc
+        get() = mySysTimeHistogram.histogram
+
+    private val myInQ = IntegerFrequencyResponse(this, "${this.name}:NQUponArrival")
+```
+
+The `HistogramResponse` class requires an instance of the `Response` class.  In this case, we supply a reference the response that is used to collect the system times for the customers. The reference is used internally to observe the response. The instance of the `IntegerFrequencyResponse` class will be used within the arrival logic to observe the number of customers in the queue when the customer arrives. 
+
+To declare an instance of the Queue class, we use the following code.
+
+```kt
+    private val myWaitingQ: Queue<QObject> = Queue(this, "${this.name}:PharmacyQ")
     val waitingQ: QueueCIfc<QObject>
         get() = myWaitingQ
 ```
 
 Notice how we also declare a public property that exposes part of the queue functionality, especially related to getting access to the statistical responses. 
 
-We can create and use an instance of `EventGenerator` with the following code.  We see that the event generator uses an instance of the inner class `Arrivals,` which implements the `GeneratorActionIfc.` In addition, the time between arrivals random variable is supplied for both the time until the first event and the time between events.  The `initialize()` method of the `EventGenerator` class ensures that the first event is scheduled at the start of the simulation.  In addition, the `EventGenerator` class continues rescheduling the arrivals according to the time between arrival pattern.  As previously noted, this process can be suspended, resumed, and turned off if needed.  An event generator can also be specified not to automatically start at time 0.
+We can create and use an instance of `EventGenerator` with the following code.  We see that the event generator uses a reference to the functional interface `GeneratorActionIfc.` This is accomplished with the `this::arrival` syntax, which provides a reference to the `arrival` function shown in the code.
+
+In addition, the time between arrivals random variable is supplied for both the time until the first event and the time between events.  The `initialize()` method of the `EventGenerator` class ensures that the first event is scheduled automatically at the start of the simulation.  In addition, the `EventGenerator` class continues rescheduling the arrivals according to the time between arrival pattern.  As previously noted, this process can be suspended, resumed, and turned off if needed.  An event generator can also be specified not to automatically start at time 0.
 
 ```kt
-    private val myArrivalGenerator: EventGenerator = EventGenerator(this, Arrivals(), myArrivalRV, myArrivalRV)
     private val endServiceEvent = this::endOfService
 
-    private inner class Arrivals : GeneratorActionIfc {
-        override fun generate(generator: EventGenerator) {
-            myNS.increment() // new customer arrived
-            val arrivingCustomer = QObject()
-            myWaitingQ.enqueue(arrivingCustomer) // enqueue the newly arriving customer
-            if (myNumBusy.value < numPharmacists) { // server available
-                myNumBusy.increment() // make server busy
-                val customer: QObject? = myWaitingQ.removeNext() //remove the next customer
-                // schedule end of service, include the customer as the event's message
-                schedule(endServiceEvent, myServiceRV, customer)
-            }
+    private val myArrivalGenerator: EventGenerator = EventGenerator(
+        this, this::arrival, myArrivalRV, myArrivalRV)
+
+    private fun arrival(generator: EventGenerator) {
+        myNS.increment() // new customer arrived
+        myInQ.value = myWaitingQ.numInQ.value.toInt()
+        val arrivingCustomer = QObject()
+        myWaitingQ.enqueue(arrivingCustomer) // enqueue the newly arriving customer
+        if (myPharmacists.hasAvailableUnits) {
+            myPharmacists.seize()
+            val customer: QObject? = myWaitingQ.removeNext() //remove the next customer
+            // schedule end of service, include the customer as the event's message
+            schedule(endServiceEvent, myServiceRV, customer)
         }
     }
 ```
 
-In the code for arrivals, we also see the use of the `Queue` class (via the variable `myWaitingQ`) and the `QObject` class. On line 7 of the code, we see `val arrivingCustomer = QObject()` which creates an instance of `QObject` that represents the arriving customer. Then, using the `enqueue` method the customer is placed within the queue.  This action is performed regardless of whether the customer has to wait to ensure that zero wait times are collected. Then, in lines 9-14, we see that the number busy is checked against the number of pharmacists.  If there is an available pharmacists, the number busy is incremented, the next customer is removed from the queue, and the customer's end of service action is scheduled.  Notice how the `schedule` method is different from the previous implementation.  In this implementation, the customer is attached to the `KSLEvent` instance and is held in the calendar with the event until the event is removed from the calendar and its execution commences. Let's take a look at the revised end of service action.
+In the code for arrivals, we also see the use of the `Queue` class (via the variable `myWaitingQ`) and the `QObject` class. On line 7 of the code, we see `val arrivingCustomer = QObject()` which creates an instance of `QObject` that represents the arriving customer. Then, using the `enqueue` method the customer is placed within the queue.  This action is performed regardless of whether the customer has to wait to ensure that zero wait times are collected. Notice that on line 6, the `IntegerFrequencyResponse` instance is used to observe the number of customers in the queue upon arrival. 
+
+Then, in lines 9-14, we see that the number busy is checked against the number of pharmacists by using the `hasAvailableUnits` property of the `SResource` instance.  If there are available pharmacists, then a unit of the pharmacist resource is seized, the next customer is removed from the queue, and the customer's end of service action is scheduled.  Notice how the `schedule` method is different from the previous implementation.  In this implementation, the customer is attached to the `KSLEvent` instance and is held in the calendar with the event until the event is removed from the calendar and its execution commences. Let's take a look at the revised end of service action.
 
 ```kt
     private fun endOfService(event: KSLEvent<QObject>) {
-        myNumBusy.decrement() // customer is leaving server is freed
+        myPharmacists.release()
         if (!myWaitingQ.isEmpty) { // queue is not empty
+            myPharmacists.seize()
             val customer: QObject? = myWaitingQ.removeNext() //remove the next customer
-            myNumBusy.increment() // make server busy
             // schedule end of service
             schedule(endServiceEvent, myServiceRV, customer)
         }
@@ -3165,9 +3233,9 @@ In the code for arrivals, we also see the use of the `Queue` class (via the vari
     }
 ```
 
-Here we see the same basic logic as in the previous example, except in this case we can use the queue.  The queue is checked to see if it is empty, if not the next customer is removed and their service scheduled.  We always handle the departing customer by grabbing it from the message attached to the event via the `event.message` property.  This departing customer is sent to a private method that collects statistics on the customer.  Notice two items.  First, it is perfectly okay to call other methods from within the event routines. In fact, this is encouraged and can help organize your code.  
+Here we see the same basic logic as in the previous example, except in this case we can use the resource and the queue. First, a unit of the pharmacist is released.  Then, the queue is checked to see if it is empty, if not, a unit of the pharmacist is seized and the next customer is removed.  Then, the customer's service is scheduled.  We always handle the departing customer by grabbing it from the message attached to the event via the `event.message` property.  This departing customer is sent to a private method that collects statistics on the customer.  Notice two items.  First, it is perfectly okay to call other methods from within the event routines. In fact, this is encouraged and can help organize your code.  
 
-Secondly, we are passing along the instance of `QObject` until it is no longer needed. In the `departingSystem` method, we get the current simulation time via the `time` property that is available to all model elements. This property represents the current simulation time. We then subtract off the time that the `QObject` was created by using the `createTime` property of the departing customer.  This is assigned to the value property of an instance of `Response` called `mySystemTime.`  This causes the system time of every departing customer to be collected and statistics reported.  The process of collecting statistics on `QObject` instances is extremely common and only works if you understand how to pass the `QObject` instance along via the `KSLEvent` instances. 
+Secondly, we are passing along the instance of `QObject` until it is no longer needed. In the `departingSystem` method, we get the current simulation time via the `time` property that is available to all model elements. This property represents the current simulation time. We then subtract off the time that the `QObject` was created by using the `createTime` property of the departing customer.  This is assigned to the value property of an instance of `Response` called `mySystemTime.`  This causes the system time of every departing customer to be collected and statistics reported.  The process of collecting statistics on `QObject` instances is extremely common and works if you understand how to pass the `QObject` instance along via the `KSLEvent` instances. 
 
 There is another little tidbit that is occurring in the reference coded snippet.  Earlier in the arrivals code snippet, you might not have noticed the following line of code:
 
@@ -3175,30 +3243,74 @@ There is another little tidbit that is occurring in the reference coded snippet.
 private val endServiceEvent = this::endOfService
 ```
 
-For convenience, this line of code is capturing a `functional` reference to the `endOfService` method. The `EventActionIfc` interface is actually a functional interface, which allows functional references that contain the same signature to be used without having to implement the interface.  This feature of Kotlin allows the functional reference to `private fun endOfService(event: KSLEvent<QObject>)` to serve as a parameter to the `schedule()` method.  This alleviates the need to implement an inner class that extends the `EventActionIfc` interface.  A similar strategy could have been done for the `Arrivals` implementation of `GeneratorActionIfc` for use in the event generator. The style that you employ can be based on your own personal preferences.
+For convenience, this line of code is capturing a `functional` reference to the `endOfService` method. The `EventActionIfc` interface is actually a functional interface, which allows functional references that contain the same signature to be used without having to implement the interface.  This feature of Kotlin allows the functional reference to `private fun endOfService(event: KSLEvent<QObject>)` to serve as a parameter to the `schedule()` method.  This alleviates the need to implement an inner class that extends the `EventActionIfc` interface.  A similar strategy was used for the implementation of `GeneratorActionIfc` for use in the event generator, except in that case we did not declare a variable to hold the reference to the function. The style that you employ can be based on your own personal preferences.
 
 The results of running the simulation match the previously reported results.
 
 ```
 Half-Width Statistical Summary Report - Confidence Level (95.000)% 
 
-Name                                     	        Count 	      Average 	   Half-Width 
----------------------------------------------------------------------------------------------------- 
-NumBusy                                  	           30 	       0.5035 	       0.0060 
-# in System                              	           30 	       1.0060 	       0.0271 
-System Time                              	           30 	       6.0001 	       0.1441 
-PharmacyQ:NumInQ                         	           30 	       0.5025 	       0.0222 
-PharmacyQ:TimeInQ                        	           30 	       2.9961 	       0.1235 
-SysTime > 4.0 minutes                    	           30 	       0.5136 	       0.0071 
-Num Served                               	           30 	    2513.2667 	      17.6883 
-----------------------------------------------------------------------------------------------------
+Name                                   Count 	      Average 	   Half-Width 
+---------------------------------------------------------------------------- 
+Pharmacy:Pharmacists:NumBusy            30 	       0.5035 	       0.0060 
+Pharmacy:Pharmacists:Util               30 	       0.5035 	       0.0060 
+Pharmacy:NumInSystem                    30 	       1.0060 	       0.0271 
+Pharmacy:SystemTime                     30 	       6.0001 	       0.1441 
+Pharmacy:PharmacyQ:NumInQ               30 	       0.5025 	       0.0222 
+Pharmacy:PharmacyQ:TimeInQ              30 	       2.9961 	       0.1235 
+SysTime >= 4 minutes                    30 	       0.5136 	       0.0071 
+Pharmacy:Pharmacists:SeizeCount         30 	    2513.4000 	      17.6653 
+Pharmacy:NumServed                      30 	    2513.2667 	      17.6883 
+----------------------------------------------------------------------------
 ```
-In the results, we see the system time and the queueing time reported.  We also see a statistic called `SysTime > 4.0 minutes.`  This was captured by using an `IndicatorResponse`, which is a subclass of `Response` that allows the user to specify a function that results in boolean expression and an instance of a `Response` to observe. The expression is collected as a 1.0 for true and 0.0 for false. In this example, we are observing the response called `mySysTime.`  
+
+In the results, we see the system time and the queueing time reported.  The response called  `Pharmacy:Pharmacists:SeizeCount` reports the number of times that the pharmacist resource was seized.  Notice that its value is very close to the number of customers served.  The difference is due to the fact that seizing occurs before the service time and the number served is collected when the customer departs. Notice also that the use of the `SResource` class causes statistics for the number busy and the utilization to be reported. The statistics are exactly the same in this situation because there is only one pharmacist. 
+
+We also see a statistic called `SysTime > 4.0 minutes.`  This was captured by using an `IndicatorResponse,` which is a subclass of `Response` that allows the user to specify a function that results in boolean expression and an instance of a `Response` to observe. The expression is collected as a 1.0 for true and 0.0 for false. In this example, we are observing the response called `mySysTime.`  
 
 ```kt
     private val mySTGT4: IndicatorResponse = IndicatorResponse({ x -> x >= 4.0 }, mySysTime, "SysTime > 4.0 minutes")
 ```
 This allow a probability to be estimated.  In this case, we estimated the probability that a customer's system time was more than 4.0 minutes.
+
+In addition, the call to the `print()` function will provide the histogram and integer frequency results in the console.
+
+```
+Pharmacy:SystemTime:Histogram
+   binNum           binLabel binLowerLimit binUpperLimit binCount cumCount proportion cumProportion
+ 0      1   1 [ 0.00, 4.00)            0.0           4.0  48589.0  48589.0   0.485448      0.485448
+ 1      2   2 [ 4.00, 8.00)            4.0           8.0  24974.0  73563.0   0.249513      0.734961
+ 2      3   3 [ 8.00,12.00)            8.0          12.0  12711.0  86274.0   0.126994      0.861956
+ 3      4   4 [12.00,16.00)           12.0          16.0   6658.0  92932.0   0.066519      0.928475
+ 4      5   5 [16.00,20.00)           16.0          20.0   3441.0  96373.0   0.034379      0.962854
+ 5      6   6 [20.00,24.00)           20.0          24.0   1911.0  98284.0   0.019093      0.981946
+ 6      7   7 [24.00,28.00)           24.0          28.0    985.0  99269.0   0.009841      0.991787
+ 7      8   8 [28.00,32.00)           28.0          32.0    458.0  99727.0   0.004576      0.996363
+ 8      9   9 [32.00,36.00)           32.0          36.0    221.0  99948.0   0.002208      0.998571
+ 9     10  10 [36.00,40.00)           36.0          40.0    143.0 100091.0   0.001429      1.000000
+```
+The integer frequency tabulation shows the number of customers in queue upon the arrival of a new customer. We can see that there is about a 0.75 chance that a customer arrives to an empty queue.
+
+```
+Pharmacy:NQUponArrival
+    cellLabel value   count cum_count proportion cumProportion
+  0  label: 0     0 74944.0   74944.0   0.747243      0.747243
+  1  label: 1     1 12615.0   87559.0   0.125780      0.873023
+  2  label: 2     2  6303.0   93862.0   0.062845      0.935869
+  3  label: 3     3  3178.0   97040.0   0.031687      0.967555
+  4  label: 4     4  1581.0   98621.0   0.015764      0.983319
+  5  label: 5     5   765.0   99386.0   0.007628      0.990947
+  6  label: 6     6   417.0   99803.0   0.004158      0.995104
+  7  label: 7     7   235.0  100038.0   0.002343      0.997448
+  8  label: 8     8   136.0  100174.0   0.001356      0.998804
+  9  label: 9     9    72.0  100246.0   0.000718      0.999521
+ 10 label: 10    10    27.0  100273.0   0.000269      0.999791
+ 11 label: 11    11    13.0  100286.0   0.000130      0.999920
+ 12 label: 12    12     5.0  100291.0   0.000050      0.999970
+ 13 label: 13    13     3.0  100294.0   0.000030      1.000000
+```
+
+The `IntegerFrequencyResponse` and `HistogramResponse` also facilitate the plotting of their results.  See the documentation for further details.
 
 ## More Drive Through Fun {#DTPExpanded}
 
@@ -3257,24 +3369,7 @@ N(t) = N(t) - 1
 
 The end of service actions are as previously seen. There is one less server busy and if the queue has customers, it is processed and the customer's service starts.  Since the same logic will need to be implemented for each station, it makes sense from an object-oriented perspective, to conceptualize a class that encapsulates the data and behavior to represent this situation.  
 
-Figure \@ref(fig:Ch4TandemQ) should give an idea of what the class should represent.  In the figure, there are two stations with each station containing a queue and a server (or resource).  Thus, we should build a class that models a single queue that holds objects that must wait for a server to be available. We are going to call this thing a `SingleQStation.`  Notice that the input to the first station is a customer from some arrival process and that the input to the second station is a customer departing the first station. Thus, the main difference between how these components act is where they receive customers from and where they send completed customers. Notice that a station needs to know where to send its completed customers. What else does a station need to know in order to process the customers?  The station will need to know how many servers are available at the station and will need to know how to determine the processing time for the customers. For this modeling, we need to expand on the concept of a resource.
-
-### Modeling a Simple Resource
-
-As we saw in the drive through pharmacy example, when the customer arrives they need the pharmacist in order to proceed. As noted in the activity diagram depicted in Figure \@ref(fig:DTPActivityDiagram), we denoted the pharmacist as a resource (circle) in the diagram. A resource is something that is needed by the objects *(or entities)* that experience the system's activities.  In the pharmacy model, the resource (pharmacist) was required to start the service activity, denoted with a arrow with the word "seize" in the activity diagram, pointing from the resource to the start of the activity.  After the activity is completed, there is a corresponding arrow labeled "release" pointing from the end of the activity back to the resource. This arrow denotes the returning of the used resource units back to the pool of available units.  
-
-As we can see from Figure \@ref(fig:Ch4TandemQ) our concept of a `SingleQStation` also contains a resource.  Since the same concept is within both stations, it seems useful to represent the concept of a resource with a class. For the purposes of this situation, we are going to denote the concept of a simple resource with the aptly named `SResource` class (for simple resource). Let's take a look at how the KSL represents a simple resource.
-
-<div class="figure" style="text-align: center">
-<img src="./figures2/ch4/SResource.png" alt="A Simple Resource Class" width="80%" height="80%" />
-<p class="caption">(\#fig:SResource)A Simple Resource Class</p>
-</div>
-
-A resource has a capacity that represents the maximum number of units that it can have available at any time.  When a resource is seized some amount of units become busy (or allocated). When the units are no longer needed, they are released. If we let $A(t)$ be the number of available units, $B(t)$ be the number of busy units and $c$ be the capacity of the resource, we have that $c = A(t) + B(t)$ or $A(t) = c - B(t)$. A resource is considered busy if $B(t) > 0$. That is, a resource is busy if some units are allocated.  A resource is considered idle if no units are busy. That is, $B(t) = 0$, which implies that $A(t) = c$.  
-
-If the number of available units of a resource are unable to meet the number of units required by a "customer", then we need to decide what to do. To simplify this modeling, we are going to assume two things 1) customers only request 1 unit at a time, and 2) if the request cannot be immediately supplied the customer will wait in an associated queue. These latter two assumptions are essentially what we have assumed in the modeling of the pharmacy situation and in the situation described in Example \@ref(exm:exCh4TandemQ).  Modeling often requires the use of simplifying assumptions. 
-
-The `SResource` class of Figure \@ref(fig:SResource) has functions `seize()` and `release()` which take (seize) and return (release) units of the resource.  It also has properties (`busy` and `idle`) that indicate if the resource is busy or idle, respectively. In addition, the property `numBusyUnits` represents $B(t)$ and the property `numAvailableUnits` represents $A(t)$. For convenience, the `hasAvailableUnits` property indicates if the resource has units that can be seized. Finally, the number of times the resource is seized and released are tabulated. The main performance measures are time weighted response variables for tabulating the time-average number of busy units and the time-average instantaneous utilization of the resource. Instantaneous utilization, $U(t)$ is governed by tracking $U(t) = B(t)/c$.  Now that we have a way to represent a resource, let's put the resource together with a queue to get a station for processing in the `SingleQStation` class.
+Figure \@ref(fig:Ch4TandemQ) should give an idea of what the class should represent.  In the figure, there are two stations with each station containing a queue and a server (or resource).  Thus, we should build a class that models a single queue that holds objects that must wait for a server to be available. We are going to call this thing a `SingleQStation.`  Notice that the input to the first station is a customer from some arrival process and that the input to the second station is a customer departing the first station. Thus, the main difference between how these components act is where they receive customers from and where they send completed customers. Notice that a station needs to know where to send its completed customers. What else does a station need to know in order to process the customers?  The station will need to know how many servers are available at the station and will need to know how to determine the processing time for the customers. For this modeling, we need to combine the concepts of a resource and a queue as a model element component. Let's put the resource together with a queue to get a station for processing in the `SingleQStation` class.
 
 ### Modeling a Resource with a Waiting Line
 
@@ -3891,5 +3986,255 @@ Passengers arrive to an airport security check point at a small airport for iden
 Assume that the check point operates for 10 hours per day, starting at 8 am. Also, assume that when the check point opens, there are no passengers waiting.  Finally, for simplicity, assume that we are only interested in the statistics collected during the 10-hour time span. Analyze this situation for 20 independent days of operation. Use stream 1 for the arrival process, stream 2 for the service process, and stream 3 for the inspection process.
 :::
 
+***
+::: {.exercise #ch4QTP3}
+Consider a single pump gas station
+where the arrival process is Poisson with a mean time between arrivals
+of 10 minutes. The service time is exponentially distributed with a mean
+of 6 minutes. 
+
+Build a KSL model to simulate this situation.  Run the model
+for 20,000 minutes with a warm up period of 5,000 minutes.  Based on 30
+replications of your simulation, estimate the following performance measures.
+
+a. What is the probability that you have to wait for service?
+
+b. What is the expected number of customers at the station?
+
+c. What is the expected time waiting in the line to get a pump?
+
+Use stream 1 for the time between arrivals and stream 2 for the service times.
+:::
+
+***
+
+::: {.exercise #ch4QTP4}
+Suppose an operator has been
+assigned to the responsibility of maintaining 3 machines. For each
+machine the probability distribution of the running time before a
+breakdown is exponentially distributed with a mean of 9 hours. The
+repair time also has an exponential distribution with a mean of 2 hours.
+
+Build a KSL model to simulate this situation.  Run the model
+for 20,000 hours with a warm up period of 5,000 hours  Based on 30
+replications of your simulation, estimate the following performance measures.
+
+a. What is the probability that the operator is idle?
+
+b. What is the expected number of machines that are running?
+
+c. What is the expected number of machines that are not running?
+
+Use stream 1 for the time between arrivals and stream 2 for the service times.
+:::
+
+***
+
+::: {.exercise #ch4QTP6}
+Each airline passenger and his or her carry-on baggage must be checked
+at the security checkpoint. Suppose XNA averages 10 passengers per
+minute with exponential inter-arrival times. To screen passengers, the
+airport must have a metal detector and baggage X-ray machines. Whenever
+a checkpoint is in operation, two employees are required (one operates
+the metal detector, one operates the X-ray machine). The passenger goes
+through the metal detector and simultaneously their bag goes through the
+X-ray machine. A checkpoint can check an average of 12 passengers per
+minute according to an exponential distribution.
+
+Build a KSL model to analyze this situation.  Run the model
+for 20,000 minutes with a warm up period of 5,000 minutes  Based on 30
+replications of your simulation, estimate the following performance measures.
+
+a. What is the probability that a passenger will have to wait before being screened? 
+
+b. On average, how many passengers are waiting in line to enter the checkpoint? 
+
+c. On average, how long will a passenger spend at the checkpoint?
+
+Use stream 1 for the time between arrivals and stream 2 for the service times.
+:::
+
+***
+
+::: {.exercise #ch4QTP8}
+Customers arrive at a one-window
+drive in bank according to a Poisson distribution with a mean of 10 per
+hour. The service time for each customer is exponentially distributed
+with a mean of 5 minutes. There are 3 spaces in front of the window
+including that for the car being served. Other arriving cars can wait
+outside these 3 spaces. 
+
+Build a KSL model to analyze this situation.  Run the model
+for 20,000 minutes with a warm up period of 5,000 minutes  Based on 30
+replications of your simulation, estimate the following performance measures.
+
+a. What is the probability that an arriving customer can enter one of the 3 spaces in front of the window?
+
+b. What is the probability that an arriving customer will have to wait outside the 3 spaces?
+
+c. How long is an arriving customer expected to wait before starting service?
+
+d. How many spaces should be provided in front of the window so that an arriving customer can wait in front of the window at least 20% of the time? In other words, the probability of
+at least one open space must be greater than 20\%.
+
+Use stream 1 for the time between arrivals and stream 2 for the service times.
+:::
+
+***
+
+::: {.exercise #ch4QTP9}
+Joe Rose is a student at Big State U. He does odd jobs to supplement his income. Job requests come every 5 days on the average, but the time between requests is exponentially
+distributed. The time for completing a job is also exponentially
+distributed with a mean of 4 days.
+
+Build a KSL model to analyze this situation.  Run the model
+for 20,000 days with a warm up period of 5,000 days  Based on 30
+replications of your simulation, estimate the following performance measures.
+
+a. What is the chance that Joe will not have any jobs to work on?
+
+b. What is the average value of the waiting jobs if Joe gets about \$25 per job?
+
+Use stream 1 for the time between arrivals and stream 2 for the service times.
+:::
+
+***
+
+::: {.exercise #ch4QTP10}
+The manager of a bank must determine how many tellers should be
+available. For every minute a customer stands in line, the manager
+believes that a delay cost of 5 cents is incurred. An average of 15
+customers per hour arrive at the bank. On the average, it takes a teller
+6 minutes to complete the customer's transaction. It costs the bank \$9
+per hour to have a teller available. Inter-arrival and service times can
+be assumed to be exponentially distributed.
+
+Build a KSL model to analyze this situation.  Run the model
+for 20,000 minutes with a warm up period of 5,000 minutes  Based on 30
+replications of your simulation, answer the following questions.
+
+a. What is the minimum number of tellers that should be available in order
+for the system to be stable (i.e. not have an infinite queue)? 
+
+b. If the system has 3 tellers, what is the probability that there will be no one
+in the bank? 
+
+c. What is the expected total cost of the system per hour, when there are 2 tellers?
+
+Use stream 1 for the time between arrivals and stream 2 for the service times.
+:::
+
+***
+
+::: {.exercise #ch4QTP12}
+Sly's convenience store operates a
+two-pump gas station. The lane leading to the pumps can house at most
+five cars, including those being serviced. Arriving cars go elsewhere if
+the lane is full. The distribution of the arriving cars is Poisson with
+a mean of 20 per hour. The time to fill up and pay for the purchase is
+exponentially distributed with a mean of 6 minutes.
+
+Build a KSL model to analyze this situation.  Run the model
+for 20,000 minutes with a warm up period of 5,000 minutes  Based on 30
+replications of your simulation, answer the following questions.
+
+a. What is the percentage of cars that will seek business elsewhere?
+
+b. What is the utilization of the pumps?
+
+Use stream 1 for the time between arrivals and stream 2 for the service times.
+:::
+
+***
+
+::: {.exercise #ch4QTP13}
+An airline ticket office has two
+ticket agents answering incoming phone calls for flight reservations. In
+addition, two callers can be put on hold until one of the agents is
+available to take the call. If all four phone lines (both agent lines
+and the hold lines) are busy, a potential customer gets a busy signal,
+and it is assumed that the call goes to another ticket office and that
+the business is lost. The calls and attempted calls occur randomly (i.e.
+according to Poisson process) at a mean rate of 15 per hour. The length
+of a telephone conversation has an exponential distribution with a mean
+of 4 minutes.
+
+Build a KSL model to analyze this situation.  Run the model
+for 20,000 minutes with a warm up period of 5,000 minutes  Based on 30
+replications of your simulation, answer the following questions.
+
+a. What is probability of losing a potential customer?
+
+b. What is the probability that an arriving phone call will not start service
+immediately but will be able to wait on a hold line?
+
+Use stream 1 for the time between arrivals and stream 2 for the service times.
+:::
+
+***
+
+::: {.exercise #ch4QTP14}
+SuperFastCopy has three identical
+copying machines. When a machine is being used, the time until it breaks
+down has an exponential distribution with a mean of 2 weeks. A repair
+person is kept on call to repair the machines. The repair time for a
+machine has an exponential distribution with a mean of 0.5 week. The
+downtime cost for each copying machine is \$100 per week.
+
+Build a KSL model to analyze this situation.  Run the model
+for 20,000 weeks with a warm up period of 5,000 weeks  Based on 30
+replications of your simulation, what is the expected downtime cost per week.
+
+Use stream 1 for the time between arrivals and stream 2 for the service times.
+:::
+
+***
+
+::: {.exercise #ch4QTP15}
+NWH Cardiac Care Unit (CCU) has
+5 beds, which are virtually always occupied by patients who have just
+undergone major heart surgery. Two registered nurses (RNs) are on duty
+in the CCU in each of the three 8 hour shifts. About every two hours
+following an exponential distribution, one of the patients requires a
+nurse's attention. The RN will then spend an average of 30 minutes
+(exponentially distributed) assisting the patient and updating medical
+records regarding the problem and care provided. 
+
+Build a KSL model to analyze this situation.  Run the model
+for 20,000 minutes with a warm up period of 5,000 minutes  Based on 30
+replications of your simulation, answer the following questions.
+
+a. What is the average number of patients being attended by the nurses?
+
+b. What is the average time that a patient spends waiting for one of the nurses to
+arrive?
+
+Use stream 1 for the time between arrivals and stream 2 for the service times.
+:::
+
+***
+
+::: {.exercise #ch4QTP16}
+HJ Bunt, Transport Company maintains a large fleet of refrigerated
+trailers. For the purposes of this problem assume that the number of
+refrigerated trailers is conceptually infinite. The trailers require
+service on an irregular basis in the company owned and operated service
+shop. Assume that the arrival of trailers to the shop is approximated by
+a Poisson distribution with a mean rate of 3 per week. The length of
+time needed for servicing a trailer varies according to an exponential
+distribution with a mean service time of one-half week per trailer. The
+current policy is to utilize a centralized contracted outsourced service
+center whenever more than two trailers are in the company shop, so that,
+at most one trailer is allowed to wait. Assume that there is currently
+one 1 mechanic in the company shop.
+
+Build a KSL model to analyze this situation.  Run the model
+for 20,000 weeks with a warm up period of 5,000 weeks  Based on 30
+replications of your simulation, what is the expected number of repairs that are outsourced per week?
+
+Use stream 1 for the time between arrivals and stream 2 for the service times.
+:::
+
+***
 
 

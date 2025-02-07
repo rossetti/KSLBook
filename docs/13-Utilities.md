@@ -1098,7 +1098,7 @@ Notice that the constructor requires a name for the experiment, the model that w
 
 ```
 
-Notice that you can specify how many times each design point is replicated when simulating the design. This class works in a very similar manner as that described in Section \@ref(kslScenarios) of Chapter \@ref(simoa) for running multiple scenarios.  The `DesignedExperiment` class captures the results from the simulation runs to a database, which can be found in the `dbDir` directory associated with the model being simulated. The `DesignedExperiment` class also provides multiple ways to capture the design and it results, especially in the form of a data frame. The results can be easily exported to a CSV file for further analysis by your favorite statistical software.
+Notice that you can specify how many times each design point is replicated when simulating the design. This class works in a very similar manner as that described in Section \@ref(kslScenarios) of Chapter \@ref(simoa) for running multiple scenarios.  The `DesignedExperiment` class captures the results from the simulation runs to a database, which can be found in the `dbDir` directory associated with the model being simulated. The `DesignedExperiment` class also provides multiple ways to capture the design and its results, especially in the form of a data frame. The results can be easily exported to a CSV file for further analysis by your favorite statistical software.
 
 ```kt
     println("Replicated design points")

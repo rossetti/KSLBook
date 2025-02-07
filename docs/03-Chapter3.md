@@ -1096,7 +1096,7 @@ fun main() {
     println(r.halfWidthSummaryReport())
 }
 ```
-In the code, an instance of Statistic is used to observe values of the quantity $(x > 8)$.  This quantity is actually a logical condition which will evaluate to true (1) or false (0) given the value of $x$.  Thus, the Statistic will be recording observations of 1’s and 0’s.  Because the Statistic computes that average of the values that it “collects”, we will get an estimate of the probability.  Thus, the quantity, $(x > 8)$ is an indicator variable for the desired event.  Using a Statistic to estimate a probability in this manner is quite effective.  
+In the code, an instance of Statistic is used to observe values of the quantity $(x > 8)$.  This quantity is actually a logical condition which will evaluate to true (1) or false (0) given the value of $x$.  Thus, the Statistic will be recording observations of 1’s and 0’s.  Because the Statistic computes the average of the values that it “collects”, we will get an estimate of the probability.  Thus, the quantity, $(x > 8)$ is an indicator variable for the desired event.  Using a Statistic to estimate a probability in this manner is quite effective.  
 
 Now, in more realistic simulation situations, we would not know the true population mean and variance.  Thus, in solving this problem, we will ignore that information.  To apply the previously discussed sample size determination methods, we need estimates of $\sigma = \sqrt{Var[X]}$  and $p = P(X>8)$.  In order to get estimates of these quantities, we need to run our simulation experiment; however, in order to run our simulation experiment, we need to know how many observations to make.  This is quite a catch-22 situation!  
 
@@ -1427,8 +1427,8 @@ Table \@ref(tab:BBQWingDemand).
 :::
 
 The code for the news vendor
-problem will require the generation of the demand from BBQ Wing demand distribution. In order to generate from this distribution, the DEmpirical class should be used. Since the cumulative distribution has already been computed, it
-is straight forward to write the inputs for the DEmpirical class. 
+problem will require the generation of the demand from BBQ Wing demand distribution. In order to generate from this distribution, the `DEmpiricalRV` class should be used. Since the cumulative distribution has already been computed, it
+is straight forward to write the inputs for the `DEmpiricalRV` class. 
 
 ```kt
 fun main() {

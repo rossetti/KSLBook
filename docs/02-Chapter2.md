@@ -1627,6 +1627,8 @@ The modeling process starts with creating an instance of `PDFModeler` by supplyi
 
 - `showAllResultsInBrowser(fileName: String = "pdfModelingResults")` - This function makes a histogram, observations plot, auto-correlation plot, performs the fitting and scoring process, and performs goodness
 of fit tests on the top scoring distribution and displays all the results by opening a browser window. The generated `html` file is stored in the `KSL.plotDir` directory using the supplied name as the pre-fix for a temporary file. This one function performs all the necessary fitting steps and returns the results, including plots, within an `html` page.
+
+- `showAllGoodnessofFitSummariesInBrowser(pdfModelingResults: PDFModelingResults)` - This function shows the goodness of fit summaries for every distribution used within the fitting process. This function shows the raw scores, the scaled scores, the ranked scores, and the PDF summary results for each distribution. The PDF summary results includes the `FitDistPlot` as well as the results of the Chi-Squared, K-S, Anderson Darling, and Cramer Von Mises, statistical tests.  This function is very useful when comparing the quality of the fitted distributions.
     
 The `PDFModeling` class encapsulates the estimation and scoring process.  The purpose of this class is to serve as the general location for implementing the estimation of distribution parameters across many distributions. The general use involves the following:
 
@@ -2252,12 +2254,35 @@ Finally, we can review the distribution plot, Figure \@ref(fig:ch2PharmacyPDFPlo
 <p class="caption">(\#fig:ch2PharmacyPDFPlot)Distribution Plot for Pharmacy Data</p>
 </div>
 
-As a final note for this example, all of the previously illustrated analysis can be performed with a few lines of code:
+All the previously illustrated analysis can be performed with a few lines of code:
 
 ```kt
 val data = KSLFileUtil.scanToArray(myFile.toPath())
 val d = PDFModeler(data)
 d.showAllResultsInBrowser()
+```
+
+Finally, if you want to analyze a specific distribution, then you can access the results from the returned instance of the `PDFModelingResults` class. For example, if we want to analyze the second best distribution we can access the results for the second best distribution and display its results. Assuming that the data to be analyzed is in an array called *data*, the following code illustrates how to accomplish this task.
+
+```kt
+val d = PDFModeler(data)
+// capture the PDFModelingResults
+val results  = d.estimateAndEvaluateScores()
+val sortedResults: List<ScoringResult> = results.resultsSortedByScoring
+// the array is 0 based, so the element at 1 is the 2nd best
+val result: ScoringResult = sortedResults[1]
+KSLFileUtil.openInBrowser(
+   fileName = "PDF_Goodness_Of_Fit_Results",
+   d.htmlGoodnessOfFitSummary(result)
+)
+```
+
+To see the results for every distribution, just use the `showAllGoodnessOfFitSummariesInBrowser` function.
+
+```kt
+val d = PDFModeler(data)
+val results  = d.estimateAndEvaluateScores()
+d.showAllGoodnessOfFitSummariesInBrowser(results)
 ```
 
 The functionally for distribution modeling within the KSL is on par with what you can find within commercial software.

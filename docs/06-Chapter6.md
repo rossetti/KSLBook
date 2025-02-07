@@ -210,9 +210,9 @@ class DriveThroughPharmacy(
 
 Most of this code should look very familiar. It includes the definition of the random variables to model the time between arrivals and service time. It also defines the responses to collect statistics on the performance of the system.  In addition, it uses the functional notation for referencing functional interfaces to schedule the arrival events.  Within the arrival event, the customer is created and it is told to `activate()` its process.
 
-The process called `pharmacyProcess` has a nice linear flow and avoids the event call back approach of the event-view. The first line `wip.increment()` simply increments the number of customers in the system. The next line involving `timeStamp` assigns the arrival time of the customer. Then, the customer attempts to seize the pharmacist.  If the pharmacist is available, it is allocated to the customer. The variable "a" holds the allocation information. If a pharmacist is not available, the customer is held in a queue related to the invocation of the `seize()` function. The `seize()` function is a *suspending* function.  This is the magic of coroutines. The execution of the coroutine literally stops at within the `seize()` function if the pharmacist is not available. When the pharmacist becomes available, the customer (and suspended code) resumes moving through the process. The `delay()` function is another *suspending* function. The delay function essentially schedules an event to represent the service time and when the event occurs the coroutine is resumed.  The `release()` deallocates the resource from the customer.  The final three lines simply collect statistical quantities. 
+The process called `pharmacyProcess` has a nice linear flow and avoids the event call back approach of the event-view. The first line `wip.increment()` simply increments the number of customers in the system. The next line involving `timeStamp` assigns the arrival time of the customer. Then, the customer attempts to seize the pharmacist.  If the pharmacist is available, it is allocated to the customer. The variable "a" holds the allocation information. If a pharmacist is not available, the customer is held in a queue related to the invocation of the `seize()` function. The `seize()` function is a *suspending* function.  This is the magic of coroutines. The execution of the coroutine literally stops within the `seize()` function if the pharmacist is not available. When the pharmacist becomes available, the customer (and suspended code) resumes moving through the process. The `delay()` function is another *suspending* function. The delay function essentially schedules an event to represent the service time and when the event occurs the coroutine is resumed.  The `release()` deallocates the resource from the customer.  The final three lines simply collect statistical quantities. 
 
-It is critical to understand that 1) there are many entities created via the `arrival` method, 2) they all experience the same process, and 3) they may all be at different points of their processes at different times. Since many customers are active at the same time (in a pseudo-parallelism) they compete for the pharmacist. This causes queueing. This process view depends on shared state. The primary shared state is via the resource. This is a new construct and was defined with the following line. 
+It is critical to understand that 1) there are many entities created via the `arrival` method, 2) they all experience the same process description, 3) each entity has its own instance of the process, and 4) they may all be at different points of their process instances at different times. Since many customers are active at the same time (in a pseudo-parallelism) they compete for the pharmacist. This causes queueing. This process view depends on shared state. In this example, the primary shared state is via the resource. This is a new construct and was defined with the following line. 
 
 ```kt
 private val pharmacists: ResourceWithQ = ResourceWithQ(this, "Pharmacists", numPharmacists)
@@ -248,7 +248,7 @@ Before discussing additional functionality enabled within the `KSLProcessBuilder
     }
 ```
 
-This is so common the KSL provides a class called `EntityGenerator` that automates this process.  The `EntityGenerator` class subclassed from `EventGenerator` and allows for a creation pattern to be specified. Figure \@ref(fig:Ch5EntityGenerator) illustrates this relationship.
+This is so common the KSL provides a class called `EntityGenerator` that automates this process.  The `EntityGenerator` class subclasses from `EventGenerator` and allows for a creation pattern to be specified. Figure \@ref(fig:Ch5EntityGenerator) illustrates this relationship.
 
 
 <div class="figure" style="text-align: center">
@@ -292,19 +292,20 @@ class EntityGeneratorExample(
     name: String? = null
 ) : ProcessModel(parent, name) {
 
-    private val worker: ResourceWithQ = ResourceWithQ(this, "worker")
+    private val worker: ResourceWithQ = ResourceWithQ(this, "${this.name}:Worker")
     private val tba = ExponentialRV(6.0, 1)
     private val st = RandomVariable(this, ExponentialRV(3.0, 2))
     private val wip = TWResponse(this, "${this.name}:WIP")
     private val tip = Response(this, "${this.name}:TimeInSystem")
     private val generator = EntityGenerator(::Customer, tba, tba)
-    private val counter = Counter(this, "${this.name}:NumServed" )
+    private val counter = Counter(this, "${this.name}:NumServed")
 
-    private inner class Customer: Entity() {
-        val mm1: KSLProcess = process{
+    private inner class Customer : Entity() {
+
+        val pharmacyProcess: KSLProcess = process(isDefaultProcess = true) {
             wip.increment()
             timeStamp = time
-            val a  = seize(worker)
+            val a = seize(worker)
             delay(st)
             release(a)
             tip.value = time - timeStamp
@@ -317,7 +318,7 @@ class EntityGeneratorExample(
 :::
 ***
 
-Notice the following line which takes in a reference to the `Customer` class constructor using the functional syntax `::Customer.`  
+Notice the following line which takes in a reference to the `Customer` class constructor using the functional syntax `::Customer.`  In addition, notice the specification of the `isDefaultProcess` argument for the `process()` function.  Setting the `isDefaultProcess` argument to true indicates that the defined process routine will be the default process to be activated when the `EntityGenerator` causes the generation event to occur.
 
 ```kt
 private val generator = EntityGenerator(::Customer, tba, tba)
@@ -332,11 +333,13 @@ There is no arrival method necessary because that logic is within the entity gen
             activate(entity.defaultProcess!!, priority = activationPriority)
         }
 ```
-The entity is created using the passed in constructor function and the entity's default process is started.  By default, the `process()` function of the `KSLProcessBuilder` class automatically adds each newly defined process to the entity's map of named processes. By default, the first defined process will be the default process. Thus, by using an instance of an `EntityGenerator` associated with a particular subclass of `Entity`, we can automatically create the instances of the subclass and activate their processes. Of course, the creation of the subclass (e.g. `Customer`) might be much more complex; however, the `EntityGenerator` takes in a *function* that creates the instance of the subclass.  Thus, it can be any function, not just the constructor function.  Therefore, instances can be configured in complex ways before they are activated by supplying an appropriate function.
+The entity is created using the passed in constructor function and the entity's default process is started.  By default, the `process()` function of the `KSLProcessBuilder` class automatically adds each newly defined *named* process to the entity's map of named processes. If the `name` argument is not supplied, then the defined process is not added to the process map. The map of named processes for an entity can be accessed via the `processes` property of the `Entity` class.
+
+To specify the default process, provide the `isDefaultProcess` argument of the `process()` function to be true. Thus, by using an instance of an `EntityGenerator` associated with a particular subclass of `Entity`, we can automatically create the instances of the subclass and activate their processes. Of course, the creation of the subclass (e.g. `Customer`) might be much more complex; however, the `EntityGenerator` takes in a *function* that creates the instance of the subclass.  Thus, it can be any function, not just the constructor function.  Therefore, instances can be configured in complex ways before they are activated by supplying an appropriate function.
 
 ::: {.infobox .important data-latex="{important}"}
 **IMPORTANT!**
-Note that an `EntityGenerator` relies on the entity having at least one process that has been added to its processes via the `process()` method. An entity generator will create the entity and start the process that is defined *first*.  By default, the code-listing order of the `process()` function definitions in the class, defines the order in which the processes are added to the entity's processes.
+Note that an `EntityGenerator` relies on the entity having a default process defined via the `process()` method. An entity generator will create the entity and start the process that is defined as the default process. Rather than use the `process()` function, you can directly specify the default process via the `defaultProcess` property of the `Entity` class.  If you try to use an `EntityGenerator` without a defined default process, then an illegal state exception will occur.
 :::
 
 In the next section, we will take a closer look at how the KSL makes the process view possible.  This will help you to better use the process modeling capabilities found in the KSL.
@@ -350,7 +353,7 @@ Entities can experience many processes.  Thus, there needs to be a mechanism to 
 <p class="caption">(\#fig:Ch5ProcessModelOverview)Overview of the ProcessModel Class</p>
 </div>
 
-As noted in Figure \@ref(fig:Ch5ProcessModelOverview) a `ProcessModel` can activate KSL processes, can start entity process sequences, can dispose of entities, and can perform some after replication cleanup.  One of the activities that a process model must perform is to terminate any processes that are still suspended after the replication is completed.  In addition, it ensures that no entity terminates its process while still having allocations to a resource.  Thus, a `ProcessModel` is needed to manage the entities and processes that it represents. This is why in the pharmacy code example, the pharmacy model is a subclass of `ProcessModel.`
+As noted in Figure \@ref(fig:Ch5ProcessModelOverview) a `ProcessModel` can activate KSL processes, can start entity process sequences, can dispose of entities, and will perform some after replication cleanup.  One of the activities that a process model must perform is to terminate any processes that are still suspended after the replication is completed.  In addition, it ensures that no entity terminates its process while still having allocations to a resource.  Thus, a `ProcessModel` is needed to manage the entities and processes that it manages. This is why in the pharmacy code example, the pharmacy model is a subclass of `ProcessModel.`
 
 ```kt
 class DriveThroughPharmacy(
@@ -364,13 +367,17 @@ class DriveThroughPharmacy(
 
 This provides the modeler with access to the inner classes e.g. `Entity` that are inherited by the subclass for use in process modeling.
 
-The key inner class is `Entity,` which has a function `process()` that uses a builder to describe the entity's process in the form of a coroutine.  An entity can have many processes described that it may follow based on different modeling logic. A process model facilitates the running of a sequence of processes that are stored in an entity's `processSequence` property. An entity can **experience only one process at a time**. After completing the process, the entity will try to use its sequence to run the next process (if available). Individual processes can be activated for specific entities. But, again, an entity instance may only be activated to experience 1 process at a time, even if it has many defined processes. The entity experiences processes *sequentially.*  
+The key inner class is `Entity,` which has a function `process()` that uses a builder to describe the entity's process in the form of a *coroutine.*  An entity can have many processes described that it may follow based on different modeling logic. A process model facilitates the running of a sequence of processes that are stored in an entity's `processSequence` property. An entity can **experience only one process at a time**. After completing the process, the entity will try to use its sequence to run the next process (if available). Individual processes can be activated for specific entities. But, again, an entity instance may only be activated to experience *one* process at a time, even if it has many defined processes. The entity experiences processes *sequentially.*  An error will occur if you try to activate and run a process for a given entity instance if the entity is already executing a process .  Note that this does not in anyway limit the creation and activation of *different* entity instances and their processes.
  
-An `Entity` instance is something that can experience processes and as such may wait in queues. `Entity` is a subclass of `QObject.`  Thus, statistics can be automatically collected on entities if they experience waiting. The general approach to defining a process for an entity is to use the `process()` function to define a process that a subclass of Entity can follow.  Entity instances may use resources, signals, hold queues, etc. as shared mutable state.  Entities may follow a process sequence if defined.  An entity can have many properties that define different processes that it might experience. The user can store the processes in data structures. In fact, there is a `processSequence` property for this purpose that defines a list of processes that the entity will follow. As previously mentioned, the `process()` function automatically adds each defined process (in the order of definition via the class body) to the `processSequence` property unless told not to do so as an optional argument to the `process()` function. The following code defines a process and assigns the function to the property `pharmacyProcess.`  This property is of type `KSLProcess.` Because there were no arguments to the `process()` function, the process is automatically added to the list of processes for this entity found in the `processSequence` property.  Each process can also be provided a string name via an argument of the `process()` function. The name of a process can be useful in tracing and debugging process code.
+An `Entity` instance is something that can experience processes and as such may wait in queues. `Entity` is a subclass of `QObject.`  Thus, statistics can be automatically collected on entities if they experience waiting. The general approach to defining a process for an entity is to use the `process()` function to define a process that a subclass of Entity can follow.  Entity instances may use resources, signals, hold queues, etc. as shared mutable state.  
+
+Entities may follow a process sequence if defined.  An entity can have many properties that define different processes that it might experience. The user can store the processes in data structures. In fact, there is a `processSequence` property for this purpose that defines a list of processes that the entity will follow. However, the user is responsible for adding processes to the sequence. In addition, if you provide a name for the process when defining it via the `process()` function, then the processes are stored in the entity instance's `processes` map, which can be accessed via the provided name. 
+
+The following code defines a process and assigns the function to the property `pharmacyProcess.`  This property is of type `KSLProcess.` Because the `isDefaultProcess` argument was supplied to the `process()` function, the process is defined as the default process to activate by entity generators.  Each process can also be provided a string name via an argument of the `process()` function. The name of a process may also be useful in tracing and debugging process code.
 
 ```kt
     private inner class Customer : Entity() {
-        val pharmacyProcess: KSLProcess = process() {
+        val pharmacyProcess: KSLProcess = process(isDefaultProcess = true) {
         ...
         }
 ```
@@ -387,7 +394,25 @@ interface KSLProcess {
     val isCompleted: Boolean
     val isRunning: Boolean
     val isActivated: Boolean
+    val currentStateName: String
     val entity: ProcessModel.Entity
+    /**
+     *  The simulation time that the process first started (activated) after being created.
+     *  If the process was never started, this returns Double.NaN
+     */
+    val processStartTime: Double
+
+    /**
+     *  The simulation time that the process completed.
+     *  If the process was never completed, this returns Double.NaN
+     */
+    val processCompletionTime: Double
+
+    /**
+     *  The elapsed time from start to completion.
+     */
+    val processElapseTime: Double
+        get() = processCompletionTime - processStartTime
 }
 ```
   
@@ -411,6 +436,7 @@ Figure \@ref(fig:Ch5ProcessModelOverview) indicates that there is an inner class
 - `BlockedReceiving` - This state indicates that the entity's process is suspended because the entity is trying to receive items from a blocking queue and there are no items to receive.  This is the other end of the communication channel formed by a blocking queue.
 - `InHoldQueue` - This state indicates that the entity's process is suspended because the entity is an arbitrary queue that holds entities until they are removed and re-activated.
 - `WaitForProcess` - An entity may activate another process.  This state indicates that the entity's process is suspended because the entity is waiting for the process to complete before proceeding.
+- `BlockedUntilCompletion` - An entity may activate another process that has blockages. This state indicates that the entity's process is suspended because the entity is waiting for the blockage to complete.
 
 <div class="figure" style="text-align: center">
 <img src="./figures2/ch6/EntityStateTransitions.png" alt="Legal Entity State Transitions" width="50%" height="50%" />
@@ -432,7 +458,7 @@ Again, these states define the legal states of the underlying process coroutine.
 - Completed - The process coroutine has exited normally from the process routine or reached the end of the process routine. Once completed the coroutine is finished.
 - Terminated - The process coroutine has exited abnormally via an error or exception or the user has directly terminated the process. Once terminated the coroutine is finished.
 
-When a process coroutine exits normally the process coroutine is placed in the completed state. Then, the `ProcessModel` checks to see if there are additional processes to execute within the entity's process sequence. If there are, then the next process is automatically started.  If there are no additional processes in the sequence, the entity is disposed. 
+When a process coroutine exits normally the process coroutine is placed in the completed state. Then, the `ProcessModel` checks if the entity has a next process to start. This check occurs via the `determineNextProcess()` function of the entity. If the entity has been specified to use its process sequence via its `useProcessSequence` property, then the process sequence will be used to determine the next process to activate. If the entity is not using its process sequence, then the entity will not automatically start the next process. The user can also override the `determineNextProcess()` function and directly determine the next process to start. The default behavior is to not follow a process sequence such that no new process will be started (automatically).
 
 If the entity is executing a process and the process is suspended, then the process routine may be terminated. This causes the currently suspended process to exit, essentially with an error condition.  No further programming statements within the process coroutine will execute. The process ends (placed in the terminated state). All resources that the entity has allocated will be deallocated.  If the entity was waiting in a queue, the entity is removed from the queue and no statistics are collected on its queueing.  If the entity is experiencing a delay, then the event associated with the delay is cancelled. If the entity has additional processes in its process sequence they are not automatically executed. If the user requires specific behavior to occur for the entity after termination, then the user should override the Entity's `handleTerminatedProcess()` function to supply specific logic.  Termination happens immediately, with no time delay.
 
@@ -514,6 +540,7 @@ The next example illustrates the use of the `Signal` class, which builds off of 
 </div>
 
 The `Signal` class uses an instance of the `HoldQueue` class to hold entities until they are notified to move via the index of their rank in the queue.  If you want the first entity to be signaled, then you call `signal(0).` The entity is notified that its suspension is over and it removes itself from the hold queue.  Thus, contrary to the `HoldQueue` class the user does not have to remove and resume the corresponding entity. 
+
 Here is some example code. Notice that the code subclasses from `ProcessModel.` All implementations that use the process modeling constructs must subclass from `ProcessModel.`  Then, the instance of the `Signal` is created. An inner class implements and entity that uses the signal. In the process, the entity immediately waits for the signal. After the signal, the entity has a simple delay and then the process ends.
 
 ***
@@ -726,7 +753,7 @@ As illustrated in this example, a blocking queue can facilitate the passing of i
 
 ### Allowing Entities to Wait for a Process
 
-In the previous three examples, we saw how we can use a hold queue, a signal, and a blocking queue within a process description. In the case of the blocking queue, we saw how two processes communicated.  In this next simple example, we also see how to processes can coordinate their flow via the use of the `waitFor(process: KSLProcess)` suspending function.  The purpose of the `waitFor(process: KSLProcess)` suspending function is to allow one entity to start another process and have the entity that starts the process wait until the newly activated process is completed.  The following code indicates the signature of the `waitFor(process: KSLProcess)` suspending function.
+In the previous three examples, we saw how we can use a hold queue, a signal, and a blocking queue within a process description. In the case of the blocking queue, we saw how two processes communicated.  In this next simple example, we also see how two processes can coordinate their flow via the use of the `waitFor(process: KSLProcess)` suspending function.  The purpose of the `waitFor(process: KSLProcess)` suspending function is to allow one entity to start another process and have the entity that starts the process wait until the newly activated process is completed.  The following code indicates the signature of the `waitFor(process: KSLProcess)` suspending function.
 
 ```kt
     /** Causes the current process to suspend until the specified process has run to completion.
@@ -761,7 +788,7 @@ class WaitForProcessExample(parent: ModelElement) : ProcessModel(parent, null) {
     private var n = 1
 
     private inner class Customer : Entity() {
-        val simpleProcess: KSLProcess = process("SimpleProcess", addToSequence = false) {
+        val simpleProcess: KSLProcess = process {
             println("\t $time > starting simple process for entity: ${this@Customer.name}")
             wip.increment()
             timeStamp = time
@@ -771,7 +798,7 @@ class WaitForProcessExample(parent: ModelElement) : ProcessModel(parent, null) {
             println("\t $time > completed simple process for entity: ${this@Customer.name}")
         }
 
-        val wfp = process("WaitForAnotherProcess", addToSequence = false) {
+        val wfp = process {
             val c = Customer()
             println("$time > before waitFor simple process for entity: ${this@Customer.name}")
             waitFor(c.simpleProcess)
@@ -794,7 +821,6 @@ class WaitForProcessExample(parent: ModelElement) : ProcessModel(parent, null) {
             }
         }
     }
-
 }
 ```
 :::
@@ -806,9 +832,9 @@ The `Customer` class is very similar to previous examples of a simple queueing s
     suspend fun use(
         resource: ResourceWithQ,
         amountNeeded: Int = 1,
-        seizePriority: Int = KSLEvent.DEFAULT_PRIORITY,
+        seizePriority: Int = PRIORITY,
         delayDuration: GetValueIfc,
-        delayPriority: Int = KSLEvent.DEFAULT_PRIORITY,
+        delayPriority: Int = PRIORITY,
     ) {
         val a = seize(resource, amountNeeded, seizePriority)
         delay(delayDuration, delayPriority)
@@ -827,9 +853,9 @@ Getting back to Example \@ref(exm:ch6ex6), the code defines a process called `Wa
 ```
 We see that the activation of entity ID_1 occurs at time 0.81, when it then subsequently activates entity ID_2's simple process.  Entity ID_1 then suspends while entity ID_2 executes its simple process, which completes at time 5.09. Then, entity ID_1's process is allowed to complete. Thus, we see that it is easy to activate separate processes and to coordinate their completion.
 
-### Process Interaction
+### Process Interaction {#processinteraction}
 
-In this final example, we will explore how processes associated with two different entities can interact during their execution by directly suspending and resuming each other. The previous process constructs are built upon the general lower level functionality of suspending the process and then resuming the process. For example, for the wait and signal construct, the entity will wait on a particular signal. During the wait, the entity's process is *suspended.*  The signal causes the waiting entities to resume their process from the wait for signal suspension point. The KSL implements the previously described suspension functions by using the low-level `suspend()` function. Once an entity's process is suspended, it needs to be resumed.  The entity's `resumeProcess()` function provides this capability. The following example illustrates how to facilitate the direct suspension and resumption of processes. 
+In this section, we will explore how processes associated with two (or more) different entities can interact during their execution by directly suspending and resuming each other. The previous process constructs are built upon the general lower level functionality of suspending the process and then resuming the process. For example, for the wait and signal construct, the entity will wait on a particular signal. During the wait, the entity's process is *suspended.*  The signal causes the waiting entities to resume their process from the wait for signal suspension point. The KSL implements the previously described suspension functions by using the low-level `suspend()` function. Once an entity's process is suspended, it needs to be resumed.  The entity's `resumeProcess()` function provides this capability. The following example illustrates how to facilitate the direct suspension and resumption of processes. 
 
 ***
 ::: {.example #ch6ex7 name="Direct Process Interaction"}
@@ -837,104 +863,120 @@ Consider modeling the interaction between a soccer mom and her daughter. The soc
 :::
 ***
 
-We can build a process model for this situation and use the `suspend()` and `resumeProcess()` functions within the implementation. The key to implementing this situation is to have variables that indicate the current state of the entity and to share the references of the entities. Let's start with the mom's process.  The following code shows the mom's process with extensive print statements added to illustrate the interaction.
+We can build a process model for this situation and use instances of the `Suspension` class within the  implementation. The key to implementing this situation is to capture the suspensions and to share the references of the entities. Let's start with the mom's process.  The following code shows the mom's process with extensive print statements added to illustrate the interaction.
 
 ```kt
-    private inner class Mom : Entity() {
+    private inner class Mother : Entity() {
 
-        var errandsCompleted = false
+        val daughterExiting: Suspension = Suspension(name = "Suspend for daughter to exit van")
+        val daughterPlaying: Suspension = Suspension(name = "Suspend for daughter playing")
+        val daughterLoading: Suspension = Suspension(name = "Suspend for daughter entering van")
 
         val momProcess = process {
-            println("$time> starting mom = ${this@Mom.name}")
-            println("$time> mom = ${this@Mom.name} driving to game")
+            println("$time> starting mom = ${this@Mother.name}")
+            println("$time> mom = ${this@Mother.name} driving to game")
             delay(30.0)
-            println("$time> mom = ${this@Mom.name} arrived at game")
-            val daughter = Daughter(this@Mom)
+            println("$time> mom = ${this@Mother.name} arrived at game")
+            val daughter = Daughter(this@Mother)
             activate(daughter.daughterProcess)
-            println("$time> mom = ${this@Mom.name} suspending for daughter to exit van")
-            suspend("mom suspended for daughter to exit van")
-            .
-            .
+            println("$time> mom = ${this@Mother.name} suspending for daughter to exit van")
+            //suspend mom's process
+            suspendFor(daughterExiting)
+            println("$time> mom = ${this@Mother.name} running errands...")
+            delay(45.0)
+            println("$time> mom = ${this@Mother.name} completed errands")
+            if (daughter.motherShopping.isSuspended){
+                println("$time> mom, ${this@Mother.name}, mom resuming daughter done playing after errands")
+                resume(daughter.motherShopping)
+            } else {
+                println("$time> mom, ${this@Mother.name}, mom suspending because daughter is still playing")
+                suspendFor(daughterPlaying)
+            }
+            suspendFor(daughterLoading)
+            println("$time> mom = ${this@Mother.name} driving home")
+            delay(30.0)
+            println("$time> mom = ${this@Mother.name} arrived home")
         }
     }
 ```
 
-The first concept to grasp is that the mom's process activates the daughter's process. The mom's process creates an instance of the daughter and then activates the daughter's process. The mom's process captures a reference to the `Daughter` in the `daughter` variable.  
+In this modeling, it is important to realize the reason for suspensions. The soccer mom will need three suspensions: 1) suspending while the daughter exits the vehicle, 2) suspending if the daughter is still playing, or 3) suspending while the daughter is entering the van. The three instances of the `Suspension` class represent these three possibilities and also provide shared state information. 
 
-The activation of a process schedules an event to occur. In this case, the event is scheduled for the current time. Note that the daughter's process starts after the mom completes the delay for driving to the field. Then, the mom immediately suspends using the `suspend()` function. The `suspend()` function takes in an optional string parameter that labels the suspension point. Now, let's look at the daughter's process.
+The next concept to grasp is that the mom's process activates the daughter's process. The mom's process creates an instance of the daughter and then activates the daughter's process. The mom's process captures a reference to the `Daughter` in the `daughter` variable.  The activation of a process schedules an event to occur. In this case, the event is scheduled for the current time. Note that the daughter's process starts after the mom completes the delay for driving to the field. 
 
-When the mom process activates the daughter, the daughter starts the delay to exit the van. After exiting the van, the daughter tells the mom process via the `resumeProcess()` function to resume.  Recall, that the mom process immediately suspended while the daughter exited the van. The critical item to note is that a reference to the `Mom` entity is required to create the daughter instance. Thus, the daughter has a reference to the mom instance in the process routine.  
+Then, the mom suspends using the `suspendFor()` function, specifying the appropriate `Suspension` instance. The `suspendFor()` function takes in the suspension that labels the suspension point. Now, let's look at the daughter's process.
 
-In the following code, the daughter indicates that she is playing by changing the value of the `isPlaying` property to true. This property can be used by the mom to check if the daughter is still playing after the mom returns from running the errands. 
+When the mom process activates the daughter, the daughter starts the delay to exit the van. After exiting the van, the daughter tells the mom process via the `resume(mother.daughterExiting)` function to resume.  Recall, that the mom process immediately suspended while the daughter exited the van. The critical item to note is that a reference to the `Mom` entity is required to create the daughter instance and the suspensions are public properties of the mother class. Thus, the daughter has a reference to the mom instance within the daughter's process routine.  
+
+In the following code, the daughter has her own suspension possibility via the `motherShopping` Suspension.
 
 ```kt
-    private inner class Daughter(val mom: Mom) : Entity() {
+    private inner class Daughter(val mother: Mother) : Entity() {
 
-        var isPlaying = false
+        val motherShopping: Suspension = Suspension("Suspend for mother shopping")
 
         val daughterProcess = process {
             println("$time> starting daughter ${this@Daughter.name}")
             println("$time> daughter, ${this@Daughter.name}, exiting the van")
             delay(2.0)
             println("$time> daughter, ${this@Daughter.name}, exited the van")
+            // resume mom process
             println("$time> daughter, ${this@Daughter.name}, resuming mom")
-            mom.resumeProcess()
+            resume(mother.daughterExiting)
             println("$time> daughter, ${this@Daughter.name}, starting playing")
-            isPlaying = true
-           // delay(30.0)
-            delay(60.0)
-            isPlaying = false
+//            delay(30.0)
+            delay(60.0) 
             println("$time> daughter, ${this@Daughter.name}, finished playing")
-            if (!mom.errandsCompleted){
+            // suspend if mom isn't here
+            if (mother.daughterPlaying.isSuspended){
+                // mom's errand was completed and mom suspended because daughter was playing
+                resume(mother.daughterPlaying)
+            } else {
                 println("$time> daughter, ${this@Daughter.name}, mom errands not completed suspending")
-                suspend("daughter waiting on mom to complete errand")
+                suspendFor(motherShopping)
             }
             println("$time> daughter, ${this@Daughter.name}, entering van")
             delay(2.0)
             println("$time> daughter, ${this@Daughter.name}, entered van")
+            // resume mom process
             println("$time> daughter, ${this@Daughter.name}, entered van, resuming mom")
-            mom.resumeProcess()
+            resume(mother.daughterLoading)
         }
     }
 ```
 
-After playing the daughter can use the `errandsCompleted` property of the mom instance to suspend if her mother has not returned from the errands. 
+After playing the daughter uses the `daughterPlaying` Suspension of the mother to determine if the mother is suspended because her errands were completed before the daughter completed playing soccer.  If the mother is not suspended for the daughter's playing, then the daughter suspends while the mother completes shopping.
 
-Now, let's look at the rest of the mom's process.  We see that after suspending to let the daughter exit the van, the mom will run her errands and change the property `errandsCompleted` to true when she is done. Since the mom could return early, she checks if the daughter is playing, and if so, suspends. If the daughter is not playing, then the mom tells the daughter's process to resume, and then the mom process immediately suspends to allow the daughter to enter the van.  
+Now, let's look at the rest of the mom's process.  We see that after suspending to let the daughter exit the van, the mom will run her errands.  Since the mom could return early, she checks if the daughter is suspended waiting for her to complete shopping, and if so, the mother resumes the daughter (so that the daughter can start loading).  If the daughter is not suspended for the mom's shopping, she is still playing. So, the mom will suspend until the daughter completes playing. 
 
 ```kt
-    private inner class Mom : Entity() {
-
-        var errandsCompleted = false
-
         val momProcess = process {
-            println("$time> starting mom = ${this@Mom.name}")
-            println("$time> mom = ${this@Mom.name} driving to game")
+            println("$time> starting mom = ${this@Mother.name}")
+            println("$time> mom = ${this@Mother.name} driving to game")
             delay(30.0)
-            println("$time> mom = ${this@Mom.name} arrived at game")
-            val daughter = Daughter(this@Mom)
+            println("$time> mom = ${this@Mother.name} arrived at game")
+            val daughter = Daughter(this@Mother)
             activate(daughter.daughterProcess)
-            println("$time> mom = ${this@Mom.name} suspending for daughter to exit van")
-            suspend("mom suspended for daughter to exit van")
-            println("$time> mom = ${this@Mom.name} running errands...")
+            println("$time> mom = ${this@Mother.name} suspending for daughter to exit van")
+            //suspend mom's process
+            suspendFor(daughterExiting)
+            println("$time> mom = ${this@Mother.name} running errands...")
             delay(45.0)
-            println("$time> mom = ${this@Mom.name} completed errands")
-            errandsCompleted = true
-            if (daughter.isPlaying){
-                println("$time> mom, ${this@Mom.name}, mom suspending because daughter is still playing")
-                suspend("mom suspended for daughter playing")
+            println("$time> mom = ${this@Mother.name} completed errands")
+            if (daughter.motherShopping.isSuspended){
+                println("$time> mom, ${this@Mother.name}, mom resuming daughter done playing after errands")
+                resume(daughter.motherShopping)
             } else {
-                println("$time> mom, ${this@Mom.name}, mom resuming daughter done playing after errands")
-                daughter.resumeProcess()
-                suspend("mom suspended for daughter entering van")
+                println("$time> mom, ${this@Mother.name}, mom suspending because daughter is still playing")
+                suspendFor(daughterPlaying)
             }
-            println("$time> mom = ${this@Mom.name} driving home")
+            suspendFor(daughterLoading)
+            println("$time> mom = ${this@Mother.name} driving home")
             delay(30.0)
-            println("$time> mom = ${this@Mom.name} arrived home")
+            println("$time> mom = ${this@Mother.name} arrived home")
         }
-    }
 ```
-After being resumed by the daughter to indicate that the loading is complete, the mom delays for the drive home. The following output illustrates what happens for the case of the mother's errand time being less than the playing time of the daughter.
+The mother will always suspend for the daughter loading. After being resumed by the daughter to indicate that the loading is complete, the mom delays for the drive home. The following output illustrates what happens for the case of the mother's errand time being less than the playing time of the daughter.
 
 ```
 0.0> starting mom = ID_1
@@ -961,7 +1003,192 @@ We see in this output that the mom suspends at time 30, while the daughter exits
 
 We encourage the interested reader to re-run the code after changing the playing time to a smaller value, for example, 30 minutes. Then, you will see that the daughter suspends until the mother completes her errands. Thus, by carefully suspending and resuming processes, we can coordinate their interaction as they proceed through time. This is the essence of the process interaction approach to simulation model representation.  However, this low level coordination requires special attention to shared state and a deep understanding of how the processes interact, which can be error prone.
 
-In the next section, we will develop a more realistically sized process model for a STEM Career Mixer involving students and recruiters.
+This same interaction can be achieved using other KSL constructs.  Specifically, the `HoldQueue` and `Signal` constructs can also be used. Notice that when using the `Suspension` class, there were no waiting statistics collected when the processes wait for each other to complete. If you need waiting statistics, then using the `HoldQueue` or the `Signal` class can be useful. 
+
+The following code illustrates the use of the `HoldQueue` class.  Notice that there are four hold queues defined. These represent the suspension points from the previous example. Just as before, the mother activates the daughter and then suspends via the `hold()` function.  The mother uses the shared instances of the hold queues to check if the daughter is waiting in the `waitForMomToShopQ` hold queue.  If so, the mother removes the daughter from the queue and then resumes the daughter's process. the mother will suspend (if necessary) for the daughter to complete playing via the `hold(waitForDaughterToPlayQ)` call. In addition, the mother will hold for the daughter to enter the van.
+
+```kt
+class SoccerMomViaHoldQ(
+    parent: ModelElement,
+    name: String? = null
+) : ProcessModel(parent, name) {
+
+    private val waitForDaughterToExitQ = HoldQueue(this, name = "WaitForDaughterToExitQ")
+    private val waitForDaughterToPlayQ = HoldQueue(this, name = "WaitForDaughterToPlayQ")
+    private val waitForDaughterToLoadQ = HoldQueue(this, name = "WaitForDaughterToLoadQ")
+    private val waitForMomToShopQ = HoldQueue(this, name = "WaitForMomToShopQ")
+
+    override fun initialize() {
+        val m = Mother()
+        activate(m.momProcess)
+    }
+
+    private inner class Mother : Entity() {
+        val momProcess = process {
+            println("$time> starting mom = ${this@Mother.name}")
+            println("$time> mom = ${this@Mother.name} driving to game")
+            delay(30.0)
+            println("$time> mom = ${this@Mother.name} arrived at game")
+            val daughter = Daughter(this@Mother)
+            activate(daughter.daughterProcess)
+            println("$time> mom = ${this@Mother.name} suspending for daughter to exit van")
+            //suspend mom's process
+            hold(waitForDaughterToExitQ)
+            println("$time> mom = ${this@Mother.name} running errands...")
+            delay(45.0)
+            println("$time> mom = ${this@Mother.name} completed errands")
+            if (waitForMomToShopQ.contains(daughter)){
+                println("$time> mom, ${this@Mother.name}, mom resuming daughter done playing after errands")
+                waitForMomToShopQ.removeAndResume(daughter)
+            } else {
+                println("$time> mom, ${this@Mother.name}, mom suspending because daughter is still playing")
+                hold(waitForDaughterToPlayQ)
+            }
+            hold(waitForDaughterToLoadQ)
+            println("$time> mom = ${this@Mother.name} driving home")
+            delay(30.0)
+            println("$time> mom = ${this@Mother.name} arrived home")
+        }
+    }
+```
+
+The daughter's process is very similar to the previous example code. Notice that the shared references to the hold queues are used to check if the mother is waiting.
+
+```kt
+    private inner class Daughter(val mother: Mother) : Entity() {
+
+        val daughterProcess = process {
+            println("$time> starting daughter ${this@Daughter.name}")
+            println("$time> daughter, ${this@Daughter.name}, exiting the van")
+            delay(2.0)
+            println("$time> daughter, ${this@Daughter.name}, exited the van")
+            // resume mom process
+            println("$time> daughter, ${this@Daughter.name}, resuming mom")
+            waitForDaughterToExitQ.removeAndResume(mother)
+            println("$time> daughter, ${this@Daughter.name}, starting playing")
+            delay(30.0)
+//            delay(60.0)
+            println("$time> daughter, ${this@Daughter.name}, finished playing")
+            // suspend if mom isn't here
+            if (waitForDaughterToPlayQ.contains(mother)){
+                // mom's errand was completed and mom suspended because daughter was playing
+                waitForDaughterToPlayQ.removeAndResume(mother)
+            } else {
+                println("$time> daughter, ${this@Daughter.name}, mom errands not completed suspending")
+                hold(waitForMomToShopQ)
+            }
+            println("$time> daughter, ${this@Daughter.name}, entering van")
+            delay(2.0)
+            println("$time> daughter, ${this@Daughter.name}, entered van")
+            // resume mom process
+            println("$time> daughter, ${this@Daughter.name}, entered van, resuming mom")
+            waitForDaughterToLoadQ.removeAndResume(mother)
+        }
+    }
+```
+
+Since the implementation using the `Signal` class is very similar, its use is left as an exercise for the reader. 
+
+The KSL has one other concept that facilitates process interaction: *blockages.*  A blockage is like a semaphore or lock on a portion of a suspending function. Think of a blockage as a gate that prevents another process from proceeding with its own process until another process has proceeded through the marked portion of code. 
+
+A blockage can be used to block (suspend) other entities while they wait for the blockage to be cleared.  The user can mark process code with the start of a blockage and a subsequent end of the blockage. While the entity that creates the blockage is within the blocking code, other entities can be made to wait until the blockage is cleared.  Only the entity that creates the blockage can start and clear it. A started blockage must be cleared before the end of the process routine that contains it; otherwise, an exception will occur. Thus, blockages that are started must always be cleared.  The primary purpose of this construct is to facilitate process interaction between entities. Using blockages should be preferred over the use of `Suspension` instances.  The following code illustrates the soccer mom and daughter interaction using blockages.
+
+For the purposes of clarity of presentation, the print statements have been removed from the example code. The exercises ask the reader to show via print statements that the implementation using blockages results in the same interaction. Let's start with the mother's process. Since the daughter might have to wait for the mom to finish shopping, we will define a blockage to cover this activity. 
+
+```kt
+    private inner class Mom : Entity() {
+        val shopping: Blockage = Blockage("shopping")
+        
+        val momProcess = process {
+            delay(30.0)
+            val daughter = Daughter(this@Mom)
+            activate(daughter.daughterProcess)
+            waitFor(daughter.unloading)
+            startBlockage(shopping)
+            delay(45.0)
+            clearBlockage(shopping)
+            waitFor(daughter.playing)
+            waitFor(daughter.loading)
+            delay(30.0)
+            println("$time> mom = ${this@Mom.name} arrived home")
+        }
+    }
+```
+
+Again, the mother creates and activates the daughter.  The mother uses the `waitFor(blockage: Blockage)` suspending function to wait for the daughter to complete unloading. To see how this works, let's review the daughter's process.  
+
+The daughter has three potential blockages to represent unloading, playing, and loading. In the following code, notice how the unloading delay is between the start of a blockage and the clearing of the unloading blockage. This matching `startBlockage` and `clearBlockage` is like putting up a fence.  The `waitFor(daughter.unloading)` call within the mother's process, will check if the blockage is started or cleared. If the blockage is cleared, then the entity immediately continues (does not suspend); however, if the blockage is started, the entity executing the `waitFor()` will suspend until the blockage is cleared. Thus, the mom will wait until the daughter is unloaded.
+
+```kt
+    private inner class Daughter(val mom: Mom) : Entity() {
+        val unloading: Blockage = Blockage("unloading")
+        val playing: Blockage = Blockage("playing")
+        val loading: Blockage = Blockage("loading")
+
+        val daughterProcess = process {
+            startBlockage(unloading)
+            delay(2.0)
+            clearBlockage(unloading)
+            startBlockage(playing)
+            // delay(30.0)
+            delay(60.0)
+            clearBlockage(playing)
+            waitFor(mom.shopping)
+            startBlockage(loading)
+            delay(2.0)
+            clearBlockage(loading)
+        }
+    }
+```
+
+Notice the use of the `shopping` blockage within the mother's process. This blockage surrounds the delay for shopping. Now, in the daughter's process we see the use of the `waitFor(mom.shopping)` function call.  Again, if the mom is still shopping, the daughter will suspend; however, if the mom has cleared the shopping blockage, the daughter proceeds to the unloading activity.  If you need queue statistics, when using blockages, you can still use the `Queue` class and enqueue the entity prior to the `waitFor` call and remove the entity after the `waitFor` call. 
+
+::: {.infobox .important data-latex="{important}"}
+**IMPORTANT!**
+A blockage can only be started and cleared by the entity that instantiates it.  In addition, a blockage that has been started must be cleared before the end of the process within which it appears.  A common error in the usage of blockages would be to not clear the blockage.
+:::
+
+As illustrated in the previous example, using a blockage around an activity is a common use case. Because of this, the KSL provides a special type of blockage just for activities.  Here is the code that uses `BlockingActivity` instances.
+
+```kt
+    private inner class Mom : Entity() {
+        val shopping: BlockingActivity = BlockingActivity(45.0)
+        val momProcess = process {
+            delay(30.0)
+            val daughter = Daughter(this@Mom)
+            activate(daughter.daughterProcess)
+            waitFor(daughter.unloading)
+            perform(shopping)
+            waitFor(daughter.playing)
+            waitFor(daughter.loading)
+            delay(30.0)
+        }
+    }
+```
+Notice the use of the new `perform()` suspending function. The `perform()` function essentially wraps a delay with a blockage.  This ensures that you do not forget to clear the blockage.  The daughter's process is also simplified as follows.
+
+```kt
+    private inner class Daughter(val mom: Mom) : Entity() {
+        val unloading: BlockingActivity = BlockingActivity(2.0)
+        val playing: BlockingActivity = BlockingActivity(60.0)
+        val loading: BlockingActivity = BlockingActivity(2.0)
+
+        val daughterProcess = process {
+            perform(unloading)
+            perform(playing)
+            waitFor(mom.shopping)
+            perform(loading)
+        }
+    }
+```
+
+Besides blockages for activities, the KSL provides blockages for the following common situations:
+
+- `BlockingResourceUsage` - Wraps a blockage around the `use()` suspending function when using a resource or resource with queue during an activity.
+- `BlockingResourcePoolUsage` - Wraps a blockage around the `use()` suspending function when using a resource pool or resource pool with queue during an activity.
+- `BlockingMovement` - Wraps a blockage around the use of the `move()` suspending function. The movement of entities will be discussed in a subsequent chapter.
+
+In the next section, we will develop a more realistically sized process model for a STEM Career Mixer involving students and recruiters. 
 
 ## Modeling a STEM Career Mixer
 
@@ -1489,7 +1716,7 @@ In the following code, two attributes, `isWanderer` and `isLeaver` are defined a
         private val isWanderer = myDecideToWander.value.toBoolean()
         private val isLeaver = myDecideToLeave.value.toBoolean()
 
-        val stemFairProcess = process {
+        val stemFairProcess = process(isDefaultProcess = true) {
             myNumInSystem.increment()
             delay(myNameTagTimeRV)
             if (isWanderer) {
@@ -1696,9 +1923,9 @@ The order process follows the basic outline of the activity diagram. As we have 
         val size: Int = myOrderSize.value.toInt()
         var completedShirts : List<Shirt> = emptyList() // not really necessary
 
-        val orderMaking : KSLProcess = process("Order Making") {
+        val orderMaking: KSLProcess = process(isDefaultProcess = true) {
             myNumInSystem.increment()
-            for(i in 1..size){
+            for (i in 1..size) {
                 val shirt = Shirt(this@Order.id)
                 activate(shirt.shirtMaking)
             }
@@ -1706,7 +1933,7 @@ The order process follows the basic outline of the activity diagram. As we have 
             delay(myPaperWorkTime)
             release(a)
             // wait for shirts
-            completedShirts = waitForItems(completedShirtQ, size, {it.orderNum == this@Order.id})
+            completedShirts = waitForItems(completedShirtQ, size, { it.orderNum == this@Order.id })
             a = seize(myPackager)
             delay(myPackagingTime)
             release(a)
@@ -1721,7 +1948,7 @@ When the order making process is activated, there is a for-loop that makes the s
 Meanwhile, the order continues with its process by using the packager in the classic *(seize-delay-release)* pattern.  However, note the signature of the `seize()` method, which specifies the queue for waiting orders.
 
 ```kt
-            var a = seize(myPackager, queue = myOrderQ)
+    var a = seize(myPackager, queue = myOrderQ)
 ```
 Thus, this use of the packager causes the entity (the order) to wait in the queue for orders. The later seize of the packager cause the order to wait in the pre-defined queue associated with the `ResourceWithQ` class defined for the packager.
 
@@ -1850,7 +2077,11 @@ The following new KSL constructs were discussed in this chapter:
 
 `Signal`: This class allows the entity to wait for a signal to occur before proceeding within a process.
 
-`BlockingQueue`: This class will hold entities in a channel for receivers and senders of entities.  Receivers may block waiting for an entity to appear in the channel and senders may block if space is not available in the channel. 
+`BlockingQueue`: This class will hold entities in a channel for receivers and senders of entities.  Receivers may block waiting for an entity to appear in the channel and senders may block if space is not available in the channel.
+
+`Suspension`: This class facilitates the suspension and resumption of entities between processes.
+
+`Blockage`: This class represents a general mechanism for controlling the interaction between processes by allowing one process to mark sections of a process that cause the suspension of other processes while the marked section of a process completes.
 
 `activite()`: This function is used to schedule the start of an entity's process.
 
@@ -1862,7 +2093,11 @@ The following new KSL constructs were discussed in this chapter:
 
 `use()`: This suspending function combines the seize, delay, release functions.
 
-`waitFor()`: This suspending function allows a process to suspend until another process completes or to suspend until a signal occurs.
+`waitFor()`: This suspending function allows a process to suspend until another process completes or to suspend until a signal occurs or a blockage is cleared.
+
+`suspendFor()`: This suspending function works with the `Suspension` class to allow an entity to suspend for a particular suspension point. 
+
+`perform()`: This suspending function works with common use cases of blockages.
 
 Based on the constructs discussed so far, very complex systems can be modeled using the KSL.  In the next chapter, we explore additional advanced modeling constructs.
 
@@ -1950,6 +2185,323 @@ system. Assume that the parts have a discrete uniform number of holes to drill o
 
 Develop model for this situation. Report the average system
 time for the parts based on 20 replications of 4800 minutes.
+:::
+
+***
+
+::: {.exercise #ch6QTP3}
+Consider a single pump gas station
+where the arrival process is Poisson with a mean time between arrivals
+of 10 minutes. The service time is exponentially distributed with a mean
+of 6 minutes. 
+
+Build a KSL model to simulate this situation.  Run the model
+for 20,000 minutes with a warm up period of 5,000 minutes.  Based on 30
+replications of your simulation, estimate the following performance measures.
+
+a. What is the probability that you have to wait for service?
+
+b. What is the mean number of customer at the station?
+
+c. What is the expected time waiting in the line to get a pump?
+
+Use stream 1 for the time between arrivals and stream 2 for the service times.
+:::
+
+***
+
+::: {.exercise #ch6QTP4}
+Suppose an operator has been
+assigned to the responsibility of maintaining 3 machines. For each
+machine the probability distribution of the running time before a
+breakdown is exponentially distributed with a mean of 9 hours. The
+repair time also has an exponential distribution with a mean of 2 hours.
+
+Build a KSL model to simulate this situation.  Run the model
+for 20,000 hours with a warm up period of 5,000 hours  Based on 30
+replications of your simulation, estimate the following performance measures.
+
+a. What is the probability that the operator is idle?
+
+b. What is the expected number of machines that are running?
+
+c. What is the expected number of machines that are not running?
+
+Use stream 1 for the time between arrivals and stream 2 for the service times.
+:::
+
+***
+
+::: {.exercise #ch6QTP5}
+SuperFastCopy wants to install
+self-service copiers, but cannot decide whether to put in one or two
+machines. They predict that arrivals will be Poisson with a rate of 30
+per hour, and the time spent copying is exponentially distributed with a
+mean of 1.75 minutes. Because the shop is small they want the
+probability of 5 or more customers in the shop to be small, say less
+than 7\%. 
+
+Build a KSL model to analyze this situation.  Run the model
+for 20,000 minutes with a warm up period of 5,000 minutes  Based on 30
+replications of your simulation, estimate the following performance measures.
+
+Use stream 1 for the time between arrivals and stream 2 for the service times.
+:::
+
+***
+
+::: {.exercise #ch6QTP6}
+Each airline passenger and his or her carry-on baggage must be checked
+at the security checkpoint. Suppose XNA averages 10 passengers per
+minute with exponential inter-arrival times. To screen passengers, the
+airport must have a metal detector and baggage X-ray machines. Whenever
+a checkpoint is in operation, two employees are required (one operates
+the metal detector, one operates the X-ray machine). The passenger goes
+through the metal detector and simultaneously their bag goes through the
+X-ray machine. A checkpoint can check an average of 12 passengers per
+minute according to an exponential distribution.
+
+Build a KSL model to analyze this situation.  Run the model
+for 20,000 minutes with a warm up period of 5,000 minutes  Based on 30
+replications of your simulation, estimate the following performance measures.
+
+a. What is the probability that a passenger will have to wait before being screened? 
+
+b. On average, how many passengers are waiting in line to enter the checkpoint? 
+
+c. On average, how long will a passenger spend at the checkpoint?
+
+Use stream 1 for the time between arrivals and stream 2 for the service times.
+:::
+
+***
+
+::: {.exercise #ch6QTP7}
+Two machines are being considered
+for processing a job within a factory. The first machine has an
+exponentially distributed processing time with a mean of 10 minutes. For
+the second machine the vendor has indicated that the mean processing
+time is 10 minutes but with a standard deviation of 6 minutes with a lognormal distribution. 
+
+Build KSL models to analyze this situation.  Run the models
+for 20,000 minutes with a warm up period of 5,000 minutes  Based on 30
+replications of your simulation, which machine is better in terms of the average waiting
+time of the jobs?
+
+Use stream 1 for the time between arrivals and stream 2 for the service times.
+:::
+
+***
+
+::: {.exercise #ch6QTP8}
+Customers arrive at a one-window
+drive in bank according to a Poisson distribution with a mean of 10 per
+hour. The service time for each customer is exponentially distributed
+with a mean of 5 minutes. There are 3 spaces in front of the window
+including that for the car being served. Other arriving cars can wait
+outside these 3 spaces. 
+
+Build a KSL model to analyze this situation.  Run the model
+for 20,000 minutes with a warm up period of 5,000 minutes  Based on 30
+replications of your simulation, estimate the following performance measures.
+
+a. What is the probability that an arriving customer can enter one of the 3 spaces in front of the window?
+
+b. What is the probability that an arriving customer will have to wait outside the 3 spaces?
+
+c. How long is an arriving customer expected to wait before starting service?
+
+d. How many spaces should be provided in front of the window so that an arriving customer can wait in front of the window at least 20% of the time? In other words, the probability of
+at least one open space must be greater than 20\%.
+
+Use stream 1 for the time between arrivals and stream 2 for the service times.
+
+:::
+
+***
+
+::: {.exercise #ch6QTP9}
+Joe Rose is a student at Big State U. He does odd jobs to supplement his income. Job requests come every 5 days on the average, but the time between requests is exponentially
+distributed. The time for completing a job is also exponentially
+distributed with a mean of 4 days.
+
+Build a KSL model to analyze this situation.  Run the model
+for 20,000 days with a warm up period of 5,000 days  Based on 30
+replications of your simulation, estimate the following performance measures.
+
+a. What is the chance that Joe will not have any jobs to work on?
+
+b. What is the average value of the waiting jobs if Joe gets about \$25 per job?
+
+Use stream 1 for the time between arrivals and stream 2 for the service times.
+:::
+
+***
+
+::: {.exercise #ch6QTP10}
+The manager of a bank must determine how many tellers should be
+available. For every minute a customer stands in line, the manager
+believes that a delay cost of 5 cents is incurred. An average of 15
+customers per hour arrive at the bank. On the average, it takes a teller
+6 minutes to complete the customer's transaction. It costs the bank \$9
+per hour to have a teller available. Inter-arrival and service times can
+be assumed to be exponentially distributed.
+
+Build a KSL model to analyze this situation.  Run the model
+for 20,000 minutes with a warm up period of 5,000 minutes  Based on 30
+replications of your simulation, answer the following questions.
+
+a. What is the minimum number of tellers that should be available in order
+for the system to be stable (i.e. not have an infinite queue)? 
+
+b. If the system has 3 tellers, what is the probability that there will be no one
+in the bank? 
+
+c. What is the expected total cost of the system per hour, when there are 2 tellers?
+
+Use stream 1 for the time between arrivals and stream 2 for the service times.
+:::
+
+***
+
+::: {.exercise #ch6QTP11}
+You have been hired to analyze the needs for loading dock facilities at
+a trucking terminal. The present terminal has 4 docks on the main
+building. Any trucks that arrive when all docks are full are assigned to
+a secondary terminal, which is a short distance away from the main
+terminal. Assume that the arrival process is Poisson with a rate of 5
+trucks each hour. There is no available space at the main terminal for
+trucks to wait for a dock. At the present time nearly 50\% of the
+arriving trucks are diverted to the secondary terminal. The average
+service time per truck is two hours on the main terminal and 3 hours on
+the secondary terminal, both exponentially distributed. Two proposals
+are being considered. The first proposal is to expand the main terminal
+by adding docks so that at least 80\% of the arriving trucks can be
+served there with the remainder being diverted to the secondary
+terminal. The second proposal is to expand the space that can
+accommodate up to 8 trucks. Then, only when the holding area is full
+will the trucks be diverted to secondary terminal.
+
+Build KSL models to analyze this situation.  Run the models
+for 20,000 minutes with a warm up period of 5,000 minutes  Based on 30
+replications of your simulation, answer the following questions.
+
+a. For the first proposal, what is the required number of docks so that at least 80\% of the arriving trucks can be served? 
+
+a. For the second proposal, will the specified number of spaces have least 80\% of the arriving trucks can be served? 
+
+Use stream 1 for the time between arrivals and stream 2 for the service times.
+:::
+
+***
+
+::: {.exercise #ch6QTP12}
+Sly's convenience store operates a
+two-pump gas station. The lane leading to the pumps can house at most
+five cars, including those being serviced. Arriving cars go elsewhere if
+the lane is full. The distribution of the arriving cars is Poisson with
+a mean of 20 per hour. The time to fill up and pay for the purchase is
+exponentially distributed with a mean of 6 minutes.
+
+Build a KSL model to analyze this situation.  Run the model
+for 20,000 minutes with a warm up period of 5,000 minutes  Based on 30
+replications of your simulation, answer the following questions.
+
+a. What is the percentage of cars that will seek business elsewhere?
+
+b. What is the utilization of the pumps?
+
+Use stream 1 for the time between arrivals and stream 2 for the service times.
+:::
+
+***
+
+::: {.exercise #ch6QTP13}
+An airline ticket office has two
+ticket agents answering incoming phone calls for flight reservations. In
+addition, two callers can be put on hold until one of the agents is
+available to take the call. If all four phone lines (both agent lines
+and the hold lines) are busy, a potential customer gets a busy signal,
+and it is assumed that the call goes to another ticket office and that
+the business is lost. The calls and attempted calls occur randomly (i.e.
+according to Poisson process) at a mean rate of 15 per hour. The length
+of a telephone conversation has an exponential distribution with a mean
+of 4 minutes.
+
+Build a KSL model to analyze this situation.  Run the model
+for 20,000 minutes with a warm up period of 5,000 minutes  Based on 30
+replications of your simulation, answer the following questions.
+
+a. What is probability of losing a potential customer?
+
+b. What is the probability that an arriving phone call will not start service
+immediately but will be able to wait on a hold line?
+
+Use stream 1 for the time between arrivals and stream 2 for the service times.
+:::
+
+***
+
+::: {.exercise #ch6QTP14}
+SuperFastCopy has three identical
+copying machines. When a machine is being used, the time until it breaks
+down has an exponential distribution with a mean of 2 weeks. A repair
+person is kept on call to repair the machines. The repair time for a
+machine has an exponential distribution with a mean of 0.5 week. The
+downtime cost for each copying machine is \$100 per week.
+
+Build a KSL model to analyze this situation.  Run the model
+for 20,000 weeks with a warm up period of 5,000 weeks  Based on 30
+replications of your simulation, what is the expected downtime cost per week.
+
+Use stream 1 for the time between arrivals and stream 2 for the service times.
+:::
+
+***
+
+::: {.exercise #ch6QTP15}
+NWH Cardiac Care Unit (CCU) has
+5 beds, which are virtually always occupied by patients who have just
+undergone major heart surgery. Two registered nurses (RNs) are on duty
+in the CCU in each of the three 8 hour shifts. About every two hours
+following an exponential distribution, one of the patients requires a
+nurse's attention. The RN will then spend an average of 30 minutes
+(exponentially distributed) assisting the patient and updating medical
+records regarding the problem and care provided. 
+
+Build a KSL model to analyze this situation.  Run the model
+for 20,000 minutes with a warm up period of 5,000 minutes  Based on 30
+replications of your simulation, answer the following questions.
+
+a. What is the average number of patients being attended by the nurses?
+
+b. What is the average time that a patient spends waiting for one of the nurses to
+arrive?
+
+Use stream 1 for the time between arrivals and stream 2 for the service times.
+:::
+
+***
+
+::: {.exercise #ch6QTP16}
+HJ Bunt, Transport Company maintains a large fleet of refrigerated
+trailers. For the purposes of this problem assume that the number of
+refrigerated trailers is conceptually infinite. The trailers require
+service on an irregular basis in the company owned and operated service
+shop. Assume that the arrival of trailers to the shop is approximated by
+a Poisson distribution with a mean rate of 3 per week. The length of
+time needed for servicing a trailer varies according to an exponential
+distribution with a mean service time of one-half week per trailer. The
+current policy is to utilize a centralized contracted outsourced service
+center whenever more than two trailers are in the company shop, so that,
+at most one trailer is allowed to wait. Assume that there is currently
+one 1 mechanic in the company shop.
+
+Build a KSL model to analyze this situation.  Run the model
+for 20,000 weeks with a warm up period of 5,000 weeks  Based on 30
+replications of your simulation, what is the expected number of repairs that are outsourced per week?
+
+Use stream 1 for the time between arrivals and stream 2 for the service times.
 :::
 
 ***
@@ -2510,6 +3062,32 @@ minutes.
 b. Based on the results of part (a) determine the number of replications
 necessary to estimate the total time to reach their gate regardless of
 type to within $\pm$ 1 minute with 95\% confidence.
+:::
+
+***
+:::{.exercise #ch6P20}
+Consider the soccer mom and daughter example of Section \@ref(processinteraction).  Use the `Signal` class to implement the example. Use print statements to prove that the interaction is the same as the implementation with the `Suspension` class. 
+:::
+
+***
+
+:::{.exercise #ch6P21}
+Consider the soccer mom and daughter example of Section \@ref(processinteraction).  Update the `Blockage` example to implement the example. Use print statements to prove that the interaction is the same as the implementation with the `Suspension` class. 
+:::
+
+***
+
+:::{.exercise #ch6P22}
+Consider the soccer mom and daughter example of Section \@ref(processinteraction).  Update the `BlockingActivity` example to implement the example. Use print statements to prove that the interaction is the same as the implementation with the `Suspension` class. 
+:::
+
+***
+
+:::{.exercise #ch6P23}
+Consider the Tie-Dye T-Shirt Example \@ref(exm:exTieDyeTShirts).  
+
+a. Redo the example using the `HoldQueue` class to model the process interaction.
+b. Redo the example using blockages to model the process interaction.
 :::
 
 ***

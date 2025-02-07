@@ -4159,4 +4159,71 @@ To increase security measures, a more extensive security check of passengers is 
 - What is the overall average cycle time of passengers (from the time they enter the system until they are through all security points) who are selected for this check?
 :::
 
+***
+
+::: {.exercise #ch5QTP1}
+You have been hired to analyze the needs for loading dock facilities at
+a trucking terminal. The present terminal has 4 docks on the main
+building. Any trucks that arrive when all docks are full are assigned to
+a secondary terminal, which is a short distance away from the main
+terminal. Assume that the arrival process is Poisson with a rate of 5
+trucks each hour. There is no available space at the main terminal for
+trucks to wait for a dock. At the present time nearly 50\% of the
+arriving trucks are diverted to the secondary terminal. The average
+service time per truck is two hours on the main terminal and 3 hours on
+the secondary terminal, both exponentially distributed. Two proposals
+are being considered. The first proposal is to expand the main terminal
+by adding docks so that at least 80\% of the arriving trucks can be
+served there with the remainder being diverted to the secondary
+terminal. The second proposal is to expand the space that can
+accommodate up to 8 trucks. Then, only when the holding area is full
+will the trucks be diverted to secondary terminal.
+
+Build KSL models to analyze this situation.  Run the models
+for 20,000 minutes with a warm up period of 5,000 minutes  Based on 30
+replications of your simulation, answer the following questions.
+
+a. For the first proposal, what is the required number of docks so that at least 80\% of the arriving trucks can be served? 
+
+b. For the second proposal, will the specified number of spaces result in at least 80\% of the arriving trucks being served at the main facility? 
+
+Use stream 1 for the time between arrivals and stream 2 for the service times.
+:::
+
+***
+
+::: {.exercise #ch5QTP2}
+Two machines are being considered
+for processing a job within a factory. The first machine has an
+exponentially distributed processing time with a mean of 10 minutes. For
+the second machine the vendor has indicated that the mean processing
+time is 10 minutes but with a standard deviation of 6 minutes with a lognormal distribution. 
+
+Build KSL models to analyze this situation.  Run the models
+for 20,000 minutes with a warm up period of 5,000 minutes  Based on 30
+replications of your simulation, which machine is better in terms of the average waiting
+time of the jobs?
+
+Use stream 1 for the time between arrivals and stream 2 for the service times.
+:::
+
+***
+
+::: {.exercise #ch5QTP3}
+SuperFastCopy wants to install
+self-service copiers, but cannot decide whether to put in one or two
+machines. They predict that arrivals will be Poisson with a rate of 30
+per hour, and the time spent copying is exponentially distributed with a
+mean of 1.75 minutes. Because the shop is small they want the
+probability of 5 or more customers in the shop to be small, say less
+than 7\%. 
+
+Build a KSL model to analyze this situation.  Run the model
+for 20,000 minutes with a warm up period of 5,000 minutes  Based on 30
+replications of your simulation, make a statistically valid recommendation concerning the number of machines needed to meet the customer service requirement.
+
+Use stream 1 for the time between arrivals and stream 2 for the service times.
+:::
+
+***
 

@@ -1551,7 +1551,6 @@ Then, compute the quantities if requested. You might also try to use to solve
 the problems via simulation.
 
 ***
-
 ::: {.exercise #chQTP1}
 *True* or *False*: In a queueing system with random arrivals and random
 service times, the performance will be best if the arrival rate is equal
@@ -1559,7 +1558,6 @@ to the service rate because then there will not be any queueing.
 :::
 
 ***
-
 ::: {.exercise #chQTP2}
 The Burger Joint in the UA food court uses an average of 10,000 pounds of potatoes
 per week. The average number of pounds of potatoes on hand is 5,000. On
@@ -1568,7 +1566,6 @@ What queuing concept is use to solve this problem?
 :::
 
 ***
-
 ::: {.exercise #chQTP3}
 Consider a single pump gas station
 where the arrival process is Poisson with a mean time between arrivals
@@ -1578,7 +1575,6 @@ problem using Kendall's notation. Specify the parameters of the model
 and what you would compute to solve the problem. Be as specific as
 possible by specifying the equation needed. Then, compute the desired
 quantities.
-:::
 
 a. What is the probability that you have to
 wait for service?
@@ -1588,11 +1584,12 @@ the station?
 
 c. What is the expected time waiting in the
 line to get a pump?
+:::
 
 ***
 
 ::: {.exercise #chQTP4}
-uppose an operator has been
+Suppose an operator has been
 assigned to the responsibility of maintaining 3 machines. For each
 machine the probability distribution of the running time before a
 breakdown is exponentially distributed with a mean of 9 hours. The
@@ -1601,13 +1598,13 @@ Specify the appropriate queueing model needed to solve the problem using
 Kendall's notation. Specify the parameters of the model and what you
 would compute to solve the problem. Be as specific as possible by
 specifying the equation needed. Then, compute the desired quantities.
-:::
 
 a. What is the probability that the operator is idle?
 
 b. What is the expected number of machines that are running?
 
 c. What is the expected number of machines that are not running?
+:::
 
 ***
 
@@ -1620,7 +1617,11 @@ mean of 1.75 minutes. Because the shop is small they want the
 probability of 5 or more customers in the shop to be small, say less
 than 7\%. Make a recommendation based on queueing theory to
 SuperFastCopy.
+:::
 
+***
+
+::: {.exercise #chQTP6}
 Each airline passenger and his or her carry-on baggage must be checked
 at the security checkpoint. Suppose XNA averages 10 passengers per
 minute with exponential inter-arrival times. To screen passengers, the
@@ -1639,7 +1640,7 @@ checkpoint?
 
 ***
 
-::: {.exercise #chQTP6}
+::: {.exercise #chQTP7}
 Two machines are being considered
 for processing a job within a factory. The first machine has an
 exponentially distributed processing time with a mean of 10 minutes. For
@@ -1651,7 +1652,7 @@ time of the jobs?
 
 ***
 
-::: {.exercise #chQTP7}
+::: {.exercise #chQTP8}
 Customers arrive at a one-window
 drive in bank according to a Poisson distribution with a mean of 10 per
 hour. The service time for each customer is exponentially distributed
@@ -1662,7 +1663,6 @@ solve the problem using Kendall's notation. Specify the parameters of
 the model and what you would compute to solve the problem. Be as
 specific as possible by specifying the equation needed. Then, compute
 the desired quantities.
-:::
 
 a. What is the probability that an arriving customer can enter one of the 3 spaces in front of the window?
 
@@ -1672,22 +1672,23 @@ c. How long is an arriving customer expected to wait before starting service?
 
 d. How many spaces should be provided in front of the window so that an arriving customer can wait in front of the window at least 20% of the time? In other words, the probability of
 at least one open space must be greater than 20\%.
-
-***
-
-::: {.exercise #chQTP8}
-Joe Rose is a student at Big State U. He does odd jobs to supplement his income. Job requests come every 5 days on the average, but the time between requests is exponentially
-distributed. The time for completing a job is also exponentially
-distributed with a mean of 4 days.
 :::
-
-a. What would you compute to find the chance that Joe will not have any jobs to work on?
-
-b. What would you compute to find the average value of the waiting jobs if Joe gets about \$25 per job?
 
 ***
 
 ::: {.exercise #chQTP9}
+Joe Rose is a student at Big State U. He does odd jobs to supplement his income. Job requests come every 5 days on the average, but the time between requests is exponentially
+distributed. The time for completing a job is also exponentially
+distributed with a mean of 4 days.
+
+a. What would you compute to find the chance that Joe will not have any jobs to work on?
+
+b. What would you compute to find the average value of the waiting jobs if Joe gets about \$25 per job?
+:::
+
+***
+
+::: {.exercise #chQTP10}
 The manager of a bank must determine how many tellers should be
 available. For every minute a customer stands in line, the manager
 believes that a delay cost of 5 cents is incurred. An average of 15
@@ -1705,11 +1706,11 @@ when there are 2 tellers?
 
 ***
 
-::: {.exercise #chQTP10}
+::: {.exercise #chQTP11}
 You have been hired to analyze the needs for loading dock facilities at
 a trucking terminal. The present terminal has 4 docks on the main
 building. Any trucks that arrive when all docks are full are assigned to
-a secondary terminal, which a short distance away from the main
+a secondary terminal, which is a short distance away from the main
 terminal. Assume that the arrival process is Poisson with a rate of 5
 trucks each hour. There is no available space at the main terminal for
 trucks to wait for a dock. At the present time nearly 50\% of the
@@ -1733,24 +1734,24 @@ the model and its parameters.
 
 ***
 
-::: {.exercise #chQTP11}
+::: {.exercise #chQTP12}
 Sly's convenience store operates a
 two-pump gas station. The lane leading to the pumps can house at most
 five cars, including those being serviced. Arriving cars go elsewhere if
 the lane is full. The distribution of the arriving cars is Poisson with
 a mean of 20 per hour. The time to fill up and pay for the purchase is
 exponentially distributed with a mean of 6 minutes.
-:::
 
 a. Specify using queueing notation, exactly
 what you would compute to find the percentage of cars that will seek
 business elsewhere?
 
 b. Specify using queueing notation, exactly what you would compute to find the utilization of the pumps?
+:::
 
 ***
 
-::: {.exercise #chQTP12}
+::: {.exercise #chQTP13}
 An airline ticket office has two
 ticket agents answering incoming phone calls for flight reservations. In
 addition, two callers can be put on hold until one of the agents is
@@ -1761,7 +1762,7 @@ the business is lost. The calls and attempted calls occur randomly (i.e.
 according to Poisson process) at a mean rate of 15 per hour. The length
 of a telephone conversation has an exponential distribution with a mean
 of 4 minutes.
-:::
+
 a. Specify using queueing notation, exactly
 what you would compute to find the probability of losing a potential
 customer?
@@ -1769,27 +1770,29 @@ customer?
 b. What would you compute to find the
 probability that an arriving phone call will not start service
 immediately but will be able to wait on a hold line?
+:::
 
 ***
 
-::: {.exercise #chQTP13}
+::: {.exercise #chQTP14}
 SuperFastCopy has three identical
 copying machines. When a machine is being used, the time until it breaks
 down has an exponential distribution with a mean of 2 weeks. A repair
 person is kept on call to repair the machines. The repair time for a
 machine has an exponential distribution with a mean of 0.5 week. The
 downtime cost for each copying machine is \$100 per week.
-:::
+
 a. Let the state of the system be the number
 of machines not working, Construct a state transition diagram for this
 queueing system.
 
 b. Write an expression using queueing
 performance measures to compute the expected downtime cost per week.
+:::
 
 ***
 
-::: {.exercise #chQTP14}
+::: {.exercise #chQTP15}
 NWH Cardiac Care Unit (CCU) has
 5 beds, which are virtually always occupied by patients who have just
 undergone major heart surgery. Two registered nurses (RNs) are on duty
@@ -1799,17 +1802,17 @@ nurse's attention. The RN will then spend an average of 30 minutes
 (exponentially distributed) assisting the patient and updating medical
 records regarding the problem and care provided. 
 
-:::
 a. What would you compute to find the
 average number of patients being attended by the nurses?
 
 b. What would you compute to fine the
 average time that a patient spends waiting for one of the nurses to
 arrive?
+:::
 
 ***
 
-::: {.exercise #chQTP15}
+::: {.exercise #chQTP16}
 HJ Bunt, Transport Company maintains a large fleet of refrigerated
 trailers. For the purposes of this problem assume that the number of
 refrigerated trailers is conceptually infinite. The trailers require
@@ -1831,7 +1834,7 @@ week?
 
 ***
 
-::: {.exercise #chQTP16}
+::: {.exercise #chQTP17}
 Rick is a manager of a small
 barber shop at Big State U. He hires one barber. Rick is also a barber
 and he works only when he has more than one customer in the shop.
@@ -1840,7 +1843,7 @@ on the average for a hair cut, but his employee takes 10 minutes. Assume
 that the cutting time distributions are exponentially distributed.
 Assume that there are only 2 chairs available with no waiting room in
 the shop.
-:::
+
 a. Let the state of the system be the
 number of customers in the shop, Construct a state transition diagram
 for this queueing system.
@@ -1850,17 +1853,16 @@ b. What is the probability that a customer is turned away?
 c.  What is the probability that the barber shop is idle?
 
 d. What is the steady-state mean number of customers in the shop?
+:::
 
 ***
 
-::: {.exercise #chQTP17}
+::: {.exercise #chQTP18}
 Using the supplied data set, draw the sample path for the state
 variable, $N(t)$. Give a formula for estimating the time average number
 in the system, $N(t)$, and then use the data to compute the time average
 number in the system over the range from 0 to 25. Assume that the value
 of $N(t$ is the value of the state variable just after time $t$.
-
-:::
 
   -------- --- --- --- ---- ---- ---- ---- ---- ----
     $t$     0   2   4   5    7    10   12   15   20 
@@ -1876,5 +1878,6 @@ b. Give a formula for estimating the mean rate of arrivals over the interval fro
 c. Estimate the average time in the system (waiting and in service) for the customers indicated in the diagram.
 
 d. What queueing formula relationship is used in this problem?
+:::
 
 ***

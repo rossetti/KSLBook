@@ -228,14 +228,17 @@ For the given arrival rate and service parameters, the results indicate that the
 
 However, the exercises ask the reader to explore what happens if the arrival rate is increased.  A tandem queueing system is just a series of stations. The concept of having stations where work is performed is very useful. A later section illustrates how to generalize these ideas, but first we explore how to organize resources into sets or pools from which resources can be selected.
 
-### Resource Pools
+### Resource Pools {#secResourcePools}
 
 A resource pool is a generalization of the concept of a resource that permits individual instances of the `Resource` class to be combined together into a larger *pool* of units.  Resource pools facilitate the sharing of instances of resources across processes.  The important concepts involved in using resource pools are 1) how to select resources to satisfy a request, and 2) how to allocate a request for units across the pool of resources.  For example, if a request for units of the pool was for 2 units, and the pool contained 3 individual resources all of capacity 1, which of the 3 resources should be selected to provide the requested units?  Also, suppose, for example, the request was for 2 units, and there were 3 individual resources with capacity (1, 2, 3) units, respectively. Should the resource with capacity 2 be used? Should the resource with capacity 3 be used?  Should the resource with capacity 1 be used in combination with one of the other resources? As you can see, there may be many possible ways to allocate units to requests when there is a pool of resources.  The KSL provides a structure for users to supply selection and allocation rules when using pools of resources through some interfaces.
+
+The `ResourceSelectionRuleIfc` interface provides a mechanism for selecting resources from the pool that can satisfy the request. If not empty, list returned from the `ResourceSelectionRuleIfc` interface should have sufficient units available to satisfy the amount needed. In fact, it may have more than what is needed.
 
 ```kt
 /**
  * Provides for a method to select resources from a list such that
- * the returned list may contain resources that can fill the amount needed
+ * the returned list will contain resources that can fully fill the amount needed
+ * or the list will be empty.
  */
 fun interface ResourceSelectionRuleIfc {
     /**
@@ -243,8 +246,13 @@ fun interface ResourceSelectionRuleIfc {
      * @param list of resources to consider selecting from
      * @return the selected list of resources. It may be empty
      */
-    fun selectResources(amountNeeded: Int, list: List<Resource>): List<Resource>
+    fun selectResources(amountNeeded: Int, list: List<Resource>): MutableList<Resource>
 }
+```
+
+The `AllocationRuleIfc` interface provides a mechanism for selecting resources from a list of resources that can satisfy the request. In essence, the `ResourceSelectionRuleIfc` interface selects the possible resources to allocated units from and supplies them to the the allocation rule for allocation.  As noted in the documentation, the supplied list must have sufficient units to meet the allocation request.
+
+```kt
 
 /**
  *  Function to determine how to allocate requirement for units across
@@ -266,12 +274,25 @@ fun interface AllocationRuleIfc {
 
 These two interfaces can be used in combination to form various selection and allocation possibilities for a variety of resource pool situations.  The `ResourcePool` and `ResourcePoolWithQ` classes use default implementations of these functions. The KSL provides two implementations of the `ResourceSelectionRuleIfc` interface.
 
-- `FirstFullyAvailableResource` selects the first resource from a supplied list that can fully meet the request.
+- `FirstFullyAvailableResource` selects the first resource from a supplied list that can fully meet the request. The returned list will either be empty or have one resource (that can meet the request).
 - `ResourceSelectionRule` selects a list of resources that (in total) have enough available units to fully meet the request.
 
 It is important to note that the `ResourceSelectionRuleIfc` interface may return an empty list if the request cannot be met.  This is used to determine if the entity must wait. 
 
-The KSL provides a default instance of the `AllocationRuleIfc` interface called `DefaultAllocationRule.` This rule takes in a list of resources that in total has enough units available and allocates from each listed resource (in the order listed) until the entire amount requested is filled. Thus, in both the selection rule and the allocation rule, the order of the resources within the pool are important.  Again, if you want or need to have different rules, then you can implement these interfaces and supply your instances to the `ResourcePool` and `ResourcePoolWithQ` classes to use instead of the default implementations. Let's take a look at an example situation involving resource pools. 
+The KSL provides a default instance of the `AllocationRuleIfc` interface called the `AllocateInOrderListedRule` rule. This rule takes in a list of resources that in total has enough units available and allocates from each listed resource (in the order listed) until the entire amount requested is filled. Thus, in both the selection rule and the allocation rule, the order of the resources within the pool are important.  Again, if you want or need to have different rules, then you can implement these interfaces and supply your instances to the `ResourcePool` and `ResourcePoolWithQ` classes to use instead of the default implementations. 
+
+The following allocation rules are available:
+
+- `AllocateInOrderListedRule` This rule allocates all available units from each resource until amount needed is met based on the order in which the resources are listed from the selection rule.  This is the default allocation rule.
+- `RandomAllocationRule` This rule first randomly permutes the list from the selection rule and then allocates in the order of the permutation. In essence, this approach randomly picks from the list.
+- `ResourceAllocationRule` The `ResourceAllocationRule` class facilitates the construction of other rules based on a supplied resource comparator. The following rules are based on using different resource comparators.
+    - `LeastUtilizedAllocationRule` This rule sorts the resources such that list is ordered from least to most utilized and then allocates in the order listed.
+    - `LeastSeizedAllocationRule` This rule sorts the resources such that this is ordered from least seized to most seized and then allocates in the order listed.
+    - `MostAvailableAllocationRule`  When the resources have capacity greater than one, then the resources are sorted from most capacity available to least capacity available, and then allocated in the order listed.
+    
+The KSL also provides a number of functions that can be useful when comparing or searching for resources. These functions can be found in the `ResourceRules` file along with the previously mentioned interfaces.
+
+Let's take a look at an example situation involving resource pools. 
 
 ***
 ::: {.example #exResPool name="Resource Pools"}
@@ -374,9 +395,58 @@ Since there are four resources and two pools, the performance reports on all the
 |George:SeizeCount| 30| 4174.967| 24.294|
 |Ringo:SeizeCount| 30| 4151.9| 23.655|
 
-Resource pools can be helpful when modeling the sharing of resources between activities. In the next section, we discuss a more complex situation involving a flow shop.
+In the output, we see that resource `george` has the highest utilization.  This is likely due to the fact that `george` is shared between the two pools.  Resource pools can be helpful when modeling the sharing of resources between activities. The example created four instances of the `Resource` class.  This resource does not have a queue automatically associated with it. Then, two resource pools were created to hold the resource instances.  Notice that the pool were instances of the `ResourcePoolWithQ` class. This creates a pool and a queue to hold requests made to the pool.  The queue associated with the pool is also registered as being associated with the resources in the pool. Requests for the pool will wait in the pool's queue until the request can be allocated. The default selection and allocation rules were used in the example.  To change the rule, the user should supply the initial resource selection and allocation rules as shown in the following code.
 
-### Computer Test and Repair Shop Example 
+```kt
+    var initialDefaultResourceSelectionRule: ResourceSelectionRuleIfc = ResourceSelectionRule()
+        set(value) {
+            require(model.isNotRunning) {"Changing the initial resource selection rule during a replication will cause replications to not have the same starting conditions"}
+            field = value
+        }
+
+    var defaultResourceSelectionRule: ResourceSelectionRuleIfc = initialDefaultResourceSelectionRule
+        set(value) {
+            field = value
+            if (model.isRunning){
+                Model.logger.warn { "Changing the initial resource selection rule during a replication will only effect the current replication." }
+            }
+        }
+
+    var initialDefaultResourceAllocationRule: ResourceAllocationRuleIfc = AllocateInOrderListedRule()
+        set(value) {
+            require(model.isNotRunning) {"Changing the initial resource allocation rule during a replication will cause replications to not have the same starting conditions"}
+            field = value
+        }
+
+    var defaultResourceAllocationRule: ResourceAllocationRuleIfc = initialDefaultResourceAllocationRule
+        set(value) {
+            field = value
+            if (model.isRunning){
+                Model.logger.warn { "Changing the initial resource allocation rule during a replication will only effect the current replication." }
+            }
+        }
+```
+
+It is useful to note that the rules can be changed during the replication, but that they will be returned to the initial setting at the beginning of each replication. This is done to ensure that every replication starts with the same initial conditions. The `ResourcePoolCIfc` interface provides a public interface for resource pools. 
+
+```kt
+interface ResourcePoolCIfc {
+    val numBusyUnits: TWResponseCIfc
+    val fractionBusyUnits: ResponseCIfc
+    val resources: List<ResourceCIfc>
+    val numAvailableUnits: Int
+    val hasAvailableUnits: Boolean
+    val capacity: Int
+    val numBusy: Int
+    val fractionBusy: Double
+    var initialDefaultResourceSelectionRule: ResourceSelectionRuleIfc
+    var initialDefaultResourceAllocationRule: ResourceAllocationRuleIfc
+}
+```
+
+The section introduced the concept of resource pools with a simple example.  Late in the book, we will revisit the use of pools, especially within the context of being able to change the capacity of resources.  In the next section, we discuss a more complex situation involving a flow shop.
+
+### Computer Test and Repair Shop Example {#secTestAndRepair}
 
 This section presents a common modeling situation in which entities follow a processing plan until they are completed. The KSL makes this type of modeling easy because it can leverage the full functionality of the Kotlin language.
 
@@ -574,7 +644,7 @@ Now that the test plans are defined, we can develop a method for determining whi
     private val planList = REmpiricalList<List<TestPlanStep>>(this, sequences, planCDf)
 ```
 
-The test plans, which are lists, are added to another list called `sequences,` which will be used from which to randomly select the test plan according to the discrete empirical distribution as provided by the CDF across the test plans.
+The test plans, which are lists, are added to another list called `sequences,` which will be used to randomly select the test plan according to the discrete empirical distribution as provided by the CDF across the test plans.
 
 To capture the performance of the system, we can use `Response` and `TWResponse` instances.
 
@@ -1129,7 +1199,7 @@ line may experience random failures that require repair. During the
 repair time, the machine is not available for production. The KSL provides
 constructs for modeling scheduled capacity changes. 
 
-Currently, the KSL permits resources that use a singular request queue to experience capacity changes.  That is, the `ResourceWithQ` implementation can handle capacity changes; however, the `Resource` class implementation does not permit the capacity to change.  If you need a resource that experiences capacity changes, then you need to declare it as a `ResourceWithQ` instance.  This limitation occurs because capacity increases require the newly available units to be allocated to any waiting requests. In general, an instance of a `Resource` can be involved with more than one request queue due to arbitrary combinations of `seize()` calls involving the resource.  That is, the requests for an instance of `Resource` may in fact wait in different queues due to the flexible modeling provided by the implementations of the `seize()` method.  Currently, the possible multiple instances of `RequestQ` that could be involved with a `Resource` is not tracked. Even if the tracking occurred, then issues would still remain about how to allocate the new capacity across requests that are waiting in different instances of `RequestQ.` Future work may consider solutions to these issues; however, the current implementation of capacity schedules simplifies this situation by only permitting capacity changes for instances of the `ResourceWithQ` class.  Finally, the modeling of resources that can fail is under consideration for future development.
+The `Resource` class implementation permits the capacity of the resource to change via a capacity change schedule. There are significant modeling issues that need to be considered if the capacity is permitted to change. These issues will be discussed in this section.  An important issue will be how to handle resource requests that are waiting in queues when the capacity changes.  To handle this issue the modeler must register any queues that may be served by a resource with the resource so that the resource may notify the queue of the change in capacity.  Another important issue will be what to do when the resource is busy and a capacity change occurs. This situation will be handled via the specification of rules for the capacity change.  At present, the KSL does not provide additional constructs for modeling resource failures; however, general resource failure situations can be modeled using both the event-view and the process-view standard KSL constructs.
 
 There are two key resource variables for understanding resources and
 their states.
@@ -1176,7 +1246,13 @@ A capacity schedule governs how capacity changes. The `CapacitySchedule` class s
 
 A capacity schedule provides a start time for the schedule.  That is, the time after the start of the replication for which the schedule starts and the items on the schedule get processed. In the example, the starting time of the schedule is specified in the constructor of `CapacitySchedule` as 0.0. Then, the `addItem` method is used to add capacity values and duration values (pairs). In the example, notice that the capacity can be 0 for different segments of time and that a capacity change rule is specified when indicating that the resource uses the schedule.  
 
-If the capacity is increased over its current value and there are no pending changes, then the capacity is immediately increased and requests that are waiting for the resource will be processed to receive allocations from the resource.  If the capacity is decreased from its current value, then the amount of the decrease is first filled from idle units.  If there are not enough idle units to complete the decrease, then the change is processed according to the capacity change rule. The following discusses the two capacity change rule options available within the KSL.  
+If the capacity is increased over its current value and there are no pending changes, then the capacity is immediately increased and requests that are waiting for the resource will be processed to receive allocations from the resource. The requests that are waiting for the resource are only considered for allocations if the queue that they are waiting within is registered with the resource.  If the resource is an instance of the `ResourceWithQ` class or if it has been added to a `ResourcePoolWithQ` instance, then the registration of the queue instances will automatically occur. However, if the modeler uses a `seize()` function with an arbitrary request queue instance supplied, then that queue will only be notified if the queue is registered with the resource. The `registerCapacityChangeQueue()` function of the `Resource` class can be used to perform the registration. There is a corresponding function to undo the registration. 
+
+Because there can be one or more queues registered on a resource to react to the capacity increase, a rule can be specified to indicate the order of notification. This is accomplished with an instance that implements the `RequestQueueNotificationRuleIfc` interface. A `RequestQueueNotificationRuleIfc` promises to supply an iterator over the registered queues. The default request queue notification rule is to notify the queues in the order in which they were registered. The user may want to change this via a specification of the `initialRequestQueueNotificationRule` property of the `Resource` class. For example, different rules may want to consider queues for the allocation based on some prioritization scheme. The requests in the queues are processed until there are none to consider or if the capacity increase is used up.
+
+If the capacity is decreased from its current value, then the amount of the decrease is first filled from idle units.  If there are not enough idle units to complete the decrease, then the change is processed according to the capacity change rule. Registered queues are also notified if the decrease in capacity causes the resource to become inactive. In this situation, the entity associated with the request is notified to possibly take action because its request would be in a queue for the upcoming inactive period.
+
+The following discusses the two capacity change rule options available within the KSL.  
 
 Ignore
 
@@ -1703,7 +1779,7 @@ of the mixer and on 2 of the days, there were no students that used the MalMart 
 the first hour of operation.  Then, instead of getting a sample average across 10 days, we will only get
 a sample average across 8 days. We cannot compute statistics over observations that do not exist.
 
-A `ResponseInterval` permits collection of statistics over a specific interval, which might repeat. Often we want to collect statistics across many intervals according to some timed pattern.  The `ResponseSchedule` class facilitates the modeling of this situation.  
+A `ResponseInterval` permits collection of statistics over a specific interval, which might repeat. Often we want to collect statistics across many intervals according to some timed pattern.  The `ResponseSchedule` class facilitates the modeling of this situation.  Figure \@ref(fig:ResponseInterval) presents the `ResponseInterval` class.  Note that functions exist to add counters and responses to an interval.
 
 <div class="figure" style="text-align: center">
 <img src="./figures2/ch7/ResponseInterval.png" alt="ResponseInterval Class" width="60%" height="60%" />
@@ -1729,20 +1805,20 @@ The schedule will start automatically at the designated start time.
 The schedule can be repeated after the cycle length of the schedule is
 reached. The default is for the schedule to automatically repeat.
 Note that depending on the simulation run length only a portion of the
-scheduled intervals may be executed.
+scheduled intervals may be executed.  Figure \@ref(fig:ResponseSchedule) presents the `ResponseSchedule` and the `ResponseScheduleItem` classes. Response schedule items are added to a response schedule. In addition, patterns of intervals can be added to the schedule.
 
 <div class="figure" style="text-align: center">
 <img src="./figures2/ch7/ResponseSchedule.png" alt="ResponseSchedule and ResponseScheduleItem Classes" width="75%" height="75%" />
 <p class="caption">(\#fig:ResponseSchedule)ResponseSchedule and ResponseScheduleItem Classes</p>
 </div>
 
-The classic use case of this class is to collect statistics for each hour of the day.
-In this case, the user would use the `addIntervals()` method to add 24 intervals of 1 hour duration.
-Then responses (response variables, time weighted variables, and counters) can be added
+The classic use case of this class is to collect statistics for particular hours of the day.
+For example, the user can use the `addIntervals()` method to add 24 intervals of 1 hour duration.
+Then, responses (response variables, time weighted variables, and counters) can be added
 to the schedule. In which case, they will be added to each interval. Thus, interval statistics
 for each of the 24 intervals will be collected for every one of the added responses.  If more
 than one day is simulated and the schedule is allowed to repeat, then statistics are collected
-across the days.  That is, the statistics of hour 1 on day 1 are averaged with the
+across the days (replications).  That is, the statistics of hour 1 on day 1 are averaged with the
 statistics of hour 1 on all subsequent days. The following code illustrates the definition of a schedule to collect hourly responses for the STEM Fair Mixer situation.
 
 ```kt
@@ -1765,7 +1841,44 @@ statistics of hour 1 on all subsequent days. The following code illustrates the 
     }
 ```
 
-In the code, an hourly response schedule is constructed and responses added to all the intervals.  Access to specific intervals can be obtained and specific responses only added to specific intervals if needed. The code also illustrates the construction of a separate `ResponseInterval` and the adding of responses to it. Using a `ResponseSchedule` will result in many statistical quantities being defined.  All the statistical responses will be automatically added to the summary statistical reports and captured within the KSL database (if used).  The next section will overview the revisions to the STEM Mixer model to handle the non-stationary situation.
+In the code, an hourly response schedule is constructed and responses added to all the intervals.  Access to specific intervals can be obtained and specific responses only added to specific intervals if needed. The code also illustrates the construction of a separate `ResponseInterval` and the adding of responses to it. Using a `ResponseSchedule` will result in many statistical quantities being defined.  All the statistical responses will be automatically added to the summary statistical reports and captured within the KSL database (if used).
+
+An additional approach to collecting statistics by period is to use the `TimeSeriesResponse` class. The `TimeSeriesResponse` class addresses the problem of collecting simulation responses by period. A typical use case involves the reporting of statistics over fixed time periods, such as hourly, daily, monthly, yearly, etc. 
+A time series response divides the simulated time horizon into sequential periods, with the periods marking the time frame over which performance is observed. Users specify which responses will be tabulated by providing `Response,` `TWResponse,` or `Counter` instances. Then, for each period during the simulation horizon, the response over the period is recorded into a series of records, constituting a time series for the response. For `Response` and `TWResponse` instances, the recorded response represents the average of the variable during the period. For `Counter` instances, the total count during the period is recorded. Essentially, the data collected is the same as via the use of a `ResponseSchedule` with intervals representing the the time periods. This data is recorded for every response, for every period, for each replication. The response or counter information is recorded at the end of each completed period. The number of periods to collect must be supplied.
+
+<div class="figure" style="text-align: center">
+<img src="./figures2/ch7/TimeSeriesResponse.png" alt="TimeSeriesResponse Classes" width="90%" height="90%" />
+<p class="caption">(\#fig:TimeSeriesResponse)TimeSeriesResponse Classes</p>
+</div>
+
+The `TimeSeriesResponse` class does not react to warm up events. That is, periods observed prior to the warm up event will contain data that was observed during the warm up period. The standard usage for this class is likely not within an infinite horizon (steady-state) context. However, if you do not want data collected during warm up periods, then specify the default start time for the time series to be greater than or equal to the specified warm up period length using the `defaultStartTime` property. The default starting time of the first period is at time 0.0.  In addition, the collected responses are not automatically shown in console output. However, the data can be accessed via a reference to the class by using functions to access the collected data or by using a `KSLDatabase` instance.  The `TimeSeriesResponse` class has the benefit of indicating the periods within the collected data (and within the database). Figure \@ref(fig:TimeSeriesResponse) illustrates the functions and properties of the `TimeSeriesResponse` class.  To specify a time series response the length of the period and the number of periods is required. Sets of responses or counters can be supplied. The following code illustrates how to use the `TimeSeriesResponse` class within the context of the STEM Career Fair model.
+
+```kt
+    val timeSeriesResponse = TimeSeriesResponse(this, 60.0, 6,
+        setOf(myJHBuntRecruiters.numBusyUnits, myMalWartRecruiters.numBusyUnits))
+```
+
+In this code, the time series response is set up to collect the number of busy units statistics for the JHBunt and MalWart recruiters. Setting up the `TimeSeriesResponse` class is simpler than using the `ResponseSchedule` class; however, the pattern of collection is limited to each period.  In addition, the results are not automatically shown in console output. The following code illustrates how to extract the results from the time series response.
+
+```kt
+    val m = Model("STEM Fair Model")
+    val mixer = StemFairMixerEnhancedSched(m, "Stem Fair Scheduled")
+    mixer.timeSeriesResponse.acrossRepStatisticsOption = true
+    val kslDb = KSLDatabaseObserver(m)
+    mixer.warningTime = 30.0
+    m.numberOfReplications = 400
+    m.simulate()
+    m.print()
+    val r = m.simulationReporter
+    r.writeHalfWidthSummaryReportAsMarkDown(KSL.out, df = MarkDown.D3FORMAT)
+    kslDb.db.timeSeriesResponseViewData.print()
+    println()
+    mixer.timeSeriesResponse.allAcrossReplicationStatisticsByPeriodAsDataFrame().print()
+```
+
+In the code, the reference to the time series response is made public to access the results. In addition, a `KSLDatabaseObserver` and resulting `KSLDatabase` are used to extract the results to data frames for display purposes.
+
+The next section will overview the revisions to the STEM Mixer model to handle the non-stationary situation.
 
 #### Implementing the Revised STEM Mixer Model
 
@@ -1881,6 +1994,8 @@ The interval responses are defined as previously discussed.  We also define a re
 ```kt
     private val hourlyResponseSchedule = ResponseSchedule(this, 0.0, name = "Hourly")
     private val peakResponseInterval: ResponseInterval = ResponseInterval(this, 120.0, "PeakPeriod:[150.0,270.0]")
+    val timeSeriesResponse = TimeSeriesResponse(this, 60.0, 6,
+        setOf(myJHBuntRecruiters.numBusyUnits, myMalWartRecruiters.numBusyUnits))
 
     init {
         hourlyResponseSchedule.scheduleRepeatFlag = false
