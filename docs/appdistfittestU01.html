@@ -23,7 +23,7 @@
 <meta name="author" content="Manuel D. Rossetti" />
 
 
-<meta name="date" content="2025-02-07" />
+<meta name="date" content="2025-07-03" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -373,8 +373,15 @@ div.csl-indent {
 <li class="chapter" data-level="8.2.3" data-path="movableResources.html"><a href="movableResources.html#secTQMWM"><i class="fa fa-check"></i><b>8.2.3</b> Tandem Queue Model With Movement</a></li>
 </ul></li>
 <li class="chapter" data-level="8.3" data-path="secTestAndRepairMovableResources.html"><a href="secTestAndRepairMovableResources.html"><i class="fa fa-check"></i><b>8.3</b> Modeling the Test and Repair System with Movable Resources</a></li>
-<li class="chapter" data-level="8.4" data-path="summary-of-new-concepts.html"><a href="summary-of-new-concepts.html"><i class="fa fa-check"></i><b>8.4</b> Summary of New Concepts</a></li>
-<li class="chapter" data-level="8.5" data-path="exercises-7.html"><a href="exercises-7.html"><i class="fa fa-check"></i><b>8.5</b> Exercises</a></li>
+<li class="chapter" data-level="8.4" data-path="secConveyors.html"><a href="secConveyors.html"><i class="fa fa-check"></i><b>8.4</b> Modeling Systems with Conveyors</a>
+<ul>
+<li class="chapter" data-level="8.4.1" data-path="secConveyors.html"><a href="secConveyors.html#ksl-conveyor-constructs"><i class="fa fa-check"></i><b>8.4.1</b> KSL Conveyor Constructs</a></li>
+<li class="chapter" data-level="8.4.2" data-path="secConveyors.html"><a href="secConveyors.html#tandem-queue-system-with-conveyors"><i class="fa fa-check"></i><b>8.4.2</b> Tandem Queue System with Conveyors</a></li>
+<li class="chapter" data-level="8.4.3" data-path="secConveyors.html"><a href="secConveyors.html#secTestAndRepairConveyors"><i class="fa fa-check"></i><b>8.4.3</b> Test and Repair via Conveyors</a></li>
+<li class="chapter" data-level="8.4.4" data-path="secConveyors.html"><a href="secConveyors.html#secMiscConveyor"><i class="fa fa-check"></i><b>8.4.4</b> Miscellaneous Concepts in Conveyor Modeling</a></li>
+</ul></li>
+<li class="chapter" data-level="8.5" data-path="summary-of-new-concepts.html"><a href="summary-of-new-concepts.html"><i class="fa fa-check"></i><b>8.5</b> Summary of New Concepts</a></li>
+<li class="chapter" data-level="8.6" data-path="exercises-7.html"><a href="exercises-7.html"><i class="fa fa-check"></i><b>8.6</b> Exercises</a></li>
 </ul></li>
 <li class="chapter" data-level="9" data-path="ch9AdvMC.html"><a href="ch9AdvMC.html"><i class="fa fa-check"></i><b>9</b> Advanced Monte Carlo Methods</a>
 <ul>
@@ -835,10 +842,10 @@ Computing the p-value for <span class="math inline">\(k-s-1=10-0-1=9\)</span> de
 would not reject the hypothesis that the observed data is <span class="math inline">\(U(0,1)\)</span>. This process can be readily implemented within a spreadsheet or performed using R. Assuming that the file, u01data.txt, contains the PRNs for this example, then the following R commands will
 perform the test:<br />
 </p>
-<div class="sourceCode" id="cb472"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb472-1"><a href="appdistfittestU01.html#cb472-1" tabindex="-1"></a>data <span class="ot">=</span> <span class="fu">scan</span>(<span class="at">file=</span><span class="st">&quot;data/AppDistFitting/u01data.txt&quot;</span>) <span class="co"># read in the file</span></span>
-<span id="cb472-2"><a href="appdistfittestU01.html#cb472-2" tabindex="-1"></a>b <span class="ot">=</span> <span class="fu">seq</span>(<span class="dv">0</span>,<span class="dv">1</span>, <span class="at">by =</span> <span class="fl">0.1</span>) <span class="co"># set up the break points</span></span>
-<span id="cb472-3"><a href="appdistfittestU01.html#cb472-3" tabindex="-1"></a>h <span class="ot">=</span> <span class="fu">hist</span>(data, b, <span class="at">right =</span> <span class="cn">FALSE</span>, <span class="at">plot =</span> <span class="cn">FALSE</span>) <span class="co"># tabulate the counts</span></span>
-<span id="cb472-4"><a href="appdistfittestU01.html#cb472-4" tabindex="-1"></a><span class="fu">chisq.test</span>(h<span class="sc">$</span>counts) <span class="co"># perform the test</span></span></code></pre></div>
+<div class="sourceCode" id="cb486"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb486-1"><a href="appdistfittestU01.html#cb486-1" tabindex="-1"></a>data <span class="ot">=</span> <span class="fu">scan</span>(<span class="at">file=</span><span class="st">&quot;data/AppDistFitting/u01data.txt&quot;</span>) <span class="co"># read in the file</span></span>
+<span id="cb486-2"><a href="appdistfittestU01.html#cb486-2" tabindex="-1"></a>b <span class="ot">=</span> <span class="fu">seq</span>(<span class="dv">0</span>,<span class="dv">1</span>, <span class="at">by =</span> <span class="fl">0.1</span>) <span class="co"># set up the break points</span></span>
+<span id="cb486-3"><a href="appdistfittestU01.html#cb486-3" tabindex="-1"></a>h <span class="ot">=</span> <span class="fu">hist</span>(data, b, <span class="at">right =</span> <span class="cn">FALSE</span>, <span class="at">plot =</span> <span class="cn">FALSE</span>) <span class="co"># tabulate the counts</span></span>
+<span id="cb486-4"><a href="appdistfittestU01.html#cb486-4" tabindex="-1"></a><span class="fu">chisq.test</span>(h<span class="sc">$</span>counts) <span class="co"># perform the test</span></span></code></pre></div>
 <pre><code>## 
 ##  Chi-squared test for given probabilities
 ## 
@@ -1145,8 +1152,8 @@ statistical software <span class="math inline">\(R\)</span>. Assuming that the f
 contains the data for this example, then the following R commands will
 perform the test:<br />
 </p>
-<div class="sourceCode" id="cb476"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb476-1"><a href="appdistfittestU01.html#cb476-1" tabindex="-1"></a>data <span class="ot">=</span> <span class="fu">scan</span>(<span class="at">file=</span><span class="st">&quot;data/AppDistFitting/u01data.txt&quot;</span>) <span class="co"># read in the file</span></span>
-<span id="cb476-2"><a href="appdistfittestU01.html#cb476-2" tabindex="-1"></a><span class="fu">ks.test</span>(data,<span class="st">&quot;punif&quot;</span>,<span class="dv">0</span>,<span class="dv">1</span>) <span class="co"># perform the test</span></span></code></pre></div>
+<div class="sourceCode" id="cb490"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb490-1"><a href="appdistfittestU01.html#cb490-1" tabindex="-1"></a>data <span class="ot">=</span> <span class="fu">scan</span>(<span class="at">file=</span><span class="st">&quot;data/AppDistFitting/u01data.txt&quot;</span>) <span class="co"># read in the file</span></span>
+<span id="cb490-2"><a href="appdistfittestU01.html#cb490-2" tabindex="-1"></a><span class="fu">ks.test</span>(data,<span class="st">&quot;punif&quot;</span>,<span class="dv">0</span>,<span class="dv">1</span>) <span class="co"># perform the test</span></span></code></pre></div>
 <pre><code>## 
 ##  Asymptotic one-sample Kolmogorov-Smirnov test
 ## 
@@ -1176,7 +1183,7 @@ band, we can conclude that the data are likely independent observations.</p>
 Figure B.28: Autocorrelation Plot for u01data.txt Data Set
 </p>
 </div>
-<div class="sourceCode" id="cb478"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb478-1"><a href="appdistfittestU01.html#cb478-1" tabindex="-1"></a>rho</span></code></pre></div>
+<div class="sourceCode" id="cb492"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb492-1"><a href="appdistfittestU01.html#cb492-1" tabindex="-1"></a>rho</span></code></pre></div>
 <pre><code>## 
 ## Autocorrelations of series &#39;data&#39;, by lag
 ## 

@@ -23,7 +23,7 @@
 <meta name="author" content="Manuel D. Rossetti" />
 
 
-<meta name="date" content="2025-02-07" />
+<meta name="date" content="2025-07-03" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -373,8 +373,15 @@ div.csl-indent {
 <li class="chapter" data-level="8.2.3" data-path="movableResources.html"><a href="movableResources.html#secTQMWM"><i class="fa fa-check"></i><b>8.2.3</b> Tandem Queue Model With Movement</a></li>
 </ul></li>
 <li class="chapter" data-level="8.3" data-path="secTestAndRepairMovableResources.html"><a href="secTestAndRepairMovableResources.html"><i class="fa fa-check"></i><b>8.3</b> Modeling the Test and Repair System with Movable Resources</a></li>
-<li class="chapter" data-level="8.4" data-path="summary-of-new-concepts.html"><a href="summary-of-new-concepts.html"><i class="fa fa-check"></i><b>8.4</b> Summary of New Concepts</a></li>
-<li class="chapter" data-level="8.5" data-path="exercises-7.html"><a href="exercises-7.html"><i class="fa fa-check"></i><b>8.5</b> Exercises</a></li>
+<li class="chapter" data-level="8.4" data-path="secConveyors.html"><a href="secConveyors.html"><i class="fa fa-check"></i><b>8.4</b> Modeling Systems with Conveyors</a>
+<ul>
+<li class="chapter" data-level="8.4.1" data-path="secConveyors.html"><a href="secConveyors.html#ksl-conveyor-constructs"><i class="fa fa-check"></i><b>8.4.1</b> KSL Conveyor Constructs</a></li>
+<li class="chapter" data-level="8.4.2" data-path="secConveyors.html"><a href="secConveyors.html#tandem-queue-system-with-conveyors"><i class="fa fa-check"></i><b>8.4.2</b> Tandem Queue System with Conveyors</a></li>
+<li class="chapter" data-level="8.4.3" data-path="secConveyors.html"><a href="secConveyors.html#secTestAndRepairConveyors"><i class="fa fa-check"></i><b>8.4.3</b> Test and Repair via Conveyors</a></li>
+<li class="chapter" data-level="8.4.4" data-path="secConveyors.html"><a href="secConveyors.html#secMiscConveyor"><i class="fa fa-check"></i><b>8.4.4</b> Miscellaneous Concepts in Conveyor Modeling</a></li>
+</ul></li>
+<li class="chapter" data-level="8.5" data-path="summary-of-new-concepts.html"><a href="summary-of-new-concepts.html"><i class="fa fa-check"></i><b>8.5</b> Summary of New Concepts</a></li>
+<li class="chapter" data-level="8.6" data-path="exercises-7.html"><a href="exercises-7.html"><i class="fa fa-check"></i><b>8.6</b> Exercises</a></li>
 </ul></li>
 <li class="chapter" data-level="9" data-path="ch9AdvMC.html"><a href="ch9AdvMC.html"><i class="fa fa-check"></i><b>9</b> Advanced Monte Carlo Methods</a>
 <ul>
@@ -531,7 +538,7 @@ div.csl-indent {
 <hr />
 <p>This situation could be modeled using the concepts of probability theory; however, we will simulate the process to illustrate the use of KSL constructs. The probability that an item is defective can be modeled with a Bernoulli random variable with probability of success equal 0.15. In the following code, we model the inspection process with a function that counts the number of boxes that are inspected until the first rejected box.</p>
 <div class="sourceCode" id="cb96"><pre class="sourceCode kt"><code class="sourceCode kotlin"><span id="cb96-1"><a href="ch3InsProcess.html#cb96-1" tabindex="-1"></a><span class="kw">fun</span> <span class="fu">main</span><span class="op">()</span> <span class="op">{</span></span>
-<span id="cb96-2"><a href="ch3InsProcess.html#cb96-2" tabindex="-1"></a>    <span class="kw">val</span> <span class="va">itemRV</span> <span class="op">=</span> BernoulliRV<span class="op">(</span>probOfSuccess <span class="op">=</span> <span class="fl">0.15</span><span class="op">)</span></span>
+<span id="cb96-2"><a href="ch3InsProcess.html#cb96-2" tabindex="-1"></a>    <span class="kw">val</span> <span class="va">itemRV</span> <span class="op">=</span> BernoulliRV<span class="op">(</span>probOfSuccess <span class="op">=</span> <span class="fl">0.15</span><span class="op">,</span> streamNum <span class="op">=</span> <span class="dv">3</span><span class="op">)</span></span>
 <span id="cb96-3"><a href="ch3InsProcess.html#cb96-3" tabindex="-1"></a>    <span class="kw">val</span> <span class="va">itemsPerBox</span> <span class="op">=</span> <span class="dv">4</span></span>
 <span id="cb96-4"><a href="ch3InsProcess.html#cb96-4" tabindex="-1"></a>    <span class="kw">val</span> <span class="va">stat</span> <span class="op">=</span> Statistic<span class="op">(</span><span class="st">&quot;Num Until Rejection&quot;</span><span class="op">)</span></span>
 <span id="cb96-5"><a href="ch3InsProcess.html#cb96-5" tabindex="-1"></a>    <span class="kw">val</span> <span class="va">sampleSize</span> <span class="op">=</span> <span class="dv">100</span></span>

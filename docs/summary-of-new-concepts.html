@@ -4,18 +4,18 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>8.4 Summary of New Concepts | Simulation Modeling using the Kotlin Simulation Library (KSL)</title>
+  <title>8.5 Summary of New Concepts | Simulation Modeling using the Kotlin Simulation Library (KSL)</title>
   <meta name="description" content="A book that illustrates the basics of using the KSL. The output format for this book is bookdown::gitbook." />
   <meta name="generator" content="bookdown 0.39 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="8.4 Summary of New Concepts | Simulation Modeling using the Kotlin Simulation Library (KSL)" />
+  <meta property="og:title" content="8.5 Summary of New Concepts | Simulation Modeling using the Kotlin Simulation Library (KSL)" />
   <meta property="og:type" content="book" />
   
   <meta property="og:description" content="A book that illustrates the basics of using the KSL. The output format for this book is bookdown::gitbook." />
   
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="8.4 Summary of New Concepts | Simulation Modeling using the Kotlin Simulation Library (KSL)" />
+  <meta name="twitter:title" content="8.5 Summary of New Concepts | Simulation Modeling using the Kotlin Simulation Library (KSL)" />
   
   <meta name="twitter:description" content="A book that illustrates the basics of using the KSL. The output format for this book is bookdown::gitbook." />
   
@@ -23,14 +23,14 @@
 <meta name="author" content="Manuel D. Rossetti" />
 
 
-<meta name="date" content="2025-02-07" />
+<meta name="date" content="2025-07-03" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-<link rel="prev" href="secTestAndRepairMovableResources.html"/>
+<link rel="prev" href="secConveyors.html"/>
 <link rel="next" href="exercises-7.html"/>
 <script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
@@ -373,8 +373,15 @@ div.csl-indent {
 <li class="chapter" data-level="8.2.3" data-path="movableResources.html"><a href="movableResources.html#secTQMWM"><i class="fa fa-check"></i><b>8.2.3</b> Tandem Queue Model With Movement</a></li>
 </ul></li>
 <li class="chapter" data-level="8.3" data-path="secTestAndRepairMovableResources.html"><a href="secTestAndRepairMovableResources.html"><i class="fa fa-check"></i><b>8.3</b> Modeling the Test and Repair System with Movable Resources</a></li>
-<li class="chapter" data-level="8.4" data-path="summary-of-new-concepts.html"><a href="summary-of-new-concepts.html"><i class="fa fa-check"></i><b>8.4</b> Summary of New Concepts</a></li>
-<li class="chapter" data-level="8.5" data-path="exercises-7.html"><a href="exercises-7.html"><i class="fa fa-check"></i><b>8.5</b> Exercises</a></li>
+<li class="chapter" data-level="8.4" data-path="secConveyors.html"><a href="secConveyors.html"><i class="fa fa-check"></i><b>8.4</b> Modeling Systems with Conveyors</a>
+<ul>
+<li class="chapter" data-level="8.4.1" data-path="secConveyors.html"><a href="secConveyors.html#ksl-conveyor-constructs"><i class="fa fa-check"></i><b>8.4.1</b> KSL Conveyor Constructs</a></li>
+<li class="chapter" data-level="8.4.2" data-path="secConveyors.html"><a href="secConveyors.html#tandem-queue-system-with-conveyors"><i class="fa fa-check"></i><b>8.4.2</b> Tandem Queue System with Conveyors</a></li>
+<li class="chapter" data-level="8.4.3" data-path="secConveyors.html"><a href="secConveyors.html#secTestAndRepairConveyors"><i class="fa fa-check"></i><b>8.4.3</b> Test and Repair via Conveyors</a></li>
+<li class="chapter" data-level="8.4.4" data-path="secConveyors.html"><a href="secConveyors.html#secMiscConveyor"><i class="fa fa-check"></i><b>8.4.4</b> Miscellaneous Concepts in Conveyor Modeling</a></li>
+</ul></li>
+<li class="chapter" data-level="8.5" data-path="summary-of-new-concepts.html"><a href="summary-of-new-concepts.html"><i class="fa fa-check"></i><b>8.5</b> Summary of New Concepts</a></li>
+<li class="chapter" data-level="8.6" data-path="exercises-7.html"><a href="exercises-7.html"><i class="fa fa-check"></i><b>8.6</b> Exercises</a></li>
 </ul></li>
 <li class="chapter" data-level="9" data-path="ch9AdvMC.html"><a href="ch9AdvMC.html"><i class="fa fa-check"></i><b>9</b> Advanced Monte Carlo Methods</a>
 <ul>
@@ -521,8 +528,8 @@ div.csl-indent {
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="summary-of-new-concepts" class="section level2 hasAnchor" number="8.4">
-<h2><span class="header-section-number">8.4</span> Summary of New Concepts<a href="summary-of-new-concepts.html#summary-of-new-concepts" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="summary-of-new-concepts" class="section level2 hasAnchor" number="8.5">
+<h2><span class="header-section-number">8.5</span> Summary of New Concepts<a href="summary-of-new-concepts.html#summary-of-new-concepts" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>The modeling of entity movement can be achieved with a simple delay. If distance and velocity are available, then we can compute the time of the delay. The KSL provides spatial models and suspending functions that facilitate the movement of entities. The KSL <code>DistancesModel</code> is a <code>SpatialModel</code> that provides named locations and the distances associated with movement between them. The <code>Entity</code> class provides basic tracking of the location of the entity when using movement constructs. Movable resources are resources that can move within a spatial model.</p>
 <p>In such situations, the distance between origins and destinations becomes an essential component of the modeling.</p>
 <p>The new suspend functions include:
@@ -542,13 +549,21 @@ div.csl-indent {
 <li><code>MovableResourceSelectionRuleIfc</code> - to select movable resources within pools.</li>
 <li><code>MovableResourceAllocationRuleIfc</code> - to determine which movable resource will receive the allocation.</li>
 </ul>
+<p>In addition to movable resources, this chapter presented the KSL constructs for modeling conveyors. The simplest approach to modeling conveyors is to simply model the transport time with deterministic delays. However, if the space associated with the conveyors is an important modeling issue, then the KSL <code>Conveyor</code> class can be used. The new suspending functions related to conveyors include:</p>
+<ul>
+<li><code>requestConveyor()</code> - to request cells (space) on the conveyor</li>
+<li><code>rideConveyor()</code> - to cause the entity to move through cells on the conveyor</li>
+<li><code>exitConveyor()</code> - to cause the entity to exit the cell that it occupies on the conveyor</li>
+<li><code>convey()</code> - a combination of requesting, riding, and exiting the conveyor</li>
+<li><code>transferTo()</code> - to cause an entity to transfer from one conveyor to another</li>
+</ul>
 </div>
             </section>
 
           </div>
         </div>
       </div>
-<a href="secTestAndRepairMovableResources.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="secConveyors.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
 <a href="exercises-7.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>

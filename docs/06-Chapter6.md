@@ -128,12 +128,12 @@ Here is the portion of the KSL code to model the process for the customers of th
 
 ```kt
     private inner class Customer : Entity() {
-        val pharmacyProcess: KSLProcess = process() {
+        val pharmacyProcess: KSLProcess = process {
             wip.increment()
             timeStamp = time
-            val a = seize(worker)
-            delay(serviceTime)
-            release(a)
+            val a = seize(resource = pharmacists)
+            delay(delayDuration = serviceTime)
+            release(allocation = a)
             timeInSystem.value = time - timeStamp
             wip.decrement()
             numCustomers.increment()
@@ -151,52 +151,61 @@ This example illustrates how to represent the previously presented drive through
 class DriveThroughPharmacy(
     parent: ModelElement,
     numPharmacists: Int = 1,
-    ad: RandomIfc = ExponentialRV(1.0, 1),
-    sd: RandomIfc = ExponentialRV(0.5, 2),
     name: String? = null
 ) : ProcessModel(parent, name) {
     init {
         require(numPharmacists > 0) { "The number of pharmacists must be >= 1" }
     }
 
-    private val pharmacists: ResourceWithQ = ResourceWithQ(this, "Pharmacists", numPharmacists)
+    private val pharmacists: ResourceWithQ = ResourceWithQ(
+        parent = this,
+        name = "Pharmacists",
+        capacity = numPharmacists
+    )
 
-    private var serviceTime: RandomVariable = RandomVariable(this, sd)
-    val serviceRV: RandomSourceCIfc
+    private val serviceTime: RandomVariable = RandomVariable(parent = this, rSource = ExponentialRV(0.5, 2))
+    val serviceRV: RandomVariableCIfc
         get() = serviceTime
-    private var timeBetweenArrivals: RandomVariable = RandomVariable(parent, ad)
-    val arrivalRV: RandomSourceCIfc
+    private val timeBetweenArrivals: RandomVariable = RandomVariable(
+        parent = parent,
+        rSource = ExponentialRV(1.0, 1)
+    )
+    val arrivalRV: RandomVariableCIfc
         get() = timeBetweenArrivals
-    private val wip: TWResponse = TWResponse(this, "${this.name}:NumInSystem")
+    private val wip: TWResponse = TWResponse(parent = this, name = "${this.name}:NumInSystem")
     val numInSystem: TWResponseCIfc
         get() = wip
-    private val timeInSystem: Response = Response(this, "${this.name}:TimeInSystem")
+    private val timeInSystem: Response = Response(parent = this, name = "${this.name}:TimeInSystem")
     val systemTime: ResponseCIfc
         get() = timeInSystem
-    private val numCustomers: Counter = Counter(this, "${this.name}:NumServed")
+    private val numCustomers: Counter = Counter(parent = this, name = "${this.name}:NumServed")
     val numCustomersServed: CounterCIfc
         get() = numCustomers
-    private val mySTGT4: IndicatorResponse = IndicatorResponse({ x -> x >= 4.0 }, timeInSystem, "SysTime > 4.0 minutes")
+    private val mySTGT4: IndicatorResponse = IndicatorResponse(
+        predicate = { x -> x >= 4.0 },
+        observedResponse = timeInSystem,
+        name = "SysTime > 4.0 minutes"
+    )
     val probSystemTimeGT4Minutes: ResponseCIfc
         get() = mySTGT4
 
     override fun initialize() {
-        schedule(this::arrival, timeBetweenArrivals)
+        schedule(eventAction = this::arrival, timeToEvent = timeBetweenArrivals)
     }
 
     private fun arrival(event: KSLEvent<Nothing>) {
         val c = Customer()
         activate(c.pharmacyProcess)
-        schedule(this::arrival, timeBetweenArrivals)
+        schedule(eventAction = this::arrival, timeToEvent = timeBetweenArrivals)
     }
 
     private inner class Customer : Entity() {
-        val pharmacyProcess: KSLProcess = process() {
+        val pharmacyProcess: KSLProcess = process {
             wip.increment()
             timeStamp = time
-            val a = seize(pharmacists)
-            delay(serviceTime)
-            release(a)
+            val a = seize(resource = pharmacists)
+            delay(delayDuration = serviceTime)
+            release(allocation = a)
             timeInSystem.value = time - timeStamp
             wip.decrement()
             numCustomers.increment()
@@ -215,12 +224,32 @@ The process called `pharmacyProcess` has a nice linear flow and avoids the event
 It is critical to understand that 1) there are many entities created via the `arrival` method, 2) they all experience the same process description, 3) each entity has its own instance of the process, and 4) they may all be at different points of their process instances at different times. Since many customers are active at the same time (in a pseudo-parallelism) they compete for the pharmacist. This causes queueing. This process view depends on shared state. In this example, the primary shared state is via the resource. This is a new construct and was defined with the following line. 
 
 ```kt
-private val pharmacists: ResourceWithQ = ResourceWithQ(this, "Pharmacists", numPharmacists)
+    private val pharmacists: ResourceWithQ = ResourceWithQ(
+        parent = this,
+        name = "Pharmacists",
+        capacity = numPharmacists
+    )
 ```
 
 A `ResourceWithQ` is a construct that can be used in `ProcessModel` instances. These resources track the number of entities that are allocated and can hold them in a common queue while they wait.  The ability to describe processes in this manner is what makes the process view very popular and often serves as the basis for commercial software. The KSL provides this view in open-source code.
 
-If we run the code, we get the following results. 
+The main code to run the model is as follows.
+
+```kt
+fun main(){
+    val m = Model()
+    val dtp = DriveThroughPharmacy(m, name = "DriveThrough")
+    dtp.arrivalRV.initialRandomSource = ExponentialRV(6.0, 1)
+    dtp.serviceRV.initialRandomSource = ExponentialRV(3.0, 2)
+    m.numberOfReplications = 30
+    m.lengthOfReplication = 20000.0
+    m.lengthOfReplicationWarmUp = 5000.0
+    m.simulate()
+    m.print()
+}
+```
+
+Notice how the specification of the arrival and service random variables have been provided by setting the initial random sources of the underlying random variables. If we run the code, we get the following results. 
 
 ```
 Half-Width Statistical Summary Report - Confidence Level (95.000)% 
@@ -244,7 +273,7 @@ Before discussing additional functionality enabled within the `KSLProcessBuilder
     private fun arrival(event: KSLEvent<Nothing>) {
         val c = Customer()
         activate(c.pharmacyProcess)
-        schedule(this::arrival, timeBetweenArrivals)
+        schedule(eventAction = this::arrival, timeToEvent = timeBetweenArrivals)
     }
 ```
 
@@ -261,8 +290,8 @@ The `EntityGenerator` class is defined as an inner class of `ProcessModel.` Revi
 ```kt
     protected inner class EntityGenerator<T : Entity>(
         private val entityCreator: () -> T,
-        timeUntilTheFirstEntity: RandomIfc = ConstantRV.ZERO,
-        timeBtwEvents: RandomIfc = ConstantRV.POSITIVE_INFINITY,
+        timeUntilTheFirstEntity: RVariableIfc,
+        timeBtwEvents: RVariableIfc,
         maxNumberOfEvents: Long = Long.MAX_VALUE,
         timeOfTheLastEvent: Double = Double.POSITIVE_INFINITY,
         var activationPriority: Int = KSLEvent.DEFAULT_PRIORITY + 1,
@@ -272,9 +301,11 @@ The `EntityGenerator` class is defined as an inner class of `ProcessModel.` Revi
         timeBtwEvents, maxNumberOfEvents, timeOfTheLastEvent, name
     ) {
 
+        private val myEntityGeneratorAction = GeneratorActionIfc { generate() }
+
         override fun generate() {
             val entity = entityCreator()
-            require(entity.defaultProcess != null) {"There was no initial process specified for the entity"}
+            require(entity.defaultProcess != null) { "There was no default process specified for the entity. Ensure that the `defaultProcess` property is set via the process() function or directly." }
             activate(entity.defaultProcess!!, priority = activationPriority)
         }
 
@@ -292,16 +323,19 @@ class EntityGeneratorExample(
     name: String? = null
 ) : ProcessModel(parent, name) {
 
-    private val worker: ResourceWithQ = ResourceWithQ(this, "${this.name}:Worker")
+    private val worker: ResourceWithQ = ResourceWithQ(parent = this, name = "${this.name}:Worker")
+    private val st = RandomVariable(parent = this, rSource = ExponentialRV(3.0, 2))
+    private val wip = TWResponse(parent = this, name = "${this.name}:WIP")
+    private val tip = Response(parent = this, name = "${this.name}:TimeInSystem")
     private val tba = ExponentialRV(6.0, 1)
-    private val st = RandomVariable(this, ExponentialRV(3.0, 2))
-    private val wip = TWResponse(this, "${this.name}:WIP")
-    private val tip = Response(this, "${this.name}:TimeInSystem")
-    private val generator = EntityGenerator(::Customer, tba, tba)
-    private val counter = Counter(this, "${this.name}:NumServed")
+    private val generator = EntityGenerator(
+        entityCreator = ::Customer,
+        timeUntilTheFirstEntity = tba,
+        timeBtwEvents = tba
+    )
+    private val counter = Counter(parent = this, name = "${this.name}:NumServed")
 
     private inner class Customer : Entity() {
-
         val pharmacyProcess: KSLProcess = process(isDefaultProcess = true) {
             wip.increment()
             timeStamp = time
@@ -321,7 +355,11 @@ class EntityGeneratorExample(
 Notice the following line which takes in a reference to the `Customer` class constructor using the functional syntax `::Customer.`  In addition, notice the specification of the `isDefaultProcess` argument for the `process()` function.  Setting the `isDefaultProcess` argument to true indicates that the defined process routine will be the default process to be activated when the `EntityGenerator` causes the generation event to occur.
 
 ```kt
-private val generator = EntityGenerator(::Customer, tba, tba)
+    private val generator = EntityGenerator(
+        entityCreator = ::Customer,
+        timeUntilTheFirstEntity = tba,
+        timeBtwEvents = tba
+    )
 ```
 
 There is no arrival method necessary because that logic is within the entity generator's `generate()` method:
@@ -359,17 +397,15 @@ As noted in Figure \@ref(fig:Ch5ProcessModelOverview) a `ProcessModel` can activ
 class DriveThroughPharmacy(
     parent: ModelElement,
     numPharmacists: Int = 1,
-    ad: RandomIfc = ExponentialRV(1.0, 1),
-    sd: RandomIfc = ExponentialRV(0.5, 2),
     name: String? = null
 ) : ProcessModel(parent, name)
 ```
 
 This provides the modeler with access to the inner classes e.g. `Entity` that are inherited by the subclass for use in process modeling.
 
-The key inner class is `Entity,` which has a function `process()` that uses a builder to describe the entity's process in the form of a *coroutine.*  An entity can have many processes described that it may follow based on different modeling logic. A process model facilitates the running of a sequence of processes that are stored in an entity's `processSequence` property. An entity can **experience only one process at a time**. After completing the process, the entity will try to use its sequence to run the next process (if available). Individual processes can be activated for specific entities. But, again, an entity instance may only be activated to experience *one* process at a time, even if it has many defined processes. The entity experiences processes *sequentially.*  An error will occur if you try to activate and run a process for a given entity instance if the entity is already executing a process .  Note that this does not in anyway limit the creation and activation of *different* entity instances and their processes.
+The key inner class is `Entity,` which has a function `process()` that uses a builder to describe the entity's process in the form of a *coroutine.*  An entity can have many processes described and it may follow specified processes based on different modeling logic. A process model facilitates the running of a sequence of processes that are stored in an entity's `processSequence` property. An entity can **experience only one process at a time**. After completing the process, the entity will try to use its sequence to run the next process (if available). Individual processes can be activated for specific entities. But, again, an entity instance may only be activated to experience *one* process at a time, even if it has many defined processes. The entity experiences processes *sequentially.*  An error will occur if you try to activate and run a process for a given entity instance if the entity is already executing a process .  Note that this does not in anyway limit the creation and activation of *different* entity instances and their processes.
  
-An `Entity` instance is something that can experience processes and as such may wait in queues. `Entity` is a subclass of `QObject.`  Thus, statistics can be automatically collected on entities if they experience waiting. The general approach to defining a process for an entity is to use the `process()` function to define a process that a subclass of Entity can follow.  Entity instances may use resources, signals, hold queues, etc. as shared mutable state.  
+An `Entity` instance is something that can experience processes and as such may wait in queues. `Entity` is a subclass of `QObject.`  Thus, statistics can be collected automatically on entities, if they experience waiting. The general approach to defining a process for an entity is to use the `process()` function to define a process that a subclass of Entity can follow.  Entity instances may use resources, signals, hold queues, etc. as shared mutable state.  
 
 Entities may follow a process sequence if defined.  An entity can have many properties that define different processes that it might experience. The user can store the processes in data structures. In fact, there is a `processSequence` property for this purpose that defines a list of processes that the entity will follow. However, the user is responsible for adding processes to the sequence. In addition, if you provide a name for the process when defining it via the `process()` function, then the processes are stored in the entity instance's `processes` map, which can be accessed via the provided name. 
 
@@ -541,7 +577,7 @@ The next example illustrates the use of the `Signal` class, which builds off of 
 
 The `Signal` class uses an instance of the `HoldQueue` class to hold entities until they are notified to move via the index of their rank in the queue.  If you want the first entity to be signaled, then you call `signal(0).` The entity is notified that its suspension is over and it removes itself from the hold queue.  Thus, contrary to the `HoldQueue` class the user does not have to remove and resume the corresponding entity. 
 
-Here is some example code. Notice that the code subclasses from `ProcessModel.` All implementations that use the process modeling constructs must subclass from `ProcessModel.`  Then, the instance of the `Signal` is created. An inner class implements and entity that uses the signal. In the process, the entity immediately waits for the signal. After the signal, the entity has a simple delay and then the process ends.
+Here is some example code. Notice that the code subclasses from the `ProcessModel` class. All implementations that use the process modeling constructs must subclass from the `ProcessModel` class.  Then, the instance of the `Signal` class is created. An inner class implements the process description and represents the entity's process that uses the signal. In the process, the entity immediately waits for the signal. After the signal, the entity has a simple delay and then the process ends.
 
 ***
 ::: {.example #ch6ex4 name="Illustrating how to Hold and Signal Entities"}
@@ -586,7 +622,7 @@ class SignalExample(parent: ModelElement, name: String? = null) : ProcessModel(p
 :::
 ***
 
-The `initialize()` method creates 10 instances of the `SignalEntity` subclass of the `Entity` class and activates each entity's `waitForSignalProcess` process. It also schedules an event to cause the signal to occur at time 3.0.  In the signal event, the reference to the signal, `signal,` is used to call the `signal()` method of of the `Signal` class.  The first 5 waiting entities are signaled using a Kotlin [range.](https://kotlinlang.org/docs/ranges.html)  The output from the process is as follows.
+The `initialize()` method creates 10 instances of the `SignalEntity` subclass of the `Entity` class and activates each entity's `waitForSignalProcess` process. It also schedules an event to cause the signal to occur at time 3.0.  In the signal event, the reference to the `Signal` class instance, `signal,` is used to call the `signal()` method of of the `Signal` class.  The first 5 waiting entities are signaled using a Kotlin [range.](https://kotlinlang.org/docs/ranges.html)  The output from the process is as follows.
 
 ```
 0.0 > before waiting for the signal: ID_1
@@ -1738,7 +1774,7 @@ In the following code, two attributes, `isWanderer` and `isLeaver` are defined a
 
 The process followed by each student is defined in the process property called `stemFairProcess.` Notice how we first increment the number in the system and start the delay for the name tag activity.  If the student is a wandering student, we experience the delay for wandering. And, if the student is a wandering student that leaves early, then the `departingMixer()` function is called. As we will see in a moment, this function will be used to collect statistics on departing students. 
 
-Now we have something new, we have a `return` statement within a process.  As previously noted, Kotlin flow of control statements are available within coroutines and `return` is a flow of control statement.  Because the return is within a process builder, we need to be more specific about the return label.  This can be specified by the name of the builder function. In this case `process.` Kotlin also allows you to [explicitly label the return](https://kotlinlang.org/docs/returns.html#return-to-labels).  This return statement will cause the normal exit from the process routine for those students that leave without visiting recruiters.
+Now we have something new, we have a `return` statement within a process.  As previously noted, Kotlin flow of control statements are available within coroutines and `return` is a flow of control statement.  Because the return statement is within a process builder, we need to be more specific about the return label.  This can be specified by the name of the builder function. In this case `process.` Kotlin also allows you to [explicitly label the return](https://kotlinlang.org/docs/returns.html#return-to-labels).  This return statement will cause the normal exit from the process routine for those students that leave without visiting recruiters.
 
 The students that visit the recruiter *(seize-delay-release)* the related resources and then depart. The following code shows the `departMixer()` function.  In this function, we decrement the number in the system and collect the system time statistics. Notice how we use the attributes within the boolean conditions of the if statements to get the correct system time response variables.
 

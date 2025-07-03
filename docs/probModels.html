@@ -23,7 +23,7 @@
 <meta name="author" content="Manuel D. Rossetti" />
 
 
-<meta name="date" content="2025-02-07" />
+<meta name="date" content="2025-07-03" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -373,8 +373,15 @@ div.csl-indent {
 <li class="chapter" data-level="8.2.3" data-path="movableResources.html"><a href="movableResources.html#secTQMWM"><i class="fa fa-check"></i><b>8.2.3</b> Tandem Queue Model With Movement</a></li>
 </ul></li>
 <li class="chapter" data-level="8.3" data-path="secTestAndRepairMovableResources.html"><a href="secTestAndRepairMovableResources.html"><i class="fa fa-check"></i><b>8.3</b> Modeling the Test and Repair System with Movable Resources</a></li>
-<li class="chapter" data-level="8.4" data-path="summary-of-new-concepts.html"><a href="summary-of-new-concepts.html"><i class="fa fa-check"></i><b>8.4</b> Summary of New Concepts</a></li>
-<li class="chapter" data-level="8.5" data-path="exercises-7.html"><a href="exercises-7.html"><i class="fa fa-check"></i><b>8.5</b> Exercises</a></li>
+<li class="chapter" data-level="8.4" data-path="secConveyors.html"><a href="secConveyors.html"><i class="fa fa-check"></i><b>8.4</b> Modeling Systems with Conveyors</a>
+<ul>
+<li class="chapter" data-level="8.4.1" data-path="secConveyors.html"><a href="secConveyors.html#ksl-conveyor-constructs"><i class="fa fa-check"></i><b>8.4.1</b> KSL Conveyor Constructs</a></li>
+<li class="chapter" data-level="8.4.2" data-path="secConveyors.html"><a href="secConveyors.html#tandem-queue-system-with-conveyors"><i class="fa fa-check"></i><b>8.4.2</b> Tandem Queue System with Conveyors</a></li>
+<li class="chapter" data-level="8.4.3" data-path="secConveyors.html"><a href="secConveyors.html#secTestAndRepairConveyors"><i class="fa fa-check"></i><b>8.4.3</b> Test and Repair via Conveyors</a></li>
+<li class="chapter" data-level="8.4.4" data-path="secConveyors.html"><a href="secConveyors.html#secMiscConveyor"><i class="fa fa-check"></i><b>8.4.4</b> Miscellaneous Concepts in Conveyor Modeling</a></li>
+</ul></li>
+<li class="chapter" data-level="8.5" data-path="summary-of-new-concepts.html"><a href="summary-of-new-concepts.html"><i class="fa fa-check"></i><b>8.5</b> Summary of New Concepts</a></li>
+<li class="chapter" data-level="8.6" data-path="exercises-7.html"><a href="exercises-7.html"><i class="fa fa-check"></i><b>8.6</b> Exercises</a></li>
 </ul></li>
 <li class="chapter" data-level="9" data-path="ch9AdvMC.html"><a href="ch9AdvMC.html"><i class="fa fa-check"></i><b>9</b> Advanced Monte Carlo Methods</a>
 <ul>
@@ -530,7 +537,7 @@ div.csl-indent {
 Figure 2.6: Distribution Interfaces
 </p>
 </div>
-<p>Figure<a href="probModels.html#fig:DistPackage">2.6</a> illustrates the interfaces used to define probability distributions. First, the interface, <code>CDFIfc</code> serves as the basis for discrete distributions via the <code>DiscreteDistributionIfc</code> interface, for continuous distributions via the <code>ContinuousDistributionIfc</code> interface and the general <code>DistributionIfc</code> interface. The discrete distributions such as the geometric, binomial, etc. implement the <code>DiscreteDistributionIfc</code> and <code>PMFIfc</code> interfaces. Similarly, continuous distributions like the normal, uniform, etc. implement the <code>ContinuousDistributionIfc</code> and <code>PDFIfc</code> interfaces. All concrete implementations of distributions extend from the abstract base class <code>Distribution</code>, which implements the <code>DistributionIfc</code> interface. Thus, all distributions have the following capabilities:</p>
+<p>Figure<a href="probModels.html#fig:DistPackage">2.6</a> illustrates the interfaces used to define probability distributions. First, the interface, <code>CDFIfc</code> serves as the basis for discrete distributions via the <code>DiscreteDistributionIfc</code> interface, for continuous distributions via the <code>ContinuousDistributionIfc</code> interface and the general <code>DistributionIfc</code> interface. The discrete distributions such as the geometric, binomial, etc. implement the <code>DiscreteDistributionIfc</code> and <code>PMFIfc</code> interfaces. Similarly, continuous distributions like the normal, uniform, etc. implement the <code>ContinuousDistributionIfc</code> and <code>PDFIfc</code> interfaces. All concrete implementations of distributions extend from the abstract <code>Distribution</code> class, which implements the <code>DistributionIfc</code> interface. Thus, all distributions have the following capabilities:</p>
 <ul>
 <li><code>cdf(b: Double)</code> - computes the cumulative probability, <span class="math inline">\(F(b) = P(X \leq b)\)</span></li>
 <li><code>cdf(a: Double, b: Double)</code> - computes the cumulative probability, <span class="math inline">\(P( a \leq X \leq b)\)</span></li>
@@ -540,7 +547,7 @@ Figure 2.6: Distribution Interfaces
 <li><code>standardDeviation()</code> - returns the standard deviation of the distribution</li>
 <li><code>invCDF(p: Double)</code> - returns the inverse of the cumulative distribution function <span class="math inline">\(F^{-1}(p)\)</span>. This is performed by numerical search if necessary</li>
 </ul>
-<p>Discrete distributions have a method called <code>pmf(k: Double)</code> that returns the probability associated with the value <span class="math inline">\(k\)</span>. Continuous distributions have a probability density function, <span class="math inline">\(f(x)\)</span>, implemented in the method, <code>pdf(x : Double)</code>. Finally, all distributions know how to create random variables through the <code>GetRVariableIfc</code> interface that provides the following methods.</p>
+<p>Discrete distributions have a method called <code>pmf(k: Double)</code> that returns the probability associated with the value <span class="math inline">\(k\)</span>. Continuous distributions have a probability density function, <span class="math inline">\(f(x)\)</span>, implemented in the method, <code>pdf(x : Double).</code> Finally, all distributions know how to create random variables through the <code>GetRVariableIfc</code> interface that provides the following methods.</p>
 <ul>
 <li><code>RVariableIfc randomVariable(stream: RNStreamIfc)</code> - returns a new instance of a random variable based on the current values of the distribution’s parameters that uses the supplied stream</li>
 <li><code>RVariableIfc randomVariable(streamNum: Int)</code> - returns a new instance of a random variable based on the current values of the distribution’s parameters that uses the supplied stream number</li>
@@ -570,7 +577,7 @@ Figure 2.6: Distribution Interfaces
 <span id="cb36-19"><a href="probModels.html#cb36-19" tabindex="-1"></a>    println<span class="op">(</span><span class="st">&quot;mean = &quot;</span> <span class="op">+</span> bnDF<span class="op">.</span>mean<span class="op">())</span></span>
 <span id="cb36-20"><a href="probModels.html#cb36-20" tabindex="-1"></a>    println<span class="op">(</span><span class="st">&quot;variance = &quot;</span> <span class="op">+</span> bnDF<span class="op">.</span>variance<span class="op">())</span></span>
 <span id="cb36-21"><a href="probModels.html#cb36-21" tabindex="-1"></a>    <span class="co">// make random variables based on the distributions</span></span>
-<span id="cb36-22"><a href="probModels.html#cb36-22" tabindex="-1"></a>    <span class="kw">val</span> <span class="va">brv</span> <span class="op">=</span> bnDF<span class="op">.</span>randomVariable</span>
+<span id="cb36-22"><a href="probModels.html#cb36-22" tabindex="-1"></a>    <span class="kw">val</span> <span class="va">brv</span> <span class="op">=</span> bnDF<span class="op">.</span>randomVariable<span class="op">(</span><span class="dv">1</span><span class="op">)</span></span>
 <span id="cb36-23"><a href="probModels.html#cb36-23" tabindex="-1"></a>    print<span class="op">(</span><span class="kw">String</span><span class="op">.</span>format<span class="op">(</span><span class="st">&quot;%3s %15s %n&quot;</span><span class="op">,</span> <span class="st">&quot;n&quot;</span><span class="op">,</span> <span class="st">&quot;Values&quot;</span><span class="op">))</span></span>
 <span id="cb36-24"><a href="probModels.html#cb36-24" tabindex="-1"></a>    <span class="co">// generate some values</span></span>
 <span id="cb36-25"><a href="probModels.html#cb36-25" tabindex="-1"></a>    <span class="cf">for</span> <span class="op">(</span>i <span class="kw">in</span> <span class="fl">1..5</span><span class="op">)</span> <span class="op">{</span></span>
@@ -597,16 +604,16 @@ variance = 1.5999999999999996
   8    0.3019898880    0.6241903616 
   9    0.2684354560    0.8926258176 
  10    0.1073741824    1.0000000000 </code></pre>
-<p>The <code>ksl.utilities.random.rvariable</code> package creates instances of random variables that are immutable. That is, once you create a random variable, its parameters cannot be changed. However, distributions permit their parameters to be changed and they also facilitate the creation of random variables. The previous example code uses the properties <code>probOfSuccess</code> and <code>numTrials</code> to change the parameters of the previously created binomial distribution and then creates a random variable based on the mutated distribution.</p>
+<p>The <code>ksl.utilities.random.rvariable</code> package creates instances of random variables that are immutable. That is, once you create a random variable, its parameters cannot be changed. However, distributions permit their parameters to be changed and they also facilitate the creation of random variables. The example code uses the properties <code>probOfSuccess</code> and <code>numTrials</code> to change the parameters of the previously created binomial distribution and then creates a random variable based on the mutated distribution.</p>
 <pre><code>mean = 10.0
 variance = 5.0
   n          Values 
-  1              11 
-  2              14 
-  3              16 
-  4               7 
-  5              14 </code></pre>
-<p>The results are as we would expect. Similar calculations can be made for continuous distributions. In most cases, the concrete implementations of the various distributions have specialize methods beyond those generic methods described here. Please refer to the documentation for further details.</p>
+  1               7 
+  2               9 
+  3               9 
+  4              12 
+  5               8 </code></pre>
+<p>The results are as we would expect. Similar calculations can be made for continuous distributions. In most cases, the concrete implementations of the various distributions have specialized methods beyond those generic methods described here. Please refer to the documentation for further details.</p>
 <p>There are a number of useful companion object methods defined for the binomial, normal, gamma, and Student-T distributions. Specifically, for the binomial distribution, has the following methods</p>
 <ul>
 <li><code>binomialPMF(j: Int, n: Int, p: Double)</code> - directly computes the probability for the value <span class="math inline">\(j\)</span></li>

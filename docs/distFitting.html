@@ -23,7 +23,7 @@
 <meta name="author" content="Manuel D. Rossetti" />
 
 
-<meta name="date" content="2025-02-07" />
+<meta name="date" content="2025-07-03" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -373,8 +373,15 @@ div.csl-indent {
 <li class="chapter" data-level="8.2.3" data-path="movableResources.html"><a href="movableResources.html#secTQMWM"><i class="fa fa-check"></i><b>8.2.3</b> Tandem Queue Model With Movement</a></li>
 </ul></li>
 <li class="chapter" data-level="8.3" data-path="secTestAndRepairMovableResources.html"><a href="secTestAndRepairMovableResources.html"><i class="fa fa-check"></i><b>8.3</b> Modeling the Test and Repair System with Movable Resources</a></li>
-<li class="chapter" data-level="8.4" data-path="summary-of-new-concepts.html"><a href="summary-of-new-concepts.html"><i class="fa fa-check"></i><b>8.4</b> Summary of New Concepts</a></li>
-<li class="chapter" data-level="8.5" data-path="exercises-7.html"><a href="exercises-7.html"><i class="fa fa-check"></i><b>8.5</b> Exercises</a></li>
+<li class="chapter" data-level="8.4" data-path="secConveyors.html"><a href="secConveyors.html"><i class="fa fa-check"></i><b>8.4</b> Modeling Systems with Conveyors</a>
+<ul>
+<li class="chapter" data-level="8.4.1" data-path="secConveyors.html"><a href="secConveyors.html#ksl-conveyor-constructs"><i class="fa fa-check"></i><b>8.4.1</b> KSL Conveyor Constructs</a></li>
+<li class="chapter" data-level="8.4.2" data-path="secConveyors.html"><a href="secConveyors.html#tandem-queue-system-with-conveyors"><i class="fa fa-check"></i><b>8.4.2</b> Tandem Queue System with Conveyors</a></li>
+<li class="chapter" data-level="8.4.3" data-path="secConveyors.html"><a href="secConveyors.html#secTestAndRepairConveyors"><i class="fa fa-check"></i><b>8.4.3</b> Test and Repair via Conveyors</a></li>
+<li class="chapter" data-level="8.4.4" data-path="secConveyors.html"><a href="secConveyors.html#secMiscConveyor"><i class="fa fa-check"></i><b>8.4.4</b> Miscellaneous Concepts in Conveyor Modeling</a></li>
+</ul></li>
+<li class="chapter" data-level="8.5" data-path="summary-of-new-concepts.html"><a href="summary-of-new-concepts.html"><i class="fa fa-check"></i><b>8.5</b> Summary of New Concepts</a></li>
+<li class="chapter" data-level="8.6" data-path="exercises-7.html"><a href="exercises-7.html"><i class="fa fa-check"></i><b>8.6</b> Exercises</a></li>
 </ul></li>
 <li class="chapter" data-level="9" data-path="ch9AdvMC.html"><a href="ch9AdvMC.html"><i class="fa fa-check"></i><b>9</b> Advanced Monte Carlo Methods</a>
 <ul>
@@ -534,7 +541,7 @@ div.csl-indent {
 Figure 2.7: Important Classes for Parameter Estimation
 </p>
 </div>
-<p>Figure <a href="distFitting.html#fig:ParameterEstimatorLabel">2.7</a> illustrates some of the key classes and interfaces involved in the parameter estimation framework. The functionality starts with the <code>ParameterEstimatorIfc</code> interface, which requires the implementation of the estimation routine and a property (<code>checkRange</code>) to indicate if the data should be checked for shifting onto the domain of the distribution. The <code>ParameterEstimatorIfc</code> interface defines a general function that uses 1-dimensional data array, and estimates the parameters of an hypothesized uni-variate distribution via some estimation algorithm. It is important to note that a distribution may have more than one method for estimating its parameters. In the figure, the maximum likelihood estimator for the gamma distribution is illustrated; however, for example, there is also a method of moments estimator for the gamma distribution implemented within the KSL distribution fitting framework.</p>
+<p>Figure <a href="distFitting.html#fig:ParameterEstimatorLabel">2.7</a> illustrates some of the key classes and interfaces involved in the parameter estimation framework. The functionality starts with the <code>ParameterEstimatorIfc</code> interface, which requires the implementation of the estimation routine and a property (<code>checkRange</code>) to indicate if the data should be checked for shifting onto the domain of the distribution. The <code>ParameterEstimatorIfc</code> interface defines a general function that uses a 1-dimensional data array, and estimates the parameters of an hypothesized uni-variate distribution via some estimation algorithm. It is important to note that a distribution may have more than one method for estimating its parameters. In the figure, the maximum likelihood estimator for the gamma distribution is illustrated; however, for example, there is also a method of moments estimator for the gamma distribution implemented within the KSL distribution fitting framework.</p>
 <div class="sourceCode" id="cb39"><pre class="sourceCode kt"><code class="sourceCode kotlin"><span id="cb39-1"><a href="distFitting.html#cb39-1" tabindex="-1"></a><span class="kw">interface</span> ParameterEstimatorIfc <span class="op">{</span></span>
 <span id="cb39-2"><a href="distFitting.html#cb39-2" tabindex="-1"></a></span>
 <span id="cb39-3"><a href="distFitting.html#cb39-3" tabindex="-1"></a>    <span class="co">/**</span></span>
@@ -550,12 +557,12 @@ Figure 2.7: Important Classes for Parameter Estimation
 <span id="cb39-13"><a href="distFitting.html#cb39-13" tabindex="-1"></a><span class="co">     */</span></span>
 <span id="cb39-14"><a href="distFitting.html#cb39-14" tabindex="-1"></a>    <span class="kw">fun</span> <span class="fu">estimateParameters</span><span class="op">(</span><span class="kw">data</span><span class="op">:</span> <span class="dt">DoubleArray</span><span class="op">,</span> <span class="va">statistics</span><span class="op">:</span> <span class="dt">StatisticIfc</span> <span class="op">=</span> Statistic<span class="op">(</span>data<span class="op">)):</span> <span class="dt">EstimationResult</span></span>
 <span id="cb39-15"><a href="distFitting.html#cb39-15" tabindex="-1"></a>}</span></code></pre></div>
-<p>The basic contract for the estimation process is that the returned <code>EstimationResult</code> is consistent with the required parameter estimation. The data class <code>EstimationResult</code> stores information about the estimation process to be returned as a result of its application on the supplied data. The key property is the <code>success</code> property, which indicates whether the parameter estimation process was successful. Given that many estimation processes may require advanced optimization methods, the estimation process might not converge or some other problem might have occurred. If the <code>success</code> property is true, then the results should be meaningful. The <code>EstimationResult</code> also returns the estimator that was used (<code>MVBSestimatorIfc</code>) in a form for bootstrapping, the estimated parameters as an instance of <code>RVParameters,</code> a message concerning the estimation process, a text (string) representation of the distribution and its parameters, the original data (<code>originalData</code>), the shifted data if shifted, the statistics associated with the original data, and data that is suitable for testing for goodness of fit (<code>testData</code>). The <code>MVBSestimatorIfc</code> interface defines a method that takes in an array of data and produces an (double) array that holds the estimated parameters. In addition, the interface defines a list of the names to use for the parameters. This form for the estimation results facilitates performing a bootstrapping process that can provide confidence intervals for the estimated parameters.</p>
+<p>The basic contract for the estimation process is that the returned <code>EstimationResult</code> is consistent with the required parameter estimation. The data class <code>EstimationResult</code> stores information about the estimation process to be returned as a result of its application on the supplied data. The key property is the <code>success</code> property, which indicates whether the parameter estimation process was successful. Given that many estimation processes may require advanced optimization methods, the estimation process might not converge or some other problem might have occurred. If the <code>success</code> property is true, then the results should be meaningful. The <code>EstimationResult</code> also returns the estimator that was used (<code>MVBSestimatorIfc</code>) in a form that can be used within KSL bootstrapping constructs, the estimated parameters as an instance of <code>RVParameters,</code> a message concerning the estimation process, a text (string) representation of the distribution and its parameters, the original data (<code>originalData</code>), the shifted data if shifted, the statistics associated with the original data, and data that is suitable for testing for goodness of fit (<code>testData</code>). The <code>MVBSestimatorIfc</code> interface defines a method that takes in an array of data and produces a (double) array that holds the estimated parameters. In addition, the interface defines a list of the names to use for the parameters. This form for the estimation results facilitates performing a bootstrapping process that can provide confidence intervals for the estimated parameters.</p>
 <div class="example">
 <p><span id="exm:ch2ex23" class="example"><strong>Example 2.23  (Parameter Estimation) </strong></span>The following code illustrates the estimation of the parameters for a normal distribution.</p>
 <div class="sourceCode" id="cb40"><pre class="sourceCode kt"><code class="sourceCode kotlin"><span id="cb40-1"><a href="distFitting.html#cb40-1" tabindex="-1"></a><span class="kw">fun</span> <span class="fu">main</span><span class="op">(){</span></span>
 <span id="cb40-2"><a href="distFitting.html#cb40-2" tabindex="-1"></a>    <span class="co">// define a normal random variable,</span></span>
-<span id="cb40-3"><a href="distFitting.html#cb40-3" tabindex="-1"></a>    <span class="kw">val</span> <span class="va">x</span> <span class="op">=</span> NormalRV<span class="op">(</span><span class="fl">2.0</span><span class="op">,</span> <span class="fl">5.0</span><span class="op">)</span></span>
+<span id="cb40-3"><a href="distFitting.html#cb40-3" tabindex="-1"></a>    <span class="kw">val</span> <span class="va">x</span> <span class="op">=</span> NormalRV<span class="op">(</span><span class="fl">2.0</span><span class="op">,</span> <span class="fl">5.0</span><span class="op">,</span> streamNum <span class="op">=</span> <span class="dv">1</span><span class="op">)</span></span>
 <span id="cb40-4"><a href="distFitting.html#cb40-4" tabindex="-1"></a>    <span class="co">// generate some data</span></span>
 <span id="cb40-5"><a href="distFitting.html#cb40-5" tabindex="-1"></a>    <span class="kw">val</span> <span class="va">data</span> <span class="op">=</span> x<span class="op">.</span>sample<span class="op">(</span><span class="dv">100</span><span class="op">)</span></span>
 <span id="cb40-6"><a href="distFitting.html#cb40-6" tabindex="-1"></a>    <span class="co">// create the estimator</span></span>
@@ -577,37 +584,36 @@ Estimation message:
 The normal parameters were estimated successfully using a MLE technique
 
 Statistics for the data:
-ID 2
+ID 4
 Name Statistic_1
 Number 100.0
-Average 2.4138851463671918
-Standard Deviation 2.360496477064862
-Standard Error 0.23604964770648623
-Half-width 0.4683737087091538
+Average 2.0892468525989156
+Standard Deviation 2.123930458872048
+Standard Error 0.2123930458872048
+Half-width 0.4214338787318177
 Confidence Level 0.95
-Confidence Interval [1.945511437658038, 2.8822588550763455]
-Minimum -3.5669763460675563
-Maximum 7.965700083130213
-Sum 241.38851463671918
-Variance 5.571943618235626
-Deviation Sum of Squares 551.622418205327
-Last value collected 3.241841050111711
-Kurtosis -0.5348553870721524
-Skewness 0.20030433873223535
-Lag 1 Covariance -1.2167682247913674
-Lag 1 Correlation -0.2205799084000348
-Von Neumann Lag 1 Test Statistic -2.213606239550482
+Confidence Interval [1.667812973867098, 2.5106807313307336]
+Minimum -4.430752220590554
+Maximum 6.493367339631967
+Sum 208.92468525989156
+Variance 4.5110805941244285
+Deviation Sum of Squares 446.5969788183184
+Last value collected 3.5738686354135556
+Kurtosis -0.2314557519668217
+Skewness -0.2890094690738773
+Lag 1 Covariance -0.40973073091033607
+Lag 1 Correlation -0.09174507449523522
+Von Neumann Lag 1 Test Statistic -0.8229876116312043
 Number of missing observations 0.0
 Lead-Digit Rule(1) -1
+
 
 Shift estimation results:
 null
 
 Estimated parameters:
 RV Type = Normal
-Double Parameters {mean=2.4138851463671918, variance=5.571943618235626}
-Integer Parameters {}
-Double Array Parameters {}
+Double Parameters {mean=2.0892468525989156, variance=4.5110805941244285}
 
 ------------------------------------------------------
 Bootstrap statistical results:
@@ -615,15 +621,14 @@ Bootstrap statistical results:
 statistic name = mean
 number of bootstrap samples = 400
 size of original sample = 100
-original estimate = 2.4138851463671918
-bias estimate = -0.004346113299975141
-across bootstrap average = 2.4095390330672166
-std. err. estimate = 0.011727975525999638
+original estimate = 2.0892468525989156
+bias estimate = -0.01587415275757076
+across bootstrap average = 2.073372699841345
+bootstrap std. err. estimate = 0.21341609857688634
 default c.i. level = 0.95
-norm c.i. = [2.3908987367061334, 2.43687155602825]
-basic c.i. = [1.9728453671368813, 2.8775812826012266]
-percentile c.i. = [1.950189010133157, 2.854924925597502]
-------------------------------------------------------
+norm c.i. = [1.670958985329941, 2.5075347198678903]
+basic c.i. = [1.6728521695280434, 2.506080452483194]
+percentile c.i. = [1.6724132527146374, 2.505641535669788]
 
 ------------------------------------------------------
 Bootstrap statistical results:
@@ -631,15 +636,14 @@ Bootstrap statistical results:
 statistic name = variance
 number of bootstrap samples = 400
 size of original sample = 100
-original estimate = 5.571943618235626
-bias estimate = -0.15846349216845024
-across bootstrap average = 5.413480126067176
-std. err. estimate = 0.032372344482434104
+original estimate = 4.5110805941244285
+bias estimate = -0.013680373758844233
+across bootstrap average = 4.497400220365584
+bootstrap std. err. estimate = 0.6474490755210855
 default c.i. level = 0.95
-norm c.i. = [5.508494988903779, 5.635392247567474]
-basic c.i. = [4.436576208323049, 7.000150587007805]
-percentile c.i. = [4.143736649463448, 6.707311028148204]
-------------------------------------------------------</code></pre>
+norm c.i. = [3.2421037232562866, 5.78005746499257]
+basic c.i. = [3.163271658068438, 5.717662725018807]
+percentile c.i. = [3.3044984632300505, 5.858889530180419]</code></pre>
 <p>The parameters of the following distributions can be estimated from data using the KSL.</p>
 <ul>
 <li>Beta - via <code>BetaMOMParameterEstimator</code></li>
@@ -672,7 +676,7 @@ Figure 2.8: Important Classes for PDF Scoring
 </div>
 <p>The primary method that needs to be implemented is the abstract <code>score()</code> function.</p>
 <div class="sourceCode" id="cb42"><pre class="sourceCode kt"><code class="sourceCode kotlin"><span id="cb42-1"><a href="distFitting.html#cb42-1" tabindex="-1"></a><span class="kw">abstract</span> <span class="kw">fun</span> <span class="fu">score</span><span class="op">(</span><span class="kw">data</span><span class="op">:</span> <span class="dt">DoubleArray</span><span class="op">,</span> <span class="va">cdf</span><span class="op">:</span> <span class="dt">ContinuousDistributionIfc</span><span class="op">)</span> <span class="op">:</span> <span class="dt">Score</span></span></code></pre></div>
-<p>The contract for this function is it will return a numerical value that measures the quality of the distribution fit given the observed data and a hypothesized continuous distribution function. In addition, the function, <code>badScore(),</code> should return the worse possible score for the metric. The <code>badScore()</code> function should be used if there is some error or issue that prevents the scoring procedure from determining a score for the fit. A <code>Score</code> is a data class that indicates whether the score is <code>valid</code> or not and provides the metric that determined the score. You can think of the metric as the units of measure. The metric defines the domain (or set of legal values) for the metric and its direction. By direction, we mean whether bigger scores are better than smaller scores or vice versa. This information is used when a set of scores are combined into an overall score.</p>
+<p>The contract for this function is that it will return a numerical value that measures the quality of the distribution fit given the observed data and a hypothesized continuous distribution function. In addition, the function, <code>badScore(),</code> should return the worse possible score for the metric. The <code>badScore()</code> function should be used if there is some error or issue that prevents the scoring procedure from determining a score for the fit. A <code>Score</code> is a data class that indicates whether the score is <code>valid</code> or not and provides the metric that determined the score. You can think of the metric as the units of measure. The metric defines the domain (or set of legal values) for the metric and its direction. By direction, we mean whether bigger scores are better than smaller scores or vice versa. This information is used when a set of scores are combined into an overall score.</p>
 <p>The KSL has many pre-defined scoring models. The user can specify the criteria to use for the scoring evaluation process or accept the defaults. Two of the scoring models are based on a histogram summary of the data. This involves dividing the range of observations via break points <span class="math inline">\(b_j\)</span> and tabulating frequencies or proportions of the data falling with the defined intervals or bins. The KSL does not use arbitrary break points from a histogram binning process. Instead the KSL attempts to define the break points for the intervals such that each interval has the <em>same</em> probability of occurrence. This ensures that the expected number of observations within each interval is the same. The theoretical basis for this approach can be found in <span class="citation">(<a href="#ref-CAWilliams1950">Williams 1950</a>)</span>.</p>
 <p>The scoring criteria based on a binning process are the sum of squared errors (SSE), Chi-Squared (CSQ), and the Mallows L2 (ML2) criterion. For these models, let <span class="math inline">\(c_{j}\)</span> be the observed count of the <span class="math inline">\(x\)</span> values contained in
 the <span class="math inline">\(j^{th}\)</span> interval <span class="math inline">\(\left(b_{j-1}, b_{j} \right]\)</span>, let <span class="math inline">\(h_j = c_j/n\)</span> be the relative frequency for the <span class="math inline">\(j^{th}\)</span> interval, and let <span class="math inline">\(p_j\)</span> be defined as:</p>
@@ -796,12 +800,12 @@ The BIC is defined in terms of the value of the log-likelihood of the sample as 
 \]</span></p>
 <p>These scoring models avoid summarizing the data based on a histogram, which requires a specification of the bin sizes (or widths) and tabulation of frequencies or proportions associated with the bins.</p>
 <p>As illustrated in Figure <a href="distFitting.html#fig:ScoringModelLabel">2.8</a>, the scoring models are implemented by sub-classing from the <code>PDFScoringModel</code> abstract base class. Users of the KSL distribution recommendation framework can select which scoring models to include during the evaluation process. The default set of scoring models are BIC, AD, CVM, and QQC. During testing, the BIC criterion performed very well across all but very low sample sizes. The AD and CVM criteria tend to perform better for lower sample sizes, while the QQC criterion tends to perform better for higher sample sizes and for particular distribution families.</p>
-<p>The quality of a parametric fit for a specific distribution can be evaluated by one or more scoring models. Since distribution quality metrics have been designed to measure different aspects of the fit, the KSL allows the scoring results to be combined into an overall score. Suppose distribution <span class="math inline">\(F_k\)</span> is evaluated by the the scoring models, each resulting in score <span class="math inline">\(S_i\)</span> for <span class="math inline">\(i=1,2,\cdots, m\)</span>, where <span class="math inline">\(m\)</span> is the number of scoring models. In general, the scores may not have the same scales and the same direction of <em>goodness</em>. The KSL scoring system translates and scales each score <span class="math inline">\(S_i\)</span> in to a value, <span class="math inline">\(M_i\)</span> measure, that has a common scale and direction (a bigger score is better). These value measures are then combined into an overall value (<span class="math inline">\(V_k\)</span>) for the distribution using weights (<span class="math inline">\(w_i\)</span>) across the scoring criteria:</p>
+<p>The quality of a parametric fit for a specific distribution can be evaluated by one or more scoring models. Since distribution quality metrics have been designed to measure different aspects of the fit, the KSL allows the scoring results to be combined into an overall score. Suppose distribution <span class="math inline">\(F_k\)</span> is evaluated by the the scoring models, each resulting in score <span class="math inline">\(S_i\)</span> for <span class="math inline">\(i=1,2,\cdots, m\)</span>, where <span class="math inline">\(m\)</span> is the number of scoring models. In general, the scores may not have the same scales and the same direction of <em>goodness</em>. The KSL scoring system translates and scales each score <span class="math inline">\(S_i\)</span> in to a value measure, <span class="math inline">\(M_i\)</span>, that has a common scale and direction (a bigger score is better). These value measures are then combined into an overall value (<span class="math inline">\(V_k\)</span>) for the distribution using weights (<span class="math inline">\(w_i\)</span>) across the scoring criteria:</p>
 <p><span class="math display">\[\begin{equation}
 V_{k} = \sum_{i=1}^{m}w_i \times M_i
 \end{equation}\]</span></p>
 <p>The distribution that has the overall largest value, <span class="math inline">\(V_k\)</span>, is then recommended as the best fitting probability model.</p>
-<p>This methodology is based on the commonly used multi-objective decision analysis (MODA) method for choosing among a set of alternatives. In the KSL default application of this methodology, each scoring model is weighted equally and a linearly additive model is assumed. The framework is designed to allow the user to define and apply their own scoring models and to set the preference weights among the metrics. In addition, sensitivity analysis of the weights can easily be accomplished. Once the best distribution has been recommended, then the KSL facilitates performing statistical tests with resulting p-values.</p>
+<p>This methodology is based on the commonly used multi-objective decision analysis (MODA) method for choosing among a set of alternatives. In the KSL’s default application of this methodology, each scoring model is weighted equally and a linearly additive model is assumed. The framework is designed to allow the user to define and apply their own scoring models and to set the preference weights among the metrics. In addition, sensitivity analysis of the weights can easily be accomplished. Once the best distribution has been recommended, then the KSL facilitates performing statistical tests with resulting p-values.</p>
 <p>Figure <a href="distFitting.html#fig:PDFModelerLabel">2.9</a> presents the main class (<code>PDFModeler</code>) for performing the continuous distribution fitting task. The companion object provides functionality to estimate the shift parameter, shift the data to the left, compute confidence intervals for the minimum and maximum of the data via bootstrapping, estimate the range of possible values for the distribution, create distributions from estimated parameters, create the default evaluation model, and work with histograms.</p>
 <div class="figure"><span style="display:block;" id="fig:PDFModelerLabel"></span>
 <img src="figures2/ch2/PDFModeler.png" alt="PDF Modeling Framework" width="100%" height="100%" />
@@ -816,7 +820,7 @@ Figure 2.9: PDF Modeling Framework
 <li><p><code>estimateAndEvaluateScores(estimators: Set&lt;ParameterEstimatorIfc&gt; = allEstimators, automaticShifting: Boolean = true, scoringModels: Set&lt;PDFScoringModel&gt; = allScoringModels)</code> - As its name implies, this function combines the functions of <code>estimateParameters()</code> and <code>evaluateScores()</code> into a single function for the convenience of the modeler. The returned instance of the <code>PDFModelingResults</code> class has the estimation results and the scoring results.</p></li>
 <li><p><code>showAllResultsInBrowser(fileName: String = "pdfModelingResults")</code> - This function makes a histogram, observations plot, auto-correlation plot, performs the fitting and scoring process, and performs goodness
 of fit tests on the top scoring distribution and displays all the results by opening a browser window. The generated <code>html</code> file is stored in the <code>KSL.plotDir</code> directory using the supplied name as the pre-fix for a temporary file. This one function performs all the necessary fitting steps and returns the results, including plots, within an <code>html</code> page.</p></li>
-<li><p><code>showAllGoodnessofFitSummariesInBrowser(pdfModelingResults: PDFModelingResults)</code> - This function shows the goodness of fit summaries for every distribution used within the fitting process. This function shows the raw scores, the scaled scores, the ranked scores, and the PDF summary results for each distribution. The PDF summary results includes the <code>FitDistPlot</code> as well as the results of the Chi-Squared, K-S, Anderson Darling, and Cramer Von Mises, statistical tests. This function is very useful when comparing the quality of the fitted distributions.</p></li>
+<li><p><code>showAllGoodnessofFitSummariesInBrowser(pdfModelingResults: PDFModelingResults)</code> - This function shows the goodness of fit summaries for every distribution used within the fitting process. This function shows the raw scores, the scaled scores, the ranked scores, and the PDF summary results for each distribution. The PDF summary results includes the <code>FitDistPlot</code> plots as well as the results of the Chi-Squared, K-S, Anderson Darling, and Cramer Von Mises, statistical tests. This function is very useful when comparing the quality of the fitted distributions.</p></li>
 </ul>
 <p>The <code>PDFModeling</code> class encapsulates the estimation and scoring process. The purpose of this class is to serve as the general location for implementing the estimation of distribution parameters across many distributions. The general use involves the following:</p>
 <div class="sourceCode" id="cb43"><pre class="sourceCode kt"><code class="sourceCode kotlin"><span id="cb43-1"><a href="distFitting.html#cb43-1" tabindex="-1"></a><span class="kw">val</span> <span class="va">d</span> <span class="op">=</span> PDFModeler<span class="op">(</span><span class="kw">data</span><span class="op">)</span></span>
@@ -861,9 +865,9 @@ k = \Bigg\lceil 4 \, \sqrt[5]{\frac{2(n-1)^2}{z_{1-\alpha}}} \, \Bigg\rceil
 <p>As an example, the following code generates an exponentially distributed sample and applies the goodness of fit tests to the data.</p>
 <div class="example">
 <p><span id="exm:ch2ex24" class="example"><strong>Example 2.24  (Goodness of Fit Testing) </strong></span></p>
-<div class="sourceCode" id="cb45"><pre class="sourceCode kt"><code class="sourceCode kotlin"><span id="cb45-1"><a href="distFitting.html#cb45-1" tabindex="-1"></a><span class="kw">fun</span> <span class="fu">main</span><span class="op">(){</span></span>
+<div class="sourceCode" id="cb45"><pre class="sourceCode kt"><code class="sourceCode kotlin"><span id="cb45-1"><a href="distFitting.html#cb45-1" tabindex="-1"></a><span class="kw">fun</span> <span class="fu">main</span><span class="op">()</span> <span class="op">{</span></span>
 <span id="cb45-2"><a href="distFitting.html#cb45-2" tabindex="-1"></a>    <span class="kw">val</span> <span class="va">d</span> <span class="op">=</span> Exponential<span class="op">(</span><span class="fl">10.0</span><span class="op">)</span></span>
-<span id="cb45-3"><a href="distFitting.html#cb45-3" tabindex="-1"></a>    <span class="kw">val</span> <span class="va">e</span> <span class="op">=</span> d<span class="op">.</span>randomVariable</span>
+<span id="cb45-3"><a href="distFitting.html#cb45-3" tabindex="-1"></a>    <span class="kw">val</span> <span class="va">e</span> <span class="op">=</span> d<span class="op">.</span>randomVariable<span class="op">(</span><span class="dv">3</span><span class="op">)</span></span>
 <span id="cb45-4"><a href="distFitting.html#cb45-4" tabindex="-1"></a>    e<span class="op">.</span>advanceToNextSubStream<span class="op">()</span></span>
 <span id="cb45-5"><a href="distFitting.html#cb45-5" tabindex="-1"></a>    <span class="kw">val</span> <span class="va">n</span> <span class="op">=</span> <span class="dv">1000</span></span>
 <span id="cb45-6"><a href="distFitting.html#cb45-6" tabindex="-1"></a>    <span class="kw">val</span> <span class="va">data</span> <span class="op">=</span> e<span class="op">.</span>sample<span class="op">(</span>n<span class="op">)</span></span>
@@ -975,13 +979,15 @@ Figure 2.12: Discrete Distribution Goodness of Fit Framework
 <p>Given the limited number of discrete distributions, the KSL does not provide a scoring model approach for selecting the best distribution. Instead, the <code>DiscretePMFGoodnessOfFit</code> class, illustrated in Figure <a href="distFitting.html#fig:DiscretePMFGoodnessOfFitLabel">2.12</a> can be used to check the goodness of fit for the discrete distribution. The primary method for testing the goodness of it is the chi-squared goodness of fit test. Similar to how the continuous distribution defines break points that result in approximately equal probabilities for the bins and expected counts, the KSL attempts to form intervals for the chi-squared test that have approximately equal probabilities. The following code illustrates how to fit a negative binomial distribution to some randomly generated data.</p>
 <div class="example">
 <p><span id="exm:ch2ex25" class="example"><strong>Example 2.25  (Discrete Goodness of Fit Testing) </strong></span></p>
-<div class="sourceCode" id="cb47"><pre class="sourceCode kt"><code class="sourceCode kotlin"><span id="cb47-1"><a href="distFitting.html#cb47-1" tabindex="-1"></a><span class="kw">val</span> <span class="va">dist</span> <span class="op">=</span> NegativeBinomial<span class="op">(</span><span class="fl">0.2</span><span class="op">,</span> theNumSuccesses <span class="op">=</span> <span class="fl">4.0</span><span class="op">)</span></span>
-<span id="cb47-2"><a href="distFitting.html#cb47-2" tabindex="-1"></a><span class="kw">val</span> <span class="va">rv</span> <span class="op">=</span> dist<span class="op">.</span>randomVariable</span>
-<span id="cb47-3"><a href="distFitting.html#cb47-3" tabindex="-1"></a>rv<span class="op">.</span>advanceToNextSubStream<span class="op">()</span></span>
-<span id="cb47-4"><a href="distFitting.html#cb47-4" tabindex="-1"></a><span class="kw">val</span> <span class="va">data</span> <span class="op">=</span> rv<span class="op">.</span>sample<span class="op">(</span><span class="dv">200</span><span class="op">)</span></span>
-<span id="cb47-5"><a href="distFitting.html#cb47-5" tabindex="-1"></a><span class="kw">val</span> <span class="va">breakPoints</span> <span class="op">=</span> PMFModeler<span class="op">.</span>makeZeroToInfinityBreakPoints<span class="op">(</span><span class="kw">data</span><span class="op">.</span>size<span class="op">,</span> dist<span class="op">)</span></span>
-<span id="cb47-6"><a href="distFitting.html#cb47-6" tabindex="-1"></a><span class="kw">val</span> <span class="va">pf</span> <span class="op">=</span> DiscretePMFGoodnessOfFit<span class="op">(</span><span class="kw">data</span><span class="op">,</span> dist<span class="op">,</span> breakPoints <span class="op">=</span> breakPoints<span class="op">)</span></span>
-<span id="cb47-7"><a href="distFitting.html#cb47-7" tabindex="-1"></a>println<span class="op">(</span>pf<span class="op">.</span>chiSquaredTestResults<span class="op">())</span></span></code></pre></div>
+<div class="sourceCode" id="cb47"><pre class="sourceCode kt"><code class="sourceCode kotlin"><span id="cb47-1"><a href="distFitting.html#cb47-1" tabindex="-1"></a><span class="kw">fun</span> <span class="fu">main</span><span class="op">()</span> <span class="op">{</span></span>
+<span id="cb47-2"><a href="distFitting.html#cb47-2" tabindex="-1"></a>    <span class="kw">val</span> <span class="va">dist</span> <span class="op">=</span> NegativeBinomial<span class="op">(</span><span class="fl">0.2</span><span class="op">,</span> theNumSuccesses <span class="op">=</span> <span class="fl">4.0</span><span class="op">)</span></span>
+<span id="cb47-3"><a href="distFitting.html#cb47-3" tabindex="-1"></a>    <span class="kw">val</span> <span class="va">rv</span> <span class="op">=</span> dist<span class="op">.</span>randomVariable<span class="op">(</span>streamNumber <span class="op">=</span> <span class="dv">3</span><span class="op">)</span></span>
+<span id="cb47-4"><a href="distFitting.html#cb47-4" tabindex="-1"></a>    rv<span class="op">.</span>advanceToNextSubStream<span class="op">()</span></span>
+<span id="cb47-5"><a href="distFitting.html#cb47-5" tabindex="-1"></a>    <span class="kw">val</span> <span class="va">data</span> <span class="op">=</span> rv<span class="op">.</span>sample<span class="op">(</span><span class="dv">200</span><span class="op">)</span></span>
+<span id="cb47-6"><a href="distFitting.html#cb47-6" tabindex="-1"></a>    <span class="kw">val</span> <span class="va">breakPoints</span> <span class="op">=</span> PMFModeler<span class="op">.</span>makeZeroToInfinityBreakPoints<span class="op">(</span><span class="kw">data</span><span class="op">.</span>size<span class="op">,</span> dist<span class="op">)</span></span>
+<span id="cb47-7"><a href="distFitting.html#cb47-7" tabindex="-1"></a>    <span class="kw">val</span> <span class="va">pf</span> <span class="op">=</span> DiscretePMFGoodnessOfFit<span class="op">(</span><span class="kw">data</span><span class="op">,</span> dist<span class="op">,</span> breakPoints <span class="op">=</span> breakPoints<span class="op">)</span></span>
+<span id="cb47-8"><a href="distFitting.html#cb47-8" tabindex="-1"></a>    println<span class="op">(</span>pf<span class="op">.</span>chiSquaredTestResults<span class="op">())</span></span>
+<span id="cb47-9"><a href="distFitting.html#cb47-9" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
 </div>
 <p>The results indicate the challenge of trying to make bins with equal probability for discrete distributions. In general, it may not be possible to do so. Thus, the modeler is encouraged to update the break points as needed during the distribution assessment process. As expected the results indicate that we should not reject the hypothesis of a negative binomial distribution for this situation.</p>
 <pre><code>Chi-Squared Test Results:

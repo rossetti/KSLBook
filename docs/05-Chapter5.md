@@ -25,7 +25,7 @@ In addition, a number of issues that are related to the proper execution
 of simulation experiments are presented. For example, the simulation
 outputs are dependent upon the input random variables, input parameters,
 and the initial conditions of the model. Initial conditions refer to the
-starting conditions for the model, i.e. whether or not the system starts
+starting conditions for the model, e.g. whether or not the system starts
 "empty and idle". The effect of initial conditions on steady state
 simulations will be discussed in this chapter.
 
@@ -415,12 +415,12 @@ In this section, we will build a model for a simple finite horizon simulation wi
 
 ***
 ::: {.example #simpleFHS name="Pallet Processing Work Center"}
-A truckload of pallets arrives overnight to a facility. Within the truck there are a random number of pallets.  The number of pallets can be modeled with a binomial random variable with mean of 80 and a variance of 16. This translates to parameters $n=100$ and $p=0.8$.  Each individual pallet is unloaded and transported to a work center for processing, one at a time, sequentially until all pallets are delivered.  The unloading and transport time is exponentially distributed with a mean of 5 minutes.  Once a pallet arrives at the workcenter it requires 1 of 2 workers to be processed. If a worker is available, the pallet is immediately processed by a worker.  If no workers are available, the pallet waits in a FIFO line until a worker becomes available.  The time to process the pallet involves breaking down and processing each package on the pallet. The time to process an entire pallet can be modeled with a triangular distribution with a minimum time of 8 minutes, a most likely time of 12 minutes, and a maximum time of 15 minutes.  The work at the workcenter continues until all pallets are processed for the day. The facility manager is interested in how long the pallets wait at the workcenter and  how long it takes for all pallets to be completed on a given day. In addition, the manager is interested in the probability that there is overtime.  That is, the chance that the total time to process the pallets is more than 480 minutes.
+A truckload of pallets arrives overnight to a facility. Within the truck there are a random number of pallets.  The number of pallets can be modeled with a binomial random variable with mean of 80 and a variance of 16. This translates to parameters $n=100$ and $p=0.8$.  Each individual pallet is unloaded and transported to a work center for processing, one at a time, sequentially until all pallets are delivered.  The unloading and transport time is exponentially distributed with a mean of 5 minutes.  Once a pallet arrives at the work center it requires 1 of 2 workers to be processed. If a worker is available, the pallet is immediately processed by a worker.  If no workers are available, the pallet waits in a FIFO line until a worker becomes available.  The time to process the pallet involves breaking down and processing each package on the pallet. The time to process an entire pallet can be modeled with a triangular distribution with a minimum time of 8 minutes, a most likely time of 12 minutes, and a maximum time of 15 minutes.  The work at the work center continues until all pallets are processed for the day. The facility manager is interested in how long the pallets wait at the work center and  how long it takes for all pallets to be completed on a given day. In addition, the manager is interested in the probability that there is overtime.  That is, the chance that the total time to process the pallets is more than 480 minutes.
 :::
 
 ***
 
-This example is a finite horizon simulation because there are a finite (but random) number of pallets to be processed such that the simulation will run until all pallets are processed.  The system starts with an arrival of a random number of pallets, that are then processed until all pallets are completed. Therefore there is a well defined starting and ending point for the simulation.  Although we do no know when the simulation will end, there is a well-specified condition (all pallets processed) that governs the ending of the simulation.  Thus, while the time horizon may be random, it is still finite. Conceptually, this modeling situation is very similar to the pharmacy model discussed in Section \@ref(introDEDSPharmacy). Thus, the implementation of the model will be very similar to the pharmacy model example, but with a couple of minor differences to handle the finite number of pallets that arrive and to capture statistics about the total processing time. The full code is available with the examples.  This presentation focuses on new concepts.
+This example is a finite horizon simulation because there are a finite (but random) number of pallets to be processed such that the simulation will run until all pallets are processed.  The system starts with an arrival of a random number of pallets, that are then processed until all pallets are completed. Therefore there is a well defined starting and ending point for the simulation.  Although we do not know when the simulation will end, there is a well-specified condition (all pallets processed) that governs the ending of the simulation.  Thus, while the time horizon may be random, it is still finite. Conceptually, this modeling situation is very similar to the pharmacy model discussed in Section \@ref(introDEDSPharmacy). Thus, the implementation of the model will be very similar to the pharmacy model example, but with a couple of minor differences to handle the finite number of pallets that arrive and to capture statistics about the total processing time. The full code is available with the examples.  This presentation focuses on new concepts.
 
 As for previous modeling, we define and use random variables to represent the randomness within the model.
 
@@ -428,34 +428,77 @@ As for previous modeling, we define and use random variables to represent the ra
 class PalletWorkCenter(
     parent: ModelElement,
     numWorkers: Int = 2,
-    numPallets: RandomIfc = BinomialRV(0.8, 100, 1),
-    transportTime: RandomIfc = ExponentialRV(5.0, 2),
-    processingTime: RandomIfc = TriangularRV(8.0, 12.0, 15.0, 3)
+    name: String? = null
 ) :
-    ModelElement(parent, theName = null) {
-    
+    ModelElement(parent, name = name) {
+
     init {
         require(numWorkers >= 1) { "The number of workers must be >= 1" }
     }
-    
-    private val myProcessingTimeRV: RandomVariable = RandomVariable(this, processingTime)
-    val processingTimeRV: RandomSourceCIfc
+
+    @set:KSLControl(
+        controlType = ControlType.INTEGER,
+        lowerBound = 1.0
+    )
+    var numWorkers = numWorkers
+        set(value) {
+            require(value >= 1) { "The number of workers must be >= 1" }
+            require(!model.isRunning) { "Cannot change the number of workers while the model is running!" }
+            field = value
+        }
+
+    private val myProcessingTimeRV: RandomVariable = RandomVariable(
+        parent = this,
+        rSource = TriangularRV(min = 8.0, mode = 12.0, max = 15.0, streamNum = 3), name = "ProcessingTimeRV"
+    )
+    val processingTimeRV: RandomVariableCIfc
         get() = myProcessingTimeRV
-    private val myTransportTimeRV: RandomVariable = RandomVariable(parent, transportTime)
-    val transportTimeRV: RandomSourceCIfc
+    private val myTransportTimeRV: RandomVariable = RandomVariable(
+        parent = parent,
+        rSource = ExponentialRV(5.0, 2), name = "TransportTimeRV"
+    )
+    val transportTimeRV: RandomVariableCIfc
         get() = myTransportTimeRV
-    private val myNumPalletsRV: RandomVariable = RandomVariable(parent, numPallets)
-    val numPalletsRV: RandomSourceCIfc
+    private val myNumPalletsRV: RandomVariable = RandomVariable(
+        parent = parent,
+        rSource = BinomialRV(0.8, 100, 1), name = "NumPalletsRV"
+    )
+    val numPalletsRV: RandomVariableCIfc
         get() = myNumPalletsRV
 ```
 
 Notice that we defined the random variables as default parameters of the constructor and assign them to relevant properties within the class body. To capture the total time to process the pallets and the probability of overtime, we define two response variables. Notice that the probability of overtime is implemented as an `IndicatorResponse` that observes the total processing time.
 
 ```kt
-    private val myTotalProcessingTime = Response(this, "Total Processing Time")
+    private val myNumBusy: TWResponse = TWResponse(parent = this, name = "NumBusyWorkers")
+    val numBusyWorkers: TWResponseCIfc
+        get() = myNumBusy
+    private val myUtil: TWResponseFunction = TWResponseFunction(
+        function = { x -> x/(this.numWorkers) },
+        observedResponse = myNumBusy, name = "Worker Utilization"
+    )
+    val workerUtilization: TWResponseCIfc
+        get() = myUtil
+    private val myPalletQ: Queue<QObject> = Queue(parent = this, name = "PalletQ")
+    val palletQ: QueueCIfc<QObject>
+        get() = myPalletQ
+    private val myNS: TWResponse = TWResponse(parent = this, name = "Num Pallets at WC")
+    val numInSystem: TWResponseCIfc
+        get() = myNS
+    private val mySysTime: Response = Response(parent = this, name = "System Time")
+    val systemTime: ResponseCIfc
+        get() = mySysTime
+    private val myNumProcessed: Counter = Counter(parent = this, name = "Num Processed")
+    val numPalletsProcessed: CounterCIfc
+        get() = myNumProcessed
+    private val myTotalProcessingTime = Response(parent = this, name = "Total Processing Time")
     val totalProcessingTime: ResponseCIfc
         get() = myTotalProcessingTime
-    private val myOverTime: IndicatorResponse = IndicatorResponse({ x -> x >= 480.0 }, myTotalProcessingTime, "P{total time > 480 minutes}")
+    private val myOverTime: IndicatorResponse = IndicatorResponse(
+        predicate = { x -> x >= 480.0 },
+        observedResponse = myTotalProcessingTime,
+        name = "P{total time > 480 minutes}"
+    )
     val probOfOverTime: ResponseCIfc
         get() = myOverTime
 ```
@@ -465,17 +508,17 @@ The main logic of arrivals to the work center and completions of the pallets is 
 ```kt
     private val endServiceEvent = this::endOfService
     private val endTransportEvent = this::endTransport
-    
+
     var numToProcess: Int = 0
-    
+
     override fun initialize() {
         numToProcess = myNumPalletsRV.value.toInt()
-        schedule(endTransportEvent, myTransportTimeRV)
+        schedule(eventAction = endTransportEvent, timeToEvent = myTransportTimeRV)
     }
 
     private fun endTransport(event: KSLEvent<Nothing>) {
         if (numToProcess >= 1) {
-            schedule(endTransportEvent, myTransportTimeRV)
+            schedule(eventAction = endTransportEvent, timeToEvent = myTransportTimeRV)
             numToProcess = numToProcess - 1
         }
         val pallet = QObject()
@@ -483,7 +526,7 @@ The main logic of arrivals to the work center and completions of the pallets is 
     }
 ```
 
-The `endTransport` event action checks to see if there are more pallets to transport and if so schedules the end of the next transport.  In addition, it creates a `QObject` that is sent to the work center for processing via the `arrivalAtWorkCenter` method. As shown in the following code, the arrival and end of service actions are essentially the same as in the previous pharmacy example.
+The `endTransport` event action checks to see if there are more pallets to transport and if so schedules the end of the next transport.  In addition, it creates a `QObject` that is sent to the work center for processing via the `arrivalAtWorkCenter` method. As shown in the following code, the arrival and end of service actions are essentially the same as in the previous pharmacy examples.
 
 ```kt
     private fun arrivalAtWorkCenter(pallet: QObject) {
@@ -493,7 +536,7 @@ The `endTransport` event action checks to see if there are more pallets to trans
             myNumBusy.increment() // make server busy
             val nextPallet: QObject? = myPalletQ.removeNext() //remove the next pallet
             // schedule end of service, include the pallet as the event's message
-            schedule(endServiceEvent, myProcessingTimeRV, nextPallet)
+            schedule(eventAction = endServiceEvent, timeToEvent = myProcessingTimeRV, message = nextPallet)
         }
     }
 
@@ -503,13 +546,13 @@ The `endTransport` event action checks to see if there are more pallets to trans
             val nextPallet: QObject? = myPalletQ.removeNext() //remove the next pallet
             myNumBusy.increment() // make server busy
             // schedule end of service
-            schedule(endServiceEvent, myProcessingTimeRV, nextPallet)
+            schedule(eventAction = endServiceEvent, timeToEvent = myProcessingTimeRV, message = nextPallet)
         }
-        departSystem(event.message!!)
+        departSystem(completedPallet = event.message!!)
     }
 ```
 
-Finally, we have the statistical collection code. The `departSystem` method captures the time in the system and the number of pallet processed.  Howevever, we see something new within a method called `replicationEnded()`
+Finally, we have the statistical collection code. The `departSystem` method captures the time in the system and the number of pallet processed.  However, we see something new within a method called `replicationEnded()`
 
 ```kt
     private fun departSystem(completedPallet: QObject) {
@@ -523,7 +566,7 @@ Finally, we have the statistical collection code. The `departSystem` method capt
     }
 ```
 
-Recall the overview of how the underlying simulation code is processed from Section \@ref(introDEDSOverview) of Chapter \@ref(introDEDS).  Step 2(e) of that discussion notes that the actions associated with the end of replication logic is automatically executed.  Just like the `initialize()` method every model element has a `replicationEnded()` method. This method is called automatically for every model element infinitesimally before the end of the simulation replication. Thus, statistical collection can be implemented without the concern that the statistical accumulators will be cleared *after* the replication. Thus, observations within the `replicationEnded()` method are still within the replication (i.e. they produce within replication data). In the above code snippet, the `Response` `myTotalProcessingTime` is assigned the current simulation time, which happens to be the time at which the processing of the pallets was completed. This occurs because after the appropriate number of transports are scheduled, no further pallets arrive to be processed at the work center. Thus, eventually, there will be no more events to process, and according to Step 2(d) of Section \@ref(introDEDSOverview), this will cause the execution of the current replication to stop and proceed with any end of replication model logic. Thus, this logic captures the total time to process the pallets. In addition, because an `IndicatorResponse` was also attached to `myTotalProcessingTime` the collection of the probability of over time will also be captured.  The basic results of the model are as follows:
+Recall the overview of how the underlying simulation code is processed from Section \@ref(introDEDSOverview) of Chapter \@ref(introDEDS).  Step 2(e) of that discussion notes that the actions associated with the end of replication logic is automatically executed.  Just like the `initialize()` method every model element has a `replicationEnded()` method. This method is called automatically for every model element infinitesimally before the end of the simulation replication. Thus, statistical collection can be implemented without the concern that the statistical accumulators will be cleared *after* the replication. Observations within the `replicationEnded()` method are still within the replication (i.e. they produce within replication data). In the above code snippet, the `Response` variable `myTotalProcessingTime` is assigned the current simulation time, which happens to be the time at which the processing of the pallets was completed. This occurs because after the appropriate number of transports are scheduled, no further pallets arrive to be processed at the work center. Thus, eventually, there will be no more events to process, and according to Step 2(d) of Section \@ref(introDEDSOverview), this will cause the execution of the current replication to stop and proceed with any end of replication model logic. Thus, this logic captures the total time to process the pallets. In addition, because an `IndicatorResponse` was also attached to `myTotalProcessingTime` the collection of the probability of over time will also be captured.  The basic results of the model are as follows:
 
 **Statistical Summary Report**
 
@@ -1162,6 +1205,7 @@ database schema.
     automatically stored.
 -   `HISTOGRAM` contains the results from `HistogramResponse` instances when they are used within a model.
 -   `FREQUENCY` contains the results from `IntegerFrequencyResponse` instances when they are used within a model.
+-   `TIME_SERIES_RESPONSE` represents within replication collection of response variables based on periods of time. The average value of the response during the period is recorded for each period for each replication of each simulation run.
 -   `EXPERIMENT` holds information across experimental runs. This is illustrate in Section \@ref(ch5Scenarios) and Section \@ref(appExpDesign) of Appendix \@ref(appUtilities).
 -   `CONTROL` holds the controls associated with a model as discussed in Section \@ref(controlAntns).
 -   `RV_PARAMETER` holds the random variables and their parameters as discussed in Section \@ref(rvParameters).
@@ -3807,8 +3851,8 @@ The following code presents the constructor of a scenario.  Notice that the key 
 ```kt
 class Scenario(
     val model: Model,
-    inputs: Map<String, Double>,
     name: String,
+    inputs: Map<String, Double> = emptyMap(),
     numberReplications: Int = model.numberOfReplications,
     lengthOfReplication: Double = model.lengthOfReplication,
     lengthOfReplicationWarmUp: Double = model.lengthOfReplicationWarmUp,

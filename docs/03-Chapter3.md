@@ -37,7 +37,7 @@ This chapter provides a series of example Kotlin code that illustrates the use o
 
 ## Collecting Statistics {#kslStatistics}
 
-The KSL has a wide variety of classes that support statistic computations.  A main theme in understanding the usage of the classes within the `ksl.utilities.statistics` package is the concept of collection.  This concept is encapsulated within the interface, `CollectorIfc` interface.  The methods of the `CollectorIfc` interface are illustrated in Figure \@ref(fig:CollectorIfc).
+The KSL has a wide variety of classes that support statistic computations.  A main theme in understanding the usage of the classes within the `ksl.utilities.statistics` package is the concept of collection.  This concept is encapsulated within the `CollectorIfc` interface.  The methods of the `CollectorIfc` interface are illustrated in Figure \@ref(fig:CollectorIfc).
 
 <div class="figure" style="text-align: center">
 <img src="./figures/CollectInterface.png" alt="CollectorIfc Interface"  />
@@ -69,13 +69,13 @@ This example illustrates how to create instances of the `Statistic` class to col
 ```kt
 fun main() {
     // create a normal mean = 20.0, variance = 4.0 random variable
-    val n = NormalRV(20.0, 4.0)
+    val n = NormalRV(20.0, 4.0, streamNum = 3)
     // create a Statistic to observe the values
     val stat = Statistic("Normal Stats")
     val pGT20 = Statistic("P(X>=20")
     // generate 100 values
     for (i in 1..100) {
-        // value property returns a generated value
+        // getValue() method returns generated values
         val x = n.value
         stat.collect(x)
         pGT20.collect(x >= 20.0)
@@ -188,8 +188,7 @@ This example illustrates how to configure the breakpoints for a histogram and to
 
 ```kt
 fun main() {
-    val d = ExponentialRV(2.0)
-
+    val d = ExponentialRV(2.0, streamNum = 1)
     val data = d.sample(1000)
     var bp = Histogram.recommendBreakPoints(data)
     bp = Histogram.addPositiveInfinity(bp)
@@ -205,109 +204,75 @@ fun main() {
 :::
 
 ```
-Histogram: ID_2
--------------------------------------
-Number of bins = 10
-First bin starts at = 0.0
-Last bin ends at = 2.5
-Under flow count = 0.0
-Over flow count = 34.0
-Total bin count = 66.0
-Total count = 100.0
--------------------------------------
-Bin Range        Count CumTot Frac  CumFrac
-  1 [ 0.00, 0.25)  = 8   8.0 0.121212 0.121212 
-  2 [ 0.25, 0.50)  = 13  21.0 0.196970 0.318182 
-  3 [ 0.50, 0.75)  = 8  29.0 0.121212 0.439394 
-  4 [ 0.75, 1.00)  = 5  34.0 0.075758 0.515152 
-  5 [ 1.00, 1.25)  = 12  46.0 0.181818 0.696970 
-  6 [ 1.25, 1.50)  = 6  52.0 0.090909 0.787879 
-  7 [ 1.50, 1.75)  = 3  55.0 0.045455 0.833333 
-  8 [ 1.75, 2.00)  = 0  55.0 0.000000 0.833333 
-  9 [ 2.00, 2.25)  = 7  62.0 0.106061 0.939394 
- 10 [ 2.25, 2.50)  = 4  66.0 0.060606 1.000000 
--------------------------------------
-Statistics on data collected within bins:
--------------------------------------
-ID 3
-Name null Histogram
-Number 66.0
-Average 1.0058762823520362
-Standard Deviation 0.6886823403539779
-Standard Error 0.08477093608530742
-Half-width 0.16929924794988463
-Confidence Level 0.95
-Confidence Interval [0.8365770344021516, 1.175175530301921]
-Minimum 0.012828760487111502
-Maximum 2.480434062337268
-Sum 66.38783463523438
-Variance 0.4742833659154323
-Deviation Sum of Squares 30.8284187845031
-Last value collected 2.480434062337268
-Kurtosis -0.7044116167697082
-Skewness 0.5979629072383154
-Lag 1 Covariance -0.03136122210241002
-Lag 1 Correlation -0.0671406689142141
-Von Neumann Lag 1 Test Statistic -0.18534912180084587
-Number of missing observations 0.0
-Lead-Digit Rule(1) -2
--------------------------------------
-
 Histogram: ID_4
 -------------------------------------
-Number of bins = 11
+Number of bins = 25
 First bin starts at = 0.0
 Last bin ends at = Infinity
 Under flow count = 0.0
 Over flow count = 0.0
-Total bin count = 100.0
-Total count = 100.0
+Total bin count = 1000.0
+Total count = 1000.0
 -------------------------------------
 Bin Range        Count CumTot Frac  CumFrac
-  1 [ 0.00, 0.25)  = 8   8.0 0.080000 0.080000 
-  2 [ 0.25, 0.50)  = 13  21.0 0.130000 0.210000 
-  3 [ 0.50, 0.75)  = 8  29.0 0.080000 0.290000 
-  4 [ 0.75, 1.00)  = 5  34.0 0.050000 0.340000 
-  5 [ 1.00, 1.25)  = 12  46.0 0.120000 0.460000 
-  6 [ 1.25, 1.50)  = 6  52.0 0.060000 0.520000 
-  7 [ 1.50, 1.75)  = 3  55.0 0.030000 0.550000 
-  8 [ 1.75, 2.00)  = 0  55.0 0.000000 0.550000 
-  9 [ 2.00, 2.25)  = 7  62.0 0.070000 0.620000 
- 10 [ 2.25, 2.50)  = 4  66.0 0.040000 0.660000 
- 11 [ 2.50,Infinity)  = 34 100.0 0.340000 1.000000 
+  1 [ 0.00, 0.75)  = 333 333.0 0.333000 0.333000 
+  2 [ 0.75, 1.50)  = 198 531.0 0.198000 0.531000 
+  3 [ 1.50, 2.25)  = 150 681.0 0.150000 0.681000 
+  4 [ 2.25, 3.00)  = 112 793.0 0.112000 0.793000 
+  5 [ 3.00, 3.75)  = 75 868.0 0.075000 0.868000 
+  6 [ 3.75, 4.50)  = 48 916.0 0.048000 0.916000 
+  7 [ 4.50, 5.25)  = 28 944.0 0.028000 0.944000 
+  8 [ 5.25, 6.00)  = 19 963.0 0.019000 0.963000 
+  9 [ 6.00, 6.75)  = 16 979.0 0.016000 0.979000 
+ 10 [ 6.75, 7.50)  = 1 980.0 0.001000 0.980000 
+ 11 [ 7.50, 8.25)  = 5 985.0 0.005000 0.985000 
+ 12 [ 8.25, 9.00)  = 2 987.0 0.002000 0.987000 
+ 13 [ 9.00, 9.75)  = 4 991.0 0.004000 0.991000 
+ 14 [ 9.75,10.50)  = 1 992.0 0.001000 0.992000 
+ 15 [10.50,11.25)  = 2 994.0 0.002000 0.994000 
+ 16 [11.25,12.00)  = 1 995.0 0.001000 0.995000 
+ 17 [12.00,12.75)  = 3 998.0 0.003000 0.998000 
+ 18 [12.75,13.50)  = 0 998.0 0.000000 0.998000 
+ 19 [13.50,14.25)  = 0 998.0 0.000000 0.998000 
+ 20 [14.25,15.00)  = 0 998.0 0.000000 0.998000 
+ 21 [15.00,15.75)  = 0 998.0 0.000000 0.998000 
+ 22 [15.75,16.50)  = 1 999.0 0.001000 0.999000 
+ 23 [16.50,17.25)  = 0 999.0 0.000000 0.999000 
+ 24 [17.25,18.00)  = 1 1000.0 0.001000 1.000000 
+ 25 [18.00,Infinity)  = 0 1000.0 0.000000 1.000000 
 -------------------------------------
 Statistics on data collected within bins:
 -------------------------------------
 ID 5
-Name null Histogram
-Number 100.0
-Average 2.439434453415103
-Standard Deviation 2.4182170804760847
-Standard Error 0.24182170804760847
-Half-width 0.47982672859345404
+Name ID_4_Statistics
+Number 1000.0
+Average 1.9216605939547684
+Standard Deviation 1.968265908806584
+Standard Error 0.06224203312690073
+Half-width 0.12214010773960152
 Confidence Level 0.95
-Confidence Interval [1.959607724821649, 2.919261182008557]
-Minimum 0.012828760487111502
-Maximum 11.13717343776699
-Sum 243.9434453415103
-Variance 5.847773848306279
-Deviation Sum of Squares 578.9296109823216
-Last value collected 2.480434062337268
-Kurtosis 1.3785489085086087
-Skewness 1.3838241648793819
-Lag 1 Covariance -0.5597308485816501
-Lag 1 Correlation -0.0966837484149247
-Von Neumann Lag 1 Test Statistic -0.976342966871885
+Confidence Interval [1.7995204862151668, 2.04380070169437]
+Minimum 9.561427092951219E-4
+Maximum 17.40419059595123
+Sum 1921.6605939547685
+Variance 3.8740706877702076
+Deviation Sum of Squares 3870.1966170824376
+Last value collected 8.548639846481285
+Kurtosis 10.67406304701379
+Skewness 2.5031667132444806
+Lag 1 Covariance -0.12649071302321163
+Lag 1 Correlation -0.032683278277103954
+Von Neumann Lag 1 Test Statistic -0.8438384394483673
 Number of missing observations 0.0
-Lead-Digit Rule(1) -1
+Lead-Digit Rule(1) -2
 -------------------------------------
 ```
 
-Because it may be challenging to specify the breakpoints for a histogram, the KSL also provides the `CachedHistogram` class, which stores the observed data within a data cache (array) until sufficient data has been observed to provide reasonable breakpoints. The default size of the cache is 512 observations. If less than the cache size is observed, the KSL attempts to find the best breakpoints based on the recommendations found [here.](https://www.fmrib.ox.ac.uk/datasets/techrep/tr00mj2/tr00mj2/node24.html). The following code illustrates the used of the `CachedHistogram` class.
+Because it may be challenging to specify the breakpoints for a histogram, the KSL also provides the `CachedHistogram` class, which stores the observed data within a data cache (array) until sufficient data has been observed to provide reasonable breakpoints. The default size of the cache is 512 observations. If less than the cache size is observed, the KSL attempts to find the best breakpoints based on the recommendations found [here](https://www.fmrib.ox.ac.uk/datasets/techrep/tr00mj2/tr00mj2/node24.html). The following code illustrates the used of the `CachedHistogram` class.
 
 ```kt
 fun main() {
-    val d = ExponentialRV(2.0)
+    val d = ExponentialRV(2.0, streamNum = 1)
     val data = d.sample(1000)
     val ch = CachedHistogram()
     for (x in data) {
@@ -333,7 +298,7 @@ In this example, an instance of the `IntegerFrequency` class is used to tabulate
 ```kt
 fun main() {
     val f = IntegerFrequency(name = "Frequency Demo")
-    val bn = BinomialRV(0.5, 100)
+    val bn = BinomialRV(0.5, 100, streamNum = 2)
     val sample = bn.sample(10000)
     f.collect(sample)
     println(f)
@@ -348,53 +313,53 @@ As can be noted in the output, only those integers that are actually observed ar
 ```
 Frequency Tabulation Frequency Demo
 ----------------------------------------
-Number of cells = 39
+Number of cells = 37
 Lower limit = -2147483648
 Upper limit = 2147483647
 Under flow count = 0
 Over flow count = 0
-Total count = 10000
+Total count = 10000.0
+Minimum value observed = 30
+Maximum value observed = 69
 ----------------------------------------
 Value 	 Count 	 Proportion
-31 	 1 	 1.0E-4
-33 	 4 	 4.0E-4
-34 	 5 	 5.0E-4
-35 	 9 	 9.0E-4
-36 	 17 	 0.0017
-37 	 28 	 0.0028
-38 	 41 	 0.0041
-39 	 74 	 0.0074
-40 	 100 	 0.01
-41 	 192 	 0.0192
-42 	 236 	 0.0236
-43 	 277 	 0.0277
-44 	 406 	 0.0406
-45 	 453 	 0.0453
-46 	 564 	 0.0564
-47 	 653 	 0.0653
-48 	 741 	 0.0741
-49 	 762 	 0.0762
-50 	 750 	 0.075
-51 	 768 	 0.0768
-52 	 783 	 0.0783
-53 	 679 	 0.0679
-54 	 600 	 0.06
-55 	 484 	 0.0484
-56 	 407 	 0.0407
-57 	 324 	 0.0324
-58 	 210 	 0.021
-59 	 155 	 0.0155
-60 	 108 	 0.0108
-61 	 74 	 0.0074
-62 	 41 	 0.0041
-63 	 15 	 0.0015
-64 	 15 	 0.0015
-65 	 17 	 0.0017
-66 	 3 	 3.0E-4
-67 	 1 	 1.0E-4
-69 	 1 	 1.0E-4
-70 	 1 	 1.0E-4
-71 	 1 	 1.0E-4
+30 	 1.0  	 1.0E-4
+33 	 3.0  	 3.0E-4
+34 	 7.0  	 7.0E-4
+35 	 10.0  	 0.001
+36 	 17.0  	 0.0017
+37 	 23.0  	 0.0023
+38 	 48.0  	 0.0048
+39 	 86.0  	 0.0086
+40 	 101.0  	 0.0101
+41 	 146.0  	 0.0146
+42 	 221.0  	 0.0221
+43 	 319.0  	 0.0319
+44 	 371.0  	 0.0371
+45 	 470.0  	 0.047
+46 	 568.0  	 0.0568
+47 	 684.0  	 0.0684
+48 	 742.0  	 0.0742
+49 	 768.0  	 0.0768
+50 	 769.0  	 0.0769
+51 	 813.0  	 0.0813
+52 	 696.0  	 0.0696
+53 	 680.0  	 0.068
+54 	 599.0  	 0.0599
+55 	 505.0  	 0.0505
+56 	 386.0  	 0.0386
+57 	 318.0  	 0.0318
+58 	 237.0  	 0.0237
+59 	 142.0  	 0.0142
+60 	 107.0  	 0.0107
+61 	 68.0  	 0.0068
+62 	 38.0  	 0.0038
+63 	 23.0  	 0.0023
+64 	 13.0  	 0.0013
+65 	 14.0  	 0.0014
+66 	 4.0  	 4.0E-4
+67 	 2.0  	 2.0E-4
+69 	 1.0  	 1.0E-4
 ----------------------------------------
 ```
 Finally, the KSL provides the ability to define labeled states and to tabulate frequencies and proportions related to the visitation and transition between the states.  This functionality is available in the `StateFrequency` class. The following code example creates an instance of `StateFrequency` by providing the number of states. The states are returned in a `List` and then 10,000 states are randomly selected from the list with equal probability using the `KSLRandom` functionality to randomly select from lists. The randomly selected state is then observed via the `collect()` method. State frequency tabulation can be useful within the context of a Markov Chain analysis.
@@ -645,7 +610,7 @@ to evaluate the integral:
 
 $$ \theta = \int\limits_{a}^{b} g(x) \mathrm{d}x$$
 
-Monte Carlo methods allow us to evaluate this integral by couching the
+Monte Carlo methods allow us to evaluate this integral by considering the
 problem as an estimation problem. It turns out that the problem can be
 translated into estimating the expected value of a well-chosen random
 variable. While a number of different choices for the random variable
@@ -732,12 +697,12 @@ know the true area.
 fun main() {
     val a = 1.0
     val b = 4.0
-    val ucdf = UniformRV(a, b)
+    val ucdf = UniformRV(a, b, streamNum = 3)
     val stat = Statistic("Area Estimator")
     val n = 100 // sample size
     for (i in 1..n) {
         val x = ucdf.value
-        val gx = Math.sqrt(x)
+        val gx = sqrt(x)
         val y = (b - a) * gx
         stat.collect(y)
     }
@@ -755,6 +720,12 @@ Area estimate =      4.781
 Confidence Interval
 [4.608646560421988, 4.952515649272401]
 ```
+
+::: {.infobox .note data-latex="{note}"}
+**NOTE!**
+Notice that the previous examples created the random variable **outside** of the loop that is used to generate values. It may not be an error to create random variables within loops, but it is generally bad practice and inefficient in terms of object creation.  If you see yourself creating many instances of an object and then using it only one time before it is discarded, you should reconsider what you are doing. 
+:::
+
 Because confidence intervals may form the basis for decision making, you
 can use the confidence interval half-width in determining the sample
 size. A review of these and other statistical concepts will be the focus of the next section.
@@ -1083,12 +1054,12 @@ the desired probability. The code for this situation is quite simple:
 
 ```kt
 fun main() {
-    val rv = NormalRV(10.0, 16.0)
+    val rv = NormalRV(10.0, 16.0, streamNum = 3)
     val estimateX = Statistic("Estimated X")
     val estOfProb = Statistic("Pr(X>8)")
     val r = StatisticReporter(mutableListOf(estOfProb, estimateX))
-    val n = 20 // sample size
-    for (i in 1..n) {
+    val n0 = 20 // sample size
+    for (i in 1..n0) {
         val x = rv.value
         estimateX.collect(x)
         estOfProb.collect(x > 8)
@@ -1140,7 +1111,7 @@ All of these calculations can be easily accomplished using Kotlin code as follow
 
 ```kt
 fun main() {
-    val rv = NormalRV(10.0, 16.0)
+    val rv = NormalRV(10.0, 16.0, streamNum = 3)
     val estimateX = Statistic("Estimated X")
     val estOfProb = Statistic("Pr(X>8)")
     val r = StatisticReporter(mutableListOf(estOfProb, estimateX))
@@ -1194,7 +1165,7 @@ Performance Measures    Average   95% Half-Width
 
 Table: (\#tab:exResultsn609) Simulation Results for $n=600$ Replications
 
-As can be seen in Table \@ref(tab:exResultsn609), the half-width values meet the desire margins of error. It may be possible that the margins of error might not be met. This suggests that more than $n = 600$ observations is needed to meet the margin of error criteria. Equation \@ref(eq:zSampleSize) and Equation \@ref(eq:pSampleSize) are only approximations and based on a pilot sample. Thus, if there was considerable sampling error associated
+As can be seen in Table \@ref(tab:exResultsn609), the half-width values meet the desire margins of error. It may be possible that the margins of error might not be met. This suggests that more than $n = 600$ observations is needed to meet the margin of error criteria. Equation \@ref(eq:zSampleSize) and Equation \@ref(eq:pSampleSize) are only *approximations* and based on a pilot sample. Thus, if there was considerable sampling error associated
 with the pilot sample, the approximations may be inadequate.
 
 As can be noted from this example in order to apply the normal approximation method for determining the sample size based on the pilot run, we need to compute the initial sample standard deviation, $s_0$, from the initial reported half-width, $h$. This requires the use of Equation \@ref(eq:sInTermsOfh) to first compute the value of $s$ from $h$.  We can avoid this calculation by using the *half-width ratio* method for determining the sample size. 
@@ -1267,8 +1238,8 @@ The solution to this problem involves the use of the `Statistic` class to collec
 
 ```kt
 fun main() {
-    val d1 = DUniformRV(1, 6)
-    val d2 = DUniformRV(1, 6)
+    val d1 = DUniformRV(1, 6, streamNum = 3)
+    val d2 = DUniformRV(1, 6, streamNum = 4)
     val probOfWinning = Statistic("Prob of winning")
     val numTosses = Statistic("Number of Toss Statistics")
     val numGames = 5000
@@ -1438,7 +1409,7 @@ fun main() {
     val u = 0.02 //salvage value
     val values = doubleArrayOf(5.0, 10.0, 40.0, 45.0, 50.0, 55.0, 60.0)
     val cdf = doubleArrayOf(0.1, 0.3, 0.6, 0.8, 0.9, 0.95, 1.0)
-    val dCDF = DEmpiricalRV(values, cdf)
+    val dCDF = DEmpiricalRV(values, cdf, streamNum = 3)
     val stat = Statistic("Profit")
     val n = 100.0 // sample size
     var i = 1
@@ -1481,7 +1452,7 @@ This situation could be modeled using the concepts of probability theory; howeve
 
 ```kt
 fun main() {
-    val itemRV = BernoulliRV(probOfSuccess = 0.15)
+    val itemRV = BernoulliRV(probOfSuccess = 0.15, streamNum = 3)
     val itemsPerBox = 4
     val stat = Statistic("Num Until Rejection")
     val sampleSize = 100
@@ -1563,15 +1534,15 @@ In the following code, we represent the activities and the associated activity t
 
 ```kt
     val activityRVs = mapOf<String, TriangularRV>(
-        "A" to TriangularRV(2.0, 5.0, 8.0),
-        "B" to TriangularRV(6.0, 9.0, 12.0),
-        "C" to TriangularRV(6.0, 7.0, 8.0),
-        "D" to TriangularRV(1.0, 4.0, 7.0),
-        "E" to TriangularRV(7.0, 8.0, 9.0),
-        "F" to TriangularRV(5.0, 14.0, 17.0),
-        "G" to TriangularRV(3.0, 12.0, 21.0),
-        "H" to TriangularRV(3.0, 6.0, 9.0),
-        "I" to TriangularRV(5.0, 8.0, 11.0),
+        "A" to TriangularRV(2.0, 5.0, 8.0, streamNum = 2),
+        "B" to TriangularRV(6.0, 9.0, 12.0, streamNum = 3),
+        "C" to TriangularRV(6.0, 7.0, 8.0, streamNum = 4),
+        "D" to TriangularRV(1.0, 4.0, 7.0, streamNum = 5),
+        "E" to TriangularRV(7.0, 8.0, 9.0, streamNum = 6),
+        "F" to TriangularRV(5.0, 14.0, 17.0, streamNum = 7),
+        "G" to TriangularRV(3.0, 12.0, 21.0, streamNum = 8),
+        "H" to TriangularRV(3.0, 6.0, 9.0, streamNum = 9),
+        "I" to TriangularRV(5.0, 8.0, 11.0, streamNum = 10),
     )
 ```
 
@@ -1640,9 +1611,9 @@ In this code, we randomly generate 1000 networks and thus 1000 completion times.
 
 |Name| Count| Average| Half-Width|
 |:---:| :---:| :---:| :---:|
-|Time to Completion| 1000.0| 47.80137141578008| 0.24824203870040715|
-|P(T<=50)| 1000.0| 0.7010000000000005| 0.02842407807532723|
-|P(42<=T<=48)| 1000.0| 0.4729999999999999| 0.03099757091483164|
+|Time to Completion| 1000.0| 47.78885659544101| 0.23712135354990163|
+|P(T<=50)| 1000.0| 0.7089999999999989| 0.028200797908293447|
+|P(42<=T<=48)| 1000.0| 0.4499999999999999| 0.030887260143834475|
 
 The results indicate that on average it takes about 47.8 days to complete the network. In the following section, we explore generalizing the execution of Monte Carlo experiments. 
 
@@ -1729,7 +1700,7 @@ This example illustrates how to use the `MCExperiment` class to run a Monte-Carl
 fun main() {
     val values = doubleArrayOf(5.0, 10.0, 40.0, 45.0, 50.0, 55.0, 60.0)
     val cdf = doubleArrayOf(0.1, 0.3, 0.6, 0.8, 0.9, 0.95, 1.0)
-    val dCDF = DEmpiricalRV(values, cdf)
+    val dCDF = DEmpiricalRV(values, cdf, streamNum = 3)
     val nv = NewsVendor(dCDF)
     val exp = MCExperiment(nv)
     exp.desiredHWErrorBound = 0.01
@@ -1810,7 +1781,7 @@ fun main() {
     }
 
     val f = SinFunc()
-    val mc = MC1DIntegration(f, UniformRV(0.0, Math.PI))
+    val mc = MC1DIntegration(f, UniformRV(0.0, Math.PI, streamNum = 3))
     println()
     mc.runSimulation()
     println(mc)

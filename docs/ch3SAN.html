@@ -23,7 +23,7 @@
 <meta name="author" content="Manuel D. Rossetti" />
 
 
-<meta name="date" content="2025-02-07" />
+<meta name="date" content="2025-07-03" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -373,8 +373,15 @@ div.csl-indent {
 <li class="chapter" data-level="8.2.3" data-path="movableResources.html"><a href="movableResources.html#secTQMWM"><i class="fa fa-check"></i><b>8.2.3</b> Tandem Queue Model With Movement</a></li>
 </ul></li>
 <li class="chapter" data-level="8.3" data-path="secTestAndRepairMovableResources.html"><a href="secTestAndRepairMovableResources.html"><i class="fa fa-check"></i><b>8.3</b> Modeling the Test and Repair System with Movable Resources</a></li>
-<li class="chapter" data-level="8.4" data-path="summary-of-new-concepts.html"><a href="summary-of-new-concepts.html"><i class="fa fa-check"></i><b>8.4</b> Summary of New Concepts</a></li>
-<li class="chapter" data-level="8.5" data-path="exercises-7.html"><a href="exercises-7.html"><i class="fa fa-check"></i><b>8.5</b> Exercises</a></li>
+<li class="chapter" data-level="8.4" data-path="secConveyors.html"><a href="secConveyors.html"><i class="fa fa-check"></i><b>8.4</b> Modeling Systems with Conveyors</a>
+<ul>
+<li class="chapter" data-level="8.4.1" data-path="secConveyors.html"><a href="secConveyors.html#ksl-conveyor-constructs"><i class="fa fa-check"></i><b>8.4.1</b> KSL Conveyor Constructs</a></li>
+<li class="chapter" data-level="8.4.2" data-path="secConveyors.html"><a href="secConveyors.html#tandem-queue-system-with-conveyors"><i class="fa fa-check"></i><b>8.4.2</b> Tandem Queue System with Conveyors</a></li>
+<li class="chapter" data-level="8.4.3" data-path="secConveyors.html"><a href="secConveyors.html#secTestAndRepairConveyors"><i class="fa fa-check"></i><b>8.4.3</b> Test and Repair via Conveyors</a></li>
+<li class="chapter" data-level="8.4.4" data-path="secConveyors.html"><a href="secConveyors.html#secMiscConveyor"><i class="fa fa-check"></i><b>8.4.4</b> Miscellaneous Concepts in Conveyor Modeling</a></li>
+</ul></li>
+<li class="chapter" data-level="8.5" data-path="summary-of-new-concepts.html"><a href="summary-of-new-concepts.html"><i class="fa fa-check"></i><b>8.5</b> Summary of New Concepts</a></li>
+<li class="chapter" data-level="8.6" data-path="exercises-7.html"><a href="exercises-7.html"><i class="fa fa-check"></i><b>8.6</b> Exercises</a></li>
 </ul></li>
 <li class="chapter" data-level="9" data-path="ch9AdvMC.html"><a href="ch9AdvMC.html"><i class="fa fa-check"></i><b>9</b> Advanced Monte Carlo Methods</a>
 <ul>
@@ -615,15 +622,15 @@ Figure 3.6: Project Network Diagram
 <p>The key to modeling this situation is representing the data associated with the network. The longest path in the network will depend upon the random activity times. A simple approach to the determining the longest path in the network is to enumerate the paths. Then, we can randomly generate the time associated with each activity. From the random times, we can determine the length of each path. If we know the length of each path, then we can compute the path that is the longest.</p>
 <p>In the following code, we represent the activities and the associated activity time (triangular) distributions using a map.</p>
 <div class="sourceCode" id="cb98"><pre class="sourceCode kt"><code class="sourceCode kotlin"><span id="cb98-1"><a href="ch3SAN.html#cb98-1" tabindex="-1"></a>    <span class="kw">val</span> <span class="va">activityRVs</span> <span class="op">=</span> mapOf<span class="op">&lt;</span><span class="kw">String</span><span class="op">,</span> TriangularRV<span class="op">&gt;(</span></span>
-<span id="cb98-2"><a href="ch3SAN.html#cb98-2" tabindex="-1"></a>        <span class="st">&quot;A&quot;</span> to TriangularRV<span class="op">(</span><span class="fl">2.0</span><span class="op">,</span> <span class="fl">5.0</span><span class="op">,</span> <span class="fl">8.0</span><span class="op">),</span></span>
-<span id="cb98-3"><a href="ch3SAN.html#cb98-3" tabindex="-1"></a>        <span class="st">&quot;B&quot;</span> to TriangularRV<span class="op">(</span><span class="fl">6.0</span><span class="op">,</span> <span class="fl">9.0</span><span class="op">,</span> <span class="fl">12.0</span><span class="op">),</span></span>
-<span id="cb98-4"><a href="ch3SAN.html#cb98-4" tabindex="-1"></a>        <span class="st">&quot;C&quot;</span> to TriangularRV<span class="op">(</span><span class="fl">6.0</span><span class="op">,</span> <span class="fl">7.0</span><span class="op">,</span> <span class="fl">8.0</span><span class="op">),</span></span>
-<span id="cb98-5"><a href="ch3SAN.html#cb98-5" tabindex="-1"></a>        <span class="st">&quot;D&quot;</span> to TriangularRV<span class="op">(</span><span class="fl">1.0</span><span class="op">,</span> <span class="fl">4.0</span><span class="op">,</span> <span class="fl">7.0</span><span class="op">),</span></span>
-<span id="cb98-6"><a href="ch3SAN.html#cb98-6" tabindex="-1"></a>        <span class="st">&quot;E&quot;</span> to TriangularRV<span class="op">(</span><span class="fl">7.0</span><span class="op">,</span> <span class="fl">8.0</span><span class="op">,</span> <span class="fl">9.0</span><span class="op">),</span></span>
-<span id="cb98-7"><a href="ch3SAN.html#cb98-7" tabindex="-1"></a>        <span class="st">&quot;F&quot;</span> to TriangularRV<span class="op">(</span><span class="fl">5.0</span><span class="op">,</span> <span class="fl">14.0</span><span class="op">,</span> <span class="fl">17.0</span><span class="op">),</span></span>
-<span id="cb98-8"><a href="ch3SAN.html#cb98-8" tabindex="-1"></a>        <span class="st">&quot;G&quot;</span> to TriangularRV<span class="op">(</span><span class="fl">3.0</span><span class="op">,</span> <span class="fl">12.0</span><span class="op">,</span> <span class="fl">21.0</span><span class="op">),</span></span>
-<span id="cb98-9"><a href="ch3SAN.html#cb98-9" tabindex="-1"></a>        <span class="st">&quot;H&quot;</span> to TriangularRV<span class="op">(</span><span class="fl">3.0</span><span class="op">,</span> <span class="fl">6.0</span><span class="op">,</span> <span class="fl">9.0</span><span class="op">),</span></span>
-<span id="cb98-10"><a href="ch3SAN.html#cb98-10" tabindex="-1"></a>        <span class="st">&quot;I&quot;</span> to TriangularRV<span class="op">(</span><span class="fl">5.0</span><span class="op">,</span> <span class="fl">8.0</span><span class="op">,</span> <span class="fl">11.0</span><span class="op">),</span></span>
+<span id="cb98-2"><a href="ch3SAN.html#cb98-2" tabindex="-1"></a>        <span class="st">&quot;A&quot;</span> to TriangularRV<span class="op">(</span><span class="fl">2.0</span><span class="op">,</span> <span class="fl">5.0</span><span class="op">,</span> <span class="fl">8.0</span><span class="op">,</span> streamNum <span class="op">=</span> <span class="dv">2</span><span class="op">),</span></span>
+<span id="cb98-3"><a href="ch3SAN.html#cb98-3" tabindex="-1"></a>        <span class="st">&quot;B&quot;</span> to TriangularRV<span class="op">(</span><span class="fl">6.0</span><span class="op">,</span> <span class="fl">9.0</span><span class="op">,</span> <span class="fl">12.0</span><span class="op">,</span> streamNum <span class="op">=</span> <span class="dv">3</span><span class="op">),</span></span>
+<span id="cb98-4"><a href="ch3SAN.html#cb98-4" tabindex="-1"></a>        <span class="st">&quot;C&quot;</span> to TriangularRV<span class="op">(</span><span class="fl">6.0</span><span class="op">,</span> <span class="fl">7.0</span><span class="op">,</span> <span class="fl">8.0</span><span class="op">,</span> streamNum <span class="op">=</span> <span class="dv">4</span><span class="op">),</span></span>
+<span id="cb98-5"><a href="ch3SAN.html#cb98-5" tabindex="-1"></a>        <span class="st">&quot;D&quot;</span> to TriangularRV<span class="op">(</span><span class="fl">1.0</span><span class="op">,</span> <span class="fl">4.0</span><span class="op">,</span> <span class="fl">7.0</span><span class="op">,</span> streamNum <span class="op">=</span> <span class="dv">5</span><span class="op">),</span></span>
+<span id="cb98-6"><a href="ch3SAN.html#cb98-6" tabindex="-1"></a>        <span class="st">&quot;E&quot;</span> to TriangularRV<span class="op">(</span><span class="fl">7.0</span><span class="op">,</span> <span class="fl">8.0</span><span class="op">,</span> <span class="fl">9.0</span><span class="op">,</span> streamNum <span class="op">=</span> <span class="dv">6</span><span class="op">),</span></span>
+<span id="cb98-7"><a href="ch3SAN.html#cb98-7" tabindex="-1"></a>        <span class="st">&quot;F&quot;</span> to TriangularRV<span class="op">(</span><span class="fl">5.0</span><span class="op">,</span> <span class="fl">14.0</span><span class="op">,</span> <span class="fl">17.0</span><span class="op">,</span> streamNum <span class="op">=</span> <span class="dv">7</span><span class="op">),</span></span>
+<span id="cb98-8"><a href="ch3SAN.html#cb98-8" tabindex="-1"></a>        <span class="st">&quot;G&quot;</span> to TriangularRV<span class="op">(</span><span class="fl">3.0</span><span class="op">,</span> <span class="fl">12.0</span><span class="op">,</span> <span class="fl">21.0</span><span class="op">,</span> streamNum <span class="op">=</span> <span class="dv">8</span><span class="op">),</span></span>
+<span id="cb98-9"><a href="ch3SAN.html#cb98-9" tabindex="-1"></a>        <span class="st">&quot;H&quot;</span> to TriangularRV<span class="op">(</span><span class="fl">3.0</span><span class="op">,</span> <span class="fl">6.0</span><span class="op">,</span> <span class="fl">9.0</span><span class="op">,</span> streamNum <span class="op">=</span> <span class="dv">9</span><span class="op">),</span></span>
+<span id="cb98-10"><a href="ch3SAN.html#cb98-10" tabindex="-1"></a>        <span class="st">&quot;I&quot;</span> to TriangularRV<span class="op">(</span><span class="fl">5.0</span><span class="op">,</span> <span class="fl">8.0</span><span class="op">,</span> <span class="fl">11.0</span><span class="op">,</span> streamNum <span class="op">=</span> <span class="dv">10</span><span class="op">),</span></span>
 <span id="cb98-11"><a href="ch3SAN.html#cb98-11" tabindex="-1"></a>    <span class="op">)</span></span></code></pre></div>
 <p>If you look closely at Figure <a href="ch3SAN.html#fig:SANFig">3.6</a>, you can discern that there are four unique paths through the network. Since the paths are clear for this example, we can represent the paths with a list of lists.</p>
 <div class="sourceCode" id="cb99"><pre class="sourceCode kt"><code class="sourceCode kotlin"><span id="cb99-1"><a href="ch3SAN.html#cb99-1" tabindex="-1"></a>    <span class="kw">val</span> <span class="va">paths</span> <span class="op">=</span> mutableListOf<span class="op">&lt;</span>List<span class="op">&lt;</span><span class="kw">String</span><span class="op">&gt;&gt;(</span></span>
@@ -683,20 +690,20 @@ Figure 3.6: Project Network Diagram
 <tr class="odd">
 <td align="center">Time to Completion</td>
 <td align="center">1000.0</td>
-<td align="center">47.80137141578008</td>
-<td align="center">0.24824203870040715</td>
+<td align="center">47.78885659544101</td>
+<td align="center">0.23712135354990163</td>
 </tr>
 <tr class="even">
 <td align="center">P(T&lt;=50)</td>
 <td align="center">1000.0</td>
-<td align="center">0.7010000000000005</td>
-<td align="center">0.02842407807532723</td>
+<td align="center">0.7089999999999989</td>
+<td align="center">0.028200797908293447</td>
 </tr>
 <tr class="odd">
 <td align="center">P(42&lt;=T&lt;=48)</td>
 <td align="center">1000.0</td>
-<td align="center">0.4729999999999999</td>
-<td align="center">0.03099757091483164</td>
+<td align="center">0.4499999999999999</td>
+<td align="center">0.030887260143834475</td>
 </tr>
 </tbody>
 </table>

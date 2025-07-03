@@ -2093,8 +2093,8 @@ This code example illustrates how to generate a Poisson process by scheduling ev
 ```kt
 class SimplePoissonProcess (parent: ModelElement, name: String? = null) :
     ModelElement(parent, name) {
-    private val myTBE: RandomVariable = RandomVariable(this, ExponentialRV(1.0))
-    private val myCount: Counter = Counter(this, name = "Counts events")
+    private val myTBE: RandomVariable = RandomVariable(parent = this, rSource = ExponentialRV(1.0, streamNum = 1))
+    private val myCount: Counter = Counter(parent = this, name = "Counts events")
     private val myEventHandler: EventHandler = EventHandler()
 
     override fun initialize() {
@@ -2117,8 +2117,8 @@ note. First, this example uses two new KSL model elements:
 `RandomVariable` and `Counter.` A `RandomVariable` is a sub-class of
 `ModelElement` that is used to represent random variables within a
 simulation model. The `RandomVariable` class must be supplied an instance
-of a class that implements the `RandomIfc` interface. Recall that
-implementations of the `RandomIfc` interface have a `value` property that
+of a class that implements the `RVariableIfc` interface. Recall that
+implementations of the `RVariableIfc` interface have a `value` property that
 returns a random value and permit random number stream control. The
 supplied stream control is important when utilized advanced simulation
 statistical methods. For example, stream control is used to advance the
@@ -2196,6 +2196,12 @@ Name                           	      Average 	    Std. Dev. 	 Count
 Counts events                  	    20.060000 	     3.235076 	    50.000000 
 -------------------------------------------------------------------------------
 ```
+
+::: {.infobox .note data-latex="{note}"}
+**REMARK ABOUT TIME UNITS**
+In the previous model, the base time unit was conceptualized as *time units*. We can think of the
+time units as being in seconds, minutes, days, etc. The key thing to remember is that the underlying time value, reported by a model element's `time` property is in some base time unit that you conceptualize.  If you think of time as in minutes, then you need to ensure that randomly generated time values have the appropriate time unit. For example, make sure that the the run length is in minutes if you conceptualize time in minutes and convert all random quantities to minutes when fitting distributions.  While there are functions that facilitate time conversion within the `ModelElement` class, they are not discussed in this text to avoid overly complicating the presentation.
+:::
 
 ### Up and Down Component Example {#introDEDSUpDown}
 
@@ -2285,10 +2291,8 @@ class UpDownComponent (parent: ModelElement, name: String? = null) : ModelElemen
     private var myTimeLastUp = 0.0
 
     init {
-        val utd: RVariableIfc = ExponentialRV(1.0)
-        val dtd: RVariableIfc = ExponentialRV(2.0)
-        myUpTime = RandomVariable(this, utd, "up time")
-        myDownTime = RandomVariable(this, dtd, "down time")
+        myUpTime = RandomVariable(parent = this, rSource = ExponentialRV(1.0, streamNum = 1), name = "up time")
+        myDownTime = RandomVariable(parent = this, rSource = ExponentialRV(2.0, streamNum = 2), name = "down time")
         myState = TWResponse(this, name = "state")
         myCycleLength = Response(this, name = "cycle length")
         myCountFailures = Counter(this, name = "count failures")
@@ -2578,7 +2582,7 @@ To simulate this situation over time, you must specify how long to run
 the model. Ideally, since management is interested in long run
 performance, you should run the model for an infinite amount of time to
 get long term performance; however, you probably don't want to wait that
-long! For the sake of simplicity, assume that 10,000 hours of operation
+long! For the sake of simplicity, assume that 250 hours (15,000 minutes) of operation
 is long enough.
 
 The logic of this model follows very closely the discussion of the bank
@@ -2630,35 +2634,40 @@ The following code listing presents the definition of the variables and their cr
 ```kt
 class DriveThroughPharmacy(
     parent: ModelElement, numServers: Int = 1,
-    timeBtwArrivals: RandomIfc = ExponentialRV(1.0, 1),
-    serviceTime: RandomIfc = ExponentialRV(0.5, 2),
     name: String? = null
 ) : ModelElement(parent, name) {
     init{
         require(numServers >= 1) {"The number of pharmacists must be >= 1"}
     }
+
     var numPharmacists = numServers
         set(value) {
             require(value >= 1){"The number of pharmacists must be >= 1"}
             field = value
         }
 
-    private val myServiceRV: RandomVariable = RandomVariable(this, serviceTime, "Service RV")
-    val serviceRV: RandomSourceCIfc
+    private val myServiceRV: RandomVariable = RandomVariable(
+        parent = this,
+        rSource = ExponentialRV(mean = 0.5, streamNum = 2), name = "ServiceRV"
+    )
+    val serviceRV: RandomVariableCIfc
         get() = myServiceRV
 
-    private val myArrivalRV: RandomVariable = RandomVariable(this, timeBtwArrivals, "Arrival RV")
-    val arrivalRV: RandomSourceCIfc
+    private val myArrivalRV: RandomVariable = RandomVariable(
+        parent = this,
+        rSource = ExponentialRV(1.0, 1), name = "ArrivalRV"
+    )
+    val arrivalRV: RandomVariableCIfc
         get() = myArrivalRV
 
-    private val myNumInQ: TWResponse = TWResponse(this, "PharmacyQ")
+    private val myNumInQ: TWResponse = TWResponse(parent = this, name = "PharmacyQ")
     val numInQ: TWResponseCIfc
         get() = myNumInQ
 
-    private val myNumBusy: TWResponse = TWResponse(this, "NumBusy")
-    private val myNS: TWResponse = TWResponse(this, "# in System")
-    private val myNumCustomers: Counter = Counter(this, name = "Num Served")
-    private val myTotal: AggregateTWResponse = AggregateTWResponse(this, "aggregate # in system")
+    private val myNumBusy: TWResponse = TWResponse(parent = this, name = "NumBusy")
+    private val myNS: TWResponse = TWResponse(parent = this, name = "# in System")
+    private val myNumCustomers: Counter = Counter(parent = this, name = "Num Served")
+    private val myTotal: AggregateTWResponse = AggregateTWResponse(parent = this, name = "aggregate # in system")
     private val myArrivalEventAction: ArrivalEventAction = ArrivalEventAction()
     private val myEndServiceEventAction: EndServiceEventAction = EndServiceEventAction()
 
@@ -2741,6 +2750,8 @@ fun main() {
     model.print()
 }
 ```
+
+As will be discussed in Chapter \@ref(simoa), this model is really an infinite horizon simulation. We will approximation this infinite horizon with a finite horizon of 250 hours (or 15,000) minutes. The setting of the length of the replication is 20000 with a warm up period (see Chapter \@ref(simoa)) of 5000 minutes. This leaves (20,000 - 5,000) = 15,000 minutes for the observations of the simulation. Each *replication* provides 15000 minutes of observation of the system and the number of replications is specified as 30. That is, we are repeating the observations over 30 independent and identically distributed replications.
 
 The results indicate that the utilization of the pharmacist is about 50%. This means
 that about 50% of the time the pharmacist was busy. For this type of
@@ -2840,52 +2851,49 @@ cars waiting.
 There are a few additional concepts to note about the implementation of the pharmacy model. The first set of items to notice is how the random variables and statistical response variables were implemented. In the following code snippet, we see that random variables for the service time and time between arrives were defined using Kotlin private properties.  This encapsulates the random variables within the simulation model.  However, it can be useful to allow users of the code to have some access to the underlying objects.  For this purpose, two public properties `serviceRV` and `arrivalRV` were defined. 
 
 ```kt
-    private val myServiceRV: RandomVariable = RandomVariable(this, serviceTime, "Service RV")
-    val serviceRV: RandomSourceCIfc
+    private val myServiceRV: RandomVariable = RandomVariable(
+        parent = this,
+        rSource = ExponentialRV(mean = 0.5, streamNum = 2), name = "ServiceRV"
+    )
+    val serviceRV: RandomVariableCIfc
         get() = myServiceRV
 
-    private val myArrivalRV: RandomVariable = RandomVariable(this, timeBtwArrivals, "Arrival RV")
-    val arrivalRV: RandomSourceCIfc
+    private val myArrivalRV: RandomVariable = RandomVariable(
+        parent = this,
+        rSource = ExponentialRV(1.0, 1), name = "ArrivalRV"
+    )
+    val arrivalRV: RandomVariableCIfc
         get() = myArrivalRV
 ```
 
-These properties return instances of the `RandomSourceCIfc` interface.  This interface limits what can be changed about the underlying random variable.  This interface allows the user to change the initial random source associated with the random variable.  As noted in the interface comments, this needs to be controlled in such a manner to ensure that each replication starts with the same initial conditions.  A naive user may not realize the implications of these changes and thus there are some limitations imposed.
+These properties return instances of the `RandomVariableCIfc` interface.  This interface limits what can be changed about the underlying random variable.  This interface allows the user to change the initial random source associated with the random variable.  As noted in the interface comments, this needs to be controlled in such a manner to ensure that each replication starts with the same initial conditions.  A naive user may not realize the implications of these changes and thus there are some limitations imposed.
 
 ```kt
-interface RandomSourceCIfc : StreamOptionIfc, IdentityIfc {
+interface RandomVariableCIfc : StreamOptionIfc, IdentityIfc {
 
     /**
-     * RandomIfc provides a reference to the underlying source of randomness
+     * Provides a reference to the underlying source of randomness
      * to initialize each replication.
-     * Controls the underlying RandomIfc source for the RandomVariable. This is the
+     * Controls the underlying source for the RandomVariable. This is the
      * source to which each replication will be initialized.  This is only used
      * when the replication is initialized. Changing the reference has no effect
      * during a replication, since the random variable will continue to use
      * the reference returned by property randomSource.  Please also see the
      * discussion in the class documentation.
-     * <p>
-     * WARNING: If this is used during an experiment to change the characteristics of
-     * the random source, then each replication may not necessarily start in the
-     * same initial state.  It is recommended that this be used only prior to executing experiments.
+     *
+     * The initial random source should not be changed while the model is running.
      */
-    var initialRandomSource: RandomIfc
-
-    var rnStream: RNStreamIfc
-
-    /**
-     * Controls whether warning of changing the initial random source during a replication
-     * is logged, default is true.
-     */
-    var initialRandomSourceChangeWarning: Boolean
+    var initialRandomSource: RVariableIfc
 
     fun asString(): String
+
 }
 ```
 
-Similarly for simulation response variables, there should be controlled access that limits how the properties can be changed from outside of the model element. In the following code snippet, a private property to track the state of the queue is defined.  Since the `TWResponse` class has public methods and properties that permit the user to change its values, we do not want to fully expose this internal state to outside clients. 
+Similarly for simulation response variables, there should be controlled access that limits how the properties can be accessed from outside of the model element. In the following code snippet, a private property to track the state of the queue is defined.  Since the `TWResponse` class has public methods and properties that permit the user to change its values, we do not want to fully expose this internal state to outside clients. 
 
 ```kt
-    private val myNumInQ: TWResponse = TWResponse(this, "PharmacyQ")
+    private val myNumInQ: TWResponse = TWResponse(parent = this, name = "PharmacyQ")
     val numInQ: TWResponseCIfc
         get() = myNumInQ
 ```
@@ -2897,15 +2905,15 @@ However, it is useful for outside clients to have access to immutable properties
 <p class="caption">(\#fig:ResponseCIfc)Controlled Access to Responses</p>
 </div>
 
-As indicated in Figure \@ref(fig:ResponseCIfc), the two interfaces `TWResponseCIfc` and `ResponseCIfc` limit access to time-weighted and tally-based response variables to access within and across replication statistics and to add count actions.  Count actions permit actions to take place when the number of observations reaches a particular value.  One use of count actions is to stop the simulation with a fixed number of observations have been observed.
+As indicated in Figure \@ref(fig:ResponseCIfc), the two interfaces `TWResponseCIfc` and `ResponseCIfc` limit access to time-weighted and tally-based response variables to access within and across replication statistics and to add count actions.  Count actions permit actions to take place when the number of observations reaches a particular value.  One use of count actions is to stop the simulation when a fixed number of observations have been observed.
 
-Within the implementation, there are a couple of additional items to note.  The KSL allows for the definition of aggregate responses.  Aggregate responses observe other responses and permit the definition of derived responses. In the pharmacy model implementation there is an aggregate response called `myTotal.`  The relevant code is shown below.
+Within the implementation, there are a couple of additional items to note.  The KSL allows for the definition of aggregate responses.  Aggregate responses observe other responses and permit the definition of derived responses. In the pharmacy model implementation, there is an aggregate response called `myTotal.`  The relevant code is shown below.
 
 ```kt
-    private val myNumBusy: TWResponse = TWResponse(this, "NumBusy")
-    private val myNS: TWResponse = TWResponse(this, "# in System")
-    private val myNumCustomers: Counter = Counter(this, name = "Num Served")
-    private val myTotal: AggregateTWResponse = AggregateTWResponse(this, "aggregate # in system")
+    private val myNumBusy: TWResponse = TWResponse(parent = this, name = "NumBusy")
+    private val myNS: TWResponse = TWResponse(parent = this, name = "# in System")
+    private val myNumCustomers: Counter = Counter(parent = this, name = "Num Served")
+    private val myTotal: AggregateTWResponse = AggregateTWResponse(parent = this, name = "aggregate # in system")
     private val myArrivalEventAction: ArrivalEventAction = ArrivalEventAction()
     private val myEndServiceEventAction: EndServiceEventAction = EndServiceEventAction()
 
@@ -2915,9 +2923,9 @@ Within the implementation, there are a couple of additional items to note.  The 
     }
 ```
 
-This code defines an aggregate response that observes two variables, `myNumInQ` and `myNumBusy.`  Thus, whenever either of these two variables change, the aggregate response is updated to ensure that it represents the total of the two variable.  Thus, `myTotal` represents the total number of customers in the system at any time $t$.  As can be noted in the output results, this response has the same statistics as the response collected by the variable `myNS` labeled "# in System".
+This code defines an aggregate response that observes two variables, `myNumInQ` and `myNumBusy.`  Thus, whenever either of these two variables change, the aggregate response is updated to ensure that it represents the *total* of the two variable.  Thus, `myTotal` represents the total number of customers in the system at any time $t$.  As can be noted in the output results, this response has the same statistics as the response collected directly by the variable `myNS` labeled "# in System".
 
-Finally, the implementation has a couple of interesting new items within the main execution method.  Notice that in line 1 in the model constructor that the parameter `autoCSVReports` is set to true.  This will cause comma separated value files to be produced in the model's default output directory that contains all of the within and across replication statistics.  In addition, note how the initial random sources for the arrival and service distributions are set in lines 8 and 9.  Finally, note the use of `model.print(),` which causes the default simulation running information and results to be printed to the console.
+Finally, the implementation has a couple of interesting new items within the main execution method.  Notice that in line 1 in the model constructor that the parameter `autoCSVReports` is set to true.  This will cause comma separated value files to be produced in the model's default output directory that contains all of the within and across replication statistics.  In addition, note how the initial random sources for the arrival and service distributions are set in lines 8 and 9.  Finally, note the use of `model.print(),` which causes the default simulation execution information and results to be printed to the console.
 
 ```kt
 fun main() {
@@ -3153,7 +3161,11 @@ Example \@ref(exm:ch4ex5) also has requirements to collect the probability assoc
 Now we are ready to review the revised implementation of the drive through pharmacy model which puts the previously described classes into action.  Only portions of the code are illustrated here.  For full details see the example files in the `ksl.examples.book.chapter4` package. To declare an instance of the `SResource` class, the following pattern is recommended:
 
 ```kt
-    private val myPharmacists: SResource = SResource(this, numServers, "${this.name}:Pharmacists")
+    private val myPharmacists: SResource = SResource(
+        parent = this,
+        capacity = numServers,
+        name = "${this.name}:Pharmacists"
+    )
     val resource: SResourceCIfc
         get() = myPharmacists
 ```
@@ -3163,15 +3175,15 @@ Notice that the name of the parent model element is used as a prefix for the nam
 To collect the histogram and integer frequency statistics, we can use the following declarations.
 
 ```kt
-    private val mySysTime: Response = Response(this, "${this.name}:SystemTime")
+    private val mySysTime: Response = Response(parent = this, name = "${this.name}:SystemTime")
     val systemTime: ResponseCIfc
         get() = mySysTime
         
-    private val mySysTimeHistogram: HistogramResponse = HistogramResponse(mySysTime)
+    private val mySysTimeHistogram: HistogramResponse = HistogramResponse(theResponse = mySysTime)
     val systemTimeHistogram: HistogramIfc
         get() = mySysTimeHistogram.histogram
 
-    private val myInQ = IntegerFrequencyResponse(this, "${this.name}:NQUponArrival")
+    private val myInQ = IntegerFrequencyResponse(parent = this, name = "${this.name}:NQUponArrival")
 ```
 
 The `HistogramResponse` class requires an instance of the `Response` class.  In this case, we supply a reference the response that is used to collect the system times for the customers. The reference is used internally to observe the response. The instance of the `IntegerFrequencyResponse` class will be used within the arrival logic to observe the number of customers in the queue when the customer arrives. 
@@ -3179,7 +3191,7 @@ The `HistogramResponse` class requires an instance of the `Response` class.  In 
 To declare an instance of the Queue class, we use the following code.
 
 ```kt
-    private val myWaitingQ: Queue<QObject> = Queue(this, "${this.name}:PharmacyQ")
+    private val myWaitingQ: Queue<QObject> = Queue(parent = this, name = "${this.name}:PharmacyQ")
     val waitingQ: QueueCIfc<QObject>
         get() = myWaitingQ
 ```
@@ -3193,19 +3205,23 @@ In addition, the time between arrivals random variable is supplied for both the 
 ```kt
     private val endServiceEvent = this::endOfService
 
+    private val ad  = ExponentialRV(1.0, 1)
     private val myArrivalGenerator: EventGenerator = EventGenerator(
-        this, this::arrival, myArrivalRV, myArrivalRV)
+        parent = this, generateAction = this::arrival, timeUntilFirstRV = ad, timeBtwEventsRV = ad
+    )
+    val arrivalGenerator: EventGeneratorRVCIfc
+        get() = myArrivalGenerator
 
-    private fun arrival(generator: EventGenerator) {
+    private fun arrival(generator: EventGeneratorIfc) {
         myNS.increment() // new customer arrived
         myInQ.value = myWaitingQ.numInQ.value.toInt()
         val arrivingCustomer = QObject()
-        myWaitingQ.enqueue(arrivingCustomer) // enqueue the newly arriving customer
+        myWaitingQ.enqueue(qObject = arrivingCustomer) // enqueue the newly arriving customer
         if (myPharmacists.hasAvailableUnits) {
             myPharmacists.seize()
             val customer: QObject? = myWaitingQ.removeNext() //remove the next customer
             // schedule end of service, include the customer as the event's message
-            schedule(endServiceEvent, myServiceRV, customer)
+            schedule(eventAction = endServiceEvent, timeToEvent = myServiceRV, message = customer)
         }
     }
 ```
@@ -3221,9 +3237,9 @@ Then, in lines 9-14, we see that the number busy is checked against the number o
             myPharmacists.seize()
             val customer: QObject? = myWaitingQ.removeNext() //remove the next customer
             // schedule end of service
-            schedule(endServiceEvent, myServiceRV, customer)
+            schedule(eventAction = endServiceEvent, timeToEvent = myServiceRV, message = customer)
         }
-        departSystem(event.message!!)
+        departSystem(departingCustomer = event.message!!)
     }
 
     private fun departSystem(departingCustomer: QObject) {
@@ -3269,7 +3285,13 @@ In the results, we see the system time and the queueing time reported.  The resp
 We also see a statistic called `SysTime > 4.0 minutes.`  This was captured by using an `IndicatorResponse,` which is a subclass of `Response` that allows the user to specify a function that results in boolean expression and an instance of a `Response` to observe. The expression is collected as a 1.0 for true and 0.0 for false. In this example, we are observing the response called `mySysTime.`  
 
 ```kt
-    private val mySTGT4: IndicatorResponse = IndicatorResponse({ x -> x >= 4.0 }, mySysTime, "SysTime > 4.0 minutes")
+    private val mySTGT4: IndicatorResponse = IndicatorResponse(
+        predicate = { x -> x >= 4.0 },
+        observedResponse = mySysTime,
+        name = "SysTime >= 4 minutes"
+    )
+    val probSystemTimeGT4Minutes: ResponseCIfc
+        get() = mySTGT4
 ```
 This allow a probability to be estimated.  In this case, we estimated the probability that a customer's system time was more than 4.0 minutes.
 
@@ -3459,7 +3481,7 @@ Note that the `QObjectReceiverIfc` interface is SAM functional interface. Classe
 ```kt
 open class SingleQStation(
     parent: ModelElement,
-    activityTime: RandomIfc,
+    activityTime: RVariableIfc = ConstantRV.ZERO,
     resource: SResource? = null,
     nextReceiver: QObjectReceiverIfc = NotImplementedReceiver,
     name: String? = null
@@ -3547,21 +3569,18 @@ The following code presents the class constructor for the `TandemQueue` class. T
 ```kt
 class TandemQueue(
     parent: ModelElement,
-    ad: RandomIfc = ExponentialRV(6.0, 1),
-    sd1: RandomIfc = ExponentialRV(4.0, 2),
-    sd2: RandomIfc = ExponentialRV(3.0, 3),
     name: String? = null
-): ModelElement(parent, name) {
+) : ModelElement(parent, name) {
 
-    private val myNS: TWResponse = TWResponse(this, "${this.name}:NS")
+    private val myNS: TWResponse = TWResponse(parent = this, name = "${this.name}:NS")
     val numInSystem: TWResponseCIfc
         get() = myNS
 
-    private val mySysTime: Response = Response(this, "${this.name}:TotalSystemTime")
+    private val mySysTime: Response = Response(parent = this, name = "${this.name}:TotalSystemTime")
     val totalSystemTime: ResponseCIfc
         get() = mySysTime
 
-    private val myNumProcessed: Counter = Counter(this, "${this.name}:TotalProcessed")
+    private val myNumProcessed: Counter = Counter(parent = this, name = "${this.name}:TotalProcessed")
     val totalProcessed: CounterCIfc
         get() = myNumProcessed
 ...
@@ -3570,31 +3589,42 @@ class TandemQueue(
 Now, the real magic of the station package can be used.  The following code represents the *rest* of the implementation of the tandem queue system. The code uses an `EventGenerator` instance to model the arrival process to the first station. Then, two instances of the `SingleQStation` class are created to represent the first and second station in the system. Notice the implementation of the `init{}` block. The `nextReceiver` property for station 1 is set to be the second station and the `nextReceiver` property for station 2 is set to an instance of the `ExitSystem` inner class. This approach relies on *replacing* the default `NotImplementedReceiver` receiver. Notice that if you did not rely on this default, you would need to create the stations (receivers) in the reverse order so that you could supply the correct receiver within the station's constructor. The `init{}` block would not be necessary with that approach.
 
 ```kt
-    private val myArrivalGenerator: EventGenerator = EventGenerator(this,
-        this::arrivalEvent, ad, ad)
+    private val ad = ExponentialRV(6.0, 1)
+    private val myArrivalGenerator: EventGenerator = EventGenerator(
+        parent = this,
+        generateAction = this::arrivalEvent, timeUntilFirstRV = ad, timeBtwEventsRV = ad
+    )
 
-    private val myStation1: SingleQStation = SingleQStation(this, sd1, name= "${this.name}:Station1")
+    private val myStation1: SingleQStation = SingleQStation(
+        parent = this,
+        activityTime = ExponentialRV(4.0, 2),
+        name = "${this.name}:Station1"
+    )
     val station1: SingleQStationCIfc
         get() = myStation1
 
-    private val myStation2: SingleQStation = SingleQStation(this, sd2, name= "${this.name}:Station2")
+    private val myStation2: SingleQStation = SingleQStation(
+        parent = this,
+        activityTime = ExponentialRV(3.0, 3),
+        name = "${this.name}:Station2"
+    )
     val station2: SingleQStationCIfc
         get() = myStation2
 
     init {
-       myStation1.nextReceiver(myStation2)
-       myStation2.nextReceiver(ExitSystem())
+        myStation1.nextReceiver(myStation2)
+        myStation2.nextReceiver(ExitSystem())
     }
 
-    private fun arrivalEvent(generator: EventGenerator){
+    private fun arrivalEvent(generator: EventGeneratorIfc) {
         val customer = QObject()
         myNS.increment()
         myStation1.receive(customer)
     }
 
     private inner class ExitSystem : QObjectReceiverIfc {
-        override fun receive(qObject: QObject) {
-            mySysTime.value = time - qObject.createTime
+        override fun receive(arrivingQObject: QObject) {
+            mySysTime.value = time - arrivingQObject.createTime
             myNumProcessed.increment()
             myNS.decrement()
         }

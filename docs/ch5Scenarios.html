@@ -23,7 +23,7 @@
 <meta name="author" content="Manuel D. Rossetti" />
 
 
-<meta name="date" content="2025-02-07" />
+<meta name="date" content="2025-07-03" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -373,8 +373,15 @@ div.csl-indent {
 <li class="chapter" data-level="8.2.3" data-path="movableResources.html"><a href="movableResources.html#secTQMWM"><i class="fa fa-check"></i><b>8.2.3</b> Tandem Queue Model With Movement</a></li>
 </ul></li>
 <li class="chapter" data-level="8.3" data-path="secTestAndRepairMovableResources.html"><a href="secTestAndRepairMovableResources.html"><i class="fa fa-check"></i><b>8.3</b> Modeling the Test and Repair System with Movable Resources</a></li>
-<li class="chapter" data-level="8.4" data-path="summary-of-new-concepts.html"><a href="summary-of-new-concepts.html"><i class="fa fa-check"></i><b>8.4</b> Summary of New Concepts</a></li>
-<li class="chapter" data-level="8.5" data-path="exercises-7.html"><a href="exercises-7.html"><i class="fa fa-check"></i><b>8.5</b> Exercises</a></li>
+<li class="chapter" data-level="8.4" data-path="secConveyors.html"><a href="secConveyors.html"><i class="fa fa-check"></i><b>8.4</b> Modeling Systems with Conveyors</a>
+<ul>
+<li class="chapter" data-level="8.4.1" data-path="secConveyors.html"><a href="secConveyors.html#ksl-conveyor-constructs"><i class="fa fa-check"></i><b>8.4.1</b> KSL Conveyor Constructs</a></li>
+<li class="chapter" data-level="8.4.2" data-path="secConveyors.html"><a href="secConveyors.html#tandem-queue-system-with-conveyors"><i class="fa fa-check"></i><b>8.4.2</b> Tandem Queue System with Conveyors</a></li>
+<li class="chapter" data-level="8.4.3" data-path="secConveyors.html"><a href="secConveyors.html#secTestAndRepairConveyors"><i class="fa fa-check"></i><b>8.4.3</b> Test and Repair via Conveyors</a></li>
+<li class="chapter" data-level="8.4.4" data-path="secConveyors.html"><a href="secConveyors.html#secMiscConveyor"><i class="fa fa-check"></i><b>8.4.4</b> Miscellaneous Concepts in Conveyor Modeling</a></li>
+</ul></li>
+<li class="chapter" data-level="8.5" data-path="summary-of-new-concepts.html"><a href="summary-of-new-concepts.html"><i class="fa fa-check"></i><b>8.5</b> Summary of New Concepts</a></li>
+<li class="chapter" data-level="8.6" data-path="exercises-7.html"><a href="exercises-7.html"><i class="fa fa-check"></i><b>8.6</b> Exercises</a></li>
 </ul></li>
 <li class="chapter" data-level="9" data-path="ch9AdvMC.html"><a href="ch9AdvMC.html"><i class="fa fa-check"></i><b>9</b> Advanced Monte Carlo Methods</a>
 <ul>
@@ -671,8 +678,8 @@ NumPalletsRV.numTrials -&gt; 100.0</code></pre>
 <p>The following code presents the constructor of a scenario. Notice that the key parameters of the constructor are a model, a map of inputs, and the name of the scenario. The input map represents (key, value) pairs specifying controls or random variable names (in flat map form) along with its assigned value.</p>
 <div class="sourceCode" id="cb202"><pre class="sourceCode kt"><code class="sourceCode kotlin"><span id="cb202-1"><a href="ch5Scenarios.html#cb202-1" tabindex="-1"></a><span class="kw">class</span> Scenario<span class="op">(</span></span>
 <span id="cb202-2"><a href="ch5Scenarios.html#cb202-2" tabindex="-1"></a>    <span class="kw">val</span> <span class="va">model</span><span class="op">:</span> <span class="dt">Model</span><span class="op">,</span></span>
-<span id="cb202-3"><a href="ch5Scenarios.html#cb202-3" tabindex="-1"></a>    <span class="va">inputs</span><span class="op">:</span> <span class="dt">Map</span>&lt;<span class="va">String</span><span class="op">,</span> <span class="va">Double</span>&gt;<span class="op">,</span></span>
-<span id="cb202-4"><a href="ch5Scenarios.html#cb202-4" tabindex="-1"></a>    <span class="va">name</span><span class="op">:</span> <span class="dt">String</span><span class="op">,</span></span>
+<span id="cb202-3"><a href="ch5Scenarios.html#cb202-3" tabindex="-1"></a>    <span class="va">name</span><span class="op">:</span> <span class="dt">String</span><span class="op">,</span></span>
+<span id="cb202-4"><a href="ch5Scenarios.html#cb202-4" tabindex="-1"></a>    <span class="va">inputs</span><span class="op">:</span> <span class="dt">Map</span>&lt;<span class="va">String</span><span class="op">,</span> <span class="va">Double</span>&gt; <span class="op">=</span> emptyMap<span class="op">(),</span></span>
 <span id="cb202-5"><a href="ch5Scenarios.html#cb202-5" tabindex="-1"></a>    <span class="va">numberReplications</span><span class="op">:</span> <span class="dt">Int</span> <span class="op">=</span> model<span class="op">.</span>numberOfReplications<span class="op">,</span></span>
 <span id="cb202-6"><a href="ch5Scenarios.html#cb202-6" tabindex="-1"></a>    <span class="va">lengthOfReplication</span><span class="op">:</span> <span class="dt">Double</span> <span class="op">=</span> model<span class="op">.</span>lengthOfReplication<span class="op">,</span></span>
 <span id="cb202-7"><a href="ch5Scenarios.html#cb202-7" tabindex="-1"></a>    <span class="va">lengthOfReplicationWarmUp</span><span class="op">:</span> <span class="dt">Double</span> <span class="op">=</span> model<span class="op">.</span>lengthOfReplicationWarmUp<span class="op">,</span></span>

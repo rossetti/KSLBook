@@ -4,18 +4,18 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>8.5 Exercises | Simulation Modeling using the Kotlin Simulation Library (KSL)</title>
+  <title>8.6 Exercises | Simulation Modeling using the Kotlin Simulation Library (KSL)</title>
   <meta name="description" content="A book that illustrates the basics of using the KSL. The output format for this book is bookdown::gitbook." />
   <meta name="generator" content="bookdown 0.39 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="8.5 Exercises | Simulation Modeling using the Kotlin Simulation Library (KSL)" />
+  <meta property="og:title" content="8.6 Exercises | Simulation Modeling using the Kotlin Simulation Library (KSL)" />
   <meta property="og:type" content="book" />
   
   <meta property="og:description" content="A book that illustrates the basics of using the KSL. The output format for this book is bookdown::gitbook." />
   
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="8.5 Exercises | Simulation Modeling using the Kotlin Simulation Library (KSL)" />
+  <meta name="twitter:title" content="8.6 Exercises | Simulation Modeling using the Kotlin Simulation Library (KSL)" />
   
   <meta name="twitter:description" content="A book that illustrates the basics of using the KSL. The output format for this book is bookdown::gitbook." />
   
@@ -23,7 +23,7 @@
 <meta name="author" content="Manuel D. Rossetti" />
 
 
-<meta name="date" content="2025-02-07" />
+<meta name="date" content="2025-07-03" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -373,8 +373,15 @@ div.csl-indent {
 <li class="chapter" data-level="8.2.3" data-path="movableResources.html"><a href="movableResources.html#secTQMWM"><i class="fa fa-check"></i><b>8.2.3</b> Tandem Queue Model With Movement</a></li>
 </ul></li>
 <li class="chapter" data-level="8.3" data-path="secTestAndRepairMovableResources.html"><a href="secTestAndRepairMovableResources.html"><i class="fa fa-check"></i><b>8.3</b> Modeling the Test and Repair System with Movable Resources</a></li>
-<li class="chapter" data-level="8.4" data-path="summary-of-new-concepts.html"><a href="summary-of-new-concepts.html"><i class="fa fa-check"></i><b>8.4</b> Summary of New Concepts</a></li>
-<li class="chapter" data-level="8.5" data-path="exercises-7.html"><a href="exercises-7.html"><i class="fa fa-check"></i><b>8.5</b> Exercises</a></li>
+<li class="chapter" data-level="8.4" data-path="secConveyors.html"><a href="secConveyors.html"><i class="fa fa-check"></i><b>8.4</b> Modeling Systems with Conveyors</a>
+<ul>
+<li class="chapter" data-level="8.4.1" data-path="secConveyors.html"><a href="secConveyors.html#ksl-conveyor-constructs"><i class="fa fa-check"></i><b>8.4.1</b> KSL Conveyor Constructs</a></li>
+<li class="chapter" data-level="8.4.2" data-path="secConveyors.html"><a href="secConveyors.html#tandem-queue-system-with-conveyors"><i class="fa fa-check"></i><b>8.4.2</b> Tandem Queue System with Conveyors</a></li>
+<li class="chapter" data-level="8.4.3" data-path="secConveyors.html"><a href="secConveyors.html#secTestAndRepairConveyors"><i class="fa fa-check"></i><b>8.4.3</b> Test and Repair via Conveyors</a></li>
+<li class="chapter" data-level="8.4.4" data-path="secConveyors.html"><a href="secConveyors.html#secMiscConveyor"><i class="fa fa-check"></i><b>8.4.4</b> Miscellaneous Concepts in Conveyor Modeling</a></li>
+</ul></li>
+<li class="chapter" data-level="8.5" data-path="summary-of-new-concepts.html"><a href="summary-of-new-concepts.html"><i class="fa fa-check"></i><b>8.5</b> Summary of New Concepts</a></li>
+<li class="chapter" data-level="8.6" data-path="exercises-7.html"><a href="exercises-7.html"><i class="fa fa-check"></i><b>8.6</b> Exercises</a></li>
 </ul></li>
 <li class="chapter" data-level="9" data-path="ch9AdvMC.html"><a href="ch9AdvMC.html"><i class="fa fa-check"></i><b>9</b> Advanced Monte Carlo Methods</a>
 <ul>
@@ -521,8 +528,8 @@ div.csl-indent {
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="exercises-7" class="section level2 hasAnchor" number="8.5">
-<h2><span class="header-section-number">8.5</span> Exercises<a href="exercises-7.html#exercises-7" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="exercises-7" class="section level2 hasAnchor" number="8.6">
+<h2><span class="header-section-number">8.6</span> Exercises<a href="exercises-7.html#exercises-7" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <div class="exercise">
 <p><span id="exr:ch8P1" class="exercise"><strong>Exercise 8.1  </strong></span>Consider the STEM Career Fair Mixer of Example <a href="modeling-non-stationary-systems.html#exm:exSTEMEnhanced">7.7</a>. Change the model so that the implementation uses
 the <code>DistancesModel</code> class to represent the travel distances. Use the <code>moveTo()</code> function to model the movement of the students within the STEM Career Fair. Compare your results to the implementation in Chapter <a href="ch7AdvModeling.html#ch7AdvModeling">7</a>.</p>
@@ -804,6 +811,42 @@ individually. Also obtain statistics representing the average number of
 parts waiting for allocation of a transporter and the number of busy
 transporters. Run the model for 600,000 minutes with a 50,000 minute
 warm up period.</p>
+</div>
+<hr />
+<div class="exercise">
+<p><span id="exr:ch8P8" class="exercise"><strong>Exercise 8.8  </strong></span>Three independent conveyors
+deliver 1 foot parts to a warehouse. Once inside the warehouse, the
+conveyors merge onto one main conveyor to take the parts to shipping.
+Parts arriving on conveyor 1 follow a Poisson process with a rate of 6
+parts per minute. Parts arriving on conveyor 2 follow a Poisson process
+with a rate of 10 parts per minute. Finally, parts arriving on conveyor
+3 have an inter-arrival time uniformly distributed between (0.1 and 0.2)
+minutes. Conveyors 1 and 2 are accumulating conveyors and are 15 and 20
+feet long respectively. They both run at a velocity of 12 feet per
+minute. Conveyor 3 is an accumulating conveyor and is 10 feet long. It
+runs at a velocity of 20 feet per minute. The main conveyor is 25 feet
+long and is an accumulating conveyor operating at a speed of 25 feet per
+minute. Consider the parts as being disposed after they reach the end of
+the main conveyor. Simulate this system for 480 minutes and estimate the
+accessing times and the average number of parts waiting for the
+conveyors.</p>
+</div>
+<hr />
+<div class="exercise">
+<p><span id="exr:ch8P9" class="exercise"><strong>Exercise 8.9  </strong></span>Consider the scenario discussed in Section <a href="secConveyors.html#secMiscConveyor">8.4.4</a> concerning recirculating conveyors regarding the test and repair system. Assume that each test station only has room for two parts (the part being processed and one waiting). Implement the conveyor system such that parts that arrive to a full testing station recirculate until they can eventually get processed. Run the model for the same model settings as used in the textbook example. What is the effect of recirculating on the conveyor utilization? How does the finite buffers and recirculating conveyor affect the total system time for the parts?</p>
+</div>
+<hr />
+<div class="exercise">
+<p><span id="exr:ch8P10" class="exercise"><strong>Exercise 8.10  </strong></span>Consider the scenario discussed in Section <a href="secConveyors.html#secMiscConveyor">8.4.4</a> concerning two conveyors with one conveyor merging into the middle of the second conveyor. Entities arrive at the midpoint station from both entry points (A and B). Those arriving from Station A continue on their conveyor. Those arriving from Station B exit the merge belt conveyor and access the main belt conveyor. Type A entities arrive to station A according to a Poisson process with a rate of 1 arrival every 2 minutes. Similarly, Type B entities arrive according to a Poisson process with a rate of 1 arrival every 2 minutes to station B.</p>
+<p>The main belt conveyor has two segments each of length 5 feet. The first segment goes from station A to the middle (merge point) and the second segment goes from the merge point to the exit station. The merging conveyor has one segment of length 10 feet, which goes from station B to the merge point. Both conveyors have velocity of 1 foot per minute with cell size of 1 and the maximum cells occupied as one. Both conveyors are also accumulating.</p>
+<p>Develop a KSL model for this situation using base time units of minutes. Report the results for system time and throughput for the parts based on 480 minutes of operation.</p>
+</div>
+<hr />
+<div class="exercise">
+<p><span id="exr:ch8P11" class="exercise"><strong>Exercise 8.11  </strong></span>Consider the scenario discussed in Section <a href="secConveyors.html#secMiscConveyor">8.4.4</a> concerning a diverging conveyor. Entities arrive at the arrival station according to a Poisson process with a rate of 1 part every 12 minutes. The parts are conveyed on the main conveyor to a sorting area. The length of the main conveyor is 20 feet. The main conveyor has a velocity of 1 foot per minute and uses a cell size of 1. Assume the maximum cell size is also one.</p>
+<p>At the sorting area, the parts are shunted to either of two processing areas: area 1 and area 2. Thus, there is a conveyor from the sorting area to the first processing area. Call this conveyor the line 1 conveyor. There is also a conveyor from the sorting area to the second processing area. Call this conveyor the line 2 conveyor. Both conveyors have one segment of 20 feet and use velocity of 1 foot per minute and single unit cell sizes with maximum cell size of 1.</p>
+<p>The logic at the sorting area is simple. Each arriving part is shunted to area 1 or 2 in an alternating fashion. The first arriving part goes to area 1. At the sorting area there is a small delay of 3 seconds as the part is scanned and then sent to the appropriate area.</p>
+<p>Develop a KSL model for this situation using base time units of minutes. Report the results for system time and throughput for the parts based on 120 minutes of operation.</p>
 </div>
 <hr />
 

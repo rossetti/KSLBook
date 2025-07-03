@@ -23,7 +23,7 @@
 <meta name="author" content="Manuel D. Rossetti" />
 
 
-<meta name="date" content="2025-02-07" />
+<meta name="date" content="2025-07-03" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -373,8 +373,15 @@ div.csl-indent {
 <li class="chapter" data-level="8.2.3" data-path="movableResources.html"><a href="movableResources.html#secTQMWM"><i class="fa fa-check"></i><b>8.2.3</b> Tandem Queue Model With Movement</a></li>
 </ul></li>
 <li class="chapter" data-level="8.3" data-path="secTestAndRepairMovableResources.html"><a href="secTestAndRepairMovableResources.html"><i class="fa fa-check"></i><b>8.3</b> Modeling the Test and Repair System with Movable Resources</a></li>
-<li class="chapter" data-level="8.4" data-path="summary-of-new-concepts.html"><a href="summary-of-new-concepts.html"><i class="fa fa-check"></i><b>8.4</b> Summary of New Concepts</a></li>
-<li class="chapter" data-level="8.5" data-path="exercises-7.html"><a href="exercises-7.html"><i class="fa fa-check"></i><b>8.5</b> Exercises</a></li>
+<li class="chapter" data-level="8.4" data-path="secConveyors.html"><a href="secConveyors.html"><i class="fa fa-check"></i><b>8.4</b> Modeling Systems with Conveyors</a>
+<ul>
+<li class="chapter" data-level="8.4.1" data-path="secConveyors.html"><a href="secConveyors.html#ksl-conveyor-constructs"><i class="fa fa-check"></i><b>8.4.1</b> KSL Conveyor Constructs</a></li>
+<li class="chapter" data-level="8.4.2" data-path="secConveyors.html"><a href="secConveyors.html#tandem-queue-system-with-conveyors"><i class="fa fa-check"></i><b>8.4.2</b> Tandem Queue System with Conveyors</a></li>
+<li class="chapter" data-level="8.4.3" data-path="secConveyors.html"><a href="secConveyors.html#secTestAndRepairConveyors"><i class="fa fa-check"></i><b>8.4.3</b> Test and Repair via Conveyors</a></li>
+<li class="chapter" data-level="8.4.4" data-path="secConveyors.html"><a href="secConveyors.html#secMiscConveyor"><i class="fa fa-check"></i><b>8.4.4</b> Miscellaneous Concepts in Conveyor Modeling</a></li>
+</ul></li>
+<li class="chapter" data-level="8.5" data-path="summary-of-new-concepts.html"><a href="summary-of-new-concepts.html"><i class="fa fa-check"></i><b>8.5</b> Summary of New Concepts</a></li>
+<li class="chapter" data-level="8.6" data-path="exercises-7.html"><a href="exercises-7.html"><i class="fa fa-check"></i><b>8.6</b> Exercises</a></li>
 </ul></li>
 <li class="chapter" data-level="9" data-path="ch9AdvMC.html"><a href="ch9AdvMC.html"><i class="fa fa-check"></i><b>9</b> Advanced Monte Carlo Methods</a>
 <ul>
@@ -523,7 +530,7 @@ div.csl-indent {
             <section class="normal" id="section-">
 <div id="kslStatistics" class="section level2 hasAnchor" number="3.1">
 <h2><span class="header-section-number">3.1</span> Collecting Statistics<a href="kslStatistics.html#kslStatistics" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p>The KSL has a wide variety of classes that support statistic computations. A main theme in understanding the usage of the classes within the <code>ksl.utilities.statistics</code> package is the concept of collection. This concept is encapsulated within the interface, <code>CollectorIfc</code> interface. The methods of the <code>CollectorIfc</code> interface are illustrated in Figure <a href="kslStatistics.html#fig:CollectorIfc">3.1</a>.</p>
+<p>The KSL has a wide variety of classes that support statistic computations. A main theme in understanding the usage of the classes within the <code>ksl.utilities.statistics</code> package is the concept of collection. This concept is encapsulated within the <code>CollectorIfc</code> interface. The methods of the <code>CollectorIfc</code> interface are illustrated in Figure <a href="kslStatistics.html#fig:CollectorIfc">3.1</a>.</p>
 <div class="figure" style="text-align: center"><span style="display:block;" id="fig:CollectorIfc"></span>
 <img src="figures/CollectInterface.png" alt="CollectorIfc Interface"  />
 <p class="caption">
@@ -552,13 +559,13 @@ Figure 3.3: Major Accumulated Statistical Quantities
 <p><span id="exm:ch3ex1" class="example"><strong>Example 3.1  (Creating and Using Statistics) </strong></span>This example illustrates how to create instances of the <code>Statistic</code> class to collect randomly generated observations from a normal distribution.</p>
 <div class="sourceCode" id="cb64"><pre class="sourceCode kt"><code class="sourceCode kotlin"><span id="cb64-1"><a href="kslStatistics.html#cb64-1" tabindex="-1"></a><span class="kw">fun</span> <span class="fu">main</span><span class="op">()</span> <span class="op">{</span></span>
 <span id="cb64-2"><a href="kslStatistics.html#cb64-2" tabindex="-1"></a>    <span class="co">// create a normal mean = 20.0, variance = 4.0 random variable</span></span>
-<span id="cb64-3"><a href="kslStatistics.html#cb64-3" tabindex="-1"></a>    <span class="kw">val</span> <span class="va">n</span> <span class="op">=</span> NormalRV<span class="op">(</span><span class="fl">20.0</span><span class="op">,</span> <span class="fl">4.0</span><span class="op">)</span></span>
+<span id="cb64-3"><a href="kslStatistics.html#cb64-3" tabindex="-1"></a>    <span class="kw">val</span> <span class="va">n</span> <span class="op">=</span> NormalRV<span class="op">(</span><span class="fl">20.0</span><span class="op">,</span> <span class="fl">4.0</span><span class="op">,</span> streamNum <span class="op">=</span> <span class="dv">3</span><span class="op">)</span></span>
 <span id="cb64-4"><a href="kslStatistics.html#cb64-4" tabindex="-1"></a>    <span class="co">// create a Statistic to observe the values</span></span>
 <span id="cb64-5"><a href="kslStatistics.html#cb64-5" tabindex="-1"></a>    <span class="kw">val</span> <span class="va">stat</span> <span class="op">=</span> Statistic<span class="op">(</span><span class="st">&quot;Normal Stats&quot;</span><span class="op">)</span></span>
 <span id="cb64-6"><a href="kslStatistics.html#cb64-6" tabindex="-1"></a>    <span class="kw">val</span> <span class="va">pGT20</span> <span class="op">=</span> Statistic<span class="op">(</span><span class="st">&quot;P(X&gt;=20&quot;</span><span class="op">)</span></span>
 <span id="cb64-7"><a href="kslStatistics.html#cb64-7" tabindex="-1"></a>    <span class="co">// generate 100 values</span></span>
 <span id="cb64-8"><a href="kslStatistics.html#cb64-8" tabindex="-1"></a>    <span class="cf">for</span> <span class="op">(</span>i <span class="kw">in</span> <span class="fl">1..100</span><span class="op">)</span> <span class="op">{</span></span>
-<span id="cb64-9"><a href="kslStatistics.html#cb64-9" tabindex="-1"></a>        <span class="co">// value property returns a generated value</span></span>
+<span id="cb64-9"><a href="kslStatistics.html#cb64-9" tabindex="-1"></a>        <span class="co">// getValue() method returns generated values</span></span>
 <span id="cb64-10"><a href="kslStatistics.html#cb64-10" tabindex="-1"></a>        <span class="kw">val</span> <span class="va">x</span> <span class="op">=</span> n<span class="op">.</span>value</span>
 <span id="cb64-11"><a href="kslStatistics.html#cb64-11" tabindex="-1"></a>        stat<span class="op">.</span>collect<span class="op">(</span>x<span class="op">)</span></span>
 <span id="cb64-12"><a href="kslStatistics.html#cb64-12" tabindex="-1"></a>        pGT20<span class="op">.</span>collect<span class="op">(</span>x <span class="op">&gt;=</span> <span class="fl">20.0</span><span class="op">)</span></span>
@@ -656,119 +663,84 @@ Figure 3.4: Histogram Class
 <div class="example">
 <p><span id="exm:ch3ex2" class="example"><strong>Example 3.2  (Histograms and Breakpoints) </strong></span>This example illustrates how to configure the breakpoints for a histogram and to use the histogram to observe observations from a random sample.</p>
 <div class="sourceCode" id="cb68"><pre class="sourceCode kt"><code class="sourceCode kotlin"><span id="cb68-1"><a href="kslStatistics.html#cb68-1" tabindex="-1"></a><span class="kw">fun</span> <span class="fu">main</span><span class="op">()</span> <span class="op">{</span></span>
-<span id="cb68-2"><a href="kslStatistics.html#cb68-2" tabindex="-1"></a>    <span class="kw">val</span> <span class="va">d</span> <span class="op">=</span> ExponentialRV<span class="op">(</span><span class="fl">2.0</span><span class="op">)</span></span>
-<span id="cb68-3"><a href="kslStatistics.html#cb68-3" tabindex="-1"></a></span>
-<span id="cb68-4"><a href="kslStatistics.html#cb68-4" tabindex="-1"></a>    <span class="kw">val</span> <span class="va">data</span> <span class="op">=</span> d<span class="op">.</span>sample<span class="op">(</span><span class="dv">1000</span><span class="op">)</span></span>
-<span id="cb68-5"><a href="kslStatistics.html#cb68-5" tabindex="-1"></a>    <span class="kw">var</span> <span class="va">bp</span> <span class="op">=</span> Histogram<span class="op">.</span>recommendBreakPoints<span class="op">(</span><span class="kw">data</span><span class="op">)</span></span>
-<span id="cb68-6"><a href="kslStatistics.html#cb68-6" tabindex="-1"></a>    bp <span class="op">=</span> Histogram<span class="op">.</span>addPositiveInfinity<span class="op">(</span>bp<span class="op">)</span></span>
-<span id="cb68-7"><a href="kslStatistics.html#cb68-7" tabindex="-1"></a>    <span class="kw">val</span> <span class="va">h</span> <span class="op">=</span> Histogram<span class="op">(</span>breakPoints <span class="op">=</span> bp<span class="op">)</span></span>
-<span id="cb68-8"><a href="kslStatistics.html#cb68-8" tabindex="-1"></a>    <span class="cf">for</span> <span class="op">(</span>x <span class="kw">in</span> <span class="kw">data</span><span class="op">)</span> <span class="op">{</span></span>
-<span id="cb68-9"><a href="kslStatistics.html#cb68-9" tabindex="-1"></a>        h<span class="op">.</span>collect<span class="op">(</span>x<span class="op">)</span></span>
-<span id="cb68-10"><a href="kslStatistics.html#cb68-10" tabindex="-1"></a>    <span class="op">}</span></span>
-<span id="cb68-11"><a href="kslStatistics.html#cb68-11" tabindex="-1"></a>    println<span class="op">(</span>h<span class="op">)</span></span>
-<span id="cb68-12"><a href="kslStatistics.html#cb68-12" tabindex="-1"></a>    <span class="kw">val</span> <span class="va">plot</span> <span class="op">=</span> h<span class="op">.</span>histogramPlot<span class="op">()</span></span>
-<span id="cb68-13"><a href="kslStatistics.html#cb68-13" tabindex="-1"></a>    plot<span class="op">.</span>showInBrowser<span class="op">(</span><span class="st">&quot;Exponentially Distributed Data&quot;</span><span class="op">)</span></span>
-<span id="cb68-14"><a href="kslStatistics.html#cb68-14" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
+<span id="cb68-2"><a href="kslStatistics.html#cb68-2" tabindex="-1"></a>    <span class="kw">val</span> <span class="va">d</span> <span class="op">=</span> ExponentialRV<span class="op">(</span><span class="fl">2.0</span><span class="op">,</span> streamNum <span class="op">=</span> <span class="dv">1</span><span class="op">)</span></span>
+<span id="cb68-3"><a href="kslStatistics.html#cb68-3" tabindex="-1"></a>    <span class="kw">val</span> <span class="va">data</span> <span class="op">=</span> d<span class="op">.</span>sample<span class="op">(</span><span class="dv">1000</span><span class="op">)</span></span>
+<span id="cb68-4"><a href="kslStatistics.html#cb68-4" tabindex="-1"></a>    <span class="kw">var</span> <span class="va">bp</span> <span class="op">=</span> Histogram<span class="op">.</span>recommendBreakPoints<span class="op">(</span><span class="kw">data</span><span class="op">)</span></span>
+<span id="cb68-5"><a href="kslStatistics.html#cb68-5" tabindex="-1"></a>    bp <span class="op">=</span> Histogram<span class="op">.</span>addPositiveInfinity<span class="op">(</span>bp<span class="op">)</span></span>
+<span id="cb68-6"><a href="kslStatistics.html#cb68-6" tabindex="-1"></a>    <span class="kw">val</span> <span class="va">h</span> <span class="op">=</span> Histogram<span class="op">(</span>breakPoints <span class="op">=</span> bp<span class="op">)</span></span>
+<span id="cb68-7"><a href="kslStatistics.html#cb68-7" tabindex="-1"></a>    <span class="cf">for</span> <span class="op">(</span>x <span class="kw">in</span> <span class="kw">data</span><span class="op">)</span> <span class="op">{</span></span>
+<span id="cb68-8"><a href="kslStatistics.html#cb68-8" tabindex="-1"></a>        h<span class="op">.</span>collect<span class="op">(</span>x<span class="op">)</span></span>
+<span id="cb68-9"><a href="kslStatistics.html#cb68-9" tabindex="-1"></a>    <span class="op">}</span></span>
+<span id="cb68-10"><a href="kslStatistics.html#cb68-10" tabindex="-1"></a>    println<span class="op">(</span>h<span class="op">)</span></span>
+<span id="cb68-11"><a href="kslStatistics.html#cb68-11" tabindex="-1"></a>    <span class="kw">val</span> <span class="va">plot</span> <span class="op">=</span> h<span class="op">.</span>histogramPlot<span class="op">()</span></span>
+<span id="cb68-12"><a href="kslStatistics.html#cb68-12" tabindex="-1"></a>    plot<span class="op">.</span>showInBrowser<span class="op">(</span><span class="st">&quot;Exponentially Distributed Data&quot;</span><span class="op">)</span></span>
+<span id="cb68-13"><a href="kslStatistics.html#cb68-13" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
 </div>
-<pre><code>Histogram: ID_2
+<pre><code>Histogram: ID_4
 -------------------------------------
-Number of bins = 10
-First bin starts at = 0.0
-Last bin ends at = 2.5
-Under flow count = 0.0
-Over flow count = 34.0
-Total bin count = 66.0
-Total count = 100.0
--------------------------------------
-Bin Range        Count CumTot Frac  CumFrac
-  1 [ 0.00, 0.25)  = 8   8.0 0.121212 0.121212 
-  2 [ 0.25, 0.50)  = 13  21.0 0.196970 0.318182 
-  3 [ 0.50, 0.75)  = 8  29.0 0.121212 0.439394 
-  4 [ 0.75, 1.00)  = 5  34.0 0.075758 0.515152 
-  5 [ 1.00, 1.25)  = 12  46.0 0.181818 0.696970 
-  6 [ 1.25, 1.50)  = 6  52.0 0.090909 0.787879 
-  7 [ 1.50, 1.75)  = 3  55.0 0.045455 0.833333 
-  8 [ 1.75, 2.00)  = 0  55.0 0.000000 0.833333 
-  9 [ 2.00, 2.25)  = 7  62.0 0.106061 0.939394 
- 10 [ 2.25, 2.50)  = 4  66.0 0.060606 1.000000 
--------------------------------------
-Statistics on data collected within bins:
--------------------------------------
-ID 3
-Name null Histogram
-Number 66.0
-Average 1.0058762823520362
-Standard Deviation 0.6886823403539779
-Standard Error 0.08477093608530742
-Half-width 0.16929924794988463
-Confidence Level 0.95
-Confidence Interval [0.8365770344021516, 1.175175530301921]
-Minimum 0.012828760487111502
-Maximum 2.480434062337268
-Sum 66.38783463523438
-Variance 0.4742833659154323
-Deviation Sum of Squares 30.8284187845031
-Last value collected 2.480434062337268
-Kurtosis -0.7044116167697082
-Skewness 0.5979629072383154
-Lag 1 Covariance -0.03136122210241002
-Lag 1 Correlation -0.0671406689142141
-Von Neumann Lag 1 Test Statistic -0.18534912180084587
-Number of missing observations 0.0
-Lead-Digit Rule(1) -2
--------------------------------------
-
-Histogram: ID_4
--------------------------------------
-Number of bins = 11
+Number of bins = 25
 First bin starts at = 0.0
 Last bin ends at = Infinity
 Under flow count = 0.0
 Over flow count = 0.0
-Total bin count = 100.0
-Total count = 100.0
+Total bin count = 1000.0
+Total count = 1000.0
 -------------------------------------
 Bin Range        Count CumTot Frac  CumFrac
-  1 [ 0.00, 0.25)  = 8   8.0 0.080000 0.080000 
-  2 [ 0.25, 0.50)  = 13  21.0 0.130000 0.210000 
-  3 [ 0.50, 0.75)  = 8  29.0 0.080000 0.290000 
-  4 [ 0.75, 1.00)  = 5  34.0 0.050000 0.340000 
-  5 [ 1.00, 1.25)  = 12  46.0 0.120000 0.460000 
-  6 [ 1.25, 1.50)  = 6  52.0 0.060000 0.520000 
-  7 [ 1.50, 1.75)  = 3  55.0 0.030000 0.550000 
-  8 [ 1.75, 2.00)  = 0  55.0 0.000000 0.550000 
-  9 [ 2.00, 2.25)  = 7  62.0 0.070000 0.620000 
- 10 [ 2.25, 2.50)  = 4  66.0 0.040000 0.660000 
- 11 [ 2.50,Infinity)  = 34 100.0 0.340000 1.000000 
+  1 [ 0.00, 0.75)  = 333 333.0 0.333000 0.333000 
+  2 [ 0.75, 1.50)  = 198 531.0 0.198000 0.531000 
+  3 [ 1.50, 2.25)  = 150 681.0 0.150000 0.681000 
+  4 [ 2.25, 3.00)  = 112 793.0 0.112000 0.793000 
+  5 [ 3.00, 3.75)  = 75 868.0 0.075000 0.868000 
+  6 [ 3.75, 4.50)  = 48 916.0 0.048000 0.916000 
+  7 [ 4.50, 5.25)  = 28 944.0 0.028000 0.944000 
+  8 [ 5.25, 6.00)  = 19 963.0 0.019000 0.963000 
+  9 [ 6.00, 6.75)  = 16 979.0 0.016000 0.979000 
+ 10 [ 6.75, 7.50)  = 1 980.0 0.001000 0.980000 
+ 11 [ 7.50, 8.25)  = 5 985.0 0.005000 0.985000 
+ 12 [ 8.25, 9.00)  = 2 987.0 0.002000 0.987000 
+ 13 [ 9.00, 9.75)  = 4 991.0 0.004000 0.991000 
+ 14 [ 9.75,10.50)  = 1 992.0 0.001000 0.992000 
+ 15 [10.50,11.25)  = 2 994.0 0.002000 0.994000 
+ 16 [11.25,12.00)  = 1 995.0 0.001000 0.995000 
+ 17 [12.00,12.75)  = 3 998.0 0.003000 0.998000 
+ 18 [12.75,13.50)  = 0 998.0 0.000000 0.998000 
+ 19 [13.50,14.25)  = 0 998.0 0.000000 0.998000 
+ 20 [14.25,15.00)  = 0 998.0 0.000000 0.998000 
+ 21 [15.00,15.75)  = 0 998.0 0.000000 0.998000 
+ 22 [15.75,16.50)  = 1 999.0 0.001000 0.999000 
+ 23 [16.50,17.25)  = 0 999.0 0.000000 0.999000 
+ 24 [17.25,18.00)  = 1 1000.0 0.001000 1.000000 
+ 25 [18.00,Infinity)  = 0 1000.0 0.000000 1.000000 
 -------------------------------------
 Statistics on data collected within bins:
 -------------------------------------
 ID 5
-Name null Histogram
-Number 100.0
-Average 2.439434453415103
-Standard Deviation 2.4182170804760847
-Standard Error 0.24182170804760847
-Half-width 0.47982672859345404
+Name ID_4_Statistics
+Number 1000.0
+Average 1.9216605939547684
+Standard Deviation 1.968265908806584
+Standard Error 0.06224203312690073
+Half-width 0.12214010773960152
 Confidence Level 0.95
-Confidence Interval [1.959607724821649, 2.919261182008557]
-Minimum 0.012828760487111502
-Maximum 11.13717343776699
-Sum 243.9434453415103
-Variance 5.847773848306279
-Deviation Sum of Squares 578.9296109823216
-Last value collected 2.480434062337268
-Kurtosis 1.3785489085086087
-Skewness 1.3838241648793819
-Lag 1 Covariance -0.5597308485816501
-Lag 1 Correlation -0.0966837484149247
-Von Neumann Lag 1 Test Statistic -0.976342966871885
+Confidence Interval [1.7995204862151668, 2.04380070169437]
+Minimum 9.561427092951219E-4
+Maximum 17.40419059595123
+Sum 1921.6605939547685
+Variance 3.8740706877702076
+Deviation Sum of Squares 3870.1966170824376
+Last value collected 8.548639846481285
+Kurtosis 10.67406304701379
+Skewness 2.5031667132444806
+Lag 1 Covariance -0.12649071302321163
+Lag 1 Correlation -0.032683278277103954
+Von Neumann Lag 1 Test Statistic -0.8438384394483673
 Number of missing observations 0.0
-Lead-Digit Rule(1) -1
+Lead-Digit Rule(1) -2
 -------------------------------------</code></pre>
-<p>Because it may be challenging to specify the breakpoints for a histogram, the KSL also provides the <code>CachedHistogram</code> class, which stores the observed data within a data cache (array) until sufficient data has been observed to provide reasonable breakpoints. The default size of the cache is 512 observations. If less than the cache size is observed, the KSL attempts to find the best breakpoints based on the recommendations found <a href="https://www.fmrib.ox.ac.uk/datasets/techrep/tr00mj2/tr00mj2/node24.html">here.</a>. The following code illustrates the used of the <code>CachedHistogram</code> class.</p>
+<p>Because it may be challenging to specify the breakpoints for a histogram, the KSL also provides the <code>CachedHistogram</code> class, which stores the observed data within a data cache (array) until sufficient data has been observed to provide reasonable breakpoints. The default size of the cache is 512 observations. If less than the cache size is observed, the KSL attempts to find the best breakpoints based on the recommendations found <a href="https://www.fmrib.ox.ac.uk/datasets/techrep/tr00mj2/tr00mj2/node24.html">here</a>. The following code illustrates the used of the <code>CachedHistogram</code> class.</p>
 <div class="sourceCode" id="cb70"><pre class="sourceCode kt"><code class="sourceCode kotlin"><span id="cb70-1"><a href="kslStatistics.html#cb70-1" tabindex="-1"></a><span class="kw">fun</span> <span class="fu">main</span><span class="op">()</span> <span class="op">{</span></span>
-<span id="cb70-2"><a href="kslStatistics.html#cb70-2" tabindex="-1"></a>    <span class="kw">val</span> <span class="va">d</span> <span class="op">=</span> ExponentialRV<span class="op">(</span><span class="fl">2.0</span><span class="op">)</span></span>
+<span id="cb70-2"><a href="kslStatistics.html#cb70-2" tabindex="-1"></a>    <span class="kw">val</span> <span class="va">d</span> <span class="op">=</span> ExponentialRV<span class="op">(</span><span class="fl">2.0</span><span class="op">,</span> streamNum <span class="op">=</span> <span class="dv">1</span><span class="op">)</span></span>
 <span id="cb70-3"><a href="kslStatistics.html#cb70-3" tabindex="-1"></a>    <span class="kw">val</span> <span class="va">data</span> <span class="op">=</span> d<span class="op">.</span>sample<span class="op">(</span><span class="dv">1000</span><span class="op">)</span></span>
 <span id="cb70-4"><a href="kslStatistics.html#cb70-4" tabindex="-1"></a>    <span class="kw">val</span> <span class="va">ch</span> <span class="op">=</span> CachedHistogram<span class="op">()</span></span>
 <span id="cb70-5"><a href="kslStatistics.html#cb70-5" tabindex="-1"></a>    <span class="cf">for</span> <span class="op">(</span>x <span class="kw">in</span> <span class="kw">data</span><span class="op">)</span> <span class="op">{</span></span>
@@ -790,7 +762,7 @@ Figure 3.5: IntegerFrequency Class
 <p><span id="exm:ch3ex3" class="example"><strong>Example 3.3  (Integer Frequency Tabulation) </strong></span>In this example, an instance of the <code>IntegerFrequency</code> class is used to tabulate observations from a binomial random variable. A bar chart representation of the frequency is also shown within a browser window.</p>
 <div class="sourceCode" id="cb71"><pre class="sourceCode kt"><code class="sourceCode kotlin"><span id="cb71-1"><a href="kslStatistics.html#cb71-1" tabindex="-1"></a><span class="kw">fun</span> <span class="fu">main</span><span class="op">()</span> <span class="op">{</span></span>
 <span id="cb71-2"><a href="kslStatistics.html#cb71-2" tabindex="-1"></a>    <span class="kw">val</span> <span class="va">f</span> <span class="op">=</span> IntegerFrequency<span class="op">(</span>name <span class="op">=</span> <span class="st">&quot;Frequency Demo&quot;</span><span class="op">)</span></span>
-<span id="cb71-3"><a href="kslStatistics.html#cb71-3" tabindex="-1"></a>    <span class="kw">val</span> <span class="va">bn</span> <span class="op">=</span> BinomialRV<span class="op">(</span><span class="fl">0.5</span><span class="op">,</span> <span class="dv">100</span><span class="op">)</span></span>
+<span id="cb71-3"><a href="kslStatistics.html#cb71-3" tabindex="-1"></a>    <span class="kw">val</span> <span class="va">bn</span> <span class="op">=</span> BinomialRV<span class="op">(</span><span class="fl">0.5</span><span class="op">,</span> <span class="dv">100</span><span class="op">,</span> streamNum <span class="op">=</span> <span class="dv">2</span><span class="op">)</span></span>
 <span id="cb71-4"><a href="kslStatistics.html#cb71-4" tabindex="-1"></a>    <span class="kw">val</span> <span class="va">sample</span> <span class="op">=</span> bn<span class="op">.</span>sample<span class="op">(</span><span class="dv">10000</span><span class="op">)</span></span>
 <span id="cb71-5"><a href="kslStatistics.html#cb71-5" tabindex="-1"></a>    f<span class="op">.</span>collect<span class="op">(</span>sample<span class="op">)</span></span>
 <span id="cb71-6"><a href="kslStatistics.html#cb71-6" tabindex="-1"></a>    println<span class="op">(</span>f<span class="op">)</span></span>
@@ -801,53 +773,53 @@ Figure 3.5: IntegerFrequency Class
 <p>As can be noted in the output, only those integers that are actually observed are tabulated in terms of the count of the number of times the integer is observed and its proportion. The user does not have to specify the range of possible integers; however, instances of <code>IntegerFrequency</code> can be created that specify a lower and upper limit on the tabulated values. The overflow and underflow counts then tabulate when observations fall outside of the specified range.</p>
 <pre><code>Frequency Tabulation Frequency Demo
 ----------------------------------------
-Number of cells = 39
+Number of cells = 37
 Lower limit = -2147483648
 Upper limit = 2147483647
 Under flow count = 0
 Over flow count = 0
-Total count = 10000
+Total count = 10000.0
+Minimum value observed = 30
+Maximum value observed = 69
 ----------------------------------------
 Value    Count   Proportion
-31   1   1.0E-4
-33   4   4.0E-4
-34   5   5.0E-4
-35   9   9.0E-4
-36   17      0.0017
-37   28      0.0028
-38   41      0.0041
-39   74      0.0074
-40   100     0.01
-41   192     0.0192
-42   236     0.0236
-43   277     0.0277
-44   406     0.0406
-45   453     0.0453
-46   564     0.0564
-47   653     0.0653
-48   741     0.0741
-49   762     0.0762
-50   750     0.075
-51   768     0.0768
-52   783     0.0783
-53   679     0.0679
-54   600     0.06
-55   484     0.0484
-56   407     0.0407
-57   324     0.0324
-58   210     0.021
-59   155     0.0155
-60   108     0.0108
-61   74      0.0074
-62   41      0.0041
-63   15      0.0015
-64   15      0.0015
-65   17      0.0017
-66   3   3.0E-4
-67   1   1.0E-4
-69   1   1.0E-4
-70   1   1.0E-4
-71   1   1.0E-4
+30   1.0     1.0E-4
+33   3.0     3.0E-4
+34   7.0     7.0E-4
+35   10.0    0.001
+36   17.0    0.0017
+37   23.0    0.0023
+38   48.0    0.0048
+39   86.0    0.0086
+40   101.0       0.0101
+41   146.0       0.0146
+42   221.0       0.0221
+43   319.0       0.0319
+44   371.0       0.0371
+45   470.0       0.047
+46   568.0       0.0568
+47   684.0       0.0684
+48   742.0       0.0742
+49   768.0       0.0768
+50   769.0       0.0769
+51   813.0       0.0813
+52   696.0       0.0696
+53   680.0       0.068
+54   599.0       0.0599
+55   505.0       0.0505
+56   386.0       0.0386
+57   318.0       0.0318
+58   237.0       0.0237
+59   142.0       0.0142
+60   107.0       0.0107
+61   68.0    0.0068
+62   38.0    0.0038
+63   23.0    0.0023
+64   13.0    0.0013
+65   14.0    0.0014
+66   4.0     4.0E-4
+67   2.0     2.0E-4
+69   1.0     1.0E-4
 ----------------------------------------</code></pre>
 <p>Finally, the KSL provides the ability to define labeled states and to tabulate frequencies and proportions related to the visitation and transition between the states. This functionality is available in the <code>StateFrequency</code> class. The following code example creates an instance of <code>StateFrequency</code> by providing the number of states. The states are returned in a <code>List</code> and then 10,000 states are randomly selected from the list with equal probability using the <code>KSLRandom</code> functionality to randomly select from lists. The randomly selected state is then observed via the <code>collect()</code> method. State frequency tabulation can be useful within the context of a Markov Chain analysis.</p>
 <div class="example">

@@ -16,7 +16,7 @@ This chapter provides a series of example Kotlin code that illustrates the use o
 
 ## Random Number Generator {#ch2generator}
 
-This section discusses how to random number generation is implemented
+This section discusses how random number generation is implemented
 within the KSL. The purpose is to present how these concepts can be put into
 practice. 
 
@@ -99,7 +99,7 @@ then $1-U$ is the antithetic variate of $U$.
 The `RNStreamControlIfc` defines methods for controlling the underlying stream of pseudo-random numbers.
 
 *   `resetStartStream()` - positions the random number stream at the
-    beginning of its sequence This is the same location in the stream as
+    beginning of its sequence. This is the same location in the stream as
     assigned when the random number stream was created and
     initialized.
 *   `resetStartSubstream()` - resets the position of the random number
@@ -117,7 +117,7 @@ The `RNStreamControlIfc` defines methods for controlling the underlying stream o
     
 The `StreamOptionIfc` defines methods for automating the control of the stream during simulation runs.
     
-*   `advanceToNextSubStreamOption` - Indicates that the stream will be advance to the next substream for the beginning of the next simulation replication.
+*   `advanceToNextSubStreamOption` - Indicates that the stream will be advanced to the next substream for the beginning of the next simulation replication.
 *   `resetStartStreamOption` - Indicates that the underlying stream will be reset to its starting point for the beginning of the next simulation replication.
 
 The `RNStreamIfc` interface assumes that the underlying pseudo-random number generator can produce
@@ -131,14 +131,14 @@ well-defined manner.
 <p class="caption">(\#fig:RNStreamProvider)RNStreamProviderIfc Interface</p>
 </div>
 
-To create an concrete instance of a stream, we must have a random number stream provider. This
-functionality is defined by the `RNStreamProviderIfc` interface and its concrete implementation, 
+To create a concrete instance of a stream, we must have a random number stream provider. This
+functionality is defined by the `RNStreamProviderIfc` interface and its default implementation, 
 `RNStreamProvider.` Figure \@ref(fig:RNStreamProvider) illustrates the functionality available for
 creating random number streams. This interface conceptualizes the creation of random number streams
 as a process of making a sequence of streams numbered 1, 2, 3, ... 
 
 A random number stream provider must define a default stream, which can be retrieved via the 
-`defaultRNStream()` method. For the KSL, the default stream is the first
+`defaultRNStream()` method. By default, for the KSL, the default stream is the first
 stream created and is labeled with the sequence number 1.  The sequence number of a stream
 can be used to retrieve a particular stream from the provider.  The following methods
 allow for creation and access to streams.
@@ -153,14 +153,16 @@ many streams have been made. If $0$ is returned, then no streams have been made 
 the streams. In other words, this method should act as if `nextRNStream()` was not called but advance the underlying stream mechanism as if $n$ streams had been provided.
 * `resetRNStreamSequence()` - Causes the random number stream provider to act as if has never created any streams. Thus, the next call to `nextRNStream()` will return the $1^{st}$ stream.
 
-The random number stream provider also facilitates the control of all streams that have been created. This functionality is similar to how the position within an individual stream can be manipulated, except the provider performs the functionality on *all streams* that it has provided The following methods perform this function.
+The random number stream provider also facilitates the control of all streams that have been created. This functionality is similar to how the position within an individual stream can be manipulated, except the provider performs the functionality on *all streams* that it has provided The following methods perform this functionality.
 
 * `resetAllStreamsToStart()` - resets all created streams to the start of their stream.
 * `resetAllStreamsToStartOfCurrentSubStream()` - resets all created streams to the start of their current sub-stream.
 * `advanceAllStreamsToNextSubstream()` - advances all created streams to the start of their next sub-stream.
 * `setAllStreamsAntitheticOption(option: Boolean)` - changes all created streams to have their antithetic option either off = false or on = true.
 
-Many random number generators require the specification of a seed to start the generated sequence.  Even though the generator within the KSL use seeds, there really is no need to utilize the seeds because of the well defined methods for moving within the streams.  Now, let's illustrate how to create and manipulate streams.
+Many random number generators require the specification of a seed to start the generated sequence.  Even though the generator within the KSL uses seeds, there really is no need to specify the seeds because of the well defined methods for moving within the streams.  However, if you really want to get into the details and specify seeds, the you should review the `RNStreamFactory` class, which directly implements the random number generator discussed in @ecuyer2002an.
+
+Now, let's illustrate how to create and manipulate streams.
 
 ### Creating and Using Streams {#ch2creatingStreams}
 To create a random number stream, the user must utilize an instance of `RNStreamProvider.`  This process is illustrated in in the following code.  This code creates two instances of `RNStreamProvider` and gets the first stream from each instance.  The instances of `RNStreamProvider` use the exact same underlying default seeds. Thus, they produce *exactly the same* sequence of streams.
@@ -172,12 +174,12 @@ fun main() {
     // make a provider for creating streams
     val p1 = RNStreamProvider()
     // get the first stream from the provider
-    val p1s1 = p1.nextRNStream()
+    val p1s1 = p1.rnStream(streamNum = 1)
     // make another provider, the providers are identical
     val p2 = RNStreamProvider()
-    // thus the first streams returned are identical
-    val p2s1 = p2.nextRNStream()
-    print(String.format("%3s %15s %15s %n", "n", "p1s1", "p2s2"))
+    // Thus, the first streams returned are identical
+    val p2s1 = p2.rnStream(streamNum = 1)
+    print(String.format("%3s %15s %15s %n", "n", "p1s1", "p2s1"))
     for (i in 1..5) {
         print(String.format("%3d %15f %15f %n", i, p1s1.randU01(), p2s1.randU01()))
     }
@@ -189,34 +191,30 @@ fun main() {
 Thus, in the following code output, the randomly generated values are exactly the same for the two streams. 
 
 ```
-  n            p1s1            p2s2 
-  1        0.728510        0.728510 
-  2        0.965587        0.965587 
-  3        0.996184        0.996184 
-  4        0.114988        0.114988 
-  5        0.973145        0.973145 
+  n            p1s1            p2s1 
+  1        0.127011        0.127011 
+  2        0.318528        0.318528 
+  3        0.309186        0.309186 
+  4        0.825847        0.825847 
+  5        0.221630        0.221630 
 ```
 
 There is is really very little need for the general programmer to create
 a `RNStreamProvider` because the KSL supplies a default provider that can be used to provide a
-virtually infinite number of streams. The need for directly accessing the functionality of `RNStreamProvider` is for very fine control of stream creation in such situations like running
+virtually infinite number of streams. The need for directly accessing the functionality of `RNStreamProvider` is for explicit control of stream creation in such situations like running
 code on different computers in parallel. While the providers produce the
 same streams, you can force one provider to be different from another
-provider by manipulating the seeds. In addition, the
+provider by manipulating the seeds. The function, `advanceStreamMechanism(n: Int),` essentially manipulates the underlying seed vector by advancing the seed values as if `n` streams have been created.  If this function is used prior to creating any streams, you have essentially set the starting seed value, causing the created streams to be *different* from the default starting values. In addition, the
 provider can control all streams that it produces. So, unless you are
 trying to do some advanced work that involves coordinating multiple streams, you should not need to create multiple instances of `RNStreamProvider.`
 
-Because the most common use case is to just have a single provider of streams, the KSL facilitates this through the `KSLRandom` *object* The `KSLRandom` object has a wide range of methods to facilitate random variate generation.The most important methods include:
+Because the most common use case is to just have a single provider of streams, the KSL facilitates this through the `KSLRandom` *object.* The `KSLRandom` object has a wide range of methods to facilitate random variate generation.The most important methods include:
 
 * `nextRNStream()` - calls the underlying default `RNStreamProvider` to create a new random number stream
 * `rnStream(int k)` - returns the $k^{th}$ stream from the default `RNStreamProvider`
 * `defaultRNStream()` - calls the underlying default `RNStreamProvider` for its default stream
 
-In the following code example, these methods are used to create streams that are used to generate random numbers. 
-The first line of the code uses the static method `defaultRNStream()` of `KSLRandom` to get the default stream and 
-then generates three random numbers.  The stream is then advanced and three new random numbers are generated.  Then,
-the stream is reset to its starting (initial seed) and it then repeats the original values.  Finally, the a new stream 
-is created via `KSLRandom.nextRNStream()` and then used to generate new random numbers.  From a conceptual standpoint,
+In the following code example, these methods are used to create streams that are used to generate random numbers. The first line of the code uses the static method `defaultRNStream()` of `KSLRandom` to get the default stream and then generates three random numbers.  The stream is then advanced and three new random numbers are generated.  Then,the stream is reset to its starting (initial seed) and it then repeats the original values.  Finally, the a new stream is created via `KSLRandom.nextRNStream()` and then used to generate new random numbers.  From a conceptual standpoint,
 each stream contains an independent sequence of random numbers from any other stream (unless of course they are made from different providers). They are conceptually infinite and independent due to their enormous periods.
 
 ::: {.example #ch2ex2 name="KSLRandom"}
@@ -273,14 +271,14 @@ u = 0.3091860155832701
 Notice that they are the same as the first 3.
 Get another random number stream
 2nd stream
-u = 0.7285097861965271
-u = 0.9655872822837334
-u = 0.9961841304801171
+u = 0.7595818622487196
+u = 0.9783105732613708
+u = 0.6851358081931826
 Notice that they are different from the first 3.
 ```
 ### Common Random Numbers {#ch2crn}
 
-Common random numbers (CRN) is a Monte Carlo method that has different experiments utilize the same random numbers. CRN is a variance reduction technique that allows the experimenter to block out the effect of the random numbers used in the experiment.  To facilitate the use of common random numbers the KSL has the aforementioned stream control mechanism. One way to implement common random numbers is to use two instances of `RNStreamProvider` as was previously illustrated.  In that case, the two providers produce the same sequence of streams and thus those streams can be used on the different experiments.  An alternative method that does not require the use of two providers is to create a copy of the stream directly from the stream instance. The following code clones the stream instance. 
+Common random numbers (CRN) is a Monte Carlo method that has different experiments utilize the same random numbers. CRN is a variance reduction technique, discussed more fully in Chapter \@ref(ch9AdvMC), that allows the experimenter to block out the effect of the random numbers used in the experiment.  To facilitate the use of common random numbers the KSL has the aforementioned stream control mechanisms. One way to implement common random numbers is to use two instances of `RNStreamProvider` as was previously illustrated.  In that case, the two providers produce the same sequence of streams and thus those streams can be used on the different experiments.  An alternative method that does not require the use of two providers is to create a copy of the stream directly from the stream instance. The following code clones the stream instance. 
 
 ::: {.example #ch2ex3 name="Cloning for CRN"}
 This example clones an instance of a stream and uses it to generate common random numbers.
@@ -290,7 +288,7 @@ fun main() {
     // get the default stream
     val s = KSLRandom.defaultRNStream()
     // make a clone of the stream
-    val clone = s.instance()
+    val clone = s.crnInstance()
     print(String.format("%3s %15s %15s %n", "n", "U", "U again"))
     for (i in 1..3) {
         print(String.format("%3d %15f %15f %n", i, s.randU01(), clone.randU01()))
@@ -299,7 +297,7 @@ fun main() {
 ```
 :::
 
-Since the instances have the same underlying state, they produce the same random numbers. Please note that the cloned stream instance is not produced by the underlying `RNStreamProvider` and thus it is not part of the set of streams managed or controlled by the provider.
+Since the instances have the same underlying state when the clone is created, they produce the same random numbers. Please note that the cloned stream instance is **not provided** by the underlying `RNStreamProvider` and thus it is not part of the set of streams managed or controlled by the provider.
 
 ```
   n               U         U again 
@@ -351,7 +349,7 @@ Thus, an experiment can be executed, then the random numbers reset to the desire
 
 ### Creating and Using Antithetic Streams {#ch2antitheticStreams}
 
-Recall that if a pseudo-random number is called $U$ then its antithetic value is $1-U$.  There are a number of methods to access antithetic values. The simplest is to create an antithetic instance from a given stream.  This is illustrated is in the following code. Please note that the antithetic stream instance is not produced by the underlying `RNStreamProvider` and thus it is not part of the set of streams managed or controlled by the provider. The new instance process directly creates the new stream based on the current stream so that it has the same underling state and it is set to produce antithetic values.
+Recall that if a pseudo-random number is called $U$ then its antithetic value is $1-U$.  There are a number of methods to access antithetic values. The simplest is to create an antithetic instance from a given stream.  This is illustrated in the following code. Please note that the antithetic stream instance is not provided by the underlying `RNStreamProvider` and thus it is not part of the set of streams managed or controlled by the provider. The new instance functionality directly creates the new stream based on the current stream so that it has the same underling state and it is set to produce antithetic values.
 
 ::: {.example #ch2ex5 name="Generating Antithetic Numbers"}
 This example illustrates how to create an antithetic instance of a stream and generate antithetic random numbers.
@@ -442,7 +440,7 @@ Random number generators in computer simulation languages come with a default se
 Now a common question in simulation can be answered. That is, “If the simulation is using random numbers, why to I get the same results each time I run my program?” The corollary to this question is, “If I want to get different random results each time I run my program, how do I do it?” The answer to the first question is that the underlying random number generator is starting with the same seed each time you run your program. Thus, your program will use the same pseudo random numbers today as it did yesterday and the day before, etc. The answer to the corollary question is that you must tell the random number generator to use a different seed (or alternatively a different stream) if you want different invocations of the program to produce different results. The latter is not necessarily a desirable goal. For example, when developing your simulation programs, it is desirable to have repeatable results so that you can know that your program is working correctly.
 
 5. **How come my simulation results are unexpectedly different?**
-Sometimes by changing the order of method calls you change the sequence of random numbers that are assigned to various things that happen in the model (e.g. attribute, generated service times, paths taken, etc.). Please see the item (4) "How come my results are always the same?". Now, the result can sometimes be radically different if different random numbers are used for different purposes. By using streams, you reduce this possibility and increase the likelihood that two models that have different configurations will have differences due to the change and not due to the random numbers used.
+Sometimes by changing the order of method calls you change the sequence of random numbers that are assigned to various things that happen in the model (e.g. attribute, generated service times, paths taken, etc.). Please see the item (4) "How come my results are always the same?". Now, the result can sometimes be radically different if different random numbers are used for different purposes. By using specific streams assigned to specific random processes, you reduce this possibility and increase the likelihood that two models that have different configurations will have differences due to the change and not due to the random numbers used.
 
 ## Random Variate Generation {#rvg}
 
@@ -475,7 +473,7 @@ fun rExpo(mean: Double, u: Double) : Double {
 ```
 :::
 
-The function `rExpo` implements the inverse CDF function for the exponential distribution for any mean and any value of $u$. By calling the function with the appropriate parameters, we can easily generate exponential random variates.  Just as in Example \@ref(exm:ExpInvCDF) of Appendix \@ref(appRNRV) the result is 1.6053. In this example, the value of $u$ was given; however, it could have easily been generated using a `RNStream` and the `randU01()` function.  
+The function `rExpo` implements the inverse CDF function for the exponential distribution for any mean and any value of $u$. By calling the function with the appropriate parameters, we can easily generate exponential random variates.  Just as in Example \@ref(exm:ExpInvCDF) of Appendix \@ref(appRNRV) the result is 1.6053. In this example, the value of $u$ was given; however, it could have easily been generated using an instance of the `RNStreamIfc` interface and the `randU01()` function.  
 
 This next example illustrates how to generate negative binomial random variates via convolution. 
 
@@ -511,7 +509,7 @@ $X_{i}$ can be generated via inverse transform with:
 $$X_{i} = 1 + \left\lfloor \frac{ln(1 - U_{i})}{ln(1 - p)} \right\rfloor$$
 Note also that the shifted negative binomial distribution is just the sum of shifted geometric random variables.  The code implements a function to generate a shifted geometric random variate.  Because we need a shifted negative binomial with $r=3$ and $p=0.3$, the function is used three times to generate three shifted geometric random variates with $p=0.3$. The observed values are summed to generate the shifted negative binomial. Just as in Example \@ref(exm:GenNB) of Appendix \@ref(appRNRV) the result is 6.0.
 
-As we will see in the next section, the concepts of Appendix \@ref(appRNRV) have been generalized and implemented within the `ksl.utilities.random` package for various common random variables. 
+As we will see in the next section, the concepts of Appendix \@ref(appRNRV) have been generalized and implemented within the `ksl.utilities.random` package for various common types of random variables. 
 
 ### Continuous and Discrete Random Variables {#rvg_dists}
 
@@ -551,6 +549,11 @@ The names and parameters (based on common naming conventions) associated with th
 -   `UniformRV(min, max)`
 -   `WeibullRV(shape, scale)`
 
+::: {.infobox .note data-latex="{note}"}
+**NOTE!**
+Be careful to note that the normal and lognormal random variables are specified with the mean and the **variance** (not the standard deviation). Because Kotlin has named parameters, a recommended good practice is to use the parameter names when creating the object instances. This reduces the chances that you have confused the parameters.
+:::
+
 The names of the discrete random variables are as follows:
 
 -   `BernoulliRV(probOfSuccess)`
@@ -564,9 +567,22 @@ The names of the discrete random variables are as follows:
 -   `ShiftedGeometricRV(probOfSucces)` range is 1 to infinity
 -   `VConstantRV(constVal)` a degenerate probability mass on a single value that can be changed
 
-All classes that represent random variables also have optional parameters to provide a stream and a name. If the stream is not provided, then the next stream from the default provider is allocated to the new instance of the random variable.  Thus, all random variables are automatically constructed such that they use different underlying streams, unless the programming specifically assigns streams.  
+All classes that represent random variables also have optional parameters to specify the stream number and the random number stream provider. As noted for the `NormalRV` constructor, we see that the third
+parameter, called `streamNum,` is used to specify the random number stream.  The default stream provider is the provider associated with `KSLRandom.`
 
-As you can see, the name of the distribution followed by the letters RV designate the class names.  Implementations of these classes extend the `RVarable` class, which implements the `RVariableIfc` interface.  Users simply create and instance of the class and then use it to get a sequence of values that have the named probability distribution. In order to implement a new random variable (i.e. some random variable
+```kt
+class NormalRV @JvmOverloads constructor(
+    val mean: Double = 0.0,
+    val variance: Double = 1.0,
+    streamNum: Int = 0,
+    streamProvider: RNStreamProviderIfc = KSLRandom.DefaultRNStreamProvider,
+    name: String? = null
+) : ParameterizedRV(streamNum, streamProvider, name) 
+```
+
+If the stream number is not provided (i.e. the default of 0), then the next stream from the default provider is allocated to the new instance of the random variable.  Thus, unless the programming specifically assigns streams, all random variables are automatically constructed such that they use different underlying streams.  
+
+As you can see, the name of the distribution followed by the letters RV designate the class names.  Implementations of these classes extend the `RVarable` class, which implements the `RVariableIfc` interface.  Users simply create an instance of the class and then use it to get a sequence of values that have the named probability distribution. In order to implement a new random variable (i.e. some random variable
 that is not already implemented) you can extend the class
 `RVariable.` This provides a basic template for what is expected
 in the implementation. However, it implies that you need to implement
@@ -578,9 +594,9 @@ In almost all cases, the KSL utilizes the inverse transform algorithm for genera
 implement the inverse cumulative distribution function for the standard
 normal distribution. The inversion for the gamma distribution is based
 on Algorithm AS 91 for inverting the chi-squared distribution and
-exploiting its relationship with the gamma. The beta distribution also
+exploiting its relationship with the gamma distribution. The beta distribution also
 uses numerical methods to compute the cumulative distribution function
-as well as bi-section search to determine the inverse for cumulative
+as well as bi-section search to determine the inverse for the cumulative
 distribution function.
 
 The KSL implements the `BernoulliRV,` `DUniformRV,` `GeometricRV,`
@@ -601,12 +617,13 @@ The following sections will overview the generation algorithms and provide examp
 This section presents how to create and use random variables via KSL constructs. The basic approach is to create an instance of a specific type of random variable and use the instance to generate observations.
 
 ::: {.example #ch2ex9 name="Generating Normal Random Variates"}
-The following example code illustrates how to create a normal random variable and how to generate values using the `value` property.
+The following example code illustrates how to create a normal random variable and how to generate values using the `value` property. It is important to note that the `value` property will return a newly generated value each time that it is accessed.
 
 ```kt
 fun main() {
-    // create a normal mean = 20.0, variance = 4.0 random variable
-    val n = NormalRV(20.0, 4.0)
+    // create a normal mean = 20.0, variance = 4.0 random variable, 
+    // using stream number 1
+    val n = NormalRV(20.0, 4.0, streamNum = 1)
     print(String.format("%3s %15s %n", "n", "Values"))
     // generate some values
     for (i in 1..5) {
@@ -622,11 +639,11 @@ The resulting output is what you would expect.
 
 ```
   n          Values 
-  1       21.216624 
-  2       23.639128 
-  3       25.335884 
-  4       17.599163 
-  5       23.858350 
+  1       17.718732 
+  2       19.056360 
+  3       19.003682 
+  4       21.875759 
+  5       18.466600 
 ```
 
 Alternatively, the user can use the `sample()` method to generate an array of values that can be later processed. The `SampleIfc` interface has the following useful functions:
@@ -638,6 +655,11 @@ Alternatively, the user can use the `sample()` method to generate an array of va
 - `sampleAsColumns(sampleSize: Int, nRows: Int = 1)` makes a 2-D array with samples in the columns
 - `sampleInto(matrix: Array<DoubleArray>)` fills a 2-D array with samples
 
+::: {.infobox .note data-latex="{note}"}
+**NOTE!**
+Notice that the previous examples created the random variable **outside** of the loop that is used to generate values.  This implements the best practice of creating an object once and using it *many* times. The `NormalRV` class was used outside of the loop to create the object and then used many times within the loop to get new random variates. It may not be an error to create random variables within loops, but it is generally bad practice and inefficient in terms of object creation.  If you see yourself creating many instances of an object and then using it only one time before it is discarded, you should reconsider what you are doing. 
+:::
+
 The following code illustrates how to use the `sample()` function with a triangular distribution.
 
 ::: {.example #ch2ex10 name="Using the sample() function"}
@@ -646,7 +668,7 @@ The following example code illustrates how to create a triangular random variabl
 ```kt
 fun main() {
     // create a triangular random variable with min = 2.0, mode = 5.0, max = 10.0
-    val t = TriangularRV(2.0, 5.0, 10.0)
+    val t = TriangularRV(2.0, 5.0, 10.0, streamNum = 1)
     // sample 5 values
     val sample = t.sample(5)
     print(String.format("%3s %15s %n", "n", "Values"))
@@ -661,11 +683,11 @@ Again, the output is what we would expect.
 
 ```
   n          Values 
-  1        6.704608 
-  2        8.826753 
-  3        9.609315 
-  4        3.661241 
-  5        8.963572
+  1        3.745929 
+  2        4.764898 
+  3        4.724053 
+  4        7.360658 
+  5        4.306321 
 ```
 
 ::: {.infobox .note data-latex="{note}"}
@@ -673,17 +695,15 @@ Again, the output is what we would expect.
 The `SampleIfc` interface provides functionality to generate arrays of observations. The KSL provides extensive functionality for working with arrays within its utilities. This functionality is briefly discussed in Section \@ref(appUtilitiesArrays) of Appendix \@ref(appUtilities).
 :::
 
-It is important to note that the full range of functionality related to stream control is also available for random variables.  That is, the underlying stream can be reset to its start, can be advanced to the next substream, can generate antithetic variates, etc.  Each new instance of a random variable is supplied with its own *unique* stream that is not shared with another other random variable instances.  Since the underlying random number generator has an enormous number of streams, approximately $1.8 \times 10^{19}$, it is very unlikely that the user will not create so many streams as to start reusing them.  However, the streams that are used by random variable instances can be supplied directly so that they may be shared.
+It is important to note that the full range of functionality related to stream control is also available for random variables.  That is, the underlying stream can be reset to its start, can be advanced to the next substream, can generate antithetic variates, etc.  By default, if a random variable is created without specifying a stream number, the new instance of the random variable is supplied with its own *unique* stream.  Since the underlying random number generator has an enormous number of streams, approximately $1.8 \times 10^{19}$, it is very unlikely that the user will create so many streams as to start reusing them.  However, the streams that are used by random variable instances can be supplied directly so that they may be shared by specifying a stream number.
 
 ::: {.example #ch2ex11 name="Specifying a Stream"}
-The following code example illustrates how to assign a specific stream by passing a specific stream instance into the constructor of the random variable.
+The following code example illustrates how to assign a specific stream by passing a specific stream number into the constructor of the random variable.
 
 ```kt
 fun main() {
-    // get stream 3
-    val stream = KSLRandom.rnStream(3)
     // create a normal mean = 20.0, variance = 4.0, with the stream
-    val n = NormalRV(20.0, 4.0, stream)
+    val n = NormalRV(20.0, 4.0, streamNum = 3)
     print(String.format("%3s %15s %n", "n", "Values"))
     for (i in 1..5) {
         // value property returns generated values
@@ -694,23 +714,10 @@ fun main() {
 ```
 :::
 
-The previous example used `KSLRandom` to get stream 3 and then provided the stream when constructing the instance of the normal random variable.  This process can be simplified by directly providing the stream number to the constructor of the random variable.
-
-```kt
-fun main() {
-    // create a normal mean = 20.0, variance = 4.0, with the stream 3
-    val n = NormalRV(20.0, 4.0, 3)
-    print(String.format("%3s %15s %n", "n", "Values"))
-    for (i in 1..5) {
-        // value property returns generated values
-        val x = n.value
-        print(String.format("%3d %15f %n", i, x))
-    }
-}
-```
+Within the underlying code, the previous example uses the default provider of the `KSLRandom` class to get stream 3 when constructing the instance of the normal random variable.  
 
 A discrete empirical random variable requires the specification of the values and their probabilities. 
-This requires a little more setup. The user must supply the set of values that can be generated as well as an array holding the cumulative distribution probability across the values. The following code illustrates how to do this.
+This requires a little more setup. The user must supply the set of values that can be generated as well as an array holding the *cumulative distribution probability* across the values. The following code illustrates how to do this.
 
 ::: {.example #ch2ex12 name="Using a DEmpirical Random Variable"}
 The values are provided via an array and the probabilities must be specified in the form of the cumulative probabilities, such that the last element is 1.0.
@@ -721,12 +728,15 @@ fun main() {
     // cdf is the cumulative distribution function over the values
     val cdf = doubleArrayOf(1.0 / 6.0, 3.0 / 6.0, 5.0 / 6.0, 1.0)
     //create a discrete empirical random variable
-    val n1 = DEmpiricalRV(values, cdf)
+    val n1 = DEmpiricalRV(values, cdf, streamNum = 1)
     println(n1)
     print(String.format("%3s %15s %n", "n", "Values"))
     for (i in 1..5) {
         print(String.format("%3d %15f %n", i, n1.value))
     }
+
+    println()
+    println(n1.probabilityPoints)
 }
 ```
 :::
@@ -736,11 +746,11 @@ The results are as follows:
 ```
 DEmpiricalRV(values=[1.0, 2.0, 3.0, 4.0], cdf=[0.16666666666666666, 0.5, 0.8333333333333334, 1.0])
   n          Values 
-  1        3.000000 
-  2        4.000000 
-  3        4.000000 
-  4        1.000000 
-  5        4.000000
+  1        1.000000 
+  2        2.000000 
+  3        2.000000 
+  4        3.000000 
+  5        2.000000 
 ```
 
 Section \@ref(AppRNRVsubsecMTSRV) of Appendix \@ref(appRNRV) defines mixture and truncated distributions. The following provides examples of how to create and use random variables from these distributions. The examples follow those presented in Section \@ref(AppRNRVsubsecMTSRV).
@@ -762,7 +772,7 @@ fun main() {
     // cdf is the cumulative distribution function over the random variables
     val cdf = doubleArrayOf(0.7, 1.0)
     //create a mixture random variable
-    val he = MixtureRV(rvs, cdf)
+    val he = MixtureRV(rvs, cdf, streamNum = 1)
     print(String.format("%3s %15s %n", "n", "Values"))
     for (i in 1..5) {
         print(String.format("%3d %15f %n", i, he.value))
@@ -771,11 +781,11 @@ fun main() {
 ```
 ```
   n          Values 
-  1        0.110657 
-  2        1.955744 
-  3        1.196017 
-  4        5.053994 
-  5        8.352880 
+  1        0.575249 
+  2        2.621730 
+  3        1.143410 
+  4        0.659060 
+  5        2.114972 
 ```
 :::
 
@@ -814,7 +824,8 @@ restricted between 3 and 6 meters.
 ```kt
 fun main() {
     val cdf = Exponential(mean = 10.0)
-    val rv = TruncatedRV(cdf, Interval(0.0, Double.POSITIVE_INFINITY), Interval(3.0, 6.0))
+    val rv = TruncatedRV(cdf, Interval(0.0, Double.POSITIVE_INFINITY),
+        Interval(3.0, 6.0), streamNum = 1)
     print(String.format("%3s %15s %n", "n", "Values"))
     for (i in 1..5) {
         print(String.format("%3d %15f %n", i, rv.value))
@@ -823,15 +834,15 @@ fun main() {
 ```
 :::
 
-The exponential distribution has range $[0,+\infty]$.  In this situation, we are truncating the distribution over the range $[a=3, b=6]$.  The `TruncatedRV` class implements the aforementioned algorithm. The class requires an invertible CDF, the original range of the CDF, and the truncated range. In the code, an instance of an exponential distribution (see Section \@ref(probModels)) is created to provide the cumulative distribution function, $F(x)$. This allows the implementation to compute $F(a)$ and $F(b)$. Then, instances of the `Interval` class are used to define the original range and the truncated range.  As we can see from the following results, the values are limited to the range of $[3,6]$.
+Note that the first line defines a *distribution* and not a random variable. The exponential distribution has range $[0,+\infty]$.  In this situation, we are truncating the distribution over the range $[a=3, b=6]$.  The `TruncatedRV` class implements the aforementioned algorithm. The class requires an invertible CDF, the original range of the CDF, and the truncated range. In the code, an instance of an exponential distribution (see Section \@ref(probModels)) is created to provide the cumulative distribution function, $F(x)$. This allows the implementation to compute $F(a)$ and $F(b)$. Then, instances of the `Interval` class are used to define the original range and the truncated range.  As we can see from the following results, the values are limited to the range of $[3,6]$.
 
 ```
   n          Values 
-  1        5.092609 
-  2        5.880323 
-  3        5.986659 
-  4        3.302560 
-  5        5.906485 
+  1        3.334730 
+  2        3.861643 
+  3        3.835288 
+  4        5.408551 
+  5        3.591583 
 ```
 
 Appendix \@ref(appRNRV) also defines a shifted random variable. Suppose $X$ has a given
@@ -852,14 +863,13 @@ $\beta = 5$. Generate 5 random observations of the setup time.
 ```kt
 fun main() {
     val w = WeibullRV(shape = 3.0, scale = 5.0)
-    val rv = ShiftedRV(5.0, w)
+    val rv = ShiftedRV(5.0, w, streamNum = 1)
     print(String.format("%3s %15s %n", "n", "Values"))
     for (i in 1..5) {
         print(String.format("%3d %15f %n", i, rv.value))
     }
 }
 ```
-
 :::
 
 Notice that the `ShiftedRV` class requires the shift parameter and the random variable that is to be shifted.
@@ -911,13 +921,16 @@ fun main() {
     val wx = Uniform(-1.0, 1.0)
     // majorizing constant, if g(x) is majorizing function, then g(x) = w(x)*c
     val c = 3.0 / 2.0
-    val rv = AcceptanceRejectionRV(wx, c, fOfx)
+    val rv = AcceptanceRejectionRV(wx, c, fOfx, streamNum = 1)
     val h = Histogram.create(-1.0, 1.0, 100)
     for (i in 1..1000) {
         h.collect(rv.value)
     }
+    println(h)
     val hp = h.histogramPlot()
     hp.showInBrowser()
+    val dp = DensityPlot(h) { x -> fOfx.pdf(x) }
+    dp.showInBrowser()
 }
 
 object fOfx : PDFIfc {
@@ -939,8 +952,8 @@ Notice that the implementation requires an implementation of the PDF from which 
 In what follows, we briefly describe some additional functionality of the KSL for generating random variates and for applying randomness to arrays and lists. 
 
 The preferred method for generating random values from random
-variables is to create instance of the appropriate random variable
-class; however, the KSL also provide a set of functions for generating random
+variables is to create an instance of the appropriate random variable
+class; however, the KSL also provides a set of functions for generating random
 values within the `KSLRandom` object. For all the previously listed random variables, there is a 
 corresponding function that will generate a random value.  For
 example, the function `rNormal()` of the `KSLRandom` object will generate a normally distributed
@@ -948,7 +961,7 @@ value. Each function is named with an \"r\" in front of the distribution
 name. By using an import of `KSLRandom` functions the user can more conveniently call these methods. The following code example illustrates how to do this.
 
 ::: {.example #ch2ex17 name="Using KSLRandom Functions"}
-The functions require the specification of the parameters of the distribution for each invokation.
+The functions require the specification of the parameters of the distribution for each invocation.
 ```kt
 fun main() {
     val v = rUniform(10.0, 15.0) // generate a U(10, 15) value
@@ -963,7 +976,7 @@ In addition to random values through these functions, the
 `KSLRandom` object provides a set of methods for randomly selecting from
 arrays and lists and for creating permutations of arrays and lists. In
 addition, there is a set of methods for sampling from arrays and lists
-without replacement.The following code provide examples of using these methods.
+without replacement. The following code provides examples of using these methods.
 
 ::: {.example #ch2ex18 name="Random Lists"}
 The `randomlySelect()` function can be used to randomly select, with equal probability from a Kotlin list. An extension function has been defined to allow this to be done directly from the list.
@@ -986,7 +999,7 @@ fun main() {
 
 It is also possible to specify a distribution in the form of a CDF array over the items in the list to permit sampling that is not equally likely.  There are also extension functions declared on arrays for directly performing this form of random selection.  
 
-This next example illustrates how to define a population of values (`DPopulation`) and use it to perform sampling operations such as random samples and permutations.  Similar functionality is also demonstrated by directly using the functions of the `KSLRandom` object
+This next example illustrates how to define a population of values via the `DPopulation` class and to use it to perform sampling operations such as random samples and permutations.  Similar functionality is also demonstrated by directly using the functions of the `KSLRandom` object
 
 ::: {.example #ch2ex19 name="Random Permuation"}
 This example defines a population over the integer from 1 to 10 and permutes the population. It also illustrates how to sample from the population and permute a mutable list. 
@@ -999,7 +1012,7 @@ fun main() {
     }
 
     // create the population
-    val p = DPopulation(y)
+    val p = DPopulation(y, streamNum = 1)
     println(p.contentToString())
 
     println("Print the permuted population")
@@ -1040,17 +1053,17 @@ Output from the permutation examples.
 ```
 [1.0, 2.0, 3.0, 4.0, 5.0, 6.0, 7.0, 8.0, 9.0, 10.0]
 Print the permuted population
-[8.0, 10.0, 2.0, 4.0, 3.0, 5.0, 1.0, 6.0, 9.0, 7.0]
-Permuting y
 [2.0, 4.0, 5.0, 9.0, 6.0, 8.0, 3.0, 1.0, 7.0, 10.0]
+Permuting y
+[6.0, 5.0, 2.0, 3.0, 8.0, 10.0, 4.0, 7.0, 1.0, 9.0]
 Sampling 5 from the population
-[2.0, 4.0, 4.0, 9.0, 5.0]
+[1.0, 4.0, 2.0, 5.0, 3.0]
 The mutable list
 [a, b, c, d]
 The permuted list
-[c, a, b, d]
+[a, c, b, d]
 Permute using extension function
-[b, d, c, a]
+[d, a, c, b]
 ```
 
 ### Functions of Random Variables
@@ -1084,12 +1097,14 @@ A possible solution to this problem is to use the KSL to define a new random var
 
 ```kt
 fun main(){
-    var erlang: RVariableIfc = ExponentialRV(10.0)
+    var erlang: RVariableIfc = ExponentialRV(10.0, streamNum = 1)
     for(i in 1..4) {
         erlang = erlang + ExponentialRV(10.0)
     }
+    println("stream number = ${erlang.streamNumber}")
     val sample = erlang.sample(1000)
     val stats = Statistic(sample)
+    println()
     print(stats)
     sample.writeToFile("erlang.txt")
 }
@@ -1097,26 +1112,28 @@ fun main(){
 The first line of this code creates and stores an instance of an exponential random variable with mean 10.  The for loop is **not** generating any random variates.  It is defining a new random variable that is the sum of 4 additional exponential random variables. The defined random variable is used to generate a sample of size 1000 and using the `Statistic` class (discussed in the next chapter) a basic statistical summary is computed. Also, using the `writeToFile` KSL extension function for double arrays, the sample is written to a file.  The results as a histogram are also presented. The statistical results are as follows.
 
 ```
-ID 30
+stream number = 1
+
+ID 31
 Name Statistic_1
 Number 1000.0
-Average 51.11021981152218
-Standard Deviation 23.62319194179008
-Standard Error 0.7470309213939245
-Half-width 1.4659295758838757
+Average 50.22504832196012
+Standard Deviation 22.130436282067713
+Standard Error 0.699825842645625
+Half-width 1.3732971036698247
 Confidence Level 0.95
-Confidence Interval [49.6442902356383, 52.576149387406055]
-Minimum 5.03168557560841
-Maximum 177.85302754920727
-Sum 51110.219811522176
-Variance 558.0551975186557
-Deviation Sum of Squares 557497.1423211371
-Last value collected 58.568877001859285
-Kurtosis 1.5267730984137933
-Skewness 0.9637663719643743
-Lag 1 Covariance -13.659309232961249
-Lag 1 Correlation -0.024501128698329766
-Von Neumann Lag 1 Test Statistic -0.7301901389345133
+Confidence Interval [48.85175121829029, 51.598345425629944]
+Minimum 8.517383088139447
+Maximum 147.81714627300153
+Sum 50225.048321960116
+Variance 489.75621003465903
+Deviation Sum of Squares 489266.45382462436
+Last value collected 32.293283161673294
+Kurtosis 0.9888978451474602
+Skewness 0.8816305761311749
+Lag 1 Covariance -19.73716912800237
+Lag 1 Correlation -0.040340327798310656
+Von Neumann Lag 1 Test Statistic -1.2518042413131365
 Number of missing observations 0.0
 Lead-Digit Rule(1) -1
 ```
@@ -1131,29 +1148,31 @@ Notice that the histogram looks like an Erlang distribution and the estimated re
 To illustrate a couple of other examples consider the following code. In this code, the previously noted relationship between normal random variables and lognormal random variables is demonstrated in the first 6 lines of the code.
 
 ::: {.example #ch2ex21 name="Functions of Random Variables"}
-This example uses the fact that if $X \sim N(\mu,\sigma^2)$, then $Y = e^{X} \sim \text{LN}(\mu_l,\sigma_{l}^{2})$. In addition, the code illustrates how to generate a beta random variable via its relationship with gamma random variables.
+This example uses the fact that if $X \sim N(\mu,\sigma^2)$, then $Y = e^{X} \sim \text{LN}(\mu_l,\sigma_{l}^{2})$. In addition, the code illustrates how to generate a beta random variable via its relationship with gamma random variables.  The assignment of streams is a bit more complex for functions of random variables. Notice that in the following code, the random variable (normal in the first case) is assigned stream number 1. This stream is then used by all of the transformations. In the example of generating a beta random variable, the first random variable, `y1` has stream 2. The random variable `y2` has the next stream number (3); however, because the denominator has `y1 + y2` and `y1` appears first in the functional transformation, the resulting random variable `y1 + y2` will have stream 2. Then, when `y1` is divided by `y1 + y2`, the resulting random variable `betaRV` will use stream 2.  Thus, the order of operation is important in the determination of the resulting assigned stream.
 
 ```kt
 fun main(){
     // define a lognormal random variable, y
-    val x = NormalRV(2.0, 5.0)
+    val x = NormalRV(2.0, 5.0, streamNum = 1)
     val y = exp(x)
     // generate from y
+    println("stream number = ${y.streamNumber}")
     val ySample = y.sample(1000)
     println(ySample.statistics())
     // define a beta random variable in terms of gamma
     val alpha1 = 2.0
     val alpha2 = 5.0
-    val y1 = GammaRV(alpha1, 1.0)
+    val y1 = GammaRV(alpha1, 1.0, streamNum = 2)
     val y2 = GammaRV(alpha2, 1.0)
     val betaRV = y1/(y1+y2)
     val betaSample = betaRV.sample(500)
+    println("stream number = ${betaRV.streamNumber}")
     println(betaSample.statistics())
 }
 ```
 :::
 
-One method for generating Beta random variables exploits its relationship with the Gamma distribution. If $Y_1 \sim Gamma(\alpha_1, 1)$ and $Y_2 \sim Gamma(\alpha_2, 1)$, then $X = Y_1/(Y_1 + Y_2)$ has a Beta($\alpha_1, \alpha_2$) distribution. In the previous KSL code, we defined two gamma random variables and define the beta random variable using the algebraic expression. This code *defines* and *constructs* a new random variable that is function of the previously define random variables. Through this pattern you can define complex random variables and use those random variables anywhere a random variable is needed.
+One method for generating Beta random variables exploits its relationship with the Gamma distribution. If $Y_1 \sim Gamma(\alpha_1, 1)$ and $Y_2 \sim Gamma(\alpha_2, 1)$, then $X = Y_1/(Y_1 + Y_2)$ has a Beta($\alpha_1, \alpha_2$) distribution. In the previous KSL code, we defined two gamma random variables and define the beta random variable using the algebraic expression. This code *defines* and *constructs* a new random variable that is function of the previously defined random variables. Through this pattern you can define complex random variables and use those random variables anywhere that a random variable is needed.
 
 ## Probability Distribution Models {#probModels}
 
@@ -1164,7 +1183,7 @@ The `ksl.utilities.random.rvariable` package is the key package for generating r
 <p class="caption">(\#fig:DistPackage)Distribution Interfaces</p>
 </div>
 
-Figure\@ref(fig:DistPackage) illustrates the interfaces used to define probability distributions. First, the interface, `CDFIfc` serves as the basis for discrete distributions via the `DiscreteDistributionIfc` interface, for continuous distributions via the `ContinuousDistributionIfc` interface and the general `DistributionIfc` interface. The discrete distributions such as the geometric, binomial, etc. implement the `DiscreteDistributionIfc` and `PMFIfc` interfaces. Similarly, continuous distributions like the normal, uniform, etc. implement the `ContinuousDistributionIfc` and `PDFIfc` interfaces.  All concrete implementations of distributions extend from the abstract base class `Distribution`, which implements the `DistributionIfc` interface.  Thus, all distributions have the following capabilities:
+Figure\@ref(fig:DistPackage) illustrates the interfaces used to define probability distributions. First, the interface, `CDFIfc` serves as the basis for discrete distributions via the `DiscreteDistributionIfc` interface, for continuous distributions via the `ContinuousDistributionIfc` interface and the general `DistributionIfc` interface. The discrete distributions such as the geometric, binomial, etc. implement the `DiscreteDistributionIfc` and `PMFIfc` interfaces. Similarly, continuous distributions like the normal, uniform, etc. implement the `ContinuousDistributionIfc` and `PDFIfc` interfaces.  All concrete implementations of distributions extend from the abstract `Distribution` class, which implements the `DistributionIfc` interface.  Thus, all distributions have the following capabilities:
 
 * `cdf(b: Double)` - computes the cumulative probability, $F(b) = P(X \leq b)$
 * `cdf(a: Double, b: Double)` - computes the cumulative probability, $P( a \leq X \leq b)$
@@ -1174,7 +1193,7 @@ Figure\@ref(fig:DistPackage) illustrates the interfaces used to define probabili
 * `standardDeviation()` - returns the standard deviation of the distribution
 * `invCDF(p: Double)` - returns the inverse of the cumulative distribution function $F^{-1}(p)$. This is performed by numerical search if necessary
 
-Discrete distributions have a method called `pmf(k: Double)` that returns the probability associated with the value $k$.  Continuous distributions have a probability density function, $f(x)$, implemented in the method, `pdf(x : Double)`.  Finally, all distributions know how to create random variables through the `GetRVariableIfc` interface that provides the following methods.
+Discrete distributions have a method called `pmf(k: Double)` that returns the probability associated with the value $k$.  Continuous distributions have a probability density function, $f(x)$, implemented in the method, `pdf(x : Double).`  Finally, all distributions know how to create random variables through the `GetRVariableIfc` interface that provides the following methods.
 
 * `RVariableIfc randomVariable(stream: RNStreamIfc)` - returns a new instance of a random variable based on the current values of the distribution's parameters that uses the supplied stream
 * `RVariableIfc randomVariable(streamNum: Int)` - returns a new instance of a random variable based on the current values of the distribution's parameters that uses the supplied stream number
@@ -1207,7 +1226,7 @@ fun main() {
     println("mean = " + bnDF.mean())
     println("variance = " + bnDF.variance())
     // make random variables based on the distributions
-    val brv = bnDF.randomVariable
+    val brv = bnDF.randomVariable(1)
     print(String.format("%3s %15s %n", "n", "Values"))
     // generate some values
     for (i in 1..5) {
@@ -1239,20 +1258,20 @@ variance = 1.5999999999999996
   9    0.2684354560    0.8926258176 
  10    0.1073741824    1.0000000000 
 ```
-The `ksl.utilities.random.rvariable` package creates instances of random variables that are immutable. That is, once you create a random variable, its parameters cannot be changed.  However, distributions permit their parameters to be changed and they also facilitate the creation of random variables.  The previous example code uses the properties `probOfSuccess` and `numTrials` to change the parameters of the previously created binomial distribution and then creates a random variable based on the mutated distribution.
+The `ksl.utilities.random.rvariable` package creates instances of random variables that are immutable. That is, once you create a random variable, its parameters cannot be changed.  However, distributions permit their parameters to be changed and they also facilitate the creation of random variables.  The example code uses the properties `probOfSuccess` and `numTrials` to change the parameters of the previously created binomial distribution and then creates a random variable based on the mutated distribution.
 
 ```
 mean = 10.0
 variance = 5.0
   n          Values 
-  1              11 
-  2              14 
-  3              16 
-  4               7 
-  5              14 
+  1               7 
+  2               9 
+  3               9 
+  4              12 
+  5               8 
 ```
 
-The results are as we would expect. Similar calculations can be made for continuous distributions. In most cases, the concrete implementations of the various distributions have specialize methods beyond those generic methods described here. Please refer to the documentation for further details.
+The results are as we would expect. Similar calculations can be made for continuous distributions. In most cases, the concrete implementations of the various distributions have specialized methods beyond those generic methods described here. Please refer to the documentation for further details.
 
 There are a number of useful companion object methods defined for the binomial, normal, gamma, and Student-T distributions. Specifically, for the binomial distribution, has the following methods
 
@@ -1289,7 +1308,7 @@ The estimation of the parameters of a distribution requires the execution of an 
 <p class="caption">(\#fig:ParameterEstimatorLabel)Important Classes for Parameter Estimation</p>
 </div>
 
-Figure \@ref(fig:ParameterEstimatorLabel) illustrates some of the key classes and interfaces involved in the parameter estimation framework.  The functionality starts with the `ParameterEstimatorIfc` interface, which requires the implementation of the estimation routine and a property (`checkRange`) to indicate if the data should be checked for shifting onto the domain of the distribution.  The `ParameterEstimatorIfc` interface defines a general function that uses 1-dimensional data array, and estimates the parameters of an hypothesized uni-variate distribution via some estimation algorithm. It is important to note that a distribution may have more than one method for estimating its parameters.  In the figure, the maximum likelihood estimator for the gamma distribution is illustrated; however, for example, there is also a method of moments estimator for the gamma distribution implemented within the KSL distribution fitting framework.
+Figure \@ref(fig:ParameterEstimatorLabel) illustrates some of the key classes and interfaces involved in the parameter estimation framework.  The functionality starts with the `ParameterEstimatorIfc` interface, which requires the implementation of the estimation routine and a property (`checkRange`) to indicate if the data should be checked for shifting onto the domain of the distribution.  The `ParameterEstimatorIfc` interface defines a general function that uses a 1-dimensional data array, and estimates the parameters of an hypothesized uni-variate distribution via some estimation algorithm. It is important to note that a distribution may have more than one method for estimating its parameters.  In the figure, the maximum likelihood estimator for the gamma distribution is illustrated; however, for example, there is also a method of moments estimator for the gamma distribution implemented within the KSL distribution fitting framework.
 
 ```kt
 interface ParameterEstimatorIfc {
@@ -1309,7 +1328,7 @@ interface ParameterEstimatorIfc {
 }
 ```
 
-The basic contract for the estimation process is that the returned `EstimationResult` is consistent with the required parameter estimation. The data class `EstimationResult` stores information about the estimation process to be returned as a result of its application on the supplied data. The key property is the `success` property, which indicates whether the parameter estimation process was successful.  Given that many estimation processes may require advanced optimization methods, the estimation process might not converge or some other problem might have occurred.  If the `success` property is true, then the results should be meaningful. The `EstimationResult` also returns the estimator that was used (`MVBSestimatorIfc`) in a form for bootstrapping, the estimated parameters as an instance of `RVParameters,` a message concerning the estimation process, a text (string) representation of the distribution and its parameters, the original data (`originalData`), the shifted data if shifted, the statistics associated with the original data, and data that is suitable for testing for goodness of fit (`testData`).  The `MVBSestimatorIfc` interface defines a method that takes in an array of data and produces an (double) array that holds the estimated parameters.  In addition, the interface defines a list of the names to use for the parameters. This form for the estimation results facilitates performing a bootstrapping process that can provide confidence intervals for the estimated parameters.
+The basic contract for the estimation process is that the returned `EstimationResult` is consistent with the required parameter estimation. The data class `EstimationResult` stores information about the estimation process to be returned as a result of its application on the supplied data. The key property is the `success` property, which indicates whether the parameter estimation process was successful.  Given that many estimation processes may require advanced optimization methods, the estimation process might not converge or some other problem might have occurred.  If the `success` property is true, then the results should be meaningful. The `EstimationResult` also returns the estimator that was used (`MVBSestimatorIfc`) in a form that can be used within KSL bootstrapping constructs, the estimated parameters as an instance of `RVParameters,` a message concerning the estimation process, a text (string) representation of the distribution and its parameters, the original data (`originalData`), the shifted data if shifted, the statistics associated with the original data, and data that is suitable for testing for goodness of fit (`testData`).  The `MVBSestimatorIfc` interface defines a method that takes in an array of data and produces a (double) array that holds the estimated parameters.  In addition, the interface defines a list of the names to use for the parameters. This form for the estimation results facilitates performing a bootstrapping process that can provide confidence intervals for the estimated parameters.
 
 ::: {.example #ch2ex23 name="Parameter Estimation"}
 
@@ -1318,7 +1337,7 @@ The following code illustrates the estimation of the parameters for a normal dis
 ```kt
 fun main(){
     // define a normal random variable,
-    val x = NormalRV(2.0, 5.0)
+    val x = NormalRV(2.0, 5.0, streamNum = 1)
     // generate some data
     val data = x.sample(100)
     // create the estimator
@@ -1344,37 +1363,36 @@ Estimation message:
 The normal parameters were estimated successfully using a MLE technique
 
 Statistics for the data:
-ID 2
+ID 4
 Name Statistic_1
 Number 100.0
-Average 2.4138851463671918
-Standard Deviation 2.360496477064862
-Standard Error 0.23604964770648623
-Half-width 0.4683737087091538
+Average 2.0892468525989156
+Standard Deviation 2.123930458872048
+Standard Error 0.2123930458872048
+Half-width 0.4214338787318177
 Confidence Level 0.95
-Confidence Interval [1.945511437658038, 2.8822588550763455]
-Minimum -3.5669763460675563
-Maximum 7.965700083130213
-Sum 241.38851463671918
-Variance 5.571943618235626
-Deviation Sum of Squares 551.622418205327
-Last value collected 3.241841050111711
-Kurtosis -0.5348553870721524
-Skewness 0.20030433873223535
-Lag 1 Covariance -1.2167682247913674
-Lag 1 Correlation -0.2205799084000348
-Von Neumann Lag 1 Test Statistic -2.213606239550482
+Confidence Interval [1.667812973867098, 2.5106807313307336]
+Minimum -4.430752220590554
+Maximum 6.493367339631967
+Sum 208.92468525989156
+Variance 4.5110805941244285
+Deviation Sum of Squares 446.5969788183184
+Last value collected 3.5738686354135556
+Kurtosis -0.2314557519668217
+Skewness -0.2890094690738773
+Lag 1 Covariance -0.40973073091033607
+Lag 1 Correlation -0.09174507449523522
+Von Neumann Lag 1 Test Statistic -0.8229876116312043
 Number of missing observations 0.0
 Lead-Digit Rule(1) -1
+
 
 Shift estimation results:
 null
 
 Estimated parameters:
 RV Type = Normal
-Double Parameters {mean=2.4138851463671918, variance=5.571943618235626}
-Integer Parameters {}
-Double Array Parameters {}
+Double Parameters {mean=2.0892468525989156, variance=4.5110805941244285}
 
 ------------------------------------------------------
 Bootstrap statistical results:
@@ -1382,15 +1400,14 @@ Bootstrap statistical results:
 statistic name = mean
 number of bootstrap samples = 400
 size of original sample = 100
-original estimate = 2.4138851463671918
-bias estimate = -0.004346113299975141
-across bootstrap average = 2.4095390330672166
-std. err. estimate = 0.011727975525999638
+original estimate = 2.0892468525989156
+bias estimate = -0.01587415275757076
+across bootstrap average = 2.073372699841345
+bootstrap std. err. estimate = 0.21341609857688634
 default c.i. level = 0.95
-norm c.i. = [2.3908987367061334, 2.43687155602825]
-basic c.i. = [1.9728453671368813, 2.8775812826012266]
-percentile c.i. = [1.950189010133157, 2.854924925597502]
-------------------------------------------------------
+norm c.i. = [1.670958985329941, 2.5075347198678903]
+basic c.i. = [1.6728521695280434, 2.506080452483194]
+percentile c.i. = [1.6724132527146374, 2.505641535669788]
 
 ------------------------------------------------------
 Bootstrap statistical results:
@@ -1398,15 +1415,14 @@ Bootstrap statistical results:
 statistic name = variance
 number of bootstrap samples = 400
 size of original sample = 100
-original estimate = 5.571943618235626
-bias estimate = -0.15846349216845024
-across bootstrap average = 5.413480126067176
-std. err. estimate = 0.032372344482434104
+original estimate = 4.5110805941244285
+bias estimate = -0.013680373758844233
+across bootstrap average = 4.497400220365584
+bootstrap std. err. estimate = 0.6474490755210855
 default c.i. level = 0.95
-norm c.i. = [5.508494988903779, 5.635392247567474]
-basic c.i. = [4.436576208323049, 7.000150587007805]
-percentile c.i. = [4.143736649463448, 6.707311028148204]
-------------------------------------------------------
+norm c.i. = [3.2421037232562866, 5.78005746499257]
+basic c.i. = [3.163271658068438, 5.717662725018807]
+percentile c.i. = [3.3044984632300505, 5.858889530180419]
 ```
 
 The parameters of the following distributions can be estimated from data using the KSL.
@@ -1446,7 +1462,7 @@ The primary method that needs to be implemented is the abstract `score()` functi
 abstract fun score(data: DoubleArray, cdf: ContinuousDistributionIfc) : Score
 ```
 
-The contract for this function is it will return a numerical value that measures the quality of the distribution fit given the observed data and a hypothesized continuous distribution function. In addition, the function, `badScore(),` should return the worse possible score for the metric. The `badScore()` function should be used if there is some error or issue that prevents the scoring procedure from determining a score for the fit.  A `Score` is a data class that indicates whether the score is `valid` or not and provides the metric that determined the score. You can think of the metric as the units of measure. The metric defines the domain (or set of legal values) for the metric and its direction.  By direction, we mean whether bigger scores are better than smaller scores or vice versa. This information is used when a set of scores are combined into an overall score. 
+The contract for this function is that it will return a numerical value that measures the quality of the distribution fit given the observed data and a hypothesized continuous distribution function. In addition, the function, `badScore(),` should return the worse possible score for the metric. The `badScore()` function should be used if there is some error or issue that prevents the scoring procedure from determining a score for the fit.  A `Score` is a data class that indicates whether the score is `valid` or not and provides the metric that determined the score. You can think of the metric as the units of measure. The metric defines the domain (or set of legal values) for the metric and its direction.  By direction, we mean whether bigger scores are better than smaller scores or vice versa. This information is used when a set of scores are combined into an overall score. 
 
 The KSL has many pre-defined scoring models. The user can specify the criteria to use for the scoring evaluation process or accept the defaults. Two of the scoring models are based on a histogram summary of the data. This involves dividing the range of observations via break points $b_j$ and tabulating frequencies or proportions of the data falling with the defined intervals or bins. The KSL does not use arbitrary break points from a histogram binning process. Instead the KSL attempts to define the break points for the intervals such that each interval has the *same* probability of occurrence.  This ensures that the expected number of observations within each interval is the same. The theoretical basis for this approach can be found in [@CAWilliams1950].
 
@@ -1600,7 +1616,7 @@ These scoring models avoid summarizing the data based on a histogram, which requ
 
 As illustrated in Figure \@ref(fig:ScoringModelLabel), the scoring models are implemented by sub-classing from the `PDFScoringModel` abstract base class. Users of the KSL distribution recommendation framework can select which scoring models to include during the evaluation process. The default set of scoring models are BIC, AD, CVM, and QQC. During testing, the BIC criterion performed very well across all but very low sample sizes. The AD and CVM criteria tend to perform better for lower sample sizes, while the QQC criterion tends to perform better for higher sample sizes and for particular distribution families.
 
-The quality of a parametric fit for a specific distribution can be evaluated by one or more scoring models. Since distribution quality metrics have been designed to measure different aspects of the fit, the KSL allows the scoring results to be combined into an overall score.  Suppose distribution $F_k$ is evaluated by the the scoring models, each resulting in score $S_i$ for $i=1,2,\cdots, m$, where $m$ is the number of scoring models. In general, the scores may not have the same scales and the same direction of *goodness*. The KSL scoring system translates and scales each score $S_i$ in to a value, $M_i$ measure, that has a common scale and direction (a bigger score is better).  These value measures are then combined into an overall value ($V_k$) for the distribution using weights ($w_i$) across the scoring criteria:
+The quality of a parametric fit for a specific distribution can be evaluated by one or more scoring models. Since distribution quality metrics have been designed to measure different aspects of the fit, the KSL allows the scoring results to be combined into an overall score.  Suppose distribution $F_k$ is evaluated by the the scoring models, each resulting in score $S_i$ for $i=1,2,\cdots, m$, where $m$ is the number of scoring models. In general, the scores may not have the same scales and the same direction of *goodness*. The KSL scoring system translates and scales each score $S_i$ in to a value measure, $M_i$, that has a common scale and direction (a bigger score is better).  These value measures are then combined into an overall value ($V_k$) for the distribution using weights ($w_i$) across the scoring criteria:
 
 \begin{equation}
 V_{k} = \sum_{i=1}^{m}w_i \times M_i
@@ -1608,7 +1624,7 @@ V_{k} = \sum_{i=1}^{m}w_i \times M_i
 
 The distribution that has the overall largest value, $V_k$, is then recommended as the best fitting probability model. 
 
-This methodology is based on the commonly used multi-objective decision analysis (MODA) method for choosing among a set of alternatives. In the KSL default application of this methodology, each scoring model is weighted equally and a linearly additive model is assumed.  The framework is designed to allow the user to define and apply their own scoring models and to set the preference weights among the metrics.  In addition, sensitivity analysis of the weights can easily be accomplished. Once the best distribution has been recommended, then the KSL facilitates performing statistical tests with resulting p-values.
+This methodology is based on the commonly used multi-objective decision analysis (MODA) method for choosing among a set of alternatives. In the KSL's default application of this methodology, each scoring model is weighted equally and a linearly additive model is assumed.  The framework is designed to allow the user to define and apply their own scoring models and to set the preference weights among the metrics.  In addition, sensitivity analysis of the weights can easily be accomplished. Once the best distribution has been recommended, then the KSL facilitates performing statistical tests with resulting p-values.
 
 Figure \@ref(fig:PDFModelerLabel) presents the main class (`PDFModeler`) for performing the continuous distribution fitting task. The companion object provides functionality to estimate the shift parameter, shift the data to the left, compute confidence intervals for the minimum and maximum of the data via bootstrapping, estimate the range of possible values for the distribution, create distributions from estimated parameters, create the default evaluation model, and work with histograms.
 
@@ -1628,7 +1644,7 @@ The modeling process starts with creating an instance of `PDFModeler` by supplyi
 - `showAllResultsInBrowser(fileName: String = "pdfModelingResults")` - This function makes a histogram, observations plot, auto-correlation plot, performs the fitting and scoring process, and performs goodness
 of fit tests on the top scoring distribution and displays all the results by opening a browser window. The generated `html` file is stored in the `KSL.plotDir` directory using the supplied name as the pre-fix for a temporary file. This one function performs all the necessary fitting steps and returns the results, including plots, within an `html` page.
 
-- `showAllGoodnessofFitSummariesInBrowser(pdfModelingResults: PDFModelingResults)` - This function shows the goodness of fit summaries for every distribution used within the fitting process. This function shows the raw scores, the scaled scores, the ranked scores, and the PDF summary results for each distribution. The PDF summary results includes the `FitDistPlot` as well as the results of the Chi-Squared, K-S, Anderson Darling, and Cramer Von Mises, statistical tests.  This function is very useful when comparing the quality of the fitted distributions.
+- `showAllGoodnessofFitSummariesInBrowser(pdfModelingResults: PDFModelingResults)` - This function shows the goodness of fit summaries for every distribution used within the fitting process. This function shows the raw scores, the scaled scores, the ranked scores, and the PDF summary results for each distribution. The PDF summary results includes the `FitDistPlot` plots as well as the results of the Chi-Squared, K-S, Anderson Darling, and Cramer Von Mises, statistical tests.  This function is very useful when comparing the quality of the fitted distributions.
     
 The `PDFModeling` class encapsulates the estimation and scoring process.  The purpose of this class is to serve as the general location for implementing the estimation of distribution parameters across many distributions. The general use involves the following:
 
@@ -1687,9 +1703,9 @@ As an example, the following code generates an exponentially distributed sample 
 
 ::: {.example #ch2ex24 name="Goodness of Fit Testing"}
 ```kt
-fun main(){
+fun main() {
     val d = Exponential(10.0)
-    val e = d.randomVariable
+    val e = d.randomVariable(3)
     e.advanceToNextSubStream()
     val n = 1000
     val data = e.sample(n)
@@ -1809,13 +1825,15 @@ Given the limited number of discrete distributions, the KSL does not provide a s
 
 ::: {.example #ch2ex25 name="Discrete Goodness of Fit Testing"}
 ```kt
-val dist = NegativeBinomial(0.2, theNumSuccesses = 4.0)
-val rv = dist.randomVariable
-rv.advanceToNextSubStream()
-val data = rv.sample(200)
-val breakPoints = PMFModeler.makeZeroToInfinityBreakPoints(data.size, dist)
-val pf = DiscretePMFGoodnessOfFit(data, dist, breakPoints = breakPoints)
-println(pf.chiSquaredTestResults())
+fun main() {
+    val dist = NegativeBinomial(0.2, theNumSuccesses = 4.0)
+    val rv = dist.randomVariable(streamNumber = 3)
+    rv.advanceToNextSubStream()
+    val data = rv.sample(200)
+    val breakPoints = PMFModeler.makeZeroToInfinityBreakPoints(data.size, dist)
+    val pf = DiscretePMFGoodnessOfFit(data, dist, breakPoints = breakPoints)
+    println(pf.chiSquaredTestResults())
+}
 ```
 :::
 
@@ -2310,6 +2328,11 @@ Some of these more advanced capabilities will be illustrated in future chapters.
 ## Exercises
 
 ***
+::: {.exercise #Ch2DistCW}
+Complete the crossword puzzle found [here](https://crosswordlabs.com/embed/distributions-2). Turn in your completed puzzle.
+:::
+
+***
 ::: {.exercise #Ch2Ex1}
 Consider the following discrete distribution of the random variable $X$ whose
 probability mass function is $p(x)$.
@@ -2361,13 +2384,13 @@ for a cash flow analysis of the project. Write a KSL program to generate 10 obse
 ::: {.exercise #Ch2Ex6}
 Consider the following probability density function:
 
-$$f(x) = 
+$$f(x) =
   \begin{cases}
      \dfrac{3x^2}{2} & -1 \leq x \leq 1\\
      0 & \text{otherwise} \\
   \end{cases}$$
-  
-Write a KSL program to generate 10 observations from this distribution using stream 1 using the inverse transform technique.  
+
+Write a KSL program to generate 10 observations from this distribution using stream 1 using the inverse transform technique.
 :::
 
 ***
@@ -2375,12 +2398,12 @@ Write a KSL program to generate 10 observations from this distribution using str
 ::: {.exercise #Ch2Ex7}
 Consider the following probability density function:
 
-$$f(x) = 
+$$f(x) =
   \begin{cases}
      0.5x - 1 & 2 \leq x \leq 4\\
      0 & \text{otherwise} \\
   \end{cases}$$
-       
+
 Write a KSL program to generate 10 observations from this distribution using stream 1 using the inverse transform technique.
 :::
 
@@ -2389,7 +2412,7 @@ Write a KSL program to generate 10 observations from this distribution using str
 ::: {.exercise #Ch2Ex8}
 Consider the following probability density function:
 
-$$f(x) = 
+$$f(x) =
   \begin{cases}
      \dfrac{2x}{25} & 0 \leq x \leq 5\\
      0 & \text{otherwise} \\
@@ -2403,7 +2426,7 @@ Write a KSL program to generate 10 observations from this distribution using str
 ::: {.exercise #Ch2Ex9}
 Consider the following probability density function:
 
-$$f(x) = 
+$$f(x) =
   \begin{cases}
      \dfrac{2}{x^3} & x > 1\\
      0 & x \leq 1\\
@@ -2418,7 +2441,7 @@ Write a KSL program to generate 10 observations from this distribution using str
 The times to failure for an automated production process have been found to be
 randomly distributed according to a Rayleigh distribution:
 
-$$\ f(x) = 
+$$\ f(x) =
    \begin{cases}
      2 \beta^{-2} x e^{(-(x/\beta)^2)} & x > 0\\
      0 & \text{otherwise}
@@ -2445,7 +2468,7 @@ Suppose that the service time for a patient consists of two distributions. There
 is a 25% chance that the service time is uniformly distributed with
 minimum of 20 minutes and a maximum of 25 minutes, and a 75% chance that
 the time is distributed according to a Weibull distribution with shape
-of 2 and a scale of 4.5. 
+of 2 and a scale of 4.5.
 
 Write a KSL program to generate 10 observations from this distribution using stream 1.
 :::
@@ -2455,13 +2478,13 @@ Write a KSL program to generate 10 observations from this distribution using str
 ::: {.exercise #Ch2Ex13}
 Consider the following probability density function:
 
-$$f(x) = 
+$$f(x) =
   \begin{cases}
      \dfrac{3x^2}{2} & -1 \leq x \leq 1\\
      0 & \text{otherwise} \\
   \end{cases}$$
 
-Write a KSL program to generate 10 observations from this distribution using the acceptance-rejection technique. Use stream 1 in your implementation. 
+Write a KSL program to generate 10 observations from this distribution using the acceptance-rejection technique. Use stream 1 in your implementation.
 :::
 
 ***
@@ -2469,7 +2492,7 @@ Write a KSL program to generate 10 observations from this distribution using the
 ::: {.exercise #Ch2Ex14}
 Consider the following function:
 
-$$f(x) = 
+$$f(x) =
   \begin{cases}
      cx^{2} & a \leq x \leq b\\
      0 & \text{otherwise} \\
@@ -2486,13 +2509,13 @@ c. Write a KSL program to generate 10 observations from this distribution over t
 ::: {.exercise #Ch2Ex15}
 Consider the following probability density function:
 
-$$f(x) = 
+$$f(x) =
   \begin{cases}
      \frac{3(c - x)^{2}}{c^{3}} & 0 \leq x \leq c\\
      0 & \text{otherwise} \\
   \end{cases}
 $$
-  
+
 Derive an inverse cumulative distribution algorithm for generating from $f(x)$. Write a KSL program to generate 10 observations from this distribution for $c=5$. Use stream 1 in your implementation.
 :::
 

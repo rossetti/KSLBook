@@ -23,7 +23,7 @@
 <meta name="author" content="Manuel D. Rossetti" />
 
 
-<meta name="date" content="2025-02-07" />
+<meta name="date" content="2025-07-03" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -373,8 +373,15 @@ div.csl-indent {
 <li class="chapter" data-level="8.2.3" data-path="movableResources.html"><a href="movableResources.html#secTQMWM"><i class="fa fa-check"></i><b>8.2.3</b> Tandem Queue Model With Movement</a></li>
 </ul></li>
 <li class="chapter" data-level="8.3" data-path="secTestAndRepairMovableResources.html"><a href="secTestAndRepairMovableResources.html"><i class="fa fa-check"></i><b>8.3</b> Modeling the Test and Repair System with Movable Resources</a></li>
-<li class="chapter" data-level="8.4" data-path="summary-of-new-concepts.html"><a href="summary-of-new-concepts.html"><i class="fa fa-check"></i><b>8.4</b> Summary of New Concepts</a></li>
-<li class="chapter" data-level="8.5" data-path="exercises-7.html"><a href="exercises-7.html"><i class="fa fa-check"></i><b>8.5</b> Exercises</a></li>
+<li class="chapter" data-level="8.4" data-path="secConveyors.html"><a href="secConveyors.html"><i class="fa fa-check"></i><b>8.4</b> Modeling Systems with Conveyors</a>
+<ul>
+<li class="chapter" data-level="8.4.1" data-path="secConveyors.html"><a href="secConveyors.html#ksl-conveyor-constructs"><i class="fa fa-check"></i><b>8.4.1</b> KSL Conveyor Constructs</a></li>
+<li class="chapter" data-level="8.4.2" data-path="secConveyors.html"><a href="secConveyors.html#tandem-queue-system-with-conveyors"><i class="fa fa-check"></i><b>8.4.2</b> Tandem Queue System with Conveyors</a></li>
+<li class="chapter" data-level="8.4.3" data-path="secConveyors.html"><a href="secConveyors.html#secTestAndRepairConveyors"><i class="fa fa-check"></i><b>8.4.3</b> Test and Repair via Conveyors</a></li>
+<li class="chapter" data-level="8.4.4" data-path="secConveyors.html"><a href="secConveyors.html#secMiscConveyor"><i class="fa fa-check"></i><b>8.4.4</b> Miscellaneous Concepts in Conveyor Modeling</a></li>
+</ul></li>
+<li class="chapter" data-level="8.5" data-path="summary-of-new-concepts.html"><a href="summary-of-new-concepts.html"><i class="fa fa-check"></i><b>8.5</b> Summary of New Concepts</a></li>
+<li class="chapter" data-level="8.6" data-path="exercises-7.html"><a href="exercises-7.html"><i class="fa fa-check"></i><b>8.6</b> Exercises</a></li>
 </ul></li>
 <li class="chapter" data-level="9" data-path="ch9AdvMC.html"><a href="ch9AdvMC.html"><i class="fa fa-check"></i><b>9</b> Advanced Monte Carlo Methods</a>
 <ul>
@@ -523,7 +530,7 @@ div.csl-indent {
             <section class="normal" id="section-">
 <div id="ch2generator" class="section level2 hasAnchor" number="2.1">
 <h2><span class="header-section-number">2.1</span> Random Number Generator<a href="ch2generator.html#ch2generator" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p>This section discusses how to random number generation is implemented
+<p>This section discusses how random number generation is implemented
 within the KSL. The purpose is to present how these concepts can be put into
 practice.</p>
 <p>The random number generator used within the KSL is described in
@@ -701,7 +708,7 @@ then <span class="math inline">\(1-U\)</span> is the antithetic variate of <span
 <p>The <code>RNStreamControlIfc</code> defines methods for controlling the underlying stream of pseudo-random numbers.</p>
 <ul>
 <li><code>resetStartStream()</code> - positions the random number stream at the
-beginning of its sequence This is the same location in the stream as
+beginning of its sequence. This is the same location in the stream as
 assigned when the random number stream was created and
 initialized.</li>
 <li><code>resetStartSubstream()</code> - resets the position of the random number
@@ -719,7 +726,7 @@ producing antithetic variates.</li>
 </ul>
 <p>The <code>StreamOptionIfc</code> defines methods for automating the control of the stream during simulation runs.</p>
 <ul>
-<li><code>advanceToNextSubStreamOption</code> - Indicates that the stream will be advance to the next substream for the beginning of the next simulation replication.</li>
+<li><code>advanceToNextSubStreamOption</code> - Indicates that the stream will be advanced to the next substream for the beginning of the next simulation replication.</li>
 <li><code>resetStartStreamOption</code> - Indicates that the underlying stream will be reset to its starting point for the beginning of the next simulation replication.</li>
 </ul>
 <p>The <code>RNStreamIfc</code> interface assumes that the underlying pseudo-random number generator can produce
@@ -733,13 +740,13 @@ well-defined manner.</p>
 Figure 2.2: RNStreamProviderIfc Interface
 </p>
 </div>
-<p>To create an concrete instance of a stream, we must have a random number stream provider. This
-functionality is defined by the <code>RNStreamProviderIfc</code> interface and its concrete implementation,
+<p>To create a concrete instance of a stream, we must have a random number stream provider. This
+functionality is defined by the <code>RNStreamProviderIfc</code> interface and its default implementation,
 <code>RNStreamProvider.</code> Figure <a href="ch2generator.html#fig:RNStreamProvider">2.2</a> illustrates the functionality available for
 creating random number streams. This interface conceptualizes the creation of random number streams
 as a process of making a sequence of streams numbered 1, 2, 3, …</p>
 <p>A random number stream provider must define a default stream, which can be retrieved via the
-<code>defaultRNStream()</code> method. For the KSL, the default stream is the first
+<code>defaultRNStream()</code> method. By default, for the KSL, the default stream is the first
 stream created and is labeled with the sequence number 1. The sequence number of a stream
 can be used to retrieve a particular stream from the provider. The following methods
 allow for creation and access to streams.</p>
@@ -754,14 +761,15 @@ many streams have been made. If <span class="math inline">\(0\)</span> is return
 the streams. In other words, this method should act as if <code>nextRNStream()</code> was not called but advance the underlying stream mechanism as if <span class="math inline">\(n\)</span> streams had been provided.</li>
 <li><code>resetRNStreamSequence()</code> - Causes the random number stream provider to act as if has never created any streams. Thus, the next call to <code>nextRNStream()</code> will return the <span class="math inline">\(1^{st}\)</span> stream.</li>
 </ul>
-<p>The random number stream provider also facilitates the control of all streams that have been created. This functionality is similar to how the position within an individual stream can be manipulated, except the provider performs the functionality on <em>all streams</em> that it has provided The following methods perform this function.</p>
+<p>The random number stream provider also facilitates the control of all streams that have been created. This functionality is similar to how the position within an individual stream can be manipulated, except the provider performs the functionality on <em>all streams</em> that it has provided The following methods perform this functionality.</p>
 <ul>
 <li><code>resetAllStreamsToStart()</code> - resets all created streams to the start of their stream.</li>
 <li><code>resetAllStreamsToStartOfCurrentSubStream()</code> - resets all created streams to the start of their current sub-stream.</li>
 <li><code>advanceAllStreamsToNextSubstream()</code> - advances all created streams to the start of their next sub-stream.</li>
 <li><code>setAllStreamsAntitheticOption(option: Boolean)</code> - changes all created streams to have their antithetic option either off = false or on = true.</li>
 </ul>
-<p>Many random number generators require the specification of a seed to start the generated sequence. Even though the generator within the KSL use seeds, there really is no need to utilize the seeds because of the well defined methods for moving within the streams. Now, let’s illustrate how to create and manipulate streams.</p>
+<p>Many random number generators require the specification of a seed to start the generated sequence. Even though the generator within the KSL uses seeds, there really is no need to specify the seeds because of the well defined methods for moving within the streams. However, if you really want to get into the details and specify seeds, the you should review the <code>RNStreamFactory</code> class, which directly implements the random number generator discussed in <span class="citation">L’Ecuyer, Simard, and Kelton (<a href="#ref-ecuyer2002an">2002</a>)</span>.</p>
+<p>Now, let’s illustrate how to create and manipulate streams.</p>
 </div>
 <div id="ch2creatingStreams" class="section level3 hasAnchor" number="2.1.2">
 <h3><span class="header-section-number">2.1.2</span> Creating and Using Streams<a href="ch2generator.html#ch2creatingStreams" class="anchor-section" aria-label="Anchor link to header"></a></h3>
@@ -772,43 +780,39 @@ the streams. In other words, this method should act as if <code>nextRNStream()</
 <span id="cb1-2"><a href="ch2generator.html#cb1-2" tabindex="-1"></a>    <span class="co">// make a provider for creating streams</span></span>
 <span id="cb1-3"><a href="ch2generator.html#cb1-3" tabindex="-1"></a>    <span class="kw">val</span> <span class="va">p1</span> <span class="op">=</span> RNStreamProvider<span class="op">()</span></span>
 <span id="cb1-4"><a href="ch2generator.html#cb1-4" tabindex="-1"></a>    <span class="co">// get the first stream from the provider</span></span>
-<span id="cb1-5"><a href="ch2generator.html#cb1-5" tabindex="-1"></a>    <span class="kw">val</span> <span class="va">p1s1</span> <span class="op">=</span> p1<span class="op">.</span>nextRNStream<span class="op">()</span></span>
+<span id="cb1-5"><a href="ch2generator.html#cb1-5" tabindex="-1"></a>    <span class="kw">val</span> <span class="va">p1s1</span> <span class="op">=</span> p1<span class="op">.</span>rnStream<span class="op">(</span>streamNum <span class="op">=</span> <span class="dv">1</span><span class="op">)</span></span>
 <span id="cb1-6"><a href="ch2generator.html#cb1-6" tabindex="-1"></a>    <span class="co">// make another provider, the providers are identical</span></span>
 <span id="cb1-7"><a href="ch2generator.html#cb1-7" tabindex="-1"></a>    <span class="kw">val</span> <span class="va">p2</span> <span class="op">=</span> RNStreamProvider<span class="op">()</span></span>
-<span id="cb1-8"><a href="ch2generator.html#cb1-8" tabindex="-1"></a>    <span class="co">// thus the first streams returned are identical</span></span>
-<span id="cb1-9"><a href="ch2generator.html#cb1-9" tabindex="-1"></a>    <span class="kw">val</span> <span class="va">p2s1</span> <span class="op">=</span> p2<span class="op">.</span>nextRNStream<span class="op">()</span></span>
-<span id="cb1-10"><a href="ch2generator.html#cb1-10" tabindex="-1"></a>    print<span class="op">(</span><span class="kw">String</span><span class="op">.</span>format<span class="op">(</span><span class="st">&quot;%3s %15s %15s %n&quot;</span><span class="op">,</span> <span class="st">&quot;n&quot;</span><span class="op">,</span> <span class="st">&quot;p1s1&quot;</span><span class="op">,</span> <span class="st">&quot;p2s2&quot;</span><span class="op">))</span></span>
+<span id="cb1-8"><a href="ch2generator.html#cb1-8" tabindex="-1"></a>    <span class="co">// Thus, the first streams returned are identical</span></span>
+<span id="cb1-9"><a href="ch2generator.html#cb1-9" tabindex="-1"></a>    <span class="kw">val</span> <span class="va">p2s1</span> <span class="op">=</span> p2<span class="op">.</span>rnStream<span class="op">(</span>streamNum <span class="op">=</span> <span class="dv">1</span><span class="op">)</span></span>
+<span id="cb1-10"><a href="ch2generator.html#cb1-10" tabindex="-1"></a>    print<span class="op">(</span><span class="kw">String</span><span class="op">.</span>format<span class="op">(</span><span class="st">&quot;%3s %15s %15s %n&quot;</span><span class="op">,</span> <span class="st">&quot;n&quot;</span><span class="op">,</span> <span class="st">&quot;p1s1&quot;</span><span class="op">,</span> <span class="st">&quot;p2s1&quot;</span><span class="op">))</span></span>
 <span id="cb1-11"><a href="ch2generator.html#cb1-11" tabindex="-1"></a>    <span class="cf">for</span> <span class="op">(</span>i <span class="kw">in</span> <span class="fl">1..5</span><span class="op">)</span> <span class="op">{</span></span>
 <span id="cb1-12"><a href="ch2generator.html#cb1-12" tabindex="-1"></a>        print<span class="op">(</span><span class="kw">String</span><span class="op">.</span>format<span class="op">(</span><span class="st">&quot;%3d %15f %15f %n&quot;</span><span class="op">,</span> i<span class="op">,</span> p1s1<span class="op">.</span>randU01<span class="op">(),</span> p2s1<span class="op">.</span>randU01<span class="op">()))</span></span>
 <span id="cb1-13"><a href="ch2generator.html#cb1-13" tabindex="-1"></a>    <span class="op">}</span></span>
 <span id="cb1-14"><a href="ch2generator.html#cb1-14" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
 </div>
 <p>Thus, in the following code output, the randomly generated values are exactly the same for the two streams.</p>
-<pre><code>  n            p1s1            p2s2 
-  1        0.728510        0.728510 
-  2        0.965587        0.965587 
-  3        0.996184        0.996184 
-  4        0.114988        0.114988 
-  5        0.973145        0.973145 </code></pre>
+<pre><code>  n            p1s1            p2s1 
+  1        0.127011        0.127011 
+  2        0.318528        0.318528 
+  3        0.309186        0.309186 
+  4        0.825847        0.825847 
+  5        0.221630        0.221630 </code></pre>
 <p>There is is really very little need for the general programmer to create
 a <code>RNStreamProvider</code> because the KSL supplies a default provider that can be used to provide a
-virtually infinite number of streams. The need for directly accessing the functionality of <code>RNStreamProvider</code> is for very fine control of stream creation in such situations like running
+virtually infinite number of streams. The need for directly accessing the functionality of <code>RNStreamProvider</code> is for explicit control of stream creation in such situations like running
 code on different computers in parallel. While the providers produce the
 same streams, you can force one provider to be different from another
-provider by manipulating the seeds. In addition, the
+provider by manipulating the seeds. The function, <code>advanceStreamMechanism(n: Int),</code> essentially manipulates the underlying seed vector by advancing the seed values as if <code>n</code> streams have been created. If this function is used prior to creating any streams, you have essentially set the starting seed value, causing the created streams to be <em>different</em> from the default starting values. In addition, the
 provider can control all streams that it produces. So, unless you are
 trying to do some advanced work that involves coordinating multiple streams, you should not need to create multiple instances of <code>RNStreamProvider.</code></p>
-<p>Because the most common use case is to just have a single provider of streams, the KSL facilitates this through the <code>KSLRandom</code> <em>object</em> The <code>KSLRandom</code> object has a wide range of methods to facilitate random variate generation.The most important methods include:</p>
+<p>Because the most common use case is to just have a single provider of streams, the KSL facilitates this through the <code>KSLRandom</code> <em>object.</em> The <code>KSLRandom</code> object has a wide range of methods to facilitate random variate generation.The most important methods include:</p>
 <ul>
 <li><code>nextRNStream()</code> - calls the underlying default <code>RNStreamProvider</code> to create a new random number stream</li>
 <li><code>rnStream(int k)</code> - returns the <span class="math inline">\(k^{th}\)</span> stream from the default <code>RNStreamProvider</code></li>
 <li><code>defaultRNStream()</code> - calls the underlying default <code>RNStreamProvider</code> for its default stream</li>
 </ul>
-<p>In the following code example, these methods are used to create streams that are used to generate random numbers.
-The first line of the code uses the static method <code>defaultRNStream()</code> of <code>KSLRandom</code> to get the default stream and
-then generates three random numbers. The stream is then advanced and three new random numbers are generated. Then,
-the stream is reset to its starting (initial seed) and it then repeats the original values. Finally, the a new stream
-is created via <code>KSLRandom.nextRNStream()</code> and then used to generate new random numbers. From a conceptual standpoint,
+<p>In the following code example, these methods are used to create streams that are used to generate random numbers. The first line of the code uses the static method <code>defaultRNStream()</code> of <code>KSLRandom</code> to get the default stream and then generates three random numbers. The stream is then advanced and three new random numbers are generated. Then,the stream is reset to its starting (initial seed) and it then repeats the original values. Finally, the a new stream is created via <code>KSLRandom.nextRNStream()</code> and then used to generate new random numbers. From a conceptual standpoint,
 each stream contains an independent sequence of random numbers from any other stream (unless of course they are made from different providers). They are conceptually infinite and independent due to their enormous periods.</p>
 <div class="example">
 <p><span id="exm:ch2ex2" class="example"><strong>Example 2.2  (KSLRandom) </strong></span>This example illustrates how to use the <code>KSLRandom</code> class to create streams, advance the stream, and reset the stream.</p>
@@ -858,28 +862,28 @@ u = 0.3091860155832701
 Notice that they are the same as the first 3.
 Get another random number stream
 2nd stream
-u = 0.7285097861965271
-u = 0.9655872822837334
-u = 0.9961841304801171
+u = 0.7595818622487196
+u = 0.9783105732613708
+u = 0.6851358081931826
 Notice that they are different from the first 3.</code></pre>
 </div>
 <div id="ch2crn" class="section level3 hasAnchor" number="2.1.3">
 <h3><span class="header-section-number">2.1.3</span> Common Random Numbers<a href="ch2generator.html#ch2crn" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<p>Common random numbers (CRN) is a Monte Carlo method that has different experiments utilize the same random numbers. CRN is a variance reduction technique that allows the experimenter to block out the effect of the random numbers used in the experiment. To facilitate the use of common random numbers the KSL has the aforementioned stream control mechanism. One way to implement common random numbers is to use two instances of <code>RNStreamProvider</code> as was previously illustrated. In that case, the two providers produce the same sequence of streams and thus those streams can be used on the different experiments. An alternative method that does not require the use of two providers is to create a copy of the stream directly from the stream instance. The following code clones the stream instance.</p>
+<p>Common random numbers (CRN) is a Monte Carlo method that has different experiments utilize the same random numbers. CRN is a variance reduction technique, discussed more fully in Chapter <a href="ch9AdvMC.html#ch9AdvMC">9</a>, that allows the experimenter to block out the effect of the random numbers used in the experiment. To facilitate the use of common random numbers the KSL has the aforementioned stream control mechanisms. One way to implement common random numbers is to use two instances of <code>RNStreamProvider</code> as was previously illustrated. In that case, the two providers produce the same sequence of streams and thus those streams can be used on the different experiments. An alternative method that does not require the use of two providers is to create a copy of the stream directly from the stream instance. The following code clones the stream instance.</p>
 <div class="example">
 <p><span id="exm:ch2ex3" class="example"><strong>Example 2.3  (Cloning for CRN) </strong></span>This example clones an instance of a stream and uses it to generate common random numbers.</p>
 <div class="sourceCode" id="cb5"><pre class="sourceCode kt"><code class="sourceCode kotlin"><span id="cb5-1"><a href="ch2generator.html#cb5-1" tabindex="-1"></a><span class="kw">fun</span> <span class="fu">main</span><span class="op">()</span> <span class="op">{</span></span>
 <span id="cb5-2"><a href="ch2generator.html#cb5-2" tabindex="-1"></a>    <span class="co">// get the default stream</span></span>
 <span id="cb5-3"><a href="ch2generator.html#cb5-3" tabindex="-1"></a>    <span class="kw">val</span> <span class="va">s</span> <span class="op">=</span> KSLRandom<span class="op">.</span>defaultRNStream<span class="op">()</span></span>
 <span id="cb5-4"><a href="ch2generator.html#cb5-4" tabindex="-1"></a>    <span class="co">// make a clone of the stream</span></span>
-<span id="cb5-5"><a href="ch2generator.html#cb5-5" tabindex="-1"></a>    <span class="kw">val</span> <span class="va">clone</span> <span class="op">=</span> s<span class="op">.</span>instance<span class="op">()</span></span>
+<span id="cb5-5"><a href="ch2generator.html#cb5-5" tabindex="-1"></a>    <span class="kw">val</span> <span class="va">clone</span> <span class="op">=</span> s<span class="op">.</span>crnInstance<span class="op">()</span></span>
 <span id="cb5-6"><a href="ch2generator.html#cb5-6" tabindex="-1"></a>    print<span class="op">(</span><span class="kw">String</span><span class="op">.</span>format<span class="op">(</span><span class="st">&quot;%3s %15s %15s %n&quot;</span><span class="op">,</span> <span class="st">&quot;n&quot;</span><span class="op">,</span> <span class="st">&quot;U&quot;</span><span class="op">,</span> <span class="st">&quot;U again&quot;</span><span class="op">))</span></span>
 <span id="cb5-7"><a href="ch2generator.html#cb5-7" tabindex="-1"></a>    <span class="cf">for</span> <span class="op">(</span>i <span class="kw">in</span> <span class="fl">1..3</span><span class="op">)</span> <span class="op">{</span></span>
 <span id="cb5-8"><a href="ch2generator.html#cb5-8" tabindex="-1"></a>        print<span class="op">(</span><span class="kw">String</span><span class="op">.</span>format<span class="op">(</span><span class="st">&quot;%3d %15f %15f %n&quot;</span><span class="op">,</span> i<span class="op">,</span> s<span class="op">.</span>randU01<span class="op">(),</span> clone<span class="op">.</span>randU01<span class="op">()))</span></span>
 <span id="cb5-9"><a href="ch2generator.html#cb5-9" tabindex="-1"></a>    <span class="op">}</span></span>
 <span id="cb5-10"><a href="ch2generator.html#cb5-10" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
 </div>
-<p>Since the instances have the same underlying state, they produce the same random numbers. Please note that the cloned stream instance is not produced by the underlying <code>RNStreamProvider</code> and thus it is not part of the set of streams managed or controlled by the provider.</p>
+<p>Since the instances have the same underlying state when the clone is created, they produce the same random numbers. Please note that the cloned stream instance is <strong>not provided</strong> by the underlying <code>RNStreamProvider</code> and thus it is not part of the set of streams managed or controlled by the provider.</p>
 <pre><code>  n               U         U again 
   1        0.127011        0.127011 
   2        0.318528        0.318528 
@@ -919,7 +923,7 @@ Notice that they are different from the first 3.</code></pre>
 </div>
 <div id="ch2antitheticStreams" class="section level3 hasAnchor" number="2.1.4">
 <h3><span class="header-section-number">2.1.4</span> Creating and Using Antithetic Streams<a href="ch2generator.html#ch2antitheticStreams" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<p>Recall that if a pseudo-random number is called <span class="math inline">\(U\)</span> then its antithetic value is <span class="math inline">\(1-U\)</span>. There are a number of methods to access antithetic values. The simplest is to create an antithetic instance from a given stream. This is illustrated is in the following code. Please note that the antithetic stream instance is not produced by the underlying <code>RNStreamProvider</code> and thus it is not part of the set of streams managed or controlled by the provider. The new instance process directly creates the new stream based on the current stream so that it has the same underling state and it is set to produce antithetic values.</p>
+<p>Recall that if a pseudo-random number is called <span class="math inline">\(U\)</span> then its antithetic value is <span class="math inline">\(1-U\)</span>. There are a number of methods to access antithetic values. The simplest is to create an antithetic instance from a given stream. This is illustrated in the following code. Please note that the antithetic stream instance is not provided by the underlying <code>RNStreamProvider</code> and thus it is not part of the set of streams managed or controlled by the provider. The new instance functionality directly creates the new stream based on the current stream so that it has the same underling state and it is set to produce antithetic values.</p>
 <div class="example">
 <p><span id="exm:ch2ex5" class="example"><strong>Example 2.5  (Generating Antithetic Numbers) </strong></span>This example illustrates how to create an antithetic instance of a stream and generate antithetic random numbers.</p>
 <div class="sourceCode" id="cb9"><pre class="sourceCode kt"><code class="sourceCode kotlin"><span id="cb9-1"><a href="ch2generator.html#cb9-1" tabindex="-1"></a><span class="kw">fun</span> <span class="fu">main</span><span class="op">()</span> <span class="op">{</span></span>
@@ -993,7 +997,7 @@ A random number stream is a sub-sequence of pseudo-random numbers that start at 
 Random number generators in computer simulation languages come with a default set of streams that divide the “circle” up into independent sets of random numbers. The streams are only independent if you do not use up all the random numbers within the subsequence. These streams allow the randomness associated with a simulation to be controlled. During the simulation, you can associate a specific stream with specific random processes in the model. This has the advantage of allowing you to check if the random numbers are causing significant differences in the outputs. In addition, this allows the random numbers used across alternative simulations to be better synchronized.
 Now a common question in simulation can be answered. That is, “If the simulation is using random numbers, why to I get the same results each time I run my program?” The corollary to this question is, “If I want to get different random results each time I run my program, how do I do it?” The answer to the first question is that the underlying random number generator is starting with the same seed each time you run your program. Thus, your program will use the same pseudo random numbers today as it did yesterday and the day before, etc. The answer to the corollary question is that you must tell the random number generator to use a different seed (or alternatively a different stream) if you want different invocations of the program to produce different results. The latter is not necessarily a desirable goal. For example, when developing your simulation programs, it is desirable to have repeatable results so that you can know that your program is working correctly.</p></li>
 <li><p><strong>How come my simulation results are unexpectedly different?</strong>
-Sometimes by changing the order of method calls you change the sequence of random numbers that are assigned to various things that happen in the model (e.g. attribute, generated service times, paths taken, etc.). Please see the item (4) “How come my results are always the same?”. Now, the result can sometimes be radically different if different random numbers are used for different purposes. By using streams, you reduce this possibility and increase the likelihood that two models that have different configurations will have differences due to the change and not due to the random numbers used.</p></li>
+Sometimes by changing the order of method calls you change the sequence of random numbers that are assigned to various things that happen in the model (e.g. attribute, generated service times, paths taken, etc.). Please see the item (4) “How come my results are always the same?”. Now, the result can sometimes be radically different if different random numbers are used for different purposes. By using specific streams assigned to specific random processes, you reduce this possibility and increase the likelihood that two models that have different configurations will have differences due to the change and not due to the random numbers used.</p></li>
 </ol>
 </div>
 </div>

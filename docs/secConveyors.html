@@ -1,0 +1,2385 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>8.4 Modeling Systems with Conveyors | Simulation Modeling using the Kotlin Simulation Library (KSL)</title>
+  <meta name="description" content="A book that illustrates the basics of using the KSL. The output format for this book is bookdown::gitbook." />
+  <meta name="generator" content="bookdown 0.39 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="8.4 Modeling Systems with Conveyors | Simulation Modeling using the Kotlin Simulation Library (KSL)" />
+  <meta property="og:type" content="book" />
+  
+  <meta property="og:description" content="A book that illustrates the basics of using the KSL. The output format for this book is bookdown::gitbook." />
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="8.4 Modeling Systems with Conveyors | Simulation Modeling using the Kotlin Simulation Library (KSL)" />
+  
+  <meta name="twitter:description" content="A book that illustrates the basics of using the KSL. The output format for this book is bookdown::gitbook." />
+  
+
+<meta name="author" content="Manuel D. Rossetti" />
+
+
+<meta name="date" content="2025-07-03" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="secTestAndRepairMovableResources.html"/>
+<link rel="next" href="summary-of-new-concepts.html"/>
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
+<link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
+<script src="libs/kePrint-0.0.1/kePrint.js"></script>
+<link href="libs/lightable-0.0.1/lightable.css" rel="stylesheet" />
+
+
+<style type="text/css">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { color: #008000; } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { color: #008000; font-weight: bold; } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<style type="text/css">
+  
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+</style>
+<style type="text/css">
+/* Used with Pandoc 2.11+ new --citeproc when CSL is used */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+  margin-bottom: 0em;
+}
+.hanging div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}
+</style>
+
+<link rel="stylesheet" href="css/style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">Simulation Modeling using the Kotlin Simulation Library (KSL)</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Preface</a>
+<ul>
+<li class="chapter" data-level="" data-path="release-history.html"><a href="release-history.html"><i class="fa fa-check"></i>Release History</a></li>
+<li class="chapter" data-level="" data-path="ksl-project-page.html"><a href="ksl-project-page.html"><i class="fa fa-check"></i>KSL Project Page</a></li>
+<li class="chapter" data-level="" data-path="book-support-files.html"><a href="book-support-files.html"><i class="fa fa-check"></i>Book Support Files</a></li>
+<li class="chapter" data-level="" data-path="acknowledgments.html"><a href="acknowledgments.html"><i class="fa fa-check"></i>Acknowledgments</a></li>
+<li class="chapter" data-level="" data-path="intended-audience.html"><a href="intended-audience.html"><i class="fa fa-check"></i>Intended Audience</a></li>
+<li class="chapter" data-level="" data-path="organization-of-the-book.html"><a href="organization-of-the-book.html"><i class="fa fa-check"></i>Organization of the Book</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="about-the-author.html"><a href="about-the-author.html"><i class="fa fa-check"></i>About the Author</a></li>
+<li class="chapter" data-level="1" data-path="ch1.html"><a href="ch1.html"><i class="fa fa-check"></i><b>1</b> Simulation Modeling</a>
+<ul>
+<li class="chapter" data-level="1.1" data-path="simulation-modeling.html"><a href="simulation-modeling.html"><i class="fa fa-check"></i><b>1.1</b> Simulation Modeling</a></li>
+<li class="chapter" data-level="1.2" data-path="why-simulate.html"><a href="why-simulate.html"><i class="fa fa-check"></i><b>1.2</b> Why Simulate?</a></li>
+<li class="chapter" data-level="1.3" data-path="types-of-systems-and-simulation-models.html"><a href="types-of-systems-and-simulation-models.html"><i class="fa fa-check"></i><b>1.3</b> Types of Systems and Simulation Models</a></li>
+<li class="chapter" data-level="1.4" data-path="simulation-descriptive-or-prescriptive-modeling.html"><a href="simulation-descriptive-or-prescriptive-modeling.html"><i class="fa fa-check"></i><b>1.4</b> Simulation: Descriptive or Prescriptive Modeling?</a></li>
+<li class="chapter" data-level="1.5" data-path="randomness-in-simulation.html"><a href="randomness-in-simulation.html"><i class="fa fa-check"></i><b>1.5</b> Randomness in Simulation</a></li>
+<li class="chapter" data-level="1.6" data-path="simulation-languages.html"><a href="simulation-languages.html"><i class="fa fa-check"></i><b>1.6</b> Simulation Languages</a></li>
+<li class="chapter" data-level="1.7" data-path="ch1secsimMeth.html"><a href="ch1secsimMeth.html"><i class="fa fa-check"></i><b>1.7</b> Simulation Methodology</a></li>
+<li class="chapter" data-level="1.8" data-path="overview-of-the-kotlin-simulation-library.html"><a href="overview-of-the-kotlin-simulation-library.html"><i class="fa fa-check"></i><b>1.8</b> Overview of the Kotlin Simulation Library</a></li>
+<li class="chapter" data-level="1.9" data-path="exercises.html"><a href="exercises.html"><i class="fa fa-check"></i><b>1.9</b> Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="ch2rng.html"><a href="ch2rng.html"><i class="fa fa-check"></i><b>2</b> Modeling Randomness</a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="ch2generator.html"><a href="ch2generator.html"><i class="fa fa-check"></i><b>2.1</b> Random Number Generator</a>
+<ul>
+<li class="chapter" data-level="2.1.1" data-path="ch2generator.html"><a href="ch2generator.html#ch2randompkg"><i class="fa fa-check"></i><b>2.1.1</b> Random Package</a></li>
+<li class="chapter" data-level="2.1.2" data-path="ch2generator.html"><a href="ch2generator.html#ch2creatingStreams"><i class="fa fa-check"></i><b>2.1.2</b> Creating and Using Streams</a></li>
+<li class="chapter" data-level="2.1.3" data-path="ch2generator.html"><a href="ch2generator.html#ch2crn"><i class="fa fa-check"></i><b>2.1.3</b> Common Random Numbers</a></li>
+<li class="chapter" data-level="2.1.4" data-path="ch2generator.html"><a href="ch2generator.html#ch2antitheticStreams"><i class="fa fa-check"></i><b>2.1.4</b> Creating and Using Antithetic Streams</a></li>
+<li class="chapter" data-level="2.1.5" data-path="ch2generator.html"><a href="ch2generator.html#ch2rnFAQ"><i class="fa fa-check"></i><b>2.1.5</b> Frequently Asked Questions about Random Numbers</a></li>
+</ul></li>
+<li class="chapter" data-level="2.2" data-path="rvg.html"><a href="rvg.html"><i class="fa fa-check"></i><b>2.2</b> Random Variate Generation</a>
+<ul>
+<li class="chapter" data-level="2.2.1" data-path="rvg.html"><a href="rvg.html#basic-random-variate-generation"><i class="fa fa-check"></i><b>2.2.1</b> Basic Random Variate Generation</a></li>
+<li class="chapter" data-level="2.2.2" data-path="rvg.html"><a href="rvg.html#rvg_dists"><i class="fa fa-check"></i><b>2.2.2</b> Continuous and Discrete Random Variables</a></li>
+<li class="chapter" data-level="2.2.3" data-path="rvg.html"><a href="rvg.html#rvguse"><i class="fa fa-check"></i><b>2.2.3</b> Creating and Using Random Variables</a></li>
+<li class="chapter" data-level="2.2.4" data-path="rvg.html"><a href="rvg.html#functions-of-random-variables"><i class="fa fa-check"></i><b>2.2.4</b> Functions of Random Variables</a></li>
+</ul></li>
+<li class="chapter" data-level="2.3" data-path="probModels.html"><a href="probModels.html"><i class="fa fa-check"></i><b>2.3</b> Probability Distribution Models</a></li>
+<li class="chapter" data-level="2.4" data-path="distFitting.html"><a href="distFitting.html"><i class="fa fa-check"></i><b>2.4</b> Distribution Fitting Using the KSL</a>
+<ul>
+<li class="chapter" data-level="2.4.1" data-path="distFitting.html"><a href="distFitting.html#estimating-distribution-parameters"><i class="fa fa-check"></i><b>2.4.1</b> Estimating Distribution Parameters</a></li>
+<li class="chapter" data-level="2.4.2" data-path="distFitting.html"><a href="distFitting.html#continuous-distribution-recommendation-framework"><i class="fa fa-check"></i><b>2.4.2</b> Continuous Distribution Recommendation Framework</a></li>
+<li class="chapter" data-level="2.4.3" data-path="distFitting.html"><a href="distFitting.html#discrete-distribution-framework"><i class="fa fa-check"></i><b>2.4.3</b> Discrete Distribution Framework</a></li>
+<li class="chapter" data-level="2.4.4" data-path="distFitting.html"><a href="distFitting.html#pdfmexamples"><i class="fa fa-check"></i><b>2.4.4</b> Illustrative Examples from Appendix @ref(appidm)</a></li>
+</ul></li>
+<li class="chapter" data-level="2.5" data-path="summary.html"><a href="summary.html"><i class="fa fa-check"></i><b>2.5</b> Summary</a></li>
+<li class="chapter" data-level="2.6" data-path="exercises-1.html"><a href="exercises-1.html"><i class="fa fa-check"></i><b>2.6</b> Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="mcm.html"><a href="mcm.html"><i class="fa fa-check"></i><b>3</b> Monte Carlo Methods</a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="kslStatistics.html"><a href="kslStatistics.html"><i class="fa fa-check"></i><b>3.1</b> Collecting Statistics</a>
+<ul>
+<li class="chapter" data-level="3.1.1" data-path="kslStatistics.html"><a href="kslStatistics.html#creating-and-using-a-statistic"><i class="fa fa-check"></i><b>3.1.1</b> Creating and Using a Statistic</a></li>
+<li class="chapter" data-level="3.1.2" data-path="kslStatistics.html"><a href="kslStatistics.html#histFreq"><i class="fa fa-check"></i><b>3.1.2</b> Histograms and Frequencies</a></li>
+<li class="chapter" data-level="3.1.3" data-path="kslStatistics.html"><a href="kslStatistics.html#ch3batchStats"><i class="fa fa-check"></i><b>3.1.3</b> Batch Statistics</a></li>
+<li class="chapter" data-level="3.1.4" data-path="kslStatistics.html"><a href="kslStatistics.html#ch3StatSummary"><i class="fa fa-check"></i><b>3.1.4</b> Statistics Summary</a></li>
+</ul></li>
+<li class="chapter" data-level="3.2" data-path="ssMC.html"><a href="ssMC.html"><i class="fa fa-check"></i><b>3.2</b> Simple Monte Carlo Integration</a></li>
+<li class="chapter" data-level="3.3" data-path="ch3StatReview.html"><a href="ch3StatReview.html"><i class="fa fa-check"></i><b>3.3</b> Review of Statistical Concepts</a>
+<ul>
+<li class="chapter" data-level="3.3.1" data-path="ch3StatReview.html"><a href="ch3StatReview.html#point-estimates-and-confidence-intervals"><i class="fa fa-check"></i><b>3.3.1</b> Point Estimates and Confidence Intervals</a></li>
+<li class="chapter" data-level="3.3.2" data-path="ch3StatReview.html"><a href="ch3StatReview.html#ch3SampleSize"><i class="fa fa-check"></i><b>3.3.2</b> Sample Size Determination</a></li>
+<li class="chapter" data-level="3.3.3" data-path="ch3StatReview.html"><a href="ch3StatReview.html#determining-the-sample-size-for-a-monte-carlo-simulation-experiment"><i class="fa fa-check"></i><b>3.3.3</b> Determining the Sample Size for a Monte Carlo Simulation Experiment</a></li>
+</ul></li>
+<li class="chapter" data-level="3.4" data-path="craps.html"><a href="craps.html"><i class="fa fa-check"></i><b>3.4</b> Simulating the Game of Craps</a></li>
+<li class="chapter" data-level="3.5" data-path="the-news-vendor-problem.html"><a href="the-news-vendor-problem.html"><i class="fa fa-check"></i><b>3.5</b> The News Vendor Problem</a></li>
+<li class="chapter" data-level="3.6" data-path="ch3InsProcess.html"><a href="ch3InsProcess.html"><i class="fa fa-check"></i><b>3.6</b> A Simple Inspection Process</a></li>
+<li class="chapter" data-level="3.7" data-path="ch3SAN.html"><a href="ch3SAN.html"><i class="fa fa-check"></i><b>3.7</b> Stochastic Activity Networks</a></li>
+<li class="chapter" data-level="3.8" data-path="mcmExperiments.html"><a href="mcmExperiments.html"><i class="fa fa-check"></i><b>3.8</b> Monte-Carlo Experiments</a></li>
+<li class="chapter" data-level="3.9" data-path="summary-1.html"><a href="summary-1.html"><i class="fa fa-check"></i><b>3.9</b> Summary</a></li>
+<li class="chapter" data-level="3.10" data-path="exercises-2.html"><a href="exercises-2.html"><i class="fa fa-check"></i><b>3.10</b> Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="introDEDS.html"><a href="introDEDS.html"><i class="fa fa-check"></i><b>4</b> Introduction to Discrete Event Modeling</a>
+<ul>
+<li class="chapter" data-level="4.1" data-path="introDEDSdeds.html"><a href="introDEDSdeds.html"><i class="fa fa-check"></i><b>4.1</b> Discrete-Event Dynamic Systems</a></li>
+<li class="chapter" data-level="4.2" data-path="HowDEDSClockWorks.html"><a href="HowDEDSClockWorks.html"><i class="fa fa-check"></i><b>4.2</b> How the Discrete-Event Clock Works</a></li>
+<li class="chapter" data-level="4.3" data-path="QHandExample.html"><a href="QHandExample.html"><i class="fa fa-check"></i><b>4.3</b> Simulating a Queueing System By Hand</a></li>
+<li class="chapter" data-level="4.4" data-path="introDEDSdedsKSL.html"><a href="introDEDSdedsKSL.html"><i class="fa fa-check"></i><b>4.4</b> Modeling DEDS in the KSL</a>
+<ul>
+<li class="chapter" data-level="4.4.1" data-path="introDEDSdedsKSL.html"><a href="introDEDSdedsKSL.html#event-scheduling"><i class="fa fa-check"></i><b>4.4.1</b> Event Scheduling</a></li>
+<li class="chapter" data-level="4.4.2" data-path="introDEDSdedsKSL.html"><a href="introDEDSdedsKSL.html#introDEDSschedExamples"><i class="fa fa-check"></i><b>4.4.2</b> Simple Event Scheduling Examples</a></li>
+<li class="chapter" data-level="4.4.3" data-path="introDEDSdedsKSL.html"><a href="introDEDSdedsKSL.html#introDEDSUpDown"><i class="fa fa-check"></i><b>4.4.3</b> Up and Down Component Example</a></li>
+<li class="chapter" data-level="4.4.4" data-path="introDEDSdedsKSL.html"><a href="introDEDSdedsKSL.html#introDEDSPharmacy"><i class="fa fa-check"></i><b>4.4.4</b> Modeling a Simple Queueing System</a></li>
+<li class="chapter" data-level="4.4.5" data-path="introDEDSdedsKSL.html"><a href="introDEDSdedsKSL.html#more-details-about-the-pharmacy-model-implementation"><i class="fa fa-check"></i><b>4.4.5</b> More Details About the Pharmacy Model Implementation</a></li>
+</ul></li>
+<li class="chapter" data-level="4.5" data-path="enhancing-the-drive-through-pharmacy-model.html"><a href="enhancing-the-drive-through-pharmacy-model.html"><i class="fa fa-check"></i><b>4.5</b> Enhancing the Drive Through Pharmacy Model</a>
+<ul>
+<li class="chapter" data-level="4.5.1" data-path="enhancing-the-drive-through-pharmacy-model.html"><a href="enhancing-the-drive-through-pharmacy-model.html#modeling-a-simple-resource"><i class="fa fa-check"></i><b>4.5.1</b> Modeling a Simple Resource</a></li>
+<li class="chapter" data-level="4.5.2" data-path="enhancing-the-drive-through-pharmacy-model.html"><a href="enhancing-the-drive-through-pharmacy-model.html#modeling-a-queue-with-statistical-collection"><i class="fa fa-check"></i><b>4.5.2</b> Modeling a Queue with Statistical Collection</a></li>
+<li class="chapter" data-level="4.5.3" data-path="enhancing-the-drive-through-pharmacy-model.html"><a href="enhancing-the-drive-through-pharmacy-model.html#modeling-a-repeating-event-pattern"><i class="fa fa-check"></i><b>4.5.3</b> Modeling a Repeating Event Pattern</a></li>
+<li class="chapter" data-level="4.5.4" data-path="enhancing-the-drive-through-pharmacy-model.html"><a href="enhancing-the-drive-through-pharmacy-model.html#collecting-more-detailed-statistics"><i class="fa fa-check"></i><b>4.5.4</b> Collecting More Detailed Statistics</a></li>
+<li class="chapter" data-level="4.5.5" data-path="enhancing-the-drive-through-pharmacy-model.html"><a href="enhancing-the-drive-through-pharmacy-model.html#implementing-the-enhanced-pharmacy-model"><i class="fa fa-check"></i><b>4.5.5</b> Implementing the Enhanced Pharmacy Model</a></li>
+</ul></li>
+<li class="chapter" data-level="4.6" data-path="DTPExpanded.html"><a href="DTPExpanded.html"><i class="fa fa-check"></i><b>4.6</b> More Drive Through Fun</a>
+<ul>
+<li class="chapter" data-level="4.6.1" data-path="DTPExpanded.html"><a href="DTPExpanded.html#modeling-a-resource-with-a-waiting-line"><i class="fa fa-check"></i><b>4.6.1</b> Modeling a Resource with a Waiting Line</a></li>
+<li class="chapter" data-level="4.6.2" data-path="DTPExpanded.html"><a href="DTPExpanded.html#modeling-the-tandem-queue-of-example-refexmexch4tandemq"><i class="fa fa-check"></i><b>4.6.2</b> Modeling the Tandem Queue of Example @ref(exm:exCh4TandemQ)</a></li>
+<li class="chapter" data-level="4.6.3" data-path="DTPExpanded.html"><a href="DTPExpanded.html#modeling-with-the-station-package"><i class="fa fa-check"></i><b>4.6.3</b> Modeling with the Station Package</a></li>
+</ul></li>
+<li class="chapter" data-level="4.7" data-path="introDEDSSummary.html"><a href="introDEDSSummary.html"><i class="fa fa-check"></i><b>4.7</b> Summary</a></li>
+<li class="chapter" data-level="4.8" data-path="exercises-3.html"><a href="exercises-3.html"><i class="fa fa-check"></i><b>4.8</b> Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="simoa.html"><a href="simoa.html"><i class="fa fa-check"></i><b>5</b> Analyzing and Accessing Simulation Output</a>
+<ul>
+<li class="chapter" data-level="5.1" data-path="simoadatatypes.html"><a href="simoadatatypes.html"><i class="fa fa-check"></i><b>5.1</b> Types of Statistical Variables</a></li>
+<li class="chapter" data-level="5.2" data-path="simoasimtypes.html"><a href="simoasimtypes.html"><i class="fa fa-check"></i><b>5.2</b> Types of Simulation With Respect To Output Analysis</a></li>
+<li class="chapter" data-level="5.3" data-path="simoafinhorizon.html"><a href="simoafinhorizon.html"><i class="fa fa-check"></i><b>5.3</b> Analysis of Finite Horizon Simulations</a></li>
+<li class="chapter" data-level="5.4" data-path="simoafinhorizonex.html"><a href="simoafinhorizonex.html"><i class="fa fa-check"></i><b>5.4</b> Capturing Output for a Simple Finite Horizon Simulation</a>
+<ul>
+<li class="chapter" data-level="5.4.1" data-path="simoafinhorizonex.html"><a href="simoafinhorizonex.html#simoaCapture"><i class="fa fa-check"></i><b>5.4.1</b> KSL Functionality for Capturing Statistical Results</a></li>
+<li class="chapter" data-level="5.4.2" data-path="simoafinhorizonex.html"><a href="simoafinhorizonex.html#additional-remarks"><i class="fa fa-check"></i><b>5.4.2</b> Additional Remarks</a></li>
+<li class="chapter" data-level="5.4.3" data-path="simoafinhorizonex.html"><a href="simoafinhorizonex.html#querying-the-ksl-database"><i class="fa fa-check"></i><b>5.4.3</b> Querying the KSL Database</a></li>
+</ul></li>
+<li class="chapter" data-level="5.5" data-path="simoaseqsampling.html"><a href="simoaseqsampling.html"><i class="fa fa-check"></i><b>5.5</b> Sequential Sampling for Finite Horizon Simulations</a></li>
+<li class="chapter" data-level="5.6" data-path="simoainfhorizon.html"><a href="simoainfhorizon.html"><i class="fa fa-check"></i><b>5.6</b> Analysis of Infinite Horizon Simulations</a>
+<ul>
+<li class="chapter" data-level="5.6.1" data-path="simoainfhorizon.html"><a href="simoainfhorizon.html#simoainfhorizoninitialbias"><i class="fa fa-check"></i><b>5.6.1</b> Assessing the Effect of Initial Conditions</a></li>
+<li class="chapter" data-level="5.6.2" data-path="simoainfhorizon.html"><a href="simoainfhorizon.html#simoainfhorizonrepDeletion"><i class="fa fa-check"></i><b>5.6.2</b> Performing the Method of Replication-Deletion</a></li>
+<li class="chapter" data-level="5.6.3" data-path="simoainfhorizon.html"><a href="simoainfhorizon.html#simoainfhorizonbatchmeans"><i class="fa fa-check"></i><b>5.6.3</b> The Method of Batch Means</a></li>
+<li class="chapter" data-level="5.6.4" data-path="simoainfhorizon.html"><a href="simoainfhorizon.html#simoainfhorizonjslbatching"><i class="fa fa-check"></i><b>5.6.4</b> Performing the Method of Batch Means</a></li>
+</ul></li>
+<li class="chapter" data-level="5.7" data-path="simoacomparingSystems.html"><a href="simoacomparingSystems.html"><i class="fa fa-check"></i><b>5.7</b> Comparing System Configurations</a>
+<ul>
+<li class="chapter" data-level="5.7.1" data-path="simoacomparingSystems.html"><a href="simoacomparingSystems.html#simoacomparingSystems:two"><i class="fa fa-check"></i><b>5.7.1</b> Comparing Two Systems</a></li>
+<li class="chapter" data-level="5.7.2" data-path="simoacomparingSystems.html"><a href="simoacomparingSystems.html#simoacomparingSystemsMCB"><i class="fa fa-check"></i><b>5.7.2</b> Concepts for Comparing Systems</a></li>
+<li class="chapter" data-level="5.7.3" data-path="simoacomparingSystems.html"><a href="simoacomparingSystems.html#multiple-comparison-with-the-best-procedures-mcb"><i class="fa fa-check"></i><b>5.7.3</b> Multiple Comparison with the Best Procedures (MCB)</a></li>
+<li class="chapter" data-level="5.7.4" data-path="simoacomparingSystems.html"><a href="simoacomparingSystems.html#ch5Screening"><i class="fa fa-check"></i><b>5.7.4</b> Screening Procedures</a></li>
+</ul></li>
+<li class="chapter" data-level="5.8" data-path="ch5Scenarios.html"><a href="ch5Scenarios.html"><i class="fa fa-check"></i><b>5.8</b> Simulating Many Scenarios</a>
+<ul>
+<li class="chapter" data-level="5.8.1" data-path="ch5Scenarios.html"><a href="ch5Scenarios.html#controlAntns"><i class="fa fa-check"></i><b>5.8.1</b> Control Annotations</a></li>
+<li class="chapter" data-level="5.8.2" data-path="ch5Scenarios.html"><a href="ch5Scenarios.html#rvParameters"><i class="fa fa-check"></i><b>5.8.2</b> Random Variable Parameters</a></li>
+<li class="chapter" data-level="5.8.3" data-path="ch5Scenarios.html"><a href="ch5Scenarios.html#kslScenarios"><i class="fa fa-check"></i><b>5.8.3</b> Setting Up and Running Multiple Scenarios</a></li>
+</ul></li>
+<li class="chapter" data-level="5.9" data-path="simoasummary.html"><a href="simoasummary.html"><i class="fa fa-check"></i><b>5.9</b> Summary</a></li>
+<li class="chapter" data-level="5.10" data-path="exercises-4.html"><a href="exercises-4.html"><i class="fa fa-check"></i><b>5.10</b> Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="processview.html"><a href="processview.html"><i class="fa fa-check"></i><b>6</b> Process View Modeling Using the KSL</a>
+<ul>
+<li class="chapter" data-level="6.1" data-path="ch6Entities.html"><a href="ch6Entities.html"><i class="fa fa-check"></i><b>6.1</b> What are Entities?</a></li>
+<li class="chapter" data-level="6.2" data-path="pvIntro.html"><a href="pvIntro.html"><i class="fa fa-check"></i><b>6.2</b> The Process View</a></li>
+<li class="chapter" data-level="6.3" data-path="understanding-ksl-processes-and-entities.html"><a href="understanding-ksl-processes-and-entities.html"><i class="fa fa-check"></i><b>6.3</b> Understanding KSL Processes and Entities</a></li>
+<li class="chapter" data-level="6.4" data-path="examples-of-process-modeling.html"><a href="examples-of-process-modeling.html"><i class="fa fa-check"></i><b>6.4</b> Examples of Process Modeling</a>
+<ul>
+<li class="chapter" data-level="6.4.1" data-path="examples-of-process-modeling.html"><a href="examples-of-process-modeling.html#holding-entities-in-a-queue-holdqueue-class"><i class="fa fa-check"></i><b>6.4.1</b> Holding Entities in a Queue: <code>HoldQueue</code> Class</a></li>
+<li class="chapter" data-level="6.4.2" data-path="examples-of-process-modeling.html"><a href="examples-of-process-modeling.html#signaling-entities"><i class="fa fa-check"></i><b>6.4.2</b> Signaling Entities</a></li>
+<li class="chapter" data-level="6.4.3" data-path="examples-of-process-modeling.html"><a href="examples-of-process-modeling.html#understanding-blocking-queues"><i class="fa fa-check"></i><b>6.4.3</b> Understanding Blocking Queues</a></li>
+<li class="chapter" data-level="6.4.4" data-path="examples-of-process-modeling.html"><a href="examples-of-process-modeling.html#allowing-entities-to-wait-for-a-process"><i class="fa fa-check"></i><b>6.4.4</b> Allowing Entities to Wait for a Process</a></li>
+<li class="chapter" data-level="6.4.5" data-path="examples-of-process-modeling.html"><a href="examples-of-process-modeling.html#processinteraction"><i class="fa fa-check"></i><b>6.4.5</b> Process Interaction</a></li>
+</ul></li>
+<li class="chapter" data-level="6.5" data-path="modeling-a-stem-career-mixer.html"><a href="modeling-a-stem-career-mixer.html"><i class="fa fa-check"></i><b>6.5</b> Modeling a STEM Career Mixer</a>
+<ul>
+<li class="chapter" data-level="6.5.1" data-path="modeling-a-stem-career-mixer.html"><a href="modeling-a-stem-career-mixer.html#conceptualizing-the-system"><i class="fa fa-check"></i><b>6.5.1</b> Conceptualizing the System</a></li>
+<li class="chapter" data-level="6.5.2" data-path="modeling-a-stem-career-mixer.html"><a href="modeling-a-stem-career-mixer.html#implementing-the-stem-mixer-model"><i class="fa fa-check"></i><b>6.5.2</b> Implementing the STEM Mixer Model</a></li>
+</ul></li>
+<li class="chapter" data-level="6.6" data-path="the-tie-dye-t-shirt-model.html"><a href="the-tie-dye-t-shirt-model.html"><i class="fa fa-check"></i><b>6.6</b> The Tie-Dye T-Shirt Model</a>
+<ul>
+<li class="chapter" data-level="6.6.1" data-path="the-tie-dye-t-shirt-model.html"><a href="the-tie-dye-t-shirt-model.html#ch4:TieDyeTShirtsSub1"><i class="fa fa-check"></i><b>6.6.1</b> Implementing the Tie-Dye T-Shirt Model</a></li>
+</ul></li>
+<li class="chapter" data-level="6.7" data-path="summary-2.html"><a href="summary-2.html"><i class="fa fa-check"></i><b>6.7</b> Summary</a></li>
+<li class="chapter" data-level="6.8" data-path="exercises-5.html"><a href="exercises-5.html"><i class="fa fa-check"></i><b>6.8</b> Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="ch7AdvModeling.html"><a href="ch7AdvModeling.html"><i class="fa fa-check"></i><b>7</b> Advanced Event and Process View Modeling</a>
+<ul>
+<li class="chapter" data-level="7.1" data-path="modeling-with-processes-and-resources.html"><a href="modeling-with-processes-and-resources.html"><i class="fa fa-check"></i><b>7.1</b> Modeling with Processes and Resources</a>
+<ul>
+<li class="chapter" data-level="7.1.1" data-path="modeling-with-processes-and-resources.html"><a href="modeling-with-processes-and-resources.html#modeling-space-with-resources"><i class="fa fa-check"></i><b>7.1.1</b> Modeling Space with Resources</a></li>
+<li class="chapter" data-level="7.1.2" data-path="modeling-with-processes-and-resources.html"><a href="modeling-with-processes-and-resources.html#secResourcePools"><i class="fa fa-check"></i><b>7.1.2</b> Resource Pools</a></li>
+<li class="chapter" data-level="7.1.3" data-path="modeling-with-processes-and-resources.html"><a href="modeling-with-processes-and-resources.html#secTestAndRepair"><i class="fa fa-check"></i><b>7.1.3</b> Computer Test and Repair Shop Example</a></li>
+</ul></li>
+<li class="chapter" data-level="7.2" data-path="modeling-non-stationary-systems.html"><a href="modeling-non-stationary-systems.html"><i class="fa fa-check"></i><b>7.2</b> Modeling Non-Stationary Systems</a>
+<ul>
+<li class="chapter" data-level="7.2.1" data-path="modeling-non-stationary-systems.html"><a href="modeling-non-stationary-systems.html#ch7secNSPP"><i class="fa fa-check"></i><b>7.2.1</b> Non-Stationary Arrival Processes</a></li>
+<li class="chapter" data-level="7.2.2" data-path="modeling-non-stationary-systems.html"><a href="modeling-non-stationary-systems.html#modeling-resources-under-non-stationary-conditions"><i class="fa fa-check"></i><b>7.2.2</b> Modeling Resources Under Non-Stationary Conditions</a></li>
+<li class="chapter" data-level="7.2.3" data-path="modeling-non-stationary-systems.html"><a href="modeling-non-stationary-systems.html#enhancing-the-stem-career-mixer-model"><i class="fa fa-check"></i><b>7.2.3</b> Enhancing the STEM Career Mixer Model</a></li>
+</ul></li>
+<li class="chapter" data-level="7.3" data-path="examples-of-advanced-event-models.html"><a href="examples-of-advanced-event-models.html"><i class="fa fa-check"></i><b>7.3</b> Examples of Advanced Event Models</a>
+<ul>
+<li class="chapter" data-level="7.3.1" data-path="examples-of-advanced-event-models.html"><a href="examples-of-advanced-event-models.html#ch6s1sb4sub3"><i class="fa fa-check"></i><b>7.3.1</b> Modeling Balking and Reneging</a></li>
+<li class="chapter" data-level="7.3.2" data-path="examples-of-advanced-event-models.html"><a href="examples-of-advanced-event-models.html#rqModel"><i class="fa fa-check"></i><b>7.3.2</b> Modeling a Reorder Point, Reorder Quantity Inventory Policy</a></li>
+</ul></li>
+<li class="chapter" data-level="7.4" data-path="ch7VandV.html"><a href="ch7VandV.html"><i class="fa fa-check"></i><b>7.4</b> Applying Queueing Theory Results to Verify and Validate a Simulation</a>
+<ul>
+<li class="chapter" data-level="7.4.1" data-path="ch7VandV.html"><a href="ch7VandV.html#analyzing-the-preparation-station"><i class="fa fa-check"></i><b>7.4.1</b> Analyzing the Preparation Station</a></li>
+<li class="chapter" data-level="7.4.2" data-path="ch7VandV.html"><a href="ch7VandV.html#analyzing-the-build-lines"><i class="fa fa-check"></i><b>7.4.2</b> Analyzing the Build Lines</a></li>
+<li class="chapter" data-level="7.4.3" data-path="ch7VandV.html"><a href="ch7VandV.html#analyzing-the-packaging-station"><i class="fa fa-check"></i><b>7.4.3</b> Analyzing the Packaging Station</a></li>
+<li class="chapter" data-level="7.4.4" data-path="ch7VandV.html"><a href="ch7VandV.html#analyzing-the-palletizing-station"><i class="fa fa-check"></i><b>7.4.4</b> Analyzing the Palletizing Station</a></li>
+<li class="chapter" data-level="7.4.5" data-path="ch7VandV.html"><a href="ch7VandV.html#analyzing-the-total-system-time"><i class="fa fa-check"></i><b>7.4.5</b> Analyzing the Total System Time</a></li>
+<li class="chapter" data-level="7.4.6" data-path="ch7VandV.html"><a href="ch7VandV.html#other-issues-for-verification-and-validation"><i class="fa fa-check"></i><b>7.4.6</b> Other Issues for Verification and Validation</a></li>
+</ul></li>
+<li class="chapter" data-level="7.5" data-path="summary-3.html"><a href="summary-3.html"><i class="fa fa-check"></i><b>7.5</b> Summary</a></li>
+<li class="chapter" data-level="7.6" data-path="exercises-6.html"><a href="exercises-6.html"><i class="fa fa-check"></i><b>7.6</b> Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="8" data-path="chEntityMovement.html"><a href="chEntityMovement.html"><i class="fa fa-check"></i><b>8</b> Modeling Entity Movement</a>
+<ul>
+<li class="chapter" data-level="8.1" data-path="secRCT.html"><a href="secRCT.html"><i class="fa fa-check"></i><b>8.1</b> Resource Constrained Transfer</a>
+<ul>
+<li class="chapter" data-level="8.1.1" data-path="secRCT.html"><a href="secRCT.html#secTestRepairRCT"><i class="fa fa-check"></i><b>8.1.1</b> Test and Repair with Resource Constrained Transfer</a></li>
+</ul></li>
+<li class="chapter" data-level="8.2" data-path="movableResources.html"><a href="movableResources.html"><i class="fa fa-check"></i><b>8.2</b> Constrained Transfer with Movable Resources</a>
+<ul>
+<li class="chapter" data-level="8.2.1" data-path="movableResources.html"><a href="movableResources.html#spatial-models"><i class="fa fa-check"></i><b>8.2.1</b> Spatial Models</a></li>
+<li class="chapter" data-level="8.2.2" data-path="movableResources.html"><a href="movableResources.html#secMovableResources"><i class="fa fa-check"></i><b>8.2.2</b> Movable Resources</a></li>
+<li class="chapter" data-level="8.2.3" data-path="movableResources.html"><a href="movableResources.html#secTQMWM"><i class="fa fa-check"></i><b>8.2.3</b> Tandem Queue Model With Movement</a></li>
+</ul></li>
+<li class="chapter" data-level="8.3" data-path="secTestAndRepairMovableResources.html"><a href="secTestAndRepairMovableResources.html"><i class="fa fa-check"></i><b>8.3</b> Modeling the Test and Repair System with Movable Resources</a></li>
+<li class="chapter" data-level="8.4" data-path="secConveyors.html"><a href="secConveyors.html"><i class="fa fa-check"></i><b>8.4</b> Modeling Systems with Conveyors</a>
+<ul>
+<li class="chapter" data-level="8.4.1" data-path="secConveyors.html"><a href="secConveyors.html#ksl-conveyor-constructs"><i class="fa fa-check"></i><b>8.4.1</b> KSL Conveyor Constructs</a></li>
+<li class="chapter" data-level="8.4.2" data-path="secConveyors.html"><a href="secConveyors.html#tandem-queue-system-with-conveyors"><i class="fa fa-check"></i><b>8.4.2</b> Tandem Queue System with Conveyors</a></li>
+<li class="chapter" data-level="8.4.3" data-path="secConveyors.html"><a href="secConveyors.html#secTestAndRepairConveyors"><i class="fa fa-check"></i><b>8.4.3</b> Test and Repair via Conveyors</a></li>
+<li class="chapter" data-level="8.4.4" data-path="secConveyors.html"><a href="secConveyors.html#secMiscConveyor"><i class="fa fa-check"></i><b>8.4.4</b> Miscellaneous Concepts in Conveyor Modeling</a></li>
+</ul></li>
+<li class="chapter" data-level="8.5" data-path="summary-of-new-concepts.html"><a href="summary-of-new-concepts.html"><i class="fa fa-check"></i><b>8.5</b> Summary of New Concepts</a></li>
+<li class="chapter" data-level="8.6" data-path="exercises-7.html"><a href="exercises-7.html"><i class="fa fa-check"></i><b>8.6</b> Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="9" data-path="ch9AdvMC.html"><a href="ch9AdvMC.html"><i class="fa fa-check"></i><b>9</b> Advanced Monte Carlo Methods</a>
+<ul>
+<li class="chapter" data-level="9.1" data-path="ch9BootStrapping.html"><a href="ch9BootStrapping.html"><i class="fa fa-check"></i><b>9.1</b> Bootstrap Methods</a>
+<ul>
+<li class="chapter" data-level="9.1.1" data-path="ch9BootStrapping.html"><a href="ch9BootStrapping.html#bootstrapping-using-the-ksl"><i class="fa fa-check"></i><b>9.1.1</b> Bootstrapping Using the KSL</a></li>
+</ul></li>
+<li class="chapter" data-level="9.2" data-path="ch9VRTs.html"><a href="ch9VRTs.html"><i class="fa fa-check"></i><b>9.2</b> Variance Reduction Techniques</a>
+<ul>
+<li class="chapter" data-level="9.2.1" data-path="ch9VRTs.html"><a href="ch9VRTs.html#common-random-numbers-crn"><i class="fa fa-check"></i><b>9.2.1</b> Common Random Numbers (CRN)</a></li>
+<li class="chapter" data-level="9.2.2" data-path="ch9VRTs.html"><a href="ch9VRTs.html#antithetic-variates-av"><i class="fa fa-check"></i><b>9.2.2</b> Antithetic Variates (AV)</a></li>
+<li class="chapter" data-level="9.2.3" data-path="ch9VRTs.html"><a href="ch9VRTs.html#indirect-estimation"><i class="fa fa-check"></i><b>9.2.3</b> Indirect Estimation</a></li>
+<li class="chapter" data-level="9.2.4" data-path="ch9VRTs.html"><a href="ch9VRTs.html#control-variates-cv"><i class="fa fa-check"></i><b>9.2.4</b> Control Variates (CV)</a></li>
+<li class="chapter" data-level="9.2.5" data-path="ch9VRTs.html"><a href="ch9VRTs.html#stratified-and-post-stratified-sampling"><i class="fa fa-check"></i><b>9.2.5</b> Stratified and Post Stratified Sampling</a></li>
+<li class="chapter" data-level="9.2.6" data-path="ch9VRTs.html"><a href="ch9VRTs.html#conditional-expectation-ce"><i class="fa fa-check"></i><b>9.2.6</b> Conditional Expectation (CE)</a></li>
+<li class="chapter" data-level="9.2.7" data-path="ch9VRTs.html"><a href="ch9VRTs.html#importance-sampling-is"><i class="fa fa-check"></i><b>9.2.7</b> Importance Sampling (IS)</a></li>
+</ul></li>
+<li class="chapter" data-level="9.3" data-path="ch9GMVRVs.html"><a href="ch9GMVRVs.html"><i class="fa fa-check"></i><b>9.3</b> Generating Multi-Variate and Correlated Random Variates</a>
+<ul>
+<li class="chapter" data-level="9.3.1" data-path="ch9GMVRVs.html"><a href="ch9GMVRVs.html#generating-from-a-bivariate-normal-distribution"><i class="fa fa-check"></i><b>9.3.1</b> Generating from a Bivariate Normal Distribution</a></li>
+<li class="chapter" data-level="9.3.2" data-path="ch9GMVRVs.html"><a href="ch9GMVRVs.html#copulas-and-multi-variate-generation-methods"><i class="fa fa-check"></i><b>9.3.2</b> Copulas and Multi-variate Generation Methods</a></li>
+<li class="chapter" data-level="9.3.3" data-path="ch9GMVRVs.html"><a href="ch9GMVRVs.html#autocorrelated-generation"><i class="fa fa-check"></i><b>9.3.3</b> Autocorrelated Generation</a></li>
+<li class="chapter" data-level="9.3.4" data-path="ch9GMVRVs.html"><a href="ch9GMVRVs.html#ch9MCMC"><i class="fa fa-check"></i><b>9.3.4</b> Introduction to Markov Chain Monte Carlo Methods</a></li>
+</ul></li>
+<li class="chapter" data-level="9.4" data-path="summary-4.html"><a href="summary-4.html"><i class="fa fa-check"></i><b>9.4</b> Summary</a></li>
+<li class="chapter" data-level="9.5" data-path="exercises-8.html"><a href="exercises-8.html"><i class="fa fa-check"></i><b>9.5</b> Exercises</a></li>
+</ul></li>
+<li class="appendix"><span><b>Appendix</b></span></li>
+<li class="chapter" data-level="A" data-path="appRNRV.html"><a href="appRNRV.html"><i class="fa fa-check"></i><b>A</b> Generating Pseudo-Random Numbers and Random Variates</a>
+<ul>
+<li class="chapter" data-level="A.1" data-path="appRNRVPRN.html"><a href="appRNRVPRN.html"><i class="fa fa-check"></i><b>A.1</b> Pseudo Random Numbers</a>
+<ul>
+<li class="chapter" data-level="A.1.1" data-path="appRNRVPRN.html"><a href="appRNRVPRN.html#appRNRVRNGs"><i class="fa fa-check"></i><b>A.1.1</b> Random Number Generators</a></li>
+</ul></li>
+<li class="chapter" data-level="A.2" data-path="appRNRVs.html"><a href="appRNRVs.html"><i class="fa fa-check"></i><b>A.2</b> Generating Random Variates from Distributions</a>
+<ul>
+<li class="chapter" data-level="A.2.1" data-path="appRNRVs.html"><a href="appRNRVs.html#inverse-transform-method"><i class="fa fa-check"></i><b>A.2.1</b> Inverse Transform Method</a></li>
+<li class="chapter" data-level="A.2.2" data-path="appRNRVs.html"><a href="appRNRVs.html#convolution"><i class="fa fa-check"></i><b>A.2.2</b> Convolution</a></li>
+<li class="chapter" data-level="A.2.3" data-path="appRNRVs.html"><a href="appRNRVs.html#acceptancerejection"><i class="fa fa-check"></i><b>A.2.3</b> Acceptance/Rejection</a></li>
+<li class="chapter" data-level="A.2.4" data-path="appRNRVs.html"><a href="appRNRVs.html#AppRNRVsubsecMTSRV"><i class="fa fa-check"></i><b>A.2.4</b> Mixture Distributions, Truncated Distributions, and Shifted Random Variables</a></li>
+</ul></li>
+<li class="chapter" data-level="A.3" data-path="summary-5.html"><a href="summary-5.html"><i class="fa fa-check"></i><b>A.3</b> Summary</a></li>
+<li class="chapter" data-level="A.4" data-path="exercises-9.html"><a href="exercises-9.html"><i class="fa fa-check"></i><b>A.4</b> Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="B" data-path="appidm.html"><a href="appidm.html"><i class="fa fa-check"></i><b>B</b> Probability Distribution Modeling</a>
+<ul>
+<li class="chapter" data-level="B.1" data-path="appidmsecrvPD.html"><a href="appidmsecrvPD.html"><i class="fa fa-check"></i><b>B.1</b> Random Variables and Probability Distributions</a></li>
+<li class="chapter" data-level="B.2" data-path="appidmsecMDD.html"><a href="appidmsecMDD.html"><i class="fa fa-check"></i><b>B.2</b> Modeling with Discrete Distributions</a></li>
+<li class="chapter" data-level="B.3" data-path="appidmsecfitDiscrete.html"><a href="appidmsecfitDiscrete.html"><i class="fa fa-check"></i><b>B.3</b> Fitting Discrete Distributions</a>
+<ul>
+<li class="chapter" data-level="B.3.1" data-path="appidmsecfitDiscrete.html"><a href="appidmsecfitDiscrete.html#AppDisFitPoissonFit"><i class="fa fa-check"></i><b>B.3.1</b> Fitting a Poisson Distribution</a></li>
+<li class="chapter" data-level="B.3.2" data-path="appidmsecfitDiscrete.html"><a href="appidmsecfitDiscrete.html#visualizing-the-data"><i class="fa fa-check"></i><b>B.3.2</b> Visualizing the Data</a></li>
+<li class="chapter" data-level="B.3.3" data-path="appidmsecfitDiscrete.html"><a href="appidmsecfitDiscrete.html#estimating-the-rate-parameter-for-the-poisson-distribution"><i class="fa fa-check"></i><b>B.3.3</b> Estimating the Rate Parameter for the Poisson Distribution</a></li>
+<li class="chapter" data-level="B.3.4" data-path="appidmsecfitDiscrete.html"><a href="appidmsecfitDiscrete.html#chi-squared-goodness-of-fit-test-for-poisson-distribution"><i class="fa fa-check"></i><b>B.3.4</b> Chi-Squared Goodness of Fit Test for Poisson Distribution</a></li>
+<li class="chapter" data-level="B.3.5" data-path="appidmsecfitDiscrete.html"><a href="appidmsecfitDiscrete.html#subsubchisqGOF"><i class="fa fa-check"></i><b>B.3.5</b> Chi-Squared Goodness of Fit Test</a></li>
+<li class="chapter" data-level="B.3.6" data-path="appidmsecfitDiscrete.html"><a href="appidmsecfitDiscrete.html#using-the-fitdistrplus-r-package-on-discrete-data"><i class="fa fa-check"></i><b>B.3.6</b> Using the fitdistrplus R Package on Discrete Data</a></li>
+<li class="chapter" data-level="B.3.7" data-path="appidmsecfitDiscrete.html"><a href="appidmsecfitDiscrete.html#fitting-a-discrete-empirical-distribution"><i class="fa fa-check"></i><b>B.3.7</b> Fitting a Discrete Empirical Distribution</a></li>
+</ul></li>
+<li class="chapter" data-level="B.4" data-path="appidmsecMCD.html"><a href="appidmsecMCD.html"><i class="fa fa-check"></i><b>B.4</b> Modeling with Continuous Distributions</a></li>
+<li class="chapter" data-level="B.5" data-path="appidmsecfitContinuous.html"><a href="appidmsecfitContinuous.html"><i class="fa fa-check"></i><b>B.5</b> Fitting Continuous Distributions</a>
+<ul>
+<li class="chapter" data-level="B.5.1" data-path="appidmsecfitContinuous.html"><a href="appidmsecfitContinuous.html#appidmsubsecvisualizedata"><i class="fa fa-check"></i><b>B.5.1</b> Visualizing the Data</a></li>
+<li class="chapter" data-level="B.5.2" data-path="appidmsecfitContinuous.html"><a href="appidmsecfitContinuous.html#appidmsubsecstatsdata"><i class="fa fa-check"></i><b>B.5.2</b> Statistically Summarize the Data</a></li>
+<li class="chapter" data-level="B.5.3" data-path="appidmsecfitContinuous.html"><a href="appidmsecfitContinuous.html#appidmsubsechypothDist"><i class="fa fa-check"></i><b>B.5.3</b> Hypothesizing and Testing a Distribution</a></li>
+<li class="chapter" data-level="B.5.4" data-path="appidmsecfitContinuous.html"><a href="appidmsecfitContinuous.html#kolmogorov-smirnov-test"><i class="fa fa-check"></i><b>B.5.4</b> Kolmogorov-Smirnov Test</a></li>
+<li class="chapter" data-level="B.5.5" data-path="appidmsecfitContinuous.html"><a href="appidmsecfitContinuous.html#appidmsubsecvisFit"><i class="fa fa-check"></i><b>B.5.5</b> Visualizing the Fit</a></li>
+<li class="chapter" data-level="B.5.6" data-path="appidmsecfitContinuous.html"><a href="appidmsecfitContinuous.html#appidms2sb3"><i class="fa fa-check"></i><b>B.5.6</b> Using the Input Analyzer</a></li>
+</ul></li>
+<li class="chapter" data-level="B.6" data-path="appdistfittestU01.html"><a href="appdistfittestU01.html"><i class="fa fa-check"></i><b>B.6</b> Testing Uniform (0,1) Pseudo-Random Numbers</a>
+<ul>
+<li class="chapter" data-level="B.6.1" data-path="appdistfittestU01.html"><a href="appdistfittestU01.html#chi-squared-goodness-of-fit-tests-for-pseudo-random-numbers"><i class="fa fa-check"></i><b>B.6.1</b> Chi-Squared Goodness of Fit Tests for Pseudo-Random Numbers</a></li>
+<li class="chapter" data-level="B.6.2" data-path="appdistfittestU01.html"><a href="appdistfittestU01.html#higher-dimensional-chi-squared-test"><i class="fa fa-check"></i><b>B.6.2</b> Higher Dimensional Chi-Squared Test</a></li>
+<li class="chapter" data-level="B.6.3" data-path="appdistfittestU01.html"><a href="appdistfittestU01.html#kolmogorov-smirnov-test-for-pseudo-random-numbers"><i class="fa fa-check"></i><b>B.6.3</b> Kolmogorov-Smirnov Test for Pseudo-Random Numbers</a></li>
+<li class="chapter" data-level="B.6.4" data-path="appdistfittestU01.html"><a href="appdistfittestU01.html#testing-for-independence-and-patterns-in-pseudo-random-numbers"><i class="fa fa-check"></i><b>B.6.4</b> Testing for Independence and Patterns in Pseudo-Random Numbers</a></li>
+</ul></li>
+<li class="chapter" data-level="B.7" data-path="appdistfitidms2sb4.html"><a href="appdistfitidms2sb4.html"><i class="fa fa-check"></i><b>B.7</b> Additional Distribution Modeling Concepts</a></li>
+<li class="chapter" data-level="B.8" data-path="appidmSummary.html"><a href="appidmSummary.html"><i class="fa fa-check"></i><b>B.8</b> Summary</a></li>
+<li class="chapter" data-level="B.9" data-path="exercises-10.html"><a href="exercises-10.html"><i class="fa fa-check"></i><b>B.9</b> Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="C" data-path="appqtAndInvT.html"><a href="appqtAndInvT.html"><i class="fa fa-check"></i><b>C</b> Queueing Theory</a>
+<ul>
+<li class="chapter" data-level="C.1" data-path="appqts1.html"><a href="appqts1.html"><i class="fa fa-check"></i><b>C.1</b> Single Line Queueing Stations</a>
+<ul>
+<li class="chapter" data-level="C.1.1" data-path="appqts1.html"><a href="appqts1.html#queueing-notation"><i class="fa fa-check"></i><b>C.1.1</b> Queueing Notation</a></li>
+<li class="chapter" data-level="C.1.2" data-path="appqts1.html"><a href="appqts1.html#littles-formula"><i class="fa fa-check"></i><b>C.1.2</b> Little’s Formula</a></li>
+<li class="chapter" data-level="C.1.3" data-path="appqts1.html"><a href="appqts1.html#appqts1sb1"><i class="fa fa-check"></i><b>C.1.3</b> Deriving Formulas for Markovian Single Queue Systems</a></li>
+</ul></li>
+<li class="chapter" data-level="C.2" data-path="appqts1sb2.html"><a href="appqts1sb2.html"><i class="fa fa-check"></i><b>C.2</b> Examples and Applications of Queueing Analysis</a>
+<ul>
+<li class="chapter" data-level="C.2.1" data-path="appqts1sb2.html"><a href="appqts1sb2.html#infinite-queue-examples"><i class="fa fa-check"></i><b>C.2.1</b> Infinite Queue Examples</a></li>
+<li class="chapter" data-level="C.2.2" data-path="appqts1sb2.html"><a href="appqts1sb2.html#finite-queue-examples"><i class="fa fa-check"></i><b>C.2.2</b> Finite Queue Examples</a></li>
+</ul></li>
+<li class="chapter" data-level="C.3" data-path="appqts1sb3.html"><a href="appqts1sb3.html"><i class="fa fa-check"></i><b>C.3</b> Non-Markovian Queues and Approximations</a></li>
+<li class="chapter" data-level="C.4" data-path="appqtsecformulas.html"><a href="appqtsecformulas.html"><i class="fa fa-check"></i><b>C.4</b> Summary of Queueing Formulas</a>
+<ul>
+<li class="chapter" data-level="C.4.1" data-path="appqtsecformulas.html"><a href="appqtsecformulas.html#mm1-queue"><i class="fa fa-check"></i><b>C.4.1</b> M/M/1 Queue</a></li>
+<li class="chapter" data-level="C.4.2" data-path="appqtsecformulas.html"><a href="appqtsecformulas.html#mmc-queue"><i class="fa fa-check"></i><b>C.4.2</b> M/M/c Queue</a></li>
+<li class="chapter" data-level="C.4.3" data-path="appqtsecformulas.html"><a href="appqtsecformulas.html#mmck-queue"><i class="fa fa-check"></i><b>C.4.3</b> M/M/c/k Queue</a></li>
+<li class="chapter" data-level="C.4.4" data-path="appqtsecformulas.html"><a href="appqtsecformulas.html#mgcc-queue"><i class="fa fa-check"></i><b>C.4.4</b> M/G/c/c Queue</a></li>
+<li class="chapter" data-level="C.4.5" data-path="appqtsecformulas.html"><a href="appqtsecformulas.html#mm1k-queue"><i class="fa fa-check"></i><b>C.4.5</b> M/M/1/k Queue</a></li>
+<li class="chapter" data-level="C.4.6" data-path="appqtsecformulas.html"><a href="appqtsecformulas.html#mmck-queue-1"><i class="fa fa-check"></i><b>C.4.6</b> M/M/c/k Queue</a></li>
+<li class="chapter" data-level="C.4.7" data-path="appqtsecformulas.html"><a href="appqtsecformulas.html#mm1kk-queue"><i class="fa fa-check"></i><b>C.4.7</b> M/M/1/k/k Queue</a></li>
+<li class="chapter" data-level="C.4.8" data-path="appqtsecformulas.html"><a href="appqtsecformulas.html#mmckk-queue"><i class="fa fa-check"></i><b>C.4.8</b> M/M/c/k/k Queue</a></li>
+</ul></li>
+<li class="chapter" data-level="C.5" data-path="exercises-11.html"><a href="exercises-11.html"><i class="fa fa-check"></i><b>C.5</b> Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="D" data-path="appUtilities.html"><a href="appUtilities.html"><i class="fa fa-check"></i><b>D</b> KSL Utility Packages</a>
+<ul>
+<li class="chapter" data-level="D.1" data-path="the-outputdirectory-class-and-ksl-object.html"><a href="the-outputdirectory-class-and-ksl-object.html"><i class="fa fa-check"></i><b>D.1</b> The <code>OutputDirectory</code> Class and <code>KSL</code> Object</a></li>
+<li class="chapter" data-level="D.2" data-path="logging-options.html"><a href="logging-options.html"><i class="fa fa-check"></i><b>D.2</b> Logging Options</a></li>
+<li class="chapter" data-level="D.3" data-path="the-kslfileutil-object.html"><a href="the-kslfileutil-object.html"><i class="fa fa-check"></i><b>D.3</b> The <code>KSLFileUtil</code> Object</a></li>
+<li class="chapter" data-level="D.4" data-path="appDCSVEtc.html"><a href="appDCSVEtc.html"><i class="fa fa-check"></i><b>D.4</b> CSV, Excel, and Tabular Data Files</a></li>
+<li class="chapter" data-level="D.5" data-path="dfUtil.html"><a href="dfUtil.html"><i class="fa fa-check"></i><b>D.5</b> The <code>DataFrameUtil</code> Object</a></li>
+<li class="chapter" data-level="D.6" data-path="ksl-database-utilities.html"><a href="ksl-database-utilities.html"><i class="fa fa-check"></i><b>D.6</b> KSL Database Utilities</a></li>
+<li class="chapter" data-level="D.7" data-path="appUtilitiesArrays.html"><a href="appUtilitiesArrays.html"><i class="fa fa-check"></i><b>D.7</b> Array Utilities</a></li>
+<li class="chapter" data-level="D.8" data-path="appPlotting.html"><a href="appPlotting.html"><i class="fa fa-check"></i><b>D.8</b> KSL Plotting Utilities</a></li>
+<li class="chapter" data-level="D.9" data-path="appExpDesign.html"><a href="appExpDesign.html"><i class="fa fa-check"></i><b>D.9</b> Experimental Design Utilities</a></li>
+<li class="chapter" data-level="D.10" data-path="appUtilitiesMisc.html"><a href="appUtilitiesMisc.html"><i class="fa fa-check"></i><b>D.10</b> Miscellaneous Utilities</a></li>
+</ul></li>
+<li class="chapter" data-level="E" data-path="distributions.html"><a href="distributions.html"><i class="fa fa-check"></i><b>E</b> Distributions</a>
+<ul>
+<li class="chapter" data-level="E.1" data-path="appDiscreteDistributions.html"><a href="appDiscreteDistributions.html"><i class="fa fa-check"></i><b>E.1</b> Discrete Distrbutions</a></li>
+<li class="chapter" data-level="E.2" data-path="appContinuousDistributions.html"><a href="appContinuousDistributions.html"><i class="fa fa-check"></i><b>E.2</b> Continuous Distrbutions</a></li>
+</ul></li>
+<li class="chapter" data-level="F" data-path="appStatTables.html"><a href="appStatTables.html"><i class="fa fa-check"></i><b>F</b> Statistical Tables</a></li>
+<li class="chapter" data-level="G" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i><b>G</b> References</a></li>
+<li class="divider"></li>
+<li><a href="https://bookdown.org" target="_blank">Published with bookdown</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Simulation Modeling using the Kotlin Simulation Library (KSL)</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="secConveyors" class="section level2 hasAnchor" number="8.4">
+<h2><span class="header-section-number">8.4</span> Modeling Systems with Conveyors<a href="secConveyors.html#secConveyors" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>A conveyor is a track, belt, or some other device that provides movement
+over a fixed path. Typically, conveyors are used to transport items that
+have high volumes over short to medium range distances. The speeds of
+conveyance typically range from 20-80 feet per minute to as fast as 500
+feet per minute. Conveyors can be gravity based or powered. The modeling
+of conveyors can be roughly classified as follows:</p>
+<dl>
+<dt>Accumulating</dt>
+<dd>
+<p>Items on the conveyor continue to move forward when there is a
+blockage on the conveyor.</p>
+</dd>
+<dt>Non-accumulating</dt>
+<dd>
+<p>Items on the conveyor stop when the conveyor stops</p>
+</dd>
+<dt>Fixed spacing</dt>
+<dd>
+<p>Items on the conveyor have a fixed space between them or the items
+ride in a bucket or bin.</p>
+</dd>
+<dt>Random spacing</dt>
+<dd>
+<p>Items are placed on the conveyor in no particular position and take
+up space on the conveyor.</p>
+</dd>
+</dl>
+<p>You have experienced conveyors in some form. For example, the belt
+conveyor at a grocery store is like an accumulating conveyor. An
+escalator is like a fixed spaced non-accumulating conveyor (the steps
+are like a bucket for the person to ride in. People movers in airports
+are like non-accumulating, random spacing conveyors. When designing
+systems with conveyors there are a number of performance measures to
+consider:</p>
+<dl>
+<dt>Throughput capacity</dt>
+<dd>
+<p>The number of loads processed per time</p>
+</dd>
+<dt>Delivery time</dt>
+<dd>
+<p>The time taken to move the item from origin to destination</p>
+</dd>
+<dt>Queue lengths</dt>
+<dd>
+<p>The queues to get on the conveyor and for blockages when the
+conveyor accumulates</p>
+</dd>
+<dt>Number of carriers used or the space utilized</dt>
+<dd>
+<p>The number of spaces on the conveyor used</p>
+</dd>
+</dl>
+<p>The modeling of conveyors does not necessarily require specialized
+simulation constructs. For example, gravity based conveyors can be
+modeled with a deterministic delay. The delay is
+set to model the time that it takes the entity to fall or slide from one
+location to another. One simple way to model multiple items moving on a
+conveyor is to use a resource to model the front of the conveyor with a
+small delay to load the entity on the conveyor. This allows for spacing
+between the items on the conveyor. Once on the conveyor the entity
+releases the front of the conveyor and delays for its move time to the
+end of the conveyor. At the end of the conveyor, there could be another
+resource and a delay to unload the conveyor. As long as the delays are
+deterministic, the entities will not pass each other on the conveyor. If
+you are not interested in modeling the space taken by the conveyor, then
+this type of modeling is very reasonable. <span class="citation">(<a href="#ref-henriksen1986simplified">Henriksen and Schriber 1986</a>)</span>
+discuss a number of ways to approach the simulation modeling of
+conveyors. When space becomes an important element of the modeling, then
+the simulation language constructs for conveyors become useful. For
+example, if there actually is a conveyor between two stations and the
+space allocated for the length of the conveyor is important to the
+system operation, you might want to use conveyor related constructs.</p>
+<p>A conveyor is a material-handling device for transferring or moving
+entities along a pre-determined path having fixed pre-defined loading
+and discharge points. Each entity to be conveyed must wait for
+sufficient space on the conveyor before it can gain entry and begin its
+transfer. In essence, simulation modeling constructs for conveyors model
+the travel path via a mapping of space/distance to resources. Space
+along the path is divided up into units of resources called cells. The
+conveyor is then essentially a set of moving cells of equal length.
+Whenever an entity reaches a conveyor entry point it must wait for a
+predefined amount of unoccupied and available consecutive cells in order
+to get on the conveyor.</p>
+<p>Figure <a href="secConveyors.html#fig:ConveyorAsCells">8.8</a> illustrates the idea of modeling a conveyor
+as a set of contiguous cells representing the space on the conveyor. One
+way to think of this is like an escalator with each cell being a step.</p>
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:ConveyorAsCells"></span>
+<img src="figures2/ch8/ConveyorAsCells.jpg" alt="A conveyor conceptualized as a set of contiguous cells"  />
+<p class="caption">
+Figure 8.8: A conveyor conceptualized as a set of contiguous cells
+</p>
+</div>
+<p>In the figure, if each cell represents 1 foot and the total length of
+the conveyor is 15 feet, then there will be 15 cells. The cell size of
+the conveyor is the smallest portion of a conveyor that an entity can
+occupy. In modeling with conveyors, the size of the entity also matters.
+For example, think of people riding an escalator. Some people have a
+suitcase and take up two steps and others do not have a suitcase an only
+take up one step. An entity must acquire enough contiguous cells to hold
+their physical size in order to be conveyed.</p>
+<p>Conveyors travel in a single direction. For non-accumulating conveyors, the spacing
+remains the same between the entities. When an entity is placed on the
+conveyor, the entire conveyor is disengaged or stopped until
+instructions are given to transfer the entity to its destination. When
+the entity reaches its destination, the entire conveyor is again
+disengaged until instructions are given to remove the entity from the
+conveyor, at which time it is engaged or started. Thus, all entities on a
+non-accumulating conveyor experience the loading and unloading delays of all
+the other entities.</p>
+<p>As previously mentioned, the conveyor is divided into a number of cells.
+To get on the conveyor and begin moving, the entity must have its
+required number of contiguous cells. For example, in
+Figure <a href="secConveyors.html#fig:EntitySizesAndCells">8.9</a>, the circle needed 1 cell to get on
+the conveyor. Suppose the hexagon was trying to get on the conveyor. As
+cell 2 became available, the hexagon would seize it. Then it would wait
+for the next cell (cell 1) to become available and seize it. After
+having both required cells, it is “on” the conveyor. But moving on a
+conveyor is a bit more continuous than this. Conceptually, you can think
+of the hexagon, starting to move on the conveyor when it gets cell 2.
+When one cell moves, all cells must move, in lock step. Since entities
+are mapped on to the cells by their size, when a cell moves the entity
+moves. Reversing this analogy becomes useful. Suppose the cells are
+fixed, but the entities can move. In order for an entity to “take a
+step” it needs the next cell. As it crosses over to the next cell it
+releases the previous cell that it occupied. It is as if the entity’s
+“step size” is 1 cell at a time.</p>
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:EntitySizesAndCells"></span>
+<img src="figures2/ch8/EntitySizesAndCells.jpg" alt="Different entity sizes on a conveyor" width="70%" height="70%" />
+<p class="caption">
+Figure 8.9: Different entity sizes on a conveyor
+</p>
+</div>
+<p>Figure <a href="secConveyors.html#fig:ConveyorActDiagram">8.10</a> illustrates an <em>approximate</em>
+activity flow diagram for an entity using a non-accumulating conveyor.
+Suppose the entity size is 2 feet and each cell is 1 foot on the
+conveyor. There is a queue for the entities waiting to access the
+conveyor. The cells of the conveyor act as resources modeling the space
+on the conveyor. The movements of the entity through the space of each
+cell are activities. For the 2 foot entity, it first seizes the first
+cell and then moves through the distance of the cell. After the movement
+it seizes the next cell and moves through its length. Because it is 2
+feet (cells) long it seizes the 3rd cell and then releases the first
+cell before delaying for the move time for the 3rd cell. As cells become
+released other entities can seize them and continue their movement. The
+repeated pattern of overlapping <code>seize()</code> and <code>release()</code> function calls that underlie
+conveyor modeling clearly depends upon the number of cells and the size
+of the entity. Thus, the activity diagram would actually vary by the
+size of the entity (number of cells required).</p>
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:ConveyorActDiagram"></span>
+<img src="figures2/ch8/ConveyorActDiagram.jpg" alt="Activity diagram for non-accumulating conveyor" width="60%" height="60%" />
+<p class="caption">
+Figure 8.10: Activity diagram for non-accumulating conveyor
+</p>
+</div>
+<p>The larger the number of cells to model a segment of a conveyor the more
+slowly the model will execute; however, a larger number of cells allows
+for a more “continuous" representation of how entities actually exit
+and leave the conveyor. Larger cell sizes force entities to delay longer
+to move and thus waiting entities must delay for available space longer.
+A smaller mapping of cells to distance allows then entity to”creep"
+onto the conveyor in a more continuous fashion. For example, suppose the
+conveyor was 6 feet long and space was modeled in inches. That is, the
+length of the conveyor is 72 inches. Now suppose the entity required 1
+foot of space while on the conveyor. If the conveyor is modeled with 72
+cells, the entity starts to get on the conveyor after only 1 inch (cell)
+and requires 12 cells (inches) when riding on the conveyor. If the
+mapping of distance was 1 cell equals 1 foot, the entity would have to
+wait until it got a whole cell of 1 foot before it moved onto the
+conveyor.</p>
+<p>An accumulating conveyor can be thought of as always running. When an
+entity stops moving on the conveyor (e.g. to unload), other entities are
+still allowed on the conveyor since the conveyor continues moving. When
+entities on the conveyor meet up with the stopped entity, they stop, and
+a queue (on the conveyor) accumulates behind the stopped entity until the original stopped
+entity is removed or transferred to its destination.</p>
+<p>As an analogy, imagine wearing a pair of roller blades and being on a
+people mover in an airport. Don’t ask how you got your roller blades
+through security! While on the people mover you aren’t skating (you are
+standing still, resting, but still moving with the people mover). Up
+ahead of you, some seriously deranged simulation book author places a
+bar across the people mover. When you reach the bar, you grab on. Since
+you are on roller blades, you remain stationary at the bar, while your
+roller blades are going like mad underneath you.</p>
+<p>Now imagine all the people on the mover having roller blades. The people
+following you will continue approaching the bar until they bump into
+you. Everyone will pile up behind the bar until the bar is removed. You
+are on an accumulating conveyor! Notice that while you were on the
+conveyor and there was no blockage, the spacing between the people
+remained the same, but that when the blockage occurred the spacing
+between the entities decreased until they bump up against each other. To
+summarize:</p>
+<ul>
+<li><p>Accumulating conveyors are always moving.</p></li>
+<li><p>If an entity stops to exit or receives processing on the conveyor,
+other entities behind it are blocked and begin to queue up on the
+conveyor.</p></li>
+<li><p>Entities in front of the blockage continue moving.</p></li>
+<li><p>When a blockage ends, blocked entities, may continue, but must first
+wait for the entities immediately in front of them to move forward.</p></li>
+</ul>
+<p>In modeling accumulating conveyors, the main differences occur in the
+actions of how the entity accesses and exits the conveyor. Instead of disengaging the
+conveyor as with non-accumulating conveyors the conveyor continues to
+run. The conveyor allocates the required number of cells to any waiting
+entities as space becomes available. Any entities that are being
+conveyed continue until they reach a blockage. If the blocking entity is
+removed or conveyed, the accumulated entities only start to move when
+the required number of cells becomes available.</p>
+<div id="ksl-conveyor-constructs" class="section level3 hasAnchor" number="8.4.1">
+<h3><span class="header-section-number">8.4.1</span> KSL Conveyor Constructs<a href="secConveyors.html#ksl-conveyor-constructs" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>The KSL provides suspending functions and classes to support the modeling of conveyors.</p>
+<p>A conveyor consists of a series of segments. A segment has a starting location (origin) and an ending location (destination) and is associated with a conveyor. The start and end of each segment represent locations along the conveyor where entities can enter and exit. A conveyor does not utilize a spatial model. The locations associated with its segments are instances of the <code>String</code> class. Thus, movement on the conveyor is disassociated with any spatial model associated with the entity using the conveyor. Since a spatial model using instances of the <code>LocationIfc</code> interface and <code>LocationIfc</code> extends the <code>IdentityIfc.</code> the locations associated with segments can be the same as those associated with spatial models because the <code>IdentityIfc</code> has a <code>String</code> property called <code>name;</code> however, the entity’s location attributes expect instances of the <code>LocationIfc</code> interface. The modeler is responsible for making the update to the entity location, if applicable.</p>
+<p>A conveyor has a cell size, which represents the length of each cell on all segments of the conveyor. A conveyor also has a maximum permitted number of cells that can be occupied by an item riding on the conveyor. A conveyor has an initial velocity. Each segment moves at the same velocity.</p>
+<p>Each segment has a specified length that is divided into a number of equally sized contiguous cells. The length of any segment must be an integer multiple of the conveyor’s cell size so that each segment will have an integer number of cells to represent its length. If a segment consists of 12 cells and the length of the conveyor is 12 feet then each cell represents 1 foot. If a segment consists of 4 cells and the length of the segment is 12 feet, then each cell of the segment represents 3 feet. Thus, a cell represents a generalized unit of distance along the segment. Segments may have a different number of cells because they may have different lengths.</p>
+<p>The cells on a conveyor are numbered from 1 to <span class="math inline">\(n\)</span>, with 1 at the entry of the first segment, and <span class="math inline">\(n\)</span> at the exit of the last segment, where <span class="math inline">\(n\)</span> is the number of cells for the conveyor. Items that ride on the conveyor must be allocated cells and then occupy the cells while moving on the conveyor. Items can occupy more than one cell while riding on the conveyor. For example, if the conveyor has 5 cells (1, 2, 3, 4, 5) and the item needs 2 cells and is occupying cells 2 and 3, then the front cell associated with the item is cell 3 and the rear cell associated with the item is cell 2.</p>
+<p>An entity trying to access the conveyor at an entry cell of the conveyor, waits until it can block the entry cell. A request for entry on the conveyor will wait for the entry cell if the entry cell is unavailable (blocked or occupied) or if another item is positioned to use the entry cell. Once the entity has control of the entry cell, this creates a blockage on the conveyor, which may restrict conveyor movement. For a non-accumulating conveyor the blockage stops all movement on the conveyor. For accumulating conveyors, the blockage restricts movement behind the blocked cell. Gaining control of the entry cell does not position the entity to ride on the conveyor. The entity simply controls the entry cell and causes a blockage. The entity is not on the conveyor during the blockage.</p>
+<p>If the entity decides to ride on the conveyor, the entity will be allocated cells based on its request and occupy those cells while moving on the conveyor. First, the entity’s request is removed from the request queue and positioned to enter the conveyor at the entry cell. To occupy a cell, the entity must move the distance represented by the cell (essentially covering the cell). Thus, an entering entity takes the time needed to move through its required cells before being fully on the conveyor. An entity occupies a cell during the time it traverses the cell’s length. Thus, assuming a single item, the time to move from the start of a segment to the end of the segment is the time that it takes to travel through all the cells of the segment, including the entry cell and the exit cell.</p>
+<p>When an entity riding on the conveyor reaches its destination (an exit cell), the entity causes a blockage on the conveyor. For a non-accumulating conveyor, the entire conveyor stops. For an accumulating conveyor, the blockage restricts movement behind the blockage causing items behind the blockage to continue to move until they cannot move forward. When an entity exits the conveyor, there will be a delay for the entity to move through the cells that it occupies before the entity can be considered completely off of the conveyor. Thus, exiting the conveyor is not assumed to be instantaneous. This implementation assumes that the entity must move through the occupied cells to get off the conveyor. Any delay to unload the item from the conveyor will be in addition to the exiting delay. Thus, a modeling situation in which the entity is picked up off the conveyor may need to account for the “extra” exiting delay. This implementation basically assumes that the item is pushed through the occupying cells at the end of the conveyor in order to exit. Scenarios where the item is picked up would not necessarily require the time to move through the cells.</p>
+<p>A conveyor is considered circular if the entry location of the first segment is the same as the exit location of the last segment. The user specifies a conveyor by providing the information associated with the segments. The specification of a conveyor can be performed by using the <code>ConveyorSegments</code> class or and the <code>Segment</code> class, or via a builder companion object of the <code>Conveyor</code> class. Figure <a href="secConveyors.html#fig:ConveyorSegments">8.11</a> illustrates the <code>ConveyorSegments</code> class and the <code>Segment</code> class.</p>
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:ConveyorSegments"></span>
+<img src="figures2/ch8/ConveyorSegments.png" alt="Tandem Queue with Conveyors" width="90%" height="90%" />
+<p class="caption">
+Figure 8.11: Tandem Queue with Conveyors
+</p>
+</div>
+<p>The <code>ConveyorSegments</code> class provides the data necessary to specify the segments of the conveyor. While the <code>Segment</code> class is a data class that can be used to build up the segments. The constructor of the <code>Conveyor</code> class takes in an instance of the <code>ConveyorSegments</code> class. Essentially, the <code>ConveyorSegments</code> class is a specialized collection that holds instances of the <code>Segment</code> class.</p>
+<div class="sourceCode" id="cb342"><pre class="sourceCode kt"><code class="sourceCode kotlin"><span id="cb342-1"><a href="secConveyors.html#cb342-1" tabindex="-1"></a><span class="kw">class</span> Conveyor<span class="op">(</span></span>
+<span id="cb342-2"><a href="secConveyors.html#cb342-2" tabindex="-1"></a>    <span class="va">parent</span><span class="op">:</span> <span class="dt">ModelElement</span><span class="op">,</span></span>
+<span id="cb342-3"><a href="secConveyors.html#cb342-3" tabindex="-1"></a>    <span class="va">segmentData</span><span class="op">:</span> <span class="dt">ConveyorSegments</span><span class="op">,</span></span>
+<span id="cb342-4"><a href="secConveyors.html#cb342-4" tabindex="-1"></a>    <span class="kw">val</span> <span class="va">conveyorType</span><span class="op">:</span> <span class="dt">Type</span> <span class="op">=</span> Type<span class="op">.</span>ACCUMULATING<span class="op">,</span></span>
+<span id="cb342-5"><a href="secConveyors.html#cb342-5" tabindex="-1"></a>    <span class="va">velocity</span><span class="op">:</span> <span class="dt">Double</span> <span class="op">=</span> <span class="fl">1.0</span><span class="op">,</span></span>
+<span id="cb342-6"><a href="secConveyors.html#cb342-6" tabindex="-1"></a>    <span class="kw">val</span> <span class="va">maxEntityCellsAllowed</span><span class="op">:</span> <span class="dt">Int</span> <span class="op">=</span> <span class="dv">1</span><span class="op">,</span></span>
+<span id="cb342-7"><a href="secConveyors.html#cb342-7" tabindex="-1"></a>    <span class="va">name</span><span class="op">:</span> <span class="dt">String</span><span class="op">?</span> <span class="op">=</span> null</span>
+<span id="cb342-8"><a href="secConveyors.html#cb342-8" tabindex="-1"></a><span class="op">)</span> <span class="op">:</span> <span class="dt">ModelElement</span><span class="op">(</span><span class="va">parent</span><span class="op">,</span> <span class="va">name</span><span class="op">)</span></span></code></pre></div>
+<p>Notice from Figure <a href="secConveyors.html#fig:ConveyorSegments">8.11</a> that the conveyor segments provide information about the total length of the conveyor, the first location (entry) and the last location (exit). Also available is a list of the exit locations and whether the conveyor is circular. A conveyor is circular if the exit location is connected to the entry location.</p>
+<p>While the conveyor can be specified directly via the conveyor segments, a builder can be used to construct the conveyor. An example of builder code to make a circular conveyor is as follows:</p>
+<div class="sourceCode" id="cb343"><pre class="sourceCode kt"><code class="sourceCode kotlin"><span id="cb343-1"><a href="secConveyors.html#cb343-1" tabindex="-1"></a>        loopConveyor <span class="op">=</span> Conveyor<span class="op">.</span>builder<span class="op">(</span><span class="kw">this</span><span class="op">,</span> <span class="st">&quot;LoopConveyor&quot;</span><span class="op">)</span></span>
+<span id="cb343-2"><a href="secConveyors.html#cb343-2" tabindex="-1"></a>            <span class="op">.</span>conveyorType<span class="op">(</span>Conveyor<span class="op">.</span>Type<span class="op">.</span>NON_ACCUMULATING<span class="op">)</span></span>
+<span id="cb343-3"><a href="secConveyors.html#cb343-3" tabindex="-1"></a>            <span class="op">.</span>velocity<span class="op">(</span><span class="fl">30.0</span><span class="op">)</span></span>
+<span id="cb343-4"><a href="secConveyors.html#cb343-4" tabindex="-1"></a>            <span class="op">.</span>cellSize<span class="op">(</span><span class="dv">10</span><span class="op">)</span></span>
+<span id="cb343-5"><a href="secConveyors.html#cb343-5" tabindex="-1"></a>            <span class="op">.</span>maxCellsAllowed<span class="op">(</span><span class="dv">2</span><span class="op">)</span></span>
+<span id="cb343-6"><a href="secConveyors.html#cb343-6" tabindex="-1"></a>            <span class="op">.</span>firstSegment<span class="op">(</span>myDrillingResource<span class="op">.</span>name<span class="op">,</span> myMillingResource<span class="op">.</span>name<span class="op">,</span> <span class="dv">70</span><span class="op">)</span></span>
+<span id="cb343-7"><a href="secConveyors.html#cb343-7" tabindex="-1"></a>            <span class="op">.</span>nextSegment<span class="op">(</span>myPlaningResource<span class="op">.</span>name<span class="op">,</span> <span class="dv">90</span><span class="op">)</span></span>
+<span id="cb343-8"><a href="secConveyors.html#cb343-8" tabindex="-1"></a>            <span class="op">.</span>nextSegment<span class="op">(</span>myGrindingResource<span class="op">.</span>name<span class="op">,</span> <span class="dv">50</span><span class="op">)</span></span>
+<span id="cb343-9"><a href="secConveyors.html#cb343-9" tabindex="-1"></a>            <span class="op">.</span>nextSegment<span class="op">(</span>myInspectionResource<span class="op">.</span>name<span class="op">,</span> <span class="dv">180</span><span class="op">)</span></span>
+<span id="cb343-10"><a href="secConveyors.html#cb343-10" tabindex="-1"></a>            <span class="op">.</span>nextSegment<span class="op">(</span>myDrillingResource<span class="op">.</span>name<span class="op">,</span> <span class="dv">250</span><span class="op">)</span></span>
+<span id="cb343-11"><a href="secConveyors.html#cb343-11" tabindex="-1"></a>            <span class="op">.</span>build<span class="op">()</span></span></code></pre></div>
+<p>Notice that the <code>myDrillingResource</code> location is both the first and last location in the conveyor. Also, notice that the <em>name</em> of the model element is being used to define the segments because this provides a unique string.</p>
+<p>Another important interface that is involved with conveyor modeling is the <code>ConveyorRequestIfc</code> interface as shown in Figure <a href="secConveyors.html#fig:ConveyorRequestIfc">8.12</a>.</p>
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:ConveyorRequestIfc"></span>
+<img src="figures2/ch8/ConveyorRequestIfc.png" alt="Conveyor Requests" width="60%" height="60%" />
+<p class="caption">
+Figure 8.12: Conveyor Requests
+</p>
+</div>
+<p>Similar to the <code>Allocation</code> class when using resources, an entity having control of cells on a conveyor needs an instance of the <code>ConveyorRequestIfc</code> interface. Besides providing information about the request and cells associated with using a conveyor, instances of this interface essentially act as a ‘ticket’ to ride on the conveyor and are necessary when exiting the conveyor.</p>
+<p>The suspending functions associated with using a conveyor are as follows.</p>
+<ul>
+<li><p><code>requestConveyor(conveyor: Conveyor, entryLocation: String, numCellsNeeded: Int)</code> - This function returns an instance of the <code>ConveyorRequestIfc</code> interface. This suspending function requests the number of cells indicated at the entry location of the conveyor. If the number of cells are not immediately available the process is suspended until the number of cells can be allocated (in full). The request for the cells will wait for the allocation in the queue associated with the start of the segment associated with the entry location of the conveyor. After this suspending function returns, the entity holds the cells in the returned cell allocation, but the entity is not on the conveyor. The entity can then decide to ride on the conveyor using the cell allocation or release the cell allocation by exiting the conveyor without riding. The behavior of the conveyor during access is governed by the type of conveyor. A blockage occurs at the entry point of the segment while the entity has the allocated cells and before exiting or riding.</p></li>
+<li><p><code>rideConveyor(conveyorRequest: ConveyorRequestIfc, destination: String)</code> - This suspending function causes the entity to be associated with an item that occupies the allocated cells on the conveyor. The item will move on the conveyor until it reaches the supplied destination. After this suspending function returns, the item associated with the entity will be occupying the cells it requires at the exit location of the segment associated with the destination. The item will remain on the conveyor until the entity indicates that the cells are to be released by using the exit function. The behavior of the conveyor during the ride and when the item reaches its destination is governed by the type of conveyor. A blockage occurs at the destination location of the segment while the entity occupies the final cells before exiting or riding again. If the destination implements the <code>LocationIfc</code> interface then the current location property of the entity will be updated to this value at the completion of the ride.</p></li>
+<li><p><code>exitConveyor(conveyorRequest: ConveyorRequestIfc)</code> - This suspending function causes the item associated with the allocated cells to exit the conveyor. If there is no item associated with the allocated cells, the cells are immediately released without a time delay. If there is an item occupying the associated cells there will be a delay while the item moves through the deallocated cells and then the cells are deallocated. After exiting the conveyor, the cell allocation is deallocated and cannot be used for further interaction with the conveyor.</p></li>
+<li><p><code>convey(conveyor: Conveyor, entryLocation: String, destination: String, numCellsNeeded: Int)</code> - This suspending function combines the <code>requestConveyor()</code>, <code>rideConveyor()</code>, and <code>exit()</code> functions into one suspending function.</p></li>
+<li><p><code>transferTo(conveyorRequest: ConveyorRequestIfc, nextConveyor: Conveyor, entryLocation: String,)</code> This suspending function causes the entity to transfer from one conveyor to another. The entity will suspend while accessing the required cells at the next conveyor. Once the desired cells are obtained the entity will exit its current conveyor and be positioned to ride on the next conveyor.</p></li>
+</ul>
+<p>Now we are ready to put these concepts into action.</p>
+</div>
+<div id="tandem-queue-system-with-conveyors" class="section level3 hasAnchor" number="8.4.2">
+<h3><span class="header-section-number">8.4.2</span> Tandem Queue System with Conveyors<a href="secConveyors.html#tandem-queue-system-with-conveyors" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>This section revisits the tandem queue system of previous sections and explores the use of conveyors to transport the parts. For this section, we will assume the distances used in Section <a href="movableResources.html#secMovableResources">8.2.2</a> as still being relevant. Figure <a href="secConveyors.html#fig:TandemQWithConveyors">8.13</a> illustrates the situation.</p>
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:TandemQWithConveyors"></span>
+<img src="figures2/ch8/TandemQWithConveyors.PNG" alt="Tandem Queue with Conveyors" width="90%" height="90%" />
+<p class="caption">
+Figure 8.13: Tandem Queue with Conveyors
+</p>
+</div>
+<p>For this situation, we will assume that the conveyor speed is 30 feet per minute. There is one conveyor with three segments. The first segment will be 70 feet, the second segment will be 40 feet, and the third segment 60 feet. The beginning of the first segment starts at the loading dock and ends at the resource of the first station. The second segment starts at the end of the firs segment and goes to the resource of the second station. Finally, the third segment, goes from the resource at the second station to the store area. Initially, we will assume that the part is removed from the conveyor for the work to occur at the station. The time to remove the part from the conveyor and to place it back on the conveyor after processing is considered to be negligible.</p>
+<p>We are going to show multiple models of this situation to compare and contrast different ways to model with conveyors.</p>
+<ul>
+<li>Model the system with simple delays acting as the conveyor.</li>
+<li>Model the system with the part exiting the conveyor for processing at each station using both accumulating and non-accumulating conveyors.</li>
+<li>Model the system with the part staying on the conveyor for processing at each station using both accumulating and non-accumulating conveyors.</li>
+</ul>
+<div id="tandem-queue-system-with-conveyors-and-deterministic-delays" class="section level4 hasAnchor" number="8.4.2.1">
+<h4><span class="header-section-number">8.4.2.1</span> Tandem Queue System with Conveyors and Deterministic Delays<a href="secConveyors.html#tandem-queue-system-with-conveyors-and-deterministic-delays" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<p>To model the system with simple delays to represent the conveyor, we can use deterministic delays to represent the time to travel on the conveyor from location to location.</p>
+<div class="sourceCode" id="cb344"><pre class="sourceCode kt"><code class="sourceCode kotlin"><span id="cb344-1"><a href="secConveyors.html#cb344-1" tabindex="-1"></a>    <span class="kw">private</span> <span class="kw">inner</span> <span class="kw">class</span> Part <span class="op">:</span> <span class="dt">Entity</span><span class="op">()</span> <span class="op">{</span></span>
+<span id="cb344-2"><a href="secConveyors.html#cb344-2" tabindex="-1"></a>        <span class="kw">val</span> <span class="va">tandemQProcess</span><span class="op">:</span> KSLProcess <span class="op">=</span> process<span class="op">(</span>isDefaultProcess <span class="op">=</span> <span class="kw">true</span><span class="op">)</span> <span class="op">{</span></span>
+<span id="cb344-3"><a href="secConveyors.html#cb344-3" tabindex="-1"></a>            wip<span class="op">.</span>increment<span class="op">()</span></span>
+<span id="cb344-4"><a href="secConveyors.html#cb344-4" tabindex="-1"></a>            timeStamp <span class="op">=</span> time</span>
+<span id="cb344-5"><a href="secConveyors.html#cb344-5" tabindex="-1"></a>            delay<span class="op">(</span>delayDuration <span class="op">=</span> <span class="fl">70.0</span><span class="op">/</span><span class="fl">30.0</span><span class="op">)</span> <span class="co">// 30 fpm for 70 ft</span></span>
+<span id="cb344-6"><a href="secConveyors.html#cb344-6" tabindex="-1"></a>            use<span class="op">(</span>resource <span class="op">=</span> worker1<span class="op">,</span> delayDuration <span class="op">=</span> st1<span class="op">)</span></span>
+<span id="cb344-7"><a href="secConveyors.html#cb344-7" tabindex="-1"></a>            delay<span class="op">(</span>delayDuration <span class="op">=</span> <span class="fl">40.0</span><span class="op">/</span><span class="fl">30.0</span><span class="op">)</span> <span class="co">// 30 fpm for 40 ft</span></span>
+<span id="cb344-8"><a href="secConveyors.html#cb344-8" tabindex="-1"></a>            use<span class="op">(</span>resource <span class="op">=</span> worker2<span class="op">,</span> delayDuration <span class="op">=</span> st2<span class="op">)</span></span>
+<span id="cb344-9"><a href="secConveyors.html#cb344-9" tabindex="-1"></a>            delay<span class="op">(</span>delayDuration <span class="op">=</span> <span class="fl">60.0</span><span class="op">/</span><span class="fl">30.0</span><span class="op">)</span> <span class="co">// 30 fpm for 60 ft</span></span>
+<span id="cb344-10"><a href="secConveyors.html#cb344-10" tabindex="-1"></a>            timeInSystem<span class="op">.</span>value <span class="op">=</span> time <span class="op">-</span> timeStamp</span>
+<span id="cb344-11"><a href="secConveyors.html#cb344-11" tabindex="-1"></a>            wip<span class="op">.</span>decrement<span class="op">()</span></span>
+<span id="cb344-12"><a href="secConveyors.html#cb344-12" tabindex="-1"></a>        <span class="op">}</span></span>
+<span id="cb344-13"><a href="secConveyors.html#cb344-13" tabindex="-1"></a>    <span class="op">}</span></span></code></pre></div>
+<p>Using a simple deterministic delay works reasonably well to represent the time of the part in the system. This approximation is reasonable if we do not care about the utilization of the conveyor in terms of space. Because the delay is deterministic, the sequence of parts that enter the conveyor is the same that exits at the stations. The results are useful for a baseline for more detailed modeling.</p>
+<p><strong>Conveyor via Deterministic Delay: Statistical Summary Report</strong></p>
+<table>
+<thead>
+<tr class="header">
+<th align="center">Name</th>
+<th align="center">Count</th>
+<th align="center">Average</th>
+<th align="center">Half-Width</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="center">worker1:InstantaneousUtil</td>
+<td align="center">30</td>
+<td align="center">0.698</td>
+<td align="center">0.002</td>
+</tr>
+<tr class="even">
+<td align="center">worker1:NumBusyUnits</td>
+<td align="center">30</td>
+<td align="center">0.698</td>
+<td align="center">0.002</td>
+</tr>
+<tr class="odd">
+<td align="center">worker1:ScheduledUtil</td>
+<td align="center">30</td>
+<td align="center">0.698</td>
+<td align="center">0.002</td>
+</tr>
+<tr class="even">
+<td align="center">worker1:Q:NumInQ</td>
+<td align="center">30</td>
+<td align="center">1.598</td>
+<td align="center">0.037</td>
+</tr>
+<tr class="odd">
+<td align="center">worker1:Q:TimeInQ</td>
+<td align="center">30</td>
+<td align="center">1.6</td>
+<td align="center">0.035</td>
+</tr>
+<tr class="even">
+<td align="center">worker1:WIP</td>
+<td align="center">30</td>
+<td align="center">2.296</td>
+<td align="center">0.039</td>
+</tr>
+<tr class="odd">
+<td align="center">worker2:InstantaneousUtil</td>
+<td align="center">30</td>
+<td align="center">0.901</td>
+<td align="center">0.004</td>
+</tr>
+<tr class="even">
+<td align="center">worker2:NumBusyUnits</td>
+<td align="center">30</td>
+<td align="center">0.901</td>
+<td align="center">0.004</td>
+</tr>
+<tr class="odd">
+<td align="center">worker2:ScheduledUtil</td>
+<td align="center">30</td>
+<td align="center">0.901</td>
+<td align="center">0.004</td>
+</tr>
+<tr class="even">
+<td align="center">worker2:Q:NumInQ</td>
+<td align="center">30</td>
+<td align="center">7.791</td>
+<td align="center">0.454</td>
+</tr>
+<tr class="odd">
+<td align="center">worker2:Q:TimeInQ</td>
+<td align="center">30</td>
+<td align="center">7.795</td>
+<td align="center">0.44</td>
+</tr>
+<tr class="even">
+<td align="center">worker2:WIP</td>
+<td align="center">30</td>
+<td align="center">8.692</td>
+<td align="center">0.457</td>
+</tr>
+<tr class="odd">
+<td align="center">TandemQueueWithConveyor:NumInSystem</td>
+<td align="center">30</td>
+<td align="center">16.648</td>
+<td align="center">0.474</td>
+</tr>
+<tr class="even">
+<td align="center">TandemQueueWithConveyor:TimeInSystem</td>
+<td align="center">30</td>
+<td align="center">16.662</td>
+<td align="center">0.444</td>
+</tr>
+<tr class="odd">
+<td align="center">worker1:SeizeCount</td>
+<td align="center">30</td>
+<td align="center">14982.233</td>
+<td align="center">40.422</td>
+</tr>
+<tr class="even">
+<td align="center">worker2:SeizeCount</td>
+<td align="center">30</td>
+<td align="center">14978.633</td>
+<td align="center">40.03</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div id="tandem-queue-system-with-conveyors-work-performed-off-the-conveyor" class="section level4 hasAnchor" number="8.4.2.2">
+<h4><span class="header-section-number">8.4.2.2</span> Tandem Queue System with Conveyors Work Performed Off the Conveyor<a href="secConveyors.html#tandem-queue-system-with-conveyors-work-performed-off-the-conveyor" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<p>Now, we will model the system using accumulating and non-accumulating conveyors and have the parts exit the conveyor and request the conveyor at each location. Let’s start by defining the conveyor. The basic tandem queueing system was modified to define the locations and conveyor with its segments.</p>
+<div class="sourceCode" id="cb345"><pre class="sourceCode kt"><code class="sourceCode kotlin"><span id="cb345-1"><a href="secConveyors.html#cb345-1" tabindex="-1"></a><span class="kw">class</span> TandemQueueWithConveyors<span class="op">(</span></span>
+<span id="cb345-2"><a href="secConveyors.html#cb345-2" tabindex="-1"></a>    <span class="va">parent</span><span class="op">:</span> <span class="dt">ModelElement</span><span class="op">,</span></span>
+<span id="cb345-3"><a href="secConveyors.html#cb345-3" tabindex="-1"></a>    <span class="va">conveyorType</span><span class="op">:</span> <span class="dt">Conveyor</span>.<span class="va">Type</span> <span class="op">=</span> Conveyor<span class="op">.</span>Type<span class="op">.</span>NON_ACCUMULATING<span class="op">,</span></span>
+<span id="cb345-4"><a href="secConveyors.html#cb345-4" tabindex="-1"></a>    <span class="va">name</span><span class="op">:</span> <span class="dt">String</span><span class="op">?</span> <span class="op">=</span> null</span>
+<span id="cb345-5"><a href="secConveyors.html#cb345-5" tabindex="-1"></a><span class="op">)</span> <span class="op">:</span> <span class="dt">ProcessModel</span><span class="op">(</span><span class="va">parent</span><span class="op">,</span> <span class="va">name</span><span class="op">)</span> <span class="op">{</span></span>
+<span id="cb345-6"><a href="secConveyors.html#cb345-6" tabindex="-1"></a></span>
+<span id="cb345-7"><a href="secConveyors.html#cb345-7" tabindex="-1"></a>    <span class="kw">private</span> <span class="kw">val</span> <span class="va">enter</span> <span class="op">=</span> <span class="st">&quot;Enter&quot;</span></span>
+<span id="cb345-8"><a href="secConveyors.html#cb345-8" tabindex="-1"></a>    <span class="kw">private</span> <span class="kw">val</span> <span class="va">station1</span> <span class="op">=</span> <span class="st">&quot;Station1&quot;</span></span>
+<span id="cb345-9"><a href="secConveyors.html#cb345-9" tabindex="-1"></a>    <span class="kw">private</span> <span class="kw">val</span> <span class="va">station2</span> <span class="op">=</span> <span class="st">&quot;Station2&quot;</span></span>
+<span id="cb345-10"><a href="secConveyors.html#cb345-10" tabindex="-1"></a>    <span class="kw">private</span> <span class="kw">val</span> <span class="va">exit</span> <span class="op">=</span> <span class="st">&quot;Exit&quot;</span></span>
+<span id="cb345-11"><a href="secConveyors.html#cb345-11" tabindex="-1"></a></span>
+<span id="cb345-12"><a href="secConveyors.html#cb345-12" tabindex="-1"></a>    <span class="co">// velocity is in feet per min</span></span>
+<span id="cb345-13"><a href="secConveyors.html#cb345-13" tabindex="-1"></a>    <span class="kw">private</span> <span class="kw">val</span> <span class="va">conveyor</span> <span class="op">=</span> Conveyor<span class="op">.</span>builder<span class="op">(</span><span class="kw">this</span><span class="op">,</span> <span class="st">&quot;Conveyor&quot;</span><span class="op">)</span></span>
+<span id="cb345-14"><a href="secConveyors.html#cb345-14" tabindex="-1"></a>        <span class="op">.</span>conveyorType<span class="op">(</span>conveyorType<span class="op">)</span></span>
+<span id="cb345-15"><a href="secConveyors.html#cb345-15" tabindex="-1"></a>        <span class="op">.</span>velocity<span class="op">(</span><span class="fl">30.0</span><span class="op">)</span></span>
+<span id="cb345-16"><a href="secConveyors.html#cb345-16" tabindex="-1"></a>        <span class="op">.</span>cellSize<span class="op">(</span><span class="dv">1</span><span class="op">)</span></span>
+<span id="cb345-17"><a href="secConveyors.html#cb345-17" tabindex="-1"></a>        <span class="op">.</span>maxCellsAllowed<span class="op">(</span><span class="dv">1</span><span class="op">)</span></span>
+<span id="cb345-18"><a href="secConveyors.html#cb345-18" tabindex="-1"></a>        <span class="op">.</span>firstSegment<span class="op">(</span>enter<span class="op">,</span> station1<span class="op">,</span> <span class="dv">70</span><span class="op">)</span></span>
+<span id="cb345-19"><a href="secConveyors.html#cb345-19" tabindex="-1"></a>        <span class="op">.</span>nextSegment<span class="op">(</span>station2<span class="op">,</span> <span class="dv">40</span><span class="op">)</span></span>
+<span id="cb345-20"><a href="secConveyors.html#cb345-20" tabindex="-1"></a>        <span class="op">.</span>nextSegment<span class="op">(</span>exit<span class="op">,</span> <span class="dv">60</span><span class="op">)</span></span>
+<span id="cb345-21"><a href="secConveyors.html#cb345-21" tabindex="-1"></a>        <span class="op">.</span>build<span class="op">()</span></span></code></pre></div>
+<p>The velocity of the conveyor is 30 feet per minute. The basic cell size is 1 unit and the maximum number of cells that any part can occupy is one. The conveyor has three segments of 70, 40, and 60 feet, respectively. The <code>conveyorType</code> will be specified as accumulating or non-accumulating. The process description is a straight-forward use of the previously mentioned conveyor suspending functions.</p>
+<div class="sourceCode" id="cb346"><pre class="sourceCode kt"><code class="sourceCode kotlin"><span id="cb346-1"><a href="secConveyors.html#cb346-1" tabindex="-1"></a>    <span class="kw">private</span> <span class="kw">inner</span> <span class="kw">class</span> Part <span class="op">:</span> <span class="dt">Entity</span><span class="op">()</span> <span class="op">{</span></span>
+<span id="cb346-2"><a href="secConveyors.html#cb346-2" tabindex="-1"></a>        <span class="kw">val</span> <span class="va">tandemQProcess</span><span class="op">:</span> KSLProcess <span class="op">=</span> process<span class="op">(</span>isDefaultProcess <span class="op">=</span> <span class="kw">true</span><span class="op">)</span> <span class="op">{</span></span>
+<span id="cb346-3"><a href="secConveyors.html#cb346-3" tabindex="-1"></a>            wip<span class="op">.</span>increment<span class="op">()</span></span>
+<span id="cb346-4"><a href="secConveyors.html#cb346-4" tabindex="-1"></a>            timeStamp <span class="op">=</span> time</span>
+<span id="cb346-5"><a href="secConveyors.html#cb346-5" tabindex="-1"></a>            <span class="kw">val</span> <span class="va">conveyorRequest</span> <span class="op">=</span> requestConveyor<span class="op">(</span>conveyor <span class="op">=</span> conveyor<span class="op">,</span> entryLocation <span class="op">=</span> enter<span class="op">,</span> numCellsNeeded <span class="op">=</span> <span class="dv">1</span><span class="op">)</span></span>
+<span id="cb346-6"><a href="secConveyors.html#cb346-6" tabindex="-1"></a>            rideConveyor<span class="op">(</span>conveyorRequest <span class="op">=</span> conveyorRequest<span class="op">,</span> destination <span class="op">=</span> station1<span class="op">)</span></span>
+<span id="cb346-7"><a href="secConveyors.html#cb346-7" tabindex="-1"></a>            exitConveyor<span class="op">(</span>conveyorRequest<span class="op">)</span></span>
+<span id="cb346-8"><a href="secConveyors.html#cb346-8" tabindex="-1"></a>            use<span class="op">(</span>resource <span class="op">=</span> worker1<span class="op">,</span> delayDuration <span class="op">=</span> st1<span class="op">)</span></span>
+<span id="cb346-9"><a href="secConveyors.html#cb346-9" tabindex="-1"></a>            <span class="kw">val</span> <span class="va">conveyorRequest2</span> <span class="op">=</span> requestConveyor<span class="op">(</span>conveyor <span class="op">=</span> conveyor<span class="op">,</span> entryLocation <span class="op">=</span> station1<span class="op">,</span> numCellsNeeded <span class="op">=</span> <span class="dv">1</span><span class="op">)</span></span>
+<span id="cb346-10"><a href="secConveyors.html#cb346-10" tabindex="-1"></a>            rideConveyor<span class="op">(</span>conveyorRequest <span class="op">=</span> conveyorRequest2<span class="op">,</span> destination <span class="op">=</span> station2<span class="op">)</span></span>
+<span id="cb346-11"><a href="secConveyors.html#cb346-11" tabindex="-1"></a>            exitConveyor<span class="op">(</span>conveyorRequest <span class="op">=</span> conveyorRequest2<span class="op">)</span></span>
+<span id="cb346-12"><a href="secConveyors.html#cb346-12" tabindex="-1"></a>            use<span class="op">(</span>resource <span class="op">=</span> worker2<span class="op">,</span> delayDuration <span class="op">=</span> st2<span class="op">)</span></span>
+<span id="cb346-13"><a href="secConveyors.html#cb346-13" tabindex="-1"></a>            <span class="kw">val</span> <span class="va">conveyorRequest3</span> <span class="op">=</span> requestConveyor<span class="op">(</span>conveyor <span class="op">=</span> conveyor<span class="op">,</span> entryLocation <span class="op">=</span> station2<span class="op">,</span> numCellsNeeded <span class="op">=</span> <span class="dv">1</span><span class="op">)</span></span>
+<span id="cb346-14"><a href="secConveyors.html#cb346-14" tabindex="-1"></a>            rideConveyor<span class="op">(</span>conveyorRequest <span class="op">=</span> conveyorRequest3<span class="op">,</span> destination <span class="op">=</span> exit<span class="op">)</span></span>
+<span id="cb346-15"><a href="secConveyors.html#cb346-15" tabindex="-1"></a>            exitConveyor<span class="op">(</span>conveyorRequest <span class="op">=</span> conveyorRequest3<span class="op">)</span></span>
+<span id="cb346-16"><a href="secConveyors.html#cb346-16" tabindex="-1"></a>            timeInSystem<span class="op">.</span>value <span class="op">=</span> time <span class="op">-</span> timeStamp</span>
+<span id="cb346-17"><a href="secConveyors.html#cb346-17" tabindex="-1"></a>            wip<span class="op">.</span>decrement<span class="op">()</span></span>
+<span id="cb346-18"><a href="secConveyors.html#cb346-18" tabindex="-1"></a>        <span class="op">}</span></span>
+<span id="cb346-19"><a href="secConveyors.html#cb346-19" tabindex="-1"></a>    <span class="op">}</span></span></code></pre></div>
+<p>Notice how the conveyor request is captured and used within the ride and exit functions. If there is no need to use the conveyor request instances, then by using the <code>convey()</code> function, this process description can be significantly shortened.</p>
+<div class="sourceCode" id="cb347"><pre class="sourceCode kt"><code class="sourceCode kotlin"><span id="cb347-1"><a href="secConveyors.html#cb347-1" tabindex="-1"></a>        <span class="kw">val</span> <span class="va">tandemQProcess</span><span class="op">:</span> KSLProcess <span class="op">=</span> process<span class="op">(</span>isDefaultProcess <span class="op">=</span> <span class="kw">true</span><span class="op">)</span> <span class="op">{</span></span>
+<span id="cb347-2"><a href="secConveyors.html#cb347-2" tabindex="-1"></a>            wip<span class="op">.</span>increment<span class="op">()</span></span>
+<span id="cb347-3"><a href="secConveyors.html#cb347-3" tabindex="-1"></a>            timeStamp <span class="op">=</span> time</span>
+<span id="cb347-4"><a href="secConveyors.html#cb347-4" tabindex="-1"></a>            convey<span class="op">(</span>conveyor <span class="op">=</span> conveyor<span class="op">,</span> entryLocation <span class="op">=</span> enter<span class="op">,</span> destination <span class="op">=</span> station1<span class="op">)</span></span>
+<span id="cb347-5"><a href="secConveyors.html#cb347-5" tabindex="-1"></a>            use<span class="op">(</span>resource <span class="op">=</span> worker1<span class="op">,</span> delayDuration <span class="op">=</span> st1<span class="op">)</span></span>
+<span id="cb347-6"><a href="secConveyors.html#cb347-6" tabindex="-1"></a>            convey<span class="op">(</span>conveyor <span class="op">=</span> conveyor<span class="op">,</span> entryLocation <span class="op">=</span> station1<span class="op">,</span> destination <span class="op">=</span> station2<span class="op">)</span></span>
+<span id="cb347-7"><a href="secConveyors.html#cb347-7" tabindex="-1"></a>            use<span class="op">(</span>resource <span class="op">=</span> worker2<span class="op">,</span> delayDuration <span class="op">=</span> st2<span class="op">)</span></span>
+<span id="cb347-8"><a href="secConveyors.html#cb347-8" tabindex="-1"></a>            convey<span class="op">(</span>conveyor <span class="op">=</span> conveyor<span class="op">,</span> entryLocation <span class="op">=</span> station2<span class="op">,</span> destination <span class="op">=</span> exit<span class="op">)</span></span>
+<span id="cb347-9"><a href="secConveyors.html#cb347-9" tabindex="-1"></a>            timeInSystem<span class="op">.</span>value <span class="op">=</span> time <span class="op">-</span> timeStamp</span>
+<span id="cb347-10"><a href="secConveyors.html#cb347-10" tabindex="-1"></a>            wip<span class="op">.</span>decrement<span class="op">()</span></span>
+<span id="cb347-11"><a href="secConveyors.html#cb347-11" tabindex="-1"></a>        <span class="op">}</span></span></code></pre></div>
+<p>To specify that the conveyor is non-accumulating use <code>Conveyor.Type.NON_ACCUMULATING</code> and for accumulating use <code>Conveyor.Type.ACCUMULATING</code> when constructing the conveyor. The results for the non-accumulating case are as follows.</p>
+<p><strong>Non-Accumulating Working Off Conveyor: Statistical Summary Report</strong></p>
+<table>
+<thead>
+<tr class="header">
+<th align="center">Name</th>
+<th align="center">Count</th>
+<th align="center">Average</th>
+<th align="center">Half-Width</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="center">Conveyor:Enter:AccessQ:NumInQ</td>
+<td align="center">30</td>
+<td align="center">0.001</td>
+<td align="center">0</td>
+</tr>
+<tr class="even">
+<td align="center">Conveyor:Enter:AccessQ:TimeInQ</td>
+<td align="center">30</td>
+<td align="center">0.001</td>
+<td align="center">0</td>
+</tr>
+<tr class="odd">
+<td align="center">Conveyor:Station1:AccessQ:NumInQ</td>
+<td align="center">30</td>
+<td align="center">0.001</td>
+<td align="center">0</td>
+</tr>
+<tr class="even">
+<td align="center">Conveyor:Station1:AccessQ:TimeInQ</td>
+<td align="center">30</td>
+<td align="center">0.001</td>
+<td align="center">0</td>
+</tr>
+<tr class="odd">
+<td align="center">Conveyor:Station2:AccessQ:NumInQ</td>
+<td align="center">30</td>
+<td align="center">0.001</td>
+<td align="center">0</td>
+</tr>
+<tr class="even">
+<td align="center">Conveyor:Station2:AccessQ:TimeInQ</td>
+<td align="center">30</td>
+<td align="center">0.001</td>
+<td align="center">0</td>
+</tr>
+<tr class="odd">
+<td align="center">Conveyor:Enter-&gt;Station1:NumOccupiedCells</td>
+<td align="center">30</td>
+<td align="center">2.442</td>
+<td align="center">0.007</td>
+</tr>
+<tr class="even">
+<td align="center">Conveyor:Enter-&gt;Station1:CellUtilization</td>
+<td align="center">30</td>
+<td align="center">0.035</td>
+<td align="center">0</td>
+</tr>
+<tr class="odd">
+<td align="center">Conveyor:Station1-&gt;Station2:NumOccupiedCells</td>
+<td align="center">30</td>
+<td align="center">1.395</td>
+<td align="center">0.004</td>
+</tr>
+<tr class="even">
+<td align="center">Conveyor:Station1-&gt;Station2:CellUtilization</td>
+<td align="center">30</td>
+<td align="center">0.035</td>
+<td align="center">0</td>
+</tr>
+<tr class="odd">
+<td align="center">Conveyor:Station2-&gt;Exit:NumOccupiedCells</td>
+<td align="center">30</td>
+<td align="center">2.092</td>
+<td align="center">0.006</td>
+</tr>
+<tr class="even">
+<td align="center">Conveyor:Station2-&gt;Exit:CellUtilization</td>
+<td align="center">30</td>
+<td align="center">0.035</td>
+<td align="center">0</td>
+</tr>
+<tr class="odd">
+<td align="center">Conveyor:NumOccupiedCells</td>
+<td align="center">30</td>
+<td align="center">5.929</td>
+<td align="center">0.017</td>
+</tr>
+<tr class="even">
+<td align="center">Conveyor:CellUtilization</td>
+<td align="center">30</td>
+<td align="center">0.035</td>
+<td align="center">0</td>
+</tr>
+<tr class="odd">
+<td align="center">worker1:InstantaneousUtil</td>
+<td align="center">30</td>
+<td align="center">0.698</td>
+<td align="center">0.002</td>
+</tr>
+<tr class="even">
+<td align="center">worker1:NumBusyUnits</td>
+<td align="center">30</td>
+<td align="center">0.698</td>
+<td align="center">0.002</td>
+</tr>
+<tr class="odd">
+<td align="center">worker1:ScheduledUtil</td>
+<td align="center">30</td>
+<td align="center">0.698</td>
+<td align="center">0.002</td>
+</tr>
+<tr class="even">
+<td align="center">worker1:Q:NumInQ</td>
+<td align="center">30</td>
+<td align="center">1.611</td>
+<td align="center">0.037</td>
+</tr>
+<tr class="odd">
+<td align="center">worker1:Q:TimeInQ</td>
+<td align="center">30</td>
+<td align="center">1.613</td>
+<td align="center">0.036</td>
+</tr>
+<tr class="even">
+<td align="center">worker1:WIP</td>
+<td align="center">30</td>
+<td align="center">2.309</td>
+<td align="center">0.039</td>
+</tr>
+<tr class="odd">
+<td align="center">worker2:InstantaneousUtil</td>
+<td align="center">30</td>
+<td align="center">0.901</td>
+<td align="center">0.004</td>
+</tr>
+<tr class="even">
+<td align="center">worker2:NumBusyUnits</td>
+<td align="center">30</td>
+<td align="center">0.901</td>
+<td align="center">0.004</td>
+</tr>
+<tr class="odd">
+<td align="center">worker2:ScheduledUtil</td>
+<td align="center">30</td>
+<td align="center">0.901</td>
+<td align="center">0.004</td>
+</tr>
+<tr class="even">
+<td align="center">worker2:Q:NumInQ</td>
+<td align="center">30</td>
+<td align="center">7.803</td>
+<td align="center">0.454</td>
+</tr>
+<tr class="odd">
+<td align="center">worker2:Q:TimeInQ</td>
+<td align="center">30</td>
+<td align="center">7.806</td>
+<td align="center">0.44</td>
+</tr>
+<tr class="even">
+<td align="center">worker2:WIP</td>
+<td align="center">30</td>
+<td align="center">8.704</td>
+<td align="center">0.457</td>
+</tr>
+<tr class="odd">
+<td align="center">TandemQueueWithConveyor:NumInSystem</td>
+<td align="center">30</td>
+<td align="center">17.049</td>
+<td align="center">0.475</td>
+</tr>
+<tr class="even">
+<td align="center">TandemQueueWithConveyor:TimeInSystem</td>
+<td align="center">30</td>
+<td align="center">17.064</td>
+<td align="center">0.444</td>
+</tr>
+<tr class="odd">
+<td align="center">worker1:SeizeCount</td>
+<td align="center">30</td>
+<td align="center">14982.133</td>
+<td align="center">40.487</td>
+</tr>
+<tr class="even">
+<td align="center">worker2:SeizeCount</td>
+<td align="center">30</td>
+<td align="center">14978.7</td>
+<td align="center">40.085</td>
+</tr>
+</tbody>
+</table>
+<p>The first thing to notice is that there are automatic statistics reported for the queues associated with the entry points of the conveyor. In addition, statistics are reported for the number of occupied cells and utilization of the cells for each segment. Finally, the conveyor’s overall cell utilization and number of occupied cells is reported. The results reported here are not very interesting. We see little waiting to get on the conveyor at the enter, station 1, and station 2 entry points. The utilization of the workers and queueing at the stations is almost the same as in the previous results. We notice that the time spent in the system is about 1 minute higher. This is likely due to the time to go through the cells to enter and exit the conveyor segments.</p>
+<p>The same model can be executed with an accumulating conveyor by changing the conveyor type property of the conveyor. The results are presented here.</p>
+<p><strong>Accumulating Working Off the Conveyor: Statistical Summary Report</strong></p>
+<table>
+<thead>
+<tr class="header">
+<th align="center">Name</th>
+<th align="center">Count</th>
+<th align="center">Average</th>
+<th align="center">Half-Width</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="center">Conveyor:Enter:AccessQ:NumInQ</td>
+<td align="center">30</td>
+<td align="center">0.001</td>
+<td align="center">0</td>
+</tr>
+<tr class="even">
+<td align="center">Conveyor:Enter:AccessQ:TimeInQ</td>
+<td align="center">30</td>
+<td align="center">0.001</td>
+<td align="center">0</td>
+</tr>
+<tr class="odd">
+<td align="center">Conveyor:Station1:AccessQ:NumInQ</td>
+<td align="center">30</td>
+<td align="center">0.001</td>
+<td align="center">0</td>
+</tr>
+<tr class="even">
+<td align="center">Conveyor:Station1:AccessQ:TimeInQ</td>
+<td align="center">30</td>
+<td align="center">0.001</td>
+<td align="center">0</td>
+</tr>
+<tr class="odd">
+<td align="center">Conveyor:Station2:AccessQ:NumInQ</td>
+<td align="center">30</td>
+<td align="center">0.001</td>
+<td align="center">0</td>
+</tr>
+<tr class="even">
+<td align="center">Conveyor:Station2:AccessQ:TimeInQ</td>
+<td align="center">30</td>
+<td align="center">0.001</td>
+<td align="center">0</td>
+</tr>
+<tr class="odd">
+<td align="center">Conveyor:Enter-&gt;Station1:NumOccupiedCells</td>
+<td align="center">30</td>
+<td align="center">2.331</td>
+<td align="center">0.006</td>
+</tr>
+<tr class="even">
+<td align="center">Conveyor:Enter-&gt;Station1:CellUtilization</td>
+<td align="center">30</td>
+<td align="center">0.033</td>
+<td align="center">0</td>
+</tr>
+<tr class="odd">
+<td align="center">Conveyor:Station1-&gt;Station2:NumOccupiedCells</td>
+<td align="center">30</td>
+<td align="center">1.332</td>
+<td align="center">0.004</td>
+</tr>
+<tr class="even">
+<td align="center">Conveyor:Station1-&gt;Station2:CellUtilization</td>
+<td align="center">30</td>
+<td align="center">0.033</td>
+<td align="center">0</td>
+</tr>
+<tr class="odd">
+<td align="center">Conveyor:Station2-&gt;Exit:NumOccupiedCells</td>
+<td align="center">30</td>
+<td align="center">1.997</td>
+<td align="center">0.005</td>
+</tr>
+<tr class="even">
+<td align="center">Conveyor:Station2-&gt;Exit:CellUtilization</td>
+<td align="center">30</td>
+<td align="center">0.033</td>
+<td align="center">0</td>
+</tr>
+<tr class="odd">
+<td align="center">Conveyor:NumOccupiedCells</td>
+<td align="center">30</td>
+<td align="center">5.659</td>
+<td align="center">0.015</td>
+</tr>
+<tr class="even">
+<td align="center">Conveyor:CellUtilization</td>
+<td align="center">30</td>
+<td align="center">0.033</td>
+<td align="center">0</td>
+</tr>
+<tr class="odd">
+<td align="center">worker1:InstantaneousUtil</td>
+<td align="center">30</td>
+<td align="center">0.698</td>
+<td align="center">0.002</td>
+</tr>
+<tr class="even">
+<td align="center">worker1:NumBusyUnits</td>
+<td align="center">30</td>
+<td align="center">0.698</td>
+<td align="center">0.002</td>
+</tr>
+<tr class="odd">
+<td align="center">worker1:ScheduledUtil</td>
+<td align="center">30</td>
+<td align="center">0.698</td>
+<td align="center">0.002</td>
+</tr>
+<tr class="even">
+<td align="center">worker1:Q:NumInQ</td>
+<td align="center">30</td>
+<td align="center">1.596</td>
+<td align="center">0.037</td>
+</tr>
+<tr class="odd">
+<td align="center">worker1:Q:TimeInQ</td>
+<td align="center">30</td>
+<td align="center">1.598</td>
+<td align="center">0.035</td>
+</tr>
+<tr class="even">
+<td align="center">worker1:WIP</td>
+<td align="center">30</td>
+<td align="center">2.294</td>
+<td align="center">0.039</td>
+</tr>
+<tr class="odd">
+<td align="center">worker2:InstantaneousUtil</td>
+<td align="center">30</td>
+<td align="center">0.901</td>
+<td align="center">0.004</td>
+</tr>
+<tr class="even">
+<td align="center">worker2:NumBusyUnits</td>
+<td align="center">30</td>
+<td align="center">0.901</td>
+<td align="center">0.004</td>
+</tr>
+<tr class="odd">
+<td align="center">worker2:ScheduledUtil</td>
+<td align="center">30</td>
+<td align="center">0.901</td>
+<td align="center">0.004</td>
+</tr>
+<tr class="even">
+<td align="center">worker2:Q:NumInQ</td>
+<td align="center">30</td>
+<td align="center">7.789</td>
+<td align="center">0.454</td>
+</tr>
+<tr class="odd">
+<td align="center">worker2:Q:TimeInQ</td>
+<td align="center">30</td>
+<td align="center">7.793</td>
+<td align="center">0.44</td>
+</tr>
+<tr class="even">
+<td align="center">worker2:WIP</td>
+<td align="center">30</td>
+<td align="center">8.691</td>
+<td align="center">0.457</td>
+</tr>
+<tr class="odd">
+<td align="center">TandemQueueWithConveyor:NumInSystem</td>
+<td align="center">30</td>
+<td align="center">16.7</td>
+<td align="center">0.474</td>
+</tr>
+<tr class="even">
+<td align="center">TandemQueueWithConveyor:TimeInSystem</td>
+<td align="center">30</td>
+<td align="center">16.714</td>
+<td align="center">0.444</td>
+</tr>
+<tr class="odd">
+<td align="center">worker1:SeizeCount</td>
+<td align="center">30</td>
+<td align="center">14982.2</td>
+<td align="center">40.432</td>
+</tr>
+<tr class="even">
+<td align="center">worker2:SeizeCount</td>
+<td align="center">30</td>
+<td align="center">14978.6</td>
+<td align="center">40.033</td>
+</tr>
+</tbody>
+</table>
+<p>The results for the accumulating conveyor case are a little better than for the non-accumulating conveyor. This is due to the fact that the conveyor continues to be engaged when allowing parts to enter and exit. The total time in the system is not statistically different from the deterministic delay case.</p>
+</div>
+<div id="tandem-queue-system-with-conveyors-work-performed-on-the-conveyor" class="section level4 hasAnchor" number="8.4.2.3">
+<h4><span class="header-section-number">8.4.2.3</span> Tandem Queue System with Conveyors Work Performed On the Conveyor<a href="secConveyors.html#tandem-queue-system-with-conveyors-work-performed-on-the-conveyor" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<p>In many systems, the work associated with a station can often be performed while the part is on the conveyor. As we will see, more care is needed in synchronizing the movement on the conveyor with the work content. This section illustrates how to change the process when the work is performed on the conveyor. Figure <a href="secConveyors.html#fig:TandemQWithWorkOnConveyors">8.14</a> illustrates that the worker is working on the part while it is on the last cells of the segments (cell 70 of segment 1 and cell 40 of segment 2).</p>
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:TandemQWithWorkOnConveyors"></span>
+<img src="figures2/ch8/TandemQWithWorkOnConveyors.PNG" alt="Tandem Queue with Conveyors" width="90%" height="90%" />
+<p class="caption">
+Figure 8.14: Tandem Queue with Conveyors
+</p>
+</div>
+<p>To model this situation, we simply do not exit the conveyor at each station. The configuration of the conveyor remains the same. Notice that in the following code, we request the conveyor and ride it between the stations. Finally, we only exit the conveyor at the storage location (exit).</p>
+<div class="sourceCode" id="cb348"><pre class="sourceCode kt"><code class="sourceCode kotlin"><span id="cb348-1"><a href="secConveyors.html#cb348-1" tabindex="-1"></a>    <span class="kw">private</span> <span class="kw">inner</span> <span class="kw">class</span> Part <span class="op">:</span> <span class="dt">Entity</span><span class="op">()</span> <span class="op">{</span></span>
+<span id="cb348-2"><a href="secConveyors.html#cb348-2" tabindex="-1"></a>        <span class="kw">val</span> <span class="va">tandemQProcess</span><span class="op">:</span> KSLProcess <span class="op">=</span> process<span class="op">(</span>isDefaultProcess <span class="op">=</span> <span class="kw">true</span><span class="op">)</span> <span class="op">{</span></span>
+<span id="cb348-3"><a href="secConveyors.html#cb348-3" tabindex="-1"></a>            wip<span class="op">.</span>increment<span class="op">()</span></span>
+<span id="cb348-4"><a href="secConveyors.html#cb348-4" tabindex="-1"></a>            timeStamp <span class="op">=</span> time</span>
+<span id="cb348-5"><a href="secConveyors.html#cb348-5" tabindex="-1"></a>            <span class="kw">val</span> <span class="va">conveyorRequest</span> <span class="op">=</span> requestConveyor<span class="op">(</span>conveyor <span class="op">=</span> conveyor<span class="op">,</span> entryLocation <span class="op">=</span> enter<span class="op">,</span> numCellsNeeded <span class="op">=</span> <span class="dv">1</span><span class="op">)</span></span>
+<span id="cb348-6"><a href="secConveyors.html#cb348-6" tabindex="-1"></a>            rideConveyor<span class="op">(</span>conveyorRequest <span class="op">=</span> conveyorRequest<span class="op">,</span> destination <span class="op">=</span> station1<span class="op">)</span></span>
+<span id="cb348-7"><a href="secConveyors.html#cb348-7" tabindex="-1"></a>            use<span class="op">(</span>resource <span class="op">=</span> worker1<span class="op">,</span> delayDuration <span class="op">=</span> st1<span class="op">)</span></span>
+<span id="cb348-8"><a href="secConveyors.html#cb348-8" tabindex="-1"></a>            rideConveyor<span class="op">(</span>conveyorRequest <span class="op">=</span> conveyorRequest<span class="op">,</span> destination <span class="op">=</span> station2<span class="op">)</span></span>
+<span id="cb348-9"><a href="secConveyors.html#cb348-9" tabindex="-1"></a>            use<span class="op">(</span>resource <span class="op">=</span> worker2<span class="op">,</span> delayDuration <span class="op">=</span> st2<span class="op">)</span></span>
+<span id="cb348-10"><a href="secConveyors.html#cb348-10" tabindex="-1"></a>            rideConveyor<span class="op">(</span>conveyorRequest <span class="op">=</span> conveyorRequest<span class="op">,</span> destination <span class="op">=</span> exit<span class="op">)</span></span>
+<span id="cb348-11"><a href="secConveyors.html#cb348-11" tabindex="-1"></a>            exitConveyor<span class="op">(</span>conveyorRequest <span class="op">=</span> conveyorRequest<span class="op">)</span></span>
+<span id="cb348-12"><a href="secConveyors.html#cb348-12" tabindex="-1"></a>            timeInSystem<span class="op">.</span>value <span class="op">=</span> time <span class="op">-</span> timeStamp</span>
+<span id="cb348-13"><a href="secConveyors.html#cb348-13" tabindex="-1"></a>            wip<span class="op">.</span>decrement<span class="op">()</span></span>
+<span id="cb348-14"><a href="secConveyors.html#cb348-14" tabindex="-1"></a>        <span class="op">}</span></span>
+<span id="cb348-15"><a href="secConveyors.html#cb348-15" tabindex="-1"></a>    <span class="op">}</span></span></code></pre></div>
+<p>Also, notice that we cannot use the <code>convey()</code> function because it assumes that the <code>exit()</code> function is used for each conveyance. The <code>rideConveyor()</code> function causes the conveyor to block until it is called again or until the <code>exit()</code> function is called. Thus, the <code>use()</code> functions are conceptually happening while the part is still on the conveyor. During this time, for an accumulating conveyor, the parts will pile up behind the blockage, essentially queueing up on the conveyor. Recall the analogy of the seriously deranged simulation professor in the airport. As we can see from the following results, working on the conveyor has some interesting effects on the statistics.</p>
+<p><strong>Accumulating Conveyor with Work On Conveyor: Statistical Summary Report</strong></p>
+<table>
+<thead>
+<tr class="header">
+<th align="center">Name</th>
+<th align="center">Count</th>
+<th align="center">Average</th>
+<th align="center">Half-Width</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="center">Conveyor:Enter:AccessQ:NumInQ</td>
+<td align="center">30</td>
+<td align="center">0.001</td>
+<td align="center">0</td>
+</tr>
+<tr class="even">
+<td align="center">Conveyor:Enter:AccessQ:TimeInQ</td>
+<td align="center">30</td>
+<td align="center">0.001</td>
+<td align="center">0</td>
+</tr>
+<tr class="odd">
+<td align="center">Conveyor:Station1:AccessQ:NumInQ</td>
+<td align="center">30</td>
+<td align="center">0</td>
+<td align="center">0</td>
+</tr>
+<tr class="even">
+<td align="center">Conveyor:Station1:AccessQ:TimeInQ</td>
+<td align="center">0</td>
+<td align="center">NaN</td>
+<td align="center">NaN</td>
+</tr>
+<tr class="odd">
+<td align="center">Conveyor:Station2:AccessQ:NumInQ</td>
+<td align="center">30</td>
+<td align="center">0</td>
+<td align="center">0</td>
+</tr>
+<tr class="even">
+<td align="center">Conveyor:Station2:AccessQ:TimeInQ</td>
+<td align="center">0</td>
+<td align="center">NaN</td>
+<td align="center">NaN</td>
+</tr>
+<tr class="odd">
+<td align="center">Conveyor:Enter-&gt;Station1:NumOccupiedCells</td>
+<td align="center">30</td>
+<td align="center">4.952</td>
+<td align="center">0.118</td>
+</tr>
+<tr class="even">
+<td align="center">Conveyor:Enter-&gt;Station1:CellUtilization</td>
+<td align="center">30</td>
+<td align="center">0.071</td>
+<td align="center">0.002</td>
+</tr>
+<tr class="odd">
+<td align="center">Conveyor:Station1-&gt;Station2:NumOccupiedCells</td>
+<td align="center">30</td>
+<td align="center">11.418</td>
+<td align="center">0.549</td>
+</tr>
+<tr class="even">
+<td align="center">Conveyor:Station1-&gt;Station2:CellUtilization</td>
+<td align="center">30</td>
+<td align="center">0.285</td>
+<td align="center">0.014</td>
+</tr>
+<tr class="odd">
+<td align="center">Conveyor:Station2-&gt;Exit:NumOccupiedCells</td>
+<td align="center">30</td>
+<td align="center">1.997</td>
+<td align="center">0.005</td>
+</tr>
+<tr class="even">
+<td align="center">Conveyor:Station2-&gt;Exit:CellUtilization</td>
+<td align="center">30</td>
+<td align="center">0.033</td>
+<td align="center">0</td>
+</tr>
+<tr class="odd">
+<td align="center">Conveyor:NumOccupiedCells</td>
+<td align="center">30</td>
+<td align="center">18.367</td>
+<td align="center">0.643</td>
+</tr>
+<tr class="even">
+<td align="center">Conveyor:CellUtilization</td>
+<td align="center">30</td>
+<td align="center">0.108</td>
+<td align="center">0.004</td>
+</tr>
+<tr class="odd">
+<td align="center">worker1:InstantaneousUtil</td>
+<td align="center">30</td>
+<td align="center">0.698</td>
+<td align="center">0.002</td>
+</tr>
+<tr class="even">
+<td align="center">worker1:NumBusyUnits</td>
+<td align="center">30</td>
+<td align="center">0.698</td>
+<td align="center">0.002</td>
+</tr>
+<tr class="odd">
+<td align="center">worker1:ScheduledUtil</td>
+<td align="center">30</td>
+<td align="center">0.698</td>
+<td align="center">0.002</td>
+</tr>
+<tr class="even">
+<td align="center">worker1:Q:NumInQ</td>
+<td align="center">30</td>
+<td align="center">0</td>
+<td align="center">0</td>
+</tr>
+<tr class="odd">
+<td align="center">worker1:Q:TimeInQ</td>
+<td align="center">30</td>
+<td align="center">0</td>
+<td align="center">0</td>
+</tr>
+<tr class="even">
+<td align="center">worker1:WIP</td>
+<td align="center">30</td>
+<td align="center">0.698</td>
+<td align="center">0.002</td>
+</tr>
+<tr class="odd">
+<td align="center">worker2:InstantaneousUtil</td>
+<td align="center">30</td>
+<td align="center">0.901</td>
+<td align="center">0.004</td>
+</tr>
+<tr class="even">
+<td align="center">worker2:NumBusyUnits</td>
+<td align="center">30</td>
+<td align="center">0.901</td>
+<td align="center">0.004</td>
+</tr>
+<tr class="odd">
+<td align="center">worker2:ScheduledUtil</td>
+<td align="center">30</td>
+<td align="center">0.901</td>
+<td align="center">0.004</td>
+</tr>
+<tr class="even">
+<td align="center">worker2:Q:NumInQ</td>
+<td align="center">30</td>
+<td align="center">0</td>
+<td align="center">0</td>
+</tr>
+<tr class="odd">
+<td align="center">worker2:Q:TimeInQ</td>
+<td align="center">30</td>
+<td align="center">0</td>
+<td align="center">0</td>
+</tr>
+<tr class="even">
+<td align="center">worker2:WIP</td>
+<td align="center">30</td>
+<td align="center">0.901</td>
+<td align="center">0.004</td>
+</tr>
+<tr class="odd">
+<td align="center">TandemQueueWithConveyor:NumInSystem</td>
+<td align="center">30</td>
+<td align="center">18.386</td>
+<td align="center">0.643</td>
+</tr>
+<tr class="even">
+<td align="center">TandemQueueWithConveyor:TimeInSystem</td>
+<td align="center">30</td>
+<td align="center">18.401</td>
+<td align="center">0.61</td>
+</tr>
+<tr class="odd">
+<td align="center">worker1:SeizeCount</td>
+<td align="center">30</td>
+<td align="center">14982.167</td>
+<td align="center">40.405</td>
+</tr>
+<tr class="even">
+<td align="center">worker2:SeizeCount</td>
+<td align="center">30</td>
+<td align="center">14977.633</td>
+<td align="center">40.149</td>
+</tr>
+</tbody>
+</table>
+<p>Notice that the queues for the workers are zero. This is because the entity that seizes the worker blocks all the entities behind it on the conveyor. They never get a chance to seize the worker until the worker is available. Notice how the number of occupied cells mirrors the queue sizes from the previous results. Essentially, the entities are waiting on the conveyor. Notice also that the queues for entry onto the conveyor at station 1 and 2 are zero. This is because no parts exit at those stations and thereby need to wait to get back on the conveyor. The conveyor can be configured not to report these unnecessary statistics.</p>
+<p>Now let’s see the effect of using a non-accumulating conveyor in the situation.</p>
+<p><strong>Non-accumulating Conveyor with Work On Conveyor:Statistical Summary Report</strong></p>
+<table>
+<thead>
+<tr class="header">
+<th align="center">Name</th>
+<th align="center">Count</th>
+<th align="center">Average</th>
+<th align="center">Half-Width</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="center">Conveyor:Enter:AccessQ:NumInQ</td>
+<td align="center">30</td>
+<td align="center">2359.251</td>
+<td align="center">42.718</td>
+</tr>
+<tr class="even">
+<td align="center">Conveyor:Enter:AccessQ:TimeInQ</td>
+<td align="center">30</td>
+<td align="center">2359.658</td>
+<td align="center">40.409</td>
+</tr>
+<tr class="odd">
+<td align="center">Conveyor:Station1:AccessQ:NumInQ</td>
+<td align="center">30</td>
+<td align="center">0</td>
+<td align="center">0</td>
+</tr>
+<tr class="even">
+<td align="center">Conveyor:Station1:AccessQ:TimeInQ</td>
+<td align="center">0</td>
+<td align="center">NaN</td>
+<td align="center">NaN</td>
+</tr>
+<tr class="odd">
+<td align="center">Conveyor:Station2:AccessQ:NumInQ</td>
+<td align="center">30</td>
+<td align="center">0</td>
+<td align="center">0</td>
+</tr>
+<tr class="even">
+<td align="center">Conveyor:Station2:AccessQ:TimeInQ</td>
+<td align="center">0</td>
+<td align="center">NaN</td>
+<td align="center">NaN</td>
+</tr>
+<tr class="odd">
+<td align="center">Conveyor:Enter-&gt;Station1:NumOccupiedCells</td>
+<td align="center">30</td>
+<td align="center">70</td>
+<td align="center">0</td>
+</tr>
+<tr class="even">
+<td align="center">Conveyor:Enter-&gt;Station1:CellUtilization</td>
+<td align="center">30</td>
+<td align="center">1</td>
+<td align="center">0</td>
+</tr>
+<tr class="odd">
+<td align="center">Conveyor:Station1-&gt;Station2:NumOccupiedCells</td>
+<td align="center">30</td>
+<td align="center">40</td>
+<td align="center">0</td>
+</tr>
+<tr class="even">
+<td align="center">Conveyor:Station1-&gt;Station2:CellUtilization</td>
+<td align="center">30</td>
+<td align="center">1</td>
+<td align="center">0</td>
+</tr>
+<tr class="odd">
+<td align="center">Conveyor:Station2-&gt;Exit:NumOccupiedCells</td>
+<td align="center">30</td>
+<td align="center">60</td>
+<td align="center">0</td>
+</tr>
+<tr class="even">
+<td align="center">Conveyor:Station2-&gt;Exit:CellUtilization</td>
+<td align="center">30</td>
+<td align="center">1</td>
+<td align="center">0</td>
+</tr>
+<tr class="odd">
+<td align="center">Conveyor:NumOccupiedCells</td>
+<td align="center">30</td>
+<td align="center">170</td>
+<td align="center">0</td>
+</tr>
+<tr class="even">
+<td align="center">Conveyor:CellUtilization</td>
+<td align="center">30</td>
+<td align="center">1</td>
+<td align="center">0</td>
+</tr>
+<tr class="odd">
+<td align="center">worker1:InstantaneousUtil</td>
+<td align="center">30</td>
+<td align="center">0.564</td>
+<td align="center">0.002</td>
+</tr>
+<tr class="even">
+<td align="center">worker1:NumBusyUnits</td>
+<td align="center">30</td>
+<td align="center">0.564</td>
+<td align="center">0.002</td>
+</tr>
+<tr class="odd">
+<td align="center">worker1:ScheduledUtil</td>
+<td align="center">30</td>
+<td align="center">0.564</td>
+<td align="center">0.002</td>
+</tr>
+<tr class="even">
+<td align="center">worker1:Q:NumInQ</td>
+<td align="center">30</td>
+<td align="center">0</td>
+<td align="center">0</td>
+</tr>
+<tr class="odd">
+<td align="center">worker1:Q:TimeInQ</td>
+<td align="center">30</td>
+<td align="center">0</td>
+<td align="center">0</td>
+</tr>
+<tr class="even">
+<td align="center">worker1:WIP</td>
+<td align="center">30</td>
+<td align="center">0.564</td>
+<td align="center">0.002</td>
+</tr>
+<tr class="odd">
+<td align="center">worker2:InstantaneousUtil</td>
+<td align="center">30</td>
+<td align="center">0.728</td>
+<td align="center">0.001</td>
+</tr>
+<tr class="even">
+<td align="center">worker2:NumBusyUnits</td>
+<td align="center">30</td>
+<td align="center">0.728</td>
+<td align="center">0.001</td>
+</tr>
+<tr class="odd">
+<td align="center">worker2:ScheduledUtil</td>
+<td align="center">30</td>
+<td align="center">0.728</td>
+<td align="center">0.001</td>
+</tr>
+<tr class="even">
+<td align="center">worker2:Q:NumInQ</td>
+<td align="center">30</td>
+<td align="center">0</td>
+<td align="center">0</td>
+</tr>
+<tr class="odd">
+<td align="center">worker2:Q:TimeInQ</td>
+<td align="center">30</td>
+<td align="center">0</td>
+<td align="center">0</td>
+</tr>
+<tr class="even">
+<td align="center">worker2:WIP</td>
+<td align="center">30</td>
+<td align="center">0.728</td>
+<td align="center">0.001</td>
+</tr>
+<tr class="odd">
+<td align="center">TandemQueueWithConveyor:NumInSystem</td>
+<td align="center">30</td>
+<td align="center">2530.251</td>
+<td align="center">42.718</td>
+</tr>
+<tr class="even">
+<td align="center">TandemQueueWithConveyor:TimeInSystem</td>
+<td align="center">30</td>
+<td align="center">2530.917</td>
+<td align="center">40.085</td>
+</tr>
+<tr class="odd">
+<td align="center">worker1:SeizeCount</td>
+<td align="center">30</td>
+<td align="center">12081.5</td>
+<td align="center">31.211</td>
+</tr>
+<tr class="even">
+<td align="center">worker2:SeizeCount</td>
+<td align="center">30</td>
+<td align="center">12081.5</td>
+<td align="center">31.211</td>
+</tr>
+</tbody>
+</table>
+<p>These results are dramatically different. Why? We again see that the queues for the resources are zero; however, the queue for accessing the conveyor at the enter location is out of control. Why might this be the expected behavior? Recall that for a non-accumulating conveyor, the segments disengage when a part is entering or has reached its destination. The <code>rideConveyor()</code> function moves the part to its destination on the conveyor. When the part reaches its destination, the conveyor disengages again. The cell that the part occupies on the conveyor remains occupied while the part is being processed. Thus, when the part is using the worker at station 1 (or station 2) the conveyor is essentially <strong>stopped</strong>. No parts are moving on the conveyor. Therefore, the parts trying to enter at the beginning of the conveyor must wait for the service of <strong>every</strong> part on their segment of the conveyor. This results in a huge bottleneck. Obviously, this is not how we would design such a system. The specification of a non-accumulating conveyor is not appropriate for this situation; however, the usage of an accumulating conveyor is very appropriate. It may be possible to use non-accumulating conveyors when the work is performed on the conveyor; however, the work needs to be perfectly balanced. In the next section, we will see how to model the test and repair system with a circular conveyor.</p>
+</div>
+</div>
+<div id="secTestAndRepairConveyors" class="section level3 hasAnchor" number="8.4.3">
+<h3><span class="header-section-number">8.4.3</span> Test and Repair via Conveyors<a href="secConveyors.html#secTestAndRepairConveyors" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>For simplicity, the test and repair shop will be used for illustrating
+the use of conveyors. Figure <a href="secConveyors.html#fig:TestAndRepairWithConveyors">8.15</a> shows the test and repair shop with
+the conveyors and the distance between the stations. From the figure,
+the distances from each station going in clockwise order are as follows:</p>
+<ul>
+<li><p>Diagnostic station to test station 1, 20 feet</p></li>
+<li><p>Test station 1 to test station 2, 20 feet</p></li>
+<li><p>Test station 2 to repair, 15 feet</p></li>
+<li><p>Repair to test station 3, 45 feet</p></li>
+<li><p>Test station 3 to diagnostics, 30 feet</p></li>
+</ul>
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:TestAndRepairWithConveyors"></span>
+<img src="figures2/ch8/TestAndRepairWithConveyors.jpg" alt="Test and repair shop with conveyors" width="90%" height="90%" />
+<p class="caption">
+Figure 8.15: Test and repair shop with conveyors
+</p>
+</div>
+<p>Assume that the conveyor’s velocity is 10 feet per minute. These figures
+have been provided in this example; however, in modeling a real system,
+you will have to tabulate this information. To illustrate the use of
+entity sizes, assume the following concerning the parts following the
+four test plans:</p>
+<ul>
+<li><p>Test plan 1 and 2 parts require 1 foot of space while riding on the
+conveyor</p></li>
+<li><p>Test plan 3 and 4 parts require 2 feet of space while riding on the
+conveyor</p></li>
+</ul>
+<p>For this example, we will assume that the conveyor is an accumulating conveyor. Now, we are ready to define the conveyor and its segments.</p>
+<div id="test-and-repair-conveyor-definitions" class="section level4 hasAnchor" number="8.4.3.1">
+<h4><span class="header-section-number">8.4.3.1</span> Test and Repair Conveyor Definitions<a href="secConveyors.html#test-and-repair-conveyor-definitions" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<p>To define the conveyor within code, we can use the builder functionality provided by the <code>Conveyor</code> class’s companion object. Because we have parts that require different amounts of space on the conveyor, we need to set the maximum number of cells allowed by any entity. The following KSL code provides the conveyor definition. Also, note the the code turns off the reporting of access queues associated with the repair station. This is done because no parts need to access the conveyor at the repair station. For this illustrative example, the code also prints out the conveyor configuration, which we will review.</p>
+<div class="sourceCode" id="cb349"><pre class="sourceCode kt"><code class="sourceCode kotlin"><span id="cb349-1"><a href="secConveyors.html#cb349-1" tabindex="-1"></a>    <span class="kw">private</span> <span class="kw">val</span> <span class="va">loopConveyor</span><span class="op">:</span> Conveyor <span class="op">=</span> Conveyor<span class="op">.</span>builder<span class="op">(</span><span class="kw">this</span><span class="op">,</span> <span class="st">&quot;LoopConveyor&quot;</span><span class="op">)</span></span>
+<span id="cb349-2"><a href="secConveyors.html#cb349-2" tabindex="-1"></a>        <span class="op">.</span>conveyorType<span class="op">(</span>Conveyor<span class="op">.</span>Type<span class="op">.</span>ACCUMULATING<span class="op">)</span></span>
+<span id="cb349-3"><a href="secConveyors.html#cb349-3" tabindex="-1"></a>        <span class="op">.</span>velocity<span class="op">(</span><span class="fl">10.0</span><span class="op">)</span></span>
+<span id="cb349-4"><a href="secConveyors.html#cb349-4" tabindex="-1"></a>        <span class="op">.</span>cellSize<span class="op">(</span><span class="dv">1</span><span class="op">)</span></span>
+<span id="cb349-5"><a href="secConveyors.html#cb349-5" tabindex="-1"></a>        <span class="op">.</span>maxCellsAllowed<span class="op">(</span><span class="dv">2</span><span class="op">)</span></span>
+<span id="cb349-6"><a href="secConveyors.html#cb349-6" tabindex="-1"></a>        <span class="op">.</span>firstSegment<span class="op">(</span>myDiagnostics<span class="op">.</span>name<span class="op">,</span> myTest1<span class="op">.</span>name<span class="op">,</span> <span class="dv">20</span><span class="op">)</span></span>
+<span id="cb349-7"><a href="secConveyors.html#cb349-7" tabindex="-1"></a>        <span class="op">.</span>nextSegment<span class="op">(</span>myTest2<span class="op">.</span>name<span class="op">,</span> <span class="dv">20</span><span class="op">)</span></span>
+<span id="cb349-8"><a href="secConveyors.html#cb349-8" tabindex="-1"></a>        <span class="op">.</span>nextSegment<span class="op">(</span>myRepair<span class="op">.</span>name<span class="op">,</span> <span class="dv">15</span><span class="op">)</span></span>
+<span id="cb349-9"><a href="secConveyors.html#cb349-9" tabindex="-1"></a>        <span class="op">.</span>nextSegment<span class="op">(</span>myTest3<span class="op">.</span>name<span class="op">,</span> <span class="dv">45</span><span class="op">)</span></span>
+<span id="cb349-10"><a href="secConveyors.html#cb349-10" tabindex="-1"></a>        <span class="op">.</span>nextSegment<span class="op">(</span>myDiagnostics<span class="op">.</span>name<span class="op">,</span> <span class="dv">30</span><span class="op">)</span></span>
+<span id="cb349-11"><a href="secConveyors.html#cb349-11" tabindex="-1"></a>        <span class="op">.</span>build<span class="op">()</span></span>
+<span id="cb349-12"><a href="secConveyors.html#cb349-12" tabindex="-1"></a></span>
+<span id="cb349-13"><a href="secConveyors.html#cb349-13" tabindex="-1"></a>    init <span class="op">{</span></span>
+<span id="cb349-14"><a href="secConveyors.html#cb349-14" tabindex="-1"></a>        loopConveyor<span class="op">.</span>accessQueueAt<span class="op">(</span>myRepair<span class="op">.</span>name<span class="op">).</span>defaultReportingOption <span class="op">=</span> <span class="kw">false</span></span>
+<span id="cb349-15"><a href="secConveyors.html#cb349-15" tabindex="-1"></a>        println<span class="op">(</span>loopConveyor<span class="op">)</span></span>
+<span id="cb349-16"><a href="secConveyors.html#cb349-16" tabindex="-1"></a>    <span class="op">}</span></span></code></pre></div>
+<p>The configuration of the conveyor can be seen via its <code>toString()</code> function. As we can see from the output, we have an accumulating conveyor with a velocity of 10 feet per minute. The total length of the conveyor is 130 feet. Since each cell equates to 1 foot, there are 130 cells. There are five segments. Since the conveyor’s last location is the same as its first location, it is considered a circular conveyor. The conveyor also determines which locations are downstream, relative to the first location. This ensures that the movement request from one location to another location is feasible relative to the path defined by the conveyor. As noted, the segments consist of a sequence of cells. For example, the first segment is between diagnostics and the test 1 station. The entry location for diagnostics is cell 1 and the exit location for test 1 is cell 20. Note that every location has both an entry cell and an exit cell.</p>
+<pre><code>Conveyor : LoopConveyor
+type = ACCUMULATING
+is circular = true
+velocity = 10.0
+cellSize = 1
+max number cells allowed to occupy = 2
+cell Travel Time = 0.1
+Segments:
+first location = Diagnostics
+last location = Diagnostics
+Segment: 1 = (start = Diagnostics --&gt; end = Test1 : length = 20)
+Segment: 2 = (start = Test1 --&gt; end = Test2 : length = 20)
+Segment: 3 = (start = Test2 --&gt; end = Repair : length = 15)
+Segment: 4 = (start = Repair --&gt; end = Test3 : length = 45)
+Segment: 5 = (start = Test3 --&gt; end = Diagnostics : length = 30)
+total length = 130
+Downstream locations:
+Diagnostics : [Test1 -&gt; Test2 -&gt; Repair -&gt; Test3 -&gt; Diagnostics]
+Test1 : [Test2 -&gt; Repair -&gt; Test3 -&gt; Diagnostics]
+Test2 : [Repair -&gt; Test3 -&gt; Diagnostics]
+Repair : [Test3 -&gt; Diagnostics]
+Test3 : [Diagnostics]
+Segment Cells:
+Locations[Diagnostics-&gt;Test1] = Cells[1..20]
+Locations[Test1-&gt;Test2] = Cells[21..40]
+Locations[Test2-&gt;Repair] = Cells[41..55]
+Locations[Repair-&gt;Test3] = Cells[56..100]
+Locations[Test3-&gt;Diagnostics] = Cells[101..130]</code></pre>
+<p>Now, we are ready to update the process description for the test and repair system to use the conveyor.</p>
+</div>
+<div id="test-and-repair-conveyor-processing" class="section level4 hasAnchor" number="8.4.3.2">
+<h4><span class="header-section-number">8.4.3.2</span> Test and Repair Conveyor Processing<a href="secConveyors.html#test-and-repair-conveyor-processing" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<p>The test plans for the problem remain the same as in the previous examples; however, the parts that follow different test plans require different cell sizes. To facilitate the specification of cell size requirements for each test plan, we can use a map to hold the requirements.</p>
+<div class="sourceCode" id="cb351"><pre class="sourceCode kt"><code class="sourceCode kotlin"><span id="cb351-1"><a href="secConveyors.html#cb351-1" tabindex="-1"></a>    <span class="kw">private</span> <span class="kw">val</span> <span class="va">cellSizes</span> <span class="op">=</span> mapOf<span class="op">(</span>testPlan1 to <span class="dv">1</span><span class="op">,</span> testPlan2 to <span class="dv">1</span><span class="op">,</span> testPlan3 to <span class="dv">2</span><span class="op">,</span> testPlan4 to <span class="dv">2</span><span class="op">)</span></span></code></pre></div>
+<p>We can use the <code>cellSizes</code> map to determine the number of cells need by the part when using the conveyor. By using the <code>convey()</code> function, the process description becomes very compact.</p>
+<div class="sourceCode" id="cb352"><pre class="sourceCode kt"><code class="sourceCode kotlin"><span id="cb352-1"><a href="secConveyors.html#cb352-1" tabindex="-1"></a>    <span class="kw">private</span> <span class="kw">inner</span> <span class="kw">class</span> Part <span class="op">:</span> <span class="dt">Entity</span><span class="op">()</span> <span class="op">{</span></span>
+<span id="cb352-2"><a href="secConveyors.html#cb352-2" tabindex="-1"></a></span>
+<span id="cb352-3"><a href="secConveyors.html#cb352-3" tabindex="-1"></a>        <span class="co">// determine the test plan</span></span>
+<span id="cb352-4"><a href="secConveyors.html#cb352-4" tabindex="-1"></a>        <span class="kw">val</span> <span class="va">plan</span><span class="op">:</span> List<span class="op">&lt;</span>TestPlanStep<span class="op">&gt;</span> <span class="op">=</span> planList<span class="op">.</span>randomElement</span>
+<span id="cb352-5"><a href="secConveyors.html#cb352-5" tabindex="-1"></a>        <span class="kw">val</span> <span class="va">cellsNeeded</span> <span class="op">=</span> cellSizes<span class="op">[</span>plan<span class="op">]!!</span></span>
+<span id="cb352-6"><a href="secConveyors.html#cb352-6" tabindex="-1"></a></span>
+<span id="cb352-7"><a href="secConveyors.html#cb352-7" tabindex="-1"></a>        <span class="kw">val</span> <span class="va">testAndRepairProcess</span><span class="op">:</span> KSLProcess <span class="op">=</span> process<span class="op">(</span>isDefaultProcess <span class="op">=</span> <span class="kw">true</span><span class="op">)</span> <span class="op">{</span></span>
+<span id="cb352-8"><a href="secConveyors.html#cb352-8" tabindex="-1"></a>            wip<span class="op">.</span>increment<span class="op">()</span></span>
+<span id="cb352-9"><a href="secConveyors.html#cb352-9" tabindex="-1"></a>            timeStamp <span class="op">=</span> time</span>
+<span id="cb352-10"><a href="secConveyors.html#cb352-10" tabindex="-1"></a>            <span class="co">//every part goes to diagnostics</span></span>
+<span id="cb352-11"><a href="secConveyors.html#cb352-11" tabindex="-1"></a>            use<span class="op">(</span>resource <span class="op">=</span> myDiagnostics<span class="op">,</span> delayDuration <span class="op">=</span> diagnosticTime<span class="op">)</span></span>
+<span id="cb352-12"><a href="secConveyors.html#cb352-12" tabindex="-1"></a>            <span class="co">// get the iterator</span></span>
+<span id="cb352-13"><a href="secConveyors.html#cb352-13" tabindex="-1"></a>            <span class="kw">val</span> <span class="va">itr</span> <span class="op">=</span> plan<span class="op">.</span>iterator<span class="op">()</span></span>
+<span id="cb352-14"><a href="secConveyors.html#cb352-14" tabindex="-1"></a>            <span class="co">// iterate through the plan</span></span>
+<span id="cb352-15"><a href="secConveyors.html#cb352-15" tabindex="-1"></a>            <span class="kw">var</span> <span class="va">entryLocation</span> <span class="op">=</span> myDiagnostics<span class="op">.</span>name</span>
+<span id="cb352-16"><a href="secConveyors.html#cb352-16" tabindex="-1"></a>            <span class="cf">while</span> <span class="op">(</span>itr<span class="op">.</span>hasNext<span class="op">())</span> <span class="op">{</span></span>
+<span id="cb352-17"><a href="secConveyors.html#cb352-17" tabindex="-1"></a>                <span class="kw">val</span> <span class="va">tp</span> <span class="op">=</span> itr<span class="op">.</span>next<span class="op">()</span></span>
+<span id="cb352-18"><a href="secConveyors.html#cb352-18" tabindex="-1"></a>                convey<span class="op">(</span></span>
+<span id="cb352-19"><a href="secConveyors.html#cb352-19" tabindex="-1"></a>                    conveyor <span class="op">=</span> loopConveyor<span class="op">,</span></span>
+<span id="cb352-20"><a href="secConveyors.html#cb352-20" tabindex="-1"></a>                    entryLocation <span class="op">=</span> entryLocation<span class="op">,</span></span>
+<span id="cb352-21"><a href="secConveyors.html#cb352-21" tabindex="-1"></a>                    destination <span class="op">=</span> tp<span class="op">.</span>resource<span class="op">.</span>name<span class="op">,</span></span>
+<span id="cb352-22"><a href="secConveyors.html#cb352-22" tabindex="-1"></a>                    numCellsNeeded <span class="op">=</span> cellsNeeded</span>
+<span id="cb352-23"><a href="secConveyors.html#cb352-23" tabindex="-1"></a>                <span class="op">)</span></span>
+<span id="cb352-24"><a href="secConveyors.html#cb352-24" tabindex="-1"></a>                use<span class="op">(</span>resource <span class="op">=</span> tp<span class="op">.</span>resource<span class="op">,</span> delayDuration <span class="op">=</span> tp<span class="op">.</span>processTime<span class="op">)</span></span>
+<span id="cb352-25"><a href="secConveyors.html#cb352-25" tabindex="-1"></a>                entryLocation <span class="op">=</span> tp<span class="op">.</span>resource<span class="op">.</span>name</span>
+<span id="cb352-26"><a href="secConveyors.html#cb352-26" tabindex="-1"></a>            <span class="op">}</span></span>
+<span id="cb352-27"><a href="secConveyors.html#cb352-27" tabindex="-1"></a>            timeInSystem<span class="op">.</span>value <span class="op">=</span> time <span class="op">-</span> timeStamp</span>
+<span id="cb352-28"><a href="secConveyors.html#cb352-28" tabindex="-1"></a>            wip<span class="op">.</span>decrement<span class="op">()</span></span>
+<span id="cb352-29"><a href="secConveyors.html#cb352-29" tabindex="-1"></a>        <span class="op">}</span></span>
+<span id="cb352-30"><a href="secConveyors.html#cb352-30" tabindex="-1"></a>    <span class="op">}</span></span></code></pre></div>
+<p>When a part is created, its test plan is randomly determined and assigned. Then, the <code>cellSizes</code> map is used to look up the assigned number of cells needed when riding on the conveyor. The main challenge associated with the process code is ensuring that the entry location is correctly specified when using the conveyor. Note that before the iterator loop, we specify the entry location, essentially as the station that we are leaving. This is the location that we need to access to get on the conveyor. This variable is updated again after using the resource. It may seem strange to specify the location via the stored references of the resources to visit. However, since the locations associated with a conveyor need only be instances of classes that implement the <code>IdentityIfc</code> interface, and all model elements implement this interface, model elements such as resources can be used as locations via the model element’s <code>name</code> property.</p>
+<p>The results of executing the model for 30 replications of 20,000 time units (minutes) with a warm up period of 5000 minutes is as follows.</p>
+<p><strong>Statistical Summary Report</strong></p>
+<table>
+<thead>
+<tr class="header">
+<th align="center">Name</th>
+<th align="center">Count</th>
+<th align="center">Average</th>
+<th align="center">Half-Width</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="center">Diagnostics:InstantaneousUtil</td>
+<td align="center">10</td>
+<td align="center">0.753</td>
+<td align="center">0.007</td>
+</tr>
+<tr class="even">
+<td align="center">Diagnostics:NumBusyUnits</td>
+<td align="center">10</td>
+<td align="center">1.506</td>
+<td align="center">0.014</td>
+</tr>
+<tr class="odd">
+<td align="center">Diagnostics:ScheduledUtil</td>
+<td align="center">10</td>
+<td align="center">0.753</td>
+<td align="center">0.007</td>
+</tr>
+<tr class="even">
+<td align="center">Diagnostics:Q:NumInQ</td>
+<td align="center">10</td>
+<td align="center">2.006</td>
+<td align="center">0.129</td>
+</tr>
+<tr class="odd">
+<td align="center">Diagnostics:Q:TimeInQ</td>
+<td align="center">10</td>
+<td align="center">39.92</td>
+<td align="center">2.475</td>
+</tr>
+<tr class="even">
+<td align="center">Diagnostics:WIP</td>
+<td align="center">10</td>
+<td align="center">3.512</td>
+<td align="center">0.142</td>
+</tr>
+<tr class="odd">
+<td align="center">Test1:InstantaneousUtil</td>
+<td align="center">10</td>
+<td align="center">0.858</td>
+<td align="center">0.007</td>
+</tr>
+<tr class="even">
+<td align="center">Test1:NumBusyUnits</td>
+<td align="center">10</td>
+<td align="center">0.858</td>
+<td align="center">0.007</td>
+</tr>
+<tr class="odd">
+<td align="center">Test1:ScheduledUtil</td>
+<td align="center">10</td>
+<td align="center">0.858</td>
+<td align="center">0.007</td>
+</tr>
+<tr class="even">
+<td align="center">Test1:Q:NumInQ</td>
+<td align="center">10</td>
+<td align="center">2.984</td>
+<td align="center">0.272</td>
+</tr>
+<tr class="odd">
+<td align="center">Test1:Q:TimeInQ</td>
+<td align="center">10</td>
+<td align="center">52.914</td>
+<td align="center">4.436</td>
+</tr>
+<tr class="even">
+<td align="center">Test1:WIP</td>
+<td align="center">10</td>
+<td align="center">3.842</td>
+<td align="center">0.279</td>
+</tr>
+<tr class="odd">
+<td align="center">Test2:InstantaneousUtil</td>
+<td align="center">10</td>
+<td align="center">0.781</td>
+<td align="center">0.006</td>
+</tr>
+<tr class="even">
+<td align="center">Test2:NumBusyUnits</td>
+<td align="center">10</td>
+<td align="center">0.781</td>
+<td align="center">0.006</td>
+</tr>
+<tr class="odd">
+<td align="center">Test2:ScheduledUtil</td>
+<td align="center">10</td>
+<td align="center">0.781</td>
+<td align="center">0.006</td>
+</tr>
+<tr class="even">
+<td align="center">Test2:Q:NumInQ</td>
+<td align="center">10</td>
+<td align="center">1.636</td>
+<td align="center">0.07</td>
+</tr>
+<tr class="odd">
+<td align="center">Test2:Q:TimeInQ</td>
+<td align="center">10</td>
+<td align="center">43.209</td>
+<td align="center">1.588</td>
+</tr>
+<tr class="even">
+<td align="center">Test2:WIP</td>
+<td align="center">10</td>
+<td align="center">2.417</td>
+<td align="center">0.074</td>
+</tr>
+<tr class="odd">
+<td align="center">Test3:InstantaneousUtil</td>
+<td align="center">10</td>
+<td align="center">0.866</td>
+<td align="center">0.006</td>
+</tr>
+<tr class="even">
+<td align="center">Test3:NumBusyUnits</td>
+<td align="center">10</td>
+<td align="center">0.866</td>
+<td align="center">0.006</td>
+</tr>
+<tr class="odd">
+<td align="center">Test3:ScheduledUtil</td>
+<td align="center">10</td>
+<td align="center">0.866</td>
+<td align="center">0.006</td>
+</tr>
+<tr class="even">
+<td align="center">Test3:Q:NumInQ</td>
+<td align="center">10</td>
+<td align="center">2.611</td>
+<td align="center">0.19</td>
+</tr>
+<tr class="odd">
+<td align="center">Test3:Q:TimeInQ</td>
+<td align="center">10</td>
+<td align="center">51.966</td>
+<td align="center">3.554</td>
+</tr>
+<tr class="even">
+<td align="center">Test3:WIP</td>
+<td align="center">10</td>
+<td align="center">3.478</td>
+<td align="center">0.194</td>
+</tr>
+<tr class="odd">
+<td align="center">Repair:InstantaneousUtil</td>
+<td align="center">10</td>
+<td align="center">0.872</td>
+<td align="center">0.004</td>
+</tr>
+<tr class="even">
+<td align="center">Repair:NumBusyUnits</td>
+<td align="center">10</td>
+<td align="center">2.616</td>
+<td align="center">0.012</td>
+</tr>
+<tr class="odd">
+<td align="center">Repair:ScheduledUtil</td>
+<td align="center">10</td>
+<td align="center">0.872</td>
+<td align="center">0.004</td>
+</tr>
+<tr class="even">
+<td align="center">Repair:Q:NumInQ</td>
+<td align="center">10</td>
+<td align="center">1.282</td>
+<td align="center">0.091</td>
+</tr>
+<tr class="odd">
+<td align="center">Repair:Q:TimeInQ</td>
+<td align="center">10</td>
+<td align="center">25.535</td>
+<td align="center">1.703</td>
+</tr>
+<tr class="even">
+<td align="center">Repair:WIP</td>
+<td align="center">10</td>
+<td align="center">3.898</td>
+<td align="center">0.101</td>
+</tr>
+<tr class="odd">
+<td align="center">TestAndRepairWithConveyor:NumInSystem</td>
+<td align="center">10</td>
+<td align="center">18.263</td>
+<td align="center">0.541</td>
+</tr>
+<tr class="even">
+<td align="center">TestAndRepairWithConveyor:TimeInSystem</td>
+<td align="center">10</td>
+<td align="center">363.6</td>
+<td align="center">8.921</td>
+</tr>
+<tr class="odd">
+<td align="center">ProbWithinLimit</td>
+<td align="center">10</td>
+<td align="center">0.802</td>
+<td align="center">0.018</td>
+</tr>
+<tr class="even">
+<td align="center">LoopConveyor:NumOccupiedCells</td>
+<td align="center">10</td>
+<td align="center">1.667</td>
+<td align="center">0.01</td>
+</tr>
+<tr class="odd">
+<td align="center">LoopConveyor:CellUtilization</td>
+<td align="center">10</td>
+<td align="center">0.013</td>
+<td align="center">0</td>
+</tr>
+<tr class="even">
+<td align="center">Diagnostics:SeizeCount</td>
+<td align="center">10</td>
+<td align="center">12540.1</td>
+<td align="center">71.465</td>
+</tr>
+<tr class="odd">
+<td align="center">Test1:SeizeCount</td>
+<td align="center">10</td>
+<td align="center">14057.6</td>
+<td align="center">116.559</td>
+</tr>
+<tr class="even">
+<td align="center">Test2:SeizeCount</td>
+<td align="center">10</td>
+<td align="center">9442.7</td>
+<td align="center">63.431</td>
+</tr>
+<tr class="odd">
+<td align="center">Test3:SeizeCount</td>
+<td align="center">10</td>
+<td align="center">12532.4</td>
+<td align="center">70.688</td>
+</tr>
+<tr class="even">
+<td align="center">Repair:SeizeCount</td>
+<td align="center">10</td>
+<td align="center">12526.6</td>
+<td align="center">69.078</td>
+</tr>
+</tbody>
+</table>
+<p>The results produced by the KSL are within statistical variation of the same system modeled with a commercial simulation language discussed in this <a href="https://rossetti.github.io/RossettiArenaBook/ch7-sec-conveyors.html#fig:ch7fig33">book.</a></p>
+</div>
+</div>
+<div id="secMiscConveyor" class="section level3 hasAnchor" number="8.4.4">
+<h3><span class="header-section-number">8.4.4</span> Miscellaneous Concepts in Conveyor Modeling<a href="secConveyors.html#secMiscConveyor" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>This section presents some common conveyor modeling situations that can be modeled using the KSL: conveyors that merge, conveyors that diverge, and conveyors that recirculate.</p>
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:MergeTwoIntoOne"></span>
+<img src="figures2/ch8/MergeTwoIntoOne.PNG" alt="Two Conveyors Merge into One" width="90%" height="90%" />
+<p class="caption">
+Figure 8.16: Two Conveyors Merge into One
+</p>
+</div>
+<p>Figure <a href="secConveyors.html#fig:MergeTwoIntoOne">8.16</a> illustrates the concept of merging. In the figure, there are three conveyors. The first conveyor goes from area A to the sorting area. The second conveyor goes from area B to the sorting area. The third conveyor goes from the sorting area to processing at area C. The most important aspect of modeling this situation is to note that there are three conveyors. Thus, there would be three instances of the KSL <code>Conveyor</code> class that need to be specified. Generally, the velocities of the conveyors may be the same, but not necessarily. To model this situation, we must be able to transfer an entity on one conveyor to another conveyor. The <code>transferTo()</code> suspending function provides this functionality.</p>
+<p>The <code>transferTo()</code> suspending function causes the entity to transfer from its current conveyor to another conveyor. The entity will suspend while accessing the required cells at the next conveyor. Once the desired cells are obtained the entity will exit its current conveyor and be positioned to ride on the next conveyor. After executing this function, the entity will be blocking the entry cell of the next conveyor and must then execute the <code>rideConveyor()</code> function to move on the new conveyor. The transfer will include the time needed for the entity to move through the exit cells of the current conveyor, any waiting to access the next conveyor, and be positioned to ride on the next conveyor. There are some important conditions that must be met to utilize this function. First, the entity must be on a conveyor and located at an exit cell/location. Obviously, the entity must transfer to a different conveyor than the one that it currently occupies. Finally, the entity’s exit cell’s location must correspond to the same location on the conveyor to which it is transferring. That is, the location of transfer must be an exit location on the current conveyor and an entry location on the subsequent conveyor. In Figure <a href="secConveyors.html#fig:MergeTwoIntoOne">8.16</a>, the cell denoted as 20 on the area A and B conveyors are exit cells. The cell denoted 1 on the conveyor heading towards area C is the entry cell. Parts ride the two input conveyors until they reach the end of the conveyor (cell 20) and then transfer to cell 1 of the subsequent conveyor.</p>
+<p>The situation illustrated in Figure <a href="secConveyors.html#fig:MergeTwoIntoOne">8.16</a> can be modeled with code similar to the following. First we need to define the three conveyors.</p>
+<div class="sourceCode" id="cb353"><pre class="sourceCode kt"><code class="sourceCode kotlin"><span id="cb353-1"><a href="secConveyors.html#cb353-1" tabindex="-1"></a><span class="kw">class</span> ConveyorMerging<span class="op">(</span></span>
+<span id="cb353-2"><a href="secConveyors.html#cb353-2" tabindex="-1"></a>    <span class="va">parent</span><span class="op">:</span> <span class="dt">ModelElement</span><span class="op">,</span></span>
+<span id="cb353-3"><a href="secConveyors.html#cb353-3" tabindex="-1"></a>    <span class="va">name</span><span class="op">:</span> <span class="dt">String</span><span class="op">?</span> <span class="op">=</span> null</span>
+<span id="cb353-4"><a href="secConveyors.html#cb353-4" tabindex="-1"></a><span class="op">)</span> <span class="op">:</span> <span class="dt">ProcessModel</span><span class="op">(</span><span class="va">parent</span><span class="op">,</span> <span class="va">name</span><span class="op">)</span> <span class="op">{</span></span>
+<span id="cb353-5"><a href="secConveyors.html#cb353-5" tabindex="-1"></a></span>
+<span id="cb353-6"><a href="secConveyors.html#cb353-6" tabindex="-1"></a>    <span class="kw">private</span> <span class="kw">val</span> <span class="va">areaA</span> <span class="op">=</span> <span class="st">&quot;AreaA&quot;</span></span>
+<span id="cb353-7"><a href="secConveyors.html#cb353-7" tabindex="-1"></a>    <span class="kw">private</span> <span class="kw">val</span> <span class="va">areaB</span> <span class="op">=</span> <span class="st">&quot;AreaB&quot;</span></span>
+<span id="cb353-8"><a href="secConveyors.html#cb353-8" tabindex="-1"></a>    <span class="kw">private</span> <span class="kw">val</span> <span class="va">sorting</span> <span class="op">=</span> <span class="st">&quot;Sorting&quot;</span></span>
+<span id="cb353-9"><a href="secConveyors.html#cb353-9" tabindex="-1"></a>    <span class="kw">private</span> <span class="kw">val</span> <span class="va">areaC</span> <span class="op">=</span> <span class="st">&quot;AreaC&quot;</span></span>
+<span id="cb353-10"><a href="secConveyors.html#cb353-10" tabindex="-1"></a></span>
+<span id="cb353-11"><a href="secConveyors.html#cb353-11" tabindex="-1"></a>    <span class="kw">private</span> <span class="kw">val</span> <span class="va">conveyor1</span> <span class="op">=</span> Conveyor<span class="op">.</span>builder<span class="op">(</span><span class="kw">this</span><span class="op">,</span> <span class="st">&quot;Conveyor1&quot;</span><span class="op">)</span></span>
+<span id="cb353-12"><a href="secConveyors.html#cb353-12" tabindex="-1"></a>        <span class="op">.</span>conveyorType<span class="op">(</span>Conveyor<span class="op">.</span>Type<span class="op">.</span>ACCUMULATING<span class="op">)</span></span>
+<span id="cb353-13"><a href="secConveyors.html#cb353-13" tabindex="-1"></a>        <span class="op">.</span>velocity<span class="op">(</span><span class="fl">1.0</span><span class="op">)</span></span>
+<span id="cb353-14"><a href="secConveyors.html#cb353-14" tabindex="-1"></a>        <span class="op">.</span>cellSize<span class="op">(</span><span class="dv">1</span><span class="op">)</span></span>
+<span id="cb353-15"><a href="secConveyors.html#cb353-15" tabindex="-1"></a>        <span class="op">.</span>maxCellsAllowed<span class="op">(</span><span class="dv">1</span><span class="op">)</span></span>
+<span id="cb353-16"><a href="secConveyors.html#cb353-16" tabindex="-1"></a>        <span class="op">.</span>firstSegment<span class="op">(</span>areaA<span class="op">,</span> sorting<span class="op">,</span> <span class="dv">20</span><span class="op">)</span></span>
+<span id="cb353-17"><a href="secConveyors.html#cb353-17" tabindex="-1"></a>        <span class="op">.</span>build<span class="op">()</span></span>
+<span id="cb353-18"><a href="secConveyors.html#cb353-18" tabindex="-1"></a></span>
+<span id="cb353-19"><a href="secConveyors.html#cb353-19" tabindex="-1"></a>    <span class="kw">private</span> <span class="kw">val</span> <span class="va">conveyor2</span> <span class="op">=</span> Conveyor<span class="op">.</span>builder<span class="op">(</span><span class="kw">this</span><span class="op">,</span> <span class="st">&quot;Conveyor2&quot;</span><span class="op">)</span></span>
+<span id="cb353-20"><a href="secConveyors.html#cb353-20" tabindex="-1"></a>        <span class="op">.</span>conveyorType<span class="op">(</span>Conveyor<span class="op">.</span>Type<span class="op">.</span>ACCUMULATING<span class="op">)</span></span>
+<span id="cb353-21"><a href="secConveyors.html#cb353-21" tabindex="-1"></a>        <span class="op">.</span>velocity<span class="op">(</span><span class="fl">1.0</span><span class="op">)</span></span>
+<span id="cb353-22"><a href="secConveyors.html#cb353-22" tabindex="-1"></a>        <span class="op">.</span>cellSize<span class="op">(</span><span class="dv">1</span><span class="op">)</span></span>
+<span id="cb353-23"><a href="secConveyors.html#cb353-23" tabindex="-1"></a>        <span class="op">.</span>maxCellsAllowed<span class="op">(</span><span class="dv">1</span><span class="op">)</span></span>
+<span id="cb353-24"><a href="secConveyors.html#cb353-24" tabindex="-1"></a>        <span class="op">.</span>firstSegment<span class="op">(</span>areaB<span class="op">,</span> sorting<span class="op">,</span> <span class="dv">20</span><span class="op">)</span></span>
+<span id="cb353-25"><a href="secConveyors.html#cb353-25" tabindex="-1"></a>        <span class="op">.</span>build<span class="op">()</span></span>
+<span id="cb353-26"><a href="secConveyors.html#cb353-26" tabindex="-1"></a></span>
+<span id="cb353-27"><a href="secConveyors.html#cb353-27" tabindex="-1"></a>    <span class="kw">private</span> <span class="kw">val</span> <span class="va">conveyor3</span> <span class="op">=</span> Conveyor<span class="op">.</span>builder<span class="op">(</span><span class="kw">this</span><span class="op">,</span> <span class="st">&quot;Conveyor3&quot;</span><span class="op">)</span></span>
+<span id="cb353-28"><a href="secConveyors.html#cb353-28" tabindex="-1"></a>        <span class="op">.</span>conveyorType<span class="op">(</span>Conveyor<span class="op">.</span>Type<span class="op">.</span>ACCUMULATING<span class="op">)</span></span>
+<span id="cb353-29"><a href="secConveyors.html#cb353-29" tabindex="-1"></a>        <span class="op">.</span>velocity<span class="op">(</span><span class="fl">1.0</span><span class="op">)</span></span>
+<span id="cb353-30"><a href="secConveyors.html#cb353-30" tabindex="-1"></a>        <span class="op">.</span>cellSize<span class="op">(</span><span class="dv">1</span><span class="op">)</span></span>
+<span id="cb353-31"><a href="secConveyors.html#cb353-31" tabindex="-1"></a>        <span class="op">.</span>maxCellsAllowed<span class="op">(</span><span class="dv">1</span><span class="op">)</span></span>
+<span id="cb353-32"><a href="secConveyors.html#cb353-32" tabindex="-1"></a>        <span class="op">.</span>firstSegment<span class="op">(</span>sorting<span class="op">,</span> areaC<span class="op">,</span> <span class="dv">20</span><span class="op">)</span></span>
+<span id="cb353-33"><a href="secConveyors.html#cb353-33" tabindex="-1"></a>        <span class="op">.</span>build<span class="op">()</span></span></code></pre></div>
+<p>Now, we can define processes for the entities that use the conveyors. There could be a variety of ways to handle this situation; however, for simplicity, we will assume that there are two types of entities, one coming from area 1 and the other coming from area 2. The process code for a part starting at area 1 would be something like this:</p>
+<div class="sourceCode" id="cb354"><pre class="sourceCode kt"><code class="sourceCode kotlin"><span id="cb354-1"><a href="secConveyors.html#cb354-1" tabindex="-1"></a>    <span class="kw">private</span> <span class="kw">val</span> <span class="va">tba1</span> <span class="op">=</span> ExponentialRV<span class="op">(</span><span class="fl">10.0</span><span class="op">,</span> <span class="dv">1</span><span class="op">)</span></span>
+<span id="cb354-2"><a href="secConveyors.html#cb354-2" tabindex="-1"></a>    <span class="kw">private</span> <span class="kw">val</span> <span class="va">generateAreaAParts</span> <span class="op">=</span> EntityGenerator<span class="op">(</span><span class="kw">this</span><span class="op">::</span>AreaAPart<span class="op">,</span> tba1<span class="op">,</span> tba1<span class="op">)</span></span>
+<span id="cb354-3"><a href="secConveyors.html#cb354-3" tabindex="-1"></a></span>
+<span id="cb354-4"><a href="secConveyors.html#cb354-4" tabindex="-1"></a>    <span class="kw">private</span> <span class="kw">val</span> <span class="va">tba2</span> <span class="op">=</span> TriangularRV<span class="op">(</span><span class="fl">10.0</span><span class="op">,</span> <span class="fl">16.0</span><span class="op">,</span> <span class="fl">18.0</span><span class="op">,</span> <span class="dv">2</span><span class="op">)</span></span>
+<span id="cb354-5"><a href="secConveyors.html#cb354-5" tabindex="-1"></a>    <span class="kw">private</span> <span class="kw">val</span> <span class="va">generateAreaBParts</span> <span class="op">=</span> EntityGenerator<span class="op">(</span><span class="kw">this</span><span class="op">::</span>AreaBPart<span class="op">,</span> tba2<span class="op">,</span> tba2<span class="op">)</span></span>
+<span id="cb354-6"><a href="secConveyors.html#cb354-6" tabindex="-1"></a></span>
+<span id="cb354-7"><a href="secConveyors.html#cb354-7" tabindex="-1"></a>    <span class="kw">private</span> <span class="kw">val</span> <span class="va">myAreaASystemTime</span> <span class="op">=</span> Response<span class="op">(</span><span class="kw">this</span><span class="op">,</span> <span class="st">&quot;AreaASystemTime&quot;</span><span class="op">)</span></span>
+<span id="cb354-8"><a href="secConveyors.html#cb354-8" tabindex="-1"></a>    <span class="kw">private</span> <span class="kw">val</span> <span class="va">myAreaBSystemTime</span> <span class="op">=</span> Response<span class="op">(</span><span class="kw">this</span><span class="op">,</span> <span class="st">&quot;AreaBSystemTime&quot;</span><span class="op">)</span></span>
+<span id="cb354-9"><a href="secConveyors.html#cb354-9" tabindex="-1"></a></span>
+<span id="cb354-10"><a href="secConveyors.html#cb354-10" tabindex="-1"></a>    <span class="kw">private</span> <span class="kw">inner</span> <span class="kw">class</span> AreaAPart <span class="op">:</span> <span class="dt">Entity</span><span class="op">()</span> <span class="op">{</span></span>
+<span id="cb354-11"><a href="secConveyors.html#cb354-11" tabindex="-1"></a>        <span class="kw">val</span> <span class="va">mergeProcess</span><span class="op">:</span> KSLProcess <span class="op">=</span> process<span class="op">(</span>isDefaultProcess <span class="op">=</span> <span class="kw">true</span><span class="op">)</span> <span class="op">{</span></span>
+<span id="cb354-12"><a href="secConveyors.html#cb354-12" tabindex="-1"></a>            <span class="kw">val</span> <span class="va">cr</span> <span class="op">=</span> requestConveyor<span class="op">(</span>conveyor <span class="op">=</span> conveyor1<span class="op">,</span> entryLocation <span class="op">=</span> areaA<span class="op">,</span> numCellsNeeded <span class="op">=</span> <span class="dv">1</span><span class="op">)</span></span>
+<span id="cb354-13"><a href="secConveyors.html#cb354-13" tabindex="-1"></a>            rideConveyor<span class="op">(</span>conveyorRequest <span class="op">=</span> cr<span class="op">,</span> destination <span class="op">=</span> sorting<span class="op">)</span></span>
+<span id="cb354-14"><a href="secConveyors.html#cb354-14" tabindex="-1"></a>            <span class="kw">val</span> <span class="va">tr</span> <span class="op">=</span> transferTo<span class="op">(</span>conveyorRequest <span class="op">=</span> cr<span class="op">,</span> nextConveyor <span class="op">=</span> conveyor3<span class="op">,</span> entryLocation <span class="op">=</span> sorting<span class="op">)</span></span>
+<span id="cb354-15"><a href="secConveyors.html#cb354-15" tabindex="-1"></a>            rideConveyor<span class="op">(</span>conveyorRequest <span class="op">=</span> tr<span class="op">,</span> destination <span class="op">=</span> areaC<span class="op">)</span></span>
+<span id="cb354-16"><a href="secConveyors.html#cb354-16" tabindex="-1"></a>            exitConveyor<span class="op">(</span>conveyorRequest <span class="op">=</span> tr<span class="op">)</span></span>
+<span id="cb354-17"><a href="secConveyors.html#cb354-17" tabindex="-1"></a>            myAreaASystemTime<span class="op">.</span>value <span class="op">=</span> time <span class="op">-</span> entity<span class="op">.</span>createTime</span>
+<span id="cb354-18"><a href="secConveyors.html#cb354-18" tabindex="-1"></a>        <span class="op">}</span></span>
+<span id="cb354-19"><a href="secConveyors.html#cb354-19" tabindex="-1"></a>    <span class="op">}</span></span>
+<span id="cb354-20"><a href="secConveyors.html#cb354-20" tabindex="-1"></a></span>
+<span id="cb354-21"><a href="secConveyors.html#cb354-21" tabindex="-1"></a>    <span class="kw">private</span> <span class="kw">inner</span> <span class="kw">class</span> AreaBPart <span class="op">:</span> <span class="dt">Entity</span><span class="op">()</span> <span class="op">{</span></span>
+<span id="cb354-22"><a href="secConveyors.html#cb354-22" tabindex="-1"></a>        <span class="kw">val</span> <span class="va">mergeProcess</span><span class="op">:</span> KSLProcess <span class="op">=</span> process<span class="op">(</span>isDefaultProcess <span class="op">=</span> <span class="kw">true</span><span class="op">)</span> <span class="op">{</span></span>
+<span id="cb354-23"><a href="secConveyors.html#cb354-23" tabindex="-1"></a>            <span class="kw">val</span> <span class="va">cr</span> <span class="op">=</span> requestConveyor<span class="op">(</span>conveyor <span class="op">=</span> conveyor2<span class="op">,</span> entryLocation <span class="op">=</span> areaB<span class="op">,</span> numCellsNeeded <span class="op">=</span> <span class="dv">1</span><span class="op">)</span></span>
+<span id="cb354-24"><a href="secConveyors.html#cb354-24" tabindex="-1"></a>            rideConveyor<span class="op">(</span>conveyorRequest <span class="op">=</span> cr<span class="op">,</span> destination <span class="op">=</span> sorting<span class="op">)</span></span>
+<span id="cb354-25"><a href="secConveyors.html#cb354-25" tabindex="-1"></a>            <span class="kw">val</span> <span class="va">tr</span> <span class="op">=</span> transferTo<span class="op">(</span>conveyorRequest <span class="op">=</span> cr<span class="op">,</span> nextConveyor <span class="op">=</span> conveyor3<span class="op">,</span> entryLocation <span class="op">=</span> sorting<span class="op">)</span></span>
+<span id="cb354-26"><a href="secConveyors.html#cb354-26" tabindex="-1"></a>            rideConveyor<span class="op">(</span>conveyorRequest <span class="op">=</span> tr<span class="op">,</span> destination <span class="op">=</span> areaC<span class="op">)</span></span>
+<span id="cb354-27"><a href="secConveyors.html#cb354-27" tabindex="-1"></a>            exitConveyor<span class="op">(</span>conveyorRequest <span class="op">=</span> tr<span class="op">)</span></span>
+<span id="cb354-28"><a href="secConveyors.html#cb354-28" tabindex="-1"></a>            myAreaBSystemTime<span class="op">.</span>value <span class="op">=</span> time <span class="op">-</span> entity<span class="op">.</span>createTime</span>
+<span id="cb354-29"><a href="secConveyors.html#cb354-29" tabindex="-1"></a>        <span class="op">}</span></span>
+<span id="cb354-30"><a href="secConveyors.html#cb354-30" tabindex="-1"></a>    <span class="op">}</span></span></code></pre></div>
+<p>Notice that the part requests the cells on the conveyor at area A, and then rides to sorting. Then, the part transfers from conveyor 1 to conveyor 3. Notice that the returned conveyor request must be supplied to the <code>transferTo()</code> function. Also, notice that the sorting location is both an exit location for conveyor 1 and an entry location for conveyor 3. The <code>transferTo()</code> function returns a new conveyor request that represents the fact that the entity is now on the next conveyor. This new conveyor request is used to ride conveyor 3 to the processing at area C and to exit at the processing area. The logic for the parts travelling from area B to processing is very similar. They start at area B and transfer to conveyor 3 at the sorting area. It is important to note that the parts from the two feeder conveyors will compete for the entry cell of conveyor 3 at the sorting location. The parts traveling on conveyors 1 and 2 do not immediately exit at the transfer point. They first receive the necessary cells on conveyor 3 before exiting their current conveyor. Thus, they will block their current conveyor while waiting to access the next conveyor. Thus, we can see why it may be important to model this situation with accumulating conveyors.</p>
+<p>Figure <a href="secConveyors.html#fig:MergeOneIntoOne">8.17</a> also illustrates the concept of merging. In this case, there are two conveyors, with one conveyor connecting to the mid-point of the other conveyor. Again, the <code>transferTo()</code> function for use with conveyors can be used to address this situation.</p>
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:MergeOneIntoOne"></span>
+<img src="figures2/ch8/MergeOneIntoOne.PNG" alt="One Conveyor Merges into Another" width="90%" height="90%" />
+<p class="caption">
+Figure 8.17: One Conveyor Merges into Another
+</p>
+</div>
+<p>The code for this situation would be very similar to the previous example. The important thing to note is that there are only two conveyors. The main conveyor has two segments. The feeder conveyor has one segment. The exit cell/location of the feeder conveyor matches the entry cell/location of the second segment of the main conveyor at cell 6. For example, the main conveyor goes from area A location to the
+midpoint location to the end point location, with lengths 5 feet
+respectively. The second conveyor is a single conveyor from the area B
+location to the midpoint location with a length of 10 feet. In other words, they <em>share</em> a common location positioned at cell 6.</p>
+<p>The entities arrive at the area A and area B locations. Entities that arrive at
+the area A location first convey to the midpoint location and then
+immediately convey to the end point location They do not exit the
+conveyor at the midpoint location. Entities from the area B location are
+conveyed to the midpoint location. Once at the midpoint location they
+first request cells from the main conveyor and then exit their conveyor. This would be modeled using the <code>transferTo()</code> function. This causes entities coming from area B to potentially wait for space on the main
+conveyor. This basic idea can be expanded to any number of feeder conveyors along a longer main conveyor. The end of each feeder conveyor would be mapped to the entry cell of a segment along the main conveyor.</p>
+<p>Figure <a href="secConveyors.html#fig:Diverging">8.18</a> illustrates the concept of a diverging conveyor. This situation is the reverse Figure <a href="secConveyors.html#fig:MergeTwoIntoOne">8.16</a> with 3 conveyors. One conveyor from area A to sorting point, connects to two other conveyors, one conveyor from sorting to area B and the other conveyor from sorting to area C.</p>
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:Diverging"></span>
+<img src="figures2/ch8/DivergeToTwo.PNG" alt="One Conveyor Diverges Into Two Conveyors" width="90%" height="90%" />
+<p class="caption">
+Figure 8.18: One Conveyor Diverges Into Two Conveyors
+</p>
+</div>
+<p>Diverging conveyors are often used in systems that sort items. The items
+come in on one main conveyor and are transferred to any number of other
+conveyors based on their attributes (e.g. destination). In this simple illustration, the parts arrive to the arrival area A and access a conveyor to the sorting area. Once an entity reaches
+the sorting station, the entity would need to determine which of the two conveyors to access. This could be easily accomplished with an if statement or other decision logic. Then the entity would
+transfer to the subsequent conveyor, ride and then exit. The exercises ask the reader to implement this situation.</p>
+<p>With a little imagination a more sophisticated sorting location can be implemented. For example, a number of conveyors that handle the parts by destination might be used in the system. When the parts are created they
+are given an attribute indicating their destination station. When they
+get to the sorting location, a Kotlin <code>when</code> statement can be used to pick the
+correct conveyor handling their destination.</p>
+<p>The final conveyor modeling situation to be described is that of a recirculating conveyor. We saw in Section <a href="secConveyors.html#secTestAndRepairConveyors">8.4.3</a> for modeling the test and repair system, that we can create and use a circular conveyor. That is, a conveyor for which its ending location also corresponds to its entry location.
+A recirculating conveyor is a circular conveyor in which the entities may
+ride on the conveyor until there is adequate space at their desired
+location. In essence the conveyor is used as space to hold the entities
+that cannot get off due to inadequate space at the necessary station.
+For example, suppose that in the test and repair shop there was only
+space for one waiting part at test station two. Thus, the size of test
+station two’s queue can be at most 1. In such a situation, when a part designated for work at test station 2 reaches the location, it needs to check if the available space (queue at test station 2) is available. If there is space available in front of the testing machine, then the part can exit the conveyor. Now, what should we do if there is inadequate space at the test station?</p>
+<p>We could wait on the conveyor at test station 2 until there is space, but this will block the entire conveyor while the processing at test station 2 proceeds and its queue reduces. Alternatively, we would not exit the conveyor at test station 2 and instead ride the full conveyor’s length <em>back</em> to test station 2. By the time that the entity has ridden around the conveyor, there may now be space available at test station 2. As previously noted, in essence, the entire conveyor is being used as waiting space. This kind of situation can be easily modeled with if statements that check if the there is space and if not cause the entity to continue riding. The exercises ask the reader to implement this situation.</p>
+</div>
+</div>
+<h3><span class="header-section-number">G</span> References<a href="references.html#references" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div id="refs" class="references csl-bib-body hanging-indent" entry-spacing="0">
+<div id="ref-henriksen1986simplified" class="csl-entry">
+Henriksen, J., and T. Schriber. 1986. <span>“Simplified Approaches to Modeling Accumulating and Non-Accumulating Conveyor Systems.”</span> In <em>Proceedings of the 1986 Winter Simulation Conference</em>. Institute of Electrical; Electronic Engineers.
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="secTestAndRepairMovableResources.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="summary-of-new-concepts.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"whatsapp": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": null,
+"text": null
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": null,
+"search": {
+"engine": "fuse",
+"options": null
+},
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/latest.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>

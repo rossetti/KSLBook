@@ -23,7 +23,7 @@
 <meta name="author" content="Manuel D. Rossetti" />
 
 
-<meta name="date" content="2025-02-07" />
+<meta name="date" content="2025-07-03" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -373,8 +373,15 @@ div.csl-indent {
 <li class="chapter" data-level="8.2.3" data-path="movableResources.html"><a href="movableResources.html#secTQMWM"><i class="fa fa-check"></i><b>8.2.3</b> Tandem Queue Model With Movement</a></li>
 </ul></li>
 <li class="chapter" data-level="8.3" data-path="secTestAndRepairMovableResources.html"><a href="secTestAndRepairMovableResources.html"><i class="fa fa-check"></i><b>8.3</b> Modeling the Test and Repair System with Movable Resources</a></li>
-<li class="chapter" data-level="8.4" data-path="summary-of-new-concepts.html"><a href="summary-of-new-concepts.html"><i class="fa fa-check"></i><b>8.4</b> Summary of New Concepts</a></li>
-<li class="chapter" data-level="8.5" data-path="exercises-7.html"><a href="exercises-7.html"><i class="fa fa-check"></i><b>8.5</b> Exercises</a></li>
+<li class="chapter" data-level="8.4" data-path="secConveyors.html"><a href="secConveyors.html"><i class="fa fa-check"></i><b>8.4</b> Modeling Systems with Conveyors</a>
+<ul>
+<li class="chapter" data-level="8.4.1" data-path="secConveyors.html"><a href="secConveyors.html#ksl-conveyor-constructs"><i class="fa fa-check"></i><b>8.4.1</b> KSL Conveyor Constructs</a></li>
+<li class="chapter" data-level="8.4.2" data-path="secConveyors.html"><a href="secConveyors.html#tandem-queue-system-with-conveyors"><i class="fa fa-check"></i><b>8.4.2</b> Tandem Queue System with Conveyors</a></li>
+<li class="chapter" data-level="8.4.3" data-path="secConveyors.html"><a href="secConveyors.html#secTestAndRepairConveyors"><i class="fa fa-check"></i><b>8.4.3</b> Test and Repair via Conveyors</a></li>
+<li class="chapter" data-level="8.4.4" data-path="secConveyors.html"><a href="secConveyors.html#secMiscConveyor"><i class="fa fa-check"></i><b>8.4.4</b> Miscellaneous Concepts in Conveyor Modeling</a></li>
+</ul></li>
+<li class="chapter" data-level="8.5" data-path="summary-of-new-concepts.html"><a href="summary-of-new-concepts.html"><i class="fa fa-check"></i><b>8.5</b> Summary of New Concepts</a></li>
+<li class="chapter" data-level="8.6" data-path="exercises-7.html"><a href="exercises-7.html"><i class="fa fa-check"></i><b>8.6</b> Exercises</a></li>
 </ul></li>
 <li class="chapter" data-level="9" data-path="ch9AdvMC.html"><a href="ch9AdvMC.html"><i class="fa fa-check"></i><b>9</b> Advanced Monte Carlo Methods</a>
 <ul>
@@ -771,12 +778,12 @@ the proportion. Thus, an estimator for <span class="math inline">\(p\)</span> is
 Therefore, computing the average of an indicator variable will estimate
 the desired probability. The code for this situation is quite simple:</p>
 <div class="sourceCode" id="cb89"><pre class="sourceCode kt"><code class="sourceCode kotlin"><span id="cb89-1"><a href="ch3StatReview.html#cb89-1" tabindex="-1"></a><span class="kw">fun</span> <span class="fu">main</span><span class="op">()</span> <span class="op">{</span></span>
-<span id="cb89-2"><a href="ch3StatReview.html#cb89-2" tabindex="-1"></a>    <span class="kw">val</span> <span class="va">rv</span> <span class="op">=</span> NormalRV<span class="op">(</span><span class="fl">10.0</span><span class="op">,</span> <span class="fl">16.0</span><span class="op">)</span></span>
+<span id="cb89-2"><a href="ch3StatReview.html#cb89-2" tabindex="-1"></a>    <span class="kw">val</span> <span class="va">rv</span> <span class="op">=</span> NormalRV<span class="op">(</span><span class="fl">10.0</span><span class="op">,</span> <span class="fl">16.0</span><span class="op">,</span> streamNum <span class="op">=</span> <span class="dv">3</span><span class="op">)</span></span>
 <span id="cb89-3"><a href="ch3StatReview.html#cb89-3" tabindex="-1"></a>    <span class="kw">val</span> <span class="va">estimateX</span> <span class="op">=</span> Statistic<span class="op">(</span><span class="st">&quot;Estimated X&quot;</span><span class="op">)</span></span>
 <span id="cb89-4"><a href="ch3StatReview.html#cb89-4" tabindex="-1"></a>    <span class="kw">val</span> <span class="va">estOfProb</span> <span class="op">=</span> Statistic<span class="op">(</span><span class="st">&quot;Pr(X&gt;8)&quot;</span><span class="op">)</span></span>
 <span id="cb89-5"><a href="ch3StatReview.html#cb89-5" tabindex="-1"></a>    <span class="kw">val</span> <span class="va">r</span> <span class="op">=</span> StatisticReporter<span class="op">(</span>mutableListOf<span class="op">(</span>estOfProb<span class="op">,</span> estimateX<span class="op">))</span></span>
-<span id="cb89-6"><a href="ch3StatReview.html#cb89-6" tabindex="-1"></a>    <span class="kw">val</span> <span class="va">n</span> <span class="op">=</span> <span class="dv">20</span> <span class="co">// sample size</span></span>
-<span id="cb89-7"><a href="ch3StatReview.html#cb89-7" tabindex="-1"></a>    <span class="cf">for</span> <span class="op">(</span>i <span class="kw">in</span> <span class="fl">1.</span><span class="op">.</span>n<span class="op">)</span> <span class="op">{</span></span>
+<span id="cb89-6"><a href="ch3StatReview.html#cb89-6" tabindex="-1"></a>    <span class="kw">val</span> <span class="va">n0</span> <span class="op">=</span> <span class="dv">20</span> <span class="co">// sample size</span></span>
+<span id="cb89-7"><a href="ch3StatReview.html#cb89-7" tabindex="-1"></a>    <span class="cf">for</span> <span class="op">(</span>i <span class="kw">in</span> <span class="fl">1.</span><span class="op">.</span>n0<span class="op">)</span> <span class="op">{</span></span>
 <span id="cb89-8"><a href="ch3StatReview.html#cb89-8" tabindex="-1"></a>        <span class="kw">val</span> <span class="va">x</span> <span class="op">=</span> rv<span class="op">.</span>value</span>
 <span id="cb89-9"><a href="ch3StatReview.html#cb89-9" tabindex="-1"></a>        estimateX<span class="op">.</span>collect<span class="op">(</span>x<span class="op">)</span></span>
 <span id="cb89-10"><a href="ch3StatReview.html#cb89-10" tabindex="-1"></a>        estOfProb<span class="op">.</span>collect<span class="op">(</span>x <span class="op">&gt;</span> <span class="dv">8</span><span class="op">)</span></span>
@@ -828,7 +835,7 @@ n = \left(\dfrac{z_{1-(\alpha/2)}}{\epsilon}\right)^{2} \hat{p}(1 - \hat{p})=\le
 \]</span></p>
 <p>All of these calculations can be easily accomplished using Kotlin code as follows:</p>
 <div class="sourceCode" id="cb90"><pre class="sourceCode kt"><code class="sourceCode kotlin"><span id="cb90-1"><a href="ch3StatReview.html#cb90-1" tabindex="-1"></a><span class="kw">fun</span> <span class="fu">main</span><span class="op">()</span> <span class="op">{</span></span>
-<span id="cb90-2"><a href="ch3StatReview.html#cb90-2" tabindex="-1"></a>    <span class="kw">val</span> <span class="va">rv</span> <span class="op">=</span> NormalRV<span class="op">(</span><span class="fl">10.0</span><span class="op">,</span> <span class="fl">16.0</span><span class="op">)</span></span>
+<span id="cb90-2"><a href="ch3StatReview.html#cb90-2" tabindex="-1"></a>    <span class="kw">val</span> <span class="va">rv</span> <span class="op">=</span> NormalRV<span class="op">(</span><span class="fl">10.0</span><span class="op">,</span> <span class="fl">16.0</span><span class="op">,</span> streamNum <span class="op">=</span> <span class="dv">3</span><span class="op">)</span></span>
 <span id="cb90-3"><a href="ch3StatReview.html#cb90-3" tabindex="-1"></a>    <span class="kw">val</span> <span class="va">estimateX</span> <span class="op">=</span> Statistic<span class="op">(</span><span class="st">&quot;Estimated X&quot;</span><span class="op">)</span></span>
 <span id="cb90-4"><a href="ch3StatReview.html#cb90-4" tabindex="-1"></a>    <span class="kw">val</span> <span class="va">estOfProb</span> <span class="op">=</span> Statistic<span class="op">(</span><span class="st">&quot;Pr(X&gt;8)&quot;</span><span class="op">)</span></span>
 <span id="cb90-5"><a href="ch3StatReview.html#cb90-5" tabindex="-1"></a>    <span class="kw">val</span> <span class="va">r</span> <span class="op">=</span> StatisticReporter<span class="op">(</span>mutableListOf<span class="op">(</span>estOfProb<span class="op">,</span> estimateX<span class="op">))</span></span>
@@ -890,7 +897,7 @@ Recommended sample size for proportion = 246</code></pre>
 </tr>
 </tbody>
 </table>
-<p>As can be seen in Table <a href="ch3StatReview.html#tab:exResultsn609">3.2</a>, the half-width values meet the desire margins of error. It may be possible that the margins of error might not be met. This suggests that more than <span class="math inline">\(n = 600\)</span> observations is needed to meet the margin of error criteria. Equation <a href="ch3StatReview.html#eq:zSampleSize">(3.8)</a> and Equation <a href="ch3StatReview.html#eq:pSampleSize">(3.10)</a> are only approximations and based on a pilot sample. Thus, if there was considerable sampling error associated
+<p>As can be seen in Table <a href="ch3StatReview.html#tab:exResultsn609">3.2</a>, the half-width values meet the desire margins of error. It may be possible that the margins of error might not be met. This suggests that more than <span class="math inline">\(n = 600\)</span> observations is needed to meet the margin of error criteria. Equation <a href="ch3StatReview.html#eq:zSampleSize">(3.8)</a> and Equation <a href="ch3StatReview.html#eq:pSampleSize">(3.10)</a> are only <em>approximations</em> and based on a pilot sample. Thus, if there was considerable sampling error associated
 with the pilot sample, the approximations may be inadequate.</p>
 <p>As can be noted from this example in order to apply the normal approximation method for determining the sample size based on the pilot run, we need to compute the initial sample standard deviation, <span class="math inline">\(s_0\)</span>, from the initial reported half-width, <span class="math inline">\(h\)</span>. This requires the use of Equation <a href="ch3StatReview.html#eq:sInTermsOfh">(3.11)</a> to first compute the value of <span class="math inline">\(s\)</span> from <span class="math inline">\(h\)</span>. We can avoid this calculation by using the <em>half-width ratio</em> method for determining the sample size.</p>
 <p>Let <span class="math inline">\(h_0\)</span> be the initial value for the half-width from the pilot run of

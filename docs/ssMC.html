@@ -23,7 +23,7 @@
 <meta name="author" content="Manuel D. Rossetti" />
 
 
-<meta name="date" content="2025-02-07" />
+<meta name="date" content="2025-07-03" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -373,8 +373,15 @@ div.csl-indent {
 <li class="chapter" data-level="8.2.3" data-path="movableResources.html"><a href="movableResources.html#secTQMWM"><i class="fa fa-check"></i><b>8.2.3</b> Tandem Queue Model With Movement</a></li>
 </ul></li>
 <li class="chapter" data-level="8.3" data-path="secTestAndRepairMovableResources.html"><a href="secTestAndRepairMovableResources.html"><i class="fa fa-check"></i><b>8.3</b> Modeling the Test and Repair System with Movable Resources</a></li>
-<li class="chapter" data-level="8.4" data-path="summary-of-new-concepts.html"><a href="summary-of-new-concepts.html"><i class="fa fa-check"></i><b>8.4</b> Summary of New Concepts</a></li>
-<li class="chapter" data-level="8.5" data-path="exercises-7.html"><a href="exercises-7.html"><i class="fa fa-check"></i><b>8.5</b> Exercises</a></li>
+<li class="chapter" data-level="8.4" data-path="secConveyors.html"><a href="secConveyors.html"><i class="fa fa-check"></i><b>8.4</b> Modeling Systems with Conveyors</a>
+<ul>
+<li class="chapter" data-level="8.4.1" data-path="secConveyors.html"><a href="secConveyors.html#ksl-conveyor-constructs"><i class="fa fa-check"></i><b>8.4.1</b> KSL Conveyor Constructs</a></li>
+<li class="chapter" data-level="8.4.2" data-path="secConveyors.html"><a href="secConveyors.html#tandem-queue-system-with-conveyors"><i class="fa fa-check"></i><b>8.4.2</b> Tandem Queue System with Conveyors</a></li>
+<li class="chapter" data-level="8.4.3" data-path="secConveyors.html"><a href="secConveyors.html#secTestAndRepairConveyors"><i class="fa fa-check"></i><b>8.4.3</b> Test and Repair via Conveyors</a></li>
+<li class="chapter" data-level="8.4.4" data-path="secConveyors.html"><a href="secConveyors.html#secMiscConveyor"><i class="fa fa-check"></i><b>8.4.4</b> Miscellaneous Concepts in Conveyor Modeling</a></li>
+</ul></li>
+<li class="chapter" data-level="8.5" data-path="summary-of-new-concepts.html"><a href="summary-of-new-concepts.html"><i class="fa fa-check"></i><b>8.5</b> Summary of New Concepts</a></li>
+<li class="chapter" data-level="8.6" data-path="exercises-7.html"><a href="exercises-7.html"><i class="fa fa-check"></i><b>8.6</b> Exercises</a></li>
 </ul></li>
 <li class="chapter" data-level="9" data-path="ch9AdvMC.html"><a href="ch9AdvMC.html"><i class="fa fa-check"></i><b>9</b> Advanced Monte Carlo Methods</a>
 <ul>
@@ -528,7 +535,7 @@ Carlo methods: estimating the area of a function. Suppose we have some
 function, <span class="math inline">\(g(x)\)</span>, defined over the range <span class="math inline">\(a \leq x \leq b\)</span> and we want
 to evaluate the integral:</p>
 <p><span class="math display">\[ \theta = \int\limits_{a}^{b} g(x) \mathrm{d}x\]</span></p>
-<p>Monte Carlo methods allow us to evaluate this integral by couching the
+<p>Monte Carlo methods allow us to evaluate this integral by considering the
 problem as an estimation problem. It turns out that the problem can be
 translated into estimating the expected value of a well-chosen random
 variable. While a number of different choices for the random variable
@@ -595,12 +602,12 @@ know the true area.</p>
 <div class="sourceCode" id="cb78"><pre class="sourceCode kt"><code class="sourceCode kotlin"><span id="cb78-1"><a href="ssMC.html#cb78-1" tabindex="-1"></a><span class="kw">fun</span> <span class="fu">main</span><span class="op">()</span> <span class="op">{</span></span>
 <span id="cb78-2"><a href="ssMC.html#cb78-2" tabindex="-1"></a>    <span class="kw">val</span> <span class="va">a</span> <span class="op">=</span> <span class="fl">1.0</span></span>
 <span id="cb78-3"><a href="ssMC.html#cb78-3" tabindex="-1"></a>    <span class="kw">val</span> <span class="va">b</span> <span class="op">=</span> <span class="fl">4.0</span></span>
-<span id="cb78-4"><a href="ssMC.html#cb78-4" tabindex="-1"></a>    <span class="kw">val</span> <span class="va">ucdf</span> <span class="op">=</span> UniformRV<span class="op">(</span>a<span class="op">,</span> b<span class="op">)</span></span>
+<span id="cb78-4"><a href="ssMC.html#cb78-4" tabindex="-1"></a>    <span class="kw">val</span> <span class="va">ucdf</span> <span class="op">=</span> UniformRV<span class="op">(</span>a<span class="op">,</span> b<span class="op">,</span> streamNum <span class="op">=</span> <span class="dv">3</span><span class="op">)</span></span>
 <span id="cb78-5"><a href="ssMC.html#cb78-5" tabindex="-1"></a>    <span class="kw">val</span> <span class="va">stat</span> <span class="op">=</span> Statistic<span class="op">(</span><span class="st">&quot;Area Estimator&quot;</span><span class="op">)</span></span>
 <span id="cb78-6"><a href="ssMC.html#cb78-6" tabindex="-1"></a>    <span class="kw">val</span> <span class="va">n</span> <span class="op">=</span> <span class="dv">100</span> <span class="co">// sample size</span></span>
 <span id="cb78-7"><a href="ssMC.html#cb78-7" tabindex="-1"></a>    <span class="cf">for</span> <span class="op">(</span>i <span class="kw">in</span> <span class="fl">1.</span><span class="op">.</span>n<span class="op">)</span> <span class="op">{</span></span>
 <span id="cb78-8"><a href="ssMC.html#cb78-8" tabindex="-1"></a>        <span class="kw">val</span> <span class="va">x</span> <span class="op">=</span> ucdf<span class="op">.</span>value</span>
-<span id="cb78-9"><a href="ssMC.html#cb78-9" tabindex="-1"></a>        <span class="kw">val</span> <span class="va">gx</span> <span class="op">=</span> Math<span class="op">.</span>sqrt<span class="op">(</span>x<span class="op">)</span></span>
+<span id="cb78-9"><a href="ssMC.html#cb78-9" tabindex="-1"></a>        <span class="kw">val</span> <span class="va">gx</span> <span class="op">=</span> sqrt<span class="op">(</span>x<span class="op">)</span></span>
 <span id="cb78-10"><a href="ssMC.html#cb78-10" tabindex="-1"></a>        <span class="kw">val</span> <span class="va">y</span> <span class="op">=</span> <span class="op">(</span>b <span class="op">-</span> a<span class="op">)</span> <span class="op">*</span> gx</span>
 <span id="cb78-11"><a href="ssMC.html#cb78-11" tabindex="-1"></a>        stat<span class="op">.</span>collect<span class="op">(</span>y<span class="op">)</span></span>
 <span id="cb78-12"><a href="ssMC.html#cb78-12" tabindex="-1"></a>    <span class="op">}</span></span>
@@ -614,6 +621,10 @@ know the true area.</p>
 Area estimate =      4.781
 Confidence Interval
 [4.608646560421988, 4.952515649272401]</code></pre>
+<div class="infobox note">
+<p><strong>NOTE!</strong>
+Notice that the previous examples created the random variable <strong>outside</strong> of the loop that is used to generate values. It may not be an error to create random variables within loops, but it is generally bad practice and inefficient in terms of object creation. If you see yourself creating many instances of an object and then using it only one time before it is discarded, you should reconsider what you are doing.</p>
+</div>
 <p>Because confidence intervals may form the basis for decision making, you
 can use the confidence interval half-width in determining the sample
 size. A review of these and other statistical concepts will be the focus of the next section.</p>

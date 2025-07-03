@@ -23,7 +23,7 @@
 <meta name="author" content="Manuel D. Rossetti" />
 
 
-<meta name="date" content="2025-02-07" />
+<meta name="date" content="2025-07-03" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -373,8 +373,15 @@ div.csl-indent {
 <li class="chapter" data-level="8.2.3" data-path="movableResources.html"><a href="movableResources.html#secTQMWM"><i class="fa fa-check"></i><b>8.2.3</b> Tandem Queue Model With Movement</a></li>
 </ul></li>
 <li class="chapter" data-level="8.3" data-path="secTestAndRepairMovableResources.html"><a href="secTestAndRepairMovableResources.html"><i class="fa fa-check"></i><b>8.3</b> Modeling the Test and Repair System with Movable Resources</a></li>
-<li class="chapter" data-level="8.4" data-path="summary-of-new-concepts.html"><a href="summary-of-new-concepts.html"><i class="fa fa-check"></i><b>8.4</b> Summary of New Concepts</a></li>
-<li class="chapter" data-level="8.5" data-path="exercises-7.html"><a href="exercises-7.html"><i class="fa fa-check"></i><b>8.5</b> Exercises</a></li>
+<li class="chapter" data-level="8.4" data-path="secConveyors.html"><a href="secConveyors.html"><i class="fa fa-check"></i><b>8.4</b> Modeling Systems with Conveyors</a>
+<ul>
+<li class="chapter" data-level="8.4.1" data-path="secConveyors.html"><a href="secConveyors.html#ksl-conveyor-constructs"><i class="fa fa-check"></i><b>8.4.1</b> KSL Conveyor Constructs</a></li>
+<li class="chapter" data-level="8.4.2" data-path="secConveyors.html"><a href="secConveyors.html#tandem-queue-system-with-conveyors"><i class="fa fa-check"></i><b>8.4.2</b> Tandem Queue System with Conveyors</a></li>
+<li class="chapter" data-level="8.4.3" data-path="secConveyors.html"><a href="secConveyors.html#secTestAndRepairConveyors"><i class="fa fa-check"></i><b>8.4.3</b> Test and Repair via Conveyors</a></li>
+<li class="chapter" data-level="8.4.4" data-path="secConveyors.html"><a href="secConveyors.html#secMiscConveyor"><i class="fa fa-check"></i><b>8.4.4</b> Miscellaneous Concepts in Conveyor Modeling</a></li>
+</ul></li>
+<li class="chapter" data-level="8.5" data-path="summary-of-new-concepts.html"><a href="summary-of-new-concepts.html"><i class="fa fa-check"></i><b>8.5</b> Summary of New Concepts</a></li>
+<li class="chapter" data-level="8.6" data-path="exercises-7.html"><a href="exercises-7.html"><i class="fa fa-check"></i><b>8.6</b> Exercises</a></li>
 </ul></li>
 <li class="chapter" data-level="9" data-path="ch9AdvMC.html"><a href="ch9AdvMC.html"><i class="fa fa-check"></i><b>9</b> Advanced Monte Carlo Methods</a>
 <ul>
@@ -525,7 +532,11 @@ div.csl-indent {
 <h2><span class="header-section-number">2.6</span> Exercises<a href="exercises-1.html#exercises-1" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <hr />
 <div class="exercise">
-<p><span id="exr:Ch2Ex1" class="exercise"><strong>Exercise 2.1  </strong></span>Consider the following discrete distribution of the random variable <span class="math inline">\(X\)</span> whose
+<p><span id="exr:Ch2DistCW" class="exercise"><strong>Exercise 2.1  </strong></span>Complete the crossword puzzle found <a href="https://crosswordlabs.com/embed/distributions-2">here</a>. Turn in your completed puzzle.</p>
+</div>
+<hr />
+<div class="exercise">
+<p><span id="exr:Ch2Ex1" class="exercise"><strong>Exercise 2.2  </strong></span>Consider the following discrete distribution of the random variable <span class="math inline">\(X\)</span> whose
 probability mass function is <span class="math inline">\(p(x)\)</span>.</p>
 <table>
 <thead>
@@ -553,26 +564,26 @@ probability mass function is <span class="math inline">\(p(x)\)</span>.</p>
 </div>
 <hr />
 <div class="exercise">
-<p><span id="exr:Ch2Ex2" class="exercise"><strong>Exercise 2.2  </strong></span>Suppose that customers arrive at an ATM via a Poisson process with mean 7 per hour.
+<p><span id="exr:Ch2Ex2" class="exercise"><strong>Exercise 2.3  </strong></span>Suppose that customers arrive at an ATM via a Poisson process with mean 7 per hour.
 Write a KSL program that outputs the arrival time of the first 6 customers using stream 1.</p>
 </div>
 <hr />
 <div class="exercise">
-<p><span id="exr:Ch2Ex3" class="exercise"><strong>Exercise 2.3  </strong></span>The service times for a automated storage and retrieval system has a shifted
+<p><span id="exr:Ch2Ex3" class="exercise"><strong>Exercise 2.4  </strong></span>The service times for a automated storage and retrieval system has a shifted
 exponential distribution. It is known that it takes a minimum of 15
 seconds for any retrieval. The rate parameter of the exponential distribution
 is <span class="math inline">\(\lambda = 45\)</span>. Write a KSL program to generate 10 observations from this distribution using stream 1.</p>
 </div>
 <hr />
 <div class="exercise">
-<p><span id="exr:Ch2Ex4" class="exercise"><strong>Exercise 2.4  </strong></span>The time to failure for a computer
+<p><span id="exr:Ch2Ex4" class="exercise"><strong>Exercise 2.5  </strong></span>The time to failure for a computer
 printer fan has a Weibull distribution with shape parameter <span class="math inline">\(\alpha = 2\)</span>
 and scale parameter <span class="math inline">\(\beta = 3\)</span>. Testing has indicated that the
 distribution is limited to the range from 1.5 to 4.5. Write a KSL program to generate 10 observations from this distribution using stream 1.</p>
 </div>
 <hr />
 <div class="exercise">
-<p><span id="exr:Ch2Ex5" class="exercise"><strong>Exercise 2.5  </strong></span>The interest rate for a capital project is unknown. An accountant has
+<p><span id="exr:Ch2Ex5" class="exercise"><strong>Exercise 2.6  </strong></span>The interest rate for a capital project is unknown. An accountant has
 estimated that the minimum interest rate will between 2% and 5% within
 the next year. The accountant believes that any interest rate in this
 range is equally likely. You are tasked with generating interest rates
@@ -580,7 +591,7 @@ for a cash flow analysis of the project. Write a KSL program to generate 10 obse
 </div>
 <hr />
 <div class="exercise">
-<p><span id="exr:Ch2Ex6" class="exercise"><strong>Exercise 2.6  </strong></span>Consider the following probability density function:</p>
+<p><span id="exr:Ch2Ex6" class="exercise"><strong>Exercise 2.7  </strong></span>Consider the following probability density function:</p>
 <p><span class="math display">\[f(x) =
   \begin{cases}
      \dfrac{3x^2}{2} &amp; -1 \leq x \leq 1\\
@@ -590,7 +601,7 @@ for a cash flow analysis of the project. Write a KSL program to generate 10 obse
 </div>
 <hr />
 <div class="exercise">
-<p><span id="exr:Ch2Ex7" class="exercise"><strong>Exercise 2.7  </strong></span>Consider the following probability density function:</p>
+<p><span id="exr:Ch2Ex7" class="exercise"><strong>Exercise 2.8  </strong></span>Consider the following probability density function:</p>
 <p><span class="math display">\[f(x) =
   \begin{cases}
      0.5x - 1 &amp; 2 \leq x \leq 4\\
@@ -600,7 +611,7 @@ for a cash flow analysis of the project. Write a KSL program to generate 10 obse
 </div>
 <hr />
 <div class="exercise">
-<p><span id="exr:Ch2Ex8" class="exercise"><strong>Exercise 2.8  </strong></span>Consider the following probability density function:</p>
+<p><span id="exr:Ch2Ex8" class="exercise"><strong>Exercise 2.9  </strong></span>Consider the following probability density function:</p>
 <p><span class="math display">\[f(x) =
   \begin{cases}
      \dfrac{2x}{25} &amp; 0 \leq x \leq 5\\
@@ -610,7 +621,7 @@ for a cash flow analysis of the project. Write a KSL program to generate 10 obse
 </div>
 <hr />
 <div class="exercise">
-<p><span id="exr:Ch2Ex9" class="exercise"><strong>Exercise 2.9  </strong></span>Consider the following probability density function:</p>
+<p><span id="exr:Ch2Ex9" class="exercise"><strong>Exercise 2.10  </strong></span>Consider the following probability density function:</p>
 <p><span class="math display">\[f(x) =
   \begin{cases}
      \dfrac{2}{x^3} &amp; x &gt; 1\\
@@ -620,7 +631,7 @@ for a cash flow analysis of the project. Write a KSL program to generate 10 obse
 </div>
 <hr />
 <div class="exercise">
-<p><span id="exr:Ch2Ex10" class="exercise"><strong>Exercise 2.10  </strong></span>The times to failure for an automated production process have been found to be
+<p><span id="exr:Ch2Ex10" class="exercise"><strong>Exercise 2.11  </strong></span>The times to failure for an automated production process have been found to be
 randomly distributed according to a Rayleigh distribution:</p>
 <p><span class="math display">\[\ f(x) =
    \begin{cases}
@@ -631,7 +642,7 @@ randomly distributed according to a Rayleigh distribution:</p>
 </div>
 <hr />
 <div class="exercise">
-<p><span id="exr:Ch2Ex11" class="exercise"><strong>Exercise 2.11  </strong></span>Suppose that the processing time for a job consists of two distributions. There
+<p><span id="exr:Ch2Ex11" class="exercise"><strong>Exercise 2.12  </strong></span>Suppose that the processing time for a job consists of two distributions. There
 is a 30% chance that the processing time is lognormally distributed with
 a mean of 20 minutes and a standard deviation of 2 minutes, and a 70%
 chance that the time is uniformly distributed between 10 and 20 minutes.</p>
@@ -639,7 +650,7 @@ chance that the time is uniformly distributed between 10 and 20 minutes.</p>
 </div>
 <hr />
 <div class="exercise">
-<p><span id="exr:Ch2Ex12" class="exercise"><strong>Exercise 2.12  </strong></span>Suppose that the service time for a patient consists of two distributions. There
+<p><span id="exr:Ch2Ex12" class="exercise"><strong>Exercise 2.13  </strong></span>Suppose that the service time for a patient consists of two distributions. There
 is a 25% chance that the service time is uniformly distributed with
 minimum of 20 minutes and a maximum of 25 minutes, and a 75% chance that
 the time is distributed according to a Weibull distribution with shape
@@ -648,7 +659,7 @@ of 2 and a scale of 4.5.</p>
 </div>
 <hr />
 <div class="exercise">
-<p><span id="exr:Ch2Ex13" class="exercise"><strong>Exercise 2.13  </strong></span>Consider the following probability density function:</p>
+<p><span id="exr:Ch2Ex13" class="exercise"><strong>Exercise 2.14  </strong></span>Consider the following probability density function:</p>
 <p><span class="math display">\[f(x) =
   \begin{cases}
      \dfrac{3x^2}{2} &amp; -1 \leq x \leq 1\\
@@ -658,7 +669,7 @@ of 2 and a scale of 4.5.</p>
 </div>
 <hr />
 <div class="exercise">
-<p><span id="exr:Ch2Ex14" class="exercise"><strong>Exercise 2.14  </strong></span>Consider the following function:</p>
+<p><span id="exr:Ch2Ex14" class="exercise"><strong>Exercise 2.15  </strong></span>Consider the following function:</p>
 <p><span class="math display">\[f(x) =
   \begin{cases}
      cx^{2} &amp; a \leq x \leq b\\
@@ -673,7 +684,7 @@ of 2 and a scale of 4.5.</p>
 </div>
 <hr />
 <div class="exercise">
-<p><span id="exr:Ch2Ex15" class="exercise"><strong>Exercise 2.15  </strong></span>Consider the following probability density function:</p>
+<p><span id="exr:Ch2Ex15" class="exercise"><strong>Exercise 2.16  </strong></span>Consider the following probability density function:</p>
 <p><span class="math display">\[f(x) =
   \begin{cases}
      \frac{3(c - x)^{2}}{c^{3}} &amp; 0 \leq x \leq c\\

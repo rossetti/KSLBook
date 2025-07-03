@@ -1,7 +1,7 @@
 --- 
 title: "Simulation Modeling using the Kotlin Simulation Library (KSL)"
 author: "Manuel D. Rossetti"
-date: "2025-02-07"
+date: "2025-07-03"
 site: bookdown::bookdown_site
 output: bookdown::gitbook
 header-includes:
@@ -52,6 +52,9 @@ The purpose of this book is to provide an overview of the Kotlin Simulation Libr
   - resource capacity schedules
   - responses collected by periods of time
   - aggregate statistical collection
+- `ksl.simopt` - provides a framework for performing simulation optimization
+- `ksl.controls.experiments` - provides a framework for performing designed experiments
+
 
 This book discusses a large portion of this functionality.   The [KSL Github project page](https://github.com/rossetti/KSL) discusses how to access the code and examples discussed within this textbook.
 
@@ -107,6 +110,7 @@ The KSL uses the following open source libraries.
 - [Dataframe](https://github.com/Kotlin/dataframe)
 - [Microutils](https://github.com/MicroUtils/kotlin-logging)
 - [DuckDb](https://duckdb.org/)
+- [Let's Plot](https://github.com/JetBrains/lets-plot)
 
 
 ## Book Support Files {-}
