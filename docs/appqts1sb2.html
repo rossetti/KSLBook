@@ -6,7 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>C.2 Examples and Applications of Queueing Analysis | Simulation Modeling using the Kotlin Simulation Library (KSL)</title>
   <meta name="description" content="A book that illustrates the basics of using the KSL. The output format for this book is bookdown::gitbook." />
-  <meta name="generator" content="bookdown 0.39 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.40 and GitBook 2.6.7" />
 
   <meta property="og:title" content="C.2 Examples and Applications of Queueing Analysis | Simulation Modeling using the Kotlin Simulation Library (KSL)" />
   <meta property="og:type" content="book" />
@@ -23,7 +23,7 @@
 <meta name="author" content="Manuel D. Rossetti" />
 
 
-<meta name="date" content="2025-07-03" />
+<meta name="date" content="2025-08-07" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -57,8 +57,9 @@
 
 
 <style type="text/css">
+html { -webkit-text-size-adjust: 100%; }
 pre > code.sourceCode { white-space: pre; position: relative; }
-pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
 pre > code.sourceCode > span:empty { height: 1.2em; }
 .sourceCode { overflow: visible; }
 code.sourceCode > span { color: inherit; text-decoration: inherit; }
@@ -68,7 +69,7 @@ div.sourceCode { overflow: auto; }
 }
 @media print {
 pre > code.sourceCode { white-space: pre-wrap; }
-pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
 }
 pre.numberSource code
   { counter-reset: source-line 0; }
@@ -685,25 +686,25 @@ Table <a href="appqts1sb2.html#tab:SSCResults">C.2</a>.</p>
 <table>
 <caption><span id="tab:SSCResults">Table C.2: </span>Results for Example <a href="appqts1sb2.html#exm:exSSC">C.2</a>, <span class="math inline">\(c=1, 2, 3, 4\)</span></caption>
 <thead>
-<tr class="header">
+<tr>
 <th align="center"><span class="math inline">\(c\)</span></th>
 <th align="center"><span class="math inline">\(P[N \geq 4] = 1 - P[N \leq 3]\)</span></th>
 </tr>
 </thead>
 <tbody>
-<tr class="odd">
+<tr>
 <td align="center">1</td>
 <td align="center">0.586182</td>
 </tr>
-<tr class="even">
+<tr>
 <td align="center">2</td>
 <td align="center">0.050972</td>
 </tr>
-<tr class="odd">
+<tr>
 <td align="center">3</td>
 <td align="center">0.019034</td>
 </tr>
-<tr class="even">
+<tr>
 <td align="center">4</td>
 <td align="center">0.013022</td>
 </tr>
@@ -972,7 +973,7 @@ Figure C.12: Modeling the machine interference problem in QTSPlus
 <table>
 <caption><span id="tab:MIMResults">Table C.3: </span> Tabulated Results for Example <a href="appqts1sb2.html#exm:exMIM">C.6</a></caption>
 <tbody>
-<tr class="odd">
+<tr>
 <td align="left"><span class="math inline">\(\lambda\)</span></td>
 <td align="center">0.10</td>
 <td align="center">0.10</td>
@@ -980,7 +981,7 @@ Figure C.12: Modeling the machine interference problem in QTSPlus
 <td align="center">0.10</td>
 <td align="center">0.10</td>
 </tr>
-<tr class="even">
+<tr>
 <td align="left"><span class="math inline">\(\mu\)</span></td>
 <td align="center">0.25</td>
 <td align="center">0.25</td>
@@ -988,7 +989,7 @@ Figure C.12: Modeling the machine interference problem in QTSPlus
 <td align="center">0.25</td>
 <td align="center">0.25</td>
 </tr>
-<tr class="odd">
+<tr>
 <td align="left"><span class="math inline">\(c\)</span></td>
 <td align="center">1</td>
 <td align="center">2</td>
@@ -996,7 +997,7 @@ Figure C.12: Modeling the machine interference problem in QTSPlus
 <td align="center">4</td>
 <td align="center">5</td>
 </tr>
-<tr class="even">
+<tr>
 <td align="left"><span class="math inline">\(N\)</span></td>
 <td align="center">5</td>
 <td align="center">5</td>
@@ -1004,7 +1005,7 @@ Figure C.12: Modeling the machine interference problem in QTSPlus
 <td align="center">5</td>
 <td align="center">5</td>
 </tr>
-<tr class="odd">
+<tr>
 <td align="left"><span class="math inline">\(K\)</span></td>
 <td align="center">5</td>
 <td align="center">5</td>
@@ -1012,7 +1013,7 @@ Figure C.12: Modeling the machine interference problem in QTSPlus
 <td align="center">5</td>
 <td align="center">5</td>
 </tr>
-<tr class="even">
+<tr>
 <td align="left">System</td>
 <td align="center">M/M/1/5/5</td>
 <td align="center">M/M/2/5/5</td>
@@ -1020,7 +1021,7 @@ Figure C.12: Modeling the machine interference problem in QTSPlus
 <td align="center">M/M/4/5/5</td>
 <td align="center">M/M/5/5/5</td>
 </tr>
-<tr class="odd">
+<tr>
 <td align="left"><span class="math inline">\(L\)</span></td>
 <td align="center">2.674</td>
 <td align="center">1.661</td>
@@ -1028,7 +1029,7 @@ Figure C.12: Modeling the machine interference problem in QTSPlus
 <td align="center">1.430</td>
 <td align="center">1.429</td>
 </tr>
-<tr class="even">
+<tr>
 <td align="left"><span class="math inline">\(L_q\)</span></td>
 <td align="center">1.744</td>
 <td align="center">0.325</td>
@@ -1036,7 +1037,7 @@ Figure C.12: Modeling the machine interference problem in QTSPlus
 <td align="center">0.002</td>
 <td align="center">0.000</td>
 </tr>
-<tr class="odd">
+<tr>
 <td align="left"><span class="math inline">\(B\)</span></td>
 <td align="center">0.930</td>
 <td align="center">1.336</td>
@@ -1044,7 +1045,7 @@ Figure C.12: Modeling the machine interference problem in QTSPlus
 <td align="center">1.428</td>
 <td align="center">1.429</td>
 </tr>
-<tr class="even">
+<tr>
 <td align="left"><span class="math inline">\(B/c\)</span></td>
 <td align="center">0.930</td>
 <td align="center">0.668</td>
@@ -1052,7 +1053,7 @@ Figure C.12: Modeling the machine interference problem in QTSPlus
 <td align="center">0.357</td>
 <td align="center">0.286</td>
 </tr>
-<tr class="odd">
+<tr>
 <td align="left"><span class="math inline">\(E[\mathit{TC}]\)</span></td>
 <td align="center">$175.460</td>
 <td align="center">$129.655</td>
@@ -1060,7 +1061,7 @@ Figure C.12: Modeling the machine interference problem in QTSPlus
 <td align="center">$145.816</td>
 <td align="center">$160.714</td>
 </tr>
-<tr class="even">
+<tr>
 <td align="left"><span class="math inline">\(\overline{\mathit{MU}}\)</span></td>
 <td align="center">0.465</td>
 <td align="center">0.668</td>

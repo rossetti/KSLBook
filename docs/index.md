@@ -1,7 +1,7 @@
 --- 
 title: "Simulation Modeling using the Kotlin Simulation Library (KSL)"
 author: "Manuel D. Rossetti"
-date: "2025-07-03"
+date: "2025-08-07"
 site: bookdown::bookdown_site
 output: bookdown::gitbook
 header-includes:
@@ -80,6 +80,8 @@ You are reading the on-line edition of *Simulation Modeling using the Kotlin Sim
   - Added Sections \@ref(appPlotting) and \@ref(appExpDesign) to Appendix \@ref(appUtilities) for coverage of plotting utilities and experimental design utilities.
 - 2nd Edition, Version 2.2, released February 2025
   - Added Chapter 8 for modeling entity movement
+- 2nd Edition, Version 2.3, released August 2025
+  - Updated chapters to be consistent with release 1.2.2 of the KSL
 
 If you find typographical errors or other issues related to the text or supporting files, then please use the book's [repository's](https://github.com/rossetti/KSLBook) issue tracking system to create a new issue. You should first check if the same or similar issue has already been submitted. The issue tracking system is for filing issues about the correctness of the text or files. It is **not** about general questions about simulation concepts, solutions to homework, how to do something in the KSL, etc.  Such issues will not be considered and will be deleted as needed.
 

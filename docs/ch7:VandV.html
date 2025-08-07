@@ -4,18 +4,18 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>Book Support Files | Simulation Modeling using the Kotlin Simulation Library (KSL)</title>
+  <title>7.4 Applying Queueing Theory Results to Verify and Validate a Simulation | Simulation Modeling using the Kotlin Simulation Library (KSL)</title>
   <meta name="description" content="A book that illustrates the basics of using the KSL. The output format for this book is bookdown::gitbook." />
   <meta name="generator" content="bookdown 0.40 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="Book Support Files | Simulation Modeling using the Kotlin Simulation Library (KSL)" />
+  <meta property="og:title" content="7.4 Applying Queueing Theory Results to Verify and Validate a Simulation | Simulation Modeling using the Kotlin Simulation Library (KSL)" />
   <meta property="og:type" content="book" />
   
   <meta property="og:description" content="A book that illustrates the basics of using the KSL. The output format for this book is bookdown::gitbook." />
   
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Book Support Files | Simulation Modeling using the Kotlin Simulation Library (KSL)" />
+  <meta name="twitter:title" content="7.4 Applying Queueing Theory Results to Verify and Validate a Simulation | Simulation Modeling using the Kotlin Simulation Library (KSL)" />
   
   <meta name="twitter:description" content="A book that illustrates the basics of using the KSL. The output format for this book is bookdown::gitbook." />
   
@@ -23,15 +23,15 @@
 <meta name="author" content="Manuel D. Rossetti" />
 
 
-<meta name="date" content="2025-08-07" />
+<meta name="date" content="2024-11-21" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-<link rel="prev" href="ksl-project-page.html"/>
-<link rel="next" href="acknowledgments.html"/>
+<link rel="prev" href="examples-of-advanced-event-models.html"/>
+<link rel="next" href="summary-3.html"/>
 <script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
@@ -57,9 +57,8 @@
 
 
 <style type="text/css">
-html { -webkit-text-size-adjust: 100%; }
 pre > code.sourceCode { white-space: pre; position: relative; }
-pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span { line-height: 1.25; }
 pre > code.sourceCode > span:empty { height: 1.2em; }
 .sourceCode { overflow: visible; }
 code.sourceCode > span { color: inherit; text-decoration: inherit; }
@@ -69,7 +68,7 @@ div.sourceCode { overflow: auto; }
 }
 @media print {
 pre > code.sourceCode { white-space: pre-wrap; }
-pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
 }
 pre.numberSource code
   { counter-reset: source-line 0; }
@@ -253,19 +252,13 @@ div.csl-indent {
 <li class="chapter" data-level="4.4.4" data-path="introDEDSdedsKSL.html"><a href="introDEDSdedsKSL.html#introDEDSPharmacy"><i class="fa fa-check"></i><b>4.4.4</b> Modeling a Simple Queueing System</a></li>
 <li class="chapter" data-level="4.4.5" data-path="introDEDSdedsKSL.html"><a href="introDEDSdedsKSL.html#more-details-about-the-pharmacy-model-implementation"><i class="fa fa-check"></i><b>4.4.5</b> More Details About the Pharmacy Model Implementation</a></li>
 </ul></li>
-<li class="chapter" data-level="4.5" data-path="enhancing-the-drive-through-pharmacy-model.html"><a href="enhancing-the-drive-through-pharmacy-model.html"><i class="fa fa-check"></i><b>4.5</b> Enhancing the Drive Through Pharmacy Model</a>
-<ul>
-<li class="chapter" data-level="4.5.1" data-path="enhancing-the-drive-through-pharmacy-model.html"><a href="enhancing-the-drive-through-pharmacy-model.html#modeling-a-simple-resource"><i class="fa fa-check"></i><b>4.5.1</b> Modeling a Simple Resource</a></li>
-<li class="chapter" data-level="4.5.2" data-path="enhancing-the-drive-through-pharmacy-model.html"><a href="enhancing-the-drive-through-pharmacy-model.html#modeling-a-queue-with-statistical-collection"><i class="fa fa-check"></i><b>4.5.2</b> Modeling a Queue with Statistical Collection</a></li>
-<li class="chapter" data-level="4.5.3" data-path="enhancing-the-drive-through-pharmacy-model.html"><a href="enhancing-the-drive-through-pharmacy-model.html#modeling-a-repeating-event-pattern"><i class="fa fa-check"></i><b>4.5.3</b> Modeling a Repeating Event Pattern</a></li>
-<li class="chapter" data-level="4.5.4" data-path="enhancing-the-drive-through-pharmacy-model.html"><a href="enhancing-the-drive-through-pharmacy-model.html#collecting-more-detailed-statistics"><i class="fa fa-check"></i><b>4.5.4</b> Collecting More Detailed Statistics</a></li>
-<li class="chapter" data-level="4.5.5" data-path="enhancing-the-drive-through-pharmacy-model.html"><a href="enhancing-the-drive-through-pharmacy-model.html#implementing-the-enhanced-pharmacy-model"><i class="fa fa-check"></i><b>4.5.5</b> Implementing the Enhanced Pharmacy Model</a></li>
-</ul></li>
+<li class="chapter" data-level="4.5" data-path="enhancing-the-drive-through-pharmacy-model.html"><a href="enhancing-the-drive-through-pharmacy-model.html"><i class="fa fa-check"></i><b>4.5</b> Enhancing the Drive Through Pharmacy Model</a></li>
 <li class="chapter" data-level="4.6" data-path="DTPExpanded.html"><a href="DTPExpanded.html"><i class="fa fa-check"></i><b>4.6</b> More Drive Through Fun</a>
 <ul>
-<li class="chapter" data-level="4.6.1" data-path="DTPExpanded.html"><a href="DTPExpanded.html#modeling-a-resource-with-a-waiting-line"><i class="fa fa-check"></i><b>4.6.1</b> Modeling a Resource with a Waiting Line</a></li>
-<li class="chapter" data-level="4.6.2" data-path="DTPExpanded.html"><a href="DTPExpanded.html#modeling-the-tandem-queue-of-example-refexmexch4tandemq"><i class="fa fa-check"></i><b>4.6.2</b> Modeling the Tandem Queue of Example @ref(exm:exCh4TandemQ)</a></li>
-<li class="chapter" data-level="4.6.3" data-path="DTPExpanded.html"><a href="DTPExpanded.html#modeling-with-the-station-package"><i class="fa fa-check"></i><b>4.6.3</b> Modeling with the Station Package</a></li>
+<li class="chapter" data-level="4.6.1" data-path="DTPExpanded.html"><a href="DTPExpanded.html#modeling-a-simple-resource"><i class="fa fa-check"></i><b>4.6.1</b> Modeling a Simple Resource</a></li>
+<li class="chapter" data-level="4.6.2" data-path="DTPExpanded.html"><a href="DTPExpanded.html#modeling-a-resource-with-a-waiting-line"><i class="fa fa-check"></i><b>4.6.2</b> Modeling a Resource with a Waiting Line</a></li>
+<li class="chapter" data-level="4.6.3" data-path="DTPExpanded.html"><a href="DTPExpanded.html#modeling-the-tandem-queue-of-example-refexmexch4tandemq"><i class="fa fa-check"></i><b>4.6.3</b> Modeling the Tandem Queue of Example @ref(exm:exCh4TandemQ)</a></li>
+<li class="chapter" data-level="4.6.4" data-path="DTPExpanded.html"><a href="DTPExpanded.html#modeling-with-the-station-package"><i class="fa fa-check"></i><b>4.6.4</b> Modeling with the Station Package</a></li>
 </ul></li>
 <li class="chapter" data-level="4.7" data-path="introDEDSSummary.html"><a href="introDEDSSummary.html"><i class="fa fa-check"></i><b>4.7</b> Summary</a></li>
 <li class="chapter" data-level="4.8" data-path="exercises-3.html"><a href="exercises-3.html"><i class="fa fa-check"></i><b>4.8</b> Exercises</a></li>
@@ -316,7 +309,7 @@ div.csl-indent {
 <li class="chapter" data-level="6.4.2" data-path="examples-of-process-modeling.html"><a href="examples-of-process-modeling.html#signaling-entities"><i class="fa fa-check"></i><b>6.4.2</b> Signaling Entities</a></li>
 <li class="chapter" data-level="6.4.3" data-path="examples-of-process-modeling.html"><a href="examples-of-process-modeling.html#understanding-blocking-queues"><i class="fa fa-check"></i><b>6.4.3</b> Understanding Blocking Queues</a></li>
 <li class="chapter" data-level="6.4.4" data-path="examples-of-process-modeling.html"><a href="examples-of-process-modeling.html#allowing-entities-to-wait-for-a-process"><i class="fa fa-check"></i><b>6.4.4</b> Allowing Entities to Wait for a Process</a></li>
-<li class="chapter" data-level="6.4.5" data-path="examples-of-process-modeling.html"><a href="examples-of-process-modeling.html#processinteraction"><i class="fa fa-check"></i><b>6.4.5</b> Process Interaction</a></li>
+<li class="chapter" data-level="6.4.5" data-path="examples-of-process-modeling.html"><a href="examples-of-process-modeling.html#process-interaction"><i class="fa fa-check"></i><b>6.4.5</b> Process Interaction</a></li>
 </ul></li>
 <li class="chapter" data-level="6.5" data-path="modeling-a-stem-career-mixer.html"><a href="modeling-a-stem-career-mixer.html"><i class="fa fa-check"></i><b>6.5</b> Modeling a STEM Career Mixer</a>
 <ul>
@@ -335,8 +328,8 @@ div.csl-indent {
 <li class="chapter" data-level="7.1" data-path="modeling-with-processes-and-resources.html"><a href="modeling-with-processes-and-resources.html"><i class="fa fa-check"></i><b>7.1</b> Modeling with Processes and Resources</a>
 <ul>
 <li class="chapter" data-level="7.1.1" data-path="modeling-with-processes-and-resources.html"><a href="modeling-with-processes-and-resources.html#modeling-space-with-resources"><i class="fa fa-check"></i><b>7.1.1</b> Modeling Space with Resources</a></li>
-<li class="chapter" data-level="7.1.2" data-path="modeling-with-processes-and-resources.html"><a href="modeling-with-processes-and-resources.html#secResourcePools"><i class="fa fa-check"></i><b>7.1.2</b> Resource Pools</a></li>
-<li class="chapter" data-level="7.1.3" data-path="modeling-with-processes-and-resources.html"><a href="modeling-with-processes-and-resources.html#secTestAndRepair"><i class="fa fa-check"></i><b>7.1.3</b> Computer Test and Repair Shop Example</a></li>
+<li class="chapter" data-level="7.1.2" data-path="modeling-with-processes-and-resources.html"><a href="modeling-with-processes-and-resources.html#resource-pools"><i class="fa fa-check"></i><b>7.1.2</b> Resource Pools</a></li>
+<li class="chapter" data-level="7.1.3" data-path="modeling-with-processes-and-resources.html"><a href="modeling-with-processes-and-resources.html#computer-test-and-repair-shop-example"><i class="fa fa-check"></i><b>7.1.3</b> Computer Test and Repair Shop Example</a></li>
 </ul></li>
 <li class="chapter" data-level="7.2" data-path="modeling-non-stationary-systems.html"><a href="modeling-non-stationary-systems.html"><i class="fa fa-check"></i><b>7.2</b> Modeling Non-Stationary Systems</a>
 <ul>
@@ -349,66 +342,43 @@ div.csl-indent {
 <li class="chapter" data-level="7.3.1" data-path="examples-of-advanced-event-models.html"><a href="examples-of-advanced-event-models.html#ch6s1sb4sub3"><i class="fa fa-check"></i><b>7.3.1</b> Modeling Balking and Reneging</a></li>
 <li class="chapter" data-level="7.3.2" data-path="examples-of-advanced-event-models.html"><a href="examples-of-advanced-event-models.html#rqModel"><i class="fa fa-check"></i><b>7.3.2</b> Modeling a Reorder Point, Reorder Quantity Inventory Policy</a></li>
 </ul></li>
-<li class="chapter" data-level="7.4" data-path="ch7VandV.html"><a href="ch7VandV.html"><i class="fa fa-check"></i><b>7.4</b> Applying Queueing Theory Results to Verify and Validate a Simulation</a>
+<li class="chapter" data-level="7.4" data-path="ch7:VandV.html"><a href="ch7:VandV.html"><i class="fa fa-check"></i><b>7.4</b> Applying Queueing Theory Results to Verify and Validate a Simulation</a>
 <ul>
-<li class="chapter" data-level="7.4.1" data-path="ch7VandV.html"><a href="ch7VandV.html#analyzing-the-preparation-station"><i class="fa fa-check"></i><b>7.4.1</b> Analyzing the Preparation Station</a></li>
-<li class="chapter" data-level="7.4.2" data-path="ch7VandV.html"><a href="ch7VandV.html#analyzing-the-build-lines"><i class="fa fa-check"></i><b>7.4.2</b> Analyzing the Build Lines</a></li>
-<li class="chapter" data-level="7.4.3" data-path="ch7VandV.html"><a href="ch7VandV.html#analyzing-the-packaging-station"><i class="fa fa-check"></i><b>7.4.3</b> Analyzing the Packaging Station</a></li>
-<li class="chapter" data-level="7.4.4" data-path="ch7VandV.html"><a href="ch7VandV.html#analyzing-the-palletizing-station"><i class="fa fa-check"></i><b>7.4.4</b> Analyzing the Palletizing Station</a></li>
-<li class="chapter" data-level="7.4.5" data-path="ch7VandV.html"><a href="ch7VandV.html#analyzing-the-total-system-time"><i class="fa fa-check"></i><b>7.4.5</b> Analyzing the Total System Time</a></li>
-<li class="chapter" data-level="7.4.6" data-path="ch7VandV.html"><a href="ch7VandV.html#other-issues-for-verification-and-validation"><i class="fa fa-check"></i><b>7.4.6</b> Other Issues for Verification and Validation</a></li>
+<li class="chapter" data-level="7.4.1" data-path="ch7:VandV.html"><a href="ch7:VandV.html#analyzing-the-preparation-station"><i class="fa fa-check"></i><b>7.4.1</b> Analyzing the Preparation Station</a></li>
+<li class="chapter" data-level="7.4.2" data-path="ch7:VandV.html"><a href="ch7:VandV.html#analyzing-the-build-lines"><i class="fa fa-check"></i><b>7.4.2</b> Analyzing the Build Lines</a></li>
+<li class="chapter" data-level="7.4.3" data-path="ch7:VandV.html"><a href="ch7:VandV.html#analyzing-the-packaging-station"><i class="fa fa-check"></i><b>7.4.3</b> Analyzing the Packaging Station</a></li>
+<li class="chapter" data-level="7.4.4" data-path="ch7:VandV.html"><a href="ch7:VandV.html#analyzing-the-palletizing-station"><i class="fa fa-check"></i><b>7.4.4</b> Analyzing the Palletizing Station</a></li>
+<li class="chapter" data-level="7.4.5" data-path="ch7:VandV.html"><a href="ch7:VandV.html#analyzing-the-total-system-time"><i class="fa fa-check"></i><b>7.4.5</b> Analyzing the Total System Time</a></li>
+<li class="chapter" data-level="7.4.6" data-path="ch7:VandV.html"><a href="ch7:VandV.html#other-issues-for-verification-and-validation"><i class="fa fa-check"></i><b>7.4.6</b> Other Issues for Verification and Validation</a></li>
 </ul></li>
 <li class="chapter" data-level="7.5" data-path="summary-3.html"><a href="summary-3.html"><i class="fa fa-check"></i><b>7.5</b> Summary</a></li>
 <li class="chapter" data-level="7.6" data-path="exercises-6.html"><a href="exercises-6.html"><i class="fa fa-check"></i><b>7.6</b> Exercises</a></li>
 </ul></li>
-<li class="chapter" data-level="8" data-path="chEntityMovement.html"><a href="chEntityMovement.html"><i class="fa fa-check"></i><b>8</b> Modeling Entity Movement</a>
+<li class="chapter" data-level="8" data-path="ch9AdvMC.html"><a href="ch9AdvMC.html"><i class="fa fa-check"></i><b>8</b> Advanced Monte Carlo Methods</a>
 <ul>
-<li class="chapter" data-level="8.1" data-path="secRCT.html"><a href="secRCT.html"><i class="fa fa-check"></i><b>8.1</b> Resource Constrained Transfer</a>
+<li class="chapter" data-level="8.1" data-path="ch9BootStrapping.html"><a href="ch9BootStrapping.html"><i class="fa fa-check"></i><b>8.1</b> Bootstrap Methods</a>
 <ul>
-<li class="chapter" data-level="8.1.1" data-path="secRCT.html"><a href="secRCT.html#secTestRepairRCT"><i class="fa fa-check"></i><b>8.1.1</b> Test and Repair with Resource Constrained Transfer</a></li>
+<li class="chapter" data-level="8.1.1" data-path="ch9BootStrapping.html"><a href="ch9BootStrapping.html#bootstrapping-using-the-ksl"><i class="fa fa-check"></i><b>8.1.1</b> Bootstrapping Using the KSL</a></li>
 </ul></li>
-<li class="chapter" data-level="8.2" data-path="movableResources.html"><a href="movableResources.html"><i class="fa fa-check"></i><b>8.2</b> Constrained Transfer with Movable Resources</a>
+<li class="chapter" data-level="8.2" data-path="ch9VRTs.html"><a href="ch9VRTs.html"><i class="fa fa-check"></i><b>8.2</b> Variance Reduction Techniques</a>
 <ul>
-<li class="chapter" data-level="8.2.1" data-path="movableResources.html"><a href="movableResources.html#spatial-models"><i class="fa fa-check"></i><b>8.2.1</b> Spatial Models</a></li>
-<li class="chapter" data-level="8.2.2" data-path="movableResources.html"><a href="movableResources.html#secMovableResources"><i class="fa fa-check"></i><b>8.2.2</b> Movable Resources</a></li>
-<li class="chapter" data-level="8.2.3" data-path="movableResources.html"><a href="movableResources.html#secTQMWM"><i class="fa fa-check"></i><b>8.2.3</b> Tandem Queue Model With Movement</a></li>
+<li class="chapter" data-level="8.2.1" data-path="ch9VRTs.html"><a href="ch9VRTs.html#common-random-numbers-crn"><i class="fa fa-check"></i><b>8.2.1</b> Common Random Numbers (CRN)</a></li>
+<li class="chapter" data-level="8.2.2" data-path="ch9VRTs.html"><a href="ch9VRTs.html#antithetic-variates-av"><i class="fa fa-check"></i><b>8.2.2</b> Antithetic Variates (AV)</a></li>
+<li class="chapter" data-level="8.2.3" data-path="ch9VRTs.html"><a href="ch9VRTs.html#indirect-estimation"><i class="fa fa-check"></i><b>8.2.3</b> Indirect Estimation</a></li>
+<li class="chapter" data-level="8.2.4" data-path="ch9VRTs.html"><a href="ch9VRTs.html#control-variates-cv"><i class="fa fa-check"></i><b>8.2.4</b> Control Variates (CV)</a></li>
+<li class="chapter" data-level="8.2.5" data-path="ch9VRTs.html"><a href="ch9VRTs.html#stratified-and-post-stratified-sampling"><i class="fa fa-check"></i><b>8.2.5</b> Stratified and Post Stratified Sampling</a></li>
+<li class="chapter" data-level="8.2.6" data-path="ch9VRTs.html"><a href="ch9VRTs.html#conditional-expectation-ce"><i class="fa fa-check"></i><b>8.2.6</b> Conditional Expectation (CE)</a></li>
+<li class="chapter" data-level="8.2.7" data-path="ch9VRTs.html"><a href="ch9VRTs.html#importance-sampling-is"><i class="fa fa-check"></i><b>8.2.7</b> Importance Sampling (IS)</a></li>
 </ul></li>
-<li class="chapter" data-level="8.3" data-path="secTestAndRepairMovableResources.html"><a href="secTestAndRepairMovableResources.html"><i class="fa fa-check"></i><b>8.3</b> Modeling the Test and Repair System with Movable Resources</a></li>
-<li class="chapter" data-level="8.4" data-path="secConveyors.html"><a href="secConveyors.html"><i class="fa fa-check"></i><b>8.4</b> Modeling Systems with Conveyors</a>
+<li class="chapter" data-level="8.3" data-path="ch9GMVRVs.html"><a href="ch9GMVRVs.html"><i class="fa fa-check"></i><b>8.3</b> Generating Multi-Variate and Correlated Random Variates</a>
 <ul>
-<li class="chapter" data-level="8.4.1" data-path="secConveyors.html"><a href="secConveyors.html#ksl-conveyor-constructs"><i class="fa fa-check"></i><b>8.4.1</b> KSL Conveyor Constructs</a></li>
-<li class="chapter" data-level="8.4.2" data-path="secConveyors.html"><a href="secConveyors.html#tandem-queue-system-with-conveyors"><i class="fa fa-check"></i><b>8.4.2</b> Tandem Queue System with Conveyors</a></li>
-<li class="chapter" data-level="8.4.3" data-path="secConveyors.html"><a href="secConveyors.html#secTestAndRepairConveyors"><i class="fa fa-check"></i><b>8.4.3</b> Test and Repair via Conveyors</a></li>
-<li class="chapter" data-level="8.4.4" data-path="secConveyors.html"><a href="secConveyors.html#secMiscConveyor"><i class="fa fa-check"></i><b>8.4.4</b> Miscellaneous Concepts in Conveyor Modeling</a></li>
+<li class="chapter" data-level="8.3.1" data-path="ch9GMVRVs.html"><a href="ch9GMVRVs.html#generating-from-a-bivariate-normal-distribution"><i class="fa fa-check"></i><b>8.3.1</b> Generating from a Bivariate Normal Distribution</a></li>
+<li class="chapter" data-level="8.3.2" data-path="ch9GMVRVs.html"><a href="ch9GMVRVs.html#copulas-and-multi-variate-generation-methods"><i class="fa fa-check"></i><b>8.3.2</b> Copulas and Multi-variate Generation Methods</a></li>
+<li class="chapter" data-level="8.3.3" data-path="ch9GMVRVs.html"><a href="ch9GMVRVs.html#autocorrelated-generation"><i class="fa fa-check"></i><b>8.3.3</b> Autocorrelated Generation</a></li>
+<li class="chapter" data-level="8.3.4" data-path="ch9GMVRVs.html"><a href="ch9GMVRVs.html#ch9MCMC"><i class="fa fa-check"></i><b>8.3.4</b> Introduction to Markov Chain Monte Carlo Methods</a></li>
 </ul></li>
-<li class="chapter" data-level="8.5" data-path="summary-of-new-concepts.html"><a href="summary-of-new-concepts.html"><i class="fa fa-check"></i><b>8.5</b> Summary of New Concepts</a></li>
-<li class="chapter" data-level="8.6" data-path="exercises-7.html"><a href="exercises-7.html"><i class="fa fa-check"></i><b>8.6</b> Exercises</a></li>
-</ul></li>
-<li class="chapter" data-level="9" data-path="ch9AdvMC.html"><a href="ch9AdvMC.html"><i class="fa fa-check"></i><b>9</b> Advanced Monte Carlo Methods</a>
-<ul>
-<li class="chapter" data-level="9.1" data-path="ch9BootStrapping.html"><a href="ch9BootStrapping.html"><i class="fa fa-check"></i><b>9.1</b> Bootstrap Methods</a>
-<ul>
-<li class="chapter" data-level="9.1.1" data-path="ch9BootStrapping.html"><a href="ch9BootStrapping.html#bootstrapping-using-the-ksl"><i class="fa fa-check"></i><b>9.1.1</b> Bootstrapping Using the KSL</a></li>
-</ul></li>
-<li class="chapter" data-level="9.2" data-path="ch9VRTs.html"><a href="ch9VRTs.html"><i class="fa fa-check"></i><b>9.2</b> Variance Reduction Techniques</a>
-<ul>
-<li class="chapter" data-level="9.2.1" data-path="ch9VRTs.html"><a href="ch9VRTs.html#common-random-numbers-crn"><i class="fa fa-check"></i><b>9.2.1</b> Common Random Numbers (CRN)</a></li>
-<li class="chapter" data-level="9.2.2" data-path="ch9VRTs.html"><a href="ch9VRTs.html#antithetic-variates-av"><i class="fa fa-check"></i><b>9.2.2</b> Antithetic Variates (AV)</a></li>
-<li class="chapter" data-level="9.2.3" data-path="ch9VRTs.html"><a href="ch9VRTs.html#indirect-estimation"><i class="fa fa-check"></i><b>9.2.3</b> Indirect Estimation</a></li>
-<li class="chapter" data-level="9.2.4" data-path="ch9VRTs.html"><a href="ch9VRTs.html#control-variates-cv"><i class="fa fa-check"></i><b>9.2.4</b> Control Variates (CV)</a></li>
-<li class="chapter" data-level="9.2.5" data-path="ch9VRTs.html"><a href="ch9VRTs.html#stratified-and-post-stratified-sampling"><i class="fa fa-check"></i><b>9.2.5</b> Stratified and Post Stratified Sampling</a></li>
-<li class="chapter" data-level="9.2.6" data-path="ch9VRTs.html"><a href="ch9VRTs.html#conditional-expectation-ce"><i class="fa fa-check"></i><b>9.2.6</b> Conditional Expectation (CE)</a></li>
-<li class="chapter" data-level="9.2.7" data-path="ch9VRTs.html"><a href="ch9VRTs.html#importance-sampling-is"><i class="fa fa-check"></i><b>9.2.7</b> Importance Sampling (IS)</a></li>
-</ul></li>
-<li class="chapter" data-level="9.3" data-path="ch9GMVRVs.html"><a href="ch9GMVRVs.html"><i class="fa fa-check"></i><b>9.3</b> Generating Multi-Variate and Correlated Random Variates</a>
-<ul>
-<li class="chapter" data-level="9.3.1" data-path="ch9GMVRVs.html"><a href="ch9GMVRVs.html#generating-from-a-bivariate-normal-distribution"><i class="fa fa-check"></i><b>9.3.1</b> Generating from a Bivariate Normal Distribution</a></li>
-<li class="chapter" data-level="9.3.2" data-path="ch9GMVRVs.html"><a href="ch9GMVRVs.html#copulas-and-multi-variate-generation-methods"><i class="fa fa-check"></i><b>9.3.2</b> Copulas and Multi-variate Generation Methods</a></li>
-<li class="chapter" data-level="9.3.3" data-path="ch9GMVRVs.html"><a href="ch9GMVRVs.html#autocorrelated-generation"><i class="fa fa-check"></i><b>9.3.3</b> Autocorrelated Generation</a></li>
-<li class="chapter" data-level="9.3.4" data-path="ch9GMVRVs.html"><a href="ch9GMVRVs.html#ch9MCMC"><i class="fa fa-check"></i><b>9.3.4</b> Introduction to Markov Chain Monte Carlo Methods</a></li>
-</ul></li>
-<li class="chapter" data-level="9.4" data-path="summary-4.html"><a href="summary-4.html"><i class="fa fa-check"></i><b>9.4</b> Summary</a></li>
-<li class="chapter" data-level="9.5" data-path="exercises-8.html"><a href="exercises-8.html"><i class="fa fa-check"></i><b>9.5</b> Exercises</a></li>
+<li class="chapter" data-level="8.4" data-path="summary-4.html"><a href="summary-4.html"><i class="fa fa-check"></i><b>8.4</b> Summary</a></li>
+<li class="chapter" data-level="8.5" data-path="exercises-7.html"><a href="exercises-7.html"><i class="fa fa-check"></i><b>8.5</b> Exercises</a></li>
 </ul></li>
 <li class="appendix"><span><b>Appendix</b></span></li>
 <li class="chapter" data-level="A" data-path="appRNRV.html"><a href="appRNRV.html"><i class="fa fa-check"></i><b>A</b> Generating Pseudo-Random Numbers and Random Variates</a>
@@ -425,7 +395,7 @@ div.csl-indent {
 <li class="chapter" data-level="A.2.4" data-path="appRNRVs.html"><a href="appRNRVs.html#AppRNRVsubsecMTSRV"><i class="fa fa-check"></i><b>A.2.4</b> Mixture Distributions, Truncated Distributions, and Shifted Random Variables</a></li>
 </ul></li>
 <li class="chapter" data-level="A.3" data-path="summary-5.html"><a href="summary-5.html"><i class="fa fa-check"></i><b>A.3</b> Summary</a></li>
-<li class="chapter" data-level="A.4" data-path="exercises-9.html"><a href="exercises-9.html"><i class="fa fa-check"></i><b>A.4</b> Exercises</a></li>
+<li class="chapter" data-level="A.4" data-path="exercises-8.html"><a href="exercises-8.html"><i class="fa fa-check"></i><b>A.4</b> Exercises</a></li>
 </ul></li>
 <li class="chapter" data-level="B" data-path="appidm.html"><a href="appidm.html"><i class="fa fa-check"></i><b>B</b> Probability Distribution Modeling</a>
 <ul>
@@ -460,7 +430,7 @@ div.csl-indent {
 </ul></li>
 <li class="chapter" data-level="B.7" data-path="appdistfitidms2sb4.html"><a href="appdistfitidms2sb4.html"><i class="fa fa-check"></i><b>B.7</b> Additional Distribution Modeling Concepts</a></li>
 <li class="chapter" data-level="B.8" data-path="appidmSummary.html"><a href="appidmSummary.html"><i class="fa fa-check"></i><b>B.8</b> Summary</a></li>
-<li class="chapter" data-level="B.9" data-path="exercises-10.html"><a href="exercises-10.html"><i class="fa fa-check"></i><b>B.9</b> Exercises</a></li>
+<li class="chapter" data-level="B.9" data-path="exercises-9.html"><a href="exercises-9.html"><i class="fa fa-check"></i><b>B.9</b> Exercises</a></li>
 </ul></li>
 <li class="chapter" data-level="C" data-path="appqtAndInvT.html"><a href="appqtAndInvT.html"><i class="fa fa-check"></i><b>C</b> Queueing Theory</a>
 <ul>
@@ -487,7 +457,7 @@ div.csl-indent {
 <li class="chapter" data-level="C.4.7" data-path="appqtsecformulas.html"><a href="appqtsecformulas.html#mm1kk-queue"><i class="fa fa-check"></i><b>C.4.7</b> M/M/1/k/k Queue</a></li>
 <li class="chapter" data-level="C.4.8" data-path="appqtsecformulas.html"><a href="appqtsecformulas.html#mmckk-queue"><i class="fa fa-check"></i><b>C.4.8</b> M/M/c/k/k Queue</a></li>
 </ul></li>
-<li class="chapter" data-level="C.5" data-path="exercises-11.html"><a href="exercises-11.html"><i class="fa fa-check"></i><b>C.5</b> Exercises</a></li>
+<li class="chapter" data-level="C.5" data-path="exercises-10.html"><a href="exercises-10.html"><i class="fa fa-check"></i><b>C.5</b> Exercises</a></li>
 </ul></li>
 <li class="chapter" data-level="D" data-path="appUtilities.html"><a href="appUtilities.html"><i class="fa fa-check"></i><b>D</b> KSL Utility Packages</a>
 <ul>
@@ -529,17 +499,516 @@ div.csl-indent {
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="book-support-files" class="section level2 unnumbered hasAnchor">
-<h2>Book Support Files<a href="book-support-files.html#book-support-files" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p>By cloning the repository or downloading the zip archive, you can have a local copy of the entire book. Thus, if you do not have regular access to internet services, you can still read and utilize the materials. I encourage students within a class setting to clone the repository using a program such as <a href="https://desktop.github.com/">Github desktop</a>.</p>
+<div id="ch7:VandV" class="section level2 hasAnchor" number="7.4">
+<h2><span class="header-section-number">7.4</span> Applying Queueing Theory Results to Verify and Validate a Simulation<a href="ch7:VandV.html#ch7:VandV" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>In this section, we overview some verification and validation methods to apply when developing and testing a simulation model.</p>
+<p>Verification is about checking if the model meets the desired output. In
+other words, does the model work correctly as designed? In verifying a
+model, you select a sample of test cases with known results and show
+that the model produces the expected output across the test cases. It is
+important to select the test cases in an unbiased manner and that the
+test cases encompass a large portion of the space that will be relevant
+when using the model. The test cases form the standard that the model
+must meet and thus are critical in convincing others that the
+verification process was of high quality.</p>
+<p>Validation is whether or not the model meets it intended purpose. When
+validating a model, we are trying to build credibility that the model
+can be used as intended. In other words, that the model adequately
+represents the system for its intended purpose. Obviously, verification
+is a necessary but not sufficient step in validation. Validation is
+predicated on how the model is intended to be used and what it is
+supposed to represent.</p>
+<p>In the following, we will illustrate a basic approach to verifying and
+validating the results of a simulation model by using some analytical
+approximations based on queueing theory and common sense. Let’s start
+with an example system to be simulated.</p>
+<hr />
+<div class="example">
+<p><span id="exm:ch7exSmallMfgSys" class="example"><strong>Example 7.10  (Small Manufacturing System) </strong></span>A small manufacturing system produces parts. The parts arrive from an
+upstream Poisson process with a rate of arrival of 1 part every 5
+minutes. All parts that enter the system must go through a preparation
+station where there are 2 preparation workers. A part requires only 1 of
+the 2 workers during preparation. The preparation time is exponentially
+distributed with means of 8 minutes. If all the workers at the
+preparation station are busy, then the part waits for the next available
+preparation worker.</p>
+<p>After preparation, the parts are processed on two different production
+lines. There is a 30% chance that the parts are built on line 1 and a
+70% chance that they go to line 2. Line 1 has a build station staffed by
+2 workers. Line 2 has a build station staffed by 3 workers. The time to
+build a part on line 1 is triangularly distributed with a (min = 2, mode
+= 6, max = 8) minutes. The time to build a part on line 2 is
+triangularly distributed with a (min = 3, mode = 6, max = 7) minutes.
+The build operation on the part only requires 1 of the workers available
+at the station. If all the workers at the station are busy, then the
+part waits for the next available worker.</p>
+<p>After the parts are built, they go to a packaging station. The packaging
+station is staffed by 2 workers. Only 1 of the 2 workers is needed
+during packaging. If all the workers at the packaging station are busy,
+then the part waits for the next available packaging worker. The time to
+individually wrap a part is exponential with a mean of 2 minutes. After
+each individual part is wrapped, the worker fills a box with packing
+peanuts, and places the part into a box for shipping. The time to fill
+the box with peanuts and seal the box is uniformly distribution between
+1 and 2 minutes. After the packaging, the box is placed on a pallet
+building machine. Once 10 boxes accumulate, the pallet machine wraps the
+pallet. The wrapping time takes 2 minutes. After the wrapping is
+completed, the pallet leaves the system.</p>
+<p>The production team believes that a batch run of production over 30
+days of operation is the best way to produce these parts. Thus, at the
+beginning of a month there are currently no parts in production.
+Simulate the system for 100 replications of one month (30 days) of
+operation. The base time unit for the simulation should be in minutes.
+We want to simulate this system in order to measure the following
+performance metrics with some high degree of confidence.</p>
+<table>
+<thead>
+<tr class="header">
+<th align="left"><strong>Performance Measures</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">System time for parts regardless of which build line prior to palletizer</td>
+</tr>
+<tr class="even">
+<td align="left">Prob. that the system time before palletizing of a part is less than 60 minutes</td>
+</tr>
+<tr class="odd">
+<td align="left">Utilization of preparation workers</td>
+</tr>
+<tr class="even">
+<td align="left">Utilization of packaging workers</td>
+</tr>
+<tr class="odd">
+<td align="left">Utilization of line 1 build workers</td>
+</tr>
+<tr class="even">
+<td align="left">Utilization of line 2 build workers</td>
+</tr>
+<tr class="odd">
+<td align="left">Utilization of the palletizer</td>
+</tr>
+<tr class="even">
+<td align="left">Total number of parts produced in 30 days</td>
+</tr>
+<tr class="odd">
+<td align="left">Total number of pallets completed in 30 days</td>
+</tr>
+</tbody>
+</table>
+</div>
+<hr />
+<p>Suppose you build a simulation model for this situation and get the
+following results. The building of the model is left as an exercise for
+the reader.</p>
+<table>
+<thead>
+<tr class="header">
+<th align="left"><strong>Performance Measures</strong></th>
+<th align="center"><strong>Average</strong></th>
+<th align="center"><strong>Half-width</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">System time for parts regardless of which build line prior to palletizer</td>
+<td align="center">31.73</td>
+<td align="center">0.44</td>
+</tr>
+<tr class="even">
+<td align="left">Prob. that the system time before palletizing of a part is less than 60 minutes</td>
+<td align="center">0.89</td>
+<td align="center">0.01</td>
+</tr>
+<tr class="odd">
+<td align="left">Utilization of preparation workers</td>
+<td align="center">0.80</td>
+<td align="center">0.00</td>
+</tr>
+<tr class="even">
+<td align="left">Utilization of packaging workers</td>
+<td align="center">0.35</td>
+<td align="center">0.00</td>
+</tr>
+<tr class="odd">
+<td align="left">Utilization of line 1 build workers</td>
+<td align="center">0.16</td>
+<td align="center">0.00</td>
+</tr>
+<tr class="even">
+<td align="left">Utilization of line 2 build workers</td>
+<td align="center">0.25</td>
+<td align="center">0.00</td>
+</tr>
+<tr class="odd">
+<td align="left">Utilization of the palletizer</td>
+<td align="center">0.039</td>
+<td align="center">0.00</td>
+</tr>
+<tr class="even">
+<td align="left">Total number of parts produced in 30 days</td>
+<td align="center">8623.36</td>
+<td align="center">17.75</td>
+</tr>
+<tr class="odd">
+<td align="left">Total number of pallets completed in 30 days</td>
+<td align="center">861.85</td>
+<td align="center">1.77</td>
+</tr>
+</tbody>
+</table>
+<p>How do you know if these results seem reasonable? You can use basic
+queueing analysis and some simple math to help verify and validate your
+results.</p>
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:MfgFlowDiagram"></span>
+<img src="figures2/ch7/MfgFlowDiagram.png" alt="Small manufacturing system with flow rates"  />
+<p class="caption">
+Figure 7.10: Small manufacturing system with flow rates
+</p>
+</div>
+<p>By examining Figure <a href="ch7:VandV.html#fig:MfgFlowDiagram">7.10</a> and using a little flow analysis, we
+can get a pretty good approximation of the results. In the figure, we see each station (preparation, line 1, line 2, packaging, and the palletizer). The flow rate of
+the parts to each of the stations has also been noted. In what follows each of the stations
+will be analyzed (individually) and then the overall system will be
+analyzed using some basic queueing analysis using the results of Appendix <a href="#app:qtAndInvT"><strong>??</strong></a>.</p>
+<p>The approach is based on
+determining the rate of flow between the stations and using simple
+queueing formulas. Let’s start with the preparation station.</p>
+<div id="analyzing-the-preparation-station" class="section level3 hasAnchor" number="7.4.1">
+<h3><span class="header-section-number">7.4.1</span> Analyzing the Preparation Station<a href="ch7:VandV.html#analyzing-the-preparation-station" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Let <span class="math inline">\(\lambda_{0}\)</span> be the arrival rate to the preparation station. Let
+<span class="math inline">\(\mu_{0}\)</span> be the service rate at the preparation station. This is the
+rate at which an individual preparation worker works. Let
+<span class="math inline">\(\text{MTBA}_{0}\)</span> be the mean time between arrivals for the preparation
+station and let <span class="math inline">\(E\lbrack\text{ST}_{0}\rbrack\)</span> be the mean service time
+at the preparation station. Clearly from the problem description, we
+have:</p>
+<p><span class="math display">\[\lambda_{0} = \frac{1}{\text{MTBA}_{0}} = \frac{1}{5\ \min} \times \frac{60\ \min}{1\ \text{hour}} = 12/\text{hour}\]</span></p>
+<p><span class="math display">\[\mu_{0} = \frac{1}{E\lbrack\text{ST}_{0}\rbrack} = \frac{1}{8\ \min} \times \frac{60\ \min}{1\ \text{hour}} = 7.5/\text{hour}\]</span></p>
+<p>Based on queueing theory, we have that the utilization, <span class="math inline">\(\rho,\)</span> is:</p>
+<p><span class="math display">\[\rho = \frac{\lambda}{c*\mu} = \frac{E\lbrack\text{ST}\rbrack}{c*\text{MTBA}}\]</span></p>
+<p>where <span class="math inline">\(c\)</span> is the number of servers at the station. For the preparation
+station, we have:</p>
+<p><span class="math display">\[\rho_{0} = \frac{\lambda_{0}}{c\mu_{0}} = \frac{12}{2 \times 7.5} = 0.8\]</span></p>
+<p>From the simulation output results, we see that the utilization of the
+simulation is exactly that as predicted from the basic flow analysis.
+Let’s examine the build lines.</p>
+</div>
+<div id="analyzing-the-build-lines" class="section level3 hasAnchor" number="7.4.2">
+<h3><span class="header-section-number">7.4.2</span> Analyzing the Build Lines<a href="ch7:VandV.html#analyzing-the-build-lines" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>In this case, we need to determine the arrival rate to each of the
+lines. First, we assume that the rate of arrivals out of the preparation
+station will be the same as the rate of arrivals into the preparation
+station. Since there is a probabilistic split of the flow to the lines,
+we can split the rate of parts flowing to line 1 and line 2 based on the
+probability of selecting the lines. Thus, we have that each line
+experiences the input rates as follows.</p>
+<ul>
+<li><p>Let <span class="math inline">\(\lambda_{1}\)</span> be the arrival rate to the line 1 station and let
+<span class="math inline">\(\lambda_{2}\)</span> be the arrival rate to the line 2 station.</p></li>
+<li><p>Let <span class="math inline">\(p_{1}\)</span> be the probability that line 1 is selected and let
+<span class="math inline">\(p_{2}\)</span> be the probability that line 2 is selected.</p></li>
+</ul>
+<p>Thus, <span class="math inline">\(\lambda_{1} = p_{1} \times\)</span>
+<span class="math inline">\(\lambda_{0} = 0.3 \times 12 = 3.6\)</span> per hour and
+<span class="math inline">\(\lambda_{2} = p_{2} \times\)</span>
+<span class="math inline">\(\lambda_{0} = 0.7 \times 12 = 8.4\)</span> per hour. Now, we need to get the
+mean service time for the build lines. Because the service time
+distribution is triangular, we have that the mean of the triangular
+random variable, X, is:</p>
+<p><span class="math display">\[E\left\lbrack X \right\rbrack = \frac{(\min{+ \ \text{mode} + \max)}}{3}\]</span></p>
+<p>Therefore, we can compute the service rate for each of the lines, where
+<span class="math inline">\(\text{ST}_{1}\)</span> and <span class="math inline">\(\text{ST}_{2}\)</span> represent the service time random
+variable for line 1 and 2, respectively, as follows:</p>
+<p><span class="math display">\[\mu_{1} = \frac{1}{E\left\lbrack \text{ST}_{1} \right\rbrack} = \frac{1}{\frac{(2 + 6 + 8)}{3}} = \frac{1}{5.3\overline{3}\ \min} \times \frac{60\ \min}{1\ \text{hour}} = 11.25/\text{hour}\]</span></p>
+<p><span class="math display">\[\mu_{2} = \frac{1}{E\left\lbrack \text{ST}_{2} \right\rbrack} = \frac{1}{\frac{(3 + 6 + 7)}{3}} = \frac{1}{5.3\overline{3}\ \min} \times \frac{60\ \min}{1\ \text{hour}} = 11.25/\text{hour}\]</span></p>
+<p>And, then we can compute the utilization for each of the lines.</p>
+<p><span class="math display">\[\rho_{1} = \frac{\lambda_{1}}{c\mu_{1}} = \frac{3.6}{2 \times 11.25} = 0.16\]</span></p>
+<p><span class="math display">\[\rho_{2} = \frac{\lambda_{2}}{c\mu_{2}} = \frac{8.4}{3 \times 11.25} = 0.24\overline{8}\]</span></p>
+<p>Again, these results, match very closely the results from the simulation
+model. We can also approximate the results for packaging in the same
+manner.</p>
+</div>
+<div id="analyzing-the-packaging-station" class="section level3 hasAnchor" number="7.4.3">
+<h3><span class="header-section-number">7.4.3</span> Analyzing the Packaging Station<a href="ch7:VandV.html#analyzing-the-packaging-station" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Again, we need to compute the incoming flow rate to the packaging
+station in order to compute the utilization at the station. Let
+<span class="math inline">\(\lambda_{3}\)</span> be the arrival rate to the packaging station. If we assume
+that everything that arrives to each of the two build lines eventually
+gets to packaging, we can see that
+<span class="math inline">\(\lambda_{3} = \lambda_{1} + \lambda_{2} = \lambda_{0} = 12\)</span> per hour.</p>
+<p>The mean service time at the packaging station is the sum of the mean
+wrapping process time and the mean box filling time. The wrapping
+process has an exponential distribution with a mean of 2 minutes while
+the filling process has a continuous uniform distribution on the range
+of 1 to 2 minutes. Thus, using the expected values for these respective
+distributions, we have:</p>
+<p><span class="math display">\[E\left\lbrack ST_{w} \right\rbrack = 2\ \min\]</span></p>
+<p><span class="math display">\[E\left\lbrack ST_{f} \right\rbrack = 1.5\ \min\]</span></p>
+<p>Let <span class="math inline">\(ST_{3}\)</span> be the service time at the packaging station. Because the
+time in service at the packaging station include both processing times,
+we have a utilization calculation as follows:</p>
+<p><span class="math display">\[E\left\lbrack ST_{3} \right\rbrack = \ E\left\lbrack ST_{w} \right\rbrack + E\left\lbrack ST_{f} \right\rbrack = 3.5\ \min\]</span></p>
+<p><span class="math display">\[\mu_{3} = \frac{1}{E\left\lbrack \text{ST}_{3} \right\rbrack} = \frac{1}{3.5\ \min} \times \frac{60\ \min}{1\ \text{hour}} = 17.1428\ \text{per}\ \text{hour}\]</span></p>
+<p><span class="math display">\[\rho_{3} = \frac{\lambda_{3}}{c\mu_{3}} = \frac{12}{2 \times 17.1428} = 0.35\]</span></p>
+<p>Again, the results match very closely to the simulation results. With
+some additional thinking, we can even approximate the utilization of the
+palletizer.</p>
+</div>
+<div id="analyzing-the-palletizing-station" class="section level3 hasAnchor" number="7.4.4">
+<h3><span class="header-section-number">7.4.4</span> Analyzing the Palletizing Station<a href="ch7:VandV.html#analyzing-the-palletizing-station" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Assuming that all parts that arrive to packaging also arrive to the
+palletizer, we have a rate of arrivals to the palletizer of 12 per hour.
+However, we have to wait until there are 10 parts before they are sent
+to the palletizer. The rate of 12 per hour is a mean time between
+arrivals of 1 part every 5 minutes. To get 10 parts, it will take on
+average 50 minutes. Thus, the mean time between arrivals to the
+palletizer is 50 minutes. Let <span class="math inline">\(\lambda_{4}\)</span> be the arrival rate to the
+palletizer. Thus, the arrival rate to the palletizer is</p>
+<p><span class="math display">\[\lambda_{4} = \frac{1}{\text{MTBA}_{4}} = \frac{1}{50\ \min}\]</span></p>
+<p>Thus, the utilization for the palletizer should be:</p>
+<p><span class="math display">\[\rho_{4} = \frac{\lambda_{4}}{c\mu_{4}} = \frac{E\lbrack ST_{4}\rbrack}{c*\text{MTBA}_{4}} = \frac{2}{1 \times 50} = 0.04\]</span></p>
+<p>Again, this matches quite well with the simulation results. In general,
+as long as <span class="math inline">\(\lambda &lt; c\mu\ \)</span>the approximation of utilization will be
+quite accurate.</p>
+</div>
+<div id="analyzing-the-total-system-time" class="section level3 hasAnchor" number="7.4.5">
+<h3><span class="header-section-number">7.4.5</span> Analyzing the Total System Time<a href="ch7:VandV.html#analyzing-the-total-system-time" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>We can go even further and approximate the total time spent in the
+system. If there is no waiting in any of the queues, the approximation
+is quite simple. We just need to total the time spent in service for the
+parts. Let <span class="math inline">\(E\lbrack ST\rbrack\)</span> be the total time spent in service. To
+compute this value, we can simply add up all of the mean service times
+for the stations visited. In the case of line 1 and line 2, we can take
+the weighted average based on the probability that the line is selected
+as follows:</p>
+<p><span class="math display">\[E\left\lbrack \text{ST} \right\rbrack = E\left\lbrack \text{ST}_{0} \right\rbrack + p_{1}E\left\lbrack \text{ST}_{1} \right\rbrack + p_{2}E\left\lbrack \text{ST}_{2} \right\rbrack + E\left\lbrack \text{ST}_{3} \right\rbrack + E\lbrack ST_{4}\rbrack\]</span></p>
+<p><span class="math display">\[E\left\lbrack \text{ST} \right\rbrack = 8 + 0.3 \times 5.3\overline{3} + 0.7 \times 5.3\overline{3} + 3.5 + 2.0 = 18.8\overline{3}\ \text{minutes}\]</span></p>
+<p>This can be easily tested within the simulation model by setting all the
+resource capacities to “infinite”. If you do this, the results will
+indicate that the expected time in the system is <span class="math inline">\(18.8951 \pm 0.06\)</span> with
+95% confidence. Clearly, these results are close enough to provide even
+more credibility to the simulation results.</p>
+<p>By using additional queueing theory, we can approximate total time spent
+at each station by approximating the time spent within the queues and
+then adding up the total time. This will require additional
+approximations. For a random variable, <span class="math inline">\(X\)</span>, the squared coefficient of
+variation is given by:</p>
+<p><span class="math display">\[c_{X}^{2} = \frac{\text{Var}(X)}{{(E\left\lbrack X \right\rbrack)}^{2}}\]</span></p>
+<p>Whitt (1983) suggests the following approximation for the queuing time
+in a GI/G/c queue, where GI is some general independent inter-arrival
+distribution, G is some general service distribution and c is the number
+of servers. The approximation has the following form:</p>
+<p><span class="math display">\[W_{q}(\text{GI}/G/c) \cong \left( \frac{c_{a}^{2} + c_{s}^{2}}{2} \right)W_{q}(M/M/c)\]</span></p>
+<p>Where <span class="math inline">\(c_{a}^{2}\)</span> and <span class="math inline">\(c_{s}^{2}\)</span> represent the squared coefficient of
+variation of the inter-arrival time distribution and the service time
+distribution respectively and <span class="math inline">\(W_{q}(M/M/c)\)</span> is the expected waiting
+time in a M/M/c queue.</p>
+<p>The main difficulty with applying this approximation is determining the
+variance of the inter-arrival time distribution. In what follows, we
+will simplify the approach even further and assume that the
+inter-arrival process at each station is a Poisson process. Thus, the
+inter-arrival distribution will be assumed to be exponential. Since the
+variance of an exponential distribution is the square of its mean, the
+squared coefficient of variation for all the arrival processes will be
+<span class="math inline">\(c_{a}^{2} = 1.\)</span> We will just need to compute the squared coefficient of
+variation for each of the service time distributions associated with
+each station. To determine the waiting time in queue, we will need the
+waiting time in queue equations for the M/M/c queueing model. The
+following table summarizes the formulas for the cases of 1, 2, and 3
+servers.</p>
+<div id="tab:MMCFormulas">
+<table>
+<caption><span id="tab:MMCFormulas">Table 7.7: </span> Formulas for expected waiting time for M/M/c queue <span class="math inline">\(\rho = \lambda/c \mu\)</span></caption>
+<thead>
+<tr class="header">
+<th align="left">c = # servers</th>
+<th align="left"><span class="math inline">\(W_{q} =\)</span>Expected Waiting time in Queue</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">1</td>
+<td align="left"><span class="math display">\[\frac{\rho^{2}}{\lambda\left( 1 - \rho \right)}\]</span></td>
+</tr>
+<tr class="even">
+<td align="left">2</td>
+<td align="left"><span class="math display">\[\frac{{2\rho}^{3}}{\lambda\left( 1 - \rho^{2} \right)}\]</span></td>
+</tr>
+<tr class="odd">
+<td align="left">3</td>
+<td align="left"><span class="math display">\[\frac{{9\rho}^{4}}{\lambda\left( 2 + 2\rho - \rho^{2} - 3\rho^{3} \right)}\]</span></td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>We can now tabulate the waiting time in the queue for each of the
+stations. By using the variance associated with each service time
+distribution, as well as the mean, we can compute the squared
+coefficient of variation for the service time distribution for each
+station. The following table summarizes the results. The calculations
+are left to the reader.</p>
+<div id="tab:MMCResults">
+<table>
+<caption><span id="tab:MMCResults">Table 7.8: </span> Summary queueing results for each station</caption>
+<thead>
+<tr class="header">
+<th align="left">Station</th>
+<th align="left">c</th>
+<th><span class="math display">\[\rho = \frac{\lambda}{\text{c}\mu}\]</span></th>
+<th align="center"><span class="math display">\[W_{q}(M/M/c)\]</span></th>
+<th align="right"><span class="math display">\[c_{a}^{2}\]</span></th>
+<th align="right"><span class="math display">\[c_{s}^{2}\]</span></th>
+<th align="right"><span class="math display">\[\frac{\left( c_{a}^{2} + c_{s}^{2} \right)}{2}\]</span></th>
+<th align="right"><span class="math display">\[W_{q}(\text{GI}/G/c)\]</span></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Preparation</td>
+<td align="left">2</td>
+<td><span class="math display">\[0.8\]</span></td>
+<td align="center"><span class="math display">\[14.\overline{22}\]</span></td>
+<td align="right">1</td>
+<td align="right">1</td>
+<td align="right">1</td>
+<td align="right"><span class="math display">\[14.\overline{22}\]</span></td>
+</tr>
+<tr class="even">
+<td align="left">Line 1 Build</td>
+<td align="left">2</td>
+<td><span class="math display">\[0.16\]</span></td>
+<td align="center"><span class="math display">\[0.0420\]</span></td>
+<td align="right">1</td>
+<td align="right">0.0547</td>
+<td align="right">0.5274</td>
+<td align="right">0.0221</td>
+</tr>
+<tr class="odd">
+<td align="left">Line 2 Build</td>
+<td align="left">3</td>
+<td><span class="math display">\[0.24\overline{8}\]</span></td>
+<td align="center"><span class="math display">\[0.0722\]</span></td>
+<td align="right">1</td>
+<td align="right">0.0254</td>
+<td align="right">0.5127</td>
+<td align="right">0.0370</td>
+</tr>
+<tr class="even">
+<td align="left">Packaging</td>
+<td align="left">2</td>
+<td><span class="math display">\[0.35\]</span></td>
+<td align="center"><span class="math display">\[0.4886\]</span></td>
+<td align="right">1</td>
+<td align="right">0.3333</td>
+<td align="right">0.6666</td>
+<td align="right">0.3259</td>
+</tr>
+<tr class="odd">
+<td align="left">Palletizing</td>
+<td align="left">1</td>
+<td><span class="math display">\[0.04\]</span></td>
+<td align="center"><span class="math display">\[0.0722\]</span></td>
+<td align="right">1</td>
+<td align="right">0</td>
+<td align="right">0.5</td>
+<td align="right">0.0361</td>
+</tr>
+</tbody>
+</table>
+</div>
+<p>From these results, we can tabulate an approximation for the total time
+in the system. Let <span class="math inline">\(E\lbrack TW_{q}\rbrack\)</span> be the total expected
+waiting time of a part and <span class="math inline">\(E\lbrack T\rbrack\)</span> be the expected total
+time spent in the system for a part. Clearly, we have that,
+<span class="math inline">\(E\left\lbrack T \right\rbrack = E\lbrack TW_{q}\rbrack\)</span>
++<span class="math inline">\(\ E\left\lbrack \text{ST} \right\rbrack\)</span>, where <span class="math inline">\(E\lbrack ST\rbrack\)</span>
+is the total time spent in service for a part. Using the results of the
+table and taking a weighted average across the waiting time for the two
+build lines, we can see that the total expected waiting time in queue
+is:</p>
+<p><span class="math display">\[E\left\lbrack TW_{q} \right\rbrack = 14.22 + \left( 0.3 \right)*\left( 0.420 \right) + \left( 0.7 \right)*\left( 0.0722 \right) + 0.4886 + 0.0722 =14.957\]</span></p>
+<p>Thus, the total expected time spent in the system should be
+approximately, <span class="math inline">\(E\left\lbrack T \right\rbrack = E\lbrack TW_{q}\rbrack\)</span>
++<span class="math inline">\(\ E\left\lbrack \text{ST} \right\rbrack = 18.83 + 14.957 = 33.79\)</span>
+minutes. We can compare this value to the simulation result
+(<span class="math inline">\(31.73 \pm 0.44\)</span>) with 95% confidence.</p>
+<p>Based on this comparison, we can see that the approximation is very
+good. Again, this should add a great deal of credibility to the reported
+results. You might think that, in general, simulation models will be
+“too complex” for such validation methods. Well, sure, I agree that
+there can be very complex simulation models, but that does not mean that
+parts of the model would not lend themselves to a simple analysis as
+demonstrated here. If the individual parts of a simulation model can be
+validated. Then, as long as we believe that when putting the parts
+together to form the entire model, it is still valid, then why wouldn’t
+the overall results not be valid? By verifying and validating individual
+components of the model, we can build up the credibility in the overall
+model.</p>
+</div>
+<div id="other-issues-for-verification-and-validation" class="section level3 hasAnchor" number="7.4.6">
+<h3><span class="header-section-number">7.4.6</span> Other Issues for Verification and Validation<a href="ch7:VandV.html#other-issues-for-verification-and-validation" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>As previously noted, verification is about checking if the model or algorithm produces its desired output. Verification is an issue of software quality control. Since computer simulation relies on representing a system within software, we must ensure that we produce software (code) that is error-free. While it is beyond the scope of this book to fully discuss quality control issues within software development, we will not two major approaches that should be applied to simulation model development: 1) testing and 2) debugging.</p>
+<p>The test cases should be designed from simple tests to more complicated
+tests. Test cases can be designed to test individual components of the
+model. If each component passes its test, then testing all components
+together should occur. For a stochastic simulation, testing can be
+performed using statistical tests over the set of test cases that
+indicate with a high level of confidence that the model produces results
+that are not significantly different than the expected output. In
+addition, you might show that the model converges to the expected
+result. Here, error and relative error, their statistical properties,
+etc. are important metrics to use to provide overall confidence in the
+verification process.</p>
+<p>Testing a simulation model begins by developing the model <em>in stages</em>. You should first identify the key modeling issues and develop pseudo-code to address those issues. Then, you should map out a logical development process by which the components of the model can be constructed as independently of each other as possible. For example, for the small manufacturing system, the first stage of the model building process would be to simulate the preparation station. We can use DISPOSE modules to dispose of those parts that leave the preparation station and analyze whether or not the preparation station is working correctly. You should identify parts of the system that can be analyzes with very little dependence on the other components. If we only want to check if the logic of the component is working correctly, we can use a simple CREATE module that causes a simpler deterministic arrival pattern and step through the model logic. For example, create a single entity and send it through the model. Does it do what you intended? Force the entity to take a particular path through the system by setting appropriate attributes or changing appropriate DECIDE modules. Does the entity do what it is supposed to do for the test? As noted in Example <a href="#exm:exSmallMfgSys"><strong>??</strong></a> another approach is to set the capacity of all resources to infinity and run the model. Then, you can check if the basic flow time is as expected without any queueing. A staged development process that starts with pseudo-code and tests each stage is critical to ensuring that the model works as intended. Start small. Build small. Test small. And, then integrate the components.</p>
+<p>The second recommended method of verification is debugging the model. Use the debugging capability of your software and step through the model. Check edge cases and debug the model. Run the model with watches on variables that stop the model if an
+invalid condition occurs, trace output through the debugger or by printing out data, watch well designed animation examples that have expected behavior. Animation can be essential to showing that your model is working as intended. Add animation elements that help you determine if your model logic is working. Regardless of whether or not your simulation requires a beautiful animation, you should utilize the basic animation capabilities to verify that your model works. Document what you did for the debugging. State what you did and what you found. The fact that you performed these verification steps is the essential first step in validating your model. Validation is whether or not the model meets its intended purpose. Validation cannot be accomplished unless verification steps have occurred.</p>
+<p>Validation cannot be done without convincing the user that the key
+conceptual elements of the system have been adequately represented in
+the model. This includes the modeling of the inputs to the system and
+how the conceptual model has been translated to a computerized
+representation. This is why documenting the input models and the
+conceptual model is so important. The old axiom, garbage in equals
+garbage out is pertinent here. The user must believe that the inputs
+have been well-modeled. The user must understand what is being modeled.</p>
+<p>It is also important that everyone agrees on how the model is intended
+to be used. If there is no agreement on the conceptual representation or
+on the model’s use, then validation will be unsuccessful. Validation is
+predicated on the model representing the system. Thus, validation often
+involves comparing the output of the model to the output of the real
+system. If the user of the model cannot tell the difference between
+model output and real system output, then the model’s representational
+power is quite high. If you have data from the real system, especially system output performance measures (e.g. throughput, system time, etc.), then you can compare the results of the simulation model to the actual results from the system. You can perform statistical tests to show that the results from the simulation model are not statistically different from the actual system. Again, a staged approach can be used. Do not feel that you have to validate the whole model against the whole system. Perhaps you can collect data on some critical sub-component of the system being modeled. You can then compare the results of your simulation of that critical sub-component to the actual results from that sub-component. Validating each sub-component goes a long way to validating the overall model. It may be easier to collect data from the actual system in stages or in these smaller components. Besides checking if the output matches the actual system output, you should check if the simulation model behaves as expected. The output of the model should react in the same
+manner as that expected for the real system or the conceptual understanding
+of how the system works. If you increase the arrial rate, does congestion go up? If not, it is likely something may be misrepresented within your model.</p>
+<p>In many situations, the real system does not exist yet. Thus, you will
+not have real data for validation purposes. This is often the case when
+simulation is being used to design a system. In such situations, you may
+be able to approximate the expected performance via “hand” calculations.
+In this context, you can and should approximation the performance of the
+simulation model using analytical methods, such as queuing theory. This
+can provide bounds on the expected performance and add to the
+credibility of the results. In addition, even if the whole system may not yet exist, perhaps sub-components of the real system exist. If so, you can test output from the sub-components to the associated sub-components of your model. Do not think like you have validate the whole model! Think about how you can validate parts of the model, with the validation of each part contributing the validation of the whole.</p>
+<p>Carefully documenting your conceptual model and your assumptions is also
+an important task for validation. If the user of your model does not
+understand it through its careful documentation, then they are less
+likely to believe the results from the model. Performing sensitivity
+analysis on a set of representative test cases can build credibility in
+the usage of the model. Validation is ultimately about believability.
+Does the user believe the results of the model?
+Validation is whether or not the model/algorithm meets it intended
+purpose. Verification is about checking if the model/algorithm meets the
+desired output. You must perform these functions when building a simulation model.</p>
+</div>
 </div>
             </section>
 
           </div>
         </div>
       </div>
-<a href="ksl-project-page.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="acknowledgments.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="examples-of-advanced-event-models.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="summary-3.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>

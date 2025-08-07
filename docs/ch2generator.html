@@ -6,7 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>2.1 Random Number Generator | Simulation Modeling using the Kotlin Simulation Library (KSL)</title>
   <meta name="description" content="A book that illustrates the basics of using the KSL. The output format for this book is bookdown::gitbook." />
-  <meta name="generator" content="bookdown 0.39 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.40 and GitBook 2.6.7" />
 
   <meta property="og:title" content="2.1 Random Number Generator | Simulation Modeling using the Kotlin Simulation Library (KSL)" />
   <meta property="og:type" content="book" />
@@ -23,7 +23,7 @@
 <meta name="author" content="Manuel D. Rossetti" />
 
 
-<meta name="date" content="2025-07-03" />
+<meta name="date" content="2025-08-07" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -57,8 +57,9 @@
 
 
 <style type="text/css">
+html { -webkit-text-size-adjust: 100%; }
 pre > code.sourceCode { white-space: pre; position: relative; }
-pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
 pre > code.sourceCode > span:empty { height: 1.2em; }
 .sourceCode { overflow: visible; }
 code.sourceCode > span { color: inherit; text-decoration: inherit; }
@@ -68,7 +69,7 @@ div.sourceCode { overflow: auto; }
 }
 @media print {
 pre > code.sourceCode { white-space: pre-wrap; }
-pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
 }
 pre.numberSource code
   { counter-reset: source-line 0; }
@@ -556,7 +557,7 @@ initially generated value, <span class="math inline">\(U_{i}\)</span>, will star
 <p>Using the recursive equations, the resulting random numbers are as follows:</p>
 <table>
 <thead>
-<tr class="header">
+<tr>
 <th></th>
 <th align="center">i=3</th>
 <th align="center">i=4</th>
@@ -568,7 +569,7 @@ initially generated value, <span class="math inline">\(U_{i}\)</span>, will star
 </tr>
 </thead>
 <tbody>
-<tr class="odd">
+<tr>
 <td><span class="math inline">\(Z_{1,i-3}=\)</span></td>
 <td align="center">12345</td>
 <td align="center">12345</td>
@@ -578,7 +579,7 @@ initially generated value, <span class="math inline">\(U_{i}\)</span>, will star
 <td></td>
 <td></td>
 </tr>
-<tr class="even">
+<tr>
 <td><span class="math inline">\(Z_{1,i-2}=\)</span></td>
 <td align="center">12345</td>
 <td align="center">12345</td>
@@ -588,7 +589,7 @@ initially generated value, <span class="math inline">\(U_{i}\)</span>, will star
 <td></td>
 <td></td>
 </tr>
-<tr class="odd">
+<tr>
 <td><span class="math inline">\(Z_{1,i-1}=\)</span></td>
 <td align="center">12345</td>
 <td align="center">3023790853</td>
@@ -598,7 +599,7 @@ initially generated value, <span class="math inline">\(U_{i}\)</span>, will star
 <td></td>
 <td></td>
 </tr>
-<tr class="even">
+<tr>
 <td><span class="math inline">\(Z_{2,i-3}=\)</span></td>
 <td align="center">12345</td>
 <td align="center">12345</td>
@@ -608,7 +609,7 @@ initially generated value, <span class="math inline">\(U_{i}\)</span>, will star
 <td></td>
 <td></td>
 </tr>
-<tr class="odd">
+<tr>
 <td><span class="math inline">\(Z_{2,i-2}=\)</span></td>
 <td align="center">12345</td>
 <td align="center">12345</td>
@@ -618,7 +619,7 @@ initially generated value, <span class="math inline">\(U_{i}\)</span>, will star
 <td></td>
 <td></td>
 </tr>
-<tr class="even">
+<tr>
 <td><span class="math inline">\(Z_{2,i-1}=\)</span></td>
 <td align="center">12345</td>
 <td align="center">2478282264</td>
@@ -628,7 +629,7 @@ initially generated value, <span class="math inline">\(U_{i}\)</span>, will star
 <td></td>
 <td></td>
 </tr>
-<tr class="odd">
+<tr>
 <td><span class="math inline">\(Z_{1,i}=\)</span></td>
 <td align="center">3023790853</td>
 <td align="center">3023790853</td>
@@ -638,7 +639,7 @@ initially generated value, <span class="math inline">\(U_{i}\)</span>, will star
 <td></td>
 <td></td>
 </tr>
-<tr class="even">
+<tr>
 <td><span class="math inline">\(Z_{2,i}=\)</span></td>
 <td align="center">2478282264</td>
 <td align="center">1655725443</td>
@@ -648,7 +649,7 @@ initially generated value, <span class="math inline">\(U_{i}\)</span>, will star
 <td></td>
 <td></td>
 </tr>
-<tr class="odd">
+<tr>
 <td><span class="math inline">\(Y_i=\)</span></td>
 <td align="center">545508589</td>
 <td align="center">1368065410</td>
@@ -658,7 +659,7 @@ initially generated value, <span class="math inline">\(U_{i}\)</span>, will star
 <td></td>
 <td></td>
 </tr>
-<tr class="even">
+<tr>
 <td><span class="math inline">\(U_i=\)</span></td>
 <td align="center">0.127011122076</td>
 <td align="center">0.318527565471</td>

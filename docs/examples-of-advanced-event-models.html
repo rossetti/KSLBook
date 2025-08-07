@@ -6,7 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>7.3 Examples of Advanced Event Models | Simulation Modeling using the Kotlin Simulation Library (KSL)</title>
   <meta name="description" content="A book that illustrates the basics of using the KSL. The output format for this book is bookdown::gitbook." />
-  <meta name="generator" content="bookdown 0.39 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.40 and GitBook 2.6.7" />
 
   <meta property="og:title" content="7.3 Examples of Advanced Event Models | Simulation Modeling using the Kotlin Simulation Library (KSL)" />
   <meta property="og:type" content="book" />
@@ -23,7 +23,7 @@
 <meta name="author" content="Manuel D. Rossetti" />
 
 
-<meta name="date" content="2025-07-03" />
+<meta name="date" content="2025-08-07" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -57,8 +57,9 @@
 
 
 <style type="text/css">
+html { -webkit-text-size-adjust: 100%; }
 pre > code.sourceCode { white-space: pre; position: relative; }
-pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
 pre > code.sourceCode > span:empty { height: 1.2em; }
 .sourceCode { overflow: visible; }
 code.sourceCode > span { color: inherit; text-decoration: inherit; }
@@ -68,7 +69,7 @@ div.sourceCode { overflow: auto; }
 }
 @media print {
 pre > code.sourceCode { white-space: pre-wrap; }
-pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
 }
 pre.numberSource code
   { counter-reset: source-line 0; }
@@ -556,21 +557,21 @@ first served basis. The service time distributions of the customers are
 given as follows.</p>
 <table>
 <thead>
-<tr class="header">
+<tr>
 <th align="left">Priority</th>
 <th align="left">Service Time Distribution (in minutes)</th>
 </tr>
 </thead>
 <tbody>
-<tr class="odd">
+<tr>
 <td align="left">High</td>
 <td align="left">Lognormal(<span class="math inline">\(\mu = 38\)</span>, <span class="math inline">\(\sigma = 8\)</span>)</td>
 </tr>
-<tr class="even">
+<tr>
 <td align="left">Medium</td>
 <td align="left">Triangular(16, 22, 28)</td>
 </tr>
-<tr class="odd">
+<tr>
 <td align="left">Low</td>
 <td align="left">Lognormal(<span class="math inline">\(\mu = 12\)</span>, <span class="math inline">\(\sigma = 2\)</span>)</td>
 </tr>
@@ -635,7 +636,7 @@ patient is willing to wait. The following code defines the random variables need
 <span id="cb302-5"><a href="examples-of-advanced-event-models.html#cb302-5" tabindex="-1"></a>            priority <span class="op">=</span> typeMap<span class="op">[</span>service<span class="op">]!!</span></span>
 <span id="cb302-6"><a href="examples-of-advanced-event-models.html#cb302-6" tabindex="-1"></a>        <span class="op">}</span></span>
 <span id="cb302-7"><a href="examples-of-advanced-event-models.html#cb302-7" tabindex="-1"></a></span>
-<span id="cb302-8"><a href="examples-of-advanced-event-models.html#cb302-8" tabindex="-1"></a>        <span class="kw">val</span> <span class="va">clinicProcess</span> <span class="op">=</span> process <span class="op">{</span></span>
+<span id="cb302-8"><a href="examples-of-advanced-event-models.html#cb302-8" tabindex="-1"></a>        <span class="kw">val</span> <span class="va">clinicProcess</span> <span class="op">=</span> process<span class="op">(</span>isDefaultProcess <span class="op">=</span> <span class="kw">true</span><span class="op">)</span> <span class="op">{</span></span>
 <span id="cb302-9"><a href="examples-of-advanced-event-models.html#cb302-9" tabindex="-1"></a>            <span class="cf">if</span> <span class="op">((</span>priority <span class="op">==</span> <span class="dv">3</span><span class="op">)</span> <span class="op">&amp;&amp;</span> <span class="op">(</span>doctorQ<span class="op">.</span>size <span class="op">&gt;=</span> balkCriteria<span class="op">))</span> <span class="op">{</span></span>
 <span id="cb302-10"><a href="examples-of-advanced-event-models.html#cb302-10" tabindex="-1"></a>                <span class="co">// record balking</span></span>
 <span id="cb302-11"><a href="examples-of-advanced-event-models.html#cb302-11" tabindex="-1"></a>                balkingProb<span class="op">.</span>value <span class="op">=</span> <span class="fl">1.0</span></span>
@@ -661,7 +662,7 @@ patient is willing to wait. The following code defines the random variables need
 <span id="cb302-31"><a href="examples-of-advanced-event-models.html#cb302-31" tabindex="-1"></a>            sysTimeMap<span class="op">[</span>priority<span class="op">]?.</span>value <span class="op">=</span> st</span>
 <span id="cb302-32"><a href="examples-of-advanced-event-models.html#cb302-32" tabindex="-1"></a>            numServed<span class="op">.</span>increment<span class="op">()</span></span>
 <span id="cb302-33"><a href="examples-of-advanced-event-models.html#cb302-33" tabindex="-1"></a>        <span class="op">}</span></span></code></pre></div>
-<p>Patients that get past the balking logic complete the rest of the process and thus do not balk. A response variable is used to collect this statistic. Then, the patient uses the triage nurse. After using the triage nurse, the low priority patient might need to renege. Thus, the low priority patient schedules the reneging action. All patients proceed to used the doctor. After using the doctor, if the patient is a low priority patient, then the patient must not have reneging and statistics are collected. Finally, statistics are collected upon departure from the process. Let’s take a closer look at the reneging action logic.</p>
+<p>Patients that get past the balking logic complete the rest of the process and thus do not balk. A response variable is used to collect this statistic. Then, the patient uses the triage nurse. After using the triage nurse, the low priority patient might need to renege. Thus, the low priority patient schedules the reneging action. All patients proceed to used the doctor. After using the doctor, if the patient is a low priority patient, then the patient must not have reneged and statistics are collected. Finally, statistics are collected upon departure from the process. Let’s take a closer look at the reneging action logic.</p>
 <div class="sourceCode" id="cb303"><pre class="sourceCode kt"><code class="sourceCode kotlin"><span id="cb303-1"><a href="examples-of-advanced-event-models.html#cb303-1" tabindex="-1"></a>        <span class="kw">private</span> <span class="kw">fun</span> <span class="fu">renegeAction</span><span class="op">(</span><span class="va">event</span><span class="op">:</span> <span class="dt">KSLEvent</span>&lt;<span class="va">Patient</span>&gt;<span class="op">)</span> <span class="op">{</span></span>
 <span id="cb303-2"><a href="examples-of-advanced-event-models.html#cb303-2" tabindex="-1"></a>            <span class="kw">val</span> <span class="va">request</span><span class="op">:</span> ProcessModel<span class="op">.</span>Entity<span class="op">.</span>Request<span class="op">?</span> <span class="op">=</span> doctorQ<span class="op">.</span>find <span class="op">{</span> it<span class="op">.</span>entity <span class="op">==</span> event<span class="op">.</span>message <span class="op">}</span></span>
 <span id="cb303-3"><a href="examples-of-advanced-event-models.html#cb303-3" tabindex="-1"></a>            <span class="cf">if</span> <span class="op">(</span>request <span class="op">!=</span> <span class="kw">null</span><span class="op">)</span> <span class="op">{</span></span>
@@ -678,7 +679,7 @@ the patient, setting an alarm clock (the event scheduled by the entity) for when
 <p><strong>Walk-in Clinic Statistical Summary Report</strong></p>
 <table>
 <thead>
-<tr class="header">
+<tr>
 <th align="center">Name</th>
 <th align="center">Count</th>
 <th align="center">Average</th>
@@ -686,139 +687,139 @@ the patient, setting an alarm clock (the event scheduled by the entity) for when
 </tr>
 </thead>
 <tbody>
-<tr class="odd">
+<tr>
 <td align="center">DoctorQ:NumInQ</td>
 <td align="center">30</td>
 <td align="center">0.93</td>
 <td align="center">0.232</td>
 </tr>
-<tr class="even">
+<tr>
 <td align="center">DoctorQ:TimeInQ</td>
 <td align="center">30</td>
 <td align="center">4.79</td>
 <td align="center">1.078</td>
 </tr>
-<tr class="odd">
+<tr>
 <td align="center">Doctors:InstantaneousUtil</td>
 <td align="center">30</td>
 <td align="center">0.779</td>
 <td align="center">0.026</td>
 </tr>
-<tr class="even">
+<tr>
 <td align="center">Doctors:NumBusyUnits</td>
 <td align="center">30</td>
 <td align="center">3.897</td>
 <td align="center">0.129</td>
 </tr>
-<tr class="odd">
+<tr>
 <td align="center">Doctors:ScheduledUtil</td>
 <td align="center">30</td>
 <td align="center">0.779</td>
 <td align="center">0.026</td>
 </tr>
-<tr class="even">
+<tr>
 <td align="center">Doctors:WIP</td>
 <td align="center">30</td>
 <td align="center">4.828</td>
 <td align="center">0.339</td>
 </tr>
-<tr class="odd">
+<tr>
 <td align="center">TriageNurse:InstantaneousUtil</td>
 <td align="center">30</td>
 <td align="center">0.421</td>
 <td align="center">0.016</td>
 </tr>
-<tr class="even">
+<tr>
 <td align="center">TriageNurse:NumBusyUnits</td>
 <td align="center">30</td>
 <td align="center">0.421</td>
 <td align="center">0.016</td>
 </tr>
-<tr class="odd">
+<tr>
 <td align="center">TriageNurse:ScheduledUtil</td>
 <td align="center">30</td>
 <td align="center">0.421</td>
 <td align="center">0.016</td>
 </tr>
-<tr class="even">
+<tr>
 <td align="center">TriageNurse:WIP</td>
 <td align="center">30</td>
 <td align="center">0.575</td>
 <td align="center">0.037</td>
 </tr>
-<tr class="odd">
+<tr>
 <td align="center">TriageNurse:Q:NumInQ</td>
 <td align="center">30</td>
 <td align="center">0.154</td>
 <td align="center">0.022</td>
 </tr>
-<tr class="even">
+<tr>
 <td align="center">TriageNurse:Q:TimeInQ</td>
 <td align="center">30</td>
 <td align="center">0.889</td>
 <td align="center">0.107</td>
 </tr>
-<tr class="odd">
+<tr>
 <td align="center">Walk-In Clinic:TimeInSystem</td>
 <td align="center">30</td>
 <td align="center">33.165</td>
 <td align="center">1.445</td>
 </tr>
-<tr class="even">
+<tr>
 <td align="center">Walk-In Clinic:TimeInSystemHigh</td>
 <td align="center">30</td>
 <td align="center">43.77</td>
 <td align="center">0.851</td>
 </tr>
-<tr class="odd">
+<tr>
 <td align="center">Walk-In Clinic:TimeInSystemMedium</td>
 <td align="center">30</td>
 <td align="center">31.47</td>
 <td align="center">1.626</td>
 </tr>
-<tr class="even">
+<tr>
 <td align="center">Walk-In Clinic:TimeInSystemLow</td>
 <td align="center">30</td>
 <td align="center">17.188</td>
 <td align="center">0.653</td>
 </tr>
-<tr class="odd">
+<tr>
 <td align="center">Walk-In Clinic:ProbBalking</td>
 <td align="center">30</td>
 <td align="center">0</td>
 <td align="center">0</td>
 </tr>
-<tr class="even">
+<tr>
 <td align="center">Walk-In Clinic:ProbReneging</td>
 <td align="center">30</td>
 <td align="center">0.293</td>
 <td align="center">0.075</td>
 </tr>
-<tr class="odd">
+<tr>
 <td align="center">Doctors:SeizeCount</td>
 <td align="center">30</td>
 <td align="center">94.733</td>
 <td align="center">2.442</td>
 </tr>
-<tr class="even">
+<tr>
 <td align="center">TriageNurse:SeizeCount</td>
 <td align="center">30</td>
 <td align="center">101.233</td>
 <td align="center">3.791</td>
 </tr>
-<tr class="odd">
+<tr>
 <td align="center">Walk-In Clinic:NumServed</td>
 <td align="center">30</td>
 <td align="center">90.633</td>
 <td align="center">2.273</td>
 </tr>
-<tr class="even">
+<tr>
 <td align="center">Walk-In Clinic:NumBalked</td>
 <td align="center">30</td>
 <td align="center">0</td>
 <td align="center">0</td>
 </tr>
-<tr class="odd">
+<tr>
 <td align="center">Walk-In Clinic:NumReneged</td>
 <td align="center">30</td>
 <td align="center">4.367</td>
@@ -1247,7 +1248,7 @@ immediately filled.</p></li>
 <p><strong>Inventory Model Statistical Summary Report</strong></p>
 <table>
 <thead>
-<tr class="header">
+<tr>
 <th align="center">Name</th>
 <th align="center">Count</th>
 <th align="center">Average</th>
@@ -1255,79 +1256,79 @@ immediately filled.</p></li>
 </tr>
 </thead>
 <tbody>
-<tr class="odd">
+<tr>
 <td align="center">RQ Inventory Model:Item:OnHand</td>
 <td align="center">40</td>
 <td align="center">1.804</td>
 <td align="center">0.001</td>
 </tr>
-<tr class="even">
+<tr>
 <td align="center">RQ Inventory Model:Item:PTimeWithStockOnHand</td>
 <td align="center">40</td>
 <td align="center">0.72</td>
 <td align="center">0</td>
 </tr>
-<tr class="odd">
+<tr>
 <td align="center">RQ Inventory Model:Item:AmountBackOrdered</td>
 <td align="center">40</td>
 <td align="center">0.104</td>
 <td align="center">0</td>
 </tr>
-<tr class="even">
+<tr>
 <td align="center">RQ Inventory Model:Item:OnOrder</td>
 <td align="center">40</td>
 <td align="center">1.801</td>
 <td align="center">0.001</td>
 </tr>
-<tr class="odd">
+<tr>
 <td align="center">RQ Inventory Model:Item:BackOrderQ:NumInQ</td>
 <td align="center">40</td>
 <td align="center">0.104</td>
 <td align="center">0</td>
 </tr>
-<tr class="even">
+<tr>
 <td align="center">RQ Inventory Model:Item:BackOrderQ:TimeInQ</td>
 <td align="center">40</td>
 <td align="center">0.153</td>
 <td align="center">0</td>
 </tr>
-<tr class="odd">
+<tr>
 <td align="center">RQ Inventory Model:Item:FillRate</td>
 <td align="center">40</td>
 <td align="center">0.811</td>
 <td align="center">0</td>
 </tr>
-<tr class="even">
+<tr>
 <td align="center">RQ Inventory Model:Item:OrderingFrequency</td>
 <td align="center">40</td>
 <td align="center">1.801</td>
 <td align="center">0.001</td>
 </tr>
-<tr class="odd">
+<tr>
 <td align="center">RQ Inventory Model:Item:TotalCost</td>
 <td align="center">40</td>
 <td align="center">3.709</td>
 <td align="center">0.001</td>
 </tr>
-<tr class="even">
+<tr>
 <td align="center">RQ Inventory Model:Item:OrderingCost</td>
 <td align="center">40</td>
 <td align="center">1.801</td>
 <td align="center">0.001</td>
 </tr>
-<tr class="odd">
+<tr>
 <td align="center">RQ Inventory Model:Item:HoldingCost</td>
 <td align="center">40</td>
 <td align="center">1.804</td>
 <td align="center">0.001</td>
 </tr>
-<tr class="even">
+<tr>
 <td align="center">RQ Inventory Model:Item:BackorderCost</td>
 <td align="center">40</td>
 <td align="center">0.104</td>
 <td align="center">0</td>
 </tr>
-<tr class="odd">
+<tr>
 <td align="center">RQ Inventory Model:Item:NumReplenishmentOrders</td>
 <td align="center">40</td>
 <td align="center">180060.8</td>

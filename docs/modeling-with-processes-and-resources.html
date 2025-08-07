@@ -6,7 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>7.1 Modeling with Processes and Resources | Simulation Modeling using the Kotlin Simulation Library (KSL)</title>
   <meta name="description" content="A book that illustrates the basics of using the KSL. The output format for this book is bookdown::gitbook." />
-  <meta name="generator" content="bookdown 0.39 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.40 and GitBook 2.6.7" />
 
   <meta property="og:title" content="7.1 Modeling with Processes and Resources | Simulation Modeling using the Kotlin Simulation Library (KSL)" />
   <meta property="og:type" content="book" />
@@ -23,7 +23,7 @@
 <meta name="author" content="Manuel D. Rossetti" />
 
 
-<meta name="date" content="2025-07-03" />
+<meta name="date" content="2025-08-07" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -57,8 +57,9 @@
 
 
 <style type="text/css">
+html { -webkit-text-size-adjust: 100%; }
 pre > code.sourceCode { white-space: pre; position: relative; }
-pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
 pre > code.sourceCode > span:empty { height: 1.2em; }
 .sourceCode { overflow: visible; }
 code.sourceCode > span { color: inherit; text-decoration: inherit; }
@@ -68,7 +69,7 @@ div.sourceCode { overflow: auto; }
 }
 @media print {
 pre > code.sourceCode { white-space: pre-wrap; }
-pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
 }
 pre.numberSource code
   { counter-reset: source-line 0; }
@@ -584,7 +585,7 @@ Figure 7.1: Tandem Queue
 <span id="cb261-23"><a href="modeling-with-processes-and-resources.html#cb261-23" tabindex="-1"></a>        <span class="kw">get</span><span class="op">()</span> <span class="op">=</span> timeInSystem</span></code></pre></div>
 <p>Since the resources will need a queue, we declare the two resources by using the <code>ResourceWithQ</code> class. Then, we specify the random variables that will be used to represent the time between arrivals and the service time at the two stations. Finally, we define the response variables for collecting the number in the system and the time in the system. The process modeling is a straight-forward application of the <em>(seize-delay-release)</em> pattern that was presented in the previous chapter.</p>
 <div class="sourceCode" id="cb262"><pre class="sourceCode kt"><code class="sourceCode kotlin"><span id="cb262-1"><a href="modeling-with-processes-and-resources.html#cb262-1" tabindex="-1"></a>    <span class="kw">private</span> <span class="kw">inner</span> <span class="kw">class</span> Customer <span class="op">:</span> <span class="dt">Entity</span><span class="op">(){</span></span>
-<span id="cb262-2"><a href="modeling-with-processes-and-resources.html#cb262-2" tabindex="-1"></a>        <span class="kw">val</span> <span class="va">tandemQProcess</span> <span class="op">:</span> KSLProcess <span class="op">=</span> process <span class="op">{</span></span>
+<span id="cb262-2"><a href="modeling-with-processes-and-resources.html#cb262-2" tabindex="-1"></a>        <span class="kw">val</span> <span class="va">tandemQProcess</span> <span class="op">:</span> KSLProcess <span class="op">=</span> process<span class="op">(</span>isDefaultProcess <span class="op">=</span> <span class="kw">true</span><span class="op">)</span> <span class="op">{</span></span>
 <span id="cb262-3"><a href="modeling-with-processes-and-resources.html#cb262-3" tabindex="-1"></a>            wip<span class="op">.</span>increment<span class="op">()</span></span>
 <span id="cb262-4"><a href="modeling-with-processes-and-resources.html#cb262-4" tabindex="-1"></a>            timeStamp <span class="op">=</span> time</span>
 <span id="cb262-5"><a href="modeling-with-processes-and-resources.html#cb262-5" tabindex="-1"></a>            seize<span class="op">(</span>worker1<span class="op">)</span></span>
@@ -595,10 +596,11 @@ Figure 7.1: Tandem Queue
 <span id="cb262-10"><a href="modeling-with-processes-and-resources.html#cb262-10" tabindex="-1"></a>            release<span class="op">(</span>worker2<span class="op">)</span></span>
 <span id="cb262-11"><a href="modeling-with-processes-and-resources.html#cb262-11" tabindex="-1"></a>            timeInSystem<span class="op">.</span>value <span class="op">=</span> time <span class="op">-</span> timeStamp</span>
 <span id="cb262-12"><a href="modeling-with-processes-and-resources.html#cb262-12" tabindex="-1"></a>            wip<span class="op">.</span>decrement<span class="op">()</span></span>
-<span id="cb262-13"><a href="modeling-with-processes-and-resources.html#cb262-13" tabindex="-1"></a>        <span class="op">}</span></span></code></pre></div>
+<span id="cb262-13"><a href="modeling-with-processes-and-resources.html#cb262-13" tabindex="-1"></a>        <span class="op">}</span></span>
+<span id="cb262-14"><a href="modeling-with-processes-and-resources.html#cb262-14" tabindex="-1"></a>    <span class="op">}</span></span></code></pre></div>
 <p>Notice that this code does not save the allocations that are returned by the call to the <code>seize</code> method. This is possible because of two reasons. First, the KSL overloads the <code>release</code> method to allow for the specification of the resource to be released. This overloaded method will release <strong>all</strong> previously returned allocations that the entity holds of the named resource. Secondly, this situation is a perfect use case for this, because the entity only has seized the worker <em>once</em> before the specified release. Thus, we are simply releasing the last allocation held by the entity via the <code>release()</code> function. It really is user preference whether to save the allocation and then release the allocation or to use the approach of specifying the name of the resource. Of course, this works because releasing <strong>all</strong> previous allocations is the same as releasing the last one in this situation. In fact, this situation is so common that the KSL provides an additional short cut as illustrated in the following code.</p>
 <div class="sourceCode" id="cb263"><pre class="sourceCode kt"><code class="sourceCode kotlin"><span id="cb263-1"><a href="modeling-with-processes-and-resources.html#cb263-1" tabindex="-1"></a>    <span class="kw">private</span> <span class="kw">inner</span> <span class="kw">class</span> Customer <span class="op">:</span> <span class="dt">Entity</span><span class="op">(){</span></span>
-<span id="cb263-2"><a href="modeling-with-processes-and-resources.html#cb263-2" tabindex="-1"></a>        <span class="kw">val</span> <span class="va">tandemQProcess</span> <span class="op">:</span> KSLProcess <span class="op">=</span> process <span class="op">{</span></span>
+<span id="cb263-2"><a href="modeling-with-processes-and-resources.html#cb263-2" tabindex="-1"></a>        <span class="kw">val</span> <span class="va">tandemQProcess</span> <span class="op">:</span> KSLProcess <span class="op">=</span> process<span class="op">(</span>isDefaultProcess <span class="op">=</span> <span class="kw">true</span><span class="op">)</span> <span class="op">{</span></span>
 <span id="cb263-3"><a href="modeling-with-processes-and-resources.html#cb263-3" tabindex="-1"></a>            wip<span class="op">.</span>increment<span class="op">()</span></span>
 <span id="cb263-4"><a href="modeling-with-processes-and-resources.html#cb263-4" tabindex="-1"></a>            timeStamp <span class="op">=</span> time</span>
 <span id="cb263-5"><a href="modeling-with-processes-and-resources.html#cb263-5" tabindex="-1"></a>            use<span class="op">(</span>worker1<span class="op">,</span> delayDuration <span class="op">=</span> st1<span class="op">)</span></span>
@@ -610,7 +612,7 @@ Figure 7.1: Tandem Queue
 <p>The <code>use</code> method combines the <em>(seize-delay-release)</em> pattern into one method call. The results are not very remarkable.</p>
 <table>
 <thead>
-<tr class="header">
+<tr>
 <th align="center">Name</th>
 <th align="center">Count</th>
 <th align="center">Average</th>
@@ -618,97 +620,97 @@ Figure 7.1: Tandem Queue
 </tr>
 </thead>
 <tbody>
-<tr class="odd">
+<tr>
 <td align="center">worker1:InstantaneousUtil</td>
 <td align="center">30</td>
 <td align="center">0.351</td>
 <td align="center">0.002</td>
 </tr>
-<tr class="even">
+<tr>
 <td align="center">worker1:NumBusyUnits</td>
 <td align="center">30</td>
 <td align="center">0.351</td>
 <td align="center">0.002</td>
 </tr>
-<tr class="odd">
+<tr>
 <td align="center">worker1:ScheduledUtil</td>
 <td align="center">30</td>
 <td align="center">0.351</td>
 <td align="center">0.002</td>
 </tr>
-<tr class="even">
+<tr>
 <td align="center">worker1:WIP</td>
 <td align="center">30</td>
 <td align="center">0.54</td>
 <td align="center">0.007</td>
 </tr>
-<tr class="odd">
+<tr>
 <td align="center">worker1:Q:NumInQ</td>
 <td align="center">30</td>
 <td align="center">0.189</td>
 <td align="center">0.005</td>
 </tr>
-<tr class="even">
+<tr>
 <td align="center">worker1:Q:TimeInQ</td>
 <td align="center">30</td>
 <td align="center">0.379</td>
 <td align="center">0.008</td>
 </tr>
-<tr class="odd">
+<tr>
 <td align="center">worker2:InstantaneousUtil</td>
 <td align="center">30</td>
 <td align="center">0.45</td>
 <td align="center">0.003</td>
 </tr>
-<tr class="even">
+<tr>
 <td align="center">worker2:NumBusyUnits</td>
 <td align="center">30</td>
 <td align="center">0.45</td>
 <td align="center">0.003</td>
 </tr>
-<tr class="odd">
+<tr>
 <td align="center">worker2:ScheduledUtil</td>
 <td align="center">30</td>
 <td align="center">0.45</td>
 <td align="center">0.003</td>
 </tr>
-<tr class="even">
+<tr>
 <td align="center">worker2:WIP</td>
 <td align="center">30</td>
 <td align="center">0.82</td>
 <td align="center">0.01</td>
 </tr>
-<tr class="odd">
+<tr>
 <td align="center">worker2:Q:NumInQ</td>
 <td align="center">30</td>
 <td align="center">0.37</td>
 <td align="center">0.008</td>
 </tr>
-<tr class="even">
+<tr>
 <td align="center">worker2:Q:TimeInQ</td>
 <td align="center">30</td>
 <td align="center">0.741</td>
 <td align="center">0.014</td>
 </tr>
-<tr class="odd">
+<tr>
 <td align="center">TandemQModel:NumInSystem</td>
 <td align="center">30</td>
 <td align="center">1.36</td>
 <td align="center">0.014</td>
 </tr>
-<tr class="even">
+<tr>
 <td align="center">TandemQModel:TimeInSystem</td>
 <td align="center">30</td>
 <td align="center">2.723</td>
 <td align="center">0.02</td>
 </tr>
-<tr class="odd">
+<tr>
 <td align="center">worker1:SeizeCount</td>
 <td align="center">30</td>
 <td align="center">7492.333</td>
 <td align="center">32.526</td>
 </tr>
-<tr class="even">
+<tr>
 <td align="center">worker2:SeizeCount</td>
 <td align="center">30</td>
 <td align="center">7492.533</td>
@@ -737,7 +739,7 @@ Figure 7.2: Tandem Queue with Blocking
 <p>In this code, we defined a resource called <code>buffer</code> with capacity 1 to represent the chair designated for waiting. By changing the capacity of this resource, we can study the effect of the limited space at the second station on system performance.</p>
 <p>Exploring the effect of the buffer size is left as an exercise for the reader. The process modeling needs to be adjusted to account for this space. In the following code, notice the overlapping nature of the seize and release statements.</p>
 <div class="sourceCode" id="cb265"><pre class="sourceCode kt"><code class="sourceCode kotlin"><span id="cb265-1"><a href="modeling-with-processes-and-resources.html#cb265-1" tabindex="-1"></a>    <span class="kw">private</span> <span class="kw">inner</span> <span class="kw">class</span> Customer <span class="op">:</span> <span class="dt">Entity</span><span class="op">()</span> <span class="op">{</span></span>
-<span id="cb265-2"><a href="modeling-with-processes-and-resources.html#cb265-2" tabindex="-1"></a>        <span class="kw">val</span> <span class="va">tandemQProcess</span><span class="op">:</span> KSLProcess <span class="op">=</span> process <span class="op">{</span></span>
+<span id="cb265-2"><a href="modeling-with-processes-and-resources.html#cb265-2" tabindex="-1"></a>        <span class="kw">val</span> <span class="va">tandemQProcess</span><span class="op">:</span> KSLProcess <span class="op">=</span> process<span class="op">(</span>isDefaultProcess <span class="op">=</span> <span class="kw">true</span><span class="op">)</span> <span class="op">{</span></span>
 <span id="cb265-3"><a href="modeling-with-processes-and-resources.html#cb265-3" tabindex="-1"></a>            wip<span class="op">.</span>increment<span class="op">()</span></span>
 <span id="cb265-4"><a href="modeling-with-processes-and-resources.html#cb265-4" tabindex="-1"></a>            timeStamp <span class="op">=</span> time</span>
 <span id="cb265-5"><a href="modeling-with-processes-and-resources.html#cb265-5" tabindex="-1"></a>            <span class="kw">val</span> <span class="va">a1</span> <span class="op">=</span> seize<span class="op">(</span>worker1<span class="op">)</span></span>
@@ -763,7 +765,7 @@ Figure 7.3: Activity Diagram Tandem Queue with Blocking
 <p>For the given arrival rate and service parameters, the results indicate that the effect of blocking is not too significant.</p>
 <table>
 <thead>
-<tr class="header">
+<tr>
 <th align="center">Name</th>
 <th align="center">Count</th>
 <th align="center">Average</th>
@@ -771,139 +773,139 @@ Figure 7.3: Activity Diagram Tandem Queue with Blocking
 </tr>
 </thead>
 <tbody>
-<tr class="odd">
+<tr>
 <td align="center">buffer:InstantaneousUtil</td>
 <td align="center">30</td>
 <td align="center">0.196</td>
 <td align="center">0.003</td>
 </tr>
-<tr class="even">
+<tr>
 <td align="center">buffer:NumBusyUnits</td>
 <td align="center">30</td>
 <td align="center">0.196</td>
 <td align="center">0.003</td>
 </tr>
-<tr class="odd">
+<tr>
 <td align="center">buffer:ScheduledUtil</td>
 <td align="center">30</td>
 <td align="center">0.196</td>
 <td align="center">0.003</td>
 </tr>
-<tr class="even">
+<tr>
 <td align="center">buffer:WIP</td>
 <td align="center">30</td>
 <td align="center">0.267</td>
 <td align="center">0.004</td>
 </tr>
-<tr class="odd">
+<tr>
 <td align="center">buffer:Q:NumInQ</td>
 <td align="center">30</td>
 <td align="center">0.071</td>
 <td align="center">0.002</td>
 </tr>
-<tr class="even">
+<tr>
 <td align="center">buffer:Q:TimeInQ</td>
 <td align="center">30</td>
 <td align="center">0.143</td>
 <td align="center">0.003</td>
 </tr>
-<tr class="odd">
+<tr>
 <td align="center">worker1:InstantaneousUtil</td>
 <td align="center">30</td>
 <td align="center">0.422</td>
 <td align="center">0.003</td>
 </tr>
-<tr class="even">
+<tr>
 <td align="center">worker1:NumBusyUnits</td>
 <td align="center">30</td>
 <td align="center">0.422</td>
 <td align="center">0.003</td>
 </tr>
-<tr class="odd">
+<tr>
 <td align="center">worker1:ScheduledUtil</td>
 <td align="center">30</td>
 <td align="center">0.422</td>
 <td align="center">0.003</td>
 </tr>
-<tr class="even">
+<tr>
 <td align="center">worker1:WIP</td>
 <td align="center">30</td>
 <td align="center">0.761</td>
 <td align="center">0.012</td>
 </tr>
-<tr class="odd">
+<tr>
 <td align="center">worker1:Q:NumInQ</td>
 <td align="center">30</td>
 <td align="center">0.339</td>
 <td align="center">0.009</td>
 </tr>
-<tr class="even">
+<tr>
 <td align="center">worker1:Q:TimeInQ</td>
 <td align="center">30</td>
 <td align="center">0.678</td>
 <td align="center">0.016</td>
 </tr>
-<tr class="odd">
+<tr>
 <td align="center">worker2:InstantaneousUtil</td>
 <td align="center">30</td>
 <td align="center">0.45</td>
 <td align="center">0.003</td>
 </tr>
-<tr class="even">
+<tr>
 <td align="center">worker2:NumBusyUnits</td>
 <td align="center">30</td>
 <td align="center">0.45</td>
 <td align="center">0.003</td>
 </tr>
-<tr class="odd">
+<tr>
 <td align="center">worker2:ScheduledUtil</td>
 <td align="center">30</td>
 <td align="center">0.45</td>
 <td align="center">0.003</td>
 </tr>
-<tr class="even">
+<tr>
 <td align="center">worker2:WIP</td>
 <td align="center">30</td>
 <td align="center">0.646</td>
 <td align="center">0.005</td>
 </tr>
-<tr class="odd">
+<tr>
 <td align="center">worker2:Q:NumInQ</td>
 <td align="center">30</td>
 <td align="center">0.196</td>
 <td align="center">0.003</td>
 </tr>
-<tr class="even">
+<tr>
 <td align="center">worker2:Q:TimeInQ</td>
 <td align="center">30</td>
 <td align="center">0.392</td>
 <td align="center">0.004</td>
 </tr>
-<tr class="odd">
+<tr>
 <td align="center">TandemQModelWithBlocking:NumInSystem</td>
 <td align="center">30</td>
 <td align="center">1.406</td>
 <td align="center">0.016</td>
 </tr>
-<tr class="even">
+<tr>
 <td align="center">TandemQModelWithBlocking:TimeInSystem</td>
 <td align="center">30</td>
 <td align="center">2.815</td>
 <td align="center">0.023</td>
 </tr>
-<tr class="odd">
+<tr>
 <td align="center">buffer:SeizeCount</td>
 <td align="center">30</td>
 <td align="center">7492.467</td>
 <td align="center">32.384</td>
 </tr>
-<tr class="even">
+<tr>
 <td align="center">worker1:SeizeCount</td>
 <td align="center">30</td>
 <td align="center">7492.333</td>
 <td align="center">32.406</td>
 </tr>
-<tr class="odd">
+<tr>
 <td align="center">worker2:SeizeCount</td>
 <td align="center">30</td>
 <td align="center">7492.5</td>
@@ -1026,7 +1028,7 @@ Figure 7.3: Activity Diagram Tandem Queue with Blocking
 <p><strong>Resource Pool Example Statistical Summary Report</strong></p>
 <table>
 <thead>
-<tr class="header">
+<tr>
 <th align="center">Name</th>
 <th align="center">Count</th>
 <th align="center">Average</th>
@@ -1034,169 +1036,169 @@ Figure 7.3: Activity Diagram Tandem Queue with Blocking
 </tr>
 </thead>
 <tbody>
-<tr class="odd">
+<tr>
 <td align="center">John:InstantaneousUtil</td>
 <td align="center">30</td>
 <td align="center">0.663</td>
 <td align="center">0.003</td>
 </tr>
-<tr class="even">
+<tr>
 <td align="center">John:NumBusyUnits</td>
 <td align="center">30</td>
 <td align="center">0.663</td>
 <td align="center">0.003</td>
 </tr>
-<tr class="odd">
+<tr>
 <td align="center">John:ScheduledUtil</td>
 <td align="center">30</td>
 <td align="center">0.663</td>
 <td align="center">0.003</td>
 </tr>
-<tr class="even">
+<tr>
 <td align="center">Paul:InstantaneousUtil</td>
 <td align="center">30</td>
 <td align="center">0.663</td>
 <td align="center">0.003</td>
 </tr>
-<tr class="odd">
+<tr>
 <td align="center">Paul:NumBusyUnits</td>
 <td align="center">30</td>
 <td align="center">0.663</td>
 <td align="center">0.003</td>
 </tr>
-<tr class="even">
+<tr>
 <td align="center">Paul:ScheduledUtil</td>
 <td align="center">30</td>
 <td align="center">0.663</td>
 <td align="center">0.003</td>
 </tr>
-<tr class="odd">
+<tr>
 <td align="center">George:InstantaneousUtil</td>
 <td align="center">30</td>
 <td align="center">0.834</td>
 <td align="center">0.003</td>
 </tr>
-<tr class="even">
+<tr>
 <td align="center">George:NumBusyUnits</td>
 <td align="center">30</td>
 <td align="center">0.834</td>
 <td align="center">0.003</td>
 </tr>
-<tr class="odd">
+<tr>
 <td align="center">George:ScheduledUtil</td>
 <td align="center">30</td>
 <td align="center">0.834</td>
 <td align="center">0.003</td>
 </tr>
-<tr class="even">
+<tr>
 <td align="center">Ringo:InstantaneousUtil</td>
 <td align="center">30</td>
 <td align="center">0.833</td>
 <td align="center">0.003</td>
 </tr>
-<tr class="odd">
+<tr>
 <td align="center">Ringo:NumBusyUnits</td>
 <td align="center">30</td>
 <td align="center">0.833</td>
 <td align="center">0.003</td>
 </tr>
-<tr class="even">
+<tr>
 <td align="center">Ringo:ScheduledUtil</td>
 <td align="center">30</td>
 <td align="center">0.833</td>
 <td align="center">0.003</td>
 </tr>
-<tr class="odd">
+<tr>
 <td align="center">pool1:NumBusy</td>
 <td align="center">30</td>
 <td align="center">2.16</td>
 <td align="center">0.007</td>
 </tr>
-<tr class="even">
+<tr>
 <td align="center">pool1:FractionBusy</td>
 <td align="center">30</td>
 <td align="center">0.72</td>
 <td align="center">0.002</td>
 </tr>
-<tr class="odd">
+<tr>
 <td align="center">pool1:Q:NumInQ</td>
 <td align="center">30</td>
 <td align="center">0.851</td>
 <td align="center">0.023</td>
 </tr>
-<tr class="even">
+<tr>
 <td align="center">pool1:Q:TimeInQ</td>
 <td align="center">30</td>
 <td align="center">1.708</td>
 <td align="center">0.044</td>
 </tr>
-<tr class="odd">
+<tr>
 <td align="center">pool2:NumBusy</td>
 <td align="center">30</td>
 <td align="center">1.666</td>
 <td align="center">0.007</td>
 </tr>
-<tr class="even">
+<tr>
 <td align="center">pool2:FractionBusy</td>
 <td align="center">30</td>
 <td align="center">0.833</td>
 <td align="center">0.003</td>
 </tr>
-<tr class="odd">
+<tr>
 <td align="center">pool2:Q:NumInQ</td>
 <td align="center">30</td>
 <td align="center">2.631</td>
 <td align="center">0.101</td>
 </tr>
-<tr class="even">
+<tr>
 <td align="center">pool2:Q:TimeInQ</td>
 <td align="center">30</td>
 <td align="center">5.253</td>
 <td align="center">0.193</td>
 </tr>
-<tr class="odd">
+<tr>
 <td align="center">ResourcePoolExample_3:WIP1</td>
 <td align="center">30</td>
 <td align="center">2.34</td>
 <td align="center">0.028</td>
 </tr>
-<tr class="even">
+<tr>
 <td align="center">ResourcePoolExample_3:TimeInSystem1</td>
 <td align="center">30</td>
 <td align="center">4.698</td>
 <td align="center">0.05</td>
 </tr>
-<tr class="odd">
+<tr>
 <td align="center">ResourcePoolExample_3:WIP2</td>
 <td align="center">30</td>
 <td align="center">4.134</td>
 <td align="center">0.108</td>
 </tr>
-<tr class="even">
+<tr>
 <td align="center">ResourcePoolExample_3:TimeInSystem2</td>
 <td align="center">30</td>
 <td align="center">8.255</td>
 <td align="center">0.201</td>
 </tr>
-<tr class="odd">
+<tr>
 <td align="center">John:SeizeCount</td>
 <td align="center">30</td>
 <td align="center">3318.533</td>
 <td align="center">19.247</td>
 </tr>
-<tr class="even">
+<tr>
 <td align="center">Paul:SeizeCount</td>
 <td align="center">30</td>
 <td align="center">3335.833</td>
 <td align="center">24.126</td>
 </tr>
-<tr class="odd">
+<tr>
 <td align="center">George:SeizeCount</td>
 <td align="center">30</td>
 <td align="center">4174.967</td>
 <td align="center">24.294</td>
 </tr>
-<tr class="even">
+<tr>
 <td align="center">Ringo:SeizeCount</td>
 <td align="center">30</td>
 <td align="center">4151.9</td>
@@ -1272,29 +1274,29 @@ that the sequences in Table <a href="modeling-with-processes-and-resources.html#
 <table>
 <caption><span id="tab:TestPlans">Table 7.1: </span> Test plan sequences</caption>
 <thead>
-<tr class="header">
+<tr>
 <th align="left">Test Plan</th>
 <th align="center">% of Parts</th>
 <th align="center">Sequence</th>
 </tr>
 </thead>
 <tbody>
-<tr class="odd">
+<tr>
 <td align="left">1</td>
 <td align="center">25%</td>
 <td align="center">2,3,2,1</td>
 </tr>
-<tr class="even">
+<tr>
 <td align="left">2</td>
 <td align="center">12.5%</td>
 <td align="center">3,1</td>
 </tr>
-<tr class="odd">
+<tr>
 <td align="left">3</td>
 <td align="center">37.5%</td>
 <td align="center">1,3,1</td>
 </tr>
-<tr class="even">
+<tr>
 <td align="left">4</td>
 <td align="center">25%</td>
 <td align="center">2,3</td>
@@ -1320,29 +1322,29 @@ the test plan.</p>
 <table>
 <caption><span id="tab:TestDist">Table 7.2: </span> Testing and repair distributions</caption>
 <thead>
-<tr class="header">
+<tr>
 <th align="left">Test Plan</th>
 <th align="center">Testing Time Parameters</th>
 <th align="center">Repair Time Parameters</th>
 </tr>
 </thead>
 <tbody>
-<tr class="odd">
+<tr>
 <td align="left">1</td>
 <td align="center">(20,4.1), (12,4.2), (18,4.3), (16,4.0)</td>
 <td align="center">(30,60,80)</td>
 </tr>
-<tr class="even">
+<tr>
 <td align="left">2</td>
 <td align="center">(12,4), (15,4)</td>
 <td align="center">(45,55,70)</td>
 </tr>
-<tr class="odd">
+<tr>
 <td align="left">3</td>
 <td align="center">(18,4.2), (14,4.4), (12,4.3)</td>
 <td align="center">(30,40,60)</td>
 </tr>
-<tr class="even">
+<tr>
 <td align="left">4</td>
 <td align="center">(24,4), (30,4)</td>
 <td align="center">(35,65,75)</td>
@@ -1415,25 +1417,32 @@ is built by simply providing the list of steps that must be visited. We will use
 <p>Because of the requirement that different parts follow different sequences and have different processing times based on what resource they are using and where they are in the sequence, there are many random variables that need to be defined for this model.</p>
 <div class="sourceCode" id="cb273"><pre class="sourceCode kt"><code class="sourceCode kotlin"><span id="cb273-1"><a href="modeling-with-processes-and-resources.html#cb273-1" tabindex="-1"></a><span class="kw">class</span> TestAndRepairShop<span class="op">(</span><span class="va">parent</span><span class="op">:</span> <span class="dt">ModelElement</span><span class="op">,</span> <span class="va">name</span><span class="op">:</span> <span class="dt">String</span><span class="op">?</span> <span class="op">=</span> null<span class="op">)</span> <span class="op">:</span> <span class="dt">ProcessModel</span><span class="op">(</span><span class="va">parent</span><span class="op">,</span> <span class="va">name</span><span class="op">)</span> <span class="op">{</span></span>
 <span id="cb273-2"><a href="modeling-with-processes-and-resources.html#cb273-2" tabindex="-1"></a></span>
-<span id="cb273-3"><a href="modeling-with-processes-and-resources.html#cb273-3" tabindex="-1"></a>    <span class="co">// define the random variables</span></span>
-<span id="cb273-4"><a href="modeling-with-processes-and-resources.html#cb273-4" tabindex="-1"></a>    <span class="kw">private</span> <span class="kw">val</span> <span class="va">tba</span> <span class="op">=</span> ExponentialRV<span class="op">(</span><span class="fl">20.0</span><span class="op">)</span></span>
-<span id="cb273-5"><a href="modeling-with-processes-and-resources.html#cb273-5" tabindex="-1"></a>    <span class="kw">private</span> <span class="kw">val</span> <span class="va">t11</span> <span class="op">=</span> RandomVariable<span class="op">(</span><span class="kw">this</span><span class="op">,</span> LognormalRV<span class="op">(</span><span class="fl">20.0</span><span class="op">,</span> <span class="fl">4.1</span><span class="op">))</span></span>
-<span id="cb273-6"><a href="modeling-with-processes-and-resources.html#cb273-6" tabindex="-1"></a>    <span class="kw">private</span> <span class="kw">val</span> <span class="va">t21</span> <span class="op">=</span> RandomVariable<span class="op">(</span><span class="kw">this</span><span class="op">,</span> LognormalRV<span class="op">(</span><span class="fl">12.0</span><span class="op">,</span> <span class="fl">4.2</span><span class="op">))</span></span>
-<span id="cb273-7"><a href="modeling-with-processes-and-resources.html#cb273-7" tabindex="-1"></a>    <span class="kw">private</span> <span class="kw">val</span> <span class="va">t31</span> <span class="op">=</span> RandomVariable<span class="op">(</span><span class="kw">this</span><span class="op">,</span> LognormalRV<span class="op">(</span><span class="fl">18.0</span><span class="op">,</span> <span class="fl">4.3</span><span class="op">))</span></span>
-<span id="cb273-8"><a href="modeling-with-processes-and-resources.html#cb273-8" tabindex="-1"></a>    <span class="kw">private</span> <span class="kw">val</span> <span class="va">t41</span> <span class="op">=</span> RandomVariable<span class="op">(</span><span class="kw">this</span><span class="op">,</span> LognormalRV<span class="op">(</span><span class="fl">16.0</span><span class="op">,</span> <span class="fl">4.0</span><span class="op">))</span></span>
-<span id="cb273-9"><a href="modeling-with-processes-and-resources.html#cb273-9" tabindex="-1"></a>    <span class="kw">private</span> <span class="kw">val</span> <span class="va">t12</span> <span class="op">=</span> RandomVariable<span class="op">(</span><span class="kw">this</span><span class="op">,</span> LognormalRV<span class="op">(</span><span class="fl">12.0</span><span class="op">,</span> <span class="fl">4.0</span><span class="op">))</span></span>
-<span id="cb273-10"><a href="modeling-with-processes-and-resources.html#cb273-10" tabindex="-1"></a>    <span class="kw">private</span> <span class="kw">val</span> <span class="va">t22</span> <span class="op">=</span> RandomVariable<span class="op">(</span><span class="kw">this</span><span class="op">,</span> LognormalRV<span class="op">(</span><span class="fl">15.0</span><span class="op">,</span> <span class="fl">4.0</span><span class="op">))</span></span>
-<span id="cb273-11"><a href="modeling-with-processes-and-resources.html#cb273-11" tabindex="-1"></a>    <span class="kw">private</span> <span class="kw">val</span> <span class="va">t13</span> <span class="op">=</span> RandomVariable<span class="op">(</span><span class="kw">this</span><span class="op">,</span> LognormalRV<span class="op">(</span><span class="fl">18.0</span><span class="op">,</span> <span class="fl">4.2</span><span class="op">))</span></span>
-<span id="cb273-12"><a href="modeling-with-processes-and-resources.html#cb273-12" tabindex="-1"></a>    <span class="kw">private</span> <span class="kw">val</span> <span class="va">t23</span> <span class="op">=</span> RandomVariable<span class="op">(</span><span class="kw">this</span><span class="op">,</span> LognormalRV<span class="op">(</span><span class="fl">14.0</span><span class="op">,</span> <span class="fl">4.4</span><span class="op">))</span></span>
-<span id="cb273-13"><a href="modeling-with-processes-and-resources.html#cb273-13" tabindex="-1"></a>    <span class="kw">private</span> <span class="kw">val</span> <span class="va">t33</span> <span class="op">=</span> RandomVariable<span class="op">(</span><span class="kw">this</span><span class="op">,</span> LognormalRV<span class="op">(</span><span class="fl">12.0</span><span class="op">,</span> <span class="fl">4.3</span><span class="op">))</span></span>
-<span id="cb273-14"><a href="modeling-with-processes-and-resources.html#cb273-14" tabindex="-1"></a>    <span class="kw">private</span> <span class="kw">val</span> <span class="va">t14</span> <span class="op">=</span> RandomVariable<span class="op">(</span><span class="kw">this</span><span class="op">,</span> LognormalRV<span class="op">(</span><span class="fl">24.0</span><span class="op">,</span> <span class="fl">4.0</span><span class="op">))</span></span>
-<span id="cb273-15"><a href="modeling-with-processes-and-resources.html#cb273-15" tabindex="-1"></a>    <span class="kw">private</span> <span class="kw">val</span> <span class="va">t24</span> <span class="op">=</span> RandomVariable<span class="op">(</span><span class="kw">this</span><span class="op">,</span> LognormalRV<span class="op">(</span><span class="fl">30.0</span><span class="op">,</span> <span class="fl">4.0</span><span class="op">))</span></span>
-<span id="cb273-16"><a href="modeling-with-processes-and-resources.html#cb273-16" tabindex="-1"></a>    <span class="kw">private</span> <span class="kw">val</span> <span class="va">r1</span> <span class="op">=</span> RandomVariable<span class="op">(</span><span class="kw">this</span><span class="op">,</span> TriangularRV<span class="op">(</span><span class="fl">30.0</span><span class="op">,</span> <span class="fl">60.0</span><span class="op">,</span> <span class="fl">80.0</span><span class="op">))</span></span>
-<span id="cb273-17"><a href="modeling-with-processes-and-resources.html#cb273-17" tabindex="-1"></a>    <span class="kw">private</span> <span class="kw">val</span> <span class="va">r2</span> <span class="op">=</span> RandomVariable<span class="op">(</span><span class="kw">this</span><span class="op">,</span> TriangularRV<span class="op">(</span><span class="fl">45.0</span><span class="op">,</span> <span class="fl">55.0</span><span class="op">,</span> <span class="fl">70.0</span><span class="op">))</span></span>
-<span id="cb273-18"><a href="modeling-with-processes-and-resources.html#cb273-18" tabindex="-1"></a>    <span class="kw">private</span> <span class="kw">val</span> <span class="va">r3</span> <span class="op">=</span> RandomVariable<span class="op">(</span><span class="kw">this</span><span class="op">,</span> TriangularRV<span class="op">(</span><span class="fl">30.0</span><span class="op">,</span> <span class="fl">40.0</span><span class="op">,</span> <span class="fl">60.0</span><span class="op">))</span></span>
-<span id="cb273-19"><a href="modeling-with-processes-and-resources.html#cb273-19" tabindex="-1"></a>    <span class="kw">private</span> <span class="kw">val</span> <span class="va">r4</span> <span class="op">=</span> RandomVariable<span class="op">(</span><span class="kw">this</span><span class="op">,</span> TriangularRV<span class="op">(</span><span class="fl">35.0</span><span class="op">,</span> <span class="fl">65.0</span><span class="op">,</span> <span class="fl">75.0</span><span class="op">))</span></span>
-<span id="cb273-20"><a href="modeling-with-processes-and-resources.html#cb273-20" tabindex="-1"></a>    <span class="kw">private</span> <span class="kw">val</span> <span class="va">diagnosticTime</span> <span class="op">=</span> RandomVariable<span class="op">(</span><span class="kw">this</span><span class="op">,</span> ExponentialRV<span class="op">(</span><span class="fl">30.0</span><span class="op">))</span></span>
-<span id="cb273-21"><a href="modeling-with-processes-and-resources.html#cb273-21" tabindex="-1"></a>    <span class="kw">private</span> <span class="kw">val</span> <span class="va">moveTime</span> <span class="op">=</span> RandomVariable<span class="op">(</span><span class="kw">this</span><span class="op">,</span> UniformRV<span class="op">(</span><span class="fl">2.0</span><span class="op">,</span> <span class="fl">4.0</span><span class="op">))</span></span></code></pre></div>
+<span id="cb273-3"><a href="modeling-with-processes-and-resources.html#cb273-3" tabindex="-1"></a>    <span class="co">// test plan 1, distribution j</span></span>
+<span id="cb273-4"><a href="modeling-with-processes-and-resources.html#cb273-4" tabindex="-1"></a>    <span class="kw">private</span> <span class="kw">val</span> <span class="va">t11</span> <span class="op">=</span> RandomVariable<span class="op">(</span><span class="kw">this</span><span class="op">,</span> LognormalRV<span class="op">(</span><span class="fl">20.0</span><span class="op">,</span> <span class="fl">4.1</span> <span class="op">*</span> <span class="fl">4.1</span><span class="op">))</span></span>
+<span id="cb273-5"><a href="modeling-with-processes-and-resources.html#cb273-5" tabindex="-1"></a>    <span class="kw">private</span> <span class="kw">val</span> <span class="va">t12</span> <span class="op">=</span> RandomVariable<span class="op">(</span><span class="kw">this</span><span class="op">,</span> LognormalRV<span class="op">(</span><span class="fl">12.0</span><span class="op">,</span> <span class="fl">4.2</span> <span class="op">*</span> <span class="fl">4.2</span><span class="op">))</span></span>
+<span id="cb273-6"><a href="modeling-with-processes-and-resources.html#cb273-6" tabindex="-1"></a>    <span class="kw">private</span> <span class="kw">val</span> <span class="va">t13</span> <span class="op">=</span> RandomVariable<span class="op">(</span><span class="kw">this</span><span class="op">,</span> LognormalRV<span class="op">(</span><span class="fl">18.0</span><span class="op">,</span> <span class="fl">4.3</span> <span class="op">*</span> <span class="fl">4.3</span><span class="op">))</span></span>
+<span id="cb273-7"><a href="modeling-with-processes-and-resources.html#cb273-7" tabindex="-1"></a>    <span class="kw">private</span> <span class="kw">val</span> <span class="va">t14</span> <span class="op">=</span> RandomVariable<span class="op">(</span><span class="kw">this</span><span class="op">,</span> LognormalRV<span class="op">(</span><span class="fl">16.0</span><span class="op">,</span> <span class="fl">4.0</span> <span class="op">*</span> <span class="fl">4.0</span><span class="op">))</span></span>
+<span id="cb273-8"><a href="modeling-with-processes-and-resources.html#cb273-8" tabindex="-1"></a>    <span class="co">// test plan 2, distribution j</span></span>
+<span id="cb273-9"><a href="modeling-with-processes-and-resources.html#cb273-9" tabindex="-1"></a>    <span class="kw">private</span> <span class="kw">val</span> <span class="va">t21</span> <span class="op">=</span> RandomVariable<span class="op">(</span><span class="kw">this</span><span class="op">,</span> LognormalRV<span class="op">(</span><span class="fl">12.0</span><span class="op">,</span> <span class="fl">4.0</span> <span class="op">*</span> <span class="fl">4.0</span><span class="op">))</span></span>
+<span id="cb273-10"><a href="modeling-with-processes-and-resources.html#cb273-10" tabindex="-1"></a>    <span class="kw">private</span> <span class="kw">val</span> <span class="va">t22</span> <span class="op">=</span> RandomVariable<span class="op">(</span><span class="kw">this</span><span class="op">,</span> LognormalRV<span class="op">(</span><span class="fl">15.0</span><span class="op">,</span> <span class="fl">4.0</span> <span class="op">*</span> <span class="fl">4.0</span><span class="op">))</span></span>
+<span id="cb273-11"><a href="modeling-with-processes-and-resources.html#cb273-11" tabindex="-1"></a>    <span class="co">// test plan 3, distribution j</span></span>
+<span id="cb273-12"><a href="modeling-with-processes-and-resources.html#cb273-12" tabindex="-1"></a>    <span class="kw">private</span> <span class="kw">val</span> <span class="va">t31</span> <span class="op">=</span> RandomVariable<span class="op">(</span><span class="kw">this</span><span class="op">,</span> LognormalRV<span class="op">(</span><span class="fl">18.0</span><span class="op">,</span> <span class="fl">4.2</span> <span class="op">*</span> <span class="fl">4.2</span><span class="op">))</span></span>
+<span id="cb273-13"><a href="modeling-with-processes-and-resources.html#cb273-13" tabindex="-1"></a>    <span class="kw">private</span> <span class="kw">val</span> <span class="va">t32</span> <span class="op">=</span> RandomVariable<span class="op">(</span><span class="kw">this</span><span class="op">,</span> LognormalRV<span class="op">(</span><span class="fl">14.0</span><span class="op">,</span> <span class="fl">4.4</span> <span class="op">*</span> <span class="fl">4.4</span><span class="op">))</span></span>
+<span id="cb273-14"><a href="modeling-with-processes-and-resources.html#cb273-14" tabindex="-1"></a>    <span class="kw">private</span> <span class="kw">val</span> <span class="va">t33</span> <span class="op">=</span> RandomVariable<span class="op">(</span><span class="kw">this</span><span class="op">,</span> LognormalRV<span class="op">(</span><span class="fl">12.0</span><span class="op">,</span> <span class="fl">4.3</span> <span class="op">*</span> <span class="fl">4.3</span><span class="op">))</span></span>
+<span id="cb273-15"><a href="modeling-with-processes-and-resources.html#cb273-15" tabindex="-1"></a>    <span class="co">// test plan 4, distribution j</span></span>
+<span id="cb273-16"><a href="modeling-with-processes-and-resources.html#cb273-16" tabindex="-1"></a>    <span class="kw">private</span> <span class="kw">val</span> <span class="va">t41</span> <span class="op">=</span> RandomVariable<span class="op">(</span><span class="kw">this</span><span class="op">,</span> LognormalRV<span class="op">(</span><span class="fl">24.0</span><span class="op">,</span> <span class="fl">4.0</span> <span class="op">*</span> <span class="fl">4.0</span><span class="op">))</span></span>
+<span id="cb273-17"><a href="modeling-with-processes-and-resources.html#cb273-17" tabindex="-1"></a>    <span class="kw">private</span> <span class="kw">val</span> <span class="va">t42</span> <span class="op">=</span> RandomVariable<span class="op">(</span><span class="kw">this</span><span class="op">,</span> LognormalRV<span class="op">(</span><span class="fl">30.0</span><span class="op">,</span> <span class="fl">4.0</span> <span class="op">*</span> <span class="fl">4.0</span><span class="op">))</span></span>
+<span id="cb273-18"><a href="modeling-with-processes-and-resources.html#cb273-18" tabindex="-1"></a></span>
+<span id="cb273-19"><a href="modeling-with-processes-and-resources.html#cb273-19" tabindex="-1"></a>    <span class="kw">private</span> <span class="kw">val</span> <span class="va">r1</span> <span class="op">=</span> RandomVariable<span class="op">(</span><span class="kw">this</span><span class="op">,</span> TriangularRV<span class="op">(</span><span class="fl">30.0</span><span class="op">,</span> <span class="fl">60.0</span><span class="op">,</span> <span class="fl">80.0</span><span class="op">))</span></span>
+<span id="cb273-20"><a href="modeling-with-processes-and-resources.html#cb273-20" tabindex="-1"></a>    <span class="kw">private</span> <span class="kw">val</span> <span class="va">r2</span> <span class="op">=</span> RandomVariable<span class="op">(</span><span class="kw">this</span><span class="op">,</span> TriangularRV<span class="op">(</span><span class="fl">45.0</span><span class="op">,</span> <span class="fl">55.0</span><span class="op">,</span> <span class="fl">70.0</span><span class="op">))</span></span>
+<span id="cb273-21"><a href="modeling-with-processes-and-resources.html#cb273-21" tabindex="-1"></a>    <span class="kw">private</span> <span class="kw">val</span> <span class="va">r3</span> <span class="op">=</span> RandomVariable<span class="op">(</span><span class="kw">this</span><span class="op">,</span> TriangularRV<span class="op">(</span><span class="fl">30.0</span><span class="op">,</span> <span class="fl">40.0</span><span class="op">,</span> <span class="fl">60.0</span><span class="op">))</span></span>
+<span id="cb273-22"><a href="modeling-with-processes-and-resources.html#cb273-22" tabindex="-1"></a>    <span class="kw">private</span> <span class="kw">val</span> <span class="va">r4</span> <span class="op">=</span> RandomVariable<span class="op">(</span><span class="kw">this</span><span class="op">,</span> TriangularRV<span class="op">(</span><span class="fl">35.0</span><span class="op">,</span> <span class="fl">65.0</span><span class="op">,</span> <span class="fl">75.0</span><span class="op">))</span></span>
+<span id="cb273-23"><a href="modeling-with-processes-and-resources.html#cb273-23" tabindex="-1"></a>    <span class="kw">private</span> <span class="kw">val</span> <span class="va">diagnosticTime</span> <span class="op">=</span> RandomVariable<span class="op">(</span><span class="kw">this</span><span class="op">,</span> ExponentialRV<span class="op">(</span><span class="fl">30.0</span><span class="op">))</span></span>
+<span id="cb273-24"><a href="modeling-with-processes-and-resources.html#cb273-24" tabindex="-1"></a>    <span class="kw">private</span> <span class="kw">val</span> <span class="va">moveTime</span> <span class="op">=</span> RandomVariable<span class="op">(</span><span class="kw">this</span><span class="op">,</span> UniformRV<span class="op">(</span><span class="fl">2.0</span><span class="op">,</span> <span class="fl">4.0</span><span class="op">))</span></span>
+<span id="cb273-25"><a href="modeling-with-processes-and-resources.html#cb273-25" tabindex="-1"></a>    <span class="kw">private</span> <span class="kw">val</span> <span class="va">tba</span> <span class="op">=</span> ExponentialRV<span class="op">(</span><span class="fl">20.0</span><span class="op">)</span></span>
+<span id="cb273-26"><a href="modeling-with-processes-and-resources.html#cb273-26" tabindex="-1"></a>    <span class="kw">private</span> <span class="kw">val</span> <span class="va">myArrivalGenerator</span> <span class="op">=</span> EntityGenerator<span class="op">(::</span>Part<span class="op">,</span> tba<span class="op">,</span> tba<span class="op">)</span></span>
+<span id="cb273-27"><a href="modeling-with-processes-and-resources.html#cb273-27" tabindex="-1"></a>    <span class="kw">val</span> <span class="va">generator</span><span class="op">:</span> EventGeneratorRVCIfc</span>
+<span id="cb273-28"><a href="modeling-with-processes-and-resources.html#cb273-28" tabindex="-1"></a>        <span class="kw">get</span><span class="op">()</span> <span class="op">=</span> myArrivalGenerator</span></code></pre></div>
 <p>The code uses a naming convention to keep track of which random variable is using on which sequence. For example, <code>t21</code> is the random variable required for the second step of the first test plan and <code>r1</code> is the repair time random variable for the first test plan. For each step of the test plan, we need to know the required resource and the processing time. Thus, we define each of the resources as follows.</p>
 <div class="sourceCode" id="cb274"><pre class="sourceCode kt"><code class="sourceCode kotlin"><span id="cb274-1"><a href="modeling-with-processes-and-resources.html#cb274-1" tabindex="-1"></a>    <span class="co">// define the resources</span></span>
 <span id="cb274-2"><a href="modeling-with-processes-and-resources.html#cb274-2" tabindex="-1"></a>    <span class="kw">private</span> <span class="kw">val</span> <span class="va">myDiagnostics</span><span class="op">:</span> ResourceWithQ <span class="op">=</span> ResourceWithQ<span class="op">(</span><span class="kw">this</span><span class="op">,</span> <span class="st">&quot;Diagnostics&quot;</span><span class="op">,</span> capacity <span class="op">=</span> <span class="dv">2</span><span class="op">)</span></span>
@@ -1479,7 +1488,7 @@ is built by simply providing the list of steps that must be visited. We will use
 <span id="cb277-9"><a href="modeling-with-processes-and-resources.html#cb277-9" tabindex="-1"></a>        <span class="kw">get</span><span class="op">()</span> <span class="op">=</span> myContractLimit</span></code></pre></div>
 <p>Notice the use of an <code>IndicatorResponse</code> to capture the probability of completing the job within the contract limit. Finally, we can specify the process description for this situation.</p>
 <div class="sourceCode" id="cb278"><pre class="sourceCode kt"><code class="sourceCode kotlin"><span id="cb278-1"><a href="modeling-with-processes-and-resources.html#cb278-1" tabindex="-1"></a>    <span class="kw">private</span> <span class="kw">inner</span> <span class="kw">class</span> Part <span class="op">:</span> <span class="dt">Entity</span><span class="op">()</span> <span class="op">{</span></span>
-<span id="cb278-2"><a href="modeling-with-processes-and-resources.html#cb278-2" tabindex="-1"></a>        <span class="kw">val</span> <span class="va">testAndRepairProcess</span><span class="op">:</span> KSLProcess <span class="op">=</span> process <span class="op">{</span></span>
+<span id="cb278-2"><a href="modeling-with-processes-and-resources.html#cb278-2" tabindex="-1"></a>        <span class="kw">val</span> <span class="va">testAndRepairProcess</span><span class="op">:</span> KSLProcess <span class="op">=</span> process<span class="op">(</span>isDefaultProcess <span class="op">=</span> <span class="kw">true</span><span class="op">)</span> <span class="op">{</span></span>
 <span id="cb278-3"><a href="modeling-with-processes-and-resources.html#cb278-3" tabindex="-1"></a>            wip<span class="op">.</span>increment<span class="op">()</span></span>
 <span id="cb278-4"><a href="modeling-with-processes-and-resources.html#cb278-4" tabindex="-1"></a>            timeStamp <span class="op">=</span> time</span>
 <span id="cb278-5"><a href="modeling-with-processes-and-resources.html#cb278-5" tabindex="-1"></a>            <span class="co">//every part goes to diagnostics</span></span>
@@ -1514,7 +1523,7 @@ is built by simply providing the list of steps that must be visited. We will use
 <p>The output is quite lengthy so the code captures it as a Markdown table.</p>
 <table>
 <thead>
-<tr class="header">
+<tr>
 <th align="center">Name</th>
 <th align="center">Count</th>
 <th align="center">Average</th>
@@ -1522,229 +1531,229 @@ is built by simply providing the list of steps that must be visited. We will use
 </tr>
 </thead>
 <tbody>
-<tr class="odd">
+<tr>
 <td align="center">Diagnostics:InstantaneousUtil</td>
 <td align="center">10</td>
 <td align="center">0.744</td>
 <td align="center">0.007</td>
 </tr>
-<tr class="even">
+<tr>
 <td align="center">Diagnostics:NumBusyUnits</td>
 <td align="center">10</td>
 <td align="center">1.489</td>
 <td align="center">0.013</td>
 </tr>
-<tr class="odd">
+<tr>
 <td align="center">Diagnostics:ScheduledUtil</td>
 <td align="center">10</td>
 <td align="center">0.744</td>
 <td align="center">0.007</td>
 </tr>
-<tr class="even">
+<tr>
 <td align="center">Diagnostics:WIP</td>
 <td align="center">10</td>
 <td align="center">3.332</td>
 <td align="center">0.123</td>
 </tr>
-<tr class="odd">
+<tr>
 <td align="center">Diagnostics:Q:NumInQ</td>
 <td align="center">10</td>
 <td align="center">1.844</td>
 <td align="center">0.11</td>
 </tr>
-<tr class="even">
+<tr>
 <td align="center">Diagnostics:Q:TimeInQ</td>
 <td align="center">10</td>
 <td align="center">36.964</td>
 <td align="center">2.043</td>
 </tr>
-<tr class="odd">
+<tr>
 <td align="center">Test1:InstantaneousUtil</td>
 <td align="center">10</td>
 <td align="center">0.855</td>
 <td align="center">0.005</td>
 </tr>
-<tr class="even">
+<tr>
 <td align="center">Test1:NumBusyUnits</td>
 <td align="center">10</td>
 <td align="center">0.855</td>
 <td align="center">0.005</td>
 </tr>
-<tr class="odd">
+<tr>
 <td align="center">Test1:ScheduledUtil</td>
 <td align="center">10</td>
 <td align="center">0.855</td>
 <td align="center">0.005</td>
 </tr>
-<tr class="even">
+<tr>
 <td align="center">Test1:WIP</td>
 <td align="center">10</td>
 <td align="center">4.1</td>
 <td align="center">0.283</td>
 </tr>
-<tr class="odd">
+<tr>
 <td align="center">Test1:Q:NumInQ</td>
 <td align="center">10</td>
 <td align="center">3.245</td>
 <td align="center">0.279</td>
 </tr>
-<tr class="even">
+<tr>
 <td align="center">Test1:Q:TimeInQ</td>
 <td align="center">10</td>
 <td align="center">57.692</td>
 <td align="center">4.736</td>
 </tr>
-<tr class="odd">
+<tr>
 <td align="center">Test2:InstantaneousUtil</td>
 <td align="center">10</td>
 <td align="center">0.773</td>
 <td align="center">0.006</td>
 </tr>
-<tr class="even">
+<tr>
 <td align="center">Test2:NumBusyUnits</td>
 <td align="center">10</td>
 <td align="center">0.773</td>
 <td align="center">0.006</td>
 </tr>
-<tr class="odd">
+<tr>
 <td align="center">Test2:ScheduledUtil</td>
 <td align="center">10</td>
 <td align="center">0.773</td>
 <td align="center">0.006</td>
 </tr>
-<tr class="even">
+<tr>
 <td align="center">Test2:WIP</td>
 <td align="center">10</td>
 <td align="center">2.319</td>
 <td align="center">0.132</td>
 </tr>
-<tr class="odd">
+<tr>
 <td align="center">Test2:Q:NumInQ</td>
 <td align="center">10</td>
 <td align="center">1.546</td>
 <td align="center">0.126</td>
 </tr>
-<tr class="even">
+<tr>
 <td align="center">Test2:Q:TimeInQ</td>
 <td align="center">10</td>
 <td align="center">41.279</td>
 <td align="center">3.062</td>
 </tr>
-<tr class="odd">
+<tr>
 <td align="center">Test3:InstantaneousUtil</td>
 <td align="center">10</td>
 <td align="center">0.858</td>
 <td align="center">0.006</td>
 </tr>
-<tr class="even">
+<tr>
 <td align="center">Test3:NumBusyUnits</td>
 <td align="center">10</td>
 <td align="center">0.858</td>
 <td align="center">0.006</td>
 </tr>
-<tr class="odd">
+<tr>
 <td align="center">Test3:ScheduledUtil</td>
 <td align="center">10</td>
 <td align="center">0.858</td>
 <td align="center">0.006</td>
 </tr>
-<tr class="even">
+<tr>
 <td align="center">Test3:WIP</td>
 <td align="center">10</td>
 <td align="center">3.417</td>
 <td align="center">0.273</td>
 </tr>
-<tr class="odd">
+<tr>
 <td align="center">Test3:Q:NumInQ</td>
 <td align="center">10</td>
 <td align="center">2.559</td>
 <td align="center">0.269</td>
 </tr>
-<tr class="even">
+<tr>
 <td align="center">Test3:Q:TimeInQ</td>
 <td align="center">10</td>
 <td align="center">51.318</td>
 <td align="center">5.176</td>
 </tr>
-<tr class="odd">
+<tr>
 <td align="center">Repair:InstantaneousUtil</td>
 <td align="center">10</td>
 <td align="center">0.864</td>
 <td align="center">0.006</td>
 </tr>
-<tr class="even">
+<tr>
 <td align="center">Repair:NumBusyUnits</td>
 <td align="center">10</td>
 <td align="center">2.591</td>
 <td align="center">0.017</td>
 </tr>
-<tr class="odd">
+<tr>
 <td align="center">Repair:ScheduledUtil</td>
 <td align="center">10</td>
 <td align="center">0.864</td>
 <td align="center">0.006</td>
 </tr>
-<tr class="even">
+<tr>
 <td align="center">Repair:WIP</td>
 <td align="center">10</td>
 <td align="center">3.824</td>
 <td align="center">0.135</td>
 </tr>
-<tr class="odd">
+<tr>
 <td align="center">Repair:Q:NumInQ</td>
 <td align="center">10</td>
 <td align="center">1.233</td>
 <td align="center">0.12</td>
 </tr>
-<tr class="even">
+<tr>
 <td align="center">Repair:Q:TimeInQ</td>
 <td align="center">10</td>
 <td align="center">24.733</td>
 <td align="center">2.273</td>
 </tr>
-<tr class="odd">
+<tr>
 <td align="center">TestAndRepair:NumInSystem</td>
 <td align="center">10</td>
 <td align="center">17.572</td>
 <td align="center">0.803</td>
 </tr>
-<tr class="even">
+<tr>
 <td align="center">TestAndRepair:TimeInSystem</td>
 <td align="center">10</td>
 <td align="center">352.487</td>
 <td align="center">14.262</td>
 </tr>
-<tr class="odd">
+<tr>
 <td align="center">ProbWithinLimit</td>
 <td align="center">10</td>
 <td align="center">0.817</td>
 <td align="center">0.028</td>
 </tr>
-<tr class="even">
+<tr>
 <td align="center">Diagnostics:SeizeCount</td>
 <td align="center">10</td>
 <td align="center">12443.4</td>
 <td align="center">75.921</td>
 </tr>
-<tr class="odd">
+<tr>
 <td align="center">Test1:SeizeCount</td>
 <td align="center">10</td>
 <td align="center">14027</td>
 <td align="center">76.189</td>
 </tr>
-<tr class="even">
+<tr>
 <td align="center">Test2:SeizeCount</td>
 <td align="center">10</td>
 <td align="center">9337.3</td>
 <td align="center">77.976</td>
 </tr>
-<tr class="odd">
+<tr>
 <td align="center">Test3:SeizeCount</td>
 <td align="center">10</td>
 <td align="center">12436.4</td>
 <td align="center">76.419</td>
 </tr>
-<tr class="even">
+<tr>
 <td align="center">Repair:SeizeCount</td>
 <td align="center">10</td>
 <td align="center">12430.7</td>

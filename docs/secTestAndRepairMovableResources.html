@@ -6,7 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>8.3 Modeling the Test and Repair System with Movable Resources | Simulation Modeling using the Kotlin Simulation Library (KSL)</title>
   <meta name="description" content="A book that illustrates the basics of using the KSL. The output format for this book is bookdown::gitbook." />
-  <meta name="generator" content="bookdown 0.39 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.40 and GitBook 2.6.7" />
 
   <meta property="og:title" content="8.3 Modeling the Test and Repair System with Movable Resources | Simulation Modeling using the Kotlin Simulation Library (KSL)" />
   <meta property="og:type" content="book" />
@@ -23,7 +23,7 @@
 <meta name="author" content="Manuel D. Rossetti" />
 
 
-<meta name="date" content="2025-07-03" />
+<meta name="date" content="2025-08-07" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -57,8 +57,9 @@
 
 
 <style type="text/css">
+html { -webkit-text-size-adjust: 100%; }
 pre > code.sourceCode { white-space: pre; position: relative; }
-pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
 pre > code.sourceCode > span:empty { height: 1.2em; }
 .sourceCode { overflow: visible; }
 code.sourceCode > span { color: inherit; text-decoration: inherit; }
@@ -68,7 +69,7 @@ div.sourceCode { overflow: auto; }
 }
 @media print {
 pre > code.sourceCode { white-space: pre-wrap; }
-pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
 }
 pre.numberSource code
   { counter-reset: source-line 0; }
@@ -567,7 +568,7 @@ does not have to be the same as the distance from test 2 to test 1).</p>
 <table>
 <caption><span id="tab:TRDistances">Table 8.1: </span> Transporter distances between stations</caption>
 <thead>
-<tr class="header">
+<tr>
 <th align="center">Station</th>
 <th align="left">Diagnostics</th>
 <th align="center">Test 1</th>
@@ -577,7 +578,7 @@ does not have to be the same as the distance from test 2 to test 1).</p>
 </tr>
 </thead>
 <tbody>
-<tr class="odd">
+<tr>
 <td align="center">Diagnostics</td>
 <td align="left">–</td>
 <td align="center">40</td>
@@ -585,7 +586,7 @@ does not have to be the same as the distance from test 2 to test 1).</p>
 <td align="center">90</td>
 <td align="center">100</td>
 </tr>
-<tr class="even">
+<tr>
 <td align="center">Test 1</td>
 <td align="left">43</td>
 <td align="center">–</td>
@@ -593,7 +594,7 @@ does not have to be the same as the distance from test 2 to test 1).</p>
 <td align="center">60</td>
 <td align="center">80</td>
 </tr>
-<tr class="odd">
+<tr>
 <td align="center">Test 2</td>
 <td align="left">70</td>
 <td align="center">15</td>
@@ -601,7 +602,7 @@ does not have to be the same as the distance from test 2 to test 1).</p>
 <td align="center">65</td>
 <td align="center">20</td>
 </tr>
-<tr class="even">
+<tr>
 <td align="center">Test 3</td>
 <td align="left">90</td>
 <td align="center">80</td>
@@ -609,7 +610,7 @@ does not have to be the same as the distance from test 2 to test 1).</p>
 <td align="center">–</td>
 <td align="center">25</td>
 </tr>
-<tr class="odd">
+<tr>
 <td align="center">Repair</td>
 <td align="left">110</td>
 <td align="center">85</td>
@@ -708,7 +709,7 @@ active at the diagnostics station. For the purposes of this example, we will rel
 <p><strong>Statistical Summary Report</strong></p>
 <table>
 <thead>
-<tr class="header">
+<tr>
 <th align="center">Name</th>
 <th align="center">Count</th>
 <th align="center">Average</th>
@@ -716,379 +717,379 @@ active at the diagnostics station. For the purposes of this example, we will rel
 </tr>
 </thead>
 <tbody>
-<tr class="odd">
+<tr>
 <td align="center">DiagnosticWorkers:InstantaneousUtil</td>
 <td align="center">10</td>
 <td align="center">0.75</td>
 <td align="center">0.005</td>
 </tr>
-<tr class="even">
+<tr>
 <td align="center">DiagnosticWorkers:NumBusyUnits</td>
 <td align="center">10</td>
 <td align="center">1.5</td>
 <td align="center">0.011</td>
 </tr>
-<tr class="odd">
+<tr>
 <td align="center">DiagnosticWorkers:ScheduledUtil</td>
 <td align="center">10</td>
 <td align="center">0.75</td>
 <td align="center">0.005</td>
 </tr>
-<tr class="even">
+<tr>
 <td align="center">DiagnosticWorkers:Q:NumInQ</td>
 <td align="center">10</td>
 <td align="center">1.928</td>
 <td align="center">0.107</td>
 </tr>
-<tr class="odd">
+<tr>
 <td align="center">DiagnosticWorkers:Q:TimeInQ</td>
 <td align="center">10</td>
 <td align="center">38.512</td>
 <td align="center">2.167</td>
 </tr>
-<tr class="even">
+<tr>
 <td align="center">DiagnosticWorkers:WIP</td>
 <td align="center">10</td>
 <td align="center">3.428</td>
 <td align="center">0.114</td>
 </tr>
-<tr class="odd">
+<tr>
 <td align="center">Test1:InstantaneousUtil</td>
 <td align="center">10</td>
 <td align="center">0.857</td>
 <td align="center">0.007</td>
 </tr>
-<tr class="even">
+<tr>
 <td align="center">Test1:NumBusyUnits</td>
 <td align="center">10</td>
 <td align="center">0.857</td>
 <td align="center">0.007</td>
 </tr>
-<tr class="odd">
+<tr>
 <td align="center">Test1:ScheduledUtil</td>
 <td align="center">10</td>
 <td align="center">0.857</td>
 <td align="center">0.007</td>
 </tr>
-<tr class="even">
+<tr>
 <td align="center">Test1:Q:NumInQ</td>
 <td align="center">10</td>
 <td align="center">3.232</td>
 <td align="center">0.266</td>
 </tr>
-<tr class="odd">
+<tr>
 <td align="center">Test1:Q:TimeInQ</td>
 <td align="center">10</td>
 <td align="center">57.414</td>
 <td align="center">4.459</td>
 </tr>
-<tr class="even">
+<tr>
 <td align="center">Test1:WIP</td>
 <td align="center">10</td>
 <td align="center">4.088</td>
 <td align="center">0.271</td>
 </tr>
-<tr class="odd">
+<tr>
 <td align="center">Test2:InstantaneousUtil</td>
 <td align="center">10</td>
 <td align="center">0.776</td>
 <td align="center">0.008</td>
 </tr>
-<tr class="even">
+<tr>
 <td align="center">Test2:NumBusyUnits</td>
 <td align="center">10</td>
 <td align="center">0.776</td>
 <td align="center">0.008</td>
 </tr>
-<tr class="odd">
+<tr>
 <td align="center">Test2:ScheduledUtil</td>
 <td align="center">10</td>
 <td align="center">0.776</td>
 <td align="center">0.008</td>
 </tr>
-<tr class="even">
+<tr>
 <td align="center">Test2:Q:NumInQ</td>
 <td align="center">10</td>
 <td align="center">1.584</td>
 <td align="center">0.138</td>
 </tr>
-<tr class="odd">
+<tr>
 <td align="center">Test2:Q:TimeInQ</td>
 <td align="center">10</td>
 <td align="center">42.121</td>
 <td align="center">3.445</td>
 </tr>
-<tr class="even">
+<tr>
 <td align="center">Test2:WIP</td>
 <td align="center">10</td>
 <td align="center">2.36</td>
 <td align="center">0.142</td>
 </tr>
-<tr class="odd">
+<tr>
 <td align="center">Test3:InstantaneousUtil</td>
 <td align="center">10</td>
 <td align="center">0.862</td>
 <td align="center">0.005</td>
 </tr>
-<tr class="even">
+<tr>
 <td align="center">Test3:NumBusyUnits</td>
 <td align="center">10</td>
 <td align="center">0.862</td>
 <td align="center">0.005</td>
 </tr>
-<tr class="odd">
+<tr>
 <td align="center">Test3:ScheduledUtil</td>
 <td align="center">10</td>
 <td align="center">0.862</td>
 <td align="center">0.005</td>
 </tr>
-<tr class="even">
+<tr>
 <td align="center">Test3:Q:NumInQ</td>
 <td align="center">10</td>
 <td align="center">2.587</td>
 <td align="center">0.158</td>
 </tr>
-<tr class="odd">
+<tr>
 <td align="center">Test3:Q:TimeInQ</td>
 <td align="center">10</td>
 <td align="center">51.666</td>
 <td align="center">3.03</td>
 </tr>
-<tr class="even">
+<tr>
 <td align="center">Test3:WIP</td>
 <td align="center">10</td>
 <td align="center">3.449</td>
 <td align="center">0.16</td>
 </tr>
-<tr class="odd">
+<tr>
 <td align="center">RepairWorkers:InstantaneousUtil</td>
 <td align="center">10</td>
 <td align="center">0.868</td>
 <td align="center">0.005</td>
 </tr>
-<tr class="even">
+<tr>
 <td align="center">RepairWorkers:NumBusyUnits</td>
 <td align="center">10</td>
 <td align="center">2.605</td>
 <td align="center">0.014</td>
 </tr>
-<tr class="odd">
+<tr>
 <td align="center">RepairWorkers:ScheduledUtil</td>
 <td align="center">10</td>
 <td align="center">0.868</td>
 <td align="center">0.005</td>
 </tr>
-<tr class="even">
+<tr>
 <td align="center">RepairWorkers:Q:NumInQ</td>
 <td align="center">10</td>
 <td align="center">1.294</td>
 <td align="center">0.081</td>
 </tr>
-<tr class="odd">
+<tr>
 <td align="center">RepairWorkers:Q:TimeInQ</td>
 <td align="center">10</td>
 <td align="center">25.864</td>
 <td align="center">1.559</td>
 </tr>
-<tr class="even">
+<tr>
 <td align="center">RepairWorkers:WIP</td>
 <td align="center">10</td>
 <td align="center">3.899</td>
 <td align="center">0.09</td>
 </tr>
-<tr class="odd">
+<tr>
 <td align="center">TransportWorkerPool:R1:InstantaneousUtil</td>
 <td align="center">10</td>
 <td align="center">0.224</td>
 <td align="center">0.002</td>
 </tr>
-<tr class="even">
+<tr>
 <td align="center">TransportWorkerPool:R1:NumBusyUnits</td>
 <td align="center">10</td>
 <td align="center">0.224</td>
 <td align="center">0.002</td>
 </tr>
-<tr class="odd">
+<tr>
 <td align="center">TransportWorkerPool:R1:ScheduledUtil</td>
 <td align="center">10</td>
 <td align="center">0.224</td>
 <td align="center">0.002</td>
 </tr>
-<tr class="even">
+<tr>
 <td align="center">TransportWorkerPool:R1:FracTimeMoving</td>
 <td align="center">10</td>
 <td align="center">0.224</td>
 <td align="center">0.002</td>
 </tr>
-<tr class="odd">
+<tr>
 <td align="center">TransportWorkerPool:R1:FracTimeTransporting</td>
 <td align="center">10</td>
 <td align="center">0.147</td>
 <td align="center">0.001</td>
 </tr>
-<tr class="even">
+<tr>
 <td align="center">TransportWorkerPool:R1:FracTimeMovingEmpty</td>
 <td align="center">10</td>
 <td align="center">0.076</td>
 <td align="center">0.001</td>
 </tr>
-<tr class="odd">
+<tr>
 <td align="center">TransportWorkerPool:R2:InstantaneousUtil</td>
 <td align="center">10</td>
 <td align="center">0.158</td>
 <td align="center">0.001</td>
 </tr>
-<tr class="even">
+<tr>
 <td align="center">TransportWorkerPool:R2:NumBusyUnits</td>
 <td align="center">10</td>
 <td align="center">0.158</td>
 <td align="center">0.001</td>
 </tr>
-<tr class="odd">
+<tr>
 <td align="center">TransportWorkerPool:R2:ScheduledUtil</td>
 <td align="center">10</td>
 <td align="center">0.158</td>
 <td align="center">0.001</td>
 </tr>
-<tr class="even">
+<tr>
 <td align="center">TransportWorkerPool:R2:FracTimeMoving</td>
 <td align="center">10</td>
 <td align="center">0.158</td>
 <td align="center">0.001</td>
 </tr>
-<tr class="odd">
+<tr>
 <td align="center">TransportWorkerPool:R2:FracTimeTransporting</td>
 <td align="center">10</td>
 <td align="center">0.104</td>
 <td align="center">0.001</td>
 </tr>
-<tr class="even">
+<tr>
 <td align="center">TransportWorkerPool:R2:FracTimeMovingEmpty</td>
 <td align="center">10</td>
 <td align="center">0.054</td>
 <td align="center">0</td>
 </tr>
-<tr class="odd">
+<tr>
 <td align="center">TransportWorkerPool:R3:InstantaneousUtil</td>
 <td align="center">10</td>
 <td align="center">0.085</td>
 <td align="center">0.001</td>
 </tr>
-<tr class="even">
+<tr>
 <td align="center">TransportWorkerPool:R3:NumBusyUnits</td>
 <td align="center">10</td>
 <td align="center">0.085</td>
 <td align="center">0.001</td>
 </tr>
-<tr class="odd">
+<tr>
 <td align="center">TransportWorkerPool:R3:ScheduledUtil</td>
 <td align="center">10</td>
 <td align="center">0.085</td>
 <td align="center">0.001</td>
 </tr>
-<tr class="even">
+<tr>
 <td align="center">TransportWorkerPool:R3:FracTimeMoving</td>
 <td align="center">10</td>
 <td align="center">0.085</td>
 <td align="center">0.001</td>
 </tr>
-<tr class="odd">
+<tr>
 <td align="center">TransportWorkerPool:R3:FracTimeTransporting</td>
 <td align="center">10</td>
 <td align="center">0.057</td>
 <td align="center">0.001</td>
 </tr>
-<tr class="even">
+<tr>
 <td align="center">TransportWorkerPool:R3:FracTimeMovingEmpty</td>
 <td align="center">10</td>
 <td align="center">0.029</td>
 <td align="center">0.001</td>
 </tr>
-<tr class="odd">
+<tr>
 <td align="center">TransportWorkerPool:NumBusy</td>
 <td align="center">10</td>
 <td align="center">0.467</td>
 <td align="center">0.003</td>
 </tr>
-<tr class="even">
+<tr>
 <td align="center">TransportWorkerPool:FractionBusy</td>
 <td align="center">10</td>
 <td align="center">0.156</td>
 <td align="center">0.001</td>
 </tr>
-<tr class="odd">
+<tr>
 <td align="center">TransportWorkerPool:Q:NumInQ</td>
 <td align="center">10</td>
 <td align="center">0.001</td>
 <td align="center">0</td>
 </tr>
-<tr class="even">
+<tr>
 <td align="center">TransportWorkerPool:Q:TimeInQ</td>
 <td align="center">10</td>
 <td align="center">0.005</td>
 <td align="center">0</td>
 </tr>
-<tr class="odd">
+<tr>
 <td align="center">TestAndRepairWithMovableResources:NumInSystem</td>
 <td align="center">10</td>
 <td align="center">17.692</td>
 <td align="center">0.363</td>
 </tr>
-<tr class="even">
+<tr>
 <td align="center">TestAndRepairWithMovableResources:TimeInSystem</td>
 <td align="center">10</td>
 <td align="center">353.457</td>
 <td align="center">5.965</td>
 </tr>
-<tr class="odd">
+<tr>
 <td align="center">ProbWithinLimit</td>
 <td align="center">10</td>
 <td align="center">0.811</td>
 <td align="center">0.015</td>
 </tr>
-<tr class="even">
+<tr>
 <td align="center">DiagnosticWorkers:SeizeCount</td>
 <td align="center">10</td>
 <td align="center">12498.4</td>
 <td align="center">75.757</td>
 </tr>
-<tr class="odd">
+<tr>
 <td align="center">Test1:SeizeCount</td>
 <td align="center">10</td>
 <td align="center">14038.7</td>
 <td align="center">112.996</td>
 </tr>
-<tr class="even">
+<tr>
 <td align="center">Test2:SeizeCount</td>
 <td align="center">10</td>
 <td align="center">9377.7</td>
 <td align="center">97.686</td>
 </tr>
-<tr class="odd">
+<tr>
 <td align="center">Test3:SeizeCount</td>
 <td align="center">10</td>
 <td align="center">12491</td>
 <td align="center">74.153</td>
 </tr>
-<tr class="even">
+<tr>
 <td align="center">RepairWorkers:SeizeCount</td>
 <td align="center">10</td>
 <td align="center">12485.3</td>
 <td align="center">73.123</td>
 </tr>
-<tr class="odd">
+<tr>
 <td align="center">TransportWorkerPool:R1:SeizeCount</td>
 <td align="center">10</td>
 <td align="center">23121.6</td>
 <td align="center">165.847</td>
 </tr>
-<tr class="even">
+<tr>
 <td align="center">TransportWorkerPool:R2:SeizeCount</td>
 <td align="center">10</td>
 <td align="center">16375.3</td>
 <td align="center">133.58</td>
 </tr>
-<tr class="odd">
+<tr>
 <td align="center">TransportWorkerPool:R3:SeizeCount</td>
 <td align="center">10</td>
 <td align="center">8905.1</td>

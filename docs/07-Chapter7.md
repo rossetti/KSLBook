@@ -92,7 +92,7 @@ Since the resources will need a queue, we declare the two resources by using the
 
 ```kt
     private inner class Customer : Entity(){
-        val tandemQProcess : KSLProcess = process {
+        val tandemQProcess : KSLProcess = process(isDefaultProcess = true) {
             wip.increment()
             timeStamp = time
             seize(worker1)
@@ -104,13 +104,14 @@ Since the resources will need a queue, we declare the two resources by using the
             timeInSystem.value = time - timeStamp
             wip.decrement()
         }
+    }
 ```
 
 Notice that this code does not save the allocations that are returned by the call to the `seize` method.  This is possible because of two reasons.  First, the KSL overloads the `release` method to allow for the specification of the resource to be released. This overloaded method will release **all** previously returned allocations that the entity holds of the named resource. Secondly, this situation is a perfect use case for this, because the entity only has seized the worker *once* before the specified release. Thus, we are simply releasing the last allocation held by the entity via the `release()` function.  It really is user preference whether to save the allocation and then release the allocation or to use the approach of specifying the name of the resource. Of course, this works because releasing **all** previous allocations is the same as releasing the last one in this situation. In fact, this situation is so common that the KSL provides an additional short cut as illustrated in the following code.
 
 ```kt
     private inner class Customer : Entity(){
-        val tandemQProcess : KSLProcess = process {
+        val tandemQProcess : KSLProcess = process(isDefaultProcess = true) {
             wip.increment()
             timeStamp = time
             use(worker1, delayDuration = st1)
@@ -172,7 +173,7 @@ Exploring the effect of the buffer size is left as an exercise for the reader.  
 
 ```kt
     private inner class Customer : Entity() {
-        val tandemQProcess: KSLProcess = process {
+        val tandemQProcess: KSLProcess = process(isDefaultProcess = true) {
             wip.increment()
             timeStamp = time
             val a1 = seize(worker1)
@@ -578,25 +579,33 @@ Because of the requirement that different parts follow different sequences and h
 ```kt
 class TestAndRepairShop(parent: ModelElement, name: String? = null) : ProcessModel(parent, name) {
 
-    // define the random variables
-    private val tba = ExponentialRV(20.0)
-    private val t11 = RandomVariable(this, LognormalRV(20.0, 4.1))
-    private val t21 = RandomVariable(this, LognormalRV(12.0, 4.2))
-    private val t31 = RandomVariable(this, LognormalRV(18.0, 4.3))
-    private val t41 = RandomVariable(this, LognormalRV(16.0, 4.0))
-    private val t12 = RandomVariable(this, LognormalRV(12.0, 4.0))
-    private val t22 = RandomVariable(this, LognormalRV(15.0, 4.0))
-    private val t13 = RandomVariable(this, LognormalRV(18.0, 4.2))
-    private val t23 = RandomVariable(this, LognormalRV(14.0, 4.4))
-    private val t33 = RandomVariable(this, LognormalRV(12.0, 4.3))
-    private val t14 = RandomVariable(this, LognormalRV(24.0, 4.0))
-    private val t24 = RandomVariable(this, LognormalRV(30.0, 4.0))
+    // test plan 1, distribution j
+    private val t11 = RandomVariable(this, LognormalRV(20.0, 4.1 * 4.1))
+    private val t12 = RandomVariable(this, LognormalRV(12.0, 4.2 * 4.2))
+    private val t13 = RandomVariable(this, LognormalRV(18.0, 4.3 * 4.3))
+    private val t14 = RandomVariable(this, LognormalRV(16.0, 4.0 * 4.0))
+    // test plan 2, distribution j
+    private val t21 = RandomVariable(this, LognormalRV(12.0, 4.0 * 4.0))
+    private val t22 = RandomVariable(this, LognormalRV(15.0, 4.0 * 4.0))
+    // test plan 3, distribution j
+    private val t31 = RandomVariable(this, LognormalRV(18.0, 4.2 * 4.2))
+    private val t32 = RandomVariable(this, LognormalRV(14.0, 4.4 * 4.4))
+    private val t33 = RandomVariable(this, LognormalRV(12.0, 4.3 * 4.3))
+    // test plan 4, distribution j
+    private val t41 = RandomVariable(this, LognormalRV(24.0, 4.0 * 4.0))
+    private val t42 = RandomVariable(this, LognormalRV(30.0, 4.0 * 4.0))
+
     private val r1 = RandomVariable(this, TriangularRV(30.0, 60.0, 80.0))
     private val r2 = RandomVariable(this, TriangularRV(45.0, 55.0, 70.0))
     private val r3 = RandomVariable(this, TriangularRV(30.0, 40.0, 60.0))
     private val r4 = RandomVariable(this, TriangularRV(35.0, 65.0, 75.0))
     private val diagnosticTime = RandomVariable(this, ExponentialRV(30.0))
     private val moveTime = RandomVariable(this, UniformRV(2.0, 4.0))
+    private val tba = ExponentialRV(20.0)
+    private val myArrivalGenerator = EntityGenerator(::Part, tba, tba)
+    val generator: EventGeneratorRVCIfc
+        get() = myArrivalGenerator
+
 ```
 
 The code uses a naming convention to keep track of which random variable is using on which sequence. For example, `t21` is the random variable required for the second step of the first test plan and `r1` is the repair time random variable for the first test plan. For each step of the test plan, we need to know the required resource and the processing time. Thus, we define each of the resources as follows.
@@ -608,7 +617,6 @@ The code uses a naming convention to keep track of which random variable is usin
     private val myTest2: ResourceWithQ = ResourceWithQ(this, "Test2")
     private val myTest3: ResourceWithQ = ResourceWithQ(this, "Test3")
     private val myRepair: ResourceWithQ = ResourceWithQ(this, "Repair", capacity = 3)
-
 ```
 
 Then, we define a class to hold the information for each step and the lists to represent each of the test plans.
@@ -664,7 +672,7 @@ Notice the use of an `IndicatorResponse` to capture the probability of completin
 
 ```kt
     private inner class Part : Entity() {
-        val testAndRepairProcess: KSLProcess = process {
+        val testAndRepairProcess: KSLProcess = process(isDefaultProcess = true) {
             wip.increment()
             timeStamp = time
             //every part goes to diagnostics
@@ -1966,10 +1974,15 @@ There are many base responses to be defined. Besides the overall system time, we
 ```
 We also need to define new responses to capture what is going on at the close of the mixer.  That is, when the warning occurs that the mixer is closing. Notice also that we use an aggregate response to collect the total number of students at both of the recruiters. 
 
-To model the non-stationary arrivals, we use a piecewise constant rate function to define a non-homogeneous Poisson process and an event generator to generate the students.
+To model the non-stationary arrivals, we use a piece wise constant rate function to define a non-homogeneous Poisson process and an event generator to generate the students.
 
 ```kt
-    private val myTBArrivals: NHPPTimeBtwEventRV
+    private val rateFunction: PiecewiseConstantRateFunction
+
+    fun adjustRates(factor: Double){
+        require(factor > 0.0) {"the adjustment factor must be >= 0.0"}
+        generator.adjustRates(factor)
+    }
 
     init {
         // set up the generator
@@ -1982,11 +1995,11 @@ To model the non-stationary arrivals, we use a piecewise constant rate function 
             55.0, 55.0, 60.0, 30.0, 5.0, 5.0
         )
         val ratesPerMinute = hourlyRates.divideConstant(60.0)
-        val f = PiecewiseConstantRateFunction(durations, ratesPerMinute)
-        myTBArrivals = NHPPTimeBtwEventRV(this, f, streamNum = 1)
+        rateFunction = PiecewiseConstantRateFunction(durations, ratesPerMinute)
     }
 
-    private val generator = EventGenerator(this, this::createStudents, myTBArrivals, myTBArrivals)
+    private val generator = NHPPPiecewiseRateFunctionEventGenerator(this, this::createStudents,
+        rateFunction = rateFunction, streamNum = 1)
 ```
 
 The interval responses are defined as previously discussed.  We also define a response to capture when the mixer ends. Notice that the `ResponseSchedule` is told not to repeat.  This is essential because we will not specify a replication run length for this model.
@@ -2592,7 +2605,7 @@ We will use these constructs within the patient processes. In the following code
             priority = typeMap[service]!!
         }
 
-        val clinicProcess = process {
+        val clinicProcess = process(isDefaultProcess = true) {
             if ((priority == 3) && (doctorQ.size >= balkCriteria)) {
                 // record balking
                 balkingProb.value = 1.0
@@ -2619,7 +2632,7 @@ We will use these constructs within the patient processes. In the following code
             numServed.increment()
         }
 ```
-Patients that get past the balking logic complete the rest of the process and thus do not balk. A response variable is used to collect this statistic. Then, the patient uses the triage nurse. After using the triage nurse, the low priority patient might need to renege.  Thus, the low priority patient schedules the reneging action.  All patients proceed to used the doctor. After using the doctor, if the patient is a low priority patient, then the patient must not have reneging and statistics are collected. Finally, statistics are collected upon departure from the process. Let's take a closer look at the reneging action logic.
+Patients that get past the balking logic complete the rest of the process and thus do not balk. A response variable is used to collect this statistic. Then, the patient uses the triage nurse. After using the triage nurse, the low priority patient might need to renege.  Thus, the low priority patient schedules the reneging action.  All patients proceed to used the doctor. After using the doctor, if the patient is a low priority patient, then the patient must not have reneged and statistics are collected. Finally, statistics are collected upon departure from the process. Let's take a closer look at the reneging action logic.
 
 ```kt
         private fun renegeAction(event: KSLEvent<Patient>) {

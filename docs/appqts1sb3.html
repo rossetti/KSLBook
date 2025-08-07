@@ -6,7 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>C.3 Non-Markovian Queues and Approximations | Simulation Modeling using the Kotlin Simulation Library (KSL)</title>
   <meta name="description" content="A book that illustrates the basics of using the KSL. The output format for this book is bookdown::gitbook." />
-  <meta name="generator" content="bookdown 0.39 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.40 and GitBook 2.6.7" />
 
   <meta property="og:title" content="C.3 Non-Markovian Queues and Approximations | Simulation Modeling using the Kotlin Simulation Library (KSL)" />
   <meta property="og:type" content="book" />
@@ -23,7 +23,7 @@
 <meta name="author" content="Manuel D. Rossetti" />
 
 
-<meta name="date" content="2025-07-03" />
+<meta name="date" content="2025-08-07" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -57,8 +57,9 @@
 
 
 <style type="text/css">
+html { -webkit-text-size-adjust: 100%; }
 pre > code.sourceCode { white-space: pre; position: relative; }
-pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
 pre > code.sourceCode > span:empty { height: 1.2em; }
 .sourceCode { overflow: visible; }
 code.sourceCode > span { color: inherit; text-decoration: inherit; }
@@ -68,7 +69,7 @@ div.sourceCode { overflow: auto; }
 }
 @media print {
 pre > code.sourceCode { white-space: pre-wrap; }
-pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
 }
 pre.numberSource code
   { counter-reset: source-line 0; }
@@ -544,19 +545,19 @@ distribution. Table <a href="appqts1sb3.html#tab:NMQResults">C.4</a> presents th
 <table>
 <caption><span id="tab:NMQResults">Table C.4: </span> Results M/G/1 and M/D/1</caption>
 <thead>
-<tr class="header">
+<tr>
 <th align="left">Model</th>
 <th align="center">Parameters</th>
 <th align="center"><span class="math inline">\(L_q\)</span></th>
 </tr>
 </thead>
 <tbody>
-<tr class="odd">
+<tr>
 <td align="left">M/G/1</td>
 <td align="center"><span class="math inline">\(E[ST] = \dfrac{1}{\mu}\)</span>; <span class="math inline">\(Var[ST] = \sigma^2\)</span>; <span class="math inline">\(r = \lambda/\mu\)</span></td>
 <td align="center"><span class="math inline">\(L_q = \dfrac{\lambda^2 \sigma^2 + r^2}{2(1 - r)}\)</span></td>
 </tr>
-<tr class="even">
+<tr>
 <td align="left">M/D/1</td>
 <td align="center"><span class="math inline">\(E[ST] = \dfrac{1}{\mu}\)</span>; <span class="math inline">\(Var[ST] = 0\)</span>; <span class="math inline">\(r = \lambda/\mu\)</span></td>
 <td align="center"><span class="math inline">\(L_q = \dfrac{r^2}{2(1 - r)}\)</span></td>

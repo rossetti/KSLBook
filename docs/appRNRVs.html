@@ -6,7 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>A.2 Generating Random Variates from Distributions | Simulation Modeling using the Kotlin Simulation Library (KSL)</title>
   <meta name="description" content="A book that illustrates the basics of using the KSL. The output format for this book is bookdown::gitbook." />
-  <meta name="generator" content="bookdown 0.39 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.40 and GitBook 2.6.7" />
 
   <meta property="og:title" content="A.2 Generating Random Variates from Distributions | Simulation Modeling using the Kotlin Simulation Library (KSL)" />
   <meta property="og:type" content="book" />
@@ -23,7 +23,7 @@
 <meta name="author" content="Manuel D. Rossetti" />
 
 
-<meta name="date" content="2025-07-03" />
+<meta name="date" content="2025-08-07" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -57,8 +57,9 @@
 
 
 <style type="text/css">
+html { -webkit-text-size-adjust: 100%; }
 pre > code.sourceCode { white-space: pre; position: relative; }
-pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
 pre > code.sourceCode > span:empty { height: 1.2em; }
 .sourceCode { overflow: visible; }
 code.sourceCode > span { color: inherit; text-decoration: inherit; }
@@ -68,7 +69,7 @@ div.sourceCode { overflow: auto; }
 }
 @media print {
 pre > code.sourceCode { white-space: pre-wrap; }
-pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
 }
 pre.numberSource code
   { counter-reset: source-line 0; }
@@ -757,7 +758,7 @@ function and cumulative distribution function.</p>
 </div>
 <table>
 <thead>
-<tr class="header">
+<tr>
 <th align="center"><span class="math inline">\(x_{i}\)</span></th>
 <th align="center">1</th>
 <th align="center">2</th>
@@ -766,7 +767,7 @@ function and cumulative distribution function.</p>
 </tr>
 </thead>
 <tbody>
-<tr class="odd">
+<tr>
 <td align="center"><span class="math inline">\(f(x_{i})\)</span></td>
 <td align="center">0.4</td>
 <td align="center">0.3</td>
@@ -974,7 +975,7 @@ exponential distribution with mean <span class="math inline">\(0.25 = 1/\lambda\
 <span class="math inline">\(A_i\)</span> represents the time of the <span class="math inline">\(i^{th}\)</span> arrival. Using the provided <span class="math inline">\(u_i\)</span>, we can compute <span class="math inline">\(T_i\)</span> (via the inverse transform method for the exponential distribution) and <span class="math inline">\(A_i\)</span> until <span class="math inline">\(A_i\)</span> goes over 2 hours.</p>
 <table>
 <thead>
-<tr class="header">
+<tr>
 <th align="center"><span class="math inline">\(i\)</span></th>
 <th align="center"><span class="math inline">\(u_i\)</span></th>
 <th align="center"><span class="math inline">\(T_i\)</span></th>
@@ -982,31 +983,31 @@ exponential distribution with mean <span class="math inline">\(0.25 = 1/\lambda\
 </tr>
 </thead>
 <tbody>
-<tr class="odd">
+<tr>
 <td align="center">1</td>
 <td align="center">0.971</td>
 <td align="center">0.881</td>
 <td align="center">0.881</td>
 </tr>
-<tr class="even">
+<tr>
 <td align="center">2</td>
 <td align="center">0.687</td>
 <td align="center">0.290</td>
 <td align="center">1.171</td>
 </tr>
-<tr class="odd">
+<tr>
 <td align="center">3</td>
 <td align="center">0.314</td>
 <td align="center">0.094</td>
 <td align="center">1.265</td>
 </tr>
-<tr class="even">
+<tr>
 <td align="center">4</td>
 <td align="center">0.752</td>
 <td align="center">0.349</td>
 <td align="center">1.614</td>
 </tr>
-<tr class="odd">
+<tr>
 <td align="center">5</td>
 <td align="center">0.830</td>
 <td align="center">0.443</td>

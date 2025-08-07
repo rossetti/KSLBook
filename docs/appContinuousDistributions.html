@@ -6,7 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>E.2 Continuous Distrbutions | Simulation Modeling using the Kotlin Simulation Library (KSL)</title>
   <meta name="description" content="A book that illustrates the basics of using the KSL. The output format for this book is bookdown::gitbook." />
-  <meta name="generator" content="bookdown 0.39 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.40 and GitBook 2.6.7" />
 
   <meta property="og:title" content="E.2 Continuous Distrbutions | Simulation Modeling using the Kotlin Simulation Library (KSL)" />
   <meta property="og:type" content="book" />
@@ -23,7 +23,7 @@
 <meta name="author" content="Manuel D. Rossetti" />
 
 
-<meta name="date" content="2025-07-03" />
+<meta name="date" content="2025-08-07" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -57,8 +57,9 @@
 
 
 <style type="text/css">
+html { -webkit-text-size-adjust: 100%; }
 pre > code.sourceCode { white-space: pre; position: relative; }
-pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
 pre > code.sourceCode > span:empty { height: 1.2em; }
 .sourceCode { overflow: visible; }
 code.sourceCode > span { color: inherit; text-decoration: inherit; }
@@ -68,7 +69,7 @@ div.sourceCode { overflow: auto; }
 }
 @media print {
 pre > code.sourceCode { white-space: pre-wrap; }
-pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
 }
 pre.numberSource code
   { counter-reset: source-line 0; }
@@ -532,49 +533,49 @@ div.csl-indent {
 <h2><span class="header-section-number">E.2</span> Continuous Distrbutions<a href="appContinuousDistributions.html#appContinuousDistributions" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <table>
 <thead>
-<tr class="header">
+<tr>
 <th align="left"><strong>Uniform</strong></th>
 <th align="left"><span class="math inline">\(U(a,b)\)</span></th>
 </tr>
 </thead>
 <tbody>
-<tr class="odd">
+<tr>
 <td align="left">Parameters:</td>
 <td align="left">a = minimum, b = maximum, <span class="math inline">\(-\infty &lt; a &lt; b &lt; \infty\)</span></td>
 </tr>
-<tr class="even">
+<tr>
 <td align="left">PDF:</td>
 <td align="left"><span class="math inline">\(f(x) = \frac{1}{b-a}\)</span> for <span class="math inline">\(a \leq x \leq b\)</span></td>
 </tr>
-<tr class="odd">
+<tr>
 <td align="left">CDF:</td>
 <td align="left"><span class="math inline">\(F(x) = \frac{x-a}{b-a} \; \text{if} \; a \leq x \leq b\)</span></td>
 </tr>
-<tr class="even">
+<tr>
 <td align="left">Inverse CDF:</td>
 <td align="left"><span class="math inline">\(F^{-1}(p) = a + p(b-a) \; \; \text{if} \; 0 &lt; p &lt; 1\)</span></td>
 </tr>
-<tr class="odd">
+<tr>
 <td align="left">Expected Value:</td>
 <td align="left"><span class="math inline">\(E[X]=\frac{a+b}{2}\)</span></td>
 </tr>
-<tr class="even">
+<tr>
 <td align="left">Variance:</td>
 <td align="left"><span class="math inline">\(V[X] = \frac{(b-a)^2}{12}\)</span></td>
 </tr>
-<tr class="odd">
+<tr>
 <td align="left">Generation:</td>
 <td align="left">UniformRV(min: Double, max:Double, stream:RNStreamIfc)</td>
 </tr>
-<tr class="even">
+<tr>
 <td align="left">Spreadsheet Generation:</td>
 <td align="left">= a + RAND()*(b-a)</td>
 </tr>
-<tr class="odd">
+<tr>
 <td align="left">Modeling:</td>
 <td align="left">assumes equally likely across the range,</td>
 </tr>
-<tr class="even">
+<tr>
 <td align="left"></td>
 <td align="left">when you have lack of data, task times</td>
 </tr>
@@ -582,41 +583,41 @@ div.csl-indent {
 </table>
 <table>
 <thead>
-<tr class="header">
+<tr>
 <th align="left"><strong>Normal</strong></th>
 <th align="left"><span class="math inline">\(N(\mu,\sigma^2)\)</span></th>
 </tr>
 </thead>
 <tbody>
-<tr class="odd">
+<tr>
 <td align="left">Parameters:</td>
 <td align="left"><span class="math inline">\(-\infty &lt; \mu &lt; +\infty\)</span> (mean), <span class="math inline">\(\sigma^2 &gt; 0\)</span> (variance)</td>
 </tr>
-<tr class="even">
+<tr>
 <td align="left">CDF:</td>
 <td align="left">No closed form</td>
 </tr>
-<tr class="odd">
+<tr>
 <td align="left">Inverse CDF:</td>
 <td align="left">No closed form</td>
 </tr>
-<tr class="even">
+<tr>
 <td align="left">Expected Value:</td>
 <td align="left"><span class="math inline">\(E[X] = \mu\)</span></td>
 </tr>
-<tr class="odd">
+<tr>
 <td align="left">Variance:</td>
 <td align="left"><span class="math inline">\(Var[X] = \sigma^2\)</span></td>
 </tr>
-<tr class="even">
+<tr>
 <td align="left">Generation:</td>
 <td align="left">NormalRV(mean:Double, variance:Double, stream:RNStreamIfc)</td>
 </tr>
-<tr class="odd">
+<tr>
 <td align="left">Spreadsheet Generation:</td>
 <td align="left">= NORM.INV(RAND(), <span class="math inline">\(\mu\)</span>, <span class="math inline">\(\sigma\)</span>)</td>
 </tr>
-<tr class="even">
+<tr>
 <td align="left">Modeling:</td>
 <td align="left">task times, errors</td>
 </tr>
@@ -625,49 +626,49 @@ div.csl-indent {
 <div style="page-break-after: always;"></div>
 <table>
 <thead>
-<tr class="header">
+<tr>
 <th align="left"><strong>Exponential</strong></th>
 <th align="left">EXPO(<span class="math inline">\(1/\lambda\)</span>)</th>
 </tr>
 </thead>
 <tbody>
-<tr class="odd">
+<tr>
 <td align="left">Parameters:</td>
 <td align="left"><span class="math inline">\(\lambda &gt; 0\)</span></td>
 </tr>
-<tr class="even">
+<tr>
 <td align="left">PDF:</td>
 <td align="left"><span class="math inline">\(f(x) = \lambda e^{-\lambda x} \; \text{if} \; x \geq 0\)</span></td>
 </tr>
-<tr class="odd">
+<tr>
 <td align="left">CDF:</td>
 <td align="left"><span class="math inline">\(F(x) =     1 - e^{-\lambda x} \; \text{if} \; x \geq 0\)</span></td>
 </tr>
-<tr class="even">
+<tr>
 <td align="left">Inverse CDF:</td>
 <td align="left"><span class="math inline">\(F^{-1}(p) = (-1/\lambda)\ln \left(1-p \right)  \; \; \text{if} \; 0 &lt; p &lt; 1\)</span></td>
 </tr>
-<tr class="odd">
+<tr>
 <td align="left">Expected Value:</td>
 <td align="left"><span class="math inline">\(E[X] = \theta = 1/\lambda\)</span></td>
 </tr>
-<tr class="even">
+<tr>
 <td align="left">Variance:</td>
 <td align="left"><span class="math inline">\(Var[X] = 1/\lambda^2\)</span></td>
 </tr>
-<tr class="odd">
+<tr>
 <td align="left">Generation:</td>
 <td align="left">ExponentialRV(mean:Double, stream:RNStreamIfc)</td>
 </tr>
-<tr class="even">
+<tr>
 <td align="left">Spreadsheet Generation:</td>
 <td align="left">= <span class="math inline">\((-1/\lambda)\)</span>LN(1-RAND())</td>
 </tr>
-<tr class="odd">
+<tr>
 <td align="left">Modeling:</td>
 <td align="left">time between arrivals, time to failure</td>
 </tr>
-<tr class="even">
+<tr>
 <td align="left"></td>
 <td align="left">highly variable task time</td>
 </tr>
@@ -675,41 +676,41 @@ div.csl-indent {
 </table>
 <table>
 <thead>
-<tr class="header">
+<tr>
 <th align="left"><strong>Weibull</strong></th>
 <th align="left">WEIB(<span class="math inline">\(\beta\)</span>, <span class="math inline">\(\alpha\)</span>)</th>
 </tr>
 </thead>
 <tbody>
-<tr class="odd">
+<tr>
 <td align="left">Parameters:</td>
 <td align="left"><span class="math inline">\(\beta &gt; 0\)</span> (scale), <span class="math inline">\(\alpha &gt; 0\)</span> (shape)</td>
 </tr>
-<tr class="even">
+<tr>
 <td align="left">CDF:</td>
 <td align="left"><span class="math inline">\(F(x) = 1- e^{-(x/\beta)^\alpha} \; \text{if} \; x \geq 0\)</span></td>
 </tr>
-<tr class="odd">
+<tr>
 <td align="left">Inverse CDF:</td>
 <td align="left"><span class="math inline">\(F^{-1}(p) = \beta\left[ -\ln (1-p)\right]^{1/\alpha}  \; \; \text{if} \; 0 &lt; p &lt; 1\)</span></td>
 </tr>
-<tr class="even">
+<tr>
 <td align="left">Expected Value:</td>
 <td align="left"><span class="math inline">\(E[X] = \left(\dfrac{\beta}{\alpha}\right)\Gamma\left(\dfrac{1}{\alpha}\right)\)</span></td>
 </tr>
-<tr class="odd">
+<tr>
 <td align="left">Variance:</td>
 <td align="left"><span class="math inline">\(Var[X] = \left(\dfrac{\beta^2}{\alpha}\right)\biggl\lbrace 2\Gamma\left(\dfrac{2}{\alpha}\right) - \left(\dfrac{1}{\alpha}\right)\biggl(\Gamma\left(\dfrac{1}{\alpha}\right)\biggr)^2\biggr\rbrace\)</span></td>
 </tr>
-<tr class="even">
+<tr>
 <td align="left">Generation:</td>
 <td align="left">WeibullRV(shape:Double, scale:Double, stream:RNStreamIfc)</td>
 </tr>
-<tr class="odd">
+<tr>
 <td align="left">Spreadsheet Generation:</td>
 <td align="left">= <span class="math inline">\((\beta)(-\text{LN}(1-\text{RAND}())\wedge(1/\alpha)\)</span></td>
 </tr>
-<tr class="even">
+<tr>
 <td align="left">Modeling:</td>
 <td align="left">task times, time to failure</td>
 </tr>
@@ -717,41 +718,41 @@ div.csl-indent {
 </table>
 <table>
 <thead>
-<tr class="header">
+<tr>
 <th align="left"><strong>Erlang</strong></th>
 <th align="left">Erlang(<span class="math inline">\(r\)</span>,<span class="math inline">\(\beta\)</span>)</th>
 </tr>
 </thead>
 <tbody>
-<tr class="odd">
+<tr>
 <td align="left">Parameters:</td>
 <td align="left"><span class="math inline">\(r &gt; 0\)</span>, integer, <span class="math inline">\(\beta &gt; 0\)</span> (scale)</td>
 </tr>
-<tr class="even">
+<tr>
 <td align="left">CDF:</td>
 <td align="left"><span class="math inline">\(F(x) = 1- e^{(-x/\beta)}\sum\limits_{j=0}^{r-1}\dfrac{(x/\beta)^j}{j} \; \text{if} \; x \geq 0\)</span></td>
 </tr>
-<tr class="odd">
+<tr>
 <td align="left">Inverse CDF:</td>
 <td align="left">No closed form</td>
 </tr>
-<tr class="even">
+<tr>
 <td align="left">Expected Value:</td>
 <td align="left"><span class="math inline">\(E[X] = r\beta\)</span></td>
 </tr>
-<tr class="odd">
+<tr>
 <td align="left">Variance:</td>
 <td align="left"><span class="math inline">\(Var[X] = r\beta^2\)</span></td>
 </tr>
-<tr class="even">
+<tr>
 <td align="left">Generation:</td>
 <td align="left">use GammaRV class</td>
 </tr>
-<tr class="odd">
+<tr>
 <td align="left">Spreadsheet Generation:</td>
 <td align="left">= GAMMA.INV(RAND(), <span class="math inline">\(r\)</span>, <span class="math inline">\(\beta\)</span>)</td>
 </tr>
-<tr class="even">
+<tr>
 <td align="left">Modeling:</td>
 <td align="left">task times, lead time, time to failure,</td>
 </tr>
@@ -759,41 +760,41 @@ div.csl-indent {
 </table>
 <table>
 <thead>
-<tr class="header">
+<tr>
 <th align="left"><strong>Gamma</strong></th>
 <th align="left">Gamma(<span class="math inline">\(\alpha\)</span>,<span class="math inline">\(\beta\)</span>)</th>
 </tr>
 </thead>
 <tbody>
-<tr class="odd">
+<tr>
 <td align="left">Parameters:</td>
 <td align="left"><span class="math inline">\(\alpha &gt; 0\)</span>, shape, <span class="math inline">\(\beta &gt; 0\)</span> (scale)</td>
 </tr>
-<tr class="even">
+<tr>
 <td align="left">CDF:</td>
 <td align="left">No closed form</td>
 </tr>
-<tr class="odd">
+<tr>
 <td align="left">Inverse CDF:</td>
 <td align="left">No closed form</td>
 </tr>
-<tr class="even">
+<tr>
 <td align="left">Expected Value:</td>
 <td align="left"><span class="math inline">\(E[X] = \alpha \beta\)</span></td>
 </tr>
-<tr class="odd">
+<tr>
 <td align="left">Variance:</td>
 <td align="left"><span class="math inline">\(Var[X] = \alpha \beta^2\)</span></td>
 </tr>
-<tr class="even">
+<tr>
 <td align="left">Generation:</td>
 <td align="left">GammaRV(shape:Double, scale:Double, stream:RNStreamIfc)</td>
 </tr>
-<tr class="odd">
+<tr>
 <td align="left">Spreadsheet Generation:</td>
 <td align="left">= GAMMA.INV(RAND(), <span class="math inline">\(\alpha\)</span>, <span class="math inline">\(\beta\)</span>)</td>
 </tr>
-<tr class="even">
+<tr>
 <td align="left">Modeling:</td>
 <td align="left">task times, lead time, time to failure,</td>
 </tr>
@@ -801,41 +802,41 @@ div.csl-indent {
 </table>
 <table>
 <thead>
-<tr class="header">
+<tr>
 <th align="left"><strong>Beta</strong></th>
 <th align="left">BETA(<span class="math inline">\(\alpha_1\)</span>,<span class="math inline">\(\alpha_2\)</span>)</th>
 </tr>
 </thead>
 <tbody>
-<tr class="odd">
+<tr>
 <td align="left">Parameters:</td>
 <td align="left">shape parameters <span class="math inline">\(\alpha_1 &gt;0\)</span>, <span class="math inline">\(\alpha_2 &gt;0\)</span></td>
 </tr>
-<tr class="even">
+<tr>
 <td align="left">CDF:</td>
 <td align="left">No closed form</td>
 </tr>
-<tr class="odd">
+<tr>
 <td align="left">Inverse CDF:</td>
 <td align="left">No closed form</td>
 </tr>
-<tr class="even">
+<tr>
 <td align="left">Expected Value:</td>
 <td align="left"><span class="math inline">\(E[X] = \dfrac{\alpha_1}{\alpha_1 + \alpha_2}\)</span></td>
 </tr>
-<tr class="odd">
+<tr>
 <td align="left">Variance:</td>
 <td align="left"><span class="math inline">\(Var[X] = \dfrac{\alpha_1\alpha_2}{(\alpha_1 + \alpha_2)^2(\alpha_1 + \alpha_2+1)}\)</span></td>
 </tr>
-<tr class="even">
+<tr>
 <td align="left">Generation:</td>
 <td align="left">BetaRV(alpha1:Double, alpha2:Double, stream:RNStreamIfc)</td>
 </tr>
-<tr class="odd">
+<tr>
 <td align="left">Spreadsheet Generation:</td>
 <td align="left">BETA.INV(RAND(), <span class="math inline">\(\alpha_1\)</span>, <span class="math inline">\(\alpha_2\)</span>)</td>
 </tr>
-<tr class="even">
+<tr>
 <td align="left">Modeling:</td>
 <td align="left">activity time when data is limited, probabilities</td>
 </tr>
@@ -843,41 +844,41 @@ div.csl-indent {
 </table>
 <table>
 <thead>
-<tr class="header">
+<tr>
 <th align="left"><strong>Lognormal</strong></th>
 <th align="left">LOGN<span class="math inline">\(\left(\mu_l,\sigma_l\right)\)</span></th>
 </tr>
 </thead>
 <tbody>
-<tr class="odd">
+<tr>
 <td align="left">Parameters:</td>
 <td align="left"><span class="math inline">\(\mu = \ln\left(\mu_{l}^{2}/\sqrt{\sigma_{l}^{2} + \mu_{l}^{2}}\right) \quad \sigma^{2} = \ln\left((\sigma_{l}^{2}/\mu_{l}^{2}) + 1\right)\)</span></td>
 </tr>
-<tr class="even">
+<tr>
 <td align="left">CDF:</td>
 <td align="left">No closed form</td>
 </tr>
-<tr class="odd">
+<tr>
 <td align="left">Inverse CDF:</td>
 <td align="left">No closed form</td>
 </tr>
-<tr class="even">
+<tr>
 <td align="left">Expected Value:</td>
 <td align="left"><span class="math inline">\(E[X] = \mu_l = e^{\mu + \sigma^{2}/2}\)</span></td>
 </tr>
-<tr class="odd">
+<tr>
 <td align="left">Variance:</td>
 <td align="left"><span class="math inline">\(Var[X] = \sigma_{l}^{2}  = e^{2\mu + \sigma^{2}}\left(e^{\sigma^{2}} - 1\right)\)</span></td>
 </tr>
-<tr class="even">
+<tr>
 <td align="left">Generation:</td>
 <td align="left">LognormalRV(mean:Double, variance:Double, stream:RNStreamIfc)</td>
 </tr>
-<tr class="odd">
+<tr>
 <td align="left">Spreadsheet Generation:</td>
 <td align="left">LOGNORM.INV(RAND(), <span class="math inline">\(\mu\)</span>, <span class="math inline">\(\sigma\)</span>)</td>
 </tr>
-<tr class="even">
+<tr>
 <td align="left">Modeling:</td>
 <td align="left">task times, time to failure</td>
 </tr>
@@ -885,49 +886,49 @@ div.csl-indent {
 </table>
 <table>
 <thead>
-<tr class="header">
+<tr>
 <th align="left"><strong>Triangular</strong></th>
 <th align="left">TRIA(a, m, b)</th>
 </tr>
 </thead>
 <tbody>
-<tr class="odd">
+<tr>
 <td align="left">Parameters:</td>
 <td align="left">a = minimum, m = mode, b = maximum</td>
 </tr>
-<tr class="even">
+<tr>
 <td align="left">CDF:</td>
 <td align="left"><span class="math inline">\(F(x) =  \dfrac{(x - a)^2}{(b - a)(m - a)} \; \text{for} \; a \leq x \leq m\)</span></td>
 </tr>
-<tr class="odd">
+<tr>
 <td align="left"></td>
 <td align="left"><span class="math inline">\(F(x) = 1 - \dfrac{(b - x)^2}{(b - a)(b - m)} \; \text{for} \;m &lt; x \leq b\)</span></td>
 </tr>
-<tr class="even">
+<tr>
 <td align="left">Inverse CDF:</td>
 <td align="left"><span class="math inline">\(F^{-1}(u) = a + \sqrt{(b-a)(m-a)u} \; \text{for} \;  0 &lt; u &lt; \dfrac{m-a}{b-a}\)</span></td>
 </tr>
-<tr class="odd">
+<tr>
 <td align="left"></td>
 <td align="left"><span class="math inline">\(F^{-1}(u) = b - \sqrt{(b-a)(b-m)(1-u)} \; \text{for} \; \dfrac{m-a}{b-a} \leq u\)</span></td>
 </tr>
-<tr class="even">
+<tr>
 <td align="left">Expected Value:</td>
 <td align="left"><span class="math inline">\(E[X] = (a+m+b)/3\)</span></td>
 </tr>
-<tr class="odd">
+<tr>
 <td align="left">Variance:</td>
 <td align="left"><span class="math inline">\(Var[X] = \dfrac{a^2 + b^2 + m^2 -ab -am -bm}{18}\)</span></td>
 </tr>
-<tr class="even">
+<tr>
 <td align="left">Generation:</td>
 <td align="left">TriangularRV(min:Double, mode:Double, max:Double, stream:RNStreamIfc)</td>
 </tr>
-<tr class="odd">
+<tr>
 <td align="left">Spreadsheet Generation:</td>
 <td align="left">implement <span class="math inline">\(F^{-1}(u)\)</span> as VBA function</td>
 </tr>
-<tr class="even">
+<tr>
 <td align="left">Modeling:</td>
 <td align="left">task times, activity time when data is limited</td>
 </tr>

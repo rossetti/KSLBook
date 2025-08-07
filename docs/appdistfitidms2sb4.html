@@ -6,7 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>B.7 Additional Distribution Modeling Concepts | Simulation Modeling using the Kotlin Simulation Library (KSL)</title>
   <meta name="description" content="A book that illustrates the basics of using the KSL. The output format for this book is bookdown::gitbook." />
-  <meta name="generator" content="bookdown 0.39 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.40 and GitBook 2.6.7" />
 
   <meta property="og:title" content="B.7 Additional Distribution Modeling Concepts | Simulation Modeling using the Kotlin Simulation Library (KSL)" />
   <meta property="og:type" content="book" />
@@ -23,7 +23,7 @@
 <meta name="author" content="Manuel D. Rossetti" />
 
 
-<meta name="date" content="2025-07-03" />
+<meta name="date" content="2025-08-07" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -57,8 +57,9 @@
 
 
 <style type="text/css">
+html { -webkit-text-size-adjust: 100%; }
 pre > code.sourceCode { white-space: pre; position: relative; }
-pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
 pre > code.sourceCode > span:empty { height: 1.2em; }
 .sourceCode { overflow: visible; }
 code.sourceCode > span { color: inherit; text-decoration: inherit; }
@@ -68,7 +69,7 @@ div.sourceCode { overflow: auto; }
 }
 @media print {
 pre > code.sourceCode { white-space: pre-wrap; }
-pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
 }
 pre.numberSource code
   { counter-reset: source-line 0; }
@@ -563,7 +564,7 @@ observations was available for the service time problem. Furthermore,
 assume that the sample was as follows:</p>
 <table>
 <thead>
-<tr class="header">
+<tr>
 <th align="left">1</th>
 <th align="center">2</th>
 <th align="center">3</th>
@@ -577,7 +578,7 @@ assume that the sample was as follows:</p>
 </tr>
 </thead>
 <tbody>
-<tr class="odd">
+<tr>
 <td align="left">36.84</td>
 <td align="center">38.5</td>
 <td align="center">46.23</td>
@@ -614,44 +615,44 @@ Table <a href="appdistfitidms2sb4.html#tab:SimpleEmpDist">B.10</a>. Again, this
 <table>
 <caption><span id="tab:SimpleEmpDist">Table B.10: </span> Simple Empirical Distribution</caption>
 <thead>
-<tr class="header">
+<tr>
 <th align="left"><span class="math inline">\(X\)</span></th>
 <th align="center">PMF</th>
 <th align="center">CDF</th>
 </tr>
 </thead>
 <tbody>
-<tr class="odd">
+<tr>
 <td align="left">36.84</td>
 <td align="center">0.1</td>
 <td align="center">0.1</td>
 </tr>
-<tr class="even">
+<tr>
 <td align="left">38.5</td>
 <td align="center">0.1</td>
 <td align="center">0.2</td>
 </tr>
-<tr class="odd">
+<tr>
 <td align="left">46.23</td>
 <td align="center">0.3</td>
 <td align="center">0.5</td>
 </tr>
-<tr class="even">
+<tr>
 <td align="left">48.3</td>
 <td align="center">0.1</td>
 <td align="center">0.6</td>
 </tr>
-<tr class="odd">
+<tr>
 <td align="left">53.46</td>
 <td align="center">0.2</td>
 <td align="center">0.8</td>
 </tr>
-<tr class="even">
+<tr>
 <td align="left">55.33</td>
 <td align="center">0.1</td>
 <td align="center">0.9</td>
 </tr>
-<tr class="odd">
+<tr>
 <td align="left">56.11</td>
 <td align="center">0.1</td>
 <td align="center">1</td>
@@ -717,34 +718,34 @@ presents a distribution for the service times based on this method.</p>
 <table>
 <caption>Breakpoint Based Empirical Distribution</caption>
 <thead>
-<tr class="header">
+<tr>
 <th align="left"><span class="math inline">\(X\)</span></th>
 <th align="center">PMF</th>
 <th align="center">CDF</th>
 </tr>
 </thead>
 <tbody>
-<tr class="odd">
+<tr>
 <td align="left">(36, 100]</td>
 <td align="center">0.1</td>
 <td align="center">0.1</td>
 </tr>
-<tr class="even">
+<tr>
 <td align="left">(100, 200]</td>
 <td align="center">0.1</td>
 <td align="center">0.2</td>
 </tr>
-<tr class="odd">
+<tr>
 <td align="left">(200 - 400]</td>
 <td align="center">0.3</td>
 <td align="center">0.6</td>
 </tr>
-<tr class="even">
+<tr>
 <td align="left">(400, 600]</td>
 <td align="center">0.2</td>
 <td align="center">0.8</td>
 </tr>
-<tr class="odd">
+<tr>
 <td align="left">(600, <span class="math inline">\(\infty\)</span>)</td>
 <td align="center">0.2</td>
 <td align="center">1.0</td>

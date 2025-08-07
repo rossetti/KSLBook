@@ -6,7 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>E.1 Discrete Distrbutions | Simulation Modeling using the Kotlin Simulation Library (KSL)</title>
   <meta name="description" content="A book that illustrates the basics of using the KSL. The output format for this book is bookdown::gitbook." />
-  <meta name="generator" content="bookdown 0.39 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.40 and GitBook 2.6.7" />
 
   <meta property="og:title" content="E.1 Discrete Distrbutions | Simulation Modeling using the Kotlin Simulation Library (KSL)" />
   <meta property="og:type" content="book" />
@@ -23,7 +23,7 @@
 <meta name="author" content="Manuel D. Rossetti" />
 
 
-<meta name="date" content="2025-07-03" />
+<meta name="date" content="2025-08-07" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -57,8 +57,9 @@
 
 
 <style type="text/css">
+html { -webkit-text-size-adjust: 100%; }
 pre > code.sourceCode { white-space: pre; position: relative; }
-pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
 pre > code.sourceCode > span:empty { height: 1.2em; }
 .sourceCode { overflow: visible; }
 code.sourceCode > span { color: inherit; text-decoration: inherit; }
@@ -68,7 +69,7 @@ div.sourceCode { overflow: auto; }
 }
 @media print {
 pre > code.sourceCode { white-space: pre-wrap; }
-pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
 }
 pre.numberSource code
   { counter-reset: source-line 0; }
@@ -532,41 +533,41 @@ div.csl-indent {
 <h2><span class="header-section-number">E.1</span> Discrete Distrbutions<a href="appDiscreteDistributions.html#appDiscreteDistributions" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <table>
 <thead>
-<tr class="header">
+<tr>
 <th align="left"><strong>Bernoulli</strong></th>
 <th align="left"><span class="math inline">\(Ber(p)\)</span></th>
 </tr>
 </thead>
 <tbody>
-<tr class="odd">
+<tr>
 <td align="left">Parameters:</td>
 <td align="left"><span class="math inline">\(0 &lt; p &lt; 1\)</span>, probability of success</td>
 </tr>
-<tr class="even">
+<tr>
 <td align="left">PMF:</td>
 <td align="left"><span class="math inline">\(P[X=1] = p, \; P[X=0] = 1-p\)</span></td>
 </tr>
-<tr class="odd">
+<tr>
 <td align="left">Inverse CDF:</td>
 <td align="left"><span class="math inline">\(F^{-1}(u) = \text{if}\  (u &lt; p), 1 \ \text{else} \ 0\)</span></td>
 </tr>
-<tr class="even">
+<tr>
 <td align="left">Expected Value:</td>
 <td align="left"><span class="math inline">\(E[X] = p\)</span></td>
 </tr>
-<tr class="odd">
+<tr>
 <td align="left">Variance:</td>
 <td align="left"><span class="math inline">\(Var[X] = p(1-p)\)</span></td>
 </tr>
-<tr class="even">
+<tr>
 <td align="left">Generation:</td>
 <td align="left">BernoulliRV(probOfSuccess:Double, stream:RNStreamIf)</td>
 </tr>
-<tr class="odd">
+<tr>
 <td align="left">Spreadsheet Generation:</td>
 <td align="left">= IF(RAND()<span class="math inline">\(&lt;\)</span> p, 1, 0)</td>
 </tr>
-<tr class="even">
+<tr>
 <td align="left">Modeling:</td>
 <td align="left">the number of successes in one trial</td>
 </tr>
@@ -574,41 +575,41 @@ div.csl-indent {
 </table>
 <table>
 <thead>
-<tr class="header">
+<tr>
 <th align="left"><strong>Binomial</strong></th>
 <th align="left"><span class="math inline">\(Binom(n,p)\)</span></th>
 </tr>
 </thead>
 <tbody>
-<tr class="odd">
+<tr>
 <td align="left">Parameters:</td>
 <td align="left"><span class="math inline">\(0 &lt; p &lt; 1\)</span>, probability of success, <span class="math inline">\(n\)</span>, number of trials</td>
 </tr>
-<tr class="even">
+<tr>
 <td align="left">PMF:</td>
 <td align="left"><span class="math inline">\(P[X=x] = \binom{n}{x}p^{x}(1-p)^{n-x} \quad x=0,1,\ldots,n\)</span></td>
 </tr>
-<tr class="odd">
+<tr>
 <td align="left">Inverse CDF:</td>
 <td align="left">no closed form available</td>
 </tr>
-<tr class="even">
+<tr>
 <td align="left">Expected Value:</td>
 <td align="left"><span class="math inline">\(E[X] = np\)</span></td>
 </tr>
-<tr class="odd">
+<tr>
 <td align="left">Variance:</td>
 <td align="left"><span class="math inline">\(Var[X] = np(1-p)\)</span></td>
 </tr>
-<tr class="even">
+<tr>
 <td align="left">Generation:</td>
 <td align="left">BinomialRV(pSuccess:Double, numTrials:Int, stream:RNStreamIf)</td>
 </tr>
-<tr class="odd">
+<tr>
 <td align="left">Spreadsheet Generation:</td>
 <td align="left">= BINOM.INV(n,p,RAND())</td>
 </tr>
-<tr class="even">
+<tr>
 <td align="left">Modeling:</td>
 <td align="left">the number of successes in <span class="math inline">\(n\)</span> trials</td>
 </tr>
@@ -616,41 +617,41 @@ div.csl-indent {
 </table>
 <table>
 <thead>
-<tr class="header">
+<tr>
 <th align="left"><strong>Shifted Geometric</strong></th>
 <th align="left">Shifted Geo(<span class="math inline">\(p\)</span>)</th>
 </tr>
 </thead>
 <tbody>
-<tr class="odd">
+<tr>
 <td align="left">Parameters:</td>
 <td align="left"><span class="math inline">\(0 &lt; p &lt; 1\)</span>, probability of success</td>
 </tr>
-<tr class="even">
+<tr>
 <td align="left">PMF:</td>
 <td align="left"><span class="math inline">\(P[X=x] = p(1-p)^{x-1} \quad x=1,2,\ldots,\)</span></td>
 </tr>
-<tr class="odd">
+<tr>
 <td align="left">Inverse CDF</td>
 <td align="left"><span class="math inline">\(F^{-1}(u) = 1 + \left\lfloor \frac{ln(1 - u)}{ln(1 - p)} \right\rfloor\)</span></td>
 </tr>
-<tr class="even">
+<tr>
 <td align="left">Expected Value:</td>
 <td align="left"><span class="math inline">\(E[X] = 1/p\)</span></td>
 </tr>
-<tr class="odd">
+<tr>
 <td align="left">Variance:</td>
 <td align="left"><span class="math inline">\(Var[X] = (1-p)/p^2\)</span></td>
 </tr>
-<tr class="even">
+<tr>
 <td align="left">Generation:</td>
 <td align="left">ShiftedGeometricRV(probOfSuccess:Double, stream:RNStreamIf)</td>
 </tr>
-<tr class="odd">
+<tr>
 <td align="left">Spreadsheet Generation:</td>
 <td align="left">= <span class="math inline">\(\text{1 + INT(LN(1-RAND())/LN(1-p))}\)</span></td>
 </tr>
-<tr class="even">
+<tr>
 <td align="left">Modeling:</td>
 <td align="left">the number of trials until the first success</td>
 </tr>
@@ -658,41 +659,41 @@ div.csl-indent {
 </table>
 <table>
 <thead>
-<tr class="header">
+<tr>
 <th align="left"><strong>Negative Binomial Defn. 1</strong></th>
 <th align="left">NB1(<span class="math inline">\(r,p\)</span>)</th>
 </tr>
 </thead>
 <tbody>
-<tr class="odd">
+<tr>
 <td align="left">Parameters:</td>
 <td align="left"><span class="math inline">\(0 &lt; p &lt; 1\)</span>, probability of success, <span class="math inline">\(r^{th}\)</span> success</td>
 </tr>
-<tr class="even">
+<tr>
 <td align="left">PMF:</td>
 <td align="left"><span class="math inline">\(P[X=x] = \binom{x-1}{r-1}p^{r}(1-p)^{x-r} \quad x=r,r+1\ldots,\)</span></td>
 </tr>
-<tr class="odd">
+<tr>
 <td align="left">Inverse CDF:</td>
 <td align="left">no closed form available</td>
 </tr>
-<tr class="even">
+<tr>
 <td align="left">Expected Value:</td>
 <td align="left"><span class="math inline">\(E[X] = r/p\)</span></td>
 </tr>
-<tr class="odd">
+<tr>
 <td align="left">Variance:</td>
 <td align="left"><span class="math inline">\(Var[X] = r(1-p)/p^2\)</span></td>
 </tr>
-<tr class="even">
+<tr>
 <td align="left">Generation:</td>
 <td align="left">NegativeBinomialRV(probOfSuccess:Double, numSuccess: Int, stream:RNStreamIf)</td>
 </tr>
-<tr class="odd">
+<tr>
 <td align="left">Spreadsheet Generation:</td>
 <td align="left">use convolution of shifted geometric</td>
 </tr>
-<tr class="even">
+<tr>
 <td align="left">Modeling:</td>
 <td align="left">the number of trials until the <span class="math inline">\(r^{th}\)</span> success</td>
 </tr>
@@ -700,41 +701,41 @@ div.csl-indent {
 </table>
 <table>
 <thead>
-<tr class="header">
+<tr>
 <th align="left"><strong>Negative Binomial Defn. 2</strong></th>
 <th align="left">NB2(<span class="math inline">\(r,p\)</span>)</th>
 </tr>
 </thead>
 <tbody>
-<tr class="odd">
+<tr>
 <td align="left">Parameters:</td>
 <td align="left"><span class="math inline">\(0 &lt; p &lt; 1\)</span>, probability of success, <span class="math inline">\(r^{th}\)</span> success</td>
 </tr>
-<tr class="even">
+<tr>
 <td align="left">PMF:</td>
 <td align="left"><span class="math inline">\(P[Y=y] = \binom{y+r-1}{r-1}p^{r}(1-p)^{y} \quad y=0,1,\ldots\)</span></td>
 </tr>
-<tr class="odd">
+<tr>
 <td align="left">Inverse CDF:</td>
 <td align="left">no closed form available</td>
 </tr>
-<tr class="even">
+<tr>
 <td align="left">Expected Value:</td>
 <td align="left"><span class="math inline">\(E[Y] = r(1-p)/p\)</span></td>
 </tr>
-<tr class="odd">
+<tr>
 <td align="left">Variance:</td>
 <td align="left"><span class="math inline">\(Var[Y] = r(1-p)/p^2\)</span></td>
 </tr>
-<tr class="even">
+<tr>
 <td align="left">Generation:</td>
 <td align="left">value of NegativeBinomialRV minus 1</td>
 </tr>
-<tr class="odd">
+<tr>
 <td align="left">Spreadsheet Generation:</td>
 <td align="left">use convolution of geometric</td>
 </tr>
-<tr class="even">
+<tr>
 <td align="left">Modeling:</td>
 <td align="left">the number of failures prior to the <span class="math inline">\(r^{th}\)</span> success</td>
 </tr>
@@ -742,41 +743,41 @@ div.csl-indent {
 </table>
 <table>
 <thead>
-<tr class="header">
+<tr>
 <th align="left"><strong>Poisson</strong></th>
 <th align="left">Pois(<span class="math inline">\(\lambda\)</span>)</th>
 </tr>
 </thead>
 <tbody>
-<tr class="odd">
+<tr>
 <td align="left">Parameters:</td>
 <td align="left"><span class="math inline">\(\lambda &gt; 0\)</span></td>
 </tr>
-<tr class="even">
+<tr>
 <td align="left">PMF:</td>
 <td align="left"><span class="math inline">\(P[X=x] = \frac{e^{-\lambda}\lambda^{x}}{x!} \quad x = 0, 1, \ldots\)</span></td>
 </tr>
-<tr class="odd">
+<tr>
 <td align="left">Inverse CDF:</td>
 <td align="left">no closed form available</td>
 </tr>
-<tr class="even">
+<tr>
 <td align="left">Expected Value:</td>
 <td align="left"><span class="math inline">\(E[X] = \lambda\)</span></td>
 </tr>
-<tr class="odd">
+<tr>
 <td align="left">Variance:</td>
 <td align="left"><span class="math inline">\(Var[X] = \lambda\)</span></td>
 </tr>
-<tr class="even">
+<tr>
 <td align="left">Generation:</td>
 <td align="left">PoissonRV(mean: Double, stream:RNStreamIfc)</td>
 </tr>
-<tr class="odd">
+<tr>
 <td align="left">Spreadsheet Generation:</td>
 <td align="left">not available, approximate with lookup table approach</td>
 </tr>
-<tr class="even">
+<tr>
 <td align="left">Modeling:</td>
 <td align="left">the number of occurrences during a period of time</td>
 </tr>
@@ -785,41 +786,41 @@ div.csl-indent {
 <div style="page-break-after: always;"></div>
 <table>
 <thead>
-<tr class="header">
+<tr>
 <th align="left"><strong>Discrete Uniform</strong></th>
 <th align="left">DU(<span class="math inline">\(a, b\)</span>)</th>
 </tr>
 </thead>
 <tbody>
-<tr class="odd">
+<tr>
 <td align="left">Parameters:</td>
 <td align="left"><span class="math inline">\(a \leq b\)</span></td>
 </tr>
-<tr class="even">
+<tr>
 <td align="left">PMF:</td>
 <td align="left"><span class="math inline">\(P[X=x] = \frac{1}{b-a+1} \quad x = a, a+1, \ldots, b\)</span></td>
 </tr>
-<tr class="odd">
+<tr>
 <td align="left">Inverse CDF:</td>
 <td align="left"><span class="math inline">\(F^{-1}(u) = a + \lfloor(b-a+1)u\rfloor\)</span></td>
 </tr>
-<tr class="even">
+<tr>
 <td align="left">Expected Value:</td>
 <td align="left"><span class="math inline">\(E[X] = (b+a)/2\)</span></td>
 </tr>
-<tr class="odd">
+<tr>
 <td align="left">Variance:</td>
 <td align="left"><span class="math inline">\(Var[X] = \left( \left( b-a+1\right)^2 -1 \right)/12\)</span></td>
 </tr>
-<tr class="even">
+<tr>
 <td align="left">Generation:</td>
 <td align="left">DUniformRV(min: Int, max:Int, stream:RNStreamIfc)</td>
 </tr>
-<tr class="odd">
+<tr>
 <td align="left">Spreadsheet Generation:</td>
 <td align="left">=RANDBETWEEN(a,b)</td>
 </tr>
-<tr class="even">
+<tr>
 <td align="left">Modeling:</td>
 <td align="left">equal occurrence over a range of integers</td>
 </tr>

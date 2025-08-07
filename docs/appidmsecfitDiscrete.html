@@ -6,7 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>B.3 Fitting Discrete Distributions | Simulation Modeling using the Kotlin Simulation Library (KSL)</title>
   <meta name="description" content="A book that illustrates the basics of using the KSL. The output format for this book is bookdown::gitbook." />
-  <meta name="generator" content="bookdown 0.39 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.40 and GitBook 2.6.7" />
 
   <meta property="og:title" content="B.3 Fitting Discrete Distributions | Simulation Modeling using the Kotlin Simulation Library (KSL)" />
   <meta property="og:type" content="book" />
@@ -23,7 +23,7 @@
 <meta name="author" content="Manuel D. Rossetti" />
 
 
-<meta name="date" content="2025-07-03" />
+<meta name="date" content="2025-08-07" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -57,8 +57,9 @@
 
 
 <style type="text/css">
+html { -webkit-text-size-adjust: 100%; }
 pre > code.sourceCode { white-space: pre; position: relative; }
-pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
 pre > code.sourceCode > span:empty { height: 1.2em; }
 .sourceCode { overflow: visible; }
 code.sourceCode > span { color: inherit; text-decoration: inherit; }
@@ -68,7 +69,7 @@ div.sourceCode { overflow: auto; }
 }
 @media print {
 pre > code.sourceCode { white-space: pre-wrap; }
-pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
 }
 pre.numberSource code
   { counter-reset: source-line 0; }
@@ -573,7 +574,7 @@ an appropriate model for this data.</p>
 <table>
 <caption><span id="tab:CLAdata">Table B.2: </span> Computer Laboratory Arrival Counts by Week, Period, and Day</caption>
 <thead>
-<tr class="header">
+<tr>
 <th align="center">Week</th>
 <th align="center">Period</th>
 <th align="center">M</th>
@@ -584,7 +585,7 @@ an appropriate model for this data.</p>
 </tr>
 </thead>
 <tbody>
-<tr class="odd">
+<tr>
 <td align="center">1</td>
 <td align="center">9:00-9:15 am</td>
 <td align="center">8</td>
@@ -593,7 +594,7 @@ an appropriate model for this data.</p>
 <td align="center">7</td>
 <td align="center">7</td>
 </tr>
-<tr class="even">
+<tr>
 <td align="center">1</td>
 <td align="center">9:15-9:30 am</td>
 <td align="center">8</td>
@@ -602,7 +603,7 @@ an appropriate model for this data.</p>
 <td align="center">8</td>
 <td align="center">6</td>
 </tr>
-<tr class="odd">
+<tr>
 <td align="center">1</td>
 <td align="center">9:30-9:45 am</td>
 <td align="center">9</td>
@@ -611,7 +612,7 @@ an appropriate model for this data.</p>
 <td align="center">6</td>
 <td align="center">5</td>
 </tr>
-<tr class="even">
+<tr>
 <td align="center">1</td>
 <td align="center">9:45-10:00 am</td>
 <td align="center">10</td>
@@ -620,7 +621,7 @@ an appropriate model for this data.</p>
 <td align="center">10</td>
 <td align="center">12</td>
 </tr>
-<tr class="odd">
+<tr>
 <td align="center">1</td>
 <td align="center">10:00-10:15 am</td>
 <td align="center">6</td>
@@ -629,7 +630,7 @@ an appropriate model for this data.</p>
 <td align="center">9</td>
 <td align="center">3</td>
 </tr>
-<tr class="even">
+<tr>
 <td align="center">1</td>
 <td align="center">10:15-10:30 am</td>
 <td align="center">11</td>
@@ -638,7 +639,7 @@ an appropriate model for this data.</p>
 <td align="center">7</td>
 <td align="center">11</td>
 </tr>
-<tr class="odd">
+<tr>
 <td align="center">1</td>
 <td align="center">10:30-10:45 am</td>
 <td align="center">12</td>
@@ -647,7 +648,7 @@ an appropriate model for this data.</p>
 <td align="center">3</td>
 <td align="center">6</td>
 </tr>
-<tr class="even">
+<tr>
 <td align="center">1</td>
 <td align="center">10:45-11:00 am</td>
 <td align="center">8</td>
@@ -656,7 +657,7 @@ an appropriate model for this data.</p>
 <td align="center">8</td>
 <td align="center">6</td>
 </tr>
-<tr class="odd">
+<tr>
 <td align="center">2</td>
 <td align="center">9:00-9:15 am</td>
 <td align="center">10</td>
@@ -665,7 +666,7 @@ an appropriate model for this data.</p>
 <td align="center">7</td>
 <td align="center">7</td>
 </tr>
-<tr class="even">
+<tr>
 <td align="center">3</td>
 <td align="center">9:00-9:15 am</td>
 <td align="center">5</td>
@@ -674,7 +675,7 @@ an appropriate model for this data.</p>
 <td align="center">8</td>
 <td align="center">8</td>
 </tr>
-<tr class="odd">
+<tr>
 <td align="center">4</td>
 <td align="center">9:00-9:15 am</td>
 <td align="center">7</td>
@@ -683,7 +684,7 @@ an appropriate model for this data.</p>
 <td align="center">5</td>
 <td align="center">4</td>
 </tr>
-<tr class="even">
+<tr>
 <td align="center">4</td>
 <td align="center">10:45-11:00 am</td>
 <td align="center">8</td>
@@ -733,7 +734,7 @@ the <em>hist</em>, <em>plot</em>, and <em>acf</em> commands.</p>
 <table>
 <caption><span id="tab:PCntData">Table B.3: </span>Computer Lab Arrival Data.</caption>
 <thead>
-<tr class="header">
+<tr>
 <th align="center">Week</th>
 <th align="center">Period</th>
 <th align="center">Day</th>
@@ -741,121 +742,121 @@ the <em>hist</em>, <em>plot</em>, and <em>acf</em> commands.</p>
 </tr>
 </thead>
 <tbody>
-<tr class="odd">
+<tr>
 <td align="center">1</td>
 <td align="center">1</td>
 <td align="center">M</td>
 <td align="center">8</td>
 </tr>
-<tr class="even">
+<tr>
 <td align="center">1</td>
 <td align="center">2</td>
 <td align="center">M</td>
 <td align="center">8</td>
 </tr>
-<tr class="odd">
+<tr>
 <td align="center">1</td>
 <td align="center">3</td>
 <td align="center">M</td>
 <td align="center">9</td>
 </tr>
-<tr class="even">
+<tr>
 <td align="center">1</td>
 <td align="center">4</td>
 <td align="center">M</td>
 <td align="center">10</td>
 </tr>
-<tr class="odd">
+<tr>
 <td align="center">1</td>
 <td align="center">5</td>
 <td align="center">M</td>
 <td align="center">6</td>
 </tr>
-<tr class="even">
+<tr>
 <td align="center">1</td>
 <td align="center">6</td>
 <td align="center">M</td>
 <td align="center">11</td>
 </tr>
-<tr class="odd">
+<tr>
 <td align="center">1</td>
 <td align="center">7</td>
 <td align="center">M</td>
 <td align="center">12</td>
 </tr>
-<tr class="even">
+<tr>
 <td align="center">1</td>
 <td align="center">8</td>
 <td align="center">M</td>
 <td align="center">8</td>
 </tr>
-<tr class="odd">
+<tr>
 <td align="center">2</td>
 <td align="center">1</td>
 <td align="center">M</td>
 <td align="center">10</td>
 </tr>
-<tr class="even">
+<tr>
 <td align="center">2</td>
 <td align="center">2</td>
 <td align="center">M</td>
 <td align="center">6</td>
 </tr>
-<tr class="odd">
+<tr>
 <td align="center">2</td>
 <td align="center">3</td>
 <td align="center">M</td>
 <td align="center">7</td>
 </tr>
-<tr class="even">
+<tr>
 <td align="center">2</td>
 <td align="center">4</td>
 <td align="center">M</td>
 <td align="center">11</td>
 </tr>
-<tr class="odd">
+<tr>
 <td align="center">2</td>
 <td align="center">5</td>
 <td align="center">M</td>
 <td align="center">10</td>
 </tr>
-<tr class="even">
+<tr>
 <td align="center">2</td>
 <td align="center">6</td>
 <td align="center">M</td>
 <td align="center">10</td>
 </tr>
-<tr class="odd">
+<tr>
 <td align="center">2</td>
 <td align="center">7</td>
 <td align="center">M</td>
 <td align="center">5</td>
 </tr>
-<tr class="even">
+<tr>
 <td align="center">2</td>
 <td align="center">8</td>
 <td align="center">M</td>
 <td align="center">13</td>
 </tr>
-<tr class="odd">
+<tr>
 <td align="center">3</td>
 <td align="center">1</td>
 <td align="center">M</td>
 <td align="center">5</td>
 </tr>
-<tr class="even">
+<tr>
 <td align="center">3</td>
 <td align="center">2</td>
 <td align="center">M</td>
 <td align="center">15</td>
 </tr>
-<tr class="odd">
+<tr>
 <td align="center">3</td>
 <td align="center">3</td>
 <td align="center">M</td>
 <td align="center">5</td>
 </tr>
-<tr class="even">
+<tr>
 <td align="center">3</td>
 <td align="center">4</td>
 <td align="center">M</td>
@@ -1376,7 +1377,7 @@ observations is available from 40 different truck shipments as shown in Table <a
 <table>
 <caption><span id="tab:TruckData">Table B.4: </span> Loading Dock Data</caption>
 <tbody>
-<tr class="odd">
+<tr>
 <td align="center">130</td>
 <td align="center">130</td>
 <td align="center">110</td>
@@ -1388,7 +1389,7 @@ observations is available from 40 different truck shipments as shown in Table <a
 <td align="center">120</td>
 <td align="center">130</td>
 </tr>
-<tr class="even">
+<tr>
 <td align="center">140</td>
 <td align="center">140</td>
 <td align="center">130</td>
@@ -1400,7 +1401,7 @@ observations is available from 40 different truck shipments as shown in Table <a
 <td align="center">130</td>
 <td align="center">120</td>
 </tr>
-<tr class="odd">
+<tr>
 <td align="center">140</td>
 <td align="center">150</td>
 <td align="center">120</td>
@@ -1412,7 +1413,7 @@ observations is available from 40 different truck shipments as shown in Table <a
 <td align="center">110</td>
 <td align="center">150</td>
 </tr>
-<tr class="even">
+<tr>
 <td align="center">130</td>
 <td align="center">120</td>
 <td align="center">120</td>

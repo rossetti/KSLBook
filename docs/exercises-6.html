@@ -6,7 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>7.6 Exercises | Simulation Modeling using the Kotlin Simulation Library (KSL)</title>
   <meta name="description" content="A book that illustrates the basics of using the KSL. The output format for this book is bookdown::gitbook." />
-  <meta name="generator" content="bookdown 0.39 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.40 and GitBook 2.6.7" />
 
   <meta property="og:title" content="7.6 Exercises | Simulation Modeling using the Kotlin Simulation Library (KSL)" />
   <meta property="og:type" content="book" />
@@ -23,7 +23,7 @@
 <meta name="author" content="Manuel D. Rossetti" />
 
 
-<meta name="date" content="2025-07-03" />
+<meta name="date" content="2025-08-07" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -57,8 +57,9 @@
 
 
 <style type="text/css">
+html { -webkit-text-size-adjust: 100%; }
 pre > code.sourceCode { white-space: pre; position: relative; }
-pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
 pre > code.sourceCode > span:empty { height: 1.2em; }
 .sourceCode { overflow: visible; }
 code.sourceCode > span { color: inherit; text-decoration: inherit; }
@@ -68,7 +69,7 @@ div.sourceCode { overflow: auto; }
 }
 @media print {
 pre > code.sourceCode { white-space: pre-wrap; }
-pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
 }
 pre.numberSource code
   { counter-reset: source-line 0; }
@@ -539,34 +540,34 @@ the system that will require a new test plan sequence. The following two
 tables represent the specifics associated with the new testing plan.</p>
 <table>
 <thead>
-<tr class="header">
+<tr>
 <th align="left">Test Plan</th>
 <th align="center">% of parts</th>
 <th align="center">Sequence</th>
 </tr>
 </thead>
 <tbody>
-<tr class="odd">
+<tr>
 <td align="left">1</td>
 <td align="center">20%</td>
 <td align="center">2,3,2,1</td>
 </tr>
-<tr class="even">
+<tr>
 <td align="left">2</td>
 <td align="center">12.5%</td>
 <td align="center">3,1</td>
 </tr>
-<tr class="odd">
+<tr>
 <td align="left">3</td>
 <td align="center">37.5%</td>
 <td align="center">1,3,1</td>
 </tr>
-<tr class="even">
+<tr>
 <td align="left">4</td>
 <td align="center">20%</td>
 <td align="center">2,3</td>
 </tr>
-<tr class="odd">
+<tr>
 <td align="left">5</td>
 <td align="center">10%</td>
 <td align="center">2,1,3</td>
@@ -575,34 +576,34 @@ tables represent the specifics associated with the new testing plan.</p>
 </table>
 <table>
 <thead>
-<tr class="header">
+<tr>
 <th align="left">Test Plan</th>
 <th align="center">Testing Time Parameters</th>
 <th align="center">Repair Time Parameters</th>
 </tr>
 </thead>
 <tbody>
-<tr class="odd">
+<tr>
 <td align="left">1</td>
 <td align="center">(20,4.1), (12,4.2), (18,4.3), (16,4.0)</td>
 <td align="center">(30,60,80)</td>
 </tr>
-<tr class="even">
+<tr>
 <td align="left">2</td>
 <td align="center">(12,4), (15,4)</td>
 <td align="center">(45,55,70)</td>
 </tr>
-<tr class="odd">
+<tr>
 <td align="left">3</td>
 <td align="center">(18,4.2), (14,4.4), (12,4.3)</td>
 <td align="center">(30,40,60)</td>
 </tr>
-<tr class="even">
+<tr>
 <td align="left">4</td>
 <td align="center">(24,4), (30,4)</td>
 <td align="center">(35,65,75)</td>
 </tr>
-<tr class="odd">
+<tr>
 <td align="left">5</td>
 <td align="center">(20,4.1), (15,4), (12,4.2)</td>
 <td align="center">(20,30,40)</td>
@@ -642,22 +643,22 @@ the part types are given below. The entries are for exponential
 distributions with the mean processing time (MPT) parameter given.</p>
 <table>
 <tbody>
-<tr class="odd">
+<tr>
 <td align="left">Workstation, MPT</td>
 <td align="center">Workstation, MPT</td>
 <td align="center">Workstation, MPT</td>
 </tr>
-<tr class="even">
+<tr>
 <td align="left">A, 9.5</td>
 <td align="center">C, 14.1</td>
 <td align="center">B, 15</td>
 </tr>
-<tr class="odd">
+<tr>
 <td align="left">A, 13.5</td>
 <td align="center">B, 15</td>
 <td align="center">C, 8.5</td>
 </tr>
-<tr class="even">
+<tr>
 <td align="left">A, 12.6</td>
 <td align="center">B, 11.4</td>
 <td align="center">D, 9.0</td>
@@ -896,7 +897,7 @@ table below according to a triangular distribution with the provided
 parameters:</p>
 <table>
 <thead>
-<tr class="header">
+<tr>
 <th align="center">Prep Machine</th>
 <th align="center">Setup Time</th>
 <th align="center">Process Time</th>
@@ -904,13 +905,13 @@ parameters:</p>
 </tr>
 </thead>
 <tbody>
-<tr class="odd">
+<tr>
 <td align="center">1</td>
 <td align="center">(8,11,16)</td>
 <td align="center">(15,20,23)</td>
 <td align="center">(7,9,12)</td>
 </tr>
-<tr class="even">
+<tr>
 <td align="center">2</td>
 <td align="center">(6,8,14)</td>
 <td align="center">(11,15,20)</td>
@@ -927,7 +928,7 @@ parameters for the processing times for a triangular distribution in
 minutes.</p>
 <table>
 <thead>
-<tr class="header">
+<tr>
 <th align="center">Sequence</th>
 <th align="center">%</th>
 <th align="center">#,(min, mode, max)</th>
@@ -937,7 +938,7 @@ minutes.</p>
 </tr>
 </thead>
 <tbody>
-<tr class="odd">
+<tr>
 <td align="center">1</td>
 <td align="center">12</td>
 <td align="center">1,(10.5,11.9,13.2)</td>
@@ -945,7 +946,7 @@ minutes.</p>
 <td align="center">3,(6.7,8,10)</td>
 <td align="center">4, (1,8.9,10.3)</td>
 </tr>
-<tr class="even">
+<tr>
 <td align="center">2</td>
 <td align="center">14</td>
 <td align="center">1,(7.3,8.6,10.1)</td>
@@ -953,7 +954,7 @@ minutes.</p>
 <td align="center">2,(9.6, 11.4, 15.3)</td>
 <td align="center"></td>
 </tr>
-<tr class="odd">
+<tr>
 <td align="center">3</td>
 <td align="center">31</td>
 <td align="center">2,(8.7,9.9,12)</td>
@@ -961,7 +962,7 @@ minutes.</p>
 <td align="center">1,(10.3, 12.4, 14.8)</td>
 <td align="center">3,(8.4,9.7,11)</td>
 </tr>
-<tr class="even">
+<tr>
 <td align="center">4</td>
 <td align="center">24</td>
 <td align="center">3,(7.9,9.3, 10.9)</td>
@@ -969,7 +970,7 @@ minutes.</p>
 <td align="center">3,(6.5,8.3,9.7)</td>
 <td align="center">2,(6.7,7.8,9.4)</td>
 </tr>
-<tr class="odd">
+<tr>
 <td align="center">5</td>
 <td align="center">19</td>
 <td align="center">2,(5.6,7.1,8.8)</td>
@@ -1153,7 +1154,7 @@ time).</p></li>
 <table>
 <caption><span id="tab:SRAC1">Table 7.9: </span> Mean Number of Calls Received for each Hour</caption>
 <thead>
-<tr class="header">
+<tr>
 <th align="left">Hour</th>
 <th align="center">Mon</th>
 <th align="center">Tue</th>
@@ -1165,7 +1166,7 @@ time).</p></li>
 </tr>
 </thead>
 <tbody>
-<tr class="odd">
+<tr>
 <td align="left">1</td>
 <td align="center">6.7</td>
 <td align="center">6.1</td>
@@ -1175,7 +1176,7 @@ time).</p></li>
 <td align="center">6.2</td>
 <td align="center">9.4</td>
 </tr>
-<tr class="even">
+<tr>
 <td align="left">2</td>
 <td align="center">9.7</td>
 <td align="center">9.4</td>
@@ -1185,7 +1186,7 @@ time).</p></li>
 <td align="center">7.0</td>
 <td align="center">8.8</td>
 </tr>
-<tr class="odd">
+<tr>
 <td align="left">3</td>
 <td align="center">8.5</td>
 <td align="center">6.0</td>
@@ -1195,7 +1196,7 @@ time).</p></li>
 <td align="center">7.8</td>
 <td align="center">13.4</td>
 </tr>
-<tr class="even">
+<tr>
 <td align="left">4</td>
 <td align="center">9.0</td>
 <td align="center">10.0</td>
@@ -1205,7 +1206,7 @@ time).</p></li>
 <td align="center">6.3</td>
 <td align="center">6.7</td>
 </tr>
-<tr class="odd">
+<tr>
 <td align="left">5</td>
 <td align="center">6.8</td>
 <td align="center">9.2</td>
@@ -1215,7 +1216,7 @@ time).</p></li>
 <td align="center">6.5</td>
 <td align="center">7.5</td>
 </tr>
-<tr class="even">
+<tr>
 <td align="left">6</td>
 <td align="center">8.5</td>
 <td align="center">4.2</td>
@@ -1225,7 +1226,7 @@ time).</p></li>
 <td align="center">7.8</td>
 <td align="center">8.0</td>
 </tr>
-<tr class="odd">
+<tr>
 <td align="left">7</td>
 <td align="center">6.7</td>
 <td align="center">6.9</td>
@@ -1235,7 +1236,7 @@ time).</p></li>
 <td align="center">46.2</td>
 <td align="center">9.8</td>
 </tr>
-<tr class="even">
+<tr>
 <td align="left">8</td>
 <td align="center">38.2</td>
 <td align="center">35.0</td>
@@ -1245,7 +1246,7 @@ time).</p></li>
 <td align="center">82.5</td>
 <td align="center">78.8</td>
 </tr>
-<tr class="odd">
+<tr>
 <td align="left">9</td>
 <td align="center">20.0</td>
 <td align="center">77.6</td>
@@ -1255,7 +1256,7 @@ time).</p></li>
 <td align="center">28.1</td>
 <td align="center">99.2</td>
 </tr>
-<tr class="even">
+<tr>
 <td align="left">10</td>
 <td align="center">76.2</td>
 <td align="center">75.4</td>
@@ -1265,7 +1266,7 @@ time).</p></li>
 <td align="center">106.9</td>
 <td align="center">42.0</td>
 </tr>
-<tr class="odd">
+<tr>
 <td align="left">11</td>
 <td align="center">92.5</td>
 <td align="center">105.4</td>
@@ -1275,7 +1276,7 @@ time).</p></li>
 <td align="center">92.4</td>
 <td align="center">43.6</td>
 </tr>
-<tr class="even">
+<tr>
 <td align="left">12</td>
 <td align="center">76.4</td>
 <td align="center">37.3</td>
@@ -1285,7 +1286,7 @@ time).</p></li>
 <td align="center">37.9</td>
 <td align="center">68.9</td>
 </tr>
-<tr class="odd">
+<tr>
 <td align="left">13</td>
 <td align="center">79.1</td>
 <td align="center">64.2</td>
@@ -1295,7 +1296,7 @@ time).</p></li>
 <td align="center">77.9</td>
 <td align="center">116.6</td>
 </tr>
-<tr class="even">
+<tr>
 <td align="left">14</td>
 <td align="center">75.2</td>
 <td align="center">102.2</td>
@@ -1305,7 +1306,7 @@ time).</p></li>
 <td align="center">64.5</td>
 <td align="center">39.5</td>
 </tr>
-<tr class="odd">
+<tr>
 <td align="left">15</td>
 <td align="center">117.9</td>
 <td align="center">26.8</td>
@@ -1315,7 +1316,7 @@ time).</p></li>
 <td align="center">96.8</td>
 <td align="center">52.1</td>
 </tr>
-<tr class="even">
+<tr>
 <td align="left">16</td>
 <td align="center">100.2</td>
 <td align="center">85.9</td>
@@ -1325,7 +1326,7 @@ time).</p></li>
 <td align="center">167.9</td>
 <td align="center">153.5</td>
 </tr>
-<tr class="odd">
+<tr>
 <td align="left">17</td>
 <td align="center">52.7</td>
 <td align="center">64.7</td>
@@ -1335,7 +1336,7 @@ time).</p></li>
 <td align="center">98.0</td>
 <td align="center">63.7</td>
 </tr>
-<tr class="even">
+<tr>
 <td align="left">18</td>
 <td align="center">65.3</td>
 <td align="center">114.9</td>
@@ -1345,7 +1346,7 @@ time).</p></li>
 <td align="center">135.7</td>
 <td align="center">79.8</td>
 </tr>
-<tr class="odd">
+<tr>
 <td align="left">19</td>
 <td align="center">126.1</td>
 <td align="center">69.6</td>
@@ -1355,7 +1356,7 @@ time).</p></li>
 <td align="center">111.9</td>
 <td align="center">180.5</td>
 </tr>
-<tr class="even">
+<tr>
 <td align="left">20</td>
 <td align="center">116.6</td>
 <td align="center">70.2</td>
@@ -1365,7 +1366,7 @@ time).</p></li>
 <td align="center">84.3</td>
 <td align="center">64.1</td>
 </tr>
-<tr class="odd">
+<tr>
 <td align="left">21</td>
 <td align="center">38.6</td>
 <td align="center">20.5</td>
@@ -1375,7 +1376,7 @@ time).</p></li>
 <td align="center">50.8</td>
 <td align="center">68.5</td>
 </tr>
-<tr class="even">
+<tr>
 <td align="left">22</td>
 <td align="center">8.5</td>
 <td align="center">17.1</td>
@@ -1385,7 +1386,7 @@ time).</p></li>
 <td align="center">68.1</td>
 <td align="center">7.8</td>
 </tr>
-<tr class="odd">
+<tr>
 <td align="left">23</td>
 <td align="center">9.8</td>
 <td align="center">48.9</td>
@@ -1395,7 +1396,7 @@ time).</p></li>
 <td align="center">58.5</td>
 <td align="center">44.1</td>
 </tr>
-<tr class="even">
+<tr>
 <td align="left">24</td>
 <td align="center">9.6</td>
 <td align="center">1.3</td>
@@ -1412,7 +1413,7 @@ time).</p></li>
 <table>
 <caption><span id="tab:SRAC2">Table 7.10: </span> Road Side Service Call Times in Minutes</caption>
 <tbody>
-<tr class="odd">
+<tr>
 <td align="left">33.6</td>
 <td align="center">34.0</td>
 <td align="center">33.2</td>
@@ -1424,7 +1425,7 @@ time).</p></li>
 <td align="center">37.6</td>
 <td align="center">37.4</td>
 </tr>
-<tr class="even">
+<tr>
 <td align="left">32.3</td>
 <td align="center">37.2</td>
 <td align="center">39.3</td>
@@ -1436,7 +1437,7 @@ time).</p></li>
 <td align="center">32.8</td>
 <td align="center">40.0</td>
 </tr>
-<tr class="odd">
+<tr>
 <td align="left">37.8</td>
 <td align="center">38.0</td>
 <td align="center">42.4</td>
@@ -1448,7 +1449,7 @@ time).</p></li>
 <td align="center">30.2</td>
 <td align="center">33.1</td>
 </tr>
-<tr class="even">
+<tr>
 <td align="left">36.8</td>
 <td align="center">34.4</td>
 <td align="center">36.4</td>
@@ -1460,7 +1461,7 @@ time).</p></li>
 <td align="center">40.0</td>
 <td align="center">37.0</td>
 </tr>
-<tr class="odd">
+<tr>
 <td align="left">36.0</td>
 <td align="center">34.6</td>
 <td align="center">33.9</td>
@@ -1472,7 +1473,7 @@ time).</p></li>
 <td align="center">35.2</td>
 <td align="center">38.2</td>
 </tr>
-<tr class="even">
+<tr>
 <td align="left">34.6</td>
 <td align="center">33.5</td>
 <td align="center">36.3</td>
@@ -1484,7 +1485,7 @@ time).</p></li>
 <td align="center">35.8</td>
 <td align="center">35.8</td>
 </tr>
-<tr class="odd">
+<tr>
 <td align="left">38.2</td>
 <td align="center">38.8</td>
 <td align="center">35.7</td>
@@ -1496,7 +1497,7 @@ time).</p></li>
 <td align="center">35.1</td>
 <td align="center">35.5</td>
 </tr>
-<tr class="even">
+<tr>
 <td align="left">34.0</td>
 <td align="center">33.2</td>
 <td align="center">33.7</td>
@@ -1508,7 +1509,7 @@ time).</p></li>
 <td align="center">38.7</td>
 <td align="center">35.3</td>
 </tr>
-<tr class="odd">
+<tr>
 <td align="left">35.5</td>
 <td align="center">39.4</td>
 <td align="center">32.6</td>
@@ -1520,7 +1521,7 @@ time).</p></li>
 <td align="center">38.6</td>
 <td align="center">33.0</td>
 </tr>
-<tr class="even">
+<tr>
 <td align="left">35.3</td>
 <td align="center">38.1</td>
 <td align="center">33.5</td>
@@ -1539,7 +1540,7 @@ time).</p></li>
 <table>
 <caption><span id="tab:SRAC3">Table 7.11: </span> Vacation Package Service Call Times in Minutes</caption>
 <tbody>
-<tr class="odd">
+<tr>
 <td align="left">52.2</td>
 <td align="center">23.7</td>
 <td align="center">33.9</td>
@@ -1551,7 +1552,7 @@ time).</p></li>
 <td align="center">53.9</td>
 <td align="center">38.8</td>
 </tr>
-<tr class="even">
+<tr>
 <td align="left">33.4</td>
 <td align="center">44.2</td>
 <td align="center">28.4</td>
@@ -1563,7 +1564,7 @@ time).</p></li>
 <td align="center">16.3</td>
 <td align="center">41.4</td>
 </tr>
-<tr class="odd">
+<tr>
 <td align="left">63.1</td>
 <td align="center">37.5</td>
 <td align="center">33.5</td>
@@ -1575,7 +1576,7 @@ time).</p></li>
 <td align="center">24.5</td>
 <td align="center">42.9</td>
 </tr>
-<tr class="even">
+<tr>
 <td align="left">38.9</td>
 <td align="center">19.8</td>
 <td align="center">32.7</td>
@@ -1587,7 +1588,7 @@ time).</p></li>
 <td align="center">39.6</td>
 <td align="center">53.5</td>
 </tr>
-<tr class="odd">
+<tr>
 <td align="left">28.8</td>
 <td align="center">42.2</td>
 <td align="center">42.4</td>
@@ -1599,7 +1600,7 @@ time).</p></li>
 <td align="center">18.5</td>
 <td align="center">26.5</td>
 </tr>
-<tr class="even">
+<tr>
 <td align="left">40.9</td>
 <td align="center">20.7</td>
 <td align="center">36.6</td>
@@ -1611,7 +1612,7 @@ time).</p></li>
 <td align="center">30.9</td>
 <td align="center">34.2</td>
 </tr>
-<tr class="odd">
+<tr>
 <td align="left">35.5</td>
 <td align="center">31.8</td>
 <td align="center">27.2</td>
@@ -1623,7 +1624,7 @@ time).</p></li>
 <td align="center">33.3</td>
 <td align="center">35.0</td>
 </tr>
-<tr class="even">
+<tr>
 <td align="left">29.6</td>
 <td align="center">31.6</td>
 <td align="center">29.9</td>
@@ -1635,7 +1636,7 @@ time).</p></li>
 <td align="center">25.7</td>
 <td align="center">41.2</td>
 </tr>
-<tr class="odd">
+<tr>
 <td align="left">27.5</td>
 <td align="center">52.0</td>
 <td align="center">27.3</td>
@@ -1647,7 +1648,7 @@ time).</p></li>
 <td align="center">31.4</td>
 <td align="center">46.1</td>
 </tr>
-<tr class="even">
+<tr>
 <td align="left">23.8</td>
 <td align="center">35.9</td>
 <td align="center">41.5</td>
@@ -1666,7 +1667,7 @@ time).</p></li>
 <table>
 <caption><span id="tab:SRAC4">Table 7.12: </span> Credit Card Service Call Times in Minutes</caption>
 <tbody>
-<tr class="odd">
+<tr>
 <td align="left">13.5</td>
 <td align="center">10.1</td>
 <td align="center">14.4</td>
@@ -1678,7 +1679,7 @@ time).</p></li>
 <td align="center">12.0</td>
 <td align="center">14.4</td>
 </tr>
-<tr class="even">
+<tr>
 <td align="left">14.4</td>
 <td align="center">13.5</td>
 <td align="center">13.4</td>
@@ -1690,7 +1691,7 @@ time).</p></li>
 <td align="center">14.9</td>
 <td align="center">15.0</td>
 </tr>
-<tr class="odd">
+<tr>
 <td align="left">14.7</td>
 <td align="center">14.3</td>
 <td align="center">12.3</td>
@@ -1702,7 +1703,7 @@ time).</p></li>
 <td align="center">14.6</td>
 <td align="center">14.6</td>
 </tr>
-<tr class="even">
+<tr>
 <td align="left">15.0</td>
 <td align="center">10.3</td>
 <td align="center">11.3</td>
@@ -1714,7 +1715,7 @@ time).</p></li>
 <td align="center">11.5</td>
 <td align="center">11.9</td>
 </tr>
-<tr class="odd">
+<tr>
 <td align="left">13.5</td>
 <td align="center">14.9</td>
 <td align="center">11.0</td>
@@ -1726,7 +1727,7 @@ time).</p></li>
 <td align="center">14.3</td>
 <td align="center">14.0</td>
 </tr>
-<tr class="even">
+<tr>
 <td align="left">14.9</td>
 <td align="center">10.9</td>
 <td align="center">13.9</td>
@@ -1738,7 +1739,7 @@ time).</p></li>
 <td align="center">14.5</td>
 <td align="center">14.4</td>
 </tr>
-<tr class="odd">
+<tr>
 <td align="left">15.0</td>
 <td align="center">14.5</td>
 <td align="center">14.5</td>
@@ -1750,7 +1751,7 @@ time).</p></li>
 <td align="center">11.6</td>
 <td align="center">15.0</td>
 </tr>
-<tr class="even">
+<tr>
 <td align="left">11.1</td>
 <td align="center">13.7</td>
 <td align="center">13.9</td>
@@ -1762,7 +1763,7 @@ time).</p></li>
 <td align="center">10.4</td>
 <td align="center">14.5</td>
 </tr>
-<tr class="odd">
+<tr>
 <td align="left">12.3</td>
 <td align="center">13.8</td>
 <td align="center">14.7</td>
@@ -1774,7 +1775,7 @@ time).</p></li>
 <td align="center">12.9</td>
 <td align="center">14.3</td>
 </tr>
-<tr class="even">
+<tr>
 <td align="left">14.5</td>
 <td align="center">11.5</td>
 <td align="center">12.1</td>

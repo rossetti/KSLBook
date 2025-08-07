@@ -6,7 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>4.2 How the Discrete-Event Clock Works | Simulation Modeling using the Kotlin Simulation Library (KSL)</title>
   <meta name="description" content="A book that illustrates the basics of using the KSL. The output format for this book is bookdown::gitbook." />
-  <meta name="generator" content="bookdown 0.39 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.40 and GitBook 2.6.7" />
 
   <meta property="og:title" content="4.2 How the Discrete-Event Clock Works | Simulation Modeling using the Kotlin Simulation Library (KSL)" />
   <meta property="og:type" content="book" />
@@ -23,7 +23,7 @@
 <meta name="author" content="Manuel D. Rossetti" />
 
 
-<meta name="date" content="2025-07-03" />
+<meta name="date" content="2025-08-07" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -57,8 +57,9 @@
 
 
 <style type="text/css">
+html { -webkit-text-size-adjust: 100%; }
 pre > code.sourceCode { white-space: pre; position: relative; }
-pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
 pre > code.sourceCode > span:empty { height: 1.2em; }
 .sourceCode { overflow: visible; }
 code.sourceCode > span { color: inherit; text-decoration: inherit; }
@@ -68,7 +69,7 @@ div.sourceCode { overflow: auto; }
 }
 @media print {
 pre > code.sourceCode { white-space: pre-wrap; }
-pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
 }
 pre.numberSource code
   { counter-reset: source-line 0; }
@@ -558,29 +559,29 @@ Figure 4.1: Customer Arrival Process
 <table>
 <caption><span id="tab:CustArrivals">Table 4.1: </span> Customer Time of Arrivals</caption>
 <thead>
-<tr class="header">
+<tr>
 <th align="center">Customer</th>
 <th align="center">Time of arrival</th>
 <th align="center">Time between arrival</th>
 </tr>
 </thead>
 <tbody>
-<tr class="odd">
+<tr>
 <td align="center">1</td>
 <td align="center">2</td>
 <td align="center">2</td>
 </tr>
-<tr class="even">
+<tr>
 <td align="center">2</td>
 <td align="center">5</td>
 <td align="center">3</td>
 </tr>
-<tr class="odd">
+<tr>
 <td align="center">3</td>
 <td align="center">7</td>
 <td align="center">2</td>
 </tr>
-<tr class="even">
+<tr>
 <td align="center">4</td>
 <td align="center">15</td>
 <td align="center">8</td>
@@ -655,7 +656,7 @@ Figure 4.2: Customer Service Process
 <table>
 <caption><span id="tab:CustServiceTimes">Table 4.2: </span> Service Time for First Four Customers</caption>
 <thead>
-<tr class="header">
+<tr>
 <th align="center">Customer</th>
 <th align="center">Service Time Started</th>
 <th align="center">Service Time</th>
@@ -663,25 +664,25 @@ Figure 4.2: Customer Service Process
 </tr>
 </thead>
 <tbody>
-<tr class="odd">
+<tr>
 <td align="center">1</td>
 <td align="center">2</td>
 <td align="center">8</td>
 <td align="center">10</td>
 </tr>
-<tr class="even">
+<tr>
 <td align="center">2</td>
 <td align="center">5</td>
 <td align="center">7</td>
 <td align="center">12</td>
 </tr>
-<tr class="odd">
+<tr>
 <td align="center">3</td>
 <td align="center">10</td>
 <td align="center">9</td>
 <td align="center">19</td>
 </tr>
-<tr class="even">
+<tr>
 <td align="center">4</td>
 <td align="center">15</td>
 <td align="center">2</td>
@@ -707,54 +708,54 @@ Figure 4.3: Events Ordered by Time Process
 </div>
 <table>
 <thead>
-<tr class="header">
+<tr>
 <th align="center">Time</th>
 <th align="center">Event</th>
 <th align="left">Comment</th>
 </tr>
 </thead>
 <tbody>
-<tr class="odd">
+<tr>
 <td align="center">0</td>
 <td align="center">Bank 0pens</td>
 <td align="left"></td>
 </tr>
-<tr class="even">
+<tr>
 <td align="center">2</td>
 <td align="center">Arrival</td>
 <td align="left">Customer 1 arrives, enters service for 8 minutes, one teller becomes busy</td>
 </tr>
-<tr class="odd">
+<tr>
 <td align="center">5</td>
 <td align="center">Arrival</td>
 <td align="left">Customer 2 arrives, enters service for 7 minutes, the second teller becomes busy</td>
 </tr>
-<tr class="even">
+<tr>
 <td align="center">7</td>
 <td align="center">Arrival</td>
 <td align="left">Customer 3 arrives, waits in queue</td>
 </tr>
-<tr class="odd">
+<tr>
 <td align="center">10</td>
 <td align="center">Service Completion</td>
 <td align="left">Customer 1 completes service, customer 3 exits the queue and enters service for 9 minutes</td>
 </tr>
-<tr class="even">
+<tr>
 <td align="center">12</td>
 <td align="center">Service Completion</td>
 <td align="left">Customer 2 completes service, no customers are in the queue so a teller becomes idle</td>
 </tr>
-<tr class="odd">
+<tr>
 <td align="center">15</td>
 <td align="center">Arrival</td>
 <td align="left">Customer 4 arrives, enters service for 2 minutes, one teller becomes busy</td>
 </tr>
-<tr class="even">
+<tr>
 <td align="center">17</td>
 <td align="center">Service Completion</td>
 <td align="left">Customer 4 completes service, a teller becomes idle</td>
 </tr>
-<tr class="odd">
+<tr>
 <td align="center">19</td>
 <td align="center">Service Completion</td>
 <td align="left">Customer 3 completes service</td>

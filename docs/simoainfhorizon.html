@@ -6,7 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>5.6 Analysis of Infinite Horizon Simulations | Simulation Modeling using the Kotlin Simulation Library (KSL)</title>
   <meta name="description" content="A book that illustrates the basics of using the KSL. The output format for this book is bookdown::gitbook." />
-  <meta name="generator" content="bookdown 0.39 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.40 and GitBook 2.6.7" />
 
   <meta property="og:title" content="5.6 Analysis of Infinite Horizon Simulations | Simulation Modeling using the Kotlin Simulation Library (KSL)" />
   <meta property="og:type" content="book" />
@@ -23,7 +23,7 @@
 <meta name="author" content="Manuel D. Rossetti" />
 
 
-<meta name="date" content="2025-07-03" />
+<meta name="date" content="2025-08-07" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -57,8 +57,9 @@
 
 
 <style type="text/css">
+html { -webkit-text-size-adjust: 100%; }
 pre > code.sourceCode { white-space: pre; position: relative; }
-pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
 pre > code.sourceCode > span:empty { height: 1.2em; }
 .sourceCode { overflow: visible; }
 code.sourceCode > span { color: inherit; text-decoration: inherit; }
@@ -68,7 +69,7 @@ div.sourceCode { overflow: auto; }
 }
 @media print {
 pre > code.sourceCode { white-space: pre-wrap; }
-pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
 }
 pre.numberSource code
   { counter-reset: source-line 0; }
@@ -811,64 +812,64 @@ first 20 customers for 10 different replications.</p>
 <table>
 <caption>Ten Replications of 20 Customers</caption>
 <thead>
-<tr class="header">
+<tr>
 <th align="center">r</th>
 <th align="center"><span class="math inline">\(\bar{W}_r\)</span></th>
 <th align="center"><span class="math inline">\(B_r = \bar{W}_r - W_q\)</span></th>
 </tr>
 </thead>
 <tbody>
-<tr class="odd">
+<tr>
 <td align="center">1</td>
 <td align="center">0.194114</td>
 <td align="center">-1.43922</td>
 </tr>
-<tr class="even">
+<tr>
 <td align="center">2</td>
 <td align="center">0.514809</td>
 <td align="center">-1.11852</td>
 </tr>
-<tr class="odd">
+<tr>
 <td align="center">3</td>
 <td align="center">1.127332</td>
 <td align="center">-0.506</td>
 </tr>
-<tr class="even">
+<tr>
 <td align="center">4</td>
 <td align="center">0.390004</td>
 <td align="center">-1.24333</td>
 </tr>
-<tr class="odd">
+<tr>
 <td align="center">5</td>
 <td align="center">1.05056</td>
 <td align="center">-0.58277</td>
 </tr>
-<tr class="even">
+<tr>
 <td align="center">6</td>
 <td align="center">1.604883</td>
 <td align="center">-0.02845</td>
 </tr>
-<tr class="odd">
+<tr>
 <td align="center">7</td>
 <td align="center">0.445822</td>
 <td align="center">-1.18751</td>
 </tr>
-<tr class="even">
+<tr>
 <td align="center">8</td>
 <td align="center">0.610001</td>
 <td align="center">-1.02333</td>
 </tr>
-<tr class="odd">
+<tr>
 <td align="center">9</td>
 <td align="center">0.52462</td>
 <td align="center">-1.10871</td>
 </tr>
-<tr class="even">
+<tr>
 <td align="center"> 10</td>
 <td align="center">0.335311</td>
 <td align="center">-1.29802</td>
 </tr>
-<tr class="odd">
+<tr>
 <td align="center"></td>
 <td align="center"><span class="math inline">\(\bar{\bar{W}}\)</span> = 0.6797</td>
 <td align="center"><span class="math inline">\(\bar{B}\)</span> = -0.9536</td>
@@ -1008,7 +1009,7 @@ bias can be achieved as indicated in the following table.</p>
 <table>
 <caption>Replication-Deletion Results, d = 3000</caption>
 <thead>
-<tr class="header">
+<tr>
 <th align="center"><span class="math inline">\(r\)</span></th>
 <th align="center"><span class="math inline">\(\bar{W}_r\)</span> <span class="math inline">\((d = 0)\)</span></th>
 <th align="center"><span class="math inline">\(\bar{W}_r(d = 3000)\)</span></th>
@@ -1017,98 +1018,98 @@ bias can be achieved as indicated in the following table.</p>
 </tr>
 </thead>
 <tbody>
-<tr class="odd">
+<tr>
 <td align="center">1</td>
 <td align="center">1.594843</td>
 <td align="center">1.592421</td>
 <td align="center">-0.03849</td>
 <td align="center">-0.04091</td>
 </tr>
-<tr class="even">
+<tr>
 <td align="center">2</td>
 <td align="center">1.452237</td>
 <td align="center">1.447396</td>
 <td align="center">-0.1811</td>
 <td align="center">-0.18594</td>
 </tr>
-<tr class="odd">
+<tr>
 <td align="center">3</td>
 <td align="center">1.657355</td>
 <td align="center">1.768249</td>
 <td align="center">0.024022</td>
 <td align="center">0.134915</td>
 </tr>
-<tr class="even">
+<tr>
 <td align="center">4</td>
 <td align="center">1.503747</td>
 <td align="center">1.443251</td>
 <td align="center">-0.12959</td>
 <td align="center">-0.19008</td>
 </tr>
-<tr class="odd">
+<tr>
 <td align="center">5</td>
 <td align="center">1.606765</td>
 <td align="center">1.731306</td>
 <td align="center">-0.02657</td>
 <td align="center">0.097973</td>
 </tr>
-<tr class="even">
+<tr>
 <td align="center">6</td>
 <td align="center">1.464981</td>
 <td align="center">1.559769</td>
 <td align="center">-0.16835</td>
 <td align="center">-0.07356</td>
 </tr>
-<tr class="odd">
+<tr>
 <td align="center">7</td>
 <td align="center">1.621275</td>
 <td align="center">1.75917</td>
 <td align="center">-0.01206</td>
 <td align="center">0.125837</td>
 </tr>
-<tr class="even">
+<tr>
 <td align="center">8</td>
 <td align="center">1.600563</td>
 <td align="center">1.67868</td>
 <td align="center">-0.03277</td>
 <td align="center">0.045347</td>
 </tr>
-<tr class="odd">
+<tr>
 <td align="center">9</td>
 <td align="center">1.400995</td>
 <td align="center">1.450852</td>
 <td align="center">-0.23234</td>
 <td align="center">-0.18248</td>
 </tr>
-<tr class="even">
+<tr>
 <td align="center">10</td>
 <td align="center">1.833414</td>
 <td align="center">1.604855</td>
 <td align="center">0.20008</td>
 <td align="center">-0.02848</td>
 </tr>
-<tr class="odd">
+<tr>
 <td align="center"></td>
 <td align="center"><span class="math inline">\(\bar{\bar{W}}\)</span> = 1.573617</td>
 <td align="center"><span class="math inline">\(\bar{\bar{W}}\)</span> = 1.603595</td>
 <td align="center"><span class="math inline">\(\bar{B}\)</span> = -0.05972</td>
 <td align="center"><span class="math inline">\(\bar{B}\)</span> = -0.02974</td>
 </tr>
-<tr class="even">
+<tr>
 <td align="center"></td>
 <td align="center">s = 0.1248</td>
 <td align="center">s = 0.1286</td>
 <td align="center">s = 0.1248</td>
 <td align="center">s = 0.1286</td>
 </tr>
-<tr class="odd">
+<tr>
 <td align="center">95% LL</td>
 <td align="center">1.4843</td>
 <td align="center">1.5116</td>
 <td align="center">-0.149023</td>
 <td align="center">-0.121704</td>
 </tr>
-<tr class="even">
+<tr>
 <td align="center">95% UL</td>
 <td align="center">1.6629</td>
 <td align="center">1.6959</td>
@@ -1325,7 +1326,7 @@ any significant bias with these replication settings.</p>
 <table>
 <caption>Across Replication Statistics for Drive Through Pharmacy</caption>
 <thead>
-<tr class="header">
+<tr>
 <th align="center">Name</th>
 <th align="center">Count</th>
 <th align="center">Average</th>
@@ -1333,43 +1334,43 @@ any significant bias with these replication settings.</p>
 </tr>
 </thead>
 <tbody>
-<tr class="odd">
+<tr>
 <td align="center">NumBusy</td>
 <td align="center">30.0</td>
 <td align="center">.7001</td>
 <td align="center">.0008</td>
 </tr>
-<tr class="even">
+<tr>
 <td align="center"># in System</td>
 <td align="center">30.0</td>
 <td align="center">2.3402</td>
 <td align="center">.0103</td>
 </tr>
-<tr class="odd">
+<tr>
 <td align="center">System Time</td>
 <td align="center">30.0</td>
 <td align="center">2.3389</td>
 <td align="center">.01</td>
 </tr>
-<tr class="even">
+<tr>
 <td align="center">PharmacyQ:NumInQ</td>
 <td align="center">30.0</td>
 <td align="center">1.6401</td>
 <td align="center">.0098</td>
 </tr>
-<tr class="odd">
+<tr>
 <td align="center">PharmacyQ:TimeInQ</td>
 <td align="center">30.0</td>
 <td align="center">1.6392</td>
 <td align="center">.0097</td>
 </tr>
-<tr class="even">
+<tr>
 <td align="center">SysTime &gt; 4.0 minutes</td>
 <td align="center">30.0</td>
 <td align="center">.1806</td>
 <td align="center">.0013</td>
 </tr>
-<tr class="odd">
+<tr>
 <td align="center">Num Served</td>
 <td align="center">30.0</td>
 <td align="center">180104.9667</td>
@@ -1619,7 +1620,7 @@ be <span class="math inline">\(n_0 \times T_w = 100,000\)</span>. The following 
 <table>
 <caption>Replication-Deletion Half-Width Summary report <span class="math inline">\(n=10\)</span>, <span class="math inline">\(T_e = 30000\)</span>, <span class="math inline">\(T_w = 10000\)</span></caption>
 <thead>
-<tr class="header">
+<tr>
 <th align="left">Response Name</th>
 <th align="center"><span class="math inline">\(n\)</span></th>
 <th align="center"><span class="math inline">\(\bar{x}\)</span></th>
@@ -1627,31 +1628,31 @@ be <span class="math inline">\(n_0 \times T_w = 100,000\)</span>. The following 
 </tr>
 </thead>
 <tbody>
-<tr class="odd">
+<tr>
 <td align="left">PharmacyQ:Num In Q</td>
 <td align="center">10</td>
 <td align="center">1.656893</td>
 <td align="center">0.084475</td>
 </tr>
-<tr class="even">
+<tr>
 <td align="left">PharmacyQ:Time In Q</td>
 <td align="center">10</td>
 <td align="center">1.659100</td>
 <td align="center">0.082517</td>
 </tr>
-<tr class="odd">
+<tr>
 <td align="left">NumBusy</td>
 <td align="center">10</td>
 <td align="center">0.699705</td>
 <td align="center">0.004851</td>
 </tr>
-<tr class="even">
+<tr>
 <td align="left">Num in System</td>
 <td align="center">10</td>
 <td align="center">2.356598</td>
 <td align="center">0.088234</td>
 </tr>
-<tr class="odd">
+<tr>
 <td align="left">System Time</td>
 <td align="center">10</td>
 <td align="center">2.359899</td>
@@ -1663,7 +1664,7 @@ be <span class="math inline">\(n_0 \times T_w = 100,000\)</span>. The following 
 <table>
 <caption>Batch Means Summary Report <span class="math inline">\(T_e = 300000\)</span>, <span class="math inline">\(T_w = 100000\)</span></caption>
 <thead>
-<tr class="header">
+<tr>
 <th align="left">Response Name</th>
 <th align="center"><span class="math inline">\(n\)</span></th>
 <th align="center"><span class="math inline">\(\bar{x}\)</span></th>
@@ -1671,31 +1672,31 @@ be <span class="math inline">\(n_0 \times T_w = 100,000\)</span>. The following 
 </tr>
 </thead>
 <tbody>
-<tr class="odd">
+<tr>
 <td align="left">PharmacyQ:Num In Q</td>
 <td align="center">32</td>
 <td align="center">1.631132</td>
 <td align="center">0.047416</td>
 </tr>
-<tr class="even">
+<tr>
 <td align="left">PharmacyQ:Time In Q</td>
 <td align="center">24</td>
 <td align="center">1.627059</td>
 <td align="center">0.055888</td>
 </tr>
-<tr class="odd">
+<tr>
 <td align="left">NumBusy</td>
 <td align="center">32</td>
 <td align="center">0.699278</td>
 <td align="center">0.004185</td>
 </tr>
-<tr class="even">
+<tr>
 <td align="left">Num in System</td>
 <td align="center">32</td>
 <td align="center">2.330410</td>
 <td align="center">0.049853</td>
 </tr>
-<tr class="odd">
+<tr>
 <td align="left">System Time</td>
 <td align="center">24</td>
 <td align="center">2.324590</td>
@@ -1728,7 +1729,7 @@ how the observations will be batched when making the final run.</p>
 <table>
 <caption>Batch Means Summary Report <span class="math inline">\(T_e = 1,300,000\)</span>, <span class="math inline">\(T_w = 100000\)</span></caption>
 <thead>
-<tr class="header">
+<tr>
 <th align="left">Response Name</th>
 <th align="center"><span class="math inline">\(n\)</span></th>
 <th align="center"><span class="math inline">\(\bar{x}\)</span></th>
@@ -1736,31 +1737,31 @@ how the observations will be batched when making the final run.</p>
 </tr>
 </thead>
 <tbody>
-<tr class="odd">
+<tr>
 <td align="left">NumBusy</td>
 <td align="center">32</td>
 <td align="center">0.698973</td>
 <td align="center">0.001652</td>
 </tr>
-<tr class="even">
+<tr>
 <td align="left">Num in System</td>
 <td align="center">32</td>
 <td align="center">2.322050</td>
 <td align="center">0.019413</td>
 </tr>
-<tr class="odd">
+<tr>
 <td align="left">PharmacyQ:Num In Q</td>
 <td align="center">32</td>
 <td align="center">1.623077</td>
 <td align="center">0.018586</td>
 </tr>
-<tr class="even">
+<tr>
 <td align="left">PharmacyQ:Time In Q</td>
 <td align="center">36</td>
 <td align="center">1.625395</td>
 <td align="center">0.017383</td>
 </tr>
-<tr class="odd">
+<tr>
 <td align="left">System Time</td>
 <td align="center">36</td>
 <td align="center">2.324915</td>

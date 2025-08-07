@@ -2216,8 +2216,8 @@ print(fy)
 ## Fitting of the distribution ' gamma ' by maximum likelihood 
 ## Parameters:
 ##        estimate Std. Error
-## shape 3.4098479 0.46055722
-## rate  0.2542252 0.03699365
+## shape 3.4091351 0.46045686
+## rate  0.2542441 0.03699664
 ```
 Then, the *gofstat* function does all the work to compute the chi-square goodness
 of fit, K-S test statistic, as well as other goodness of fit criteria.
@@ -2232,9 +2232,9 @@ print(gfy)
 ```
 ## Goodness-of-fit statistics
 ##                              1-mle-gamma
-## Kolmogorov-Smirnov statistic  0.04930008
-## Cramer-von Mises statistic    0.03754480
-## Anderson-Darling statistic    0.25485917
+## Kolmogorov-Smirnov statistic  0.04943982
+## Cramer-von Mises statistic    0.03747780
+## Anderson-Darling statistic    0.25508944
 ## 
 ## Goodness-of-fit criteria
 ##                                1-mle-gamma
@@ -2247,7 +2247,7 @@ print(gfy$chisq) # chi-squared test statistic
 ```
 
 ```
-## [1] 3.544766
+## [1] 3.544039
 ```
 
 ``` r
@@ -2255,7 +2255,7 @@ print(gfy$chisqpvalue) # chi-squared p-value
 ```
 
 ```
-## [1] 0.8956877
+## [1] 0.895745
 ```
 
 ``` r

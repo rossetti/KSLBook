@@ -6,7 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>3.10 Exercises | Simulation Modeling using the Kotlin Simulation Library (KSL)</title>
   <meta name="description" content="A book that illustrates the basics of using the KSL. The output format for this book is bookdown::gitbook." />
-  <meta name="generator" content="bookdown 0.39 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.40 and GitBook 2.6.7" />
 
   <meta property="og:title" content="3.10 Exercises | Simulation Modeling using the Kotlin Simulation Library (KSL)" />
   <meta property="og:type" content="book" />
@@ -23,7 +23,7 @@
 <meta name="author" content="Manuel D. Rossetti" />
 
 
-<meta name="date" content="2025-07-03" />
+<meta name="date" content="2025-08-07" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -57,8 +57,9 @@
 
 
 <style type="text/css">
+html { -webkit-text-size-adjust: 100%; }
 pre > code.sourceCode { white-space: pre; position: relative; }
-pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
 pre > code.sourceCode > span:empty { height: 1.2em; }
 .sourceCode { overflow: visible; }
 code.sourceCode > span { color: inherit; text-decoration: inherit; }
@@ -68,7 +69,7 @@ div.sourceCode { overflow: auto; }
 }
 @media print {
 pre > code.sourceCode { white-space: pre-wrap; }
-pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
 }
 pre.numberSource code
   { counter-reset: source-line 0; }
@@ -565,24 +566,24 @@ Using the half-width ratio sample size determination techniques, recommend a sam
 <p><span id="exr:ch3P6" class="exercise"><strong>Exercise 3.6  </strong></span>Assume that the following table represents the summary statistics for a pilot run of 10 replications from a simulation.</p>
 <table>
 <thead>
-<tr class="header">
+<tr>
 <th align="center">Simulation Statistics</th>
 <th align="center">NPV</th>
 <th align="center">P(NPV <span class="math inline">\(&lt;\)</span> 0)</th>
 </tr>
 </thead>
 <tbody>
-<tr class="odd">
+<tr>
 <td align="center">Sample Average</td>
 <td align="center">83.54</td>
 <td align="center">0.4</td>
 </tr>
-<tr class="even">
+<tr>
 <td align="center">Standard Deviation</td>
 <td align="center">39.6</td>
 <td align="center">0.15</td>
 </tr>
-<tr class="odd">
+<tr>
 <td align="center">Count</td>
 <td align="center">10</td>
 <td align="center">10</td>
@@ -686,7 +687,7 @@ deviation. Use stream 1 for your sampling.</p>
 probability mass function is <span class="math inline">\(p(x)\)</span>. Setup a model to generate 30 observations of the random variable <span class="math inline">\(X\)</span>. Use stream 1 for your sampling. Report the minimum, maximum, sample average, and 95% confidence interval half-width of the observations.</p>
 <table>
 <thead>
-<tr class="header">
+<tr>
 <th align="center"><span class="math inline">\(x\)</span></th>
 <th align="center">0</th>
 <th align="center">1</th>
@@ -696,7 +697,7 @@ probability mass function is <span class="math inline">\(p(x)\)</span>. Setup a 
 </tr>
 </thead>
 <tbody>
-<tr class="odd">
+<tr>
 <td align="center"><span class="math inline">\(p(x)\)</span></td>
 <td align="center">0.3</td>
 <td align="center">0.2</td>
@@ -715,7 +716,7 @@ probability mass function. Setup a model to generate 30 observations of the dema
 of the observations.</p>
 <table>
 <thead>
-<tr class="header">
+<tr>
 <th align="center">Demand</th>
 <th align="center">0</th>
 <th align="center">1</th>
@@ -723,7 +724,7 @@ of the observations.</p>
 </tr>
 </thead>
 <tbody>
-<tr class="odd">
+<tr>
 <td align="center">Probability</td>
 <td align="center">0.3</td>
 <td align="center">0.2</td>
@@ -767,7 +768,7 @@ estimated that the useful life can vary between 4 to 7 years with the
 chances given in the following table (stream 4).</p>
 <table>
 <thead>
-<tr class="header">
+<tr>
 <th align="center">years</th>
 <th align="center">4</th>
 <th align="center">5</th>
@@ -776,14 +777,14 @@ chances given in the following table (stream 4).</p>
 </tr>
 </thead>
 <tbody>
-<tr class="odd">
+<tr>
 <td align="center">f(years)</td>
 <td align="center">0.3</td>
 <td align="center">0.4</td>
 <td align="center">0.1</td>
 <td align="center">0.2</td>
 </tr>
-<tr class="even">
+<tr>
 <td align="center">F(years)</td>
 <td align="center">0.3</td>
 <td align="center">0.7</td>
@@ -811,7 +812,7 @@ and B that have the net cash flows shown in the following table, where
 distribution with the provided mean and standard deviation.</p>
 <table>
 <thead>
-<tr class="header">
+<tr>
 <th align="center">End of Year</th>
 <th align="center">0</th>
 <th align="center">1</th>
@@ -821,7 +822,7 @@ distribution with the provided mean and standard deviation.</p>
 </tr>
 </thead>
 <tbody>
-<tr class="odd">
+<tr>
 <td align="center">A</td>
 <td align="center"><span class="math inline">\(N(-150, 10)\)</span></td>
 <td align="center"><span class="math inline">\(N(475, 10)\)</span></td>
@@ -829,7 +830,7 @@ distribution with the provided mean and standard deviation.</p>
 <td align="center"><span class="math inline">\(N(275, 20)\)</span></td>
 <td align="center"><span class="math inline">\(N(250, 40)\)</span></td>
 </tr>
-<tr class="even">
+<tr>
 <td align="center">B</td>
 <td align="center"><span class="math inline">\(N(-100, 5)\)</span></td>
 <td align="center"><span class="math inline">\(N(350, 10)\)</span></td>
@@ -914,7 +915,7 @@ gaming stations for the consumer market. Their profit function is:
 other variables have the following probability distributions:</p>
 <table>
 <thead>
-<tr class="header">
+<tr>
 <th align="center">Unit Cost</th>
 <th align="center">80</th>
 <th align="center">90</th>
@@ -923,35 +924,35 @@ other variables have the following probability distributions:</p>
 </tr>
 </thead>
 <tbody>
-<tr class="odd">
+<tr>
 <td align="center">Probability</td>
 <td align="center">0.20</td>
 <td align="center">0.40</td>
 <td align="center">0.30</td>
 <td align="center">0.10</td>
 </tr>
-<tr class="even">
+<tr>
 <td align="center">Quantity Sold</td>
 <td align="center">1000</td>
 <td align="center">2000</td>
 <td align="center">3000</td>
 <td align="center"></td>
 </tr>
-<tr class="odd">
+<tr>
 <td align="center">Probability</td>
 <td align="center">0.10</td>
 <td align="center">0.60</td>
 <td align="center">0.30</td>
 <td align="center"></td>
 </tr>
-<tr class="even">
+<tr>
 <td align="center">Fixed Cost</td>
 <td align="center">50000</td>
 <td align="center">65000</td>
 <td align="center">80000</td>
 <td align="center"></td>
 </tr>
-<tr class="odd">
+<tr>
 <td align="center">Probability</td>
 <td align="center">0.40</td>
 <td align="center">0.30</td>
@@ -988,7 +989,7 @@ medium, low. The type of day has a probability distribution associated
 with it.</p>
 <table>
 <thead>
-<tr class="header">
+<tr>
 <th align="center">Type of Day</th>
 <th align="center">High</th>
 <th align="center">Medium</th>
@@ -996,7 +997,7 @@ with it.</p>
 </tr>
 </thead>
 <tbody>
-<tr class="odd">
+<tr>
 <td align="center">Probability</td>
 <td align="center">0.35</td>
 <td align="center">0.45</td>
@@ -1009,7 +1010,7 @@ according to the following distributions:
  </p>
 <table>
 <tbody>
-<tr class="odd">
+<tr>
 <td align="center">Demand</td>
 <td align="center">PMF</td>
 <td align="center">CDF</td>
@@ -1018,7 +1019,7 @@ according to the following distributions:
 <td align="center">PMF</td>
 <td align="center">CDF</td>
 </tr>
-<tr class="even">
+<tr>
 <td align="center">40</td>
 <td align="center">0.03</td>
 <td align="center">0.03</td>
@@ -1027,7 +1028,7 @@ according to the following distributions:
 <td align="center">0.44</td>
 <td align="center">0.44</td>
 </tr>
-<tr class="odd">
+<tr>
 <td align="center">50</td>
 <td align="center">0.05</td>
 <td align="center">0.08</td>
@@ -1036,7 +1037,7 @@ according to the following distributions:
 <td align="center">0.22</td>
 <td align="center">0.66</td>
 </tr>
-<tr class="even">
+<tr>
 <td align="center">60</td>
 <td align="center">0.15</td>
 <td align="center">0.23</td>
@@ -1045,7 +1046,7 @@ according to the following distributions:
 <td align="center">0.16</td>
 <td align="center">0.82</td>
 </tr>
-<tr class="odd">
+<tr>
 <td align="center">70</td>
 <td align="center">0.2</td>
 <td align="center">0.43</td>
@@ -1054,7 +1055,7 @@ according to the following distributions:
 <td align="center">0.12</td>
 <td align="center">0.94</td>
 </tr>
-<tr class="even">
+<tr>
 <td align="center">80</td>
 <td align="center">0.35</td>
 <td align="center">0.78</td>
@@ -1063,7 +1064,7 @@ according to the following distributions:
 <td align="center">0.06</td>
 <td align="center">1.0</td>
 </tr>
-<tr class="odd">
+<tr>
 <td align="center">90</td>
 <td align="center">0.15</td>
 <td align="center">0.93</td>
@@ -1072,7 +1073,7 @@ according to the following distributions:
 <td align="center"></td>
 <td align="center"></td>
 </tr>
-<tr class="even">
+<tr>
 <td align="center">100</td>
 <td align="center">0.07</td>
 <td align="center">1.0</td>
@@ -1124,7 +1125,7 @@ random demands. Suppose that the daily demand for an item is given by
 the following probability mass function (stream 1):</p>
 <table>
 <thead>
-<tr class="header">
+<tr>
 <th align="center">Daily Demand (items)</th>
 <th align="center">4</th>
 <th align="center">5</th>
@@ -1134,7 +1135,7 @@ the following probability mass function (stream 1):</p>
 </tr>
 </thead>
 <tbody>
-<tr class="odd">
+<tr>
 <td align="center">Probability</td>
 <td align="center">0.10</td>
 <td align="center">0.30</td>

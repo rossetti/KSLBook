@@ -6,7 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>7.4 Applying Queueing Theory Results to Verify and Validate a Simulation | Simulation Modeling using the Kotlin Simulation Library (KSL)</title>
   <meta name="description" content="A book that illustrates the basics of using the KSL. The output format for this book is bookdown::gitbook." />
-  <meta name="generator" content="bookdown 0.39 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.40 and GitBook 2.6.7" />
 
   <meta property="og:title" content="7.4 Applying Queueing Theory Results to Verify and Validate a Simulation | Simulation Modeling using the Kotlin Simulation Library (KSL)" />
   <meta property="og:type" content="book" />
@@ -23,7 +23,7 @@
 <meta name="author" content="Manuel D. Rossetti" />
 
 
-<meta name="date" content="2025-07-03" />
+<meta name="date" content="2025-08-07" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -57,8 +57,9 @@
 
 
 <style type="text/css">
+html { -webkit-text-size-adjust: 100%; }
 pre > code.sourceCode { white-space: pre; position: relative; }
-pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
 pre > code.sourceCode > span:empty { height: 1.2em; }
 .sourceCode { overflow: visible; }
 code.sourceCode > span { color: inherit; text-decoration: inherit; }
@@ -68,7 +69,7 @@ div.sourceCode { overflow: auto; }
 }
 @media print {
 pre > code.sourceCode { white-space: pre-wrap; }
-pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
 }
 pre.numberSource code
   { counter-reset: source-line 0; }
@@ -592,36 +593,36 @@ We want to simulate this system in order to measure the following
 performance metrics with some high degree of confidence.</p>
 <table>
 <thead>
-<tr class="header">
+<tr>
 <th align="left"><strong>Performance Measures</strong></th>
 </tr>
 </thead>
 <tbody>
-<tr class="odd">
+<tr>
 <td align="left">System time for parts regardless of which build line prior to palletizer</td>
 </tr>
-<tr class="even">
+<tr>
 <td align="left">Prob. that the system time before palletizing of a part is less than 60 minutes</td>
 </tr>
-<tr class="odd">
+<tr>
 <td align="left">Utilization of preparation workers</td>
 </tr>
-<tr class="even">
+<tr>
 <td align="left">Utilization of packaging workers</td>
 </tr>
-<tr class="odd">
+<tr>
 <td align="left">Utilization of line 1 build workers</td>
 </tr>
-<tr class="even">
+<tr>
 <td align="left">Utilization of line 2 build workers</td>
 </tr>
-<tr class="odd">
+<tr>
 <td align="left">Utilization of the palletizer</td>
 </tr>
-<tr class="even">
+<tr>
 <td align="left">Total number of parts produced in 30 days</td>
 </tr>
-<tr class="odd">
+<tr>
 <td align="left">Total number of pallets completed in 30 days</td>
 </tr>
 </tbody>
@@ -633,54 +634,54 @@ following results. The building of the model is left as an exercise for
 the reader.</p>
 <table>
 <thead>
-<tr class="header">
+<tr>
 <th align="left"><strong>Performance Measures</strong></th>
 <th align="center"><strong>Average</strong></th>
 <th align="center"><strong>Half-width</strong></th>
 </tr>
 </thead>
 <tbody>
-<tr class="odd">
+<tr>
 <td align="left">System time for parts regardless of which build line prior to palletizer</td>
 <td align="center">31.73</td>
 <td align="center">0.44</td>
 </tr>
-<tr class="even">
+<tr>
 <td align="left">Prob. that the system time before palletizing of a part is less than 60 minutes</td>
 <td align="center">0.89</td>
 <td align="center">0.01</td>
 </tr>
-<tr class="odd">
+<tr>
 <td align="left">Utilization of preparation workers</td>
 <td align="center">0.80</td>
 <td align="center">0.00</td>
 </tr>
-<tr class="even">
+<tr>
 <td align="left">Utilization of packaging workers</td>
 <td align="center">0.35</td>
 <td align="center">0.00</td>
 </tr>
-<tr class="odd">
+<tr>
 <td align="left">Utilization of line 1 build workers</td>
 <td align="center">0.16</td>
 <td align="center">0.00</td>
 </tr>
-<tr class="even">
+<tr>
 <td align="left">Utilization of line 2 build workers</td>
 <td align="center">0.25</td>
 <td align="center">0.00</td>
 </tr>
-<tr class="odd">
+<tr>
 <td align="left">Utilization of the palletizer</td>
 <td align="center">0.039</td>
 <td align="center">0.00</td>
 </tr>
-<tr class="even">
+<tr>
 <td align="left">Total number of parts produced in 30 days</td>
 <td align="center">8623.36</td>
 <td align="center">17.75</td>
 </tr>
-<tr class="odd">
+<tr>
 <td align="left">Total number of pallets completed in 30 days</td>
 <td align="center">861.85</td>
 <td align="center">1.77</td>
@@ -851,21 +852,21 @@ servers.</p>
 <table>
 <caption><span id="tab:MMCFormulas">Table 7.7: </span> Formulas for expected waiting time for M/M/c queue <span class="math inline">\(\rho = \lambda/c \mu\)</span></caption>
 <thead>
-<tr class="header">
+<tr>
 <th align="left">c = # servers</th>
 <th align="left"><span class="math inline">\(W_{q} =\)</span>Expected Waiting time in Queue</th>
 </tr>
 </thead>
 <tbody>
-<tr class="odd">
+<tr>
 <td align="left">1</td>
 <td align="left"><span class="math display">\[\frac{\rho^{2}}{\lambda\left( 1 - \rho \right)}\]</span></td>
 </tr>
-<tr class="even">
+<tr>
 <td align="left">2</td>
 <td align="left"><span class="math display">\[\frac{{2\rho}^{3}}{\lambda\left( 1 - \rho^{2} \right)}\]</span></td>
 </tr>
-<tr class="odd">
+<tr>
 <td align="left">3</td>
 <td align="left"><span class="math display">\[\frac{{9\rho}^{4}}{\lambda\left( 2 + 2\rho - \rho^{2} - 3\rho^{3} \right)}\]</span></td>
 </tr>
@@ -882,7 +883,7 @@ are left to the reader.</p>
 <table>
 <caption><span id="tab:MMCResults">Table 7.8: </span> Summary queueing results for each station</caption>
 <thead>
-<tr class="header">
+<tr>
 <th align="left">Station</th>
 <th align="left">c</th>
 <th><span class="math display">\[\rho = \frac{\lambda}{\text{c}\mu}\]</span></th>
@@ -894,7 +895,7 @@ are left to the reader.</p>
 </tr>
 </thead>
 <tbody>
-<tr class="odd">
+<tr>
 <td align="left">Preparation</td>
 <td align="left">2</td>
 <td><span class="math display">\[0.8\]</span></td>
@@ -904,7 +905,7 @@ are left to the reader.</p>
 <td align="right">1</td>
 <td align="right"><span class="math display">\[14.\overline{22}\]</span></td>
 </tr>
-<tr class="even">
+<tr>
 <td align="left">Line 1 Build</td>
 <td align="left">2</td>
 <td><span class="math display">\[0.16\]</span></td>
@@ -914,7 +915,7 @@ are left to the reader.</p>
 <td align="right">0.5274</td>
 <td align="right">0.0221</td>
 </tr>
-<tr class="odd">
+<tr>
 <td align="left">Line 2 Build</td>
 <td align="left">3</td>
 <td><span class="math display">\[0.24\overline{8}\]</span></td>
@@ -924,7 +925,7 @@ are left to the reader.</p>
 <td align="right">0.5127</td>
 <td align="right">0.0370</td>
 </tr>
-<tr class="even">
+<tr>
 <td align="left">Packaging</td>
 <td align="left">2</td>
 <td><span class="math display">\[0.35\]</span></td>
@@ -934,7 +935,7 @@ are left to the reader.</p>
 <td align="right">0.6666</td>
 <td align="right">0.3259</td>
 </tr>
-<tr class="odd">
+<tr>
 <td align="left">Palletizing</td>
 <td align="left">1</td>
 <td><span class="math display">\[0.04\]</span></td>

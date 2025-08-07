@@ -6,7 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>B.5 Fitting Continuous Distributions | Simulation Modeling using the Kotlin Simulation Library (KSL)</title>
   <meta name="description" content="A book that illustrates the basics of using the KSL. The output format for this book is bookdown::gitbook." />
-  <meta name="generator" content="bookdown 0.39 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.40 and GitBook 2.6.7" />
 
   <meta property="og:title" content="B.5 Fitting Continuous Distributions | Simulation Modeling using the Kotlin Simulation Library (KSL)" />
   <meta property="og:type" content="book" />
@@ -23,7 +23,7 @@
 <meta name="author" content="Manuel D. Rossetti" />
 
 
-<meta name="date" content="2025-07-03" />
+<meta name="date" content="2025-08-07" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -57,8 +57,9 @@
 
 
 <style type="text/css">
+html { -webkit-text-size-adjust: 100%; }
 pre > code.sourceCode { white-space: pre; position: relative; }
-pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
 pre > code.sourceCode > span:empty { height: 1.2em; }
 .sourceCode { overflow: visible; }
 code.sourceCode > span { color: inherit; text-decoration: inherit; }
@@ -68,7 +69,7 @@ div.sourceCode { overflow: auto; }
 }
 @media print {
 pre > code.sourceCode { white-space: pre-wrap; }
-pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
 }
 pre.numberSource code
   { counter-reset: source-line 0; }
@@ -546,7 +547,7 @@ minutes. Fit an appropriate distribution to this data.</p>
 <p> </p>
 <table>
 <thead>
-<tr class="header">
+<tr>
 <th></th>
 <th align="right">1</th>
 <th align="right">2</th>
@@ -561,7 +562,7 @@ minutes. Fit an appropriate distribution to this data.</p>
 </tr>
 </thead>
 <tbody>
-<tr class="odd">
+<tr>
 <td>1</td>
 <td align="right">15.3</td>
 <td align="right">10.0</td>
@@ -574,7 +575,7 @@ minutes. Fit an appropriate distribution to this data.</p>
 <td align="right">15.8</td>
 <td align="right">17.2</td>
 </tr>
-<tr class="even">
+<tr>
 <td>2</td>
 <td align="right">12.4</td>
 <td align="right">3.0</td>
@@ -587,7 +588,7 @@ minutes. Fit an appropriate distribution to this data.</p>
 <td align="right">5.7</td>
 <td align="right">28.9</td>
 </tr>
-<tr class="odd">
+<tr>
 <td>3</td>
 <td align="right">16.5</td>
 <td align="right">15.6</td>
@@ -600,7 +601,7 @@ minutes. Fit an appropriate distribution to this data.</p>
 <td align="right">13.7</td>
 <td align="right">17.2</td>
 </tr>
-<tr class="even">
+<tr>
 <td>4</td>
 <td align="right">3.8</td>
 <td align="right">9.1</td>
@@ -613,7 +614,7 @@ minutes. Fit an appropriate distribution to this data.</p>
 <td align="right">14.8</td>
 <td align="right">11.1</td>
 </tr>
-<tr class="odd">
+<tr>
 <td>5</td>
 <td align="right">19.5</td>
 <td align="right">5.3</td>
@@ -626,7 +627,7 @@ minutes. Fit an appropriate distribution to this data.</p>
 <td align="right">6.2</td>
 <td align="right">10.9</td>
 </tr>
-<tr class="even">
+<tr>
 <td>6</td>
 <td align="right">7.0</td>
 <td align="right">10.5</td>
@@ -639,7 +640,7 @@ minutes. Fit an appropriate distribution to this data.</p>
 <td align="right">8.9</td>
 <td align="right">7.8</td>
 </tr>
-<tr class="odd">
+<tr>
 <td>7</td>
 <td align="right">20.1</td>
 <td align="right">17.8</td>
@@ -652,7 +653,7 @@ minutes. Fit an appropriate distribution to this data.</p>
 <td align="right">14.1</td>
 <td align="right">16.1</td>
 </tr>
-<tr class="even">
+<tr>
 <td>8</td>
 <td align="right">11.8</td>
 <td align="right">9.2</td>
@@ -665,7 +666,7 @@ minutes. Fit an appropriate distribution to this data.</p>
 <td align="right">22.1</td>
 <td align="right">22.7</td>
 </tr>
-<tr class="odd">
+<tr>
 <td>9</td>
 <td align="right">22.8</td>
 <td align="right">17.7</td>
@@ -678,7 +679,7 @@ minutes. Fit an appropriate distribution to this data.</p>
 <td align="right">8.1</td>
 <td align="right">12.9</td>
 </tr>
-<tr class="even">
+<tr>
 <td>10</td>
 <td align="right">9.8</td>
 <td align="right">5.5</td>
@@ -1002,7 +1003,7 @@ compute the chi-squared test statistic.</p>
 <table>
 <caption><span id="tab:TaskTimeGOF">Table B.6: </span> Chi-Squared Goodness of Fit Calculations</caption>
 <thead>
-<tr class="header">
+<tr>
 <th align="center"><span class="math inline">\(j\)</span></th>
 <th align="center"><span class="math inline">\(b_{j-1}\)</span></th>
 <th align="center"><span class="math inline">\(b_{j}\)</span></th>
@@ -1015,7 +1016,7 @@ compute the chi-squared test statistic.</p>
 </tr>
 </thead>
 <tbody>
-<tr class="odd">
+<tr>
 <td align="center">1</td>
 <td align="center">0.00</td>
 <td align="center">5.00</td>
@@ -1026,7 +1027,7 @@ compute the chi-squared test statistic.</p>
 <td align="center">7.89</td>
 <td align="center">0.45</td>
 </tr>
-<tr class="even">
+<tr>
 <td align="center">2</td>
 <td align="center">5.00</td>
 <td align="center">10.00</td>
@@ -1037,7 +1038,7 @@ compute the chi-squared test statistic.</p>
 <td align="center">28.54</td>
 <td align="center">1.05</td>
 </tr>
-<tr class="odd">
+<tr>
 <td align="center">3</td>
 <td align="center">10.00</td>
 <td align="center">15.00</td>
@@ -1048,7 +1049,7 @@ compute the chi-squared test statistic.</p>
 <td align="center">28.79</td>
 <td align="center">0.50</td>
 </tr>
-<tr class="even">
+<tr>
 <td align="center">4</td>
 <td align="center">15.00</td>
 <td align="center">20.00</td>
@@ -1059,7 +1060,7 @@ compute the chi-squared test statistic.</p>
 <td align="center">18.42</td>
 <td align="center">0.32</td>
 </tr>
-<tr class="odd">
+<tr>
 <td align="center">5</td>
 <td align="center">20.00</td>
 <td align="center">25.00</td>
@@ -1070,7 +1071,7 @@ compute the chi-squared test statistic.</p>
 <td align="center">9.41</td>
 <td align="center">0.27</td>
 </tr>
-<tr class="even">
+<tr>
 <td align="center">6</td>
 <td align="center">25.00</td>
 <td align="center">30.00</td>
@@ -1081,7 +1082,7 @@ compute the chi-squared test statistic.</p>
 <td align="center">4.20</td>
 <td align="center">0.15</td>
 </tr>
-<tr class="odd">
+<tr>
 <td align="center">7</td>
 <td align="center">30.00</td>
 <td align="center">35.00</td>
@@ -1092,7 +1093,7 @@ compute the chi-squared test statistic.</p>
 <td align="center">1.72</td>
 <td align="center">0.96</td>
 </tr>
-<tr class="even">
+<tr>
 <td align="center">8</td>
 <td align="center">35.00</td>
 <td align="center"><span class="math inline">\(\infty\)</span></td>
@@ -1382,8 +1383,8 @@ easy it can be using the <em>fitdistrplus</em> package. Notice that the
 <pre><code>## Fitting of the distribution &#39; gamma &#39; by maximum likelihood 
 ## Parameters:
 ##        estimate Std. Error
-## shape 3.4098479 0.46055722
-## rate  0.2542252 0.03699365</code></pre>
+## shape 3.4091351 0.46045686
+## rate  0.2542441 0.03699664</code></pre>
 <p>Then, the <em>gofstat</em> function does all the work to compute the chi-square goodness
 of fit, K-S test statistic, as well as other goodness of fit criteria.
 The results lead to the same conclusion that we had before: the gamma
@@ -1392,18 +1393,18 @@ distribution is a good model for this data.</p>
 <span id="cb475-2"><a href="appidmsecfitContinuous.html#cb475-2" tabindex="-1"></a><span class="fu">print</span>(gfy)</span></code></pre></div>
 <pre><code>## Goodness-of-fit statistics
 ##                              1-mle-gamma
-## Kolmogorov-Smirnov statistic  0.04930008
-## Cramer-von Mises statistic    0.03754480
-## Anderson-Darling statistic    0.25485917
+## Kolmogorov-Smirnov statistic  0.04943982
+## Cramer-von Mises statistic    0.03747780
+## Anderson-Darling statistic    0.25508944
 ## 
 ## Goodness-of-fit criteria
 ##                                1-mle-gamma
 ## Akaike&#39;s Information Criterion    663.3157
 ## Bayesian Information Criterion    668.5260</code></pre>
 <div class="sourceCode" id="cb477"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb477-1"><a href="appidmsecfitContinuous.html#cb477-1" tabindex="-1"></a><span class="fu">print</span>(gfy<span class="sc">$</span>chisq) <span class="co"># chi-squared test statistic</span></span></code></pre></div>
-<pre><code>## [1] 3.544766</code></pre>
+<pre><code>## [1] 3.544039</code></pre>
 <div class="sourceCode" id="cb479"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb479-1"><a href="appidmsecfitContinuous.html#cb479-1" tabindex="-1"></a><span class="fu">print</span>(gfy<span class="sc">$</span>chisqpvalue) <span class="co"># chi-squared p-value</span></span></code></pre></div>
-<pre><code>## [1] 0.8956877</code></pre>
+<pre><code>## [1] 0.895745</code></pre>
 <div class="sourceCode" id="cb481"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb481-1"><a href="appidmsecfitContinuous.html#cb481-1" tabindex="-1"></a><span class="fu">print</span>(gfy<span class="sc">$</span>chisqdf)  <span class="co"># chi-squared degrees of freedom</span></span></code></pre></div>
 <pre><code>## [1] 8</code></pre>
 <!-- ``` -->
@@ -1484,140 +1485,140 @@ this chapter.</p>
 <table>
 <caption><span id="tab:PharmacyData">Table B.7: </span> Pharmacy Service Times</caption>
 <tbody>
-<tr class="odd">
+<tr>
 <td align="center">61</td>
 <td align="center">278.73</td>
 <td align="center">194.68</td>
 <td align="center">55.33</td>
 <td align="center">398.39</td>
 </tr>
-<tr class="even">
+<tr>
 <td align="center">59.09</td>
 <td align="center">70.55</td>
 <td align="center">151.65</td>
 <td align="center">58.45</td>
 <td align="center">86.88</td>
 </tr>
-<tr class="odd">
+<tr>
 <td align="center">374.89</td>
 <td align="center">782.22</td>
 <td align="center">185.45</td>
 <td align="center">640.59</td>
 <td align="center">137.64</td>
 </tr>
-<tr class="even">
+<tr>
 <td align="center">195.45</td>
 <td align="center">46.23</td>
 <td align="center">120.42</td>
 <td align="center">409.49</td>
 <td align="center">171.39</td>
 </tr>
-<tr class="odd">
+<tr>
 <td align="center">185.76</td>
 <td align="center">126.49</td>
 <td align="center">367.76</td>
 <td align="center">87.19</td>
 <td align="center">135.6</td>
 </tr>
-<tr class="even">
+<tr>
 <td align="center">268.61</td>
 <td align="center">110.05</td>
 <td align="center">146.81</td>
 <td align="center">59</td>
 <td align="center">291.63</td>
 </tr>
-<tr class="odd">
+<tr>
 <td align="center">257.5</td>
 <td align="center">294.19</td>
 <td align="center">73.79</td>
 <td align="center">71.64</td>
 <td align="center">187.02</td>
 </tr>
-<tr class="even">
+<tr>
 <td align="center">475.51</td>
 <td align="center">433.89</td>
 <td align="center">440.7</td>
 <td align="center">121.69</td>
 <td align="center">174.11</td>
 </tr>
-<tr class="odd">
+<tr>
 <td align="center">77.3</td>
 <td align="center">211.38</td>
 <td align="center">330.09</td>
 <td align="center">96.96</td>
 <td align="center">911.19</td>
 </tr>
-<tr class="even">
+<tr>
 <td align="center">88.71</td>
 <td align="center">266.5</td>
 <td align="center">97.99</td>
 <td align="center">301.43</td>
 <td align="center">201.53</td>
 </tr>
-<tr class="odd">
+<tr>
 <td align="center">108.17</td>
 <td align="center">71.77</td>
 <td align="center">53.46</td>
 <td align="center">68.98</td>
 <td align="center">149.96</td>
 </tr>
-<tr class="even">
+<tr>
 <td align="center">94.68</td>
 <td align="center">65.52</td>
 <td align="center">279.9</td>
 <td align="center">276.55</td>
 <td align="center">163.27</td>
 </tr>
-<tr class="odd">
+<tr>
 <td align="center">244.09</td>
 <td align="center">71.61</td>
 <td align="center">122.81</td>
 <td align="center">497.87</td>
 <td align="center">677.92</td>
 </tr>
-<tr class="even">
+<tr>
 <td align="center">230.68</td>
 <td align="center">155.5</td>
 <td align="center">42.93</td>
 <td align="center">232.75</td>
 <td align="center">255.64</td>
 </tr>
-<tr class="odd">
+<tr>
 <td align="center">371.02</td>
 <td align="center">83.51</td>
 <td align="center">515.66</td>
 <td align="center">52.2</td>
 <td align="center">396.21</td>
 </tr>
-<tr class="even">
+<tr>
 <td align="center">160.39</td>
 <td align="center">148.43</td>
 <td align="center">56.11</td>
 <td align="center">144.24</td>
 <td align="center">181.76</td>
 </tr>
-<tr class="odd">
+<tr>
 <td align="center">104.98</td>
 <td align="center">46.23</td>
 <td align="center">74.79</td>
 <td align="center">86.43</td>
 <td align="center">554.05</td>
 </tr>
-<tr class="even">
+<tr>
 <td align="center">102.98</td>
 <td align="center">77.65</td>
 <td align="center">188.15</td>
 <td align="center">106.6</td>
 <td align="center">123.22</td>
 </tr>
-<tr class="odd">
+<tr>
 <td align="center">140.19</td>
 <td align="center">104.15</td>
 <td align="center">278.06</td>
 <td align="center">183.82</td>
 <td align="center">89.12</td>
 </tr>
-<tr class="even">
+<tr>
 <td align="center">193.65</td>
 <td align="center">351.78</td>
 <td align="center">95.53</td>
@@ -1777,7 +1778,7 @@ difference attributed to round off errors.</p>
 <table>
 <caption><span id="tab:SqErrorCalc">Table B.8: </span> Square Error Calculation</caption>
 <thead>
-<tr class="header">
+<tr>
 <th align="center"><span class="math inline">\(j\)</span></th>
 <th align="center"><span class="math inline">\(c_j\)</span></th>
 <th align="center"><span class="math inline">\(b_j\)</span></th>
@@ -1787,7 +1788,7 @@ difference attributed to round off errors.</p>
 </tr>
 </thead>
 <tbody>
-<tr class="odd">
+<tr>
 <td align="center">1</td>
 <td align="center">43</td>
 <td align="center">111</td>
@@ -1795,7 +1796,7 @@ difference attributed to round off errors.</p>
 <td align="center">0.399</td>
 <td align="center">0.000961</td>
 </tr>
-<tr class="even">
+<tr>
 <td align="center">2</td>
 <td align="center">19</td>
 <td align="center">185</td>
@@ -1803,7 +1804,7 @@ difference attributed to round off errors.</p>
 <td align="center">0.24</td>
 <td align="center">0.0025</td>
 </tr>
-<tr class="odd">
+<tr>
 <td align="center">3</td>
 <td align="center">14</td>
 <td align="center">260</td>
@@ -1811,7 +1812,7 @@ difference attributed to round off errors.</p>
 <td align="center">0.144</td>
 <td align="center">1.6E-05</td>
 </tr>
-<tr class="even">
+<tr>
 <td align="center">4</td>
 <td align="center">10</td>
 <td align="center">335</td>
@@ -1819,7 +1820,7 @@ difference attributed to round off errors.</p>
 <td align="center">0.0866</td>
 <td align="center">0.00018</td>
 </tr>
-<tr class="odd">
+<tr>
 <td align="center">5</td>
 <td align="center">6</td>
 <td align="center">410</td>
@@ -1827,7 +1828,7 @@ difference attributed to round off errors.</p>
 <td align="center">0.0521</td>
 <td align="center">6.24E-05</td>
 </tr>
-<tr class="even">
+<tr>
 <td align="center">6</td>
 <td align="center">4</td>
 <td align="center">484</td>
@@ -1835,7 +1836,7 @@ difference attributed to round off errors.</p>
 <td align="center">0.0313</td>
 <td align="center">7.57E-05</td>
 </tr>
-<tr class="odd">
+<tr>
 <td align="center">7</td>
 <td align="center">2</td>
 <td align="center">559</td>
@@ -1843,7 +1844,7 @@ difference attributed to round off errors.</p>
 <td align="center">0.0188</td>
 <td align="center">1.44E-06</td>
 </tr>
-<tr class="even">
+<tr>
 <td align="center">8</td>
 <td align="center">0</td>
 <td align="center">634</td>
@@ -1851,7 +1852,7 @@ difference attributed to round off errors.</p>
 <td align="center">0.0113</td>
 <td align="center">0.000128</td>
 </tr>
-<tr class="odd">
+<tr>
 <td align="center">9</td>
 <td align="center">1</td>
 <td align="center">708</td>
@@ -1859,7 +1860,7 @@ difference attributed to round off errors.</p>
 <td align="center">0.0068</td>
 <td align="center">1.02E-05</td>
 </tr>
-<tr class="even">
+<tr>
 <td align="center">10</td>
 <td align="center">1</td>
 <td align="center">783</td>
@@ -1867,7 +1868,7 @@ difference attributed to round off errors.</p>
 <td align="center">0.00409</td>
 <td align="center">3.49E-05</td>
 </tr>
-<tr class="odd">
+<tr>
 <td align="center"></td>
 <td align="center"></td>
 <td align="center"></td>

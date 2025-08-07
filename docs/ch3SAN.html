@@ -6,7 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>3.7 Stochastic Activity Networks | Simulation Modeling using the Kotlin Simulation Library (KSL)</title>
   <meta name="description" content="A book that illustrates the basics of using the KSL. The output format for this book is bookdown::gitbook." />
-  <meta name="generator" content="bookdown 0.39 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.40 and GitBook 2.6.7" />
 
   <meta property="og:title" content="3.7 Stochastic Activity Networks | Simulation Modeling using the Kotlin Simulation Library (KSL)" />
   <meta property="og:type" content="book" />
@@ -23,7 +23,7 @@
 <meta name="author" content="Manuel D. Rossetti" />
 
 
-<meta name="date" content="2025-07-03" />
+<meta name="date" content="2025-08-07" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -57,8 +57,9 @@
 
 
 <style type="text/css">
+html { -webkit-text-size-adjust: 100%; }
 pre > code.sourceCode { white-space: pre; position: relative; }
-pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
 pre > code.sourceCode > span:empty { height: 1.2em; }
 .sourceCode { overflow: visible; }
 code.sourceCode > span { color: inherit; text-decoration: inherit; }
@@ -68,7 +69,7 @@ div.sourceCode { overflow: auto; }
 }
 @media print {
 pre > code.sourceCode { white-space: pre-wrap; }
-pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
 }
 pre.numberSource code
   { counter-reset: source-line 0; }
@@ -536,7 +537,7 @@ div.csl-indent {
 <p><span id="exm:SANex" class="example"><strong>Example 3.12  (Project Network) </strong></span>Consider a project consisting of nine jobs (A, B, <span class="math inline">\(\cdots\)</span>, I) with the precedence relationships and activity times. The table provides the minimum, mode, and maximum for each activity. We will assume that the activity times can be modeled using a triangular distribution with the appropriate parameters.</p>
 <table>
 <thead>
-<tr class="header">
+<tr>
 <th>Job</th>
 <th>Predecessors</th>
 <th>Min</th>
@@ -545,63 +546,63 @@ div.csl-indent {
 </tr>
 </thead>
 <tbody>
-<tr class="odd">
+<tr>
 <td>A</td>
 <td>-</td>
 <td>2</td>
 <td>5</td>
 <td>8</td>
 </tr>
-<tr class="even">
+<tr>
 <td>B</td>
 <td>A</td>
 <td>6</td>
 <td>9</td>
 <td>12</td>
 </tr>
-<tr class="odd">
+<tr>
 <td>C</td>
 <td>A</td>
 <td>6</td>
 <td>7</td>
 <td>8</td>
 </tr>
-<tr class="even">
+<tr>
 <td>D</td>
 <td>B,C</td>
 <td>1</td>
 <td>4</td>
 <td>7</td>
 </tr>
-<tr class="odd">
+<tr>
 <td>E</td>
 <td>A</td>
 <td>7</td>
 <td>8</td>
 <td>9</td>
 </tr>
-<tr class="even">
+<tr>
 <td>F</td>
 <td>D,E</td>
 <td>5</td>
 <td>14</td>
 <td>17</td>
 </tr>
-<tr class="odd">
+<tr>
 <td>G</td>
 <td>C</td>
 <td>3</td>
 <td>12</td>
 <td>21</td>
 </tr>
-<tr class="even">
+<tr>
 <td>H</td>
 <td>F,G</td>
 <td>3</td>
 <td>6</td>
 <td>9</td>
 </tr>
-<tr class="odd">
+<tr>
 <td>I</td>
 <td>H</td>
 <td>5</td>
@@ -679,7 +680,7 @@ Figure 3.6: Project Network Diagram
 <p><strong>Statistical Summary Report</strong></p>
 <table>
 <thead>
-<tr class="header">
+<tr>
 <th align="center">Name</th>
 <th align="center">Count</th>
 <th align="center">Average</th>
@@ -687,19 +688,19 @@ Figure 3.6: Project Network Diagram
 </tr>
 </thead>
 <tbody>
-<tr class="odd">
+<tr>
 <td align="center">Time to Completion</td>
 <td align="center">1000.0</td>
 <td align="center">47.78885659544101</td>
 <td align="center">0.23712135354990163</td>
 </tr>
-<tr class="even">
+<tr>
 <td align="center">P(T&lt;=50)</td>
 <td align="center">1000.0</td>
 <td align="center">0.7089999999999989</td>
 <td align="center">0.028200797908293447</td>
 </tr>
-<tr class="odd">
+<tr>
 <td align="center">P(42&lt;=T&lt;=48)</td>
 <td align="center">1000.0</td>
 <td align="center">0.4499999999999999</td>

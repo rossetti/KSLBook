@@ -6,7 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>6.8 Exercises | Simulation Modeling using the Kotlin Simulation Library (KSL)</title>
   <meta name="description" content="A book that illustrates the basics of using the KSL. The output format for this book is bookdown::gitbook." />
-  <meta name="generator" content="bookdown 0.39 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.40 and GitBook 2.6.7" />
 
   <meta property="og:title" content="6.8 Exercises | Simulation Modeling using the Kotlin Simulation Library (KSL)" />
   <meta property="og:type" content="book" />
@@ -23,7 +23,7 @@
 <meta name="author" content="Manuel D. Rossetti" />
 
 
-<meta name="date" content="2025-07-03" />
+<meta name="date" content="2025-08-07" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -57,8 +57,9 @@
 
 
 <style type="text/css">
+html { -webkit-text-size-adjust: 100%; }
 pre > code.sourceCode { white-space: pre; position: relative; }
-pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
 pre > code.sourceCode > span:empty { height: 1.2em; }
 .sourceCode { overflow: visible; }
 code.sourceCode > span { color: inherit; text-decoration: inherit; }
@@ -68,7 +69,7 @@ div.sourceCode { overflow: auto; }
 }
 @media print {
 pre > code.sourceCode { white-space: pre-wrap; }
-pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
 }
 pre.numberSource code
   { counter-reset: source-line 0; }
@@ -878,44 +879,44 @@ minutes (stream 5).</p>
 a table like the following to summarize your results.</p>
 <table>
 <thead>
-<tr class="header">
+<tr>
 <th></th>
 <th align="center">Average</th>
 <th align="center">Half-width</th>
 </tr>
 </thead>
 <tbody>
-<tr class="odd">
+<tr>
 <td>Number of customers served</td>
 <td align="center"></td>
 <td align="center"></td>
 </tr>
-<tr class="even">
+<tr>
 <td>Number of busy tables</td>
 <td align="center"></td>
 <td align="center"></td>
 </tr>
-<tr class="odd">
+<tr>
 <td>Number of waiting parties</td>
 <td align="center"></td>
 <td align="center"></td>
 </tr>
-<tr class="even">
+<tr>
 <td>Number of parties that depart without eating</td>
 <td align="center"></td>
 <td align="center"></td>
 </tr>
-<tr class="odd">
+<tr>
 <td>Utilization of cashier</td>
 <td align="center"></td>
 <td align="center"></td>
 </tr>
-<tr class="even">
+<tr>
 <td>Customer System Time (in minutes)</td>
 <td align="center"></td>
 <td align="center"></td>
 </tr>
-<tr class="odd">
+<tr>
 <td>Probability of waiting to be seated <span class="math inline">\(&gt;\)</span> 5 minutes</td>
 <td align="center"></td>
 <td align="center"></td>
@@ -1110,7 +1111,7 @@ corresponding minimum, most likely, and maximum treatment times are
 summarized below. Use streams 4-8 for the treatment times of the categories of patients.</p>
 <table>
 <thead>
-<tr class="header">
+<tr>
 <th align="center">Category</th>
 <th align="center">1</th>
 <th align="center">2</th>
@@ -1120,7 +1121,7 @@ summarized below. Use streams 4-8 for the treatment times of the categories of p
 </tr>
 </thead>
 <tbody>
-<tr class="odd">
+<tr>
 <td align="center">Percent</td>
 <td align="center">6</td>
 <td align="center">8</td>
@@ -1128,7 +1129,7 @@ summarized below. Use streams 4-8 for the treatment times of the categories of p
 <td align="center">33</td>
 <td align="center">35</td>
 </tr>
-<tr class="even">
+<tr>
 <td align="center">Minimum</td>
 <td align="center">0.8</td>
 <td align="center">0.7</td>
@@ -1136,7 +1137,7 @@ summarized below. Use streams 4-8 for the treatment times of the categories of p
 <td align="center">0.2</td>
 <td align="center">0.1</td>
 </tr>
-<tr class="odd">
+<tr>
 <td align="center">Most Likely</td>
 <td align="center">1.2</td>
 <td align="center">0.95</td>
@@ -1144,7 +1145,7 @@ summarized below. Use streams 4-8 for the treatment times of the categories of p
 <td align="center">0.45</td>
 <td align="center">0.35</td>
 </tr>
-<tr class="even">
+<tr>
 <td align="center">Maximum</td>
 <td align="center">1.6</td>
 <td align="center">1.1</td>
@@ -1181,24 +1182,24 @@ cashiers. The time to order and pay is represented by a triangular
 distribution with parameters (0.4, 0.8, 1.2) minutes and (0.2, 0.4, 0.6) minutes, respectively. The cooking time depends on the order as follows:</p>
 <table>
 <thead>
-<tr class="header">
+<tr>
 <th align="center">Type</th>
 <th align="center">Percentage</th>
 <th align="center">Cooking Time</th>
 </tr>
 </thead>
 <tbody>
-<tr class="odd">
+<tr>
 <td align="center">1</td>
 <td align="center">30%</td>
 <td align="center">Uniform(0.3,0.8)</td>
 </tr>
-<tr class="even">
+<tr>
 <td align="center">2</td>
 <td align="center">15%</td>
 <td align="center">Uniform(0.8,1.1)</td>
 </tr>
-<tr class="odd">
+<tr>
 <td align="center">3</td>
 <td align="center">55%</td>
 <td align="center">Uniform(1.0, 1.4)</td>
@@ -1211,49 +1212,49 @@ table like the following to summarize your answers for your
 replications.</p>
 <table>
 <thead>
-<tr class="header">
+<tr>
 <th></th>
 <th align="center">Average</th>
 <th align="center">Half-width</th>
 </tr>
 </thead>
 <tbody>
-<tr class="odd">
+<tr>
 <td>Type 1 Throughput</td>
 <td align="center"></td>
 <td align="center"></td>
 </tr>
-<tr class="even">
+<tr>
 <td>Type 2 Throughput</td>
 <td align="center"></td>
 <td align="center"></td>
 </tr>
-<tr class="odd">
+<tr>
 <td>Type 3 Throughput</td>
 <td align="center"></td>
 <td align="center"></td>
 </tr>
-<tr class="even">
+<tr>
 <td>Utilization of cashiers</td>
 <td align="center"></td>
 <td align="center"></td>
 </tr>
-<tr class="odd">
+<tr>
 <td>Utilization of cooks</td>
 <td align="center"></td>
 <td align="center"></td>
 </tr>
-<tr class="even">
+<tr>
 <td>Customer System Time (in minutes)</td>
 <td align="center"></td>
 <td align="center"></td>
 </tr>
-<tr class="odd">
+<tr>
 <td>Customer Waiting Time (in minutes)</td>
 <td align="center"></td>
 <td align="center"></td>
 </tr>
-<tr class="even">
+<tr>
 <td>Probability of wait <span class="math inline">\(&gt;\)</span> 5 minutes</td>
 <td align="center"></td>
 <td align="center"></td>
@@ -1466,64 +1467,64 @@ minutes.</li>
 </ol>
 <table>
 <thead>
-<tr class="header">
+<tr>
 <th align="left">Statistic</th>
 <th align="center">Average</th>
 <th align="center">Half-Width</th>
 </tr>
 </thead>
 <tbody>
-<tr class="odd">
+<tr>
 <td align="left">Utilization of the check-in agents</td>
 <td align="center"></td>
 <td align="center"></td>
 </tr>
-<tr class="even">
+<tr>
 <td align="left">Utilization of the TSA agents</td>
 <td align="center"></td>
 <td align="center"></td>
 </tr>
-<tr class="odd">
+<tr>
 <td align="left">Utilization of the Bag Check agent</td>
 <td align="center"></td>
 <td align="center"></td>
 </tr>
-<tr class="even">
+<tr>
 <td align="left">Frequent Flyer Total time to Gate</td>
 <td align="center"></td>
 <td align="center"></td>
 </tr>
-<tr class="odd">
+<tr>
 <td align="left">Non-Frequent Flyer Total time to Gate</td>
 <td align="center"></td>
 <td align="center"></td>
 </tr>
-<tr class="even">
+<tr>
 <td align="left">Total time to Gate regardless of type</td>
 <td align="center"></td>
 <td align="center"></td>
 </tr>
-<tr class="odd">
+<tr>
 <td align="left">Number of travellers in the system</td>
 <td align="center"></td>
 <td align="center"></td>
 </tr>
-<tr class="even">
+<tr>
 <td align="left">Number of travellers waiting for check-in</td>
 <td align="center"></td>
 <td align="center"></td>
 </tr>
-<tr class="odd">
+<tr>
 <td align="left">Number of travellers waiting for security</td>
 <td align="center"></td>
 <td align="center"></td>
 </tr>
-<tr class="even">
+<tr>
 <td align="left">Time spent waiting for check-in</td>
 <td align="center"></td>
 <td align="center"></td>
 </tr>
-<tr class="odd">
+<tr>
 <td align="left">Time spent waiting for security</td>
 <td align="center"></td>
 <td align="center"></td>
