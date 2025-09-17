@@ -1,0 +1,924 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>10.3 Defining Simulation Optimization Problems | Simulation Modeling using the Kotlin Simulation Library (KSL)</title>
+  <meta name="description" content="A book that illustrates the basics of using the KSL. The output format for this book is bookdown::gitbook." />
+  <meta name="generator" content="bookdown 0.40 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="10.3 Defining Simulation Optimization Problems | Simulation Modeling using the Kotlin Simulation Library (KSL)" />
+  <meta property="og:type" content="book" />
+  
+  <meta property="og:description" content="A book that illustrates the basics of using the KSL. The output format for this book is bookdown::gitbook." />
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="10.3 Defining Simulation Optimization Problems | Simulation Modeling using the Kotlin Simulation Library (KSL)" />
+  
+  <meta name="twitter:description" content="A book that illustrates the basics of using the KSL. The output format for this book is bookdown::gitbook." />
+  
+
+<meta name="author" content="Manuel D. Rossetti" />
+
+
+<meta name="date" content="2025-09-17" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="ch10simOpt.html"/>
+<link rel="next" href="representing-the-simulation-oracle.html"/>
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
+<link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
+<script src="libs/kePrint-0.0.1/kePrint.js"></script>
+<link href="libs/lightable-0.0.1/lightable.css" rel="stylesheet" />
+
+
+<style type="text/css">
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { color: #008000; } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { color: #008000; font-weight: bold; } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<style type="text/css">
+  
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+</style>
+<style type="text/css">
+/* Used with Pandoc 2.11+ new --citeproc when CSL is used */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+}
+.hanging div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}
+</style>
+
+<link rel="stylesheet" href="css/style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">Simulation Modeling using the Kotlin Simulation Library (KSL)</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Preface</a>
+<ul>
+<li class="chapter" data-level="" data-path="release-history.html"><a href="release-history.html"><i class="fa fa-check"></i>Release History</a></li>
+<li class="chapter" data-level="" data-path="ksl-project-page.html"><a href="ksl-project-page.html"><i class="fa fa-check"></i>KSL Project Page</a></li>
+<li class="chapter" data-level="" data-path="book-support-files.html"><a href="book-support-files.html"><i class="fa fa-check"></i>Book Support Files</a></li>
+<li class="chapter" data-level="" data-path="acknowledgments.html"><a href="acknowledgments.html"><i class="fa fa-check"></i>Acknowledgments</a></li>
+<li class="chapter" data-level="" data-path="intended-audience.html"><a href="intended-audience.html"><i class="fa fa-check"></i>Intended Audience</a></li>
+<li class="chapter" data-level="" data-path="organization-of-the-book.html"><a href="organization-of-the-book.html"><i class="fa fa-check"></i>Organization of the Book</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="about-the-author.html"><a href="about-the-author.html"><i class="fa fa-check"></i>About the Author</a></li>
+<li class="chapter" data-level="1" data-path="ch1.html"><a href="ch1.html"><i class="fa fa-check"></i><b>1</b> Simulation Modeling</a>
+<ul>
+<li class="chapter" data-level="1.1" data-path="simulation-modeling.html"><a href="simulation-modeling.html"><i class="fa fa-check"></i><b>1.1</b> Simulation Modeling</a></li>
+<li class="chapter" data-level="1.2" data-path="why-simulate.html"><a href="why-simulate.html"><i class="fa fa-check"></i><b>1.2</b> Why Simulate?</a></li>
+<li class="chapter" data-level="1.3" data-path="types-of-systems-and-simulation-models.html"><a href="types-of-systems-and-simulation-models.html"><i class="fa fa-check"></i><b>1.3</b> Types of Systems and Simulation Models</a></li>
+<li class="chapter" data-level="1.4" data-path="simulation-descriptive-or-prescriptive-modeling.html"><a href="simulation-descriptive-or-prescriptive-modeling.html"><i class="fa fa-check"></i><b>1.4</b> Simulation: Descriptive or Prescriptive Modeling?</a></li>
+<li class="chapter" data-level="1.5" data-path="randomness-in-simulation.html"><a href="randomness-in-simulation.html"><i class="fa fa-check"></i><b>1.5</b> Randomness in Simulation</a></li>
+<li class="chapter" data-level="1.6" data-path="simulation-languages.html"><a href="simulation-languages.html"><i class="fa fa-check"></i><b>1.6</b> Simulation Languages</a></li>
+<li class="chapter" data-level="1.7" data-path="ch1secsimMeth.html"><a href="ch1secsimMeth.html"><i class="fa fa-check"></i><b>1.7</b> Simulation Methodology</a></li>
+<li class="chapter" data-level="1.8" data-path="overview-of-the-kotlin-simulation-library.html"><a href="overview-of-the-kotlin-simulation-library.html"><i class="fa fa-check"></i><b>1.8</b> Overview of the Kotlin Simulation Library</a></li>
+<li class="chapter" data-level="1.9" data-path="exercises.html"><a href="exercises.html"><i class="fa fa-check"></i><b>1.9</b> Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="ch2rng.html"><a href="ch2rng.html"><i class="fa fa-check"></i><b>2</b> Modeling Randomness</a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="ch2generator.html"><a href="ch2generator.html"><i class="fa fa-check"></i><b>2.1</b> Random Number Generator</a>
+<ul>
+<li class="chapter" data-level="2.1.1" data-path="ch2generator.html"><a href="ch2generator.html#ch2randompkg"><i class="fa fa-check"></i><b>2.1.1</b> Random Package</a></li>
+<li class="chapter" data-level="2.1.2" data-path="ch2generator.html"><a href="ch2generator.html#ch2creatingStreams"><i class="fa fa-check"></i><b>2.1.2</b> Creating and Using Streams</a></li>
+<li class="chapter" data-level="2.1.3" data-path="ch2generator.html"><a href="ch2generator.html#ch2crn"><i class="fa fa-check"></i><b>2.1.3</b> Common Random Numbers</a></li>
+<li class="chapter" data-level="2.1.4" data-path="ch2generator.html"><a href="ch2generator.html#ch2antitheticStreams"><i class="fa fa-check"></i><b>2.1.4</b> Creating and Using Antithetic Streams</a></li>
+<li class="chapter" data-level="2.1.5" data-path="ch2generator.html"><a href="ch2generator.html#ch2rnFAQ"><i class="fa fa-check"></i><b>2.1.5</b> Frequently Asked Questions about Random Numbers</a></li>
+</ul></li>
+<li class="chapter" data-level="2.2" data-path="rvg.html"><a href="rvg.html"><i class="fa fa-check"></i><b>2.2</b> Random Variate Generation</a>
+<ul>
+<li class="chapter" data-level="2.2.1" data-path="rvg.html"><a href="rvg.html#basic-random-variate-generation"><i class="fa fa-check"></i><b>2.2.1</b> Basic Random Variate Generation</a></li>
+<li class="chapter" data-level="2.2.2" data-path="rvg.html"><a href="rvg.html#rvg_dists"><i class="fa fa-check"></i><b>2.2.2</b> Continuous and Discrete Random Variables</a></li>
+<li class="chapter" data-level="2.2.3" data-path="rvg.html"><a href="rvg.html#rvguse"><i class="fa fa-check"></i><b>2.2.3</b> Creating and Using Random Variables</a></li>
+<li class="chapter" data-level="2.2.4" data-path="rvg.html"><a href="rvg.html#functions-of-random-variables"><i class="fa fa-check"></i><b>2.2.4</b> Functions of Random Variables</a></li>
+</ul></li>
+<li class="chapter" data-level="2.3" data-path="probModels.html"><a href="probModels.html"><i class="fa fa-check"></i><b>2.3</b> Probability Distribution Models</a></li>
+<li class="chapter" data-level="2.4" data-path="distFitting.html"><a href="distFitting.html"><i class="fa fa-check"></i><b>2.4</b> Distribution Fitting Using the KSL</a>
+<ul>
+<li class="chapter" data-level="2.4.1" data-path="distFitting.html"><a href="distFitting.html#estimating-distribution-parameters"><i class="fa fa-check"></i><b>2.4.1</b> Estimating Distribution Parameters</a></li>
+<li class="chapter" data-level="2.4.2" data-path="distFitting.html"><a href="distFitting.html#continuous-distribution-recommendation-framework"><i class="fa fa-check"></i><b>2.4.2</b> Continuous Distribution Recommendation Framework</a></li>
+<li class="chapter" data-level="2.4.3" data-path="distFitting.html"><a href="distFitting.html#discrete-distribution-framework"><i class="fa fa-check"></i><b>2.4.3</b> Discrete Distribution Framework</a></li>
+<li class="chapter" data-level="2.4.4" data-path="distFitting.html"><a href="distFitting.html#pdfmexamples"><i class="fa fa-check"></i><b>2.4.4</b> Illustrative Examples from Appendix @ref(appidm)</a></li>
+</ul></li>
+<li class="chapter" data-level="2.5" data-path="summary.html"><a href="summary.html"><i class="fa fa-check"></i><b>2.5</b> Summary</a></li>
+<li class="chapter" data-level="2.6" data-path="exercises-1.html"><a href="exercises-1.html"><i class="fa fa-check"></i><b>2.6</b> Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="mcm.html"><a href="mcm.html"><i class="fa fa-check"></i><b>3</b> Monte Carlo Methods</a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="kslStatistics.html"><a href="kslStatistics.html"><i class="fa fa-check"></i><b>3.1</b> Collecting Statistics</a>
+<ul>
+<li class="chapter" data-level="3.1.1" data-path="kslStatistics.html"><a href="kslStatistics.html#creating-and-using-a-statistic"><i class="fa fa-check"></i><b>3.1.1</b> Creating and Using a Statistic</a></li>
+<li class="chapter" data-level="3.1.2" data-path="kslStatistics.html"><a href="kslStatistics.html#histFreq"><i class="fa fa-check"></i><b>3.1.2</b> Histograms and Frequencies</a></li>
+<li class="chapter" data-level="3.1.3" data-path="kslStatistics.html"><a href="kslStatistics.html#ch3batchStats"><i class="fa fa-check"></i><b>3.1.3</b> Batch Statistics</a></li>
+<li class="chapter" data-level="3.1.4" data-path="kslStatistics.html"><a href="kslStatistics.html#ch3StatSummary"><i class="fa fa-check"></i><b>3.1.4</b> Statistics Summary</a></li>
+</ul></li>
+<li class="chapter" data-level="3.2" data-path="ssMC.html"><a href="ssMC.html"><i class="fa fa-check"></i><b>3.2</b> Simple Monte Carlo Integration</a></li>
+<li class="chapter" data-level="3.3" data-path="ch3StatReview.html"><a href="ch3StatReview.html"><i class="fa fa-check"></i><b>3.3</b> Review of Statistical Concepts</a>
+<ul>
+<li class="chapter" data-level="3.3.1" data-path="ch3StatReview.html"><a href="ch3StatReview.html#point-estimates-and-confidence-intervals"><i class="fa fa-check"></i><b>3.3.1</b> Point Estimates and Confidence Intervals</a></li>
+<li class="chapter" data-level="3.3.2" data-path="ch3StatReview.html"><a href="ch3StatReview.html#ch3SampleSize"><i class="fa fa-check"></i><b>3.3.2</b> Sample Size Determination</a></li>
+<li class="chapter" data-level="3.3.3" data-path="ch3StatReview.html"><a href="ch3StatReview.html#determining-the-sample-size-for-a-monte-carlo-simulation-experiment"><i class="fa fa-check"></i><b>3.3.3</b> Determining the Sample Size for a Monte Carlo Simulation Experiment</a></li>
+</ul></li>
+<li class="chapter" data-level="3.4" data-path="craps.html"><a href="craps.html"><i class="fa fa-check"></i><b>3.4</b> Simulating the Game of Craps</a></li>
+<li class="chapter" data-level="3.5" data-path="the-news-vendor-problem.html"><a href="the-news-vendor-problem.html"><i class="fa fa-check"></i><b>3.5</b> The News Vendor Problem</a></li>
+<li class="chapter" data-level="3.6" data-path="ch3InsProcess.html"><a href="ch3InsProcess.html"><i class="fa fa-check"></i><b>3.6</b> A Simple Inspection Process</a></li>
+<li class="chapter" data-level="3.7" data-path="ch3SAN.html"><a href="ch3SAN.html"><i class="fa fa-check"></i><b>3.7</b> Stochastic Activity Networks</a></li>
+<li class="chapter" data-level="3.8" data-path="mcmExperiments.html"><a href="mcmExperiments.html"><i class="fa fa-check"></i><b>3.8</b> Monte-Carlo Experiments</a></li>
+<li class="chapter" data-level="3.9" data-path="summary-1.html"><a href="summary-1.html"><i class="fa fa-check"></i><b>3.9</b> Summary</a></li>
+<li class="chapter" data-level="3.10" data-path="exercises-2.html"><a href="exercises-2.html"><i class="fa fa-check"></i><b>3.10</b> Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="introDEDS.html"><a href="introDEDS.html"><i class="fa fa-check"></i><b>4</b> Introduction to Discrete Event Modeling</a>
+<ul>
+<li class="chapter" data-level="4.1" data-path="introDEDSdeds.html"><a href="introDEDSdeds.html"><i class="fa fa-check"></i><b>4.1</b> Discrete-Event Dynamic Systems</a></li>
+<li class="chapter" data-level="4.2" data-path="HowDEDSClockWorks.html"><a href="HowDEDSClockWorks.html"><i class="fa fa-check"></i><b>4.2</b> How the Discrete-Event Clock Works</a></li>
+<li class="chapter" data-level="4.3" data-path="QHandExample.html"><a href="QHandExample.html"><i class="fa fa-check"></i><b>4.3</b> Simulating a Queueing System By Hand</a></li>
+<li class="chapter" data-level="4.4" data-path="introDEDSdedsKSL.html"><a href="introDEDSdedsKSL.html"><i class="fa fa-check"></i><b>4.4</b> Modeling DEDS in the KSL</a>
+<ul>
+<li class="chapter" data-level="4.4.1" data-path="introDEDSdedsKSL.html"><a href="introDEDSdedsKSL.html#event-scheduling"><i class="fa fa-check"></i><b>4.4.1</b> Event Scheduling</a></li>
+<li class="chapter" data-level="4.4.2" data-path="introDEDSdedsKSL.html"><a href="introDEDSdedsKSL.html#introDEDSschedExamples"><i class="fa fa-check"></i><b>4.4.2</b> Simple Event Scheduling Examples</a></li>
+<li class="chapter" data-level="4.4.3" data-path="introDEDSdedsKSL.html"><a href="introDEDSdedsKSL.html#introDEDSUpDown"><i class="fa fa-check"></i><b>4.4.3</b> Up and Down Component Example</a></li>
+<li class="chapter" data-level="4.4.4" data-path="introDEDSdedsKSL.html"><a href="introDEDSdedsKSL.html#introDEDSPharmacy"><i class="fa fa-check"></i><b>4.4.4</b> Modeling a Simple Queueing System</a></li>
+<li class="chapter" data-level="4.4.5" data-path="introDEDSdedsKSL.html"><a href="introDEDSdedsKSL.html#more-details-about-the-pharmacy-model-implementation"><i class="fa fa-check"></i><b>4.4.5</b> More Details About the Pharmacy Model Implementation</a></li>
+</ul></li>
+<li class="chapter" data-level="4.5" data-path="enhancing-the-drive-through-pharmacy-model.html"><a href="enhancing-the-drive-through-pharmacy-model.html"><i class="fa fa-check"></i><b>4.5</b> Enhancing the Drive Through Pharmacy Model</a>
+<ul>
+<li class="chapter" data-level="4.5.1" data-path="enhancing-the-drive-through-pharmacy-model.html"><a href="enhancing-the-drive-through-pharmacy-model.html#modeling-a-simple-resource"><i class="fa fa-check"></i><b>4.5.1</b> Modeling a Simple Resource</a></li>
+<li class="chapter" data-level="4.5.2" data-path="enhancing-the-drive-through-pharmacy-model.html"><a href="enhancing-the-drive-through-pharmacy-model.html#modeling-a-queue-with-statistical-collection"><i class="fa fa-check"></i><b>4.5.2</b> Modeling a Queue with Statistical Collection</a></li>
+<li class="chapter" data-level="4.5.3" data-path="enhancing-the-drive-through-pharmacy-model.html"><a href="enhancing-the-drive-through-pharmacy-model.html#modeling-a-repeating-event-pattern"><i class="fa fa-check"></i><b>4.5.3</b> Modeling a Repeating Event Pattern</a></li>
+<li class="chapter" data-level="4.5.4" data-path="enhancing-the-drive-through-pharmacy-model.html"><a href="enhancing-the-drive-through-pharmacy-model.html#collecting-more-detailed-statistics"><i class="fa fa-check"></i><b>4.5.4</b> Collecting More Detailed Statistics</a></li>
+<li class="chapter" data-level="4.5.5" data-path="enhancing-the-drive-through-pharmacy-model.html"><a href="enhancing-the-drive-through-pharmacy-model.html#implementing-the-enhanced-pharmacy-model"><i class="fa fa-check"></i><b>4.5.5</b> Implementing the Enhanced Pharmacy Model</a></li>
+</ul></li>
+<li class="chapter" data-level="4.6" data-path="DTPExpanded.html"><a href="DTPExpanded.html"><i class="fa fa-check"></i><b>4.6</b> More Drive Through Fun</a>
+<ul>
+<li class="chapter" data-level="4.6.1" data-path="DTPExpanded.html"><a href="DTPExpanded.html#modeling-a-resource-with-a-waiting-line"><i class="fa fa-check"></i><b>4.6.1</b> Modeling a Resource with a Waiting Line</a></li>
+<li class="chapter" data-level="4.6.2" data-path="DTPExpanded.html"><a href="DTPExpanded.html#modeling-the-tandem-queue-of-example-refexmexch4tandemq"><i class="fa fa-check"></i><b>4.6.2</b> Modeling the Tandem Queue of Example @ref(exm:exCh4TandemQ)</a></li>
+<li class="chapter" data-level="4.6.3" data-path="DTPExpanded.html"><a href="DTPExpanded.html#modeling-with-the-station-package"><i class="fa fa-check"></i><b>4.6.3</b> Modeling with the Station Package</a></li>
+</ul></li>
+<li class="chapter" data-level="4.7" data-path="introDEDSSummary.html"><a href="introDEDSSummary.html"><i class="fa fa-check"></i><b>4.7</b> Summary</a></li>
+<li class="chapter" data-level="4.8" data-path="exercises-3.html"><a href="exercises-3.html"><i class="fa fa-check"></i><b>4.8</b> Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="simoa.html"><a href="simoa.html"><i class="fa fa-check"></i><b>5</b> Analyzing and Accessing Simulation Output</a>
+<ul>
+<li class="chapter" data-level="5.1" data-path="simoadatatypes.html"><a href="simoadatatypes.html"><i class="fa fa-check"></i><b>5.1</b> Types of Statistical Variables</a></li>
+<li class="chapter" data-level="5.2" data-path="simoasimtypes.html"><a href="simoasimtypes.html"><i class="fa fa-check"></i><b>5.2</b> Types of Simulation With Respect To Output Analysis</a></li>
+<li class="chapter" data-level="5.3" data-path="simoafinhorizon.html"><a href="simoafinhorizon.html"><i class="fa fa-check"></i><b>5.3</b> Analysis of Finite Horizon Simulations</a></li>
+<li class="chapter" data-level="5.4" data-path="simoafinhorizonex.html"><a href="simoafinhorizonex.html"><i class="fa fa-check"></i><b>5.4</b> Capturing Output for a Simple Finite Horizon Simulation</a>
+<ul>
+<li class="chapter" data-level="5.4.1" data-path="simoafinhorizonex.html"><a href="simoafinhorizonex.html#simoaCapture"><i class="fa fa-check"></i><b>5.4.1</b> KSL Functionality for Capturing Statistical Results</a></li>
+<li class="chapter" data-level="5.4.2" data-path="simoafinhorizonex.html"><a href="simoafinhorizonex.html#additional-remarks"><i class="fa fa-check"></i><b>5.4.2</b> Additional Remarks</a></li>
+<li class="chapter" data-level="5.4.3" data-path="simoafinhorizonex.html"><a href="simoafinhorizonex.html#querying-the-ksl-database"><i class="fa fa-check"></i><b>5.4.3</b> Querying the KSL Database</a></li>
+</ul></li>
+<li class="chapter" data-level="5.5" data-path="simoaseqsampling.html"><a href="simoaseqsampling.html"><i class="fa fa-check"></i><b>5.5</b> Sequential Sampling for Finite Horizon Simulations</a></li>
+<li class="chapter" data-level="5.6" data-path="simoainfhorizon.html"><a href="simoainfhorizon.html"><i class="fa fa-check"></i><b>5.6</b> Analysis of Infinite Horizon Simulations</a>
+<ul>
+<li class="chapter" data-level="5.6.1" data-path="simoainfhorizon.html"><a href="simoainfhorizon.html#simoainfhorizoninitialbias"><i class="fa fa-check"></i><b>5.6.1</b> Assessing the Effect of Initial Conditions</a></li>
+<li class="chapter" data-level="5.6.2" data-path="simoainfhorizon.html"><a href="simoainfhorizon.html#simoainfhorizonrepDeletion"><i class="fa fa-check"></i><b>5.6.2</b> Performing the Method of Replication-Deletion</a></li>
+<li class="chapter" data-level="5.6.3" data-path="simoainfhorizon.html"><a href="simoainfhorizon.html#simoainfhorizonbatchmeans"><i class="fa fa-check"></i><b>5.6.3</b> The Method of Batch Means</a></li>
+<li class="chapter" data-level="5.6.4" data-path="simoainfhorizon.html"><a href="simoainfhorizon.html#simoainfhorizonjslbatching"><i class="fa fa-check"></i><b>5.6.4</b> Performing the Method of Batch Means</a></li>
+</ul></li>
+<li class="chapter" data-level="5.7" data-path="simoacomparingSystems.html"><a href="simoacomparingSystems.html"><i class="fa fa-check"></i><b>5.7</b> Comparing System Configurations</a>
+<ul>
+<li class="chapter" data-level="5.7.1" data-path="simoacomparingSystems.html"><a href="simoacomparingSystems.html#simoacomparingSystems:two"><i class="fa fa-check"></i><b>5.7.1</b> Comparing Two Systems</a></li>
+<li class="chapter" data-level="5.7.2" data-path="simoacomparingSystems.html"><a href="simoacomparingSystems.html#simoacomparingSystemsMCB"><i class="fa fa-check"></i><b>5.7.2</b> Concepts for Comparing Systems</a></li>
+<li class="chapter" data-level="5.7.3" data-path="simoacomparingSystems.html"><a href="simoacomparingSystems.html#multiple-comparison-with-the-best-procedures-mcb"><i class="fa fa-check"></i><b>5.7.3</b> Multiple Comparison with the Best Procedures (MCB)</a></li>
+<li class="chapter" data-level="5.7.4" data-path="simoacomparingSystems.html"><a href="simoacomparingSystems.html#ch5Screening"><i class="fa fa-check"></i><b>5.7.4</b> Screening Procedures</a></li>
+</ul></li>
+<li class="chapter" data-level="5.8" data-path="ch5Scenarios.html"><a href="ch5Scenarios.html"><i class="fa fa-check"></i><b>5.8</b> Simulating Many Scenarios</a>
+<ul>
+<li class="chapter" data-level="5.8.1" data-path="ch5Scenarios.html"><a href="ch5Scenarios.html#controlAntns"><i class="fa fa-check"></i><b>5.8.1</b> Control Annotations</a></li>
+<li class="chapter" data-level="5.8.2" data-path="ch5Scenarios.html"><a href="ch5Scenarios.html#rvParameters"><i class="fa fa-check"></i><b>5.8.2</b> Random Variable Parameters</a></li>
+<li class="chapter" data-level="5.8.3" data-path="ch5Scenarios.html"><a href="ch5Scenarios.html#kslScenarios"><i class="fa fa-check"></i><b>5.8.3</b> Setting Up and Running Multiple Scenarios</a></li>
+</ul></li>
+<li class="chapter" data-level="5.9" data-path="simoasummary.html"><a href="simoasummary.html"><i class="fa fa-check"></i><b>5.9</b> Summary</a></li>
+<li class="chapter" data-level="5.10" data-path="exercises-4.html"><a href="exercises-4.html"><i class="fa fa-check"></i><b>5.10</b> Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="processview.html"><a href="processview.html"><i class="fa fa-check"></i><b>6</b> Process View Modeling Using the KSL</a>
+<ul>
+<li class="chapter" data-level="6.1" data-path="ch6Entities.html"><a href="ch6Entities.html"><i class="fa fa-check"></i><b>6.1</b> What are Entities?</a></li>
+<li class="chapter" data-level="6.2" data-path="pvIntro.html"><a href="pvIntro.html"><i class="fa fa-check"></i><b>6.2</b> The Process View</a></li>
+<li class="chapter" data-level="6.3" data-path="understanding-ksl-processes-and-entities.html"><a href="understanding-ksl-processes-and-entities.html"><i class="fa fa-check"></i><b>6.3</b> Understanding KSL Processes and Entities</a></li>
+<li class="chapter" data-level="6.4" data-path="examples-of-process-modeling.html"><a href="examples-of-process-modeling.html"><i class="fa fa-check"></i><b>6.4</b> Examples of Process Modeling</a>
+<ul>
+<li class="chapter" data-level="6.4.1" data-path="examples-of-process-modeling.html"><a href="examples-of-process-modeling.html#holding-entities-in-a-queue-holdqueue-class"><i class="fa fa-check"></i><b>6.4.1</b> Holding Entities in a Queue: <code>HoldQueue</code> Class</a></li>
+<li class="chapter" data-level="6.4.2" data-path="examples-of-process-modeling.html"><a href="examples-of-process-modeling.html#signaling-entities"><i class="fa fa-check"></i><b>6.4.2</b> Signaling Entities</a></li>
+<li class="chapter" data-level="6.4.3" data-path="examples-of-process-modeling.html"><a href="examples-of-process-modeling.html#understanding-blocking-queues"><i class="fa fa-check"></i><b>6.4.3</b> Understanding Blocking Queues</a></li>
+<li class="chapter" data-level="6.4.4" data-path="examples-of-process-modeling.html"><a href="examples-of-process-modeling.html#allowing-entities-to-wait-for-a-process"><i class="fa fa-check"></i><b>6.4.4</b> Allowing Entities to Wait for a Process</a></li>
+<li class="chapter" data-level="6.4.5" data-path="examples-of-process-modeling.html"><a href="examples-of-process-modeling.html#processinteraction"><i class="fa fa-check"></i><b>6.4.5</b> Process Interaction</a></li>
+</ul></li>
+<li class="chapter" data-level="6.5" data-path="modeling-a-stem-career-mixer.html"><a href="modeling-a-stem-career-mixer.html"><i class="fa fa-check"></i><b>6.5</b> Modeling a STEM Career Mixer</a>
+<ul>
+<li class="chapter" data-level="6.5.1" data-path="modeling-a-stem-career-mixer.html"><a href="modeling-a-stem-career-mixer.html#conceptualizing-the-system"><i class="fa fa-check"></i><b>6.5.1</b> Conceptualizing the System</a></li>
+<li class="chapter" data-level="6.5.2" data-path="modeling-a-stem-career-mixer.html"><a href="modeling-a-stem-career-mixer.html#implementing-the-stem-mixer-model"><i class="fa fa-check"></i><b>6.5.2</b> Implementing the STEM Mixer Model</a></li>
+</ul></li>
+<li class="chapter" data-level="6.6" data-path="the-tie-dye-t-shirt-model.html"><a href="the-tie-dye-t-shirt-model.html"><i class="fa fa-check"></i><b>6.6</b> The Tie-Dye T-Shirt Model</a>
+<ul>
+<li class="chapter" data-level="6.6.1" data-path="the-tie-dye-t-shirt-model.html"><a href="the-tie-dye-t-shirt-model.html#ch4:TieDyeTShirtsSub1"><i class="fa fa-check"></i><b>6.6.1</b> Implementing the Tie-Dye T-Shirt Model</a></li>
+</ul></li>
+<li class="chapter" data-level="6.7" data-path="summary-2.html"><a href="summary-2.html"><i class="fa fa-check"></i><b>6.7</b> Summary</a></li>
+<li class="chapter" data-level="6.8" data-path="exercises-5.html"><a href="exercises-5.html"><i class="fa fa-check"></i><b>6.8</b> Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="ch7AdvModeling.html"><a href="ch7AdvModeling.html"><i class="fa fa-check"></i><b>7</b> Advanced Event and Process View Modeling</a>
+<ul>
+<li class="chapter" data-level="7.1" data-path="modeling-with-processes-and-resources.html"><a href="modeling-with-processes-and-resources.html"><i class="fa fa-check"></i><b>7.1</b> Modeling with Processes and Resources</a>
+<ul>
+<li class="chapter" data-level="7.1.1" data-path="modeling-with-processes-and-resources.html"><a href="modeling-with-processes-and-resources.html#modeling-space-with-resources"><i class="fa fa-check"></i><b>7.1.1</b> Modeling Space with Resources</a></li>
+<li class="chapter" data-level="7.1.2" data-path="modeling-with-processes-and-resources.html"><a href="modeling-with-processes-and-resources.html#secResourcePools"><i class="fa fa-check"></i><b>7.1.2</b> Resource Pools</a></li>
+<li class="chapter" data-level="7.1.3" data-path="modeling-with-processes-and-resources.html"><a href="modeling-with-processes-and-resources.html#secTestAndRepair"><i class="fa fa-check"></i><b>7.1.3</b> Computer Test and Repair Shop Example</a></li>
+</ul></li>
+<li class="chapter" data-level="7.2" data-path="modeling-non-stationary-systems.html"><a href="modeling-non-stationary-systems.html"><i class="fa fa-check"></i><b>7.2</b> Modeling Non-Stationary Systems</a>
+<ul>
+<li class="chapter" data-level="7.2.1" data-path="modeling-non-stationary-systems.html"><a href="modeling-non-stationary-systems.html#ch7secNSPP"><i class="fa fa-check"></i><b>7.2.1</b> Non-Stationary Arrival Processes</a></li>
+<li class="chapter" data-level="7.2.2" data-path="modeling-non-stationary-systems.html"><a href="modeling-non-stationary-systems.html#modeling-resources-under-non-stationary-conditions"><i class="fa fa-check"></i><b>7.2.2</b> Modeling Resources Under Non-Stationary Conditions</a></li>
+<li class="chapter" data-level="7.2.3" data-path="modeling-non-stationary-systems.html"><a href="modeling-non-stationary-systems.html#enhancing-the-stem-career-mixer-model"><i class="fa fa-check"></i><b>7.2.3</b> Enhancing the STEM Career Mixer Model</a></li>
+</ul></li>
+<li class="chapter" data-level="7.3" data-path="examples-of-advanced-event-models.html"><a href="examples-of-advanced-event-models.html"><i class="fa fa-check"></i><b>7.3</b> Examples of Advanced Event Models</a>
+<ul>
+<li class="chapter" data-level="7.3.1" data-path="examples-of-advanced-event-models.html"><a href="examples-of-advanced-event-models.html#ch6s1sb4sub3"><i class="fa fa-check"></i><b>7.3.1</b> Modeling Balking and Reneging</a></li>
+<li class="chapter" data-level="7.3.2" data-path="examples-of-advanced-event-models.html"><a href="examples-of-advanced-event-models.html#rqModel"><i class="fa fa-check"></i><b>7.3.2</b> Modeling a Reorder Point, Reorder Quantity Inventory Policy</a></li>
+</ul></li>
+<li class="chapter" data-level="7.4" data-path="ch7VandV.html"><a href="ch7VandV.html"><i class="fa fa-check"></i><b>7.4</b> Applying Queueing Theory Results to Verify and Validate a Simulation</a>
+<ul>
+<li class="chapter" data-level="7.4.1" data-path="ch7VandV.html"><a href="ch7VandV.html#analyzing-the-preparation-station"><i class="fa fa-check"></i><b>7.4.1</b> Analyzing the Preparation Station</a></li>
+<li class="chapter" data-level="7.4.2" data-path="ch7VandV.html"><a href="ch7VandV.html#analyzing-the-build-lines"><i class="fa fa-check"></i><b>7.4.2</b> Analyzing the Build Lines</a></li>
+<li class="chapter" data-level="7.4.3" data-path="ch7VandV.html"><a href="ch7VandV.html#analyzing-the-packaging-station"><i class="fa fa-check"></i><b>7.4.3</b> Analyzing the Packaging Station</a></li>
+<li class="chapter" data-level="7.4.4" data-path="ch7VandV.html"><a href="ch7VandV.html#analyzing-the-palletizing-station"><i class="fa fa-check"></i><b>7.4.4</b> Analyzing the Palletizing Station</a></li>
+<li class="chapter" data-level="7.4.5" data-path="ch7VandV.html"><a href="ch7VandV.html#analyzing-the-total-system-time"><i class="fa fa-check"></i><b>7.4.5</b> Analyzing the Total System Time</a></li>
+<li class="chapter" data-level="7.4.6" data-path="ch7VandV.html"><a href="ch7VandV.html#other-issues-for-verification-and-validation"><i class="fa fa-check"></i><b>7.4.6</b> Other Issues for Verification and Validation</a></li>
+</ul></li>
+<li class="chapter" data-level="7.5" data-path="summary-3.html"><a href="summary-3.html"><i class="fa fa-check"></i><b>7.5</b> Summary</a></li>
+<li class="chapter" data-level="7.6" data-path="exercises-6.html"><a href="exercises-6.html"><i class="fa fa-check"></i><b>7.6</b> Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="8" data-path="chEntityMovement.html"><a href="chEntityMovement.html"><i class="fa fa-check"></i><b>8</b> Modeling Entity Movement</a>
+<ul>
+<li class="chapter" data-level="8.1" data-path="secRCT.html"><a href="secRCT.html"><i class="fa fa-check"></i><b>8.1</b> Resource Constrained Transfer</a>
+<ul>
+<li class="chapter" data-level="8.1.1" data-path="secRCT.html"><a href="secRCT.html#secTestRepairRCT"><i class="fa fa-check"></i><b>8.1.1</b> Test and Repair with Resource Constrained Transfer</a></li>
+</ul></li>
+<li class="chapter" data-level="8.2" data-path="movableResources.html"><a href="movableResources.html"><i class="fa fa-check"></i><b>8.2</b> Constrained Transfer with Movable Resources</a>
+<ul>
+<li class="chapter" data-level="8.2.1" data-path="movableResources.html"><a href="movableResources.html#spatial-models"><i class="fa fa-check"></i><b>8.2.1</b> Spatial Models</a></li>
+<li class="chapter" data-level="8.2.2" data-path="movableResources.html"><a href="movableResources.html#secMovableResources"><i class="fa fa-check"></i><b>8.2.2</b> Movable Resources</a></li>
+<li class="chapter" data-level="8.2.3" data-path="movableResources.html"><a href="movableResources.html#secTQMWM"><i class="fa fa-check"></i><b>8.2.3</b> Tandem Queue Model With Movement</a></li>
+</ul></li>
+<li class="chapter" data-level="8.3" data-path="secTestAndRepairMovableResources.html"><a href="secTestAndRepairMovableResources.html"><i class="fa fa-check"></i><b>8.3</b> Modeling the Test and Repair System with Movable Resources</a></li>
+<li class="chapter" data-level="8.4" data-path="secConveyors.html"><a href="secConveyors.html"><i class="fa fa-check"></i><b>8.4</b> Modeling Systems with Conveyors</a>
+<ul>
+<li class="chapter" data-level="8.4.1" data-path="secConveyors.html"><a href="secConveyors.html#ksl-conveyor-constructs"><i class="fa fa-check"></i><b>8.4.1</b> KSL Conveyor Constructs</a></li>
+<li class="chapter" data-level="8.4.2" data-path="secConveyors.html"><a href="secConveyors.html#tandem-queue-system-with-conveyors"><i class="fa fa-check"></i><b>8.4.2</b> Tandem Queue System with Conveyors</a></li>
+<li class="chapter" data-level="8.4.3" data-path="secConveyors.html"><a href="secConveyors.html#secTestAndRepairConveyors"><i class="fa fa-check"></i><b>8.4.3</b> Test and Repair via Conveyors</a></li>
+<li class="chapter" data-level="8.4.4" data-path="secConveyors.html"><a href="secConveyors.html#secMiscConveyor"><i class="fa fa-check"></i><b>8.4.4</b> Miscellaneous Concepts in Conveyor Modeling</a></li>
+</ul></li>
+<li class="chapter" data-level="8.5" data-path="summary-of-new-concepts.html"><a href="summary-of-new-concepts.html"><i class="fa fa-check"></i><b>8.5</b> Summary of New Concepts</a></li>
+<li class="chapter" data-level="8.6" data-path="exercises-7.html"><a href="exercises-7.html"><i class="fa fa-check"></i><b>8.6</b> Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="9" data-path="ch9AdvMC.html"><a href="ch9AdvMC.html"><i class="fa fa-check"></i><b>9</b> Advanced Monte Carlo Methods</a>
+<ul>
+<li class="chapter" data-level="9.1" data-path="ch9BootStrapping.html"><a href="ch9BootStrapping.html"><i class="fa fa-check"></i><b>9.1</b> Bootstrap Methods</a>
+<ul>
+<li class="chapter" data-level="9.1.1" data-path="ch9BootStrapping.html"><a href="ch9BootStrapping.html#bootstrapping-using-the-ksl"><i class="fa fa-check"></i><b>9.1.1</b> Bootstrapping Using the KSL</a></li>
+</ul></li>
+<li class="chapter" data-level="9.2" data-path="ch9VRTs.html"><a href="ch9VRTs.html"><i class="fa fa-check"></i><b>9.2</b> Variance Reduction Techniques</a>
+<ul>
+<li class="chapter" data-level="9.2.1" data-path="ch9VRTs.html"><a href="ch9VRTs.html#common-random-numbers-crn"><i class="fa fa-check"></i><b>9.2.1</b> Common Random Numbers (CRN)</a></li>
+<li class="chapter" data-level="9.2.2" data-path="ch9VRTs.html"><a href="ch9VRTs.html#antithetic-variates-av"><i class="fa fa-check"></i><b>9.2.2</b> Antithetic Variates (AV)</a></li>
+<li class="chapter" data-level="9.2.3" data-path="ch9VRTs.html"><a href="ch9VRTs.html#indirect-estimation"><i class="fa fa-check"></i><b>9.2.3</b> Indirect Estimation</a></li>
+<li class="chapter" data-level="9.2.4" data-path="ch9VRTs.html"><a href="ch9VRTs.html#control-variates-cv"><i class="fa fa-check"></i><b>9.2.4</b> Control Variates (CV)</a></li>
+<li class="chapter" data-level="9.2.5" data-path="ch9VRTs.html"><a href="ch9VRTs.html#stratified-and-post-stratified-sampling"><i class="fa fa-check"></i><b>9.2.5</b> Stratified and Post Stratified Sampling</a></li>
+<li class="chapter" data-level="9.2.6" data-path="ch9VRTs.html"><a href="ch9VRTs.html#conditional-expectation-ce"><i class="fa fa-check"></i><b>9.2.6</b> Conditional Expectation (CE)</a></li>
+<li class="chapter" data-level="9.2.7" data-path="ch9VRTs.html"><a href="ch9VRTs.html#importance-sampling-is"><i class="fa fa-check"></i><b>9.2.7</b> Importance Sampling (IS)</a></li>
+</ul></li>
+<li class="chapter" data-level="9.3" data-path="ch9GMVRVs.html"><a href="ch9GMVRVs.html"><i class="fa fa-check"></i><b>9.3</b> Generating Multi-Variate and Correlated Random Variates</a>
+<ul>
+<li class="chapter" data-level="9.3.1" data-path="ch9GMVRVs.html"><a href="ch9GMVRVs.html#generating-from-a-bivariate-normal-distribution"><i class="fa fa-check"></i><b>9.3.1</b> Generating from a Bivariate Normal Distribution</a></li>
+<li class="chapter" data-level="9.3.2" data-path="ch9GMVRVs.html"><a href="ch9GMVRVs.html#copulas-and-multi-variate-generation-methods"><i class="fa fa-check"></i><b>9.3.2</b> Copulas and Multi-variate Generation Methods</a></li>
+<li class="chapter" data-level="9.3.3" data-path="ch9GMVRVs.html"><a href="ch9GMVRVs.html#autocorrelated-generation"><i class="fa fa-check"></i><b>9.3.3</b> Autocorrelated Generation</a></li>
+<li class="chapter" data-level="9.3.4" data-path="ch9GMVRVs.html"><a href="ch9GMVRVs.html#ch9MCMC"><i class="fa fa-check"></i><b>9.3.4</b> Introduction to Markov Chain Monte Carlo Methods</a></li>
+</ul></li>
+<li class="chapter" data-level="9.4" data-path="summary-4.html"><a href="summary-4.html"><i class="fa fa-check"></i><b>9.4</b> Summary</a></li>
+<li class="chapter" data-level="9.5" data-path="exercises-8.html"><a href="exercises-8.html"><i class="fa fa-check"></i><b>9.5</b> Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="10" data-path="ch10eo.html"><a href="ch10eo.html"><i class="fa fa-check"></i><b>10</b> Experimental Design and Simulation Optimization Methods</a>
+<ul>
+<li class="chapter" data-level="10.1" data-path="ch10doe.html"><a href="ch10doe.html"><i class="fa fa-check"></i><b>10.1</b> Experimental Design Methods</a>
+<ul>
+<li class="chapter" data-level="10.1.1" data-path="ch10doe.html"><a href="ch10doe.html#ch10factors"><i class="fa fa-check"></i><b>10.1.1</b> Defining Factors</a></li>
+<li class="chapter" data-level="10.1.2" data-path="ch10doe.html"><a href="ch10doe.html#ch10designs"><i class="fa fa-check"></i><b>10.1.2</b> Defining Experimental Designs</a></li>
+<li class="chapter" data-level="10.1.3" data-path="ch10doe.html"><a href="ch10doe.html#ch10exp"><i class="fa fa-check"></i><b>10.1.3</b> Executing a Designed Experiment</a></li>
+<li class="chapter" data-level="10.1.4" data-path="ch10doe.html"><a href="ch10doe.html#ch10analysis"><i class="fa fa-check"></i><b>10.1.4</b> Analyzing a Designed Experiment</a></li>
+</ul></li>
+<li class="chapter" data-level="10.2" data-path="ch10simOpt.html"><a href="ch10simOpt.html"><i class="fa fa-check"></i><b>10.2</b> Simulation Optimization Methods</a></li>
+<li class="chapter" data-level="10.3" data-path="ch10ProbDefn.html"><a href="ch10ProbDefn.html"><i class="fa fa-check"></i><b>10.3</b> Defining Simulation Optimization Problems</a>
+<ul>
+<li class="chapter" data-level="10.3.1" data-path="ch10ProbDefn.html"><a href="ch10ProbDefn.html#specifying-penalty-functions"><i class="fa fa-check"></i><b>10.3.1</b> Specifying Penalty Functions</a></li>
+<li class="chapter" data-level="10.3.2" data-path="ch10ProbDefn.html"><a href="ch10ProbDefn.html#inputvariables"><i class="fa fa-check"></i><b>10.3.2</b> Defining Input Variables</a></li>
+<li class="chapter" data-level="10.3.3" data-path="ch10ProbDefn.html"><a href="ch10ProbDefn.html#linear-and-functional-constraints"><i class="fa fa-check"></i><b>10.3.3</b> Linear and Functional Constraints</a></li>
+<li class="chapter" data-level="10.3.4" data-path="ch10ProbDefn.html"><a href="ch10ProbDefn.html#response-constraints"><i class="fa fa-check"></i><b>10.3.4</b> Response Constraints</a></li>
+<li class="chapter" data-level="10.3.5" data-path="ch10ProbDefn.html"><a href="ch10ProbDefn.html#ch10ProbDefnExample"><i class="fa fa-check"></i><b>10.3.5</b> Setting Up a Problem Definition</a></li>
+</ul></li>
+<li class="chapter" data-level="10.4" data-path="representing-the-simulation-oracle.html"><a href="representing-the-simulation-oracle.html"><i class="fa fa-check"></i><b>10.4</b> Representing the Simulation Oracle</a>
+<ul>
+<li class="chapter" data-level="10.4.1" data-path="representing-the-simulation-oracle.html"><a href="representing-the-simulation-oracle.html#requesting-simulation-evaluations"><i class="fa fa-check"></i><b>10.4.1</b> Requesting Simulation Evaluations</a></li>
+<li class="chapter" data-level="10.4.2" data-path="representing-the-simulation-oracle.html"><a href="representing-the-simulation-oracle.html#representing-model-inputs"><i class="fa fa-check"></i><b>10.4.2</b> Representing Model Inputs</a></li>
+<li class="chapter" data-level="10.4.3" data-path="representing-the-simulation-oracle.html"><a href="representing-the-simulation-oracle.html#representing-model-outputs"><i class="fa fa-check"></i><b>10.4.3</b> Representing Model Outputs</a></li>
+</ul></li>
+<li class="chapter" data-level="10.5" data-path="characterizing-simulation-optimization-algorithms.html"><a href="characterizing-simulation-optimization-algorithms.html"><i class="fa fa-check"></i><b>10.5</b> Characterizing Simulation Optimization Algorithms</a>
+<ul>
+<li class="chapter" data-level="10.5.1" data-path="characterizing-simulation-optimization-algorithms.html"><a href="characterizing-simulation-optimization-algorithms.html#structure-of-the-iterative-process"><i class="fa fa-check"></i><b>10.5.1</b> Structure of the Iterative Process</a></li>
+<li class="chapter" data-level="10.5.2" data-path="characterizing-simulation-optimization-algorithms.html"><a href="characterizing-simulation-optimization-algorithms.html#solver-plug-in-behavior"><i class="fa fa-check"></i><b>10.5.2</b> Solver Plug-in Behavior</a></li>
+<li class="chapter" data-level="10.5.3" data-path="characterizing-simulation-optimization-algorithms.html"><a href="characterizing-simulation-optimization-algorithms.html#miscellaneous-concepts-in-the-solver-class"><i class="fa fa-check"></i><b>10.5.3</b> Miscellaneous Concepts in the <code>Solver</code> Class</a></li>
+</ul></li>
+<li class="chapter" data-level="10.6" data-path="implemented-solvers.html"><a href="implemented-solvers.html"><i class="fa fa-check"></i><b>10.6</b> Implemented Solvers</a>
+<ul>
+<li class="chapter" data-level="10.6.1" data-path="implemented-solvers.html"><a href="implemented-solvers.html#simulated-annealing"><i class="fa fa-check"></i><b>10.6.1</b> Simulated Annealing</a></li>
+<li class="chapter" data-level="10.6.2" data-path="implemented-solvers.html"><a href="implemented-solvers.html#cross-entropy"><i class="fa fa-check"></i><b>10.6.2</b> Cross Entropy</a></li>
+<li class="chapter" data-level="10.6.3" data-path="implemented-solvers.html"><a href="implemented-solvers.html#r-spline"><i class="fa fa-check"></i><b>10.6.3</b> R-SPLINE</a></li>
+<li class="chapter" data-level="10.6.4" data-path="implemented-solvers.html"><a href="implemented-solvers.html#randomized-restart-solvers"><i class="fa fa-check"></i><b>10.6.4</b> Randomized Restart Solvers</a></li>
+</ul></li>
+<li class="chapter" data-level="10.7" data-path="secApplySolver.html"><a href="secApplySolver.html"><i class="fa fa-check"></i><b>10.7</b> Using a Solver on a Problem</a>
+<ul>
+<li class="chapter" data-level="10.7.1" data-path="secApplySolver.html"><a href="secApplySolver.html#applyCE"><i class="fa fa-check"></i><b>10.7.1</b> Illustrating the Cross-Entropy Solver</a></li>
+<li class="chapter" data-level="10.7.2" data-path="secApplySolver.html"><a href="secApplySolver.html#illustrating-simulated-annealing-with-random-restarts"><i class="fa fa-check"></i><b>10.7.2</b> Illustrating Simulated Annealing with Random Restarts</a></li>
+</ul></li>
+<li class="chapter" data-level="10.8" data-path="summary-5.html"><a href="summary-5.html"><i class="fa fa-check"></i><b>10.8</b> Summary</a></li>
+<li class="chapter" data-level="10.9" data-path="exercises-9.html"><a href="exercises-9.html"><i class="fa fa-check"></i><b>10.9</b> Exercises</a></li>
+</ul></li>
+<li class="appendix"><span><b>Appendix</b></span></li>
+<li class="chapter" data-level="A" data-path="appRNRV.html"><a href="appRNRV.html"><i class="fa fa-check"></i><b>A</b> Generating Pseudo-Random Numbers and Random Variates</a>
+<ul>
+<li class="chapter" data-level="A.1" data-path="appRNRVPRN.html"><a href="appRNRVPRN.html"><i class="fa fa-check"></i><b>A.1</b> Pseudo Random Numbers</a>
+<ul>
+<li class="chapter" data-level="A.1.1" data-path="appRNRVPRN.html"><a href="appRNRVPRN.html#appRNRVRNGs"><i class="fa fa-check"></i><b>A.1.1</b> Random Number Generators</a></li>
+</ul></li>
+<li class="chapter" data-level="A.2" data-path="appRNRVs.html"><a href="appRNRVs.html"><i class="fa fa-check"></i><b>A.2</b> Generating Random Variates from Distributions</a>
+<ul>
+<li class="chapter" data-level="A.2.1" data-path="appRNRVs.html"><a href="appRNRVs.html#inverse-transform-method"><i class="fa fa-check"></i><b>A.2.1</b> Inverse Transform Method</a></li>
+<li class="chapter" data-level="A.2.2" data-path="appRNRVs.html"><a href="appRNRVs.html#convolution"><i class="fa fa-check"></i><b>A.2.2</b> Convolution</a></li>
+<li class="chapter" data-level="A.2.3" data-path="appRNRVs.html"><a href="appRNRVs.html#acceptancerejection"><i class="fa fa-check"></i><b>A.2.3</b> Acceptance/Rejection</a></li>
+<li class="chapter" data-level="A.2.4" data-path="appRNRVs.html"><a href="appRNRVs.html#AppRNRVsubsecMTSRV"><i class="fa fa-check"></i><b>A.2.4</b> Mixture Distributions, Truncated Distributions, and Shifted Random Variables</a></li>
+</ul></li>
+<li class="chapter" data-level="A.3" data-path="summary-6.html"><a href="summary-6.html"><i class="fa fa-check"></i><b>A.3</b> Summary</a></li>
+<li class="chapter" data-level="A.4" data-path="exercises-10.html"><a href="exercises-10.html"><i class="fa fa-check"></i><b>A.4</b> Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="B" data-path="appidm.html"><a href="appidm.html"><i class="fa fa-check"></i><b>B</b> Probability Distribution Modeling</a>
+<ul>
+<li class="chapter" data-level="B.1" data-path="appidmsecrvPD.html"><a href="appidmsecrvPD.html"><i class="fa fa-check"></i><b>B.1</b> Random Variables and Probability Distributions</a></li>
+<li class="chapter" data-level="B.2" data-path="appidmsecMDD.html"><a href="appidmsecMDD.html"><i class="fa fa-check"></i><b>B.2</b> Modeling with Discrete Distributions</a></li>
+<li class="chapter" data-level="B.3" data-path="appidmsecfitDiscrete.html"><a href="appidmsecfitDiscrete.html"><i class="fa fa-check"></i><b>B.3</b> Fitting Discrete Distributions</a>
+<ul>
+<li class="chapter" data-level="B.3.1" data-path="appidmsecfitDiscrete.html"><a href="appidmsecfitDiscrete.html#AppDisFitPoissonFit"><i class="fa fa-check"></i><b>B.3.1</b> Fitting a Poisson Distribution</a></li>
+<li class="chapter" data-level="B.3.2" data-path="appidmsecfitDiscrete.html"><a href="appidmsecfitDiscrete.html#visualizing-the-data"><i class="fa fa-check"></i><b>B.3.2</b> Visualizing the Data</a></li>
+<li class="chapter" data-level="B.3.3" data-path="appidmsecfitDiscrete.html"><a href="appidmsecfitDiscrete.html#estimating-the-rate-parameter-for-the-poisson-distribution"><i class="fa fa-check"></i><b>B.3.3</b> Estimating the Rate Parameter for the Poisson Distribution</a></li>
+<li class="chapter" data-level="B.3.4" data-path="appidmsecfitDiscrete.html"><a href="appidmsecfitDiscrete.html#chi-squared-goodness-of-fit-test-for-poisson-distribution"><i class="fa fa-check"></i><b>B.3.4</b> Chi-Squared Goodness of Fit Test for Poisson Distribution</a></li>
+<li class="chapter" data-level="B.3.5" data-path="appidmsecfitDiscrete.html"><a href="appidmsecfitDiscrete.html#subsubchisqGOF"><i class="fa fa-check"></i><b>B.3.5</b> Chi-Squared Goodness of Fit Test</a></li>
+<li class="chapter" data-level="B.3.6" data-path="appidmsecfitDiscrete.html"><a href="appidmsecfitDiscrete.html#using-the-fitdistrplus-r-package-on-discrete-data"><i class="fa fa-check"></i><b>B.3.6</b> Using the fitdistrplus R Package on Discrete Data</a></li>
+<li class="chapter" data-level="B.3.7" data-path="appidmsecfitDiscrete.html"><a href="appidmsecfitDiscrete.html#fitting-a-discrete-empirical-distribution"><i class="fa fa-check"></i><b>B.3.7</b> Fitting a Discrete Empirical Distribution</a></li>
+</ul></li>
+<li class="chapter" data-level="B.4" data-path="appidmsecMCD.html"><a href="appidmsecMCD.html"><i class="fa fa-check"></i><b>B.4</b> Modeling with Continuous Distributions</a></li>
+<li class="chapter" data-level="B.5" data-path="appidmsecfitContinuous.html"><a href="appidmsecfitContinuous.html"><i class="fa fa-check"></i><b>B.5</b> Fitting Continuous Distributions</a>
+<ul>
+<li class="chapter" data-level="B.5.1" data-path="appidmsecfitContinuous.html"><a href="appidmsecfitContinuous.html#appidmsubsecvisualizedata"><i class="fa fa-check"></i><b>B.5.1</b> Visualizing the Data</a></li>
+<li class="chapter" data-level="B.5.2" data-path="appidmsecfitContinuous.html"><a href="appidmsecfitContinuous.html#appidmsubsecstatsdata"><i class="fa fa-check"></i><b>B.5.2</b> Statistically Summarize the Data</a></li>
+<li class="chapter" data-level="B.5.3" data-path="appidmsecfitContinuous.html"><a href="appidmsecfitContinuous.html#appidmsubsechypothDist"><i class="fa fa-check"></i><b>B.5.3</b> Hypothesizing and Testing a Distribution</a></li>
+<li class="chapter" data-level="B.5.4" data-path="appidmsecfitContinuous.html"><a href="appidmsecfitContinuous.html#kolmogorov-smirnov-test"><i class="fa fa-check"></i><b>B.5.4</b> Kolmogorov-Smirnov Test</a></li>
+<li class="chapter" data-level="B.5.5" data-path="appidmsecfitContinuous.html"><a href="appidmsecfitContinuous.html#appidmsubsecvisFit"><i class="fa fa-check"></i><b>B.5.5</b> Visualizing the Fit</a></li>
+<li class="chapter" data-level="B.5.6" data-path="appidmsecfitContinuous.html"><a href="appidmsecfitContinuous.html#appidms2sb3"><i class="fa fa-check"></i><b>B.5.6</b> Using the Input Analyzer</a></li>
+</ul></li>
+<li class="chapter" data-level="B.6" data-path="appdistfittestU01.html"><a href="appdistfittestU01.html"><i class="fa fa-check"></i><b>B.6</b> Testing Uniform (0,1) Pseudo-Random Numbers</a>
+<ul>
+<li class="chapter" data-level="B.6.1" data-path="appdistfittestU01.html"><a href="appdistfittestU01.html#chi-squared-goodness-of-fit-tests-for-pseudo-random-numbers"><i class="fa fa-check"></i><b>B.6.1</b> Chi-Squared Goodness of Fit Tests for Pseudo-Random Numbers</a></li>
+<li class="chapter" data-level="B.6.2" data-path="appdistfittestU01.html"><a href="appdistfittestU01.html#higher-dimensional-chi-squared-test"><i class="fa fa-check"></i><b>B.6.2</b> Higher Dimensional Chi-Squared Test</a></li>
+<li class="chapter" data-level="B.6.3" data-path="appdistfittestU01.html"><a href="appdistfittestU01.html#kolmogorov-smirnov-test-for-pseudo-random-numbers"><i class="fa fa-check"></i><b>B.6.3</b> Kolmogorov-Smirnov Test for Pseudo-Random Numbers</a></li>
+<li class="chapter" data-level="B.6.4" data-path="appdistfittestU01.html"><a href="appdistfittestU01.html#testing-for-independence-and-patterns-in-pseudo-random-numbers"><i class="fa fa-check"></i><b>B.6.4</b> Testing for Independence and Patterns in Pseudo-Random Numbers</a></li>
+</ul></li>
+<li class="chapter" data-level="B.7" data-path="appdistfitidms2sb4.html"><a href="appdistfitidms2sb4.html"><i class="fa fa-check"></i><b>B.7</b> Additional Distribution Modeling Concepts</a></li>
+<li class="chapter" data-level="B.8" data-path="appidmSummary.html"><a href="appidmSummary.html"><i class="fa fa-check"></i><b>B.8</b> Summary</a></li>
+<li class="chapter" data-level="B.9" data-path="exercises-11.html"><a href="exercises-11.html"><i class="fa fa-check"></i><b>B.9</b> Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="C" data-path="appqtAndInvT.html"><a href="appqtAndInvT.html"><i class="fa fa-check"></i><b>C</b> Queueing Theory</a>
+<ul>
+<li class="chapter" data-level="C.1" data-path="appqts1.html"><a href="appqts1.html"><i class="fa fa-check"></i><b>C.1</b> Single Line Queueing Stations</a>
+<ul>
+<li class="chapter" data-level="C.1.1" data-path="appqts1.html"><a href="appqts1.html#queueing-notation"><i class="fa fa-check"></i><b>C.1.1</b> Queueing Notation</a></li>
+<li class="chapter" data-level="C.1.2" data-path="appqts1.html"><a href="appqts1.html#littles-formula"><i class="fa fa-check"></i><b>C.1.2</b> Little’s Formula</a></li>
+<li class="chapter" data-level="C.1.3" data-path="appqts1.html"><a href="appqts1.html#appqts1sb1"><i class="fa fa-check"></i><b>C.1.3</b> Deriving Formulas for Markovian Single Queue Systems</a></li>
+</ul></li>
+<li class="chapter" data-level="C.2" data-path="appqts1sb2.html"><a href="appqts1sb2.html"><i class="fa fa-check"></i><b>C.2</b> Examples and Applications of Queueing Analysis</a>
+<ul>
+<li class="chapter" data-level="C.2.1" data-path="appqts1sb2.html"><a href="appqts1sb2.html#infinite-queue-examples"><i class="fa fa-check"></i><b>C.2.1</b> Infinite Queue Examples</a></li>
+<li class="chapter" data-level="C.2.2" data-path="appqts1sb2.html"><a href="appqts1sb2.html#finite-queue-examples"><i class="fa fa-check"></i><b>C.2.2</b> Finite Queue Examples</a></li>
+</ul></li>
+<li class="chapter" data-level="C.3" data-path="appqts1sb3.html"><a href="appqts1sb3.html"><i class="fa fa-check"></i><b>C.3</b> Non-Markovian Queues and Approximations</a></li>
+<li class="chapter" data-level="C.4" data-path="appqtsecformulas.html"><a href="appqtsecformulas.html"><i class="fa fa-check"></i><b>C.4</b> Summary of Queueing Formulas</a>
+<ul>
+<li class="chapter" data-level="C.4.1" data-path="appqtsecformulas.html"><a href="appqtsecformulas.html#mm1-queue"><i class="fa fa-check"></i><b>C.4.1</b> M/M/1 Queue</a></li>
+<li class="chapter" data-level="C.4.2" data-path="appqtsecformulas.html"><a href="appqtsecformulas.html#mmc-queue"><i class="fa fa-check"></i><b>C.4.2</b> M/M/c Queue</a></li>
+<li class="chapter" data-level="C.4.3" data-path="appqtsecformulas.html"><a href="appqtsecformulas.html#mmck-queue"><i class="fa fa-check"></i><b>C.4.3</b> M/M/c/k Queue</a></li>
+<li class="chapter" data-level="C.4.4" data-path="appqtsecformulas.html"><a href="appqtsecformulas.html#mgcc-queue"><i class="fa fa-check"></i><b>C.4.4</b> M/G/c/c Queue</a></li>
+<li class="chapter" data-level="C.4.5" data-path="appqtsecformulas.html"><a href="appqtsecformulas.html#mm1k-queue"><i class="fa fa-check"></i><b>C.4.5</b> M/M/1/k Queue</a></li>
+<li class="chapter" data-level="C.4.6" data-path="appqtsecformulas.html"><a href="appqtsecformulas.html#mmck-queue-1"><i class="fa fa-check"></i><b>C.4.6</b> M/M/c/k Queue</a></li>
+<li class="chapter" data-level="C.4.7" data-path="appqtsecformulas.html"><a href="appqtsecformulas.html#mm1kk-queue"><i class="fa fa-check"></i><b>C.4.7</b> M/M/1/k/k Queue</a></li>
+<li class="chapter" data-level="C.4.8" data-path="appqtsecformulas.html"><a href="appqtsecformulas.html#mmckk-queue"><i class="fa fa-check"></i><b>C.4.8</b> M/M/c/k/k Queue</a></li>
+</ul></li>
+<li class="chapter" data-level="C.5" data-path="exercises-12.html"><a href="exercises-12.html"><i class="fa fa-check"></i><b>C.5</b> Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="D" data-path="appUtilities.html"><a href="appUtilities.html"><i class="fa fa-check"></i><b>D</b> KSL Utility Packages</a>
+<ul>
+<li class="chapter" data-level="D.1" data-path="the-outputdirectory-class-and-ksl-object.html"><a href="the-outputdirectory-class-and-ksl-object.html"><i class="fa fa-check"></i><b>D.1</b> The <code>OutputDirectory</code> Class and <code>KSL</code> Object</a></li>
+<li class="chapter" data-level="D.2" data-path="logging-options.html"><a href="logging-options.html"><i class="fa fa-check"></i><b>D.2</b> Logging Options</a></li>
+<li class="chapter" data-level="D.3" data-path="the-kslfileutil-object.html"><a href="the-kslfileutil-object.html"><i class="fa fa-check"></i><b>D.3</b> The <code>KSLFileUtil</code> Object</a></li>
+<li class="chapter" data-level="D.4" data-path="appDCSVEtc.html"><a href="appDCSVEtc.html"><i class="fa fa-check"></i><b>D.4</b> CSV, Excel, and Tabular Data Files</a></li>
+<li class="chapter" data-level="D.5" data-path="dfUtil.html"><a href="dfUtil.html"><i class="fa fa-check"></i><b>D.5</b> The <code>DataFrameUtil</code> Object</a></li>
+<li class="chapter" data-level="D.6" data-path="ksl-database-utilities.html"><a href="ksl-database-utilities.html"><i class="fa fa-check"></i><b>D.6</b> KSL Database Utilities</a></li>
+<li class="chapter" data-level="D.7" data-path="appUtilitiesArrays.html"><a href="appUtilitiesArrays.html"><i class="fa fa-check"></i><b>D.7</b> Array Utilities</a></li>
+<li class="chapter" data-level="D.8" data-path="appPlotting.html"><a href="appPlotting.html"><i class="fa fa-check"></i><b>D.8</b> KSL Plotting Utilities</a></li>
+<li class="chapter" data-level="D.9" data-path="appUtilitiesMisc.html"><a href="appUtilitiesMisc.html"><i class="fa fa-check"></i><b>D.9</b> Miscellaneous Utilities</a></li>
+</ul></li>
+<li class="chapter" data-level="E" data-path="distributions.html"><a href="distributions.html"><i class="fa fa-check"></i><b>E</b> Distributions</a>
+<ul>
+<li class="chapter" data-level="E.1" data-path="appDiscreteDistributions.html"><a href="appDiscreteDistributions.html"><i class="fa fa-check"></i><b>E.1</b> Discrete Distrbutions</a></li>
+<li class="chapter" data-level="E.2" data-path="appContinuousDistributions.html"><a href="appContinuousDistributions.html"><i class="fa fa-check"></i><b>E.2</b> Continuous Distrbutions</a></li>
+</ul></li>
+<li class="chapter" data-level="F" data-path="appStatTables.html"><a href="appStatTables.html"><i class="fa fa-check"></i><b>F</b> Statistical Tables</a></li>
+<li class="chapter" data-level="G" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i><b>G</b> References</a></li>
+<li class="divider"></li>
+<li><a href="https://bookdown.org" target="_blank">Published with bookdown</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Simulation Modeling using the Kotlin Simulation Library (KSL)</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="ch10ProbDefn" class="section level2 hasAnchor" number="10.3">
+<h2><span class="header-section-number">10.3</span> Defining Simulation Optimization Problems<a href="ch10ProbDefn.html#ch10ProbDefn" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>This section describes the <code>ksl.simopt.problem</code> package. The main purpose of this package is to define an optimization problem (decision variables, objective function, and constraints) and to connect the problem with the inputs and outputs of a simulation model. The most important class within this package is the <code>ProblemDefinition</code> class. The <code>ProblemDefinition</code> class requires an identifier for the model, a string that represents the name of the response variable in the model that represents the objective function, the names of any response variables used in defining response related constraints, the names of the model variables that represent the inputs (decision variables), and the type of optimization (minimize or maximize). Let <span class="math inline">\(I\)</span> represent the set of input variables, let <span class="math inline">\(x_i\)</span> represent the <span class="math inline">\(i^{th}\)</span> input variable, and <span class="math inline">\(\vec{x}\)</span> represent a member of <span class="math inline">\(I\)</span>. Let <span class="math inline">\(G(\vec{x})\)</span> be a random variable representing the objective function response from the simulation at input variable settings <span class="math inline">\(\vec{x}\)</span>. Let <span class="math inline">\(L\)</span> represent the set of deterministic linear constraints. Let <span class="math inline">\(F\)</span> represent the set of deterministic functional constraints with members <span class="math inline">\(f_i(\vec{x})\)</span>. Let <span class="math inline">\(R\)</span> represent the set of constraints based on simulation responses with <span class="math inline">\(R_{i}(\vec{x})\)</span> representing a random response from the simulation model as a function of the input variables. Finally, let <span class="math inline">\(l_i\)</span> and <span class="math inline">\(u_i\)</span> represent known bounds on input variable <span class="math inline">\(x_i\)</span>.</p>
+<p>An instance of the <code>ProblemDefinition</code> class represents the following mathematical program:</p>
+<p><span class="math display">\[
+\min g(\vec{x}) = E[G(\vec{x})] \\
+\sum_{i=1}^{|I|}a_{ij}x_i \leq b_j \quad \textrm{for} \quad j=1,\dots,|L|\\
+f_{i} (\vec{x}) \leq c_{i}  \quad \textrm{for} \quad i=1,\dots,|F|\\
+E[R_{i}(\vec{x})] \leq r_i \quad \textrm{for} \quad i=1,\dots,|R|\\
+l_i \leq x_i \leq u_i \quad \textrm{for} \quad i=1,\dots,|I|\\
+\]</span>
+Thus, the problems represented by the <code>ProblemDefinition</code> class may contain deterministic linear and functional constraints and constraints that are based on observed responses. We call the latter <em>response</em> constraints. The input variables must be specified to be limited within some <em>finite</em> bounds. For the purposes of the problem, the input range bounds provide the largest space of interest that define the search bounds. These bounds are finite to impose some limits on the search and to facilitate the generation of input values within the search space.</p>
+<p>As part of the problem definition building process, the user specifies the objective function. The value of the objective function, <span class="math inline">\(G(\vec{x})\)</span>, should be a <strong>response from the simulation model</strong>. Thus, it is up to the user to implement the simulation model such that it will return <span class="math inline">\(G(\vec{x})\)</span>. Also, note that the mathematical formulation is in terms of a minimization problem. Thus, if the actual mathematical objective is for maximization: <span class="math inline">\(\max g(\vec{x}) = E[G(\vec{x})]\)</span>, then the user should specify the type of the problem as maximization. The problem defintion class will translate the problem into a minimization problem such that objective function is the negative of <span class="math inline">\(G(\vec{x})\)</span>.</p>
+<p><span class="math display">\[
+\max_{x\in S} g(x) = \min_{x\in S} -g(x)
+\]</span></p>
+<p>The constraints can be specified in terms of the type of inequality (less than or greater than). Figure <a href="ch10ProbDefn.html#fig:PDProperties">10.9</a> presents the constructor and properties for the <code>ProblemDefinition</code> class.</p>
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:PDProperties"></span>
+<img src="figures2/ch10/ProblemDefinitionProperties.png" alt="Problem Definition Properties" width="60%" height="60%" />
+<p class="caption">
+Figure 10.9: Problem Definition Properties
+</p>
+</div>
+<p>Let’s take a closer look at the constructor for the <code>ProblemDefinition</code> class.</p>
+<div class="sourceCode" id="cb429"><pre class="sourceCode kt"><code class="sourceCode kotlin"><span id="cb429-1"><a href="ch10ProbDefn.html#cb429-1" tabindex="-1"></a><span class="kw">class</span> ProblemDefinition @JvmOverloads <span class="kw">constructor</span><span class="op">(</span></span>
+<span id="cb429-2"><a href="ch10ProbDefn.html#cb429-2" tabindex="-1"></a>    <span class="va">problemName</span><span class="op">:</span> <span class="dt">String</span><span class="op">?</span> <span class="op">=</span> null<span class="op">,</span></span>
+<span id="cb429-3"><a href="ch10ProbDefn.html#cb429-3" tabindex="-1"></a>    <span class="kw">val</span> <span class="va">modelIdentifier</span><span class="op">:</span> <span class="dt">String</span><span class="op">,</span></span>
+<span id="cb429-4"><a href="ch10ProbDefn.html#cb429-4" tabindex="-1"></a>    <span class="kw">val</span> <span class="va">objFnResponseName</span><span class="op">:</span> <span class="dt">String</span><span class="op">,</span></span>
+<span id="cb429-5"><a href="ch10ProbDefn.html#cb429-5" tabindex="-1"></a>    <span class="va">inputNames</span><span class="op">:</span> <span class="dt">List</span>&lt;<span class="va">String</span>&gt;<span class="op">,</span></span>
+<span id="cb429-6"><a href="ch10ProbDefn.html#cb429-6" tabindex="-1"></a>    <span class="va">responseNames</span><span class="op">:</span> <span class="dt">List</span>&lt;<span class="va">String</span>&gt; <span class="op">=</span> emptyList<span class="op">(),</span></span>
+<span id="cb429-7"><a href="ch10ProbDefn.html#cb429-7" tabindex="-1"></a>    <span class="kw">val</span> <span class="va">optimizationType</span><span class="op">:</span> <span class="dt">OptimizationType</span> <span class="op">=</span> OptimizationType<span class="op">.</span>MINIMIZE<span class="op">,</span></span>
+<span id="cb429-8"><a href="ch10ProbDefn.html#cb429-8" tabindex="-1"></a>    <span class="va">indifferenceZoneParameter</span><span class="op">:</span> <span class="dt">Double</span> <span class="op">=</span> <span class="fl">0.0</span><span class="op">,</span></span>
+<span id="cb429-9"><a href="ch10ProbDefn.html#cb429-9" tabindex="-1"></a>    <span class="va">objFnGranularity</span><span class="op">:</span> <span class="dt">Double</span> <span class="op">=</span> <span class="fl">0.0</span></span>
+<span id="cb429-10"><a href="ch10ProbDefn.html#cb429-10" tabindex="-1"></a><span class="op">)</span> <span class="op">:</span> <span class="dt">IdentityIfc</span> <span class="kw">by</span> Identity<span class="op">(</span>problemName<span class="op">)</span> </span></code></pre></div>
+<p>The constructor requires a string <code>modelIdentifier</code> that represents a unique identifier for the model associated with the optimization problem. This identifier will be used to ensure that the simulation evaluation process connects the requests for simulation evaluations with the correct model.</p>
+<p>We do not specify a functional form for the objective function, <span class="math inline">\(G(\vec{x})\)</span>. Instead, the problem definition must specify a valid name for the simulation response variable that represents the objective function via the <code>objFnResponseName</code> property. Similarly, the problem definition requires the names of the response variables associated with the response constraints in the form of the <code>responseNames</code> list. The type of optimization problem must be specified. Finally, the list of strings, <code>inputNames</code> represents the named input (decision) variables related to the model. This list must not be empty. If the list has repeated elements, they are removed. We will discuss how to specify these names when an example is presented. The <code>indifferenceZoneParameter</code> parameter represents the smallest actual difference that is important to detect for the objective function response. This parameter can be used by solvers to determine if differences between solutions are considered practically significant. We will discuss the concept of granularity in Section <a href="ch10ProbDefn.html#inputvariables">10.3.2</a>.</p>
+<p>Figure <a href="ch10ProbDefn.html#fig:PDPMethods">10.10</a> presents the functions for the <code>ProblemDefinition</code> class. This functionality includes:</p>
+<ul>
+<li>adding/defining/validating input variables</li>
+<li>adding/defining linear constraints</li>
+<li>adding/defining functional constraints</li>
+<li>adding/defining response constraints</li>
+<li>randomly generating feasible points in the input space</li>
+<li>converting arrays of variables to valid input variables</li>
+<li>checking for different feasibility conditions and computing constraint violations</li>
+<li>specifying a penalty function for translating a constrained problem to an unconstrained problem</li>
+<li>representing neighborhoods for the problem</li>
+</ul>
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:PDPMethods"></span>
+<img src="figures2/ch10/ProblemDefinitionMethods.png" alt="Problem Definition Properties" width="60%" height="60%" />
+<p class="caption">
+Figure 10.10: Problem Definition Properties
+</p>
+</div>
+<div id="specifying-penalty-functions" class="section level3 hasAnchor" number="10.3.1">
+<h3><span class="header-section-number">10.3.1</span> Specifying Penalty Functions<a href="ch10ProbDefn.html#specifying-penalty-functions" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Many algorithms utilize penalty functions to address constraint violations within the search process. Penalty functions are a variation on the Lagrangian approach of converting a constrained optimization into an unconstrained optimization problem. Recall the standardized minimization representation:</p>
+<p><span class="math display">\[
+\min g(\vec{x}) = E[G(\vec{x})] \\
+\sum_{i=1}^{|I|}a_{ij}x_i \leq b_j \quad \textrm{for} \quad j=1,\dots,|L|\\
+f_{i} (\vec{x}) \leq c_{i}  \quad \textrm{for} \quad i=1,\dots,|F|\\
+E[R_{i}(\vec{x})] \leq r_i \quad \textrm{for} \quad i=1,\dots,|R|\\
+l_i \leq x_i \leq u_i \quad \textrm{for} \quad i=1,\dots,|I|\\
+\]</span>
+We see that each constraint is presented as a less than or equal to constraint. Let’s call the left-hand side of any constraint, <span class="math inline">\(LHS_k\)</span>, and the right-hand side <span class="math inline">\(RHS_k\)</span>, where <span class="math inline">\(k\)</span> represents one of the linear, functional or response constraints. A violation of the constraint occurs if <span class="math inline">\(LHS_k &gt; RHS_k\)</span>. If this occurs, then we have a violation, and the amount of the violation is the difference, <span class="math inline">\(LHS_k - RHS_k\)</span>. Let <span class="math inline">\(v_k\)</span> represent the violation associated with constraint <span class="math inline">\(k\)</span>, where <span class="math inline">\(v_k = \max(0, LHS_k - RHS_k)\)</span>. Let <span class="math inline">\(K\)</span> represent the total number of constraints. That is <span class="math inline">\(K = |L| + |F| + |R|\)</span>. For the purposes of the penalty function, we ignore the lower and upper bound constraints. If you need to include a bound type constraint within the penalty function processing, then you can easily do that by using a linear constraint. There are many possible approaches to defining a penalty function. To facilitate different kinds of penalty functions, the <code>ksl.simopt.problem</code> package provides a <code>PenaltyFunctionIfc</code> interface.</p>
+<div class="sourceCode" id="cb430"><pre class="sourceCode kt"><code class="sourceCode kotlin"><span id="cb430-1"><a href="ch10ProbDefn.html#cb430-1" tabindex="-1"></a><span class="kw">fun</span> <span class="kw">interface</span> <span class="fu">PenaltyFunctionIfc</span> <span class="op">{</span></span>
+<span id="cb430-2"><a href="ch10ProbDefn.html#cb430-2" tabindex="-1"></a></span>
+<span id="cb430-3"><a href="ch10ProbDefn.html#cb430-3" tabindex="-1"></a>    <span class="co">/**</span></span>
+<span id="cb430-4"><a href="ch10ProbDefn.html#cb430-4" tabindex="-1"></a><span class="co">     *  The penalty function.</span></span>
+<span id="cb430-5"><a href="ch10ProbDefn.html#cb430-5" tabindex="-1"></a><span class="co">     *  @param solution The solution for which the penalty is being computed.</span></span>
+<span id="cb430-6"><a href="ch10ProbDefn.html#cb430-6" tabindex="-1"></a><span class="co">     *  @param iterationCounter The current iteration count. The iteration associated</span></span>
+<span id="cb430-7"><a href="ch10ProbDefn.html#cb430-7" tabindex="-1"></a><span class="co">     *  with the solver&#39;s process.</span></span>
+<span id="cb430-8"><a href="ch10ProbDefn.html#cb430-8" tabindex="-1"></a><span class="co">     */</span></span>
+<span id="cb430-9"><a href="ch10ProbDefn.html#cb430-9" tabindex="-1"></a>    <span class="kw">fun</span> <span class="fu">penalty</span><span class="op">(</span><span class="va">solution</span><span class="op">:</span> <span class="dt">Solution</span><span class="op">,</span> <span class="va">iterationCounter</span><span class="op">:</span> <span class="dt">Int</span><span class="op">):</span> <span class="dt">Double</span></span>
+<span id="cb430-10"><a href="ch10ProbDefn.html#cb430-10" tabindex="-1"></a></span>
+<span id="cb430-11"><a href="ch10ProbDefn.html#cb430-11" tabindex="-1"></a>}</span></code></pre></div>
+<p>The penalty function is a function of the solution and an iteration counter. The iteration counter represents the current iteration of the solver that produced the solution. Note that the <code>PenalityFunctionIfc</code> interface is a functional interface. Thus, Kotlin’s anonymous functions can be used to supply your own implementation of a penalty function.</p>
+<p>The default penalty function has the following mathematical form. Define <span class="math inline">\(M(k,\xi)\)</span> as an increasing sequence in the form <span class="math inline">\(M_0 k^\xi\)</span>, where <span class="math inline">\(M_0 \in \mathbb{R}^+\)</span> is called the initial penalty parameter and <span class="math inline">\(\xi &gt; 0\)</span>. This form of penalty function is suggest in <span class="citation">(<a href="#ref-park_penalty_2015">Park and Kim 2015</a>)</span>. Let <span class="math inline">\(l_v\)</span>, <span class="math inline">\(f_v\)</span>, and <span class="math inline">\(r_v\)</span>, represent the total violations associated with the linear, functional, and response constraints, respectively. Let <span class="math inline">\(l_0\)</span>, <span class="math inline">\(f_0\)</span>, and <span class="math inline">\(r_0\)</span> represent the initial penalty parameters for the linear, functional, and response constraints, respectively. Finally, let <span class="math inline">\(t_v\)</span> be the total penalized violations, <span class="math inline">\(k\)</span> be the iteration number, and <span class="math inline">\(P(\vec{x},k)\)</span> be the penalty as a function of the solution and iteration number.</p>
+<p><span class="math display">\[
+l_v = \sum_{k \in L} v_k \\
+f_v = \sum_{k \in F} v_k \\
+r_v = \sum_{k \in R} v_k \\
+t_v = l_0*l_v + f_0*f_v * r_0*r_v\\
+P(\vec{x},k) = k^\xi*t_v
+\]</span>
+The optimization problem becomes:</p>
+<p><span class="math display">\[
+\min g(\vec{x}) = E[G(\vec{x})] + P(\vec{x},k)\\
+\]</span>
+The <code>DefaultPenaltyFunction</code> class implements these concepts. The default initial penalty values of <span class="math inline">\(l_0\)</span>, <span class="math inline">\(f_0\)</span>, and <span class="math inline">\(r_0\)</span> are set to 1000, and the default exponent, <span class="math inline">\(\xi= 2\)</span>. In essence, the default penalty function penalizes the total violations and increases the penalty as the iteration number increases. Users can change these defaults or provide there own initial penalty values or exponent value. The <code>ProblemDefinition</code> class facilitates the computation of each type of violation, individually for each constraint and in total via the functions:</p>
+<ul>
+<li><code>linearConstraintViolations(inputs: Map&lt;String, Double&gt;): DoubleArray</code></li>
+<li><code>totalLinearConstrainViolations(inputs: Map&lt;String, Double&gt;): Double</code></li>
+<li><code>functionalConstraintViolations(inputs: Map&lt;String, Double&gt;): DoubleArray</code></li>
+<li><code>totalFunctionalConstraintViolations(inputs: Map&lt;String, Double&gt;): Double</code></li>
+</ul>
+<p>Users can use these functions to define their own penalty function forms.</p>
+</div>
+<div id="inputvariables" class="section level3 hasAnchor" number="10.3.2">
+<h3><span class="header-section-number">10.3.2</span> Defining Input Variables<a href="ch10ProbDefn.html#inputvariables" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>For optimization problems, the decision variables are the key quantities that need to be determined. For a <code>ProblemDefinition</code> instance, the <code>InputDefinition</code> class, illustrated in Figure <a href="ch10ProbDefn.html#fig:InputDefinition">10.11</a> is used to define the decision variables.</p>
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:InputDefinition"></span>
+<img src="figures2/ch10/InputDefinition.png" alt="The InputDefinition Class" width="60%" height="60%" />
+<p class="caption">
+Figure 10.11: The InputDefinition Class
+</p>
+</div>
+<p>The constructor for defining inputs is as follows:</p>
+<div class="sourceCode" id="cb431"><pre class="sourceCode kt"><code class="sourceCode kotlin"><span id="cb431-1"><a href="ch10ProbDefn.html#cb431-1" tabindex="-1"></a><span class="kw">class</span> InputDefinition @JvmOverloads <span class="kw">constructor</span><span class="op">(</span></span>
+<span id="cb431-2"><a href="ch10ProbDefn.html#cb431-2" tabindex="-1"></a>    <span class="kw">val</span> <span class="va">name</span><span class="op">:</span> <span class="dt">String</span><span class="op">,</span></span>
+<span id="cb431-3"><a href="ch10ProbDefn.html#cb431-3" tabindex="-1"></a>    <span class="kw">val</span> <span class="va">lowerBound</span><span class="op">:</span> <span class="dt">Double</span><span class="op">,</span></span>
+<span id="cb431-4"><a href="ch10ProbDefn.html#cb431-4" tabindex="-1"></a>    <span class="kw">val</span> <span class="va">upperBound</span><span class="op">:</span> <span class="dt">Double</span><span class="op">,</span></span>
+<span id="cb431-5"><a href="ch10ProbDefn.html#cb431-5" tabindex="-1"></a>    <span class="va">granularity</span><span class="op">:</span> <span class="dt">Double</span> <span class="op">=</span> <span class="fl">0.0</span></span>
+<span id="cb431-6"><a href="ch10ProbDefn.html#cb431-6" tabindex="-1"></a><span class="op">)</span> </span></code></pre></div>
+<p>The user provides the name of the input and its bounds. The name must match one of the input names within the problem definition instance.</p>
+<p>Finally, there is the <code>granularity</code> parameter. The specified granularity indicates the acceptable precision for the variable’s value with respect to decision-making. If the granularity is 0 then no rounding will be applied when evaluating the variable. Granularity defines the level of precision for an input variable to which the problem will be solved. Setting granularity to 0, the default, means that the solver will attempt to find a solution to the level of machine precision. For any positive granularity value, the solution will be found to some multiple of that granularity. As a special case, setting granularity to 1 implies an integer-ordered input variable. The specification of granularity reflects a reality for the decision maker that there is a level of precision beyond which it is not practical to implement a solution.</p>
+<p>Granularity represents the finest division of the measurement scale. For example, a 12-inch rule that has inches divided into 4 quarters has a granularity of 1/4 or 0.25. The granularity parameter specifies the degree of this precision so that a function can be applied which rounds the supplied value to the nearest multiple of the granularity. Suppose, we had a quarter inch granularity, the rounding process would round 3.1459 to 3.25 because 3.25 is the nearest multiple of the granularity of (0.25). For the case of 3.0459 with a granularity of 0.25, the value of 3.0459 would be rounded to 3.0. Thus, with a quarter inch granularity we can only have values that are multiples of 0.25. In essence, this permits a discretization of a continuous variable to points that are realistic with respect to the measurement scale associated with the variable. Thus, continuous variables can be handled as discrete variables if necessary. This functionality recognizes that any variable represented on a digital computer is a discrete representation (even to machine precision). For many realistic problems, from a practical standpoint, we cannot implement decision variables beyond some level of granularity.</p>
+<p>If an input variable is defined with a granularity of 1.0, then it is considered integer-ordered. If an optimization problem has only integer-ordered decision variables, then the problem is considered integer-ordered. Some solvers are constructed to specifically handle this kind of problem. The R-SPLINE solver discussed in <span class="citation">(<a href="#ref-wang_integer-ordered_2013">Wang et al. 2013</a>)</span> is an integer-ordered solver and has been implemented within the KSL.</p>
+</div>
+<div id="linear-and-functional-constraints" class="section level3 hasAnchor" number="10.3.3">
+<h3><span class="header-section-number">10.3.3</span> Linear and Functional Constraints<a href="ch10ProbDefn.html#linear-and-functional-constraints" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>The specification of constraints is similar to defining input variables. The <code>ProblemDefinition</code> class provides functions that allow the specification of each type of constraint: linear, functional, and response. The <code>LinearConstraint</code> class indicates how to compute a linear constraint. Figure <a href="ch10ProbDefn.html#fig:DConstraints">10.12</a> presents the <code>ConstraintIfc</code> interface with two implementations in the <code>LinearConstraint</code> and <code>FunctionalConstraint</code> classes.</p>
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:DConstraints"></span>
+<img src="figures2/ch10/Constraints.png" alt="Deterministic Constraints" width="80%" height="80%" />
+<p class="caption">
+Figure 10.12: Deterministic Constraints
+</p>
+</div>
+<p>The <code>LinearConstraint</code> class takes in a map that provides the coefficient <span class="math inline">\(a_i\)</span> associated with each decision variable <span class="math inline">\(x_i\)</span>. Because of the linear form of the equation, this representation is sufficient to define the linear equation. In addition, the right-hand side variable <span class="math inline">\(b_j\)</span> and the form of the inequality is specified. The class will translate a greater than constraint to the mathematically equivalent less than constraint.</p>
+<div class="sourceCode" id="cb432"><pre class="sourceCode kt"><code class="sourceCode kotlin"><span id="cb432-1"><a href="ch10ProbDefn.html#cb432-1" tabindex="-1"></a><span class="kw">data</span> <span class="kw">class</span> LinearConstraint<span class="op">(</span></span>
+<span id="cb432-2"><a href="ch10ProbDefn.html#cb432-2" tabindex="-1"></a>    <span class="kw">val</span> <span class="va">equation</span><span class="op">:</span> <span class="dt">Map</span>&lt;<span class="va">String</span><span class="op">,</span> <span class="va">Double</span>&gt;<span class="op">,</span></span>
+<span id="cb432-3"><a href="ch10ProbDefn.html#cb432-3" tabindex="-1"></a>    <span class="kw">override</span> <span class="kw">var</span> <span class="va">rhsValue</span><span class="op">:</span> <span class="dt">Double</span> <span class="op">=</span> <span class="fl">0.0</span><span class="op">,</span></span>
+<span id="cb432-4"><a href="ch10ProbDefn.html#cb432-4" tabindex="-1"></a>    <span class="kw">override</span> <span class="kw">val</span> <span class="va">inequalityType</span><span class="op">:</span> <span class="dt">InequalityType</span> <span class="op">=</span> InequalityType<span class="op">.</span>LESS_THAN</span>
+<span id="cb432-5"><a href="ch10ProbDefn.html#cb432-5" tabindex="-1"></a><span class="op">)</span> <span class="op">:</span> <span class="dt">ConstraintIfc</span></span></code></pre></div>
+<p>As noted in Figure <a href="ch10ProbDefn.html#fig:DConstraints">10.12</a>, deterministic constraints can compute the left-hand side of the constraint and compare it with the right-hand side to determine if the constraint is satisfied, whether there is slack in the constraint, and the amount of the constraint’s violation.</p>
+<p>As shown in the <code>FunctionalConstraint</code> constructor, the constraint is defined as a function of the input parameters.</p>
+<div class="sourceCode" id="cb433"><pre class="sourceCode kt"><code class="sourceCode kotlin"><span id="cb433-1"><a href="ch10ProbDefn.html#cb433-1" tabindex="-1"></a><span class="kw">class</span> FunctionalConstraint<span class="op">(</span></span>
+<span id="cb433-2"><a href="ch10ProbDefn.html#cb433-2" tabindex="-1"></a>    <span class="va">validNames</span><span class="op">:</span> <span class="dt">List</span>&lt;<span class="va">String</span>&gt;<span class="op">,</span></span>
+<span id="cb433-3"><a href="ch10ProbDefn.html#cb433-3" tabindex="-1"></a>    <span class="kw">val</span> <span class="va">lhsFunc</span><span class="op">:</span> <span class="dt">ConstraintFunctionIfc</span><span class="op">,</span></span>
+<span id="cb433-4"><a href="ch10ProbDefn.html#cb433-4" tabindex="-1"></a>    <span class="kw">override</span> <span class="kw">val</span> <span class="va">rhsValue</span><span class="op">:</span> <span class="dt">Double</span> <span class="op">=</span> <span class="fl">0.0</span><span class="op">,</span></span>
+<span id="cb433-5"><a href="ch10ProbDefn.html#cb433-5" tabindex="-1"></a>    <span class="kw">override</span> <span class="kw">val</span> <span class="va">inequalityType</span><span class="op">:</span> <span class="dt">InequalityType</span> <span class="op">=</span> InequalityType<span class="op">.</span>LESS_THAN</span>
+<span id="cb433-6"><a href="ch10ProbDefn.html#cb433-6" tabindex="-1"></a><span class="op">)</span> <span class="op">:</span> <span class="dt">ConstraintIfc</span> <span class="op">{</span></span></code></pre></div>
+<p>The <code>ConstraintFunctionIfc</code> interface is a functional interface. It simply takes in a map containing the named input variables and their values and returns the left-hand side of the constraint. Thus, the user can specify any functional form by implementing this interface.</p>
+<div class="sourceCode" id="cb434"><pre class="sourceCode kt"><code class="sourceCode kotlin"><span id="cb434-1"><a href="ch10ProbDefn.html#cb434-1" tabindex="-1"></a><span class="kw">fun</span> <span class="kw">interface</span> <span class="fu">ConstraintFunctionIfc</span> <span class="op">{</span></span>
+<span id="cb434-2"><a href="ch10ProbDefn.html#cb434-2" tabindex="-1"></a></span>
+<span id="cb434-3"><a href="ch10ProbDefn.html#cb434-3" tabindex="-1"></a>    <span class="kw">fun</span> <span class="fu">lhs</span><span class="op">(</span><span class="va">inputs</span><span class="op">:</span> <span class="dt">Map</span>&lt;<span class="va">String</span><span class="op">,</span> <span class="va">Double</span>&gt;<span class="op">):</span> <span class="dt">Double</span></span>
+<span id="cb434-4"><a href="ch10ProbDefn.html#cb434-4" tabindex="-1"></a></span>
+<span id="cb434-5"><a href="ch10ProbDefn.html#cb434-5" tabindex="-1"></a>}</span></code></pre></div>
+</div>
+<div id="response-constraints" class="section level3 hasAnchor" number="10.3.4">
+<h3><span class="header-section-number">10.3.4</span> Response Constraints<a href="ch10ProbDefn.html#response-constraints" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>The final type of constraint is the <em>response</em> constraint. Response constraints are different from deterministic constraints because these constraints rely on the execution of the simulation model for the observation of their values. These are very difficult constraints within a mathematical programming context. Figure <a href="ch10ProbDefn.html#fig:RConstraints">10.13</a> provides the KSL representation for modeling response constraints.</p>
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:RConstraints"></span>
+<img src="figures2/ch10/ResponseConstraint.png" alt="Response Constraints" width="80%" height="80%" />
+<p class="caption">
+Figure 10.13: Response Constraints
+</p>
+</div>
+<p>A response constraint requires the name of a valid simulation response variable, the right-hand side value, and the type of inequality. In addition, some solvers may utilize information about a constraint in the form of a target and a tolerance. The target parameter is used by some algorithms to serve as a cut-off point between desirable and unacceptable solutions with respect to the constraint. The tolerance parameter is used by some algorithms to specify how much the decision maker is willing to be off from the target and is conceptually similar to an indifference parameter.</p>
+<div class="sourceCode" id="cb435"><pre class="sourceCode kt"><code class="sourceCode kotlin"><span id="cb435-1"><a href="ch10ProbDefn.html#cb435-1" tabindex="-1"></a><span class="kw">class</span> ResponseConstraint<span class="op">(</span></span>
+<span id="cb435-2"><a href="ch10ProbDefn.html#cb435-2" tabindex="-1"></a>    <span class="kw">val</span> <span class="va">responseName</span><span class="op">:</span> <span class="dt">String</span><span class="op">,</span></span>
+<span id="cb435-3"><a href="ch10ProbDefn.html#cb435-3" tabindex="-1"></a>    <span class="kw">val</span> <span class="va">rhsValue</span><span class="op">:</span> <span class="dt">Double</span><span class="op">,</span></span>
+<span id="cb435-4"><a href="ch10ProbDefn.html#cb435-4" tabindex="-1"></a>    <span class="kw">val</span> <span class="va">inequalityType</span><span class="op">:</span> <span class="dt">InequalityType</span> <span class="op">=</span> InequalityType<span class="op">.</span>LESS_THAN<span class="op">,</span></span>
+<span id="cb435-5"><a href="ch10ProbDefn.html#cb435-5" tabindex="-1"></a>    <span class="kw">val</span> <span class="va">target</span><span class="op">:</span> <span class="dt">Double</span> <span class="op">=</span> <span class="fl">0.0</span><span class="op">,</span></span>
+<span id="cb435-6"><a href="ch10ProbDefn.html#cb435-6" tabindex="-1"></a>    <span class="kw">val</span> <span class="va">tolerance</span><span class="op">:</span> <span class="dt">Double</span> <span class="op">=</span> <span class="fl">0.0</span></span>
+<span id="cb435-7"><a href="ch10ProbDefn.html#cb435-7" tabindex="-1"></a><span class="op">)</span> <span class="op">{</span></span></code></pre></div>
+<p>Response constraints will also compute the slack and violation amounts. The default implementation is to not take into account randomness in these calculations. In essence, this treats the estimated response value as “deterministic” when computing the violation. Recognizing that feasibility checking may be more complex with these stochastic constraints, the <code>ResponseConstraint</code> class permits the user to supply an instance of a the <code>FeasibilityCheckerIfc</code> interface.</p>
+<div class="sourceCode" id="cb436"><pre class="sourceCode kt"><code class="sourceCode kotlin"><span id="cb436-1"><a href="ch10ProbDefn.html#cb436-1" tabindex="-1"></a><span class="kw">fun</span> <span class="kw">interface</span> <span class="fu">FeasibilityCheckerIfc</span> <span class="op">{</span></span>
+<span id="cb436-2"><a href="ch10ProbDefn.html#cb436-2" tabindex="-1"></a></span>
+<span id="cb436-3"><a href="ch10ProbDefn.html#cb436-3" tabindex="-1"></a>    <span class="kw">fun</span> <span class="fu">isFeasible</span><span class="op">(</span></span>
+<span id="cb436-4"><a href="ch10ProbDefn.html#cb436-4" tabindex="-1"></a>        <span class="va">responseConstraint</span><span class="op">:</span> <span class="dt">ResponseConstraint</span><span class="op">,</span></span>
+<span id="cb436-5"><a href="ch10ProbDefn.html#cb436-5" tabindex="-1"></a>        <span class="va">estimatedResponse</span><span class="op">:</span> <span class="dt">EstimatedResponse</span><span class="op">,</span></span>
+<span id="cb436-6"><a href="ch10ProbDefn.html#cb436-6" tabindex="-1"></a>        <span class="va">confidenceLevel</span><span class="op">:</span> <span class="dt">Double</span></span>
+<span id="cb436-7"><a href="ch10ProbDefn.html#cb436-7" tabindex="-1"></a>    <span class="op">):</span> <span class="dt">Boolean</span></span>
+<span id="cb436-8"><a href="ch10ProbDefn.html#cb436-8" tabindex="-1"></a>}</span></code></pre></div>
+<p>The <code>FeasibilityCheckerIfc</code> interface allows for the checking of feasibility based on some statistical confidence. If the user supplies an instance of this interface, then it will be used when testing for feasibility for a response constraint. Now, let’s take a look at an example to illustrate how to specify a problem.</p>
+</div>
+<div id="ch10ProbDefnExample" class="section level3 hasAnchor" number="10.3.5">
+<h3><span class="header-section-number">10.3.5</span> Setting Up a Problem Definition<a href="ch10ProbDefn.html#ch10ProbDefnExample" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div class="example">
+<p><span id="exm:exCh10RQModel" class="example"><strong>Example 10.1  (Reorder Point, Reorder Quantity Inventory Model) </strong></span>An inventory manager is interested in understanding the cost and service trade-offs related to
+the inventory management of computer printers. Suppose customer demand
+occurs according to a Poisson process at a rate of 3.6 units per month
+and the lead time is 0.5 months. The manager has estimated that the
+holding cost for the item is approximately $0.25 per unit per month. In
+addition, when a back-order occurs, the estimate cost will be $1.75 per
+unit per month. Every time that an order is placed, it costs
+approximately $0.15 to prepare and process the order. The inventory
+manager wants to find the optimal setting for the reorder point and the reorder quantity
+with respect to the total ordering and holding cost while ensuring a fill rate of at least 0.95.
+Set up a KSL simulation optimization problem for this situation.</p>
+</div>
+<p>This is Example <a href="examples-of-advanced-event-models.html#exm:exRQModel">7.9</a> from Chapter <a href="ch7AdvModeling.html#ch7AdvModeling">7</a>. To prepare to use the implemented model from Example <a href="examples-of-advanced-event-models.html#exm:exRQModel">7.9</a>, we need to ensure that controls are defined for the input variables and to note the names of the responses involved in the problem. The two decision variables are the reorder point and the reorder quantity. Within the <a href="https://github.com/rossetti/KSL/blob/main/KSLExamples/src/main/kotlin/ksl/examples/book/chapter7/RQInventory.kt"><code>RQInventory</code> class</a>, we have the following defined controls:</p>
+<div class="sourceCode" id="cb437"><pre class="sourceCode kt"><code class="sourceCode kotlin"><span id="cb437-1"><a href="ch10ProbDefn.html#cb437-1" tabindex="-1"></a>    <span class="at">@set</span><span class="op">:</span><span class="at">KSLControl</span><span class="op">(</span></span>
+<span id="cb437-2"><a href="ch10ProbDefn.html#cb437-2" tabindex="-1"></a>        controlType <span class="op">=</span> ControlType<span class="op">.</span>INTEGER<span class="op">,</span></span>
+<span id="cb437-3"><a href="ch10ProbDefn.html#cb437-3" tabindex="-1"></a>        lowerBound <span class="op">=</span> <span class="fl">0.0</span></span>
+<span id="cb437-4"><a href="ch10ProbDefn.html#cb437-4" tabindex="-1"></a>    <span class="op">)</span></span>
+<span id="cb437-5"><a href="ch10ProbDefn.html#cb437-5" tabindex="-1"></a>    <span class="kw">var</span> <span class="va">initialReorderPoint</span><span class="op">:</span> <span class="kw">Int</span></span>
+<span id="cb437-6"><a href="ch10ProbDefn.html#cb437-6" tabindex="-1"></a>        <span class="kw">get</span><span class="op">()</span> <span class="op">=</span> myInitialReorderPt</span>
+<span id="cb437-7"><a href="ch10ProbDefn.html#cb437-7" tabindex="-1"></a>        <span class="kw">set</span><span class="op">(</span>value<span class="op">)</span> <span class="op">{</span></span>
+<span id="cb437-8"><a href="ch10ProbDefn.html#cb437-8" tabindex="-1"></a>            setInitialPolicyParameters<span class="op">(</span>value<span class="op">,</span> myInitialReorderQty<span class="op">)</span></span>
+<span id="cb437-9"><a href="ch10ProbDefn.html#cb437-9" tabindex="-1"></a>        <span class="op">}</span></span>
+<span id="cb437-10"><a href="ch10ProbDefn.html#cb437-10" tabindex="-1"></a></span>
+<span id="cb437-11"><a href="ch10ProbDefn.html#cb437-11" tabindex="-1"></a>    <span class="at">@set</span><span class="op">:</span><span class="at">KSLControl</span><span class="op">(</span></span>
+<span id="cb437-12"><a href="ch10ProbDefn.html#cb437-12" tabindex="-1"></a>        controlType <span class="op">=</span> ControlType<span class="op">.</span>INTEGER<span class="op">,</span></span>
+<span id="cb437-13"><a href="ch10ProbDefn.html#cb437-13" tabindex="-1"></a>        lowerBound <span class="op">=</span> <span class="fl">1.0</span></span>
+<span id="cb437-14"><a href="ch10ProbDefn.html#cb437-14" tabindex="-1"></a>    <span class="op">)</span></span>
+<span id="cb437-15"><a href="ch10ProbDefn.html#cb437-15" tabindex="-1"></a>    <span class="kw">var</span> <span class="va">initialReorderQty</span><span class="op">:</span> <span class="kw">Int</span></span>
+<span id="cb437-16"><a href="ch10ProbDefn.html#cb437-16" tabindex="-1"></a>        <span class="kw">get</span><span class="op">()</span> <span class="op">=</span> myInitialReorderQty</span>
+<span id="cb437-17"><a href="ch10ProbDefn.html#cb437-17" tabindex="-1"></a>        <span class="kw">set</span><span class="op">(</span>value<span class="op">)</span> <span class="op">{</span></span>
+<span id="cb437-18"><a href="ch10ProbDefn.html#cb437-18" tabindex="-1"></a>            setInitialPolicyParameters<span class="op">(</span>myInitialReorderPt<span class="op">,</span> value<span class="op">)</span></span>
+<span id="cb437-19"><a href="ch10ProbDefn.html#cb437-19" tabindex="-1"></a>        <span class="op">}</span></span></code></pre></div>
+<p>Recall from Section <a href="ch5Scenarios.html#controlAntns">5.8.1</a> of Chapter <a href="simoa.html#simoa">5</a> that the name of the control will be the model element’s name concatenated with the name of the property separated by a “dot”. In the <code>RQInventorySystem</code> class <a href="https://github.com/rossetti/KSL/blob/main/KSLExamples/src/main/kotlin/ksl/examples/book/chapter7/RQInventorySystem.kt">definition</a>, we see that the instances of inventory use the name supplied for the parent with the string “Item” as shown in the following code.</p>
+<div class="sourceCode" id="cb438"><pre class="sourceCode kt"><code class="sourceCode kotlin"><span id="cb438-1"><a href="ch10ProbDefn.html#cb438-1" tabindex="-1"></a><span class="kw">private</span> <span class="kw">val</span> <span class="va">inventory</span><span class="op">:</span> RQInventory <span class="op">=</span> RQInventory<span class="op">(</span></span>
+<span id="cb438-2"><a href="ch10ProbDefn.html#cb438-2" tabindex="-1"></a>    <span class="kw">this</span><span class="op">,</span> reorderPt<span class="op">,</span> reorderQty<span class="op">,</span> replenisher <span class="op">=</span> Warehouse<span class="op">(),</span> name <span class="op">=</span> <span class="st">&quot;</span><span class="ss">${</span><span class="kw">this</span><span class="op">.</span>name<span class="ss">}</span><span class="st">:Item&quot;</span></span>
+<span id="cb438-3"><a href="ch10ProbDefn.html#cb438-3" tabindex="-1"></a><span class="op">)</span></span></code></pre></div>
+<p>Thus, the names of the two controls will be the strings:</p>
+<ul>
+<li>“Inventory:Item.initialReorderQty”</li>
+<li>“Inventory:Item.initialReorderPoint”</li>
+</ul>
+<p>The fill rate and total ordering and holding cost responses have similar naming conventions resulting in these strings:</p>
+<ul>
+<li>“Inventory:Item:FillRate”</li>
+<li>“Inventory:Item:OrderingAndHoldingCost”</li>
+</ul>
+<p>These names are essential for constructing the problem definition. Section <a href="ch5Scenarios.html#controlAntns">5.8.1</a> also describes how to get the names of all controls within a model.</p>
+<p>Finally, we need to know the model identifier. By default, this will be the assigned the name of the model, but in general it is user assignable. The basic code for building the reorder point, reorder quantity inventory model is as follows:</p>
+<div class="sourceCode" id="cb439"><pre class="sourceCode kt"><code class="sourceCode kotlin"><span id="cb439-1"><a href="ch10ProbDefn.html#cb439-1" tabindex="-1"></a><span class="kw">val</span> <span class="va">reorderQty</span><span class="op">:</span> <span class="kw">Int</span> <span class="op">=</span> <span class="dv">2</span></span>
+<span id="cb439-2"><a href="ch10ProbDefn.html#cb439-2" tabindex="-1"></a><span class="kw">val</span> <span class="va">reorderPoint</span><span class="op">:</span> <span class="kw">Int</span> <span class="op">=</span> <span class="dv">1</span></span>
+<span id="cb439-3"><a href="ch10ProbDefn.html#cb439-3" tabindex="-1"></a><span class="kw">val</span> <span class="va">model</span> <span class="op">=</span> Model<span class="op">(</span><span class="st">&quot;RQInventoryModel&quot;</span><span class="op">)</span></span>
+<span id="cb439-4"><a href="ch10ProbDefn.html#cb439-4" tabindex="-1"></a><span class="kw">val</span> <span class="va">rqModel</span> <span class="op">=</span> RQInventorySystem<span class="op">(</span>model<span class="op">,</span> reorderPoint<span class="op">,</span> reorderQty<span class="op">,</span> <span class="st">&quot;Inventory&quot;</span><span class="op">)</span></span>
+<span id="cb439-5"><a href="ch10ProbDefn.html#cb439-5" tabindex="-1"></a>rqModel<span class="op">.</span>initialOnHand <span class="op">=</span> <span class="dv">0</span></span>
+<span id="cb439-6"><a href="ch10ProbDefn.html#cb439-6" tabindex="-1"></a>rqModel<span class="op">.</span>demandGenerator<span class="op">.</span>initialTimeBtwEvents <span class="op">=</span> ExponentialRV<span class="op">(</span><span class="fl">1.0</span> <span class="op">/</span> <span class="fl">3.6</span><span class="op">)</span></span>
+<span id="cb439-7"><a href="ch10ProbDefn.html#cb439-7" tabindex="-1"></a>rqModel<span class="op">.</span>leadTime<span class="op">.</span>initialRandomSource <span class="op">=</span> ConstantRV<span class="op">(</span><span class="fl">0.5</span><span class="op">)</span></span>
+<span id="cb439-8"><a href="ch10ProbDefn.html#cb439-8" tabindex="-1"></a>model<span class="op">.</span>lengthOfReplication <span class="op">=</span> <span class="fl">20000.0</span></span>
+<span id="cb439-9"><a href="ch10ProbDefn.html#cb439-9" tabindex="-1"></a>model<span class="op">.</span>lengthOfReplicationWarmUp <span class="op">=</span> <span class="fl">10000.0</span></span>
+<span id="cb439-10"><a href="ch10ProbDefn.html#cb439-10" tabindex="-1"></a>model<span class="op">.</span>numberOfReplications <span class="op">=</span> <span class="dv">40</span></span></code></pre></div>
+<p>Thus, the model identifier will be the string “RQInventoryModel”. Now, the code for constructing the problem definition can be completed.</p>
+<div class="sourceCode" id="cb440"><pre class="sourceCode kt"><code class="sourceCode kotlin"><span id="cb440-1"><a href="ch10ProbDefn.html#cb440-1" tabindex="-1"></a><span class="kw">val</span> <span class="va">problemDefinition</span> <span class="op">=</span> ProblemDefinition<span class="op">(</span></span>
+<span id="cb440-2"><a href="ch10ProbDefn.html#cb440-2" tabindex="-1"></a>    problemName <span class="op">=</span> <span class="st">&quot;InventoryProblem&quot;</span><span class="op">,</span></span>
+<span id="cb440-3"><a href="ch10ProbDefn.html#cb440-3" tabindex="-1"></a>    modelIdentifier <span class="op">=</span> <span class="st">&quot;RQInventoryModel&quot;</span><span class="op">,</span></span>
+<span id="cb440-4"><a href="ch10ProbDefn.html#cb440-4" tabindex="-1"></a>    objFnResponseName <span class="op">=</span> <span class="st">&quot;Inventory:Item:OrderingAndHoldingCost&quot;</span><span class="op">,</span></span>
+<span id="cb440-5"><a href="ch10ProbDefn.html#cb440-5" tabindex="-1"></a>    inputNames <span class="op">=</span> listOf<span class="op">(</span><span class="st">&quot;Inventory:Item.initialReorderQty&quot;</span><span class="op">,</span> <span class="st">&quot;Inventory:Item.initialReorderPoint&quot;</span><span class="op">),</span></span>
+<span id="cb440-6"><a href="ch10ProbDefn.html#cb440-6" tabindex="-1"></a>    responseNames <span class="op">=</span> listOf<span class="op">(</span><span class="st">&quot;Inventory:Item:FillRate&quot;</span><span class="op">)</span></span>
+<span id="cb440-7"><a href="ch10ProbDefn.html#cb440-7" tabindex="-1"></a><span class="op">)</span></span>
+<span id="cb440-8"><a href="ch10ProbDefn.html#cb440-8" tabindex="-1"></a>problemDefinition<span class="op">.</span>inputVariable<span class="op">(</span></span>
+<span id="cb440-9"><a href="ch10ProbDefn.html#cb440-9" tabindex="-1"></a>    name <span class="op">=</span> <span class="st">&quot;Inventory:Item.initialReorderQty&quot;</span><span class="op">,</span></span>
+<span id="cb440-10"><a href="ch10ProbDefn.html#cb440-10" tabindex="-1"></a>    interval <span class="op">=</span> Interval<span class="op">(</span><span class="fl">1.0</span><span class="op">,</span> <span class="fl">100.0</span><span class="op">),</span></span>
+<span id="cb440-11"><a href="ch10ProbDefn.html#cb440-11" tabindex="-1"></a>    granularity <span class="op">=</span> <span class="fl">1.0</span></span>
+<span id="cb440-12"><a href="ch10ProbDefn.html#cb440-12" tabindex="-1"></a><span class="op">)</span></span>
+<span id="cb440-13"><a href="ch10ProbDefn.html#cb440-13" tabindex="-1"></a>problemDefinition<span class="op">.</span>inputVariable<span class="op">(</span></span>
+<span id="cb440-14"><a href="ch10ProbDefn.html#cb440-14" tabindex="-1"></a>    name <span class="op">=</span> <span class="st">&quot;Inventory:Item.initialReorderPoint&quot;</span><span class="op">,</span></span>
+<span id="cb440-15"><a href="ch10ProbDefn.html#cb440-15" tabindex="-1"></a>    interval <span class="op">=</span> Interval<span class="op">(</span><span class="fl">1.0</span><span class="op">,</span> <span class="fl">100.0</span><span class="op">),</span></span>
+<span id="cb440-16"><a href="ch10ProbDefn.html#cb440-16" tabindex="-1"></a>    granularity <span class="op">=</span> <span class="fl">1.0</span></span>
+<span id="cb440-17"><a href="ch10ProbDefn.html#cb440-17" tabindex="-1"></a><span class="op">)</span></span>
+<span id="cb440-18"><a href="ch10ProbDefn.html#cb440-18" tabindex="-1"></a>problemDefinition<span class="op">.</span>responseConstraint<span class="op">(</span></span>
+<span id="cb440-19"><a href="ch10ProbDefn.html#cb440-19" tabindex="-1"></a>    name <span class="op">=</span> <span class="st">&quot;Inventory:Item:FillRate&quot;</span><span class="op">,</span></span>
+<span id="cb440-20"><a href="ch10ProbDefn.html#cb440-20" tabindex="-1"></a>    rhsValue <span class="op">=</span> <span class="fl">0.95</span><span class="op">,</span></span>
+<span id="cb440-21"><a href="ch10ProbDefn.html#cb440-21" tabindex="-1"></a>    inequalityType <span class="op">=</span> InequalityType<span class="op">.</span>GREATER_THAN</span>
+<span id="cb440-22"><a href="ch10ProbDefn.html#cb440-22" tabindex="-1"></a><span class="op">)</span></span></code></pre></div>
+<p>The constructor uses a user assignable name for the problem, the model identifier, the name of the response for the objective function, the names of the input (decision) variables, and the names of the responses. Note that the type of optimization was not specified. Thus, the type is minimization by default. Then, the two input variables representing the initial reorder point and initial reorder quantity are defined over search intervals. Notice that the granularity is set to 1.0, which indicates that this is an integer-ordered (discrete) problem. Finally, the fill rate constraint is added to indicate that desired solutions need to have the fill-rate response greater than 95 percent. The problem definition instance will be required when setting up the solver and the simulation evaluation process.</p>
+</div>
+</div>
+<h3><span class="header-section-number">G</span> References<a href="references.html#references" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div id="refs" class="references csl-bib-body hanging-indent">
+<div id="ref-park_penalty_2015" class="csl-entry">
+Park, Chuljin, and Seong-Hee Kim. 2015. <span>“Penalty <span>Function</span> with <span>Memory</span> for <span>Discrete</span> <span>Optimization</span> via <span>Simulation</span> with <span>Stochastic</span> <span>Constraints</span>.”</span> <em>Operations Research</em> 63 (5): 1195–212. <a href="https://doi.org/10.1287/opre.2015.1417">https://doi.org/10.1287/opre.2015.1417</a>.
+</div>
+<div id="ref-wang_integer-ordered_2013" class="csl-entry">
+Wang, Honggang, Raghu Pasupathy, and Bruce W. Schmeiser. 2013. <span>“Integer-<span>Ordered</span> <span>Simulation</span> <span>Optimization</span> Using <span>R</span>-<span>SPLINE</span>: <span>Retrospective</span> <span>Search</span> with <span>Piecewise</span>-<span>Linear</span> <span>Interpolation</span> and <span>Neighborhood</span> <span>Enumeration</span>.”</span> <em>ACM Transactions on Modeling and Computer Simulation (TOMACS)</em> 23 (3): 17–24. <a href="https://doi.org/10.1145/2499913.2499916">https://doi.org/10.1145/2499913.2499916</a>.
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="ch10simOpt.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="representing-the-simulation-oracle.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"whatsapp": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": null,
+"text": null
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": null,
+"search": {
+"engine": "fuse",
+"options": null
+},
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/latest.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>

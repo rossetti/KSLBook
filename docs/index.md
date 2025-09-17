@@ -1,7 +1,7 @@
 --- 
 title: "Simulation Modeling using the Kotlin Simulation Library (KSL)"
 author: "Manuel D. Rossetti"
-date: "2025-08-07"
+date: "2025-09-17"
 site: bookdown::bookdown_site
 output: bookdown::gitbook
 header-includes:
@@ -82,6 +82,8 @@ You are reading the on-line edition of *Simulation Modeling using the Kotlin Sim
   - Added Chapter 8 for modeling entity movement
 - 2nd Edition, Version 2.3, released August 2025
   - Updated chapters to be consistent with release 1.2.2 of the KSL
+- 2nd Edition, Version 2.4, released September 2025
+  - Added Chapter 10 on simulation optimization
 
 If you find typographical errors or other issues related to the text or supporting files, then please use the book's [repository's](https://github.com/rossetti/KSLBook) issue tracking system to create a new issue. You should first check if the same or similar issue has already been submitted. The issue tracking system is for filing issues about the correctness of the text or files. It is **not** about general questions about simulation concepts, solutions to homework, how to do something in the KSL, etc.  Such issues will not be considered and will be deleted as needed.
 
@@ -195,7 +197,7 @@ deeper understanding of the KSL is developed including flow of control and
 input/output. After finishing Chapter \@ref(processview), students should be able to model interesting systems from a process viewpoint using the KSL. Chapter \@ref(ch7AdvModeling) presents more advanced concepts within simulation and
 especially how the KSL facilitates the modeling. In particular,
 non-stationary arrivals and resource staffing are introduced in Chapter
-\@ref(ch7AdvModeling), as well as constructs for more advance modeling with resources. Chapter \@ref(chEntityMovement) addresses how to model the movement of entities within constrained and unconstrained contexts. Chapter \@ref(ch9AdvMC) presents more advanced techniques used within Monte Carlo methods. 
+\@ref(ch7AdvModeling), as well as constructs for more advance modeling with resources. Chapter \@ref(chEntityMovement) addresses how to model the movement of entities within constrained and unconstrained contexts. Chapter \@ref(ch9AdvMC) presents more advanced techniques used within Monte Carlo methods. Chapter \@ref(ch10eo) presents an introduction to using experimental design techniques within the context of simulation modeling. In addition, Chapter \@ref(ch10eo) provides and introduction to the important area of simulation optimization methods and how the KSL facilitates the application of these techniques.
 
 The Appendix \@ref(appRNRV) and Appendix \@ref(appidm) are extremely useful for understanding the concepts of random variate generation and distribution modeling.  For undergraduate students, I recommend starting with Appendices \@ref(appRNRV) and \@ref(appidm).  Appendix \@ref(appqtAndInvT) provides an overview of queueing theory, which can be useful when verifying and validating the results of simulation models involving queues.  Appendices \@ref(appDiscreteDistributions), \@ref(appContinuousDistributions), and \@ref(appStatTables) provide information on probability distributions and statistical tables. Of particular note is Appendix \@ref(appUtilities), which covers useful utility functionality in support of KSL modeling.
 
@@ -211,7 +213,8 @@ Future chapters are planned for when new KSL functionality is developed.
 7. Chapter \@ref(ch7AdvModeling) Advanced Event and Process View Modeling
 8. Chapter \@ref(chEntityMovement) Modeling Entity Movement
 9. Chapter \@ref(ch9AdvMC) Advanced Monte Carlo Methods
-10. Appendices
+10. Chapter \@ref(ch10eo) Experimental Design and Simulation Optimization Methods
+11. Appendices
   - Appendix \@ref(appRNRV) Generating Pseudo-Random Numbers and Random Variates
   - Appendix \@ref(appidm) Probability Distribution Modeling
   - Appendix \@ref(appqtAndInvT) Queueing Theory
@@ -219,7 +222,7 @@ Future chapters are planned for when new KSL functionality is developed.
   - Appendix \@ref(appDiscreteDistributions) Discrete Distributions
   - Appendix \@ref(appContinuousDistributions) Continuous Distributions
   - Appendix \@ref(appStatTables) Statistical Tables
-11. References \@ref(references)
+12. References \@ref(references)
 
 Depending on the level of programming skill of the students, instructors should be able to cover chapters \@ref(ch1) through \@ref(processview) within a semester course.
 

@@ -1206,7 +1206,7 @@ database schema.
 -   `HISTOGRAM` contains the results from `HistogramResponse` instances when they are used within a model.
 -   `FREQUENCY` contains the results from `IntegerFrequencyResponse` instances when they are used within a model.
 -   `TIME_SERIES_RESPONSE` represents within replication collection of response variables based on periods of time. The average value of the response during the period is recorded for each period for each replication of each simulation run.
--   `EXPERIMENT` holds information across experimental runs. This is illustrate in Section \@ref(ch5Scenarios) and Section \@ref(appExpDesign) of Appendix \@ref(appUtilities).
+-   `EXPERIMENT` holds information across experimental runs. This is illustrated in Section \@ref(ch5Scenarios) and Chapter \@ref(ch10eo).
 -   `CONTROL` holds the controls associated with a model as discussed in Section \@ref(controlAntns).
 -   `RV_PARAMETER` holds the random variables and their parameters as discussed in Section \@ref(rvParameters).
 

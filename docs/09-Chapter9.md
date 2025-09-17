@@ -286,9 +286,10 @@ The `Bootstrap` class requires an array of doubles that represents the original 
 open class Bootstrap(
     originalData: DoubleArray,
     val estimator: BSEstimatorIfc = BSEstimatorIfc.Average(),
-    stream: RNStreamIfc = KSLRandom.nextRNStream(),
+    streamNumber: Int = 0,
+    val streamProvider: RNStreamProviderIfc = KSLRandom.DefaultRNStreamProvider,
     name: String? = null
-) : IdentityIfc by Identity(name), RNStreamControlIfc, RNStreamChangeIfc, BootstrapEstimateIfc
+) : IdentityIfc by Identity(name), RNStreamControlIfc, BootstrapEstimateIfc, StreamNumberIfc
 ```
 
 As noted in the constructor, the class requires an array holding the original data, an instance of the `BSEstimatorIfc` interface, the stream for the random sampling and an optional name. The `BSEstimatorIfc` interface is a functional interface with an `estimate()` function.  Thus, this implementation assumes that the estimate can be computed from a uni-variate array of data and produces a single estimated quantity. The KSL also supports multiple estimated quantities from a uni-variate array of data.  
@@ -370,7 +371,7 @@ To setup and run bootstrapping using the `Bootstrap` class, we have the followin
     println("90% CI = ${mainSampleStats.confidenceInterval(.90)}")
     println()
     // now to the bootstrapping
-    val bs = Bootstrap(mainSample, estimator = BSEstimatorIfc.Average(), KSLRandom.rnStream(3))
+    val bs = Bootstrap(mainSample, estimator = BSEstimatorIfc.Average(), streamNumber = 3)
     bs.generateSamples(400, numBootstrapTSamples = 399)
     println(bs)
 ```
@@ -456,7 +457,8 @@ for(e in estimates){
 This code samples from an exponential distribution to get the initial sample and then uses the `BootstrapSampler` class to provide bootstrap estimates for the basic statistics.  The `BasicStatistics` class is just a simple implementation of the `MVBSEstimatorIfc` interface that computes the average, variance, minimum, maximum, skewness, kurtosis, lag-1 correlation, and lag-1 covariance. 
 
 ```kt
-class BasicStatistics : MVBSEstimatorIfc{
+@Suppress("unused")
+class BasicStatistics(aName: String? = null) : MVBSEstimatorIfc, IdentityIfc by Identity(aName){
 
     private val stat = Statistic()
 
@@ -1542,15 +1544,16 @@ We specify a bivariate normal random variables as $(X_1, X_2) \sim BVN(\mu_1, \s
 An outline for the proof of this result can be found in [@pishro-nik], [Section 5.3.2](https://www.probabilitycourse.com/chapter5/5_3_2_bivariate_normal_dist.php). Thus, if we can generate independent standard normal random variables, we can generate bivariate normal random variables via simple algebra. As can be seen in the following code, the KSL `BivariateNormalRV` class uses this procedure to generate an array that contains the bivariate normal sample.
 
 ```kotlin
-class BivariateNormalRV(
+class BivariateNormalRV @JvmOverloads constructor(
     val mean1: Double = 0.0,
     val v1: Double = 1.0,
     val mean2: Double = 0.0,
     val v2: Double = 1.0,
     val corr: Double = 0.0,
-    stream: RNStreamIfc = KSLRandom.nextRNStream(),
+    streamNum: Int = 0,
+    streamProvider: RNStreamProviderIfc = KSLRandom.DefaultRNStreamProvider,
     name: String? = null
-) : MVRVariable(stream, name) {
+) : MVRVariable(streamNum, streamProvider, name) {
 .
 .
 .
@@ -1674,17 +1677,23 @@ $$
 where $x_1 = z_1$ with $Z_1 \sim N(0,1)$ and $x_2 = \rho z_1 + z_2\sqrt{(1-\rho^2)}$ with $Z_2 \sim N(0,1)$.  This will cause the vector, $\vec{Y}$ to have the corresponding Gaussian BVN copula. The KSL `BVGaussianCopulaRV` class implements these ideas to generate bivariate correlated random variables.  The user is required to supply the inverse CDF functions for the two marginals. Note that, in general, the two distributions, $F_{Y_1}(\cdot)$ and $F_{Y_2}(\cdot)$ do not have to be from the same family.  In addition, as long as the inverse CDF function is available the distribution could be discrete or continuous.
 
 ```kotlin
-class BVGaussianCopulaRV(
+class BVGaussianCopulaRV @JvmOverloads constructor(
     val marginal1: InverseCDFIfc,
     val marginal2: InverseCDFIfc,
     val bvnCorrelation: Double,
-    stream: RNStreamIfc = KSLRandom.nextRNStream()
-) : MVRVariable(stream) {
+    streamNum: Int = 0,
+    streamProvider: RNStreamProviderIfc = KSLRandom.DefaultRNStreamProvider,
+    name: String? = null
+) : MVRVariable(streamNum, streamProvider, name) {
 
-    private val bvGaussianCopula = BVGaussianCopula(bvnCorrelation, stream)
+    private val bvGaussianCopula = BVGaussianCopula(bvnCorrelation, streamNum, streamProvider)
 
     override val dimension: Int
         get() = bvGaussianCopula.dimension
+
+    override fun instance(streamNumber: Int, rnStreamProvider: RNStreamProviderIfc): MVRVariableIfc {
+        return BVGaussianCopulaRV(marginal1, marginal2, bvnCorrelation, streamNumber, rnStreamProvider)
+    }
 
     override fun generate(array: DoubleArray) {
         require(array.size == dimension) { "The length of the array was not the proper dimension" }
@@ -1694,6 +1703,8 @@ class BVGaussianCopulaRV(
         array[0] = marginal1.invCDF(u[0])
         array[1] = marginal2.invCDF(u[1])
     }
+
+}
 ```
 
 This idea generalizes to the generation of random vectors of dimension, $d$, if we use the $d$-dimensional Gaussian copula, $C^G_{\mathbf{P}}(\cdot)$. Thus, because of Sklar's Theorem the joint distribution of $\vec{Y}$ can be written using the specified Gaussian copula. This is due to the invariance of copulas to monotonic transformations, which is discussed in [@rbNelson1999].
@@ -1709,7 +1720,7 @@ The generated vector $\vec{Y}$ will have a dependence structure that is determin
 The KSL supports the generation of random vectors due to its implementation of the multi-variate normal distribution.  Thus, the Gaussian copula is available to KSL users. In addition, the formulas in [@Nadarajah_Afuecheta_Chan_2017] can be readily implemented for other copulas.
 
 <div class="figure" style="text-align: center">
-<img src="./figures2/ch9/MVSampling.png" alt="Key Classes for Multi-Variate Generation" width="80%" height="80%" />
+<img src="./figures2/ch9/MVSampling.png" alt="Key Classes for Multi-Variate Generation" width="90%" height="90%" />
 <p class="caption">(\#fig:KSLMVClasses)Key Classes for Multi-Variate Generation</p>
 </div>
 
@@ -1721,11 +1732,13 @@ A d-dimensional multi-variate normal distribution is specified by a vector of me
 The KSL `MVNormalRV` implements this algorithm. 
 
 ```kotlin
-class MVNormalRV constructor(
+class MVNormalRV  @JvmOverloads constructor(
     means: DoubleArray,
     covariances: Array<DoubleArray>,
-    stream: RNStreamIfc = KSLRandom.nextRNStream()
-) : MVRVariableIfc
+    streamNum: Int = 0,
+    streamProvider: RNStreamProviderIfc = KSLRandom.DefaultRNStreamProvider,
+    name: String? = null
+) : MVRVariable(streamNum, streamProvider, name) 
 ```
 
 An example for generating from a MVN is shown in the following code.
@@ -1758,10 +1771,12 @@ This code produces the following output.
 To generate $(U_1, U_2,\cdots, U_d)$ using a Gaussian copula, you can use the `MVGaussianCopula` class. This class requires the specification of the correlation matrix. 
 
 ```kotlin
-class MVGaussianCopula(
+class MVGaussianCopula @JvmOverloads constructor(
     correlation: Array<DoubleArray>,
-    stream: RNStreamIfc = KSLRandom.nextRNStream()
-) : MVRVariable(stream){
+    streamNum: Int = 0,
+    streamProvider: RNStreamProviderIfc = KSLRandom.DefaultRNStreamProvider,
+    name: String? = null
+) : MVRVariable(streamNum, streamProvider, name)
 ```
 
 The following examples illustrates how to use the class.
@@ -1794,11 +1809,13 @@ This produces the following output, which are all marginal uniform random variab
 The `MVGaussianCopulaRV` class puts all these components together to generate random vectors using the d-dimensional Gaussian copula by allowing the user to specify the inverse CDF functions for the marginal distributions. 
 
 ```kotlin
-class MVGaussianCopulaRV(
+class MVGaussianCopulaRV @JvmOverloads constructor(
     val marginals: List<InverseCDFIfc>,
     correlation: Array<DoubleArray>,
-    stream: RNStreamIfc = KSLRandom.nextRNStream()
-) : MVRVariable(stream) {
+    streamNum: Int = 0,
+    streamProvider: RNStreamProviderIfc = KSLRandom.DefaultRNStreamProvider,
+    name: String? = null
+) : MVRVariable(streamNum, streamProvider, name) {
 
     private val myCopula = MVGaussianCopula(correlation, stream)
 .
@@ -1841,36 +1858,36 @@ $$
 $$
 Therefore, you can generate a random variable $Z_i$ that has a desired correlation and through the NORTA transformation produce $X_i$ that are correlated with the correlation being functionally related to $\rho_z$.  By changing $\phi$ through trial and error one can get the correlation for the $X_i$ that is desired.  Procedures for accomplishing this are given in the previously mentioned references.  
 
-The implementation of this technique can be readily achieved in a general way within the KSL through the use of the `AR1NormalRV` class and already available constructs.  The `AR1CorrelatedRNStream` class implements these ideas in the form of a stream that can be supplied to random variables and other constructs that require a stream.
+The implementation of this technique can be readily achieved in a general way via already available constructs.  The `AR1CorrelatedRNStream` class implements these ideas in the form of a stream that can be supplied to random variables and other constructs that require a stream.
 
 ```kotlin
-class AR1CorrelatedRNStream(
-    lag1Corr: Double,
-    stream: RNStreamIfc = KSLRandom.nextRNStream(),
+class AR1CorrelatedRNStream @JvmOverloads constructor(
+    val lag1Corr: Double,
+    private val stream: RNStreamIfc = KSLRandom.nextRNStream(),
 ) : RNStreamIfc by stream {
+    private var myX: Double = 0.0
+    private val errorVariance: Double
 
-    private val myAR1NormalRV = AR1NormalRV(lag1Corr = lag1Corr, stream = stream)
-    private var myPrevU : Double = Double.NaN
+    init {
+        require( (-1.0 < lag1Corr) && (lag1Corr < 1.0)){ "The correlation must be (-1,1)" }
+        // generate the first value for the process N(mean, variance)
+        myX = KSLRandom.rNormal(stream)
+        errorVariance = (1.0 - lag1Corr * lag1Corr)
+    }
 
-    val ar1LagCorr
-        get() = myAR1NormalRV.lag1Corr
+    private var myPrevU: Double = Double.NaN
 
     override val previousU: Double
         get() = myPrevU
 
     override fun randU01(): Double {
-        val z = myAR1NormalRV.value
-        val u = Normal.stdNormalCDF(z)
+        val e = KSLRandom.rNormal(0.0, errorVariance, stream)
+        myX = lag1Corr * myX + e
+        val u = Normal.stdNormalCDF(myX)
         myPrevU = u
         return u
     }
 }
-```
-
-The `AR1CorrelatedRNStream` class overrides the `randU01()` method to implement the ARTA concept. To use this class just supply it as the stream for the random variable. 
-
-```kotlin
-val e = ExponentialRV(mean=10.0, stream = AR1CorrelatedRNStream(lag1Corr = 0.85))
 ```
 
 In the next section, we explore a general method for generating multi-variate samples using Markov Chain Monte Carlo methods.
@@ -2200,7 +2217,7 @@ object ExampleIndependencePF : ProposalFunctionMVIfc {
 }
 ```
 
-To run the simulation and generate the random vectors, we use the `MetropolisHastingsMV` class as illustrated in the following code. Because the function in the example is relatively simple, the expected values of the marginals can be readily computed. In this case, $E[X_1] = 1.0$ and $E[X_2] = 27.5$, which were used as the initial state of the chain. The initial starting point can be some arbitrary state as long as it is a legal. This code warms the chain up by 10000 steps and attaches an observer to the generation process to capture the generated values to a file.
+To run the simulation and generate the random vectors, we use the `MetropolisHastingsMV` class as illustrated in the following code. Because the function in the example is relatively simple, the expected values of the marginals can be readily computed. In this case, $E[X_1] = 1.0$ and $E[X_2] = 27.5$, which were used as the initial state of the chain. The initial starting point can be some arbitrary state as long as it is a legal point. This code warms the chain up by 10000 steps and attaches an observer to the generation process to capture the generated values to a file.
 
 ```kotlin
     val f = Function

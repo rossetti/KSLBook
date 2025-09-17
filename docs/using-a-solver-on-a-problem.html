@@ -1,0 +1,1104 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>10.7 Using a Solver on a Problem | Simulation Modeling using the Kotlin Simulation Library (KSL)</title>
+  <meta name="description" content="A book that illustrates the basics of using the KSL. The output format for this book is bookdown::gitbook." />
+  <meta name="generator" content="bookdown 0.40 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="10.7 Using a Solver on a Problem | Simulation Modeling using the Kotlin Simulation Library (KSL)" />
+  <meta property="og:type" content="book" />
+  
+  <meta property="og:description" content="A book that illustrates the basics of using the KSL. The output format for this book is bookdown::gitbook." />
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="10.7 Using a Solver on a Problem | Simulation Modeling using the Kotlin Simulation Library (KSL)" />
+  
+  <meta name="twitter:description" content="A book that illustrates the basics of using the KSL. The output format for this book is bookdown::gitbook." />
+  
+
+<meta name="author" content="Manuel D. Rossetti" />
+
+
+<meta name="date" content="2025-09-16" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="implemented-solvers.html"/>
+<link rel="next" href="summary-5.html"/>
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
+<link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
+<script src="libs/kePrint-0.0.1/kePrint.js"></script>
+<link href="libs/lightable-0.0.1/lightable.css" rel="stylesheet" />
+
+
+<style type="text/css">
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { color: #008000; } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { color: #008000; font-weight: bold; } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<style type="text/css">
+  
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+</style>
+<style type="text/css">
+/* Used with Pandoc 2.11+ new --citeproc when CSL is used */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+  margin-bottom: 0em;
+}
+.hanging div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}
+</style>
+
+<link rel="stylesheet" href="css/style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">Simulation Modeling using the Kotlin Simulation Library (KSL)</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Preface</a>
+<ul>
+<li class="chapter" data-level="" data-path="release-history.html"><a href="release-history.html"><i class="fa fa-check"></i>Release History</a></li>
+<li class="chapter" data-level="" data-path="ksl-project-page.html"><a href="ksl-project-page.html"><i class="fa fa-check"></i>KSL Project Page</a></li>
+<li class="chapter" data-level="" data-path="book-support-files.html"><a href="book-support-files.html"><i class="fa fa-check"></i>Book Support Files</a></li>
+<li class="chapter" data-level="" data-path="acknowledgments.html"><a href="acknowledgments.html"><i class="fa fa-check"></i>Acknowledgments</a></li>
+<li class="chapter" data-level="" data-path="intended-audience.html"><a href="intended-audience.html"><i class="fa fa-check"></i>Intended Audience</a></li>
+<li class="chapter" data-level="" data-path="organization-of-the-book.html"><a href="organization-of-the-book.html"><i class="fa fa-check"></i>Organization of the Book</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="about-the-author.html"><a href="about-the-author.html"><i class="fa fa-check"></i>About the Author</a></li>
+<li class="chapter" data-level="1" data-path="ch1.html"><a href="ch1.html"><i class="fa fa-check"></i><b>1</b> Simulation Modeling</a>
+<ul>
+<li class="chapter" data-level="1.1" data-path="simulation-modeling.html"><a href="simulation-modeling.html"><i class="fa fa-check"></i><b>1.1</b> Simulation Modeling</a></li>
+<li class="chapter" data-level="1.2" data-path="why-simulate.html"><a href="why-simulate.html"><i class="fa fa-check"></i><b>1.2</b> Why Simulate?</a></li>
+<li class="chapter" data-level="1.3" data-path="types-of-systems-and-simulation-models.html"><a href="types-of-systems-and-simulation-models.html"><i class="fa fa-check"></i><b>1.3</b> Types of Systems and Simulation Models</a></li>
+<li class="chapter" data-level="1.4" data-path="simulation-descriptive-or-prescriptive-modeling.html"><a href="simulation-descriptive-or-prescriptive-modeling.html"><i class="fa fa-check"></i><b>1.4</b> Simulation: Descriptive or Prescriptive Modeling?</a></li>
+<li class="chapter" data-level="1.5" data-path="randomness-in-simulation.html"><a href="randomness-in-simulation.html"><i class="fa fa-check"></i><b>1.5</b> Randomness in Simulation</a></li>
+<li class="chapter" data-level="1.6" data-path="simulation-languages.html"><a href="simulation-languages.html"><i class="fa fa-check"></i><b>1.6</b> Simulation Languages</a></li>
+<li class="chapter" data-level="1.7" data-path="ch1secsimMeth.html"><a href="ch1secsimMeth.html"><i class="fa fa-check"></i><b>1.7</b> Simulation Methodology</a></li>
+<li class="chapter" data-level="1.8" data-path="overview-of-the-kotlin-simulation-library.html"><a href="overview-of-the-kotlin-simulation-library.html"><i class="fa fa-check"></i><b>1.8</b> Overview of the Kotlin Simulation Library</a></li>
+<li class="chapter" data-level="1.9" data-path="exercises.html"><a href="exercises.html"><i class="fa fa-check"></i><b>1.9</b> Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="ch2rng.html"><a href="ch2rng.html"><i class="fa fa-check"></i><b>2</b> Modeling Randomness</a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="ch2generator.html"><a href="ch2generator.html"><i class="fa fa-check"></i><b>2.1</b> Random Number Generator</a>
+<ul>
+<li class="chapter" data-level="2.1.1" data-path="ch2generator.html"><a href="ch2generator.html#ch2randompkg"><i class="fa fa-check"></i><b>2.1.1</b> Random Package</a></li>
+<li class="chapter" data-level="2.1.2" data-path="ch2generator.html"><a href="ch2generator.html#ch2creatingStreams"><i class="fa fa-check"></i><b>2.1.2</b> Creating and Using Streams</a></li>
+<li class="chapter" data-level="2.1.3" data-path="ch2generator.html"><a href="ch2generator.html#ch2crn"><i class="fa fa-check"></i><b>2.1.3</b> Common Random Numbers</a></li>
+<li class="chapter" data-level="2.1.4" data-path="ch2generator.html"><a href="ch2generator.html#ch2antitheticStreams"><i class="fa fa-check"></i><b>2.1.4</b> Creating and Using Antithetic Streams</a></li>
+<li class="chapter" data-level="2.1.5" data-path="ch2generator.html"><a href="ch2generator.html#ch2rnFAQ"><i class="fa fa-check"></i><b>2.1.5</b> Frequently Asked Questions about Random Numbers</a></li>
+</ul></li>
+<li class="chapter" data-level="2.2" data-path="rvg.html"><a href="rvg.html"><i class="fa fa-check"></i><b>2.2</b> Random Variate Generation</a>
+<ul>
+<li class="chapter" data-level="2.2.1" data-path="rvg.html"><a href="rvg.html#basic-random-variate-generation"><i class="fa fa-check"></i><b>2.2.1</b> Basic Random Variate Generation</a></li>
+<li class="chapter" data-level="2.2.2" data-path="rvg.html"><a href="rvg.html#rvg_dists"><i class="fa fa-check"></i><b>2.2.2</b> Continuous and Discrete Random Variables</a></li>
+<li class="chapter" data-level="2.2.3" data-path="rvg.html"><a href="rvg.html#rvguse"><i class="fa fa-check"></i><b>2.2.3</b> Creating and Using Random Variables</a></li>
+<li class="chapter" data-level="2.2.4" data-path="rvg.html"><a href="rvg.html#functions-of-random-variables"><i class="fa fa-check"></i><b>2.2.4</b> Functions of Random Variables</a></li>
+</ul></li>
+<li class="chapter" data-level="2.3" data-path="probModels.html"><a href="probModels.html"><i class="fa fa-check"></i><b>2.3</b> Probability Distribution Models</a></li>
+<li class="chapter" data-level="2.4" data-path="distFitting.html"><a href="distFitting.html"><i class="fa fa-check"></i><b>2.4</b> Distribution Fitting Using the KSL</a>
+<ul>
+<li class="chapter" data-level="2.4.1" data-path="distFitting.html"><a href="distFitting.html#estimating-distribution-parameters"><i class="fa fa-check"></i><b>2.4.1</b> Estimating Distribution Parameters</a></li>
+<li class="chapter" data-level="2.4.2" data-path="distFitting.html"><a href="distFitting.html#continuous-distribution-recommendation-framework"><i class="fa fa-check"></i><b>2.4.2</b> Continuous Distribution Recommendation Framework</a></li>
+<li class="chapter" data-level="2.4.3" data-path="distFitting.html"><a href="distFitting.html#discrete-distribution-framework"><i class="fa fa-check"></i><b>2.4.3</b> Discrete Distribution Framework</a></li>
+<li class="chapter" data-level="2.4.4" data-path="distFitting.html"><a href="distFitting.html#pdfmexamples"><i class="fa fa-check"></i><b>2.4.4</b> Illustrative Examples from Appendix @ref(appidm)</a></li>
+</ul></li>
+<li class="chapter" data-level="2.5" data-path="summary.html"><a href="summary.html"><i class="fa fa-check"></i><b>2.5</b> Summary</a></li>
+<li class="chapter" data-level="2.6" data-path="exercises-1.html"><a href="exercises-1.html"><i class="fa fa-check"></i><b>2.6</b> Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="mcm.html"><a href="mcm.html"><i class="fa fa-check"></i><b>3</b> Monte Carlo Methods</a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="kslStatistics.html"><a href="kslStatistics.html"><i class="fa fa-check"></i><b>3.1</b> Collecting Statistics</a>
+<ul>
+<li class="chapter" data-level="3.1.1" data-path="kslStatistics.html"><a href="kslStatistics.html#creating-and-using-a-statistic"><i class="fa fa-check"></i><b>3.1.1</b> Creating and Using a Statistic</a></li>
+<li class="chapter" data-level="3.1.2" data-path="kslStatistics.html"><a href="kslStatistics.html#histFreq"><i class="fa fa-check"></i><b>3.1.2</b> Histograms and Frequencies</a></li>
+<li class="chapter" data-level="3.1.3" data-path="kslStatistics.html"><a href="kslStatistics.html#ch3batchStats"><i class="fa fa-check"></i><b>3.1.3</b> Batch Statistics</a></li>
+<li class="chapter" data-level="3.1.4" data-path="kslStatistics.html"><a href="kslStatistics.html#ch3StatSummary"><i class="fa fa-check"></i><b>3.1.4</b> Statistics Summary</a></li>
+</ul></li>
+<li class="chapter" data-level="3.2" data-path="ssMC.html"><a href="ssMC.html"><i class="fa fa-check"></i><b>3.2</b> Simple Monte Carlo Integration</a></li>
+<li class="chapter" data-level="3.3" data-path="ch3StatReview.html"><a href="ch3StatReview.html"><i class="fa fa-check"></i><b>3.3</b> Review of Statistical Concepts</a>
+<ul>
+<li class="chapter" data-level="3.3.1" data-path="ch3StatReview.html"><a href="ch3StatReview.html#point-estimates-and-confidence-intervals"><i class="fa fa-check"></i><b>3.3.1</b> Point Estimates and Confidence Intervals</a></li>
+<li class="chapter" data-level="3.3.2" data-path="ch3StatReview.html"><a href="ch3StatReview.html#ch3SampleSize"><i class="fa fa-check"></i><b>3.3.2</b> Sample Size Determination</a></li>
+<li class="chapter" data-level="3.3.3" data-path="ch3StatReview.html"><a href="ch3StatReview.html#determining-the-sample-size-for-a-monte-carlo-simulation-experiment"><i class="fa fa-check"></i><b>3.3.3</b> Determining the Sample Size for a Monte Carlo Simulation Experiment</a></li>
+</ul></li>
+<li class="chapter" data-level="3.4" data-path="craps.html"><a href="craps.html"><i class="fa fa-check"></i><b>3.4</b> Simulating the Game of Craps</a></li>
+<li class="chapter" data-level="3.5" data-path="the-news-vendor-problem.html"><a href="the-news-vendor-problem.html"><i class="fa fa-check"></i><b>3.5</b> The News Vendor Problem</a></li>
+<li class="chapter" data-level="3.6" data-path="ch3InsProcess.html"><a href="ch3InsProcess.html"><i class="fa fa-check"></i><b>3.6</b> A Simple Inspection Process</a></li>
+<li class="chapter" data-level="3.7" data-path="ch3SAN.html"><a href="ch3SAN.html"><i class="fa fa-check"></i><b>3.7</b> Stochastic Activity Networks</a></li>
+<li class="chapter" data-level="3.8" data-path="mcmExperiments.html"><a href="mcmExperiments.html"><i class="fa fa-check"></i><b>3.8</b> Monte-Carlo Experiments</a></li>
+<li class="chapter" data-level="3.9" data-path="summary-1.html"><a href="summary-1.html"><i class="fa fa-check"></i><b>3.9</b> Summary</a></li>
+<li class="chapter" data-level="3.10" data-path="exercises-2.html"><a href="exercises-2.html"><i class="fa fa-check"></i><b>3.10</b> Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="introDEDS.html"><a href="introDEDS.html"><i class="fa fa-check"></i><b>4</b> Introduction to Discrete Event Modeling</a>
+<ul>
+<li class="chapter" data-level="4.1" data-path="introDEDSdeds.html"><a href="introDEDSdeds.html"><i class="fa fa-check"></i><b>4.1</b> Discrete-Event Dynamic Systems</a></li>
+<li class="chapter" data-level="4.2" data-path="HowDEDSClockWorks.html"><a href="HowDEDSClockWorks.html"><i class="fa fa-check"></i><b>4.2</b> How the Discrete-Event Clock Works</a></li>
+<li class="chapter" data-level="4.3" data-path="QHandExample.html"><a href="QHandExample.html"><i class="fa fa-check"></i><b>4.3</b> Simulating a Queueing System By Hand</a></li>
+<li class="chapter" data-level="4.4" data-path="introDEDSdedsKSL.html"><a href="introDEDSdedsKSL.html"><i class="fa fa-check"></i><b>4.4</b> Modeling DEDS in the KSL</a>
+<ul>
+<li class="chapter" data-level="4.4.1" data-path="introDEDSdedsKSL.html"><a href="introDEDSdedsKSL.html#event-scheduling"><i class="fa fa-check"></i><b>4.4.1</b> Event Scheduling</a></li>
+<li class="chapter" data-level="4.4.2" data-path="introDEDSdedsKSL.html"><a href="introDEDSdedsKSL.html#introDEDSschedExamples"><i class="fa fa-check"></i><b>4.4.2</b> Simple Event Scheduling Examples</a></li>
+<li class="chapter" data-level="4.4.3" data-path="introDEDSdedsKSL.html"><a href="introDEDSdedsKSL.html#introDEDSUpDown"><i class="fa fa-check"></i><b>4.4.3</b> Up and Down Component Example</a></li>
+<li class="chapter" data-level="4.4.4" data-path="introDEDSdedsKSL.html"><a href="introDEDSdedsKSL.html#introDEDSPharmacy"><i class="fa fa-check"></i><b>4.4.4</b> Modeling a Simple Queueing System</a></li>
+<li class="chapter" data-level="4.4.5" data-path="introDEDSdedsKSL.html"><a href="introDEDSdedsKSL.html#more-details-about-the-pharmacy-model-implementation"><i class="fa fa-check"></i><b>4.4.5</b> More Details About the Pharmacy Model Implementation</a></li>
+</ul></li>
+<li class="chapter" data-level="4.5" data-path="enhancing-the-drive-through-pharmacy-model.html"><a href="enhancing-the-drive-through-pharmacy-model.html"><i class="fa fa-check"></i><b>4.5</b> Enhancing the Drive Through Pharmacy Model</a>
+<ul>
+<li class="chapter" data-level="4.5.1" data-path="enhancing-the-drive-through-pharmacy-model.html"><a href="enhancing-the-drive-through-pharmacy-model.html#modeling-a-simple-resource"><i class="fa fa-check"></i><b>4.5.1</b> Modeling a Simple Resource</a></li>
+<li class="chapter" data-level="4.5.2" data-path="enhancing-the-drive-through-pharmacy-model.html"><a href="enhancing-the-drive-through-pharmacy-model.html#modeling-a-queue-with-statistical-collection"><i class="fa fa-check"></i><b>4.5.2</b> Modeling a Queue with Statistical Collection</a></li>
+<li class="chapter" data-level="4.5.3" data-path="enhancing-the-drive-through-pharmacy-model.html"><a href="enhancing-the-drive-through-pharmacy-model.html#modeling-a-repeating-event-pattern"><i class="fa fa-check"></i><b>4.5.3</b> Modeling a Repeating Event Pattern</a></li>
+<li class="chapter" data-level="4.5.4" data-path="enhancing-the-drive-through-pharmacy-model.html"><a href="enhancing-the-drive-through-pharmacy-model.html#collecting-more-detailed-statistics"><i class="fa fa-check"></i><b>4.5.4</b> Collecting More Detailed Statistics</a></li>
+<li class="chapter" data-level="4.5.5" data-path="enhancing-the-drive-through-pharmacy-model.html"><a href="enhancing-the-drive-through-pharmacy-model.html#implementing-the-enhanced-pharmacy-model"><i class="fa fa-check"></i><b>4.5.5</b> Implementing the Enhanced Pharmacy Model</a></li>
+</ul></li>
+<li class="chapter" data-level="4.6" data-path="DTPExpanded.html"><a href="DTPExpanded.html"><i class="fa fa-check"></i><b>4.6</b> More Drive Through Fun</a>
+<ul>
+<li class="chapter" data-level="4.6.1" data-path="DTPExpanded.html"><a href="DTPExpanded.html#modeling-a-resource-with-a-waiting-line"><i class="fa fa-check"></i><b>4.6.1</b> Modeling a Resource with a Waiting Line</a></li>
+<li class="chapter" data-level="4.6.2" data-path="DTPExpanded.html"><a href="DTPExpanded.html#modeling-the-tandem-queue-of-example-refexmexch4tandemq"><i class="fa fa-check"></i><b>4.6.2</b> Modeling the Tandem Queue of Example @ref(exm:exCh4TandemQ)</a></li>
+<li class="chapter" data-level="4.6.3" data-path="DTPExpanded.html"><a href="DTPExpanded.html#modeling-with-the-station-package"><i class="fa fa-check"></i><b>4.6.3</b> Modeling with the Station Package</a></li>
+</ul></li>
+<li class="chapter" data-level="4.7" data-path="introDEDSSummary.html"><a href="introDEDSSummary.html"><i class="fa fa-check"></i><b>4.7</b> Summary</a></li>
+<li class="chapter" data-level="4.8" data-path="exercises-3.html"><a href="exercises-3.html"><i class="fa fa-check"></i><b>4.8</b> Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="simoa.html"><a href="simoa.html"><i class="fa fa-check"></i><b>5</b> Analyzing and Accessing Simulation Output</a>
+<ul>
+<li class="chapter" data-level="5.1" data-path="simoadatatypes.html"><a href="simoadatatypes.html"><i class="fa fa-check"></i><b>5.1</b> Types of Statistical Variables</a></li>
+<li class="chapter" data-level="5.2" data-path="simoasimtypes.html"><a href="simoasimtypes.html"><i class="fa fa-check"></i><b>5.2</b> Types of Simulation With Respect To Output Analysis</a></li>
+<li class="chapter" data-level="5.3" data-path="simoafinhorizon.html"><a href="simoafinhorizon.html"><i class="fa fa-check"></i><b>5.3</b> Analysis of Finite Horizon Simulations</a></li>
+<li class="chapter" data-level="5.4" data-path="simoafinhorizonex.html"><a href="simoafinhorizonex.html"><i class="fa fa-check"></i><b>5.4</b> Capturing Output for a Simple Finite Horizon Simulation</a>
+<ul>
+<li class="chapter" data-level="5.4.1" data-path="simoafinhorizonex.html"><a href="simoafinhorizonex.html#simoaCapture"><i class="fa fa-check"></i><b>5.4.1</b> KSL Functionality for Capturing Statistical Results</a></li>
+<li class="chapter" data-level="5.4.2" data-path="simoafinhorizonex.html"><a href="simoafinhorizonex.html#additional-remarks"><i class="fa fa-check"></i><b>5.4.2</b> Additional Remarks</a></li>
+<li class="chapter" data-level="5.4.3" data-path="simoafinhorizonex.html"><a href="simoafinhorizonex.html#querying-the-ksl-database"><i class="fa fa-check"></i><b>5.4.3</b> Querying the KSL Database</a></li>
+</ul></li>
+<li class="chapter" data-level="5.5" data-path="simoaseqsampling.html"><a href="simoaseqsampling.html"><i class="fa fa-check"></i><b>5.5</b> Sequential Sampling for Finite Horizon Simulations</a></li>
+<li class="chapter" data-level="5.6" data-path="simoainfhorizon.html"><a href="simoainfhorizon.html"><i class="fa fa-check"></i><b>5.6</b> Analysis of Infinite Horizon Simulations</a>
+<ul>
+<li class="chapter" data-level="5.6.1" data-path="simoainfhorizon.html"><a href="simoainfhorizon.html#simoainfhorizoninitialbias"><i class="fa fa-check"></i><b>5.6.1</b> Assessing the Effect of Initial Conditions</a></li>
+<li class="chapter" data-level="5.6.2" data-path="simoainfhorizon.html"><a href="simoainfhorizon.html#simoainfhorizonrepDeletion"><i class="fa fa-check"></i><b>5.6.2</b> Performing the Method of Replication-Deletion</a></li>
+<li class="chapter" data-level="5.6.3" data-path="simoainfhorizon.html"><a href="simoainfhorizon.html#simoainfhorizonbatchmeans"><i class="fa fa-check"></i><b>5.6.3</b> The Method of Batch Means</a></li>
+<li class="chapter" data-level="5.6.4" data-path="simoainfhorizon.html"><a href="simoainfhorizon.html#simoainfhorizonjslbatching"><i class="fa fa-check"></i><b>5.6.4</b> Performing the Method of Batch Means</a></li>
+</ul></li>
+<li class="chapter" data-level="5.7" data-path="simoacomparingSystems.html"><a href="simoacomparingSystems.html"><i class="fa fa-check"></i><b>5.7</b> Comparing System Configurations</a>
+<ul>
+<li class="chapter" data-level="5.7.1" data-path="simoacomparingSystems.html"><a href="simoacomparingSystems.html#simoacomparingSystems:two"><i class="fa fa-check"></i><b>5.7.1</b> Comparing Two Systems</a></li>
+<li class="chapter" data-level="5.7.2" data-path="simoacomparingSystems.html"><a href="simoacomparingSystems.html#simoacomparingSystemsMCB"><i class="fa fa-check"></i><b>5.7.2</b> Concepts for Comparing Systems</a></li>
+<li class="chapter" data-level="5.7.3" data-path="simoacomparingSystems.html"><a href="simoacomparingSystems.html#multiple-comparison-with-the-best-procedures-mcb"><i class="fa fa-check"></i><b>5.7.3</b> Multiple Comparison with the Best Procedures (MCB)</a></li>
+<li class="chapter" data-level="5.7.4" data-path="simoacomparingSystems.html"><a href="simoacomparingSystems.html#ch5Screening"><i class="fa fa-check"></i><b>5.7.4</b> Screening Procedures</a></li>
+</ul></li>
+<li class="chapter" data-level="5.8" data-path="ch5Scenarios.html"><a href="ch5Scenarios.html"><i class="fa fa-check"></i><b>5.8</b> Simulating Many Scenarios</a>
+<ul>
+<li class="chapter" data-level="5.8.1" data-path="ch5Scenarios.html"><a href="ch5Scenarios.html#controlAntns"><i class="fa fa-check"></i><b>5.8.1</b> Control Annotations</a></li>
+<li class="chapter" data-level="5.8.2" data-path="ch5Scenarios.html"><a href="ch5Scenarios.html#rvParameters"><i class="fa fa-check"></i><b>5.8.2</b> Random Variable Parameters</a></li>
+<li class="chapter" data-level="5.8.3" data-path="ch5Scenarios.html"><a href="ch5Scenarios.html#kslScenarios"><i class="fa fa-check"></i><b>5.8.3</b> Setting Up and Running Multiple Scenarios</a></li>
+</ul></li>
+<li class="chapter" data-level="5.9" data-path="simoasummary.html"><a href="simoasummary.html"><i class="fa fa-check"></i><b>5.9</b> Summary</a></li>
+<li class="chapter" data-level="5.10" data-path="exercises-4.html"><a href="exercises-4.html"><i class="fa fa-check"></i><b>5.10</b> Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="processview.html"><a href="processview.html"><i class="fa fa-check"></i><b>6</b> Process View Modeling Using the KSL</a>
+<ul>
+<li class="chapter" data-level="6.1" data-path="ch6Entities.html"><a href="ch6Entities.html"><i class="fa fa-check"></i><b>6.1</b> What are Entities?</a></li>
+<li class="chapter" data-level="6.2" data-path="pvIntro.html"><a href="pvIntro.html"><i class="fa fa-check"></i><b>6.2</b> The Process View</a></li>
+<li class="chapter" data-level="6.3" data-path="understanding-ksl-processes-and-entities.html"><a href="understanding-ksl-processes-and-entities.html"><i class="fa fa-check"></i><b>6.3</b> Understanding KSL Processes and Entities</a></li>
+<li class="chapter" data-level="6.4" data-path="examples-of-process-modeling.html"><a href="examples-of-process-modeling.html"><i class="fa fa-check"></i><b>6.4</b> Examples of Process Modeling</a>
+<ul>
+<li class="chapter" data-level="6.4.1" data-path="examples-of-process-modeling.html"><a href="examples-of-process-modeling.html#holding-entities-in-a-queue-holdqueue-class"><i class="fa fa-check"></i><b>6.4.1</b> Holding Entities in a Queue: <code>HoldQueue</code> Class</a></li>
+<li class="chapter" data-level="6.4.2" data-path="examples-of-process-modeling.html"><a href="examples-of-process-modeling.html#signaling-entities"><i class="fa fa-check"></i><b>6.4.2</b> Signaling Entities</a></li>
+<li class="chapter" data-level="6.4.3" data-path="examples-of-process-modeling.html"><a href="examples-of-process-modeling.html#understanding-blocking-queues"><i class="fa fa-check"></i><b>6.4.3</b> Understanding Blocking Queues</a></li>
+<li class="chapter" data-level="6.4.4" data-path="examples-of-process-modeling.html"><a href="examples-of-process-modeling.html#allowing-entities-to-wait-for-a-process"><i class="fa fa-check"></i><b>6.4.4</b> Allowing Entities to Wait for a Process</a></li>
+<li class="chapter" data-level="6.4.5" data-path="examples-of-process-modeling.html"><a href="examples-of-process-modeling.html#processinteraction"><i class="fa fa-check"></i><b>6.4.5</b> Process Interaction</a></li>
+</ul></li>
+<li class="chapter" data-level="6.5" data-path="modeling-a-stem-career-mixer.html"><a href="modeling-a-stem-career-mixer.html"><i class="fa fa-check"></i><b>6.5</b> Modeling a STEM Career Mixer</a>
+<ul>
+<li class="chapter" data-level="6.5.1" data-path="modeling-a-stem-career-mixer.html"><a href="modeling-a-stem-career-mixer.html#conceptualizing-the-system"><i class="fa fa-check"></i><b>6.5.1</b> Conceptualizing the System</a></li>
+<li class="chapter" data-level="6.5.2" data-path="modeling-a-stem-career-mixer.html"><a href="modeling-a-stem-career-mixer.html#implementing-the-stem-mixer-model"><i class="fa fa-check"></i><b>6.5.2</b> Implementing the STEM Mixer Model</a></li>
+</ul></li>
+<li class="chapter" data-level="6.6" data-path="the-tie-dye-t-shirt-model.html"><a href="the-tie-dye-t-shirt-model.html"><i class="fa fa-check"></i><b>6.6</b> The Tie-Dye T-Shirt Model</a>
+<ul>
+<li class="chapter" data-level="6.6.1" data-path="the-tie-dye-t-shirt-model.html"><a href="the-tie-dye-t-shirt-model.html#ch4:TieDyeTShirtsSub1"><i class="fa fa-check"></i><b>6.6.1</b> Implementing the Tie-Dye T-Shirt Model</a></li>
+</ul></li>
+<li class="chapter" data-level="6.7" data-path="summary-2.html"><a href="summary-2.html"><i class="fa fa-check"></i><b>6.7</b> Summary</a></li>
+<li class="chapter" data-level="6.8" data-path="exercises-5.html"><a href="exercises-5.html"><i class="fa fa-check"></i><b>6.8</b> Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="ch7AdvModeling.html"><a href="ch7AdvModeling.html"><i class="fa fa-check"></i><b>7</b> Advanced Event and Process View Modeling</a>
+<ul>
+<li class="chapter" data-level="7.1" data-path="modeling-with-processes-and-resources.html"><a href="modeling-with-processes-and-resources.html"><i class="fa fa-check"></i><b>7.1</b> Modeling with Processes and Resources</a>
+<ul>
+<li class="chapter" data-level="7.1.1" data-path="modeling-with-processes-and-resources.html"><a href="modeling-with-processes-and-resources.html#modeling-space-with-resources"><i class="fa fa-check"></i><b>7.1.1</b> Modeling Space with Resources</a></li>
+<li class="chapter" data-level="7.1.2" data-path="modeling-with-processes-and-resources.html"><a href="modeling-with-processes-and-resources.html#secResourcePools"><i class="fa fa-check"></i><b>7.1.2</b> Resource Pools</a></li>
+<li class="chapter" data-level="7.1.3" data-path="modeling-with-processes-and-resources.html"><a href="modeling-with-processes-and-resources.html#secTestAndRepair"><i class="fa fa-check"></i><b>7.1.3</b> Computer Test and Repair Shop Example</a></li>
+</ul></li>
+<li class="chapter" data-level="7.2" data-path="modeling-non-stationary-systems.html"><a href="modeling-non-stationary-systems.html"><i class="fa fa-check"></i><b>7.2</b> Modeling Non-Stationary Systems</a>
+<ul>
+<li class="chapter" data-level="7.2.1" data-path="modeling-non-stationary-systems.html"><a href="modeling-non-stationary-systems.html#ch7secNSPP"><i class="fa fa-check"></i><b>7.2.1</b> Non-Stationary Arrival Processes</a></li>
+<li class="chapter" data-level="7.2.2" data-path="modeling-non-stationary-systems.html"><a href="modeling-non-stationary-systems.html#modeling-resources-under-non-stationary-conditions"><i class="fa fa-check"></i><b>7.2.2</b> Modeling Resources Under Non-Stationary Conditions</a></li>
+<li class="chapter" data-level="7.2.3" data-path="modeling-non-stationary-systems.html"><a href="modeling-non-stationary-systems.html#enhancing-the-stem-career-mixer-model"><i class="fa fa-check"></i><b>7.2.3</b> Enhancing the STEM Career Mixer Model</a></li>
+</ul></li>
+<li class="chapter" data-level="7.3" data-path="examples-of-advanced-event-models.html"><a href="examples-of-advanced-event-models.html"><i class="fa fa-check"></i><b>7.3</b> Examples of Advanced Event Models</a>
+<ul>
+<li class="chapter" data-level="7.3.1" data-path="examples-of-advanced-event-models.html"><a href="examples-of-advanced-event-models.html#ch6s1sb4sub3"><i class="fa fa-check"></i><b>7.3.1</b> Modeling Balking and Reneging</a></li>
+<li class="chapter" data-level="7.3.2" data-path="examples-of-advanced-event-models.html"><a href="examples-of-advanced-event-models.html#rqModel"><i class="fa fa-check"></i><b>7.3.2</b> Modeling a Reorder Point, Reorder Quantity Inventory Policy</a></li>
+</ul></li>
+<li class="chapter" data-level="7.4" data-path="ch7VandV.html"><a href="ch7VandV.html"><i class="fa fa-check"></i><b>7.4</b> Applying Queueing Theory Results to Verify and Validate a Simulation</a>
+<ul>
+<li class="chapter" data-level="7.4.1" data-path="ch7VandV.html"><a href="ch7VandV.html#analyzing-the-preparation-station"><i class="fa fa-check"></i><b>7.4.1</b> Analyzing the Preparation Station</a></li>
+<li class="chapter" data-level="7.4.2" data-path="ch7VandV.html"><a href="ch7VandV.html#analyzing-the-build-lines"><i class="fa fa-check"></i><b>7.4.2</b> Analyzing the Build Lines</a></li>
+<li class="chapter" data-level="7.4.3" data-path="ch7VandV.html"><a href="ch7VandV.html#analyzing-the-packaging-station"><i class="fa fa-check"></i><b>7.4.3</b> Analyzing the Packaging Station</a></li>
+<li class="chapter" data-level="7.4.4" data-path="ch7VandV.html"><a href="ch7VandV.html#analyzing-the-palletizing-station"><i class="fa fa-check"></i><b>7.4.4</b> Analyzing the Palletizing Station</a></li>
+<li class="chapter" data-level="7.4.5" data-path="ch7VandV.html"><a href="ch7VandV.html#analyzing-the-total-system-time"><i class="fa fa-check"></i><b>7.4.5</b> Analyzing the Total System Time</a></li>
+<li class="chapter" data-level="7.4.6" data-path="ch7VandV.html"><a href="ch7VandV.html#other-issues-for-verification-and-validation"><i class="fa fa-check"></i><b>7.4.6</b> Other Issues for Verification and Validation</a></li>
+</ul></li>
+<li class="chapter" data-level="7.5" data-path="summary-3.html"><a href="summary-3.html"><i class="fa fa-check"></i><b>7.5</b> Summary</a></li>
+<li class="chapter" data-level="7.6" data-path="exercises-6.html"><a href="exercises-6.html"><i class="fa fa-check"></i><b>7.6</b> Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="8" data-path="chEntityMovement.html"><a href="chEntityMovement.html"><i class="fa fa-check"></i><b>8</b> Modeling Entity Movement</a>
+<ul>
+<li class="chapter" data-level="8.1" data-path="secRCT.html"><a href="secRCT.html"><i class="fa fa-check"></i><b>8.1</b> Resource Constrained Transfer</a>
+<ul>
+<li class="chapter" data-level="8.1.1" data-path="secRCT.html"><a href="secRCT.html#secTestRepairRCT"><i class="fa fa-check"></i><b>8.1.1</b> Test and Repair with Resource Constrained Transfer</a></li>
+</ul></li>
+<li class="chapter" data-level="8.2" data-path="movableResources.html"><a href="movableResources.html"><i class="fa fa-check"></i><b>8.2</b> Constrained Transfer with Movable Resources</a>
+<ul>
+<li class="chapter" data-level="8.2.1" data-path="movableResources.html"><a href="movableResources.html#spatial-models"><i class="fa fa-check"></i><b>8.2.1</b> Spatial Models</a></li>
+<li class="chapter" data-level="8.2.2" data-path="movableResources.html"><a href="movableResources.html#secMovableResources"><i class="fa fa-check"></i><b>8.2.2</b> Movable Resources</a></li>
+<li class="chapter" data-level="8.2.3" data-path="movableResources.html"><a href="movableResources.html#secTQMWM"><i class="fa fa-check"></i><b>8.2.3</b> Tandem Queue Model With Movement</a></li>
+</ul></li>
+<li class="chapter" data-level="8.3" data-path="secTestAndRepairMovableResources.html"><a href="secTestAndRepairMovableResources.html"><i class="fa fa-check"></i><b>8.3</b> Modeling the Test and Repair System with Movable Resources</a></li>
+<li class="chapter" data-level="8.4" data-path="secConveyors.html"><a href="secConveyors.html"><i class="fa fa-check"></i><b>8.4</b> Modeling Systems with Conveyors</a>
+<ul>
+<li class="chapter" data-level="8.4.1" data-path="secConveyors.html"><a href="secConveyors.html#ksl-conveyor-constructs"><i class="fa fa-check"></i><b>8.4.1</b> KSL Conveyor Constructs</a></li>
+<li class="chapter" data-level="8.4.2" data-path="secConveyors.html"><a href="secConveyors.html#tandem-queue-system-with-conveyors"><i class="fa fa-check"></i><b>8.4.2</b> Tandem Queue System with Conveyors</a></li>
+<li class="chapter" data-level="8.4.3" data-path="secConveyors.html"><a href="secConveyors.html#secTestAndRepairConveyors"><i class="fa fa-check"></i><b>8.4.3</b> Test and Repair via Conveyors</a></li>
+<li class="chapter" data-level="8.4.4" data-path="secConveyors.html"><a href="secConveyors.html#secMiscConveyor"><i class="fa fa-check"></i><b>8.4.4</b> Miscellaneous Concepts in Conveyor Modeling</a></li>
+</ul></li>
+<li class="chapter" data-level="8.5" data-path="summary-of-new-concepts.html"><a href="summary-of-new-concepts.html"><i class="fa fa-check"></i><b>8.5</b> Summary of New Concepts</a></li>
+<li class="chapter" data-level="8.6" data-path="exercises-7.html"><a href="exercises-7.html"><i class="fa fa-check"></i><b>8.6</b> Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="9" data-path="ch9AdvMC.html"><a href="ch9AdvMC.html"><i class="fa fa-check"></i><b>9</b> Advanced Monte Carlo Methods</a>
+<ul>
+<li class="chapter" data-level="9.1" data-path="ch9BootStrapping.html"><a href="ch9BootStrapping.html"><i class="fa fa-check"></i><b>9.1</b> Bootstrap Methods</a>
+<ul>
+<li class="chapter" data-level="9.1.1" data-path="ch9BootStrapping.html"><a href="ch9BootStrapping.html#bootstrapping-using-the-ksl"><i class="fa fa-check"></i><b>9.1.1</b> Bootstrapping Using the KSL</a></li>
+</ul></li>
+<li class="chapter" data-level="9.2" data-path="ch9VRTs.html"><a href="ch9VRTs.html"><i class="fa fa-check"></i><b>9.2</b> Variance Reduction Techniques</a>
+<ul>
+<li class="chapter" data-level="9.2.1" data-path="ch9VRTs.html"><a href="ch9VRTs.html#common-random-numbers-crn"><i class="fa fa-check"></i><b>9.2.1</b> Common Random Numbers (CRN)</a></li>
+<li class="chapter" data-level="9.2.2" data-path="ch9VRTs.html"><a href="ch9VRTs.html#antithetic-variates-av"><i class="fa fa-check"></i><b>9.2.2</b> Antithetic Variates (AV)</a></li>
+<li class="chapter" data-level="9.2.3" data-path="ch9VRTs.html"><a href="ch9VRTs.html#indirect-estimation"><i class="fa fa-check"></i><b>9.2.3</b> Indirect Estimation</a></li>
+<li class="chapter" data-level="9.2.4" data-path="ch9VRTs.html"><a href="ch9VRTs.html#control-variates-cv"><i class="fa fa-check"></i><b>9.2.4</b> Control Variates (CV)</a></li>
+<li class="chapter" data-level="9.2.5" data-path="ch9VRTs.html"><a href="ch9VRTs.html#stratified-and-post-stratified-sampling"><i class="fa fa-check"></i><b>9.2.5</b> Stratified and Post Stratified Sampling</a></li>
+<li class="chapter" data-level="9.2.6" data-path="ch9VRTs.html"><a href="ch9VRTs.html#conditional-expectation-ce"><i class="fa fa-check"></i><b>9.2.6</b> Conditional Expectation (CE)</a></li>
+<li class="chapter" data-level="9.2.7" data-path="ch9VRTs.html"><a href="ch9VRTs.html#importance-sampling-is"><i class="fa fa-check"></i><b>9.2.7</b> Importance Sampling (IS)</a></li>
+</ul></li>
+<li class="chapter" data-level="9.3" data-path="ch9GMVRVs.html"><a href="ch9GMVRVs.html"><i class="fa fa-check"></i><b>9.3</b> Generating Multi-Variate and Correlated Random Variates</a>
+<ul>
+<li class="chapter" data-level="9.3.1" data-path="ch9GMVRVs.html"><a href="ch9GMVRVs.html#generating-from-a-bivariate-normal-distribution"><i class="fa fa-check"></i><b>9.3.1</b> Generating from a Bivariate Normal Distribution</a></li>
+<li class="chapter" data-level="9.3.2" data-path="ch9GMVRVs.html"><a href="ch9GMVRVs.html#copulas-and-multi-variate-generation-methods"><i class="fa fa-check"></i><b>9.3.2</b> Copulas and Multi-variate Generation Methods</a></li>
+<li class="chapter" data-level="9.3.3" data-path="ch9GMVRVs.html"><a href="ch9GMVRVs.html#autocorrelated-generation"><i class="fa fa-check"></i><b>9.3.3</b> Autocorrelated Generation</a></li>
+<li class="chapter" data-level="9.3.4" data-path="ch9GMVRVs.html"><a href="ch9GMVRVs.html#ch9MCMC"><i class="fa fa-check"></i><b>9.3.4</b> Introduction to Markov Chain Monte Carlo Methods</a></li>
+</ul></li>
+<li class="chapter" data-level="9.4" data-path="summary-4.html"><a href="summary-4.html"><i class="fa fa-check"></i><b>9.4</b> Summary</a></li>
+<li class="chapter" data-level="9.5" data-path="exercises-8.html"><a href="exercises-8.html"><i class="fa fa-check"></i><b>9.5</b> Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="10" data-path="ch10eo.html"><a href="ch10eo.html"><i class="fa fa-check"></i><b>10</b> Experimental Design and Optimization Methods</a>
+<ul>
+<li class="chapter" data-level="10.1" data-path="ch10doe.html"><a href="ch10doe.html"><i class="fa fa-check"></i><b>10.1</b> Experimental Design Methods</a>
+<ul>
+<li class="chapter" data-level="10.1.1" data-path="ch10doe.html"><a href="ch10doe.html#ch10factors"><i class="fa fa-check"></i><b>10.1.1</b> Defining Factors</a></li>
+<li class="chapter" data-level="10.1.2" data-path="ch10doe.html"><a href="ch10doe.html#ch10designs"><i class="fa fa-check"></i><b>10.1.2</b> Defining Experimental Designs</a></li>
+<li class="chapter" data-level="10.1.3" data-path="ch10doe.html"><a href="ch10doe.html#ch10exp"><i class="fa fa-check"></i><b>10.1.3</b> Executing a Designed Experiment</a></li>
+<li class="chapter" data-level="10.1.4" data-path="ch10doe.html"><a href="ch10doe.html#ch10analysis"><i class="fa fa-check"></i><b>10.1.4</b> Analyzing a Designed Experiment</a></li>
+</ul></li>
+<li class="chapter" data-level="10.2" data-path="ch10simOpt.html"><a href="ch10simOpt.html"><i class="fa fa-check"></i><b>10.2</b> Simulation Optimization Methods</a></li>
+<li class="chapter" data-level="10.3" data-path="ch10ProbDefn.html"><a href="ch10ProbDefn.html"><i class="fa fa-check"></i><b>10.3</b> Defining Simulation Optimization Problems</a>
+<ul>
+<li class="chapter" data-level="10.3.1" data-path="ch10ProbDefn.html"><a href="ch10ProbDefn.html#specifying-penalty-functions"><i class="fa fa-check"></i><b>10.3.1</b> Specifying Penalty Functions</a></li>
+<li class="chapter" data-level="10.3.2" data-path="ch10ProbDefn.html"><a href="ch10ProbDefn.html#defining-input-variables"><i class="fa fa-check"></i><b>10.3.2</b> Defining Input Variables</a></li>
+<li class="chapter" data-level="10.3.3" data-path="ch10ProbDefn.html"><a href="ch10ProbDefn.html#linear-and-functional-constraints"><i class="fa fa-check"></i><b>10.3.3</b> Linear and Functional Constraints</a></li>
+<li class="chapter" data-level="10.3.4" data-path="ch10ProbDefn.html"><a href="ch10ProbDefn.html#response-constraints"><i class="fa fa-check"></i><b>10.3.4</b> Response Constraints</a></li>
+<li class="chapter" data-level="10.3.5" data-path="ch10ProbDefn.html"><a href="ch10ProbDefn.html#ch10ProbDefnExample"><i class="fa fa-check"></i><b>10.3.5</b> Setting Up a Problem Definition</a></li>
+</ul></li>
+<li class="chapter" data-level="10.4" data-path="representing-the-simulation-oracle.html"><a href="representing-the-simulation-oracle.html"><i class="fa fa-check"></i><b>10.4</b> Representing the Simulation Oracle</a>
+<ul>
+<li class="chapter" data-level="10.4.1" data-path="representing-the-simulation-oracle.html"><a href="representing-the-simulation-oracle.html#requesting-simulation-evaluations"><i class="fa fa-check"></i><b>10.4.1</b> Requesting Simulation Evaluations</a></li>
+<li class="chapter" data-level="10.4.2" data-path="representing-the-simulation-oracle.html"><a href="representing-the-simulation-oracle.html#representing-model-inputs"><i class="fa fa-check"></i><b>10.4.2</b> Representing Model Inputs</a></li>
+<li class="chapter" data-level="10.4.3" data-path="representing-the-simulation-oracle.html"><a href="representing-the-simulation-oracle.html#representing-model-outputs"><i class="fa fa-check"></i><b>10.4.3</b> Representing Model Outputs</a></li>
+</ul></li>
+<li class="chapter" data-level="10.5" data-path="characterizing-simulation-optimization-algorithms.html"><a href="characterizing-simulation-optimization-algorithms.html"><i class="fa fa-check"></i><b>10.5</b> Characterizing Simulation Optimization Algorithms</a>
+<ul>
+<li class="chapter" data-level="10.5.1" data-path="characterizing-simulation-optimization-algorithms.html"><a href="characterizing-simulation-optimization-algorithms.html#structure-of-the-iterative-process"><i class="fa fa-check"></i><b>10.5.1</b> Structure of the Iterative Process</a></li>
+<li class="chapter" data-level="10.5.2" data-path="characterizing-simulation-optimization-algorithms.html"><a href="characterizing-simulation-optimization-algorithms.html#solver-plug-in-behavior"><i class="fa fa-check"></i><b>10.5.2</b> Solver Plug-in Behavior</a></li>
+<li class="chapter" data-level="10.5.3" data-path="characterizing-simulation-optimization-algorithms.html"><a href="characterizing-simulation-optimization-algorithms.html#miscellaneous-concepts-in-the-solver-class"><i class="fa fa-check"></i><b>10.5.3</b> Miscellaneous Concepts in the <code>Solver</code> Class</a></li>
+</ul></li>
+<li class="chapter" data-level="10.6" data-path="implemented-solvers.html"><a href="implemented-solvers.html"><i class="fa fa-check"></i><b>10.6</b> Implemented Solvers</a>
+<ul>
+<li class="chapter" data-level="10.6.1" data-path="implemented-solvers.html"><a href="implemented-solvers.html#simulated-annealing"><i class="fa fa-check"></i><b>10.6.1</b> Simulated Annealing</a></li>
+<li class="chapter" data-level="10.6.2" data-path="implemented-solvers.html"><a href="implemented-solvers.html#cross-entropy"><i class="fa fa-check"></i><b>10.6.2</b> Cross Entropy</a></li>
+<li class="chapter" data-level="10.6.3" data-path="implemented-solvers.html"><a href="implemented-solvers.html#r-spline"><i class="fa fa-check"></i><b>10.6.3</b> R-SPLINE</a></li>
+<li class="chapter" data-level="10.6.4" data-path="implemented-solvers.html"><a href="implemented-solvers.html#randomized-restart-solvers"><i class="fa fa-check"></i><b>10.6.4</b> Randomized Restart Solvers</a></li>
+</ul></li>
+<li class="chapter" data-level="10.7" data-path="using-a-solver-on-a-problem.html"><a href="using-a-solver-on-a-problem.html"><i class="fa fa-check"></i><b>10.7</b> Using a Solver on a Problem</a>
+<ul>
+<li class="chapter" data-level="10.7.1" data-path="using-a-solver-on-a-problem.html"><a href="using-a-solver-on-a-problem.html#illustrating-the-cross-entropy-solver"><i class="fa fa-check"></i><b>10.7.1</b> Illustrating the Cross-Entropy Solver</a></li>
+<li class="chapter" data-level="10.7.2" data-path="using-a-solver-on-a-problem.html"><a href="using-a-solver-on-a-problem.html#illustrating-simulated-annealing-with-random-restarts"><i class="fa fa-check"></i><b>10.7.2</b> Illustrating Simulated Annealing with Random Restarts</a></li>
+</ul></li>
+<li class="chapter" data-level="10.8" data-path="summary-5.html"><a href="summary-5.html"><i class="fa fa-check"></i><b>10.8</b> Summary</a></li>
+<li class="chapter" data-level="10.9" data-path="exercises-9.html"><a href="exercises-9.html"><i class="fa fa-check"></i><b>10.9</b> Exercises</a></li>
+</ul></li>
+<li class="appendix"><span><b>Appendix</b></span></li>
+<li class="chapter" data-level="A" data-path="appRNRV.html"><a href="appRNRV.html"><i class="fa fa-check"></i><b>A</b> Generating Pseudo-Random Numbers and Random Variates</a>
+<ul>
+<li class="chapter" data-level="A.1" data-path="appRNRVPRN.html"><a href="appRNRVPRN.html"><i class="fa fa-check"></i><b>A.1</b> Pseudo Random Numbers</a>
+<ul>
+<li class="chapter" data-level="A.1.1" data-path="appRNRVPRN.html"><a href="appRNRVPRN.html#appRNRVRNGs"><i class="fa fa-check"></i><b>A.1.1</b> Random Number Generators</a></li>
+</ul></li>
+<li class="chapter" data-level="A.2" data-path="appRNRVs.html"><a href="appRNRVs.html"><i class="fa fa-check"></i><b>A.2</b> Generating Random Variates from Distributions</a>
+<ul>
+<li class="chapter" data-level="A.2.1" data-path="appRNRVs.html"><a href="appRNRVs.html#inverse-transform-method"><i class="fa fa-check"></i><b>A.2.1</b> Inverse Transform Method</a></li>
+<li class="chapter" data-level="A.2.2" data-path="appRNRVs.html"><a href="appRNRVs.html#convolution"><i class="fa fa-check"></i><b>A.2.2</b> Convolution</a></li>
+<li class="chapter" data-level="A.2.3" data-path="appRNRVs.html"><a href="appRNRVs.html#acceptancerejection"><i class="fa fa-check"></i><b>A.2.3</b> Acceptance/Rejection</a></li>
+<li class="chapter" data-level="A.2.4" data-path="appRNRVs.html"><a href="appRNRVs.html#AppRNRVsubsecMTSRV"><i class="fa fa-check"></i><b>A.2.4</b> Mixture Distributions, Truncated Distributions, and Shifted Random Variables</a></li>
+</ul></li>
+<li class="chapter" data-level="A.3" data-path="summary-6.html"><a href="summary-6.html"><i class="fa fa-check"></i><b>A.3</b> Summary</a></li>
+<li class="chapter" data-level="A.4" data-path="exercises-10.html"><a href="exercises-10.html"><i class="fa fa-check"></i><b>A.4</b> Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="B" data-path="appidm.html"><a href="appidm.html"><i class="fa fa-check"></i><b>B</b> Probability Distribution Modeling</a>
+<ul>
+<li class="chapter" data-level="B.1" data-path="appidmsecrvPD.html"><a href="appidmsecrvPD.html"><i class="fa fa-check"></i><b>B.1</b> Random Variables and Probability Distributions</a></li>
+<li class="chapter" data-level="B.2" data-path="appidmsecMDD.html"><a href="appidmsecMDD.html"><i class="fa fa-check"></i><b>B.2</b> Modeling with Discrete Distributions</a></li>
+<li class="chapter" data-level="B.3" data-path="appidmsecfitDiscrete.html"><a href="appidmsecfitDiscrete.html"><i class="fa fa-check"></i><b>B.3</b> Fitting Discrete Distributions</a>
+<ul>
+<li class="chapter" data-level="B.3.1" data-path="appidmsecfitDiscrete.html"><a href="appidmsecfitDiscrete.html#AppDisFitPoissonFit"><i class="fa fa-check"></i><b>B.3.1</b> Fitting a Poisson Distribution</a></li>
+<li class="chapter" data-level="B.3.2" data-path="appidmsecfitDiscrete.html"><a href="appidmsecfitDiscrete.html#visualizing-the-data"><i class="fa fa-check"></i><b>B.3.2</b> Visualizing the Data</a></li>
+<li class="chapter" data-level="B.3.3" data-path="appidmsecfitDiscrete.html"><a href="appidmsecfitDiscrete.html#estimating-the-rate-parameter-for-the-poisson-distribution"><i class="fa fa-check"></i><b>B.3.3</b> Estimating the Rate Parameter for the Poisson Distribution</a></li>
+<li class="chapter" data-level="B.3.4" data-path="appidmsecfitDiscrete.html"><a href="appidmsecfitDiscrete.html#chi-squared-goodness-of-fit-test-for-poisson-distribution"><i class="fa fa-check"></i><b>B.3.4</b> Chi-Squared Goodness of Fit Test for Poisson Distribution</a></li>
+<li class="chapter" data-level="B.3.5" data-path="appidmsecfitDiscrete.html"><a href="appidmsecfitDiscrete.html#subsubchisqGOF"><i class="fa fa-check"></i><b>B.3.5</b> Chi-Squared Goodness of Fit Test</a></li>
+<li class="chapter" data-level="B.3.6" data-path="appidmsecfitDiscrete.html"><a href="appidmsecfitDiscrete.html#using-the-fitdistrplus-r-package-on-discrete-data"><i class="fa fa-check"></i><b>B.3.6</b> Using the fitdistrplus R Package on Discrete Data</a></li>
+<li class="chapter" data-level="B.3.7" data-path="appidmsecfitDiscrete.html"><a href="appidmsecfitDiscrete.html#fitting-a-discrete-empirical-distribution"><i class="fa fa-check"></i><b>B.3.7</b> Fitting a Discrete Empirical Distribution</a></li>
+</ul></li>
+<li class="chapter" data-level="B.4" data-path="appidmsecMCD.html"><a href="appidmsecMCD.html"><i class="fa fa-check"></i><b>B.4</b> Modeling with Continuous Distributions</a></li>
+<li class="chapter" data-level="B.5" data-path="appidmsecfitContinuous.html"><a href="appidmsecfitContinuous.html"><i class="fa fa-check"></i><b>B.5</b> Fitting Continuous Distributions</a>
+<ul>
+<li class="chapter" data-level="B.5.1" data-path="appidmsecfitContinuous.html"><a href="appidmsecfitContinuous.html#appidmsubsecvisualizedata"><i class="fa fa-check"></i><b>B.5.1</b> Visualizing the Data</a></li>
+<li class="chapter" data-level="B.5.2" data-path="appidmsecfitContinuous.html"><a href="appidmsecfitContinuous.html#appidmsubsecstatsdata"><i class="fa fa-check"></i><b>B.5.2</b> Statistically Summarize the Data</a></li>
+<li class="chapter" data-level="B.5.3" data-path="appidmsecfitContinuous.html"><a href="appidmsecfitContinuous.html#appidmsubsechypothDist"><i class="fa fa-check"></i><b>B.5.3</b> Hypothesizing and Testing a Distribution</a></li>
+<li class="chapter" data-level="B.5.4" data-path="appidmsecfitContinuous.html"><a href="appidmsecfitContinuous.html#kolmogorov-smirnov-test"><i class="fa fa-check"></i><b>B.5.4</b> Kolmogorov-Smirnov Test</a></li>
+<li class="chapter" data-level="B.5.5" data-path="appidmsecfitContinuous.html"><a href="appidmsecfitContinuous.html#appidmsubsecvisFit"><i class="fa fa-check"></i><b>B.5.5</b> Visualizing the Fit</a></li>
+<li class="chapter" data-level="B.5.6" data-path="appidmsecfitContinuous.html"><a href="appidmsecfitContinuous.html#appidms2sb3"><i class="fa fa-check"></i><b>B.5.6</b> Using the Input Analyzer</a></li>
+</ul></li>
+<li class="chapter" data-level="B.6" data-path="appdistfittestU01.html"><a href="appdistfittestU01.html"><i class="fa fa-check"></i><b>B.6</b> Testing Uniform (0,1) Pseudo-Random Numbers</a>
+<ul>
+<li class="chapter" data-level="B.6.1" data-path="appdistfittestU01.html"><a href="appdistfittestU01.html#chi-squared-goodness-of-fit-tests-for-pseudo-random-numbers"><i class="fa fa-check"></i><b>B.6.1</b> Chi-Squared Goodness of Fit Tests for Pseudo-Random Numbers</a></li>
+<li class="chapter" data-level="B.6.2" data-path="appdistfittestU01.html"><a href="appdistfittestU01.html#higher-dimensional-chi-squared-test"><i class="fa fa-check"></i><b>B.6.2</b> Higher Dimensional Chi-Squared Test</a></li>
+<li class="chapter" data-level="B.6.3" data-path="appdistfittestU01.html"><a href="appdistfittestU01.html#kolmogorov-smirnov-test-for-pseudo-random-numbers"><i class="fa fa-check"></i><b>B.6.3</b> Kolmogorov-Smirnov Test for Pseudo-Random Numbers</a></li>
+<li class="chapter" data-level="B.6.4" data-path="appdistfittestU01.html"><a href="appdistfittestU01.html#testing-for-independence-and-patterns-in-pseudo-random-numbers"><i class="fa fa-check"></i><b>B.6.4</b> Testing for Independence and Patterns in Pseudo-Random Numbers</a></li>
+</ul></li>
+<li class="chapter" data-level="B.7" data-path="appdistfitidms2sb4.html"><a href="appdistfitidms2sb4.html"><i class="fa fa-check"></i><b>B.7</b> Additional Distribution Modeling Concepts</a></li>
+<li class="chapter" data-level="B.8" data-path="appidmSummary.html"><a href="appidmSummary.html"><i class="fa fa-check"></i><b>B.8</b> Summary</a></li>
+<li class="chapter" data-level="B.9" data-path="exercises-11.html"><a href="exercises-11.html"><i class="fa fa-check"></i><b>B.9</b> Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="C" data-path="appqtAndInvT.html"><a href="appqtAndInvT.html"><i class="fa fa-check"></i><b>C</b> Queueing Theory</a>
+<ul>
+<li class="chapter" data-level="C.1" data-path="appqts1.html"><a href="appqts1.html"><i class="fa fa-check"></i><b>C.1</b> Single Line Queueing Stations</a>
+<ul>
+<li class="chapter" data-level="C.1.1" data-path="appqts1.html"><a href="appqts1.html#queueing-notation"><i class="fa fa-check"></i><b>C.1.1</b> Queueing Notation</a></li>
+<li class="chapter" data-level="C.1.2" data-path="appqts1.html"><a href="appqts1.html#littles-formula"><i class="fa fa-check"></i><b>C.1.2</b> Little’s Formula</a></li>
+<li class="chapter" data-level="C.1.3" data-path="appqts1.html"><a href="appqts1.html#appqts1sb1"><i class="fa fa-check"></i><b>C.1.3</b> Deriving Formulas for Markovian Single Queue Systems</a></li>
+</ul></li>
+<li class="chapter" data-level="C.2" data-path="appqts1sb2.html"><a href="appqts1sb2.html"><i class="fa fa-check"></i><b>C.2</b> Examples and Applications of Queueing Analysis</a>
+<ul>
+<li class="chapter" data-level="C.2.1" data-path="appqts1sb2.html"><a href="appqts1sb2.html#infinite-queue-examples"><i class="fa fa-check"></i><b>C.2.1</b> Infinite Queue Examples</a></li>
+<li class="chapter" data-level="C.2.2" data-path="appqts1sb2.html"><a href="appqts1sb2.html#finite-queue-examples"><i class="fa fa-check"></i><b>C.2.2</b> Finite Queue Examples</a></li>
+</ul></li>
+<li class="chapter" data-level="C.3" data-path="appqts1sb3.html"><a href="appqts1sb3.html"><i class="fa fa-check"></i><b>C.3</b> Non-Markovian Queues and Approximations</a></li>
+<li class="chapter" data-level="C.4" data-path="appqtsecformulas.html"><a href="appqtsecformulas.html"><i class="fa fa-check"></i><b>C.4</b> Summary of Queueing Formulas</a>
+<ul>
+<li class="chapter" data-level="C.4.1" data-path="appqtsecformulas.html"><a href="appqtsecformulas.html#mm1-queue"><i class="fa fa-check"></i><b>C.4.1</b> M/M/1 Queue</a></li>
+<li class="chapter" data-level="C.4.2" data-path="appqtsecformulas.html"><a href="appqtsecformulas.html#mmc-queue"><i class="fa fa-check"></i><b>C.4.2</b> M/M/c Queue</a></li>
+<li class="chapter" data-level="C.4.3" data-path="appqtsecformulas.html"><a href="appqtsecformulas.html#mmck-queue"><i class="fa fa-check"></i><b>C.4.3</b> M/M/c/k Queue</a></li>
+<li class="chapter" data-level="C.4.4" data-path="appqtsecformulas.html"><a href="appqtsecformulas.html#mgcc-queue"><i class="fa fa-check"></i><b>C.4.4</b> M/G/c/c Queue</a></li>
+<li class="chapter" data-level="C.4.5" data-path="appqtsecformulas.html"><a href="appqtsecformulas.html#mm1k-queue"><i class="fa fa-check"></i><b>C.4.5</b> M/M/1/k Queue</a></li>
+<li class="chapter" data-level="C.4.6" data-path="appqtsecformulas.html"><a href="appqtsecformulas.html#mmck-queue-1"><i class="fa fa-check"></i><b>C.4.6</b> M/M/c/k Queue</a></li>
+<li class="chapter" data-level="C.4.7" data-path="appqtsecformulas.html"><a href="appqtsecformulas.html#mm1kk-queue"><i class="fa fa-check"></i><b>C.4.7</b> M/M/1/k/k Queue</a></li>
+<li class="chapter" data-level="C.4.8" data-path="appqtsecformulas.html"><a href="appqtsecformulas.html#mmckk-queue"><i class="fa fa-check"></i><b>C.4.8</b> M/M/c/k/k Queue</a></li>
+</ul></li>
+<li class="chapter" data-level="C.5" data-path="exercises-12.html"><a href="exercises-12.html"><i class="fa fa-check"></i><b>C.5</b> Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="D" data-path="appUtilities.html"><a href="appUtilities.html"><i class="fa fa-check"></i><b>D</b> KSL Utility Packages</a>
+<ul>
+<li class="chapter" data-level="D.1" data-path="the-outputdirectory-class-and-ksl-object.html"><a href="the-outputdirectory-class-and-ksl-object.html"><i class="fa fa-check"></i><b>D.1</b> The <code>OutputDirectory</code> Class and <code>KSL</code> Object</a></li>
+<li class="chapter" data-level="D.2" data-path="logging-options.html"><a href="logging-options.html"><i class="fa fa-check"></i><b>D.2</b> Logging Options</a></li>
+<li class="chapter" data-level="D.3" data-path="the-kslfileutil-object.html"><a href="the-kslfileutil-object.html"><i class="fa fa-check"></i><b>D.3</b> The <code>KSLFileUtil</code> Object</a></li>
+<li class="chapter" data-level="D.4" data-path="appDCSVEtc.html"><a href="appDCSVEtc.html"><i class="fa fa-check"></i><b>D.4</b> CSV, Excel, and Tabular Data Files</a></li>
+<li class="chapter" data-level="D.5" data-path="dfUtil.html"><a href="dfUtil.html"><i class="fa fa-check"></i><b>D.5</b> The <code>DataFrameUtil</code> Object</a></li>
+<li class="chapter" data-level="D.6" data-path="ksl-database-utilities.html"><a href="ksl-database-utilities.html"><i class="fa fa-check"></i><b>D.6</b> KSL Database Utilities</a></li>
+<li class="chapter" data-level="D.7" data-path="appUtilitiesArrays.html"><a href="appUtilitiesArrays.html"><i class="fa fa-check"></i><b>D.7</b> Array Utilities</a></li>
+<li class="chapter" data-level="D.8" data-path="appPlotting.html"><a href="appPlotting.html"><i class="fa fa-check"></i><b>D.8</b> KSL Plotting Utilities</a></li>
+<li class="chapter" data-level="D.9" data-path="appExpDesign.html"><a href="appExpDesign.html"><i class="fa fa-check"></i><b>D.9</b> Experimental Design Utilities</a></li>
+<li class="chapter" data-level="D.10" data-path="appUtilitiesMisc.html"><a href="appUtilitiesMisc.html"><i class="fa fa-check"></i><b>D.10</b> Miscellaneous Utilities</a></li>
+</ul></li>
+<li class="chapter" data-level="E" data-path="distributions.html"><a href="distributions.html"><i class="fa fa-check"></i><b>E</b> Distributions</a>
+<ul>
+<li class="chapter" data-level="E.1" data-path="appDiscreteDistributions.html"><a href="appDiscreteDistributions.html"><i class="fa fa-check"></i><b>E.1</b> Discrete Distrbutions</a></li>
+<li class="chapter" data-level="E.2" data-path="appContinuousDistributions.html"><a href="appContinuousDistributions.html"><i class="fa fa-check"></i><b>E.2</b> Continuous Distrbutions</a></li>
+</ul></li>
+<li class="chapter" data-level="F" data-path="appStatTables.html"><a href="appStatTables.html"><i class="fa fa-check"></i><b>F</b> Statistical Tables</a></li>
+<li class="chapter" data-level="G" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i><b>G</b> References</a></li>
+<li class="divider"></li>
+<li><a href="https://bookdown.org" target="_blank">Published with bookdown</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Simulation Modeling using the Kotlin Simulation Library (KSL)</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="using-a-solver-on-a-problem" class="section level2 hasAnchor" number="10.7">
+<h2><span class="header-section-number">10.7</span> Using a Solver on a Problem<a href="using-a-solver-on-a-problem.html#using-a-solver-on-a-problem" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Section <a href="ch10ProbDefn.html#ch10ProbDefnExample">10.3.5</a> presented how to define a problem definition for a reorder point, reorder quantity inventory system. This section will use that problem definition to setup a cross-entropy solver and a random restart solver for optimizing the problem. Recall that the problem is to minimize the inventory ordering and holding costs subject to a fill-rate constraint. To use a solver, we need at a minimum the following:</p>
+<ul>
+<li>an instance of the <code>ProblemDefinition</code> class</li>
+<li>an instance of something that implements the <code>ModelBuilderIfc</code> interface</li>
+<li>an instance of the <code>EvaluatorIfc</code> interface</li>
+</ul>
+<p>The companion object of the <code>Solver</code> class provides factory functions that facilitate the creation of the available solvers with default configurations. The factory functions will create an evaluator for executing the model that is configured to run the simulations locally (within the same execution thread) and is configured to use a <code>MemorySolutionCache()</code> to store and reuse solutions requested by the solver.</p>
+<div id="illustrating-the-cross-entropy-solver" class="section level3 hasAnchor" number="10.7.1">
+<h3><span class="header-section-number">10.7.1</span> Illustrating the Cross-Entropy Solver<a href="using-a-solver-on-a-problem.html#illustrating-the-cross-entropy-solver" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>This section illustrates how to setup and run the cross-entropy solver for the reorder point, reorder quantity inventory model. Let’s start with a review of the factory function that facilitates the creation of a cross-entropy solver. The factory function requires a problem definition, something that will build the model, and the necessary parameters to construct the cross-entropy solver.</p>
+<div class="sourceCode" id="cb477"><pre class="sourceCode kt"><code class="sourceCode kotlin"><span id="cb477-1"><a href="using-a-solver-on-a-problem.html#cb477-1" tabindex="-1"></a>        <span class="kw">fun</span> <span class="fu">crossEntropySolver</span><span class="op">(</span></span>
+<span id="cb477-2"><a href="using-a-solver-on-a-problem.html#cb477-2" tabindex="-1"></a>            <span class="va">problemDefinition</span><span class="op">:</span> <span class="dt">ProblemDefinition</span><span class="op">,</span></span>
+<span id="cb477-3"><a href="using-a-solver-on-a-problem.html#cb477-3" tabindex="-1"></a>            <span class="va">modelBuilder</span><span class="op">:</span> <span class="dt">ModelBuilderIfc</span><span class="op">,</span></span>
+<span id="cb477-4"><a href="using-a-solver-on-a-problem.html#cb477-4" tabindex="-1"></a>            <span class="va">ceSampler</span><span class="op">:</span> <span class="dt">CESamplerIfc</span> <span class="op">=</span> CENormalSampler<span class="op">(</span>problemDefinition<span class="op">),</span></span>
+<span id="cb477-5"><a href="using-a-solver-on-a-problem.html#cb477-5" tabindex="-1"></a>            <span class="va">startingPoint</span><span class="op">:</span> <span class="dt">MutableMap</span>&lt;<span class="va">String</span><span class="op">,</span> <span class="va">Double</span>&gt;? <span class="op">=</span> null<span class="op">,</span></span>
+<span id="cb477-6"><a href="using-a-solver-on-a-problem.html#cb477-6" tabindex="-1"></a>            <span class="va">maxIterations</span><span class="op">:</span> <span class="dt">Int</span> <span class="op">=</span> defaultMaxNumberIterations<span class="op">,</span></span>
+<span id="cb477-7"><a href="using-a-solver-on-a-problem.html#cb477-7" tabindex="-1"></a>            <span class="va">replicationsPerEvaluation</span><span class="op">:</span> <span class="dt">Int</span> <span class="op">=</span> defaultReplicationsPerEvaluation<span class="op">,</span></span>
+<span id="cb477-8"><a href="using-a-solver-on-a-problem.html#cb477-8" tabindex="-1"></a>            <span class="va">solutionCache</span><span class="op">:</span> <span class="dt">SolutionCacheIfc</span> <span class="op">=</span> MemorySolutionCache<span class="op">(),</span></span>
+<span id="cb477-9"><a href="using-a-solver-on-a-problem.html#cb477-9" tabindex="-1"></a>            <span class="va">simulationRunCache</span><span class="op">:</span> <span class="dt">SimulationRunCacheIfc</span><span class="op">?</span> <span class="op">=</span> null<span class="op">,</span></span>
+<span id="cb477-10"><a href="using-a-solver-on-a-problem.html#cb477-10" tabindex="-1"></a>            <span class="va">printer</span><span class="op">:</span> <span class="op">(</span>(<span class="dt">Solver</span><span class="op">)</span> <span class="op">-&gt;</span> <span class="dt">Unit</span><span class="op">)</span>? <span class="op">=</span> <span class="kw">null</span><span class="op">,</span></span>
+<span id="cb477-11"><a href="using-a-solver-on-a-problem.html#cb477-11" tabindex="-1"></a>            experimentRunParameters<span class="op">:</span> ExperimentRunParametersIfc<span class="op">?</span> <span class="op">=</span> <span class="kw">null</span><span class="op">,</span></span>
+<span id="cb477-12"><a href="using-a-solver-on-a-problem.html#cb477-12" tabindex="-1"></a>            defaultKSLDatabaseObserverOption<span class="op">:</span> <span class="kw">Boolean</span> <span class="op">=</span> <span class="kw">false</span></span>
+<span id="cb477-13"><a href="using-a-solver-on-a-problem.html#cb477-13" tabindex="-1"></a>        <span class="op">):</span> CrossEntropySolver <span class="op">{</span></span>
+<span id="cb477-14"><a href="using-a-solver-on-a-problem.html#cb477-14" tabindex="-1"></a>            <span class="kw">val</span> <span class="va">evaluator</span> <span class="op">=</span> Evaluator<span class="op">.</span>createProblemEvaluator<span class="op">(</span></span>
+<span id="cb477-15"><a href="using-a-solver-on-a-problem.html#cb477-15" tabindex="-1"></a>                problemDefinition <span class="op">=</span> problemDefinition<span class="op">,</span> modelBuilder <span class="op">=</span> modelBuilder<span class="op">,</span> solutionCache <span class="op">=</span> solutionCache<span class="op">,</span></span>
+<span id="cb477-16"><a href="using-a-solver-on-a-problem.html#cb477-16" tabindex="-1"></a>                simulationRunCache <span class="op">=</span> simulationRunCache<span class="op">,</span> experimentRunParameters <span class="op">=</span> experimentRunParameters<span class="op">,</span></span>
+<span id="cb477-17"><a href="using-a-solver-on-a-problem.html#cb477-17" tabindex="-1"></a>                defaultKSLDatabaseObserverOption <span class="op">=</span> defaultKSLDatabaseObserverOption</span>
+<span id="cb477-18"><a href="using-a-solver-on-a-problem.html#cb477-18" tabindex="-1"></a>            <span class="op">)</span></span>
+<span id="cb477-19"><a href="using-a-solver-on-a-problem.html#cb477-19" tabindex="-1"></a>            <span class="kw">val</span> <span class="va">ce</span> <span class="op">=</span> CrossEntropySolver<span class="op">(</span></span>
+<span id="cb477-20"><a href="using-a-solver-on-a-problem.html#cb477-20" tabindex="-1"></a>                problemDefinition <span class="op">=</span> problemDefinition<span class="op">,</span></span>
+<span id="cb477-21"><a href="using-a-solver-on-a-problem.html#cb477-21" tabindex="-1"></a>                evaluator <span class="op">=</span> evaluator<span class="op">,</span></span>
+<span id="cb477-22"><a href="using-a-solver-on-a-problem.html#cb477-22" tabindex="-1"></a>                ceSampler <span class="op">=</span> ceSampler<span class="op">,</span></span>
+<span id="cb477-23"><a href="using-a-solver-on-a-problem.html#cb477-23" tabindex="-1"></a>                maxIterations <span class="op">=</span> maxIterations<span class="op">,</span></span>
+<span id="cb477-24"><a href="using-a-solver-on-a-problem.html#cb477-24" tabindex="-1"></a>                replicationsPerEvaluation <span class="op">=</span> replicationsPerEvaluation</span>
+<span id="cb477-25"><a href="using-a-solver-on-a-problem.html#cb477-25" tabindex="-1"></a>            <span class="op">)</span></span>
+<span id="cb477-26"><a href="using-a-solver-on-a-problem.html#cb477-26" tabindex="-1"></a>            <span class="cf">if</span> <span class="op">(</span>startingPoint <span class="op">!=</span> <span class="kw">null</span><span class="op">)</span> <span class="op">{</span></span>
+<span id="cb477-27"><a href="using-a-solver-on-a-problem.html#cb477-27" tabindex="-1"></a>                ce<span class="op">.</span>startingPoint <span class="op">=</span> evaluator<span class="op">.</span>problemDefinition<span class="op">.</span>toInputMap<span class="op">(</span>startingPoint<span class="op">)</span></span>
+<span id="cb477-28"><a href="using-a-solver-on-a-problem.html#cb477-28" tabindex="-1"></a>            <span class="op">}</span></span>
+<span id="cb477-29"><a href="using-a-solver-on-a-problem.html#cb477-29" tabindex="-1"></a>            printer<span class="op">?.</span>let <span class="op">{</span> ce<span class="op">.</span>emitter<span class="op">.</span>attach<span class="op">(</span>it<span class="op">)</span> <span class="op">}</span></span>
+<span id="cb477-30"><a href="using-a-solver-on-a-problem.html#cb477-30" tabindex="-1"></a>            <span class="kw">return</span> ce</span>
+<span id="cb477-31"><a href="using-a-solver-on-a-problem.html#cb477-31" tabindex="-1"></a>        <span class="op">}</span></span></code></pre></div>
+<p>Notice the factory function allows passing through key parameters for both the construction of the evaluator and the solver. The evaluator is setup with the problem definition and the model builder. The rest of the parameters for the creation of the evaluator use the defaults.</p>
+<p>One useful parameter of this function is the <code>printer</code> parameter, which allows for the attachment of a function that will react to the emission of solutions found during the iterations of the solver. Notice that the <code>printer</code> parameter is a function that has a <code>Solver</code> as a parameter and does not return anything. Thus, instead of printing the emitted solutions, we could save them to a file or perform more complex functionality. We will supply a simple printer function as part of this discussion. Every solver implements the <code>SolverEmitterIfc</code> interface and is supplied a default emitter. The line involving the <code>printer</code> parameter tells the constructed solver to use its emitter to attach the printer. This is similar to the observer/observable pattern common in many software architectures.</p>
+<div class="sourceCode" id="cb478"><pre class="sourceCode kt"><code class="sourceCode kotlin"><span id="cb478-1"><a href="using-a-solver-on-a-problem.html#cb478-1" tabindex="-1"></a>printer<span class="op">?.</span>let <span class="op">{</span> ce<span class="op">.</span>emitter<span class="op">.</span>attach<span class="op">(</span>it<span class="op">)</span> <span class="op">}</span></span></code></pre></div>
+<p>The following code defines an object that implements the <code>ModelBuilderIfc</code> interface. This code is very similar to the code used to create models throughout the textbook. For this simple example, there will not be a need to use the parameters passed to the <code>build()</code> function. One important item to note is that the settings of the run parameters (length of warm up and the length of the replications) will stay as specified in this function; however, these base settings could be changed during the building process. The solver architecture via the previously described <code>EvaluationRequest</code> class only permits the changing of the number of replications. So, once a model is built, and provided to the solver, its basic configuration cannot be changed except for inputs and number of replications.</p>
+<div class="sourceCode" id="cb479"><pre class="sourceCode kt"><code class="sourceCode kotlin"><span id="cb479-1"><a href="using-a-solver-on-a-problem.html#cb479-1" tabindex="-1"></a><span class="kw">object</span> BuildRQModel <span class="op">:</span> <span class="dt">ModelBuilderIfc</span> <span class="op">{</span></span>
+<span id="cb479-2"><a href="using-a-solver-on-a-problem.html#cb479-2" tabindex="-1"></a>    <span class="kw">override</span> <span class="kw">fun</span> <span class="fu">build</span><span class="op">(</span></span>
+<span id="cb479-3"><a href="using-a-solver-on-a-problem.html#cb479-3" tabindex="-1"></a>        <span class="va">modelConfiguration</span><span class="op">:</span> <span class="dt">Map</span>&lt;<span class="va">String</span><span class="op">,</span> <span class="va">String</span>&gt;?<span class="op">,</span></span>
+<span id="cb479-4"><a href="using-a-solver-on-a-problem.html#cb479-4" tabindex="-1"></a>        <span class="va">experimentRunParameters</span><span class="op">:</span> <span class="dt">ExperimentRunParametersIfc</span><span class="op">?,</span></span>
+<span id="cb479-5"><a href="using-a-solver-on-a-problem.html#cb479-5" tabindex="-1"></a>        <span class="va">defaultKSLDatabaseObserverOption</span><span class="op">:</span> <span class="dt">Boolean</span></span>
+<span id="cb479-6"><a href="using-a-solver-on-a-problem.html#cb479-6" tabindex="-1"></a>    <span class="op">):</span> <span class="dt">Model</span> <span class="op">{</span></span>
+<span id="cb479-7"><a href="using-a-solver-on-a-problem.html#cb479-7" tabindex="-1"></a>        <span class="kw">val</span> <span class="va">reorderQty</span><span class="op">:</span> <span class="kw">Int</span> <span class="op">=</span> <span class="dv">2</span></span>
+<span id="cb479-8"><a href="using-a-solver-on-a-problem.html#cb479-8" tabindex="-1"></a>        <span class="kw">val</span> <span class="va">reorderPoint</span><span class="op">:</span> <span class="kw">Int</span> <span class="op">=</span> <span class="dv">1</span></span>
+<span id="cb479-9"><a href="using-a-solver-on-a-problem.html#cb479-9" tabindex="-1"></a>        <span class="kw">val</span> <span class="va">model</span> <span class="op">=</span> Model<span class="op">(</span><span class="st">&quot;RQInventoryModel&quot;</span><span class="op">)</span></span>
+<span id="cb479-10"><a href="using-a-solver-on-a-problem.html#cb479-10" tabindex="-1"></a>        <span class="kw">val</span> <span class="va">rqModel</span> <span class="op">=</span> RQInventorySystem<span class="op">(</span>model<span class="op">,</span> reorderPoint<span class="op">,</span> reorderQty<span class="op">,</span> <span class="st">&quot;Inventory&quot;</span><span class="op">)</span></span>
+<span id="cb479-11"><a href="using-a-solver-on-a-problem.html#cb479-11" tabindex="-1"></a>        rqModel<span class="op">.</span>initialOnHand <span class="op">=</span> <span class="dv">0</span></span>
+<span id="cb479-12"><a href="using-a-solver-on-a-problem.html#cb479-12" tabindex="-1"></a>        rqModel<span class="op">.</span>demandGenerator<span class="op">.</span>initialTimeBtwEvents <span class="op">=</span> ExponentialRV<span class="op">(</span><span class="fl">1.0</span> <span class="op">/</span> <span class="fl">3.6</span><span class="op">)</span></span>
+<span id="cb479-13"><a href="using-a-solver-on-a-problem.html#cb479-13" tabindex="-1"></a>        rqModel<span class="op">.</span>leadTime<span class="op">.</span>initialRandomSource <span class="op">=</span> ConstantRV<span class="op">(</span><span class="fl">0.5</span><span class="op">)</span></span>
+<span id="cb479-14"><a href="using-a-solver-on-a-problem.html#cb479-14" tabindex="-1"></a>        model<span class="op">.</span>lengthOfReplication <span class="op">=</span> <span class="fl">20000.0</span></span>
+<span id="cb479-15"><a href="using-a-solver-on-a-problem.html#cb479-15" tabindex="-1"></a>        model<span class="op">.</span>lengthOfReplicationWarmUp <span class="op">=</span> <span class="fl">10000.0</span></span>
+<span id="cb479-16"><a href="using-a-solver-on-a-problem.html#cb479-16" tabindex="-1"></a>        model<span class="op">.</span>numberOfReplications <span class="op">=</span> <span class="dv">40</span></span>
+<span id="cb479-17"><a href="using-a-solver-on-a-problem.html#cb479-17" tabindex="-1"></a>        <span class="cf">if</span> <span class="op">(</span>defaultKSLDatabaseObserverOption<span class="op">)</span> <span class="op">{</span></span>
+<span id="cb479-18"><a href="using-a-solver-on-a-problem.html#cb479-18" tabindex="-1"></a>            model<span class="op">.</span>createDefaultDatabaseObserver<span class="op">()</span></span>
+<span id="cb479-19"><a href="using-a-solver-on-a-problem.html#cb479-19" tabindex="-1"></a>        <span class="op">}</span></span>
+<span id="cb479-20"><a href="using-a-solver-on-a-problem.html#cb479-20" tabindex="-1"></a>        <span class="kw">return</span> model</span>
+<span id="cb479-21"><a href="using-a-solver-on-a-problem.html#cb479-21" tabindex="-1"></a>    <span class="op">}</span></span>
+<span id="cb479-22"><a href="using-a-solver-on-a-problem.html#cb479-22" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
+<p>To specify the printing of results, we need to write the function to print the results. This code is setup to handle the situation of a random restart solver so that the emissions from both solvers can be printed.</p>
+<div class="sourceCode" id="cb480"><pre class="sourceCode kt"><code class="sourceCode kotlin"><span id="cb480-1"><a href="using-a-solver-on-a-problem.html#cb480-1" tabindex="-1"></a><span class="kw">fun</span> <span class="fu">printRQInventoryModel</span><span class="op">(</span><span class="va">solver</span><span class="op">:</span> <span class="dt">Solver</span><span class="op">)</span> <span class="op">{</span></span>
+<span id="cb480-2"><a href="using-a-solver-on-a-problem.html#cb480-2" tabindex="-1"></a>    println<span class="op">(</span><span class="st">&quot;**** iteration = </span><span class="ss">${</span>solver<span class="op">.</span>iterationCounter<span class="ss">}</span><span class="st"> ************************************&quot;</span><span class="op">)</span></span>
+<span id="cb480-3"><a href="using-a-solver-on-a-problem.html#cb480-3" tabindex="-1"></a>    <span class="cf">if</span> <span class="op">(</span>solver <span class="kw">is</span> RandomRestartSolver<span class="op">){</span></span>
+<span id="cb480-4"><a href="using-a-solver-on-a-problem.html#cb480-4" tabindex="-1"></a>        <span class="kw">val</span> <span class="va">rs</span> <span class="op">=</span> solver<span class="op">.</span>restartingSolver</span>
+<span id="cb480-5"><a href="using-a-solver-on-a-problem.html#cb480-5" tabindex="-1"></a>        <span class="kw">val</span> <span class="va">initialSolution</span> <span class="op">=</span> rs<span class="op">.</span>initialSolution</span>
+<span id="cb480-6"><a href="using-a-solver-on-a-problem.html#cb480-6" tabindex="-1"></a>        <span class="cf">if</span> <span class="op">(</span>initialSolution <span class="op">!=</span> <span class="kw">null</span><span class="op">)</span> <span class="op">{</span></span>
+<span id="cb480-7"><a href="using-a-solver-on-a-problem.html#cb480-7" tabindex="-1"></a>            <span class="kw">val</span> <span class="va">q</span> <span class="op">=</span> initialSolution<span class="op">.</span>inputMap<span class="op">[</span><span class="st">&quot;Inventory:Item.initialReorderQty&quot;</span><span class="op">]</span></span>
+<span id="cb480-8"><a href="using-a-solver-on-a-problem.html#cb480-8" tabindex="-1"></a>            <span class="kw">val</span> <span class="va">rp</span> <span class="op">=</span> initialSolution<span class="op">.</span>inputMap<span class="op">[</span><span class="st">&quot;Inventory:Item.initialReorderPoint&quot;</span><span class="op">]</span></span>
+<span id="cb480-9"><a href="using-a-solver-on-a-problem.html#cb480-9" tabindex="-1"></a>            <span class="kw">val</span> <span class="va">fillRate</span> <span class="op">=</span> initialSolution<span class="op">.</span>responseEstimatesMap<span class="op">[</span><span class="st">&quot;Inventory:Item:FillRate&quot;</span><span class="op">]!!.</span>average</span>
+<span id="cb480-10"><a href="using-a-solver-on-a-problem.html#cb480-10" tabindex="-1"></a>            println<span class="op">(</span><span class="st">&quot;initial solution: id = </span><span class="ss">${</span>initialSolution<span class="op">.</span>id<span class="ss">}</span><span class="st">&quot;</span><span class="op">)</span></span>
+<span id="cb480-11"><a href="using-a-solver-on-a-problem.html#cb480-11" tabindex="-1"></a>            println<span class="op">(</span><span class="st">&quot;n = </span><span class="ss">${</span>initialSolution<span class="op">.</span>count<span class="ss">}</span><span class="st"> : objFnc = </span><span class="ss">${</span>initialSolution<span class="op">.</span>estimatedObjFncValue<span class="ss">}</span><span class="st"> </span><span class="sc">\t</span><span class="st"> q = </span><span class="ss">$q</span><span class="st"> </span><span class="sc">\t</span><span class="st"> r = </span><span class="ss">$rp</span><span class="st"> </span><span class="sc">\t</span><span class="st"> penalized objFnc = </span><span class="ss">${</span>initialSolution<span class="op">.</span>penalizedObjFncValue<span class="ss">}</span><span class="st"> </span><span class="sc">\t</span><span class="st"> fillrate = </span><span class="ss">$fillRate</span><span class="st">&quot;</span><span class="op">)</span></span>
+<span id="cb480-12"><a href="using-a-solver-on-a-problem.html#cb480-12" tabindex="-1"></a>        <span class="op">}</span></span>
+<span id="cb480-13"><a href="using-a-solver-on-a-problem.html#cb480-13" tabindex="-1"></a>    <span class="op">}</span></span>
+<span id="cb480-14"><a href="using-a-solver-on-a-problem.html#cb480-14" tabindex="-1"></a>    <span class="kw">val</span> <span class="va">solution</span> <span class="op">=</span> solver<span class="op">.</span>currentSolution</span>
+<span id="cb480-15"><a href="using-a-solver-on-a-problem.html#cb480-15" tabindex="-1"></a>    <span class="kw">val</span> <span class="va">q</span> <span class="op">=</span> solution<span class="op">.</span>inputMap<span class="op">[</span><span class="st">&quot;Inventory:Item.initialReorderQty&quot;</span><span class="op">]</span></span>
+<span id="cb480-16"><a href="using-a-solver-on-a-problem.html#cb480-16" tabindex="-1"></a>    <span class="kw">val</span> <span class="va">rp</span> <span class="op">=</span> solution<span class="op">.</span>inputMap<span class="op">[</span><span class="st">&quot;Inventory:Item.initialReorderPoint&quot;</span><span class="op">]</span></span>
+<span id="cb480-17"><a href="using-a-solver-on-a-problem.html#cb480-17" tabindex="-1"></a>    <span class="kw">val</span> <span class="va">fillRate</span> <span class="op">=</span> solution<span class="op">.</span>responseEstimatesMap<span class="op">[</span><span class="st">&quot;Inventory:Item:FillRate&quot;</span><span class="op">]!!.</span>average</span>
+<span id="cb480-18"><a href="using-a-solver-on-a-problem.html#cb480-18" tabindex="-1"></a>    println<span class="op">(</span><span class="st">&quot;solution: id = </span><span class="ss">${</span>solution<span class="op">.</span>id<span class="ss">}</span><span class="st">&quot;</span><span class="op">)</span></span>
+<span id="cb480-19"><a href="using-a-solver-on-a-problem.html#cb480-19" tabindex="-1"></a>    println<span class="op">(</span><span class="st">&quot;n = </span><span class="ss">${</span>solution<span class="op">.</span>count<span class="ss">}</span><span class="st"> : objFnc = </span><span class="ss">${</span>solution<span class="op">.</span>estimatedObjFncValue<span class="ss">}</span><span class="st"> </span><span class="sc">\t</span><span class="st"> q = </span><span class="ss">$q</span><span class="st"> </span><span class="sc">\t</span><span class="st"> r = </span><span class="ss">$rp</span><span class="st"> </span><span class="sc">\t</span><span class="st"> penalized objFnc = </span><span class="ss">${</span>solution<span class="op">.</span>penalizedObjFncValue<span class="ss">}</span><span class="st"> </span><span class="sc">\t</span><span class="st"> fillrate = </span><span class="ss">$fillRate</span><span class="st"> &quot;</span><span class="op">)</span></span>
+<span id="cb480-20"><a href="using-a-solver-on-a-problem.html#cb480-20" tabindex="-1"></a>    println<span class="op">(</span><span class="st">&quot;********************************************************************************&quot;</span><span class="op">)</span></span>
+<span id="cb480-21"><a href="using-a-solver-on-a-problem.html#cb480-21" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
+<p>Now we can construct the solver and run it. The following code provides a function for constructing and running the iterations of a solver and for printing out results from the optimization process.</p>
+<div class="sourceCode" id="cb481"><pre class="sourceCode kt"><code class="sourceCode kotlin"><span id="cb481-1"><a href="using-a-solver-on-a-problem.html#cb481-1" tabindex="-1"></a><span class="kw">fun</span> <span class="fu">runCESolver</span><span class="op">(</span></span>
+<span id="cb481-2"><a href="using-a-solver-on-a-problem.html#cb481-2" tabindex="-1"></a>    <span class="va">simulationRunCache</span><span class="op">:</span> <span class="dt">SimulationRunCacheIfc</span><span class="op">?</span> <span class="op">=</span> null<span class="op">,</span></span>
+<span id="cb481-3"><a href="using-a-solver-on-a-problem.html#cb481-3" tabindex="-1"></a>    <span class="va">experimentRunParameters</span><span class="op">:</span> <span class="dt">ExperimentRunParametersIfc</span><span class="op">?</span> <span class="op">=</span> null<span class="op">,</span></span>
+<span id="cb481-4"><a href="using-a-solver-on-a-problem.html#cb481-4" tabindex="-1"></a>    <span class="va">defaultKSLDatabaseObserverOption</span><span class="op">:</span> <span class="dt">Boolean</span> <span class="op">=</span> false</span>
+<span id="cb481-5"><a href="using-a-solver-on-a-problem.html#cb481-5" tabindex="-1"></a><span class="op">)</span> <span class="op">{</span></span>
+<span id="cb481-6"><a href="using-a-solver-on-a-problem.html#cb481-6" tabindex="-1"></a>    <span class="kw">val</span> <span class="va">problemDefinition</span> <span class="op">=</span> makeRQInventoryModelProblemDefinition<span class="op">()</span></span>
+<span id="cb481-7"><a href="using-a-solver-on-a-problem.html#cb481-7" tabindex="-1"></a>    <span class="kw">val</span> <span class="va">modelBuilder</span> <span class="op">=</span> BuildRQModel</span>
+<span id="cb481-8"><a href="using-a-solver-on-a-problem.html#cb481-8" tabindex="-1"></a>    <span class="kw">val</span> <span class="va">printer</span> <span class="op">=</span> <span class="op">::</span>printRQInventoryModel</span>
+<span id="cb481-9"><a href="using-a-solver-on-a-problem.html#cb481-9" tabindex="-1"></a></span>
+<span id="cb481-10"><a href="using-a-solver-on-a-problem.html#cb481-10" tabindex="-1"></a>    <span class="kw">val</span> <span class="va">solver</span> <span class="op">=</span> Solver<span class="op">.</span>crossEntropySolver<span class="op">(</span></span>
+<span id="cb481-11"><a href="using-a-solver-on-a-problem.html#cb481-11" tabindex="-1"></a>        problemDefinition <span class="op">=</span> problemDefinition<span class="op">,</span></span>
+<span id="cb481-12"><a href="using-a-solver-on-a-problem.html#cb481-12" tabindex="-1"></a>        modelBuilder <span class="op">=</span> modelBuilder<span class="op">,</span></span>
+<span id="cb481-13"><a href="using-a-solver-on-a-problem.html#cb481-13" tabindex="-1"></a>        startingPoint <span class="op">=</span> <span class="kw">null</span><span class="op">,</span></span>
+<span id="cb481-14"><a href="using-a-solver-on-a-problem.html#cb481-14" tabindex="-1"></a>        maxIterations <span class="op">=</span> <span class="dv">100</span><span class="op">,</span></span>
+<span id="cb481-15"><a href="using-a-solver-on-a-problem.html#cb481-15" tabindex="-1"></a>        replicationsPerEvaluation <span class="op">=</span> <span class="dv">50</span><span class="op">,</span></span>
+<span id="cb481-16"><a href="using-a-solver-on-a-problem.html#cb481-16" tabindex="-1"></a>        printer <span class="op">=</span> printer<span class="op">,</span></span>
+<span id="cb481-17"><a href="using-a-solver-on-a-problem.html#cb481-17" tabindex="-1"></a>        simulationRunCache <span class="op">=</span> simulationRunCache<span class="op">,</span></span>
+<span id="cb481-18"><a href="using-a-solver-on-a-problem.html#cb481-18" tabindex="-1"></a>        experimentRunParameters <span class="op">=</span> experimentRunParameters<span class="op">,</span></span>
+<span id="cb481-19"><a href="using-a-solver-on-a-problem.html#cb481-19" tabindex="-1"></a>        defaultKSLDatabaseObserverOption <span class="op">=</span> defaultKSLDatabaseObserverOption</span>
+<span id="cb481-20"><a href="using-a-solver-on-a-problem.html#cb481-20" tabindex="-1"></a>    <span class="op">)</span></span>
+<span id="cb481-21"><a href="using-a-solver-on-a-problem.html#cb481-21" tabindex="-1"></a>    solver<span class="op">.</span>runAllIterations<span class="op">()</span></span>
+<span id="cb481-22"><a href="using-a-solver-on-a-problem.html#cb481-22" tabindex="-1"></a>    println<span class="op">()</span></span>
+<span id="cb481-23"><a href="using-a-solver-on-a-problem.html#cb481-23" tabindex="-1"></a>    println<span class="op">(</span><span class="st">&quot;Solver Results:&quot;</span><span class="op">)</span></span>
+<span id="cb481-24"><a href="using-a-solver-on-a-problem.html#cb481-24" tabindex="-1"></a>    println<span class="op">(</span>solver<span class="op">)</span></span>
+<span id="cb481-25"><a href="using-a-solver-on-a-problem.html#cb481-25" tabindex="-1"></a>    println<span class="op">()</span></span>
+<span id="cb481-26"><a href="using-a-solver-on-a-problem.html#cb481-26" tabindex="-1"></a>    println<span class="op">(</span><span class="st">&quot;Final Solution:&quot;</span><span class="op">)</span></span>
+<span id="cb481-27"><a href="using-a-solver-on-a-problem.html#cb481-27" tabindex="-1"></a>    println<span class="op">(</span>solver<span class="op">.</span>bestSolution<span class="op">.</span>asString<span class="op">())</span></span>
+<span id="cb481-28"><a href="using-a-solver-on-a-problem.html#cb481-28" tabindex="-1"></a>    println<span class="op">()</span></span>
+<span id="cb481-29"><a href="using-a-solver-on-a-problem.html#cb481-29" tabindex="-1"></a>    println<span class="op">(</span><span class="st">&quot;Approximate screening:&quot;</span><span class="op">)</span></span>
+<span id="cb481-30"><a href="using-a-solver-on-a-problem.html#cb481-30" tabindex="-1"></a>    <span class="kw">val</span> <span class="va">solutions</span> <span class="op">=</span> solver<span class="op">.</span>bestSolutions<span class="op">.</span>possiblyBest<span class="op">()</span></span>
+<span id="cb481-31"><a href="using-a-solver-on-a-problem.html#cb481-31" tabindex="-1"></a>    println<span class="op">(</span>solutions<span class="op">)</span></span>
+<span id="cb481-32"><a href="using-a-solver-on-a-problem.html#cb481-32" tabindex="-1"></a>    println<span class="op">(</span><span class="st">&quot;Dataframe&quot;</span><span class="op">)</span></span>
+<span id="cb481-33"><a href="using-a-solver-on-a-problem.html#cb481-33" tabindex="-1"></a>    <span class="kw">val</span> <span class="va">df</span> <span class="op">=</span> solver<span class="op">.</span>bestSolutions<span class="op">.</span>toDataFrame<span class="op">()</span></span>
+<span id="cb481-34"><a href="using-a-solver-on-a-problem.html#cb481-34" tabindex="-1"></a>    df<span class="op">.</span>schema<span class="op">().</span>print<span class="op">()</span></span>
+<span id="cb481-35"><a href="using-a-solver-on-a-problem.html#cb481-35" tabindex="-1"></a>    df<span class="op">.</span>print<span class="op">()</span></span>
+<span id="cb481-36"><a href="using-a-solver-on-a-problem.html#cb481-36" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
+<p>The required problem definition is supplied by the previously reviewed <code>makeRQInventoryModelProblemDefinition()</code> function, the model builder is supplied by the object that builds the model, and the printer is specified as the provided printing function. The cross-entropy solver is constructed and all the iterations of the solver are executed. Note that even though the maximum number of iteration was specified as 100, the actual number of iterations may be less due to the stopping criteria. Solvers have a useful <code>toString()</code> method and also provide functions and properties to examine the solutions.</p>
+<p>Let’s take a look at some of the emitted solutions.</p>
+<pre><code>**** iteration = 1 ************************************
+solution: id = 27
+n = 50.0 : objFnc = 10.799191735323431   q = 1.0     r = 8.0     penalized objFnc = 10.799191735323431   fillrate = 0.9998949093510683 
+********************************************************************************
+**** iteration = 2 ************************************
+solution: id = 64
+n = 50.0 : objFnc = 6.813700138425201    q = 1.0     r = 4.0     penalized objFnc = 6.813700138425201    fillrate = 0.963396108753269 
+********************************************************************************
+**** iteration = 3 ************************************
+solution: id = 89
+n = 50.0 : objFnc = 5.405770841050546    q = 3.0     r = 4.0     penalized objFnc = 5.405770841050546    fillrate = 0.9835876248620253 
+********************************************************************************</code></pre>
+<p>We see that the solution is improving over the first 3 iterations and that the fill rate constraint is satisfied. As shown for iterations 28 through 34, we see solutions might not always improve; however, we see that the last 5 solutions are the same and thus the cross-entropy solver will stop.</p>
+<pre><code>**** iteration = 28 ************************************
+solution: id = 346
+n = 50.0 : objFnc = 4.933739982242459    q = 5.0     r = 3.0     penalized objFnc = 4.933739982242459    fillrate = 0.9681095923274622 
+********************************************************************************
+**** iteration = 29 ************************************
+solution: id = 213
+n = 50.0 : objFnc = 5.508897772861848    q = 2.0     r = 4.0     penalized objFnc = 5.508897772861848    fillrate = 0.9768196645340352 
+********************************************************************************
+**** iteration = 30 ************************************
+solution: id = 446
+n = 50.0 : objFnc = 4.616279897738635    q = 4.0     r = 3.0     penalized objFnc = 4.616279897738635    fillrate = 0.9605229975268885 
+********************************************************************************
+**** iteration = 31 ************************************
+solution: id = 446
+n = 50.0 : objFnc = 4.616279897738635    q = 4.0     r = 3.0     penalized objFnc = 4.616279897738635    fillrate = 0.9605229975268885 
+********************************************************************************
+**** iteration = 32 ************************************
+solution: id = 446
+n = 50.0 : objFnc = 4.616279897738635    q = 4.0     r = 3.0     penalized objFnc = 4.616279897738635    fillrate = 0.9605229975268885 
+********************************************************************************
+**** iteration = 33 ************************************
+solution: id = 446
+n = 50.0 : objFnc = 4.616279897738635    q = 4.0     r = 3.0     penalized objFnc = 4.616279897738635    fillrate = 0.9605229975268885 
+********************************************************************************
+**** iteration = 34 ************************************
+solution: id = 446
+n = 50.0 : objFnc = 4.616279897738635    q = 4.0     r = 3.0     penalized objFnc = 4.616279897738635    fillrate = 0.9605229975268885 
+********************************************************************************</code></pre>
+<p>The <code>toString()</code> function prints out the final results of the solver and its basic parameter settings. It took about 5 minutes of execution time for the solver to converge, with a total fo 1020 simulation calls and 51000 replications executed.</p>
+<pre><code>Solver Results:
+Cross-Entropy Solver with parameters: 
+Elite Pct: 0.1
+No improvement threshold: 5
+CE Sample Size: 35
+Elite Size: 5
+CE Sampler:
+CENormalSampler
+streamNumber = 1
+dimension = 2
+variabilityFactor = 1.0
+meanSmoother = 0.85
+sdSmoother = 0.85
+coefficient of variation threshold = 0.03
+mean values = [4.423515385086519, 3.8787077250760036]
+standard deviations = [2.112587139353944, 0.8138046208457131]
+std deviation thresholds = [0.13270546155259558, 0.11636123175228011]
+Have standard deviation thresholds converge? = false
+==================================================================
+Solver name = ID_46
+Replications Per Evaluation = Fixed replications per evaluation: 50
+Ensure Problem Feasible Requests = false
+Maximum Number Iterations = 100
+Begin Execution Time = 2025-09-15T19:54:19.338208Z
+End Execution Time = 2025-09-15T19:59:39.355562Z
+Elapsed Execution Time = 5m 20.017354s
+Number of simulation calls = 1020
+Number of replications requested = 51000
+==================================================================
+Current Solution:
+Solution id = 446
+evaluation number = 22
+objective function value = 4.616279897738635
+penalized objective function = 4.616279897738635
+granular function value = 4.616279897738635
+penality function value = 0.0
+Inputs:
+Name = Inventory:Item.initialReorderQty = 4.0)
+Name = Inventory:Item.initialReorderPoint = 3.0)
+Estimated Objective Function:
+name = Inventory:Item:OrderingAndHoldingCost
+average = 4.616279897738635
+variance = 4.2126312844488165E-5
+count = 50.0
+Response Constraints:
+Inventory:Item:FillRate: LHS = 0.9605229975268885 &gt;= RHS = 0.95 : (LHS-RHS) = 0.010522997526888567
+
+Previous solution penalized objective function value (POFV) = 4.616279897738635
+Current solution POFV - Previous solution POFV  = 0.0
+==================================================================
+Best Solutions Found:
+id = 446 : n = 50.0 : objFnc = 4.616279897738635 : 95%ci = [4.614435324122555, 4.618124471354715] : inputs : 4.0, 3.0 
+id = 346 : n = 50.0 : objFnc = 4.933739982242459 : 95%ci = [4.931164260295049, 4.936315704189869] : inputs : 5.0, 3.0 
+id = 458 : n = 50.0 : objFnc = 5.310563363995046 : 95%ci = [5.307489409147018, 5.313637318843074] : inputs : 6.0, 3.0 
+id = 89 : n = 50.0 : objFnc = 5.405770841050546 : 95%ci = [5.404227591025683, 5.407314091075409] : inputs : 3.0, 4.0 
+id = 213 : n = 50.0 : objFnc = 5.508897772861848 : 95%ci = [5.508281507870848, 5.509514037852847] : inputs : 2.0, 4.0 
+id = 417 : n = 50.0 : objFnc = 5.604303895271229 : 95%ci = [5.601951343786538, 5.606656446755921] : inputs : 4.0, 4.0 
+id = 382 : n = 50.0 : objFnc = 5.922447519514469 : 95%ci = [5.920115184447707, 5.924779854581231] : inputs : 5.0, 4.0 
+id = 399 : n = 50.0 : objFnc = 6.160531680487158 : 95%ci = [6.156322093895311, 6.1647412670790045] : inputs : 8.0, 3.0 
+id = 291 : n = 50.0 : objFnc = 6.5511923736709265 : 95%ci = [6.546115066629831, 6.556269680712022] : inputs : 11.0, 2.0 
+id = 64 : n = 50.0 : objFnc = 6.813700138425201 : 95%ci = [6.810408603713308, 6.816991673137094] : inputs : 1.0, 4.0 
+==================================================================</code></pre>
+<p>The best solution appears to be at a reorder point of 3 and a reorder quantity of 4, with a total cost of 4.62. Notice that confidence intervals on the solutions are provided. The output from the code for screening indicates that the found solution is likely the best <strong>observed</strong> solution because the other solutions are screened out. We have no real guarantee that there is some point that was not observed that could be better.</p>
+<div class="sourceCode" id="cb485"><pre class="sourceCode kt"><code class="sourceCode kotlin"><span id="cb485-1"><a href="using-a-solver-on-a-problem.html#cb485-1" tabindex="-1"></a>    println<span class="op">(</span><span class="st">&quot;Approximate screening:&quot;</span><span class="op">)</span></span>
+<span id="cb485-2"><a href="using-a-solver-on-a-problem.html#cb485-2" tabindex="-1"></a>    <span class="kw">val</span> <span class="va">solutions</span> <span class="op">=</span> solver<span class="op">.</span>bestSolutions<span class="op">.</span>possiblyBest<span class="op">()</span></span>
+<span id="cb485-3"><a href="using-a-solver-on-a-problem.html#cb485-3" tabindex="-1"></a>    println<span class="op">(</span>solutions<span class="op">)</span></span></code></pre></div>
+<pre><code>Final Solution:
+id = 446 : n = 50.0 : objFnc = 4.616279897738635 : 95%ci = [4.614435324122555, 4.618124471354715] : inputs : 4.0, 3.0 
+
+Approximate screening:
+Solutions:
+totalSolutions = 1
+capacity = 10
+allowInfeasibleSolutions = false
+orderedSolutions:
+id = 446 : n = 50.0 : objFnc = 4.616279897738635 : 95%ci = [4.614435324122555, 4.618124471354715] : inputs : 4.0, 3.0 </code></pre>
+<p>As noted in the specification of the problem definition, this is an integer ordered problem, where the reorder point and reorder quantity are limited to integer values. As we can note from the output of the optimization process, the evaluated points are limited to integer values. However, you might note that the cross-entropy method estimates the parameters of the sampling distribution as continuous values.</p>
+<pre><code>mean values = [4.423515385086519, 3.8787077250760036]
+standard deviations = [2.112587139353944, 0.8138046208457131]</code></pre>
+<p>Because of the specification of granularity equal to 1.0, the evaluation of these points are rounded to the specified granularity for the evaluation process. If you run the code, you will notice a distinct speed up once (4.0, 3.0) is found. This is due to the fact that the estimates for the distribution parameters via the maximum likelihood estimation process and the application of the smoothing constants have essentially converged to those points which are within the specified granularity.</p>
+<p>In addition, the optimization process was run with a solution cache. Thus, every time that those points are requested for evaluation, we get back the same solution without additional simulation runs. This is avoiding the time to execute the simulation model and quickly causes 5 iterations to have the same solution, meeting the stopping criteria. The use of a solution cache limits the variability of the iterations. An exercise suggests running experiments to understand how caching effects the convergence of solvers.</p>
+</div>
+<div id="illustrating-simulated-annealing-with-random-restarts" class="section level3 hasAnchor" number="10.7.2">
+<h3><span class="header-section-number">10.7.2</span> Illustrating Simulated Annealing with Random Restarts<a href="using-a-solver-on-a-problem.html#illustrating-simulated-annealing-with-random-restarts" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>In this section, the same reorder point, reorder quantity problem will be solved using a simulated annealing solver that is restarted at randomly generated points. Simulated annealing may be sensitive to the initial point so it makes sense to explore different starting points. There are factory functions available for constructing random restart solvers for the basic set of solvers. Let’s review the function for constructing a solver that restarts a simulated annealing solver.</p>
+<div class="sourceCode" id="cb488"><pre class="sourceCode kt"><code class="sourceCode kotlin"><span id="cb488-1"><a href="using-a-solver-on-a-problem.html#cb488-1" tabindex="-1"></a>        <span class="kw">fun</span> <span class="fu">simulatedAnnealingSolverWithRestarts</span><span class="op">(</span></span>
+<span id="cb488-2"><a href="using-a-solver-on-a-problem.html#cb488-2" tabindex="-1"></a>            <span class="va">problemDefinition</span><span class="op">:</span> <span class="dt">ProblemDefinition</span><span class="op">,</span></span>
+<span id="cb488-3"><a href="using-a-solver-on-a-problem.html#cb488-3" tabindex="-1"></a>            <span class="va">modelBuilder</span><span class="op">:</span> <span class="dt">ModelBuilderIfc</span><span class="op">,</span></span>
+<span id="cb488-4"><a href="using-a-solver-on-a-problem.html#cb488-4" tabindex="-1"></a>            <span class="va">maxNumRestarts</span><span class="op">:</span> <span class="dt">Int</span> <span class="op">=</span> defaultMaxRestarts<span class="op">,</span></span>
+<span id="cb488-5"><a href="using-a-solver-on-a-problem.html#cb488-5" tabindex="-1"></a>            <span class="va">initialTemperature</span><span class="op">:</span> <span class="dt">Double</span> <span class="op">=</span> defaultInitialTemperature<span class="op">,</span></span>
+<span id="cb488-6"><a href="using-a-solver-on-a-problem.html#cb488-6" tabindex="-1"></a>            <span class="va">maxIterations</span><span class="op">:</span> <span class="dt">Int</span> <span class="op">=</span> defaultMaxNumberIterations<span class="op">,</span></span>
+<span id="cb488-7"><a href="using-a-solver-on-a-problem.html#cb488-7" tabindex="-1"></a>            <span class="va">replicationsPerEvaluation</span><span class="op">:</span> <span class="dt">Int</span> <span class="op">=</span> defaultReplicationsPerEvaluation<span class="op">,</span></span>
+<span id="cb488-8"><a href="using-a-solver-on-a-problem.html#cb488-8" tabindex="-1"></a>            <span class="va">solutionCache</span><span class="op">:</span> <span class="dt">SolutionCacheIfc</span> <span class="op">=</span> MemorySolutionCache<span class="op">(),</span></span>
+<span id="cb488-9"><a href="using-a-solver-on-a-problem.html#cb488-9" tabindex="-1"></a>            <span class="va">simulationRunCache</span><span class="op">:</span> <span class="dt">SimulationRunCacheIfc</span><span class="op">?</span> <span class="op">=</span> null<span class="op">,</span></span>
+<span id="cb488-10"><a href="using-a-solver-on-a-problem.html#cb488-10" tabindex="-1"></a>            <span class="va">restartPrinter</span><span class="op">:</span> <span class="op">(</span>(<span class="dt">Solver</span><span class="op">)</span> <span class="op">-&gt;</span> <span class="dt">Unit</span><span class="op">)</span>? <span class="op">=</span> <span class="kw">null</span><span class="op">,</span></span>
+<span id="cb488-11"><a href="using-a-solver-on-a-problem.html#cb488-11" tabindex="-1"></a>            printer<span class="op">:</span> <span class="op">((</span>Solver<span class="op">)</span> <span class="op">-&gt;</span> <span class="kw">Unit</span><span class="op">)?</span> <span class="op">=</span> <span class="kw">null</span><span class="op">,</span></span>
+<span id="cb488-12"><a href="using-a-solver-on-a-problem.html#cb488-12" tabindex="-1"></a>            experimentRunParameters<span class="op">:</span> ExperimentRunParametersIfc<span class="op">?</span> <span class="op">=</span> <span class="kw">null</span><span class="op">,</span></span>
+<span id="cb488-13"><a href="using-a-solver-on-a-problem.html#cb488-13" tabindex="-1"></a>            defaultKSLDatabaseObserverOption<span class="op">:</span> <span class="kw">Boolean</span> <span class="op">=</span> <span class="kw">false</span></span>
+<span id="cb488-14"><a href="using-a-solver-on-a-problem.html#cb488-14" tabindex="-1"></a>        <span class="op">):</span> RandomRestartSolver <span class="op">{</span></span>
+<span id="cb488-15"><a href="using-a-solver-on-a-problem.html#cb488-15" tabindex="-1"></a>            <span class="kw">val</span> <span class="va">evaluator</span> <span class="op">=</span> Evaluator<span class="op">.</span>createProblemEvaluator<span class="op">(</span></span>
+<span id="cb488-16"><a href="using-a-solver-on-a-problem.html#cb488-16" tabindex="-1"></a>                problemDefinition <span class="op">=</span> problemDefinition<span class="op">,</span> modelBuilder <span class="op">=</span> modelBuilder<span class="op">,</span> solutionCache <span class="op">=</span> solutionCache<span class="op">,</span></span>
+<span id="cb488-17"><a href="using-a-solver-on-a-problem.html#cb488-17" tabindex="-1"></a>                simulationRunCache <span class="op">=</span> simulationRunCache<span class="op">,</span> experimentRunParameters <span class="op">=</span> experimentRunParameters<span class="op">,</span></span>
+<span id="cb488-18"><a href="using-a-solver-on-a-problem.html#cb488-18" tabindex="-1"></a>                defaultKSLDatabaseObserverOption <span class="op">=</span> defaultKSLDatabaseObserverOption</span>
+<span id="cb488-19"><a href="using-a-solver-on-a-problem.html#cb488-19" tabindex="-1"></a>            <span class="op">)</span></span>
+<span id="cb488-20"><a href="using-a-solver-on-a-problem.html#cb488-20" tabindex="-1"></a>            <span class="kw">val</span> <span class="va">sa</span> <span class="op">=</span> SimulatedAnnealing<span class="op">(</span></span>
+<span id="cb488-21"><a href="using-a-solver-on-a-problem.html#cb488-21" tabindex="-1"></a>                problemDefinition <span class="op">=</span> problemDefinition<span class="op">,</span></span>
+<span id="cb488-22"><a href="using-a-solver-on-a-problem.html#cb488-22" tabindex="-1"></a>                evaluator <span class="op">=</span> evaluator<span class="op">,</span></span>
+<span id="cb488-23"><a href="using-a-solver-on-a-problem.html#cb488-23" tabindex="-1"></a>                initialTemperature <span class="op">=</span> initialTemperature<span class="op">,</span></span>
+<span id="cb488-24"><a href="using-a-solver-on-a-problem.html#cb488-24" tabindex="-1"></a>                maxIterations <span class="op">=</span> maxIterations<span class="op">,</span></span>
+<span id="cb488-25"><a href="using-a-solver-on-a-problem.html#cb488-25" tabindex="-1"></a>                replicationsPerEvaluation <span class="op">=</span> replicationsPerEvaluation</span>
+<span id="cb488-26"><a href="using-a-solver-on-a-problem.html#cb488-26" tabindex="-1"></a>            <span class="op">)</span></span>
+<span id="cb488-27"><a href="using-a-solver-on-a-problem.html#cb488-27" tabindex="-1"></a>            <span class="kw">val</span> <span class="va">restartSolver</span> <span class="op">=</span> RandomRestartSolver<span class="op">(</span></span>
+<span id="cb488-28"><a href="using-a-solver-on-a-problem.html#cb488-28" tabindex="-1"></a>                sa<span class="op">,</span> maxNumRestarts</span>
+<span id="cb488-29"><a href="using-a-solver-on-a-problem.html#cb488-29" tabindex="-1"></a>            <span class="op">)</span></span>
+<span id="cb488-30"><a href="using-a-solver-on-a-problem.html#cb488-30" tabindex="-1"></a>            restartPrinter<span class="op">?.</span>let <span class="op">{</span> restartSolver<span class="op">.</span>emitter<span class="op">.</span>attach<span class="op">(</span>it<span class="op">)</span> <span class="op">}</span></span>
+<span id="cb488-31"><a href="using-a-solver-on-a-problem.html#cb488-31" tabindex="-1"></a>            printer<span class="op">?.</span>let <span class="op">{</span> sa<span class="op">.</span>emitter<span class="op">.</span>attach<span class="op">(</span>it<span class="op">)</span> <span class="op">}</span></span>
+<span id="cb488-32"><a href="using-a-solver-on-a-problem.html#cb488-32" tabindex="-1"></a>            <span class="kw">return</span> restartSolver</span>
+<span id="cb488-33"><a href="using-a-solver-on-a-problem.html#cb488-33" tabindex="-1"></a>        <span class="op">}</span></span></code></pre></div>
+<p>This factory function has a similar structure as the cross-entropy factory function. In this case, the parameters for both the restarting solver (simulated annealing) and the restart solver need to be provided. An evaluator is made, the simulated annealing solver constructed, and then it is provided to the <code>RandomRestartSolver</code> instance. Notice that a printer can be attached to both of the solvers.</p>
+<p>Since we already have a model builder, printer, and problem definition, for this example we can reuse those functions from the previous example. Thus, we only need to write code to instantiate and run the random restart solver. We will accept the default settings for both solvers. For this situation, the maximum number of restarts defaults to 5 and the maximum number of iterations for the simulated annealing solver is 100. An initial temperature of 1000 is used. This code only attaches the printer to the restart solver.</p>
+<div class="sourceCode" id="cb489"><pre class="sourceCode kt"><code class="sourceCode kotlin"><span id="cb489-1"><a href="using-a-solver-on-a-problem.html#cb489-1" tabindex="-1"></a><span class="kw">fun</span> <span class="fu">runSimulatedAnnealingWithRestarts</span><span class="op">(</span></span>
+<span id="cb489-2"><a href="using-a-solver-on-a-problem.html#cb489-2" tabindex="-1"></a>    <span class="va">simulationRunCache</span><span class="op">:</span> <span class="dt">SimulationRunCacheIfc</span><span class="op">?</span> <span class="op">=</span> null<span class="op">,</span></span>
+<span id="cb489-3"><a href="using-a-solver-on-a-problem.html#cb489-3" tabindex="-1"></a>    <span class="va">experimentRunParameters</span><span class="op">:</span> <span class="dt">ExperimentRunParametersIfc</span><span class="op">?</span> <span class="op">=</span> null<span class="op">,</span></span>
+<span id="cb489-4"><a href="using-a-solver-on-a-problem.html#cb489-4" tabindex="-1"></a>    <span class="va">defaultKSLDatabaseObserverOption</span><span class="op">:</span> <span class="dt">Boolean</span> <span class="op">=</span> false</span>
+<span id="cb489-5"><a href="using-a-solver-on-a-problem.html#cb489-5" tabindex="-1"></a><span class="op">)</span> <span class="op">{</span></span>
+<span id="cb489-6"><a href="using-a-solver-on-a-problem.html#cb489-6" tabindex="-1"></a>    <span class="kw">val</span> <span class="va">problemDefinition</span> <span class="op">=</span> makeRQInventoryModelProblemDefinition<span class="op">()</span></span>
+<span id="cb489-7"><a href="using-a-solver-on-a-problem.html#cb489-7" tabindex="-1"></a>    <span class="kw">val</span> <span class="va">modelBuilder</span> <span class="op">=</span> BuildRQModel</span>
+<span id="cb489-8"><a href="using-a-solver-on-a-problem.html#cb489-8" tabindex="-1"></a>    <span class="kw">val</span> <span class="va">printer</span> <span class="op">=</span> <span class="op">::</span>printRQInventoryModel</span>
+<span id="cb489-9"><a href="using-a-solver-on-a-problem.html#cb489-9" tabindex="-1"></a>    <span class="kw">val</span> <span class="va">initialTemperature</span> <span class="op">=</span> <span class="fl">1000.0</span></span>
+<span id="cb489-10"><a href="using-a-solver-on-a-problem.html#cb489-10" tabindex="-1"></a>    <span class="kw">val</span> <span class="va">solver</span> <span class="op">=</span> Solver<span class="op">.</span>simulatedAnnealingSolverWithRestarts<span class="op">(</span></span>
+<span id="cb489-11"><a href="using-a-solver-on-a-problem.html#cb489-11" tabindex="-1"></a>        problemDefinition <span class="op">=</span> problemDefinition<span class="op">,</span></span>
+<span id="cb489-12"><a href="using-a-solver-on-a-problem.html#cb489-12" tabindex="-1"></a>        modelBuilder <span class="op">=</span> modelBuilder<span class="op">,</span></span>
+<span id="cb489-13"><a href="using-a-solver-on-a-problem.html#cb489-13" tabindex="-1"></a>        initialTemperature <span class="op">=</span> initialTemperature<span class="op">,</span></span>
+<span id="cb489-14"><a href="using-a-solver-on-a-problem.html#cb489-14" tabindex="-1"></a>        maxIterations <span class="op">=</span> <span class="dv">100</span><span class="op">,</span></span>
+<span id="cb489-15"><a href="using-a-solver-on-a-problem.html#cb489-15" tabindex="-1"></a>        replicationsPerEvaluation <span class="op">=</span> <span class="dv">50</span><span class="op">,</span></span>
+<span id="cb489-16"><a href="using-a-solver-on-a-problem.html#cb489-16" tabindex="-1"></a>        restartPrinter <span class="op">=</span> printer<span class="op">,</span></span>
+<span id="cb489-17"><a href="using-a-solver-on-a-problem.html#cb489-17" tabindex="-1"></a>        printer <span class="op">=</span> <span class="kw">null</span><span class="op">,</span></span>
+<span id="cb489-18"><a href="using-a-solver-on-a-problem.html#cb489-18" tabindex="-1"></a>        simulationRunCache <span class="op">=</span> simulationRunCache<span class="op">,</span></span>
+<span id="cb489-19"><a href="using-a-solver-on-a-problem.html#cb489-19" tabindex="-1"></a>        experimentRunParameters <span class="op">=</span> experimentRunParameters<span class="op">,</span></span>
+<span id="cb489-20"><a href="using-a-solver-on-a-problem.html#cb489-20" tabindex="-1"></a>        defaultKSLDatabaseObserverOption <span class="op">=</span> defaultKSLDatabaseObserverOption</span>
+<span id="cb489-21"><a href="using-a-solver-on-a-problem.html#cb489-21" tabindex="-1"></a>    <span class="op">)</span></span>
+<span id="cb489-22"><a href="using-a-solver-on-a-problem.html#cb489-22" tabindex="-1"></a>    solver<span class="op">.</span>runAllIterations<span class="op">()</span></span>
+<span id="cb489-23"><a href="using-a-solver-on-a-problem.html#cb489-23" tabindex="-1"></a>    println<span class="op">()</span></span>
+<span id="cb489-24"><a href="using-a-solver-on-a-problem.html#cb489-24" tabindex="-1"></a>    println<span class="op">(</span><span class="st">&quot;Solver Results:&quot;</span><span class="op">)</span></span>
+<span id="cb489-25"><a href="using-a-solver-on-a-problem.html#cb489-25" tabindex="-1"></a>    println<span class="op">(</span>solver<span class="op">)</span></span>
+<span id="cb489-26"><a href="using-a-solver-on-a-problem.html#cb489-26" tabindex="-1"></a>    println<span class="op">()</span></span>
+<span id="cb489-27"><a href="using-a-solver-on-a-problem.html#cb489-27" tabindex="-1"></a>    println<span class="op">(</span><span class="st">&quot;Final Solution:&quot;</span><span class="op">)</span></span>
+<span id="cb489-28"><a href="using-a-solver-on-a-problem.html#cb489-28" tabindex="-1"></a>    println<span class="op">(</span>solver<span class="op">.</span>bestSolution<span class="op">.</span>asString<span class="op">())</span></span>
+<span id="cb489-29"><a href="using-a-solver-on-a-problem.html#cb489-29" tabindex="-1"></a>    println<span class="op">()</span></span>
+<span id="cb489-30"><a href="using-a-solver-on-a-problem.html#cb489-30" tabindex="-1"></a>    println<span class="op">(</span><span class="st">&quot;Approximate screening:&quot;</span><span class="op">)</span></span>
+<span id="cb489-31"><a href="using-a-solver-on-a-problem.html#cb489-31" tabindex="-1"></a>    <span class="kw">val</span> <span class="va">solutions</span> <span class="op">=</span> solver<span class="op">.</span>bestSolutions<span class="op">.</span>possiblyBest<span class="op">()</span></span>
+<span id="cb489-32"><a href="using-a-solver-on-a-problem.html#cb489-32" tabindex="-1"></a>    println<span class="op">(</span>solutions<span class="op">)</span></span>
+<span id="cb489-33"><a href="using-a-solver-on-a-problem.html#cb489-33" tabindex="-1"></a>    println<span class="op">(</span><span class="st">&quot;Dataframe&quot;</span><span class="op">)</span></span>
+<span id="cb489-34"><a href="using-a-solver-on-a-problem.html#cb489-34" tabindex="-1"></a>    <span class="kw">val</span> <span class="va">df</span> <span class="op">=</span> solver<span class="op">.</span>bestSolutions<span class="op">.</span>toDataFrame<span class="op">()</span></span>
+<span id="cb489-35"><a href="using-a-solver-on-a-problem.html#cb489-35" tabindex="-1"></a>    df<span class="op">.</span>schema<span class="op">().</span>print<span class="op">()</span></span>
+<span id="cb489-36"><a href="using-a-solver-on-a-problem.html#cb489-36" tabindex="-1"></a>    df<span class="op">.</span>print<span class="op">()</span></span>
+<span id="cb489-37"><a href="using-a-solver-on-a-problem.html#cb489-37" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
+<p>The print trace of the 5 restart solver iterations is as follows. Within the trace, we can see the point where the simulated annealing solver started and the resulting solution. It should be clear from the output that the simulated annealing process improves upon the initial starting point’s solution in each of the iterations.</p>
+<pre><code>**** iteration = 1 ************************************
+initial solution: id = 7
+n = 50.0 : objFnc = 93.85435955308694    q = 24.0    r = 83.0    penalized objFnc = 93.85435955308694    fillrate = 1.0
+solution: id = 93
+n = 50.0 : objFnc = 5.310870719728758    q = 6.0     r = 3.0     penalized objFnc = 5.310870719728758    fillrate = 0.9733468768826896 
+********************************************************************************
+**** iteration = 2 ************************************
+initial solution: id = 99
+n = 50.0 : objFnc = 122.75503178367077   q = 94.0    r = 77.0    penalized objFnc = 122.75503178367077   fillrate = 1.0
+solution: id = 146
+n = 50.0 : objFnc = 11.476180247608118   q = 13.0    r = 6.0     penalized objFnc = 11.476180247608118   fillrate = 0.9997439617100352 
+********************************************************************************
+**** iteration = 3 ************************************
+initial solution: id = 188
+n = 50.0 : objFnc = 37.25543995083427    q = 59.0    r = 9.0     penalized objFnc = 37.25543995083427    fillrate = 0.9999994456916382
+solution: id = 273
+n = 50.0 : objFnc = 17.81239341644692    q = 36.0    r = 1.0     penalized objFnc = 17.81239341644692    fillrate = 0.9730845269288125 
+********************************************************************************
+**** iteration = 4 ************************************
+initial solution: id = 279
+n = 50.0 : objFnc = 8.963623230455   q = 14.0    r = 3.0     penalized objFnc = 8.963623230455   fillrate = 0.9887414135304179
+solution: id = 301
+n = 50.0 : objFnc = 8.50097189053639     q = 2.0     r = 7.0     penalized objFnc = 8.50097189053639     fillrate = 0.9996895379757809 
+********************************************************************************
+**** iteration = 5 ************************************
+initial solution: id = 379
+n = 50.0 : objFnc = 84.78199562986019    q = 44.0    r = 64.0    penalized objFnc = 84.78199562986019    fillrate = 1.0
+solution: id = 443
+n = 50.0 : objFnc = 9.919247701181797    q = 5.0     r = 8.0     penalized objFnc = 9.919247701181797    fillrate = 0.9999689303150257 
+********************************************************************************</code></pre>
+<p>The solver results indicate that the total number of simulation calls was 470 with 23500 total replications over the approximately 4 minutes of execution time. The random restart solver will remember the initial solutions and the solution found from the underlying solver. We see that a solution with reorder point 3.0 and reorder quantity of 6 is recommended. This solution is slightly worse than the one found from the cross-entropy optimization process.</p>
+<pre><code>Solver Results:
+==================================================================
+Solver name = ID_46
+Replications Per Evaluation = Fixed replications per evaluation: 50
+Ensure Problem Feasible Requests = false
+Maximum Number Iterations = 5
+Begin Execution Time = 2025-09-16T16:15:11.636147Z
+End Execution Time = 2025-09-16T16:19:53.562212Z
+Elapsed Execution Time = 4m 41.926065s
+Number of simulation calls = 470
+Number of replications requested = 23500
+==================================================================
+Initial Solution:
+Solution id = 5
+evaluation number = 1
+objective function value = 71.05955523050149
+penalized objective function = 71.05955523050149
+granular function value = 71.05955523050149
+penality function value = 0.0
+Inputs:
+Name = Inventory:Item.initialReorderQty = 10.0)
+Name = Inventory:Item.initialReorderPoint = 67.0)
+Estimated Objective Function:
+name = Inventory:Item:OrderingAndHoldingCost
+average = 71.05955523050149
+variance = 3.0560452742137536E-4
+count = 50.0
+Response Constraints:
+Inventory:Item:FillRate: LHS = 1.0 &gt;= RHS = 0.95 : (LHS-RHS) = 0.050000000000000044
+
+==================================================================
+Current Solution:
+Solution id = 443
+evaluation number = 445
+objective function value = 9.919247701181797
+penalized objective function = 9.919247701181797
+granular function value = 9.919247701181797
+penality function value = 0.0
+Inputs:
+Name = Inventory:Item.initialReorderPoint = 8.0)
+Name = Inventory:Item.initialReorderQty = 5.0)
+Estimated Objective Function:
+name = Inventory:Item:OrderingAndHoldingCost
+average = 9.919247701181797
+variance = 8.128019398796645E-5
+count = 50.0
+Response Constraints:
+Inventory:Item:FillRate: LHS = 0.9999689303150257 &gt;= RHS = 0.95 : (LHS-RHS) = 0.049968930315025695
+
+Previous solution penalized objective function value (POFV) = 8.50097189053639
+Current solution POFV - Previous solution POFV  = 1.418275810645408
+==================================================================
+A better solution was found than the current solution.
+Best Solution:
+Solution id = 93
+evaluation number = 90
+objective function value = 5.310870719728758
+penalized objective function = 5.310870719728758
+granular function value = 5.310870719728758
+penality function value = 0.0
+Inputs:
+Name = Inventory:Item.initialReorderPoint = 3.0)
+Name = Inventory:Item.initialReorderQty = 6.0)
+Estimated Objective Function:
+name = Inventory:Item:OrderingAndHoldingCost
+average = 5.310870719728758
+variance = 6.503490862573595E-5
+count = 50.0
+Response Constraints:
+Inventory:Item:FillRate: LHS = 0.9733468768826896 &gt;= RHS = 0.95 : (LHS-RHS) = 0.02334687688268966
+
+==================================================================
+Best Solutions Found:
+id = 93 : n = 50.0 : objFnc = 5.310870719728758 : 95%ci = [5.308578836243111, 5.313162603214405] : inputs : 3.0, 6.0 
+id = 301 : n = 50.0 : objFnc = 8.50097189053639 : 95%ci = [8.500342348760027, 8.501601432312752] : inputs : 7.0, 2.0 
+id = 443 : n = 50.0 : objFnc = 9.919247701181797 : 95%ci = [9.916685509400358, 9.921809892963237] : inputs : 8.0, 5.0 
+id = 146 : n = 50.0 : objFnc = 11.476180247608118 : 95%ci = [11.47012805674839, 11.482232438467847] : inputs : 6.0, 13.0 
+id = 273 : n = 50.0 : objFnc = 17.81239341644692 : 95%ci = [17.798872900323207, 17.825913932570632] : inputs : 1.0, 36.0 
+id = 5 : n = 50.0 : objFnc = 71.05955523050149 : 95%ci = [71.05458702947743, 71.06452343152554] : inputs : 10.0, 67.0 
+==================================================================</code></pre>
+<p>The screening results indicate that the reorder point equals 3 and reorder quantity of 6 is likely the best of those observed.</p>
+<pre><code>Approximate screening:
+Solutions:
+totalSolutions = 1
+capacity = 10
+allowInfeasibleSolutions = false
+orderedSolutions:
+id = 93 : n = 50.0 : objFnc = 5.310870719728758 : 95%ci = [5.308578836243111, 5.313162603214405] : inputs : 3.0, 6.0 </code></pre>
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="implemented-solvers.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="summary-5.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"whatsapp": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": null,
+"text": null
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": null,
+"search": {
+"engine": "fuse",
+"options": null
+},
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/latest.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>
