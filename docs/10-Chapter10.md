@@ -20,7 +20,7 @@ Section \@ref(ch10simOpt) of the chapter presents an approach to exploring the d
 
 ::: {.infobox .note data-latex="{note}"}
 **NOTE!**
-This chapter provides example code of using the KSL to implement advanced Monte Carlo techniques. The full source code of the examples can be found in the accompanying `KSLExamples` project associated with the [KSL repository](https://github.com/rossetti/KSL). The files for each example of this chapter can be found [here](https://github.com/rossetti/KSL/tree/main/KSLExamples/src/main/kotlin/ksl/examples/book/chapter10).
+This chapter provides example code of using the KSL to implement experimental design and optimization techniques. The full source code of the examples can be found in the accompanying `KSLExamples` project associated with the [KSL repository](https://github.com/rossetti/KSL). The files for each example of this chapter can be found [here](https://github.com/rossetti/KSL/tree/main/KSLExamples/src/main/kotlin/ksl/examples/book/chapter10).
 :::
 
 ## Experimental Design Methods {#ch10doe}
