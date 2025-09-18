@@ -1,0 +1,1102 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>4.6 More Drive Through Fun | Simulation Modeling using the Kotlin Simulation Library (KSL)</title>
+  <meta name="description" content="A book that illustrates the basics of using the KSL. The output format for this book is bookdown::gitbook." />
+  <meta name="generator" content="bookdown 0.40 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="4.6 More Drive Through Fun | Simulation Modeling using the Kotlin Simulation Library (KSL)" />
+  <meta property="og:type" content="book" />
+  
+  <meta property="og:description" content="A book that illustrates the basics of using the KSL. The output format for this book is bookdown::gitbook." />
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="4.6 More Drive Through Fun | Simulation Modeling using the Kotlin Simulation Library (KSL)" />
+  
+  <meta name="twitter:description" content="A book that illustrates the basics of using the KSL. The output format for this book is bookdown::gitbook." />
+  
+
+<meta name="author" content="Manuel D. Rossetti" />
+
+
+<meta name="date" content="2025-09-18" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="enhancing-the-drive-through-pharmacy-model.html"/>
+<link rel="next" href="introDEDSSummary.html"/>
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
+<link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
+<script src="libs/kePrint-0.0.1/kePrint.js"></script>
+<link href="libs/lightable-0.0.1/lightable.css" rel="stylesheet" />
+
+
+<style type="text/css">
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { color: #008000; } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { color: #008000; font-weight: bold; } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<style type="text/css">
+  
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+</style>
+<style type="text/css">
+/* Used with Pandoc 2.11+ new --citeproc when CSL is used */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+}
+.hanging div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}
+</style>
+
+<link rel="stylesheet" href="css/style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">Simulation Modeling using the Kotlin Simulation Library (KSL)</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Preface</a>
+<ul>
+<li class="chapter" data-level="" data-path="release-history.html"><a href="release-history.html"><i class="fa fa-check"></i>Release History</a></li>
+<li class="chapter" data-level="" data-path="ksl-project-page.html"><a href="ksl-project-page.html"><i class="fa fa-check"></i>KSL Project Page</a></li>
+<li class="chapter" data-level="" data-path="book-support-files.html"><a href="book-support-files.html"><i class="fa fa-check"></i>Book Support Files</a></li>
+<li class="chapter" data-level="" data-path="acknowledgments.html"><a href="acknowledgments.html"><i class="fa fa-check"></i>Acknowledgments</a></li>
+<li class="chapter" data-level="" data-path="intended-audience.html"><a href="intended-audience.html"><i class="fa fa-check"></i>Intended Audience</a></li>
+<li class="chapter" data-level="" data-path="organization-of-the-book.html"><a href="organization-of-the-book.html"><i class="fa fa-check"></i>Organization of the Book</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="about-the-author.html"><a href="about-the-author.html"><i class="fa fa-check"></i>About the Author</a></li>
+<li class="chapter" data-level="1" data-path="ch1.html"><a href="ch1.html"><i class="fa fa-check"></i><b>1</b> Simulation Modeling</a>
+<ul>
+<li class="chapter" data-level="1.1" data-path="simulation-modeling.html"><a href="simulation-modeling.html"><i class="fa fa-check"></i><b>1.1</b> Simulation Modeling</a></li>
+<li class="chapter" data-level="1.2" data-path="why-simulate.html"><a href="why-simulate.html"><i class="fa fa-check"></i><b>1.2</b> Why Simulate?</a></li>
+<li class="chapter" data-level="1.3" data-path="types-of-systems-and-simulation-models.html"><a href="types-of-systems-and-simulation-models.html"><i class="fa fa-check"></i><b>1.3</b> Types of Systems and Simulation Models</a></li>
+<li class="chapter" data-level="1.4" data-path="simulation-descriptive-or-prescriptive-modeling.html"><a href="simulation-descriptive-or-prescriptive-modeling.html"><i class="fa fa-check"></i><b>1.4</b> Simulation: Descriptive or Prescriptive Modeling?</a></li>
+<li class="chapter" data-level="1.5" data-path="randomness-in-simulation.html"><a href="randomness-in-simulation.html"><i class="fa fa-check"></i><b>1.5</b> Randomness in Simulation</a></li>
+<li class="chapter" data-level="1.6" data-path="simulation-languages.html"><a href="simulation-languages.html"><i class="fa fa-check"></i><b>1.6</b> Simulation Languages</a></li>
+<li class="chapter" data-level="1.7" data-path="ch1secsimMeth.html"><a href="ch1secsimMeth.html"><i class="fa fa-check"></i><b>1.7</b> Simulation Methodology</a></li>
+<li class="chapter" data-level="1.8" data-path="overview-of-the-kotlin-simulation-library.html"><a href="overview-of-the-kotlin-simulation-library.html"><i class="fa fa-check"></i><b>1.8</b> Overview of the Kotlin Simulation Library</a></li>
+<li class="chapter" data-level="1.9" data-path="exercises.html"><a href="exercises.html"><i class="fa fa-check"></i><b>1.9</b> Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="ch2rng.html"><a href="ch2rng.html"><i class="fa fa-check"></i><b>2</b> Modeling Randomness</a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="ch2generator.html"><a href="ch2generator.html"><i class="fa fa-check"></i><b>2.1</b> Random Number Generator</a>
+<ul>
+<li class="chapter" data-level="2.1.1" data-path="ch2generator.html"><a href="ch2generator.html#ch2randompkg"><i class="fa fa-check"></i><b>2.1.1</b> Random Package</a></li>
+<li class="chapter" data-level="2.1.2" data-path="ch2generator.html"><a href="ch2generator.html#ch2creatingStreams"><i class="fa fa-check"></i><b>2.1.2</b> Creating and Using Streams</a></li>
+<li class="chapter" data-level="2.1.3" data-path="ch2generator.html"><a href="ch2generator.html#ch2crn"><i class="fa fa-check"></i><b>2.1.3</b> Common Random Numbers</a></li>
+<li class="chapter" data-level="2.1.4" data-path="ch2generator.html"><a href="ch2generator.html#ch2antitheticStreams"><i class="fa fa-check"></i><b>2.1.4</b> Creating and Using Antithetic Streams</a></li>
+<li class="chapter" data-level="2.1.5" data-path="ch2generator.html"><a href="ch2generator.html#ch2rnFAQ"><i class="fa fa-check"></i><b>2.1.5</b> Frequently Asked Questions about Random Numbers</a></li>
+</ul></li>
+<li class="chapter" data-level="2.2" data-path="rvg.html"><a href="rvg.html"><i class="fa fa-check"></i><b>2.2</b> Random Variate Generation</a>
+<ul>
+<li class="chapter" data-level="2.2.1" data-path="rvg.html"><a href="rvg.html#basic-random-variate-generation"><i class="fa fa-check"></i><b>2.2.1</b> Basic Random Variate Generation</a></li>
+<li class="chapter" data-level="2.2.2" data-path="rvg.html"><a href="rvg.html#rvg_dists"><i class="fa fa-check"></i><b>2.2.2</b> Continuous and Discrete Random Variables</a></li>
+<li class="chapter" data-level="2.2.3" data-path="rvg.html"><a href="rvg.html#rvguse"><i class="fa fa-check"></i><b>2.2.3</b> Creating and Using Random Variables</a></li>
+<li class="chapter" data-level="2.2.4" data-path="rvg.html"><a href="rvg.html#functions-of-random-variables"><i class="fa fa-check"></i><b>2.2.4</b> Functions of Random Variables</a></li>
+</ul></li>
+<li class="chapter" data-level="2.3" data-path="probModels.html"><a href="probModels.html"><i class="fa fa-check"></i><b>2.3</b> Probability Distribution Models</a></li>
+<li class="chapter" data-level="2.4" data-path="distFitting.html"><a href="distFitting.html"><i class="fa fa-check"></i><b>2.4</b> Distribution Fitting Using the KSL</a>
+<ul>
+<li class="chapter" data-level="2.4.1" data-path="distFitting.html"><a href="distFitting.html#estimating-distribution-parameters"><i class="fa fa-check"></i><b>2.4.1</b> Estimating Distribution Parameters</a></li>
+<li class="chapter" data-level="2.4.2" data-path="distFitting.html"><a href="distFitting.html#continuous-distribution-recommendation-framework"><i class="fa fa-check"></i><b>2.4.2</b> Continuous Distribution Recommendation Framework</a></li>
+<li class="chapter" data-level="2.4.3" data-path="distFitting.html"><a href="distFitting.html#discrete-distribution-framework"><i class="fa fa-check"></i><b>2.4.3</b> Discrete Distribution Framework</a></li>
+<li class="chapter" data-level="2.4.4" data-path="distFitting.html"><a href="distFitting.html#pdfmexamples"><i class="fa fa-check"></i><b>2.4.4</b> Illustrative Examples from Appendix @ref(appidm)</a></li>
+</ul></li>
+<li class="chapter" data-level="2.5" data-path="summary.html"><a href="summary.html"><i class="fa fa-check"></i><b>2.5</b> Summary</a></li>
+<li class="chapter" data-level="2.6" data-path="exercises-1.html"><a href="exercises-1.html"><i class="fa fa-check"></i><b>2.6</b> Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="mcm.html"><a href="mcm.html"><i class="fa fa-check"></i><b>3</b> Monte Carlo Methods</a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="kslStatistics.html"><a href="kslStatistics.html"><i class="fa fa-check"></i><b>3.1</b> Collecting Statistics</a>
+<ul>
+<li class="chapter" data-level="3.1.1" data-path="kslStatistics.html"><a href="kslStatistics.html#creating-and-using-a-statistic"><i class="fa fa-check"></i><b>3.1.1</b> Creating and Using a Statistic</a></li>
+<li class="chapter" data-level="3.1.2" data-path="kslStatistics.html"><a href="kslStatistics.html#histFreq"><i class="fa fa-check"></i><b>3.1.2</b> Histograms and Frequencies</a></li>
+<li class="chapter" data-level="3.1.3" data-path="kslStatistics.html"><a href="kslStatistics.html#ch3batchStats"><i class="fa fa-check"></i><b>3.1.3</b> Batch Statistics</a></li>
+<li class="chapter" data-level="3.1.4" data-path="kslStatistics.html"><a href="kslStatistics.html#ch3StatSummary"><i class="fa fa-check"></i><b>3.1.4</b> Statistics Summary</a></li>
+</ul></li>
+<li class="chapter" data-level="3.2" data-path="ssMC.html"><a href="ssMC.html"><i class="fa fa-check"></i><b>3.2</b> Simple Monte Carlo Integration</a></li>
+<li class="chapter" data-level="3.3" data-path="ch3StatReview.html"><a href="ch3StatReview.html"><i class="fa fa-check"></i><b>3.3</b> Review of Statistical Concepts</a>
+<ul>
+<li class="chapter" data-level="3.3.1" data-path="ch3StatReview.html"><a href="ch3StatReview.html#point-estimates-and-confidence-intervals"><i class="fa fa-check"></i><b>3.3.1</b> Point Estimates and Confidence Intervals</a></li>
+<li class="chapter" data-level="3.3.2" data-path="ch3StatReview.html"><a href="ch3StatReview.html#ch3SampleSize"><i class="fa fa-check"></i><b>3.3.2</b> Sample Size Determination</a></li>
+<li class="chapter" data-level="3.3.3" data-path="ch3StatReview.html"><a href="ch3StatReview.html#determining-the-sample-size-for-a-monte-carlo-simulation-experiment"><i class="fa fa-check"></i><b>3.3.3</b> Determining the Sample Size for a Monte Carlo Simulation Experiment</a></li>
+</ul></li>
+<li class="chapter" data-level="3.4" data-path="craps.html"><a href="craps.html"><i class="fa fa-check"></i><b>3.4</b> Simulating the Game of Craps</a></li>
+<li class="chapter" data-level="3.5" data-path="the-news-vendor-problem.html"><a href="the-news-vendor-problem.html"><i class="fa fa-check"></i><b>3.5</b> The News Vendor Problem</a></li>
+<li class="chapter" data-level="3.6" data-path="ch3InsProcess.html"><a href="ch3InsProcess.html"><i class="fa fa-check"></i><b>3.6</b> A Simple Inspection Process</a></li>
+<li class="chapter" data-level="3.7" data-path="ch3SAN.html"><a href="ch3SAN.html"><i class="fa fa-check"></i><b>3.7</b> Stochastic Activity Networks</a></li>
+<li class="chapter" data-level="3.8" data-path="mcmExperiments.html"><a href="mcmExperiments.html"><i class="fa fa-check"></i><b>3.8</b> Monte-Carlo Experiments</a></li>
+<li class="chapter" data-level="3.9" data-path="summary-1.html"><a href="summary-1.html"><i class="fa fa-check"></i><b>3.9</b> Summary</a></li>
+<li class="chapter" data-level="3.10" data-path="exercises-2.html"><a href="exercises-2.html"><i class="fa fa-check"></i><b>3.10</b> Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="introDEDS.html"><a href="introDEDS.html"><i class="fa fa-check"></i><b>4</b> Introduction to Discrete Event Modeling</a>
+<ul>
+<li class="chapter" data-level="4.1" data-path="introDEDSdeds.html"><a href="introDEDSdeds.html"><i class="fa fa-check"></i><b>4.1</b> Discrete-Event Dynamic Systems</a></li>
+<li class="chapter" data-level="4.2" data-path="HowDEDSClockWorks.html"><a href="HowDEDSClockWorks.html"><i class="fa fa-check"></i><b>4.2</b> How the Discrete-Event Clock Works</a></li>
+<li class="chapter" data-level="4.3" data-path="QHandExample.html"><a href="QHandExample.html"><i class="fa fa-check"></i><b>4.3</b> Simulating a Queueing System By Hand</a></li>
+<li class="chapter" data-level="4.4" data-path="introDEDSdedsKSL.html"><a href="introDEDSdedsKSL.html"><i class="fa fa-check"></i><b>4.4</b> Modeling DEDS in the KSL</a>
+<ul>
+<li class="chapter" data-level="4.4.1" data-path="introDEDSdedsKSL.html"><a href="introDEDSdedsKSL.html#event-scheduling"><i class="fa fa-check"></i><b>4.4.1</b> Event Scheduling</a></li>
+<li class="chapter" data-level="4.4.2" data-path="introDEDSdedsKSL.html"><a href="introDEDSdedsKSL.html#introDEDSschedExamples"><i class="fa fa-check"></i><b>4.4.2</b> Simple Event Scheduling Examples</a></li>
+<li class="chapter" data-level="4.4.3" data-path="introDEDSdedsKSL.html"><a href="introDEDSdedsKSL.html#introDEDSUpDown"><i class="fa fa-check"></i><b>4.4.3</b> Up and Down Component Example</a></li>
+<li class="chapter" data-level="4.4.4" data-path="introDEDSdedsKSL.html"><a href="introDEDSdedsKSL.html#introDEDSPharmacy"><i class="fa fa-check"></i><b>4.4.4</b> Modeling a Simple Queueing System</a></li>
+<li class="chapter" data-level="4.4.5" data-path="introDEDSdedsKSL.html"><a href="introDEDSdedsKSL.html#more-details-about-the-pharmacy-model-implementation"><i class="fa fa-check"></i><b>4.4.5</b> More Details About the Pharmacy Model Implementation</a></li>
+</ul></li>
+<li class="chapter" data-level="4.5" data-path="enhancing-the-drive-through-pharmacy-model.html"><a href="enhancing-the-drive-through-pharmacy-model.html"><i class="fa fa-check"></i><b>4.5</b> Enhancing the Drive Through Pharmacy Model</a>
+<ul>
+<li class="chapter" data-level="4.5.1" data-path="enhancing-the-drive-through-pharmacy-model.html"><a href="enhancing-the-drive-through-pharmacy-model.html#modeling-a-simple-resource"><i class="fa fa-check"></i><b>4.5.1</b> Modeling a Simple Resource</a></li>
+<li class="chapter" data-level="4.5.2" data-path="enhancing-the-drive-through-pharmacy-model.html"><a href="enhancing-the-drive-through-pharmacy-model.html#modeling-a-queue-with-statistical-collection"><i class="fa fa-check"></i><b>4.5.2</b> Modeling a Queue with Statistical Collection</a></li>
+<li class="chapter" data-level="4.5.3" data-path="enhancing-the-drive-through-pharmacy-model.html"><a href="enhancing-the-drive-through-pharmacy-model.html#modeling-a-repeating-event-pattern"><i class="fa fa-check"></i><b>4.5.3</b> Modeling a Repeating Event Pattern</a></li>
+<li class="chapter" data-level="4.5.4" data-path="enhancing-the-drive-through-pharmacy-model.html"><a href="enhancing-the-drive-through-pharmacy-model.html#collecting-more-detailed-statistics"><i class="fa fa-check"></i><b>4.5.4</b> Collecting More Detailed Statistics</a></li>
+<li class="chapter" data-level="4.5.5" data-path="enhancing-the-drive-through-pharmacy-model.html"><a href="enhancing-the-drive-through-pharmacy-model.html#implementing-the-enhanced-pharmacy-model"><i class="fa fa-check"></i><b>4.5.5</b> Implementing the Enhanced Pharmacy Model</a></li>
+</ul></li>
+<li class="chapter" data-level="4.6" data-path="DTPExpanded.html"><a href="DTPExpanded.html"><i class="fa fa-check"></i><b>4.6</b> More Drive Through Fun</a>
+<ul>
+<li class="chapter" data-level="4.6.1" data-path="DTPExpanded.html"><a href="DTPExpanded.html#modeling-a-resource-with-a-waiting-line"><i class="fa fa-check"></i><b>4.6.1</b> Modeling a Resource with a Waiting Line</a></li>
+<li class="chapter" data-level="4.6.2" data-path="DTPExpanded.html"><a href="DTPExpanded.html#modeling-the-tandem-queue-of-example-refexmexch4tandemq"><i class="fa fa-check"></i><b>4.6.2</b> Modeling the Tandem Queue of Example @ref(exm:exCh4TandemQ)</a></li>
+<li class="chapter" data-level="4.6.3" data-path="DTPExpanded.html"><a href="DTPExpanded.html#modeling-with-the-station-package"><i class="fa fa-check"></i><b>4.6.3</b> Modeling with the Station Package</a></li>
+</ul></li>
+<li class="chapter" data-level="4.7" data-path="introDEDSSummary.html"><a href="introDEDSSummary.html"><i class="fa fa-check"></i><b>4.7</b> Summary</a></li>
+<li class="chapter" data-level="4.8" data-path="exercises-3.html"><a href="exercises-3.html"><i class="fa fa-check"></i><b>4.8</b> Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="simoa.html"><a href="simoa.html"><i class="fa fa-check"></i><b>5</b> Analyzing and Accessing Simulation Output</a>
+<ul>
+<li class="chapter" data-level="5.1" data-path="simoadatatypes.html"><a href="simoadatatypes.html"><i class="fa fa-check"></i><b>5.1</b> Types of Statistical Variables</a></li>
+<li class="chapter" data-level="5.2" data-path="simoasimtypes.html"><a href="simoasimtypes.html"><i class="fa fa-check"></i><b>5.2</b> Types of Simulation With Respect To Output Analysis</a></li>
+<li class="chapter" data-level="5.3" data-path="simoafinhorizon.html"><a href="simoafinhorizon.html"><i class="fa fa-check"></i><b>5.3</b> Analysis of Finite Horizon Simulations</a></li>
+<li class="chapter" data-level="5.4" data-path="simoafinhorizonex.html"><a href="simoafinhorizonex.html"><i class="fa fa-check"></i><b>5.4</b> Capturing Output for a Simple Finite Horizon Simulation</a>
+<ul>
+<li class="chapter" data-level="5.4.1" data-path="simoafinhorizonex.html"><a href="simoafinhorizonex.html#simoaCapture"><i class="fa fa-check"></i><b>5.4.1</b> KSL Functionality for Capturing Statistical Results</a></li>
+<li class="chapter" data-level="5.4.2" data-path="simoafinhorizonex.html"><a href="simoafinhorizonex.html#additional-remarks"><i class="fa fa-check"></i><b>5.4.2</b> Additional Remarks</a></li>
+<li class="chapter" data-level="5.4.3" data-path="simoafinhorizonex.html"><a href="simoafinhorizonex.html#querying-the-ksl-database"><i class="fa fa-check"></i><b>5.4.3</b> Querying the KSL Database</a></li>
+</ul></li>
+<li class="chapter" data-level="5.5" data-path="simoaseqsampling.html"><a href="simoaseqsampling.html"><i class="fa fa-check"></i><b>5.5</b> Sequential Sampling for Finite Horizon Simulations</a></li>
+<li class="chapter" data-level="5.6" data-path="simoainfhorizon.html"><a href="simoainfhorizon.html"><i class="fa fa-check"></i><b>5.6</b> Analysis of Infinite Horizon Simulations</a>
+<ul>
+<li class="chapter" data-level="5.6.1" data-path="simoainfhorizon.html"><a href="simoainfhorizon.html#simoainfhorizoninitialbias"><i class="fa fa-check"></i><b>5.6.1</b> Assessing the Effect of Initial Conditions</a></li>
+<li class="chapter" data-level="5.6.2" data-path="simoainfhorizon.html"><a href="simoainfhorizon.html#simoainfhorizonrepDeletion"><i class="fa fa-check"></i><b>5.6.2</b> Performing the Method of Replication-Deletion</a></li>
+<li class="chapter" data-level="5.6.3" data-path="simoainfhorizon.html"><a href="simoainfhorizon.html#simoainfhorizonbatchmeans"><i class="fa fa-check"></i><b>5.6.3</b> The Method of Batch Means</a></li>
+<li class="chapter" data-level="5.6.4" data-path="simoainfhorizon.html"><a href="simoainfhorizon.html#simoainfhorizonjslbatching"><i class="fa fa-check"></i><b>5.6.4</b> Performing the Method of Batch Means</a></li>
+</ul></li>
+<li class="chapter" data-level="5.7" data-path="simoacomparingSystems.html"><a href="simoacomparingSystems.html"><i class="fa fa-check"></i><b>5.7</b> Comparing System Configurations</a>
+<ul>
+<li class="chapter" data-level="5.7.1" data-path="simoacomparingSystems.html"><a href="simoacomparingSystems.html#simoacomparingSystems:two"><i class="fa fa-check"></i><b>5.7.1</b> Comparing Two Systems</a></li>
+<li class="chapter" data-level="5.7.2" data-path="simoacomparingSystems.html"><a href="simoacomparingSystems.html#simoacomparingSystemsMCB"><i class="fa fa-check"></i><b>5.7.2</b> Concepts for Comparing Systems</a></li>
+<li class="chapter" data-level="5.7.3" data-path="simoacomparingSystems.html"><a href="simoacomparingSystems.html#multiple-comparison-with-the-best-procedures-mcb"><i class="fa fa-check"></i><b>5.7.3</b> Multiple Comparison with the Best Procedures (MCB)</a></li>
+<li class="chapter" data-level="5.7.4" data-path="simoacomparingSystems.html"><a href="simoacomparingSystems.html#ch5Screening"><i class="fa fa-check"></i><b>5.7.4</b> Screening Procedures</a></li>
+</ul></li>
+<li class="chapter" data-level="5.8" data-path="ch5Scenarios.html"><a href="ch5Scenarios.html"><i class="fa fa-check"></i><b>5.8</b> Simulating Many Scenarios</a>
+<ul>
+<li class="chapter" data-level="5.8.1" data-path="ch5Scenarios.html"><a href="ch5Scenarios.html#controlAntns"><i class="fa fa-check"></i><b>5.8.1</b> Control Annotations</a></li>
+<li class="chapter" data-level="5.8.2" data-path="ch5Scenarios.html"><a href="ch5Scenarios.html#rvParameters"><i class="fa fa-check"></i><b>5.8.2</b> Random Variable Parameters</a></li>
+<li class="chapter" data-level="5.8.3" data-path="ch5Scenarios.html"><a href="ch5Scenarios.html#kslScenarios"><i class="fa fa-check"></i><b>5.8.3</b> Setting Up and Running Multiple Scenarios</a></li>
+</ul></li>
+<li class="chapter" data-level="5.9" data-path="simoasummary.html"><a href="simoasummary.html"><i class="fa fa-check"></i><b>5.9</b> Summary</a></li>
+<li class="chapter" data-level="5.10" data-path="exercises-4.html"><a href="exercises-4.html"><i class="fa fa-check"></i><b>5.10</b> Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="processview.html"><a href="processview.html"><i class="fa fa-check"></i><b>6</b> Process View Modeling Using the KSL</a>
+<ul>
+<li class="chapter" data-level="6.1" data-path="ch6Entities.html"><a href="ch6Entities.html"><i class="fa fa-check"></i><b>6.1</b> What are Entities?</a></li>
+<li class="chapter" data-level="6.2" data-path="pvIntro.html"><a href="pvIntro.html"><i class="fa fa-check"></i><b>6.2</b> The Process View</a></li>
+<li class="chapter" data-level="6.3" data-path="understanding-ksl-processes-and-entities.html"><a href="understanding-ksl-processes-and-entities.html"><i class="fa fa-check"></i><b>6.3</b> Understanding KSL Processes and Entities</a></li>
+<li class="chapter" data-level="6.4" data-path="examples-of-process-modeling.html"><a href="examples-of-process-modeling.html"><i class="fa fa-check"></i><b>6.4</b> Examples of Process Modeling</a>
+<ul>
+<li class="chapter" data-level="6.4.1" data-path="examples-of-process-modeling.html"><a href="examples-of-process-modeling.html#holding-entities-in-a-queue-holdqueue-class"><i class="fa fa-check"></i><b>6.4.1</b> Holding Entities in a Queue: <code>HoldQueue</code> Class</a></li>
+<li class="chapter" data-level="6.4.2" data-path="examples-of-process-modeling.html"><a href="examples-of-process-modeling.html#signaling-entities"><i class="fa fa-check"></i><b>6.4.2</b> Signaling Entities</a></li>
+<li class="chapter" data-level="6.4.3" data-path="examples-of-process-modeling.html"><a href="examples-of-process-modeling.html#understanding-blocking-queues"><i class="fa fa-check"></i><b>6.4.3</b> Understanding Blocking Queues</a></li>
+<li class="chapter" data-level="6.4.4" data-path="examples-of-process-modeling.html"><a href="examples-of-process-modeling.html#allowing-entities-to-wait-for-a-process"><i class="fa fa-check"></i><b>6.4.4</b> Allowing Entities to Wait for a Process</a></li>
+<li class="chapter" data-level="6.4.5" data-path="examples-of-process-modeling.html"><a href="examples-of-process-modeling.html#processinteraction"><i class="fa fa-check"></i><b>6.4.5</b> Process Interaction</a></li>
+</ul></li>
+<li class="chapter" data-level="6.5" data-path="modeling-a-stem-career-mixer.html"><a href="modeling-a-stem-career-mixer.html"><i class="fa fa-check"></i><b>6.5</b> Modeling a STEM Career Mixer</a>
+<ul>
+<li class="chapter" data-level="6.5.1" data-path="modeling-a-stem-career-mixer.html"><a href="modeling-a-stem-career-mixer.html#conceptualizing-the-system"><i class="fa fa-check"></i><b>6.5.1</b> Conceptualizing the System</a></li>
+<li class="chapter" data-level="6.5.2" data-path="modeling-a-stem-career-mixer.html"><a href="modeling-a-stem-career-mixer.html#implementing-the-stem-mixer-model"><i class="fa fa-check"></i><b>6.5.2</b> Implementing the STEM Mixer Model</a></li>
+</ul></li>
+<li class="chapter" data-level="6.6" data-path="the-tie-dye-t-shirt-model.html"><a href="the-tie-dye-t-shirt-model.html"><i class="fa fa-check"></i><b>6.6</b> The Tie-Dye T-Shirt Model</a>
+<ul>
+<li class="chapter" data-level="6.6.1" data-path="the-tie-dye-t-shirt-model.html"><a href="the-tie-dye-t-shirt-model.html#ch4:TieDyeTShirtsSub1"><i class="fa fa-check"></i><b>6.6.1</b> Implementing the Tie-Dye T-Shirt Model</a></li>
+</ul></li>
+<li class="chapter" data-level="6.7" data-path="summary-2.html"><a href="summary-2.html"><i class="fa fa-check"></i><b>6.7</b> Summary</a></li>
+<li class="chapter" data-level="6.8" data-path="exercises-5.html"><a href="exercises-5.html"><i class="fa fa-check"></i><b>6.8</b> Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="ch7AdvModeling.html"><a href="ch7AdvModeling.html"><i class="fa fa-check"></i><b>7</b> Advanced Event and Process View Modeling</a>
+<ul>
+<li class="chapter" data-level="7.1" data-path="modeling-with-processes-and-resources.html"><a href="modeling-with-processes-and-resources.html"><i class="fa fa-check"></i><b>7.1</b> Modeling with Processes and Resources</a>
+<ul>
+<li class="chapter" data-level="7.1.1" data-path="modeling-with-processes-and-resources.html"><a href="modeling-with-processes-and-resources.html#modeling-space-with-resources"><i class="fa fa-check"></i><b>7.1.1</b> Modeling Space with Resources</a></li>
+<li class="chapter" data-level="7.1.2" data-path="modeling-with-processes-and-resources.html"><a href="modeling-with-processes-and-resources.html#secResourcePools"><i class="fa fa-check"></i><b>7.1.2</b> Resource Pools</a></li>
+<li class="chapter" data-level="7.1.3" data-path="modeling-with-processes-and-resources.html"><a href="modeling-with-processes-and-resources.html#secTestAndRepair"><i class="fa fa-check"></i><b>7.1.3</b> Computer Test and Repair Shop Example</a></li>
+</ul></li>
+<li class="chapter" data-level="7.2" data-path="modeling-non-stationary-systems.html"><a href="modeling-non-stationary-systems.html"><i class="fa fa-check"></i><b>7.2</b> Modeling Non-Stationary Systems</a>
+<ul>
+<li class="chapter" data-level="7.2.1" data-path="modeling-non-stationary-systems.html"><a href="modeling-non-stationary-systems.html#ch7secNSPP"><i class="fa fa-check"></i><b>7.2.1</b> Non-Stationary Arrival Processes</a></li>
+<li class="chapter" data-level="7.2.2" data-path="modeling-non-stationary-systems.html"><a href="modeling-non-stationary-systems.html#modeling-resources-under-non-stationary-conditions"><i class="fa fa-check"></i><b>7.2.2</b> Modeling Resources Under Non-Stationary Conditions</a></li>
+<li class="chapter" data-level="7.2.3" data-path="modeling-non-stationary-systems.html"><a href="modeling-non-stationary-systems.html#enhancing-the-stem-career-mixer-model"><i class="fa fa-check"></i><b>7.2.3</b> Enhancing the STEM Career Mixer Model</a></li>
+</ul></li>
+<li class="chapter" data-level="7.3" data-path="examples-of-advanced-event-models.html"><a href="examples-of-advanced-event-models.html"><i class="fa fa-check"></i><b>7.3</b> Examples of Advanced Event Models</a>
+<ul>
+<li class="chapter" data-level="7.3.1" data-path="examples-of-advanced-event-models.html"><a href="examples-of-advanced-event-models.html#ch6s1sb4sub3"><i class="fa fa-check"></i><b>7.3.1</b> Modeling Balking and Reneging</a></li>
+<li class="chapter" data-level="7.3.2" data-path="examples-of-advanced-event-models.html"><a href="examples-of-advanced-event-models.html#rqModel"><i class="fa fa-check"></i><b>7.3.2</b> Modeling a Reorder Point, Reorder Quantity Inventory Policy</a></li>
+</ul></li>
+<li class="chapter" data-level="7.4" data-path="ch7VandV.html"><a href="ch7VandV.html"><i class="fa fa-check"></i><b>7.4</b> Applying Queueing Theory Results to Verify and Validate a Simulation</a>
+<ul>
+<li class="chapter" data-level="7.4.1" data-path="ch7VandV.html"><a href="ch7VandV.html#analyzing-the-preparation-station"><i class="fa fa-check"></i><b>7.4.1</b> Analyzing the Preparation Station</a></li>
+<li class="chapter" data-level="7.4.2" data-path="ch7VandV.html"><a href="ch7VandV.html#analyzing-the-build-lines"><i class="fa fa-check"></i><b>7.4.2</b> Analyzing the Build Lines</a></li>
+<li class="chapter" data-level="7.4.3" data-path="ch7VandV.html"><a href="ch7VandV.html#analyzing-the-packaging-station"><i class="fa fa-check"></i><b>7.4.3</b> Analyzing the Packaging Station</a></li>
+<li class="chapter" data-level="7.4.4" data-path="ch7VandV.html"><a href="ch7VandV.html#analyzing-the-palletizing-station"><i class="fa fa-check"></i><b>7.4.4</b> Analyzing the Palletizing Station</a></li>
+<li class="chapter" data-level="7.4.5" data-path="ch7VandV.html"><a href="ch7VandV.html#analyzing-the-total-system-time"><i class="fa fa-check"></i><b>7.4.5</b> Analyzing the Total System Time</a></li>
+<li class="chapter" data-level="7.4.6" data-path="ch7VandV.html"><a href="ch7VandV.html#other-issues-for-verification-and-validation"><i class="fa fa-check"></i><b>7.4.6</b> Other Issues for Verification and Validation</a></li>
+</ul></li>
+<li class="chapter" data-level="7.5" data-path="summary-3.html"><a href="summary-3.html"><i class="fa fa-check"></i><b>7.5</b> Summary</a></li>
+<li class="chapter" data-level="7.6" data-path="exercises-6.html"><a href="exercises-6.html"><i class="fa fa-check"></i><b>7.6</b> Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="8" data-path="chEntityMovement.html"><a href="chEntityMovement.html"><i class="fa fa-check"></i><b>8</b> Modeling Entity Movement</a>
+<ul>
+<li class="chapter" data-level="8.1" data-path="secRCT.html"><a href="secRCT.html"><i class="fa fa-check"></i><b>8.1</b> Resource Constrained Transfer</a>
+<ul>
+<li class="chapter" data-level="8.1.1" data-path="secRCT.html"><a href="secRCT.html#secTestRepairRCT"><i class="fa fa-check"></i><b>8.1.1</b> Test and Repair with Resource Constrained Transfer</a></li>
+</ul></li>
+<li class="chapter" data-level="8.2" data-path="movableResources.html"><a href="movableResources.html"><i class="fa fa-check"></i><b>8.2</b> Constrained Transfer with Movable Resources</a>
+<ul>
+<li class="chapter" data-level="8.2.1" data-path="movableResources.html"><a href="movableResources.html#spatial-models"><i class="fa fa-check"></i><b>8.2.1</b> Spatial Models</a></li>
+<li class="chapter" data-level="8.2.2" data-path="movableResources.html"><a href="movableResources.html#secMovableResources"><i class="fa fa-check"></i><b>8.2.2</b> Movable Resources</a></li>
+<li class="chapter" data-level="8.2.3" data-path="movableResources.html"><a href="movableResources.html#secTQMWM"><i class="fa fa-check"></i><b>8.2.3</b> Tandem Queue Model With Movement</a></li>
+</ul></li>
+<li class="chapter" data-level="8.3" data-path="secTestAndRepairMovableResources.html"><a href="secTestAndRepairMovableResources.html"><i class="fa fa-check"></i><b>8.3</b> Modeling the Test and Repair System with Movable Resources</a></li>
+<li class="chapter" data-level="8.4" data-path="secConveyors.html"><a href="secConveyors.html"><i class="fa fa-check"></i><b>8.4</b> Modeling Systems with Conveyors</a>
+<ul>
+<li class="chapter" data-level="8.4.1" data-path="secConveyors.html"><a href="secConveyors.html#ksl-conveyor-constructs"><i class="fa fa-check"></i><b>8.4.1</b> KSL Conveyor Constructs</a></li>
+<li class="chapter" data-level="8.4.2" data-path="secConveyors.html"><a href="secConveyors.html#tandem-queue-system-with-conveyors"><i class="fa fa-check"></i><b>8.4.2</b> Tandem Queue System with Conveyors</a></li>
+<li class="chapter" data-level="8.4.3" data-path="secConveyors.html"><a href="secConveyors.html#secTestAndRepairConveyors"><i class="fa fa-check"></i><b>8.4.3</b> Test and Repair via Conveyors</a></li>
+<li class="chapter" data-level="8.4.4" data-path="secConveyors.html"><a href="secConveyors.html#secMiscConveyor"><i class="fa fa-check"></i><b>8.4.4</b> Miscellaneous Concepts in Conveyor Modeling</a></li>
+</ul></li>
+<li class="chapter" data-level="8.5" data-path="summary-of-new-concepts.html"><a href="summary-of-new-concepts.html"><i class="fa fa-check"></i><b>8.5</b> Summary of New Concepts</a></li>
+<li class="chapter" data-level="8.6" data-path="exercises-7.html"><a href="exercises-7.html"><i class="fa fa-check"></i><b>8.6</b> Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="9" data-path="ch9AdvMC.html"><a href="ch9AdvMC.html"><i class="fa fa-check"></i><b>9</b> Advanced Monte Carlo Methods</a>
+<ul>
+<li class="chapter" data-level="9.1" data-path="ch9BootStrapping.html"><a href="ch9BootStrapping.html"><i class="fa fa-check"></i><b>9.1</b> Bootstrap Methods</a>
+<ul>
+<li class="chapter" data-level="9.1.1" data-path="ch9BootStrapping.html"><a href="ch9BootStrapping.html#bootstrapping-using-the-ksl"><i class="fa fa-check"></i><b>9.1.1</b> Bootstrapping Using the KSL</a></li>
+</ul></li>
+<li class="chapter" data-level="9.2" data-path="ch9VRTs.html"><a href="ch9VRTs.html"><i class="fa fa-check"></i><b>9.2</b> Variance Reduction Techniques</a>
+<ul>
+<li class="chapter" data-level="9.2.1" data-path="ch9VRTs.html"><a href="ch9VRTs.html#common-random-numbers-crn"><i class="fa fa-check"></i><b>9.2.1</b> Common Random Numbers (CRN)</a></li>
+<li class="chapter" data-level="9.2.2" data-path="ch9VRTs.html"><a href="ch9VRTs.html#antithetic-variates-av"><i class="fa fa-check"></i><b>9.2.2</b> Antithetic Variates (AV)</a></li>
+<li class="chapter" data-level="9.2.3" data-path="ch9VRTs.html"><a href="ch9VRTs.html#indirect-estimation"><i class="fa fa-check"></i><b>9.2.3</b> Indirect Estimation</a></li>
+<li class="chapter" data-level="9.2.4" data-path="ch9VRTs.html"><a href="ch9VRTs.html#control-variates-cv"><i class="fa fa-check"></i><b>9.2.4</b> Control Variates (CV)</a></li>
+<li class="chapter" data-level="9.2.5" data-path="ch9VRTs.html"><a href="ch9VRTs.html#stratified-and-post-stratified-sampling"><i class="fa fa-check"></i><b>9.2.5</b> Stratified and Post Stratified Sampling</a></li>
+<li class="chapter" data-level="9.2.6" data-path="ch9VRTs.html"><a href="ch9VRTs.html#conditional-expectation-ce"><i class="fa fa-check"></i><b>9.2.6</b> Conditional Expectation (CE)</a></li>
+<li class="chapter" data-level="9.2.7" data-path="ch9VRTs.html"><a href="ch9VRTs.html#importance-sampling-is"><i class="fa fa-check"></i><b>9.2.7</b> Importance Sampling (IS)</a></li>
+</ul></li>
+<li class="chapter" data-level="9.3" data-path="ch9GMVRVs.html"><a href="ch9GMVRVs.html"><i class="fa fa-check"></i><b>9.3</b> Generating Multi-Variate and Correlated Random Variates</a>
+<ul>
+<li class="chapter" data-level="9.3.1" data-path="ch9GMVRVs.html"><a href="ch9GMVRVs.html#generating-from-a-bivariate-normal-distribution"><i class="fa fa-check"></i><b>9.3.1</b> Generating from a Bivariate Normal Distribution</a></li>
+<li class="chapter" data-level="9.3.2" data-path="ch9GMVRVs.html"><a href="ch9GMVRVs.html#copulas-and-multi-variate-generation-methods"><i class="fa fa-check"></i><b>9.3.2</b> Copulas and Multi-variate Generation Methods</a></li>
+<li class="chapter" data-level="9.3.3" data-path="ch9GMVRVs.html"><a href="ch9GMVRVs.html#autocorrelated-generation"><i class="fa fa-check"></i><b>9.3.3</b> Autocorrelated Generation</a></li>
+<li class="chapter" data-level="9.3.4" data-path="ch9GMVRVs.html"><a href="ch9GMVRVs.html#ch9MCMC"><i class="fa fa-check"></i><b>9.3.4</b> Introduction to Markov Chain Monte Carlo Methods</a></li>
+</ul></li>
+<li class="chapter" data-level="9.4" data-path="summary-4.html"><a href="summary-4.html"><i class="fa fa-check"></i><b>9.4</b> Summary</a></li>
+<li class="chapter" data-level="9.5" data-path="exercises-8.html"><a href="exercises-8.html"><i class="fa fa-check"></i><b>9.5</b> Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="10" data-path="ch10eo.html"><a href="ch10eo.html"><i class="fa fa-check"></i><b>10</b> Experimental Design and Simulation Optimization Methods</a>
+<ul>
+<li class="chapter" data-level="10.1" data-path="ch10doe.html"><a href="ch10doe.html"><i class="fa fa-check"></i><b>10.1</b> Experimental Design Methods</a>
+<ul>
+<li class="chapter" data-level="10.1.1" data-path="ch10doe.html"><a href="ch10doe.html#ch10factors"><i class="fa fa-check"></i><b>10.1.1</b> Defining Factors</a></li>
+<li class="chapter" data-level="10.1.2" data-path="ch10doe.html"><a href="ch10doe.html#ch10designs"><i class="fa fa-check"></i><b>10.1.2</b> Defining Experimental Designs</a></li>
+<li class="chapter" data-level="10.1.3" data-path="ch10doe.html"><a href="ch10doe.html#ch10exp"><i class="fa fa-check"></i><b>10.1.3</b> Executing a Designed Experiment</a></li>
+<li class="chapter" data-level="10.1.4" data-path="ch10doe.html"><a href="ch10doe.html#ch10analysis"><i class="fa fa-check"></i><b>10.1.4</b> Analyzing a Designed Experiment</a></li>
+</ul></li>
+<li class="chapter" data-level="10.2" data-path="ch10simOpt.html"><a href="ch10simOpt.html"><i class="fa fa-check"></i><b>10.2</b> Simulation Optimization Methods</a></li>
+<li class="chapter" data-level="10.3" data-path="ch10ProbDefn.html"><a href="ch10ProbDefn.html"><i class="fa fa-check"></i><b>10.3</b> Defining Simulation Optimization Problems</a>
+<ul>
+<li class="chapter" data-level="10.3.1" data-path="ch10ProbDefn.html"><a href="ch10ProbDefn.html#specifying-penalty-functions"><i class="fa fa-check"></i><b>10.3.1</b> Specifying Penalty Functions</a></li>
+<li class="chapter" data-level="10.3.2" data-path="ch10ProbDefn.html"><a href="ch10ProbDefn.html#inputvariables"><i class="fa fa-check"></i><b>10.3.2</b> Defining Input Variables</a></li>
+<li class="chapter" data-level="10.3.3" data-path="ch10ProbDefn.html"><a href="ch10ProbDefn.html#linear-and-functional-constraints"><i class="fa fa-check"></i><b>10.3.3</b> Linear and Functional Constraints</a></li>
+<li class="chapter" data-level="10.3.4" data-path="ch10ProbDefn.html"><a href="ch10ProbDefn.html#response-constraints"><i class="fa fa-check"></i><b>10.3.4</b> Response Constraints</a></li>
+<li class="chapter" data-level="10.3.5" data-path="ch10ProbDefn.html"><a href="ch10ProbDefn.html#ch10ProbDefnExample"><i class="fa fa-check"></i><b>10.3.5</b> Setting Up a Problem Definition</a></li>
+</ul></li>
+<li class="chapter" data-level="10.4" data-path="representing-the-simulation-oracle.html"><a href="representing-the-simulation-oracle.html"><i class="fa fa-check"></i><b>10.4</b> Representing the Simulation Oracle</a>
+<ul>
+<li class="chapter" data-level="10.4.1" data-path="representing-the-simulation-oracle.html"><a href="representing-the-simulation-oracle.html#requesting-simulation-evaluations"><i class="fa fa-check"></i><b>10.4.1</b> Requesting Simulation Evaluations</a></li>
+<li class="chapter" data-level="10.4.2" data-path="representing-the-simulation-oracle.html"><a href="representing-the-simulation-oracle.html#representing-model-inputs"><i class="fa fa-check"></i><b>10.4.2</b> Representing Model Inputs</a></li>
+<li class="chapter" data-level="10.4.3" data-path="representing-the-simulation-oracle.html"><a href="representing-the-simulation-oracle.html#representing-model-outputs"><i class="fa fa-check"></i><b>10.4.3</b> Representing Model Outputs</a></li>
+</ul></li>
+<li class="chapter" data-level="10.5" data-path="characterizing-simulation-optimization-algorithms.html"><a href="characterizing-simulation-optimization-algorithms.html"><i class="fa fa-check"></i><b>10.5</b> Characterizing Simulation Optimization Algorithms</a>
+<ul>
+<li class="chapter" data-level="10.5.1" data-path="characterizing-simulation-optimization-algorithms.html"><a href="characterizing-simulation-optimization-algorithms.html#structure-of-the-iterative-process"><i class="fa fa-check"></i><b>10.5.1</b> Structure of the Iterative Process</a></li>
+<li class="chapter" data-level="10.5.2" data-path="characterizing-simulation-optimization-algorithms.html"><a href="characterizing-simulation-optimization-algorithms.html#solver-plug-in-behavior"><i class="fa fa-check"></i><b>10.5.2</b> Solver Plug-in Behavior</a></li>
+<li class="chapter" data-level="10.5.3" data-path="characterizing-simulation-optimization-algorithms.html"><a href="characterizing-simulation-optimization-algorithms.html#miscellaneous-concepts-in-the-solver-class"><i class="fa fa-check"></i><b>10.5.3</b> Miscellaneous Concepts in the <code>Solver</code> Class</a></li>
+</ul></li>
+<li class="chapter" data-level="10.6" data-path="implemented-solvers.html"><a href="implemented-solvers.html"><i class="fa fa-check"></i><b>10.6</b> Implemented Solvers</a>
+<ul>
+<li class="chapter" data-level="10.6.1" data-path="implemented-solvers.html"><a href="implemented-solvers.html#simulated-annealing"><i class="fa fa-check"></i><b>10.6.1</b> Simulated Annealing</a></li>
+<li class="chapter" data-level="10.6.2" data-path="implemented-solvers.html"><a href="implemented-solvers.html#cross-entropy"><i class="fa fa-check"></i><b>10.6.2</b> Cross Entropy</a></li>
+<li class="chapter" data-level="10.6.3" data-path="implemented-solvers.html"><a href="implemented-solvers.html#r-spline"><i class="fa fa-check"></i><b>10.6.3</b> R-SPLINE</a></li>
+<li class="chapter" data-level="10.6.4" data-path="implemented-solvers.html"><a href="implemented-solvers.html#randomized-restart-solvers"><i class="fa fa-check"></i><b>10.6.4</b> Randomized Restart Solvers</a></li>
+</ul></li>
+<li class="chapter" data-level="10.7" data-path="secApplySolver.html"><a href="secApplySolver.html"><i class="fa fa-check"></i><b>10.7</b> Using a Solver on a Problem</a>
+<ul>
+<li class="chapter" data-level="10.7.1" data-path="secApplySolver.html"><a href="secApplySolver.html#applyCE"><i class="fa fa-check"></i><b>10.7.1</b> Illustrating the Cross-Entropy Solver</a></li>
+<li class="chapter" data-level="10.7.2" data-path="secApplySolver.html"><a href="secApplySolver.html#illustrating-simulated-annealing-with-random-restarts"><i class="fa fa-check"></i><b>10.7.2</b> Illustrating Simulated Annealing with Random Restarts</a></li>
+</ul></li>
+<li class="chapter" data-level="10.8" data-path="summary-5.html"><a href="summary-5.html"><i class="fa fa-check"></i><b>10.8</b> Summary</a></li>
+<li class="chapter" data-level="10.9" data-path="exercises-9.html"><a href="exercises-9.html"><i class="fa fa-check"></i><b>10.9</b> Exercises</a></li>
+</ul></li>
+<li class="appendix"><span><b>Appendix</b></span></li>
+<li class="chapter" data-level="A" data-path="appRNRV.html"><a href="appRNRV.html"><i class="fa fa-check"></i><b>A</b> Generating Pseudo-Random Numbers and Random Variates</a>
+<ul>
+<li class="chapter" data-level="A.1" data-path="appRNRVPRN.html"><a href="appRNRVPRN.html"><i class="fa fa-check"></i><b>A.1</b> Pseudo Random Numbers</a>
+<ul>
+<li class="chapter" data-level="A.1.1" data-path="appRNRVPRN.html"><a href="appRNRVPRN.html#appRNRVRNGs"><i class="fa fa-check"></i><b>A.1.1</b> Random Number Generators</a></li>
+</ul></li>
+<li class="chapter" data-level="A.2" data-path="appRNRVs.html"><a href="appRNRVs.html"><i class="fa fa-check"></i><b>A.2</b> Generating Random Variates from Distributions</a>
+<ul>
+<li class="chapter" data-level="A.2.1" data-path="appRNRVs.html"><a href="appRNRVs.html#inverse-transform-method"><i class="fa fa-check"></i><b>A.2.1</b> Inverse Transform Method</a></li>
+<li class="chapter" data-level="A.2.2" data-path="appRNRVs.html"><a href="appRNRVs.html#convolution"><i class="fa fa-check"></i><b>A.2.2</b> Convolution</a></li>
+<li class="chapter" data-level="A.2.3" data-path="appRNRVs.html"><a href="appRNRVs.html#acceptancerejection"><i class="fa fa-check"></i><b>A.2.3</b> Acceptance/Rejection</a></li>
+<li class="chapter" data-level="A.2.4" data-path="appRNRVs.html"><a href="appRNRVs.html#AppRNRVsubsecMTSRV"><i class="fa fa-check"></i><b>A.2.4</b> Mixture Distributions, Truncated Distributions, and Shifted Random Variables</a></li>
+</ul></li>
+<li class="chapter" data-level="A.3" data-path="summary-6.html"><a href="summary-6.html"><i class="fa fa-check"></i><b>A.3</b> Summary</a></li>
+<li class="chapter" data-level="A.4" data-path="exercises-10.html"><a href="exercises-10.html"><i class="fa fa-check"></i><b>A.4</b> Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="B" data-path="appidm.html"><a href="appidm.html"><i class="fa fa-check"></i><b>B</b> Probability Distribution Modeling</a>
+<ul>
+<li class="chapter" data-level="B.1" data-path="appidmsecrvPD.html"><a href="appidmsecrvPD.html"><i class="fa fa-check"></i><b>B.1</b> Random Variables and Probability Distributions</a></li>
+<li class="chapter" data-level="B.2" data-path="appidmsecMDD.html"><a href="appidmsecMDD.html"><i class="fa fa-check"></i><b>B.2</b> Modeling with Discrete Distributions</a></li>
+<li class="chapter" data-level="B.3" data-path="appidmsecfitDiscrete.html"><a href="appidmsecfitDiscrete.html"><i class="fa fa-check"></i><b>B.3</b> Fitting Discrete Distributions</a>
+<ul>
+<li class="chapter" data-level="B.3.1" data-path="appidmsecfitDiscrete.html"><a href="appidmsecfitDiscrete.html#AppDisFitPoissonFit"><i class="fa fa-check"></i><b>B.3.1</b> Fitting a Poisson Distribution</a></li>
+<li class="chapter" data-level="B.3.2" data-path="appidmsecfitDiscrete.html"><a href="appidmsecfitDiscrete.html#visualizing-the-data"><i class="fa fa-check"></i><b>B.3.2</b> Visualizing the Data</a></li>
+<li class="chapter" data-level="B.3.3" data-path="appidmsecfitDiscrete.html"><a href="appidmsecfitDiscrete.html#estimating-the-rate-parameter-for-the-poisson-distribution"><i class="fa fa-check"></i><b>B.3.3</b> Estimating the Rate Parameter for the Poisson Distribution</a></li>
+<li class="chapter" data-level="B.3.4" data-path="appidmsecfitDiscrete.html"><a href="appidmsecfitDiscrete.html#chi-squared-goodness-of-fit-test-for-poisson-distribution"><i class="fa fa-check"></i><b>B.3.4</b> Chi-Squared Goodness of Fit Test for Poisson Distribution</a></li>
+<li class="chapter" data-level="B.3.5" data-path="appidmsecfitDiscrete.html"><a href="appidmsecfitDiscrete.html#subsubchisqGOF"><i class="fa fa-check"></i><b>B.3.5</b> Chi-Squared Goodness of Fit Test</a></li>
+<li class="chapter" data-level="B.3.6" data-path="appidmsecfitDiscrete.html"><a href="appidmsecfitDiscrete.html#using-the-fitdistrplus-r-package-on-discrete-data"><i class="fa fa-check"></i><b>B.3.6</b> Using the fitdistrplus R Package on Discrete Data</a></li>
+<li class="chapter" data-level="B.3.7" data-path="appidmsecfitDiscrete.html"><a href="appidmsecfitDiscrete.html#fitting-a-discrete-empirical-distribution"><i class="fa fa-check"></i><b>B.3.7</b> Fitting a Discrete Empirical Distribution</a></li>
+</ul></li>
+<li class="chapter" data-level="B.4" data-path="appidmsecMCD.html"><a href="appidmsecMCD.html"><i class="fa fa-check"></i><b>B.4</b> Modeling with Continuous Distributions</a></li>
+<li class="chapter" data-level="B.5" data-path="appidmsecfitContinuous.html"><a href="appidmsecfitContinuous.html"><i class="fa fa-check"></i><b>B.5</b> Fitting Continuous Distributions</a>
+<ul>
+<li class="chapter" data-level="B.5.1" data-path="appidmsecfitContinuous.html"><a href="appidmsecfitContinuous.html#appidmsubsecvisualizedata"><i class="fa fa-check"></i><b>B.5.1</b> Visualizing the Data</a></li>
+<li class="chapter" data-level="B.5.2" data-path="appidmsecfitContinuous.html"><a href="appidmsecfitContinuous.html#appidmsubsecstatsdata"><i class="fa fa-check"></i><b>B.5.2</b> Statistically Summarize the Data</a></li>
+<li class="chapter" data-level="B.5.3" data-path="appidmsecfitContinuous.html"><a href="appidmsecfitContinuous.html#appidmsubsechypothDist"><i class="fa fa-check"></i><b>B.5.3</b> Hypothesizing and Testing a Distribution</a></li>
+<li class="chapter" data-level="B.5.4" data-path="appidmsecfitContinuous.html"><a href="appidmsecfitContinuous.html#kolmogorov-smirnov-test"><i class="fa fa-check"></i><b>B.5.4</b> Kolmogorov-Smirnov Test</a></li>
+<li class="chapter" data-level="B.5.5" data-path="appidmsecfitContinuous.html"><a href="appidmsecfitContinuous.html#appidmsubsecvisFit"><i class="fa fa-check"></i><b>B.5.5</b> Visualizing the Fit</a></li>
+<li class="chapter" data-level="B.5.6" data-path="appidmsecfitContinuous.html"><a href="appidmsecfitContinuous.html#appidms2sb3"><i class="fa fa-check"></i><b>B.5.6</b> Using the Input Analyzer</a></li>
+</ul></li>
+<li class="chapter" data-level="B.6" data-path="appdistfittestU01.html"><a href="appdistfittestU01.html"><i class="fa fa-check"></i><b>B.6</b> Testing Uniform (0,1) Pseudo-Random Numbers</a>
+<ul>
+<li class="chapter" data-level="B.6.1" data-path="appdistfittestU01.html"><a href="appdistfittestU01.html#chi-squared-goodness-of-fit-tests-for-pseudo-random-numbers"><i class="fa fa-check"></i><b>B.6.1</b> Chi-Squared Goodness of Fit Tests for Pseudo-Random Numbers</a></li>
+<li class="chapter" data-level="B.6.2" data-path="appdistfittestU01.html"><a href="appdistfittestU01.html#higher-dimensional-chi-squared-test"><i class="fa fa-check"></i><b>B.6.2</b> Higher Dimensional Chi-Squared Test</a></li>
+<li class="chapter" data-level="B.6.3" data-path="appdistfittestU01.html"><a href="appdistfittestU01.html#kolmogorov-smirnov-test-for-pseudo-random-numbers"><i class="fa fa-check"></i><b>B.6.3</b> Kolmogorov-Smirnov Test for Pseudo-Random Numbers</a></li>
+<li class="chapter" data-level="B.6.4" data-path="appdistfittestU01.html"><a href="appdistfittestU01.html#testing-for-independence-and-patterns-in-pseudo-random-numbers"><i class="fa fa-check"></i><b>B.6.4</b> Testing for Independence and Patterns in Pseudo-Random Numbers</a></li>
+</ul></li>
+<li class="chapter" data-level="B.7" data-path="appdistfitidms2sb4.html"><a href="appdistfitidms2sb4.html"><i class="fa fa-check"></i><b>B.7</b> Additional Distribution Modeling Concepts</a></li>
+<li class="chapter" data-level="B.8" data-path="appidmSummary.html"><a href="appidmSummary.html"><i class="fa fa-check"></i><b>B.8</b> Summary</a></li>
+<li class="chapter" data-level="B.9" data-path="exercises-11.html"><a href="exercises-11.html"><i class="fa fa-check"></i><b>B.9</b> Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="C" data-path="appqtAndInvT.html"><a href="appqtAndInvT.html"><i class="fa fa-check"></i><b>C</b> Queueing Theory</a>
+<ul>
+<li class="chapter" data-level="C.1" data-path="appqts1.html"><a href="appqts1.html"><i class="fa fa-check"></i><b>C.1</b> Single Line Queueing Stations</a>
+<ul>
+<li class="chapter" data-level="C.1.1" data-path="appqts1.html"><a href="appqts1.html#queueing-notation"><i class="fa fa-check"></i><b>C.1.1</b> Queueing Notation</a></li>
+<li class="chapter" data-level="C.1.2" data-path="appqts1.html"><a href="appqts1.html#littles-formula"><i class="fa fa-check"></i><b>C.1.2</b> Little’s Formula</a></li>
+<li class="chapter" data-level="C.1.3" data-path="appqts1.html"><a href="appqts1.html#appqts1sb1"><i class="fa fa-check"></i><b>C.1.3</b> Deriving Formulas for Markovian Single Queue Systems</a></li>
+</ul></li>
+<li class="chapter" data-level="C.2" data-path="appqts1sb2.html"><a href="appqts1sb2.html"><i class="fa fa-check"></i><b>C.2</b> Examples and Applications of Queueing Analysis</a>
+<ul>
+<li class="chapter" data-level="C.2.1" data-path="appqts1sb2.html"><a href="appqts1sb2.html#infinite-queue-examples"><i class="fa fa-check"></i><b>C.2.1</b> Infinite Queue Examples</a></li>
+<li class="chapter" data-level="C.2.2" data-path="appqts1sb2.html"><a href="appqts1sb2.html#finite-queue-examples"><i class="fa fa-check"></i><b>C.2.2</b> Finite Queue Examples</a></li>
+</ul></li>
+<li class="chapter" data-level="C.3" data-path="appqts1sb3.html"><a href="appqts1sb3.html"><i class="fa fa-check"></i><b>C.3</b> Non-Markovian Queues and Approximations</a></li>
+<li class="chapter" data-level="C.4" data-path="appqtsecformulas.html"><a href="appqtsecformulas.html"><i class="fa fa-check"></i><b>C.4</b> Summary of Queueing Formulas</a>
+<ul>
+<li class="chapter" data-level="C.4.1" data-path="appqtsecformulas.html"><a href="appqtsecformulas.html#mm1-queue"><i class="fa fa-check"></i><b>C.4.1</b> M/M/1 Queue</a></li>
+<li class="chapter" data-level="C.4.2" data-path="appqtsecformulas.html"><a href="appqtsecformulas.html#mmc-queue"><i class="fa fa-check"></i><b>C.4.2</b> M/M/c Queue</a></li>
+<li class="chapter" data-level="C.4.3" data-path="appqtsecformulas.html"><a href="appqtsecformulas.html#mmck-queue"><i class="fa fa-check"></i><b>C.4.3</b> M/M/c/k Queue</a></li>
+<li class="chapter" data-level="C.4.4" data-path="appqtsecformulas.html"><a href="appqtsecformulas.html#mgcc-queue"><i class="fa fa-check"></i><b>C.4.4</b> M/G/c/c Queue</a></li>
+<li class="chapter" data-level="C.4.5" data-path="appqtsecformulas.html"><a href="appqtsecformulas.html#mm1k-queue"><i class="fa fa-check"></i><b>C.4.5</b> M/M/1/k Queue</a></li>
+<li class="chapter" data-level="C.4.6" data-path="appqtsecformulas.html"><a href="appqtsecformulas.html#mmck-queue-1"><i class="fa fa-check"></i><b>C.4.6</b> M/M/c/k Queue</a></li>
+<li class="chapter" data-level="C.4.7" data-path="appqtsecformulas.html"><a href="appqtsecformulas.html#mm1kk-queue"><i class="fa fa-check"></i><b>C.4.7</b> M/M/1/k/k Queue</a></li>
+<li class="chapter" data-level="C.4.8" data-path="appqtsecformulas.html"><a href="appqtsecformulas.html#mmckk-queue"><i class="fa fa-check"></i><b>C.4.8</b> M/M/c/k/k Queue</a></li>
+</ul></li>
+<li class="chapter" data-level="C.5" data-path="exercises-12.html"><a href="exercises-12.html"><i class="fa fa-check"></i><b>C.5</b> Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="D" data-path="appUtilities.html"><a href="appUtilities.html"><i class="fa fa-check"></i><b>D</b> KSL Utility Packages</a>
+<ul>
+<li class="chapter" data-level="D.1" data-path="the-outputdirectory-class-and-ksl-object.html"><a href="the-outputdirectory-class-and-ksl-object.html"><i class="fa fa-check"></i><b>D.1</b> The <code>OutputDirectory</code> Class and <code>KSL</code> Object</a></li>
+<li class="chapter" data-level="D.2" data-path="logging-options.html"><a href="logging-options.html"><i class="fa fa-check"></i><b>D.2</b> Logging Options</a></li>
+<li class="chapter" data-level="D.3" data-path="the-kslfileutil-object.html"><a href="the-kslfileutil-object.html"><i class="fa fa-check"></i><b>D.3</b> The <code>KSLFileUtil</code> Object</a></li>
+<li class="chapter" data-level="D.4" data-path="appDCSVEtc.html"><a href="appDCSVEtc.html"><i class="fa fa-check"></i><b>D.4</b> CSV, Excel, and Tabular Data Files</a></li>
+<li class="chapter" data-level="D.5" data-path="dfUtil.html"><a href="dfUtil.html"><i class="fa fa-check"></i><b>D.5</b> The <code>DataFrameUtil</code> Object</a></li>
+<li class="chapter" data-level="D.6" data-path="ksl-database-utilities.html"><a href="ksl-database-utilities.html"><i class="fa fa-check"></i><b>D.6</b> KSL Database Utilities</a></li>
+<li class="chapter" data-level="D.7" data-path="appUtilitiesArrays.html"><a href="appUtilitiesArrays.html"><i class="fa fa-check"></i><b>D.7</b> Array Utilities</a></li>
+<li class="chapter" data-level="D.8" data-path="appPlotting.html"><a href="appPlotting.html"><i class="fa fa-check"></i><b>D.8</b> KSL Plotting Utilities</a></li>
+<li class="chapter" data-level="D.9" data-path="appUtilitiesMisc.html"><a href="appUtilitiesMisc.html"><i class="fa fa-check"></i><b>D.9</b> Miscellaneous Utilities</a></li>
+</ul></li>
+<li class="chapter" data-level="E" data-path="distributions.html"><a href="distributions.html"><i class="fa fa-check"></i><b>E</b> Distributions</a>
+<ul>
+<li class="chapter" data-level="E.1" data-path="appDiscreteDistributions.html"><a href="appDiscreteDistributions.html"><i class="fa fa-check"></i><b>E.1</b> Discrete Distrbutions</a></li>
+<li class="chapter" data-level="E.2" data-path="appContinuousDistributions.html"><a href="appContinuousDistributions.html"><i class="fa fa-check"></i><b>E.2</b> Continuous Distrbutions</a></li>
+</ul></li>
+<li class="chapter" data-level="F" data-path="appStatTables.html"><a href="appStatTables.html"><i class="fa fa-check"></i><b>F</b> Statistical Tables</a></li>
+<li class="chapter" data-level="G" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i><b>G</b> References</a></li>
+<li class="divider"></li>
+<li><a href="https://bookdown.org" target="_blank">Published with bookdown</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Simulation Modeling using the Kotlin Simulation Library (KSL)</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="DTPExpanded" class="section level2 hasAnchor" number="4.6">
+<h2><span class="header-section-number">4.6</span> More Drive Through Fun<a href="DTPExpanded.html#DTPExpanded" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Many fast food franchises have configured their restaurants such that customers using the drive through option first place an order at an ordering station and then pickup and pay at following station. This situation is called a tandem queueing system as illustrated in Figure <a href="DTPExpanded.html#fig:Ch4TandemQ">4.14</a>. This section presents KSL constructs that facilitate the modeling of simple queueing situations, like that faced by fast food drive through lines.</p>
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:Ch4TandemQ"></span>
+<img src="figures2/ch7/TandemQ.png" alt="Tandem Queue" width="65%" height="65%" />
+<p class="caption">
+Figure 4.14: Tandem Queue
+</p>
+</div>
+<p>A tandem queue is a sequence of queues that must be visited (in order) to receive service from resources. The following example presents an illustrative situation.</p>
+<hr />
+<div class="example">
+<p><span id="exm:exCh4TandemQ" class="example"><strong>Example 4.6  (Tandem Queueing System) </strong></span>Suppose a service facility
+consists of two stations in series (tandem), each with its own FIFO
+queue. Each station consists of a queue and a single server. A customer
+completing service at station 1 proceeds to station 2, while a customer
+completing service at station 2 leaves the facility. Assume that the
+inter-arrival times of customers to station 1 are IID exponential random
+variables with a mean of 6 minutes. Service times of customers at station
+1 are exponential random variables with a mean of 4 minute, and at
+station 2 are exponential random variables with mean 3 minute. Develop
+an model for this system. Run the simulation for 30 replications of 20000 minutes, with a warm up period of 5000 minutes. Estimate for each station the expected average delay in queue for the customer, the expected time-average number of customers in
+queue, and the expected utilization. In addition, estimate the average
+number of customers in the system and the average time spent in the system.</p>
+</div>
+<hr />
+<p>The first thing to note about this situation is that the system consists of two very similar components: station 1 and station 2. The second thing to note is that the same <em>types</em> of events occur for each of the two components. That is, there are arrival and departure events for each station. The state change logic for the arrival and departure events is exactly the same as we saw for the pharmacy situation:</p>
+<p><strong>Arrival Actions for Event <span class="math inline">\(E_a\)</span></strong></p>
+<pre><code>N(t) = N(t) + 1
+if (B(t) &lt; c)
+  B(t) = B(t) + 1
+  schedule E_s at time t + ST_i
+else
+  Q(t) = Q(t) + 1
+endif
+schedule E_a at time t + TBA_i</code></pre>
+<p>We increase the number in the system <span class="math inline">\(N(t)\)</span> by 1 and check if the number of busy servers <span class="math inline">\(B(t)\)</span> is less than the capacity <span class="math inline">\(c\)</span>. If so, we start the customer into service; otherwise, we place the customer in the queue.</p>
+<p><strong>End of Service Actions for Event <span class="math inline">\(E_s\)</span></strong></p>
+<pre><code>B(t) = B(t) - 1
+if (Q(t) &gt; 0)
+  Q(t) = Q(t) - 1
+  B(t) = B(t) + 1
+  schedule E_s at time t + ST_i
+endif
+N(t) = N(t) - 1</code></pre>
+<p>The end of service actions are as previously seen. There is one less server busy and if the queue has customers, it is processed and the customer’s service starts. Since the same logic will need to be implemented for each station, it makes sense from an object-oriented perspective, to conceptualize a class that encapsulates the data and behavior to represent this situation.</p>
+<p>Figure <a href="DTPExpanded.html#fig:Ch4TandemQ">4.14</a> should give an idea of what the class should represent. In the figure, there are two stations with each station containing a queue and a server (or resource). Thus, we should build a class that models a single queue that holds objects that must wait for a server to be available. We are going to call this thing a <code>SingleQStation.</code> Notice that the input to the first station is a customer from some arrival process and that the input to the second station is a customer departing the first station. Thus, the main difference between how these components act is where they receive customers from and where they send completed customers. Notice that a station needs to know where to send its completed customers. What else does a station need to know in order to process the customers? The station will need to know how many servers are available at the station and will need to know how to determine the processing time for the customers. For this modeling, we need to combine the concepts of a resource and a queue as a model element component. Let’s put the resource together with a queue to get a station for processing in the <code>SingleQStation</code> class.</p>
+<div id="modeling-a-resource-with-a-waiting-line" class="section level3 hasAnchor" number="4.6.1">
+<h3><span class="header-section-number">4.6.1</span> Modeling a Resource with a Waiting Line<a href="DTPExpanded.html#modeling-a-resource-with-a-waiting-line" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>The <code>SingleQStation</code> class will use an instance of the <code>SResource</code> class to represent its resource. In addition, the <code>SingleQStation</code> class will use an instance of the <code>Queue</code> class presented in the previous section to represent the waiting line for the customers that need to wait for their requested units of the resource. The customers that use the single queue station will be represented by instances of the <code>QObject</code> class. We are now ready to put most of these pieces together to construct the <code>SingleQStation</code> class. Once we have an understanding of the <code>SingleQStation</code> class, we will be ready to model Example <a href="DTPExpanded.html#exm:exCh4TandemQ">4.6</a>.</p>
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:SingleQStation"></span>
+<img src="figures2/ch4/SingleQStation.png" alt="The SingleQStation Class" width="80%" height="80%" />
+<p class="caption">
+Figure 4.15: The SingleQStation Class
+</p>
+</div>
+<p>Let’s start with an overview of the functionality of the <code>SingleQStation</code> class and then review the code implementation. Figure <a href="DTPExpanded.html#fig:SingleQStation">4.15</a> presents the constructor, functions, and properties of the <code>SingleQStation</code> class. The main item to note about the constructor is that it can take in an instance of the <code>SResource</code> class. The second thing to note is that instances can process instances of the <code>QObject</code> class via the <code>process()</code> function. The <code>process()</code> function represents the actions that should occur when something arrives to the station. The <code>endOfProcessing()</code> function represents what should happen when the processing is completed. That is, the <code>process()</code> function is the “arrival event” and the <code>endOfProcessing()</code> function is the “departure event”. Let’s look at the code.</p>
+<p>The logic of the <code>process()</code> function should look very familiar. Just as was done in previous examples, the arriving customer immediately enters the queue. Then, if the resource is available, the next customer is placed into service.</p>
+<div class="sourceCode" id="cb147"><pre class="sourceCode kt"><code class="sourceCode kotlin"><span id="cb147-1"><a href="DTPExpanded.html#cb147-1" tabindex="-1"></a>    <span class="co">/**</span></span>
+<span id="cb147-2"><a href="DTPExpanded.html#cb147-2" tabindex="-1"></a><span class="co">     *  Receives the qObject instance for processing. Handle the queuing</span></span>
+<span id="cb147-3"><a href="DTPExpanded.html#cb147-3" tabindex="-1"></a><span class="co">     *  if the resource is not available and begins service for the next customer.</span></span>
+<span id="cb147-4"><a href="DTPExpanded.html#cb147-4" tabindex="-1"></a><span class="co">     */</span></span>
+<span id="cb147-5"><a href="DTPExpanded.html#cb147-5" tabindex="-1"></a>    <span class="kw">override</span> <span class="kw">fun</span> <span class="fu">process</span><span class="op">(</span><span class="va">arrivingQObject</span><span class="op">:</span> <span class="dt">QObject</span><span class="op">)</span> <span class="op">{</span></span>
+<span id="cb147-6"><a href="DTPExpanded.html#cb147-6" tabindex="-1"></a>        <span class="co">// enqueue the newly arriving qObject</span></span>
+<span id="cb147-7"><a href="DTPExpanded.html#cb147-7" tabindex="-1"></a>        myWaitingQ<span class="op">.</span>enqueue<span class="op">(</span>arrivingQObject<span class="op">)</span></span>
+<span id="cb147-8"><a href="DTPExpanded.html#cb147-8" tabindex="-1"></a>        <span class="cf">if</span> <span class="op">(</span>isResourceAvailable<span class="op">)</span> <span class="op">{</span></span>
+<span id="cb147-9"><a href="DTPExpanded.html#cb147-9" tabindex="-1"></a>            serveNext<span class="op">()</span></span>
+<span id="cb147-10"><a href="DTPExpanded.html#cb147-10" tabindex="-1"></a>        <span class="op">}</span></span>
+<span id="cb147-11"><a href="DTPExpanded.html#cb147-11" tabindex="-1"></a>    <span class="op">}</span></span></code></pre></div>
+<p>The <code>serveNext()</code> function removes the next customer from the queue, seizes the resource, and schedules the end of processing event for the customer. Notice that the customer starting service is attached to the event. Note that the purpose of the <code>delayTime()</code> function is to determine the processing time for the customer when using the resource. There are two default options available. The delay can be supplied from the <code>QObject</code> instance via the <code>valueObject</code> property. If attached to the <code>QObject</code> instance the <code>valueObject</code> property returns something that returns a <code>Double</code> value. This value can be used for anything you want it to represent. In this case, it can be used to supply a delay time. The second option is to use the processing time that was specified for the station if the value object is not attached to the <code>QObject</code> instance.</p>
+<div class="sourceCode" id="cb148"><pre class="sourceCode kt"><code class="sourceCode kotlin"><span id="cb148-1"><a href="DTPExpanded.html#cb148-1" tabindex="-1"></a>    <span class="co">/**</span></span>
+<span id="cb148-2"><a href="DTPExpanded.html#cb148-2" tabindex="-1"></a><span class="co">     * Called to determine which waiting QObject will be served next Determines</span></span>
+<span id="cb148-3"><a href="DTPExpanded.html#cb148-3" tabindex="-1"></a><span class="co">     * the next customer, seizes the resource, and schedules the end of the</span></span>
+<span id="cb148-4"><a href="DTPExpanded.html#cb148-4" tabindex="-1"></a><span class="co">     * service.</span></span>
+<span id="cb148-5"><a href="DTPExpanded.html#cb148-5" tabindex="-1"></a><span class="co">     */</span></span>
+<span id="cb148-6"><a href="DTPExpanded.html#cb148-6" tabindex="-1"></a>    <span class="kw">protected</span> <span class="kw">fun</span> <span class="fu">serveNext</span><span class="op">()</span> <span class="op">{</span></span>
+<span id="cb148-7"><a href="DTPExpanded.html#cb148-7" tabindex="-1"></a>        <span class="co">//remove the next customer</span></span>
+<span id="cb148-8"><a href="DTPExpanded.html#cb148-8" tabindex="-1"></a>        <span class="kw">val</span> <span class="va">nextCustomer</span> <span class="op">=</span> myWaitingQ<span class="op">.</span>removeNext<span class="op">()!!</span></span>
+<span id="cb148-9"><a href="DTPExpanded.html#cb148-9" tabindex="-1"></a>        myResource<span class="op">.</span>seize<span class="op">()</span></span>
+<span id="cb148-10"><a href="DTPExpanded.html#cb148-10" tabindex="-1"></a>        <span class="co">// schedule end of service, if the customer can supply a value,</span></span>
+<span id="cb148-11"><a href="DTPExpanded.html#cb148-11" tabindex="-1"></a>        <span class="co">// use it otherwise use the processing time RV</span></span>
+<span id="cb148-12"><a href="DTPExpanded.html#cb148-12" tabindex="-1"></a>        schedule<span class="op">(</span><span class="kw">this</span><span class="op">::</span>endOfProcessing<span class="op">,</span> delayTime<span class="op">(</span>nextCustomer<span class="op">),</span> nextCustomer<span class="op">)</span></span>
+<span id="cb148-13"><a href="DTPExpanded.html#cb148-13" tabindex="-1"></a>    <span class="op">}</span></span>
+<span id="cb148-14"><a href="DTPExpanded.html#cb148-14" tabindex="-1"></a></span>
+<span id="cb148-15"><a href="DTPExpanded.html#cb148-15" tabindex="-1"></a>    <span class="co">/**</span></span>
+<span id="cb148-16"><a href="DTPExpanded.html#cb148-16" tabindex="-1"></a><span class="co">     *  Could be overridden to supply different approach for determining the service delay</span></span>
+<span id="cb148-17"><a href="DTPExpanded.html#cb148-17" tabindex="-1"></a><span class="co">     */</span></span>
+<span id="cb148-18"><a href="DTPExpanded.html#cb148-18" tabindex="-1"></a>    <span class="kw">protected</span> <span class="kw">fun</span> <span class="fu">delayTime</span><span class="op">(</span><span class="va">qObject</span><span class="op">:</span> <span class="dt">QObject</span><span class="op">)</span> <span class="op">:</span> <span class="dt">Double</span> <span class="op">{</span></span>
+<span id="cb148-19"><a href="DTPExpanded.html#cb148-19" tabindex="-1"></a>        <span class="kw">return</span> qObject<span class="op">.</span>valueObject<span class="op">?.</span>value <span class="op">?:</span> myActivityTimeRV<span class="op">.</span>value</span>
+<span id="cb148-20"><a href="DTPExpanded.html#cb148-20" tabindex="-1"></a>    <span class="op">}</span></span></code></pre></div>
+<p>As mentioned, the <code>endOfProcessing()</code> function represents the logic that should occur after the customer completes its use of the resource for the processing time. In the following code, first the customer completing service is grabbed from the event’s message. After releasing the resource, the queue is checked and if it is not empty the next customer is started into service. Then, the leaving customer exits the station and is sent to the next location. The function <code>sendToNextReceiver()</code> will be discussed further within the context of the example.</p>
+<div class="sourceCode" id="cb149"><pre class="sourceCode kt"><code class="sourceCode kotlin"><span id="cb149-1"><a href="DTPExpanded.html#cb149-1" tabindex="-1"></a>    <span class="co">/**</span></span>
+<span id="cb149-2"><a href="DTPExpanded.html#cb149-2" tabindex="-1"></a><span class="co">     *  The end of processing event actions. Collect departing statistics and send the qObject</span></span>
+<span id="cb149-3"><a href="DTPExpanded.html#cb149-3" tabindex="-1"></a><span class="co">     *  to its next receiver. If the queue is not empty, continue processing the next qObject.</span></span>
+<span id="cb149-4"><a href="DTPExpanded.html#cb149-4" tabindex="-1"></a><span class="co">     */</span></span>
+<span id="cb149-5"><a href="DTPExpanded.html#cb149-5" tabindex="-1"></a>    <span class="kw">private</span> <span class="kw">fun</span> <span class="fu">endOfProcessing</span><span class="op">(</span><span class="va">event</span><span class="op">:</span> <span class="dt">KSLEvent</span>&lt;<span class="va">QObject</span>&gt;<span class="op">)</span> <span class="op">{</span></span>
+<span id="cb149-6"><a href="DTPExpanded.html#cb149-6" tabindex="-1"></a>        <span class="kw">val</span> <span class="va">leaving</span><span class="op">:</span> QObject <span class="op">=</span> event<span class="op">.</span>message<span class="op">!!</span></span>
+<span id="cb149-7"><a href="DTPExpanded.html#cb149-7" tabindex="-1"></a>        myResource<span class="op">.</span>release<span class="op">()</span></span>
+<span id="cb149-8"><a href="DTPExpanded.html#cb149-8" tabindex="-1"></a>        <span class="cf">if</span> <span class="op">(</span>isQueueNotEmpty<span class="op">)</span> <span class="op">{</span> <span class="co">// queue is not empty</span></span>
+<span id="cb149-9"><a href="DTPExpanded.html#cb149-9" tabindex="-1"></a>            serveNext<span class="op">()</span></span>
+<span id="cb149-10"><a href="DTPExpanded.html#cb149-10" tabindex="-1"></a>        <span class="op">}</span></span>
+<span id="cb149-11"><a href="DTPExpanded.html#cb149-11" tabindex="-1"></a>        sendToNextReceiver<span class="op">(</span>leaving<span class="op">)</span></span>
+<span id="cb149-12"><a href="DTPExpanded.html#cb149-12" tabindex="-1"></a>    <span class="op">}</span></span></code></pre></div>
+<p>There is a lot more happening within the <code>SingleQStation</code> class than presented here. As you can see from Figure <a href="DTPExpanded.html#fig:SingleQStation">4.15</a>, the <code>SingleQStation</code> class inherits from the <code>Station</code> class, which is an abstract base class. The <code>Station</code> class ensures that statistics that are common to all station types are collected. In addition, the <code>Station</code> class provides for the attachment of functions that may be executed when something arrives to the station and also when something departs. Such <em>entry</em> and <em>exit</em> actions provide users the ability to add behavior to a station without having to use inheritance via the use of Kotlin <a href="https://kotlinlang.org/docs/lambdas.html"><em>lambda</em> functions</a>. Entry and exit actions are represented by <a href="https://kotlinlang.org/docs/fun-interfaces.html">single abstract method (SAM)</a> via the <code>EntryActionIfc</code> and <code>ExitActionIfc</code> interfaces. Lambda expressions can be attached to a station to effect useful logic.</p>
+<p>We now have a new KSL class that can be used to model many different situations (like the drive through pharmacy) that involve the use of resources and waiting lines. Let’s continue this by implementing the model for Example <a href="DTPExpanded.html#exm:exCh4TandemQ">4.6</a>. This will motivate how to send and receive <code>QObject</code> instances.</p>
+</div>
+<div id="modeling-the-tandem-queue-of-example-refexmexch4tandemq" class="section level3 hasAnchor" number="4.6.2">
+<h3><span class="header-section-number">4.6.2</span> Modeling the Tandem Queue of Example <a href="DTPExpanded.html#exm:exCh4TandemQ">4.6</a><a href="DTPExpanded.html#modeling-the-tandem-queue-of-example-refexmexch4tandemq" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>The main concepts needed to put the pieces together to represent the tandem queue described in Example <a href="DTPExpanded.html#exm:exCh4TandemQ">4.6</a> are now modeled. The main remaining concept needed is how to send and receive customers within such systems. Since this is a very common requirement, the KSL provides basic functionality to help with this modeling task. Two new KSL constructs will be introduced and then used within the implementation of the tandem queue model. The first is an interface that promises to allow the receiving of <code>QObject</code> instances: the <code>QObjectReceiverIfc</code> interface.</p>
+<div class="sourceCode" id="cb150"><pre class="sourceCode kt"><code class="sourceCode kotlin"><span id="cb150-1"><a href="DTPExpanded.html#cb150-1" tabindex="-1"></a><span class="kw">fun</span> <span class="kw">interface</span> <span class="fu">QObjectReceiverIfc</span> <span class="op">{</span></span>
+<span id="cb150-2"><a href="DTPExpanded.html#cb150-2" tabindex="-1"></a>    <span class="kw">fun</span> <span class="fu">receive</span><span class="op">(</span><span class="va">qObject</span><span class="op">:</span> <span class="dt">ModelElement</span>.<span class="va">QObject</span><span class="op">)</span></span>
+<span id="cb150-3"><a href="DTPExpanded.html#cb150-3" tabindex="-1"></a>}</span></code></pre></div>
+<p>Note that the <code>QObjectReceiverIfc</code> interface is SAM functional interface. Classes that implement the <code>QObjectReceiverIfc</code> interface promise to have a <code>receive()</code> function. The idea is to have a defined protocol for system components that will do <em>something</em> with the received <code>QObject</code> instance. As you may now realize, the <code>SingleQStation</code> class implements the <code>QObjectReceiverIfc</code> interface via its inheritance from the <code>Station</code> class. As shown in the following code, the <code>SingleQStation</code> class extends the <code>Station</code> class, which implements the <code>QObjectReceiverIfc</code> interface.</p>
+<div class="sourceCode" id="cb151"><pre class="sourceCode kt"><code class="sourceCode kotlin"><span id="cb151-1"><a href="DTPExpanded.html#cb151-1" tabindex="-1"></a><span class="kw">open</span> <span class="kw">class</span> SingleQStation<span class="op">(</span></span>
+<span id="cb151-2"><a href="DTPExpanded.html#cb151-2" tabindex="-1"></a>    <span class="va">parent</span><span class="op">:</span> <span class="dt">ModelElement</span><span class="op">,</span></span>
+<span id="cb151-3"><a href="DTPExpanded.html#cb151-3" tabindex="-1"></a>    <span class="va">activityTime</span><span class="op">:</span> <span class="dt">RVariableIfc</span> <span class="op">=</span> ConstantRV<span class="op">.</span>ZERO<span class="op">,</span></span>
+<span id="cb151-4"><a href="DTPExpanded.html#cb151-4" tabindex="-1"></a>    <span class="va">resource</span><span class="op">:</span> <span class="dt">SResource</span><span class="op">?</span> <span class="op">=</span> null<span class="op">,</span></span>
+<span id="cb151-5"><a href="DTPExpanded.html#cb151-5" tabindex="-1"></a>    <span class="va">nextReceiver</span><span class="op">:</span> <span class="dt">QObjectReceiverIfc</span> <span class="op">=</span> NotImplementedReceiver<span class="op">,</span></span>
+<span id="cb151-6"><a href="DTPExpanded.html#cb151-6" tabindex="-1"></a>    <span class="va">name</span><span class="op">:</span> <span class="dt">String</span><span class="op">?</span> <span class="op">=</span> null</span>
+<span id="cb151-7"><a href="DTPExpanded.html#cb151-7" tabindex="-1"></a><span class="op">)</span> <span class="op">:</span> <span class="dt">Station</span><span class="op">(</span><span class="va">parent</span><span class="op">,</span> <span class="va">nextReceiver</span><span class="op">,</span> <span class="va">name</span> <span class="op">=</span> name<span class="op">),</span> <span class="dt">SingleQStationCIfc</span> <span class="op">{</span></span>
+<span id="cb151-8"><a href="DTPExpanded.html#cb151-8" tabindex="-1"></a><span class="op">...</span></span>
+<span id="cb151-9"><a href="DTPExpanded.html#cb151-9" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
+<p>Figure <a href="DTPExpanded.html#fig:StationPkg">4.16</a> presents the major classes and interfaces of the <code>ksl.modeling.station</code> package. Central to the functionality is the <code>Station</code> class and the <code>QObjectReceiverIfc</code> interface.</p>
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:StationPkg"></span>
+<img src="figures2/ch4/StationPkg.png" alt="Major Classes and Interfaces of the Station Package" width="80%" height="80%" />
+<p class="caption">
+Figure 4.16: Major Classes and Interfaces of the Station Package
+</p>
+</div>
+<p>The <code>QObjectReceiverIfc</code> interface defines a protocol for receiving <code>QObject</code> instances and the <code>Station</code> class provides default functionality for receiving an arriving <code>QObject</code> instance and for <em>sending</em> a completed <code>QObject</code> instance to its next location. Reviewing the <code>Station</code> class’s code is useful to understanding how this works. The <code>Station</code> class is an <em>abstract</em> class that provides the <code>sendToNextReceiver()</code> function.</p>
+<div class="sourceCode" id="cb152"><pre class="sourceCode kt"><code class="sourceCode kotlin"><span id="cb152-1"><a href="DTPExpanded.html#cb152-1" tabindex="-1"></a><span class="kw">abstract</span> <span class="kw">class</span> Station<span class="op">(</span></span>
+<span id="cb152-2"><a href="DTPExpanded.html#cb152-2" tabindex="-1"></a>    <span class="va">parent</span><span class="op">:</span> <span class="dt">ModelElement</span><span class="op">,</span></span>
+<span id="cb152-3"><a href="DTPExpanded.html#cb152-3" tabindex="-1"></a>    <span class="kw">private</span> <span class="kw">var</span> <span class="va">nextReceiver</span><span class="op">:</span> <span class="dt">QObjectReceiverIfc</span> <span class="op">=</span> NotImplementedReceiver<span class="op">,</span></span>
+<span id="cb152-4"><a href="DTPExpanded.html#cb152-4" tabindex="-1"></a>    <span class="va">name</span><span class="op">:</span> <span class="dt">String</span><span class="op">?</span> <span class="op">=</span> null</span>
+<span id="cb152-5"><a href="DTPExpanded.html#cb152-5" tabindex="-1"></a><span class="op">)</span> <span class="op">:</span> <span class="dt">ModelElement</span><span class="op">(</span><span class="va">parent</span><span class="op">,</span> <span class="va">name</span><span class="op">),</span> <span class="dt">QObjectReceiverIfc</span><span class="op">,</span> <span class="dt">StationCIfc</span> <span class="op">{</span></span>
+<span id="cb152-6"><a href="DTPExpanded.html#cb152-6" tabindex="-1"></a></span>
+<span id="cb152-7"><a href="DTPExpanded.html#cb152-7" tabindex="-1"></a>    <span class="co">/**</span></span>
+<span id="cb152-8"><a href="DTPExpanded.html#cb152-8" tabindex="-1"></a><span class="co">     *  Sets the receiver of qObject instances from this station</span></span>
+<span id="cb152-9"><a href="DTPExpanded.html#cb152-9" tabindex="-1"></a><span class="co">     */</span></span>
+<span id="cb152-10"><a href="DTPExpanded.html#cb152-10" tabindex="-1"></a>    <span class="kw">fun</span> <span class="fu">nextReceiver</span><span class="op">(</span><span class="va">receiver</span><span class="op">:</span> <span class="dt">QObjectReceiverIfc</span><span class="op">)</span> <span class="op">{</span></span>
+<span id="cb152-11"><a href="DTPExpanded.html#cb152-11" tabindex="-1"></a>        nextReceiver <span class="op">=</span> receiver</span>
+<span id="cb152-12"><a href="DTPExpanded.html#cb152-12" tabindex="-1"></a>    <span class="op">}</span></span>
+<span id="cb152-13"><a href="DTPExpanded.html#cb152-13" tabindex="-1"></a><span class="op">.</span></span>
+<span id="cb152-14"><a href="DTPExpanded.html#cb152-14" tabindex="-1"></a><span class="op">.</span></span>
+<span id="cb152-15"><a href="DTPExpanded.html#cb152-15" tabindex="-1"></a>    <span class="kw">protected</span> <span class="kw">fun</span> <span class="fu">sendToNextReceiver</span><span class="op">(</span><span class="va">completedQObject</span><span class="op">:</span> <span class="dt">QObject</span><span class="op">)</span> <span class="op">{</span></span>
+<span id="cb152-16"><a href="DTPExpanded.html#cb152-16" tabindex="-1"></a>        departureCollection<span class="op">(</span>completedQObject<span class="op">)</span></span>
+<span id="cb152-17"><a href="DTPExpanded.html#cb152-17" tabindex="-1"></a>        exitAction<span class="op">?.</span>onExit<span class="op">(</span>completedQObject<span class="op">)</span></span>
+<span id="cb152-18"><a href="DTPExpanded.html#cb152-18" tabindex="-1"></a>        onExit<span class="op">(</span>completedQObject<span class="op">)</span></span>
+<span id="cb152-19"><a href="DTPExpanded.html#cb152-19" tabindex="-1"></a>        <span class="cf">if</span> <span class="op">(</span>sender <span class="op">!=</span> <span class="kw">null</span><span class="op">)</span> <span class="op">{</span></span>
+<span id="cb152-20"><a href="DTPExpanded.html#cb152-20" tabindex="-1"></a>            sender<span class="op">!!.</span>send<span class="op">(</span>completedQObject<span class="op">)</span></span>
+<span id="cb152-21"><a href="DTPExpanded.html#cb152-21" tabindex="-1"></a>        <span class="op">}</span> <span class="cf">else</span> <span class="op">{</span></span>
+<span id="cb152-22"><a href="DTPExpanded.html#cb152-22" tabindex="-1"></a>            <span class="cf">if</span> <span class="op">(</span>completedQObject<span class="op">.</span>sender <span class="op">!=</span> <span class="kw">null</span><span class="op">)</span> <span class="op">{</span></span>
+<span id="cb152-23"><a href="DTPExpanded.html#cb152-23" tabindex="-1"></a>                completedQObject<span class="op">.</span>sender<span class="op">!!.</span>send<span class="op">(</span>completedQObject<span class="op">)</span></span>
+<span id="cb152-24"><a href="DTPExpanded.html#cb152-24" tabindex="-1"></a>            <span class="op">}</span> <span class="cf">else</span> <span class="op">{</span></span>
+<span id="cb152-25"><a href="DTPExpanded.html#cb152-25" tabindex="-1"></a>                nextReceiver<span class="op">.</span>receive<span class="op">(</span>completedQObject<span class="op">)</span></span>
+<span id="cb152-26"><a href="DTPExpanded.html#cb152-26" tabindex="-1"></a>            <span class="op">}</span></span>
+<span id="cb152-27"><a href="DTPExpanded.html#cb152-27" tabindex="-1"></a>        <span class="op">}</span></span>
+<span id="cb152-28"><a href="DTPExpanded.html#cb152-28" tabindex="-1"></a>    <span class="op">}</span></span>
+<span id="cb152-29"><a href="DTPExpanded.html#cb152-29" tabindex="-1"></a>    </span>
+<span id="cb152-30"><a href="DTPExpanded.html#cb152-30" tabindex="-1"></a>    <span class="co">/**</span></span>
+<span id="cb152-31"><a href="DTPExpanded.html#cb152-31" tabindex="-1"></a><span class="co">     *  Can be used to supply a sender that will be used instead of</span></span>
+<span id="cb152-32"><a href="DTPExpanded.html#cb152-32" tabindex="-1"></a><span class="co">     *  the default behavior. The default behavior uses a sender attached</span></span>
+<span id="cb152-33"><a href="DTPExpanded.html#cb152-33" tabindex="-1"></a><span class="co">     *  to the QObject instance and if not attached will send the QObject</span></span>
+<span id="cb152-34"><a href="DTPExpanded.html#cb152-34" tabindex="-1"></a><span class="co">     *  to the next receiver.</span></span>
+<span id="cb152-35"><a href="DTPExpanded.html#cb152-35" tabindex="-1"></a><span class="co">     */</span></span>
+<span id="cb152-36"><a href="DTPExpanded.html#cb152-36" tabindex="-1"></a>    <span class="kw">fun</span> <span class="fu">sender</span><span class="op">(</span><span class="va">sender</span><span class="op">:</span> <span class="dt">QObjectSenderIfc</span><span class="op">?)</span> <span class="op">{</span></span>
+<span id="cb152-37"><a href="DTPExpanded.html#cb152-37" tabindex="-1"></a>        <span class="kw">this</span><span class="op">.</span>sender <span class="op">=</span> sender</span>
+<span id="cb152-38"><a href="DTPExpanded.html#cb152-38" tabindex="-1"></a>    <span class="op">}</span></span></code></pre></div>
+<p>There are three mechanisms for determining where to send the departing <code>QObject</code> instance. The first mechanism allows the user to attach a <code>QObjectSenderIfc</code> instance via the <code>sender()</code> function. As you can see from the code, if this mechanism is supplied, then it is used to send the completed <code>QObject</code> instance somewhere (i.e. to some receiver). If this first mechanism is not supplied, then the station looks to see if the completed <code>QObject</code> instance has a specified sender. If it does, then the <code>QObject</code> instance’s sender is used for sending. Every <code>QObject</code> has an (optional) property called <code>sender</code> that (if set) should return an instance of a <code>QObjectSenderIfc</code> interface.</p>
+<div class="sourceCode" id="cb153"><pre class="sourceCode kt"><code class="sourceCode kotlin"><span id="cb153-1"><a href="DTPExpanded.html#cb153-1" tabindex="-1"></a><span class="co">/**</span></span>
+<span id="cb153-2"><a href="DTPExpanded.html#cb153-2" tabindex="-1"></a><span class="co"> *  A functional interface that promises to send. Within the</span></span>
+<span id="cb153-3"><a href="DTPExpanded.html#cb153-3" tabindex="-1"></a><span class="co"> *  context of qObjects a sender should cause a qObject</span></span>
+<span id="cb153-4"><a href="DTPExpanded.html#cb153-4" tabindex="-1"></a><span class="co"> *  to be (eventually) received by a receiver.</span></span>
+<span id="cb153-5"><a href="DTPExpanded.html#cb153-5" tabindex="-1"></a><span class="co"> */</span></span>
+<span id="cb153-6"><a href="DTPExpanded.html#cb153-6" tabindex="-1"></a><span class="kw">fun</span> <span class="kw">interface</span> <span class="fu">QObjectSenderIfc</span> <span class="op">{</span></span>
+<span id="cb153-7"><a href="DTPExpanded.html#cb153-7" tabindex="-1"></a>    <span class="kw">fun</span> <span class="fu">send</span><span class="op">(</span><span class="va">qObject</span><span class="op">:</span> <span class="dt">ModelElement</span>.<span class="va">QObject</span><span class="op">)</span></span>
+<span id="cb153-8"><a href="DTPExpanded.html#cb153-8" tabindex="-1"></a>}</span></code></pre></div>
+<p>The idea is that the sender will know how to send its related <code>QObject</code> instance to a suitable receiver. Thus, complex routing logic could be attached to the <code>QObject</code> instance. The <code>sendToNextReceiver()</code> function checks to see if the the <code>QObject</code> instance has a sender to assist with its routing. If it does, the sender is used to get the next location and then sends the <code>QObject</code> instance to the location by telling the location to receive the object. If the sender is not present, then the <code>nextReceiver</code> property is used to send the <code>QObject</code> instance to the specified receiver. The receiver’s behavior determines what happens to the <code>QObject</code> instance next.</p>
+<p>The final approach supplies the destination (receiver) as part of the creation of the station instance. Notice that the <code>Station</code> class takes in a parameter called <code>nextReceiver</code> which represents an object that implements the <code>QObjectReceiverIfc</code> interface. This parameter can be used to specify where the departing <code>QObject</code> instance should be sent. That is, the next object that should receive the departing object. The default value for this parameter is the <code>NotImplementedReceiver</code> object. This object will throw a not implemented yet exception if you do not replace it with something that models the situation. You need to replace the default <code>NotImplementedReceiver</code> object only if one of the other two mechanisms are not being used by the station.</p>
+<div class="infobox note">
+<p><strong>NOTE!</strong>
+As you will soon see in the following example, creating a station without specifying a receiver can be very convenient. This is why the <code>NotImplementedReceiver</code> object is the default. However, if you forget to set the receiver to something useful or do not use one of the other mechanisms, you will get the not implemented yet error.</p>
+</div>
+<p>The approach of specifying the receivers to visit allows for the modeling of very complex systems by simply “hooking” up the object instances in the correct order. We can now illustrate this with the implementation of the example.</p>
+<p>The following code presents the class constructor for the <code>TandemQueue</code> class. The class takes in the random variables need for the arrival and two service processes. Then, because of the requirement to report the total system time and the total number of customers in the system, we have standard definitions for time-weighted response variables and a counter. This is very similar to how we defined the pharmacy system.</p>
+<div class="sourceCode" id="cb154"><pre class="sourceCode kt"><code class="sourceCode kotlin"><span id="cb154-1"><a href="DTPExpanded.html#cb154-1" tabindex="-1"></a><span class="kw">class</span> TandemQueue<span class="op">(</span></span>
+<span id="cb154-2"><a href="DTPExpanded.html#cb154-2" tabindex="-1"></a>    <span class="va">parent</span><span class="op">:</span> <span class="dt">ModelElement</span><span class="op">,</span></span>
+<span id="cb154-3"><a href="DTPExpanded.html#cb154-3" tabindex="-1"></a>    <span class="va">name</span><span class="op">:</span> <span class="dt">String</span><span class="op">?</span> <span class="op">=</span> null</span>
+<span id="cb154-4"><a href="DTPExpanded.html#cb154-4" tabindex="-1"></a><span class="op">)</span> <span class="op">:</span> <span class="dt">ModelElement</span><span class="op">(</span><span class="va">parent</span><span class="op">,</span> <span class="va">name</span><span class="op">)</span> <span class="op">{</span></span>
+<span id="cb154-5"><a href="DTPExpanded.html#cb154-5" tabindex="-1"></a></span>
+<span id="cb154-6"><a href="DTPExpanded.html#cb154-6" tabindex="-1"></a>    <span class="kw">private</span> <span class="kw">val</span> <span class="va">myNS</span><span class="op">:</span> TWResponse <span class="op">=</span> TWResponse<span class="op">(</span>parent <span class="op">=</span> <span class="kw">this</span><span class="op">,</span> name <span class="op">=</span> <span class="st">&quot;</span><span class="ss">${</span><span class="kw">this</span><span class="op">.</span>name<span class="ss">}</span><span class="st">:NS&quot;</span><span class="op">)</span></span>
+<span id="cb154-7"><a href="DTPExpanded.html#cb154-7" tabindex="-1"></a>    <span class="kw">val</span> <span class="va">numInSystem</span><span class="op">:</span> TWResponseCIfc</span>
+<span id="cb154-8"><a href="DTPExpanded.html#cb154-8" tabindex="-1"></a>        <span class="kw">get</span><span class="op">()</span> <span class="op">=</span> myNS</span>
+<span id="cb154-9"><a href="DTPExpanded.html#cb154-9" tabindex="-1"></a></span>
+<span id="cb154-10"><a href="DTPExpanded.html#cb154-10" tabindex="-1"></a>    <span class="kw">private</span> <span class="kw">val</span> <span class="va">mySysTime</span><span class="op">:</span> Response <span class="op">=</span> Response<span class="op">(</span>parent <span class="op">=</span> <span class="kw">this</span><span class="op">,</span> name <span class="op">=</span> <span class="st">&quot;</span><span class="ss">${</span><span class="kw">this</span><span class="op">.</span>name<span class="ss">}</span><span class="st">:TotalSystemTime&quot;</span><span class="op">)</span></span>
+<span id="cb154-11"><a href="DTPExpanded.html#cb154-11" tabindex="-1"></a>    <span class="kw">val</span> <span class="va">totalSystemTime</span><span class="op">:</span> ResponseCIfc</span>
+<span id="cb154-12"><a href="DTPExpanded.html#cb154-12" tabindex="-1"></a>        <span class="kw">get</span><span class="op">()</span> <span class="op">=</span> mySysTime</span>
+<span id="cb154-13"><a href="DTPExpanded.html#cb154-13" tabindex="-1"></a></span>
+<span id="cb154-14"><a href="DTPExpanded.html#cb154-14" tabindex="-1"></a>    <span class="kw">private</span> <span class="kw">val</span> <span class="va">myNumProcessed</span><span class="op">:</span> Counter <span class="op">=</span> Counter<span class="op">(</span>parent <span class="op">=</span> <span class="kw">this</span><span class="op">,</span> name <span class="op">=</span> <span class="st">&quot;</span><span class="ss">${</span><span class="kw">this</span><span class="op">.</span>name<span class="ss">}</span><span class="st">:TotalProcessed&quot;</span><span class="op">)</span></span>
+<span id="cb154-15"><a href="DTPExpanded.html#cb154-15" tabindex="-1"></a>    <span class="kw">val</span> <span class="va">totalProcessed</span><span class="op">:</span> CounterCIfc</span>
+<span id="cb154-16"><a href="DTPExpanded.html#cb154-16" tabindex="-1"></a>        <span class="kw">get</span><span class="op">()</span> <span class="op">=</span> myNumProcessed</span>
+<span id="cb154-17"><a href="DTPExpanded.html#cb154-17" tabindex="-1"></a><span class="op">...</span></span></code></pre></div>
+<p>Now, the real magic of the station package can be used. The following code represents the <em>rest</em> of the implementation of the tandem queue system. The code uses an <code>EventGenerator</code> instance to model the arrival process to the first station. Then, two instances of the <code>SingleQStation</code> class are created to represent the first and second station in the system. Notice the implementation of the <code>init{}</code> block. The <code>nextReceiver</code> property for station 1 is set to be the second station and the <code>nextReceiver</code> property for station 2 is set to an instance of the <code>ExitSystem</code> inner class. This approach relies on <em>replacing</em> the default <code>NotImplementedReceiver</code> receiver. Notice that if you did not rely on this default, you would need to create the stations (receivers) in the reverse order so that you could supply the correct receiver within the station’s constructor. The <code>init{}</code> block would not be necessary with that approach.</p>
+<div class="sourceCode" id="cb155"><pre class="sourceCode kt"><code class="sourceCode kotlin"><span id="cb155-1"><a href="DTPExpanded.html#cb155-1" tabindex="-1"></a>    <span class="kw">private</span> <span class="kw">val</span> <span class="va">ad</span> <span class="op">=</span> ExponentialRV<span class="op">(</span><span class="fl">6.0</span><span class="op">,</span> <span class="dv">1</span><span class="op">)</span></span>
+<span id="cb155-2"><a href="DTPExpanded.html#cb155-2" tabindex="-1"></a>    <span class="kw">private</span> <span class="kw">val</span> <span class="va">myArrivalGenerator</span><span class="op">:</span> EventGenerator <span class="op">=</span> EventGenerator<span class="op">(</span></span>
+<span id="cb155-3"><a href="DTPExpanded.html#cb155-3" tabindex="-1"></a>        parent <span class="op">=</span> <span class="kw">this</span><span class="op">,</span></span>
+<span id="cb155-4"><a href="DTPExpanded.html#cb155-4" tabindex="-1"></a>        generateAction <span class="op">=</span> <span class="kw">this</span><span class="op">::</span>arrivalEvent<span class="op">,</span> timeUntilFirstRV <span class="op">=</span> ad<span class="op">,</span> timeBtwEventsRV <span class="op">=</span> ad</span>
+<span id="cb155-5"><a href="DTPExpanded.html#cb155-5" tabindex="-1"></a>    <span class="op">)</span></span>
+<span id="cb155-6"><a href="DTPExpanded.html#cb155-6" tabindex="-1"></a></span>
+<span id="cb155-7"><a href="DTPExpanded.html#cb155-7" tabindex="-1"></a>    <span class="kw">private</span> <span class="kw">val</span> <span class="va">myStation1</span><span class="op">:</span> SingleQStation <span class="op">=</span> SingleQStation<span class="op">(</span></span>
+<span id="cb155-8"><a href="DTPExpanded.html#cb155-8" tabindex="-1"></a>        parent <span class="op">=</span> <span class="kw">this</span><span class="op">,</span></span>
+<span id="cb155-9"><a href="DTPExpanded.html#cb155-9" tabindex="-1"></a>        activityTime <span class="op">=</span> ExponentialRV<span class="op">(</span><span class="fl">4.0</span><span class="op">,</span> <span class="dv">2</span><span class="op">),</span></span>
+<span id="cb155-10"><a href="DTPExpanded.html#cb155-10" tabindex="-1"></a>        name <span class="op">=</span> <span class="st">&quot;</span><span class="ss">${</span><span class="kw">this</span><span class="op">.</span>name<span class="ss">}</span><span class="st">:Station1&quot;</span></span>
+<span id="cb155-11"><a href="DTPExpanded.html#cb155-11" tabindex="-1"></a>    <span class="op">)</span></span>
+<span id="cb155-12"><a href="DTPExpanded.html#cb155-12" tabindex="-1"></a>    <span class="kw">val</span> <span class="va">station1</span><span class="op">:</span> SingleQStationCIfc</span>
+<span id="cb155-13"><a href="DTPExpanded.html#cb155-13" tabindex="-1"></a>        <span class="kw">get</span><span class="op">()</span> <span class="op">=</span> myStation1</span>
+<span id="cb155-14"><a href="DTPExpanded.html#cb155-14" tabindex="-1"></a></span>
+<span id="cb155-15"><a href="DTPExpanded.html#cb155-15" tabindex="-1"></a>    <span class="kw">private</span> <span class="kw">val</span> <span class="va">myStation2</span><span class="op">:</span> SingleQStation <span class="op">=</span> SingleQStation<span class="op">(</span></span>
+<span id="cb155-16"><a href="DTPExpanded.html#cb155-16" tabindex="-1"></a>        parent <span class="op">=</span> <span class="kw">this</span><span class="op">,</span></span>
+<span id="cb155-17"><a href="DTPExpanded.html#cb155-17" tabindex="-1"></a>        activityTime <span class="op">=</span> ExponentialRV<span class="op">(</span><span class="fl">3.0</span><span class="op">,</span> <span class="dv">3</span><span class="op">),</span></span>
+<span id="cb155-18"><a href="DTPExpanded.html#cb155-18" tabindex="-1"></a>        name <span class="op">=</span> <span class="st">&quot;</span><span class="ss">${</span><span class="kw">this</span><span class="op">.</span>name<span class="ss">}</span><span class="st">:Station2&quot;</span></span>
+<span id="cb155-19"><a href="DTPExpanded.html#cb155-19" tabindex="-1"></a>    <span class="op">)</span></span>
+<span id="cb155-20"><a href="DTPExpanded.html#cb155-20" tabindex="-1"></a>    <span class="kw">val</span> <span class="va">station2</span><span class="op">:</span> SingleQStationCIfc</span>
+<span id="cb155-21"><a href="DTPExpanded.html#cb155-21" tabindex="-1"></a>        <span class="kw">get</span><span class="op">()</span> <span class="op">=</span> myStation2</span>
+<span id="cb155-22"><a href="DTPExpanded.html#cb155-22" tabindex="-1"></a></span>
+<span id="cb155-23"><a href="DTPExpanded.html#cb155-23" tabindex="-1"></a>    init <span class="op">{</span></span>
+<span id="cb155-24"><a href="DTPExpanded.html#cb155-24" tabindex="-1"></a>        myStation1<span class="op">.</span>nextReceiver<span class="op">(</span>myStation2<span class="op">)</span></span>
+<span id="cb155-25"><a href="DTPExpanded.html#cb155-25" tabindex="-1"></a>        myStation2<span class="op">.</span>nextReceiver<span class="op">(</span>ExitSystem<span class="op">())</span></span>
+<span id="cb155-26"><a href="DTPExpanded.html#cb155-26" tabindex="-1"></a>    <span class="op">}</span></span>
+<span id="cb155-27"><a href="DTPExpanded.html#cb155-27" tabindex="-1"></a></span>
+<span id="cb155-28"><a href="DTPExpanded.html#cb155-28" tabindex="-1"></a>    <span class="kw">private</span> <span class="kw">fun</span> <span class="fu">arrivalEvent</span><span class="op">(</span><span class="va">generator</span><span class="op">:</span> <span class="dt">EventGeneratorIfc</span><span class="op">)</span> <span class="op">{</span></span>
+<span id="cb155-29"><a href="DTPExpanded.html#cb155-29" tabindex="-1"></a>        <span class="kw">val</span> <span class="va">customer</span> <span class="op">=</span> QObject<span class="op">()</span></span>
+<span id="cb155-30"><a href="DTPExpanded.html#cb155-30" tabindex="-1"></a>        myNS<span class="op">.</span>increment<span class="op">()</span></span>
+<span id="cb155-31"><a href="DTPExpanded.html#cb155-31" tabindex="-1"></a>        myStation1<span class="op">.</span>receive<span class="op">(</span>customer<span class="op">)</span></span>
+<span id="cb155-32"><a href="DTPExpanded.html#cb155-32" tabindex="-1"></a>    <span class="op">}</span></span>
+<span id="cb155-33"><a href="DTPExpanded.html#cb155-33" tabindex="-1"></a></span>
+<span id="cb155-34"><a href="DTPExpanded.html#cb155-34" tabindex="-1"></a>    <span class="kw">private</span> <span class="kw">inner</span> <span class="kw">class</span> ExitSystem <span class="op">:</span> <span class="dt">QObjectReceiverIfc</span> <span class="op">{</span></span>
+<span id="cb155-35"><a href="DTPExpanded.html#cb155-35" tabindex="-1"></a>        <span class="kw">override</span> <span class="kw">fun</span> <span class="fu">receive</span><span class="op">(</span><span class="va">arrivingQObject</span><span class="op">:</span> <span class="dt">QObject</span><span class="op">)</span> <span class="op">{</span></span>
+<span id="cb155-36"><a href="DTPExpanded.html#cb155-36" tabindex="-1"></a>            mySysTime<span class="op">.</span>value <span class="op">=</span> time <span class="op">-</span> arrivingQObject<span class="op">.</span>createTime</span>
+<span id="cb155-37"><a href="DTPExpanded.html#cb155-37" tabindex="-1"></a>            myNumProcessed<span class="op">.</span>increment<span class="op">()</span></span>
+<span id="cb155-38"><a href="DTPExpanded.html#cb155-38" tabindex="-1"></a>            myNS<span class="op">.</span>decrement<span class="op">()</span></span>
+<span id="cb155-39"><a href="DTPExpanded.html#cb155-39" tabindex="-1"></a>        <span class="op">}</span></span>
+<span id="cb155-40"><a href="DTPExpanded.html#cb155-40" tabindex="-1"></a>    <span class="op">}</span></span>
+<span id="cb155-41"><a href="DTPExpanded.html#cb155-41" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
+<p>The arrival process shown in the <code>arrivalEvent()</code> function creates the arriving customer, increments the number in the system, and tells station 1 to receive the customer. This will set off a series of events which will occur within the <code>SingleQStation</code> instances that eventually result in the customer being received by the <code>ExitSystem</code> instance. The <code>ExitSystem</code> instance is used to collect statistics on the departing customer. The modeling involves hooking up the system components so that they work together to process the customers. This creation and use of objects in this manner is a hallmark of object-oriented programming. The following code can be used to simulate the system.</p>
+<div class="sourceCode" id="cb156"><pre class="sourceCode kt"><code class="sourceCode kotlin"><span id="cb156-1"><a href="DTPExpanded.html#cb156-1" tabindex="-1"></a><span class="kw">fun</span> <span class="fu">main</span><span class="op">(){</span></span>
+<span id="cb156-2"><a href="DTPExpanded.html#cb156-2" tabindex="-1"></a>    <span class="kw">val</span> <span class="va">sim</span> <span class="op">=</span> Model<span class="op">(</span><span class="st">&quot;TandemQ Model&quot;</span><span class="op">)</span></span>
+<span id="cb156-3"><a href="DTPExpanded.html#cb156-3" tabindex="-1"></a>    sim<span class="op">.</span>numberOfReplications <span class="op">=</span> <span class="dv">30</span></span>
+<span id="cb156-4"><a href="DTPExpanded.html#cb156-4" tabindex="-1"></a>    sim<span class="op">.</span>lengthOfReplication <span class="op">=</span> <span class="fl">20000.0</span></span>
+<span id="cb156-5"><a href="DTPExpanded.html#cb156-5" tabindex="-1"></a>    sim<span class="op">.</span>lengthOfReplicationWarmUp <span class="op">=</span> <span class="fl">5000.0</span></span>
+<span id="cb156-6"><a href="DTPExpanded.html#cb156-6" tabindex="-1"></a>    <span class="kw">val</span> <span class="va">tq</span> <span class="op">=</span> TandemQueue<span class="op">(</span>sim<span class="op">,</span> name <span class="op">=</span> <span class="st">&quot;TandemQ&quot;</span><span class="op">)</span></span>
+<span id="cb156-7"><a href="DTPExpanded.html#cb156-7" tabindex="-1"></a>    sim<span class="op">.</span>simulate<span class="op">()</span></span>
+<span id="cb156-8"><a href="DTPExpanded.html#cb156-8" tabindex="-1"></a>    sim<span class="op">.</span>print<span class="op">()</span></span>
+<span id="cb156-9"><a href="DTPExpanded.html#cb156-9" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
+<p>The results from running the following code are not very interesting except for noticing the number of statistics that are are <em>automatically</em> captured within the output. Notice for example that the resources automatically report the average number of busy units and the utilization of the resource. In addition, stations automatically report the total time spent at a station, the number of objects at the station, and the number completed by the station.</p>
+<p><strong>Statistical Summary Report</strong></p>
+<table>
+<thead>
+<tr>
+<th align="center">Name</th>
+<th align="center">Count</th>
+<th align="center">Average</th>
+<th align="center">Half-Width</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td align="center">TandemQ:NS</td>
+<td align="center">30</td>
+<td align="center">3.04</td>
+<td align="center">0.093</td>
+</tr>
+<tr>
+<td align="center">TandemQ:TotalSystemTime</td>
+<td align="center">30</td>
+<td align="center">18.132</td>
+<td align="center">0.5</td>
+</tr>
+<tr>
+<td align="center">TandemQ:Station1:R:NumBusy</td>
+<td align="center">30</td>
+<td align="center">0.671</td>
+<td align="center">0.008</td>
+</tr>
+<tr>
+<td align="center">TandemQ:Station1:R:Util</td>
+<td align="center">30</td>
+<td align="center">0.671</td>
+<td align="center">0.008</td>
+</tr>
+<tr>
+<td align="center">TandemQ:Station1:NS</td>
+<td align="center">30</td>
+<td align="center">2.031</td>
+<td align="center">0.088</td>
+</tr>
+<tr>
+<td align="center">TandemQ:Station1:StationTime</td>
+<td align="center">30</td>
+<td align="center">12.107</td>
+<td align="center">0.483</td>
+</tr>
+<tr>
+<td align="center">TandemQ:Station1:Q:NumInQ</td>
+<td align="center">30</td>
+<td align="center">1.359</td>
+<td align="center">0.081</td>
+</tr>
+<tr>
+<td align="center">TandemQ:Station1:Q:TimeInQ</td>
+<td align="center">30</td>
+<td align="center">8.101</td>
+<td align="center">0.457</td>
+</tr>
+<tr>
+<td align="center">TandemQ:Station2:R:NumBusy</td>
+<td align="center">30</td>
+<td align="center">0.5</td>
+<td align="center">0.004</td>
+</tr>
+<tr>
+<td align="center">TandemQ:Station2:R:Util</td>
+<td align="center">30</td>
+<td align="center">0.5</td>
+<td align="center">0.004</td>
+</tr>
+<tr>
+<td align="center">TandemQ:Station2:NS</td>
+<td align="center">30</td>
+<td align="center">1.01</td>
+<td align="center">0.023</td>
+</tr>
+<tr>
+<td align="center">TandemQ:Station2:StationTime</td>
+<td align="center">30</td>
+<td align="center">6.029</td>
+<td align="center">0.135</td>
+</tr>
+<tr>
+<td align="center">TandemQ:Station2:Q:NumInQ</td>
+<td align="center">30</td>
+<td align="center">0.51</td>
+<td align="center">0.02</td>
+</tr>
+<tr>
+<td align="center">TandemQ:Station2:Q:TimeInQ</td>
+<td align="center">30</td>
+<td align="center">3.042</td>
+<td align="center">0.12</td>
+</tr>
+<tr>
+<td align="center">TandemQ:TotalProcessed</td>
+<td align="center">30</td>
+<td align="center">2512.667</td>
+<td align="center">17.41</td>
+</tr>
+<tr>
+<td align="center">TandemQ:Station1:NumProcessed</td>
+<td align="center">30</td>
+<td align="center">2512.7</td>
+<td align="center">17.535</td>
+</tr>
+<tr>
+<td align="center">TandemQ:Station2:NumProcessed</td>
+<td align="center">30</td>
+<td align="center">2512.667</td>
+<td align="center">17.41</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div id="modeling-with-the-station-package" class="section level3 hasAnchor" number="4.6.3">
+<h3><span class="header-section-number">4.6.3</span> Modeling with the Station Package<a href="DTPExpanded.html#modeling-with-the-station-package" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>The <code>ksl.modeling.station</code> package has many options that can be utilized to model complex situations. This section discusses some of the options and offers some reasons and strategies for their application.</p>
+<p>Imagine if the tandem queue system consisted of 100 stations. How might you model that situation? You would need to make 100 instances of the <code>SingleQStation</code> class. This could easily be accomplished in a for-loop which captures the instances into a list of stations. Then, the list could be iterated to assign the <code>nextReceiver</code> property of the station. That is, iterate the list and assign each station’s receiver to the next element in the list. This approach builds on the notion of directly connecting the receivers as illustrated in the tandem queue example. However, there may be better approaches.</p>
+<p>A better approach is to use the sending option that is attached to the <code>QObject</code> instance when the instance is created and let every created <code>QObject</code> instance follow their own <em>sequence</em> through the system. This can be accomplished by using an instance of the <code>ReceiverSequence</code> class.</p>
+<p>The <code>ReceiverSequence</code> class sub-classes from the <code>QObjectSender</code> class. As previously mentioned <em>senders</em> implement the <code>QObjectSenderIfc</code> interface. That is, they know how or where to send the <code>QObject</code> instance. The main variation between senders is the selection of the next <code>QObjectReceiverIfc</code> instance to receive the <code>QObject</code> instance. The <code>QObjectSender</code> class is an abstract base class that requires the implementation of the <code>selectNextReceiver()</code> function.</p>
+<div class="sourceCode" id="cb157"><pre class="sourceCode kt"><code class="sourceCode kotlin"><span id="cb157-1"><a href="DTPExpanded.html#cb157-1" tabindex="-1"></a><span class="kw">abstract</span> <span class="kw">class</span> QObjectSender<span class="op">()</span> <span class="op">:</span>  <span class="dt">QObjectSenderIfc</span> <span class="op">{</span></span>
+<span id="cb157-2"><a href="DTPExpanded.html#cb157-2" tabindex="-1"></a></span>
+<span id="cb157-3"><a href="DTPExpanded.html#cb157-3" tabindex="-1"></a>    <span class="co">/**</span></span>
+<span id="cb157-4"><a href="DTPExpanded.html#cb157-4" tabindex="-1"></a><span class="co">     *  Can be used to supply logic if the iterator does not have</span></span>
+<span id="cb157-5"><a href="DTPExpanded.html#cb157-5" tabindex="-1"></a><span class="co">     *  more receivers.</span></span>
+<span id="cb157-6"><a href="DTPExpanded.html#cb157-6" tabindex="-1"></a><span class="co">     */</span></span>
+<span id="cb157-7"><a href="DTPExpanded.html#cb157-7" tabindex="-1"></a>    <span class="kw">private</span> <span class="kw">var</span> <span class="va">noNextReceiverHandler</span><span class="op">:</span> <span class="op">((</span>ModelElement<span class="op">.</span>QObject<span class="op">)</span> <span class="op">-&gt;</span> <span class="kw">Unit</span><span class="op">)?</span> <span class="op">=</span> <span class="kw">null</span></span>
+<span id="cb157-8"><a href="DTPExpanded.html#cb157-8" tabindex="-1"></a></span>
+<span id="cb157-9"><a href="DTPExpanded.html#cb157-9" tabindex="-1"></a>    <span class="kw">fun</span> <span class="fu">noNextReceiverHandler</span><span class="op">(</span><span class="va">fn</span><span class="op">:</span> <span class="op">(</span>(<span class="dt">ModelElement</span>.<span class="dt">QObject</span><span class="op">)</span> <span class="op">-&gt;</span> <span class="dt">Unit</span><span class="op">)</span>?)<span class="op">{</span></span>
+<span id="cb157-10"><a href="DTPExpanded.html#cb157-10" tabindex="-1"></a>        noNextReceiverHandler <span class="op">=</span> fn</span>
+<span id="cb157-11"><a href="DTPExpanded.html#cb157-11" tabindex="-1"></a>    <span class="op">}</span></span>
+<span id="cb157-12"><a href="DTPExpanded.html#cb157-12" tabindex="-1"></a></span>
+<span id="cb157-13"><a href="DTPExpanded.html#cb157-13" tabindex="-1"></a>    <span class="kw">abstract</span> <span class="kw">fun</span> <span class="fu">selectNextReceiver</span><span class="op">():</span> <span class="dt">QObjectReceiverIfc</span><span class="op">?</span></span>
+<span id="cb157-14"><a href="DTPExpanded.html#cb157-14" tabindex="-1"></a></span>
+<span id="cb157-15"><a href="DTPExpanded.html#cb157-15" tabindex="-1"></a>    <span class="kw">final</span> <span class="kw">override</span> <span class="kw">fun</span> <span class="fu">send</span><span class="op">(</span><span class="va">qObject</span><span class="op">:</span> <span class="dt">ModelElement</span>.<span class="va">QObject</span><span class="op">)</span> <span class="op">{</span></span>
+<span id="cb157-16"><a href="DTPExpanded.html#cb157-16" tabindex="-1"></a>        <span class="kw">val</span> <span class="va">selected</span> <span class="op">=</span> selectNextReceiver<span class="op">()</span></span>
+<span id="cb157-17"><a href="DTPExpanded.html#cb157-17" tabindex="-1"></a>        <span class="cf">if</span> <span class="op">(</span>selected <span class="op">!=</span> <span class="kw">null</span><span class="op">)</span> <span class="op">{</span></span>
+<span id="cb157-18"><a href="DTPExpanded.html#cb157-18" tabindex="-1"></a>            beforeSendingAction<span class="op">?.</span>action<span class="op">(</span>selected<span class="op">,</span> qObject<span class="op">)</span></span>
+<span id="cb157-19"><a href="DTPExpanded.html#cb157-19" tabindex="-1"></a>            selected<span class="op">.</span>receive<span class="op">(</span>qObject<span class="op">)</span></span>
+<span id="cb157-20"><a href="DTPExpanded.html#cb157-20" tabindex="-1"></a>            afterSendingAction<span class="op">?.</span>action<span class="op">(</span>selected<span class="op">,</span> qObject<span class="op">)</span></span>
+<span id="cb157-21"><a href="DTPExpanded.html#cb157-21" tabindex="-1"></a>        <span class="op">}</span> <span class="cf">else</span> <span class="op">{</span></span>
+<span id="cb157-22"><a href="DTPExpanded.html#cb157-22" tabindex="-1"></a>            noNextReceiverHandler<span class="op">?.</span>invoke<span class="op">(</span>qObject<span class="op">)</span></span>
+<span id="cb157-23"><a href="DTPExpanded.html#cb157-23" tabindex="-1"></a>        <span class="op">}</span></span>
+<span id="cb157-24"><a href="DTPExpanded.html#cb157-24" tabindex="-1"></a>    <span class="op">}</span></span>
+<span id="cb157-25"><a href="DTPExpanded.html#cb157-25" tabindex="-1"></a></span>
+<span id="cb157-26"><a href="DTPExpanded.html#cb157-26" tabindex="-1"></a>    <span class="kw">private</span> <span class="kw">var</span> <span class="va">beforeSendingAction</span><span class="op">:</span> SendingActionIfc<span class="op">?</span> <span class="op">=</span> <span class="kw">null</span></span>
+<span id="cb157-27"><a href="DTPExpanded.html#cb157-27" tabindex="-1"></a></span>
+<span id="cb157-28"><a href="DTPExpanded.html#cb157-28" tabindex="-1"></a>    <span class="kw">fun</span> <span class="fu">beforeSendingAction</span><span class="op">(</span><span class="va">action</span> <span class="op">:</span> <span class="dt">SendingActionIfc</span><span class="op">){</span></span>
+<span id="cb157-29"><a href="DTPExpanded.html#cb157-29" tabindex="-1"></a>        beforeSendingAction <span class="op">=</span> action</span>
+<span id="cb157-30"><a href="DTPExpanded.html#cb157-30" tabindex="-1"></a>    <span class="op">}</span></span>
+<span id="cb157-31"><a href="DTPExpanded.html#cb157-31" tabindex="-1"></a></span>
+<span id="cb157-32"><a href="DTPExpanded.html#cb157-32" tabindex="-1"></a>    <span class="kw">private</span> <span class="kw">var</span> <span class="va">afterSendingAction</span><span class="op">:</span> SendingActionIfc<span class="op">?</span> <span class="op">=</span> <span class="kw">null</span></span>
+<span id="cb157-33"><a href="DTPExpanded.html#cb157-33" tabindex="-1"></a></span>
+<span id="cb157-34"><a href="DTPExpanded.html#cb157-34" tabindex="-1"></a>    <span class="kw">fun</span> <span class="fu">afterSendingAction</span><span class="op">(</span><span class="va">action</span> <span class="op">:</span> <span class="dt">SendingActionIfc</span><span class="op">){</span></span>
+<span id="cb157-35"><a href="DTPExpanded.html#cb157-35" tabindex="-1"></a>        afterSendingAction <span class="op">=</span> action</span>
+<span id="cb157-36"><a href="DTPExpanded.html#cb157-36" tabindex="-1"></a>    <span class="op">}</span></span>
+<span id="cb157-37"><a href="DTPExpanded.html#cb157-37" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
+<p>The <code>QObjectSender</code> class defines how <code>QObject</code> instances will be <em>sent</em> and allows for the handling of a receiver not being selected. In addition, you can use <em>lambda</em> expressions to add actions prior to and after sending the <code>QObject</code> instance. Let’s review the implementation of the <code>ReceiverSequence</code> class.</p>
+<div class="sourceCode" id="cb158"><pre class="sourceCode kt"><code class="sourceCode kotlin"><span id="cb158-1"><a href="DTPExpanded.html#cb158-1" tabindex="-1"></a><span class="kw">class</span> ReceiverSequence<span class="op">(</span></span>
+<span id="cb158-2"><a href="DTPExpanded.html#cb158-2" tabindex="-1"></a>    <span class="kw">private</span> <span class="kw">val</span> <span class="va">receiverItr</span><span class="op">:</span> <span class="dt">ListIterator</span>&lt;<span class="va">QObjectReceiverIfc</span>&gt;</span>
+<span id="cb158-3"><a href="DTPExpanded.html#cb158-3" tabindex="-1"></a><span class="op">)</span> <span class="op">:</span> <span class="dt">QObjectSender</span><span class="op">()</span> <span class="op">{</span></span>
+<span id="cb158-4"><a href="DTPExpanded.html#cb158-4" tabindex="-1"></a></span>
+<span id="cb158-5"><a href="DTPExpanded.html#cb158-5" tabindex="-1"></a>    <span class="kw">override</span> <span class="kw">fun</span> <span class="fu">selectNextReceiver</span><span class="op">():</span> <span class="dt">QObjectReceiverIfc</span><span class="op">?</span> <span class="op">{</span></span>
+<span id="cb158-6"><a href="DTPExpanded.html#cb158-6" tabindex="-1"></a>        <span class="kw">return</span> <span class="cf">if</span> <span class="op">(</span>receiverItr<span class="op">.</span>hasNext<span class="op">()){</span></span>
+<span id="cb158-7"><a href="DTPExpanded.html#cb158-7" tabindex="-1"></a>            receiverItr<span class="op">.</span>next<span class="op">()</span></span>
+<span id="cb158-8"><a href="DTPExpanded.html#cb158-8" tabindex="-1"></a>        <span class="op">}</span> <span class="cf">else</span> <span class="op">{</span></span>
+<span id="cb158-9"><a href="DTPExpanded.html#cb158-9" tabindex="-1"></a>            <span class="kw">null</span></span>
+<span id="cb158-10"><a href="DTPExpanded.html#cb158-10" tabindex="-1"></a>        <span class="op">}</span></span>
+<span id="cb158-11"><a href="DTPExpanded.html#cb158-11" tabindex="-1"></a>    <span class="op">}</span></span>
+<span id="cb158-12"><a href="DTPExpanded.html#cb158-12" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
+<p>As can be seen in the code for the <code>ReceiverSequence</code> class, a list iterator is used and checked. If the next receiver is found, it is returned and the <code>QObject</code> instance will be sent to the receiver. So imagine that you have a list of <code>QObjectReceiverIfc</code> instances, in a list called <code>stations</code>, then the following code could be implemented to assign the sequence to the <code>QObject</code> instance when it is created.</p>
+<div class="sourceCode" id="cb159"><pre class="sourceCode kt"><code class="sourceCode kotlin"><span id="cb159-1"><a href="DTPExpanded.html#cb159-1" tabindex="-1"></a>    <span class="kw">private</span> <span class="kw">fun</span> <span class="fu">arrivalEvent</span><span class="op">(</span><span class="va">generator</span><span class="op">:</span> <span class="dt">EventGenerator</span><span class="op">){</span></span>
+<span id="cb159-2"><a href="DTPExpanded.html#cb159-2" tabindex="-1"></a>        <span class="kw">val</span> <span class="va">itr</span> <span class="op">=</span> stations<span class="op">.</span>listIterator<span class="op">()</span></span>
+<span id="cb159-3"><a href="DTPExpanded.html#cb159-3" tabindex="-1"></a>        <span class="kw">val</span> <span class="va">customer</span> <span class="op">=</span> QObject<span class="op">()</span></span>
+<span id="cb159-4"><a href="DTPExpanded.html#cb159-4" tabindex="-1"></a>        customer<span class="op">.</span>sender <span class="op">=</span> ReceiverSequence<span class="op">(</span>itr<span class="op">)</span></span>
+<span id="cb159-5"><a href="DTPExpanded.html#cb159-5" tabindex="-1"></a>        customer<span class="op">.</span>sender<span class="op">.</span>send<span class="op">(</span>customer<span class="op">)</span></span>
+<span id="cb159-6"><a href="DTPExpanded.html#cb159-6" tabindex="-1"></a>    <span class="op">}</span></span></code></pre></div>
+<p>The sender will cause the customer to go to the first receiver presented by the iterator and then after that each station will automatically cause the customer to continue using the iterator until there are no more receivers. The trick is handling the last receiver, which could easily be a receiver like the <code>ExitSystem</code> receiver used in the tandem queue implementation that does not cause further use of the iterator. This approach is very flexible. For example, imagine different types of customers being assigned different iterators (based on different lists of stations). The approach would allow stations to be visited multiple times, skipped, etc. all based on the ordering of stations in a list and the resulting iterators from those lists.</p>
+<p>As previously mentioned, there are actually 3 mechanisms (or options) for sending <code>QObject</code> instances: 1) directly specifying a receiver (illustrated in the tandem queue model), 2) attaching a sender to the <code>QObject</code> instance (discussed in this section), and 3) specifying a sender for the station. We have already discussed options 1 and 2. For option 3, while it is possible that every station may have its own unique instance of a sender (i.e. a <code>QObjectSenderIfc</code> instance), a more plausible approach would be that the stations <em>share</em> a global sender. In this approach you simply defer the sending functionality to some complex object at the system level that determines where to send the <code>QObject</code> instance next. Since system control logic may take into account the entire state of the system in order to optimally route the workload among the stations, this approach seems extremely useful.</p>
+<p>In reviewing Figure <a href="DTPExpanded.html#fig:StationPkg">4.16</a> you may also notice the <code>ActivityStation,</code> the <code>TwoWayByChanceSender,</code> and <code>NWayByChanceSender</code> classes. The <code>ActivityStation</code> class models a station that does not have a resource by implementing a simple scheduled delay for a specified activity time. The <code>TwoWayByChanceSender</code> class provides probabilistic routing between two specified receivers according to a Bernoulli random variable. The <code>NWayByChanceSender</code> class provides probabilistic routing from a list of receivers according to a discrete empirical distribution. The <code>TwoWayByChanceSender</code> and <code>NWayByChanceSender</code> classes are special in that they behave as both <em>senders</em> and <em>receivers</em> of <code>QObject</code> instances. That is, they implement both the <code>QObjectReceiverIfc</code> interface and the <code>QObjectSenderIfc</code> interface. Essentially, their receiving action is to immediately execute the sending action. This dual behavior allows them to be used in any of the three options for sending <code>QObject</code> instances.</p>
+<p>As one final point of discussion, the ability to attach Kotlin <em>lambda</em> expressions within the stations package should not be under appreciated. Let’s suppose you were simulating a system where parts might need to repeatedly visit a particular station and you wanted to count the number of times that the part visited the station in order to invoke control logic based on the count. How might you model this situation using stations? The first task would be to subclass <code>QObject</code> to have a sub-type that had an attribute to hold the visit count.</p>
+<div class="sourceCode" id="cb160"><pre class="sourceCode kt"><code class="sourceCode kotlin"><span id="cb160-1"><a href="DTPExpanded.html#cb160-1" tabindex="-1"></a><span class="kw">private</span> <span class="kw">inner</span> <span class="kw">class</span> Part<span class="op">(</span><span class="kw">var</span> <span class="va">visitCount</span><span class="op">:</span> <span class="dt">Int</span> <span class="op">=</span> <span class="dv">0</span><span class="op">)</span> <span class="op">:</span> <span class="dt">QObject</span><span class="op">()</span></span></code></pre></div>
+<p>Now, suppose the station for which we wanted to track the visits was the drilling station (called <code>drilling</code>). Then, when setting up the initialization logic within the <code>init{}</code> block we can attach a lambda expression to the drilling station and ensure that every time that the station is visited, the part increments the visitation count. The code might look something like this:</p>
+<div class="sourceCode" id="cb161"><pre class="sourceCode kt"><code class="sourceCode kotlin"><span id="cb161-1"><a href="DTPExpanded.html#cb161-1" tabindex="-1"></a>    init <span class="op">{</span></span>
+<span id="cb161-2"><a href="DTPExpanded.html#cb161-2" tabindex="-1"></a>        myArrivalGenerator<span class="op">.</span>generatorAction <span class="op">{</span> drilling<span class="op">.</span>receive<span class="op">(</span>Part<span class="op">())</span> <span class="op">}</span></span>
+<span id="cb161-3"><a href="DTPExpanded.html#cb161-3" tabindex="-1"></a>        drilling<span class="op">.</span>exitAction <span class="op">{</span> <span class="op">(</span>it <span class="kw">as</span> Part<span class="op">).</span>visitCount<span class="op">++</span> <span class="op">}</span></span>
+<span id="cb161-4"><a href="DTPExpanded.html#cb161-4" tabindex="-1"></a>        drilling<span class="op">.</span>nextReceiver<span class="op">(</span>grinding<span class="op">)</span></span>
+<span id="cb161-5"><a href="DTPExpanded.html#cb161-5" tabindex="-1"></a>        <span class="co">// etc.</span></span>
+<span id="cb161-6"><a href="DTPExpanded.html#cb161-6" tabindex="-1"></a>        grinding<span class="op">.</span>nextReceiver<span class="op">(</span>exit<span class="op">)</span></span>
+<span id="cb161-7"><a href="DTPExpanded.html#cb161-7" tabindex="-1"></a>    <span class="op">}</span></span></code></pre></div>
+<p>Since the <code>GeneratorActionIfc</code> is a SAM functional interface, the code takes advantage of this by supplying the generation logic as a lambda expression. In addition, the exit action for the drilling station is specified as a lambda expression. In this case, the reference object of the lambda is cast to an instance of the Part class and then the visit count attribute is incremented. This code illustrates a single line lambda; however, there is no limitation on the number of lines of the lambda expression. Also, if you do not like lambda expressions, you can simply make an inner class that implements the <code>ExitActionIfc</code> interface and use the syntax which best matches your programming style.</p>
+<p>Using these constructs, the KSL can model very large and complex queueing situations using the relatively simple framework provided by the <code>ksl.modeling.station</code> package. The next chapter will present many ways in which you can capture and use the simulation results to make decisions based on the statistical results.</p>
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="enhancing-the-drive-through-pharmacy-model.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="introDEDSSummary.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"whatsapp": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": null,
+"text": null
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": null,
+"search": {
+"engine": "fuse",
+"options": null
+},
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/latest.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>

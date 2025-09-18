@@ -1,0 +1,1159 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>3.1 Collecting Statistics | Simulation Modeling using the Kotlin Simulation Library (KSL)</title>
+  <meta name="description" content="A book that illustrates the basics of using the KSL. The output format for this book is bookdown::gitbook." />
+  <meta name="generator" content="bookdown 0.40 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="3.1 Collecting Statistics | Simulation Modeling using the Kotlin Simulation Library (KSL)" />
+  <meta property="og:type" content="book" />
+  
+  <meta property="og:description" content="A book that illustrates the basics of using the KSL. The output format for this book is bookdown::gitbook." />
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="3.1 Collecting Statistics | Simulation Modeling using the Kotlin Simulation Library (KSL)" />
+  
+  <meta name="twitter:description" content="A book that illustrates the basics of using the KSL. The output format for this book is bookdown::gitbook." />
+  
+
+<meta name="author" content="Manuel D. Rossetti" />
+
+
+<meta name="date" content="2025-09-18" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="mcm.html"/>
+<link rel="next" href="ssMC.html"/>
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
+<link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
+<script src="libs/kePrint-0.0.1/kePrint.js"></script>
+<link href="libs/lightable-0.0.1/lightable.css" rel="stylesheet" />
+
+
+<style type="text/css">
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { color: #008000; } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { color: #008000; font-weight: bold; } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<style type="text/css">
+  
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+</style>
+<style type="text/css">
+/* Used with Pandoc 2.11+ new --citeproc when CSL is used */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+}
+.hanging div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}
+</style>
+
+<link rel="stylesheet" href="css/style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">Simulation Modeling using the Kotlin Simulation Library (KSL)</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Preface</a>
+<ul>
+<li class="chapter" data-level="" data-path="release-history.html"><a href="release-history.html"><i class="fa fa-check"></i>Release History</a></li>
+<li class="chapter" data-level="" data-path="ksl-project-page.html"><a href="ksl-project-page.html"><i class="fa fa-check"></i>KSL Project Page</a></li>
+<li class="chapter" data-level="" data-path="book-support-files.html"><a href="book-support-files.html"><i class="fa fa-check"></i>Book Support Files</a></li>
+<li class="chapter" data-level="" data-path="acknowledgments.html"><a href="acknowledgments.html"><i class="fa fa-check"></i>Acknowledgments</a></li>
+<li class="chapter" data-level="" data-path="intended-audience.html"><a href="intended-audience.html"><i class="fa fa-check"></i>Intended Audience</a></li>
+<li class="chapter" data-level="" data-path="organization-of-the-book.html"><a href="organization-of-the-book.html"><i class="fa fa-check"></i>Organization of the Book</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="about-the-author.html"><a href="about-the-author.html"><i class="fa fa-check"></i>About the Author</a></li>
+<li class="chapter" data-level="1" data-path="ch1.html"><a href="ch1.html"><i class="fa fa-check"></i><b>1</b> Simulation Modeling</a>
+<ul>
+<li class="chapter" data-level="1.1" data-path="simulation-modeling.html"><a href="simulation-modeling.html"><i class="fa fa-check"></i><b>1.1</b> Simulation Modeling</a></li>
+<li class="chapter" data-level="1.2" data-path="why-simulate.html"><a href="why-simulate.html"><i class="fa fa-check"></i><b>1.2</b> Why Simulate?</a></li>
+<li class="chapter" data-level="1.3" data-path="types-of-systems-and-simulation-models.html"><a href="types-of-systems-and-simulation-models.html"><i class="fa fa-check"></i><b>1.3</b> Types of Systems and Simulation Models</a></li>
+<li class="chapter" data-level="1.4" data-path="simulation-descriptive-or-prescriptive-modeling.html"><a href="simulation-descriptive-or-prescriptive-modeling.html"><i class="fa fa-check"></i><b>1.4</b> Simulation: Descriptive or Prescriptive Modeling?</a></li>
+<li class="chapter" data-level="1.5" data-path="randomness-in-simulation.html"><a href="randomness-in-simulation.html"><i class="fa fa-check"></i><b>1.5</b> Randomness in Simulation</a></li>
+<li class="chapter" data-level="1.6" data-path="simulation-languages.html"><a href="simulation-languages.html"><i class="fa fa-check"></i><b>1.6</b> Simulation Languages</a></li>
+<li class="chapter" data-level="1.7" data-path="ch1secsimMeth.html"><a href="ch1secsimMeth.html"><i class="fa fa-check"></i><b>1.7</b> Simulation Methodology</a></li>
+<li class="chapter" data-level="1.8" data-path="overview-of-the-kotlin-simulation-library.html"><a href="overview-of-the-kotlin-simulation-library.html"><i class="fa fa-check"></i><b>1.8</b> Overview of the Kotlin Simulation Library</a></li>
+<li class="chapter" data-level="1.9" data-path="exercises.html"><a href="exercises.html"><i class="fa fa-check"></i><b>1.9</b> Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="ch2rng.html"><a href="ch2rng.html"><i class="fa fa-check"></i><b>2</b> Modeling Randomness</a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="ch2generator.html"><a href="ch2generator.html"><i class="fa fa-check"></i><b>2.1</b> Random Number Generator</a>
+<ul>
+<li class="chapter" data-level="2.1.1" data-path="ch2generator.html"><a href="ch2generator.html#ch2randompkg"><i class="fa fa-check"></i><b>2.1.1</b> Random Package</a></li>
+<li class="chapter" data-level="2.1.2" data-path="ch2generator.html"><a href="ch2generator.html#ch2creatingStreams"><i class="fa fa-check"></i><b>2.1.2</b> Creating and Using Streams</a></li>
+<li class="chapter" data-level="2.1.3" data-path="ch2generator.html"><a href="ch2generator.html#ch2crn"><i class="fa fa-check"></i><b>2.1.3</b> Common Random Numbers</a></li>
+<li class="chapter" data-level="2.1.4" data-path="ch2generator.html"><a href="ch2generator.html#ch2antitheticStreams"><i class="fa fa-check"></i><b>2.1.4</b> Creating and Using Antithetic Streams</a></li>
+<li class="chapter" data-level="2.1.5" data-path="ch2generator.html"><a href="ch2generator.html#ch2rnFAQ"><i class="fa fa-check"></i><b>2.1.5</b> Frequently Asked Questions about Random Numbers</a></li>
+</ul></li>
+<li class="chapter" data-level="2.2" data-path="rvg.html"><a href="rvg.html"><i class="fa fa-check"></i><b>2.2</b> Random Variate Generation</a>
+<ul>
+<li class="chapter" data-level="2.2.1" data-path="rvg.html"><a href="rvg.html#basic-random-variate-generation"><i class="fa fa-check"></i><b>2.2.1</b> Basic Random Variate Generation</a></li>
+<li class="chapter" data-level="2.2.2" data-path="rvg.html"><a href="rvg.html#rvg_dists"><i class="fa fa-check"></i><b>2.2.2</b> Continuous and Discrete Random Variables</a></li>
+<li class="chapter" data-level="2.2.3" data-path="rvg.html"><a href="rvg.html#rvguse"><i class="fa fa-check"></i><b>2.2.3</b> Creating and Using Random Variables</a></li>
+<li class="chapter" data-level="2.2.4" data-path="rvg.html"><a href="rvg.html#functions-of-random-variables"><i class="fa fa-check"></i><b>2.2.4</b> Functions of Random Variables</a></li>
+</ul></li>
+<li class="chapter" data-level="2.3" data-path="probModels.html"><a href="probModels.html"><i class="fa fa-check"></i><b>2.3</b> Probability Distribution Models</a></li>
+<li class="chapter" data-level="2.4" data-path="distFitting.html"><a href="distFitting.html"><i class="fa fa-check"></i><b>2.4</b> Distribution Fitting Using the KSL</a>
+<ul>
+<li class="chapter" data-level="2.4.1" data-path="distFitting.html"><a href="distFitting.html#estimating-distribution-parameters"><i class="fa fa-check"></i><b>2.4.1</b> Estimating Distribution Parameters</a></li>
+<li class="chapter" data-level="2.4.2" data-path="distFitting.html"><a href="distFitting.html#continuous-distribution-recommendation-framework"><i class="fa fa-check"></i><b>2.4.2</b> Continuous Distribution Recommendation Framework</a></li>
+<li class="chapter" data-level="2.4.3" data-path="distFitting.html"><a href="distFitting.html#discrete-distribution-framework"><i class="fa fa-check"></i><b>2.4.3</b> Discrete Distribution Framework</a></li>
+<li class="chapter" data-level="2.4.4" data-path="distFitting.html"><a href="distFitting.html#pdfmexamples"><i class="fa fa-check"></i><b>2.4.4</b> Illustrative Examples from Appendix @ref(appidm)</a></li>
+</ul></li>
+<li class="chapter" data-level="2.5" data-path="summary.html"><a href="summary.html"><i class="fa fa-check"></i><b>2.5</b> Summary</a></li>
+<li class="chapter" data-level="2.6" data-path="exercises-1.html"><a href="exercises-1.html"><i class="fa fa-check"></i><b>2.6</b> Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="mcm.html"><a href="mcm.html"><i class="fa fa-check"></i><b>3</b> Monte Carlo Methods</a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="kslStatistics.html"><a href="kslStatistics.html"><i class="fa fa-check"></i><b>3.1</b> Collecting Statistics</a>
+<ul>
+<li class="chapter" data-level="3.1.1" data-path="kslStatistics.html"><a href="kslStatistics.html#creating-and-using-a-statistic"><i class="fa fa-check"></i><b>3.1.1</b> Creating and Using a Statistic</a></li>
+<li class="chapter" data-level="3.1.2" data-path="kslStatistics.html"><a href="kslStatistics.html#histFreq"><i class="fa fa-check"></i><b>3.1.2</b> Histograms and Frequencies</a></li>
+<li class="chapter" data-level="3.1.3" data-path="kslStatistics.html"><a href="kslStatistics.html#ch3batchStats"><i class="fa fa-check"></i><b>3.1.3</b> Batch Statistics</a></li>
+<li class="chapter" data-level="3.1.4" data-path="kslStatistics.html"><a href="kslStatistics.html#ch3StatSummary"><i class="fa fa-check"></i><b>3.1.4</b> Statistics Summary</a></li>
+</ul></li>
+<li class="chapter" data-level="3.2" data-path="ssMC.html"><a href="ssMC.html"><i class="fa fa-check"></i><b>3.2</b> Simple Monte Carlo Integration</a></li>
+<li class="chapter" data-level="3.3" data-path="ch3StatReview.html"><a href="ch3StatReview.html"><i class="fa fa-check"></i><b>3.3</b> Review of Statistical Concepts</a>
+<ul>
+<li class="chapter" data-level="3.3.1" data-path="ch3StatReview.html"><a href="ch3StatReview.html#point-estimates-and-confidence-intervals"><i class="fa fa-check"></i><b>3.3.1</b> Point Estimates and Confidence Intervals</a></li>
+<li class="chapter" data-level="3.3.2" data-path="ch3StatReview.html"><a href="ch3StatReview.html#ch3SampleSize"><i class="fa fa-check"></i><b>3.3.2</b> Sample Size Determination</a></li>
+<li class="chapter" data-level="3.3.3" data-path="ch3StatReview.html"><a href="ch3StatReview.html#determining-the-sample-size-for-a-monte-carlo-simulation-experiment"><i class="fa fa-check"></i><b>3.3.3</b> Determining the Sample Size for a Monte Carlo Simulation Experiment</a></li>
+</ul></li>
+<li class="chapter" data-level="3.4" data-path="craps.html"><a href="craps.html"><i class="fa fa-check"></i><b>3.4</b> Simulating the Game of Craps</a></li>
+<li class="chapter" data-level="3.5" data-path="the-news-vendor-problem.html"><a href="the-news-vendor-problem.html"><i class="fa fa-check"></i><b>3.5</b> The News Vendor Problem</a></li>
+<li class="chapter" data-level="3.6" data-path="ch3InsProcess.html"><a href="ch3InsProcess.html"><i class="fa fa-check"></i><b>3.6</b> A Simple Inspection Process</a></li>
+<li class="chapter" data-level="3.7" data-path="ch3SAN.html"><a href="ch3SAN.html"><i class="fa fa-check"></i><b>3.7</b> Stochastic Activity Networks</a></li>
+<li class="chapter" data-level="3.8" data-path="mcmExperiments.html"><a href="mcmExperiments.html"><i class="fa fa-check"></i><b>3.8</b> Monte-Carlo Experiments</a></li>
+<li class="chapter" data-level="3.9" data-path="summary-1.html"><a href="summary-1.html"><i class="fa fa-check"></i><b>3.9</b> Summary</a></li>
+<li class="chapter" data-level="3.10" data-path="exercises-2.html"><a href="exercises-2.html"><i class="fa fa-check"></i><b>3.10</b> Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="introDEDS.html"><a href="introDEDS.html"><i class="fa fa-check"></i><b>4</b> Introduction to Discrete Event Modeling</a>
+<ul>
+<li class="chapter" data-level="4.1" data-path="introDEDSdeds.html"><a href="introDEDSdeds.html"><i class="fa fa-check"></i><b>4.1</b> Discrete-Event Dynamic Systems</a></li>
+<li class="chapter" data-level="4.2" data-path="HowDEDSClockWorks.html"><a href="HowDEDSClockWorks.html"><i class="fa fa-check"></i><b>4.2</b> How the Discrete-Event Clock Works</a></li>
+<li class="chapter" data-level="4.3" data-path="QHandExample.html"><a href="QHandExample.html"><i class="fa fa-check"></i><b>4.3</b> Simulating a Queueing System By Hand</a></li>
+<li class="chapter" data-level="4.4" data-path="introDEDSdedsKSL.html"><a href="introDEDSdedsKSL.html"><i class="fa fa-check"></i><b>4.4</b> Modeling DEDS in the KSL</a>
+<ul>
+<li class="chapter" data-level="4.4.1" data-path="introDEDSdedsKSL.html"><a href="introDEDSdedsKSL.html#event-scheduling"><i class="fa fa-check"></i><b>4.4.1</b> Event Scheduling</a></li>
+<li class="chapter" data-level="4.4.2" data-path="introDEDSdedsKSL.html"><a href="introDEDSdedsKSL.html#introDEDSschedExamples"><i class="fa fa-check"></i><b>4.4.2</b> Simple Event Scheduling Examples</a></li>
+<li class="chapter" data-level="4.4.3" data-path="introDEDSdedsKSL.html"><a href="introDEDSdedsKSL.html#introDEDSUpDown"><i class="fa fa-check"></i><b>4.4.3</b> Up and Down Component Example</a></li>
+<li class="chapter" data-level="4.4.4" data-path="introDEDSdedsKSL.html"><a href="introDEDSdedsKSL.html#introDEDSPharmacy"><i class="fa fa-check"></i><b>4.4.4</b> Modeling a Simple Queueing System</a></li>
+<li class="chapter" data-level="4.4.5" data-path="introDEDSdedsKSL.html"><a href="introDEDSdedsKSL.html#more-details-about-the-pharmacy-model-implementation"><i class="fa fa-check"></i><b>4.4.5</b> More Details About the Pharmacy Model Implementation</a></li>
+</ul></li>
+<li class="chapter" data-level="4.5" data-path="enhancing-the-drive-through-pharmacy-model.html"><a href="enhancing-the-drive-through-pharmacy-model.html"><i class="fa fa-check"></i><b>4.5</b> Enhancing the Drive Through Pharmacy Model</a>
+<ul>
+<li class="chapter" data-level="4.5.1" data-path="enhancing-the-drive-through-pharmacy-model.html"><a href="enhancing-the-drive-through-pharmacy-model.html#modeling-a-simple-resource"><i class="fa fa-check"></i><b>4.5.1</b> Modeling a Simple Resource</a></li>
+<li class="chapter" data-level="4.5.2" data-path="enhancing-the-drive-through-pharmacy-model.html"><a href="enhancing-the-drive-through-pharmacy-model.html#modeling-a-queue-with-statistical-collection"><i class="fa fa-check"></i><b>4.5.2</b> Modeling a Queue with Statistical Collection</a></li>
+<li class="chapter" data-level="4.5.3" data-path="enhancing-the-drive-through-pharmacy-model.html"><a href="enhancing-the-drive-through-pharmacy-model.html#modeling-a-repeating-event-pattern"><i class="fa fa-check"></i><b>4.5.3</b> Modeling a Repeating Event Pattern</a></li>
+<li class="chapter" data-level="4.5.4" data-path="enhancing-the-drive-through-pharmacy-model.html"><a href="enhancing-the-drive-through-pharmacy-model.html#collecting-more-detailed-statistics"><i class="fa fa-check"></i><b>4.5.4</b> Collecting More Detailed Statistics</a></li>
+<li class="chapter" data-level="4.5.5" data-path="enhancing-the-drive-through-pharmacy-model.html"><a href="enhancing-the-drive-through-pharmacy-model.html#implementing-the-enhanced-pharmacy-model"><i class="fa fa-check"></i><b>4.5.5</b> Implementing the Enhanced Pharmacy Model</a></li>
+</ul></li>
+<li class="chapter" data-level="4.6" data-path="DTPExpanded.html"><a href="DTPExpanded.html"><i class="fa fa-check"></i><b>4.6</b> More Drive Through Fun</a>
+<ul>
+<li class="chapter" data-level="4.6.1" data-path="DTPExpanded.html"><a href="DTPExpanded.html#modeling-a-resource-with-a-waiting-line"><i class="fa fa-check"></i><b>4.6.1</b> Modeling a Resource with a Waiting Line</a></li>
+<li class="chapter" data-level="4.6.2" data-path="DTPExpanded.html"><a href="DTPExpanded.html#modeling-the-tandem-queue-of-example-refexmexch4tandemq"><i class="fa fa-check"></i><b>4.6.2</b> Modeling the Tandem Queue of Example @ref(exm:exCh4TandemQ)</a></li>
+<li class="chapter" data-level="4.6.3" data-path="DTPExpanded.html"><a href="DTPExpanded.html#modeling-with-the-station-package"><i class="fa fa-check"></i><b>4.6.3</b> Modeling with the Station Package</a></li>
+</ul></li>
+<li class="chapter" data-level="4.7" data-path="introDEDSSummary.html"><a href="introDEDSSummary.html"><i class="fa fa-check"></i><b>4.7</b> Summary</a></li>
+<li class="chapter" data-level="4.8" data-path="exercises-3.html"><a href="exercises-3.html"><i class="fa fa-check"></i><b>4.8</b> Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="simoa.html"><a href="simoa.html"><i class="fa fa-check"></i><b>5</b> Analyzing and Accessing Simulation Output</a>
+<ul>
+<li class="chapter" data-level="5.1" data-path="simoadatatypes.html"><a href="simoadatatypes.html"><i class="fa fa-check"></i><b>5.1</b> Types of Statistical Variables</a></li>
+<li class="chapter" data-level="5.2" data-path="simoasimtypes.html"><a href="simoasimtypes.html"><i class="fa fa-check"></i><b>5.2</b> Types of Simulation With Respect To Output Analysis</a></li>
+<li class="chapter" data-level="5.3" data-path="simoafinhorizon.html"><a href="simoafinhorizon.html"><i class="fa fa-check"></i><b>5.3</b> Analysis of Finite Horizon Simulations</a></li>
+<li class="chapter" data-level="5.4" data-path="simoafinhorizonex.html"><a href="simoafinhorizonex.html"><i class="fa fa-check"></i><b>5.4</b> Capturing Output for a Simple Finite Horizon Simulation</a>
+<ul>
+<li class="chapter" data-level="5.4.1" data-path="simoafinhorizonex.html"><a href="simoafinhorizonex.html#simoaCapture"><i class="fa fa-check"></i><b>5.4.1</b> KSL Functionality for Capturing Statistical Results</a></li>
+<li class="chapter" data-level="5.4.2" data-path="simoafinhorizonex.html"><a href="simoafinhorizonex.html#additional-remarks"><i class="fa fa-check"></i><b>5.4.2</b> Additional Remarks</a></li>
+<li class="chapter" data-level="5.4.3" data-path="simoafinhorizonex.html"><a href="simoafinhorizonex.html#querying-the-ksl-database"><i class="fa fa-check"></i><b>5.4.3</b> Querying the KSL Database</a></li>
+</ul></li>
+<li class="chapter" data-level="5.5" data-path="simoaseqsampling.html"><a href="simoaseqsampling.html"><i class="fa fa-check"></i><b>5.5</b> Sequential Sampling for Finite Horizon Simulations</a></li>
+<li class="chapter" data-level="5.6" data-path="simoainfhorizon.html"><a href="simoainfhorizon.html"><i class="fa fa-check"></i><b>5.6</b> Analysis of Infinite Horizon Simulations</a>
+<ul>
+<li class="chapter" data-level="5.6.1" data-path="simoainfhorizon.html"><a href="simoainfhorizon.html#simoainfhorizoninitialbias"><i class="fa fa-check"></i><b>5.6.1</b> Assessing the Effect of Initial Conditions</a></li>
+<li class="chapter" data-level="5.6.2" data-path="simoainfhorizon.html"><a href="simoainfhorizon.html#simoainfhorizonrepDeletion"><i class="fa fa-check"></i><b>5.6.2</b> Performing the Method of Replication-Deletion</a></li>
+<li class="chapter" data-level="5.6.3" data-path="simoainfhorizon.html"><a href="simoainfhorizon.html#simoainfhorizonbatchmeans"><i class="fa fa-check"></i><b>5.6.3</b> The Method of Batch Means</a></li>
+<li class="chapter" data-level="5.6.4" data-path="simoainfhorizon.html"><a href="simoainfhorizon.html#simoainfhorizonjslbatching"><i class="fa fa-check"></i><b>5.6.4</b> Performing the Method of Batch Means</a></li>
+</ul></li>
+<li class="chapter" data-level="5.7" data-path="simoacomparingSystems.html"><a href="simoacomparingSystems.html"><i class="fa fa-check"></i><b>5.7</b> Comparing System Configurations</a>
+<ul>
+<li class="chapter" data-level="5.7.1" data-path="simoacomparingSystems.html"><a href="simoacomparingSystems.html#simoacomparingSystems:two"><i class="fa fa-check"></i><b>5.7.1</b> Comparing Two Systems</a></li>
+<li class="chapter" data-level="5.7.2" data-path="simoacomparingSystems.html"><a href="simoacomparingSystems.html#simoacomparingSystemsMCB"><i class="fa fa-check"></i><b>5.7.2</b> Concepts for Comparing Systems</a></li>
+<li class="chapter" data-level="5.7.3" data-path="simoacomparingSystems.html"><a href="simoacomparingSystems.html#multiple-comparison-with-the-best-procedures-mcb"><i class="fa fa-check"></i><b>5.7.3</b> Multiple Comparison with the Best Procedures (MCB)</a></li>
+<li class="chapter" data-level="5.7.4" data-path="simoacomparingSystems.html"><a href="simoacomparingSystems.html#ch5Screening"><i class="fa fa-check"></i><b>5.7.4</b> Screening Procedures</a></li>
+</ul></li>
+<li class="chapter" data-level="5.8" data-path="ch5Scenarios.html"><a href="ch5Scenarios.html"><i class="fa fa-check"></i><b>5.8</b> Simulating Many Scenarios</a>
+<ul>
+<li class="chapter" data-level="5.8.1" data-path="ch5Scenarios.html"><a href="ch5Scenarios.html#controlAntns"><i class="fa fa-check"></i><b>5.8.1</b> Control Annotations</a></li>
+<li class="chapter" data-level="5.8.2" data-path="ch5Scenarios.html"><a href="ch5Scenarios.html#rvParameters"><i class="fa fa-check"></i><b>5.8.2</b> Random Variable Parameters</a></li>
+<li class="chapter" data-level="5.8.3" data-path="ch5Scenarios.html"><a href="ch5Scenarios.html#kslScenarios"><i class="fa fa-check"></i><b>5.8.3</b> Setting Up and Running Multiple Scenarios</a></li>
+</ul></li>
+<li class="chapter" data-level="5.9" data-path="simoasummary.html"><a href="simoasummary.html"><i class="fa fa-check"></i><b>5.9</b> Summary</a></li>
+<li class="chapter" data-level="5.10" data-path="exercises-4.html"><a href="exercises-4.html"><i class="fa fa-check"></i><b>5.10</b> Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="processview.html"><a href="processview.html"><i class="fa fa-check"></i><b>6</b> Process View Modeling Using the KSL</a>
+<ul>
+<li class="chapter" data-level="6.1" data-path="ch6Entities.html"><a href="ch6Entities.html"><i class="fa fa-check"></i><b>6.1</b> What are Entities?</a></li>
+<li class="chapter" data-level="6.2" data-path="pvIntro.html"><a href="pvIntro.html"><i class="fa fa-check"></i><b>6.2</b> The Process View</a></li>
+<li class="chapter" data-level="6.3" data-path="understanding-ksl-processes-and-entities.html"><a href="understanding-ksl-processes-and-entities.html"><i class="fa fa-check"></i><b>6.3</b> Understanding KSL Processes and Entities</a></li>
+<li class="chapter" data-level="6.4" data-path="examples-of-process-modeling.html"><a href="examples-of-process-modeling.html"><i class="fa fa-check"></i><b>6.4</b> Examples of Process Modeling</a>
+<ul>
+<li class="chapter" data-level="6.4.1" data-path="examples-of-process-modeling.html"><a href="examples-of-process-modeling.html#holding-entities-in-a-queue-holdqueue-class"><i class="fa fa-check"></i><b>6.4.1</b> Holding Entities in a Queue: <code>HoldQueue</code> Class</a></li>
+<li class="chapter" data-level="6.4.2" data-path="examples-of-process-modeling.html"><a href="examples-of-process-modeling.html#signaling-entities"><i class="fa fa-check"></i><b>6.4.2</b> Signaling Entities</a></li>
+<li class="chapter" data-level="6.4.3" data-path="examples-of-process-modeling.html"><a href="examples-of-process-modeling.html#understanding-blocking-queues"><i class="fa fa-check"></i><b>6.4.3</b> Understanding Blocking Queues</a></li>
+<li class="chapter" data-level="6.4.4" data-path="examples-of-process-modeling.html"><a href="examples-of-process-modeling.html#allowing-entities-to-wait-for-a-process"><i class="fa fa-check"></i><b>6.4.4</b> Allowing Entities to Wait for a Process</a></li>
+<li class="chapter" data-level="6.4.5" data-path="examples-of-process-modeling.html"><a href="examples-of-process-modeling.html#processinteraction"><i class="fa fa-check"></i><b>6.4.5</b> Process Interaction</a></li>
+</ul></li>
+<li class="chapter" data-level="6.5" data-path="modeling-a-stem-career-mixer.html"><a href="modeling-a-stem-career-mixer.html"><i class="fa fa-check"></i><b>6.5</b> Modeling a STEM Career Mixer</a>
+<ul>
+<li class="chapter" data-level="6.5.1" data-path="modeling-a-stem-career-mixer.html"><a href="modeling-a-stem-career-mixer.html#conceptualizing-the-system"><i class="fa fa-check"></i><b>6.5.1</b> Conceptualizing the System</a></li>
+<li class="chapter" data-level="6.5.2" data-path="modeling-a-stem-career-mixer.html"><a href="modeling-a-stem-career-mixer.html#implementing-the-stem-mixer-model"><i class="fa fa-check"></i><b>6.5.2</b> Implementing the STEM Mixer Model</a></li>
+</ul></li>
+<li class="chapter" data-level="6.6" data-path="the-tie-dye-t-shirt-model.html"><a href="the-tie-dye-t-shirt-model.html"><i class="fa fa-check"></i><b>6.6</b> The Tie-Dye T-Shirt Model</a>
+<ul>
+<li class="chapter" data-level="6.6.1" data-path="the-tie-dye-t-shirt-model.html"><a href="the-tie-dye-t-shirt-model.html#ch4:TieDyeTShirtsSub1"><i class="fa fa-check"></i><b>6.6.1</b> Implementing the Tie-Dye T-Shirt Model</a></li>
+</ul></li>
+<li class="chapter" data-level="6.7" data-path="summary-2.html"><a href="summary-2.html"><i class="fa fa-check"></i><b>6.7</b> Summary</a></li>
+<li class="chapter" data-level="6.8" data-path="exercises-5.html"><a href="exercises-5.html"><i class="fa fa-check"></i><b>6.8</b> Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="ch7AdvModeling.html"><a href="ch7AdvModeling.html"><i class="fa fa-check"></i><b>7</b> Advanced Event and Process View Modeling</a>
+<ul>
+<li class="chapter" data-level="7.1" data-path="modeling-with-processes-and-resources.html"><a href="modeling-with-processes-and-resources.html"><i class="fa fa-check"></i><b>7.1</b> Modeling with Processes and Resources</a>
+<ul>
+<li class="chapter" data-level="7.1.1" data-path="modeling-with-processes-and-resources.html"><a href="modeling-with-processes-and-resources.html#modeling-space-with-resources"><i class="fa fa-check"></i><b>7.1.1</b> Modeling Space with Resources</a></li>
+<li class="chapter" data-level="7.1.2" data-path="modeling-with-processes-and-resources.html"><a href="modeling-with-processes-and-resources.html#secResourcePools"><i class="fa fa-check"></i><b>7.1.2</b> Resource Pools</a></li>
+<li class="chapter" data-level="7.1.3" data-path="modeling-with-processes-and-resources.html"><a href="modeling-with-processes-and-resources.html#secTestAndRepair"><i class="fa fa-check"></i><b>7.1.3</b> Computer Test and Repair Shop Example</a></li>
+</ul></li>
+<li class="chapter" data-level="7.2" data-path="modeling-non-stationary-systems.html"><a href="modeling-non-stationary-systems.html"><i class="fa fa-check"></i><b>7.2</b> Modeling Non-Stationary Systems</a>
+<ul>
+<li class="chapter" data-level="7.2.1" data-path="modeling-non-stationary-systems.html"><a href="modeling-non-stationary-systems.html#ch7secNSPP"><i class="fa fa-check"></i><b>7.2.1</b> Non-Stationary Arrival Processes</a></li>
+<li class="chapter" data-level="7.2.2" data-path="modeling-non-stationary-systems.html"><a href="modeling-non-stationary-systems.html#modeling-resources-under-non-stationary-conditions"><i class="fa fa-check"></i><b>7.2.2</b> Modeling Resources Under Non-Stationary Conditions</a></li>
+<li class="chapter" data-level="7.2.3" data-path="modeling-non-stationary-systems.html"><a href="modeling-non-stationary-systems.html#enhancing-the-stem-career-mixer-model"><i class="fa fa-check"></i><b>7.2.3</b> Enhancing the STEM Career Mixer Model</a></li>
+</ul></li>
+<li class="chapter" data-level="7.3" data-path="examples-of-advanced-event-models.html"><a href="examples-of-advanced-event-models.html"><i class="fa fa-check"></i><b>7.3</b> Examples of Advanced Event Models</a>
+<ul>
+<li class="chapter" data-level="7.3.1" data-path="examples-of-advanced-event-models.html"><a href="examples-of-advanced-event-models.html#ch6s1sb4sub3"><i class="fa fa-check"></i><b>7.3.1</b> Modeling Balking and Reneging</a></li>
+<li class="chapter" data-level="7.3.2" data-path="examples-of-advanced-event-models.html"><a href="examples-of-advanced-event-models.html#rqModel"><i class="fa fa-check"></i><b>7.3.2</b> Modeling a Reorder Point, Reorder Quantity Inventory Policy</a></li>
+</ul></li>
+<li class="chapter" data-level="7.4" data-path="ch7VandV.html"><a href="ch7VandV.html"><i class="fa fa-check"></i><b>7.4</b> Applying Queueing Theory Results to Verify and Validate a Simulation</a>
+<ul>
+<li class="chapter" data-level="7.4.1" data-path="ch7VandV.html"><a href="ch7VandV.html#analyzing-the-preparation-station"><i class="fa fa-check"></i><b>7.4.1</b> Analyzing the Preparation Station</a></li>
+<li class="chapter" data-level="7.4.2" data-path="ch7VandV.html"><a href="ch7VandV.html#analyzing-the-build-lines"><i class="fa fa-check"></i><b>7.4.2</b> Analyzing the Build Lines</a></li>
+<li class="chapter" data-level="7.4.3" data-path="ch7VandV.html"><a href="ch7VandV.html#analyzing-the-packaging-station"><i class="fa fa-check"></i><b>7.4.3</b> Analyzing the Packaging Station</a></li>
+<li class="chapter" data-level="7.4.4" data-path="ch7VandV.html"><a href="ch7VandV.html#analyzing-the-palletizing-station"><i class="fa fa-check"></i><b>7.4.4</b> Analyzing the Palletizing Station</a></li>
+<li class="chapter" data-level="7.4.5" data-path="ch7VandV.html"><a href="ch7VandV.html#analyzing-the-total-system-time"><i class="fa fa-check"></i><b>7.4.5</b> Analyzing the Total System Time</a></li>
+<li class="chapter" data-level="7.4.6" data-path="ch7VandV.html"><a href="ch7VandV.html#other-issues-for-verification-and-validation"><i class="fa fa-check"></i><b>7.4.6</b> Other Issues for Verification and Validation</a></li>
+</ul></li>
+<li class="chapter" data-level="7.5" data-path="summary-3.html"><a href="summary-3.html"><i class="fa fa-check"></i><b>7.5</b> Summary</a></li>
+<li class="chapter" data-level="7.6" data-path="exercises-6.html"><a href="exercises-6.html"><i class="fa fa-check"></i><b>7.6</b> Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="8" data-path="chEntityMovement.html"><a href="chEntityMovement.html"><i class="fa fa-check"></i><b>8</b> Modeling Entity Movement</a>
+<ul>
+<li class="chapter" data-level="8.1" data-path="secRCT.html"><a href="secRCT.html"><i class="fa fa-check"></i><b>8.1</b> Resource Constrained Transfer</a>
+<ul>
+<li class="chapter" data-level="8.1.1" data-path="secRCT.html"><a href="secRCT.html#secTestRepairRCT"><i class="fa fa-check"></i><b>8.1.1</b> Test and Repair with Resource Constrained Transfer</a></li>
+</ul></li>
+<li class="chapter" data-level="8.2" data-path="movableResources.html"><a href="movableResources.html"><i class="fa fa-check"></i><b>8.2</b> Constrained Transfer with Movable Resources</a>
+<ul>
+<li class="chapter" data-level="8.2.1" data-path="movableResources.html"><a href="movableResources.html#spatial-models"><i class="fa fa-check"></i><b>8.2.1</b> Spatial Models</a></li>
+<li class="chapter" data-level="8.2.2" data-path="movableResources.html"><a href="movableResources.html#secMovableResources"><i class="fa fa-check"></i><b>8.2.2</b> Movable Resources</a></li>
+<li class="chapter" data-level="8.2.3" data-path="movableResources.html"><a href="movableResources.html#secTQMWM"><i class="fa fa-check"></i><b>8.2.3</b> Tandem Queue Model With Movement</a></li>
+</ul></li>
+<li class="chapter" data-level="8.3" data-path="secTestAndRepairMovableResources.html"><a href="secTestAndRepairMovableResources.html"><i class="fa fa-check"></i><b>8.3</b> Modeling the Test and Repair System with Movable Resources</a></li>
+<li class="chapter" data-level="8.4" data-path="secConveyors.html"><a href="secConveyors.html"><i class="fa fa-check"></i><b>8.4</b> Modeling Systems with Conveyors</a>
+<ul>
+<li class="chapter" data-level="8.4.1" data-path="secConveyors.html"><a href="secConveyors.html#ksl-conveyor-constructs"><i class="fa fa-check"></i><b>8.4.1</b> KSL Conveyor Constructs</a></li>
+<li class="chapter" data-level="8.4.2" data-path="secConveyors.html"><a href="secConveyors.html#tandem-queue-system-with-conveyors"><i class="fa fa-check"></i><b>8.4.2</b> Tandem Queue System with Conveyors</a></li>
+<li class="chapter" data-level="8.4.3" data-path="secConveyors.html"><a href="secConveyors.html#secTestAndRepairConveyors"><i class="fa fa-check"></i><b>8.4.3</b> Test and Repair via Conveyors</a></li>
+<li class="chapter" data-level="8.4.4" data-path="secConveyors.html"><a href="secConveyors.html#secMiscConveyor"><i class="fa fa-check"></i><b>8.4.4</b> Miscellaneous Concepts in Conveyor Modeling</a></li>
+</ul></li>
+<li class="chapter" data-level="8.5" data-path="summary-of-new-concepts.html"><a href="summary-of-new-concepts.html"><i class="fa fa-check"></i><b>8.5</b> Summary of New Concepts</a></li>
+<li class="chapter" data-level="8.6" data-path="exercises-7.html"><a href="exercises-7.html"><i class="fa fa-check"></i><b>8.6</b> Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="9" data-path="ch9AdvMC.html"><a href="ch9AdvMC.html"><i class="fa fa-check"></i><b>9</b> Advanced Monte Carlo Methods</a>
+<ul>
+<li class="chapter" data-level="9.1" data-path="ch9BootStrapping.html"><a href="ch9BootStrapping.html"><i class="fa fa-check"></i><b>9.1</b> Bootstrap Methods</a>
+<ul>
+<li class="chapter" data-level="9.1.1" data-path="ch9BootStrapping.html"><a href="ch9BootStrapping.html#bootstrapping-using-the-ksl"><i class="fa fa-check"></i><b>9.1.1</b> Bootstrapping Using the KSL</a></li>
+</ul></li>
+<li class="chapter" data-level="9.2" data-path="ch9VRTs.html"><a href="ch9VRTs.html"><i class="fa fa-check"></i><b>9.2</b> Variance Reduction Techniques</a>
+<ul>
+<li class="chapter" data-level="9.2.1" data-path="ch9VRTs.html"><a href="ch9VRTs.html#common-random-numbers-crn"><i class="fa fa-check"></i><b>9.2.1</b> Common Random Numbers (CRN)</a></li>
+<li class="chapter" data-level="9.2.2" data-path="ch9VRTs.html"><a href="ch9VRTs.html#antithetic-variates-av"><i class="fa fa-check"></i><b>9.2.2</b> Antithetic Variates (AV)</a></li>
+<li class="chapter" data-level="9.2.3" data-path="ch9VRTs.html"><a href="ch9VRTs.html#indirect-estimation"><i class="fa fa-check"></i><b>9.2.3</b> Indirect Estimation</a></li>
+<li class="chapter" data-level="9.2.4" data-path="ch9VRTs.html"><a href="ch9VRTs.html#control-variates-cv"><i class="fa fa-check"></i><b>9.2.4</b> Control Variates (CV)</a></li>
+<li class="chapter" data-level="9.2.5" data-path="ch9VRTs.html"><a href="ch9VRTs.html#stratified-and-post-stratified-sampling"><i class="fa fa-check"></i><b>9.2.5</b> Stratified and Post Stratified Sampling</a></li>
+<li class="chapter" data-level="9.2.6" data-path="ch9VRTs.html"><a href="ch9VRTs.html#conditional-expectation-ce"><i class="fa fa-check"></i><b>9.2.6</b> Conditional Expectation (CE)</a></li>
+<li class="chapter" data-level="9.2.7" data-path="ch9VRTs.html"><a href="ch9VRTs.html#importance-sampling-is"><i class="fa fa-check"></i><b>9.2.7</b> Importance Sampling (IS)</a></li>
+</ul></li>
+<li class="chapter" data-level="9.3" data-path="ch9GMVRVs.html"><a href="ch9GMVRVs.html"><i class="fa fa-check"></i><b>9.3</b> Generating Multi-Variate and Correlated Random Variates</a>
+<ul>
+<li class="chapter" data-level="9.3.1" data-path="ch9GMVRVs.html"><a href="ch9GMVRVs.html#generating-from-a-bivariate-normal-distribution"><i class="fa fa-check"></i><b>9.3.1</b> Generating from a Bivariate Normal Distribution</a></li>
+<li class="chapter" data-level="9.3.2" data-path="ch9GMVRVs.html"><a href="ch9GMVRVs.html#copulas-and-multi-variate-generation-methods"><i class="fa fa-check"></i><b>9.3.2</b> Copulas and Multi-variate Generation Methods</a></li>
+<li class="chapter" data-level="9.3.3" data-path="ch9GMVRVs.html"><a href="ch9GMVRVs.html#autocorrelated-generation"><i class="fa fa-check"></i><b>9.3.3</b> Autocorrelated Generation</a></li>
+<li class="chapter" data-level="9.3.4" data-path="ch9GMVRVs.html"><a href="ch9GMVRVs.html#ch9MCMC"><i class="fa fa-check"></i><b>9.3.4</b> Introduction to Markov Chain Monte Carlo Methods</a></li>
+</ul></li>
+<li class="chapter" data-level="9.4" data-path="summary-4.html"><a href="summary-4.html"><i class="fa fa-check"></i><b>9.4</b> Summary</a></li>
+<li class="chapter" data-level="9.5" data-path="exercises-8.html"><a href="exercises-8.html"><i class="fa fa-check"></i><b>9.5</b> Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="10" data-path="ch10eo.html"><a href="ch10eo.html"><i class="fa fa-check"></i><b>10</b> Experimental Design and Simulation Optimization Methods</a>
+<ul>
+<li class="chapter" data-level="10.1" data-path="ch10doe.html"><a href="ch10doe.html"><i class="fa fa-check"></i><b>10.1</b> Experimental Design Methods</a>
+<ul>
+<li class="chapter" data-level="10.1.1" data-path="ch10doe.html"><a href="ch10doe.html#ch10factors"><i class="fa fa-check"></i><b>10.1.1</b> Defining Factors</a></li>
+<li class="chapter" data-level="10.1.2" data-path="ch10doe.html"><a href="ch10doe.html#ch10designs"><i class="fa fa-check"></i><b>10.1.2</b> Defining Experimental Designs</a></li>
+<li class="chapter" data-level="10.1.3" data-path="ch10doe.html"><a href="ch10doe.html#ch10exp"><i class="fa fa-check"></i><b>10.1.3</b> Executing a Designed Experiment</a></li>
+<li class="chapter" data-level="10.1.4" data-path="ch10doe.html"><a href="ch10doe.html#ch10analysis"><i class="fa fa-check"></i><b>10.1.4</b> Analyzing a Designed Experiment</a></li>
+</ul></li>
+<li class="chapter" data-level="10.2" data-path="ch10simOpt.html"><a href="ch10simOpt.html"><i class="fa fa-check"></i><b>10.2</b> Simulation Optimization Methods</a></li>
+<li class="chapter" data-level="10.3" data-path="ch10ProbDefn.html"><a href="ch10ProbDefn.html"><i class="fa fa-check"></i><b>10.3</b> Defining Simulation Optimization Problems</a>
+<ul>
+<li class="chapter" data-level="10.3.1" data-path="ch10ProbDefn.html"><a href="ch10ProbDefn.html#specifying-penalty-functions"><i class="fa fa-check"></i><b>10.3.1</b> Specifying Penalty Functions</a></li>
+<li class="chapter" data-level="10.3.2" data-path="ch10ProbDefn.html"><a href="ch10ProbDefn.html#inputvariables"><i class="fa fa-check"></i><b>10.3.2</b> Defining Input Variables</a></li>
+<li class="chapter" data-level="10.3.3" data-path="ch10ProbDefn.html"><a href="ch10ProbDefn.html#linear-and-functional-constraints"><i class="fa fa-check"></i><b>10.3.3</b> Linear and Functional Constraints</a></li>
+<li class="chapter" data-level="10.3.4" data-path="ch10ProbDefn.html"><a href="ch10ProbDefn.html#response-constraints"><i class="fa fa-check"></i><b>10.3.4</b> Response Constraints</a></li>
+<li class="chapter" data-level="10.3.5" data-path="ch10ProbDefn.html"><a href="ch10ProbDefn.html#ch10ProbDefnExample"><i class="fa fa-check"></i><b>10.3.5</b> Setting Up a Problem Definition</a></li>
+</ul></li>
+<li class="chapter" data-level="10.4" data-path="representing-the-simulation-oracle.html"><a href="representing-the-simulation-oracle.html"><i class="fa fa-check"></i><b>10.4</b> Representing the Simulation Oracle</a>
+<ul>
+<li class="chapter" data-level="10.4.1" data-path="representing-the-simulation-oracle.html"><a href="representing-the-simulation-oracle.html#requesting-simulation-evaluations"><i class="fa fa-check"></i><b>10.4.1</b> Requesting Simulation Evaluations</a></li>
+<li class="chapter" data-level="10.4.2" data-path="representing-the-simulation-oracle.html"><a href="representing-the-simulation-oracle.html#representing-model-inputs"><i class="fa fa-check"></i><b>10.4.2</b> Representing Model Inputs</a></li>
+<li class="chapter" data-level="10.4.3" data-path="representing-the-simulation-oracle.html"><a href="representing-the-simulation-oracle.html#representing-model-outputs"><i class="fa fa-check"></i><b>10.4.3</b> Representing Model Outputs</a></li>
+</ul></li>
+<li class="chapter" data-level="10.5" data-path="characterizing-simulation-optimization-algorithms.html"><a href="characterizing-simulation-optimization-algorithms.html"><i class="fa fa-check"></i><b>10.5</b> Characterizing Simulation Optimization Algorithms</a>
+<ul>
+<li class="chapter" data-level="10.5.1" data-path="characterizing-simulation-optimization-algorithms.html"><a href="characterizing-simulation-optimization-algorithms.html#structure-of-the-iterative-process"><i class="fa fa-check"></i><b>10.5.1</b> Structure of the Iterative Process</a></li>
+<li class="chapter" data-level="10.5.2" data-path="characterizing-simulation-optimization-algorithms.html"><a href="characterizing-simulation-optimization-algorithms.html#solver-plug-in-behavior"><i class="fa fa-check"></i><b>10.5.2</b> Solver Plug-in Behavior</a></li>
+<li class="chapter" data-level="10.5.3" data-path="characterizing-simulation-optimization-algorithms.html"><a href="characterizing-simulation-optimization-algorithms.html#miscellaneous-concepts-in-the-solver-class"><i class="fa fa-check"></i><b>10.5.3</b> Miscellaneous Concepts in the <code>Solver</code> Class</a></li>
+</ul></li>
+<li class="chapter" data-level="10.6" data-path="implemented-solvers.html"><a href="implemented-solvers.html"><i class="fa fa-check"></i><b>10.6</b> Implemented Solvers</a>
+<ul>
+<li class="chapter" data-level="10.6.1" data-path="implemented-solvers.html"><a href="implemented-solvers.html#simulated-annealing"><i class="fa fa-check"></i><b>10.6.1</b> Simulated Annealing</a></li>
+<li class="chapter" data-level="10.6.2" data-path="implemented-solvers.html"><a href="implemented-solvers.html#cross-entropy"><i class="fa fa-check"></i><b>10.6.2</b> Cross Entropy</a></li>
+<li class="chapter" data-level="10.6.3" data-path="implemented-solvers.html"><a href="implemented-solvers.html#r-spline"><i class="fa fa-check"></i><b>10.6.3</b> R-SPLINE</a></li>
+<li class="chapter" data-level="10.6.4" data-path="implemented-solvers.html"><a href="implemented-solvers.html#randomized-restart-solvers"><i class="fa fa-check"></i><b>10.6.4</b> Randomized Restart Solvers</a></li>
+</ul></li>
+<li class="chapter" data-level="10.7" data-path="secApplySolver.html"><a href="secApplySolver.html"><i class="fa fa-check"></i><b>10.7</b> Using a Solver on a Problem</a>
+<ul>
+<li class="chapter" data-level="10.7.1" data-path="secApplySolver.html"><a href="secApplySolver.html#applyCE"><i class="fa fa-check"></i><b>10.7.1</b> Illustrating the Cross-Entropy Solver</a></li>
+<li class="chapter" data-level="10.7.2" data-path="secApplySolver.html"><a href="secApplySolver.html#illustrating-simulated-annealing-with-random-restarts"><i class="fa fa-check"></i><b>10.7.2</b> Illustrating Simulated Annealing with Random Restarts</a></li>
+</ul></li>
+<li class="chapter" data-level="10.8" data-path="summary-5.html"><a href="summary-5.html"><i class="fa fa-check"></i><b>10.8</b> Summary</a></li>
+<li class="chapter" data-level="10.9" data-path="exercises-9.html"><a href="exercises-9.html"><i class="fa fa-check"></i><b>10.9</b> Exercises</a></li>
+</ul></li>
+<li class="appendix"><span><b>Appendix</b></span></li>
+<li class="chapter" data-level="A" data-path="appRNRV.html"><a href="appRNRV.html"><i class="fa fa-check"></i><b>A</b> Generating Pseudo-Random Numbers and Random Variates</a>
+<ul>
+<li class="chapter" data-level="A.1" data-path="appRNRVPRN.html"><a href="appRNRVPRN.html"><i class="fa fa-check"></i><b>A.1</b> Pseudo Random Numbers</a>
+<ul>
+<li class="chapter" data-level="A.1.1" data-path="appRNRVPRN.html"><a href="appRNRVPRN.html#appRNRVRNGs"><i class="fa fa-check"></i><b>A.1.1</b> Random Number Generators</a></li>
+</ul></li>
+<li class="chapter" data-level="A.2" data-path="appRNRVs.html"><a href="appRNRVs.html"><i class="fa fa-check"></i><b>A.2</b> Generating Random Variates from Distributions</a>
+<ul>
+<li class="chapter" data-level="A.2.1" data-path="appRNRVs.html"><a href="appRNRVs.html#inverse-transform-method"><i class="fa fa-check"></i><b>A.2.1</b> Inverse Transform Method</a></li>
+<li class="chapter" data-level="A.2.2" data-path="appRNRVs.html"><a href="appRNRVs.html#convolution"><i class="fa fa-check"></i><b>A.2.2</b> Convolution</a></li>
+<li class="chapter" data-level="A.2.3" data-path="appRNRVs.html"><a href="appRNRVs.html#acceptancerejection"><i class="fa fa-check"></i><b>A.2.3</b> Acceptance/Rejection</a></li>
+<li class="chapter" data-level="A.2.4" data-path="appRNRVs.html"><a href="appRNRVs.html#AppRNRVsubsecMTSRV"><i class="fa fa-check"></i><b>A.2.4</b> Mixture Distributions, Truncated Distributions, and Shifted Random Variables</a></li>
+</ul></li>
+<li class="chapter" data-level="A.3" data-path="summary-6.html"><a href="summary-6.html"><i class="fa fa-check"></i><b>A.3</b> Summary</a></li>
+<li class="chapter" data-level="A.4" data-path="exercises-10.html"><a href="exercises-10.html"><i class="fa fa-check"></i><b>A.4</b> Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="B" data-path="appidm.html"><a href="appidm.html"><i class="fa fa-check"></i><b>B</b> Probability Distribution Modeling</a>
+<ul>
+<li class="chapter" data-level="B.1" data-path="appidmsecrvPD.html"><a href="appidmsecrvPD.html"><i class="fa fa-check"></i><b>B.1</b> Random Variables and Probability Distributions</a></li>
+<li class="chapter" data-level="B.2" data-path="appidmsecMDD.html"><a href="appidmsecMDD.html"><i class="fa fa-check"></i><b>B.2</b> Modeling with Discrete Distributions</a></li>
+<li class="chapter" data-level="B.3" data-path="appidmsecfitDiscrete.html"><a href="appidmsecfitDiscrete.html"><i class="fa fa-check"></i><b>B.3</b> Fitting Discrete Distributions</a>
+<ul>
+<li class="chapter" data-level="B.3.1" data-path="appidmsecfitDiscrete.html"><a href="appidmsecfitDiscrete.html#AppDisFitPoissonFit"><i class="fa fa-check"></i><b>B.3.1</b> Fitting a Poisson Distribution</a></li>
+<li class="chapter" data-level="B.3.2" data-path="appidmsecfitDiscrete.html"><a href="appidmsecfitDiscrete.html#visualizing-the-data"><i class="fa fa-check"></i><b>B.3.2</b> Visualizing the Data</a></li>
+<li class="chapter" data-level="B.3.3" data-path="appidmsecfitDiscrete.html"><a href="appidmsecfitDiscrete.html#estimating-the-rate-parameter-for-the-poisson-distribution"><i class="fa fa-check"></i><b>B.3.3</b> Estimating the Rate Parameter for the Poisson Distribution</a></li>
+<li class="chapter" data-level="B.3.4" data-path="appidmsecfitDiscrete.html"><a href="appidmsecfitDiscrete.html#chi-squared-goodness-of-fit-test-for-poisson-distribution"><i class="fa fa-check"></i><b>B.3.4</b> Chi-Squared Goodness of Fit Test for Poisson Distribution</a></li>
+<li class="chapter" data-level="B.3.5" data-path="appidmsecfitDiscrete.html"><a href="appidmsecfitDiscrete.html#subsubchisqGOF"><i class="fa fa-check"></i><b>B.3.5</b> Chi-Squared Goodness of Fit Test</a></li>
+<li class="chapter" data-level="B.3.6" data-path="appidmsecfitDiscrete.html"><a href="appidmsecfitDiscrete.html#using-the-fitdistrplus-r-package-on-discrete-data"><i class="fa fa-check"></i><b>B.3.6</b> Using the fitdistrplus R Package on Discrete Data</a></li>
+<li class="chapter" data-level="B.3.7" data-path="appidmsecfitDiscrete.html"><a href="appidmsecfitDiscrete.html#fitting-a-discrete-empirical-distribution"><i class="fa fa-check"></i><b>B.3.7</b> Fitting a Discrete Empirical Distribution</a></li>
+</ul></li>
+<li class="chapter" data-level="B.4" data-path="appidmsecMCD.html"><a href="appidmsecMCD.html"><i class="fa fa-check"></i><b>B.4</b> Modeling with Continuous Distributions</a></li>
+<li class="chapter" data-level="B.5" data-path="appidmsecfitContinuous.html"><a href="appidmsecfitContinuous.html"><i class="fa fa-check"></i><b>B.5</b> Fitting Continuous Distributions</a>
+<ul>
+<li class="chapter" data-level="B.5.1" data-path="appidmsecfitContinuous.html"><a href="appidmsecfitContinuous.html#appidmsubsecvisualizedata"><i class="fa fa-check"></i><b>B.5.1</b> Visualizing the Data</a></li>
+<li class="chapter" data-level="B.5.2" data-path="appidmsecfitContinuous.html"><a href="appidmsecfitContinuous.html#appidmsubsecstatsdata"><i class="fa fa-check"></i><b>B.5.2</b> Statistically Summarize the Data</a></li>
+<li class="chapter" data-level="B.5.3" data-path="appidmsecfitContinuous.html"><a href="appidmsecfitContinuous.html#appidmsubsechypothDist"><i class="fa fa-check"></i><b>B.5.3</b> Hypothesizing and Testing a Distribution</a></li>
+<li class="chapter" data-level="B.5.4" data-path="appidmsecfitContinuous.html"><a href="appidmsecfitContinuous.html#kolmogorov-smirnov-test"><i class="fa fa-check"></i><b>B.5.4</b> Kolmogorov-Smirnov Test</a></li>
+<li class="chapter" data-level="B.5.5" data-path="appidmsecfitContinuous.html"><a href="appidmsecfitContinuous.html#appidmsubsecvisFit"><i class="fa fa-check"></i><b>B.5.5</b> Visualizing the Fit</a></li>
+<li class="chapter" data-level="B.5.6" data-path="appidmsecfitContinuous.html"><a href="appidmsecfitContinuous.html#appidms2sb3"><i class="fa fa-check"></i><b>B.5.6</b> Using the Input Analyzer</a></li>
+</ul></li>
+<li class="chapter" data-level="B.6" data-path="appdistfittestU01.html"><a href="appdistfittestU01.html"><i class="fa fa-check"></i><b>B.6</b> Testing Uniform (0,1) Pseudo-Random Numbers</a>
+<ul>
+<li class="chapter" data-level="B.6.1" data-path="appdistfittestU01.html"><a href="appdistfittestU01.html#chi-squared-goodness-of-fit-tests-for-pseudo-random-numbers"><i class="fa fa-check"></i><b>B.6.1</b> Chi-Squared Goodness of Fit Tests for Pseudo-Random Numbers</a></li>
+<li class="chapter" data-level="B.6.2" data-path="appdistfittestU01.html"><a href="appdistfittestU01.html#higher-dimensional-chi-squared-test"><i class="fa fa-check"></i><b>B.6.2</b> Higher Dimensional Chi-Squared Test</a></li>
+<li class="chapter" data-level="B.6.3" data-path="appdistfittestU01.html"><a href="appdistfittestU01.html#kolmogorov-smirnov-test-for-pseudo-random-numbers"><i class="fa fa-check"></i><b>B.6.3</b> Kolmogorov-Smirnov Test for Pseudo-Random Numbers</a></li>
+<li class="chapter" data-level="B.6.4" data-path="appdistfittestU01.html"><a href="appdistfittestU01.html#testing-for-independence-and-patterns-in-pseudo-random-numbers"><i class="fa fa-check"></i><b>B.6.4</b> Testing for Independence and Patterns in Pseudo-Random Numbers</a></li>
+</ul></li>
+<li class="chapter" data-level="B.7" data-path="appdistfitidms2sb4.html"><a href="appdistfitidms2sb4.html"><i class="fa fa-check"></i><b>B.7</b> Additional Distribution Modeling Concepts</a></li>
+<li class="chapter" data-level="B.8" data-path="appidmSummary.html"><a href="appidmSummary.html"><i class="fa fa-check"></i><b>B.8</b> Summary</a></li>
+<li class="chapter" data-level="B.9" data-path="exercises-11.html"><a href="exercises-11.html"><i class="fa fa-check"></i><b>B.9</b> Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="C" data-path="appqtAndInvT.html"><a href="appqtAndInvT.html"><i class="fa fa-check"></i><b>C</b> Queueing Theory</a>
+<ul>
+<li class="chapter" data-level="C.1" data-path="appqts1.html"><a href="appqts1.html"><i class="fa fa-check"></i><b>C.1</b> Single Line Queueing Stations</a>
+<ul>
+<li class="chapter" data-level="C.1.1" data-path="appqts1.html"><a href="appqts1.html#queueing-notation"><i class="fa fa-check"></i><b>C.1.1</b> Queueing Notation</a></li>
+<li class="chapter" data-level="C.1.2" data-path="appqts1.html"><a href="appqts1.html#littles-formula"><i class="fa fa-check"></i><b>C.1.2</b> Little’s Formula</a></li>
+<li class="chapter" data-level="C.1.3" data-path="appqts1.html"><a href="appqts1.html#appqts1sb1"><i class="fa fa-check"></i><b>C.1.3</b> Deriving Formulas for Markovian Single Queue Systems</a></li>
+</ul></li>
+<li class="chapter" data-level="C.2" data-path="appqts1sb2.html"><a href="appqts1sb2.html"><i class="fa fa-check"></i><b>C.2</b> Examples and Applications of Queueing Analysis</a>
+<ul>
+<li class="chapter" data-level="C.2.1" data-path="appqts1sb2.html"><a href="appqts1sb2.html#infinite-queue-examples"><i class="fa fa-check"></i><b>C.2.1</b> Infinite Queue Examples</a></li>
+<li class="chapter" data-level="C.2.2" data-path="appqts1sb2.html"><a href="appqts1sb2.html#finite-queue-examples"><i class="fa fa-check"></i><b>C.2.2</b> Finite Queue Examples</a></li>
+</ul></li>
+<li class="chapter" data-level="C.3" data-path="appqts1sb3.html"><a href="appqts1sb3.html"><i class="fa fa-check"></i><b>C.3</b> Non-Markovian Queues and Approximations</a></li>
+<li class="chapter" data-level="C.4" data-path="appqtsecformulas.html"><a href="appqtsecformulas.html"><i class="fa fa-check"></i><b>C.4</b> Summary of Queueing Formulas</a>
+<ul>
+<li class="chapter" data-level="C.4.1" data-path="appqtsecformulas.html"><a href="appqtsecformulas.html#mm1-queue"><i class="fa fa-check"></i><b>C.4.1</b> M/M/1 Queue</a></li>
+<li class="chapter" data-level="C.4.2" data-path="appqtsecformulas.html"><a href="appqtsecformulas.html#mmc-queue"><i class="fa fa-check"></i><b>C.4.2</b> M/M/c Queue</a></li>
+<li class="chapter" data-level="C.4.3" data-path="appqtsecformulas.html"><a href="appqtsecformulas.html#mmck-queue"><i class="fa fa-check"></i><b>C.4.3</b> M/M/c/k Queue</a></li>
+<li class="chapter" data-level="C.4.4" data-path="appqtsecformulas.html"><a href="appqtsecformulas.html#mgcc-queue"><i class="fa fa-check"></i><b>C.4.4</b> M/G/c/c Queue</a></li>
+<li class="chapter" data-level="C.4.5" data-path="appqtsecformulas.html"><a href="appqtsecformulas.html#mm1k-queue"><i class="fa fa-check"></i><b>C.4.5</b> M/M/1/k Queue</a></li>
+<li class="chapter" data-level="C.4.6" data-path="appqtsecformulas.html"><a href="appqtsecformulas.html#mmck-queue-1"><i class="fa fa-check"></i><b>C.4.6</b> M/M/c/k Queue</a></li>
+<li class="chapter" data-level="C.4.7" data-path="appqtsecformulas.html"><a href="appqtsecformulas.html#mm1kk-queue"><i class="fa fa-check"></i><b>C.4.7</b> M/M/1/k/k Queue</a></li>
+<li class="chapter" data-level="C.4.8" data-path="appqtsecformulas.html"><a href="appqtsecformulas.html#mmckk-queue"><i class="fa fa-check"></i><b>C.4.8</b> M/M/c/k/k Queue</a></li>
+</ul></li>
+<li class="chapter" data-level="C.5" data-path="exercises-12.html"><a href="exercises-12.html"><i class="fa fa-check"></i><b>C.5</b> Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="D" data-path="appUtilities.html"><a href="appUtilities.html"><i class="fa fa-check"></i><b>D</b> KSL Utility Packages</a>
+<ul>
+<li class="chapter" data-level="D.1" data-path="the-outputdirectory-class-and-ksl-object.html"><a href="the-outputdirectory-class-and-ksl-object.html"><i class="fa fa-check"></i><b>D.1</b> The <code>OutputDirectory</code> Class and <code>KSL</code> Object</a></li>
+<li class="chapter" data-level="D.2" data-path="logging-options.html"><a href="logging-options.html"><i class="fa fa-check"></i><b>D.2</b> Logging Options</a></li>
+<li class="chapter" data-level="D.3" data-path="the-kslfileutil-object.html"><a href="the-kslfileutil-object.html"><i class="fa fa-check"></i><b>D.3</b> The <code>KSLFileUtil</code> Object</a></li>
+<li class="chapter" data-level="D.4" data-path="appDCSVEtc.html"><a href="appDCSVEtc.html"><i class="fa fa-check"></i><b>D.4</b> CSV, Excel, and Tabular Data Files</a></li>
+<li class="chapter" data-level="D.5" data-path="dfUtil.html"><a href="dfUtil.html"><i class="fa fa-check"></i><b>D.5</b> The <code>DataFrameUtil</code> Object</a></li>
+<li class="chapter" data-level="D.6" data-path="ksl-database-utilities.html"><a href="ksl-database-utilities.html"><i class="fa fa-check"></i><b>D.6</b> KSL Database Utilities</a></li>
+<li class="chapter" data-level="D.7" data-path="appUtilitiesArrays.html"><a href="appUtilitiesArrays.html"><i class="fa fa-check"></i><b>D.7</b> Array Utilities</a></li>
+<li class="chapter" data-level="D.8" data-path="appPlotting.html"><a href="appPlotting.html"><i class="fa fa-check"></i><b>D.8</b> KSL Plotting Utilities</a></li>
+<li class="chapter" data-level="D.9" data-path="appUtilitiesMisc.html"><a href="appUtilitiesMisc.html"><i class="fa fa-check"></i><b>D.9</b> Miscellaneous Utilities</a></li>
+</ul></li>
+<li class="chapter" data-level="E" data-path="distributions.html"><a href="distributions.html"><i class="fa fa-check"></i><b>E</b> Distributions</a>
+<ul>
+<li class="chapter" data-level="E.1" data-path="appDiscreteDistributions.html"><a href="appDiscreteDistributions.html"><i class="fa fa-check"></i><b>E.1</b> Discrete Distrbutions</a></li>
+<li class="chapter" data-level="E.2" data-path="appContinuousDistributions.html"><a href="appContinuousDistributions.html"><i class="fa fa-check"></i><b>E.2</b> Continuous Distrbutions</a></li>
+</ul></li>
+<li class="chapter" data-level="F" data-path="appStatTables.html"><a href="appStatTables.html"><i class="fa fa-check"></i><b>F</b> Statistical Tables</a></li>
+<li class="chapter" data-level="G" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i><b>G</b> References</a></li>
+<li class="divider"></li>
+<li><a href="https://bookdown.org" target="_blank">Published with bookdown</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Simulation Modeling using the Kotlin Simulation Library (KSL)</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="kslStatistics" class="section level2 hasAnchor" number="3.1">
+<h2><span class="header-section-number">3.1</span> Collecting Statistics<a href="kslStatistics.html#kslStatistics" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>The KSL has a wide variety of classes that support statistic computations. A main theme in understanding the usage of the classes within the <code>ksl.utilities.statistics</code> package is the concept of collection. This concept is encapsulated within the <code>CollectorIfc</code> interface. The methods of the <code>CollectorIfc</code> interface are illustrated in Figure <a href="kslStatistics.html#fig:CollectorIfc">3.1</a>.</p>
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:CollectorIfc"></span>
+<img src="figures/CollectInterface.png" alt="CollectorIfc Interface"  />
+<p class="caption">
+Figure 3.1: CollectorIfc Interface
+</p>
+</div>
+<p>Something is a collector, if it implements the <code>CollectorIfc</code> interface. The implication is that those values presented to the various <code>collect</code> methods will be observed and tabulated into various quantities based on the presented values. The <code>collect</code> method has been overloaded to facilitate collection of double values, arrays of double values, and boolean values. A collector can be reset. Resetting a collector should set the state of the collector as if no values had been observed. Thus, resetting a collector should clear all previous collection results. The collector may or may not store any of the observations related to the collection process. By default, the standard approach taken is not to store the observations, but rather to summarize the observations in some manner. To facilitate the further use of the observed values, the base class, <code>Collector</code> is observable and will also emit observed values. Thus, other classes can be connected to a base observation process.</p>
+<p>Figure <a href="kslStatistics.html#fig:Statistics">3.2</a> presents the major classes and interfaces within the statistics package. The <code>CollectIfc</code> interface is implemented within the abstract base class <code>Collector</code>, which serves as the basis for various concrete implementations of statistical collectors. There are two major kinds of statistics, one of which assumes that the values presented must be weighted, the <code>WeightedStatisticIfc</code> interface and the <code>WeightedStatistic</code> class. The other branch of classes, derived from <code>AbstractStatistic</code> do not necessarily have to be weighted. The main classes to be discussed in this chapter are <code>Statistic</code> and <code>Histogram</code>.</p>
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:Statistics"></span>
+<img src="figures/Statistics.png" alt="Major Classes and Interfaces in the Statistics Package"  />
+<p class="caption">
+Figure 3.2: Major Classes and Interfaces in the Statistics Package
+</p>
+</div>
+<div id="creating-and-using-a-statistic" class="section level3 hasAnchor" number="3.1.1">
+<h3><span class="header-section-number">3.1.1</span> Creating and Using a Statistic<a href="kslStatistics.html#creating-and-using-a-statistic" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>The <code>Statistic</code> class has a great deal of functionality. It accumulates summary statistics on the values presented to it via its <code>collect</code> methods. Recall also that since the <code>Statistic</code> class implements the <code>CollectorIfc</code> interface, you can use the <code>reset()</code> method to clear all accumulated statistics and reuse the <code>Statistic</code> instance. The major statistical quantities are found in the <code>StatisticIfc</code> interface.</p>
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:StatisticIfc"></span>
+<img src="figures/StatisticIfc.png" alt="Major Accumulated Statistical Quantities" width="60%" height="60%" />
+<p class="caption">
+Figure 3.3: Major Accumulated Statistical Quantities
+</p>
+</div>
+<p>As can be seen in Figure <a href="kslStatistics.html#fig:StatisticIfc">3.3</a>, the <code>Statistic</code> class not only computes the standard statistical quantities such as the count, average, and variance, it also has functionality to compute confidence intervals, skewness, kurtosis, the minimum, the maximum, and lag 1 covariance and correlation. The computed confidence intervals are based on the assumption that the observed data are normally distributed or that the sample size is large enough to justify using the central limit theorem to assume that the sampling distribution is normal. Thus, we can assume that the confidence intervals are approximate. The summary statistics are computed via efficient one pass algorithms that do not require any observed data to be stored. The algorithms are designed to minimize issues related to numerical precision within the calculated results. The <code>toString()</code> method of the <code>Statistic</code> class has been overridden to contain all of the computed values. Let’s illustrate the usage of the <code>Statistic</code> class with some code. In this code, first we create a normal random variable to be able to generate some data. Then, two statistics are created. The first statistic directly collects the generated values. The second statistic is designed to collect <span class="math inline">\(P(X\geq 20.0)\)</span> by observing whether the generated value meets this criteria as defined by the boolean expression <code>x &gt;= 20.0</code>.</p>
+<div class="example">
+<p><span id="exm:ch3ex1" class="example"><strong>Example 3.1  (Creating and Using Statistics) </strong></span>This example illustrates how to create instances of the <code>Statistic</code> class to collect randomly generated observations from a normal distribution.</p>
+<div class="sourceCode" id="cb64"><pre class="sourceCode kt"><code class="sourceCode kotlin"><span id="cb64-1"><a href="kslStatistics.html#cb64-1" tabindex="-1"></a><span class="kw">fun</span> <span class="fu">main</span><span class="op">()</span> <span class="op">{</span></span>
+<span id="cb64-2"><a href="kslStatistics.html#cb64-2" tabindex="-1"></a>    <span class="co">// create a normal mean = 20.0, variance = 4.0 random variable</span></span>
+<span id="cb64-3"><a href="kslStatistics.html#cb64-3" tabindex="-1"></a>    <span class="kw">val</span> <span class="va">n</span> <span class="op">=</span> NormalRV<span class="op">(</span><span class="fl">20.0</span><span class="op">,</span> <span class="fl">4.0</span><span class="op">,</span> streamNum <span class="op">=</span> <span class="dv">3</span><span class="op">)</span></span>
+<span id="cb64-4"><a href="kslStatistics.html#cb64-4" tabindex="-1"></a>    <span class="co">// create a Statistic to observe the values</span></span>
+<span id="cb64-5"><a href="kslStatistics.html#cb64-5" tabindex="-1"></a>    <span class="kw">val</span> <span class="va">stat</span> <span class="op">=</span> Statistic<span class="op">(</span><span class="st">&quot;Normal Stats&quot;</span><span class="op">)</span></span>
+<span id="cb64-6"><a href="kslStatistics.html#cb64-6" tabindex="-1"></a>    <span class="kw">val</span> <span class="va">pGT20</span> <span class="op">=</span> Statistic<span class="op">(</span><span class="st">&quot;P(X&gt;=20&quot;</span><span class="op">)</span></span>
+<span id="cb64-7"><a href="kslStatistics.html#cb64-7" tabindex="-1"></a>    <span class="co">// generate 100 values</span></span>
+<span id="cb64-8"><a href="kslStatistics.html#cb64-8" tabindex="-1"></a>    <span class="cf">for</span> <span class="op">(</span>i <span class="kw">in</span> <span class="fl">1..100</span><span class="op">)</span> <span class="op">{</span></span>
+<span id="cb64-9"><a href="kslStatistics.html#cb64-9" tabindex="-1"></a>        <span class="co">// getValue() method returns generated values</span></span>
+<span id="cb64-10"><a href="kslStatistics.html#cb64-10" tabindex="-1"></a>        <span class="kw">val</span> <span class="va">x</span> <span class="op">=</span> n<span class="op">.</span>value</span>
+<span id="cb64-11"><a href="kslStatistics.html#cb64-11" tabindex="-1"></a>        stat<span class="op">.</span>collect<span class="op">(</span>x<span class="op">)</span></span>
+<span id="cb64-12"><a href="kslStatistics.html#cb64-12" tabindex="-1"></a>        pGT20<span class="op">.</span>collect<span class="op">(</span>x <span class="op">&gt;=</span> <span class="fl">20.0</span><span class="op">)</span></span>
+<span id="cb64-13"><a href="kslStatistics.html#cb64-13" tabindex="-1"></a>    <span class="op">}</span></span>
+<span id="cb64-14"><a href="kslStatistics.html#cb64-14" tabindex="-1"></a>    println<span class="op">(</span>stat<span class="op">)</span></span>
+<span id="cb64-15"><a href="kslStatistics.html#cb64-15" tabindex="-1"></a>    println<span class="op">(</span>pGT20<span class="op">)</span></span>
+<span id="cb64-16"><a href="kslStatistics.html#cb64-16" tabindex="-1"></a>    <span class="kw">val</span> <span class="va">reporter</span> <span class="op">=</span> StatisticReporter<span class="op">(</span>mutableListOf<span class="op">(</span>stat<span class="op">,</span> pGT20<span class="op">))</span></span>
+<span id="cb64-17"><a href="kslStatistics.html#cb64-17" tabindex="-1"></a>    println<span class="op">(</span>reporter<span class="op">.</span>halfWidthSummaryReport<span class="op">())</span></span>
+<span id="cb64-18"><a href="kslStatistics.html#cb64-18" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
+</div>
+<p>The results for the statistics collected directly on the observations from the <code>toString()</code> method are as follows.</p>
+<pre><code>ID 1
+Name Normal Stats
+Number 100.0
+Average 20.370190128861807
+Standard Deviation 2.111292233346322
+Standard Error 0.2111292233346322
+Half-width 0.4189261806189412
+Confidence Level 0.95
+Confidence Interval [19.951263948242865, 20.78911630948075]
+Minimum 15.020744984423821
+Maximum 25.33588436770212
+Sum 2037.0190128861807
+Variance 4.457554894588499
+Weighted Average 20.370190128861797
+Weighted Sum 2037.0190128861796
+Sum of Weights 100.0
+Weighted Sum of Squares 41935.76252316213
+Deviation Sum of Squares 441.2979345642614
+Last value collected 21.110736402119805
+Last weighted collected 1.0
+Kurtosis -0.534855387072145
+Skewness 0.20030433873223502
+Lag 1 Covariance -0.973414579833684
+Lag 1 Correlation -0.22057990840016864
+Von Neumann Lag 1 Test Statistic -2.2136062395518343
+Number of missing observations 0.0
+Lead-Digit Rule(1) -1</code></pre>
+<p>Of course, this is probably more output than what you need, but you can use the properties and methods illustrated in Figure <a href="kslStatistics.html#fig:StatisticIfc">3.3</a> to access specific desired quantities.</p>
+<p>Notice that in the code example that the <span class="math inline">\(P(X \geq 20.0)\)</span> is also collected. This is done by using the boolean expression <code>x &gt;= 20.0</code> within the <code>collect()</code> method. This expression evaluates to either true or false. The true values are presented as 1.0 and the false values as 0.0. Thus, this expression acts as an indicator variable and facilitates the estimation of probabilities. The results from the statistics can be pretty printed by using the <code>StatisticReporter</code> class, which takes a list of objects that implement the <code>StatisticIfc</code> interface and facilitates the writing and printing of various statistical summary reports.</p>
+<div class="sourceCode" id="cb66"><pre class="sourceCode kt"><code class="sourceCode kotlin"><span id="cb66-1"><a href="kslStatistics.html#cb66-1" tabindex="-1"></a>    <span class="kw">val</span> <span class="va">reporter</span> <span class="op">=</span> StatisticReporter<span class="op">(</span>mutableListOf<span class="op">(</span>stat<span class="op">,</span> pGT20<span class="op">))</span></span>
+<span id="cb66-2"><a href="kslStatistics.html#cb66-2" tabindex="-1"></a>    println<span class="op">(</span>reporter<span class="op">.</span>halfWidthSummaryReport<span class="op">())</span></span></code></pre></div>
+<pre><code>Half-Width Statistical Summary Report - Confidence Level (95.000)% 
+
+Name                                                Count         Average      Half-Width 
+---------------------------------------------------------------------------------------------------- 
+Normal Stats                                          100         20.3702          0.4189 
+P(X&gt;=20                                               100          0.5100          0.0997 
+---------------------------------------------------------------------------------------------------- </code></pre>
+<p>The <code>KSLArrays</code> object has a number of very useful methods that work on arrays and compute various statistical quantities.</p>
+<ul>
+<li><code>indexOfMin(x: DoubleArray): Int</code> - returns the index of the element that is smallest. If there are ties, the first found is returned.</li>
+<li><code>min(x: DoubleArray) : Double</code> - returns the element that is smallest. If there are ties, the first found is returned.</li>
+<li><code>indexOfMax(x: DoubleArray) : Int</code> - returns the index of the element that is largest If there are ties, the first found is returned.</li>
+<li><code>max(x: DoubleArray) : Double</code> - returns the element that is largest. If there are ties, the first found is returned.</li>
+<li><code>countLessEqualTo(data: DoubleArray, x: Double) : Int</code> - returns the count of the elements that are less than or equal to <span class="math inline">\(x\)</span></li>
+<li><code>countLessThan(data: DoubleArray, x: Double) : Int</code> - returns the count of the elements that are less than <span class="math inline">\(x\)</span></li>
+<li><code>countGreaterEqualTo(data: DoubleArray, x: Double) : Int</code> - returns the count of the elements that are greater than or equal to <span class="math inline">\(x\)</span></li>
+<li><code>countGreaterThan(data: DoubleArray, x: Double) : Int</code> - returns the count of the elements that are greater than <span class="math inline">\(x\)</span></li>
+<li><code>orderStatistics(data: DoubleArray) : DoubleArray</code> - returns a sorted copy of the supplied array ordered from smallest to largest</li>
+</ul>
+<p>These functions have also been implemented as extension functions of the <code>DoubleArray</code> class. The <code>Statistic</code> class’s companion object also implements a few useful statistical summary functions.</p>
+<ul>
+<li><code>estimateSampleSize(desiredHW: Double, stdDev: Double, level: Double) : Long</code> - returns the approximate sample size necessary to reach the desired half-width at the specified confidence level given the estimate of the sample standard deviation.</li>
+<li><code>median(data: DoubleArray) : Double</code> - the statistical median of the supplied array</li>
+<li><code>percentile(data: DoubleArray, p: Double) : Double</code> - the <span class="math inline">\(p^{th}\)</span> percentile of the data</li>
+<li><code>quantile(data: DoubleArray, q: Double) : Double</code> - the <span class="math inline">\(q^{th}\)</span> percentile of the data based on definition 7 of quantiles as per the R definitions.</li>
+</ul>
+<p>As one can see, there is much functionality available for the collection and reporting of summary statistics. In the next section, we present an overview of distribution summaries involving histograms and frequencies.</p>
+</div>
+<div id="histFreq" class="section level3 hasAnchor" number="3.1.2">
+<h3><span class="header-section-number">3.1.2</span> Histograms and Frequencies<a href="kslStatistics.html#histFreq" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>A histogram tabulates counts and frequencies of observed data over a set of contiguous intervals. Let <span class="math inline">\(b_{0}, b_{1}, \cdots, b_{k}\)</span> be the breakpoints (end points) of the class intervals such that <span class="math inline">\(\left(b_{0}, b_{1} \right], \left(b_{1}, b_{2} \right], \cdots, \left(b_{k-1}, b_{k} \right]\)</span> form <span class="math inline">\(k\)</span> disjoint and adjacent intervals. The intervals do not have to be of equal width. Also, <span class="math inline">\(b_{0}\)</span> can be equal to <span class="math inline">\(-\infty\)</span> resulting in interval <span class="math inline">\(\left(-\infty, b_{1} \right]\)</span> and <span class="math inline">\(b_{k}\)</span> can be equal to <span class="math inline">\(+\infty\)</span> resulting in interval <span class="math inline">\(\left(b_{k-1}, +\infty \right)\)</span>. Define <span class="math inline">\(\Delta b_j = b_{j} - b_{j-1}\)</span> and if all the intervals have the same width (except perhaps for the end intervals), <span class="math inline">\(\Delta b = \Delta b_j\)</span>. To count the number of observations that fall in each interval, we can use the count function:
+<span class="math display">\[
+c(\vec{x}\leq b) = \#\lbrace x_i \leq b \rbrace \; i=1,\ldots,n
+\]</span>
+<span class="math inline">\(c(\vec{x}\leq b)\)</span> counts the number of observations less than or equal to <span class="math inline">\(x\)</span>. Let <span class="math inline">\(c_{j}\)</span> be the observed count of the <span class="math inline">\(x\)</span> values contained in the <span class="math inline">\(j^{th}\)</span> interval <span class="math inline">\(\left(b_{j-1}, b_{j} \right]\)</span>. Then, we can determine <span class="math inline">\(c_{j}\)</span> via the following equation:
+<span class="math display">\[
+c_{j} = c(\vec{x}\leq b_{j}) - c(\vec{x}\leq b_{j-1})
+\]</span>
+The key parameters of a histogram are the break points associated with the bins. Since knowledge of the data is often necessary to specify good break points, the <code>Histogram</code> class’s companion object provides a number of methods for creating break points and recommending break points based on sample data. For example, the function, <code>createBreakPoints</code> which has input parameters:</p>
+<ul>
+<li>The first bin lower limit (<span class="math inline">\(b_{0}\)</span>): This is the starting point of the range over which the data will be tabulated.</li>
+<li>The number of bins (<span class="math inline">\(k\)</span>))</li>
+<li>The width of the bins, (<span class="math inline">\(\Delta b\)</span>)</li>
+</ul>
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:Histogram"></span>
+<img src="figures/Histogram.png" alt="Histogram Class" width="60%" height="60%" />
+<p class="caption">
+Figure 3.4: Histogram Class
+</p>
+</div>
+<p>Figure <a href="kslStatistics.html#fig:Histogram">3.4</a> presents the methods of the <code>Histogram</code> class. The <code>Histogram</code> class is utilized in a very similar manner as the <code>Statistic</code> class by collecting observations. The observations are then tabulated into the bins. The <code>Histogram</code> class allows the user to tabulate the bin contents via the collect() methods inherited from the <code>AbstractStatistic</code> base class. Since data may fall below the first bin and after the last bin, the implementation also provides counts for those occurrences. Since a <code>Histogram</code> is a sub-class of <code>AbstractStatistic</code>, it also implements the <code>StatisticIfc</code> to provide summary statistics on the data tabulated within the bins.</p>
+<p>In some cases, the client may not know in advance the appropriate settings for the number of bins or the width of the bins. In this situation, one can use the <code>recommendBreakPoints</code> function, which uses an array of data or statistics computed on the data. The function <code>recommendBreakPoints</code> computes a reasonable lower limit, number of bins, and bin width based on the statistics.</p>
+<div class="example">
+<p><span id="exm:ch3ex2" class="example"><strong>Example 3.2  (Histograms and Breakpoints) </strong></span>This example illustrates how to configure the breakpoints for a histogram and to use the histogram to observe observations from a random sample.</p>
+<div class="sourceCode" id="cb68"><pre class="sourceCode kt"><code class="sourceCode kotlin"><span id="cb68-1"><a href="kslStatistics.html#cb68-1" tabindex="-1"></a><span class="kw">fun</span> <span class="fu">main</span><span class="op">()</span> <span class="op">{</span></span>
+<span id="cb68-2"><a href="kslStatistics.html#cb68-2" tabindex="-1"></a>    <span class="kw">val</span> <span class="va">d</span> <span class="op">=</span> ExponentialRV<span class="op">(</span><span class="fl">2.0</span><span class="op">,</span> streamNum <span class="op">=</span> <span class="dv">1</span><span class="op">)</span></span>
+<span id="cb68-3"><a href="kslStatistics.html#cb68-3" tabindex="-1"></a>    <span class="kw">val</span> <span class="va">data</span> <span class="op">=</span> d<span class="op">.</span>sample<span class="op">(</span><span class="dv">1000</span><span class="op">)</span></span>
+<span id="cb68-4"><a href="kslStatistics.html#cb68-4" tabindex="-1"></a>    <span class="kw">var</span> <span class="va">bp</span> <span class="op">=</span> Histogram<span class="op">.</span>recommendBreakPoints<span class="op">(</span><span class="kw">data</span><span class="op">)</span></span>
+<span id="cb68-5"><a href="kslStatistics.html#cb68-5" tabindex="-1"></a>    bp <span class="op">=</span> Histogram<span class="op">.</span>addPositiveInfinity<span class="op">(</span>bp<span class="op">)</span></span>
+<span id="cb68-6"><a href="kslStatistics.html#cb68-6" tabindex="-1"></a>    <span class="kw">val</span> <span class="va">h</span> <span class="op">=</span> Histogram<span class="op">(</span>breakPoints <span class="op">=</span> bp<span class="op">)</span></span>
+<span id="cb68-7"><a href="kslStatistics.html#cb68-7" tabindex="-1"></a>    <span class="cf">for</span> <span class="op">(</span>x <span class="kw">in</span> <span class="kw">data</span><span class="op">)</span> <span class="op">{</span></span>
+<span id="cb68-8"><a href="kslStatistics.html#cb68-8" tabindex="-1"></a>        h<span class="op">.</span>collect<span class="op">(</span>x<span class="op">)</span></span>
+<span id="cb68-9"><a href="kslStatistics.html#cb68-9" tabindex="-1"></a>    <span class="op">}</span></span>
+<span id="cb68-10"><a href="kslStatistics.html#cb68-10" tabindex="-1"></a>    println<span class="op">(</span>h<span class="op">)</span></span>
+<span id="cb68-11"><a href="kslStatistics.html#cb68-11" tabindex="-1"></a>    <span class="kw">val</span> <span class="va">plot</span> <span class="op">=</span> h<span class="op">.</span>histogramPlot<span class="op">()</span></span>
+<span id="cb68-12"><a href="kslStatistics.html#cb68-12" tabindex="-1"></a>    plot<span class="op">.</span>showInBrowser<span class="op">(</span><span class="st">&quot;Exponentially Distributed Data&quot;</span><span class="op">)</span></span>
+<span id="cb68-13"><a href="kslStatistics.html#cb68-13" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
+</div>
+<pre><code>Histogram: ID_4
+-------------------------------------
+Number of bins = 25
+First bin starts at = 0.0
+Last bin ends at = Infinity
+Under flow count = 0.0
+Over flow count = 0.0
+Total bin count = 1000.0
+Total count = 1000.0
+-------------------------------------
+Bin Range        Count CumTot Frac  CumFrac
+  1 [ 0.00, 0.75)  = 333 333.0 0.333000 0.333000 
+  2 [ 0.75, 1.50)  = 198 531.0 0.198000 0.531000 
+  3 [ 1.50, 2.25)  = 150 681.0 0.150000 0.681000 
+  4 [ 2.25, 3.00)  = 112 793.0 0.112000 0.793000 
+  5 [ 3.00, 3.75)  = 75 868.0 0.075000 0.868000 
+  6 [ 3.75, 4.50)  = 48 916.0 0.048000 0.916000 
+  7 [ 4.50, 5.25)  = 28 944.0 0.028000 0.944000 
+  8 [ 5.25, 6.00)  = 19 963.0 0.019000 0.963000 
+  9 [ 6.00, 6.75)  = 16 979.0 0.016000 0.979000 
+ 10 [ 6.75, 7.50)  = 1 980.0 0.001000 0.980000 
+ 11 [ 7.50, 8.25)  = 5 985.0 0.005000 0.985000 
+ 12 [ 8.25, 9.00)  = 2 987.0 0.002000 0.987000 
+ 13 [ 9.00, 9.75)  = 4 991.0 0.004000 0.991000 
+ 14 [ 9.75,10.50)  = 1 992.0 0.001000 0.992000 
+ 15 [10.50,11.25)  = 2 994.0 0.002000 0.994000 
+ 16 [11.25,12.00)  = 1 995.0 0.001000 0.995000 
+ 17 [12.00,12.75)  = 3 998.0 0.003000 0.998000 
+ 18 [12.75,13.50)  = 0 998.0 0.000000 0.998000 
+ 19 [13.50,14.25)  = 0 998.0 0.000000 0.998000 
+ 20 [14.25,15.00)  = 0 998.0 0.000000 0.998000 
+ 21 [15.00,15.75)  = 0 998.0 0.000000 0.998000 
+ 22 [15.75,16.50)  = 1 999.0 0.001000 0.999000 
+ 23 [16.50,17.25)  = 0 999.0 0.000000 0.999000 
+ 24 [17.25,18.00)  = 1 1000.0 0.001000 1.000000 
+ 25 [18.00,Infinity)  = 0 1000.0 0.000000 1.000000 
+-------------------------------------
+Statistics on data collected within bins:
+-------------------------------------
+ID 5
+Name ID_4_Statistics
+Number 1000.0
+Average 1.9216605939547684
+Standard Deviation 1.968265908806584
+Standard Error 0.06224203312690073
+Half-width 0.12214010773960152
+Confidence Level 0.95
+Confidence Interval [1.7995204862151668, 2.04380070169437]
+Minimum 9.561427092951219E-4
+Maximum 17.40419059595123
+Sum 1921.6605939547685
+Variance 3.8740706877702076
+Deviation Sum of Squares 3870.1966170824376
+Last value collected 8.548639846481285
+Kurtosis 10.67406304701379
+Skewness 2.5031667132444806
+Lag 1 Covariance -0.12649071302321163
+Lag 1 Correlation -0.032683278277103954
+Von Neumann Lag 1 Test Statistic -0.8438384394483673
+Number of missing observations 0.0
+Lead-Digit Rule(1) -2
+-------------------------------------</code></pre>
+<p>Because it may be challenging to specify the breakpoints for a histogram, the KSL also provides the <code>CachedHistogram</code> class, which stores the observed data within a data cache (array) until sufficient data has been observed to provide reasonable breakpoints. The default size of the cache is 512 observations. If less than the cache size is observed, the KSL attempts to find the best breakpoints based on the recommendations found <a href="https://www.fmrib.ox.ac.uk/datasets/techrep/tr00mj2/tr00mj2/node24.html">here</a>. The following code illustrates the used of the <code>CachedHistogram</code> class.</p>
+<div class="sourceCode" id="cb70"><pre class="sourceCode kt"><code class="sourceCode kotlin"><span id="cb70-1"><a href="kslStatistics.html#cb70-1" tabindex="-1"></a><span class="kw">fun</span> <span class="fu">main</span><span class="op">()</span> <span class="op">{</span></span>
+<span id="cb70-2"><a href="kslStatistics.html#cb70-2" tabindex="-1"></a>    <span class="kw">val</span> <span class="va">d</span> <span class="op">=</span> ExponentialRV<span class="op">(</span><span class="fl">2.0</span><span class="op">,</span> streamNum <span class="op">=</span> <span class="dv">1</span><span class="op">)</span></span>
+<span id="cb70-3"><a href="kslStatistics.html#cb70-3" tabindex="-1"></a>    <span class="kw">val</span> <span class="va">data</span> <span class="op">=</span> d<span class="op">.</span>sample<span class="op">(</span><span class="dv">1000</span><span class="op">)</span></span>
+<span id="cb70-4"><a href="kslStatistics.html#cb70-4" tabindex="-1"></a>    <span class="kw">val</span> <span class="va">ch</span> <span class="op">=</span> CachedHistogram<span class="op">()</span></span>
+<span id="cb70-5"><a href="kslStatistics.html#cb70-5" tabindex="-1"></a>    <span class="cf">for</span> <span class="op">(</span>x <span class="kw">in</span> <span class="kw">data</span><span class="op">)</span> <span class="op">{</span></span>
+<span id="cb70-6"><a href="kslStatistics.html#cb70-6" tabindex="-1"></a>        ch<span class="op">.</span>collect<span class="op">(</span>x<span class="op">)</span></span>
+<span id="cb70-7"><a href="kslStatistics.html#cb70-7" tabindex="-1"></a>    <span class="op">}</span></span>
+<span id="cb70-8"><a href="kslStatistics.html#cb70-8" tabindex="-1"></a>    println<span class="op">(</span>ch<span class="op">)</span></span>
+<span id="cb70-9"><a href="kslStatistics.html#cb70-9" tabindex="-1"></a>    <span class="kw">val</span> <span class="va">plot</span> <span class="op">=</span> ch<span class="op">.</span>histogramPlot<span class="op">()</span></span>
+<span id="cb70-10"><a href="kslStatistics.html#cb70-10" tabindex="-1"></a>    plot<span class="op">.</span>showInBrowser<span class="op">(</span><span class="st">&quot;Exponentially Distributed Data&quot;</span><span class="op">)</span></span>
+<span id="cb70-11"><a href="kslStatistics.html#cb70-11" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
+<p>The KSL will also tabulate count frequencies when the values are only integers. This is accomplished with the <code>IntegerFrequency</code> class. Figure <a href="kslStatistics.html#fig:Frequency">3.5</a> indicates the methods of the <code>IntegerFrequency</code> class. The object can return information on the counts and proportions. It can even create a <code>DEmpiricalCDF</code> distribution based on the observed data.</p>
+<div class="figure"><span style="display:block;" id="fig:Frequency"></span>
+<img src="figures/Frequency.png" alt="IntegerFrequency Class" width="70%" height="70%" />
+<p class="caption">
+Figure 3.5: IntegerFrequency Class
+</p>
+</div>
+<p>In the following code example, an instance of the <code>IntegerFrequency</code> class is created. Then, an instance of a binomial random variable is used to generate a sample of 10,000 observations. The sample is then collected by the <code>IntegerFrequency</code> class’s <code>collect()</code> function. Notice the the <code>collect()</code> function can collect observations contained within an array.</p>
+<div class="example">
+<p><span id="exm:ch3ex3" class="example"><strong>Example 3.3  (Integer Frequency Tabulation) </strong></span>In this example, an instance of the <code>IntegerFrequency</code> class is used to tabulate observations from a binomial random variable. A bar chart representation of the frequency is also shown within a browser window.</p>
+<div class="sourceCode" id="cb71"><pre class="sourceCode kt"><code class="sourceCode kotlin"><span id="cb71-1"><a href="kslStatistics.html#cb71-1" tabindex="-1"></a><span class="kw">fun</span> <span class="fu">main</span><span class="op">()</span> <span class="op">{</span></span>
+<span id="cb71-2"><a href="kslStatistics.html#cb71-2" tabindex="-1"></a>    <span class="kw">val</span> <span class="va">f</span> <span class="op">=</span> IntegerFrequency<span class="op">(</span>name <span class="op">=</span> <span class="st">&quot;Frequency Demo&quot;</span><span class="op">)</span></span>
+<span id="cb71-3"><a href="kslStatistics.html#cb71-3" tabindex="-1"></a>    <span class="kw">val</span> <span class="va">bn</span> <span class="op">=</span> BinomialRV<span class="op">(</span><span class="fl">0.5</span><span class="op">,</span> <span class="dv">100</span><span class="op">,</span> streamNum <span class="op">=</span> <span class="dv">2</span><span class="op">)</span></span>
+<span id="cb71-4"><a href="kslStatistics.html#cb71-4" tabindex="-1"></a>    <span class="kw">val</span> <span class="va">sample</span> <span class="op">=</span> bn<span class="op">.</span>sample<span class="op">(</span><span class="dv">10000</span><span class="op">)</span></span>
+<span id="cb71-5"><a href="kslStatistics.html#cb71-5" tabindex="-1"></a>    f<span class="op">.</span>collect<span class="op">(</span>sample<span class="op">)</span></span>
+<span id="cb71-6"><a href="kslStatistics.html#cb71-6" tabindex="-1"></a>    println<span class="op">(</span>f<span class="op">)</span></span>
+<span id="cb71-7"><a href="kslStatistics.html#cb71-7" tabindex="-1"></a>    <span class="kw">val</span> <span class="va">plot</span> <span class="op">=</span> f<span class="op">.</span>frequencyPlot<span class="op">()</span></span>
+<span id="cb71-8"><a href="kslStatistics.html#cb71-8" tabindex="-1"></a>    plot<span class="op">.</span>showInBrowser<span class="op">(</span><span class="st">&quot;Frequency Demo Plot&quot;</span><span class="op">)</span></span>
+<span id="cb71-9"><a href="kslStatistics.html#cb71-9" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
+</div>
+<p>As can be noted in the output, only those integers that are actually observed are tabulated in terms of the count of the number of times the integer is observed and its proportion. The user does not have to specify the range of possible integers; however, instances of <code>IntegerFrequency</code> can be created that specify a lower and upper limit on the tabulated values. The overflow and underflow counts then tabulate when observations fall outside of the specified range.</p>
+<pre><code>Frequency Tabulation Frequency Demo
+----------------------------------------
+Number of cells = 37
+Lower limit = -2147483648
+Upper limit = 2147483647
+Under flow count = 0
+Over flow count = 0
+Total count = 10000.0
+Minimum value observed = 30
+Maximum value observed = 69
+----------------------------------------
+Value    Count   Proportion
+30   1.0     1.0E-4
+33   3.0     3.0E-4
+34   7.0     7.0E-4
+35   10.0    0.001
+36   17.0    0.0017
+37   23.0    0.0023
+38   48.0    0.0048
+39   86.0    0.0086
+40   101.0       0.0101
+41   146.0       0.0146
+42   221.0       0.0221
+43   319.0       0.0319
+44   371.0       0.0371
+45   470.0       0.047
+46   568.0       0.0568
+47   684.0       0.0684
+48   742.0       0.0742
+49   768.0       0.0768
+50   769.0       0.0769
+51   813.0       0.0813
+52   696.0       0.0696
+53   680.0       0.068
+54   599.0       0.0599
+55   505.0       0.0505
+56   386.0       0.0386
+57   318.0       0.0318
+58   237.0       0.0237
+59   142.0       0.0142
+60   107.0       0.0107
+61   68.0    0.0068
+62   38.0    0.0038
+63   23.0    0.0023
+64   13.0    0.0013
+65   14.0    0.0014
+66   4.0     4.0E-4
+67   2.0     2.0E-4
+69   1.0     1.0E-4
+----------------------------------------</code></pre>
+<p>Finally, the KSL provides the ability to define labeled states and to tabulate frequencies and proportions related to the visitation and transition between the states. This functionality is available in the <code>StateFrequency</code> class. The following code example creates an instance of <code>StateFrequency</code> by providing the number of states. The states are returned in a <code>List</code> and then 10,000 states are randomly selected from the list with equal probability using the <code>KSLRandom</code> functionality to randomly select from lists. The randomly selected state is then observed via the <code>collect()</code> method. State frequency tabulation can be useful within the context of a Markov Chain analysis.</p>
+<div class="example">
+<p><span id="exm:ch3ex4" class="example"><strong>Example 3.4  (State Frequency Tabulation) </strong></span>This example creates six states via the constructor parameter to the <code>StateFrequency</code> class. Then, the <code>KSLRandom</code> functionality to randomly select from a list is used to generate 10000 observations of the next state. Finally, a bar chart representation of the state frequency is also shown within a browser window.</p>
+<div class="sourceCode" id="cb73"><pre class="sourceCode kt"><code class="sourceCode kotlin"><span id="cb73-1"><a href="kslStatistics.html#cb73-1" tabindex="-1"></a><span class="kw">fun</span> <span class="fu">main</span><span class="op">()</span> <span class="op">{</span></span>
+<span id="cb73-2"><a href="kslStatistics.html#cb73-2" tabindex="-1"></a>    <span class="kw">val</span> <span class="va">sf</span> <span class="op">=</span> StateFrequency<span class="op">(</span><span class="dv">6</span><span class="op">)</span></span>
+<span id="cb73-3"><a href="kslStatistics.html#cb73-3" tabindex="-1"></a>    <span class="kw">val</span> <span class="va">states</span> <span class="op">=</span> sf<span class="op">.</span>states</span>
+<span id="cb73-4"><a href="kslStatistics.html#cb73-4" tabindex="-1"></a>    <span class="cf">for</span> <span class="op">(</span>i <span class="kw">in</span> <span class="fl">1..10000</span><span class="op">)</span> <span class="op">{</span></span>
+<span id="cb73-5"><a href="kslStatistics.html#cb73-5" tabindex="-1"></a>        <span class="kw">val</span> <span class="va">state</span> <span class="op">=</span> KSLRandom<span class="op">.</span>randomlySelect<span class="op">(</span>states<span class="op">)</span></span>
+<span id="cb73-6"><a href="kslStatistics.html#cb73-6" tabindex="-1"></a>        sf<span class="op">.</span>collect<span class="op">(</span>state<span class="op">)</span></span>
+<span id="cb73-7"><a href="kslStatistics.html#cb73-7" tabindex="-1"></a>    <span class="op">}</span></span>
+<span id="cb73-8"><a href="kslStatistics.html#cb73-8" tabindex="-1"></a>    println<span class="op">(</span>sf<span class="op">)</span></span>
+<span id="cb73-9"><a href="kslStatistics.html#cb73-9" tabindex="-1"></a>    <span class="kw">val</span> <span class="va">plot</span> <span class="op">=</span> sf<span class="op">.</span>frequencyPlot<span class="op">(</span>proportions <span class="op">=</span> <span class="kw">true</span><span class="op">)</span></span>
+<span id="cb73-10"><a href="kslStatistics.html#cb73-10" tabindex="-1"></a>    plot<span class="op">.</span>showInBrowser<span class="op">(</span><span class="st">&quot;State Frequency Demo Plot&quot;</span><span class="op">)</span></span>
+<span id="cb73-11"><a href="kslStatistics.html#cb73-11" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
+</div>
+<p>The output is what you would expect based on selecting the states with equal probability. Notice that the <code>StateFrequency</code> class not only tabulates the visits to the states, similar to <code>IntegerFrequency</code>, it also counts and tabulates the transitions between states. These detailed tabulations are available via the various methods of the class. See the documentation for further details.</p>
+<pre><code>State Frequency Tabulation for: Identity#1
+State Labels
+State{id=1, number=0, name=&#39;State:0&#39;}
+State{id=2, number=1, name=&#39;State:1&#39;}
+State{id=3, number=2, name=&#39;State:2&#39;}
+State{id=4, number=3, name=&#39;State:3&#39;}
+State{id=5, number=4, name=&#39;State:4&#39;}
+State{id=6, number=5, name=&#39;State:5&#39;}
+State transition counts
+[288, 272, 264, 282, 265, 286]
+[283, 278, 283, 286, 296, 266]
+[286, 298, 263, 264, 247, 282]
+[271, 263, 275, 279, 280, 294]
+[274, 305, 273, 281, 296, 268]
+[254, 277, 282, 270, 313, 255]
+State transition proportions
+[0.17380808690404345, 0.16415208207604104, 0.15932407966203982, 0.17018708509354255, 0.15992757996378998, 0.17260108630054316]
+[0.16725768321513002, 0.16430260047281323, 0.16725768321513002, 0.1690307328605201, 0.17494089834515367, 0.15721040189125296]
+[0.174390243902439, 0.18170731707317073, 0.1603658536585366, 0.16097560975609757, 0.15060975609756097, 0.1719512195121951]
+[0.16305655836341756, 0.1582430806257521, 0.1654632972322503, 0.16787003610108303, 0.1684717208182912, 0.17689530685920576]
+[0.1614614024749558, 0.17972893341190335, 0.16087212728344136, 0.16558632881555688, 0.17442545668827342, 0.15792575132586917]
+[0.15384615384615385, 0.16777710478497881, 0.17080557238037553, 0.16353725015142337, 0.18958207147183526, 0.15445184736523318]
+
+Frequency Tabulation Identity#1
+----------------------------------------
+Number of cells = 6
+Lower limit = 0
+Upper limit = 5
+Under flow count = 0
+Over flow count = 0
+Total count = 10000
+----------------------------------------
+Value    Count   Proportion
+0    1657    0.1657
+1    1693    0.1693
+2    1640    0.164
+3    1662    0.1662
+4    1697    0.1697
+5    1651    0.1651
+----------------------------------------</code></pre>
+</div>
+<div id="ch3batchStats" class="section level3 hasAnchor" number="3.1.3">
+<h3><span class="header-section-number">3.1.3</span> Batch Statistics<a href="kslStatistics.html#ch3batchStats" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>In simulation, we often collect data that is correlated. That is, the data have a dependence structure. This causes difficulty in developing valid confidence intervals for the estimators as well as invalidated a number of other statistical procedures that require independent observations. Grouping the data into batches and computing the average of each batch is one methodology for mitigating the effect of dependence within the data on statistical inference procedures. The idea is that the average associated with each batch will tend to be less dependent, especially the larger the batch size. The method of batch means provides a mechanism for developing an estimator for <span class="math inline">\(Var\lbrack \bar{X} \rbrack\)</span>.</p>
+<p>The method of batch means is based on observations <span class="math inline">\((X_{1}, X_{2}, X_{3}, \dots, X_{n})\)</span>. The idea is to group the output into batches of size, <span class="math inline">\(b\)</span>, such that the averages of the data within a batch are more nearly independent and possibly normally distributed.</p>
+<p><span class="math display">\[\begin{multline*}
+\underbrace{X_1, X_2, \ldots, X_b}_{batch 1} \cdots
+\underbrace{X_{b+1}, X_{b+2}, \ldots, X_{2b}}_{batch 2} \cdots \\
+\underbrace{X_{(j-1)b+1}, X_{(j-1)b+2}, \ldots, X_{jb}}_{batch j}  \cdots
+\underbrace{X_{(k-1)b+1}, X_{(k-1)b+2}, \ldots, X_{kb}}_{batch k}
+\end{multline*}\]</span></p>
+<p>Let <span class="math inline">\(k\)</span> be the number of batches each of size <span class="math inline">\(b\)</span>, where, <span class="math inline">\(b = \lfloor \frac{n}{k}\rfloor\)</span>. Define the <span class="math inline">\(j^{th}\)</span> batch mean (average) as:</p>
+<p><span class="math display">\[
+\bar{X}_j(b) = \dfrac{1}{b} \sum_{i=1}^b X_{(j-1)b+i}
+\]</span>
+Each of the batch means are treated like observations in the batch means series. For example, if the batch means are re-labeled as <span class="math inline">\(Y_j = \bar{X}_j(b)\)</span>, the batching process simply produces another series of data, (<span class="math inline">\(Y_1, Y_2, Y_3, \ldots, Y_k\)</span>) which may be more like a random sample. Why should they be more independent? Typically, in auto-correlated processes the lag-k auto-correlations decay rapidly as <span class="math inline">\(k\)</span> increases. Since, the batch means are formed from batches of size <span class="math inline">\(b\)</span>, provided that <span class="math inline">\(b\)</span> is large enough the data within a batch is <em>conceptually</em> far from the data in other batches. Thus, larger batch sizes are good for ensuring independence; however, as the batch size increases the number of batches decreases and thus variance of the estimator will increase.</p>
+<p>To form a <span class="math inline">\((1 - \alpha)\)</span>% confidence interval, we simply treat this new series like a random sample and compute approximate confidence intervals using the sample average and sample variance of the batch means series:</p>
+<p><span class="math display">\[
+\bar{Y}(k) = \dfrac{1}{k} \sum_{j=1}^k Y_j
+\]</span>
+The sample variance of the batch process is based on the <span class="math inline">\(k\)</span> batches:
+<span class="math display">\[
+S_b^2 (k) = \dfrac{1}{k - 1} \sum_{j=1}^k (Y_j - \bar{Y}^2)
+\]</span>
+Finally, if the batch process can be considered independent and identically distributed the <span class="math inline">\(1-\alpha\)</span> level confidence interval can be written as follows:
+<span class="math display">\[
+\bar{Y}(k) \pm t_{\alpha/2, k-1} \dfrac{S_b (k)}{\sqrt{k}}
+\]</span>
+The <code>BatchStatistic</code> class within the statistic package implements a basic batching process. The <code>BatchStatistic</code> class works with data as it is presented to its collect method. Since we do not know in advance how much data we have, the <code>BatchStatistic</code> class has rules about the minimum number of batches and the size of batches that can be formed. Theory indicates that we do not need to have a large number of batches and that it is better to have a relatively small number of batches that are large in size.</p>
+<p>Three properties of the <code>BatchStatistic</code> class that are important are:</p>
+<ul>
+<li><code>minNumBatches</code> – This represents the minimum number of batches required. The default value for this attribute is determined by <code>BatchStatistic</code>. <code>MIN_NUM_BATCHES</code>, which is set to 20.</li>
+<li><code>minBatchSize</code> – This represents the minimum size for forming initial batches. The default value for this attribute is determined by <code>BatchStatistic</code>. <code>MIN_NUM_OBS_PER_BATCH</code>, which is set to 16.</li>
+<li><code>maxNumBatchesMultiple</code> – This represents a multiple of minimum number of batches which is used to determine the upper limit (maximum) number of batches. For example, if <code>maxNumBatchesMultiple = 2</code> and the <code>minNumBatches = 20</code>, then the maximum number of batches we can have is 40 (2*20). The default value for this property is determined by <code>BatchStatistic</code>. <code>MAX_BATCH_MULTIPLE</code>, which is set to 2.</li>
+</ul>
+<p>The <code>BatchStatistic</code> class uses instances of the <code>Statistic</code> class to do its calculations. The bulk of the processing is done in two methods, <code>collect()</code> and <code>collectBatch().</code> The <code>collect()</code> method simply uses an instance of the <code>Statistic</code> class (<code>myStatistic</code>) to collect statistics. When the amount of data collected (<code>myStatistic.count</code>) equals the current batch size (<code>currentBatchSize</code>) then the <code>collectBatch()</code> method is called to form a batch.</p>
+<div class="sourceCode" id="cb75"><pre class="sourceCode kt"><code class="sourceCode kotlin"><span id="cb75-1"><a href="kslStatistics.html#cb75-1" tabindex="-1"></a>    <span class="kw">override</span> <span class="kw">fun</span> <span class="fu">collect</span><span class="op">(</span><span class="va">obs</span><span class="op">:</span> <span class="dt">Double</span><span class="op">)</span> <span class="op">{</span></span>
+<span id="cb75-2"><a href="kslStatistics.html#cb75-2" tabindex="-1"></a>        <span class="kw">super</span><span class="op">.</span>collect<span class="op">(</span>obs<span class="op">)</span></span>
+<span id="cb75-3"><a href="kslStatistics.html#cb75-3" tabindex="-1"></a>        myTotNumObs <span class="op">=</span> myTotNumObs <span class="op">+</span> <span class="fl">1.0</span></span>
+<span id="cb75-4"><a href="kslStatistics.html#cb75-4" tabindex="-1"></a>        myValue <span class="op">=</span> obs</span>
+<span id="cb75-5"><a href="kslStatistics.html#cb75-5" tabindex="-1"></a>        myStatistic<span class="op">.</span>collect<span class="op">(</span>myValue<span class="op">)</span></span>
+<span id="cb75-6"><a href="kslStatistics.html#cb75-6" tabindex="-1"></a>        <span class="cf">if</span> <span class="op">(</span>myStatistic<span class="op">.</span>count <span class="op">==</span> currentBatchSize<span class="op">.</span>toDouble<span class="op">())</span> <span class="op">{</span></span>
+<span id="cb75-7"><a href="kslStatistics.html#cb75-7" tabindex="-1"></a>            collectBatch<span class="op">()</span></span>
+<span id="cb75-8"><a href="kslStatistics.html#cb75-8" tabindex="-1"></a>        <span class="op">}</span></span>
+<span id="cb75-9"><a href="kslStatistics.html#cb75-9" tabindex="-1"></a>    <span class="op">}</span></span></code></pre></div>
+<p>Referring to the collectBatch() method in the following code, the batches that are formed are recorded in an array called <code>bm.</code> After recording the batch average, the statistic is reset for collecting the next batch of data. The number of batches is recorded and if this has reached the maximum number of batches (as determined by the batch multiple calculation), we rebatch the batches back down to the minimum number of batches by combining adjacent batches according to the batch multiple.</p>
+<div class="sourceCode" id="cb76"><pre class="sourceCode kt"><code class="sourceCode kotlin"><span id="cb76-1"><a href="kslStatistics.html#cb76-1" tabindex="-1"></a>    <span class="kw">private</span> <span class="kw">fun</span> <span class="fu">collectBatch</span><span class="op">()</span> <span class="op">{</span></span>
+<span id="cb76-2"><a href="kslStatistics.html#cb76-2" tabindex="-1"></a>        <span class="co">// increment the current number of batches</span></span>
+<span id="cb76-3"><a href="kslStatistics.html#cb76-3" tabindex="-1"></a>        numBatches <span class="op">=</span> numBatches <span class="op">+</span> <span class="dv">1</span></span>
+<span id="cb76-4"><a href="kslStatistics.html#cb76-4" tabindex="-1"></a>        <span class="co">// record the average of the batch</span></span>
+<span id="cb76-5"><a href="kslStatistics.html#cb76-5" tabindex="-1"></a>        bm<span class="op">[</span>numBatches<span class="op">]</span> <span class="op">=</span> myStatistic<span class="op">.</span>average</span>
+<span id="cb76-6"><a href="kslStatistics.html#cb76-6" tabindex="-1"></a>        <span class="co">// collect running statistics on the batches</span></span>
+<span id="cb76-7"><a href="kslStatistics.html#cb76-7" tabindex="-1"></a>        myBMStatistic<span class="op">.</span>collect<span class="op">(</span>bm<span class="op">[</span>numBatches<span class="op">])</span></span>
+<span id="cb76-8"><a href="kslStatistics.html#cb76-8" tabindex="-1"></a>        <span class="co">// reset the within batch statistic for next batch</span></span>
+<span id="cb76-9"><a href="kslStatistics.html#cb76-9" tabindex="-1"></a>        myStatistic<span class="op">.</span>reset<span class="op">()</span></span>
+<span id="cb76-10"><a href="kslStatistics.html#cb76-10" tabindex="-1"></a>        <span class="co">// if the number of batches has reached the maximum then rebatch down to</span></span>
+<span id="cb76-11"><a href="kslStatistics.html#cb76-11" tabindex="-1"></a>        <span class="co">// min number of batches</span></span>
+<span id="cb76-12"><a href="kslStatistics.html#cb76-12" tabindex="-1"></a>        <span class="cf">if</span> <span class="op">(</span>numBatches <span class="op">==</span> maxNumBatches<span class="op">)</span> <span class="op">{</span></span>
+<span id="cb76-13"><a href="kslStatistics.html#cb76-13" tabindex="-1"></a>            numRebatches<span class="op">++</span></span>
+<span id="cb76-14"><a href="kslStatistics.html#cb76-14" tabindex="-1"></a>            currentBatchSize <span class="op">=</span> currentBatchSize <span class="op">*</span> minNumBatchesMultiple</span>
+<span id="cb76-15"><a href="kslStatistics.html#cb76-15" tabindex="-1"></a>            <span class="kw">var</span> <span class="va">j</span> <span class="op">=</span> <span class="dv">0</span> <span class="co">// within batch counter</span></span>
+<span id="cb76-16"><a href="kslStatistics.html#cb76-16" tabindex="-1"></a>            <span class="kw">var</span> <span class="va">k</span> <span class="op">=</span> <span class="dv">0</span> <span class="co">// batch counter</span></span>
+<span id="cb76-17"><a href="kslStatistics.html#cb76-17" tabindex="-1"></a>            myBMStatistic<span class="op">.</span>reset<span class="op">()</span> <span class="co">// clear for collection across new batches</span></span>
+<span id="cb76-18"><a href="kslStatistics.html#cb76-18" tabindex="-1"></a>            <span class="co">// loop through all the batches</span></span>
+<span id="cb76-19"><a href="kslStatistics.html#cb76-19" tabindex="-1"></a>            <span class="cf">for</span> <span class="op">(</span>i <span class="kw">in</span> <span class="fl">1.</span><span class="op">.</span>numBatches<span class="op">)</span> <span class="op">{</span></span>
+<span id="cb76-20"><a href="kslStatistics.html#cb76-20" tabindex="-1"></a>                myStatistic<span class="op">.</span>collect<span class="op">(</span>bm<span class="op">[</span>i<span class="op">])</span> <span class="co">// collect across batches old batches</span></span>
+<span id="cb76-21"><a href="kslStatistics.html#cb76-21" tabindex="-1"></a>                j<span class="op">++</span></span>
+<span id="cb76-22"><a href="kslStatistics.html#cb76-22" tabindex="-1"></a>                <span class="cf">if</span> <span class="op">(</span>j <span class="op">==</span> minNumBatchesMultiple<span class="op">)</span> <span class="op">{</span> <span class="co">// have enough for a batch</span></span>
+<span id="cb76-23"><a href="kslStatistics.html#cb76-23" tabindex="-1"></a>                    <span class="co">//collect new batch average</span></span>
+<span id="cb76-24"><a href="kslStatistics.html#cb76-24" tabindex="-1"></a>                    myBMStatistic<span class="op">.</span>collect<span class="op">(</span>myStatistic<span class="op">.</span>average<span class="op">)</span></span>
+<span id="cb76-25"><a href="kslStatistics.html#cb76-25" tabindex="-1"></a>                    k<span class="op">++</span> <span class="co">//count the batches</span></span>
+<span id="cb76-26"><a href="kslStatistics.html#cb76-26" tabindex="-1"></a>                    bm<span class="op">[</span>k<span class="op">]</span> <span class="op">=</span> myStatistic<span class="op">.</span>average <span class="co">// save the new batch average</span></span>
+<span id="cb76-27"><a href="kslStatistics.html#cb76-27" tabindex="-1"></a>                    myStatistic<span class="op">.</span>reset<span class="op">()</span> <span class="co">// reset for next batch</span></span>
+<span id="cb76-28"><a href="kslStatistics.html#cb76-28" tabindex="-1"></a>                    j <span class="op">=</span> <span class="dv">0</span></span>
+<span id="cb76-29"><a href="kslStatistics.html#cb76-29" tabindex="-1"></a>                <span class="op">}</span></span>
+<span id="cb76-30"><a href="kslStatistics.html#cb76-30" tabindex="-1"></a>            <span class="op">}</span></span>
+<span id="cb76-31"><a href="kslStatistics.html#cb76-31" tabindex="-1"></a>            numBatches <span class="op">=</span> k <span class="co">// k should be minNumBatches</span></span>
+<span id="cb76-32"><a href="kslStatistics.html#cb76-32" tabindex="-1"></a>            myStatistic<span class="op">.</span>reset<span class="op">()</span> <span class="co">//reset for use with new data</span></span>
+<span id="cb76-33"><a href="kslStatistics.html#cb76-33" tabindex="-1"></a>        <span class="op">}</span></span>
+<span id="cb76-34"><a href="kslStatistics.html#cb76-34" tabindex="-1"></a>    <span class="op">}</span></span></code></pre></div>
+<p>There are a variety of procedures that have been developed that will automatically batch the data as it is collected. The KSL has a batching algorithm based on the procedure implemented within the Arena simulation language. When a sufficient amount of data has been collected batches are formed. As more data is collected, additional batches are formed until <span class="math inline">\(k=40\)</span> batches are collected. When 40 batches are formed, the algorithm collapses the number of batches back to 20, by averaging each pair of batches. This has the net effect of doubling the batch size. This process is repeated as more data is collected, thereby ensuring that the number of batches is between 20 and 39. In addition, the procedure also computes the lag-1 correlation so that independence of the batches can be tested.</p>
+<p>The <code>BatchStatistic</code> class also provides a public <code>reformBatches()</code> method to allow the user to rebatch the batches to a user supplied number of batches. Since the <code>BatchStatistic</code> class implements the <code>StatisticalAccessorIfc</code> interface, it can return the sample average, sample variance, minimum, maximum, etc. of the batches. Within the discrete-event modeling constructs of the KSL, batching can be turned on to collect batch statistics during a replication. The use of these constructs will be discussed when the discrete-event modeling elements of the KSL are presented.</p>
+<p>The following code illustrates how to create and use a <code>BatchStatistic</code>.</p>
+<div class="example">
+<p><span id="exm:ch3ex5" class="example"><strong>Example 3.5  (Batch Statistic Collection) </strong></span>This example code illustrates how to configure an instance of the <code>BatchStatistic</code> class to collect and report statistics associated with the batching process.</p>
+<div class="sourceCode" id="cb77"><pre class="sourceCode kt"><code class="sourceCode kotlin"><span id="cb77-1"><a href="kslStatistics.html#cb77-1" tabindex="-1"></a><span class="kw">fun</span> <span class="fu">main</span><span class="op">()</span> <span class="op">{</span></span>
+<span id="cb77-2"><a href="kslStatistics.html#cb77-2" tabindex="-1"></a>    <span class="kw">val</span> <span class="va">d</span> <span class="op">=</span> ExponentialRV<span class="op">(</span><span class="fl">2.0</span><span class="op">)</span></span>
+<span id="cb77-3"><a href="kslStatistics.html#cb77-3" tabindex="-1"></a></span>
+<span id="cb77-4"><a href="kslStatistics.html#cb77-4" tabindex="-1"></a>    <span class="co">// number of observations</span></span>
+<span id="cb77-5"><a href="kslStatistics.html#cb77-5" tabindex="-1"></a>    <span class="kw">val</span> <span class="va">n</span> <span class="op">=</span> <span class="dv">1000</span></span>
+<span id="cb77-6"><a href="kslStatistics.html#cb77-6" tabindex="-1"></a></span>
+<span id="cb77-7"><a href="kslStatistics.html#cb77-7" tabindex="-1"></a>    <span class="co">// minimum number of batches permitted</span></span>
+<span id="cb77-8"><a href="kslStatistics.html#cb77-8" tabindex="-1"></a>    <span class="co">// there will not be less than this number of batches</span></span>
+<span id="cb77-9"><a href="kslStatistics.html#cb77-9" tabindex="-1"></a>    <span class="kw">val</span> <span class="va">minNumBatches</span> <span class="op">=</span> <span class="dv">40</span></span>
+<span id="cb77-10"><a href="kslStatistics.html#cb77-10" tabindex="-1"></a></span>
+<span id="cb77-11"><a href="kslStatistics.html#cb77-11" tabindex="-1"></a>    <span class="co">// minimum batch size permitted</span></span>
+<span id="cb77-12"><a href="kslStatistics.html#cb77-12" tabindex="-1"></a>    <span class="co">// the batch size can be no smaller than this amount</span></span>
+<span id="cb77-13"><a href="kslStatistics.html#cb77-13" tabindex="-1"></a>    <span class="kw">val</span> <span class="va">minBatchSize</span> <span class="op">=</span> <span class="dv">25</span></span>
+<span id="cb77-14"><a href="kslStatistics.html#cb77-14" tabindex="-1"></a></span>
+<span id="cb77-15"><a href="kslStatistics.html#cb77-15" tabindex="-1"></a>    <span class="co">// maximum number of batch multiple</span></span>
+<span id="cb77-16"><a href="kslStatistics.html#cb77-16" tabindex="-1"></a>    <span class="co">//  The multiple of the minimum number of batches</span></span>
+<span id="cb77-17"><a href="kslStatistics.html#cb77-17" tabindex="-1"></a>    <span class="co">//  that determines the maximum number of batches</span></span>
+<span id="cb77-18"><a href="kslStatistics.html#cb77-18" tabindex="-1"></a>    <span class="co">//  e.g. if the min. number of batches is 20</span></span>
+<span id="cb77-19"><a href="kslStatistics.html#cb77-19" tabindex="-1"></a>    <span class="co">//  and the max number batches multiple is 2,</span></span>
+<span id="cb77-20"><a href="kslStatistics.html#cb77-20" tabindex="-1"></a>    <span class="co">//  then we can have at most 40 batches</span></span>
+<span id="cb77-21"><a href="kslStatistics.html#cb77-21" tabindex="-1"></a>    <span class="kw">val</span> <span class="va">maxNBMultiple</span> <span class="op">=</span> <span class="dv">2</span></span>
+<span id="cb77-22"><a href="kslStatistics.html#cb77-22" tabindex="-1"></a></span>
+<span id="cb77-23"><a href="kslStatistics.html#cb77-23" tabindex="-1"></a>    <span class="co">// In this example, since 40*25 = 1000, the batch multiple does not matter</span></span>
+<span id="cb77-24"><a href="kslStatistics.html#cb77-24" tabindex="-1"></a>    <span class="kw">val</span> <span class="va">bm</span> <span class="op">=</span> BatchStatistic<span class="op">(</span>minNumBatches<span class="op">,</span> minBatchSize<span class="op">,</span> maxNBMultiple<span class="op">)</span></span>
+<span id="cb77-25"><a href="kslStatistics.html#cb77-25" tabindex="-1"></a>    <span class="cf">for</span> <span class="op">(</span>i <span class="kw">in</span> <span class="fl">1.</span><span class="op">.</span>n<span class="op">)</span> <span class="op">{</span></span>
+<span id="cb77-26"><a href="kslStatistics.html#cb77-26" tabindex="-1"></a>        bm<span class="op">.</span>collect<span class="op">(</span>d<span class="op">.</span>value<span class="op">)</span></span>
+<span id="cb77-27"><a href="kslStatistics.html#cb77-27" tabindex="-1"></a>    <span class="op">}</span></span>
+<span id="cb77-28"><a href="kslStatistics.html#cb77-28" tabindex="-1"></a>    println<span class="op">(</span>bm<span class="op">)</span></span>
+<span id="cb77-29"><a href="kslStatistics.html#cb77-29" tabindex="-1"></a>    <span class="kw">val</span> <span class="va">bma</span> <span class="op">=</span> bm<span class="op">.</span>batchMeans</span>
+<span id="cb77-30"><a href="kslStatistics.html#cb77-30" tabindex="-1"></a>    <span class="kw">var</span> <span class="va">i</span> <span class="op">=</span> <span class="dv">0</span></span>
+<span id="cb77-31"><a href="kslStatistics.html#cb77-31" tabindex="-1"></a>    <span class="cf">for</span> <span class="op">(</span>x <span class="kw">in</span> bma<span class="op">)</span> <span class="op">{</span></span>
+<span id="cb77-32"><a href="kslStatistics.html#cb77-32" tabindex="-1"></a>        println<span class="op">(</span><span class="st">&quot;bm(</span><span class="ss">$i</span><span class="st">) = </span><span class="ss">$x</span><span class="st">&quot;</span><span class="op">)</span></span>
+<span id="cb77-33"><a href="kslStatistics.html#cb77-33" tabindex="-1"></a>        i<span class="op">++</span></span>
+<span id="cb77-34"><a href="kslStatistics.html#cb77-34" tabindex="-1"></a>    <span class="op">}</span></span>
+<span id="cb77-35"><a href="kslStatistics.html#cb77-35" tabindex="-1"></a></span>
+<span id="cb77-36"><a href="kslStatistics.html#cb77-36" tabindex="-1"></a>    <span class="co">// this re-batches the 40 down to 10</span></span>
+<span id="cb77-37"><a href="kslStatistics.html#cb77-37" tabindex="-1"></a>    <span class="kw">val</span> <span class="va">reformed</span> <span class="op">=</span> bm<span class="op">.</span>reformBatches<span class="op">(</span><span class="dv">10</span><span class="op">)</span></span>
+<span id="cb77-38"><a href="kslStatistics.html#cb77-38" tabindex="-1"></a>    println<span class="op">(</span>Statistic<span class="op">(</span>reformed<span class="op">))</span></span>
+<span id="cb77-39"><a href="kslStatistics.html#cb77-39" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
+</div>
+</div>
+<div id="ch3StatSummary" class="section level3 hasAnchor" number="3.1.4">
+<h3><span class="header-section-number">3.1.4</span> Statistics Summary<a href="kslStatistics.html#ch3StatSummary" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>The <code>ksl.utilities.statistic</code> package defines a lot of functionality. Here is a summary of some of the useful classes and interfaces.</p>
+<ol style="list-style-type: decimal">
+<li><code>CollectorIfc</code> defines a set of collect() methods for collecting data. The method is overridden to permit the collection of a wide variety of data types. The collect() method is designed to collect values and a weight associated with the value. This allows the collection of weighted statistics. <code>Collector</code> is an abstract base class for building concrete sub-classes.</li>
+<li><code>DoubleArraySaver</code> defines methods for saving observed data to arrays.</li>
+<li><code>WeightedStatisticIfc</code> defines statistics that are computed on weighted data values.
+<code>WeightedStatistic</code> is a concrete implementation of the interface.</li>
+<li><code>AbstractStatistic</code> is an abstract base class for defining statistics. Sub-classes of <code>AbstractStatistic</code> compute summary statistics of some kind.</li>
+<li><code>Histogram</code> defines a class to collect statistics and tabulate data into bins.</li>
+<li><code>Statistic</code> is a concrete implementation of <code>AbstractStatistic</code> allowing for a multitude of
+summary statistics.</li>
+<li><code>BatchStatistic</code> is also a concrete implementation of <code>AbstractStatistic</code> that provides for
+summarizing data via a batching process.</li>
+<li><code>IntegerFrequency</code> tabulates integer values into a frequencies by observed values, similar to a histogram.</li>
+<li><code>StateFrequency</code> facilitates defining labeled states and tabulating visitation and transition statistics.</li>
+<li><code>StatisticXY</code> collects statistics on <span class="math inline">\((x,y)\)</span> pairs computing statistics on the <span class="math inline">\(x\)</span> and <span class="math inline">\(y\)</span> values separately, as well as the covariance and correlation between the observations within a pair.</li>
+<li><code>BoxPlotSummary</code> produces the summary statistics necessary for the construction of a box plot.</li>
+<li><code>OLSRegression,</code> <code>RegressionResultsIfc,</code> and <code>RegressionData</code> facilitate performing multiple variable regression. The basic use of these classes is illustrated in Section <a href="ch10doe.html#ch10analysis">10.1.4</a> of Chapter <a href="ch10eo.html#ch10eo">10</a>.</li>
+<li><code>BootstrapSampler</code> facilitates the bootstrap statistical analysis technique. Its use is describe in Section <a href="ch9BootStrapping.html#ch9BootStrapping">9.1</a> of Chapter <a href="ch9AdvMC.html#ch9AdvMC">9</a>.</li>
+</ol>
+<p>The most important class within the statistics package is probably the
+<code>Statistic</code> class. This class summarizes the observed data into summary
+statistics such as: minimum, maximum, average, variance, standard
+deviation, lag-1 correlation, and count. In addition, confidence
+intervals can be formed on the observations based on the student-t
+distribution. Finally, there are useful companion object methods for computing
+statistics on arrays and for estimating sample sizes. The reader is
+encourage to review the KSL documentation for all of the functionality,
+including the ability to write nicely printed statistical results.</p>
+<p>In the remaining sections of this chapter, we will illustrate the collection of statistics on simple Monte Carlo models. This begins in the next section by estimating the area of a simple one-dimensional function.</p>
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="mcm.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="ssMC.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"whatsapp": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": null,
+"text": null
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": null,
+"search": {
+"engine": "fuse",
+"options": null
+},
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/latest.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>

@@ -1,0 +1,866 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>6.6 The Tie-Dye T-Shirt Model | Simulation Modeling using the Kotlin Simulation Library (KSL)</title>
+  <meta name="description" content="A book that illustrates the basics of using the KSL. The output format for this book is bookdown::gitbook." />
+  <meta name="generator" content="bookdown 0.40 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="6.6 The Tie-Dye T-Shirt Model | Simulation Modeling using the Kotlin Simulation Library (KSL)" />
+  <meta property="og:type" content="book" />
+  
+  <meta property="og:description" content="A book that illustrates the basics of using the KSL. The output format for this book is bookdown::gitbook." />
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="6.6 The Tie-Dye T-Shirt Model | Simulation Modeling using the Kotlin Simulation Library (KSL)" />
+  
+  <meta name="twitter:description" content="A book that illustrates the basics of using the KSL. The output format for this book is bookdown::gitbook." />
+  
+
+<meta name="author" content="Manuel D. Rossetti" />
+
+
+<meta name="date" content="2025-09-18" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="modeling-a-stem-career-mixer.html"/>
+<link rel="next" href="summary-2.html"/>
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
+<link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
+<script src="libs/kePrint-0.0.1/kePrint.js"></script>
+<link href="libs/lightable-0.0.1/lightable.css" rel="stylesheet" />
+
+
+<style type="text/css">
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { color: #008000; } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { color: #008000; font-weight: bold; } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<style type="text/css">
+  
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+</style>
+<style type="text/css">
+/* Used with Pandoc 2.11+ new --citeproc when CSL is used */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+}
+.hanging div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}
+</style>
+
+<link rel="stylesheet" href="css/style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">Simulation Modeling using the Kotlin Simulation Library (KSL)</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Preface</a>
+<ul>
+<li class="chapter" data-level="" data-path="release-history.html"><a href="release-history.html"><i class="fa fa-check"></i>Release History</a></li>
+<li class="chapter" data-level="" data-path="ksl-project-page.html"><a href="ksl-project-page.html"><i class="fa fa-check"></i>KSL Project Page</a></li>
+<li class="chapter" data-level="" data-path="book-support-files.html"><a href="book-support-files.html"><i class="fa fa-check"></i>Book Support Files</a></li>
+<li class="chapter" data-level="" data-path="acknowledgments.html"><a href="acknowledgments.html"><i class="fa fa-check"></i>Acknowledgments</a></li>
+<li class="chapter" data-level="" data-path="intended-audience.html"><a href="intended-audience.html"><i class="fa fa-check"></i>Intended Audience</a></li>
+<li class="chapter" data-level="" data-path="organization-of-the-book.html"><a href="organization-of-the-book.html"><i class="fa fa-check"></i>Organization of the Book</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="about-the-author.html"><a href="about-the-author.html"><i class="fa fa-check"></i>About the Author</a></li>
+<li class="chapter" data-level="1" data-path="ch1.html"><a href="ch1.html"><i class="fa fa-check"></i><b>1</b> Simulation Modeling</a>
+<ul>
+<li class="chapter" data-level="1.1" data-path="simulation-modeling.html"><a href="simulation-modeling.html"><i class="fa fa-check"></i><b>1.1</b> Simulation Modeling</a></li>
+<li class="chapter" data-level="1.2" data-path="why-simulate.html"><a href="why-simulate.html"><i class="fa fa-check"></i><b>1.2</b> Why Simulate?</a></li>
+<li class="chapter" data-level="1.3" data-path="types-of-systems-and-simulation-models.html"><a href="types-of-systems-and-simulation-models.html"><i class="fa fa-check"></i><b>1.3</b> Types of Systems and Simulation Models</a></li>
+<li class="chapter" data-level="1.4" data-path="simulation-descriptive-or-prescriptive-modeling.html"><a href="simulation-descriptive-or-prescriptive-modeling.html"><i class="fa fa-check"></i><b>1.4</b> Simulation: Descriptive or Prescriptive Modeling?</a></li>
+<li class="chapter" data-level="1.5" data-path="randomness-in-simulation.html"><a href="randomness-in-simulation.html"><i class="fa fa-check"></i><b>1.5</b> Randomness in Simulation</a></li>
+<li class="chapter" data-level="1.6" data-path="simulation-languages.html"><a href="simulation-languages.html"><i class="fa fa-check"></i><b>1.6</b> Simulation Languages</a></li>
+<li class="chapter" data-level="1.7" data-path="ch1secsimMeth.html"><a href="ch1secsimMeth.html"><i class="fa fa-check"></i><b>1.7</b> Simulation Methodology</a></li>
+<li class="chapter" data-level="1.8" data-path="overview-of-the-kotlin-simulation-library.html"><a href="overview-of-the-kotlin-simulation-library.html"><i class="fa fa-check"></i><b>1.8</b> Overview of the Kotlin Simulation Library</a></li>
+<li class="chapter" data-level="1.9" data-path="exercises.html"><a href="exercises.html"><i class="fa fa-check"></i><b>1.9</b> Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="ch2rng.html"><a href="ch2rng.html"><i class="fa fa-check"></i><b>2</b> Modeling Randomness</a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="ch2generator.html"><a href="ch2generator.html"><i class="fa fa-check"></i><b>2.1</b> Random Number Generator</a>
+<ul>
+<li class="chapter" data-level="2.1.1" data-path="ch2generator.html"><a href="ch2generator.html#ch2randompkg"><i class="fa fa-check"></i><b>2.1.1</b> Random Package</a></li>
+<li class="chapter" data-level="2.1.2" data-path="ch2generator.html"><a href="ch2generator.html#ch2creatingStreams"><i class="fa fa-check"></i><b>2.1.2</b> Creating and Using Streams</a></li>
+<li class="chapter" data-level="2.1.3" data-path="ch2generator.html"><a href="ch2generator.html#ch2crn"><i class="fa fa-check"></i><b>2.1.3</b> Common Random Numbers</a></li>
+<li class="chapter" data-level="2.1.4" data-path="ch2generator.html"><a href="ch2generator.html#ch2antitheticStreams"><i class="fa fa-check"></i><b>2.1.4</b> Creating and Using Antithetic Streams</a></li>
+<li class="chapter" data-level="2.1.5" data-path="ch2generator.html"><a href="ch2generator.html#ch2rnFAQ"><i class="fa fa-check"></i><b>2.1.5</b> Frequently Asked Questions about Random Numbers</a></li>
+</ul></li>
+<li class="chapter" data-level="2.2" data-path="rvg.html"><a href="rvg.html"><i class="fa fa-check"></i><b>2.2</b> Random Variate Generation</a>
+<ul>
+<li class="chapter" data-level="2.2.1" data-path="rvg.html"><a href="rvg.html#basic-random-variate-generation"><i class="fa fa-check"></i><b>2.2.1</b> Basic Random Variate Generation</a></li>
+<li class="chapter" data-level="2.2.2" data-path="rvg.html"><a href="rvg.html#rvg_dists"><i class="fa fa-check"></i><b>2.2.2</b> Continuous and Discrete Random Variables</a></li>
+<li class="chapter" data-level="2.2.3" data-path="rvg.html"><a href="rvg.html#rvguse"><i class="fa fa-check"></i><b>2.2.3</b> Creating and Using Random Variables</a></li>
+<li class="chapter" data-level="2.2.4" data-path="rvg.html"><a href="rvg.html#functions-of-random-variables"><i class="fa fa-check"></i><b>2.2.4</b> Functions of Random Variables</a></li>
+</ul></li>
+<li class="chapter" data-level="2.3" data-path="probModels.html"><a href="probModels.html"><i class="fa fa-check"></i><b>2.3</b> Probability Distribution Models</a></li>
+<li class="chapter" data-level="2.4" data-path="distFitting.html"><a href="distFitting.html"><i class="fa fa-check"></i><b>2.4</b> Distribution Fitting Using the KSL</a>
+<ul>
+<li class="chapter" data-level="2.4.1" data-path="distFitting.html"><a href="distFitting.html#estimating-distribution-parameters"><i class="fa fa-check"></i><b>2.4.1</b> Estimating Distribution Parameters</a></li>
+<li class="chapter" data-level="2.4.2" data-path="distFitting.html"><a href="distFitting.html#continuous-distribution-recommendation-framework"><i class="fa fa-check"></i><b>2.4.2</b> Continuous Distribution Recommendation Framework</a></li>
+<li class="chapter" data-level="2.4.3" data-path="distFitting.html"><a href="distFitting.html#discrete-distribution-framework"><i class="fa fa-check"></i><b>2.4.3</b> Discrete Distribution Framework</a></li>
+<li class="chapter" data-level="2.4.4" data-path="distFitting.html"><a href="distFitting.html#pdfmexamples"><i class="fa fa-check"></i><b>2.4.4</b> Illustrative Examples from Appendix @ref(appidm)</a></li>
+</ul></li>
+<li class="chapter" data-level="2.5" data-path="summary.html"><a href="summary.html"><i class="fa fa-check"></i><b>2.5</b> Summary</a></li>
+<li class="chapter" data-level="2.6" data-path="exercises-1.html"><a href="exercises-1.html"><i class="fa fa-check"></i><b>2.6</b> Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="mcm.html"><a href="mcm.html"><i class="fa fa-check"></i><b>3</b> Monte Carlo Methods</a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="kslStatistics.html"><a href="kslStatistics.html"><i class="fa fa-check"></i><b>3.1</b> Collecting Statistics</a>
+<ul>
+<li class="chapter" data-level="3.1.1" data-path="kslStatistics.html"><a href="kslStatistics.html#creating-and-using-a-statistic"><i class="fa fa-check"></i><b>3.1.1</b> Creating and Using a Statistic</a></li>
+<li class="chapter" data-level="3.1.2" data-path="kslStatistics.html"><a href="kslStatistics.html#histFreq"><i class="fa fa-check"></i><b>3.1.2</b> Histograms and Frequencies</a></li>
+<li class="chapter" data-level="3.1.3" data-path="kslStatistics.html"><a href="kslStatistics.html#ch3batchStats"><i class="fa fa-check"></i><b>3.1.3</b> Batch Statistics</a></li>
+<li class="chapter" data-level="3.1.4" data-path="kslStatistics.html"><a href="kslStatistics.html#ch3StatSummary"><i class="fa fa-check"></i><b>3.1.4</b> Statistics Summary</a></li>
+</ul></li>
+<li class="chapter" data-level="3.2" data-path="ssMC.html"><a href="ssMC.html"><i class="fa fa-check"></i><b>3.2</b> Simple Monte Carlo Integration</a></li>
+<li class="chapter" data-level="3.3" data-path="ch3StatReview.html"><a href="ch3StatReview.html"><i class="fa fa-check"></i><b>3.3</b> Review of Statistical Concepts</a>
+<ul>
+<li class="chapter" data-level="3.3.1" data-path="ch3StatReview.html"><a href="ch3StatReview.html#point-estimates-and-confidence-intervals"><i class="fa fa-check"></i><b>3.3.1</b> Point Estimates and Confidence Intervals</a></li>
+<li class="chapter" data-level="3.3.2" data-path="ch3StatReview.html"><a href="ch3StatReview.html#ch3SampleSize"><i class="fa fa-check"></i><b>3.3.2</b> Sample Size Determination</a></li>
+<li class="chapter" data-level="3.3.3" data-path="ch3StatReview.html"><a href="ch3StatReview.html#determining-the-sample-size-for-a-monte-carlo-simulation-experiment"><i class="fa fa-check"></i><b>3.3.3</b> Determining the Sample Size for a Monte Carlo Simulation Experiment</a></li>
+</ul></li>
+<li class="chapter" data-level="3.4" data-path="craps.html"><a href="craps.html"><i class="fa fa-check"></i><b>3.4</b> Simulating the Game of Craps</a></li>
+<li class="chapter" data-level="3.5" data-path="the-news-vendor-problem.html"><a href="the-news-vendor-problem.html"><i class="fa fa-check"></i><b>3.5</b> The News Vendor Problem</a></li>
+<li class="chapter" data-level="3.6" data-path="ch3InsProcess.html"><a href="ch3InsProcess.html"><i class="fa fa-check"></i><b>3.6</b> A Simple Inspection Process</a></li>
+<li class="chapter" data-level="3.7" data-path="ch3SAN.html"><a href="ch3SAN.html"><i class="fa fa-check"></i><b>3.7</b> Stochastic Activity Networks</a></li>
+<li class="chapter" data-level="3.8" data-path="mcmExperiments.html"><a href="mcmExperiments.html"><i class="fa fa-check"></i><b>3.8</b> Monte-Carlo Experiments</a></li>
+<li class="chapter" data-level="3.9" data-path="summary-1.html"><a href="summary-1.html"><i class="fa fa-check"></i><b>3.9</b> Summary</a></li>
+<li class="chapter" data-level="3.10" data-path="exercises-2.html"><a href="exercises-2.html"><i class="fa fa-check"></i><b>3.10</b> Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="introDEDS.html"><a href="introDEDS.html"><i class="fa fa-check"></i><b>4</b> Introduction to Discrete Event Modeling</a>
+<ul>
+<li class="chapter" data-level="4.1" data-path="introDEDSdeds.html"><a href="introDEDSdeds.html"><i class="fa fa-check"></i><b>4.1</b> Discrete-Event Dynamic Systems</a></li>
+<li class="chapter" data-level="4.2" data-path="HowDEDSClockWorks.html"><a href="HowDEDSClockWorks.html"><i class="fa fa-check"></i><b>4.2</b> How the Discrete-Event Clock Works</a></li>
+<li class="chapter" data-level="4.3" data-path="QHandExample.html"><a href="QHandExample.html"><i class="fa fa-check"></i><b>4.3</b> Simulating a Queueing System By Hand</a></li>
+<li class="chapter" data-level="4.4" data-path="introDEDSdedsKSL.html"><a href="introDEDSdedsKSL.html"><i class="fa fa-check"></i><b>4.4</b> Modeling DEDS in the KSL</a>
+<ul>
+<li class="chapter" data-level="4.4.1" data-path="introDEDSdedsKSL.html"><a href="introDEDSdedsKSL.html#event-scheduling"><i class="fa fa-check"></i><b>4.4.1</b> Event Scheduling</a></li>
+<li class="chapter" data-level="4.4.2" data-path="introDEDSdedsKSL.html"><a href="introDEDSdedsKSL.html#introDEDSschedExamples"><i class="fa fa-check"></i><b>4.4.2</b> Simple Event Scheduling Examples</a></li>
+<li class="chapter" data-level="4.4.3" data-path="introDEDSdedsKSL.html"><a href="introDEDSdedsKSL.html#introDEDSUpDown"><i class="fa fa-check"></i><b>4.4.3</b> Up and Down Component Example</a></li>
+<li class="chapter" data-level="4.4.4" data-path="introDEDSdedsKSL.html"><a href="introDEDSdedsKSL.html#introDEDSPharmacy"><i class="fa fa-check"></i><b>4.4.4</b> Modeling a Simple Queueing System</a></li>
+<li class="chapter" data-level="4.4.5" data-path="introDEDSdedsKSL.html"><a href="introDEDSdedsKSL.html#more-details-about-the-pharmacy-model-implementation"><i class="fa fa-check"></i><b>4.4.5</b> More Details About the Pharmacy Model Implementation</a></li>
+</ul></li>
+<li class="chapter" data-level="4.5" data-path="enhancing-the-drive-through-pharmacy-model.html"><a href="enhancing-the-drive-through-pharmacy-model.html"><i class="fa fa-check"></i><b>4.5</b> Enhancing the Drive Through Pharmacy Model</a>
+<ul>
+<li class="chapter" data-level="4.5.1" data-path="enhancing-the-drive-through-pharmacy-model.html"><a href="enhancing-the-drive-through-pharmacy-model.html#modeling-a-simple-resource"><i class="fa fa-check"></i><b>4.5.1</b> Modeling a Simple Resource</a></li>
+<li class="chapter" data-level="4.5.2" data-path="enhancing-the-drive-through-pharmacy-model.html"><a href="enhancing-the-drive-through-pharmacy-model.html#modeling-a-queue-with-statistical-collection"><i class="fa fa-check"></i><b>4.5.2</b> Modeling a Queue with Statistical Collection</a></li>
+<li class="chapter" data-level="4.5.3" data-path="enhancing-the-drive-through-pharmacy-model.html"><a href="enhancing-the-drive-through-pharmacy-model.html#modeling-a-repeating-event-pattern"><i class="fa fa-check"></i><b>4.5.3</b> Modeling a Repeating Event Pattern</a></li>
+<li class="chapter" data-level="4.5.4" data-path="enhancing-the-drive-through-pharmacy-model.html"><a href="enhancing-the-drive-through-pharmacy-model.html#collecting-more-detailed-statistics"><i class="fa fa-check"></i><b>4.5.4</b> Collecting More Detailed Statistics</a></li>
+<li class="chapter" data-level="4.5.5" data-path="enhancing-the-drive-through-pharmacy-model.html"><a href="enhancing-the-drive-through-pharmacy-model.html#implementing-the-enhanced-pharmacy-model"><i class="fa fa-check"></i><b>4.5.5</b> Implementing the Enhanced Pharmacy Model</a></li>
+</ul></li>
+<li class="chapter" data-level="4.6" data-path="DTPExpanded.html"><a href="DTPExpanded.html"><i class="fa fa-check"></i><b>4.6</b> More Drive Through Fun</a>
+<ul>
+<li class="chapter" data-level="4.6.1" data-path="DTPExpanded.html"><a href="DTPExpanded.html#modeling-a-resource-with-a-waiting-line"><i class="fa fa-check"></i><b>4.6.1</b> Modeling a Resource with a Waiting Line</a></li>
+<li class="chapter" data-level="4.6.2" data-path="DTPExpanded.html"><a href="DTPExpanded.html#modeling-the-tandem-queue-of-example-refexmexch4tandemq"><i class="fa fa-check"></i><b>4.6.2</b> Modeling the Tandem Queue of Example @ref(exm:exCh4TandemQ)</a></li>
+<li class="chapter" data-level="4.6.3" data-path="DTPExpanded.html"><a href="DTPExpanded.html#modeling-with-the-station-package"><i class="fa fa-check"></i><b>4.6.3</b> Modeling with the Station Package</a></li>
+</ul></li>
+<li class="chapter" data-level="4.7" data-path="introDEDSSummary.html"><a href="introDEDSSummary.html"><i class="fa fa-check"></i><b>4.7</b> Summary</a></li>
+<li class="chapter" data-level="4.8" data-path="exercises-3.html"><a href="exercises-3.html"><i class="fa fa-check"></i><b>4.8</b> Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="simoa.html"><a href="simoa.html"><i class="fa fa-check"></i><b>5</b> Analyzing and Accessing Simulation Output</a>
+<ul>
+<li class="chapter" data-level="5.1" data-path="simoadatatypes.html"><a href="simoadatatypes.html"><i class="fa fa-check"></i><b>5.1</b> Types of Statistical Variables</a></li>
+<li class="chapter" data-level="5.2" data-path="simoasimtypes.html"><a href="simoasimtypes.html"><i class="fa fa-check"></i><b>5.2</b> Types of Simulation With Respect To Output Analysis</a></li>
+<li class="chapter" data-level="5.3" data-path="simoafinhorizon.html"><a href="simoafinhorizon.html"><i class="fa fa-check"></i><b>5.3</b> Analysis of Finite Horizon Simulations</a></li>
+<li class="chapter" data-level="5.4" data-path="simoafinhorizonex.html"><a href="simoafinhorizonex.html"><i class="fa fa-check"></i><b>5.4</b> Capturing Output for a Simple Finite Horizon Simulation</a>
+<ul>
+<li class="chapter" data-level="5.4.1" data-path="simoafinhorizonex.html"><a href="simoafinhorizonex.html#simoaCapture"><i class="fa fa-check"></i><b>5.4.1</b> KSL Functionality for Capturing Statistical Results</a></li>
+<li class="chapter" data-level="5.4.2" data-path="simoafinhorizonex.html"><a href="simoafinhorizonex.html#additional-remarks"><i class="fa fa-check"></i><b>5.4.2</b> Additional Remarks</a></li>
+<li class="chapter" data-level="5.4.3" data-path="simoafinhorizonex.html"><a href="simoafinhorizonex.html#querying-the-ksl-database"><i class="fa fa-check"></i><b>5.4.3</b> Querying the KSL Database</a></li>
+</ul></li>
+<li class="chapter" data-level="5.5" data-path="simoaseqsampling.html"><a href="simoaseqsampling.html"><i class="fa fa-check"></i><b>5.5</b> Sequential Sampling for Finite Horizon Simulations</a></li>
+<li class="chapter" data-level="5.6" data-path="simoainfhorizon.html"><a href="simoainfhorizon.html"><i class="fa fa-check"></i><b>5.6</b> Analysis of Infinite Horizon Simulations</a>
+<ul>
+<li class="chapter" data-level="5.6.1" data-path="simoainfhorizon.html"><a href="simoainfhorizon.html#simoainfhorizoninitialbias"><i class="fa fa-check"></i><b>5.6.1</b> Assessing the Effect of Initial Conditions</a></li>
+<li class="chapter" data-level="5.6.2" data-path="simoainfhorizon.html"><a href="simoainfhorizon.html#simoainfhorizonrepDeletion"><i class="fa fa-check"></i><b>5.6.2</b> Performing the Method of Replication-Deletion</a></li>
+<li class="chapter" data-level="5.6.3" data-path="simoainfhorizon.html"><a href="simoainfhorizon.html#simoainfhorizonbatchmeans"><i class="fa fa-check"></i><b>5.6.3</b> The Method of Batch Means</a></li>
+<li class="chapter" data-level="5.6.4" data-path="simoainfhorizon.html"><a href="simoainfhorizon.html#simoainfhorizonjslbatching"><i class="fa fa-check"></i><b>5.6.4</b> Performing the Method of Batch Means</a></li>
+</ul></li>
+<li class="chapter" data-level="5.7" data-path="simoacomparingSystems.html"><a href="simoacomparingSystems.html"><i class="fa fa-check"></i><b>5.7</b> Comparing System Configurations</a>
+<ul>
+<li class="chapter" data-level="5.7.1" data-path="simoacomparingSystems.html"><a href="simoacomparingSystems.html#simoacomparingSystems:two"><i class="fa fa-check"></i><b>5.7.1</b> Comparing Two Systems</a></li>
+<li class="chapter" data-level="5.7.2" data-path="simoacomparingSystems.html"><a href="simoacomparingSystems.html#simoacomparingSystemsMCB"><i class="fa fa-check"></i><b>5.7.2</b> Concepts for Comparing Systems</a></li>
+<li class="chapter" data-level="5.7.3" data-path="simoacomparingSystems.html"><a href="simoacomparingSystems.html#multiple-comparison-with-the-best-procedures-mcb"><i class="fa fa-check"></i><b>5.7.3</b> Multiple Comparison with the Best Procedures (MCB)</a></li>
+<li class="chapter" data-level="5.7.4" data-path="simoacomparingSystems.html"><a href="simoacomparingSystems.html#ch5Screening"><i class="fa fa-check"></i><b>5.7.4</b> Screening Procedures</a></li>
+</ul></li>
+<li class="chapter" data-level="5.8" data-path="ch5Scenarios.html"><a href="ch5Scenarios.html"><i class="fa fa-check"></i><b>5.8</b> Simulating Many Scenarios</a>
+<ul>
+<li class="chapter" data-level="5.8.1" data-path="ch5Scenarios.html"><a href="ch5Scenarios.html#controlAntns"><i class="fa fa-check"></i><b>5.8.1</b> Control Annotations</a></li>
+<li class="chapter" data-level="5.8.2" data-path="ch5Scenarios.html"><a href="ch5Scenarios.html#rvParameters"><i class="fa fa-check"></i><b>5.8.2</b> Random Variable Parameters</a></li>
+<li class="chapter" data-level="5.8.3" data-path="ch5Scenarios.html"><a href="ch5Scenarios.html#kslScenarios"><i class="fa fa-check"></i><b>5.8.3</b> Setting Up and Running Multiple Scenarios</a></li>
+</ul></li>
+<li class="chapter" data-level="5.9" data-path="simoasummary.html"><a href="simoasummary.html"><i class="fa fa-check"></i><b>5.9</b> Summary</a></li>
+<li class="chapter" data-level="5.10" data-path="exercises-4.html"><a href="exercises-4.html"><i class="fa fa-check"></i><b>5.10</b> Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="processview.html"><a href="processview.html"><i class="fa fa-check"></i><b>6</b> Process View Modeling Using the KSL</a>
+<ul>
+<li class="chapter" data-level="6.1" data-path="ch6Entities.html"><a href="ch6Entities.html"><i class="fa fa-check"></i><b>6.1</b> What are Entities?</a></li>
+<li class="chapter" data-level="6.2" data-path="pvIntro.html"><a href="pvIntro.html"><i class="fa fa-check"></i><b>6.2</b> The Process View</a></li>
+<li class="chapter" data-level="6.3" data-path="understanding-ksl-processes-and-entities.html"><a href="understanding-ksl-processes-and-entities.html"><i class="fa fa-check"></i><b>6.3</b> Understanding KSL Processes and Entities</a></li>
+<li class="chapter" data-level="6.4" data-path="examples-of-process-modeling.html"><a href="examples-of-process-modeling.html"><i class="fa fa-check"></i><b>6.4</b> Examples of Process Modeling</a>
+<ul>
+<li class="chapter" data-level="6.4.1" data-path="examples-of-process-modeling.html"><a href="examples-of-process-modeling.html#holding-entities-in-a-queue-holdqueue-class"><i class="fa fa-check"></i><b>6.4.1</b> Holding Entities in a Queue: <code>HoldQueue</code> Class</a></li>
+<li class="chapter" data-level="6.4.2" data-path="examples-of-process-modeling.html"><a href="examples-of-process-modeling.html#signaling-entities"><i class="fa fa-check"></i><b>6.4.2</b> Signaling Entities</a></li>
+<li class="chapter" data-level="6.4.3" data-path="examples-of-process-modeling.html"><a href="examples-of-process-modeling.html#understanding-blocking-queues"><i class="fa fa-check"></i><b>6.4.3</b> Understanding Blocking Queues</a></li>
+<li class="chapter" data-level="6.4.4" data-path="examples-of-process-modeling.html"><a href="examples-of-process-modeling.html#allowing-entities-to-wait-for-a-process"><i class="fa fa-check"></i><b>6.4.4</b> Allowing Entities to Wait for a Process</a></li>
+<li class="chapter" data-level="6.4.5" data-path="examples-of-process-modeling.html"><a href="examples-of-process-modeling.html#processinteraction"><i class="fa fa-check"></i><b>6.4.5</b> Process Interaction</a></li>
+</ul></li>
+<li class="chapter" data-level="6.5" data-path="modeling-a-stem-career-mixer.html"><a href="modeling-a-stem-career-mixer.html"><i class="fa fa-check"></i><b>6.5</b> Modeling a STEM Career Mixer</a>
+<ul>
+<li class="chapter" data-level="6.5.1" data-path="modeling-a-stem-career-mixer.html"><a href="modeling-a-stem-career-mixer.html#conceptualizing-the-system"><i class="fa fa-check"></i><b>6.5.1</b> Conceptualizing the System</a></li>
+<li class="chapter" data-level="6.5.2" data-path="modeling-a-stem-career-mixer.html"><a href="modeling-a-stem-career-mixer.html#implementing-the-stem-mixer-model"><i class="fa fa-check"></i><b>6.5.2</b> Implementing the STEM Mixer Model</a></li>
+</ul></li>
+<li class="chapter" data-level="6.6" data-path="the-tie-dye-t-shirt-model.html"><a href="the-tie-dye-t-shirt-model.html"><i class="fa fa-check"></i><b>6.6</b> The Tie-Dye T-Shirt Model</a>
+<ul>
+<li class="chapter" data-level="6.6.1" data-path="the-tie-dye-t-shirt-model.html"><a href="the-tie-dye-t-shirt-model.html#ch4:TieDyeTShirtsSub1"><i class="fa fa-check"></i><b>6.6.1</b> Implementing the Tie-Dye T-Shirt Model</a></li>
+</ul></li>
+<li class="chapter" data-level="6.7" data-path="summary-2.html"><a href="summary-2.html"><i class="fa fa-check"></i><b>6.7</b> Summary</a></li>
+<li class="chapter" data-level="6.8" data-path="exercises-5.html"><a href="exercises-5.html"><i class="fa fa-check"></i><b>6.8</b> Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="ch7AdvModeling.html"><a href="ch7AdvModeling.html"><i class="fa fa-check"></i><b>7</b> Advanced Event and Process View Modeling</a>
+<ul>
+<li class="chapter" data-level="7.1" data-path="modeling-with-processes-and-resources.html"><a href="modeling-with-processes-and-resources.html"><i class="fa fa-check"></i><b>7.1</b> Modeling with Processes and Resources</a>
+<ul>
+<li class="chapter" data-level="7.1.1" data-path="modeling-with-processes-and-resources.html"><a href="modeling-with-processes-and-resources.html#modeling-space-with-resources"><i class="fa fa-check"></i><b>7.1.1</b> Modeling Space with Resources</a></li>
+<li class="chapter" data-level="7.1.2" data-path="modeling-with-processes-and-resources.html"><a href="modeling-with-processes-and-resources.html#secResourcePools"><i class="fa fa-check"></i><b>7.1.2</b> Resource Pools</a></li>
+<li class="chapter" data-level="7.1.3" data-path="modeling-with-processes-and-resources.html"><a href="modeling-with-processes-and-resources.html#secTestAndRepair"><i class="fa fa-check"></i><b>7.1.3</b> Computer Test and Repair Shop Example</a></li>
+</ul></li>
+<li class="chapter" data-level="7.2" data-path="modeling-non-stationary-systems.html"><a href="modeling-non-stationary-systems.html"><i class="fa fa-check"></i><b>7.2</b> Modeling Non-Stationary Systems</a>
+<ul>
+<li class="chapter" data-level="7.2.1" data-path="modeling-non-stationary-systems.html"><a href="modeling-non-stationary-systems.html#ch7secNSPP"><i class="fa fa-check"></i><b>7.2.1</b> Non-Stationary Arrival Processes</a></li>
+<li class="chapter" data-level="7.2.2" data-path="modeling-non-stationary-systems.html"><a href="modeling-non-stationary-systems.html#modeling-resources-under-non-stationary-conditions"><i class="fa fa-check"></i><b>7.2.2</b> Modeling Resources Under Non-Stationary Conditions</a></li>
+<li class="chapter" data-level="7.2.3" data-path="modeling-non-stationary-systems.html"><a href="modeling-non-stationary-systems.html#enhancing-the-stem-career-mixer-model"><i class="fa fa-check"></i><b>7.2.3</b> Enhancing the STEM Career Mixer Model</a></li>
+</ul></li>
+<li class="chapter" data-level="7.3" data-path="examples-of-advanced-event-models.html"><a href="examples-of-advanced-event-models.html"><i class="fa fa-check"></i><b>7.3</b> Examples of Advanced Event Models</a>
+<ul>
+<li class="chapter" data-level="7.3.1" data-path="examples-of-advanced-event-models.html"><a href="examples-of-advanced-event-models.html#ch6s1sb4sub3"><i class="fa fa-check"></i><b>7.3.1</b> Modeling Balking and Reneging</a></li>
+<li class="chapter" data-level="7.3.2" data-path="examples-of-advanced-event-models.html"><a href="examples-of-advanced-event-models.html#rqModel"><i class="fa fa-check"></i><b>7.3.2</b> Modeling a Reorder Point, Reorder Quantity Inventory Policy</a></li>
+</ul></li>
+<li class="chapter" data-level="7.4" data-path="ch7VandV.html"><a href="ch7VandV.html"><i class="fa fa-check"></i><b>7.4</b> Applying Queueing Theory Results to Verify and Validate a Simulation</a>
+<ul>
+<li class="chapter" data-level="7.4.1" data-path="ch7VandV.html"><a href="ch7VandV.html#analyzing-the-preparation-station"><i class="fa fa-check"></i><b>7.4.1</b> Analyzing the Preparation Station</a></li>
+<li class="chapter" data-level="7.4.2" data-path="ch7VandV.html"><a href="ch7VandV.html#analyzing-the-build-lines"><i class="fa fa-check"></i><b>7.4.2</b> Analyzing the Build Lines</a></li>
+<li class="chapter" data-level="7.4.3" data-path="ch7VandV.html"><a href="ch7VandV.html#analyzing-the-packaging-station"><i class="fa fa-check"></i><b>7.4.3</b> Analyzing the Packaging Station</a></li>
+<li class="chapter" data-level="7.4.4" data-path="ch7VandV.html"><a href="ch7VandV.html#analyzing-the-palletizing-station"><i class="fa fa-check"></i><b>7.4.4</b> Analyzing the Palletizing Station</a></li>
+<li class="chapter" data-level="7.4.5" data-path="ch7VandV.html"><a href="ch7VandV.html#analyzing-the-total-system-time"><i class="fa fa-check"></i><b>7.4.5</b> Analyzing the Total System Time</a></li>
+<li class="chapter" data-level="7.4.6" data-path="ch7VandV.html"><a href="ch7VandV.html#other-issues-for-verification-and-validation"><i class="fa fa-check"></i><b>7.4.6</b> Other Issues for Verification and Validation</a></li>
+</ul></li>
+<li class="chapter" data-level="7.5" data-path="summary-3.html"><a href="summary-3.html"><i class="fa fa-check"></i><b>7.5</b> Summary</a></li>
+<li class="chapter" data-level="7.6" data-path="exercises-6.html"><a href="exercises-6.html"><i class="fa fa-check"></i><b>7.6</b> Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="8" data-path="chEntityMovement.html"><a href="chEntityMovement.html"><i class="fa fa-check"></i><b>8</b> Modeling Entity Movement</a>
+<ul>
+<li class="chapter" data-level="8.1" data-path="secRCT.html"><a href="secRCT.html"><i class="fa fa-check"></i><b>8.1</b> Resource Constrained Transfer</a>
+<ul>
+<li class="chapter" data-level="8.1.1" data-path="secRCT.html"><a href="secRCT.html#secTestRepairRCT"><i class="fa fa-check"></i><b>8.1.1</b> Test and Repair with Resource Constrained Transfer</a></li>
+</ul></li>
+<li class="chapter" data-level="8.2" data-path="movableResources.html"><a href="movableResources.html"><i class="fa fa-check"></i><b>8.2</b> Constrained Transfer with Movable Resources</a>
+<ul>
+<li class="chapter" data-level="8.2.1" data-path="movableResources.html"><a href="movableResources.html#spatial-models"><i class="fa fa-check"></i><b>8.2.1</b> Spatial Models</a></li>
+<li class="chapter" data-level="8.2.2" data-path="movableResources.html"><a href="movableResources.html#secMovableResources"><i class="fa fa-check"></i><b>8.2.2</b> Movable Resources</a></li>
+<li class="chapter" data-level="8.2.3" data-path="movableResources.html"><a href="movableResources.html#secTQMWM"><i class="fa fa-check"></i><b>8.2.3</b> Tandem Queue Model With Movement</a></li>
+</ul></li>
+<li class="chapter" data-level="8.3" data-path="secTestAndRepairMovableResources.html"><a href="secTestAndRepairMovableResources.html"><i class="fa fa-check"></i><b>8.3</b> Modeling the Test and Repair System with Movable Resources</a></li>
+<li class="chapter" data-level="8.4" data-path="secConveyors.html"><a href="secConveyors.html"><i class="fa fa-check"></i><b>8.4</b> Modeling Systems with Conveyors</a>
+<ul>
+<li class="chapter" data-level="8.4.1" data-path="secConveyors.html"><a href="secConveyors.html#ksl-conveyor-constructs"><i class="fa fa-check"></i><b>8.4.1</b> KSL Conveyor Constructs</a></li>
+<li class="chapter" data-level="8.4.2" data-path="secConveyors.html"><a href="secConveyors.html#tandem-queue-system-with-conveyors"><i class="fa fa-check"></i><b>8.4.2</b> Tandem Queue System with Conveyors</a></li>
+<li class="chapter" data-level="8.4.3" data-path="secConveyors.html"><a href="secConveyors.html#secTestAndRepairConveyors"><i class="fa fa-check"></i><b>8.4.3</b> Test and Repair via Conveyors</a></li>
+<li class="chapter" data-level="8.4.4" data-path="secConveyors.html"><a href="secConveyors.html#secMiscConveyor"><i class="fa fa-check"></i><b>8.4.4</b> Miscellaneous Concepts in Conveyor Modeling</a></li>
+</ul></li>
+<li class="chapter" data-level="8.5" data-path="summary-of-new-concepts.html"><a href="summary-of-new-concepts.html"><i class="fa fa-check"></i><b>8.5</b> Summary of New Concepts</a></li>
+<li class="chapter" data-level="8.6" data-path="exercises-7.html"><a href="exercises-7.html"><i class="fa fa-check"></i><b>8.6</b> Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="9" data-path="ch9AdvMC.html"><a href="ch9AdvMC.html"><i class="fa fa-check"></i><b>9</b> Advanced Monte Carlo Methods</a>
+<ul>
+<li class="chapter" data-level="9.1" data-path="ch9BootStrapping.html"><a href="ch9BootStrapping.html"><i class="fa fa-check"></i><b>9.1</b> Bootstrap Methods</a>
+<ul>
+<li class="chapter" data-level="9.1.1" data-path="ch9BootStrapping.html"><a href="ch9BootStrapping.html#bootstrapping-using-the-ksl"><i class="fa fa-check"></i><b>9.1.1</b> Bootstrapping Using the KSL</a></li>
+</ul></li>
+<li class="chapter" data-level="9.2" data-path="ch9VRTs.html"><a href="ch9VRTs.html"><i class="fa fa-check"></i><b>9.2</b> Variance Reduction Techniques</a>
+<ul>
+<li class="chapter" data-level="9.2.1" data-path="ch9VRTs.html"><a href="ch9VRTs.html#common-random-numbers-crn"><i class="fa fa-check"></i><b>9.2.1</b> Common Random Numbers (CRN)</a></li>
+<li class="chapter" data-level="9.2.2" data-path="ch9VRTs.html"><a href="ch9VRTs.html#antithetic-variates-av"><i class="fa fa-check"></i><b>9.2.2</b> Antithetic Variates (AV)</a></li>
+<li class="chapter" data-level="9.2.3" data-path="ch9VRTs.html"><a href="ch9VRTs.html#indirect-estimation"><i class="fa fa-check"></i><b>9.2.3</b> Indirect Estimation</a></li>
+<li class="chapter" data-level="9.2.4" data-path="ch9VRTs.html"><a href="ch9VRTs.html#control-variates-cv"><i class="fa fa-check"></i><b>9.2.4</b> Control Variates (CV)</a></li>
+<li class="chapter" data-level="9.2.5" data-path="ch9VRTs.html"><a href="ch9VRTs.html#stratified-and-post-stratified-sampling"><i class="fa fa-check"></i><b>9.2.5</b> Stratified and Post Stratified Sampling</a></li>
+<li class="chapter" data-level="9.2.6" data-path="ch9VRTs.html"><a href="ch9VRTs.html#conditional-expectation-ce"><i class="fa fa-check"></i><b>9.2.6</b> Conditional Expectation (CE)</a></li>
+<li class="chapter" data-level="9.2.7" data-path="ch9VRTs.html"><a href="ch9VRTs.html#importance-sampling-is"><i class="fa fa-check"></i><b>9.2.7</b> Importance Sampling (IS)</a></li>
+</ul></li>
+<li class="chapter" data-level="9.3" data-path="ch9GMVRVs.html"><a href="ch9GMVRVs.html"><i class="fa fa-check"></i><b>9.3</b> Generating Multi-Variate and Correlated Random Variates</a>
+<ul>
+<li class="chapter" data-level="9.3.1" data-path="ch9GMVRVs.html"><a href="ch9GMVRVs.html#generating-from-a-bivariate-normal-distribution"><i class="fa fa-check"></i><b>9.3.1</b> Generating from a Bivariate Normal Distribution</a></li>
+<li class="chapter" data-level="9.3.2" data-path="ch9GMVRVs.html"><a href="ch9GMVRVs.html#copulas-and-multi-variate-generation-methods"><i class="fa fa-check"></i><b>9.3.2</b> Copulas and Multi-variate Generation Methods</a></li>
+<li class="chapter" data-level="9.3.3" data-path="ch9GMVRVs.html"><a href="ch9GMVRVs.html#autocorrelated-generation"><i class="fa fa-check"></i><b>9.3.3</b> Autocorrelated Generation</a></li>
+<li class="chapter" data-level="9.3.4" data-path="ch9GMVRVs.html"><a href="ch9GMVRVs.html#ch9MCMC"><i class="fa fa-check"></i><b>9.3.4</b> Introduction to Markov Chain Monte Carlo Methods</a></li>
+</ul></li>
+<li class="chapter" data-level="9.4" data-path="summary-4.html"><a href="summary-4.html"><i class="fa fa-check"></i><b>9.4</b> Summary</a></li>
+<li class="chapter" data-level="9.5" data-path="exercises-8.html"><a href="exercises-8.html"><i class="fa fa-check"></i><b>9.5</b> Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="10" data-path="ch10eo.html"><a href="ch10eo.html"><i class="fa fa-check"></i><b>10</b> Experimental Design and Simulation Optimization Methods</a>
+<ul>
+<li class="chapter" data-level="10.1" data-path="ch10doe.html"><a href="ch10doe.html"><i class="fa fa-check"></i><b>10.1</b> Experimental Design Methods</a>
+<ul>
+<li class="chapter" data-level="10.1.1" data-path="ch10doe.html"><a href="ch10doe.html#ch10factors"><i class="fa fa-check"></i><b>10.1.1</b> Defining Factors</a></li>
+<li class="chapter" data-level="10.1.2" data-path="ch10doe.html"><a href="ch10doe.html#ch10designs"><i class="fa fa-check"></i><b>10.1.2</b> Defining Experimental Designs</a></li>
+<li class="chapter" data-level="10.1.3" data-path="ch10doe.html"><a href="ch10doe.html#ch10exp"><i class="fa fa-check"></i><b>10.1.3</b> Executing a Designed Experiment</a></li>
+<li class="chapter" data-level="10.1.4" data-path="ch10doe.html"><a href="ch10doe.html#ch10analysis"><i class="fa fa-check"></i><b>10.1.4</b> Analyzing a Designed Experiment</a></li>
+</ul></li>
+<li class="chapter" data-level="10.2" data-path="ch10simOpt.html"><a href="ch10simOpt.html"><i class="fa fa-check"></i><b>10.2</b> Simulation Optimization Methods</a></li>
+<li class="chapter" data-level="10.3" data-path="ch10ProbDefn.html"><a href="ch10ProbDefn.html"><i class="fa fa-check"></i><b>10.3</b> Defining Simulation Optimization Problems</a>
+<ul>
+<li class="chapter" data-level="10.3.1" data-path="ch10ProbDefn.html"><a href="ch10ProbDefn.html#specifying-penalty-functions"><i class="fa fa-check"></i><b>10.3.1</b> Specifying Penalty Functions</a></li>
+<li class="chapter" data-level="10.3.2" data-path="ch10ProbDefn.html"><a href="ch10ProbDefn.html#inputvariables"><i class="fa fa-check"></i><b>10.3.2</b> Defining Input Variables</a></li>
+<li class="chapter" data-level="10.3.3" data-path="ch10ProbDefn.html"><a href="ch10ProbDefn.html#linear-and-functional-constraints"><i class="fa fa-check"></i><b>10.3.3</b> Linear and Functional Constraints</a></li>
+<li class="chapter" data-level="10.3.4" data-path="ch10ProbDefn.html"><a href="ch10ProbDefn.html#response-constraints"><i class="fa fa-check"></i><b>10.3.4</b> Response Constraints</a></li>
+<li class="chapter" data-level="10.3.5" data-path="ch10ProbDefn.html"><a href="ch10ProbDefn.html#ch10ProbDefnExample"><i class="fa fa-check"></i><b>10.3.5</b> Setting Up a Problem Definition</a></li>
+</ul></li>
+<li class="chapter" data-level="10.4" data-path="representing-the-simulation-oracle.html"><a href="representing-the-simulation-oracle.html"><i class="fa fa-check"></i><b>10.4</b> Representing the Simulation Oracle</a>
+<ul>
+<li class="chapter" data-level="10.4.1" data-path="representing-the-simulation-oracle.html"><a href="representing-the-simulation-oracle.html#requesting-simulation-evaluations"><i class="fa fa-check"></i><b>10.4.1</b> Requesting Simulation Evaluations</a></li>
+<li class="chapter" data-level="10.4.2" data-path="representing-the-simulation-oracle.html"><a href="representing-the-simulation-oracle.html#representing-model-inputs"><i class="fa fa-check"></i><b>10.4.2</b> Representing Model Inputs</a></li>
+<li class="chapter" data-level="10.4.3" data-path="representing-the-simulation-oracle.html"><a href="representing-the-simulation-oracle.html#representing-model-outputs"><i class="fa fa-check"></i><b>10.4.3</b> Representing Model Outputs</a></li>
+</ul></li>
+<li class="chapter" data-level="10.5" data-path="characterizing-simulation-optimization-algorithms.html"><a href="characterizing-simulation-optimization-algorithms.html"><i class="fa fa-check"></i><b>10.5</b> Characterizing Simulation Optimization Algorithms</a>
+<ul>
+<li class="chapter" data-level="10.5.1" data-path="characterizing-simulation-optimization-algorithms.html"><a href="characterizing-simulation-optimization-algorithms.html#structure-of-the-iterative-process"><i class="fa fa-check"></i><b>10.5.1</b> Structure of the Iterative Process</a></li>
+<li class="chapter" data-level="10.5.2" data-path="characterizing-simulation-optimization-algorithms.html"><a href="characterizing-simulation-optimization-algorithms.html#solver-plug-in-behavior"><i class="fa fa-check"></i><b>10.5.2</b> Solver Plug-in Behavior</a></li>
+<li class="chapter" data-level="10.5.3" data-path="characterizing-simulation-optimization-algorithms.html"><a href="characterizing-simulation-optimization-algorithms.html#miscellaneous-concepts-in-the-solver-class"><i class="fa fa-check"></i><b>10.5.3</b> Miscellaneous Concepts in the <code>Solver</code> Class</a></li>
+</ul></li>
+<li class="chapter" data-level="10.6" data-path="implemented-solvers.html"><a href="implemented-solvers.html"><i class="fa fa-check"></i><b>10.6</b> Implemented Solvers</a>
+<ul>
+<li class="chapter" data-level="10.6.1" data-path="implemented-solvers.html"><a href="implemented-solvers.html#simulated-annealing"><i class="fa fa-check"></i><b>10.6.1</b> Simulated Annealing</a></li>
+<li class="chapter" data-level="10.6.2" data-path="implemented-solvers.html"><a href="implemented-solvers.html#cross-entropy"><i class="fa fa-check"></i><b>10.6.2</b> Cross Entropy</a></li>
+<li class="chapter" data-level="10.6.3" data-path="implemented-solvers.html"><a href="implemented-solvers.html#r-spline"><i class="fa fa-check"></i><b>10.6.3</b> R-SPLINE</a></li>
+<li class="chapter" data-level="10.6.4" data-path="implemented-solvers.html"><a href="implemented-solvers.html#randomized-restart-solvers"><i class="fa fa-check"></i><b>10.6.4</b> Randomized Restart Solvers</a></li>
+</ul></li>
+<li class="chapter" data-level="10.7" data-path="secApplySolver.html"><a href="secApplySolver.html"><i class="fa fa-check"></i><b>10.7</b> Using a Solver on a Problem</a>
+<ul>
+<li class="chapter" data-level="10.7.1" data-path="secApplySolver.html"><a href="secApplySolver.html#applyCE"><i class="fa fa-check"></i><b>10.7.1</b> Illustrating the Cross-Entropy Solver</a></li>
+<li class="chapter" data-level="10.7.2" data-path="secApplySolver.html"><a href="secApplySolver.html#illustrating-simulated-annealing-with-random-restarts"><i class="fa fa-check"></i><b>10.7.2</b> Illustrating Simulated Annealing with Random Restarts</a></li>
+</ul></li>
+<li class="chapter" data-level="10.8" data-path="summary-5.html"><a href="summary-5.html"><i class="fa fa-check"></i><b>10.8</b> Summary</a></li>
+<li class="chapter" data-level="10.9" data-path="exercises-9.html"><a href="exercises-9.html"><i class="fa fa-check"></i><b>10.9</b> Exercises</a></li>
+</ul></li>
+<li class="appendix"><span><b>Appendix</b></span></li>
+<li class="chapter" data-level="A" data-path="appRNRV.html"><a href="appRNRV.html"><i class="fa fa-check"></i><b>A</b> Generating Pseudo-Random Numbers and Random Variates</a>
+<ul>
+<li class="chapter" data-level="A.1" data-path="appRNRVPRN.html"><a href="appRNRVPRN.html"><i class="fa fa-check"></i><b>A.1</b> Pseudo Random Numbers</a>
+<ul>
+<li class="chapter" data-level="A.1.1" data-path="appRNRVPRN.html"><a href="appRNRVPRN.html#appRNRVRNGs"><i class="fa fa-check"></i><b>A.1.1</b> Random Number Generators</a></li>
+</ul></li>
+<li class="chapter" data-level="A.2" data-path="appRNRVs.html"><a href="appRNRVs.html"><i class="fa fa-check"></i><b>A.2</b> Generating Random Variates from Distributions</a>
+<ul>
+<li class="chapter" data-level="A.2.1" data-path="appRNRVs.html"><a href="appRNRVs.html#inverse-transform-method"><i class="fa fa-check"></i><b>A.2.1</b> Inverse Transform Method</a></li>
+<li class="chapter" data-level="A.2.2" data-path="appRNRVs.html"><a href="appRNRVs.html#convolution"><i class="fa fa-check"></i><b>A.2.2</b> Convolution</a></li>
+<li class="chapter" data-level="A.2.3" data-path="appRNRVs.html"><a href="appRNRVs.html#acceptancerejection"><i class="fa fa-check"></i><b>A.2.3</b> Acceptance/Rejection</a></li>
+<li class="chapter" data-level="A.2.4" data-path="appRNRVs.html"><a href="appRNRVs.html#AppRNRVsubsecMTSRV"><i class="fa fa-check"></i><b>A.2.4</b> Mixture Distributions, Truncated Distributions, and Shifted Random Variables</a></li>
+</ul></li>
+<li class="chapter" data-level="A.3" data-path="summary-6.html"><a href="summary-6.html"><i class="fa fa-check"></i><b>A.3</b> Summary</a></li>
+<li class="chapter" data-level="A.4" data-path="exercises-10.html"><a href="exercises-10.html"><i class="fa fa-check"></i><b>A.4</b> Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="B" data-path="appidm.html"><a href="appidm.html"><i class="fa fa-check"></i><b>B</b> Probability Distribution Modeling</a>
+<ul>
+<li class="chapter" data-level="B.1" data-path="appidmsecrvPD.html"><a href="appidmsecrvPD.html"><i class="fa fa-check"></i><b>B.1</b> Random Variables and Probability Distributions</a></li>
+<li class="chapter" data-level="B.2" data-path="appidmsecMDD.html"><a href="appidmsecMDD.html"><i class="fa fa-check"></i><b>B.2</b> Modeling with Discrete Distributions</a></li>
+<li class="chapter" data-level="B.3" data-path="appidmsecfitDiscrete.html"><a href="appidmsecfitDiscrete.html"><i class="fa fa-check"></i><b>B.3</b> Fitting Discrete Distributions</a>
+<ul>
+<li class="chapter" data-level="B.3.1" data-path="appidmsecfitDiscrete.html"><a href="appidmsecfitDiscrete.html#AppDisFitPoissonFit"><i class="fa fa-check"></i><b>B.3.1</b> Fitting a Poisson Distribution</a></li>
+<li class="chapter" data-level="B.3.2" data-path="appidmsecfitDiscrete.html"><a href="appidmsecfitDiscrete.html#visualizing-the-data"><i class="fa fa-check"></i><b>B.3.2</b> Visualizing the Data</a></li>
+<li class="chapter" data-level="B.3.3" data-path="appidmsecfitDiscrete.html"><a href="appidmsecfitDiscrete.html#estimating-the-rate-parameter-for-the-poisson-distribution"><i class="fa fa-check"></i><b>B.3.3</b> Estimating the Rate Parameter for the Poisson Distribution</a></li>
+<li class="chapter" data-level="B.3.4" data-path="appidmsecfitDiscrete.html"><a href="appidmsecfitDiscrete.html#chi-squared-goodness-of-fit-test-for-poisson-distribution"><i class="fa fa-check"></i><b>B.3.4</b> Chi-Squared Goodness of Fit Test for Poisson Distribution</a></li>
+<li class="chapter" data-level="B.3.5" data-path="appidmsecfitDiscrete.html"><a href="appidmsecfitDiscrete.html#subsubchisqGOF"><i class="fa fa-check"></i><b>B.3.5</b> Chi-Squared Goodness of Fit Test</a></li>
+<li class="chapter" data-level="B.3.6" data-path="appidmsecfitDiscrete.html"><a href="appidmsecfitDiscrete.html#using-the-fitdistrplus-r-package-on-discrete-data"><i class="fa fa-check"></i><b>B.3.6</b> Using the fitdistrplus R Package on Discrete Data</a></li>
+<li class="chapter" data-level="B.3.7" data-path="appidmsecfitDiscrete.html"><a href="appidmsecfitDiscrete.html#fitting-a-discrete-empirical-distribution"><i class="fa fa-check"></i><b>B.3.7</b> Fitting a Discrete Empirical Distribution</a></li>
+</ul></li>
+<li class="chapter" data-level="B.4" data-path="appidmsecMCD.html"><a href="appidmsecMCD.html"><i class="fa fa-check"></i><b>B.4</b> Modeling with Continuous Distributions</a></li>
+<li class="chapter" data-level="B.5" data-path="appidmsecfitContinuous.html"><a href="appidmsecfitContinuous.html"><i class="fa fa-check"></i><b>B.5</b> Fitting Continuous Distributions</a>
+<ul>
+<li class="chapter" data-level="B.5.1" data-path="appidmsecfitContinuous.html"><a href="appidmsecfitContinuous.html#appidmsubsecvisualizedata"><i class="fa fa-check"></i><b>B.5.1</b> Visualizing the Data</a></li>
+<li class="chapter" data-level="B.5.2" data-path="appidmsecfitContinuous.html"><a href="appidmsecfitContinuous.html#appidmsubsecstatsdata"><i class="fa fa-check"></i><b>B.5.2</b> Statistically Summarize the Data</a></li>
+<li class="chapter" data-level="B.5.3" data-path="appidmsecfitContinuous.html"><a href="appidmsecfitContinuous.html#appidmsubsechypothDist"><i class="fa fa-check"></i><b>B.5.3</b> Hypothesizing and Testing a Distribution</a></li>
+<li class="chapter" data-level="B.5.4" data-path="appidmsecfitContinuous.html"><a href="appidmsecfitContinuous.html#kolmogorov-smirnov-test"><i class="fa fa-check"></i><b>B.5.4</b> Kolmogorov-Smirnov Test</a></li>
+<li class="chapter" data-level="B.5.5" data-path="appidmsecfitContinuous.html"><a href="appidmsecfitContinuous.html#appidmsubsecvisFit"><i class="fa fa-check"></i><b>B.5.5</b> Visualizing the Fit</a></li>
+<li class="chapter" data-level="B.5.6" data-path="appidmsecfitContinuous.html"><a href="appidmsecfitContinuous.html#appidms2sb3"><i class="fa fa-check"></i><b>B.5.6</b> Using the Input Analyzer</a></li>
+</ul></li>
+<li class="chapter" data-level="B.6" data-path="appdistfittestU01.html"><a href="appdistfittestU01.html"><i class="fa fa-check"></i><b>B.6</b> Testing Uniform (0,1) Pseudo-Random Numbers</a>
+<ul>
+<li class="chapter" data-level="B.6.1" data-path="appdistfittestU01.html"><a href="appdistfittestU01.html#chi-squared-goodness-of-fit-tests-for-pseudo-random-numbers"><i class="fa fa-check"></i><b>B.6.1</b> Chi-Squared Goodness of Fit Tests for Pseudo-Random Numbers</a></li>
+<li class="chapter" data-level="B.6.2" data-path="appdistfittestU01.html"><a href="appdistfittestU01.html#higher-dimensional-chi-squared-test"><i class="fa fa-check"></i><b>B.6.2</b> Higher Dimensional Chi-Squared Test</a></li>
+<li class="chapter" data-level="B.6.3" data-path="appdistfittestU01.html"><a href="appdistfittestU01.html#kolmogorov-smirnov-test-for-pseudo-random-numbers"><i class="fa fa-check"></i><b>B.6.3</b> Kolmogorov-Smirnov Test for Pseudo-Random Numbers</a></li>
+<li class="chapter" data-level="B.6.4" data-path="appdistfittestU01.html"><a href="appdistfittestU01.html#testing-for-independence-and-patterns-in-pseudo-random-numbers"><i class="fa fa-check"></i><b>B.6.4</b> Testing for Independence and Patterns in Pseudo-Random Numbers</a></li>
+</ul></li>
+<li class="chapter" data-level="B.7" data-path="appdistfitidms2sb4.html"><a href="appdistfitidms2sb4.html"><i class="fa fa-check"></i><b>B.7</b> Additional Distribution Modeling Concepts</a></li>
+<li class="chapter" data-level="B.8" data-path="appidmSummary.html"><a href="appidmSummary.html"><i class="fa fa-check"></i><b>B.8</b> Summary</a></li>
+<li class="chapter" data-level="B.9" data-path="exercises-11.html"><a href="exercises-11.html"><i class="fa fa-check"></i><b>B.9</b> Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="C" data-path="appqtAndInvT.html"><a href="appqtAndInvT.html"><i class="fa fa-check"></i><b>C</b> Queueing Theory</a>
+<ul>
+<li class="chapter" data-level="C.1" data-path="appqts1.html"><a href="appqts1.html"><i class="fa fa-check"></i><b>C.1</b> Single Line Queueing Stations</a>
+<ul>
+<li class="chapter" data-level="C.1.1" data-path="appqts1.html"><a href="appqts1.html#queueing-notation"><i class="fa fa-check"></i><b>C.1.1</b> Queueing Notation</a></li>
+<li class="chapter" data-level="C.1.2" data-path="appqts1.html"><a href="appqts1.html#littles-formula"><i class="fa fa-check"></i><b>C.1.2</b> Little’s Formula</a></li>
+<li class="chapter" data-level="C.1.3" data-path="appqts1.html"><a href="appqts1.html#appqts1sb1"><i class="fa fa-check"></i><b>C.1.3</b> Deriving Formulas for Markovian Single Queue Systems</a></li>
+</ul></li>
+<li class="chapter" data-level="C.2" data-path="appqts1sb2.html"><a href="appqts1sb2.html"><i class="fa fa-check"></i><b>C.2</b> Examples and Applications of Queueing Analysis</a>
+<ul>
+<li class="chapter" data-level="C.2.1" data-path="appqts1sb2.html"><a href="appqts1sb2.html#infinite-queue-examples"><i class="fa fa-check"></i><b>C.2.1</b> Infinite Queue Examples</a></li>
+<li class="chapter" data-level="C.2.2" data-path="appqts1sb2.html"><a href="appqts1sb2.html#finite-queue-examples"><i class="fa fa-check"></i><b>C.2.2</b> Finite Queue Examples</a></li>
+</ul></li>
+<li class="chapter" data-level="C.3" data-path="appqts1sb3.html"><a href="appqts1sb3.html"><i class="fa fa-check"></i><b>C.3</b> Non-Markovian Queues and Approximations</a></li>
+<li class="chapter" data-level="C.4" data-path="appqtsecformulas.html"><a href="appqtsecformulas.html"><i class="fa fa-check"></i><b>C.4</b> Summary of Queueing Formulas</a>
+<ul>
+<li class="chapter" data-level="C.4.1" data-path="appqtsecformulas.html"><a href="appqtsecformulas.html#mm1-queue"><i class="fa fa-check"></i><b>C.4.1</b> M/M/1 Queue</a></li>
+<li class="chapter" data-level="C.4.2" data-path="appqtsecformulas.html"><a href="appqtsecformulas.html#mmc-queue"><i class="fa fa-check"></i><b>C.4.2</b> M/M/c Queue</a></li>
+<li class="chapter" data-level="C.4.3" data-path="appqtsecformulas.html"><a href="appqtsecformulas.html#mmck-queue"><i class="fa fa-check"></i><b>C.4.3</b> M/M/c/k Queue</a></li>
+<li class="chapter" data-level="C.4.4" data-path="appqtsecformulas.html"><a href="appqtsecformulas.html#mgcc-queue"><i class="fa fa-check"></i><b>C.4.4</b> M/G/c/c Queue</a></li>
+<li class="chapter" data-level="C.4.5" data-path="appqtsecformulas.html"><a href="appqtsecformulas.html#mm1k-queue"><i class="fa fa-check"></i><b>C.4.5</b> M/M/1/k Queue</a></li>
+<li class="chapter" data-level="C.4.6" data-path="appqtsecformulas.html"><a href="appqtsecformulas.html#mmck-queue-1"><i class="fa fa-check"></i><b>C.4.6</b> M/M/c/k Queue</a></li>
+<li class="chapter" data-level="C.4.7" data-path="appqtsecformulas.html"><a href="appqtsecformulas.html#mm1kk-queue"><i class="fa fa-check"></i><b>C.4.7</b> M/M/1/k/k Queue</a></li>
+<li class="chapter" data-level="C.4.8" data-path="appqtsecformulas.html"><a href="appqtsecformulas.html#mmckk-queue"><i class="fa fa-check"></i><b>C.4.8</b> M/M/c/k/k Queue</a></li>
+</ul></li>
+<li class="chapter" data-level="C.5" data-path="exercises-12.html"><a href="exercises-12.html"><i class="fa fa-check"></i><b>C.5</b> Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="D" data-path="appUtilities.html"><a href="appUtilities.html"><i class="fa fa-check"></i><b>D</b> KSL Utility Packages</a>
+<ul>
+<li class="chapter" data-level="D.1" data-path="the-outputdirectory-class-and-ksl-object.html"><a href="the-outputdirectory-class-and-ksl-object.html"><i class="fa fa-check"></i><b>D.1</b> The <code>OutputDirectory</code> Class and <code>KSL</code> Object</a></li>
+<li class="chapter" data-level="D.2" data-path="logging-options.html"><a href="logging-options.html"><i class="fa fa-check"></i><b>D.2</b> Logging Options</a></li>
+<li class="chapter" data-level="D.3" data-path="the-kslfileutil-object.html"><a href="the-kslfileutil-object.html"><i class="fa fa-check"></i><b>D.3</b> The <code>KSLFileUtil</code> Object</a></li>
+<li class="chapter" data-level="D.4" data-path="appDCSVEtc.html"><a href="appDCSVEtc.html"><i class="fa fa-check"></i><b>D.4</b> CSV, Excel, and Tabular Data Files</a></li>
+<li class="chapter" data-level="D.5" data-path="dfUtil.html"><a href="dfUtil.html"><i class="fa fa-check"></i><b>D.5</b> The <code>DataFrameUtil</code> Object</a></li>
+<li class="chapter" data-level="D.6" data-path="ksl-database-utilities.html"><a href="ksl-database-utilities.html"><i class="fa fa-check"></i><b>D.6</b> KSL Database Utilities</a></li>
+<li class="chapter" data-level="D.7" data-path="appUtilitiesArrays.html"><a href="appUtilitiesArrays.html"><i class="fa fa-check"></i><b>D.7</b> Array Utilities</a></li>
+<li class="chapter" data-level="D.8" data-path="appPlotting.html"><a href="appPlotting.html"><i class="fa fa-check"></i><b>D.8</b> KSL Plotting Utilities</a></li>
+<li class="chapter" data-level="D.9" data-path="appUtilitiesMisc.html"><a href="appUtilitiesMisc.html"><i class="fa fa-check"></i><b>D.9</b> Miscellaneous Utilities</a></li>
+</ul></li>
+<li class="chapter" data-level="E" data-path="distributions.html"><a href="distributions.html"><i class="fa fa-check"></i><b>E</b> Distributions</a>
+<ul>
+<li class="chapter" data-level="E.1" data-path="appDiscreteDistributions.html"><a href="appDiscreteDistributions.html"><i class="fa fa-check"></i><b>E.1</b> Discrete Distrbutions</a></li>
+<li class="chapter" data-level="E.2" data-path="appContinuousDistributions.html"><a href="appContinuousDistributions.html"><i class="fa fa-check"></i><b>E.2</b> Continuous Distrbutions</a></li>
+</ul></li>
+<li class="chapter" data-level="F" data-path="appStatTables.html"><a href="appStatTables.html"><i class="fa fa-check"></i><b>F</b> Statistical Tables</a></li>
+<li class="chapter" data-level="G" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i><b>G</b> References</a></li>
+<li class="divider"></li>
+<li><a href="https://bookdown.org" target="_blank">Published with bookdown</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Simulation Modeling using the Kotlin Simulation Library (KSL)</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="the-tie-dye-t-shirt-model" class="section level2 hasAnchor" number="6.6">
+<h2><span class="header-section-number">6.6</span> The Tie-Dye T-Shirt Model<a href="the-tie-dye-t-shirt-model.html#the-tie-dye-t-shirt-model" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>This section presents another process modeling situation using the KSL. In this modeling situation the key feature to be illustrated is the use of a <code>BlockingQueue</code> to communicate and coordinate between two processes. We will also see that a process can spawn another process.</p>
+<hr />
+<div class="example">
+<p><span id="exm:exTieDyeTShirts" class="example"><strong>Example 6.9  (Tie Dye T-Shirts System) </strong></span>Suppose production orders for tie-dye T-shirts arrive to a production
+facility according to a Poisson process with a mean rate of 1 per hour.
+There are two basic psychedelic designs involving either red or blue
+dye. For some reason the blue shirts are a little more popular than the
+red shirts so that when an order arrives about 70% of the time it is for
+the blue dye designs. In addition, there are two different package sizes
+for the shirts, 3 and 5 units. There is a 25% chance that the order will
+be for a package size of 5 and a 75% chance that the order will be for a
+package size of 3. Each of the shirts must be individually hand made to
+the customer’s order design specifications. The time to produce a shirt
+(of either color) is uniformly distributed within the range of 15 to 25
+minutes. There are currently two workers who are setup to make either
+shirt. When an order arrives to the facility, its type (red or blue) is
+determined and the pack size is determined. Then, the appropriate number
+of white (un-dyed) shirts are sent to the shirt makers with a note
+pinned to the shirt indicating the customer order, its basic design, and
+the pack size for the order. Meanwhile, the paperwork for the order is
+processed and a customized packaging letter and box is prepared to hold
+the order. It takes another worker between 8 to 10 minutes to make the
+box and print a custom thank you note. After the packaging is made it
+waits prior to final inspection for the shirts associated with the
+order. After the shirts are combined with the packaging, they are
+inspected by the packaging worker which is distributed according to a
+triangular distribution with a minimum of 5 minutes, a most likely value
+of 10 minutes, and a maximum value of 15 minutes. Finally, the boxed
+customer order is sent to shipping.</p>
+</div>
+<hr />
+<div id="ch4:TieDyeTShirtsSub1" class="section level3 hasAnchor" number="6.6.1">
+<h3><span class="header-section-number">6.6.1</span> Implementing the Tie-Dye T-Shirt Model<a href="the-tie-dye-t-shirt-model.html#ch4:TieDyeTShirtsSub1" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Before proceeding you might want to jot down your answers to the
+modeling recipe questions and then you can compare how you are doing
+with respect to what is presented in this section. The modeling recipe
+questions are:</p>
+<ul>
+<li><p>What is the system? What information is known by the system?</p></li>
+<li><p>What are the required performance measures?</p></li>
+<li><p>What are the entities? What information must be recorded or
+remembered for each entity? How are entities introduced into the
+system?</p></li>
+<li><p>What are the resources that are used by the entities? Which entities
+use which resources and how?</p></li>
+<li><p>What are the process flows? Sketch the process or make an activity
+flow diagram</p></li>
+<li><p>Develop pseudo-code for the situation</p></li>
+<li><p>Implement the model</p></li>
+</ul>
+<p>The entities can be conceptualized as the arriving orders. Since the
+shirts are processed individually, they should also be considered
+entities. In addition, the type of order (red or blue) and the size of
+the order (3 or 5) must be tracked. Since the type of the order and the
+size of the order are properties of the order, attributes can be used to
+model this information. The resources are the two shirt makers and the
+packager. The flow is described in the scenario statement: orders
+arrive, shirts are made, meanwhile packaging is made. Then, orders are
+assembled, inspected, and finally shipped. It should be clear that a
+an <code>EntityGenerator</code> can be used to generate Poisson arrivals can create the orders,
+but if shirts are entities, how should they be created?</p>
+<p>To create the shirts, the order process start the shirt making process based
+on the size of the order. After this, there will be two types of
+entities in the model, the orders and the shirts. The shirts can be made
+and meanwhile the order can be processed. After the shirts for an order
+are made, they need to be combined together and then matched for the
+order. This implies that a method is required to uniquely identify the
+order and coordinating between the processes. This is another piece of information that both the order and the
+shirt require. Thus, an attribute will be used to note the order number.</p>
+<p>The activity diagram for this situation is given in
+Figure <a href="the-tie-dye-t-shirt-model.html#fig:ch6TieDyeTShirtsActivityDiagram">6.14</a>. After the order is created, the
+process separates into the order making process and the shirt making
+process. Notice that the orders and shirts must be synchronized together
+after each of these processes. In addition, the order making process and
+the final packaging process share the packager as a resource.</p>
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:ch6TieDyeTShirtsActivityDiagram"></span>
+<img src="figures2/ch6/TieDyeTShirtsActivityDiagram.png" alt="Activity diagram for Tie Dye T-Shirts example" width="70%" height="70%" />
+<p class="caption">
+Figure 6.14: Activity diagram for Tie Dye T-Shirts example
+</p>
+</div>
+<p>Just as in the previous example, you should start by subclassing from <code>ProcessModel</code> and add the necessary random variables and responses. This is illustrated in the following code. In this situation, we use a discrete empirical distribution to model the type and size of the order. The other random variables are straight forward applications of the <code>RandomVariable</code> class. We define two responses to track the total time in the system and the total number of orders in the system.</p>
+<div class="sourceCode" id="cb251"><pre class="sourceCode kt"><code class="sourceCode kotlin"><span id="cb251-1"><a href="the-tie-dye-t-shirt-model.html#cb251-1" tabindex="-1"></a><span class="kw">class</span> TieDyeTShirts<span class="op">(</span></span>
+<span id="cb251-2"><a href="the-tie-dye-t-shirt-model.html#cb251-2" tabindex="-1"></a>    <span class="va">parent</span><span class="op">:</span> <span class="dt">ModelElement</span><span class="op">,</span></span>
+<span id="cb251-3"><a href="the-tie-dye-t-shirt-model.html#cb251-3" tabindex="-1"></a>    <span class="va">name</span><span class="op">:</span> <span class="dt">String</span><span class="op">?</span> <span class="op">=</span> null</span>
+<span id="cb251-4"><a href="the-tie-dye-t-shirt-model.html#cb251-4" tabindex="-1"></a><span class="op">)</span> <span class="op">:</span> <span class="dt">ProcessModel</span><span class="op">(</span><span class="va">parent</span><span class="op">,</span> <span class="va">name</span><span class="op">)</span> <span class="op">{</span></span>
+<span id="cb251-5"><a href="the-tie-dye-t-shirt-model.html#cb251-5" tabindex="-1"></a></span>
+<span id="cb251-6"><a href="the-tie-dye-t-shirt-model.html#cb251-6" tabindex="-1"></a>    <span class="kw">private</span> <span class="kw">val</span> <span class="va">myTBOrders</span><span class="op">:</span> RVariableIfc <span class="op">=</span> ExponentialRV<span class="op">(</span><span class="fl">60.0</span><span class="op">)</span></span>
+<span id="cb251-7"><a href="the-tie-dye-t-shirt-model.html#cb251-7" tabindex="-1"></a>    <span class="kw">private</span> <span class="kw">val</span> <span class="va">myType</span><span class="op">:</span> RVariableIfc <span class="op">=</span> DEmpiricalRV<span class="op">(</span>doubleArrayOf<span class="op">(</span><span class="fl">1.0</span><span class="op">,</span> <span class="fl">2.0</span><span class="op">),</span> doubleArrayOf<span class="op">(</span><span class="fl">0.7</span><span class="op">,</span> <span class="fl">1.0</span><span class="op">))</span></span>
+<span id="cb251-8"><a href="the-tie-dye-t-shirt-model.html#cb251-8" tabindex="-1"></a>    <span class="kw">private</span> <span class="kw">val</span> <span class="va">mySize</span><span class="op">:</span> RVariableIfc <span class="op">=</span> DEmpiricalRV<span class="op">(</span>doubleArrayOf<span class="op">(</span><span class="fl">3.0</span><span class="op">,</span> <span class="fl">5.0</span><span class="op">),</span> doubleArrayOf<span class="op">(</span><span class="fl">0.75</span><span class="op">,</span> <span class="fl">1.0</span><span class="op">))</span></span>
+<span id="cb251-9"><a href="the-tie-dye-t-shirt-model.html#cb251-9" tabindex="-1"></a>    <span class="kw">private</span> <span class="kw">val</span> <span class="va">myOrderSize</span> <span class="op">=</span> RandomVariable<span class="op">(</span><span class="kw">this</span><span class="op">,</span> mySize<span class="op">)</span></span>
+<span id="cb251-10"><a href="the-tie-dye-t-shirt-model.html#cb251-10" tabindex="-1"></a>    <span class="kw">private</span> <span class="kw">val</span> <span class="va">myOrderType</span> <span class="op">=</span> RandomVariable<span class="op">(</span><span class="kw">this</span><span class="op">,</span> myType<span class="op">)</span></span>
+<span id="cb251-11"><a href="the-tie-dye-t-shirt-model.html#cb251-11" tabindex="-1"></a>    <span class="kw">private</span> <span class="kw">val</span> <span class="va">myShirtMakingTime</span> <span class="op">=</span> RandomVariable<span class="op">(</span><span class="kw">this</span><span class="op">,</span> UniformRV<span class="op">(</span><span class="fl">15.0</span><span class="op">,</span> <span class="fl">25.0</span><span class="op">))</span></span>
+<span id="cb251-12"><a href="the-tie-dye-t-shirt-model.html#cb251-12" tabindex="-1"></a>    <span class="kw">private</span> <span class="kw">val</span> <span class="va">myPaperWorkTime</span> <span class="op">=</span> RandomVariable<span class="op">(</span><span class="kw">this</span><span class="op">,</span> UniformRV<span class="op">(</span><span class="fl">8.0</span><span class="op">,</span> <span class="fl">10.0</span><span class="op">))</span></span>
+<span id="cb251-13"><a href="the-tie-dye-t-shirt-model.html#cb251-13" tabindex="-1"></a>    <span class="kw">private</span> <span class="kw">val</span> <span class="va">myPackagingTime</span> <span class="op">=</span> RandomVariable<span class="op">(</span><span class="kw">this</span><span class="op">,</span> TriangularRV<span class="op">(</span><span class="fl">5.0</span><span class="op">,</span> <span class="fl">10.0</span><span class="op">,</span> <span class="fl">15.0</span><span class="op">))</span></span>
+<span id="cb251-14"><a href="the-tie-dye-t-shirt-model.html#cb251-14" tabindex="-1"></a></span>
+<span id="cb251-15"><a href="the-tie-dye-t-shirt-model.html#cb251-15" tabindex="-1"></a>    <span class="kw">private</span> <span class="kw">val</span> <span class="va">mySystemTime</span> <span class="op">=</span> Response<span class="op">(</span><span class="kw">this</span><span class="op">,</span> <span class="st">&quot;System Time&quot;</span><span class="op">)</span></span>
+<span id="cb251-16"><a href="the-tie-dye-t-shirt-model.html#cb251-16" tabindex="-1"></a>    <span class="kw">private</span> <span class="kw">val</span> <span class="va">myNumInSystem</span> <span class="op">=</span> TWResponse<span class="op">(</span><span class="kw">this</span><span class="op">,</span> <span class="st">&quot;Num in System&quot;</span><span class="op">)</span></span></code></pre></div>
+<p>Now we can develop the process modeling constructs. We will use an <code>EntityGenerator,</code> resources to represent the shirt makers and the packager. Notice that we use a <code>RequestQ</code> to represent the queue for the orders. A <code>RequestQ</code> is a subclass of the Queue class that is specifically designed to work with seize requests for resources. In general, the <code>seize()</code> suspend function allows both the specification of the resource being seized and the queue that will hold the entity if the seize request is not immediately filled. As noted in the activity diagram, there are actually two queues involving the use of the packager. The queue that holds the orders and a queue that holds the completed orders for final packaging. We will see the use of these constructs in the process description. Finally, we use an instance of a <code>BlockingQueue</code> to hold completed shirts and communicate that they are ready.</p>
+<div class="sourceCode" id="cb252"><pre class="sourceCode kt"><code class="sourceCode kotlin"><span id="cb252-1"><a href="the-tie-dye-t-shirt-model.html#cb252-1" tabindex="-1"></a>    <span class="kw">private</span> <span class="kw">val</span> <span class="va">myShirtMakers</span><span class="op">:</span> ResourceWithQ <span class="op">=</span> ResourceWithQ<span class="op">(</span><span class="kw">this</span><span class="op">,</span> capacity <span class="op">=</span> <span class="dv">2</span><span class="op">,</span> name <span class="op">=</span> <span class="st">&quot;ShirtMakers_R&quot;</span><span class="op">)</span></span>
+<span id="cb252-2"><a href="the-tie-dye-t-shirt-model.html#cb252-2" tabindex="-1"></a>    <span class="kw">private</span> <span class="kw">val</span> <span class="va">myOrderQ</span> <span class="op">:</span> RequestQ <span class="op">=</span> RequestQ<span class="op">(</span><span class="kw">this</span><span class="op">,</span> name <span class="op">=</span> <span class="st">&quot;OrderQ&quot;</span><span class="op">)</span></span>
+<span id="cb252-3"><a href="the-tie-dye-t-shirt-model.html#cb252-3" tabindex="-1"></a>    <span class="kw">private</span> <span class="kw">val</span> <span class="va">myPackager</span><span class="op">:</span> ResourceWithQ <span class="op">=</span> ResourceWithQ<span class="op">(</span><span class="kw">this</span><span class="op">,</span> <span class="st">&quot;Packager_R&quot;</span><span class="op">)</span></span>
+<span id="cb252-4"><a href="the-tie-dye-t-shirt-model.html#cb252-4" tabindex="-1"></a>    <span class="kw">private</span> <span class="kw">val</span> <span class="va">generator</span> <span class="op">=</span> EntityGenerator<span class="op">(::</span>Order<span class="op">,</span> myTBOrders<span class="op">,</span> myTBOrders<span class="op">)</span></span>
+<span id="cb252-5"><a href="the-tie-dye-t-shirt-model.html#cb252-5" tabindex="-1"></a>    <span class="kw">private</span> <span class="kw">val</span> <span class="va">completedShirtQ</span><span class="op">:</span> BlockingQueue<span class="op">&lt;</span>Shirt<span class="op">&gt;</span> <span class="op">=</span> BlockingQueue<span class="op">(</span><span class="kw">this</span><span class="op">,</span> name <span class="op">=</span> <span class="st">&quot;Completed Shirt Q&quot;</span><span class="op">)</span></span></code></pre></div>
+<p>The order process follows the basic outline of the activity diagram. As we have previously seen, we design a class to represent the orders and the order making process by creating a subclass of the <code>Entity</code> class. Similar to the previous examples, this code uses two properties to hold the type and size of the order and assigns their values based on the random variable instances of the outer class. As note in the code, the <code>type</code> property is never used in the rest of the model; however, it could be useful if we wanted to count the type of shirts produced or for other statistics by type. We also have a list to hold the complete orders. Again, as noted in the code, the list is not really used in a meaningful manner. In this case, it is used to capture the list of items from the <code>waitForItems()</code> function, but not subsequently used. If a future process required the created shirts, then the list could be useful.</p>
+<div class="sourceCode" id="cb253"><pre class="sourceCode kt"><code class="sourceCode kotlin"><span id="cb253-1"><a href="the-tie-dye-t-shirt-model.html#cb253-1" tabindex="-1"></a>    <span class="kw">private</span> <span class="kw">inner</span> <span class="kw">class</span> Order<span class="op">:</span> <span class="dt">Entity</span><span class="op">()</span> <span class="op">{</span></span>
+<span id="cb253-2"><a href="the-tie-dye-t-shirt-model.html#cb253-2" tabindex="-1"></a>        <span class="kw">val</span> <span class="va">type</span><span class="op">:</span> <span class="kw">Int</span> <span class="op">=</span> myOrderType<span class="op">.</span>value<span class="op">.</span>toInt<span class="op">()</span> <span class="co">// in the problem, but not really used</span></span>
+<span id="cb253-3"><a href="the-tie-dye-t-shirt-model.html#cb253-3" tabindex="-1"></a>        <span class="kw">val</span> <span class="va">size</span><span class="op">:</span> <span class="kw">Int</span> <span class="op">=</span> myOrderSize<span class="op">.</span>value<span class="op">.</span>toInt<span class="op">()</span></span>
+<span id="cb253-4"><a href="the-tie-dye-t-shirt-model.html#cb253-4" tabindex="-1"></a>        <span class="kw">var</span> <span class="va">completedShirts</span> <span class="op">:</span> List<span class="op">&lt;</span>Shirt<span class="op">&gt;</span> <span class="op">=</span> emptyList<span class="op">()</span> <span class="co">// not really necessary</span></span>
+<span id="cb253-5"><a href="the-tie-dye-t-shirt-model.html#cb253-5" tabindex="-1"></a></span>
+<span id="cb253-6"><a href="the-tie-dye-t-shirt-model.html#cb253-6" tabindex="-1"></a>        <span class="kw">val</span> <span class="va">orderMaking</span><span class="op">:</span> KSLProcess <span class="op">=</span> process<span class="op">(</span>isDefaultProcess <span class="op">=</span> <span class="kw">true</span><span class="op">)</span> <span class="op">{</span></span>
+<span id="cb253-7"><a href="the-tie-dye-t-shirt-model.html#cb253-7" tabindex="-1"></a>            myNumInSystem<span class="op">.</span>increment<span class="op">()</span></span>
+<span id="cb253-8"><a href="the-tie-dye-t-shirt-model.html#cb253-8" tabindex="-1"></a>            <span class="cf">for</span> <span class="op">(</span>i <span class="kw">in</span> <span class="fl">1.</span><span class="op">.</span>size<span class="op">)</span> <span class="op">{</span></span>
+<span id="cb253-9"><a href="the-tie-dye-t-shirt-model.html#cb253-9" tabindex="-1"></a>                <span class="kw">val</span> <span class="va">shirt</span> <span class="op">=</span> Shirt<span class="op">(</span>this<span class="at">@Order</span><span class="op">.</span>id<span class="op">)</span></span>
+<span id="cb253-10"><a href="the-tie-dye-t-shirt-model.html#cb253-10" tabindex="-1"></a>                activate<span class="op">(</span>shirt<span class="op">.</span>shirtMaking<span class="op">)</span></span>
+<span id="cb253-11"><a href="the-tie-dye-t-shirt-model.html#cb253-11" tabindex="-1"></a>            <span class="op">}</span></span>
+<span id="cb253-12"><a href="the-tie-dye-t-shirt-model.html#cb253-12" tabindex="-1"></a>            <span class="kw">var</span> <span class="va">a</span> <span class="op">=</span> seize<span class="op">(</span>myPackager<span class="op">,</span> queue <span class="op">=</span> myOrderQ<span class="op">)</span></span>
+<span id="cb253-13"><a href="the-tie-dye-t-shirt-model.html#cb253-13" tabindex="-1"></a>            delay<span class="op">(</span>myPaperWorkTime<span class="op">)</span></span>
+<span id="cb253-14"><a href="the-tie-dye-t-shirt-model.html#cb253-14" tabindex="-1"></a>            release<span class="op">(</span>a<span class="op">)</span></span>
+<span id="cb253-15"><a href="the-tie-dye-t-shirt-model.html#cb253-15" tabindex="-1"></a>            <span class="co">// wait for shirts</span></span>
+<span id="cb253-16"><a href="the-tie-dye-t-shirt-model.html#cb253-16" tabindex="-1"></a>            completedShirts <span class="op">=</span> waitForItems<span class="op">(</span>completedShirtQ<span class="op">,</span> size<span class="op">,</span> <span class="op">{</span> it<span class="op">.</span>orderNum <span class="op">==</span> this<span class="at">@Order</span><span class="op">.</span>id <span class="op">})</span></span>
+<span id="cb253-17"><a href="the-tie-dye-t-shirt-model.html#cb253-17" tabindex="-1"></a>            a <span class="op">=</span> seize<span class="op">(</span>myPackager<span class="op">)</span></span>
+<span id="cb253-18"><a href="the-tie-dye-t-shirt-model.html#cb253-18" tabindex="-1"></a>            delay<span class="op">(</span>myPackagingTime<span class="op">)</span></span>
+<span id="cb253-19"><a href="the-tie-dye-t-shirt-model.html#cb253-19" tabindex="-1"></a>            release<span class="op">(</span>a<span class="op">)</span></span>
+<span id="cb253-20"><a href="the-tie-dye-t-shirt-model.html#cb253-20" tabindex="-1"></a>            myNumInSystem<span class="op">.</span>decrement<span class="op">()</span></span>
+<span id="cb253-21"><a href="the-tie-dye-t-shirt-model.html#cb253-21" tabindex="-1"></a>            mySystemTime<span class="op">.</span>value <span class="op">=</span> time <span class="op">-</span> this<span class="at">@Order</span><span class="op">.</span>createTime</span>
+<span id="cb253-22"><a href="the-tie-dye-t-shirt-model.html#cb253-22" tabindex="-1"></a>        <span class="op">}</span></span>
+<span id="cb253-23"><a href="the-tie-dye-t-shirt-model.html#cb253-23" tabindex="-1"></a>    <span class="op">}</span></span></code></pre></div>
+<p>When the order making process is activated, there is a for-loop that makes the shirts and activates the shirt making process. This activates the process at the current time. It is important to note that the activated shirt making processes are scheduled to be activated at the current time. Since those events are on the event calendar, they will not be executed until the current event finishes. The current event is essentially the code in the process before the next suspension point. This provides the notion of pseudo-parallelism. The shirt making processes are really pending activation.</p>
+<p>Meanwhile, the order continues with its process by using the packager in the classic <em>(seize-delay-release)</em> pattern. However, note the signature of the <code>seize()</code> method, which specifies the queue for waiting orders.</p>
+<div class="sourceCode" id="cb254"><pre class="sourceCode kt"><code class="sourceCode kotlin"><span id="cb254-1"><a href="the-tie-dye-t-shirt-model.html#cb254-1" tabindex="-1"></a>    <span class="kw">var</span> <span class="va">a</span> <span class="op">=</span> seize<span class="op">(</span>myPackager<span class="op">,</span> queue <span class="op">=</span> myOrderQ<span class="op">)</span></span></code></pre></div>
+<p>Thus, this use of the packager causes the entity (the order) to wait in the queue for orders. The later seize of the packager cause the order to wait in the pre-defined queue associated with the <code>ResourceWithQ</code> class defined for the packager.</p>
+<p>After the paper work is done, the order is ready to start final packaging if it has the shirts associated with the order. This is where the blocking queue is used. The <code>waitForItems()</code> call will be explained more fully shortly. However, at this point, we can think of the order waiting for the correct number of shirts to arrive that are associated with this particular order. After the shirts arrive, the order process continues and again seizes the packager for the packaging time. In this usage of the <code>seize()</code> method, we need only specify an instance of a <code>ResourceWithQ.</code> A <code>ResourceWithQ</code> has a pre-defined <code>RequestQ</code> that holds the requests for the resource. We see that it is simple to share a resource between two different activities. The <code>seize()</code> method also takes in an optional argument that specifies the priority of the seize request. If there are more that one suspending <code>seize()</code> functions that compete for the same resource, you can used the priority parameter to specify which seize request has the priority if more than one is waiting at the same time. Finally, the statistics on the order are collected before its process ends. Now, let’s look at the shirt making process.</p>
+<div class="sourceCode" id="cb255"><pre class="sourceCode kt"><code class="sourceCode kotlin"><span id="cb255-1"><a href="the-tie-dye-t-shirt-model.html#cb255-1" tabindex="-1"></a>    <span class="kw">private</span> <span class="kw">inner</span> <span class="kw">class</span> Shirt<span class="op">(</span><span class="kw">val</span> <span class="va">orderNum</span><span class="op">:</span> <span class="dt">Long</span><span class="op">):</span> <span class="dt">Entity</span><span class="op">()</span> <span class="op">{</span></span>
+<span id="cb255-2"><a href="the-tie-dye-t-shirt-model.html#cb255-2" tabindex="-1"></a>        <span class="kw">val</span> <span class="va">shirtMaking</span><span class="op">:</span> KSLProcess <span class="op">=</span> process<span class="op">(</span> <span class="st">&quot;Shirt Making&quot;</span><span class="op">){</span></span>
+<span id="cb255-3"><a href="the-tie-dye-t-shirt-model.html#cb255-3" tabindex="-1"></a>            <span class="kw">val</span> <span class="va">a</span> <span class="op">=</span> seize<span class="op">(</span>myShirtMakers<span class="op">)</span></span>
+<span id="cb255-4"><a href="the-tie-dye-t-shirt-model.html#cb255-4" tabindex="-1"></a>            delay<span class="op">(</span>myShirtMakingTime<span class="op">)</span></span>
+<span id="cb255-5"><a href="the-tie-dye-t-shirt-model.html#cb255-5" tabindex="-1"></a>            release<span class="op">(</span>a<span class="op">)</span></span>
+<span id="cb255-6"><a href="the-tie-dye-t-shirt-model.html#cb255-6" tabindex="-1"></a>            <span class="co">// send to orders</span></span>
+<span id="cb255-7"><a href="the-tie-dye-t-shirt-model.html#cb255-7" tabindex="-1"></a>            send<span class="op">(</span>this<span class="at">@Shirt</span><span class="op">,</span> completedShirtQ<span class="op">)</span></span>
+<span id="cb255-8"><a href="the-tie-dye-t-shirt-model.html#cb255-8" tabindex="-1"></a>        <span class="op">}</span></span>
+<span id="cb255-9"><a href="the-tie-dye-t-shirt-model.html#cb255-9" tabindex="-1"></a>    <span class="op">}</span></span></code></pre></div>
+<p>The shirt making process is constructed based on a different entity that represents what happens to a shirt. There are a couple of interesting things to note. First a property <code>orderNum</code> is defined using Kotlin’s <a href="https://kotlinlang.org/docs/classes.html#constructors">concise syntax</a> for declaring properties in the default constructor. The property <code>orderNum</code> is used to identify, for the shirt, which order created it. Then, the shirt uses the shirt makers resource to make the shirt via the <em>(seize-delay-release)</em> code.</p>
+<p>Finally, the blocking queue that was defined as part of the process model is used to send a reference to the shirt to the channel queue that connects the shirt process with the ordering process. A Kotlin <a href="https://kotlinlang.org/docs/this-expressions.html">qualified this</a> reference must be used to identify the shirt within the <code>KSLProcessBuilder.</code> As the shirts are made, they are sent to the channel. When the correct number of shirts for the order are made the waiting order can pull them from the channel and continue with its process. Now, let’s take a closer look at the blocking code statement in the order process:</p>
+<div class="sourceCode" id="cb256"><pre class="sourceCode kt"><code class="sourceCode kotlin"><span id="cb256-1"><a href="the-tie-dye-t-shirt-model.html#cb256-1" tabindex="-1"></a>completedShirts <span class="op">=</span> waitForItems<span class="op">(</span>completedShirtQ<span class="op">,</span> size<span class="op">,</span> <span class="op">{</span>it<span class="op">.</span>orderNum <span class="op">==</span> this<span class="at">@Order</span><span class="op">.</span>id<span class="op">})</span></span></code></pre></div>
+<p>To understand this code fragment, we need to see some of the implementation of the <code>BlockingQueue</code> class and the suspend functions that are using it. The signature of this method is as follows:</p>
+<div class="sourceCode" id="cb257"><pre class="sourceCode kt"><code class="sourceCode kotlin"><span id="cb257-1"><a href="the-tie-dye-t-shirt-model.html#cb257-1" tabindex="-1"></a>    <span class="co">/**</span></span>
+<span id="cb257-2"><a href="the-tie-dye-t-shirt-model.html#cb257-2" tabindex="-1"></a><span class="co">     * This method will block (suspend) until the required number of items that meet the criteria</span></span>
+<span id="cb257-3"><a href="the-tie-dye-t-shirt-model.html#cb257-3" tabindex="-1"></a><span class="co">     * become available within the blocking queue.</span></span>
+<span id="cb257-4"><a href="the-tie-dye-t-shirt-model.html#cb257-4" tabindex="-1"></a><span class="co">     *</span></span>
+<span id="cb257-5"><a href="the-tie-dye-t-shirt-model.html#cb257-5" tabindex="-1"></a><span class="co">     * @param blockingQ the blocking queue channel that has the items</span></span>
+<span id="cb257-6"><a href="the-tie-dye-t-shirt-model.html#cb257-6" tabindex="-1"></a><span class="co">     * @param amount the number of items needed from the blocking queue that match the criteria</span></span>
+<span id="cb257-7"><a href="the-tie-dye-t-shirt-model.html#cb257-7" tabindex="-1"></a><span class="co">     * @param predicate a functional predicate that tests items in the queue for the criteria</span></span>
+<span id="cb257-8"><a href="the-tie-dye-t-shirt-model.html#cb257-8" tabindex="-1"></a><span class="co">     * @param blockingPriority the priority associated with the entity if it has to wait to receive</span></span>
+<span id="cb257-9"><a href="the-tie-dye-t-shirt-model.html#cb257-9" tabindex="-1"></a><span class="co">     * @param suspensionName the name of the suspension point. can be used to identify which receive suspension point</span></span>
+<span id="cb257-10"><a href="the-tie-dye-t-shirt-model.html#cb257-10" tabindex="-1"></a><span class="co">     * the entity is experiencing if there are more than one receive suspension points within the process.</span></span>
+<span id="cb257-11"><a href="the-tie-dye-t-shirt-model.html#cb257-11" tabindex="-1"></a><span class="co">     * The user is responsible for uniqueness.</span></span>
+<span id="cb257-12"><a href="the-tie-dye-t-shirt-model.html#cb257-12" tabindex="-1"></a><span class="co">     */</span></span>
+<span id="cb257-13"><a href="the-tie-dye-t-shirt-model.html#cb257-13" tabindex="-1"></a>    suspend <span class="kw">fun</span> <span class="op">&lt;</span><span class="dt">T</span> <span class="op">:</span> <span class="dt">ModelElement</span>.<span class="dt">QObject</span><span class="op">&gt;</span> <span class="fu">waitForItems</span><span class="op">(</span></span>
+<span id="cb257-14"><a href="the-tie-dye-t-shirt-model.html#cb257-14" tabindex="-1"></a>        <span class="va">blockingQ</span><span class="op">:</span> <span class="dt">BlockingQueue</span>&lt;<span class="va">T</span>&gt;<span class="op">,</span></span>
+<span id="cb257-15"><a href="the-tie-dye-t-shirt-model.html#cb257-15" tabindex="-1"></a>        <span class="va">amount</span><span class="op">:</span> <span class="dt">Int</span> <span class="op">=</span> <span class="dv">1</span><span class="op">,</span></span>
+<span id="cb257-16"><a href="the-tie-dye-t-shirt-model.html#cb257-16" tabindex="-1"></a>        <span class="va">predicate</span><span class="op">:</span> <span class="op">(</span><span class="dt">T</span><span class="op">)</span> <span class="op">-&gt;</span> <span class="dt">Boolean</span> <span class="op">=</span> alwaysTrue<span class="op">,</span></span>
+<span id="cb257-17"><a href="the-tie-dye-t-shirt-model.html#cb257-17" tabindex="-1"></a>        <span class="va">blockingPriority</span><span class="op">:</span> <span class="dt">Int</span> <span class="op">=</span> KSLEvent<span class="op">.</span>DEFAULT_PRIORITY<span class="op">,</span></span>
+<span id="cb257-18"><a href="the-tie-dye-t-shirt-model.html#cb257-18" tabindex="-1"></a>        <span class="va">suspensionName</span><span class="op">:</span> <span class="dt">String</span><span class="op">?</span> <span class="op">=</span> null</span>
+<span id="cb257-19"><a href="the-tie-dye-t-shirt-model.html#cb257-19" tabindex="-1"></a>    <span class="op">):</span> <span class="dt">List</span><span class="op">&lt;</span><span class="dt">T</span><span class="op">&gt;</span></span></code></pre></div>
+<p>The first thing to note is the parameter <code>amount.</code> This parameter specifies how many items are being requested from the blocking queue. The next parameter is the <code>predicate.</code> This parameter represents a function that takes in the type being held in the queue and returns true or false depending on some condition. In this case, the type is <code>Shirt.</code> This is a common functional idiom found in functional programming languages such as Kotlin. The predicate is defined as <a href="https://kotlinlang.org/docs/lambdas.html#lambda-expressions-and-anonymous-functions">lambda expression</a> that checks if the order number of the shirt <code>it.orderNum</code> is equal to the order number of the current order (<code>this@Order.id</code>). If so, the shirt belongs to the order. Once the specified amount is found within the channel the suspension will end and the ordering process will continue.</p>
+<div class="sourceCode" id="cb258"><pre class="sourceCode kt"><code class="sourceCode kotlin"><span id="cb258-1"><a href="the-tie-dye-t-shirt-model.html#cb258-1" tabindex="-1"></a>completedShirts <span class="op">=</span> waitForItems<span class="op">(</span>completedShirtQ<span class="op">,</span> size<span class="op">,</span> <span class="op">{</span>it<span class="op">.</span>orderNum <span class="op">==</span> this<span class="at">@Order</span><span class="op">.</span>id<span class="op">})</span></span></code></pre></div>
+<p>Whenever an item is sent to a blocking queue, the blocking queue will check to see if there are any receivers waiting for items. If there are receivers waiting for items, then the blocking queue will use the blocking queue’s request selector to select the next request to be filled. The request is examined to see if it can be filled. That is, the blocking queue checks to see if all the items requested that meet the request criteria are in the queue. In this case, the request criteria is specified by the previously mentioned lambda expression. If the request can be filled, the items are given to the waiting receiver and the receiver’s process can continue.</p>
+<p>As discussed in the previous section introducing blocking queues, the default request selector simply looks only at the next waiting request. Other rules for selecting requests can also be provided when configuring the blocking queue. For example, you can provide an instance of a <code>FirstFillableRequest</code> selector as shown in the following code. This class is available as in inner class of <code>BlockingQueue.</code> As can be seen here, this selector will scan the waiting requests and return the first request that can be filled or null if no requests can be filled.</p>
+<div class="sourceCode" id="cb259"><pre class="sourceCode kt"><code class="sourceCode kotlin"><span id="cb259-1"><a href="the-tie-dye-t-shirt-model.html#cb259-1" tabindex="-1"></a>    <span class="co">/**</span></span>
+<span id="cb259-2"><a href="the-tie-dye-t-shirt-model.html#cb259-2" tabindex="-1"></a><span class="co">     * Allows the next request that can be filled to be selected regardless of its</span></span>
+<span id="cb259-3"><a href="the-tie-dye-t-shirt-model.html#cb259-3" tabindex="-1"></a><span class="co">     * location within the request queue.</span></span>
+<span id="cb259-4"><a href="the-tie-dye-t-shirt-model.html#cb259-4" tabindex="-1"></a><span class="co">     */</span></span>
+<span id="cb259-5"><a href="the-tie-dye-t-shirt-model.html#cb259-5" tabindex="-1"></a>    <span class="kw">inner</span> <span class="kw">class</span> FirstFillableRequest<span class="op">()</span> <span class="op">:</span> <span class="dt">RequestSelectorIfc</span><span class="op">&lt;</span><span class="dt">T</span><span class="op">&gt;</span> <span class="op">{</span></span>
+<span id="cb259-6"><a href="the-tie-dye-t-shirt-model.html#cb259-6" tabindex="-1"></a>        <span class="kw">override</span> <span class="kw">fun</span> <span class="fu">selectRequest</span><span class="op">(</span><span class="va">queue</span><span class="op">:</span> <span class="dt">Queue</span>&lt;<span class="va">ChannelRequest</span>&gt;<span class="op">):</span> <span class="dt">ChannelRequest</span><span class="op">?</span> <span class="op">{</span></span>
+<span id="cb259-7"><a href="the-tie-dye-t-shirt-model.html#cb259-7" tabindex="-1"></a>            <span class="cf">for</span> <span class="op">(</span>request <span class="kw">in</span> queue<span class="op">)</span> <span class="op">{</span></span>
+<span id="cb259-8"><a href="the-tie-dye-t-shirt-model.html#cb259-8" tabindex="-1"></a>                <span class="cf">if</span> <span class="op">(</span>request<span class="op">.</span>canBeFilled<span class="op">)</span> <span class="op">{</span></span>
+<span id="cb259-9"><a href="the-tie-dye-t-shirt-model.html#cb259-9" tabindex="-1"></a>                    <span class="kw">return</span> request</span>
+<span id="cb259-10"><a href="the-tie-dye-t-shirt-model.html#cb259-10" tabindex="-1"></a>                <span class="op">}</span></span>
+<span id="cb259-11"><a href="the-tie-dye-t-shirt-model.html#cb259-11" tabindex="-1"></a>            <span class="op">}</span></span>
+<span id="cb259-12"><a href="the-tie-dye-t-shirt-model.html#cb259-12" tabindex="-1"></a>            <span class="kw">return</span> <span class="kw">null</span></span>
+<span id="cb259-13"><a href="the-tie-dye-t-shirt-model.html#cb259-13" tabindex="-1"></a>        <span class="op">}</span></span>
+<span id="cb259-14"><a href="the-tie-dye-t-shirt-model.html#cb259-14" tabindex="-1"></a>    <span class="op">}</span></span></code></pre></div>
+<p>The results of running the Tie-Dye T-Shirt model indicate that there is substantial waiting done by the order until the shirts are completed.</p>
+<pre><code>Half-Width Statistical Summary Report - Confidence Level (95.000)% 
+
+Name                                          Count           Average      Half-Width 
+------------------------------------------------------------------------------------- 
+System Time                                    30         75.4521          7.2003 
+Num in System                                  30          1.2393          0.2535 
+ShirtMakers_R:InstantaneousUtil                30          0.5050          0.0712 
+ShirtMakers_R:NumBusyUnits                     30          1.0100          0.1425 
+ShirtMakers_R:ScheduledUtil                    30          0.5050          0.0712 
+ShirtMakers_R:WIP                              30          2.4023          0.5867 
+ShirtMakers_R:Q:NumInQ                         30          1.3924          0.4646 
+ShirtMakers_R:Q:TimeInQ                        30         21.4801          5.0255 
+OrderQ:NumInQ                                  30          0.1870          0.0880 
+OrderQ:TimeInQ                                 30          8.9210          5.6039 
+Packager_R:InstantaneousUtil                   30          0.2737          0.0406 
+Packager_R:NumBusyUnits                        30          0.2737          0.0406 
+Packager_R:ScheduledUtil                       30          0.2737          0.0406 
+Packager_R:WIP                                 30          0.3958          0.0919 
+Packager_R:Q:NumInQ                            30          0.1221          0.0600 
+Packager_R:Q:TimeInQ                           30          6.8163          2.9580 
+Completed Shirt Q:RequestQ:NumInQ              30          0.6565          0.1435 
+Completed Shirt Q:RequestQ:TimeInQ             30         41.6290          5.1649 
+Completed Shirt Q:ChannelQ:NumInQ              30          1.0645          0.2204 
+Completed Shirt Q:ChannelQ:TimeInQ             30         20.5181          4.8296 
+ShirtMakers_R:SeizeCount                       30         24.6667          3.4923 
+Packager_R:SeizeCount                          30         14.0333          2.0767 
+------------------------------------------------------------------------------------</code></pre>
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="modeling-a-stem-career-mixer.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="summary-2.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"whatsapp": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": null,
+"text": null
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": null,
+"search": {
+"engine": "fuse",
+"options": null
+},
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/latest.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>

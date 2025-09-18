@@ -1,0 +1,1027 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>10.6 Implemented Solvers | Simulation Modeling using the Kotlin Simulation Library (KSL)</title>
+  <meta name="description" content="A book that illustrates the basics of using the KSL. The output format for this book is bookdown::gitbook." />
+  <meta name="generator" content="bookdown 0.40 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="10.6 Implemented Solvers | Simulation Modeling using the Kotlin Simulation Library (KSL)" />
+  <meta property="og:type" content="book" />
+  
+  <meta property="og:description" content="A book that illustrates the basics of using the KSL. The output format for this book is bookdown::gitbook." />
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="10.6 Implemented Solvers | Simulation Modeling using the Kotlin Simulation Library (KSL)" />
+  
+  <meta name="twitter:description" content="A book that illustrates the basics of using the KSL. The output format for this book is bookdown::gitbook." />
+  
+
+<meta name="author" content="Manuel D. Rossetti" />
+
+
+<meta name="date" content="2025-09-18" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="characterizing-simulation-optimization-algorithms.html"/>
+<link rel="next" href="secApplySolver.html"/>
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
+<link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
+<script src="libs/kePrint-0.0.1/kePrint.js"></script>
+<link href="libs/lightable-0.0.1/lightable.css" rel="stylesheet" />
+
+
+<style type="text/css">
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { color: #008000; } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { color: #008000; font-weight: bold; } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<style type="text/css">
+  
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+</style>
+<style type="text/css">
+/* Used with Pandoc 2.11+ new --citeproc when CSL is used */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+}
+.hanging div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}
+</style>
+
+<link rel="stylesheet" href="css/style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">Simulation Modeling using the Kotlin Simulation Library (KSL)</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Preface</a>
+<ul>
+<li class="chapter" data-level="" data-path="release-history.html"><a href="release-history.html"><i class="fa fa-check"></i>Release History</a></li>
+<li class="chapter" data-level="" data-path="ksl-project-page.html"><a href="ksl-project-page.html"><i class="fa fa-check"></i>KSL Project Page</a></li>
+<li class="chapter" data-level="" data-path="book-support-files.html"><a href="book-support-files.html"><i class="fa fa-check"></i>Book Support Files</a></li>
+<li class="chapter" data-level="" data-path="acknowledgments.html"><a href="acknowledgments.html"><i class="fa fa-check"></i>Acknowledgments</a></li>
+<li class="chapter" data-level="" data-path="intended-audience.html"><a href="intended-audience.html"><i class="fa fa-check"></i>Intended Audience</a></li>
+<li class="chapter" data-level="" data-path="organization-of-the-book.html"><a href="organization-of-the-book.html"><i class="fa fa-check"></i>Organization of the Book</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="about-the-author.html"><a href="about-the-author.html"><i class="fa fa-check"></i>About the Author</a></li>
+<li class="chapter" data-level="1" data-path="ch1.html"><a href="ch1.html"><i class="fa fa-check"></i><b>1</b> Simulation Modeling</a>
+<ul>
+<li class="chapter" data-level="1.1" data-path="simulation-modeling.html"><a href="simulation-modeling.html"><i class="fa fa-check"></i><b>1.1</b> Simulation Modeling</a></li>
+<li class="chapter" data-level="1.2" data-path="why-simulate.html"><a href="why-simulate.html"><i class="fa fa-check"></i><b>1.2</b> Why Simulate?</a></li>
+<li class="chapter" data-level="1.3" data-path="types-of-systems-and-simulation-models.html"><a href="types-of-systems-and-simulation-models.html"><i class="fa fa-check"></i><b>1.3</b> Types of Systems and Simulation Models</a></li>
+<li class="chapter" data-level="1.4" data-path="simulation-descriptive-or-prescriptive-modeling.html"><a href="simulation-descriptive-or-prescriptive-modeling.html"><i class="fa fa-check"></i><b>1.4</b> Simulation: Descriptive or Prescriptive Modeling?</a></li>
+<li class="chapter" data-level="1.5" data-path="randomness-in-simulation.html"><a href="randomness-in-simulation.html"><i class="fa fa-check"></i><b>1.5</b> Randomness in Simulation</a></li>
+<li class="chapter" data-level="1.6" data-path="simulation-languages.html"><a href="simulation-languages.html"><i class="fa fa-check"></i><b>1.6</b> Simulation Languages</a></li>
+<li class="chapter" data-level="1.7" data-path="ch1secsimMeth.html"><a href="ch1secsimMeth.html"><i class="fa fa-check"></i><b>1.7</b> Simulation Methodology</a></li>
+<li class="chapter" data-level="1.8" data-path="overview-of-the-kotlin-simulation-library.html"><a href="overview-of-the-kotlin-simulation-library.html"><i class="fa fa-check"></i><b>1.8</b> Overview of the Kotlin Simulation Library</a></li>
+<li class="chapter" data-level="1.9" data-path="exercises.html"><a href="exercises.html"><i class="fa fa-check"></i><b>1.9</b> Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="2" data-path="ch2rng.html"><a href="ch2rng.html"><i class="fa fa-check"></i><b>2</b> Modeling Randomness</a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="ch2generator.html"><a href="ch2generator.html"><i class="fa fa-check"></i><b>2.1</b> Random Number Generator</a>
+<ul>
+<li class="chapter" data-level="2.1.1" data-path="ch2generator.html"><a href="ch2generator.html#ch2randompkg"><i class="fa fa-check"></i><b>2.1.1</b> Random Package</a></li>
+<li class="chapter" data-level="2.1.2" data-path="ch2generator.html"><a href="ch2generator.html#ch2creatingStreams"><i class="fa fa-check"></i><b>2.1.2</b> Creating and Using Streams</a></li>
+<li class="chapter" data-level="2.1.3" data-path="ch2generator.html"><a href="ch2generator.html#ch2crn"><i class="fa fa-check"></i><b>2.1.3</b> Common Random Numbers</a></li>
+<li class="chapter" data-level="2.1.4" data-path="ch2generator.html"><a href="ch2generator.html#ch2antitheticStreams"><i class="fa fa-check"></i><b>2.1.4</b> Creating and Using Antithetic Streams</a></li>
+<li class="chapter" data-level="2.1.5" data-path="ch2generator.html"><a href="ch2generator.html#ch2rnFAQ"><i class="fa fa-check"></i><b>2.1.5</b> Frequently Asked Questions about Random Numbers</a></li>
+</ul></li>
+<li class="chapter" data-level="2.2" data-path="rvg.html"><a href="rvg.html"><i class="fa fa-check"></i><b>2.2</b> Random Variate Generation</a>
+<ul>
+<li class="chapter" data-level="2.2.1" data-path="rvg.html"><a href="rvg.html#basic-random-variate-generation"><i class="fa fa-check"></i><b>2.2.1</b> Basic Random Variate Generation</a></li>
+<li class="chapter" data-level="2.2.2" data-path="rvg.html"><a href="rvg.html#rvg_dists"><i class="fa fa-check"></i><b>2.2.2</b> Continuous and Discrete Random Variables</a></li>
+<li class="chapter" data-level="2.2.3" data-path="rvg.html"><a href="rvg.html#rvguse"><i class="fa fa-check"></i><b>2.2.3</b> Creating and Using Random Variables</a></li>
+<li class="chapter" data-level="2.2.4" data-path="rvg.html"><a href="rvg.html#functions-of-random-variables"><i class="fa fa-check"></i><b>2.2.4</b> Functions of Random Variables</a></li>
+</ul></li>
+<li class="chapter" data-level="2.3" data-path="probModels.html"><a href="probModels.html"><i class="fa fa-check"></i><b>2.3</b> Probability Distribution Models</a></li>
+<li class="chapter" data-level="2.4" data-path="distFitting.html"><a href="distFitting.html"><i class="fa fa-check"></i><b>2.4</b> Distribution Fitting Using the KSL</a>
+<ul>
+<li class="chapter" data-level="2.4.1" data-path="distFitting.html"><a href="distFitting.html#estimating-distribution-parameters"><i class="fa fa-check"></i><b>2.4.1</b> Estimating Distribution Parameters</a></li>
+<li class="chapter" data-level="2.4.2" data-path="distFitting.html"><a href="distFitting.html#continuous-distribution-recommendation-framework"><i class="fa fa-check"></i><b>2.4.2</b> Continuous Distribution Recommendation Framework</a></li>
+<li class="chapter" data-level="2.4.3" data-path="distFitting.html"><a href="distFitting.html#discrete-distribution-framework"><i class="fa fa-check"></i><b>2.4.3</b> Discrete Distribution Framework</a></li>
+<li class="chapter" data-level="2.4.4" data-path="distFitting.html"><a href="distFitting.html#pdfmexamples"><i class="fa fa-check"></i><b>2.4.4</b> Illustrative Examples from Appendix @ref(appidm)</a></li>
+</ul></li>
+<li class="chapter" data-level="2.5" data-path="summary.html"><a href="summary.html"><i class="fa fa-check"></i><b>2.5</b> Summary</a></li>
+<li class="chapter" data-level="2.6" data-path="exercises-1.html"><a href="exercises-1.html"><i class="fa fa-check"></i><b>2.6</b> Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="mcm.html"><a href="mcm.html"><i class="fa fa-check"></i><b>3</b> Monte Carlo Methods</a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="kslStatistics.html"><a href="kslStatistics.html"><i class="fa fa-check"></i><b>3.1</b> Collecting Statistics</a>
+<ul>
+<li class="chapter" data-level="3.1.1" data-path="kslStatistics.html"><a href="kslStatistics.html#creating-and-using-a-statistic"><i class="fa fa-check"></i><b>3.1.1</b> Creating and Using a Statistic</a></li>
+<li class="chapter" data-level="3.1.2" data-path="kslStatistics.html"><a href="kslStatistics.html#histFreq"><i class="fa fa-check"></i><b>3.1.2</b> Histograms and Frequencies</a></li>
+<li class="chapter" data-level="3.1.3" data-path="kslStatistics.html"><a href="kslStatistics.html#ch3batchStats"><i class="fa fa-check"></i><b>3.1.3</b> Batch Statistics</a></li>
+<li class="chapter" data-level="3.1.4" data-path="kslStatistics.html"><a href="kslStatistics.html#ch3StatSummary"><i class="fa fa-check"></i><b>3.1.4</b> Statistics Summary</a></li>
+</ul></li>
+<li class="chapter" data-level="3.2" data-path="ssMC.html"><a href="ssMC.html"><i class="fa fa-check"></i><b>3.2</b> Simple Monte Carlo Integration</a></li>
+<li class="chapter" data-level="3.3" data-path="ch3StatReview.html"><a href="ch3StatReview.html"><i class="fa fa-check"></i><b>3.3</b> Review of Statistical Concepts</a>
+<ul>
+<li class="chapter" data-level="3.3.1" data-path="ch3StatReview.html"><a href="ch3StatReview.html#point-estimates-and-confidence-intervals"><i class="fa fa-check"></i><b>3.3.1</b> Point Estimates and Confidence Intervals</a></li>
+<li class="chapter" data-level="3.3.2" data-path="ch3StatReview.html"><a href="ch3StatReview.html#ch3SampleSize"><i class="fa fa-check"></i><b>3.3.2</b> Sample Size Determination</a></li>
+<li class="chapter" data-level="3.3.3" data-path="ch3StatReview.html"><a href="ch3StatReview.html#determining-the-sample-size-for-a-monte-carlo-simulation-experiment"><i class="fa fa-check"></i><b>3.3.3</b> Determining the Sample Size for a Monte Carlo Simulation Experiment</a></li>
+</ul></li>
+<li class="chapter" data-level="3.4" data-path="craps.html"><a href="craps.html"><i class="fa fa-check"></i><b>3.4</b> Simulating the Game of Craps</a></li>
+<li class="chapter" data-level="3.5" data-path="the-news-vendor-problem.html"><a href="the-news-vendor-problem.html"><i class="fa fa-check"></i><b>3.5</b> The News Vendor Problem</a></li>
+<li class="chapter" data-level="3.6" data-path="ch3InsProcess.html"><a href="ch3InsProcess.html"><i class="fa fa-check"></i><b>3.6</b> A Simple Inspection Process</a></li>
+<li class="chapter" data-level="3.7" data-path="ch3SAN.html"><a href="ch3SAN.html"><i class="fa fa-check"></i><b>3.7</b> Stochastic Activity Networks</a></li>
+<li class="chapter" data-level="3.8" data-path="mcmExperiments.html"><a href="mcmExperiments.html"><i class="fa fa-check"></i><b>3.8</b> Monte-Carlo Experiments</a></li>
+<li class="chapter" data-level="3.9" data-path="summary-1.html"><a href="summary-1.html"><i class="fa fa-check"></i><b>3.9</b> Summary</a></li>
+<li class="chapter" data-level="3.10" data-path="exercises-2.html"><a href="exercises-2.html"><i class="fa fa-check"></i><b>3.10</b> Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="introDEDS.html"><a href="introDEDS.html"><i class="fa fa-check"></i><b>4</b> Introduction to Discrete Event Modeling</a>
+<ul>
+<li class="chapter" data-level="4.1" data-path="introDEDSdeds.html"><a href="introDEDSdeds.html"><i class="fa fa-check"></i><b>4.1</b> Discrete-Event Dynamic Systems</a></li>
+<li class="chapter" data-level="4.2" data-path="HowDEDSClockWorks.html"><a href="HowDEDSClockWorks.html"><i class="fa fa-check"></i><b>4.2</b> How the Discrete-Event Clock Works</a></li>
+<li class="chapter" data-level="4.3" data-path="QHandExample.html"><a href="QHandExample.html"><i class="fa fa-check"></i><b>4.3</b> Simulating a Queueing System By Hand</a></li>
+<li class="chapter" data-level="4.4" data-path="introDEDSdedsKSL.html"><a href="introDEDSdedsKSL.html"><i class="fa fa-check"></i><b>4.4</b> Modeling DEDS in the KSL</a>
+<ul>
+<li class="chapter" data-level="4.4.1" data-path="introDEDSdedsKSL.html"><a href="introDEDSdedsKSL.html#event-scheduling"><i class="fa fa-check"></i><b>4.4.1</b> Event Scheduling</a></li>
+<li class="chapter" data-level="4.4.2" data-path="introDEDSdedsKSL.html"><a href="introDEDSdedsKSL.html#introDEDSschedExamples"><i class="fa fa-check"></i><b>4.4.2</b> Simple Event Scheduling Examples</a></li>
+<li class="chapter" data-level="4.4.3" data-path="introDEDSdedsKSL.html"><a href="introDEDSdedsKSL.html#introDEDSUpDown"><i class="fa fa-check"></i><b>4.4.3</b> Up and Down Component Example</a></li>
+<li class="chapter" data-level="4.4.4" data-path="introDEDSdedsKSL.html"><a href="introDEDSdedsKSL.html#introDEDSPharmacy"><i class="fa fa-check"></i><b>4.4.4</b> Modeling a Simple Queueing System</a></li>
+<li class="chapter" data-level="4.4.5" data-path="introDEDSdedsKSL.html"><a href="introDEDSdedsKSL.html#more-details-about-the-pharmacy-model-implementation"><i class="fa fa-check"></i><b>4.4.5</b> More Details About the Pharmacy Model Implementation</a></li>
+</ul></li>
+<li class="chapter" data-level="4.5" data-path="enhancing-the-drive-through-pharmacy-model.html"><a href="enhancing-the-drive-through-pharmacy-model.html"><i class="fa fa-check"></i><b>4.5</b> Enhancing the Drive Through Pharmacy Model</a>
+<ul>
+<li class="chapter" data-level="4.5.1" data-path="enhancing-the-drive-through-pharmacy-model.html"><a href="enhancing-the-drive-through-pharmacy-model.html#modeling-a-simple-resource"><i class="fa fa-check"></i><b>4.5.1</b> Modeling a Simple Resource</a></li>
+<li class="chapter" data-level="4.5.2" data-path="enhancing-the-drive-through-pharmacy-model.html"><a href="enhancing-the-drive-through-pharmacy-model.html#modeling-a-queue-with-statistical-collection"><i class="fa fa-check"></i><b>4.5.2</b> Modeling a Queue with Statistical Collection</a></li>
+<li class="chapter" data-level="4.5.3" data-path="enhancing-the-drive-through-pharmacy-model.html"><a href="enhancing-the-drive-through-pharmacy-model.html#modeling-a-repeating-event-pattern"><i class="fa fa-check"></i><b>4.5.3</b> Modeling a Repeating Event Pattern</a></li>
+<li class="chapter" data-level="4.5.4" data-path="enhancing-the-drive-through-pharmacy-model.html"><a href="enhancing-the-drive-through-pharmacy-model.html#collecting-more-detailed-statistics"><i class="fa fa-check"></i><b>4.5.4</b> Collecting More Detailed Statistics</a></li>
+<li class="chapter" data-level="4.5.5" data-path="enhancing-the-drive-through-pharmacy-model.html"><a href="enhancing-the-drive-through-pharmacy-model.html#implementing-the-enhanced-pharmacy-model"><i class="fa fa-check"></i><b>4.5.5</b> Implementing the Enhanced Pharmacy Model</a></li>
+</ul></li>
+<li class="chapter" data-level="4.6" data-path="DTPExpanded.html"><a href="DTPExpanded.html"><i class="fa fa-check"></i><b>4.6</b> More Drive Through Fun</a>
+<ul>
+<li class="chapter" data-level="4.6.1" data-path="DTPExpanded.html"><a href="DTPExpanded.html#modeling-a-resource-with-a-waiting-line"><i class="fa fa-check"></i><b>4.6.1</b> Modeling a Resource with a Waiting Line</a></li>
+<li class="chapter" data-level="4.6.2" data-path="DTPExpanded.html"><a href="DTPExpanded.html#modeling-the-tandem-queue-of-example-refexmexch4tandemq"><i class="fa fa-check"></i><b>4.6.2</b> Modeling the Tandem Queue of Example @ref(exm:exCh4TandemQ)</a></li>
+<li class="chapter" data-level="4.6.3" data-path="DTPExpanded.html"><a href="DTPExpanded.html#modeling-with-the-station-package"><i class="fa fa-check"></i><b>4.6.3</b> Modeling with the Station Package</a></li>
+</ul></li>
+<li class="chapter" data-level="4.7" data-path="introDEDSSummary.html"><a href="introDEDSSummary.html"><i class="fa fa-check"></i><b>4.7</b> Summary</a></li>
+<li class="chapter" data-level="4.8" data-path="exercises-3.html"><a href="exercises-3.html"><i class="fa fa-check"></i><b>4.8</b> Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="simoa.html"><a href="simoa.html"><i class="fa fa-check"></i><b>5</b> Analyzing and Accessing Simulation Output</a>
+<ul>
+<li class="chapter" data-level="5.1" data-path="simoadatatypes.html"><a href="simoadatatypes.html"><i class="fa fa-check"></i><b>5.1</b> Types of Statistical Variables</a></li>
+<li class="chapter" data-level="5.2" data-path="simoasimtypes.html"><a href="simoasimtypes.html"><i class="fa fa-check"></i><b>5.2</b> Types of Simulation With Respect To Output Analysis</a></li>
+<li class="chapter" data-level="5.3" data-path="simoafinhorizon.html"><a href="simoafinhorizon.html"><i class="fa fa-check"></i><b>5.3</b> Analysis of Finite Horizon Simulations</a></li>
+<li class="chapter" data-level="5.4" data-path="simoafinhorizonex.html"><a href="simoafinhorizonex.html"><i class="fa fa-check"></i><b>5.4</b> Capturing Output for a Simple Finite Horizon Simulation</a>
+<ul>
+<li class="chapter" data-level="5.4.1" data-path="simoafinhorizonex.html"><a href="simoafinhorizonex.html#simoaCapture"><i class="fa fa-check"></i><b>5.4.1</b> KSL Functionality for Capturing Statistical Results</a></li>
+<li class="chapter" data-level="5.4.2" data-path="simoafinhorizonex.html"><a href="simoafinhorizonex.html#additional-remarks"><i class="fa fa-check"></i><b>5.4.2</b> Additional Remarks</a></li>
+<li class="chapter" data-level="5.4.3" data-path="simoafinhorizonex.html"><a href="simoafinhorizonex.html#querying-the-ksl-database"><i class="fa fa-check"></i><b>5.4.3</b> Querying the KSL Database</a></li>
+</ul></li>
+<li class="chapter" data-level="5.5" data-path="simoaseqsampling.html"><a href="simoaseqsampling.html"><i class="fa fa-check"></i><b>5.5</b> Sequential Sampling for Finite Horizon Simulations</a></li>
+<li class="chapter" data-level="5.6" data-path="simoainfhorizon.html"><a href="simoainfhorizon.html"><i class="fa fa-check"></i><b>5.6</b> Analysis of Infinite Horizon Simulations</a>
+<ul>
+<li class="chapter" data-level="5.6.1" data-path="simoainfhorizon.html"><a href="simoainfhorizon.html#simoainfhorizoninitialbias"><i class="fa fa-check"></i><b>5.6.1</b> Assessing the Effect of Initial Conditions</a></li>
+<li class="chapter" data-level="5.6.2" data-path="simoainfhorizon.html"><a href="simoainfhorizon.html#simoainfhorizonrepDeletion"><i class="fa fa-check"></i><b>5.6.2</b> Performing the Method of Replication-Deletion</a></li>
+<li class="chapter" data-level="5.6.3" data-path="simoainfhorizon.html"><a href="simoainfhorizon.html#simoainfhorizonbatchmeans"><i class="fa fa-check"></i><b>5.6.3</b> The Method of Batch Means</a></li>
+<li class="chapter" data-level="5.6.4" data-path="simoainfhorizon.html"><a href="simoainfhorizon.html#simoainfhorizonjslbatching"><i class="fa fa-check"></i><b>5.6.4</b> Performing the Method of Batch Means</a></li>
+</ul></li>
+<li class="chapter" data-level="5.7" data-path="simoacomparingSystems.html"><a href="simoacomparingSystems.html"><i class="fa fa-check"></i><b>5.7</b> Comparing System Configurations</a>
+<ul>
+<li class="chapter" data-level="5.7.1" data-path="simoacomparingSystems.html"><a href="simoacomparingSystems.html#simoacomparingSystems:two"><i class="fa fa-check"></i><b>5.7.1</b> Comparing Two Systems</a></li>
+<li class="chapter" data-level="5.7.2" data-path="simoacomparingSystems.html"><a href="simoacomparingSystems.html#simoacomparingSystemsMCB"><i class="fa fa-check"></i><b>5.7.2</b> Concepts for Comparing Systems</a></li>
+<li class="chapter" data-level="5.7.3" data-path="simoacomparingSystems.html"><a href="simoacomparingSystems.html#multiple-comparison-with-the-best-procedures-mcb"><i class="fa fa-check"></i><b>5.7.3</b> Multiple Comparison with the Best Procedures (MCB)</a></li>
+<li class="chapter" data-level="5.7.4" data-path="simoacomparingSystems.html"><a href="simoacomparingSystems.html#ch5Screening"><i class="fa fa-check"></i><b>5.7.4</b> Screening Procedures</a></li>
+</ul></li>
+<li class="chapter" data-level="5.8" data-path="ch5Scenarios.html"><a href="ch5Scenarios.html"><i class="fa fa-check"></i><b>5.8</b> Simulating Many Scenarios</a>
+<ul>
+<li class="chapter" data-level="5.8.1" data-path="ch5Scenarios.html"><a href="ch5Scenarios.html#controlAntns"><i class="fa fa-check"></i><b>5.8.1</b> Control Annotations</a></li>
+<li class="chapter" data-level="5.8.2" data-path="ch5Scenarios.html"><a href="ch5Scenarios.html#rvParameters"><i class="fa fa-check"></i><b>5.8.2</b> Random Variable Parameters</a></li>
+<li class="chapter" data-level="5.8.3" data-path="ch5Scenarios.html"><a href="ch5Scenarios.html#kslScenarios"><i class="fa fa-check"></i><b>5.8.3</b> Setting Up and Running Multiple Scenarios</a></li>
+</ul></li>
+<li class="chapter" data-level="5.9" data-path="simoasummary.html"><a href="simoasummary.html"><i class="fa fa-check"></i><b>5.9</b> Summary</a></li>
+<li class="chapter" data-level="5.10" data-path="exercises-4.html"><a href="exercises-4.html"><i class="fa fa-check"></i><b>5.10</b> Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="processview.html"><a href="processview.html"><i class="fa fa-check"></i><b>6</b> Process View Modeling Using the KSL</a>
+<ul>
+<li class="chapter" data-level="6.1" data-path="ch6Entities.html"><a href="ch6Entities.html"><i class="fa fa-check"></i><b>6.1</b> What are Entities?</a></li>
+<li class="chapter" data-level="6.2" data-path="pvIntro.html"><a href="pvIntro.html"><i class="fa fa-check"></i><b>6.2</b> The Process View</a></li>
+<li class="chapter" data-level="6.3" data-path="understanding-ksl-processes-and-entities.html"><a href="understanding-ksl-processes-and-entities.html"><i class="fa fa-check"></i><b>6.3</b> Understanding KSL Processes and Entities</a></li>
+<li class="chapter" data-level="6.4" data-path="examples-of-process-modeling.html"><a href="examples-of-process-modeling.html"><i class="fa fa-check"></i><b>6.4</b> Examples of Process Modeling</a>
+<ul>
+<li class="chapter" data-level="6.4.1" data-path="examples-of-process-modeling.html"><a href="examples-of-process-modeling.html#holding-entities-in-a-queue-holdqueue-class"><i class="fa fa-check"></i><b>6.4.1</b> Holding Entities in a Queue: <code>HoldQueue</code> Class</a></li>
+<li class="chapter" data-level="6.4.2" data-path="examples-of-process-modeling.html"><a href="examples-of-process-modeling.html#signaling-entities"><i class="fa fa-check"></i><b>6.4.2</b> Signaling Entities</a></li>
+<li class="chapter" data-level="6.4.3" data-path="examples-of-process-modeling.html"><a href="examples-of-process-modeling.html#understanding-blocking-queues"><i class="fa fa-check"></i><b>6.4.3</b> Understanding Blocking Queues</a></li>
+<li class="chapter" data-level="6.4.4" data-path="examples-of-process-modeling.html"><a href="examples-of-process-modeling.html#allowing-entities-to-wait-for-a-process"><i class="fa fa-check"></i><b>6.4.4</b> Allowing Entities to Wait for a Process</a></li>
+<li class="chapter" data-level="6.4.5" data-path="examples-of-process-modeling.html"><a href="examples-of-process-modeling.html#processinteraction"><i class="fa fa-check"></i><b>6.4.5</b> Process Interaction</a></li>
+</ul></li>
+<li class="chapter" data-level="6.5" data-path="modeling-a-stem-career-mixer.html"><a href="modeling-a-stem-career-mixer.html"><i class="fa fa-check"></i><b>6.5</b> Modeling a STEM Career Mixer</a>
+<ul>
+<li class="chapter" data-level="6.5.1" data-path="modeling-a-stem-career-mixer.html"><a href="modeling-a-stem-career-mixer.html#conceptualizing-the-system"><i class="fa fa-check"></i><b>6.5.1</b> Conceptualizing the System</a></li>
+<li class="chapter" data-level="6.5.2" data-path="modeling-a-stem-career-mixer.html"><a href="modeling-a-stem-career-mixer.html#implementing-the-stem-mixer-model"><i class="fa fa-check"></i><b>6.5.2</b> Implementing the STEM Mixer Model</a></li>
+</ul></li>
+<li class="chapter" data-level="6.6" data-path="the-tie-dye-t-shirt-model.html"><a href="the-tie-dye-t-shirt-model.html"><i class="fa fa-check"></i><b>6.6</b> The Tie-Dye T-Shirt Model</a>
+<ul>
+<li class="chapter" data-level="6.6.1" data-path="the-tie-dye-t-shirt-model.html"><a href="the-tie-dye-t-shirt-model.html#ch4:TieDyeTShirtsSub1"><i class="fa fa-check"></i><b>6.6.1</b> Implementing the Tie-Dye T-Shirt Model</a></li>
+</ul></li>
+<li class="chapter" data-level="6.7" data-path="summary-2.html"><a href="summary-2.html"><i class="fa fa-check"></i><b>6.7</b> Summary</a></li>
+<li class="chapter" data-level="6.8" data-path="exercises-5.html"><a href="exercises-5.html"><i class="fa fa-check"></i><b>6.8</b> Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="ch7AdvModeling.html"><a href="ch7AdvModeling.html"><i class="fa fa-check"></i><b>7</b> Advanced Event and Process View Modeling</a>
+<ul>
+<li class="chapter" data-level="7.1" data-path="modeling-with-processes-and-resources.html"><a href="modeling-with-processes-and-resources.html"><i class="fa fa-check"></i><b>7.1</b> Modeling with Processes and Resources</a>
+<ul>
+<li class="chapter" data-level="7.1.1" data-path="modeling-with-processes-and-resources.html"><a href="modeling-with-processes-and-resources.html#modeling-space-with-resources"><i class="fa fa-check"></i><b>7.1.1</b> Modeling Space with Resources</a></li>
+<li class="chapter" data-level="7.1.2" data-path="modeling-with-processes-and-resources.html"><a href="modeling-with-processes-and-resources.html#secResourcePools"><i class="fa fa-check"></i><b>7.1.2</b> Resource Pools</a></li>
+<li class="chapter" data-level="7.1.3" data-path="modeling-with-processes-and-resources.html"><a href="modeling-with-processes-and-resources.html#secTestAndRepair"><i class="fa fa-check"></i><b>7.1.3</b> Computer Test and Repair Shop Example</a></li>
+</ul></li>
+<li class="chapter" data-level="7.2" data-path="modeling-non-stationary-systems.html"><a href="modeling-non-stationary-systems.html"><i class="fa fa-check"></i><b>7.2</b> Modeling Non-Stationary Systems</a>
+<ul>
+<li class="chapter" data-level="7.2.1" data-path="modeling-non-stationary-systems.html"><a href="modeling-non-stationary-systems.html#ch7secNSPP"><i class="fa fa-check"></i><b>7.2.1</b> Non-Stationary Arrival Processes</a></li>
+<li class="chapter" data-level="7.2.2" data-path="modeling-non-stationary-systems.html"><a href="modeling-non-stationary-systems.html#modeling-resources-under-non-stationary-conditions"><i class="fa fa-check"></i><b>7.2.2</b> Modeling Resources Under Non-Stationary Conditions</a></li>
+<li class="chapter" data-level="7.2.3" data-path="modeling-non-stationary-systems.html"><a href="modeling-non-stationary-systems.html#enhancing-the-stem-career-mixer-model"><i class="fa fa-check"></i><b>7.2.3</b> Enhancing the STEM Career Mixer Model</a></li>
+</ul></li>
+<li class="chapter" data-level="7.3" data-path="examples-of-advanced-event-models.html"><a href="examples-of-advanced-event-models.html"><i class="fa fa-check"></i><b>7.3</b> Examples of Advanced Event Models</a>
+<ul>
+<li class="chapter" data-level="7.3.1" data-path="examples-of-advanced-event-models.html"><a href="examples-of-advanced-event-models.html#ch6s1sb4sub3"><i class="fa fa-check"></i><b>7.3.1</b> Modeling Balking and Reneging</a></li>
+<li class="chapter" data-level="7.3.2" data-path="examples-of-advanced-event-models.html"><a href="examples-of-advanced-event-models.html#rqModel"><i class="fa fa-check"></i><b>7.3.2</b> Modeling a Reorder Point, Reorder Quantity Inventory Policy</a></li>
+</ul></li>
+<li class="chapter" data-level="7.4" data-path="ch7VandV.html"><a href="ch7VandV.html"><i class="fa fa-check"></i><b>7.4</b> Applying Queueing Theory Results to Verify and Validate a Simulation</a>
+<ul>
+<li class="chapter" data-level="7.4.1" data-path="ch7VandV.html"><a href="ch7VandV.html#analyzing-the-preparation-station"><i class="fa fa-check"></i><b>7.4.1</b> Analyzing the Preparation Station</a></li>
+<li class="chapter" data-level="7.4.2" data-path="ch7VandV.html"><a href="ch7VandV.html#analyzing-the-build-lines"><i class="fa fa-check"></i><b>7.4.2</b> Analyzing the Build Lines</a></li>
+<li class="chapter" data-level="7.4.3" data-path="ch7VandV.html"><a href="ch7VandV.html#analyzing-the-packaging-station"><i class="fa fa-check"></i><b>7.4.3</b> Analyzing the Packaging Station</a></li>
+<li class="chapter" data-level="7.4.4" data-path="ch7VandV.html"><a href="ch7VandV.html#analyzing-the-palletizing-station"><i class="fa fa-check"></i><b>7.4.4</b> Analyzing the Palletizing Station</a></li>
+<li class="chapter" data-level="7.4.5" data-path="ch7VandV.html"><a href="ch7VandV.html#analyzing-the-total-system-time"><i class="fa fa-check"></i><b>7.4.5</b> Analyzing the Total System Time</a></li>
+<li class="chapter" data-level="7.4.6" data-path="ch7VandV.html"><a href="ch7VandV.html#other-issues-for-verification-and-validation"><i class="fa fa-check"></i><b>7.4.6</b> Other Issues for Verification and Validation</a></li>
+</ul></li>
+<li class="chapter" data-level="7.5" data-path="summary-3.html"><a href="summary-3.html"><i class="fa fa-check"></i><b>7.5</b> Summary</a></li>
+<li class="chapter" data-level="7.6" data-path="exercises-6.html"><a href="exercises-6.html"><i class="fa fa-check"></i><b>7.6</b> Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="8" data-path="chEntityMovement.html"><a href="chEntityMovement.html"><i class="fa fa-check"></i><b>8</b> Modeling Entity Movement</a>
+<ul>
+<li class="chapter" data-level="8.1" data-path="secRCT.html"><a href="secRCT.html"><i class="fa fa-check"></i><b>8.1</b> Resource Constrained Transfer</a>
+<ul>
+<li class="chapter" data-level="8.1.1" data-path="secRCT.html"><a href="secRCT.html#secTestRepairRCT"><i class="fa fa-check"></i><b>8.1.1</b> Test and Repair with Resource Constrained Transfer</a></li>
+</ul></li>
+<li class="chapter" data-level="8.2" data-path="movableResources.html"><a href="movableResources.html"><i class="fa fa-check"></i><b>8.2</b> Constrained Transfer with Movable Resources</a>
+<ul>
+<li class="chapter" data-level="8.2.1" data-path="movableResources.html"><a href="movableResources.html#spatial-models"><i class="fa fa-check"></i><b>8.2.1</b> Spatial Models</a></li>
+<li class="chapter" data-level="8.2.2" data-path="movableResources.html"><a href="movableResources.html#secMovableResources"><i class="fa fa-check"></i><b>8.2.2</b> Movable Resources</a></li>
+<li class="chapter" data-level="8.2.3" data-path="movableResources.html"><a href="movableResources.html#secTQMWM"><i class="fa fa-check"></i><b>8.2.3</b> Tandem Queue Model With Movement</a></li>
+</ul></li>
+<li class="chapter" data-level="8.3" data-path="secTestAndRepairMovableResources.html"><a href="secTestAndRepairMovableResources.html"><i class="fa fa-check"></i><b>8.3</b> Modeling the Test and Repair System with Movable Resources</a></li>
+<li class="chapter" data-level="8.4" data-path="secConveyors.html"><a href="secConveyors.html"><i class="fa fa-check"></i><b>8.4</b> Modeling Systems with Conveyors</a>
+<ul>
+<li class="chapter" data-level="8.4.1" data-path="secConveyors.html"><a href="secConveyors.html#ksl-conveyor-constructs"><i class="fa fa-check"></i><b>8.4.1</b> KSL Conveyor Constructs</a></li>
+<li class="chapter" data-level="8.4.2" data-path="secConveyors.html"><a href="secConveyors.html#tandem-queue-system-with-conveyors"><i class="fa fa-check"></i><b>8.4.2</b> Tandem Queue System with Conveyors</a></li>
+<li class="chapter" data-level="8.4.3" data-path="secConveyors.html"><a href="secConveyors.html#secTestAndRepairConveyors"><i class="fa fa-check"></i><b>8.4.3</b> Test and Repair via Conveyors</a></li>
+<li class="chapter" data-level="8.4.4" data-path="secConveyors.html"><a href="secConveyors.html#secMiscConveyor"><i class="fa fa-check"></i><b>8.4.4</b> Miscellaneous Concepts in Conveyor Modeling</a></li>
+</ul></li>
+<li class="chapter" data-level="8.5" data-path="summary-of-new-concepts.html"><a href="summary-of-new-concepts.html"><i class="fa fa-check"></i><b>8.5</b> Summary of New Concepts</a></li>
+<li class="chapter" data-level="8.6" data-path="exercises-7.html"><a href="exercises-7.html"><i class="fa fa-check"></i><b>8.6</b> Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="9" data-path="ch9AdvMC.html"><a href="ch9AdvMC.html"><i class="fa fa-check"></i><b>9</b> Advanced Monte Carlo Methods</a>
+<ul>
+<li class="chapter" data-level="9.1" data-path="ch9BootStrapping.html"><a href="ch9BootStrapping.html"><i class="fa fa-check"></i><b>9.1</b> Bootstrap Methods</a>
+<ul>
+<li class="chapter" data-level="9.1.1" data-path="ch9BootStrapping.html"><a href="ch9BootStrapping.html#bootstrapping-using-the-ksl"><i class="fa fa-check"></i><b>9.1.1</b> Bootstrapping Using the KSL</a></li>
+</ul></li>
+<li class="chapter" data-level="9.2" data-path="ch9VRTs.html"><a href="ch9VRTs.html"><i class="fa fa-check"></i><b>9.2</b> Variance Reduction Techniques</a>
+<ul>
+<li class="chapter" data-level="9.2.1" data-path="ch9VRTs.html"><a href="ch9VRTs.html#common-random-numbers-crn"><i class="fa fa-check"></i><b>9.2.1</b> Common Random Numbers (CRN)</a></li>
+<li class="chapter" data-level="9.2.2" data-path="ch9VRTs.html"><a href="ch9VRTs.html#antithetic-variates-av"><i class="fa fa-check"></i><b>9.2.2</b> Antithetic Variates (AV)</a></li>
+<li class="chapter" data-level="9.2.3" data-path="ch9VRTs.html"><a href="ch9VRTs.html#indirect-estimation"><i class="fa fa-check"></i><b>9.2.3</b> Indirect Estimation</a></li>
+<li class="chapter" data-level="9.2.4" data-path="ch9VRTs.html"><a href="ch9VRTs.html#control-variates-cv"><i class="fa fa-check"></i><b>9.2.4</b> Control Variates (CV)</a></li>
+<li class="chapter" data-level="9.2.5" data-path="ch9VRTs.html"><a href="ch9VRTs.html#stratified-and-post-stratified-sampling"><i class="fa fa-check"></i><b>9.2.5</b> Stratified and Post Stratified Sampling</a></li>
+<li class="chapter" data-level="9.2.6" data-path="ch9VRTs.html"><a href="ch9VRTs.html#conditional-expectation-ce"><i class="fa fa-check"></i><b>9.2.6</b> Conditional Expectation (CE)</a></li>
+<li class="chapter" data-level="9.2.7" data-path="ch9VRTs.html"><a href="ch9VRTs.html#importance-sampling-is"><i class="fa fa-check"></i><b>9.2.7</b> Importance Sampling (IS)</a></li>
+</ul></li>
+<li class="chapter" data-level="9.3" data-path="ch9GMVRVs.html"><a href="ch9GMVRVs.html"><i class="fa fa-check"></i><b>9.3</b> Generating Multi-Variate and Correlated Random Variates</a>
+<ul>
+<li class="chapter" data-level="9.3.1" data-path="ch9GMVRVs.html"><a href="ch9GMVRVs.html#generating-from-a-bivariate-normal-distribution"><i class="fa fa-check"></i><b>9.3.1</b> Generating from a Bivariate Normal Distribution</a></li>
+<li class="chapter" data-level="9.3.2" data-path="ch9GMVRVs.html"><a href="ch9GMVRVs.html#copulas-and-multi-variate-generation-methods"><i class="fa fa-check"></i><b>9.3.2</b> Copulas and Multi-variate Generation Methods</a></li>
+<li class="chapter" data-level="9.3.3" data-path="ch9GMVRVs.html"><a href="ch9GMVRVs.html#autocorrelated-generation"><i class="fa fa-check"></i><b>9.3.3</b> Autocorrelated Generation</a></li>
+<li class="chapter" data-level="9.3.4" data-path="ch9GMVRVs.html"><a href="ch9GMVRVs.html#ch9MCMC"><i class="fa fa-check"></i><b>9.3.4</b> Introduction to Markov Chain Monte Carlo Methods</a></li>
+</ul></li>
+<li class="chapter" data-level="9.4" data-path="summary-4.html"><a href="summary-4.html"><i class="fa fa-check"></i><b>9.4</b> Summary</a></li>
+<li class="chapter" data-level="9.5" data-path="exercises-8.html"><a href="exercises-8.html"><i class="fa fa-check"></i><b>9.5</b> Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="10" data-path="ch10eo.html"><a href="ch10eo.html"><i class="fa fa-check"></i><b>10</b> Experimental Design and Simulation Optimization Methods</a>
+<ul>
+<li class="chapter" data-level="10.1" data-path="ch10doe.html"><a href="ch10doe.html"><i class="fa fa-check"></i><b>10.1</b> Experimental Design Methods</a>
+<ul>
+<li class="chapter" data-level="10.1.1" data-path="ch10doe.html"><a href="ch10doe.html#ch10factors"><i class="fa fa-check"></i><b>10.1.1</b> Defining Factors</a></li>
+<li class="chapter" data-level="10.1.2" data-path="ch10doe.html"><a href="ch10doe.html#ch10designs"><i class="fa fa-check"></i><b>10.1.2</b> Defining Experimental Designs</a></li>
+<li class="chapter" data-level="10.1.3" data-path="ch10doe.html"><a href="ch10doe.html#ch10exp"><i class="fa fa-check"></i><b>10.1.3</b> Executing a Designed Experiment</a></li>
+<li class="chapter" data-level="10.1.4" data-path="ch10doe.html"><a href="ch10doe.html#ch10analysis"><i class="fa fa-check"></i><b>10.1.4</b> Analyzing a Designed Experiment</a></li>
+</ul></li>
+<li class="chapter" data-level="10.2" data-path="ch10simOpt.html"><a href="ch10simOpt.html"><i class="fa fa-check"></i><b>10.2</b> Simulation Optimization Methods</a></li>
+<li class="chapter" data-level="10.3" data-path="ch10ProbDefn.html"><a href="ch10ProbDefn.html"><i class="fa fa-check"></i><b>10.3</b> Defining Simulation Optimization Problems</a>
+<ul>
+<li class="chapter" data-level="10.3.1" data-path="ch10ProbDefn.html"><a href="ch10ProbDefn.html#specifying-penalty-functions"><i class="fa fa-check"></i><b>10.3.1</b> Specifying Penalty Functions</a></li>
+<li class="chapter" data-level="10.3.2" data-path="ch10ProbDefn.html"><a href="ch10ProbDefn.html#inputvariables"><i class="fa fa-check"></i><b>10.3.2</b> Defining Input Variables</a></li>
+<li class="chapter" data-level="10.3.3" data-path="ch10ProbDefn.html"><a href="ch10ProbDefn.html#linear-and-functional-constraints"><i class="fa fa-check"></i><b>10.3.3</b> Linear and Functional Constraints</a></li>
+<li class="chapter" data-level="10.3.4" data-path="ch10ProbDefn.html"><a href="ch10ProbDefn.html#response-constraints"><i class="fa fa-check"></i><b>10.3.4</b> Response Constraints</a></li>
+<li class="chapter" data-level="10.3.5" data-path="ch10ProbDefn.html"><a href="ch10ProbDefn.html#ch10ProbDefnExample"><i class="fa fa-check"></i><b>10.3.5</b> Setting Up a Problem Definition</a></li>
+</ul></li>
+<li class="chapter" data-level="10.4" data-path="representing-the-simulation-oracle.html"><a href="representing-the-simulation-oracle.html"><i class="fa fa-check"></i><b>10.4</b> Representing the Simulation Oracle</a>
+<ul>
+<li class="chapter" data-level="10.4.1" data-path="representing-the-simulation-oracle.html"><a href="representing-the-simulation-oracle.html#requesting-simulation-evaluations"><i class="fa fa-check"></i><b>10.4.1</b> Requesting Simulation Evaluations</a></li>
+<li class="chapter" data-level="10.4.2" data-path="representing-the-simulation-oracle.html"><a href="representing-the-simulation-oracle.html#representing-model-inputs"><i class="fa fa-check"></i><b>10.4.2</b> Representing Model Inputs</a></li>
+<li class="chapter" data-level="10.4.3" data-path="representing-the-simulation-oracle.html"><a href="representing-the-simulation-oracle.html#representing-model-outputs"><i class="fa fa-check"></i><b>10.4.3</b> Representing Model Outputs</a></li>
+</ul></li>
+<li class="chapter" data-level="10.5" data-path="characterizing-simulation-optimization-algorithms.html"><a href="characterizing-simulation-optimization-algorithms.html"><i class="fa fa-check"></i><b>10.5</b> Characterizing Simulation Optimization Algorithms</a>
+<ul>
+<li class="chapter" data-level="10.5.1" data-path="characterizing-simulation-optimization-algorithms.html"><a href="characterizing-simulation-optimization-algorithms.html#structure-of-the-iterative-process"><i class="fa fa-check"></i><b>10.5.1</b> Structure of the Iterative Process</a></li>
+<li class="chapter" data-level="10.5.2" data-path="characterizing-simulation-optimization-algorithms.html"><a href="characterizing-simulation-optimization-algorithms.html#solver-plug-in-behavior"><i class="fa fa-check"></i><b>10.5.2</b> Solver Plug-in Behavior</a></li>
+<li class="chapter" data-level="10.5.3" data-path="characterizing-simulation-optimization-algorithms.html"><a href="characterizing-simulation-optimization-algorithms.html#miscellaneous-concepts-in-the-solver-class"><i class="fa fa-check"></i><b>10.5.3</b> Miscellaneous Concepts in the <code>Solver</code> Class</a></li>
+</ul></li>
+<li class="chapter" data-level="10.6" data-path="implemented-solvers.html"><a href="implemented-solvers.html"><i class="fa fa-check"></i><b>10.6</b> Implemented Solvers</a>
+<ul>
+<li class="chapter" data-level="10.6.1" data-path="implemented-solvers.html"><a href="implemented-solvers.html#simulated-annealing"><i class="fa fa-check"></i><b>10.6.1</b> Simulated Annealing</a></li>
+<li class="chapter" data-level="10.6.2" data-path="implemented-solvers.html"><a href="implemented-solvers.html#cross-entropy"><i class="fa fa-check"></i><b>10.6.2</b> Cross Entropy</a></li>
+<li class="chapter" data-level="10.6.3" data-path="implemented-solvers.html"><a href="implemented-solvers.html#r-spline"><i class="fa fa-check"></i><b>10.6.3</b> R-SPLINE</a></li>
+<li class="chapter" data-level="10.6.4" data-path="implemented-solvers.html"><a href="implemented-solvers.html#randomized-restart-solvers"><i class="fa fa-check"></i><b>10.6.4</b> Randomized Restart Solvers</a></li>
+</ul></li>
+<li class="chapter" data-level="10.7" data-path="secApplySolver.html"><a href="secApplySolver.html"><i class="fa fa-check"></i><b>10.7</b> Using a Solver on a Problem</a>
+<ul>
+<li class="chapter" data-level="10.7.1" data-path="secApplySolver.html"><a href="secApplySolver.html#applyCE"><i class="fa fa-check"></i><b>10.7.1</b> Illustrating the Cross-Entropy Solver</a></li>
+<li class="chapter" data-level="10.7.2" data-path="secApplySolver.html"><a href="secApplySolver.html#illustrating-simulated-annealing-with-random-restarts"><i class="fa fa-check"></i><b>10.7.2</b> Illustrating Simulated Annealing with Random Restarts</a></li>
+</ul></li>
+<li class="chapter" data-level="10.8" data-path="summary-5.html"><a href="summary-5.html"><i class="fa fa-check"></i><b>10.8</b> Summary</a></li>
+<li class="chapter" data-level="10.9" data-path="exercises-9.html"><a href="exercises-9.html"><i class="fa fa-check"></i><b>10.9</b> Exercises</a></li>
+</ul></li>
+<li class="appendix"><span><b>Appendix</b></span></li>
+<li class="chapter" data-level="A" data-path="appRNRV.html"><a href="appRNRV.html"><i class="fa fa-check"></i><b>A</b> Generating Pseudo-Random Numbers and Random Variates</a>
+<ul>
+<li class="chapter" data-level="A.1" data-path="appRNRVPRN.html"><a href="appRNRVPRN.html"><i class="fa fa-check"></i><b>A.1</b> Pseudo Random Numbers</a>
+<ul>
+<li class="chapter" data-level="A.1.1" data-path="appRNRVPRN.html"><a href="appRNRVPRN.html#appRNRVRNGs"><i class="fa fa-check"></i><b>A.1.1</b> Random Number Generators</a></li>
+</ul></li>
+<li class="chapter" data-level="A.2" data-path="appRNRVs.html"><a href="appRNRVs.html"><i class="fa fa-check"></i><b>A.2</b> Generating Random Variates from Distributions</a>
+<ul>
+<li class="chapter" data-level="A.2.1" data-path="appRNRVs.html"><a href="appRNRVs.html#inverse-transform-method"><i class="fa fa-check"></i><b>A.2.1</b> Inverse Transform Method</a></li>
+<li class="chapter" data-level="A.2.2" data-path="appRNRVs.html"><a href="appRNRVs.html#convolution"><i class="fa fa-check"></i><b>A.2.2</b> Convolution</a></li>
+<li class="chapter" data-level="A.2.3" data-path="appRNRVs.html"><a href="appRNRVs.html#acceptancerejection"><i class="fa fa-check"></i><b>A.2.3</b> Acceptance/Rejection</a></li>
+<li class="chapter" data-level="A.2.4" data-path="appRNRVs.html"><a href="appRNRVs.html#AppRNRVsubsecMTSRV"><i class="fa fa-check"></i><b>A.2.4</b> Mixture Distributions, Truncated Distributions, and Shifted Random Variables</a></li>
+</ul></li>
+<li class="chapter" data-level="A.3" data-path="summary-6.html"><a href="summary-6.html"><i class="fa fa-check"></i><b>A.3</b> Summary</a></li>
+<li class="chapter" data-level="A.4" data-path="exercises-10.html"><a href="exercises-10.html"><i class="fa fa-check"></i><b>A.4</b> Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="B" data-path="appidm.html"><a href="appidm.html"><i class="fa fa-check"></i><b>B</b> Probability Distribution Modeling</a>
+<ul>
+<li class="chapter" data-level="B.1" data-path="appidmsecrvPD.html"><a href="appidmsecrvPD.html"><i class="fa fa-check"></i><b>B.1</b> Random Variables and Probability Distributions</a></li>
+<li class="chapter" data-level="B.2" data-path="appidmsecMDD.html"><a href="appidmsecMDD.html"><i class="fa fa-check"></i><b>B.2</b> Modeling with Discrete Distributions</a></li>
+<li class="chapter" data-level="B.3" data-path="appidmsecfitDiscrete.html"><a href="appidmsecfitDiscrete.html"><i class="fa fa-check"></i><b>B.3</b> Fitting Discrete Distributions</a>
+<ul>
+<li class="chapter" data-level="B.3.1" data-path="appidmsecfitDiscrete.html"><a href="appidmsecfitDiscrete.html#AppDisFitPoissonFit"><i class="fa fa-check"></i><b>B.3.1</b> Fitting a Poisson Distribution</a></li>
+<li class="chapter" data-level="B.3.2" data-path="appidmsecfitDiscrete.html"><a href="appidmsecfitDiscrete.html#visualizing-the-data"><i class="fa fa-check"></i><b>B.3.2</b> Visualizing the Data</a></li>
+<li class="chapter" data-level="B.3.3" data-path="appidmsecfitDiscrete.html"><a href="appidmsecfitDiscrete.html#estimating-the-rate-parameter-for-the-poisson-distribution"><i class="fa fa-check"></i><b>B.3.3</b> Estimating the Rate Parameter for the Poisson Distribution</a></li>
+<li class="chapter" data-level="B.3.4" data-path="appidmsecfitDiscrete.html"><a href="appidmsecfitDiscrete.html#chi-squared-goodness-of-fit-test-for-poisson-distribution"><i class="fa fa-check"></i><b>B.3.4</b> Chi-Squared Goodness of Fit Test for Poisson Distribution</a></li>
+<li class="chapter" data-level="B.3.5" data-path="appidmsecfitDiscrete.html"><a href="appidmsecfitDiscrete.html#subsubchisqGOF"><i class="fa fa-check"></i><b>B.3.5</b> Chi-Squared Goodness of Fit Test</a></li>
+<li class="chapter" data-level="B.3.6" data-path="appidmsecfitDiscrete.html"><a href="appidmsecfitDiscrete.html#using-the-fitdistrplus-r-package-on-discrete-data"><i class="fa fa-check"></i><b>B.3.6</b> Using the fitdistrplus R Package on Discrete Data</a></li>
+<li class="chapter" data-level="B.3.7" data-path="appidmsecfitDiscrete.html"><a href="appidmsecfitDiscrete.html#fitting-a-discrete-empirical-distribution"><i class="fa fa-check"></i><b>B.3.7</b> Fitting a Discrete Empirical Distribution</a></li>
+</ul></li>
+<li class="chapter" data-level="B.4" data-path="appidmsecMCD.html"><a href="appidmsecMCD.html"><i class="fa fa-check"></i><b>B.4</b> Modeling with Continuous Distributions</a></li>
+<li class="chapter" data-level="B.5" data-path="appidmsecfitContinuous.html"><a href="appidmsecfitContinuous.html"><i class="fa fa-check"></i><b>B.5</b> Fitting Continuous Distributions</a>
+<ul>
+<li class="chapter" data-level="B.5.1" data-path="appidmsecfitContinuous.html"><a href="appidmsecfitContinuous.html#appidmsubsecvisualizedata"><i class="fa fa-check"></i><b>B.5.1</b> Visualizing the Data</a></li>
+<li class="chapter" data-level="B.5.2" data-path="appidmsecfitContinuous.html"><a href="appidmsecfitContinuous.html#appidmsubsecstatsdata"><i class="fa fa-check"></i><b>B.5.2</b> Statistically Summarize the Data</a></li>
+<li class="chapter" data-level="B.5.3" data-path="appidmsecfitContinuous.html"><a href="appidmsecfitContinuous.html#appidmsubsechypothDist"><i class="fa fa-check"></i><b>B.5.3</b> Hypothesizing and Testing a Distribution</a></li>
+<li class="chapter" data-level="B.5.4" data-path="appidmsecfitContinuous.html"><a href="appidmsecfitContinuous.html#kolmogorov-smirnov-test"><i class="fa fa-check"></i><b>B.5.4</b> Kolmogorov-Smirnov Test</a></li>
+<li class="chapter" data-level="B.5.5" data-path="appidmsecfitContinuous.html"><a href="appidmsecfitContinuous.html#appidmsubsecvisFit"><i class="fa fa-check"></i><b>B.5.5</b> Visualizing the Fit</a></li>
+<li class="chapter" data-level="B.5.6" data-path="appidmsecfitContinuous.html"><a href="appidmsecfitContinuous.html#appidms2sb3"><i class="fa fa-check"></i><b>B.5.6</b> Using the Input Analyzer</a></li>
+</ul></li>
+<li class="chapter" data-level="B.6" data-path="appdistfittestU01.html"><a href="appdistfittestU01.html"><i class="fa fa-check"></i><b>B.6</b> Testing Uniform (0,1) Pseudo-Random Numbers</a>
+<ul>
+<li class="chapter" data-level="B.6.1" data-path="appdistfittestU01.html"><a href="appdistfittestU01.html#chi-squared-goodness-of-fit-tests-for-pseudo-random-numbers"><i class="fa fa-check"></i><b>B.6.1</b> Chi-Squared Goodness of Fit Tests for Pseudo-Random Numbers</a></li>
+<li class="chapter" data-level="B.6.2" data-path="appdistfittestU01.html"><a href="appdistfittestU01.html#higher-dimensional-chi-squared-test"><i class="fa fa-check"></i><b>B.6.2</b> Higher Dimensional Chi-Squared Test</a></li>
+<li class="chapter" data-level="B.6.3" data-path="appdistfittestU01.html"><a href="appdistfittestU01.html#kolmogorov-smirnov-test-for-pseudo-random-numbers"><i class="fa fa-check"></i><b>B.6.3</b> Kolmogorov-Smirnov Test for Pseudo-Random Numbers</a></li>
+<li class="chapter" data-level="B.6.4" data-path="appdistfittestU01.html"><a href="appdistfittestU01.html#testing-for-independence-and-patterns-in-pseudo-random-numbers"><i class="fa fa-check"></i><b>B.6.4</b> Testing for Independence and Patterns in Pseudo-Random Numbers</a></li>
+</ul></li>
+<li class="chapter" data-level="B.7" data-path="appdistfitidms2sb4.html"><a href="appdistfitidms2sb4.html"><i class="fa fa-check"></i><b>B.7</b> Additional Distribution Modeling Concepts</a></li>
+<li class="chapter" data-level="B.8" data-path="appidmSummary.html"><a href="appidmSummary.html"><i class="fa fa-check"></i><b>B.8</b> Summary</a></li>
+<li class="chapter" data-level="B.9" data-path="exercises-11.html"><a href="exercises-11.html"><i class="fa fa-check"></i><b>B.9</b> Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="C" data-path="appqtAndInvT.html"><a href="appqtAndInvT.html"><i class="fa fa-check"></i><b>C</b> Queueing Theory</a>
+<ul>
+<li class="chapter" data-level="C.1" data-path="appqts1.html"><a href="appqts1.html"><i class="fa fa-check"></i><b>C.1</b> Single Line Queueing Stations</a>
+<ul>
+<li class="chapter" data-level="C.1.1" data-path="appqts1.html"><a href="appqts1.html#queueing-notation"><i class="fa fa-check"></i><b>C.1.1</b> Queueing Notation</a></li>
+<li class="chapter" data-level="C.1.2" data-path="appqts1.html"><a href="appqts1.html#littles-formula"><i class="fa fa-check"></i><b>C.1.2</b> Little’s Formula</a></li>
+<li class="chapter" data-level="C.1.3" data-path="appqts1.html"><a href="appqts1.html#appqts1sb1"><i class="fa fa-check"></i><b>C.1.3</b> Deriving Formulas for Markovian Single Queue Systems</a></li>
+</ul></li>
+<li class="chapter" data-level="C.2" data-path="appqts1sb2.html"><a href="appqts1sb2.html"><i class="fa fa-check"></i><b>C.2</b> Examples and Applications of Queueing Analysis</a>
+<ul>
+<li class="chapter" data-level="C.2.1" data-path="appqts1sb2.html"><a href="appqts1sb2.html#infinite-queue-examples"><i class="fa fa-check"></i><b>C.2.1</b> Infinite Queue Examples</a></li>
+<li class="chapter" data-level="C.2.2" data-path="appqts1sb2.html"><a href="appqts1sb2.html#finite-queue-examples"><i class="fa fa-check"></i><b>C.2.2</b> Finite Queue Examples</a></li>
+</ul></li>
+<li class="chapter" data-level="C.3" data-path="appqts1sb3.html"><a href="appqts1sb3.html"><i class="fa fa-check"></i><b>C.3</b> Non-Markovian Queues and Approximations</a></li>
+<li class="chapter" data-level="C.4" data-path="appqtsecformulas.html"><a href="appqtsecformulas.html"><i class="fa fa-check"></i><b>C.4</b> Summary of Queueing Formulas</a>
+<ul>
+<li class="chapter" data-level="C.4.1" data-path="appqtsecformulas.html"><a href="appqtsecformulas.html#mm1-queue"><i class="fa fa-check"></i><b>C.4.1</b> M/M/1 Queue</a></li>
+<li class="chapter" data-level="C.4.2" data-path="appqtsecformulas.html"><a href="appqtsecformulas.html#mmc-queue"><i class="fa fa-check"></i><b>C.4.2</b> M/M/c Queue</a></li>
+<li class="chapter" data-level="C.4.3" data-path="appqtsecformulas.html"><a href="appqtsecformulas.html#mmck-queue"><i class="fa fa-check"></i><b>C.4.3</b> M/M/c/k Queue</a></li>
+<li class="chapter" data-level="C.4.4" data-path="appqtsecformulas.html"><a href="appqtsecformulas.html#mgcc-queue"><i class="fa fa-check"></i><b>C.4.4</b> M/G/c/c Queue</a></li>
+<li class="chapter" data-level="C.4.5" data-path="appqtsecformulas.html"><a href="appqtsecformulas.html#mm1k-queue"><i class="fa fa-check"></i><b>C.4.5</b> M/M/1/k Queue</a></li>
+<li class="chapter" data-level="C.4.6" data-path="appqtsecformulas.html"><a href="appqtsecformulas.html#mmck-queue-1"><i class="fa fa-check"></i><b>C.4.6</b> M/M/c/k Queue</a></li>
+<li class="chapter" data-level="C.4.7" data-path="appqtsecformulas.html"><a href="appqtsecformulas.html#mm1kk-queue"><i class="fa fa-check"></i><b>C.4.7</b> M/M/1/k/k Queue</a></li>
+<li class="chapter" data-level="C.4.8" data-path="appqtsecformulas.html"><a href="appqtsecformulas.html#mmckk-queue"><i class="fa fa-check"></i><b>C.4.8</b> M/M/c/k/k Queue</a></li>
+</ul></li>
+<li class="chapter" data-level="C.5" data-path="exercises-12.html"><a href="exercises-12.html"><i class="fa fa-check"></i><b>C.5</b> Exercises</a></li>
+</ul></li>
+<li class="chapter" data-level="D" data-path="appUtilities.html"><a href="appUtilities.html"><i class="fa fa-check"></i><b>D</b> KSL Utility Packages</a>
+<ul>
+<li class="chapter" data-level="D.1" data-path="the-outputdirectory-class-and-ksl-object.html"><a href="the-outputdirectory-class-and-ksl-object.html"><i class="fa fa-check"></i><b>D.1</b> The <code>OutputDirectory</code> Class and <code>KSL</code> Object</a></li>
+<li class="chapter" data-level="D.2" data-path="logging-options.html"><a href="logging-options.html"><i class="fa fa-check"></i><b>D.2</b> Logging Options</a></li>
+<li class="chapter" data-level="D.3" data-path="the-kslfileutil-object.html"><a href="the-kslfileutil-object.html"><i class="fa fa-check"></i><b>D.3</b> The <code>KSLFileUtil</code> Object</a></li>
+<li class="chapter" data-level="D.4" data-path="appDCSVEtc.html"><a href="appDCSVEtc.html"><i class="fa fa-check"></i><b>D.4</b> CSV, Excel, and Tabular Data Files</a></li>
+<li class="chapter" data-level="D.5" data-path="dfUtil.html"><a href="dfUtil.html"><i class="fa fa-check"></i><b>D.5</b> The <code>DataFrameUtil</code> Object</a></li>
+<li class="chapter" data-level="D.6" data-path="ksl-database-utilities.html"><a href="ksl-database-utilities.html"><i class="fa fa-check"></i><b>D.6</b> KSL Database Utilities</a></li>
+<li class="chapter" data-level="D.7" data-path="appUtilitiesArrays.html"><a href="appUtilitiesArrays.html"><i class="fa fa-check"></i><b>D.7</b> Array Utilities</a></li>
+<li class="chapter" data-level="D.8" data-path="appPlotting.html"><a href="appPlotting.html"><i class="fa fa-check"></i><b>D.8</b> KSL Plotting Utilities</a></li>
+<li class="chapter" data-level="D.9" data-path="appUtilitiesMisc.html"><a href="appUtilitiesMisc.html"><i class="fa fa-check"></i><b>D.9</b> Miscellaneous Utilities</a></li>
+</ul></li>
+<li class="chapter" data-level="E" data-path="distributions.html"><a href="distributions.html"><i class="fa fa-check"></i><b>E</b> Distributions</a>
+<ul>
+<li class="chapter" data-level="E.1" data-path="appDiscreteDistributions.html"><a href="appDiscreteDistributions.html"><i class="fa fa-check"></i><b>E.1</b> Discrete Distrbutions</a></li>
+<li class="chapter" data-level="E.2" data-path="appContinuousDistributions.html"><a href="appContinuousDistributions.html"><i class="fa fa-check"></i><b>E.2</b> Continuous Distrbutions</a></li>
+</ul></li>
+<li class="chapter" data-level="F" data-path="appStatTables.html"><a href="appStatTables.html"><i class="fa fa-check"></i><b>F</b> Statistical Tables</a></li>
+<li class="chapter" data-level="G" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i><b>G</b> References</a></li>
+<li class="divider"></li>
+<li><a href="https://bookdown.org" target="_blank">Published with bookdown</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Simulation Modeling using the Kotlin Simulation Library (KSL)</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="implemented-solvers" class="section level2 hasAnchor" number="10.6">
+<h2><span class="header-section-number">10.6</span> Implemented Solvers<a href="implemented-solvers.html#implemented-solvers" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>This section will overview the set of solvers provided within the KSL for use on simulation optimization problems. As shown in Figure <a href="characterizing-simulation-optimization-algorithms.html#fig:SolverHierarchy">10.21</a>, the following algorithms are available.</p>
+<ul>
+<li><code>StochasticHillClimber</code> - A <a href="https://algorithmafternoon.com/stochastic/stochastic_hill_climbing/">stochastic hill climbing</a> solver implements the idea of randomly moving through the search space. As new solutions are found, the current solution is updated if the next solution is better than the previous solution. Variations of stochastic hill climbing involve how to select points. It is one of the simplest algorithms to implement and it is still useful because in the limit, the algorithm will eventually visit the optimal solution.</li>
+<li><code>SimulatedAnnealing</code> - Simulated annealing is a stochastic optimization algorithm that models the optimization process based on an analogy with a metallurgical annealing process. Popularized by <span class="citation">(<a href="#ref-kirkpatrick_optimization_1983">Kirkpatrick et al. 1983</a>)</span>, simulated annealing has been widely used as a general purpose optimization methodology. For further background on simulation annealing, the interested reader should consider this <a href="https://algorithmafternoon.com/books/simulated_annealing/">on-line book</a>.</li>
+<li><code>CrossEntropySolver</code> - The cross-entropy method is a population based algorithm that is based on minimizing the cross-entropy between a target distribution and a parametric distribution. <span class="citation">(<a href="#ref-de_boer_tutorial_2005">De Boer et al. 2005</a>)</span> present a detailed tutorial on the cross-entropy method. The cross-entropy method is a general purpose meta-heuristic. While designed for deterministic optimization problems, the cross-entropy method has also been applied to stochastic optimization problems.</li>
+<li><code>RSplineSolver</code> - The R-SPLINE method is presented in <span class="citation">(<a href="#ref-wang_integer-ordered_2013">Wang et al. 2013</a>)</span>. This method is designed for integer-ordered (discrete) optimization problems. The overall theory guarantees convergence to locally optimal solutions.</li>
+<li><code>RandomRestartSolver</code> - Many solvers require an initial starting point. The algorithm’s final solution may be sensitive to the choice of the initial starting point. A common strategy is to repeat the algorithm at different starting points and selecting the solution that is best across the starting points. This solver permits other solvers to be called repeatedly for randomly selected starting points.</li>
+</ul>
+<p>The previously discussed framework should allow users to implement their own solvers. This section discusses some of the key features of the provided solvers, which may be of interest when using the solvers. Since the <code>StochasticHillClimber</code> solver was already discussed, it will not be discussed here. We will start with the classic <em>simulated annealing</em> algorithm.</p>
+<div id="simulated-annealing" class="section level3 hasAnchor" number="10.6.1">
+<h3><span class="header-section-number">10.6.1</span> Simulated Annealing<a href="implemented-solvers.html#simulated-annealing" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Simulated annealing is an optimization approach that is based on the concepts of Markov Chain Monte Carlo (MCMC) (see Section <a href="ch9GMVRVs.html#ch9MCMC">9.3.4</a>). As presented in Chapter <a href="ch9AdvMC.html#ch9AdvMC">9</a>, MCMC can be used to generate from arbitrarily specified multivariate distributions. Simulated annealing exploits the MCMC sampling process to find a mode of density function, <span class="math inline">\(f(x)\)</span>. This mode represents a point where <span class="math inline">\(f(x)\)</span> is maximized. The process produces a sequence of density functions <span class="math inline">\(f_T(x) \propto [f(x)]^{1/T}\)</span>, where <span class="math inline">\(T\)</span> denotes the <em>temperature</em> of the distribution. The sampling process produces a Markov chain such that the generated values <span class="math inline">\(x_k\)</span> are from the distributions <span class="math inline">\(f_{T_k}\)</span> for decreasing temperatures <span class="math inline">\(T_1, T_2, \dots\)</span>. As the temperatures decrease, the distributions converge to a highly peaked distribution, where the peak is at the maximum of the distribution, <span class="math inline">\(f\)</span>. The point causing the peak will also be the solution to the optimization problem. A key factor in this process is the cooling schedule that determines the temperature sequence.</p>
+<p>As we can see from the constructor, the user must supply the problem definition, the evaluator and values for the key parameters of the annealing process:</p>
+<ul>
+<li><code>initialTemperature</code> - The starting temperature for the process.</li>
+<li><code>coolingSchedule</code> - An implementation of the <code>CoolingScheduleIfc</code> interface to determining the temperature at each iteration.</li>
+<li><code>stoppingTemperature</code> - If the current temperature goes below this value, the algorithm will stop.</li>
+</ul>
+<div class="sourceCode" id="cb457"><pre class="sourceCode kt"><code class="sourceCode kotlin"><span id="cb457-1"><a href="implemented-solvers.html#cb457-1" tabindex="-1"></a><span class="kw">class</span> SimulatedAnnealing @JvmOverloads <span class="kw">constructor</span><span class="op">(</span></span>
+<span id="cb457-2"><a href="implemented-solvers.html#cb457-2" tabindex="-1"></a>    <span class="va">problemDefinition</span><span class="op">:</span> <span class="dt">ProblemDefinition</span><span class="op">,</span></span>
+<span id="cb457-3"><a href="implemented-solvers.html#cb457-3" tabindex="-1"></a>    <span class="va">evaluator</span><span class="op">:</span> <span class="dt">EvaluatorIfc</span><span class="op">,</span></span>
+<span id="cb457-4"><a href="implemented-solvers.html#cb457-4" tabindex="-1"></a>    <span class="va">initialTemperature</span><span class="op">:</span> <span class="dt">Double</span> <span class="op">=</span> defaultInitialTemperature<span class="op">,</span></span>
+<span id="cb457-5"><a href="implemented-solvers.html#cb457-5" tabindex="-1"></a>    <span class="kw">var</span> <span class="va">coolingSchedule</span><span class="op">:</span> <span class="dt">CoolingScheduleIfc</span> <span class="op">=</span> ExponentialCoolingSchedule<span class="op">(</span>initialTemperature<span class="op">),</span></span>
+<span id="cb457-6"><a href="implemented-solvers.html#cb457-6" tabindex="-1"></a>    <span class="va">stoppingTemperature</span><span class="op">:</span> <span class="dt">Double</span> <span class="op">=</span> defaultStoppingTemperature<span class="op">,</span></span>
+<span id="cb457-7"><a href="implemented-solvers.html#cb457-7" tabindex="-1"></a>    <span class="va">maxIterations</span><span class="op">:</span> <span class="dt">Int</span> <span class="op">=</span> defaultMaxNumberIterations<span class="op">,</span></span>
+<span id="cb457-8"><a href="implemented-solvers.html#cb457-8" tabindex="-1"></a>    <span class="va">replicationsPerEvaluation</span><span class="op">:</span> <span class="dt">ReplicationPerEvaluationIfc</span><span class="op">,</span></span>
+<span id="cb457-9"><a href="implemented-solvers.html#cb457-9" tabindex="-1"></a>    <span class="va">streamNum</span><span class="op">:</span> <span class="dt">Int</span> <span class="op">=</span> <span class="dv">0</span><span class="op">,</span></span>
+<span id="cb457-10"><a href="implemented-solvers.html#cb457-10" tabindex="-1"></a>    <span class="va">streamProvider</span><span class="op">:</span> <span class="dt">RNStreamProviderIfc</span> <span class="op">=</span> KSLRandom<span class="op">.</span>DefaultRNStreamProvider<span class="op">,</span></span>
+<span id="cb457-11"><a href="implemented-solvers.html#cb457-11" tabindex="-1"></a>    <span class="va">name</span><span class="op">:</span> <span class="dt">String</span><span class="op">?</span> <span class="op">=</span> null</span>
+<span id="cb457-12"><a href="implemented-solvers.html#cb457-12" tabindex="-1"></a><span class="op">)</span> <span class="op">:</span> <span class="dt">StochasticSolver</span><span class="op">(</span><span class="va">problemDefinition</span><span class="op">,</span> <span class="va">evaluator</span><span class="op">,</span> <span class="va">maxIterations</span><span class="op">,</span> <span class="va">replicationsPerEvaluation</span><span class="op">,</span> <span class="va">streamNum</span><span class="op">,</span> <span class="va">streamProvider</span><span class="op">,</span> <span class="va">name</span><span class="op">)</span> <span class="op">{</span></span></code></pre></div>
+<p>Pseudo-code for the overall algorithm is as follows:</p>
+<pre><code>1. Initialize the solution and the temperature
+2. While not converged
+  2.1. Generate a possible solution based on some probabilistic process
+  2.2. Calculate the change in the objective function
+  2.3. If an improvement or acceptance probability is met
+    2.3.1 accept the new solution
+  2.4 Reduce the temparture according the cooling schedule
+3. Return the best solution found</code></pre>
+<p>A unique aspect of the simulated annealing process is that a solution that is not an improvement over the current solution can be accepted as the current solution. This permits exploration of the solution space. As the temperature decreases it becomes less likely that non-improving solutions will be accepted.</p>
+<p>Although the algorithm will stop when the maximum number of iterations is met, implementations often use approaches that stop when consecutive objective function values are less than some tolerance, when the temperature becomes too small, or when the objective function value has not changed after a number of iterations.</p>
+<p>The <code>SimulatedAnnealing</code> class implements the <code>initializeIterations(),</code> <code>mainIteration(),</code> and the <code>isStoppingCriteriaSatisfied()</code> functions. The <code>mainIteration()</code> function follows closely the outlined pseudo-code:</p>
+<div class="sourceCode" id="cb459"><pre class="sourceCode kt"><code class="sourceCode kotlin"><span id="cb459-1"><a href="implemented-solvers.html#cb459-1" tabindex="-1"></a>    <span class="kw">override</span> <span class="kw">fun</span> <span class="fu">mainIteration</span><span class="op">()</span> <span class="op">{</span></span>
+<span id="cb459-2"><a href="implemented-solvers.html#cb459-2" tabindex="-1"></a>        <span class="co">// generate a random neighbor of the current solution</span></span>
+<span id="cb459-3"><a href="implemented-solvers.html#cb459-3" tabindex="-1"></a>        <span class="kw">val</span> <span class="va">nextPoint</span> <span class="op">=</span> nextPoint<span class="op">()</span></span>
+<span id="cb459-4"><a href="implemented-solvers.html#cb459-4" tabindex="-1"></a>        <span class="co">// evaluate the point to get the next solution</span></span>
+<span id="cb459-5"><a href="implemented-solvers.html#cb459-5" tabindex="-1"></a>        <span class="kw">val</span> <span class="va">nextSolution</span> <span class="op">=</span> requestEvaluation<span class="op">(</span>nextPoint<span class="op">)</span></span>
+<span id="cb459-6"><a href="implemented-solvers.html#cb459-6" tabindex="-1"></a>        <span class="co">// calculate the cost difference</span></span>
+<span id="cb459-7"><a href="implemented-solvers.html#cb459-7" tabindex="-1"></a>        costDifference <span class="op">=</span> nextSolution<span class="op">.</span>penalizedObjFncValue <span class="op">-</span> currentSolution<span class="op">.</span>penalizedObjFncValue</span>
+<span id="cb459-8"><a href="implemented-solvers.html#cb459-8" tabindex="-1"></a>        <span class="co">// if the cost difference is negative, it is automatically an acceptance</span></span>
+<span id="cb459-9"><a href="implemented-solvers.html#cb459-9" tabindex="-1"></a>        <span class="cf">if</span> <span class="op">(</span>costDifference <span class="op">&lt;</span> <span class="fl">0.0</span><span class="op">)</span> <span class="op">{</span></span>
+<span id="cb459-10"><a href="implemented-solvers.html#cb459-10" tabindex="-1"></a>            <span class="co">// no need to generate a random variate</span></span>
+<span id="cb459-11"><a href="implemented-solvers.html#cb459-11" tabindex="-1"></a>            currentSolution <span class="op">=</span> nextSolution</span>
+<span id="cb459-12"><a href="implemented-solvers.html#cb459-12" tabindex="-1"></a>            lastAcceptanceProbability <span class="op">=</span> <span class="fl">1.0</span></span>
+<span id="cb459-13"><a href="implemented-solvers.html#cb459-13" tabindex="-1"></a>            logger<span class="op">.</span>trace <span class="op">{</span> <span class="st">&quot;Solver: </span><span class="ss">$name</span><span class="st"> : solution improved to </span><span class="ss">$nextSolution</span><span class="st">&quot;</span> <span class="op">}</span></span>
+<span id="cb459-14"><a href="implemented-solvers.html#cb459-14" tabindex="-1"></a>        <span class="op">}</span> <span class="cf">else</span> <span class="op">{</span></span>
+<span id="cb459-15"><a href="implemented-solvers.html#cb459-15" tabindex="-1"></a>            <span class="co">// decide whether an increased cost should be accepted</span></span>
+<span id="cb459-16"><a href="implemented-solvers.html#cb459-16" tabindex="-1"></a>            <span class="kw">val</span> <span class="va">u</span> <span class="op">=</span> rnStream<span class="op">.</span>randU01<span class="op">()</span></span>
+<span id="cb459-17"><a href="implemented-solvers.html#cb459-17" tabindex="-1"></a>            lastAcceptanceProbability <span class="op">=</span> acceptanceProbability<span class="op">(</span>costDifference<span class="op">,</span> currentTemperature<span class="op">)</span></span>
+<span id="cb459-18"><a href="implemented-solvers.html#cb459-18" tabindex="-1"></a>            <span class="cf">if</span> <span class="op">(</span>u <span class="op">&lt;</span> lastAcceptanceProbability<span class="op">)</span> <span class="op">{</span></span>
+<span id="cb459-19"><a href="implemented-solvers.html#cb459-19" tabindex="-1"></a>                currentSolution <span class="op">=</span> nextSolution</span>
+<span id="cb459-20"><a href="implemented-solvers.html#cb459-20" tabindex="-1"></a>                logger<span class="op">.</span>trace <span class="op">{</span> <span class="st">&quot;Solver: </span><span class="ss">$name</span><span class="st"> : non-improving solution was accepted: </span><span class="ss">$nextSolution</span><span class="st">&quot;</span> <span class="op">}</span></span>
+<span id="cb459-21"><a href="implemented-solvers.html#cb459-21" tabindex="-1"></a>            <span class="op">}</span> <span class="cf">else</span> <span class="op">{</span></span>
+<span id="cb459-22"><a href="implemented-solvers.html#cb459-22" tabindex="-1"></a>                <span class="co">// stay at the current solution</span></span>
+<span id="cb459-23"><a href="implemented-solvers.html#cb459-23" tabindex="-1"></a>                logger<span class="op">.</span>trace <span class="op">{</span> <span class="st">&quot;Solver: </span><span class="ss">$name</span><span class="st"> : rejected solution </span><span class="ss">$nextSolution</span><span class="st">&quot;</span> <span class="op">}</span></span>
+<span id="cb459-24"><a href="implemented-solvers.html#cb459-24" tabindex="-1"></a>            <span class="op">}</span></span>
+<span id="cb459-25"><a href="implemented-solvers.html#cb459-25" tabindex="-1"></a>        <span class="op">}</span></span>
+<span id="cb459-26"><a href="implemented-solvers.html#cb459-26" tabindex="-1"></a>        <span class="co">// update the current temperature based on the cooling schedule</span></span>
+<span id="cb459-27"><a href="implemented-solvers.html#cb459-27" tabindex="-1"></a>        currentTemperature <span class="op">=</span> coolingSchedule<span class="op">.</span>nextTemperature<span class="op">(</span>iterationCounter<span class="op">)</span></span>
+<span id="cb459-28"><a href="implemented-solvers.html#cb459-28" tabindex="-1"></a>        <span class="co">// capture the last solution</span></span>
+<span id="cb459-29"><a href="implemented-solvers.html#cb459-29" tabindex="-1"></a>        solutionChecker<span class="op">.</span>captureSolution<span class="op">(</span>currentSolution<span class="op">)</span></span>
+<span id="cb459-30"><a href="implemented-solvers.html#cb459-30" tabindex="-1"></a>    <span class="op">}</span></span></code></pre></div>
+<p>The implementation uses the <code>nextPoint()</code> function from the <code>StochasticSolver</code> class to generate a neighbor of the current point. The new point is evaluated via the simulation oracle. Then, the objective function cost difference is computed. If there is an improvement, the next solution is automatically accepted as the current solution. If the proposed point caused an increase in the objective function, then the algorithm randomly generates a U(0,1) variate and compares it to the current acceptance probability. If the randomly generated value is less than the acceptance probability, the proposed point is accepted; otherwise, the current solution stays the same. The acceptance probability criteria is based on the Boltzman distribution and is a function of the objective function difference and the current value of the temperature.</p>
+<div class="sourceCode" id="cb460"><pre class="sourceCode kt"><code class="sourceCode kotlin"><span id="cb460-1"><a href="implemented-solvers.html#cb460-1" tabindex="-1"></a>    <span class="kw">fun</span> <span class="fu">acceptanceProbability</span><span class="op">(</span><span class="va">costDifference</span><span class="op">:</span> <span class="dt">Double</span><span class="op">,</span> <span class="va">temperature</span><span class="op">:</span> <span class="dt">Double</span><span class="op">)</span> <span class="op">:</span> <span class="dt">Double</span> <span class="op">{</span></span>
+<span id="cb460-2"><a href="implemented-solvers.html#cb460-2" tabindex="-1"></a>        require<span class="op">(</span>temperature <span class="op">&gt;</span> <span class="fl">0.0</span><span class="op">)</span> <span class="op">{</span> <span class="st">&quot;The temperature must be positive&quot;</span> <span class="op">}</span></span>
+<span id="cb460-3"><a href="implemented-solvers.html#cb460-3" tabindex="-1"></a>        <span class="kw">return</span> <span class="cf">if</span> <span class="op">(</span>costDifference <span class="op">&lt;=</span> <span class="fl">0.0</span><span class="op">)</span> <span class="op">{</span></span>
+<span id="cb460-4"><a href="implemented-solvers.html#cb460-4" tabindex="-1"></a>            <span class="fl">1.0</span></span>
+<span id="cb460-5"><a href="implemented-solvers.html#cb460-5" tabindex="-1"></a>        <span class="op">}</span> <span class="cf">else</span> <span class="op">{</span></span>
+<span id="cb460-6"><a href="implemented-solvers.html#cb460-6" tabindex="-1"></a>            exp<span class="op">(-</span>costDifference <span class="op">/</span> temperature<span class="op">)</span></span>
+<span id="cb460-7"><a href="implemented-solvers.html#cb460-7" tabindex="-1"></a>        <span class="op">}</span></span>
+<span id="cb460-8"><a href="implemented-solvers.html#cb460-8" tabindex="-1"></a>    <span class="op">}</span></span></code></pre></div>
+<p>The current temperature is computed based on a user definable function to implement the cooling schedule. The default implementation uses an exponential cooling schedule. The <code>ksl.solvers.algorithms</code> package also provides implementations for linear and logarithmic cooling schedules.</p>
+<div class="sourceCode" id="cb461"><pre class="sourceCode kt"><code class="sourceCode kotlin"><span id="cb461-1"><a href="implemented-solvers.html#cb461-1" tabindex="-1"></a><span class="kw">class</span> ExponentialCoolingSchedule<span class="op">(</span></span>
+<span id="cb461-2"><a href="implemented-solvers.html#cb461-2" tabindex="-1"></a>    <span class="va">initialTemperature</span><span class="op">:</span> <span class="dt">Double</span><span class="op">,</span></span>
+<span id="cb461-3"><a href="implemented-solvers.html#cb461-3" tabindex="-1"></a>    <span class="kw">val</span> <span class="va">coolingRate</span><span class="op">:</span> <span class="dt">Double</span> <span class="op">=</span> defaultCoolingRate</span>
+<span id="cb461-4"><a href="implemented-solvers.html#cb461-4" tabindex="-1"></a><span class="op">)</span> <span class="op">:</span> <span class="dt">CoolingSchedule</span> <span class="op">(</span><span class="va">initialTemperature</span><span class="op">)</span>  <span class="op">{</span></span>
+<span id="cb461-5"><a href="implemented-solvers.html#cb461-5" tabindex="-1"></a>    init <span class="op">{</span></span>
+<span id="cb461-6"><a href="implemented-solvers.html#cb461-6" tabindex="-1"></a>        require<span class="op">(</span>coolingRate <span class="op">&gt;</span> <span class="fl">0.0</span><span class="op">)</span> <span class="op">{</span> <span class="st">&quot;Cooling rate must be positive&quot;</span> <span class="op">}</span></span>
+<span id="cb461-7"><a href="implemented-solvers.html#cb461-7" tabindex="-1"></a>        require<span class="op">(</span>coolingRate <span class="op">&lt;</span> <span class="fl">1.0</span><span class="op">)</span> <span class="op">{</span> <span class="st">&quot;Cooling rate must be less than 1.0&quot;</span> <span class="op">}</span></span>
+<span id="cb461-8"><a href="implemented-solvers.html#cb461-8" tabindex="-1"></a>    <span class="op">}</span></span>
+<span id="cb461-9"><a href="implemented-solvers.html#cb461-9" tabindex="-1"></a></span>
+<span id="cb461-10"><a href="implemented-solvers.html#cb461-10" tabindex="-1"></a>    <span class="kw">override</span> <span class="kw">fun</span> <span class="fu">nextTemperature</span><span class="op">(</span><span class="va">iteration</span><span class="op">:</span> <span class="dt">Int</span><span class="op">):</span> <span class="dt">Double</span> <span class="op">{</span></span>
+<span id="cb461-11"><a href="implemented-solvers.html#cb461-11" tabindex="-1"></a>        require<span class="op">(</span>iteration <span class="op">&gt;</span> <span class="dv">0</span><span class="op">)</span> <span class="op">{</span> <span class="st">&quot;The iteration must be positive. It was </span><span class="ss">$iteration</span><span class="st">.&quot;</span> <span class="op">}</span></span>
+<span id="cb461-12"><a href="implemented-solvers.html#cb461-12" tabindex="-1"></a>        <span class="kw">return</span> initialTemperature <span class="op">*</span> coolingRate<span class="op">.</span>pow<span class="op">(</span>iteration<span class="op">)</span></span>
+<span id="cb461-13"><a href="implemented-solvers.html#cb461-13" tabindex="-1"></a>    <span class="op">}</span></span>
+<span id="cb461-14"><a href="implemented-solvers.html#cb461-14" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
+<p>The implementation of the <code>SimulatedAnnealing</code> class uses an instance of the previously discussed <code>SolutionChecker</code> class as part of the stopping criteria to check if the last 5 solutions are the same or if the temperature has become too small.</p>
+<div class="sourceCode" id="cb462"><pre class="sourceCode kt"><code class="sourceCode kotlin"><span id="cb462-1"><a href="implemented-solvers.html#cb462-1" tabindex="-1"></a>    <span class="kw">override</span> <span class="kw">fun</span> <span class="fu">isStoppingCriteriaSatisfied</span><span class="op">():</span> <span class="dt">Boolean</span> <span class="op">{</span></span>
+<span id="cb462-2"><a href="implemented-solvers.html#cb462-2" tabindex="-1"></a>        <span class="kw">return</span> solutionQualityEvaluator<span class="op">?.</span>isStoppingCriteriaReached<span class="op">(</span><span class="kw">this</span><span class="op">)</span> <span class="op">?:</span></span>
+<span id="cb462-3"><a href="implemented-solvers.html#cb462-3" tabindex="-1"></a>        checkTemperature<span class="op">()</span> <span class="op">||</span> solutionChecker<span class="op">.</span>checkSolutions<span class="op">()</span></span>
+<span id="cb462-4"><a href="implemented-solvers.html#cb462-4" tabindex="-1"></a>    <span class="op">}</span></span>
+<span id="cb462-5"><a href="implemented-solvers.html#cb462-5" tabindex="-1"></a>    </span>
+<span id="cb462-6"><a href="implemented-solvers.html#cb462-6" tabindex="-1"></a>    <span class="kw">private</span> <span class="kw">fun</span> <span class="fu">checkTemperature</span><span class="op">()</span> <span class="op">:</span> <span class="dt">Boolean</span> <span class="op">{</span></span>
+<span id="cb462-7"><a href="implemented-solvers.html#cb462-7" tabindex="-1"></a>        <span class="kw">return</span> currentTemperature <span class="op">&lt;</span> stoppingTemperature</span>
+<span id="cb462-8"><a href="implemented-solvers.html#cb462-8" tabindex="-1"></a>    <span class="op">}</span></span></code></pre></div>
+</div>
+<div id="cross-entropy" class="section level3 hasAnchor" number="10.6.2">
+<h3><span class="header-section-number">10.6.2</span> Cross Entropy<a href="implemented-solvers.html#cross-entropy" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Similar in some respect to simulated annealing, the cross-entropy method is a stochastic optimization procedure that can be applied to both deterministic and stochastic optimization problems. The basic procedure is described in <span class="citation">(<a href="#ref-de_boer_tutorial_2005">De Boer et al. 2005</a>)</span> and can be characterized as a population based approach because it uses a sample of the search space to define an elite population. Cross-entropy uses rare-event simulation techniques to cause the parameters of a sampling distribution to converge to the desired solution of the related optimization problem. The cross-entropy method can be applied to optimization problems involving both continuous and discrete variables.</p>
+<p>As presented in <span class="citation">(<a href="#ref-rubenstein-kroese">Rubinstein and Kroese. 2017</a>)</span> the basic cross-entropy algorithm is as follows. The value <span class="math inline">\(\rho\)</span> is called the elite percentage. The algorithm presented here is in terms of minimizing the objective function.</p>
+<ol style="list-style-type: decimal">
+<li>Let <span class="math inline">\(k=0\)</span> be the iteration counter. Initialize <span class="math inline">\(\hat{v}_0\)</span> as the initial parameters of some density function <span class="math inline">\(f(\cdot;v_{k})\)</span>. Let <span class="math inline">\(N^e = \lceil \rho N \rceil\)</span> be the size of the elite sample. Let <span class="math inline">\(N\)</span> be the size of the cross-entropy population.</li>
+<li><strong>Repeat</strong>
+<ol style="list-style-type: decimal">
+<li>Generate a sample <span class="math inline">\(\vec{X}_1, \vec{X}_2, \dots, \vec{X}_N\)</span> from <span class="math inline">\(f(\cdot;v_{k-1})\)</span>.</li>
+<li>Calculate the performance <span class="math inline">\(G(\vec{X}_1), G(\vec{X}_2),\dots, G(\vec{X}_N)\)</span>.</li>
+<li>Order the performance from smallest to largest: <span class="math inline">\(G_{(1)}, G_{(2)},\dots, G_{(N)}\)</span></li>
+<li>Let <span class="math inline">\(\hat{\gamma}_k = G_{(N^e)}\)</span></li>
+<li>Use the same sample <span class="math inline">\(\vec{X}_1, \vec{X}_2, \dots, \vec{X}_N\)</span> and solve a corresponding stochastic program, see <span class="citation">(<a href="#ref-rubenstein-kroese">Rubinstein and Kroese. 2017</a>)</span> resulting in the estimated parameters of the sampling distribution <span class="math inline">\(\tilde{v}_k\)</span>.</li>
+<li>Update the parameters according to: <span class="math inline">\(\hat{v}_k = \alpha \tilde{v}_k + (1-\alpha) \hat{v}_{k-1}\)</span>.</li>
+<li>k = k + 1</li>
+</ol></li>
+<li><strong>Until</strong> : a stopping criteria is met.</li>
+</ol>
+<p>The stochastic program mentioned in step 2.5 of the algorithm is essentially the estimation of the parameters of <span class="math inline">\(f(\cdot;v_{k})\)</span> via the maximum likelihood method based on the <em>elite sample</em> at each iteration. The elite sample consists of those <span class="math inline">\(\vec{X}_i\)</span> such that <span class="math inline">\(G(\vec{X}_i) \ge \hat{\gamma}_k\)</span>. <span class="citation">(<a href="#ref-rubenstein-kroese">Rubinstein and Kroese. 2017</a>)</span> recommend that the procedure be stopped if for some <span class="math inline">\(k \ge d\)</span>, say <span class="math inline">\(d=5\)</span>, when <span class="math inline">\(\hat{v}_k = \hat{v}_{k-1} = \cdots = \hat{v}_{k-d}\)</span>.</p>
+<p>The choice of the density function <span class="math inline">\(f(\cdot;v_{k})\)</span> is an important aspect of the algorithm because the parameters converge to the optimal solution of the associated optimization problem. Actually, similar to simulated annealing, the sequence of density functions <span class="math inline">\(f(\cdot;\hat{v}_{1}),f(\cdot;\hat{v}_{2}), \dots\)</span> converges to a degenerate distribution assigning all probability to a single point <span class="math inline">\(x_k\)</span>, for which the objective function value is greater than or equal to <span class="math inline">\(\hat{\gamma}_k\)</span>. This point represents the solution to optimization problem. <span class="citation">(<a href="#ref-de_boer_tutorial_2005">De Boer et al. 2005</a>)</span> discuss different possibilities for the density function. The normal distribution is recommended for continuous optimization problems while the Bernoulli distribution has been used for discrete optimization problems. The critical aspect of this choice is the ability to easily compute the maximum likelihood estimates for the parameters of the distribution based on the elite sample.</p>
+<p>The KSL implementation of the cross-entropy solver follows this general algorithm and builds from the <code>StochasticSolver</code> class. You must specify an instance of the <code>CESamplerIfc</code> interface or accept the default of a sampler based on the multivariate normal distribution. The stopping criteria is based on providing an instance of the <code>InputsAndConfidenceIntervalEquality</code> class, which implements the <code>SolutionEqualityIfc</code> interface. This will test if <span class="math inline">\(\hat{v}_k = \hat{v}_{k-1} = \cdots = \hat{v}_{k-d}\)</span> is true based on equal values of inputs and a comparison of the solutions based on confidence interval comparisons with the best solution.</p>
+<div class="sourceCode" id="cb463"><pre class="sourceCode kt"><code class="sourceCode kotlin"><span id="cb463-1"><a href="implemented-solvers.html#cb463-1" tabindex="-1"></a><span class="kw">class</span> CrossEntropySolver @JvmOverloads <span class="kw">constructor</span><span class="op">(</span></span>
+<span id="cb463-2"><a href="implemented-solvers.html#cb463-2" tabindex="-1"></a>    <span class="va">problemDefinition</span><span class="op">:</span> <span class="dt">ProblemDefinition</span><span class="op">,</span></span>
+<span id="cb463-3"><a href="implemented-solvers.html#cb463-3" tabindex="-1"></a>    <span class="va">evaluator</span><span class="op">:</span> <span class="dt">EvaluatorIfc</span><span class="op">,</span></span>
+<span id="cb463-4"><a href="implemented-solvers.html#cb463-4" tabindex="-1"></a>    <span class="kw">val</span> <span class="va">ceSampler</span><span class="op">:</span> <span class="dt">CESamplerIfc</span> <span class="op">=</span> CENormalSampler<span class="op">(</span>problemDefinition<span class="op">),</span></span>
+<span id="cb463-5"><a href="implemented-solvers.html#cb463-5" tabindex="-1"></a>    <span class="va">maxIterations</span><span class="op">:</span> <span class="dt">Int</span> <span class="op">=</span> ceDefaultMaxIterations<span class="op">,</span></span>
+<span id="cb463-6"><a href="implemented-solvers.html#cb463-6" tabindex="-1"></a>    <span class="va">replicationsPerEvaluation</span><span class="op">:</span> <span class="dt">ReplicationPerEvaluationIfc</span><span class="op">,</span></span>
+<span id="cb463-7"><a href="implemented-solvers.html#cb463-7" tabindex="-1"></a>    <span class="va">solutionEqualityChecker</span><span class="op">:</span> <span class="dt">SolutionEqualityIfc</span> <span class="op">=</span> InputsAndConfidenceIntervalEquality<span class="op">(),</span></span>
+<span id="cb463-8"><a href="implemented-solvers.html#cb463-8" tabindex="-1"></a>    <span class="va">name</span><span class="op">:</span> <span class="dt">String</span><span class="op">?</span> <span class="op">=</span> null</span>
+<span id="cb463-9"><a href="implemented-solvers.html#cb463-9" tabindex="-1"></a><span class="op">)</span> <span class="op">:</span> <span class="dt">StochasticSolver</span><span class="op">(</span><span class="va">problemDefinition</span><span class="op">,</span></span>
+<span id="cb463-10"><a href="implemented-solvers.html#cb463-10" tabindex="-1"></a>    <span class="va">evaluator</span><span class="op">,</span> <span class="va">maxIterations</span><span class="op">,</span></span>
+<span id="cb463-11"><a href="implemented-solvers.html#cb463-11" tabindex="-1"></a>    <span class="va">replicationsPerEvaluation</span><span class="op">,</span> <span class="va">ceSampler</span>.<span class="va">streamNumber</span><span class="op">,</span></span>
+<span id="cb463-12"><a href="implemented-solvers.html#cb463-12" tabindex="-1"></a>    <span class="va">ceSampler</span>.<span class="va">streamProvider</span><span class="op">,</span> <span class="va">name</span></span>
+<span id="cb463-13"><a href="implemented-solvers.html#cb463-13" tabindex="-1"></a><span class="op">)</span></span></code></pre></div>
+<p>The implementation uses the instance of the <code>CESamplerIfc</code> interface to generate the points <span class="math inline">\(\vec{X}_1, \vec{X}_2, \dots, \vec{X}_N\)</span> via the function call <code>ceSampler.sample(sampleSize())</code> within the <code>mainIteration()</code> function. The function <code>sampleSize()</code> computes the size, <span class="math inline">\(N\)</span>, of the cross-entropy population at each iteration. Then, the solver requests the evaluation of those points to produce the estimated performance of the objective function, <span class="math inline">\(G(\vec{X}_1), G(\vec{X}_2),\dots, G(\vec{X}_N)\)</span>.</p>
+<div class="sourceCode" id="cb464"><pre class="sourceCode kt"><code class="sourceCode kotlin"><span id="cb464-1"><a href="implemented-solvers.html#cb464-1" tabindex="-1"></a>    <span class="kw">override</span> <span class="kw">fun</span> <span class="fu">mainIteration</span><span class="op">()</span> <span class="op">{</span></span>
+<span id="cb464-2"><a href="implemented-solvers.html#cb464-2" tabindex="-1"></a>        <span class="co">// Generate the cross-entropy sample population</span></span>
+<span id="cb464-3"><a href="implemented-solvers.html#cb464-3" tabindex="-1"></a>        <span class="kw">val</span> <span class="va">points</span> <span class="op">=</span> ceSampler<span class="op">.</span>sample<span class="op">(</span>sampleSize<span class="op">())</span></span>
+<span id="cb464-4"><a href="implemented-solvers.html#cb464-4" tabindex="-1"></a>        <span class="co">// Convert the points to be able to evaluate.</span></span>
+<span id="cb464-5"><a href="implemented-solvers.html#cb464-5" tabindex="-1"></a>        <span class="kw">val</span> <span class="va">inputs</span> <span class="op">=</span> problemDefinition<span class="op">.</span>convertPointsToInputs<span class="op">(</span>points<span class="op">)</span></span>
+<span id="cb464-6"><a href="implemented-solvers.html#cb464-6" tabindex="-1"></a>        <span class="co">// request evaluations for solutions</span></span>
+<span id="cb464-7"><a href="implemented-solvers.html#cb464-7" tabindex="-1"></a>        <span class="kw">val</span> <span class="va">evaluations</span> <span class="op">=</span> requestEvaluations<span class="op">(</span>inputs<span class="op">)</span></span>
+<span id="cb464-8"><a href="implemented-solvers.html#cb464-8" tabindex="-1"></a>        <span class="kw">val</span> <span class="va">results</span> <span class="op">=</span> evaluations<span class="op">.</span>values<span class="op">.</span>toList<span class="op">()</span></span>
+<span id="cb464-9"><a href="implemented-solvers.html#cb464-9" tabindex="-1"></a>        <span class="cf">if</span> <span class="op">(</span>results<span class="op">.</span>isEmpty<span class="op">())</span> <span class="op">{</span></span>
+<span id="cb464-10"><a href="implemented-solvers.html#cb464-10" tabindex="-1"></a>            <span class="co">// Returning will cause no updating on this iteration.</span></span>
+<span id="cb464-11"><a href="implemented-solvers.html#cb464-11" tabindex="-1"></a>            <span class="co">// New points will be generated for another try on the next iteration.</span></span>
+<span id="cb464-12"><a href="implemented-solvers.html#cb464-12" tabindex="-1"></a>            <span class="kw">return</span></span>
+<span id="cb464-13"><a href="implemented-solvers.html#cb464-13" tabindex="-1"></a>        <span class="op">}</span></span>
+<span id="cb464-14"><a href="implemented-solvers.html#cb464-14" tabindex="-1"></a>        <span class="co">// At least one result, so proceed with processing.</span></span>
+<span id="cb464-15"><a href="implemented-solvers.html#cb464-15" tabindex="-1"></a>        <span class="co">// Process the results to find the elites. This should fill myEliteSolutions.</span></span>
+<span id="cb464-16"><a href="implemented-solvers.html#cb464-16" tabindex="-1"></a>        myEliteSolutions <span class="op">=</span> findEliteSolutions<span class="op">(</span>results<span class="op">)</span></span>
+<span id="cb464-17"><a href="implemented-solvers.html#cb464-17" tabindex="-1"></a>        <span class="co">// convert elite solutions to points</span></span>
+<span id="cb464-18"><a href="implemented-solvers.html#cb464-18" tabindex="-1"></a>        <span class="kw">val</span> <span class="va">elitePoints</span> <span class="op">=</span> extractSolutionInputPoints<span class="op">(</span>myEliteSolutions<span class="op">)</span></span>
+<span id="cb464-19"><a href="implemented-solvers.html#cb464-19" tabindex="-1"></a>        <span class="co">// update the sampler&#39;s parameters</span></span>
+<span id="cb464-20"><a href="implemented-solvers.html#cb464-20" tabindex="-1"></a>        ceSampler<span class="op">.</span>updateParameters<span class="op">(</span>elitePoints<span class="op">)</span></span>
+<span id="cb464-21"><a href="implemented-solvers.html#cb464-21" tabindex="-1"></a>        <span class="co">// specify the current solution</span></span>
+<span id="cb464-22"><a href="implemented-solvers.html#cb464-22" tabindex="-1"></a>        currentSolution <span class="op">=</span> myEliteSolutions<span class="op">.</span>first<span class="op">()</span></span>
+<span id="cb464-23"><a href="implemented-solvers.html#cb464-23" tabindex="-1"></a>        <span class="co">// capture the last solution</span></span>
+<span id="cb464-24"><a href="implemented-solvers.html#cb464-24" tabindex="-1"></a>        solutionChecker<span class="op">.</span>captureSolution<span class="op">(</span>currentSolution<span class="op">)</span></span>
+<span id="cb464-25"><a href="implemented-solvers.html#cb464-25" tabindex="-1"></a>    <span class="op">}</span></span></code></pre></div>
+<p>The elite solutions are found via the call to <code>findEliteSolutions()</code> and the points associated with the elite solutions are used to update the parameters of the cross-entropy sampler. The best solution from the elite sample is used to represent the current solution. Just like the simulated annealing algorithm, the cross-entropy implementation uses an instance of the <code>SolutionChecker</code> class to remember the last <span class="math inline">\(d\)</span> solutions and to stop when they have converged.</p>
+<p>There are a number of key issues that must be implemented for the cross-entropy method.</p>
+<ul>
+<li>How large should the population (<span class="math inline">\(N\)</span>) be?</li>
+<li>What should the elite percentage <span class="math inline">\(\rho\)</span> be? Alternatively, what should be the size of the elite sample?</li>
+<li>What parametric family of distributions should be used for the sampling distribution?
+<ul>
+<li>How to initialize the parameters of the sampling distribution?</li>
+<li>How to update the parameters of the sampling distribution?</li>
+<li>What should the value of the smoothing parameter <span class="math inline">\(\alpha\)</span> be?</li>
+</ul></li>
+</ul>
+<p><span class="citation">(<a href="#ref-de_boer_tutorial_2005">De Boer et al. 2005</a>)</span> recommends that the size of the population, <span class="math inline">\(N\)</span>, be related to the dimension of the problem. If we let <span class="math inline">\(K\)</span> be the number of parameters that need to be estimated for the sampling distribution, then <span class="citation">(<a href="#ref-de_boer_tutorial_2005">De Boer et al. 2005</a>)</span> recommends <span class="math inline">\(N=cK\)</span>, where <span class="math inline">\(c\)</span> is a number between 1 and 10. For example, if the sampling distribution family is the normal distribution, we must estimate two parameters for each input variable, that is <span class="math inline">\((\mu_i, \sigma_i)\)</span> for <span class="math inline">\(i=1,2,\dots, |I|\)</span>. Thus, <span class="math inline">\(K=2*|I|\)</span>. The KSL provides more flexibility with respect to determining the population size. As previously mentioned, the implementation provides the <code>sampleSize()</code> function, which can be customized by providing an implementation of the <code>SampleSizeFnIfc</code> functional interface.</p>
+<div class="sourceCode" id="cb465"><pre class="sourceCode kt"><code class="sourceCode kotlin"><span id="cb465-1"><a href="implemented-solvers.html#cb465-1" tabindex="-1"></a><span class="kw">fun</span> <span class="kw">interface</span> <span class="fu">SampleSizeFnIfc</span> <span class="op">{</span></span>
+<span id="cb465-2"><a href="implemented-solvers.html#cb465-2" tabindex="-1"></a>    <span class="kw">fun</span> <span class="fu">sampleSize</span><span class="op">(</span><span class="va">ceSolver</span><span class="op">:</span> <span class="dt">CrossEntropySolver</span><span class="op">):</span> <span class="dt">Int</span></span>
+<span id="cb465-3"><a href="implemented-solvers.html#cb465-3" tabindex="-1"></a>}</span></code></pre></div>
+<p>The base implementation will use a supplied sample size function or use the value of the <code>ceSampleSize</code> property.</p>
+<div class="sourceCode" id="cb466"><pre class="sourceCode kt"><code class="sourceCode kotlin"><span id="cb466-1"><a href="implemented-solvers.html#cb466-1" tabindex="-1"></a>    <span class="kw">fun</span> <span class="fu">sampleSize</span><span class="op">():</span> <span class="dt">Int</span> <span class="op">{</span></span>
+<span id="cb466-2"><a href="implemented-solvers.html#cb466-2" tabindex="-1"></a>        <span class="kw">return</span> sampleSizeFn<span class="op">?.</span>sampleSize<span class="op">(</span><span class="kw">this</span><span class="op">)</span> <span class="op">?:</span> ceSampleSize</span>
+<span id="cb466-3"><a href="implemented-solvers.html#cb466-3" tabindex="-1"></a>    <span class="op">}</span></span></code></pre></div>
+<p>The value of the <code>ceSampleSize</code> property is based on a user changeable default value or a recommended sample size based on the size of a sample needed to adequately estimate the quantile of a distribution.</p>
+<div class="sourceCode" id="cb467"><pre class="sourceCode kt"><code class="sourceCode kotlin"><span id="cb467-1"><a href="implemented-solvers.html#cb467-1" tabindex="-1"></a>    <span class="kw">var</span> <span class="va">ceSampleSize</span><span class="op">:</span> <span class="kw">Int</span> <span class="op">=</span> minOf<span class="op">(</span>recommendCESampleSize<span class="op">(),</span> defaultMaxCESampleSize<span class="op">)</span></span>
+<span id="cb467-2"><a href="implemented-solvers.html#cb467-2" tabindex="-1"></a>        <span class="kw">set</span><span class="op">(</span>value<span class="op">)</span> <span class="op">{</span></span>
+<span id="cb467-3"><a href="implemented-solvers.html#cb467-3" tabindex="-1"></a>            require<span class="op">(</span>value <span class="op">&gt;=</span> defaultMinCESampleSize<span class="op">)</span> <span class="op">{</span> <span class="st">&quot;The CE sample size must be &gt;= </span><span class="ss">$defaultMinCESampleSize</span><span class="st">&quot;</span> <span class="op">}</span></span>
+<span id="cb467-4"><a href="implemented-solvers.html#cb467-4" tabindex="-1"></a>            field <span class="op">=</span> minOf<span class="op">(</span>value<span class="op">,</span> defaultMaxCESampleSize<span class="op">)</span></span>
+<span id="cb467-5"><a href="implemented-solvers.html#cb467-5" tabindex="-1"></a>        <span class="op">}</span></span></code></pre></div>
+<p>The recommended cross-entropy sample size is based on the results presented in <span class="citation">(<a href="#ref-chen_simulation-based_1999">Chen and Kelton 1999</a>)</span> and is implemented in the <code>recommedCESampleSize()</code> companion function.</p>
+<div class="sourceCode" id="cb468"><pre class="sourceCode kt"><code class="sourceCode kotlin"><span id="cb468-1"><a href="implemented-solvers.html#cb468-1" tabindex="-1"></a>        <span class="kw">fun</span> <span class="fu">recommendCESampleSize</span><span class="op">(</span></span>
+<span id="cb468-2"><a href="implemented-solvers.html#cb468-2" tabindex="-1"></a>            <span class="va">elitePct</span><span class="op">:</span> <span class="dt">Double</span> <span class="op">=</span> defaultElitePct<span class="op">,</span></span>
+<span id="cb468-3"><a href="implemented-solvers.html#cb468-3" tabindex="-1"></a>            <span class="va">ceQuantileConfidenceLevel</span><span class="op">:</span> <span class="dt">Double</span> <span class="op">=</span> defaultCEQuantileConfidenceLevel<span class="op">,</span></span>
+<span id="cb468-4"><a href="implemented-solvers.html#cb468-4" tabindex="-1"></a>            <span class="va">maxProportionHalfWidth</span><span class="op">:</span> <span class="dt">Double</span> <span class="op">=</span> defaultMaxProportionHalfWidth<span class="op">,</span></span>
+<span id="cb468-5"><a href="implemented-solvers.html#cb468-5" tabindex="-1"></a>        <span class="op">):</span> <span class="dt">Int</span> </span></code></pre></div>
+<p>The computed sample size may be sufficient to adequately estimate the quantile associated with the desired elite percentage using a desired quantile confidence level and an adjusted half-width bound for the associated quantile proportion. Defaults are provided for each of these parameters.</p>
+<p>Lastly, the KSL cross-entropy implementation permits customization of the size of the elite sample. In some situations, you may want to vary the size of the elite sample as the algorithm progresses to improve estimation of the parameters of the sampling distribution. The KSL implementation provides the <code>eliteSize()</code> function for this purpose.</p>
+<div class="sourceCode" id="cb469"><pre class="sourceCode kt"><code class="sourceCode kotlin"><span id="cb469-1"><a href="implemented-solvers.html#cb469-1" tabindex="-1"></a>    <span class="kw">fun</span> <span class="fu">eliteSize</span><span class="op">():</span> <span class="dt">Int</span> <span class="op">{</span></span>
+<span id="cb469-2"><a href="implemented-solvers.html#cb469-2" tabindex="-1"></a>        <span class="kw">return</span> eliteSizeFn<span class="op">?.</span>eliteSize<span class="op">(</span><span class="kw">this</span><span class="op">)</span> <span class="op">?:</span> maxOf<span class="op">(</span>ceil<span class="op">(</span>elitePct <span class="op">*</span> ceSampleSize<span class="op">).</span>toInt<span class="op">(),</span></span>
+<span id="cb469-3"><a href="implemented-solvers.html#cb469-3" tabindex="-1"></a>            defaultMinEliteSize<span class="op">)</span></span>
+<span id="cb469-4"><a href="implemented-solvers.html#cb469-4" tabindex="-1"></a>    <span class="op">}</span></span></code></pre></div>
+<p>Note that a user can supply an instance of the <code>EliteSizeIfc</code> functional interface, which simply promises to compute the size of the elite sample.</p>
+<div class="sourceCode" id="cb470"><pre class="sourceCode kt"><code class="sourceCode kotlin"><span id="cb470-1"><a href="implemented-solvers.html#cb470-1" tabindex="-1"></a><span class="kw">fun</span> <span class="kw">interface</span> <span class="fu">EliteSizeIfc</span> <span class="op">{</span></span>
+<span id="cb470-2"><a href="implemented-solvers.html#cb470-2" tabindex="-1"></a></span>
+<span id="cb470-3"><a href="implemented-solvers.html#cb470-3" tabindex="-1"></a>    <span class="kw">fun</span> <span class="fu">eliteSize</span><span class="op">(</span><span class="va">ceSolver</span><span class="op">:</span> <span class="dt">CrossEntropySolver</span><span class="op">):</span> <span class="dt">Int</span></span>
+<span id="cb470-4"><a href="implemented-solvers.html#cb470-4" tabindex="-1"></a></span>
+<span id="cb470-5"><a href="implemented-solvers.html#cb470-5" tabindex="-1"></a>}</span></code></pre></div>
+<p>The implementation of the <code>eliteSize()</code> function will use a supplied function specified by the <code>eliteSizeFn</code> property or determine the size based on the specified elite percentage.</p>
+<p>The questions associated with the sampling distribution and the updating of its parameters should be addressed by the choice of the implementation of the <code>CESamplerIfc</code> interface chosen for the algorithm.</p>
+<div class="figure" style="text-align: center"><span style="display:block;" id="fig:CESamplerIfc"></span>
+<img src="figures2/ch10/CESamplerIfc.png" alt="CESamplerIfc Interface" width="90%" height="90%" />
+<p class="caption">
+Figure 10.27: CESamplerIfc Interface
+</p>
+</div>
+<p>Figure <a href="implemented-solvers.html#fig:CESamplerIfc">10.27</a> presents the <code>CESamplerIfc</code> interface and the <code>CENormalSampler</code> class, which implements the sampling process based on the normal distribution. Note that the <code>CESamplerIfc</code> interface implements the <code>MVSampleIfc</code> and <code>RNStreamControlIfc</code> interfaces. Thus, it can act as a multivariate sampler and can control the underlying random number stream. The four most relevant functions are:</p>
+<ul>
+<li><code>updateParameters(elites: List&lt;DoubleArray&gt;)</code> - This function should update the parameters based on the points from the elite sample (held in a list of double arrays).</li>
+<li><code>parameters(): DoubleArray</code> - This function returns the current parameter values.</li>
+<li><code>initializeParameters(values: DoubleArray)</code> - This function is used to specify the initial values of the parameters.</li>
+<li><code>hasConverged(): Boolean</code> - This function should return true if the parameters of the underlying sampling distribution are considered converged.</li>
+</ul>
+<p>The initialization of the parameters of the cross-entropy sampling distribution is interesting because we do not have any knowledge from an elite sample when the algorithm starts. In essence, this is like determining the starting point of the optimization problem. For the <code>CENormalSampler</code> class, the implementation uses a randomly generated point in the solution space as the specification of the means of the multivariate normal distribution. Then, the input range of each point is used to approximate the initial values of the standard deviations for the distributions. The standard approximation for the standard deviation as a function of the range (<span class="math inline">\(R\)</span>) is used: <span class="math inline">\(\sigma = R/4\)</span>. Thus, input variables that have a wider range of possible values start off with a higher variance parameter. The means associated with the normal distribution will converge to the recommended solution, while the standard deviations will continue to get closer and closer to zero as the process converges to a degenerate distribution.</p>
+<p>As noted in Figure <a href="implemented-solvers.html#fig:CESamplerIfc">10.27</a>, the <code>CENormalSampler</code> class requires the specification of the smoothing constant, <span class="math inline">\(\alpha\)</span>, for both the mean and the standard deviation parameters. The user also has the ability to specify more or less variability via the <code>initialVariabilityFactor</code> property, which will be used to multiply the approximated initial values for the standard deviation parameters. Its default value is 1.0. The user must also specify the <code>cvThreshold</code> parameter value. This threshold is used to test if the parameters have converged. The default implementation computes the coefficient of variation of the parameters and if the coefficient of variation goes below this threshold, then the parameter is consider to have converged. If all the parameters have converged, then the <code>hasConverged()</code> function will return true. The default coefficient of variation threshold is set to <span class="math inline">\(0.03\)</span>.</p>
+<p>Updating the parameters of the normal sampler is easy. We can just use the sample average and sample standard deviation of the elite points associated with the elite sample as the new estimates, and then smooth those estimate using the smoothing constants. Based on the recommendations from <span class="citation">(<a href="#ref-de_boer_tutorial_2005">De Boer et al. 2005</a>)</span>, the default smoothing constants are set to <span class="math inline">\(0.85\)</span>. The KSL only supplies the <code>CENormalSampler</code> because testing has indicated that it performs okay for both discrete and continuous problems. Users can implement the defined interfaces if they require other parametric distributions.</p>
+</div>
+<div id="r-spline" class="section level3 hasAnchor" number="10.6.3">
+<h3><span class="header-section-number">10.6.3</span> R-SPLINE<a href="implemented-solvers.html#r-spline" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>This section will present an overview of the R-SPLINE algorithm discussed in <span class="citation">(<a href="#ref-wang_integer-ordered_2013">Wang et al. 2013</a>)</span>. Since that paper has substantial details of the algorithm, the emphasis in this presentation will be on how the <code>ksl.simopt</code> package facilitates its implementation. As previously noted, the R-SPLINE algorithm is for discrete integer ordered optimization problems. If the user attempts to solve a problem that is not integer ordered, the R-SPLINE implementation will report an illegal argument exception for the problem definition parameter.</p>
+<p>As a <code>StochasticSolver,</code> the <code>RSplineSolver</code> class requires a specification of the replications per evaluation and an implementation of a stopping criteria. Similar to the cross-entropy method, the R-SPLINE implementation also uses the <code>InputsAndConfidenceIntervalEquality</code> class for checking it the algorithm should stop. This is different than the approaches recommended in <span class="citation">(<a href="#ref-wang_integer-ordered_2013">Wang et al. 2013</a>)</span>. Unique to the R-SPLINE algorithm is that the algorithm does not use a fixed replication sampling mechanism but rather the number of replications per evaluation will grow as the number of iterations increases. This is an important aspect of the theory behind the algorithm to justify claims that in the limit the algorithm will converge to local neighborhood optimal solutions.</p>
+<div class="sourceCode" id="cb471"><pre class="sourceCode kt"><code class="sourceCode kotlin"><span id="cb471-1"><a href="implemented-solvers.html#cb471-1" tabindex="-1"></a><span class="kw">class</span> RSplineSolver @JvmOverloads <span class="kw">constructor</span><span class="op">(</span></span>
+<span id="cb471-2"><a href="implemented-solvers.html#cb471-2" tabindex="-1"></a>    <span class="va">problemDefinition</span><span class="op">:</span> <span class="dt">ProblemDefinition</span><span class="op">,</span></span>
+<span id="cb471-3"><a href="implemented-solvers.html#cb471-3" tabindex="-1"></a>    <span class="va">evaluator</span><span class="op">:</span> <span class="dt">EvaluatorIfc</span><span class="op">,</span></span>
+<span id="cb471-4"><a href="implemented-solvers.html#cb471-4" tabindex="-1"></a>    <span class="va">maxIterations</span><span class="op">:</span> <span class="dt">Int</span> <span class="op">=</span> defaultMaxNumberIterations<span class="op">,</span></span>
+<span id="cb471-5"><a href="implemented-solvers.html#cb471-5" tabindex="-1"></a>    <span class="va">replicationsPerEvaluation</span><span class="op">:</span> <span class="dt">FixedGrowthRateReplicationSchedule</span><span class="op">,</span></span>
+<span id="cb471-6"><a href="implemented-solvers.html#cb471-6" tabindex="-1"></a>    <span class="va">solutionEqualityChecker</span><span class="op">:</span> <span class="dt">SolutionEqualityIfc</span> <span class="op">=</span> InputsAndConfidenceIntervalEquality<span class="op">(),</span></span>
+<span id="cb471-7"><a href="implemented-solvers.html#cb471-7" tabindex="-1"></a>    <span class="va">streamNum</span><span class="op">:</span> <span class="dt">Int</span> <span class="op">=</span> <span class="dv">0</span><span class="op">,</span></span>
+<span id="cb471-8"><a href="implemented-solvers.html#cb471-8" tabindex="-1"></a>    <span class="va">streamProvider</span><span class="op">:</span> <span class="dt">RNStreamProviderIfc</span> <span class="op">=</span> KSLRandom<span class="op">.</span>DefaultRNStreamProvider<span class="op">,</span></span>
+<span id="cb471-9"><a href="implemented-solvers.html#cb471-9" tabindex="-1"></a>    <span class="va">name</span><span class="op">:</span> <span class="dt">String</span><span class="op">?</span> <span class="op">=</span> null</span>
+<span id="cb471-10"><a href="implemented-solvers.html#cb471-10" tabindex="-1"></a><span class="op">)</span> <span class="op">:</span> <span class="dt">StochasticSolver</span><span class="op">(</span><span class="va">problemDefinition</span><span class="op">,</span> <span class="va">evaluator</span><span class="op">,</span> <span class="va">maxIterations</span><span class="op">,</span></span>
+<span id="cb471-11"><a href="implemented-solvers.html#cb471-11" tabindex="-1"></a>    <span class="va">replicationsPerEvaluation</span><span class="op">,</span> <span class="va">streamNum</span><span class="op">,</span> <span class="va">streamProvider</span><span class="op">,</span> <span class="va">name</span><span class="op">)</span></span></code></pre></div>
+<p>The R-SPLINE algorithm combines three ideas: 1) piece-wise linear interpolation search, 2) discrete neighborhood enumeration, and 3) retrospective solving of a sequence of sample path problems with an increasing sample size using the previous solution as the starting point for the next problem. <span class="citation">(<a href="#ref-wang_integer-ordered_2013">Wang et al. 2013</a>)</span> specifies algorithm 1 of R-SPLINE as</p>
+<ol style="list-style-type: decimal">
+<li>Set <span class="math inline">\(X^{*}_{0} = x_0\)</span></li>
+<li>for <span class="math inline">\(k=1,2,\dots\)</span></li>
+<li><span class="math inline">\(X^{*}_{k} = SPLINE(X^{*}_{k-1}, m_k, b_k)\)</span></li>
+<li>end for</li>
+</ol>
+<p>The sequences <span class="math inline">\(m_k\)</span> and <span class="math inline">\(b_k\)</span>, specify the sample size for the <span class="math inline">\(k^{th}\)</span> iteration and <span class="math inline">\(b_k\)</span> is the limit on the number of simulation evaluation calls. As you can see the <code>mainIteration()</code> function represents this algorithm. <span class="citation">(<a href="#ref-wang_integer-ordered_2013">Wang et al. 2013</a>)</span> recommends <span class="math inline">\(m_{k+1} = \lceil 1.1m_k \rceil\)</span>, which increases the sample size by 10 percent for each iteration.</p>
+<div class="sourceCode" id="cb472"><pre class="sourceCode kt"><code class="sourceCode kotlin"><span id="cb472-1"><a href="implemented-solvers.html#cb472-1" tabindex="-1"></a>    <span class="kw">override</span> <span class="kw">fun</span> <span class="fu">mainIteration</span><span class="op">()</span> <span class="op">{</span></span>
+<span id="cb472-2"><a href="implemented-solvers.html#cb472-2" tabindex="-1"></a>        <span class="co">// The initial (current) solution is randomly selected or specified by the user.</span></span>
+<span id="cb472-3"><a href="implemented-solvers.html#cb472-3" tabindex="-1"></a>        <span class="co">// It will be the current solution until beaten by the SPLINE search process.</span></span>
+<span id="cb472-4"><a href="implemented-solvers.html#cb472-4" tabindex="-1"></a>        <span class="co">// Call SPLINE for the next solution using the current sample size (m_k) and</span></span>
+<span id="cb472-5"><a href="implemented-solvers.html#cb472-5" tabindex="-1"></a>        <span class="co">// current SPLINE oracle call limit (b_k).</span></span>
+<span id="cb472-6"><a href="implemented-solvers.html#cb472-6" tabindex="-1"></a>        <span class="kw">val</span> <span class="va">splineSolution</span> <span class="op">=</span> spline<span class="op">(</span></span>
+<span id="cb472-7"><a href="implemented-solvers.html#cb472-7" tabindex="-1"></a>            currentSolution<span class="op">,</span></span>
+<span id="cb472-8"><a href="implemented-solvers.html#cb472-8" tabindex="-1"></a>            rSPLINESampleSize<span class="op">,</span> splineCallLimit</span>
+<span id="cb472-9"><a href="implemented-solvers.html#cb472-9" tabindex="-1"></a>        <span class="op">)</span></span>
+<span id="cb472-10"><a href="implemented-solvers.html#cb472-10" tabindex="-1"></a>        currentSolution <span class="op">=</span> splineSolution</span>
+<span id="cb472-11"><a href="implemented-solvers.html#cb472-11" tabindex="-1"></a>        <span class="co">// capture the last solution</span></span>
+<span id="cb472-12"><a href="implemented-solvers.html#cb472-12" tabindex="-1"></a>        solutionChecker<span class="op">.</span>captureSolution<span class="op">(</span>currentSolution<span class="op">)</span></span>
+<span id="cb472-13"><a href="implemented-solvers.html#cb472-13" tabindex="-1"></a>    <span class="op">}</span></span></code></pre></div>
+<p>The SPLINE function is fairly complex. Given a specification of the sample size for the iteration, <span class="math inline">\(m_k\)</span>, the supplied solution may need additional replications evaluated, which will result in a new estimated solution. Then, an inner loop of the spline searching process commences. This involves two phases. First, a search of a piece-wise linear interpolation of the objective function and then a search of the neighborhood resulting from the piece-wise linear interpolation search. The details of this process can be found as algorithm 2 in <span class="citation">(<a href="#ref-wang_integer-ordered_2013">Wang et al. 2013</a>)</span>.</p>
+<div class="sourceCode" id="cb473"><pre class="sourceCode kt"><code class="sourceCode kotlin"><span id="cb473-1"><a href="implemented-solvers.html#cb473-1" tabindex="-1"></a>    <span class="kw">private</span> <span class="kw">fun</span> <span class="fu">spline</span><span class="op">(</span></span>
+<span id="cb473-2"><a href="implemented-solvers.html#cb473-2" tabindex="-1"></a>        <span class="va">initSolution</span><span class="op">:</span> <span class="dt">Solution</span><span class="op">,</span></span>
+<span id="cb473-3"><a href="implemented-solvers.html#cb473-3" tabindex="-1"></a>        <span class="va">sampleSize</span><span class="op">:</span> <span class="dt">Int</span><span class="op">,</span></span>
+<span id="cb473-4"><a href="implemented-solvers.html#cb473-4" tabindex="-1"></a>        <span class="va">splineCallLimit</span><span class="op">:</span> <span class="dt">Int</span></span>
+<span id="cb473-5"><a href="implemented-solvers.html#cb473-5" tabindex="-1"></a>    <span class="op">):</span> <span class="dt">Solution</span> <span class="op">{</span></span>
+<span id="cb473-6"><a href="implemented-solvers.html#cb473-6" tabindex="-1"></a>        require<span class="op">(</span>initSolution<span class="op">.</span>isInputFeasible<span class="op">())</span> <span class="op">{</span> <span class="st">&quot;The initial solution to the SPLINE function must be input feasible!&quot;</span> <span class="op">}</span></span>
+<span id="cb473-7"><a href="implemented-solvers.html#cb473-7" tabindex="-1"></a>        <span class="co">// use the initial solution as the new (starting) solution for the line search (SPLI)</span></span>
+<span id="cb473-8"><a href="implemented-solvers.html#cb473-8" tabindex="-1"></a>        <span class="kw">var</span> <span class="va">newSolution</span> <span class="op">=</span> <span class="cf">if</span> <span class="op">(</span>sampleSize <span class="op">&gt;</span> initSolution<span class="op">.</span>count<span class="op">){</span></span>
+<span id="cb473-9"><a href="implemented-solvers.html#cb473-9" tabindex="-1"></a>            requestEvaluation<span class="op">(</span>initSolution<span class="op">.</span>inputMap<span class="op">,</span> sampleSize<span class="op">)</span></span>
+<span id="cb473-10"><a href="implemented-solvers.html#cb473-10" tabindex="-1"></a>        <span class="op">}</span> <span class="cf">else</span> <span class="op">{</span></span>
+<span id="cb473-11"><a href="implemented-solvers.html#cb473-11" tabindex="-1"></a>            initSolution</span>
+<span id="cb473-12"><a href="implemented-solvers.html#cb473-12" tabindex="-1"></a>        <span class="op">}</span></span>
+<span id="cb473-13"><a href="implemented-solvers.html#cb473-13" tabindex="-1"></a>        <span class="co">// save the starting solution</span></span>
+<span id="cb473-14"><a href="implemented-solvers.html#cb473-14" tabindex="-1"></a>        <span class="kw">val</span> <span class="va">startingSolution</span> <span class="op">=</span> newSolution</span>
+<span id="cb473-15"><a href="implemented-solvers.html#cb473-15" tabindex="-1"></a>        <span class="co">// initialize the number of oracle calls</span></span>
+<span id="cb473-16"><a href="implemented-solvers.html#cb473-16" tabindex="-1"></a>        <span class="kw">var</span> <span class="va">splineOracleCalls</span> <span class="op">=</span> <span class="dv">0</span></span>
+<span id="cb473-17"><a href="implemented-solvers.html#cb473-17" tabindex="-1"></a>        <span class="cf">for</span><span class="op">(</span>i <span class="kw">in</span> <span class="fl">1.</span><span class="op">.</span>splineCallLimit<span class="op">){</span></span>
+<span id="cb473-18"><a href="implemented-solvers.html#cb473-18" tabindex="-1"></a>            <span class="co">// perform the line search to get a solution based on the new solution</span></span>
+<span id="cb473-19"><a href="implemented-solvers.html#cb473-19" tabindex="-1"></a>            <span class="kw">val</span> <span class="va">spliResults</span> <span class="op">=</span> searchPiecewiseLinearInterpolation<span class="op">(</span>newSolution<span class="op">,</span> sampleSize<span class="op">)</span></span>
+<span id="cb473-20"><a href="implemented-solvers.html#cb473-20" tabindex="-1"></a>            <span class="co">// SPLI cannot cause harm</span></span>
+<span id="cb473-21"><a href="implemented-solvers.html#cb473-21" tabindex="-1"></a>            <span class="kw">val</span> <span class="va">neStartingSolution</span> <span class="op">=</span> <span class="cf">if</span> <span class="op">(</span>compare<span class="op">(</span>spliResults<span class="op">.</span>solution<span class="op">,</span> newSolution<span class="op">)</span> <span class="op">&lt;=</span> <span class="dv">0</span><span class="op">){</span></span>
+<span id="cb473-22"><a href="implemented-solvers.html#cb473-22" tabindex="-1"></a>                spliResults<span class="op">.</span>solution</span>
+<span id="cb473-23"><a href="implemented-solvers.html#cb473-23" tabindex="-1"></a>            <span class="op">}</span> <span class="cf">else</span> <span class="op">{</span></span>
+<span id="cb473-24"><a href="implemented-solvers.html#cb473-24" tabindex="-1"></a>                newSolution</span>
+<span id="cb473-25"><a href="implemented-solvers.html#cb473-25" tabindex="-1"></a>            <span class="op">}</span></span>
+<span id="cb473-26"><a href="implemented-solvers.html#cb473-26" tabindex="-1"></a>            <span class="co">// search the neighborhood starting from the SPLI solution</span></span>
+<span id="cb473-27"><a href="implemented-solvers.html#cb473-27" tabindex="-1"></a>            <span class="kw">val</span> <span class="va">neSearchResults</span> <span class="op">=</span> neighborhoodSearch<span class="op">(</span>neStartingSolution<span class="op">,</span> sampleSize<span class="op">)</span></span>
+<span id="cb473-28"><a href="implemented-solvers.html#cb473-28" tabindex="-1"></a>            splineOracleCalls <span class="op">=</span> splineOracleCalls <span class="op">+</span> spliResults<span class="op">.</span>numOracleCalls <span class="op">+</span> neSearchResults<span class="op">.</span>numOracleCalls</span>
+<span id="cb473-29"><a href="implemented-solvers.html#cb473-29" tabindex="-1"></a>            newSolution <span class="op">=</span> neSearchResults<span class="op">.</span>solution</span>
+<span id="cb473-30"><a href="implemented-solvers.html#cb473-30" tabindex="-1"></a>            <span class="co">// if the candidate solution and the NE search starting solution are the same, we can stop</span></span>
+<span id="cb473-31"><a href="implemented-solvers.html#cb473-31" tabindex="-1"></a>            <span class="cf">if</span> <span class="op">((</span>neStartingSolution <span class="op">==</span> neSearchResults<span class="op">.</span>solution<span class="op">)</span> <span class="op">||</span> compare<span class="op">(</span>neStartingSolution<span class="op">,</span> neSearchResults<span class="op">.</span>solution<span class="op">)</span> <span class="op">==</span> <span class="dv">0</span><span class="op">)</span> <span class="op">{</span></span>
+<span id="cb473-32"><a href="implemented-solvers.html#cb473-32" tabindex="-1"></a>                <span class="cf">break</span></span>
+<span id="cb473-33"><a href="implemented-solvers.html#cb473-33" tabindex="-1"></a>            <span class="op">}</span></span>
+<span id="cb473-34"><a href="implemented-solvers.html#cb473-34" tabindex="-1"></a>        <span class="op">}</span></span>
+<span id="cb473-35"><a href="implemented-solvers.html#cb473-35" tabindex="-1"></a>        <span class="co">// Check if the starting solution is better than the solution from the SPLINE search.</span></span>
+<span id="cb473-36"><a href="implemented-solvers.html#cb473-36" tabindex="-1"></a>        <span class="kw">return</span> <span class="cf">if</span> <span class="op">(</span>compare<span class="op">(</span>startingSolution<span class="op">,</span> newSolution<span class="op">)</span> <span class="op">&lt;</span> <span class="dv">0</span><span class="op">)</span> <span class="op">{</span></span>
+<span id="cb473-37"><a href="implemented-solvers.html#cb473-37" tabindex="-1"></a>            startingSolution</span>
+<span id="cb473-38"><a href="implemented-solvers.html#cb473-38" tabindex="-1"></a>        <span class="op">}</span> <span class="cf">else</span> <span class="op">{</span></span>
+<span id="cb473-39"><a href="implemented-solvers.html#cb473-39" tabindex="-1"></a>            <span class="co">// The new solution might be better, but it might be input-infeasible.</span></span>
+<span id="cb473-40"><a href="implemented-solvers.html#cb473-40" tabindex="-1"></a>            <span class="cf">if</span> <span class="op">(</span>newSolution<span class="op">.</span>isInputFeasible<span class="op">())</span> <span class="op">{</span></span>
+<span id="cb473-41"><a href="implemented-solvers.html#cb473-41" tabindex="-1"></a>                newSolution</span>
+<span id="cb473-42"><a href="implemented-solvers.html#cb473-42" tabindex="-1"></a>            <span class="op">}</span> <span class="cf">else</span> <span class="op">{</span></span>
+<span id="cb473-43"><a href="implemented-solvers.html#cb473-43" tabindex="-1"></a>                <span class="co">// not feasible, go back to the last feasible solution</span></span>
+<span id="cb473-44"><a href="implemented-solvers.html#cb473-44" tabindex="-1"></a>                startingSolution</span>
+<span id="cb473-45"><a href="implemented-solvers.html#cb473-45" tabindex="-1"></a>            <span class="op">}</span></span>
+<span id="cb473-46"><a href="implemented-solvers.html#cb473-46" tabindex="-1"></a>        <span class="op">}</span></span>
+<span id="cb473-47"><a href="implemented-solvers.html#cb473-47" tabindex="-1"></a>    <span class="op">}</span></span></code></pre></div>
+<p>The piece-wise linear search process proceeds roughly as follows. Given a point, <span class="math inline">\(x\in\mathbb{R}^d \setminus \mathbb{Z}^d\)</span> in the space, consider the <span class="math inline">\(2^d\)</span> integer points that are the vertices of the hyper-cube that contains <span class="math inline">\(x\)</span>. The algorithm chooses <span class="math inline">\(d+1\)</span> vertices so that the convex hull of the points form a simplex that contains <span class="math inline">\(x\)</span>. An interpolation of the objective function evaluated at the points of the simplex provides a linear interpolation function from which an estimate of the gradient associated with the objective function can be computed. The gradient is used to determine a direction and then a linear line search is used to proceed in the specified direction.</p>
+<p>This process continues until no improvement can be made in the direction of search at which point the piece-wise linear search process returns with the last point associated with its search. Then, an Von Neumann neighborhood is found around the the returned point and the neighborhood is enumerated and the best solution from the enumeration process returned. If the enumeration solution is the same as the solution from the piece-wise linear search process then the SPLINE process stops; otherwise, another SPLINE cycle occurs. The cycles will stop when the number of spline calls is reached or the SPLINE search and the enumeration search are the same. An important aspect of the gradient estimation process is that common random numbers are used when evaluating the points that form the simplex around the proposed point. To implement these procedures the KSL provides the following functions.</p>
+<ul>
+<li><code>searchPiecewiseLinearInterpolation(solution: Solution, sampleSize: Int): SPLIResults</code> - This is essentially algorithm 4 of <span class="citation">(<a href="#ref-wang_integer-ordered_2013">Wang et al. 2013</a>)</span>.</li>
+<li><code>piecewiseLinearInterpolation(solution: Solution,sampleSize: Int,perturbation: Double): PLIResults</code> - This is algorithm 3 of <span class="citation">(<a href="#ref-wang_integer-ordered_2013">Wang et al. 2013</a>)</span>.</li>
+<li><code>perturb(point: DoubleArray, perturbation: Double): DoubleArray</code> - This is the PERTURB function mentioned in <span class="citation">(<a href="#ref-wang_integer-ordered_2013">Wang et al. 2013</a>)</span>.</li>
+<li><code>neighborhoodSearch(solution: Solution,sampleSize: Int): NESearchResults</code> - This function implements the enumeration and search of the neighborhood defined in the SPLINE process.</li>
+</ul>
+</div>
+<div id="randomized-restart-solvers" class="section level3 hasAnchor" number="10.6.4">
+<h3><span class="header-section-number">10.6.4</span> Randomized Restart Solvers<a href="implemented-solvers.html#randomized-restart-solvers" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>In general, optimization algorithms rely on a starting point to initialize the search process. The performance of the algorithm may be sensitive to the choice of the starting point, which may cause the search process to converge to a local optimal or to limit the exploration of the search space. A random restart solver is a solver that starts another solver using different randomly generated starting points. As we can see from the constructor of the <code>RandomRestartSolver</code> class, the user must supply a solver.</p>
+<div class="sourceCode" id="cb474"><pre class="sourceCode kt"><code class="sourceCode kotlin"><span id="cb474-1"><a href="implemented-solvers.html#cb474-1" tabindex="-1"></a><span class="kw">class</span> RandomRestartSolver<span class="op">(</span></span>
+<span id="cb474-2"><a href="implemented-solvers.html#cb474-2" tabindex="-1"></a>    <span class="kw">val</span> <span class="va">restartingSolver</span><span class="op">:</span> <span class="dt">Solver</span><span class="op">,</span></span>
+<span id="cb474-3"><a href="implemented-solvers.html#cb474-3" tabindex="-1"></a>    <span class="va">maxNumRestarts</span><span class="op">:</span> <span class="dt">Int</span> <span class="op">=</span> defaultMaxRestarts<span class="op">,</span></span>
+<span id="cb474-4"><a href="implemented-solvers.html#cb474-4" tabindex="-1"></a>    <span class="va">streamNum</span><span class="op">:</span> <span class="dt">Int</span> <span class="op">=</span> <span class="dv">0</span><span class="op">,</span></span>
+<span id="cb474-5"><a href="implemented-solvers.html#cb474-5" tabindex="-1"></a>    <span class="va">streamProvider</span><span class="op">:</span> <span class="dt">RNStreamProviderIfc</span> <span class="op">=</span> KSLRandom<span class="op">.</span>DefaultRNStreamProvider<span class="op">,</span></span>
+<span id="cb474-6"><a href="implemented-solvers.html#cb474-6" tabindex="-1"></a>    <span class="va">name</span><span class="op">:</span> <span class="dt">String</span><span class="op">?</span> <span class="op">=</span> null</span>
+<span id="cb474-7"><a href="implemented-solvers.html#cb474-7" tabindex="-1"></a><span class="op">)</span> <span class="op">:</span> <span class="dt">StochasticSolver</span><span class="op">(</span></span>
+<span id="cb474-8"><a href="implemented-solvers.html#cb474-8" tabindex="-1"></a>    <span class="va">restartingSolver</span>.<span class="va">problemDefinition</span><span class="op">,</span> <span class="va">restartingSolver</span>.<span class="va">evaluator</span><span class="op">,</span> <span class="va">maxNumRestarts</span><span class="op">,</span></span>
+<span id="cb474-9"><a href="implemented-solvers.html#cb474-9" tabindex="-1"></a>    <span class="va">restartingSolver</span>.<span class="va">replicationsPerEvaluation</span><span class="op">,</span> <span class="va">streamNum</span><span class="op">,</span> <span class="va">streamProvider</span><span class="op">,</span> <span class="va">name</span></span>
+<span id="cb474-10"><a href="implemented-solvers.html#cb474-10" tabindex="-1"></a><span class="op">)</span></span></code></pre></div>
+<p>The <code>mainIterations()</code> function is very straightforward. Since we want independent solutions, we clear a solution cache if it is being used. Then, a new starting point is generated and assigned as the starting point for the solver. The solver is executed for all of its iterations (or until its stopping criteria are met). The best solution from the execution of the solver is captured.</p>
+<div class="sourceCode" id="cb475"><pre class="sourceCode kt"><code class="sourceCode kotlin"><span id="cb475-1"><a href="implemented-solvers.html#cb475-1" tabindex="-1"></a>    <span class="kw">override</span> <span class="kw">fun</span> <span class="fu">mainIteration</span><span class="op">()</span> <span class="op">{</span></span>
+<span id="cb475-2"><a href="implemented-solvers.html#cb475-2" tabindex="-1"></a>        <span class="co">// clear the evaluator cache between randomized runs, but allow caching during the run itself</span></span>
+<span id="cb475-3"><a href="implemented-solvers.html#cb475-3" tabindex="-1"></a>        <span class="co">// this will cause new replications to be generated</span></span>
+<span id="cb475-4"><a href="implemented-solvers.html#cb475-4" tabindex="-1"></a>        <span class="cf">if</span> <span class="op">(</span>clearCacheBetweenRuns<span class="op">){</span></span>
+<span id="cb475-5"><a href="implemented-solvers.html#cb475-5" tabindex="-1"></a>            evaluator<span class="op">.</span>cache<span class="op">?.</span>clear<span class="op">()</span></span>
+<span id="cb475-6"><a href="implemented-solvers.html#cb475-6" tabindex="-1"></a>        <span class="op">}</span></span>
+<span id="cb475-7"><a href="implemented-solvers.html#cb475-7" tabindex="-1"></a>        <span class="co">// randomly assign a new starting point</span></span>
+<span id="cb475-8"><a href="implemented-solvers.html#cb475-8" tabindex="-1"></a>        <span class="kw">val</span> <span class="va">startPoint</span> <span class="op">=</span> startingPoint<span class="op">()</span></span>
+<span id="cb475-9"><a href="implemented-solvers.html#cb475-9" tabindex="-1"></a>        restartingSolver<span class="op">.</span>startingPoint <span class="op">=</span> startPoint</span>
+<span id="cb475-10"><a href="implemented-solvers.html#cb475-10" tabindex="-1"></a>        <span class="co">// run the solver until it finds a solution</span></span>
+<span id="cb475-11"><a href="implemented-solvers.html#cb475-11" tabindex="-1"></a>        restartingSolver<span class="op">.</span>runAllIterations<span class="op">()</span></span>
+<span id="cb475-12"><a href="implemented-solvers.html#cb475-12" tabindex="-1"></a>        numOracleCalls <span class="op">=</span> numOracleCalls <span class="op">+</span> restartingSolver<span class="op">.</span>numOracleCalls</span>
+<span id="cb475-13"><a href="implemented-solvers.html#cb475-13" tabindex="-1"></a>        numReplicationsRequested <span class="op">=</span> numReplicationsRequested <span class="op">+</span> restartingSolver<span class="op">.</span>numReplicationsRequested</span>
+<span id="cb475-14"><a href="implemented-solvers.html#cb475-14" tabindex="-1"></a>        <span class="co">// get the best solution from the solver run</span></span>
+<span id="cb475-15"><a href="implemented-solvers.html#cb475-15" tabindex="-1"></a>        <span class="kw">val</span> <span class="va">bestSolution</span> <span class="op">=</span> restartingSolver<span class="op">.</span>bestSolution</span>
+<span id="cb475-16"><a href="implemented-solvers.html#cb475-16" tabindex="-1"></a>        currentSolution <span class="op">=</span> bestSolution</span>
+<span id="cb475-17"><a href="implemented-solvers.html#cb475-17" tabindex="-1"></a>    <span class="op">}</span></span></code></pre></div>
+<p>Thus, repeated executions of the solver start with a different starting point and may produced different solutions. In the next section, we will illustrate how to set up solvers to solve an optimization problem.</p>
+</div>
+</div>
+<h3><span class="header-section-number">G</span> References<a href="references.html#references" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div id="refs" class="references csl-bib-body hanging-indent">
+<div id="ref-chen_simulation-based_1999" class="csl-entry">
+Chen, E. Jack, and W. David Kelton. 1999. <span>“Simulation-Based Estimation of Quantiles.”</span> <em>Proceedings of the 31st Conference on <span>Winter</span> Simulation <span>Simulation</span>—a Bridge to the Future - <span>WSC</span> ’99</em> (Phoenix, Arizona, United States) 1: 428–34. <a href="https://doi.org/10.1145/324138.324272">https://doi.org/10.1145/324138.324272</a>.
+</div>
+<div id="ref-de_boer_tutorial_2005" class="csl-entry">
+De Boer, Pieter-Tjerk, Dirk P. Kroese, Shie Mannor, and Reuven Y. Rubinstein. 2005. <span>“A <span>Tutorial</span> on the <span>Cross</span>-<span>Entropy</span> <span>Method</span>.”</span> <em>Annals of Operations Research</em> 134 (1): 19–67. <a href="https://doi.org/10.1007/s10479-005-5724-z">https://doi.org/10.1007/s10479-005-5724-z</a>.
+</div>
+<div id="ref-kirkpatrick_optimization_1983" class="csl-entry">
+Kirkpatrick, S, C D Gelatt, and M P Vecchi. 1983. <span>“Optimization by <span>Simulated</span> <span>Annealing</span>.”</span> <em>Science</em> 220 (4598): 671–80. <a href="https://doi.org/10.1126/science.220.4598.6">https://doi.org/10.1126/science.220.4598.6</a>.
+</div>
+<div id="ref-rubenstein-kroese" class="csl-entry">
+Rubinstein, R., and D. Kroese. 2017. <em>Simulation and the Monte Carlo Method</em>. John Wiley &amp; Sons Inc.
+</div>
+<div id="ref-wang_integer-ordered_2013" class="csl-entry">
+Wang, Honggang, Raghu Pasupathy, and Bruce W. Schmeiser. 2013. <span>“Integer-<span>Ordered</span> <span>Simulation</span> <span>Optimization</span> Using <span>R</span>-<span>SPLINE</span>: <span>Retrospective</span> <span>Search</span> with <span>Piecewise</span>-<span>Linear</span> <span>Interpolation</span> and <span>Neighborhood</span> <span>Enumeration</span>.”</span> <em>ACM Transactions on Modeling and Computer Simulation (TOMACS)</em> 23 (3): 17–24. <a href="https://doi.org/10.1145/2499913.2499916">https://doi.org/10.1145/2499913.2499916</a>.
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="characterizing-simulation-optimization-algorithms.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="secApplySolver.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"whatsapp": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": null,
+"text": null
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": null,
+"search": {
+"engine": "fuse",
+"options": null
+},
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/latest.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>
