@@ -543,7 +543,7 @@ class OLSRegression(regressionData: RegressionData) : RegressionResultsIfc {
 The KSL regression functionality is available with in the `ksl.utilities.statistics` package.
 
 ## Simulation Optimization Methods {#ch10simOpt}
-The field of simulation optimization encompasses the use of computer simulation models as part of optimization search process. As was discussed in Chapter \@ref(ch1), simulation models take on numerous forms including deterministic/stochastic, static/dynamic, and continuous/discrete models.  Each of these forms may require specialized optimization methods in order to utilize the simulation model as part of the search process.  Consider Figure \@ref(fig:ch10PrescriptiveSimulation) within the context of optimization, we can visualize how a simulation model (the box labeled "Model for Predicting System Performance" in the figure), can be used as part of an optimization process.
+The field of simulation optimization encompasses the use of computer simulation models as part of an optimization search process. As was discussed in Chapter \@ref(ch1), simulation models take on numerous forms including deterministic/stochastic, static/dynamic, and continuous/discrete models.  Each of these forms may require specialized optimization methods in order to utilize the simulation model as part of the search process.  Consider Figure \@ref(fig:ch10PrescriptiveSimulation) within the context of optimization, we can visualize how a simulation model (the box labeled "Model for Predicting System Performance" in the figure), can be used as part of an optimization process.
 
 <div class="figure" style="text-align: center">
 <img src="./figures2/ch1/ch1fig3.jpg" alt="Simulation as Part of an Optimization Process"  />
