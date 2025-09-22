@@ -874,6 +874,93 @@ KSLExamples - examples is the main package that holds all sub-packages
 
 The purpose of the KSL is to provide support for the development of discrete-event simulation programs within Kotlin.   This document provides and overview of the functionality and use of the classes found within the KSL.  Additional information is available through the documentation API.  We begin our discussion in the next chapter with the *utilities* package within the `KSLCore.`  These support packages can be used independently of building discrete-event simulation models.
 
+## Simulation as a Profession
+
+To wrap up this introductory chapter, I would like to encourage you to consider simulation as a career. As such, your learning is only getting started with this textbook.  
+
+There are a number of topics in simulation that will not be
+given full discussion within this text. However, based on the material
+in this text, you should be well prepared to apply simulation to
+problems in engineering and business. To continue your education in
+simulation, you should consider reading [@chung2004simulation] and
+[@Banks1998aa]. Chapter 13 of [@chung2004simulation] provides a number
+of examples of the application simulation, and Chapters 14-21 of
+[@Banks1998aa] illustrate simulation in areas such as health care, the
+military, logistics, and manufacturing. In addition, Chapters 22 and 23
+of [@Banks1998aa] provide excellent practical advice on how to perform
+and manage a successful simulation project.
+
+Finally, you should get involved in professional societies and
+organizations that support simulation modeling and analysis, such as:
+
+-   American Statistical Association (ASA)
+
+-   Association for Computing Machinery: Special Interest Group on
+    Simulation (ACM/SIGSIM)
+
+-   Institute of Electrical and Electronics Engineers: Systems, Man, and
+    Cybernetics Society (IEEE/SMC)
+
+-   Institute for Operations Research and the Management Sciences:
+    Simulation Society (INFORMS-SIM)
+
+-   Institute of Industrial Engineers (IIE)
+
+-   National Institute of Standards and Technology (NIST)
+
+-   The Society for Modeling and Simulation International (SCS)
+
+An excellent opportunity to get involved is through the Winter
+Simulation Conference. You can find information concerning these
+organizations and the Winter Simulation Conference easily through the
+internet.
+
+As a final thought you should try to adhere to the following rules
+during your practice of simulation:
+
+1.  To only perform simulation studies that have clearly defined
+    objectives and performance metrics.
+
+2.  To never perform a simulation study when the problem can be solved
+    through simpler and more direct techniques.
+
+3.  To always carefully plan, collect, and analyze the data necessary to
+    develop good input distributions for simulation models.
+
+4.  To never accept simulation results or decisions based on a sample
+    size of one.
+
+5.  To always use statistically valid methods to determine the sample
+    size for simulation experiments.
+
+6.  To always check that statistical assumptions (e.g. independence,
+    normality, etc.) are reasonably valid before reporting simulation
+    results.
+
+7.  To always provide simulation results by reporting the sample size,
+    the sample average, and a measure of sample variation (e.g. sample
+    variance, sample standard deviation, standard error, sample
+    half-width for a specified confidence level, etc.)
+
+8.  To always perform simulation experiments with a random number
+    generator that has been tested and proven to be reliable.
+
+9.  To take steps to mitigate the effects of initialization bias
+    when performing simulations involving steady-state performance.
+
+10. To always verify simulation models through such techniques as
+    debugging, event tracing, animation, etc.
+
+11. To always validate simulation models through common sense analytical
+    thinking techniques, discussions with domain experts, real-data, and
+    sensitivity analysis techniques.
+
+12. To always carefully plan, perform, and analyze simulation
+    experiments using appropriate experimental design techniques.
+
+By following these rules, you should have a successful and professional
+simulation career. I hope that you enjoy the book.
+
 ## Exercises
 
 ***

@@ -703,6 +703,7 @@ randomness-in-simulation
 simulation-languages
 ch1secsimMeth
 overview-of-the-kotlin-simulation-library
+simulation-as-a-profession
 exercises
 ch2rng
 ch2generator

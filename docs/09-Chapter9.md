@@ -2060,7 +2060,7 @@ end for;
 
 When applying the Metropolis-Hastings algorithm, you obviously need the distribution from which you intend to generate random variates, $f(\vec{x})$. The function $f(\vec{x})$ can be the distribution function specified up to a proportionality constant.  The second key function is the proposal distribution (or proposal function), $q(\vec{x},\vec{y}) = q(\vec{y}|\vec{x})$.  There are many possible forms for this function and those forms specify the type of sampler for the MCMC.
 
-Figure \@ref(fig:MCMClasses) presents the main classes and interfaces for the Metropolis-Hastings implementation within the KSL. The `MetropolisHastingsMV` class is supported by two interfaces: 1) `FunctionMVIfc` and 2) `ProposalFunctionMVIfc.`. Let's examine these two classes before reviewing the the Metropolis-Hastings implementation.
+Figure \@ref(fig:MCMClasses) presents the main classes and interfaces for the Metropolis-Hastings implementation within the KSL. The `MetropolisHastingsMV` class is supported by two interfaces: 1) `FunctionMVIfc` and 2) `ProposalFunctionMVIfc.` Let's examine these two classes before reviewing the the Metropolis-Hastings implementation.
 
 <div class="figure" style="text-align: center">
 <img src="./figures2/ch9/MetropolisHastingsMV.png" alt="Key Classes and Interfaces for MCMC" width="80%" height="80%" />

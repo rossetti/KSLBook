@@ -4,18 +4,18 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>3.6 A Simple Inspection Process | Simulation Modeling using the Kotlin Simulation Library (KSL)</title>
+  <title>1.9 Simulation as a Profession | Simulation Modeling using the Kotlin Simulation Library (KSL)</title>
   <meta name="description" content="A book that illustrates the basics of using the KSL. The output format for this book is bookdown::gitbook." />
   <meta name="generator" content="bookdown 0.40 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="3.6 A Simple Inspection Process | Simulation Modeling using the Kotlin Simulation Library (KSL)" />
+  <meta property="og:title" content="1.9 Simulation as a Profession | Simulation Modeling using the Kotlin Simulation Library (KSL)" />
   <meta property="og:type" content="book" />
   
   <meta property="og:description" content="A book that illustrates the basics of using the KSL. The output format for this book is bookdown::gitbook." />
   
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="3.6 A Simple Inspection Process | Simulation Modeling using the Kotlin Simulation Library (KSL)" />
+  <meta name="twitter:title" content="1.9 Simulation as a Profession | Simulation Modeling using the Kotlin Simulation Library (KSL)" />
   
   <meta name="twitter:description" content="A book that illustrates the basics of using the KSL. The output format for this book is bookdown::gitbook." />
   
@@ -30,8 +30,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-<link rel="prev" href="the-news-vendor-problem.html"/>
-<link rel="next" href="ch3SAN.html"/>
+<link rel="prev" href="overview-of-the-kotlin-simulation-library.html"/>
+<link rel="next" href="exercises.html"/>
 <script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
@@ -573,63 +573,89 @@ div.csl-indent {
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="ch3InsProcess" class="section level2 hasAnchor" number="3.6">
-<h2><span class="header-section-number">3.6</span> A Simple Inspection Process<a href="ch3InsProcess.html#ch3InsProcess" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p>The following example illustrates how to model a simple inspection process that has individual items being defective and includes the random selection of items for inspection.</p>
-<hr />
-<div class="example">
-<p><span id="exm:Inspection" class="example"><strong>Example 3.11  (Simple Inspection Process) </strong></span>A manufacturing process has a simple inspection process. The process produces items and places them in boxes with four items per box. The manufacturing process has a defect rate of 15%. That is, the probability of an individual item being defective is 0.15. Assume that the chance of an item being defective is independent of any other item being defective. An inspector tests each box by randomly sampling one item from the box. If the selected item is good, the box is passed; if the selected item is defective, the box is rejected. We are interested in estimating the expected number of boxes that the inspector will look at before the first box is rejected.</p>
+<div id="simulation-as-a-profession" class="section level2 hasAnchor" number="1.9">
+<h2><span class="header-section-number">1.9</span> Simulation as a Profession<a href="simulation-as-a-profession.html#simulation-as-a-profession" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>To wrap up this introductory chapter, I would like to encourage you to consider simulation as a career. As such, your learning is only getting started with this textbook.</p>
+<p>There are a number of topics in simulation that will not be
+given full discussion within this text. However, based on the material
+in this text, you should be well prepared to apply simulation to
+problems in engineering and business. To continue your education in
+simulation, you should consider reading <span class="citation">(<a href="#ref-chung2004simulation">Chung 2004</a>)</span> and
+<span class="citation">(<a href="#ref-Banks1998aa">Banks 1998</a>)</span>. Chapter 13 of <span class="citation">(<a href="#ref-chung2004simulation">Chung 2004</a>)</span> provides a number
+of examples of the application simulation, and Chapters 14-21 of
+<span class="citation">(<a href="#ref-Banks1998aa">Banks 1998</a>)</span> illustrate simulation in areas such as health care, the
+military, logistics, and manufacturing. In addition, Chapters 22 and 23
+of <span class="citation">(<a href="#ref-Banks1998aa">Banks 1998</a>)</span> provide excellent practical advice on how to perform
+and manage a successful simulation project.</p>
+<p>Finally, you should get involved in professional societies and
+organizations that support simulation modeling and analysis, such as:</p>
+<ul>
+<li><p>American Statistical Association (ASA)</p></li>
+<li><p>Association for Computing Machinery: Special Interest Group on
+Simulation (ACM/SIGSIM)</p></li>
+<li><p>Institute of Electrical and Electronics Engineers: Systems, Man, and
+Cybernetics Society (IEEE/SMC)</p></li>
+<li><p>Institute for Operations Research and the Management Sciences:
+Simulation Society (INFORMS-SIM)</p></li>
+<li><p>Institute of Industrial Engineers (IIE)</p></li>
+<li><p>National Institute of Standards and Technology (NIST)</p></li>
+<li><p>The Society for Modeling and Simulation International (SCS)</p></li>
+</ul>
+<p>An excellent opportunity to get involved is through the Winter
+Simulation Conference. You can find information concerning these
+organizations and the Winter Simulation Conference easily through the
+internet.</p>
+<p>As a final thought you should try to adhere to the following rules
+during your practice of simulation:</p>
+<ol style="list-style-type: decimal">
+<li><p>To only perform simulation studies that have clearly defined
+objectives and performance metrics.</p></li>
+<li><p>To never perform a simulation study when the problem can be solved
+through simpler and more direct techniques.</p></li>
+<li><p>To always carefully plan, collect, and analyze the data necessary to
+develop good input distributions for simulation models.</p></li>
+<li><p>To never accept simulation results or decisions based on a sample
+size of one.</p></li>
+<li><p>To always use statistically valid methods to determine the sample
+size for simulation experiments.</p></li>
+<li><p>To always check that statistical assumptions (e.g. independence,
+normality, etc.) are reasonably valid before reporting simulation
+results.</p></li>
+<li><p>To always provide simulation results by reporting the sample size,
+the sample average, and a measure of sample variation (e.g. sample
+variance, sample standard deviation, standard error, sample
+half-width for a specified confidence level, etc.)</p></li>
+<li><p>To always perform simulation experiments with a random number
+generator that has been tested and proven to be reliable.</p></li>
+<li><p>To take steps to mitigate the effects of initialization bias
+when performing simulations involving steady-state performance.</p></li>
+<li><p>To always verify simulation models through such techniques as
+debugging, event tracing, animation, etc.</p></li>
+<li><p>To always validate simulation models through common sense analytical
+thinking techniques, discussions with domain experts, real-data, and
+sensitivity analysis techniques.</p></li>
+<li><p>To always carefully plan, perform, and analyze simulation
+experiments using appropriate experimental design techniques.</p></li>
+</ol>
+<p>By following these rules, you should have a successful and professional
+simulation career. I hope that you enjoy the book.</p>
 </div>
-<hr />
-<p>This situation could be modeled using the concepts of probability theory; however, we will simulate the process to illustrate the use of KSL constructs. The probability that an item is defective can be modeled with a Bernoulli random variable with probability of success equal 0.15. In the following code, we model the inspection process with a function that counts the number of boxes that are inspected until the first rejected box.</p>
-<div class="sourceCode" id="cb96"><pre class="sourceCode kt"><code class="sourceCode kotlin"><span id="cb96-1"><a href="ch3InsProcess.html#cb96-1" tabindex="-1"></a><span class="kw">fun</span> <span class="fu">main</span><span class="op">()</span> <span class="op">{</span></span>
-<span id="cb96-2"><a href="ch3InsProcess.html#cb96-2" tabindex="-1"></a>    <span class="kw">val</span> <span class="va">itemRV</span> <span class="op">=</span> BernoulliRV<span class="op">(</span>probOfSuccess <span class="op">=</span> <span class="fl">0.15</span><span class="op">,</span> streamNum <span class="op">=</span> <span class="dv">3</span><span class="op">)</span></span>
-<span id="cb96-3"><a href="ch3InsProcess.html#cb96-3" tabindex="-1"></a>    <span class="kw">val</span> <span class="va">itemsPerBox</span> <span class="op">=</span> <span class="dv">4</span></span>
-<span id="cb96-4"><a href="ch3InsProcess.html#cb96-4" tabindex="-1"></a>    <span class="kw">val</span> <span class="va">stat</span> <span class="op">=</span> Statistic<span class="op">(</span><span class="st">&quot;Num Until Rejection&quot;</span><span class="op">)</span></span>
-<span id="cb96-5"><a href="ch3InsProcess.html#cb96-5" tabindex="-1"></a>    <span class="kw">val</span> <span class="va">sampleSize</span> <span class="op">=</span> <span class="dv">100</span></span>
-<span id="cb96-6"><a href="ch3InsProcess.html#cb96-6" tabindex="-1"></a>    <span class="cf">for</span> <span class="op">(</span>i <span class="kw">in</span> <span class="fl">1.</span><span class="op">.</span>sampleSize<span class="op">)</span> <span class="op">{</span></span>
-<span id="cb96-7"><a href="ch3InsProcess.html#cb96-7" tabindex="-1"></a>        <span class="kw">val</span> <span class="va">countBoxes</span> <span class="op">=</span> numUntilFirstRejection<span class="op">(</span>itemRV<span class="op">,</span> itemsPerBox<span class="op">)</span></span>
-<span id="cb96-8"><a href="ch3InsProcess.html#cb96-8" tabindex="-1"></a>        stat<span class="op">.</span>collect<span class="op">(</span>countBoxes<span class="op">)</span></span>
-<span id="cb96-9"><a href="ch3InsProcess.html#cb96-9" tabindex="-1"></a>    <span class="op">}</span></span>
-<span id="cb96-10"><a href="ch3InsProcess.html#cb96-10" tabindex="-1"></a>    print<span class="op">(</span><span class="kw">String</span><span class="op">.</span>format<span class="op">(</span><span class="st">&quot;%s </span><span class="sc">\t</span><span class="st"> %f %n&quot;</span><span class="op">,</span> <span class="st">&quot;Count = &quot;</span><span class="op">,</span> stat<span class="op">.</span>count<span class="op">))</span></span>
-<span id="cb96-11"><a href="ch3InsProcess.html#cb96-11" tabindex="-1"></a>    print<span class="op">(</span><span class="kw">String</span><span class="op">.</span>format<span class="op">(</span><span class="st">&quot;%s </span><span class="sc">\t</span><span class="st"> %f %n&quot;</span><span class="op">,</span> <span class="st">&quot;Average = &quot;</span><span class="op">,</span> stat<span class="op">.</span>average<span class="op">))</span></span>
-<span id="cb96-12"><a href="ch3InsProcess.html#cb96-12" tabindex="-1"></a>    print<span class="op">(</span><span class="kw">String</span><span class="op">.</span>format<span class="op">(</span><span class="st">&quot;%s </span><span class="sc">\t</span><span class="st"> %f %n&quot;</span><span class="op">,</span> <span class="st">&quot;Std. Dev. = &quot;</span><span class="op">,</span> stat<span class="op">.</span>standardDeviation<span class="op">))</span></span>
-<span id="cb96-13"><a href="ch3InsProcess.html#cb96-13" tabindex="-1"></a>    print<span class="op">(</span><span class="kw">String</span><span class="op">.</span>format<span class="op">(</span><span class="st">&quot;%s </span><span class="sc">\t</span><span class="st"> %f %n&quot;</span><span class="op">,</span> <span class="st">&quot;Half-width = &quot;</span><span class="op">,</span> stat<span class="op">.</span>halfWidth<span class="op">))</span></span>
-<span id="cb96-14"><a href="ch3InsProcess.html#cb96-14" tabindex="-1"></a>    println<span class="op">((</span>stat<span class="op">.</span>confidenceLevel <span class="op">*</span> <span class="dv">100</span><span class="op">).</span>toString<span class="op">()</span> <span class="op">+</span> <span class="st">&quot;% CI = &quot;</span> <span class="op">+</span> stat<span class="op">.</span>confidenceInterval<span class="op">)</span></span>
-<span id="cb96-15"><a href="ch3InsProcess.html#cb96-15" tabindex="-1"></a><span class="op">}</span></span>
-<span id="cb96-16"><a href="ch3InsProcess.html#cb96-16" tabindex="-1"></a></span>
-<span id="cb96-17"><a href="ch3InsProcess.html#cb96-17" tabindex="-1"></a><span class="co">/**</span></span>
-<span id="cb96-18"><a href="ch3InsProcess.html#cb96-18" tabindex="-1"></a><span class="co"> *  This function counts the number of boxes inspected until the first</span></span>
-<span id="cb96-19"><a href="ch3InsProcess.html#cb96-19" tabindex="-1"></a><span class="co"> *  box is found that has a randomly selected item that is defective.</span></span>
-<span id="cb96-20"><a href="ch3InsProcess.html#cb96-20" tabindex="-1"></a><span class="co"> */</span></span>
-<span id="cb96-21"><a href="ch3InsProcess.html#cb96-21" tabindex="-1"></a><span class="kw">fun</span> <span class="fu">numUntilFirstRejection</span><span class="op">(</span><span class="va">itemRV</span><span class="op">:</span> <span class="dt">BernoulliRV</span><span class="op">,</span> <span class="va">itemsPerBox</span><span class="op">:</span> <span class="dt">Int</span><span class="op">):</span> <span class="dt">Double</span> <span class="op">{</span></span>
-<span id="cb96-22"><a href="ch3InsProcess.html#cb96-22" tabindex="-1"></a>    require<span class="op">(</span>itemsPerBox <span class="op">&gt;=</span> <span class="dv">1</span><span class="op">)</span> <span class="op">{</span> <span class="st">&quot;There must be at least 1 item per box&quot;</span> <span class="op">}</span></span>
-<span id="cb96-23"><a href="ch3InsProcess.html#cb96-23" tabindex="-1"></a>    <span class="kw">var</span> <span class="va">count</span> <span class="op">=</span> <span class="fl">0.0</span></span>
-<span id="cb96-24"><a href="ch3InsProcess.html#cb96-24" tabindex="-1"></a>    <span class="cf">do</span> <span class="op">{</span></span>
-<span id="cb96-25"><a href="ch3InsProcess.html#cb96-25" tabindex="-1"></a>        count<span class="op">++</span></span>
-<span id="cb96-26"><a href="ch3InsProcess.html#cb96-26" tabindex="-1"></a>        <span class="co">// randomly generate the box</span></span>
-<span id="cb96-27"><a href="ch3InsProcess.html#cb96-27" tabindex="-1"></a>        <span class="kw">val</span> <span class="va">box</span> <span class="op">=</span> itemRV<span class="op">.</span>sample<span class="op">(</span>itemsPerBox<span class="op">)</span></span>
-<span id="cb96-28"><a href="ch3InsProcess.html#cb96-28" tabindex="-1"></a>        <span class="co">// randomly sample from the box</span></span>
-<span id="cb96-29"><a href="ch3InsProcess.html#cb96-29" tabindex="-1"></a>        <span class="kw">val</span> <span class="va">inspection</span> <span class="op">=</span> KSLRandom<span class="op">.</span>randomlySelect<span class="op">(</span>box<span class="op">)</span></span>
-<span id="cb96-30"><a href="ch3InsProcess.html#cb96-30" tabindex="-1"></a>        <span class="co">// stops if bad = 1.0 is found, continues if good = 0.0 is found</span></span>
-<span id="cb96-31"><a href="ch3InsProcess.html#cb96-31" tabindex="-1"></a>    <span class="op">}</span> <span class="cf">while</span> <span class="op">(</span>inspection <span class="op">!=</span> <span class="fl">1.0</span><span class="op">)</span></span>
-<span id="cb96-32"><a href="ch3InsProcess.html#cb96-32" tabindex="-1"></a>    <span class="kw">return</span> count</span>
-<span id="cb96-33"><a href="ch3InsProcess.html#cb96-33" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
-<p>Notice that first a sample from the Bernoulli random variable is obtained. The size of this sample is the number of items per box (equal to 4 in this example). The returned sample array contains elements with values 1.0 or 0.0, with 1.0 indicating a defective item. Then, the <code>KSLRandom</code> functionality is used to randomly select from the sample “box” an element (item). If the item is good, the sampling continues with a new box. If the selected item is bad, then the sampling stops and returns the number of sample boxes inspected until the first bad box is found.</p>
-<pre><code>Count =      100.000000 
-Average =    5.710000 
-Std. Dev. =      4.688897 
-Half-width =     0.930379 
-95.0% CI = [4.779621063279056, 6.640378936720944]</code></pre>
-<p>The results indicate that on average about 5.71 boxes are inspected until the first box is rejected.</p>
+<h3><span class="header-section-number">G</span> References<a href="references.html#references" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div id="refs" class="references csl-bib-body hanging-indent">
+<div id="ref-Banks1998aa" class="csl-entry">
+Banks, J. 1998. <em>Handbook of Simulation: Principles, Methodology, Advances, Applications, and Practice</em>. Edited by J. Banks. John Wiley &amp; Sons.
+</div>
+<div id="ref-chung2004simulation" class="csl-entry">
+Chung, C. A. 2004. <em>Simulation Modeling Handbook: A Practical Approach</em>. CRC Press.
+</div>
 </div>
             </section>
 
           </div>
         </div>
       </div>
-<a href="the-news-vendor-problem.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="ch3SAN.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="overview-of-the-kotlin-simulation-library.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="exercises.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
