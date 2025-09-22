@@ -1923,7 +1923,7 @@ $$
 \hat{\theta} = \bar{Y}(n) = \frac{1}{n}\sum_{i=1}^{n}Y_i=\frac{1}{n}\sum_{i=1}^{n}\frac{g(\vec{X}_i)}{w(\vec{X}_i)}=\frac{1}{n}\sum_{i=1}^{n}h(\vec{X}_i)
 $$
 
-We know that independent $\vec{X}_i$ ensures that the law of large numbers has, $\hat{\theta} \rightarrow \theta$ as $n \rightarrow \infty$ with probability 1.  But what happens if the $\vec{X}_i$ are dependent? Under some technical conditions, it can still be shown that $\hat{\theta} \rightarrow \theta$.  Thus, sequences of dependent $\vec{X}_i$ could be used. One method for generating depended $\vec{X}_i$ would be from a Markov chain that has $w(\vec{X})$ as its stationary limiting distribution. In the Markov Chain literature, $w(\vec{X})$ is often denoted as $\pi(\vec{X})$.  
+We know that independent $\vec{X}_i$ ensures that the law of large numbers has, $\hat{\theta} \rightarrow \theta$ as $n \rightarrow \infty$ with probability 1.  But what happens if the $\vec{X}_i$ are dependent? Under some technical conditions, it can still be shown that $\hat{\theta} \rightarrow \theta$.  Thus, sequences of dependent $\vec{X}_i$ could be used. One method for generating dependent $\vec{X}_i$ would be from a Markov chain that has $w(\vec{X})$ as its stationary limiting distribution. In the Markov Chain literature, $w(\vec{X})$ is often denoted as $\pi(\vec{X})$.  
 
 For simplicity in what follows, we will focus on the univariate case, with the understanding that the presentation can be extended to a multi-dimensional setting. Because it should make it easier to conceptualize the approach, we will first present some basic concepts using discrete Markov Chains. 
 
