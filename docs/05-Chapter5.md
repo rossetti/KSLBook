@@ -467,7 +467,7 @@ class PalletWorkCenter(
         get() = myNumPalletsRV
 ```
 
-Notice that we defined the random variables as default parameters of the constructor and assign them to relevant properties within the class body. To capture the total time to process the pallets and the probability of overtime, we define two response variables. Notice that the probability of overtime is implemented as an `IndicatorResponse` that observes the total processing time.
+Notice that we defined the random variables and assign them to relevant properties within the class body. To capture the total time to process the pallets and the probability of overtime, we define two response variables. Notice that the probability of overtime is implemented as an `IndicatorResponse` that observes the total processing time.
 
 ```kt
     private val myNumBusy: TWResponse = TWResponse(parent = this, name = "NumBusyWorkers")
@@ -651,7 +651,7 @@ The first thing to note is how the output from a KSL simulation is organized. Th
 <p class="caption">(\#fig:KSLOutputDir)Organization of KSL Output Directories</p>
 </div>
 
-Figure \@ref(fig:KSLOutputDir) illustrates the output directory after running the pallet model. You should see the `kslOutput` directory and a directory called `Pallet_Processing_OutputDir.` Within the  `Pallet_Processing_OutputDir` directory there are folders called `db` and `excel.`  These folders are the default directories for holding database related files and Excel related output files.  Within the `db` folder there is a file called `MainModel.db,` which is an SQLite database that was created to hold the KSL simulation results. Then, there are two files called `hwSummary.md` and `kslOutput.txt.` There are also three CSV files, two labeled with `_ExperimentReport.csv` and `_ReplicationReport.csv`, and one labeled with `_Trace.csv.` This labeling scheme is the default and is derived from the context of the item.  The setting of the `autoCSVReports` option to true when creating the model is what caused the two files labeled with `_ExperimentReport.csv` and with  `_ReplicationReport.csv` to be produced. The following table is from `Pallet_Processing_CSVReplicationReport.csv.`
+Figure \@ref(fig:KSLOutputDir) illustrates the output directory after running the pallet model. You should see the `kslOutput` directory and a directory called `Pallet_Processing_OutputDir.` Within the  `Pallet_Processing_OutputDir` directory there are folders called `db` and `excel.`  These folders are the default directories for holding database related files and Excel related output files.  Within the `db` folder there is a file called `Pallet_Processing.db,` which is an SQLite database that was created to hold the KSL simulation results. Then, there are two files called `hwSummary.md` and `kslOutput.txt.` There are also two CSV files, two labeled with `_ExperimentReport.csv` and `_ReplicationReport.csv.` This labeling scheme is the default and is derived from the context of the item.  In addition, there is a file called `Num Pallets at WC_Trace`, which represents the trace data for the number of pallets at the workcenter within a database file. The setting of the `autoCSVReports` option to true when creating the model is what caused the two files labeled with `_ExperimentReport.csv` and with  `_ReplicationReport.csv` to be produced. The following table is from `Pallet_Processing_CSVReplicationReport.csv.`
 
 <table class="table" style="font-size: 10px; margin-left: auto; margin-right: auto;">
 <caption style="font-size: initial !important;">(\#tab:unnamed-chunk-1)(\#tab:Ch5WRD)First 8 columns and 5 Rows of Pallet_Processing_CSVReplicationReport.csv.</caption>
@@ -924,7 +924,7 @@ A user may want to trace the values of specific response variables to files for 
 Attaching an instance of the `ResponseTrace` class to a response causes the trace to observe any value changes of the variable. 
 
 <table class="table" style="font-size: 10px; margin-left: auto; margin-right: auto;">
-<caption style="font-size: initial !important;">(\#tab:unnamed-chunk-4)(\#tab:Ch5Trace)First 10 rows of Num Pallets at WC_Trace.csv.</caption>
+<caption style="font-size: initial !important;">(\#tab:unnamed-chunk-4)(\#tab:Ch5Trace)First 10 rows of Num Pallets at WC_Trace File.</caption>
  <thead>
   <tr>
    <th style="text-align:right;"> n </th>
@@ -1164,7 +1164,7 @@ The database will have the table structure shown in Figure \@ref(fig:KSLDatabase
 <p class="caption">(\#fig:KSLDatabaseTables)KSL Database Tables</p>
 </div>
 
-The KSL database consists of six tables that capture information and
+The KSL database consists of twelve tables that capture information and
 data concerning the execution of a simulation and resulting statistical
 quantities. Figure \@ref(fig:KSLDatabaseTables) presents the database diagram for the `KSL_DB`
 database schema.
@@ -1905,11 +1905,10 @@ $$\bar{Y}_r = \dfrac{1}{T_e - T_w}\int_{T_w}^{T_e} Y_r(t) dt$$
 
 Figure \@ref(fig:WarmUpPeriod) shows the concept of a warm up period for a
 simulation replication. When you perform a simulation, you can easily
-specify a time-based warm up period using the setLengthOfWarmUp() method
-of the Simulation class. In fact, even for observation based data, it
+specify a time-based warm up period using the `lengthOfReplicationWarmUp` property
+of the `Model` class. In fact, even for observation based data, it
 will be more convenient to specify the warm up period in terms of time.
-A given value of $T_w$ implies a particular value of $d$ and vice a
-versa. Specifying a warm up period, causes an event to be scheduled for
+A given value of $T_w$ implies a particular value of $d$ and vice versa. Specifying a warm up period, causes an event to be scheduled for
 time $T_w$. At that time, all the accumulated statistical counters are
 cleared so that the net effect is that statistics are only collected
 over the period from $T_w$ to $T_e$. The problem then becomes that of
@@ -2231,7 +2230,7 @@ equally spaced and can be treated as if they are observation (tally)
 based data.
 
 The computation of the $\bar{Y}_{rj}$ for time-persistent data can be
-achieved by using the `WelchDataFileCollectorclass` and specifying a
+achieved by using the `WelchDataFileCollector` class and specifying a
 discretization interval. Since the number in queue data is
 time-persistent, time based batches are selected, and the batch size is
 specified in terms of time. In this case, the data is being batched
@@ -2245,7 +2244,7 @@ based on a time interval of 10 minutes. This produces a file which contains the 
 The resulting plot is show in Figure \@ref(fig:WPDiscretizeTBD). This plot is sparser than the previous
 plot because each observation represents the average of 10 minutes.
 There are 5000 observations. From the plot, we can conclude that after
-observation 2000, we see a steady convergence. The 1000th observation
+observation 2000, we see a steady convergence. The 2000th observation
 represents 20000 time units (minutes) because every observation represents 10 time units.
 
 Once you have performed the warm up analysis, you still need to use your
@@ -2254,7 +2253,7 @@ analyzing the warm up period involves saving the data you could use the
 already saved data to estimate your system performance after truncating
 the initial portion of the data from the data sets. If re-running the
 simulation is relatively inexpensive, then you can simply set the warm
-up period via the Simulation class and re-run the model. Following the
+up period via the `Model` class and re-run the model. Following the
 rule of thumb that the length of the run should be at least 10 times the
 warm up period, the simulation was re-run with the settings (30
 replications, 20000 minute warm up period, 200,000 minute replication
@@ -2395,7 +2394,7 @@ $-1 \leq \rho_k \leq 0$, the bias will be positive
 data, $S^2/n$ over estimates the $Var(\bar{X})$. A confidence interval
 based on $S^2/n$ will be too wide and the true quality of the estimate
 will be better than indicated. The true confidence coefficient will not
-be the desired $1 - \alpha$; it will be greater than $1 - \alpha$.
+be the desired $1 - \alpha$; it will be greater than $1 - \alpha.$
 
 Of the two cases, the positively correlated case is the more severe in
 terms of its effect on the decision making process; however, both are
@@ -2426,7 +2425,7 @@ Each of the batch means are treated like observations in the batch means
 series. For example, if the batch means are re-labeled as
 $Y_j = \bar{X}_j(b)$, the batching process simply produces another
 series of data, ($Y_1, Y_2, Y_3, \ldots, Y_k$) which may be more like a
-random sample. To form a $1 - \alpha$% confidence interval, you simply
+random sample. To form a $(1 - \alpha)$% confidence interval, you simply
 treat this new series like a random sample and compute approximate
 confidence intervals using the sample average and sample variance of the
 batch means series:
@@ -2547,7 +2546,7 @@ to throw away the observations contained in at least $n_0 \times T_w$
 time units and you are willing to use the data collected over
 $n_0 \times (T_e - T_w)$ time units. Therefore, the warm up period for
 the single replication can be set at $n_0 \times T_w$ and the run length
-can be set at $n_0 \times T_e$. For example, suppose your warm up
+can be set at $n_0 \times T_e$ time units. For example, suppose your warm up
 analysis was based on the initial results of $n_0$ = 10, $T_e$ = 30000,
 $T_w$ = 10000. Thus, your starting run length would be
 $n_0 \times T_e = 10 \times 30,000 = 300,000$ and the warm period will

@@ -23,7 +23,7 @@
 <meta name="author" content="Manuel D. Rossetti" />
 
 
-<meta name="date" content="2025-09-22" />
+<meta name="date" content="2025-10-01" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -623,7 +623,7 @@ div.csl-indent {
 <span id="cb162-38"><a href="simoafinhorizonex.html#cb162-38" tabindex="-1"></a>    <span class="op">)</span></span>
 <span id="cb162-39"><a href="simoafinhorizonex.html#cb162-39" tabindex="-1"></a>    <span class="kw">val</span> <span class="va">numPalletsRV</span><span class="op">:</span> RandomVariableCIfc</span>
 <span id="cb162-40"><a href="simoafinhorizonex.html#cb162-40" tabindex="-1"></a>        <span class="kw">get</span><span class="op">()</span> <span class="op">=</span> myNumPalletsRV</span></code></pre></div>
-<p>Notice that we defined the random variables as default parameters of the constructor and assign them to relevant properties within the class body. To capture the total time to process the pallets and the probability of overtime, we define two response variables. Notice that the probability of overtime is implemented as an <code>IndicatorResponse</code> that observes the total processing time.</p>
+<p>Notice that we defined the random variables and assign them to relevant properties within the class body. To capture the total time to process the pallets and the probability of overtime, we define two response variables. Notice that the probability of overtime is implemented as an <code>IndicatorResponse</code> that observes the total processing time.</p>
 <div class="sourceCode" id="cb163"><pre class="sourceCode kt"><code class="sourceCode kotlin"><span id="cb163-1"><a href="simoafinhorizonex.html#cb163-1" tabindex="-1"></a>    <span class="kw">private</span> <span class="kw">val</span> <span class="va">myNumBusy</span><span class="op">:</span> TWResponse <span class="op">=</span> TWResponse<span class="op">(</span>parent <span class="op">=</span> <span class="kw">this</span><span class="op">,</span> name <span class="op">=</span> <span class="st">&quot;NumBusyWorkers&quot;</span><span class="op">)</span></span>
 <span id="cb163-2"><a href="simoafinhorizonex.html#cb163-2" tabindex="-1"></a>    <span class="kw">val</span> <span class="va">numBusyWorkers</span><span class="op">:</span> TWResponseCIfc</span>
 <span id="cb163-3"><a href="simoafinhorizonex.html#cb163-3" tabindex="-1"></a>        <span class="kw">get</span><span class="op">()</span> <span class="op">=</span> myNumBusy</span>
@@ -832,7 +832,7 @@ div.csl-indent {
 Figure 5.2: Organization of KSL Output Directories
 </p>
 </div>
-<p>Figure <a href="simoafinhorizonex.html#fig:KSLOutputDir">5.2</a> illustrates the output directory after running the pallet model. You should see the <code>kslOutput</code> directory and a directory called <code>Pallet_Processing_OutputDir.</code> Within the <code>Pallet_Processing_OutputDir</code> directory there are folders called <code>db</code> and <code>excel.</code> These folders are the default directories for holding database related files and Excel related output files. Within the <code>db</code> folder there is a file called <code>MainModel.db,</code> which is an SQLite database that was created to hold the KSL simulation results. Then, there are two files called <code>hwSummary.md</code> and <code>kslOutput.txt.</code> There are also three CSV files, two labeled with <code>_ExperimentReport.csv</code> and <code>_ReplicationReport.csv</code>, and one labeled with <code>_Trace.csv.</code> This labeling scheme is the default and is derived from the context of the item. The setting of the <code>autoCSVReports</code> option to true when creating the model is what caused the two files labeled with <code>_ExperimentReport.csv</code> and with <code>_ReplicationReport.csv</code> to be produced. The following table is from <code>Pallet_Processing_CSVReplicationReport.csv.</code></p>
+<p>Figure <a href="simoafinhorizonex.html#fig:KSLOutputDir">5.2</a> illustrates the output directory after running the pallet model. You should see the <code>kslOutput</code> directory and a directory called <code>Pallet_Processing_OutputDir.</code> Within the <code>Pallet_Processing_OutputDir</code> directory there are folders called <code>db</code> and <code>excel.</code> These folders are the default directories for holding database related files and Excel related output files. Within the <code>db</code> folder there is a file called <code>Pallet_Processing.db,</code> which is an SQLite database that was created to hold the KSL simulation results. Then, there are two files called <code>hwSummary.md</code> and <code>kslOutput.txt.</code> There are also two CSV files, two labeled with <code>_ExperimentReport.csv</code> and <code>_ReplicationReport.csv.</code> This labeling scheme is the default and is derived from the context of the item. In addition, there is a file called <code>Num Pallets at WC_Trace</code>, which represents the trace data for the number of pallets at the workcenter within a database file. The setting of the <code>autoCSVReports</code> option to true when creating the model is what caused the two files labeled with <code>_ExperimentReport.csv</code> and with <code>_ReplicationReport.csv</code> to be produced. The following table is from <code>Pallet_Processing_CSVReplicationReport.csv.</code></p>
 <table class="table" style="font-size: 10px; margin-left: auto; margin-right: auto;">
 <caption style="font-size: initial !important;">
 <span id="tab:unnamed-chunk-1">Table 4.3: </span><span id="tab:Ch5WRD">Table 5.1: </span>First 8 columns and 5 Rows of Pallet_Processing_CSVReplicationReport.csv.
@@ -1461,7 +1461,7 @@ NumBusyWorkers
 <p>Attaching an instance of the <code>ResponseTrace</code> class to a response causes the trace to observe any value changes of the variable.</p>
 <table class="table" style="font-size: 10px; margin-left: auto; margin-right: auto;">
 <caption style="font-size: initial !important;">
-<span id="tab:unnamed-chunk-4">Table 4.9: </span><span id="tab:Ch5Trace">Table 5.3: </span>First 10 rows of Num Pallets at WC_Trace.csv.
+<span id="tab:unnamed-chunk-4">Table 4.9: </span><span id="tab:Ch5Trace">Table 5.3: </span>First 10 rows of Num Pallets at WC_Trace File.
 </caption>
 <thead>
 <tr>
@@ -1947,7 +1947,7 @@ database. However, it is possible to not overwrite the database and store additi
 Figure 5.6: KSL Database Tables
 </p>
 </div>
-<p>The KSL database consists of six tables that capture information and
+<p>The KSL database consists of twelve tables that capture information and
 data concerning the execution of a simulation and resulting statistical
 quantities. Figure <a href="simoafinhorizonex.html#fig:KSLDatabaseTables">5.6</a> presents the database diagram for the <code>KSL_DB</code>
 database schema.</p>

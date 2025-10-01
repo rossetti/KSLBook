@@ -23,7 +23,7 @@
 <meta name="author" content="Manuel D. Rossetti" />
 
 
-<meta name="date" content="2025-09-22" />
+<meta name="date" content="2025-10-01" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -953,11 +953,10 @@ Figure 5.14: The Concept of the Warm Up Period
 </div>
 <p>Figure <a href="simoainfhorizon.html#fig:WarmUpPeriod">5.14</a> shows the concept of a warm up period for a
 simulation replication. When you perform a simulation, you can easily
-specify a time-based warm up period using the setLengthOfWarmUp() method
-of the Simulation class. In fact, even for observation based data, it
+specify a time-based warm up period using the <code>lengthOfReplicationWarmUp</code> property
+of the <code>Model</code> class. In fact, even for observation based data, it
 will be more convenient to specify the warm up period in terms of time.
-A given value of <span class="math inline">\(T_w\)</span> implies a particular value of <span class="math inline">\(d\)</span> and vice a
-versa. Specifying a warm up period, causes an event to be scheduled for
+A given value of <span class="math inline">\(T_w\)</span> implies a particular value of <span class="math inline">\(d\)</span> and vice versa. Specifying a warm up period, causes an event to be scheduled for
 time <span class="math inline">\(T_w\)</span>. At that time, all the accumulated statistical counters are
 cleared so that the net effect is that statistics are only collected
 over the period from <span class="math inline">\(T_w\)</span> to <span class="math inline">\(T_e\)</span>. The problem then becomes that of
@@ -1339,7 +1338,7 @@ associated with each interval:</p>
 equally spaced and can be treated as if they are observation (tally)
 based data.</p>
 <p>The computation of the <span class="math inline">\(\bar{Y}_{rj}\)</span> for time-persistent data can be
-achieved by using the <code>WelchDataFileCollectorclass</code> and specifying a
+achieved by using the <code>WelchDataFileCollector</code> class and specifying a
 discretization interval. Since the number in queue data is
 time-persistent, time based batches are selected, and the batch size is
 specified in terms of time. In this case, the data is being batched
@@ -1353,7 +1352,7 @@ Figure 5.19: Welch Plot of Time-Persistent Number in System Data
 <p>The resulting plot is show in Figure <a href="simoainfhorizon.html#fig:WPDiscretizeTBD">5.19</a>. This plot is sparser than the previous
 plot because each observation represents the average of 10 minutes.
 There are 5000 observations. From the plot, we can conclude that after
-observation 2000, we see a steady convergence. The 1000th observation
+observation 2000, we see a steady convergence. The 2000th observation
 represents 20000 time units (minutes) because every observation represents 10 time units.</p>
 <p>Once you have performed the warm up analysis, you still need to use your
 simulation model to estimate system performance. Because the process of
@@ -1361,7 +1360,7 @@ analyzing the warm up period involves saving the data you could use the
 already saved data to estimate your system performance after truncating
 the initial portion of the data from the data sets. If re-running the
 simulation is relatively inexpensive, then you can simply set the warm
-up period via the Simulation class and re-run the model. Following the
+up period via the <code>Model</code> class and re-run the model. Following the
 rule of thumb that the length of the run should be at least 10 times the
 warm up period, the simulation was re-run with the settings (30
 replications, 20000 minute warm up period, 200,000 minute replication
@@ -1527,7 +1526,7 @@ based on the confidence interval.</p>
 data, <span class="math inline">\(S^2/n\)</span> over estimates the <span class="math inline">\(Var(\bar{X})\)</span>. A confidence interval
 based on <span class="math inline">\(S^2/n\)</span> will be too wide and the true quality of the estimate
 will be better than indicated. The true confidence coefficient will not
-be the desired <span class="math inline">\(1 - \alpha\)</span>; it will be greater than <span class="math inline">\(1 - \alpha\)</span>.</p>
+be the desired <span class="math inline">\(1 - \alpha\)</span>; it will be greater than <span class="math inline">\(1 - \alpha.\)</span></p>
 <p>Of the two cases, the positively correlated case is the more severe in
 terms of its effect on the decision making process; however, both are
 problems. Thus, the naive use of <span class="math inline">\(S^2/n\)</span> for dependent data is highly
@@ -1552,7 +1551,7 @@ batches each consisting of <span class="math inline">\(b\)</span> observations, 
 series. For example, if the batch means are re-labeled as
 <span class="math inline">\(Y_j = \bar{X}_j(b)\)</span>, the batching process simply produces another
 series of data, (<span class="math inline">\(Y_1, Y_2, Y_3, \ldots, Y_k\)</span>) which may be more like a
-random sample. To form a <span class="math inline">\(1 - \alpha\)</span>% confidence interval, you simply
+random sample. To form a <span class="math inline">\((1 - \alpha)\)</span>% confidence interval, you simply
 treat this new series like a random sample and compute approximate
 confidence intervals using the sample average and sample variance of the
 batch means series:</p>
@@ -1656,7 +1655,7 @@ to throw away the observations contained in at least <span class="math inline">\
 time units and you are willing to use the data collected over
 <span class="math inline">\(n_0 \times (T_e - T_w)\)</span> time units. Therefore, the warm up period for
 the single replication can be set at <span class="math inline">\(n_0 \times T_w\)</span> and the run length
-can be set at <span class="math inline">\(n_0 \times T_e\)</span>. For example, suppose your warm up
+can be set at <span class="math inline">\(n_0 \times T_e\)</span> time units. For example, suppose your warm up
 analysis was based on the initial results of <span class="math inline">\(n_0\)</span> = 10, <span class="math inline">\(T_e\)</span> = 30000,
 <span class="math inline">\(T_w\)</span> = 10000. Thus, your starting run length would be
 <span class="math inline">\(n_0 \times T_e = 10 \times 30,000 = 300,000\)</span> and the warm period will
