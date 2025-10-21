@@ -445,7 +445,12 @@ interface ResourcePoolCIfc {
 }
 ```
 
-The section introduced the concept of resource pools with a simple example.  Late in the book, we will revisit the use of pools, especially within the context of being able to change the capacity of resources.  In the next section, we discuss a more complex situation involving a flow shop.
+::: {.infobox .note data-latex="{note}"}
+**NOTE!**
+When using the `seize()` function to seize a resource pool, you are actually making a request for the resources within the pool. If the request is not immediately filled, then the request waits in a queue. Since we used a `ResourcePoolWithQ` class to model the resource pool, the request will wait in the queue associated with the resource pool. The `seize()` function returns an instance of the [`ResourcePoolAllocation`](https://rossetti.github.io/KSLDocs/-k-s-l-core/ksl.modeling.entity/-resource-pool-allocation/index.html) class. The returned resource allocation has properties that indicate which queue and which resources were involved with the request.  For a `ResourcePoolAllocation` there is a property called allocations, which represents a list of the allocations made from the pool.  The list of allocations can be used to access the allocations, with each allocation representing an individual allocation of a resource from the pool.	When seizing a resource, you can specify the number of units needed.  The request for 1 unit from a resource pool results in the allocation from a single resource. Thus, the list of allocations will have 1 and only 1 allocation. The request for more than 1 unit from a resource pool, may result in allocations from more than one resource. The allocations list holds the allocations of any resources that were allocated.
+:::
+
+The section introduced the concept of resource pools with a simple example.  Later in the book, we will revisit the use of pools, especially within the context of being able to change the capacity of resources.  In the next section, we discuss a more complex situation involving a flow shop.
 
 ### Computer Test and Repair Shop Example {#secTestAndRepair}
 
