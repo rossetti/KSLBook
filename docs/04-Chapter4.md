@@ -3393,7 +3393,7 @@ The end of service actions are as previously seen. There is one less server busy
 
 Figure \@ref(fig:Ch4TandemQ) should give an idea of what the class should represent.  In the figure, there are two stations with each station containing a queue and a server (or resource).  Thus, we should build a class that models a single queue that holds objects that must wait for a server to be available. We are going to call this thing a `SingleQStation.`  Notice that the input to the first station is a customer from some arrival process and that the input to the second station is a customer departing the first station. Thus, the main difference between how these components act is where they receive customers from and where they send completed customers. Notice that a station needs to know where to send its completed customers. What else does a station need to know in order to process the customers?  The station will need to know how many servers are available at the station and will need to know how to determine the processing time for the customers. For this modeling, we need to combine the concepts of a resource and a queue as a model element component. Let's put the resource together with a queue to get a station for processing in the `SingleQStation` class.
 
-### Modeling a Resource with a Waiting Line
+### Modeling a Resource with a Waiting Line {#mrWaitingLine}
 
 The `SingleQStation` class will use an instance of the `SResource` class to represent its resource. In addition, the `SingleQStation` class will use an instance of the `Queue` class presented in the previous section to represent the waiting line for the customers that need to wait for their requested units of the resource. The customers that use the single queue station will be represented by instances of the `QObject` class.   We are now ready to put most of these pieces together to construct the `SingleQStation` class. Once we have an understanding of the `SingleQStation` class, we will be ready to model Example \@ref(exm:exCh4TandemQ).
 
@@ -3669,6 +3669,54 @@ The results from running the following code are not very interesting except for 
 |TandemQ:TotalProcessed| 30| 2512.667| 17.41|
 |TandemQ:Station1:NumProcessed| 30| 2512.7| 17.535|
 |TandemQ:Station2:NumProcessed| 30| 2512.667| 17.41|
+
+***
+::: {.example #exCh4TandemQDST name="Tandem Queueing System with Dependent Service Times"}
+Reconsider Example \@ref(exm:exCh4TandemQ) with the following variation.  Suppose that there are two types of parts A and B. The time that it takes to process the parts at the first station depends on the type of part. Part A parts have an exponential service time with a mean of 2.0 minutes (stream 2).  Part B parts have an exponential service time with a mean of 6.0 minutes (stream 2). Suppose that data indicates that 40 percent of the parts that arrive are of type A (stream 4). Revise the solution for Example \@ref(exm:exCh4TandemQ) to account for the service time at station 1 being dependent upon the type of part.
+:::
+***
+
+This situation can be modeled by specifying that station 1 use the processing QObject instances to determine the activity time at the station.  This can be accomplished by setting the `useQObjectForActivityTime` property of the `SingleQStation` class to `true.` This setting will cause the station to attempt to use the `valueObject` property of the `QObject` instances to determine the activity time. The `valueObject` property should hold an instance of an object that implements the `GetValueIfc` interface.  Since the `RandomVariable` class implements this interface, it is a simple matter to assign the `valueObject` property when the `QObject` is created. The following code illustrates the solution.
+
+```kt
+    private val myStation1: SingleQStation = SingleQStation(
+        parent = this,
+        name = "${this.name}:Station1"
+    )
+    val station1: SingleQStationCIfc
+        get() = myStation1
+
+    private val myStation2: SingleQStation = SingleQStation(
+        parent = this,
+        activityTime = ExponentialRV(3.0, 3),
+        name = "${this.name}:Station2"
+    )
+    val station2: SingleQStationCIfc
+        get() = myStation2
+
+    init {
+        myStation1.useQObjectForActivityTime = true
+        myStation1.nextReceiver(myStation2)
+        myStation2.nextReceiver(ExitSystem())
+    }
+
+    private val myPartType = RandomVariable(this, BernoulliRV(0.4, 4))
+    private val myPartTypeAServiceRV = RandomVariable(this, ExponentialRV(4.0, 2))
+    private val myPartTypeBServiceRV = RandomVariable(this, ExponentialRV(6.0, 2))
+
+    private fun arrivalEvent(generator: EventGeneratorIfc) {
+        val customer = QObject()
+        if (myPartType.value == 1.0) {
+            customer.valueObject = myPartTypeAServiceRV
+        } else {
+            customer.valueObject = myPartTypeBServiceRV
+        }
+        myNS.increment()
+        myStation1.receive(customer)
+    }
+```
+
+The first thing to notice is that the declaration for station 1 does not have its activity time provided. In this case, the activity time defaults to 0.0.  Next, the `init` block has been updated such that station one's `useQObjectForActivityTime` is set to true.  This is followed by definitions for the random variables.  Here the determination of the type of part is specified with a Bernoulli random variable. Finally, in the arrival event for the parts, the type of part is randomly determined and the `valueObject` property of the `QObject` instance is assigned to correct random variable based on the type.  The underlying logic that handles the determination of the activity time for station 1 will now randomly generate a value using the random variable that was assigned to the `valueObject` property.  Thus, the service time at station 1 will depend upon the part type.  Similar strategies can be implemented for any station. The tricky aspect is the reassignment of the `valueObject` property before the queue object is sent to the next station.  This might be accomplished by using lambda functions assigned to the *entry* or *exit* actions for the station as mentioned in Section \@ref(mrWaitingLine).
 
 ### Modeling with the Station Package
 

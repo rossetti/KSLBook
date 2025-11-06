@@ -23,7 +23,7 @@
 <meta name="author" content="Manuel D. Rossetti" />
 
 
-<meta name="date" content="2025-10-21" />
+<meta name="date" content="2025-11-06" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -263,7 +263,7 @@ div.csl-indent {
 </ul></li>
 <li class="chapter" data-level="4.6" data-path="DTPExpanded.html"><a href="DTPExpanded.html"><i class="fa fa-check"></i><b>4.6</b> More Drive Through Fun</a>
 <ul>
-<li class="chapter" data-level="4.6.1" data-path="DTPExpanded.html"><a href="DTPExpanded.html#modeling-a-resource-with-a-waiting-line"><i class="fa fa-check"></i><b>4.6.1</b> Modeling a Resource with a Waiting Line</a></li>
+<li class="chapter" data-level="4.6.1" data-path="DTPExpanded.html"><a href="DTPExpanded.html#mrWaitingLine"><i class="fa fa-check"></i><b>4.6.1</b> Modeling a Resource with a Waiting Line</a></li>
 <li class="chapter" data-level="4.6.2" data-path="DTPExpanded.html"><a href="DTPExpanded.html#modeling-the-tandem-queue-of-example-refexmexch4tandemq"><i class="fa fa-check"></i><b>4.6.2</b> Modeling the Tandem Queue of Example @ref(exm:exCh4TandemQ)</a></li>
 <li class="chapter" data-level="4.6.3" data-path="DTPExpanded.html"><a href="DTPExpanded.html#modeling-with-the-station-package"><i class="fa fa-check"></i><b>4.6.3</b> Modeling with the Station Package</a></li>
 </ul></li>
@@ -632,16 +632,16 @@ have occurred.</p>
 <p>The <code>AcrossReplicationHalfWidthChecker</code> class listens to the
 <code>afterReplication()</code> method of a <code>Response</code> instance and checks the current
 value of the half-width. This is illustrated in the following code listing.</p>
-<div class="sourceCode" id="cb176"><pre class="sourceCode kt"><code class="sourceCode kotlin"><span id="cb176-1"><a href="simoaseqsampling.html#cb176-1" tabindex="-1"></a>    <span class="kw">override</span> <span class="kw">fun</span> <span class="fu">afterReplication</span><span class="op">(</span><span class="va">modelElement</span><span class="op">:</span> <span class="dt">ModelElement</span><span class="op">)</span> <span class="op">{</span></span>
-<span id="cb176-2"><a href="simoaseqsampling.html#cb176-2" tabindex="-1"></a>        <span class="cf">if</span> <span class="op">(</span>modelElement<span class="op">.</span>model<span class="op">.</span>currentReplicationNumber <span class="op">&lt;=</span> <span class="dv">2</span><span class="op">){</span></span>
-<span id="cb176-3"><a href="simoaseqsampling.html#cb176-3" tabindex="-1"></a>            <span class="kw">return</span></span>
-<span id="cb176-4"><a href="simoaseqsampling.html#cb176-4" tabindex="-1"></a>        <span class="op">}</span></span>
-<span id="cb176-5"><a href="simoaseqsampling.html#cb176-5" tabindex="-1"></a>        <span class="kw">val</span> <span class="va">statistic</span> <span class="op">=</span> myResponse<span class="op">.</span>myAcrossReplicationStatistic</span>
-<span id="cb176-6"><a href="simoaseqsampling.html#cb176-6" tabindex="-1"></a>        <span class="kw">val</span> <span class="va">hw</span> <span class="op">=</span> statistic<span class="op">.</span>halfWidth<span class="op">(</span>confidenceLevel<span class="op">)</span></span>
-<span id="cb176-7"><a href="simoaseqsampling.html#cb176-7" tabindex="-1"></a>        <span class="cf">if</span> <span class="op">(</span>hw <span class="op">&lt;=</span> desiredHalfWidth<span class="op">){</span></span>
-<span id="cb176-8"><a href="simoaseqsampling.html#cb176-8" tabindex="-1"></a>            modelElement<span class="op">.</span>model<span class="op">.</span>endSimulation<span class="op">(</span><span class="st">&quot;Half-width = (</span><span class="ss">$desiredHalfWidth</span><span class="st">) condition met for response </span><span class="ss">${</span>myResponse<span class="op">.</span>name<span class="ss">}</span><span class="st">&quot;</span><span class="op">)</span></span>
-<span id="cb176-9"><a href="simoaseqsampling.html#cb176-9" tabindex="-1"></a>        <span class="op">}</span></span>
-<span id="cb176-10"><a href="simoaseqsampling.html#cb176-10" tabindex="-1"></a>    <span class="op">}</span></span></code></pre></div>
+<div class="sourceCode" id="cb177"><pre class="sourceCode kt"><code class="sourceCode kotlin"><span id="cb177-1"><a href="simoaseqsampling.html#cb177-1" tabindex="-1"></a>    <span class="kw">override</span> <span class="kw">fun</span> <span class="fu">afterReplication</span><span class="op">(</span><span class="va">modelElement</span><span class="op">:</span> <span class="dt">ModelElement</span><span class="op">)</span> <span class="op">{</span></span>
+<span id="cb177-2"><a href="simoaseqsampling.html#cb177-2" tabindex="-1"></a>        <span class="cf">if</span> <span class="op">(</span>modelElement<span class="op">.</span>model<span class="op">.</span>currentReplicationNumber <span class="op">&lt;=</span> <span class="dv">2</span><span class="op">){</span></span>
+<span id="cb177-3"><a href="simoaseqsampling.html#cb177-3" tabindex="-1"></a>            <span class="kw">return</span></span>
+<span id="cb177-4"><a href="simoaseqsampling.html#cb177-4" tabindex="-1"></a>        <span class="op">}</span></span>
+<span id="cb177-5"><a href="simoaseqsampling.html#cb177-5" tabindex="-1"></a>        <span class="kw">val</span> <span class="va">statistic</span> <span class="op">=</span> myResponse<span class="op">.</span>myAcrossReplicationStatistic</span>
+<span id="cb177-6"><a href="simoaseqsampling.html#cb177-6" tabindex="-1"></a>        <span class="kw">val</span> <span class="va">hw</span> <span class="op">=</span> statistic<span class="op">.</span>halfWidth<span class="op">(</span>confidenceLevel<span class="op">)</span></span>
+<span id="cb177-7"><a href="simoaseqsampling.html#cb177-7" tabindex="-1"></a>        <span class="cf">if</span> <span class="op">(</span>hw <span class="op">&lt;=</span> desiredHalfWidth<span class="op">){</span></span>
+<span id="cb177-8"><a href="simoaseqsampling.html#cb177-8" tabindex="-1"></a>            modelElement<span class="op">.</span>model<span class="op">.</span>endSimulation<span class="op">(</span><span class="st">&quot;Half-width = (</span><span class="ss">$desiredHalfWidth</span><span class="st">) condition met for response </span><span class="ss">${</span>myResponse<span class="op">.</span>name<span class="ss">}</span><span class="st">&quot;</span><span class="op">)</span></span>
+<span id="cb177-9"><a href="simoaseqsampling.html#cb177-9" tabindex="-1"></a>        <span class="op">}</span></span>
+<span id="cb177-10"><a href="simoaseqsampling.html#cb177-10" tabindex="-1"></a>    <span class="op">}</span></span></code></pre></div>
 <p>Notice that a reference to the
 observed <code>Response</code> is used to get access to the across
 replication statistics. If there are more than 2 replications, then the
@@ -651,30 +651,30 @@ the <code>Model</code> class’s <code>endSimulation()</code> method. The <code>
 <p>All that is needed is to get a reference to the response
 variable that needs to be checked so that the observer can be attached.
 This can be done easily if a reference to the response is exposed through the class’s interface. In this case the property, <code>totalProcessingTime,</code> an instance of <code>ResponseCIfc,</code> is used. Alternatively if the string name representation of the response is available, it can be used to extract the response from the model via the model’s functionality for getting model elements.</p>
-<div class="sourceCode" id="cb177"><pre class="sourceCode kt"><code class="sourceCode kotlin"><span id="cb177-1"><a href="simoaseqsampling.html#cb177-1" tabindex="-1"></a><span class="kw">fun</span> <span class="fu">response</span><span class="op">(</span><span class="va">name</span><span class="op">:</span> <span class="dt">String</span><span class="op">):</span> <span class="dt">Response</span><span class="op">?</span> </span>
-<span id="cb177-2"><a href="simoaseqsampling.html#cb177-2" tabindex="-1"></a><span class="kw">fun</span> <span class="fu">timeWeightedResponse</span><span class="op">(</span><span class="va">name</span><span class="op">:</span> <span class="dt">String</span><span class="op">):</span> <span class="dt">TWResponse</span><span class="op">?</span> </span>
-<span id="cb177-3"><a href="simoaseqsampling.html#cb177-3" tabindex="-1"></a><span class="kw">fun</span> <span class="fu">counter</span><span class="op">(</span><span class="va">name</span><span class="op">:</span> <span class="dt">String</span><span class="op">):</span> <span class="dt">Counter</span><span class="op">?</span> </span></code></pre></div>
+<div class="sourceCode" id="cb178"><pre class="sourceCode kt"><code class="sourceCode kotlin"><span id="cb178-1"><a href="simoaseqsampling.html#cb178-1" tabindex="-1"></a><span class="kw">fun</span> <span class="fu">response</span><span class="op">(</span><span class="va">name</span><span class="op">:</span> <span class="dt">String</span><span class="op">):</span> <span class="dt">Response</span><span class="op">?</span> </span>
+<span id="cb178-2"><a href="simoaseqsampling.html#cb178-2" tabindex="-1"></a><span class="kw">fun</span> <span class="fu">timeWeightedResponse</span><span class="op">(</span><span class="va">name</span><span class="op">:</span> <span class="dt">String</span><span class="op">):</span> <span class="dt">TWResponse</span><span class="op">?</span> </span>
+<span id="cb178-3"><a href="simoaseqsampling.html#cb178-3" tabindex="-1"></a><span class="kw">fun</span> <span class="fu">counter</span><span class="op">(</span><span class="va">name</span><span class="op">:</span> <span class="dt">String</span><span class="op">):</span> <span class="dt">Counter</span><span class="op">?</span> </span></code></pre></div>
 <div class="example">
 <p><span id="exm:ch5ex2" class="example"><strong>Example 5.2  (Sequential Sampling) </strong></span>The following code listing illustrates how to set up half-width checking for the pallet processing model.</p>
-<div class="sourceCode" id="cb178"><pre class="sourceCode kt"><code class="sourceCode kotlin"><span id="cb178-1"><a href="simoaseqsampling.html#cb178-1" tabindex="-1"></a><span class="kw">fun</span> <span class="fu">main</span><span class="op">()</span> <span class="op">{</span></span>
-<span id="cb178-2"><a href="simoaseqsampling.html#cb178-2" tabindex="-1"></a>    <span class="kw">val</span> <span class="va">model</span> <span class="op">=</span> Model<span class="op">(</span><span class="st">&quot;Pallet Processing Ex 2&quot;</span><span class="op">)</span></span>
-<span id="cb178-3"><a href="simoaseqsampling.html#cb178-3" tabindex="-1"></a>    model<span class="op">.</span>numberOfReplications <span class="op">=</span> <span class="dv">10000</span></span>
-<span id="cb178-4"><a href="simoaseqsampling.html#cb178-4" tabindex="-1"></a>    model<span class="op">.</span>experimentName <span class="op">=</span> <span class="st">&quot;Two Workers&quot;</span></span>
-<span id="cb178-5"><a href="simoaseqsampling.html#cb178-5" tabindex="-1"></a>    <span class="co">// add the model element to the main model</span></span>
-<span id="cb178-6"><a href="simoaseqsampling.html#cb178-6" tabindex="-1"></a>    <span class="kw">val</span> <span class="va">palletWorkCenter</span> <span class="op">=</span> PalletWorkCenter<span class="op">(</span>model<span class="op">)</span></span>
-<span id="cb178-7"><a href="simoaseqsampling.html#cb178-7" tabindex="-1"></a></span>
-<span id="cb178-8"><a href="simoaseqsampling.html#cb178-8" tabindex="-1"></a>    <span class="kw">val</span> <span class="va">hwc</span> <span class="op">=</span> AcrossReplicationHalfWidthChecker<span class="op">(</span>palletWorkCenter<span class="op">.</span>totalProcessingTime<span class="op">)</span></span>
-<span id="cb178-9"><a href="simoaseqsampling.html#cb178-9" tabindex="-1"></a>    hwc<span class="op">.</span>desiredHalfWidth <span class="op">=</span> <span class="fl">5.0</span></span>
-<span id="cb178-10"><a href="simoaseqsampling.html#cb178-10" tabindex="-1"></a></span>
-<span id="cb178-11"><a href="simoaseqsampling.html#cb178-11" tabindex="-1"></a>    <span class="co">// simulate the model</span></span>
-<span id="cb178-12"><a href="simoaseqsampling.html#cb178-12" tabindex="-1"></a>    model<span class="op">.</span>simulate<span class="op">()</span></span>
-<span id="cb178-13"><a href="simoaseqsampling.html#cb178-13" tabindex="-1"></a></span>
-<span id="cb178-14"><a href="simoaseqsampling.html#cb178-14" tabindex="-1"></a>    <span class="co">// demonstrate that reports can have specified confidence level</span></span>
-<span id="cb178-15"><a href="simoaseqsampling.html#cb178-15" tabindex="-1"></a>    <span class="kw">val</span> <span class="va">sr</span> <span class="op">=</span> model<span class="op">.</span>simulationReporter</span>
-<span id="cb178-16"><a href="simoaseqsampling.html#cb178-16" tabindex="-1"></a></span>
-<span id="cb178-17"><a href="simoaseqsampling.html#cb178-17" tabindex="-1"></a>    sr<span class="op">.</span>printHalfWidthSummaryReport<span class="op">()</span></span>
-<span id="cb178-18"><a href="simoaseqsampling.html#cb178-18" tabindex="-1"></a></span>
-<span id="cb178-19"><a href="simoaseqsampling.html#cb178-19" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
+<div class="sourceCode" id="cb179"><pre class="sourceCode kt"><code class="sourceCode kotlin"><span id="cb179-1"><a href="simoaseqsampling.html#cb179-1" tabindex="-1"></a><span class="kw">fun</span> <span class="fu">main</span><span class="op">()</span> <span class="op">{</span></span>
+<span id="cb179-2"><a href="simoaseqsampling.html#cb179-2" tabindex="-1"></a>    <span class="kw">val</span> <span class="va">model</span> <span class="op">=</span> Model<span class="op">(</span><span class="st">&quot;Pallet Processing Ex 2&quot;</span><span class="op">)</span></span>
+<span id="cb179-3"><a href="simoaseqsampling.html#cb179-3" tabindex="-1"></a>    model<span class="op">.</span>numberOfReplications <span class="op">=</span> <span class="dv">10000</span></span>
+<span id="cb179-4"><a href="simoaseqsampling.html#cb179-4" tabindex="-1"></a>    model<span class="op">.</span>experimentName <span class="op">=</span> <span class="st">&quot;Two Workers&quot;</span></span>
+<span id="cb179-5"><a href="simoaseqsampling.html#cb179-5" tabindex="-1"></a>    <span class="co">// add the model element to the main model</span></span>
+<span id="cb179-6"><a href="simoaseqsampling.html#cb179-6" tabindex="-1"></a>    <span class="kw">val</span> <span class="va">palletWorkCenter</span> <span class="op">=</span> PalletWorkCenter<span class="op">(</span>model<span class="op">)</span></span>
+<span id="cb179-7"><a href="simoaseqsampling.html#cb179-7" tabindex="-1"></a></span>
+<span id="cb179-8"><a href="simoaseqsampling.html#cb179-8" tabindex="-1"></a>    <span class="kw">val</span> <span class="va">hwc</span> <span class="op">=</span> AcrossReplicationHalfWidthChecker<span class="op">(</span>palletWorkCenter<span class="op">.</span>totalProcessingTime<span class="op">)</span></span>
+<span id="cb179-9"><a href="simoaseqsampling.html#cb179-9" tabindex="-1"></a>    hwc<span class="op">.</span>desiredHalfWidth <span class="op">=</span> <span class="fl">5.0</span></span>
+<span id="cb179-10"><a href="simoaseqsampling.html#cb179-10" tabindex="-1"></a></span>
+<span id="cb179-11"><a href="simoaseqsampling.html#cb179-11" tabindex="-1"></a>    <span class="co">// simulate the model</span></span>
+<span id="cb179-12"><a href="simoaseqsampling.html#cb179-12" tabindex="-1"></a>    model<span class="op">.</span>simulate<span class="op">()</span></span>
+<span id="cb179-13"><a href="simoaseqsampling.html#cb179-13" tabindex="-1"></a></span>
+<span id="cb179-14"><a href="simoaseqsampling.html#cb179-14" tabindex="-1"></a>    <span class="co">// demonstrate that reports can have specified confidence level</span></span>
+<span id="cb179-15"><a href="simoaseqsampling.html#cb179-15" tabindex="-1"></a>    <span class="kw">val</span> <span class="va">sr</span> <span class="op">=</span> model<span class="op">.</span>simulationReporter</span>
+<span id="cb179-16"><a href="simoaseqsampling.html#cb179-16" tabindex="-1"></a></span>
+<span id="cb179-17"><a href="simoaseqsampling.html#cb179-17" tabindex="-1"></a>    sr<span class="op">.</span>printHalfWidthSummaryReport<span class="op">()</span></span>
+<span id="cb179-18"><a href="simoaseqsampling.html#cb179-18" tabindex="-1"></a></span>
+<span id="cb179-19"><a href="simoaseqsampling.html#cb179-19" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
 </div>
 <p>Notice that the number of replications is set to an arbitrarily high value (10000) and the desired half-width is specified as 5.0. In the original example, the half-width for the total processing time was 16.3269 based on 10 replications. As we can see from the following output, the half-width criteria has been met with 149 replications.</p>
 <pre><code>Half-Width Statistical Summary Report - Confidence Level (95.000)% 

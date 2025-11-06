@@ -195,6 +195,7 @@ fig:Ch4TandemQ
 exm:exCh4TandemQ
 fig:SingleQStation
 fig:StationPkg
+exm:exCh4TandemQDST
 exr:ch4P1
 exr:ch4P2
 exr:ch4P3
@@ -763,7 +764,7 @@ modeling-a-repeating-event-pattern
 collecting-more-detailed-statistics
 implementing-the-enhanced-pharmacy-model
 DTPExpanded
-modeling-a-resource-with-a-waiting-line
+mrWaitingLine
 modeling-the-tandem-queue-of-example-refexmexch4tandemq
 modeling-with-the-station-package
 introDEDSSummary

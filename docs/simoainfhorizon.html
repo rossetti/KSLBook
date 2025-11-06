@@ -23,7 +23,7 @@
 <meta name="author" content="Manuel D. Rossetti" />
 
 
-<meta name="date" content="2025-10-21" />
+<meta name="date" content="2025-11-06" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -263,7 +263,7 @@ div.csl-indent {
 </ul></li>
 <li class="chapter" data-level="4.6" data-path="DTPExpanded.html"><a href="DTPExpanded.html"><i class="fa fa-check"></i><b>4.6</b> More Drive Through Fun</a>
 <ul>
-<li class="chapter" data-level="4.6.1" data-path="DTPExpanded.html"><a href="DTPExpanded.html#modeling-a-resource-with-a-waiting-line"><i class="fa fa-check"></i><b>4.6.1</b> Modeling a Resource with a Waiting Line</a></li>
+<li class="chapter" data-level="4.6.1" data-path="DTPExpanded.html"><a href="DTPExpanded.html#mrWaitingLine"><i class="fa fa-check"></i><b>4.6.1</b> Modeling a Resource with a Waiting Line</a></li>
 <li class="chapter" data-level="4.6.2" data-path="DTPExpanded.html"><a href="DTPExpanded.html#modeling-the-tandem-queue-of-example-refexmexch4tandemq"><i class="fa fa-check"></i><b>4.6.2</b> Modeling the Tandem Queue of Example @ref(exm:exCh4TandemQ)</a></li>
 <li class="chapter" data-level="4.6.3" data-path="DTPExpanded.html"><a href="DTPExpanded.html#modeling-with-the-station-package"><i class="fa fa-check"></i><b>4.6.3</b> Modeling with the Station Package</a></li>
 </ul></li>
@@ -634,59 +634,59 @@ and <span class="math inline">\(\mu\)</span> = 10/7. Thus, based on traditional 
 <p><span class="math display">\[W_q = \dfrac{L_q}{\lambda} = 1.6\bar{33} \; \text{minutes}\]</span></p>
 <div class="example">
 <p><span id="exm:ch5ex3" class="example"><strong>Example 5.3  (Lindley Equation) </strong></span>Lindley’s equation can be readily implemented in using KSL constructs as illustrated in the following code listing.</p>
-<div class="sourceCode" id="cb180"><pre class="sourceCode kt"><code class="sourceCode kotlin"><span id="cb180-1"><a href="simoainfhorizon.html#cb180-1" tabindex="-1"></a><span class="kw">class</span> LindleyEquation<span class="op">(</span></span>
-<span id="cb180-2"><a href="simoainfhorizon.html#cb180-2" tabindex="-1"></a>    <span class="kw">var</span> <span class="va">tba</span><span class="op">:</span> <span class="dt">RandomIfc</span> <span class="op">=</span> ExponentialRV<span class="op">(</span><span class="fl">1.0</span><span class="op">),</span></span>
-<span id="cb180-3"><a href="simoainfhorizon.html#cb180-3" tabindex="-1"></a>    <span class="kw">var</span> <span class="va">st</span><span class="op">:</span> <span class="dt">RandomIfc</span> <span class="op">=</span> ExponentialRV<span class="op">(</span><span class="fl">0.7</span><span class="op">),</span></span>
-<span id="cb180-4"><a href="simoainfhorizon.html#cb180-4" tabindex="-1"></a>    <span class="kw">var</span> <span class="va">numReps</span><span class="op">:</span> <span class="dt">Int</span> <span class="op">=</span> <span class="dv">30</span><span class="op">,</span></span>
-<span id="cb180-5"><a href="simoainfhorizon.html#cb180-5" tabindex="-1"></a>    <span class="kw">var</span> <span class="va">numObs</span><span class="op">:</span> <span class="dt">Int</span> <span class="op">=</span> <span class="dv">100000</span><span class="op">,</span></span>
-<span id="cb180-6"><a href="simoainfhorizon.html#cb180-6" tabindex="-1"></a>    <span class="kw">var</span> <span class="va">warmUp</span><span class="op">:</span> <span class="dt">Int</span> <span class="op">=</span> <span class="dv">10000</span></span>
-<span id="cb180-7"><a href="simoainfhorizon.html#cb180-7" tabindex="-1"></a><span class="op">)</span> <span class="op">{</span></span>
-<span id="cb180-8"><a href="simoainfhorizon.html#cb180-8" tabindex="-1"></a>    init <span class="op">{</span></span>
-<span id="cb180-9"><a href="simoainfhorizon.html#cb180-9" tabindex="-1"></a>        require<span class="op">(</span>numReps <span class="op">&gt;</span> <span class="dv">0</span><span class="op">)</span> <span class="op">{</span> <span class="st">&quot;The number of replications must be &gt; 0&quot;</span> <span class="op">}</span></span>
-<span id="cb180-10"><a href="simoainfhorizon.html#cb180-10" tabindex="-1"></a>        require<span class="op">(</span>numObs <span class="op">&gt;</span> <span class="dv">0</span><span class="op">)</span> <span class="op">{</span> <span class="st">&quot;The number of replications must be &gt; 0&quot;</span> <span class="op">}</span></span>
-<span id="cb180-11"><a href="simoainfhorizon.html#cb180-11" tabindex="-1"></a>        require<span class="op">(</span>warmUp <span class="op">&gt;=</span> <span class="dv">0</span><span class="op">)</span> <span class="op">{</span> <span class="st">&quot;The number of replications must be &gt; 0&quot;</span> <span class="op">}</span></span>
-<span id="cb180-12"><a href="simoainfhorizon.html#cb180-12" tabindex="-1"></a>    <span class="op">}</span></span>
-<span id="cb180-13"><a href="simoainfhorizon.html#cb180-13" tabindex="-1"></a></span>
-<span id="cb180-14"><a href="simoainfhorizon.html#cb180-14" tabindex="-1"></a>    <span class="kw">val</span> <span class="va">avgw</span> <span class="op">=</span> Statistic<span class="op">(</span><span class="st">&quot;Across rep avg waiting time&quot;</span><span class="op">)</span></span>
-<span id="cb180-15"><a href="simoainfhorizon.html#cb180-15" tabindex="-1"></a>    <span class="kw">val</span> <span class="va">avgpw</span> <span class="op">=</span> Statistic<span class="op">(</span><span class="st">&quot;Across rep prob of wait&quot;</span><span class="op">)</span></span>
-<span id="cb180-16"><a href="simoainfhorizon.html#cb180-16" tabindex="-1"></a>    <span class="kw">val</span> <span class="va">wbar</span> <span class="op">=</span> Statistic<span class="op">(</span><span class="st">&quot;Within rep avg waiting time&quot;</span><span class="op">)</span></span>
-<span id="cb180-17"><a href="simoainfhorizon.html#cb180-17" tabindex="-1"></a>    <span class="kw">val</span> <span class="va">pw</span> <span class="op">=</span> Statistic<span class="op">(</span><span class="st">&quot;Within rep prob of wait&quot;</span><span class="op">)</span></span>
-<span id="cb180-18"><a href="simoainfhorizon.html#cb180-18" tabindex="-1"></a></span>
-<span id="cb180-19"><a href="simoainfhorizon.html#cb180-19" tabindex="-1"></a>    <span class="kw">fun</span> <span class="fu">simulate</span><span class="op">(</span><span class="va">r</span><span class="op">:</span> <span class="dt">Int</span> <span class="op">=</span> numReps<span class="op">,</span> <span class="va">n</span><span class="op">:</span> <span class="dt">Int</span> <span class="op">=</span> numObs<span class="op">,</span> <span class="va">d</span><span class="op">:</span> <span class="dt">Int</span> <span class="op">=</span> warmUp<span class="op">)</span> <span class="op">{</span></span>
-<span id="cb180-20"><a href="simoainfhorizon.html#cb180-20" tabindex="-1"></a>        require<span class="op">(</span>r <span class="op">&gt;</span> <span class="dv">0</span><span class="op">)</span> <span class="op">{</span> <span class="st">&quot;The number of replications must be &gt; 0&quot;</span> <span class="op">}</span></span>
-<span id="cb180-21"><a href="simoainfhorizon.html#cb180-21" tabindex="-1"></a>        require<span class="op">(</span>n <span class="op">&gt;</span> <span class="dv">0</span><span class="op">)</span> <span class="op">{</span> <span class="st">&quot;The number of replications must be &gt; 0&quot;</span> <span class="op">}</span></span>
-<span id="cb180-22"><a href="simoainfhorizon.html#cb180-22" tabindex="-1"></a>        require<span class="op">(</span>d <span class="op">&gt;=</span> <span class="dv">0</span><span class="op">)</span> <span class="op">{</span> <span class="st">&quot;The number of replications must be &gt; 0&quot;</span> <span class="op">}</span></span>
-<span id="cb180-23"><a href="simoainfhorizon.html#cb180-23" tabindex="-1"></a>        <span class="cf">for</span> <span class="op">(</span>i <span class="kw">in</span> <span class="fl">1.</span><span class="op">.</span>r<span class="op">)</span> <span class="op">{</span></span>
-<span id="cb180-24"><a href="simoainfhorizon.html#cb180-24" tabindex="-1"></a>            <span class="kw">var</span> <span class="va">w</span> <span class="op">=</span> <span class="fl">0.0</span> <span class="co">// initial waiting time</span></span>
-<span id="cb180-25"><a href="simoainfhorizon.html#cb180-25" tabindex="-1"></a>            <span class="cf">for</span> <span class="op">(</span>j <span class="kw">in</span> <span class="fl">1.</span><span class="op">.</span>n<span class="op">)</span> <span class="op">{</span></span>
-<span id="cb180-26"><a href="simoainfhorizon.html#cb180-26" tabindex="-1"></a>                w <span class="op">=</span> Math<span class="op">.</span>max<span class="op">(</span><span class="fl">0.0</span><span class="op">,</span> w <span class="op">+</span> st<span class="op">.</span>value <span class="op">-</span> tba<span class="op">.</span>value<span class="op">)</span></span>
-<span id="cb180-27"><a href="simoainfhorizon.html#cb180-27" tabindex="-1"></a>                wbar<span class="op">.</span>collect<span class="op">(</span>w<span class="op">)</span> <span class="co">// collect waiting time</span></span>
-<span id="cb180-28"><a href="simoainfhorizon.html#cb180-28" tabindex="-1"></a>                pw<span class="op">.</span>collect<span class="op">(</span>w <span class="op">&gt;</span> <span class="fl">0.0</span><span class="op">)</span> <span class="co">// collect P(W&gt;0)</span></span>
-<span id="cb180-29"><a href="simoainfhorizon.html#cb180-29" tabindex="-1"></a>                <span class="cf">if</span> <span class="op">(</span>j <span class="op">==</span> d<span class="op">)</span> <span class="op">{</span> <span class="co">// clear stats at warmup</span></span>
-<span id="cb180-30"><a href="simoainfhorizon.html#cb180-30" tabindex="-1"></a>                    wbar<span class="op">.</span>reset<span class="op">()</span></span>
-<span id="cb180-31"><a href="simoainfhorizon.html#cb180-31" tabindex="-1"></a>                    pw<span class="op">.</span>reset<span class="op">()</span></span>
-<span id="cb180-32"><a href="simoainfhorizon.html#cb180-32" tabindex="-1"></a>                <span class="op">}</span></span>
-<span id="cb180-33"><a href="simoainfhorizon.html#cb180-33" tabindex="-1"></a>            <span class="op">}</span></span>
-<span id="cb180-34"><a href="simoainfhorizon.html#cb180-34" tabindex="-1"></a>            <span class="co">//collect across replication statistics</span></span>
-<span id="cb180-35"><a href="simoainfhorizon.html#cb180-35" tabindex="-1"></a>            avgw<span class="op">.</span>collect<span class="op">(</span>wbar<span class="op">.</span>average<span class="op">)</span></span>
-<span id="cb180-36"><a href="simoainfhorizon.html#cb180-36" tabindex="-1"></a>            avgpw<span class="op">.</span>collect<span class="op">(</span>pw<span class="op">.</span>average<span class="op">)</span></span>
-<span id="cb180-37"><a href="simoainfhorizon.html#cb180-37" tabindex="-1"></a>            <span class="co">// clear within replication statistics for next rep</span></span>
-<span id="cb180-38"><a href="simoainfhorizon.html#cb180-38" tabindex="-1"></a>            wbar<span class="op">.</span>reset<span class="op">()</span></span>
-<span id="cb180-39"><a href="simoainfhorizon.html#cb180-39" tabindex="-1"></a>            pw<span class="op">.</span>reset<span class="op">()</span></span>
-<span id="cb180-40"><a href="simoainfhorizon.html#cb180-40" tabindex="-1"></a>        <span class="op">}</span></span>
-<span id="cb180-41"><a href="simoainfhorizon.html#cb180-41" tabindex="-1"></a></span>
-<span id="cb180-42"><a href="simoainfhorizon.html#cb180-42" tabindex="-1"></a>    <span class="op">}</span></span>
-<span id="cb180-43"><a href="simoainfhorizon.html#cb180-43" tabindex="-1"></a></span>
-<span id="cb180-44"><a href="simoainfhorizon.html#cb180-44" tabindex="-1"></a>    <span class="kw">fun</span> <span class="fu">print</span><span class="op">()</span> <span class="op">{</span></span>
-<span id="cb180-45"><a href="simoainfhorizon.html#cb180-45" tabindex="-1"></a>        println<span class="op">(</span><span class="st">&quot;Replication/Deletion Lindley Equation Example&quot;</span><span class="op">)</span></span>
-<span id="cb180-46"><a href="simoainfhorizon.html#cb180-46" tabindex="-1"></a>        println<span class="op">(</span>avgw<span class="op">)</span></span>
-<span id="cb180-47"><a href="simoainfhorizon.html#cb180-47" tabindex="-1"></a>        println<span class="op">(</span>avgpw<span class="op">)</span></span>
-<span id="cb180-48"><a href="simoainfhorizon.html#cb180-48" tabindex="-1"></a>        println<span class="op">()</span></span>
-<span id="cb180-49"><a href="simoainfhorizon.html#cb180-49" tabindex="-1"></a>        <span class="kw">val</span> <span class="va">sr</span> <span class="op">=</span> StatisticReporter<span class="op">(</span>mutableListOf<span class="op">(</span>avgw<span class="op">,</span> avgpw<span class="op">))</span></span>
-<span id="cb180-50"><a href="simoainfhorizon.html#cb180-50" tabindex="-1"></a>        print<span class="op">(</span>sr<span class="op">.</span>halfWidthSummaryReport<span class="op">())</span></span>
-<span id="cb180-51"><a href="simoainfhorizon.html#cb180-51" tabindex="-1"></a>    <span class="op">}</span></span>
-<span id="cb180-52"><a href="simoainfhorizon.html#cb180-52" tabindex="-1"></a></span>
-<span id="cb180-53"><a href="simoainfhorizon.html#cb180-53" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
+<div class="sourceCode" id="cb181"><pre class="sourceCode kt"><code class="sourceCode kotlin"><span id="cb181-1"><a href="simoainfhorizon.html#cb181-1" tabindex="-1"></a><span class="kw">class</span> LindleyEquation<span class="op">(</span></span>
+<span id="cb181-2"><a href="simoainfhorizon.html#cb181-2" tabindex="-1"></a>    <span class="kw">var</span> <span class="va">tba</span><span class="op">:</span> <span class="dt">RandomIfc</span> <span class="op">=</span> ExponentialRV<span class="op">(</span><span class="fl">1.0</span><span class="op">),</span></span>
+<span id="cb181-3"><a href="simoainfhorizon.html#cb181-3" tabindex="-1"></a>    <span class="kw">var</span> <span class="va">st</span><span class="op">:</span> <span class="dt">RandomIfc</span> <span class="op">=</span> ExponentialRV<span class="op">(</span><span class="fl">0.7</span><span class="op">),</span></span>
+<span id="cb181-4"><a href="simoainfhorizon.html#cb181-4" tabindex="-1"></a>    <span class="kw">var</span> <span class="va">numReps</span><span class="op">:</span> <span class="dt">Int</span> <span class="op">=</span> <span class="dv">30</span><span class="op">,</span></span>
+<span id="cb181-5"><a href="simoainfhorizon.html#cb181-5" tabindex="-1"></a>    <span class="kw">var</span> <span class="va">numObs</span><span class="op">:</span> <span class="dt">Int</span> <span class="op">=</span> <span class="dv">100000</span><span class="op">,</span></span>
+<span id="cb181-6"><a href="simoainfhorizon.html#cb181-6" tabindex="-1"></a>    <span class="kw">var</span> <span class="va">warmUp</span><span class="op">:</span> <span class="dt">Int</span> <span class="op">=</span> <span class="dv">10000</span></span>
+<span id="cb181-7"><a href="simoainfhorizon.html#cb181-7" tabindex="-1"></a><span class="op">)</span> <span class="op">{</span></span>
+<span id="cb181-8"><a href="simoainfhorizon.html#cb181-8" tabindex="-1"></a>    init <span class="op">{</span></span>
+<span id="cb181-9"><a href="simoainfhorizon.html#cb181-9" tabindex="-1"></a>        require<span class="op">(</span>numReps <span class="op">&gt;</span> <span class="dv">0</span><span class="op">)</span> <span class="op">{</span> <span class="st">&quot;The number of replications must be &gt; 0&quot;</span> <span class="op">}</span></span>
+<span id="cb181-10"><a href="simoainfhorizon.html#cb181-10" tabindex="-1"></a>        require<span class="op">(</span>numObs <span class="op">&gt;</span> <span class="dv">0</span><span class="op">)</span> <span class="op">{</span> <span class="st">&quot;The number of replications must be &gt; 0&quot;</span> <span class="op">}</span></span>
+<span id="cb181-11"><a href="simoainfhorizon.html#cb181-11" tabindex="-1"></a>        require<span class="op">(</span>warmUp <span class="op">&gt;=</span> <span class="dv">0</span><span class="op">)</span> <span class="op">{</span> <span class="st">&quot;The number of replications must be &gt; 0&quot;</span> <span class="op">}</span></span>
+<span id="cb181-12"><a href="simoainfhorizon.html#cb181-12" tabindex="-1"></a>    <span class="op">}</span></span>
+<span id="cb181-13"><a href="simoainfhorizon.html#cb181-13" tabindex="-1"></a></span>
+<span id="cb181-14"><a href="simoainfhorizon.html#cb181-14" tabindex="-1"></a>    <span class="kw">val</span> <span class="va">avgw</span> <span class="op">=</span> Statistic<span class="op">(</span><span class="st">&quot;Across rep avg waiting time&quot;</span><span class="op">)</span></span>
+<span id="cb181-15"><a href="simoainfhorizon.html#cb181-15" tabindex="-1"></a>    <span class="kw">val</span> <span class="va">avgpw</span> <span class="op">=</span> Statistic<span class="op">(</span><span class="st">&quot;Across rep prob of wait&quot;</span><span class="op">)</span></span>
+<span id="cb181-16"><a href="simoainfhorizon.html#cb181-16" tabindex="-1"></a>    <span class="kw">val</span> <span class="va">wbar</span> <span class="op">=</span> Statistic<span class="op">(</span><span class="st">&quot;Within rep avg waiting time&quot;</span><span class="op">)</span></span>
+<span id="cb181-17"><a href="simoainfhorizon.html#cb181-17" tabindex="-1"></a>    <span class="kw">val</span> <span class="va">pw</span> <span class="op">=</span> Statistic<span class="op">(</span><span class="st">&quot;Within rep prob of wait&quot;</span><span class="op">)</span></span>
+<span id="cb181-18"><a href="simoainfhorizon.html#cb181-18" tabindex="-1"></a></span>
+<span id="cb181-19"><a href="simoainfhorizon.html#cb181-19" tabindex="-1"></a>    <span class="kw">fun</span> <span class="fu">simulate</span><span class="op">(</span><span class="va">r</span><span class="op">:</span> <span class="dt">Int</span> <span class="op">=</span> numReps<span class="op">,</span> <span class="va">n</span><span class="op">:</span> <span class="dt">Int</span> <span class="op">=</span> numObs<span class="op">,</span> <span class="va">d</span><span class="op">:</span> <span class="dt">Int</span> <span class="op">=</span> warmUp<span class="op">)</span> <span class="op">{</span></span>
+<span id="cb181-20"><a href="simoainfhorizon.html#cb181-20" tabindex="-1"></a>        require<span class="op">(</span>r <span class="op">&gt;</span> <span class="dv">0</span><span class="op">)</span> <span class="op">{</span> <span class="st">&quot;The number of replications must be &gt; 0&quot;</span> <span class="op">}</span></span>
+<span id="cb181-21"><a href="simoainfhorizon.html#cb181-21" tabindex="-1"></a>        require<span class="op">(</span>n <span class="op">&gt;</span> <span class="dv">0</span><span class="op">)</span> <span class="op">{</span> <span class="st">&quot;The number of replications must be &gt; 0&quot;</span> <span class="op">}</span></span>
+<span id="cb181-22"><a href="simoainfhorizon.html#cb181-22" tabindex="-1"></a>        require<span class="op">(</span>d <span class="op">&gt;=</span> <span class="dv">0</span><span class="op">)</span> <span class="op">{</span> <span class="st">&quot;The number of replications must be &gt; 0&quot;</span> <span class="op">}</span></span>
+<span id="cb181-23"><a href="simoainfhorizon.html#cb181-23" tabindex="-1"></a>        <span class="cf">for</span> <span class="op">(</span>i <span class="kw">in</span> <span class="fl">1.</span><span class="op">.</span>r<span class="op">)</span> <span class="op">{</span></span>
+<span id="cb181-24"><a href="simoainfhorizon.html#cb181-24" tabindex="-1"></a>            <span class="kw">var</span> <span class="va">w</span> <span class="op">=</span> <span class="fl">0.0</span> <span class="co">// initial waiting time</span></span>
+<span id="cb181-25"><a href="simoainfhorizon.html#cb181-25" tabindex="-1"></a>            <span class="cf">for</span> <span class="op">(</span>j <span class="kw">in</span> <span class="fl">1.</span><span class="op">.</span>n<span class="op">)</span> <span class="op">{</span></span>
+<span id="cb181-26"><a href="simoainfhorizon.html#cb181-26" tabindex="-1"></a>                w <span class="op">=</span> Math<span class="op">.</span>max<span class="op">(</span><span class="fl">0.0</span><span class="op">,</span> w <span class="op">+</span> st<span class="op">.</span>value <span class="op">-</span> tba<span class="op">.</span>value<span class="op">)</span></span>
+<span id="cb181-27"><a href="simoainfhorizon.html#cb181-27" tabindex="-1"></a>                wbar<span class="op">.</span>collect<span class="op">(</span>w<span class="op">)</span> <span class="co">// collect waiting time</span></span>
+<span id="cb181-28"><a href="simoainfhorizon.html#cb181-28" tabindex="-1"></a>                pw<span class="op">.</span>collect<span class="op">(</span>w <span class="op">&gt;</span> <span class="fl">0.0</span><span class="op">)</span> <span class="co">// collect P(W&gt;0)</span></span>
+<span id="cb181-29"><a href="simoainfhorizon.html#cb181-29" tabindex="-1"></a>                <span class="cf">if</span> <span class="op">(</span>j <span class="op">==</span> d<span class="op">)</span> <span class="op">{</span> <span class="co">// clear stats at warmup</span></span>
+<span id="cb181-30"><a href="simoainfhorizon.html#cb181-30" tabindex="-1"></a>                    wbar<span class="op">.</span>reset<span class="op">()</span></span>
+<span id="cb181-31"><a href="simoainfhorizon.html#cb181-31" tabindex="-1"></a>                    pw<span class="op">.</span>reset<span class="op">()</span></span>
+<span id="cb181-32"><a href="simoainfhorizon.html#cb181-32" tabindex="-1"></a>                <span class="op">}</span></span>
+<span id="cb181-33"><a href="simoainfhorizon.html#cb181-33" tabindex="-1"></a>            <span class="op">}</span></span>
+<span id="cb181-34"><a href="simoainfhorizon.html#cb181-34" tabindex="-1"></a>            <span class="co">//collect across replication statistics</span></span>
+<span id="cb181-35"><a href="simoainfhorizon.html#cb181-35" tabindex="-1"></a>            avgw<span class="op">.</span>collect<span class="op">(</span>wbar<span class="op">.</span>average<span class="op">)</span></span>
+<span id="cb181-36"><a href="simoainfhorizon.html#cb181-36" tabindex="-1"></a>            avgpw<span class="op">.</span>collect<span class="op">(</span>pw<span class="op">.</span>average<span class="op">)</span></span>
+<span id="cb181-37"><a href="simoainfhorizon.html#cb181-37" tabindex="-1"></a>            <span class="co">// clear within replication statistics for next rep</span></span>
+<span id="cb181-38"><a href="simoainfhorizon.html#cb181-38" tabindex="-1"></a>            wbar<span class="op">.</span>reset<span class="op">()</span></span>
+<span id="cb181-39"><a href="simoainfhorizon.html#cb181-39" tabindex="-1"></a>            pw<span class="op">.</span>reset<span class="op">()</span></span>
+<span id="cb181-40"><a href="simoainfhorizon.html#cb181-40" tabindex="-1"></a>        <span class="op">}</span></span>
+<span id="cb181-41"><a href="simoainfhorizon.html#cb181-41" tabindex="-1"></a></span>
+<span id="cb181-42"><a href="simoainfhorizon.html#cb181-42" tabindex="-1"></a>    <span class="op">}</span></span>
+<span id="cb181-43"><a href="simoainfhorizon.html#cb181-43" tabindex="-1"></a></span>
+<span id="cb181-44"><a href="simoainfhorizon.html#cb181-44" tabindex="-1"></a>    <span class="kw">fun</span> <span class="fu">print</span><span class="op">()</span> <span class="op">{</span></span>
+<span id="cb181-45"><a href="simoainfhorizon.html#cb181-45" tabindex="-1"></a>        println<span class="op">(</span><span class="st">&quot;Replication/Deletion Lindley Equation Example&quot;</span><span class="op">)</span></span>
+<span id="cb181-46"><a href="simoainfhorizon.html#cb181-46" tabindex="-1"></a>        println<span class="op">(</span>avgw<span class="op">)</span></span>
+<span id="cb181-47"><a href="simoainfhorizon.html#cb181-47" tabindex="-1"></a>        println<span class="op">(</span>avgpw<span class="op">)</span></span>
+<span id="cb181-48"><a href="simoainfhorizon.html#cb181-48" tabindex="-1"></a>        println<span class="op">()</span></span>
+<span id="cb181-49"><a href="simoainfhorizon.html#cb181-49" tabindex="-1"></a>        <span class="kw">val</span> <span class="va">sr</span> <span class="op">=</span> StatisticReporter<span class="op">(</span>mutableListOf<span class="op">(</span>avgw<span class="op">,</span> avgpw<span class="op">))</span></span>
+<span id="cb181-50"><a href="simoainfhorizon.html#cb181-50" tabindex="-1"></a>        print<span class="op">(</span>sr<span class="op">.</span>halfWidthSummaryReport<span class="op">())</span></span>
+<span id="cb181-51"><a href="simoainfhorizon.html#cb181-51" tabindex="-1"></a>    <span class="op">}</span></span>
+<span id="cb181-52"><a href="simoainfhorizon.html#cb181-52" tabindex="-1"></a></span>
+<span id="cb181-53"><a href="simoainfhorizon.html#cb181-53" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
 </div>
 <p>This implementation can be readily extended to capture the data to files for display in spreadsheets or other plotting software. As part of the plotting process it is useful to display the cumulative sum and cumulative average of the data values.</p>
 <p><span class="math display">\[\sum_{i=1}^n W_i \; \text{for} \; n = 1,2,\ldots\]</span></p>
@@ -1276,34 +1276,34 @@ data by attaching an observer to the response variable.</p>
 <div class="example">
 <p><span id="exm:ch5ex4" class="example"><strong>Example 5.4  (Welch Plot Analysis) </strong></span>This code illustrates how to capture Welch plot data and to show the Welch
 plot within a browser window.</p>
-<div class="sourceCode" id="cb181"><pre class="sourceCode kt"><code class="sourceCode kotlin"><span id="cb181-1"><a href="simoainfhorizon.html#cb181-1" tabindex="-1"></a><span class="kw">fun</span> <span class="fu">main</span><span class="op">(){</span></span>
-<span id="cb181-2"><a href="simoainfhorizon.html#cb181-2" tabindex="-1"></a>    <span class="kw">val</span> <span class="va">model</span> <span class="op">=</span> Model<span class="op">(</span><span class="st">&quot;Drive Through Pharmacy&quot;</span><span class="op">)</span></span>
-<span id="cb181-3"><a href="simoainfhorizon.html#cb181-3" tabindex="-1"></a>    <span class="co">// add DriveThroughPharmacy to the main model</span></span>
-<span id="cb181-4"><a href="simoainfhorizon.html#cb181-4" tabindex="-1"></a>    <span class="kw">val</span> <span class="va">dtp</span> <span class="op">=</span> DriveThroughPharmacyWithQ<span class="op">(</span>model<span class="op">,</span> <span class="dv">1</span><span class="op">)</span></span>
-<span id="cb181-5"><a href="simoainfhorizon.html#cb181-5" tabindex="-1"></a>    dtp<span class="op">.</span>arrivalRV<span class="op">.</span>initialRandomSource <span class="op">=</span> ExponentialRV<span class="op">(</span><span class="fl">1.0</span><span class="op">,</span> <span class="dv">1</span><span class="op">)</span></span>
-<span id="cb181-6"><a href="simoainfhorizon.html#cb181-6" tabindex="-1"></a>    dtp<span class="op">.</span>serviceRV<span class="op">.</span>initialRandomSource <span class="op">=</span> ExponentialRV<span class="op">(</span><span class="fl">0.7</span><span class="op">,</span> <span class="dv">2</span><span class="op">)</span></span>
-<span id="cb181-7"><a href="simoainfhorizon.html#cb181-7" tabindex="-1"></a></span>
-<span id="cb181-8"><a href="simoainfhorizon.html#cb181-8" tabindex="-1"></a>    <span class="kw">val</span> <span class="va">rvWelch</span> <span class="op">=</span> WelchFileObserver<span class="op">(</span>dtp<span class="op">.</span>systemTime<span class="op">,</span> <span class="fl">1.0</span><span class="op">)</span></span>
-<span id="cb181-9"><a href="simoainfhorizon.html#cb181-9" tabindex="-1"></a>    <span class="kw">val</span> <span class="va">twWelch</span> <span class="op">=</span> WelchFileObserver<span class="op">(</span>dtp<span class="op">.</span>numInSystem<span class="op">,</span> <span class="fl">10.0</span><span class="op">)</span></span>
-<span id="cb181-10"><a href="simoainfhorizon.html#cb181-10" tabindex="-1"></a>    model<span class="op">.</span>numberOfReplications <span class="op">=</span> <span class="dv">5</span></span>
-<span id="cb181-11"><a href="simoainfhorizon.html#cb181-11" tabindex="-1"></a>    model<span class="op">.</span>lengthOfReplication <span class="op">=</span> <span class="fl">50000.0</span></span>
-<span id="cb181-12"><a href="simoainfhorizon.html#cb181-12" tabindex="-1"></a>    model<span class="op">.</span>simulate<span class="op">()</span></span>
-<span id="cb181-13"><a href="simoainfhorizon.html#cb181-13" tabindex="-1"></a>    model<span class="op">.</span>print<span class="op">()</span></span>
-<span id="cb181-14"><a href="simoainfhorizon.html#cb181-14" tabindex="-1"></a>    println<span class="op">(</span>rvWelch<span class="op">)</span></span>
-<span id="cb181-15"><a href="simoainfhorizon.html#cb181-15" tabindex="-1"></a>    println<span class="op">(</span>twWelch<span class="op">)</span></span>
-<span id="cb181-16"><a href="simoainfhorizon.html#cb181-16" tabindex="-1"></a></span>
-<span id="cb181-17"><a href="simoainfhorizon.html#cb181-17" tabindex="-1"></a>    <span class="kw">val</span> <span class="va">rvFileAnalyzer</span> <span class="op">=</span> rvWelch<span class="op">.</span>createWelchDataFileAnalyzer<span class="op">()</span></span>
-<span id="cb181-18"><a href="simoainfhorizon.html#cb181-18" tabindex="-1"></a>    <span class="kw">val</span> <span class="va">twFileAnalyzer</span> <span class="op">=</span> twWelch<span class="op">.</span>createWelchDataFileAnalyzer<span class="op">()</span></span>
-<span id="cb181-19"><a href="simoainfhorizon.html#cb181-19" tabindex="-1"></a></span>
-<span id="cb181-20"><a href="simoainfhorizon.html#cb181-20" tabindex="-1"></a>    rvFileAnalyzer<span class="op">.</span>createCSVWelchPlotDataFile<span class="op">()</span></span>
-<span id="cb181-21"><a href="simoainfhorizon.html#cb181-21" tabindex="-1"></a>    twFileAnalyzer<span class="op">.</span>createCSVWelchPlotDataFile<span class="op">()</span></span>
-<span id="cb181-22"><a href="simoainfhorizon.html#cb181-22" tabindex="-1"></a>    </span>
-<span id="cb181-23"><a href="simoainfhorizon.html#cb181-23" tabindex="-1"></a>    <span class="kw">val</span> <span class="va">wp</span> <span class="op">=</span> WelchPlot<span class="op">(</span>analyzer <span class="op">=</span> rvFileAnalyzer<span class="op">)</span></span>
-<span id="cb181-24"><a href="simoainfhorizon.html#cb181-24" tabindex="-1"></a>    wp<span class="op">.</span>defaultPlotDir <span class="op">=</span> model<span class="op">.</span>outputDirectory<span class="op">.</span>plotDir</span>
-<span id="cb181-25"><a href="simoainfhorizon.html#cb181-25" tabindex="-1"></a>    wp<span class="op">.</span>showInBrowser<span class="op">()</span></span>
-<span id="cb181-26"><a href="simoainfhorizon.html#cb181-26" tabindex="-1"></a>    wp<span class="op">.</span>saveToFile<span class="op">(</span><span class="st">&quot;SystemTimeWelchPlot&quot;</span><span class="op">)</span></span>
-<span id="cb181-27"><a href="simoainfhorizon.html#cb181-27" tabindex="-1"></a></span>
-<span id="cb181-28"><a href="simoainfhorizon.html#cb181-28" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
+<div class="sourceCode" id="cb182"><pre class="sourceCode kt"><code class="sourceCode kotlin"><span id="cb182-1"><a href="simoainfhorizon.html#cb182-1" tabindex="-1"></a><span class="kw">fun</span> <span class="fu">main</span><span class="op">(){</span></span>
+<span id="cb182-2"><a href="simoainfhorizon.html#cb182-2" tabindex="-1"></a>    <span class="kw">val</span> <span class="va">model</span> <span class="op">=</span> Model<span class="op">(</span><span class="st">&quot;Drive Through Pharmacy&quot;</span><span class="op">)</span></span>
+<span id="cb182-3"><a href="simoainfhorizon.html#cb182-3" tabindex="-1"></a>    <span class="co">// add DriveThroughPharmacy to the main model</span></span>
+<span id="cb182-4"><a href="simoainfhorizon.html#cb182-4" tabindex="-1"></a>    <span class="kw">val</span> <span class="va">dtp</span> <span class="op">=</span> DriveThroughPharmacyWithQ<span class="op">(</span>model<span class="op">,</span> <span class="dv">1</span><span class="op">)</span></span>
+<span id="cb182-5"><a href="simoainfhorizon.html#cb182-5" tabindex="-1"></a>    dtp<span class="op">.</span>arrivalRV<span class="op">.</span>initialRandomSource <span class="op">=</span> ExponentialRV<span class="op">(</span><span class="fl">1.0</span><span class="op">,</span> <span class="dv">1</span><span class="op">)</span></span>
+<span id="cb182-6"><a href="simoainfhorizon.html#cb182-6" tabindex="-1"></a>    dtp<span class="op">.</span>serviceRV<span class="op">.</span>initialRandomSource <span class="op">=</span> ExponentialRV<span class="op">(</span><span class="fl">0.7</span><span class="op">,</span> <span class="dv">2</span><span class="op">)</span></span>
+<span id="cb182-7"><a href="simoainfhorizon.html#cb182-7" tabindex="-1"></a></span>
+<span id="cb182-8"><a href="simoainfhorizon.html#cb182-8" tabindex="-1"></a>    <span class="kw">val</span> <span class="va">rvWelch</span> <span class="op">=</span> WelchFileObserver<span class="op">(</span>dtp<span class="op">.</span>systemTime<span class="op">,</span> <span class="fl">1.0</span><span class="op">)</span></span>
+<span id="cb182-9"><a href="simoainfhorizon.html#cb182-9" tabindex="-1"></a>    <span class="kw">val</span> <span class="va">twWelch</span> <span class="op">=</span> WelchFileObserver<span class="op">(</span>dtp<span class="op">.</span>numInSystem<span class="op">,</span> <span class="fl">10.0</span><span class="op">)</span></span>
+<span id="cb182-10"><a href="simoainfhorizon.html#cb182-10" tabindex="-1"></a>    model<span class="op">.</span>numberOfReplications <span class="op">=</span> <span class="dv">5</span></span>
+<span id="cb182-11"><a href="simoainfhorizon.html#cb182-11" tabindex="-1"></a>    model<span class="op">.</span>lengthOfReplication <span class="op">=</span> <span class="fl">50000.0</span></span>
+<span id="cb182-12"><a href="simoainfhorizon.html#cb182-12" tabindex="-1"></a>    model<span class="op">.</span>simulate<span class="op">()</span></span>
+<span id="cb182-13"><a href="simoainfhorizon.html#cb182-13" tabindex="-1"></a>    model<span class="op">.</span>print<span class="op">()</span></span>
+<span id="cb182-14"><a href="simoainfhorizon.html#cb182-14" tabindex="-1"></a>    println<span class="op">(</span>rvWelch<span class="op">)</span></span>
+<span id="cb182-15"><a href="simoainfhorizon.html#cb182-15" tabindex="-1"></a>    println<span class="op">(</span>twWelch<span class="op">)</span></span>
+<span id="cb182-16"><a href="simoainfhorizon.html#cb182-16" tabindex="-1"></a></span>
+<span id="cb182-17"><a href="simoainfhorizon.html#cb182-17" tabindex="-1"></a>    <span class="kw">val</span> <span class="va">rvFileAnalyzer</span> <span class="op">=</span> rvWelch<span class="op">.</span>createWelchDataFileAnalyzer<span class="op">()</span></span>
+<span id="cb182-18"><a href="simoainfhorizon.html#cb182-18" tabindex="-1"></a>    <span class="kw">val</span> <span class="va">twFileAnalyzer</span> <span class="op">=</span> twWelch<span class="op">.</span>createWelchDataFileAnalyzer<span class="op">()</span></span>
+<span id="cb182-19"><a href="simoainfhorizon.html#cb182-19" tabindex="-1"></a></span>
+<span id="cb182-20"><a href="simoainfhorizon.html#cb182-20" tabindex="-1"></a>    rvFileAnalyzer<span class="op">.</span>createCSVWelchPlotDataFile<span class="op">()</span></span>
+<span id="cb182-21"><a href="simoainfhorizon.html#cb182-21" tabindex="-1"></a>    twFileAnalyzer<span class="op">.</span>createCSVWelchPlotDataFile<span class="op">()</span></span>
+<span id="cb182-22"><a href="simoainfhorizon.html#cb182-22" tabindex="-1"></a>    </span>
+<span id="cb182-23"><a href="simoainfhorizon.html#cb182-23" tabindex="-1"></a>    <span class="kw">val</span> <span class="va">wp</span> <span class="op">=</span> WelchPlot<span class="op">(</span>analyzer <span class="op">=</span> rvFileAnalyzer<span class="op">)</span></span>
+<span id="cb182-24"><a href="simoainfhorizon.html#cb182-24" tabindex="-1"></a>    wp<span class="op">.</span>defaultPlotDir <span class="op">=</span> model<span class="op">.</span>outputDirectory<span class="op">.</span>plotDir</span>
+<span id="cb182-25"><a href="simoainfhorizon.html#cb182-25" tabindex="-1"></a>    wp<span class="op">.</span>showInBrowser<span class="op">()</span></span>
+<span id="cb182-26"><a href="simoainfhorizon.html#cb182-26" tabindex="-1"></a>    wp<span class="op">.</span>saveToFile<span class="op">(</span><span class="st">&quot;SystemTimeWelchPlot&quot;</span><span class="op">)</span></span>
+<span id="cb182-27"><a href="simoainfhorizon.html#cb182-27" tabindex="-1"></a></span>
+<span id="cb182-28"><a href="simoainfhorizon.html#cb182-28" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
 </div>
 <p>In the code, we create two instances of <code>WelchFileObserver</code> one for the system time (<code>systemTime</code>) and one for the number in the system (<code>numInSyste</code>) both referenced from the exposed properties of the drive through pharmacy class. Since the number in the system is a time-persistent variable, it is discretized based on intervals of 10 time units. The concept of discretizing the time-persistent data is illustrated in Figure <a href="simoainfhorizon.html#fig:DiscretizeTBD">5.18</a>. The <code>WelchFileObserver</code> instances are used to create <code>WelchDataFileAnalyzer</code> instances, which are used to make the data for plotting. You can use any plotting program that you want to display the plot.</p>
 <div class="figure"><span style="display:block;" id="fig:WelchSysTimePlot"></span>
@@ -1624,20 +1624,20 @@ algorithm is 512.</p>
 <div class="example">
 <p><span id="exm:ch5ex5" class="example"><strong>Example 5.5  (Performing a Batch Means Analysis) </strong></span>This code illustrates how to perform a single run, batch means analysis, by
 adding a batching element to the model.</p>
-<div class="sourceCode" id="cb182"><pre class="sourceCode kt"><code class="sourceCode kotlin"><span id="cb182-1"><a href="simoainfhorizon.html#cb182-1" tabindex="-1"></a><span class="kw">fun</span> <span class="fu">main</span><span class="op">(){</span></span>
-<span id="cb182-2"><a href="simoainfhorizon.html#cb182-2" tabindex="-1"></a>    <span class="kw">val</span> <span class="va">model</span> <span class="op">=</span> Model<span class="op">(</span><span class="st">&quot;Drive Through Pharmacy&quot;</span><span class="op">)</span></span>
-<span id="cb182-3"><a href="simoainfhorizon.html#cb182-3" tabindex="-1"></a>    <span class="co">// add DriveThroughPharmacy to the main model</span></span>
-<span id="cb182-4"><a href="simoainfhorizon.html#cb182-4" tabindex="-1"></a>    <span class="kw">val</span> <span class="va">dtp</span> <span class="op">=</span> DriveThroughPharmacyWithQ<span class="op">(</span>model<span class="op">,</span> <span class="dv">1</span><span class="op">)</span></span>
-<span id="cb182-5"><a href="simoainfhorizon.html#cb182-5" tabindex="-1"></a>    dtp<span class="op">.</span>arrivalRV<span class="op">.</span>initialRandomSource <span class="op">=</span> ExponentialRV<span class="op">(</span><span class="fl">1.0</span><span class="op">,</span> <span class="dv">1</span><span class="op">)</span></span>
-<span id="cb182-6"><a href="simoainfhorizon.html#cb182-6" tabindex="-1"></a>    dtp<span class="op">.</span>serviceRV<span class="op">.</span>initialRandomSource <span class="op">=</span> ExponentialRV<span class="op">(</span><span class="fl">0.7</span><span class="op">,</span> <span class="dv">2</span><span class="op">)</span></span>
-<span id="cb182-7"><a href="simoainfhorizon.html#cb182-7" tabindex="-1"></a>    model<span class="op">.</span>numberOfReplications <span class="op">=</span> <span class="dv">1</span></span>
-<span id="cb182-8"><a href="simoainfhorizon.html#cb182-8" tabindex="-1"></a>    model<span class="op">.</span>lengthOfReplication <span class="op">=</span> <span class="fl">1000000.0</span></span>
-<span id="cb182-9"><a href="simoainfhorizon.html#cb182-9" tabindex="-1"></a>    model<span class="op">.</span>lengthOfReplicationWarmUp <span class="op">=</span> <span class="fl">100000.0</span></span>
-<span id="cb182-10"><a href="simoainfhorizon.html#cb182-10" tabindex="-1"></a>    <span class="kw">val</span> <span class="va">batchingElement</span> <span class="op">=</span> model<span class="op">.</span>statisticalBatching<span class="op">()</span></span>
-<span id="cb182-11"><a href="simoainfhorizon.html#cb182-11" tabindex="-1"></a>    model<span class="op">.</span>simulate<span class="op">()</span></span>
-<span id="cb182-12"><a href="simoainfhorizon.html#cb182-12" tabindex="-1"></a>    <span class="kw">val</span> <span class="va">sr</span> <span class="op">=</span> batchingElement<span class="op">.</span>statisticReporter</span>
-<span id="cb182-13"><a href="simoainfhorizon.html#cb182-13" tabindex="-1"></a>    println<span class="op">(</span>sr<span class="op">.</span>halfWidthSummaryReport<span class="op">())</span></span>
-<span id="cb182-14"><a href="simoainfhorizon.html#cb182-14" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
+<div class="sourceCode" id="cb183"><pre class="sourceCode kt"><code class="sourceCode kotlin"><span id="cb183-1"><a href="simoainfhorizon.html#cb183-1" tabindex="-1"></a><span class="kw">fun</span> <span class="fu">main</span><span class="op">(){</span></span>
+<span id="cb183-2"><a href="simoainfhorizon.html#cb183-2" tabindex="-1"></a>    <span class="kw">val</span> <span class="va">model</span> <span class="op">=</span> Model<span class="op">(</span><span class="st">&quot;Drive Through Pharmacy&quot;</span><span class="op">)</span></span>
+<span id="cb183-3"><a href="simoainfhorizon.html#cb183-3" tabindex="-1"></a>    <span class="co">// add DriveThroughPharmacy to the main model</span></span>
+<span id="cb183-4"><a href="simoainfhorizon.html#cb183-4" tabindex="-1"></a>    <span class="kw">val</span> <span class="va">dtp</span> <span class="op">=</span> DriveThroughPharmacyWithQ<span class="op">(</span>model<span class="op">,</span> <span class="dv">1</span><span class="op">)</span></span>
+<span id="cb183-5"><a href="simoainfhorizon.html#cb183-5" tabindex="-1"></a>    dtp<span class="op">.</span>arrivalRV<span class="op">.</span>initialRandomSource <span class="op">=</span> ExponentialRV<span class="op">(</span><span class="fl">1.0</span><span class="op">,</span> <span class="dv">1</span><span class="op">)</span></span>
+<span id="cb183-6"><a href="simoainfhorizon.html#cb183-6" tabindex="-1"></a>    dtp<span class="op">.</span>serviceRV<span class="op">.</span>initialRandomSource <span class="op">=</span> ExponentialRV<span class="op">(</span><span class="fl">0.7</span><span class="op">,</span> <span class="dv">2</span><span class="op">)</span></span>
+<span id="cb183-7"><a href="simoainfhorizon.html#cb183-7" tabindex="-1"></a>    model<span class="op">.</span>numberOfReplications <span class="op">=</span> <span class="dv">1</span></span>
+<span id="cb183-8"><a href="simoainfhorizon.html#cb183-8" tabindex="-1"></a>    model<span class="op">.</span>lengthOfReplication <span class="op">=</span> <span class="fl">1000000.0</span></span>
+<span id="cb183-9"><a href="simoainfhorizon.html#cb183-9" tabindex="-1"></a>    model<span class="op">.</span>lengthOfReplicationWarmUp <span class="op">=</span> <span class="fl">100000.0</span></span>
+<span id="cb183-10"><a href="simoainfhorizon.html#cb183-10" tabindex="-1"></a>    <span class="kw">val</span> <span class="va">batchingElement</span> <span class="op">=</span> model<span class="op">.</span>statisticalBatching<span class="op">()</span></span>
+<span id="cb183-11"><a href="simoainfhorizon.html#cb183-11" tabindex="-1"></a>    model<span class="op">.</span>simulate<span class="op">()</span></span>
+<span id="cb183-12"><a href="simoainfhorizon.html#cb183-12" tabindex="-1"></a>    <span class="kw">val</span> <span class="va">sr</span> <span class="op">=</span> batchingElement<span class="op">.</span>statisticReporter</span>
+<span id="cb183-13"><a href="simoainfhorizon.html#cb183-13" tabindex="-1"></a>    println<span class="op">(</span>sr<span class="op">.</span>halfWidthSummaryReport<span class="op">())</span></span>
+<span id="cb183-14"><a href="simoainfhorizon.html#cb183-14" tabindex="-1"></a><span class="op">}</span></span></code></pre></div>
 </div>
 <p>The analysis performed to determine the warm up period should give you
 some information concerning how long to make this single run and how
