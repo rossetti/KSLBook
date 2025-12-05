@@ -1097,7 +1097,7 @@ defined for the specified resource. This value can be changed by the
 user via a capacity schedule or through the use capacity change notices.</p></li>
 <li><p><span class="math inline">\(b(t)\)</span>: Number of busy resource units at any time <span class="math inline">\(t\)</span>. Each time an entity seizes a resource, <span class="math inline">\(b(t)\)</span> changes
 accordingly.</p></li>
-<li><p><span class="math inline">\(a(t) = c(t) - b(t)\)</span>: Number of available resource units at any time <span class="math inline">\(t\)</span>. Each time an entity seizes a resource or a capacity change occurs, <span class="math inline">\(a(t)\)</span> changes accordingly.</p></li>
+<li><p><span class="math inline">\(a(t) = max(0,c(t) - b(t))\)</span>: Number of available resource units at any time <span class="math inline">\(t\)</span>. Each time an entity seizes a resource or a capacity change occurs, <span class="math inline">\(a(t)\)</span> changes accordingly.</p></li>
 </ul>
 <p>These variables may change over time for a resource. The changing of these variables defines the possible states of a resource. These states are:</p>
 <dl>

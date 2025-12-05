@@ -1224,7 +1224,7 @@ their states.
 - $b(t)$:   Number of busy resource units at any time $t$. Each time an entity seizes a resource, $b(t)$ changes
     accordingly.
     
-- $a(t) = c(t) - b(t)$:   Number of available resource units at any time $t$. Each time an entity seizes a resource or a capacity change occurs, $a(t)$ changes accordingly.
+- $a(t) = max(0, c(t) - b(t))$:   Number of available resource units at any time $t$. Each time an entity seizes a resource or a capacity change occurs, $a(t)$ changes accordingly.
 
 These variables may change over time for a resource. The changing of these variables defines the possible states of a resource. These states are:
 
