@@ -1,138 +1,35 @@
 <!DOCTYPE html>
-<html lang="" xml:lang="">
-<head>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
-  <meta charset="utf-8" />
-  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>G References | Simulation Modeling using the Kotlin Simulation Library (KSL)</title>
-  <meta name="description" content="A book that illustrates the basics of using the KSL. The output format for this book is bookdown::gitbook." />
-  <meta name="generator" content="bookdown 0.40 and GitBook 2.6.7" />
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.9.38">
 
-  <meta property="og:title" content="G References | Simulation Modeling using the Kotlin Simulation Library (KSL)" />
-  <meta property="og:type" content="book" />
-  
-  <meta property="og:description" content="A book that illustrates the basics of using the KSL. The output format for this book is bookdown::gitbook." />
-  
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
-  <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="G References | Simulation Modeling using the Kotlin Simulation Library (KSL)" />
-  
-  <meta name="twitter:description" content="A book that illustrates the basics of using the KSL. The output format for this book is bookdown::gitbook." />
-  
+<meta name="description" content="An introductory textbook on discrete-event and Monte Carlo simulation modeling using the Kotlin Simulation Library (KSL).">
 
-<meta name="author" content="Manuel D. Rossetti" />
-
-
-<meta name="date" content="2025-11-06" />
-
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <meta name="apple-mobile-web-app-capable" content="yes" />
-  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
-  
-  
-<link rel="prev" href="appStatTables.html"/>
-
-<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
-<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
-<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
-<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
-<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
-<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
-<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
-<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
-
-
-
-
-
-
-
-
-<link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
-<link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
-<script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
-<script src="libs/kePrint-0.0.1/kePrint.js"></script>
-<link href="libs/lightable-0.0.1/lightable.css" rel="stylesheet" />
-
-
-<style type="text/css">
-html { -webkit-text-size-adjust: 100%; }
-pre > code.sourceCode { white-space: pre; position: relative; }
-pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
-pre > code.sourceCode > span:empty { height: 1.2em; }
-.sourceCode { overflow: visible; }
-code.sourceCode > span { color: inherit; text-decoration: inherit; }
-pre.sourceCode { margin: 0; }
-@media screen {
-div.sourceCode { overflow: auto; }
+<title>References – Simulation Modeling using the Kotlin Simulation Library (KSL)</title>
+<style>
+/* Default styles provided by pandoc.
+** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+*/
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
 }
-@media print {
-pre > code.sourceCode { white-space: pre-wrap; }
-pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
-}
-pre.numberSource code
-  { counter-reset: source-line 0; }
-pre.numberSource code > span
-  { position: relative; left: -4em; counter-increment: source-line; }
-pre.numberSource code > span > a:first-child::before
-  { content: counter(source-line);
-    position: relative; left: -1em; text-align: right; vertical-align: baseline;
-    border: none; display: inline-block;
-    -webkit-touch-callout: none; -webkit-user-select: none;
-    -khtml-user-select: none; -moz-user-select: none;
-    -ms-user-select: none; user-select: none;
-    padding: 0 4px; width: 4em;
-    color: #aaaaaa;
-  }
-pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
-div.sourceCode
-  {   }
-@media screen {
-pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
-}
-code span.al { color: #ff0000; font-weight: bold; } /* Alert */
-code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
-code span.at { color: #7d9029; } /* Attribute */
-code span.bn { color: #40a070; } /* BaseN */
-code span.bu { color: #008000; } /* BuiltIn */
-code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
-code span.ch { color: #4070a0; } /* Char */
-code span.cn { color: #880000; } /* Constant */
-code span.co { color: #60a0b0; font-style: italic; } /* Comment */
-code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
-code span.do { color: #ba2121; font-style: italic; } /* Documentation */
-code span.dt { color: #902000; } /* DataType */
-code span.dv { color: #40a070; } /* DecVal */
-code span.er { color: #ff0000; font-weight: bold; } /* Error */
-code span.ex { } /* Extension */
-code span.fl { color: #40a070; } /* Float */
-code span.fu { color: #06287e; } /* Function */
-code span.im { color: #008000; font-weight: bold; } /* Import */
-code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
-code span.kw { color: #007020; font-weight: bold; } /* Keyword */
-code span.op { color: #666666; } /* Operator */
-code span.ot { color: #007020; } /* Other */
-code span.pp { color: #bc7a00; } /* Preprocessor */
-code span.sc { color: #4070a0; } /* SpecialChar */
-code span.ss { color: #bb6688; } /* SpecialString */
-code span.st { color: #4070a0; } /* String */
-code span.va { color: #19177c; } /* Variable */
-code span.vs { color: #4070a0; } /* VerbatimString */
-code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
-</style>
-
-<style type="text/css">
-  
-  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
-</style>
-<style type="text/css">
-/* Used with Pandoc 2.11+ new --citeproc when CSL is used */
+/* CSS for citations */
 div.csl-bib-body { }
 div.csl-entry {
   clear: both;
 }
-.hanging div.csl-entry {
+.hanging-indent div.csl-entry {
   margin-left:2em;
   text-indent:-2em;
 }
@@ -146,852 +43,1441 @@ div.csl-right-inline {
 }
 div.csl-indent {
   margin-left: 2em;
-}
-</style>
+}</style>
 
-<link rel="stylesheet" href="css/style.css" type="text/css" />
+
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/quarto-nav/headroom.min.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<link href="./17-StatisticalTables.html" rel="prev">
+<script src="site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-de63f62b328812d8e578a4d74e282472.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-dark-6b6957c917596b414ec0b78690761e87.css" rel="stylesheet" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-de63f62b328812d8e578a4d74e282472.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap-963416d920756dc736a72a752bf6912f.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="site_libs/bootstrap/bootstrap-dark-10629767a8d3d760d9707fc59134ae44.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
+<link href="site_libs/bootstrap/bootstrap-963416d920756dc736a72a752bf6912f.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+
+
+<link rel="stylesheet" href="css/cover.css">
 </head>
 
-<body>
+<body class="nav-sidebar floating quarto-light"><script id="quarto-html-before-body" type="application/javascript">
+    const toggleBodyColorMode = (bsSheetEl) => {
+      const mode = bsSheetEl.getAttribute("data-mode");
+      const bodyEl = window.document.querySelector("body");
+      if (mode === "dark") {
+        bodyEl.classList.add("quarto-dark");
+        bodyEl.classList.remove("quarto-light");
+      } else {
+        bodyEl.classList.add("quarto-light");
+        bodyEl.classList.remove("quarto-dark");
+      }
+    }
+    const toggleBodyColorPrimary = () => {
+      const bsSheetEl = window.document.querySelector("link#quarto-bootstrap:not([rel=disabled-stylesheet])");
+      if (bsSheetEl) {
+        toggleBodyColorMode(bsSheetEl);
+      }
+    }
+    const setColorSchemeToggle = (alternate) => {
+      const toggles = window.document.querySelectorAll('.quarto-color-scheme-toggle');
+      for (let i=0; i < toggles.length; i++) {
+        const toggle = toggles[i];
+        if (toggle) {
+          if (alternate) {
+            toggle.classList.add("alternate");
+          } else {
+            toggle.classList.remove("alternate");
+          }
+        }
+      }
+    };
+    const toggleColorMode = (alternate) => {
+      // Switch the stylesheets
+      const primaryStylesheets = window.document.querySelectorAll('link.quarto-color-scheme:not(.quarto-color-alternate)');
+      const alternateStylesheets = window.document.querySelectorAll('link.quarto-color-scheme.quarto-color-alternate');
+      manageTransitions('#quarto-margin-sidebar .nav-link', false);
+      if (alternate) {
+        // note: dark is layered on light, we don't disable primary!
+        enableStylesheet(alternateStylesheets);
+        for (const sheetNode of alternateStylesheets) {
+          if (sheetNode.id === "quarto-bootstrap") {
+            toggleBodyColorMode(sheetNode);
+          }
+        }
+      } else {
+        disableStylesheet(alternateStylesheets);
+        enableStylesheet(primaryStylesheets)
+        toggleBodyColorPrimary();
+      }
+      manageTransitions('#quarto-margin-sidebar .nav-link', true);
+      // Switch the toggles
+      setColorSchemeToggle(alternate)
+      // Hack to workaround the fact that safari doesn't
+      // properly recolor the scrollbar when toggling (#1455)
+      if (navigator.userAgent.indexOf('Safari') > 0 && navigator.userAgent.indexOf('Chrome') == -1) {
+        manageTransitions("body", false);
+        window.scrollTo(0, 1);
+        setTimeout(() => {
+          window.scrollTo(0, 0);
+          manageTransitions("body", true);
+        }, 40);
+      }
+    }
+    const disableStylesheet = (stylesheets) => {
+      for (let i=0; i < stylesheets.length; i++) {
+        const stylesheet = stylesheets[i];
+        stylesheet.rel = 'disabled-stylesheet';
+      }
+    }
+    const enableStylesheet = (stylesheets) => {
+      for (let i=0; i < stylesheets.length; i++) {
+        const stylesheet = stylesheets[i];
+        if(stylesheet.rel !== 'stylesheet') { // for Chrome, which will still FOUC without this check
+          stylesheet.rel = 'stylesheet';
+        }
+      }
+    }
+    const manageTransitions = (selector, allowTransitions) => {
+      const els = window.document.querySelectorAll(selector);
+      for (let i=0; i < els.length; i++) {
+        const el = els[i];
+        if (allowTransitions) {
+          el.classList.remove('notransition');
+        } else {
+          el.classList.add('notransition');
+        }
+      }
+    }
+    const isFileUrl = () => {
+      return window.location.protocol === 'file:';
+    }
+    const hasAlternateSentinel = () => {
+      let styleSentinel = getColorSchemeSentinel();
+      if (styleSentinel !== null) {
+        return styleSentinel === "alternate";
+      } else {
+        return false;
+      }
+    }
+    const setStyleSentinel = (alternate) => {
+      const value = alternate ? "alternate" : "default";
+      if (!isFileUrl()) {
+        window.localStorage.setItem("quarto-color-scheme", value);
+      } else {
+        localAlternateSentinel = value;
+      }
+    }
+    const getColorSchemeSentinel = () => {
+      if (!isFileUrl()) {
+        const storageValue = window.localStorage.getItem("quarto-color-scheme");
+        return storageValue != null ? storageValue : localAlternateSentinel;
+      } else {
+        return localAlternateSentinel;
+      }
+    }
+    const toggleGiscusIfUsed = (isAlternate, darkModeDefault) => {
+      const baseTheme = document.querySelector('#giscus-base-theme')?.value ?? 'light';
+      const alternateTheme = document.querySelector('#giscus-alt-theme')?.value ?? 'dark';
+      let newTheme = '';
+      if(authorPrefersDark) {
+        newTheme = isAlternate ? baseTheme : alternateTheme;
+      } else {
+        newTheme = isAlternate ? alternateTheme : baseTheme;
+      }
+      const changeGiscusTheme = () => {
+        // From: https://github.com/giscus/giscus/issues/336
+        const sendMessage = (message) => {
+          const iframe = document.querySelector('iframe.giscus-frame');
+          if (!iframe) return;
+          iframe.contentWindow.postMessage({ giscus: message }, 'https://giscus.app');
+        }
+        sendMessage({
+          setConfig: {
+            theme: newTheme
+          }
+        });
+      }
+      const isGiscussLoaded = window.document.querySelector('iframe.giscus-frame') !== null;
+      if (isGiscussLoaded) {
+        changeGiscusTheme();
+      }
+    };
+    const authorPrefersDark = false;
+    const darkModeDefault = authorPrefersDark;
+      document.querySelector('link#quarto-text-highlighting-styles.quarto-color-scheme-extra').rel = 'disabled-stylesheet';
+      document.querySelector('link#quarto-bootstrap.quarto-color-scheme-extra').rel = 'disabled-stylesheet';
+    let localAlternateSentinel = darkModeDefault ? 'alternate' : 'default';
+    // Dark / light mode switch
+    window.quartoToggleColorScheme = () => {
+      // Read the current dark / light value
+      let toAlternate = !hasAlternateSentinel();
+      toggleColorMode(toAlternate);
+      setStyleSentinel(toAlternate);
+      toggleGiscusIfUsed(toAlternate, darkModeDefault);
+      window.dispatchEvent(new Event('resize'));
+    };
+    // Switch to dark mode if need be
+    if (hasAlternateSentinel()) {
+      toggleColorMode(true);
+    } else {
+      toggleColorMode(false);
+    }
+  </script>
 
-
-
-  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
-
-    <div class="book-summary">
-      <nav role="navigation">
-
-<ul class="summary">
-<li><a href="./">Simulation Modeling using the Kotlin Simulation Library (KSL)</a></li>
-
-<li class="divider"></li>
-<li class="chapter" data-level="" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i>Preface</a>
-<ul>
-<li class="chapter" data-level="" data-path="release-history.html"><a href="release-history.html"><i class="fa fa-check"></i>Release History</a></li>
-<li class="chapter" data-level="" data-path="ksl-project-page.html"><a href="ksl-project-page.html"><i class="fa fa-check"></i>KSL Project Page</a></li>
-<li class="chapter" data-level="" data-path="book-support-files.html"><a href="book-support-files.html"><i class="fa fa-check"></i>Book Support Files</a></li>
-<li class="chapter" data-level="" data-path="acknowledgments.html"><a href="acknowledgments.html"><i class="fa fa-check"></i>Acknowledgments</a></li>
-<li class="chapter" data-level="" data-path="intended-audience.html"><a href="intended-audience.html"><i class="fa fa-check"></i>Intended Audience</a></li>
-<li class="chapter" data-level="" data-path="organization-of-the-book.html"><a href="organization-of-the-book.html"><i class="fa fa-check"></i>Organization of the Book</a></li>
-</ul></li>
-<li class="chapter" data-level="" data-path="about-the-author.html"><a href="about-the-author.html"><i class="fa fa-check"></i>About the Author</a></li>
-<li class="chapter" data-level="1" data-path="ch1.html"><a href="ch1.html"><i class="fa fa-check"></i><b>1</b> Simulation Modeling</a>
-<ul>
-<li class="chapter" data-level="1.1" data-path="simulation-modeling.html"><a href="simulation-modeling.html"><i class="fa fa-check"></i><b>1.1</b> Simulation Modeling</a></li>
-<li class="chapter" data-level="1.2" data-path="why-simulate.html"><a href="why-simulate.html"><i class="fa fa-check"></i><b>1.2</b> Why Simulate?</a></li>
-<li class="chapter" data-level="1.3" data-path="types-of-systems-and-simulation-models.html"><a href="types-of-systems-and-simulation-models.html"><i class="fa fa-check"></i><b>1.3</b> Types of Systems and Simulation Models</a></li>
-<li class="chapter" data-level="1.4" data-path="simulation-descriptive-or-prescriptive-modeling.html"><a href="simulation-descriptive-or-prescriptive-modeling.html"><i class="fa fa-check"></i><b>1.4</b> Simulation: Descriptive or Prescriptive Modeling?</a></li>
-<li class="chapter" data-level="1.5" data-path="randomness-in-simulation.html"><a href="randomness-in-simulation.html"><i class="fa fa-check"></i><b>1.5</b> Randomness in Simulation</a></li>
-<li class="chapter" data-level="1.6" data-path="simulation-languages.html"><a href="simulation-languages.html"><i class="fa fa-check"></i><b>1.6</b> Simulation Languages</a></li>
-<li class="chapter" data-level="1.7" data-path="ch1secsimMeth.html"><a href="ch1secsimMeth.html"><i class="fa fa-check"></i><b>1.7</b> Simulation Methodology</a></li>
-<li class="chapter" data-level="1.8" data-path="overview-of-the-kotlin-simulation-library.html"><a href="overview-of-the-kotlin-simulation-library.html"><i class="fa fa-check"></i><b>1.8</b> Overview of the Kotlin Simulation Library</a></li>
-<li class="chapter" data-level="1.9" data-path="simulation-as-a-profession.html"><a href="simulation-as-a-profession.html"><i class="fa fa-check"></i><b>1.9</b> Simulation as a Profession</a></li>
-<li class="chapter" data-level="1.10" data-path="exercises.html"><a href="exercises.html"><i class="fa fa-check"></i><b>1.10</b> Exercises</a></li>
-</ul></li>
-<li class="chapter" data-level="2" data-path="ch2rng.html"><a href="ch2rng.html"><i class="fa fa-check"></i><b>2</b> Modeling Randomness</a>
-<ul>
-<li class="chapter" data-level="2.1" data-path="ch2generator.html"><a href="ch2generator.html"><i class="fa fa-check"></i><b>2.1</b> Random Number Generator</a>
-<ul>
-<li class="chapter" data-level="2.1.1" data-path="ch2generator.html"><a href="ch2generator.html#ch2randompkg"><i class="fa fa-check"></i><b>2.1.1</b> Random Package</a></li>
-<li class="chapter" data-level="2.1.2" data-path="ch2generator.html"><a href="ch2generator.html#ch2creatingStreams"><i class="fa fa-check"></i><b>2.1.2</b> Creating and Using Streams</a></li>
-<li class="chapter" data-level="2.1.3" data-path="ch2generator.html"><a href="ch2generator.html#ch2crn"><i class="fa fa-check"></i><b>2.1.3</b> Common Random Numbers</a></li>
-<li class="chapter" data-level="2.1.4" data-path="ch2generator.html"><a href="ch2generator.html#ch2antitheticStreams"><i class="fa fa-check"></i><b>2.1.4</b> Creating and Using Antithetic Streams</a></li>
-<li class="chapter" data-level="2.1.5" data-path="ch2generator.html"><a href="ch2generator.html#ch2rnFAQ"><i class="fa fa-check"></i><b>2.1.5</b> Frequently Asked Questions about Random Numbers</a></li>
-</ul></li>
-<li class="chapter" data-level="2.2" data-path="rvg.html"><a href="rvg.html"><i class="fa fa-check"></i><b>2.2</b> Random Variate Generation</a>
-<ul>
-<li class="chapter" data-level="2.2.1" data-path="rvg.html"><a href="rvg.html#basic-random-variate-generation"><i class="fa fa-check"></i><b>2.2.1</b> Basic Random Variate Generation</a></li>
-<li class="chapter" data-level="2.2.2" data-path="rvg.html"><a href="rvg.html#rvg_dists"><i class="fa fa-check"></i><b>2.2.2</b> Continuous and Discrete Random Variables</a></li>
-<li class="chapter" data-level="2.2.3" data-path="rvg.html"><a href="rvg.html#rvguse"><i class="fa fa-check"></i><b>2.2.3</b> Creating and Using Random Variables</a></li>
-<li class="chapter" data-level="2.2.4" data-path="rvg.html"><a href="rvg.html#functions-of-random-variables"><i class="fa fa-check"></i><b>2.2.4</b> Functions of Random Variables</a></li>
-</ul></li>
-<li class="chapter" data-level="2.3" data-path="probModels.html"><a href="probModels.html"><i class="fa fa-check"></i><b>2.3</b> Probability Distribution Models</a></li>
-<li class="chapter" data-level="2.4" data-path="distFitting.html"><a href="distFitting.html"><i class="fa fa-check"></i><b>2.4</b> Distribution Fitting Using the KSL</a>
-<ul>
-<li class="chapter" data-level="2.4.1" data-path="distFitting.html"><a href="distFitting.html#estimating-distribution-parameters"><i class="fa fa-check"></i><b>2.4.1</b> Estimating Distribution Parameters</a></li>
-<li class="chapter" data-level="2.4.2" data-path="distFitting.html"><a href="distFitting.html#continuous-distribution-recommendation-framework"><i class="fa fa-check"></i><b>2.4.2</b> Continuous Distribution Recommendation Framework</a></li>
-<li class="chapter" data-level="2.4.3" data-path="distFitting.html"><a href="distFitting.html#discrete-distribution-framework"><i class="fa fa-check"></i><b>2.4.3</b> Discrete Distribution Framework</a></li>
-<li class="chapter" data-level="2.4.4" data-path="distFitting.html"><a href="distFitting.html#pdfmexamples"><i class="fa fa-check"></i><b>2.4.4</b> Illustrative Examples from Appendix @ref(appidm)</a></li>
-</ul></li>
-<li class="chapter" data-level="2.5" data-path="summary.html"><a href="summary.html"><i class="fa fa-check"></i><b>2.5</b> Summary</a></li>
-<li class="chapter" data-level="2.6" data-path="exercises-1.html"><a href="exercises-1.html"><i class="fa fa-check"></i><b>2.6</b> Exercises</a></li>
-</ul></li>
-<li class="chapter" data-level="3" data-path="mcm.html"><a href="mcm.html"><i class="fa fa-check"></i><b>3</b> Monte Carlo Methods</a>
-<ul>
-<li class="chapter" data-level="3.1" data-path="kslStatistics.html"><a href="kslStatistics.html"><i class="fa fa-check"></i><b>3.1</b> Collecting Statistics</a>
-<ul>
-<li class="chapter" data-level="3.1.1" data-path="kslStatistics.html"><a href="kslStatistics.html#creating-and-using-a-statistic"><i class="fa fa-check"></i><b>3.1.1</b> Creating and Using a Statistic</a></li>
-<li class="chapter" data-level="3.1.2" data-path="kslStatistics.html"><a href="kslStatistics.html#histFreq"><i class="fa fa-check"></i><b>3.1.2</b> Histograms and Frequencies</a></li>
-<li class="chapter" data-level="3.1.3" data-path="kslStatistics.html"><a href="kslStatistics.html#ch3batchStats"><i class="fa fa-check"></i><b>3.1.3</b> Batch Statistics</a></li>
-<li class="chapter" data-level="3.1.4" data-path="kslStatistics.html"><a href="kslStatistics.html#ch3StatSummary"><i class="fa fa-check"></i><b>3.1.4</b> Statistics Summary</a></li>
-</ul></li>
-<li class="chapter" data-level="3.2" data-path="ssMC.html"><a href="ssMC.html"><i class="fa fa-check"></i><b>3.2</b> Simple Monte Carlo Integration</a></li>
-<li class="chapter" data-level="3.3" data-path="ch3StatReview.html"><a href="ch3StatReview.html"><i class="fa fa-check"></i><b>3.3</b> Review of Statistical Concepts</a>
-<ul>
-<li class="chapter" data-level="3.3.1" data-path="ch3StatReview.html"><a href="ch3StatReview.html#point-estimates-and-confidence-intervals"><i class="fa fa-check"></i><b>3.3.1</b> Point Estimates and Confidence Intervals</a></li>
-<li class="chapter" data-level="3.3.2" data-path="ch3StatReview.html"><a href="ch3StatReview.html#ch3SampleSize"><i class="fa fa-check"></i><b>3.3.2</b> Sample Size Determination</a></li>
-<li class="chapter" data-level="3.3.3" data-path="ch3StatReview.html"><a href="ch3StatReview.html#determining-the-sample-size-for-a-monte-carlo-simulation-experiment"><i class="fa fa-check"></i><b>3.3.3</b> Determining the Sample Size for a Monte Carlo Simulation Experiment</a></li>
-</ul></li>
-<li class="chapter" data-level="3.4" data-path="craps.html"><a href="craps.html"><i class="fa fa-check"></i><b>3.4</b> Simulating the Game of Craps</a></li>
-<li class="chapter" data-level="3.5" data-path="the-news-vendor-problem.html"><a href="the-news-vendor-problem.html"><i class="fa fa-check"></i><b>3.5</b> The News Vendor Problem</a></li>
-<li class="chapter" data-level="3.6" data-path="ch3InsProcess.html"><a href="ch3InsProcess.html"><i class="fa fa-check"></i><b>3.6</b> A Simple Inspection Process</a></li>
-<li class="chapter" data-level="3.7" data-path="ch3SAN.html"><a href="ch3SAN.html"><i class="fa fa-check"></i><b>3.7</b> Stochastic Activity Networks</a></li>
-<li class="chapter" data-level="3.8" data-path="mcmExperiments.html"><a href="mcmExperiments.html"><i class="fa fa-check"></i><b>3.8</b> Monte-Carlo Experiments</a></li>
-<li class="chapter" data-level="3.9" data-path="summary-1.html"><a href="summary-1.html"><i class="fa fa-check"></i><b>3.9</b> Summary</a></li>
-<li class="chapter" data-level="3.10" data-path="exercises-2.html"><a href="exercises-2.html"><i class="fa fa-check"></i><b>3.10</b> Exercises</a></li>
-</ul></li>
-<li class="chapter" data-level="4" data-path="introDEDS.html"><a href="introDEDS.html"><i class="fa fa-check"></i><b>4</b> Introduction to Discrete Event Modeling</a>
-<ul>
-<li class="chapter" data-level="4.1" data-path="introDEDSdeds.html"><a href="introDEDSdeds.html"><i class="fa fa-check"></i><b>4.1</b> Discrete-Event Dynamic Systems</a></li>
-<li class="chapter" data-level="4.2" data-path="HowDEDSClockWorks.html"><a href="HowDEDSClockWorks.html"><i class="fa fa-check"></i><b>4.2</b> How the Discrete-Event Clock Works</a></li>
-<li class="chapter" data-level="4.3" data-path="QHandExample.html"><a href="QHandExample.html"><i class="fa fa-check"></i><b>4.3</b> Simulating a Queueing System By Hand</a></li>
-<li class="chapter" data-level="4.4" data-path="introDEDSdedsKSL.html"><a href="introDEDSdedsKSL.html"><i class="fa fa-check"></i><b>4.4</b> Modeling DEDS in the KSL</a>
-<ul>
-<li class="chapter" data-level="4.4.1" data-path="introDEDSdedsKSL.html"><a href="introDEDSdedsKSL.html#event-scheduling"><i class="fa fa-check"></i><b>4.4.1</b> Event Scheduling</a></li>
-<li class="chapter" data-level="4.4.2" data-path="introDEDSdedsKSL.html"><a href="introDEDSdedsKSL.html#introDEDSschedExamples"><i class="fa fa-check"></i><b>4.4.2</b> Simple Event Scheduling Examples</a></li>
-<li class="chapter" data-level="4.4.3" data-path="introDEDSdedsKSL.html"><a href="introDEDSdedsKSL.html#introDEDSUpDown"><i class="fa fa-check"></i><b>4.4.3</b> Up and Down Component Example</a></li>
-<li class="chapter" data-level="4.4.4" data-path="introDEDSdedsKSL.html"><a href="introDEDSdedsKSL.html#introDEDSPharmacy"><i class="fa fa-check"></i><b>4.4.4</b> Modeling a Simple Queueing System</a></li>
-<li class="chapter" data-level="4.4.5" data-path="introDEDSdedsKSL.html"><a href="introDEDSdedsKSL.html#more-details-about-the-pharmacy-model-implementation"><i class="fa fa-check"></i><b>4.4.5</b> More Details About the Pharmacy Model Implementation</a></li>
-</ul></li>
-<li class="chapter" data-level="4.5" data-path="enhancing-the-drive-through-pharmacy-model.html"><a href="enhancing-the-drive-through-pharmacy-model.html"><i class="fa fa-check"></i><b>4.5</b> Enhancing the Drive Through Pharmacy Model</a>
-<ul>
-<li class="chapter" data-level="4.5.1" data-path="enhancing-the-drive-through-pharmacy-model.html"><a href="enhancing-the-drive-through-pharmacy-model.html#modeling-a-simple-resource"><i class="fa fa-check"></i><b>4.5.1</b> Modeling a Simple Resource</a></li>
-<li class="chapter" data-level="4.5.2" data-path="enhancing-the-drive-through-pharmacy-model.html"><a href="enhancing-the-drive-through-pharmacy-model.html#modeling-a-queue-with-statistical-collection"><i class="fa fa-check"></i><b>4.5.2</b> Modeling a Queue with Statistical Collection</a></li>
-<li class="chapter" data-level="4.5.3" data-path="enhancing-the-drive-through-pharmacy-model.html"><a href="enhancing-the-drive-through-pharmacy-model.html#modeling-a-repeating-event-pattern"><i class="fa fa-check"></i><b>4.5.3</b> Modeling a Repeating Event Pattern</a></li>
-<li class="chapter" data-level="4.5.4" data-path="enhancing-the-drive-through-pharmacy-model.html"><a href="enhancing-the-drive-through-pharmacy-model.html#collecting-more-detailed-statistics"><i class="fa fa-check"></i><b>4.5.4</b> Collecting More Detailed Statistics</a></li>
-<li class="chapter" data-level="4.5.5" data-path="enhancing-the-drive-through-pharmacy-model.html"><a href="enhancing-the-drive-through-pharmacy-model.html#implementing-the-enhanced-pharmacy-model"><i class="fa fa-check"></i><b>4.5.5</b> Implementing the Enhanced Pharmacy Model</a></li>
-</ul></li>
-<li class="chapter" data-level="4.6" data-path="DTPExpanded.html"><a href="DTPExpanded.html"><i class="fa fa-check"></i><b>4.6</b> More Drive Through Fun</a>
-<ul>
-<li class="chapter" data-level="4.6.1" data-path="DTPExpanded.html"><a href="DTPExpanded.html#mrWaitingLine"><i class="fa fa-check"></i><b>4.6.1</b> Modeling a Resource with a Waiting Line</a></li>
-<li class="chapter" data-level="4.6.2" data-path="DTPExpanded.html"><a href="DTPExpanded.html#modeling-the-tandem-queue-of-example-refexmexch4tandemq"><i class="fa fa-check"></i><b>4.6.2</b> Modeling the Tandem Queue of Example @ref(exm:exCh4TandemQ)</a></li>
-<li class="chapter" data-level="4.6.3" data-path="DTPExpanded.html"><a href="DTPExpanded.html#modeling-with-the-station-package"><i class="fa fa-check"></i><b>4.6.3</b> Modeling with the Station Package</a></li>
-</ul></li>
-<li class="chapter" data-level="4.7" data-path="introDEDSSummary.html"><a href="introDEDSSummary.html"><i class="fa fa-check"></i><b>4.7</b> Summary</a></li>
-<li class="chapter" data-level="4.8" data-path="exercises-3.html"><a href="exercises-3.html"><i class="fa fa-check"></i><b>4.8</b> Exercises</a></li>
-</ul></li>
-<li class="chapter" data-level="5" data-path="simoa.html"><a href="simoa.html"><i class="fa fa-check"></i><b>5</b> Analyzing and Accessing Simulation Output</a>
-<ul>
-<li class="chapter" data-level="5.1" data-path="simoadatatypes.html"><a href="simoadatatypes.html"><i class="fa fa-check"></i><b>5.1</b> Types of Statistical Variables</a></li>
-<li class="chapter" data-level="5.2" data-path="simoasimtypes.html"><a href="simoasimtypes.html"><i class="fa fa-check"></i><b>5.2</b> Types of Simulation With Respect To Output Analysis</a></li>
-<li class="chapter" data-level="5.3" data-path="simoafinhorizon.html"><a href="simoafinhorizon.html"><i class="fa fa-check"></i><b>5.3</b> Analysis of Finite Horizon Simulations</a></li>
-<li class="chapter" data-level="5.4" data-path="simoafinhorizonex.html"><a href="simoafinhorizonex.html"><i class="fa fa-check"></i><b>5.4</b> Capturing Output for a Simple Finite Horizon Simulation</a>
-<ul>
-<li class="chapter" data-level="5.4.1" data-path="simoafinhorizonex.html"><a href="simoafinhorizonex.html#simoaCapture"><i class="fa fa-check"></i><b>5.4.1</b> KSL Functionality for Capturing Statistical Results</a></li>
-<li class="chapter" data-level="5.4.2" data-path="simoafinhorizonex.html"><a href="simoafinhorizonex.html#additional-remarks"><i class="fa fa-check"></i><b>5.4.2</b> Additional Remarks</a></li>
-<li class="chapter" data-level="5.4.3" data-path="simoafinhorizonex.html"><a href="simoafinhorizonex.html#querying-the-ksl-database"><i class="fa fa-check"></i><b>5.4.3</b> Querying the KSL Database</a></li>
-</ul></li>
-<li class="chapter" data-level="5.5" data-path="simoaseqsampling.html"><a href="simoaseqsampling.html"><i class="fa fa-check"></i><b>5.5</b> Sequential Sampling for Finite Horizon Simulations</a></li>
-<li class="chapter" data-level="5.6" data-path="simoainfhorizon.html"><a href="simoainfhorizon.html"><i class="fa fa-check"></i><b>5.6</b> Analysis of Infinite Horizon Simulations</a>
-<ul>
-<li class="chapter" data-level="5.6.1" data-path="simoainfhorizon.html"><a href="simoainfhorizon.html#simoainfhorizoninitialbias"><i class="fa fa-check"></i><b>5.6.1</b> Assessing the Effect of Initial Conditions</a></li>
-<li class="chapter" data-level="5.6.2" data-path="simoainfhorizon.html"><a href="simoainfhorizon.html#simoainfhorizonrepDeletion"><i class="fa fa-check"></i><b>5.6.2</b> Performing the Method of Replication-Deletion</a></li>
-<li class="chapter" data-level="5.6.3" data-path="simoainfhorizon.html"><a href="simoainfhorizon.html#simoainfhorizonbatchmeans"><i class="fa fa-check"></i><b>5.6.3</b> The Method of Batch Means</a></li>
-<li class="chapter" data-level="5.6.4" data-path="simoainfhorizon.html"><a href="simoainfhorizon.html#simoainfhorizonjslbatching"><i class="fa fa-check"></i><b>5.6.4</b> Performing the Method of Batch Means</a></li>
-</ul></li>
-<li class="chapter" data-level="5.7" data-path="simoacomparingSystems.html"><a href="simoacomparingSystems.html"><i class="fa fa-check"></i><b>5.7</b> Comparing System Configurations</a>
-<ul>
-<li class="chapter" data-level="5.7.1" data-path="simoacomparingSystems.html"><a href="simoacomparingSystems.html#simoacomparingSystems:two"><i class="fa fa-check"></i><b>5.7.1</b> Comparing Two Systems</a></li>
-<li class="chapter" data-level="5.7.2" data-path="simoacomparingSystems.html"><a href="simoacomparingSystems.html#simoacomparingSystemsMCB"><i class="fa fa-check"></i><b>5.7.2</b> Concepts for Comparing Systems</a></li>
-<li class="chapter" data-level="5.7.3" data-path="simoacomparingSystems.html"><a href="simoacomparingSystems.html#multiple-comparison-with-the-best-procedures-mcb"><i class="fa fa-check"></i><b>5.7.3</b> Multiple Comparison with the Best Procedures (MCB)</a></li>
-<li class="chapter" data-level="5.7.4" data-path="simoacomparingSystems.html"><a href="simoacomparingSystems.html#ch5Screening"><i class="fa fa-check"></i><b>5.7.4</b> Screening Procedures</a></li>
-</ul></li>
-<li class="chapter" data-level="5.8" data-path="ch5Scenarios.html"><a href="ch5Scenarios.html"><i class="fa fa-check"></i><b>5.8</b> Simulating Many Scenarios</a>
-<ul>
-<li class="chapter" data-level="5.8.1" data-path="ch5Scenarios.html"><a href="ch5Scenarios.html#controlAntns"><i class="fa fa-check"></i><b>5.8.1</b> Control Annotations</a></li>
-<li class="chapter" data-level="5.8.2" data-path="ch5Scenarios.html"><a href="ch5Scenarios.html#rvParameters"><i class="fa fa-check"></i><b>5.8.2</b> Random Variable Parameters</a></li>
-<li class="chapter" data-level="5.8.3" data-path="ch5Scenarios.html"><a href="ch5Scenarios.html#kslScenarios"><i class="fa fa-check"></i><b>5.8.3</b> Setting Up and Running Multiple Scenarios</a></li>
-</ul></li>
-<li class="chapter" data-level="5.9" data-path="simoasummary.html"><a href="simoasummary.html"><i class="fa fa-check"></i><b>5.9</b> Summary</a></li>
-<li class="chapter" data-level="5.10" data-path="exercises-4.html"><a href="exercises-4.html"><i class="fa fa-check"></i><b>5.10</b> Exercises</a></li>
-</ul></li>
-<li class="chapter" data-level="6" data-path="processview.html"><a href="processview.html"><i class="fa fa-check"></i><b>6</b> Process View Modeling Using the KSL</a>
-<ul>
-<li class="chapter" data-level="6.1" data-path="ch6Entities.html"><a href="ch6Entities.html"><i class="fa fa-check"></i><b>6.1</b> What are Entities?</a></li>
-<li class="chapter" data-level="6.2" data-path="pvIntro.html"><a href="pvIntro.html"><i class="fa fa-check"></i><b>6.2</b> The Process View</a></li>
-<li class="chapter" data-level="6.3" data-path="understanding-ksl-processes-and-entities.html"><a href="understanding-ksl-processes-and-entities.html"><i class="fa fa-check"></i><b>6.3</b> Understanding KSL Processes and Entities</a></li>
-<li class="chapter" data-level="6.4" data-path="examples-of-process-modeling.html"><a href="examples-of-process-modeling.html"><i class="fa fa-check"></i><b>6.4</b> Examples of Process Modeling</a>
-<ul>
-<li class="chapter" data-level="6.4.1" data-path="examples-of-process-modeling.html"><a href="examples-of-process-modeling.html#holding-entities-in-a-queue-holdqueue-class"><i class="fa fa-check"></i><b>6.4.1</b> Holding Entities in a Queue: <code>HoldQueue</code> Class</a></li>
-<li class="chapter" data-level="6.4.2" data-path="examples-of-process-modeling.html"><a href="examples-of-process-modeling.html#signaling-entities"><i class="fa fa-check"></i><b>6.4.2</b> Signaling Entities</a></li>
-<li class="chapter" data-level="6.4.3" data-path="examples-of-process-modeling.html"><a href="examples-of-process-modeling.html#understanding-blocking-queues"><i class="fa fa-check"></i><b>6.4.3</b> Understanding Blocking Queues</a></li>
-<li class="chapter" data-level="6.4.4" data-path="examples-of-process-modeling.html"><a href="examples-of-process-modeling.html#allowing-entities-to-wait-for-a-process"><i class="fa fa-check"></i><b>6.4.4</b> Allowing Entities to Wait for a Process</a></li>
-<li class="chapter" data-level="6.4.5" data-path="examples-of-process-modeling.html"><a href="examples-of-process-modeling.html#processinteraction"><i class="fa fa-check"></i><b>6.4.5</b> Process Interaction</a></li>
-</ul></li>
-<li class="chapter" data-level="6.5" data-path="modeling-a-stem-career-mixer.html"><a href="modeling-a-stem-career-mixer.html"><i class="fa fa-check"></i><b>6.5</b> Modeling a STEM Career Mixer</a>
-<ul>
-<li class="chapter" data-level="6.5.1" data-path="modeling-a-stem-career-mixer.html"><a href="modeling-a-stem-career-mixer.html#conceptualizing-the-system"><i class="fa fa-check"></i><b>6.5.1</b> Conceptualizing the System</a></li>
-<li class="chapter" data-level="6.5.2" data-path="modeling-a-stem-career-mixer.html"><a href="modeling-a-stem-career-mixer.html#implementing-the-stem-mixer-model"><i class="fa fa-check"></i><b>6.5.2</b> Implementing the STEM Mixer Model</a></li>
-</ul></li>
-<li class="chapter" data-level="6.6" data-path="the-tie-dye-t-shirt-model.html"><a href="the-tie-dye-t-shirt-model.html"><i class="fa fa-check"></i><b>6.6</b> The Tie-Dye T-Shirt Model</a>
-<ul>
-<li class="chapter" data-level="6.6.1" data-path="the-tie-dye-t-shirt-model.html"><a href="the-tie-dye-t-shirt-model.html#ch4:TieDyeTShirtsSub1"><i class="fa fa-check"></i><b>6.6.1</b> Implementing the Tie-Dye T-Shirt Model</a></li>
-</ul></li>
-<li class="chapter" data-level="6.7" data-path="summary-2.html"><a href="summary-2.html"><i class="fa fa-check"></i><b>6.7</b> Summary</a></li>
-<li class="chapter" data-level="6.8" data-path="exercises-5.html"><a href="exercises-5.html"><i class="fa fa-check"></i><b>6.8</b> Exercises</a></li>
-</ul></li>
-<li class="chapter" data-level="7" data-path="ch7AdvModeling.html"><a href="ch7AdvModeling.html"><i class="fa fa-check"></i><b>7</b> Advanced Event and Process View Modeling</a>
-<ul>
-<li class="chapter" data-level="7.1" data-path="modeling-with-processes-and-resources.html"><a href="modeling-with-processes-and-resources.html"><i class="fa fa-check"></i><b>7.1</b> Modeling with Processes and Resources</a>
-<ul>
-<li class="chapter" data-level="7.1.1" data-path="modeling-with-processes-and-resources.html"><a href="modeling-with-processes-and-resources.html#modeling-space-with-resources"><i class="fa fa-check"></i><b>7.1.1</b> Modeling Space with Resources</a></li>
-<li class="chapter" data-level="7.1.2" data-path="modeling-with-processes-and-resources.html"><a href="modeling-with-processes-and-resources.html#secResourcePools"><i class="fa fa-check"></i><b>7.1.2</b> Resource Pools</a></li>
-<li class="chapter" data-level="7.1.3" data-path="modeling-with-processes-and-resources.html"><a href="modeling-with-processes-and-resources.html#secTestAndRepair"><i class="fa fa-check"></i><b>7.1.3</b> Computer Test and Repair Shop Example</a></li>
-</ul></li>
-<li class="chapter" data-level="7.2" data-path="modeling-non-stationary-systems.html"><a href="modeling-non-stationary-systems.html"><i class="fa fa-check"></i><b>7.2</b> Modeling Non-Stationary Systems</a>
-<ul>
-<li class="chapter" data-level="7.2.1" data-path="modeling-non-stationary-systems.html"><a href="modeling-non-stationary-systems.html#ch7secNSPP"><i class="fa fa-check"></i><b>7.2.1</b> Non-Stationary Arrival Processes</a></li>
-<li class="chapter" data-level="7.2.2" data-path="modeling-non-stationary-systems.html"><a href="modeling-non-stationary-systems.html#modeling-resources-under-non-stationary-conditions"><i class="fa fa-check"></i><b>7.2.2</b> Modeling Resources Under Non-Stationary Conditions</a></li>
-<li class="chapter" data-level="7.2.3" data-path="modeling-non-stationary-systems.html"><a href="modeling-non-stationary-systems.html#enhancing-the-stem-career-mixer-model"><i class="fa fa-check"></i><b>7.2.3</b> Enhancing the STEM Career Mixer Model</a></li>
-</ul></li>
-<li class="chapter" data-level="7.3" data-path="examples-of-advanced-event-models.html"><a href="examples-of-advanced-event-models.html"><i class="fa fa-check"></i><b>7.3</b> Examples of Advanced Event Models</a>
-<ul>
-<li class="chapter" data-level="7.3.1" data-path="examples-of-advanced-event-models.html"><a href="examples-of-advanced-event-models.html#ch6s1sb4sub3"><i class="fa fa-check"></i><b>7.3.1</b> Modeling Balking and Reneging</a></li>
-<li class="chapter" data-level="7.3.2" data-path="examples-of-advanced-event-models.html"><a href="examples-of-advanced-event-models.html#rqModel"><i class="fa fa-check"></i><b>7.3.2</b> Modeling a Reorder Point, Reorder Quantity Inventory Policy</a></li>
-</ul></li>
-<li class="chapter" data-level="7.4" data-path="ch7VandV.html"><a href="ch7VandV.html"><i class="fa fa-check"></i><b>7.4</b> Applying Queueing Theory Results to Verify and Validate a Simulation</a>
-<ul>
-<li class="chapter" data-level="7.4.1" data-path="ch7VandV.html"><a href="ch7VandV.html#analyzing-the-preparation-station"><i class="fa fa-check"></i><b>7.4.1</b> Analyzing the Preparation Station</a></li>
-<li class="chapter" data-level="7.4.2" data-path="ch7VandV.html"><a href="ch7VandV.html#analyzing-the-build-lines"><i class="fa fa-check"></i><b>7.4.2</b> Analyzing the Build Lines</a></li>
-<li class="chapter" data-level="7.4.3" data-path="ch7VandV.html"><a href="ch7VandV.html#analyzing-the-packaging-station"><i class="fa fa-check"></i><b>7.4.3</b> Analyzing the Packaging Station</a></li>
-<li class="chapter" data-level="7.4.4" data-path="ch7VandV.html"><a href="ch7VandV.html#analyzing-the-palletizing-station"><i class="fa fa-check"></i><b>7.4.4</b> Analyzing the Palletizing Station</a></li>
-<li class="chapter" data-level="7.4.5" data-path="ch7VandV.html"><a href="ch7VandV.html#analyzing-the-total-system-time"><i class="fa fa-check"></i><b>7.4.5</b> Analyzing the Total System Time</a></li>
-<li class="chapter" data-level="7.4.6" data-path="ch7VandV.html"><a href="ch7VandV.html#other-issues-for-verification-and-validation"><i class="fa fa-check"></i><b>7.4.6</b> Other Issues for Verification and Validation</a></li>
-</ul></li>
-<li class="chapter" data-level="7.5" data-path="summary-3.html"><a href="summary-3.html"><i class="fa fa-check"></i><b>7.5</b> Summary</a></li>
-<li class="chapter" data-level="7.6" data-path="exercises-6.html"><a href="exercises-6.html"><i class="fa fa-check"></i><b>7.6</b> Exercises</a></li>
-</ul></li>
-<li class="chapter" data-level="8" data-path="chEntityMovement.html"><a href="chEntityMovement.html"><i class="fa fa-check"></i><b>8</b> Modeling Entity Movement</a>
-<ul>
-<li class="chapter" data-level="8.1" data-path="secRCT.html"><a href="secRCT.html"><i class="fa fa-check"></i><b>8.1</b> Resource Constrained Transfer</a>
-<ul>
-<li class="chapter" data-level="8.1.1" data-path="secRCT.html"><a href="secRCT.html#secTestRepairRCT"><i class="fa fa-check"></i><b>8.1.1</b> Test and Repair with Resource Constrained Transfer</a></li>
-</ul></li>
-<li class="chapter" data-level="8.2" data-path="movableResources.html"><a href="movableResources.html"><i class="fa fa-check"></i><b>8.2</b> Constrained Transfer with Movable Resources</a>
-<ul>
-<li class="chapter" data-level="8.2.1" data-path="movableResources.html"><a href="movableResources.html#spatial-models"><i class="fa fa-check"></i><b>8.2.1</b> Spatial Models</a></li>
-<li class="chapter" data-level="8.2.2" data-path="movableResources.html"><a href="movableResources.html#secMovableResources"><i class="fa fa-check"></i><b>8.2.2</b> Movable Resources</a></li>
-<li class="chapter" data-level="8.2.3" data-path="movableResources.html"><a href="movableResources.html#secTQMWM"><i class="fa fa-check"></i><b>8.2.3</b> Tandem Queue Model With Movement</a></li>
-</ul></li>
-<li class="chapter" data-level="8.3" data-path="secTestAndRepairMovableResources.html"><a href="secTestAndRepairMovableResources.html"><i class="fa fa-check"></i><b>8.3</b> Modeling the Test and Repair System with Movable Resources</a></li>
-<li class="chapter" data-level="8.4" data-path="secConveyors.html"><a href="secConveyors.html"><i class="fa fa-check"></i><b>8.4</b> Modeling Systems with Conveyors</a>
-<ul>
-<li class="chapter" data-level="8.4.1" data-path="secConveyors.html"><a href="secConveyors.html#ksl-conveyor-constructs"><i class="fa fa-check"></i><b>8.4.1</b> KSL Conveyor Constructs</a></li>
-<li class="chapter" data-level="8.4.2" data-path="secConveyors.html"><a href="secConveyors.html#tandem-queue-system-with-conveyors"><i class="fa fa-check"></i><b>8.4.2</b> Tandem Queue System with Conveyors</a></li>
-<li class="chapter" data-level="8.4.3" data-path="secConveyors.html"><a href="secConveyors.html#secTestAndRepairConveyors"><i class="fa fa-check"></i><b>8.4.3</b> Test and Repair via Conveyors</a></li>
-<li class="chapter" data-level="8.4.4" data-path="secConveyors.html"><a href="secConveyors.html#secMiscConveyor"><i class="fa fa-check"></i><b>8.4.4</b> Miscellaneous Concepts in Conveyor Modeling</a></li>
-</ul></li>
-<li class="chapter" data-level="8.5" data-path="summary-of-new-concepts.html"><a href="summary-of-new-concepts.html"><i class="fa fa-check"></i><b>8.5</b> Summary of New Concepts</a></li>
-<li class="chapter" data-level="8.6" data-path="exercises-7.html"><a href="exercises-7.html"><i class="fa fa-check"></i><b>8.6</b> Exercises</a></li>
-</ul></li>
-<li class="chapter" data-level="9" data-path="ch9AdvMC.html"><a href="ch9AdvMC.html"><i class="fa fa-check"></i><b>9</b> Advanced Monte Carlo Methods</a>
-<ul>
-<li class="chapter" data-level="9.1" data-path="ch9BootStrapping.html"><a href="ch9BootStrapping.html"><i class="fa fa-check"></i><b>9.1</b> Bootstrap Methods</a>
-<ul>
-<li class="chapter" data-level="9.1.1" data-path="ch9BootStrapping.html"><a href="ch9BootStrapping.html#bootstrapping-using-the-ksl"><i class="fa fa-check"></i><b>9.1.1</b> Bootstrapping Using the KSL</a></li>
-</ul></li>
-<li class="chapter" data-level="9.2" data-path="ch9VRTs.html"><a href="ch9VRTs.html"><i class="fa fa-check"></i><b>9.2</b> Variance Reduction Techniques</a>
-<ul>
-<li class="chapter" data-level="9.2.1" data-path="ch9VRTs.html"><a href="ch9VRTs.html#common-random-numbers-crn"><i class="fa fa-check"></i><b>9.2.1</b> Common Random Numbers (CRN)</a></li>
-<li class="chapter" data-level="9.2.2" data-path="ch9VRTs.html"><a href="ch9VRTs.html#antithetic-variates-av"><i class="fa fa-check"></i><b>9.2.2</b> Antithetic Variates (AV)</a></li>
-<li class="chapter" data-level="9.2.3" data-path="ch9VRTs.html"><a href="ch9VRTs.html#indirect-estimation"><i class="fa fa-check"></i><b>9.2.3</b> Indirect Estimation</a></li>
-<li class="chapter" data-level="9.2.4" data-path="ch9VRTs.html"><a href="ch9VRTs.html#control-variates-cv"><i class="fa fa-check"></i><b>9.2.4</b> Control Variates (CV)</a></li>
-<li class="chapter" data-level="9.2.5" data-path="ch9VRTs.html"><a href="ch9VRTs.html#stratified-and-post-stratified-sampling"><i class="fa fa-check"></i><b>9.2.5</b> Stratified and Post Stratified Sampling</a></li>
-<li class="chapter" data-level="9.2.6" data-path="ch9VRTs.html"><a href="ch9VRTs.html#conditional-expectation-ce"><i class="fa fa-check"></i><b>9.2.6</b> Conditional Expectation (CE)</a></li>
-<li class="chapter" data-level="9.2.7" data-path="ch9VRTs.html"><a href="ch9VRTs.html#importance-sampling-is"><i class="fa fa-check"></i><b>9.2.7</b> Importance Sampling (IS)</a></li>
-</ul></li>
-<li class="chapter" data-level="9.3" data-path="ch9GMVRVs.html"><a href="ch9GMVRVs.html"><i class="fa fa-check"></i><b>9.3</b> Generating Multi-Variate and Correlated Random Variates</a>
-<ul>
-<li class="chapter" data-level="9.3.1" data-path="ch9GMVRVs.html"><a href="ch9GMVRVs.html#generating-from-a-bivariate-normal-distribution"><i class="fa fa-check"></i><b>9.3.1</b> Generating from a Bivariate Normal Distribution</a></li>
-<li class="chapter" data-level="9.3.2" data-path="ch9GMVRVs.html"><a href="ch9GMVRVs.html#copulas-and-multi-variate-generation-methods"><i class="fa fa-check"></i><b>9.3.2</b> Copulas and Multi-variate Generation Methods</a></li>
-<li class="chapter" data-level="9.3.3" data-path="ch9GMVRVs.html"><a href="ch9GMVRVs.html#autocorrelated-generation"><i class="fa fa-check"></i><b>9.3.3</b> Autocorrelated Generation</a></li>
-<li class="chapter" data-level="9.3.4" data-path="ch9GMVRVs.html"><a href="ch9GMVRVs.html#ch9MCMC"><i class="fa fa-check"></i><b>9.3.4</b> Introduction to Markov Chain Monte Carlo Methods</a></li>
-</ul></li>
-<li class="chapter" data-level="9.4" data-path="summary-4.html"><a href="summary-4.html"><i class="fa fa-check"></i><b>9.4</b> Summary</a></li>
-<li class="chapter" data-level="9.5" data-path="exercises-8.html"><a href="exercises-8.html"><i class="fa fa-check"></i><b>9.5</b> Exercises</a></li>
-</ul></li>
-<li class="chapter" data-level="10" data-path="ch10eo.html"><a href="ch10eo.html"><i class="fa fa-check"></i><b>10</b> Experimental Design and Simulation Optimization Methods</a>
-<ul>
-<li class="chapter" data-level="10.1" data-path="ch10doe.html"><a href="ch10doe.html"><i class="fa fa-check"></i><b>10.1</b> Experimental Design Methods</a>
-<ul>
-<li class="chapter" data-level="10.1.1" data-path="ch10doe.html"><a href="ch10doe.html#ch10factors"><i class="fa fa-check"></i><b>10.1.1</b> Defining Factors</a></li>
-<li class="chapter" data-level="10.1.2" data-path="ch10doe.html"><a href="ch10doe.html#ch10designs"><i class="fa fa-check"></i><b>10.1.2</b> Defining Experimental Designs</a></li>
-<li class="chapter" data-level="10.1.3" data-path="ch10doe.html"><a href="ch10doe.html#ch10exp"><i class="fa fa-check"></i><b>10.1.3</b> Executing a Designed Experiment</a></li>
-<li class="chapter" data-level="10.1.4" data-path="ch10doe.html"><a href="ch10doe.html#ch10analysis"><i class="fa fa-check"></i><b>10.1.4</b> Analyzing a Designed Experiment</a></li>
-</ul></li>
-<li class="chapter" data-level="10.2" data-path="ch10simOpt.html"><a href="ch10simOpt.html"><i class="fa fa-check"></i><b>10.2</b> Simulation Optimization Methods</a></li>
-<li class="chapter" data-level="10.3" data-path="ch10ProbDefn.html"><a href="ch10ProbDefn.html"><i class="fa fa-check"></i><b>10.3</b> Defining Simulation Optimization Problems</a>
-<ul>
-<li class="chapter" data-level="10.3.1" data-path="ch10ProbDefn.html"><a href="ch10ProbDefn.html#specifying-penalty-functions"><i class="fa fa-check"></i><b>10.3.1</b> Specifying Penalty Functions</a></li>
-<li class="chapter" data-level="10.3.2" data-path="ch10ProbDefn.html"><a href="ch10ProbDefn.html#inputvariables"><i class="fa fa-check"></i><b>10.3.2</b> Defining Input Variables</a></li>
-<li class="chapter" data-level="10.3.3" data-path="ch10ProbDefn.html"><a href="ch10ProbDefn.html#linear-and-functional-constraints"><i class="fa fa-check"></i><b>10.3.3</b> Linear and Functional Constraints</a></li>
-<li class="chapter" data-level="10.3.4" data-path="ch10ProbDefn.html"><a href="ch10ProbDefn.html#response-constraints"><i class="fa fa-check"></i><b>10.3.4</b> Response Constraints</a></li>
-<li class="chapter" data-level="10.3.5" data-path="ch10ProbDefn.html"><a href="ch10ProbDefn.html#ch10ProbDefnExample"><i class="fa fa-check"></i><b>10.3.5</b> Setting Up a Problem Definition</a></li>
-</ul></li>
-<li class="chapter" data-level="10.4" data-path="representing-the-simulation-oracle.html"><a href="representing-the-simulation-oracle.html"><i class="fa fa-check"></i><b>10.4</b> Representing the Simulation Oracle</a>
-<ul>
-<li class="chapter" data-level="10.4.1" data-path="representing-the-simulation-oracle.html"><a href="representing-the-simulation-oracle.html#requesting-simulation-evaluations"><i class="fa fa-check"></i><b>10.4.1</b> Requesting Simulation Evaluations</a></li>
-<li class="chapter" data-level="10.4.2" data-path="representing-the-simulation-oracle.html"><a href="representing-the-simulation-oracle.html#representing-model-inputs"><i class="fa fa-check"></i><b>10.4.2</b> Representing Model Inputs</a></li>
-<li class="chapter" data-level="10.4.3" data-path="representing-the-simulation-oracle.html"><a href="representing-the-simulation-oracle.html#representing-model-outputs"><i class="fa fa-check"></i><b>10.4.3</b> Representing Model Outputs</a></li>
-</ul></li>
-<li class="chapter" data-level="10.5" data-path="characterizing-simulation-optimization-algorithms.html"><a href="characterizing-simulation-optimization-algorithms.html"><i class="fa fa-check"></i><b>10.5</b> Characterizing Simulation Optimization Algorithms</a>
-<ul>
-<li class="chapter" data-level="10.5.1" data-path="characterizing-simulation-optimization-algorithms.html"><a href="characterizing-simulation-optimization-algorithms.html#structure-of-the-iterative-process"><i class="fa fa-check"></i><b>10.5.1</b> Structure of the Iterative Process</a></li>
-<li class="chapter" data-level="10.5.2" data-path="characterizing-simulation-optimization-algorithms.html"><a href="characterizing-simulation-optimization-algorithms.html#solver-plug-in-behavior"><i class="fa fa-check"></i><b>10.5.2</b> Solver Plug-in Behavior</a></li>
-<li class="chapter" data-level="10.5.3" data-path="characterizing-simulation-optimization-algorithms.html"><a href="characterizing-simulation-optimization-algorithms.html#miscellaneous-concepts-in-the-solver-class"><i class="fa fa-check"></i><b>10.5.3</b> Miscellaneous Concepts in the <code>Solver</code> Class</a></li>
-</ul></li>
-<li class="chapter" data-level="10.6" data-path="implemented-solvers.html"><a href="implemented-solvers.html"><i class="fa fa-check"></i><b>10.6</b> Implemented Solvers</a>
-<ul>
-<li class="chapter" data-level="10.6.1" data-path="implemented-solvers.html"><a href="implemented-solvers.html#simulated-annealing"><i class="fa fa-check"></i><b>10.6.1</b> Simulated Annealing</a></li>
-<li class="chapter" data-level="10.6.2" data-path="implemented-solvers.html"><a href="implemented-solvers.html#cross-entropy"><i class="fa fa-check"></i><b>10.6.2</b> Cross Entropy</a></li>
-<li class="chapter" data-level="10.6.3" data-path="implemented-solvers.html"><a href="implemented-solvers.html#r-spline"><i class="fa fa-check"></i><b>10.6.3</b> R-SPLINE</a></li>
-<li class="chapter" data-level="10.6.4" data-path="implemented-solvers.html"><a href="implemented-solvers.html#randomized-restart-solvers"><i class="fa fa-check"></i><b>10.6.4</b> Randomized Restart Solvers</a></li>
-</ul></li>
-<li class="chapter" data-level="10.7" data-path="secApplySolver.html"><a href="secApplySolver.html"><i class="fa fa-check"></i><b>10.7</b> Using a Solver on a Problem</a>
-<ul>
-<li class="chapter" data-level="10.7.1" data-path="secApplySolver.html"><a href="secApplySolver.html#applyCE"><i class="fa fa-check"></i><b>10.7.1</b> Illustrating the Cross-Entropy Solver</a></li>
-<li class="chapter" data-level="10.7.2" data-path="secApplySolver.html"><a href="secApplySolver.html#illustrating-simulated-annealing-with-random-restarts"><i class="fa fa-check"></i><b>10.7.2</b> Illustrating Simulated Annealing with Random Restarts</a></li>
-</ul></li>
-<li class="chapter" data-level="10.8" data-path="summary-5.html"><a href="summary-5.html"><i class="fa fa-check"></i><b>10.8</b> Summary</a></li>
-<li class="chapter" data-level="10.9" data-path="exercises-9.html"><a href="exercises-9.html"><i class="fa fa-check"></i><b>10.9</b> Exercises</a></li>
-</ul></li>
-<li class="appendix"><span><b>Appendix</b></span></li>
-<li class="chapter" data-level="A" data-path="appRNRV.html"><a href="appRNRV.html"><i class="fa fa-check"></i><b>A</b> Generating Pseudo-Random Numbers and Random Variates</a>
-<ul>
-<li class="chapter" data-level="A.1" data-path="appRNRVPRN.html"><a href="appRNRVPRN.html"><i class="fa fa-check"></i><b>A.1</b> Pseudo Random Numbers</a>
-<ul>
-<li class="chapter" data-level="A.1.1" data-path="appRNRVPRN.html"><a href="appRNRVPRN.html#appRNRVRNGs"><i class="fa fa-check"></i><b>A.1.1</b> Random Number Generators</a></li>
-</ul></li>
-<li class="chapter" data-level="A.2" data-path="appRNRVs.html"><a href="appRNRVs.html"><i class="fa fa-check"></i><b>A.2</b> Generating Random Variates from Distributions</a>
-<ul>
-<li class="chapter" data-level="A.2.1" data-path="appRNRVs.html"><a href="appRNRVs.html#inverse-transform-method"><i class="fa fa-check"></i><b>A.2.1</b> Inverse Transform Method</a></li>
-<li class="chapter" data-level="A.2.2" data-path="appRNRVs.html"><a href="appRNRVs.html#convolution"><i class="fa fa-check"></i><b>A.2.2</b> Convolution</a></li>
-<li class="chapter" data-level="A.2.3" data-path="appRNRVs.html"><a href="appRNRVs.html#acceptancerejection"><i class="fa fa-check"></i><b>A.2.3</b> Acceptance/Rejection</a></li>
-<li class="chapter" data-level="A.2.4" data-path="appRNRVs.html"><a href="appRNRVs.html#AppRNRVsubsecMTSRV"><i class="fa fa-check"></i><b>A.2.4</b> Mixture Distributions, Truncated Distributions, and Shifted Random Variables</a></li>
-</ul></li>
-<li class="chapter" data-level="A.3" data-path="summary-6.html"><a href="summary-6.html"><i class="fa fa-check"></i><b>A.3</b> Summary</a></li>
-<li class="chapter" data-level="A.4" data-path="exercises-10.html"><a href="exercises-10.html"><i class="fa fa-check"></i><b>A.4</b> Exercises</a></li>
-</ul></li>
-<li class="chapter" data-level="B" data-path="appidm.html"><a href="appidm.html"><i class="fa fa-check"></i><b>B</b> Probability Distribution Modeling</a>
-<ul>
-<li class="chapter" data-level="B.1" data-path="appidmsecrvPD.html"><a href="appidmsecrvPD.html"><i class="fa fa-check"></i><b>B.1</b> Random Variables and Probability Distributions</a></li>
-<li class="chapter" data-level="B.2" data-path="appidmsecMDD.html"><a href="appidmsecMDD.html"><i class="fa fa-check"></i><b>B.2</b> Modeling with Discrete Distributions</a></li>
-<li class="chapter" data-level="B.3" data-path="appidmsecfitDiscrete.html"><a href="appidmsecfitDiscrete.html"><i class="fa fa-check"></i><b>B.3</b> Fitting Discrete Distributions</a>
-<ul>
-<li class="chapter" data-level="B.3.1" data-path="appidmsecfitDiscrete.html"><a href="appidmsecfitDiscrete.html#AppDisFitPoissonFit"><i class="fa fa-check"></i><b>B.3.1</b> Fitting a Poisson Distribution</a></li>
-<li class="chapter" data-level="B.3.2" data-path="appidmsecfitDiscrete.html"><a href="appidmsecfitDiscrete.html#visualizing-the-data"><i class="fa fa-check"></i><b>B.3.2</b> Visualizing the Data</a></li>
-<li class="chapter" data-level="B.3.3" data-path="appidmsecfitDiscrete.html"><a href="appidmsecfitDiscrete.html#estimating-the-rate-parameter-for-the-poisson-distribution"><i class="fa fa-check"></i><b>B.3.3</b> Estimating the Rate Parameter for the Poisson Distribution</a></li>
-<li class="chapter" data-level="B.3.4" data-path="appidmsecfitDiscrete.html"><a href="appidmsecfitDiscrete.html#chi-squared-goodness-of-fit-test-for-poisson-distribution"><i class="fa fa-check"></i><b>B.3.4</b> Chi-Squared Goodness of Fit Test for Poisson Distribution</a></li>
-<li class="chapter" data-level="B.3.5" data-path="appidmsecfitDiscrete.html"><a href="appidmsecfitDiscrete.html#subsubchisqGOF"><i class="fa fa-check"></i><b>B.3.5</b> Chi-Squared Goodness of Fit Test</a></li>
-<li class="chapter" data-level="B.3.6" data-path="appidmsecfitDiscrete.html"><a href="appidmsecfitDiscrete.html#using-the-fitdistrplus-r-package-on-discrete-data"><i class="fa fa-check"></i><b>B.3.6</b> Using the fitdistrplus R Package on Discrete Data</a></li>
-<li class="chapter" data-level="B.3.7" data-path="appidmsecfitDiscrete.html"><a href="appidmsecfitDiscrete.html#fitting-a-discrete-empirical-distribution"><i class="fa fa-check"></i><b>B.3.7</b> Fitting a Discrete Empirical Distribution</a></li>
-</ul></li>
-<li class="chapter" data-level="B.4" data-path="appidmsecMCD.html"><a href="appidmsecMCD.html"><i class="fa fa-check"></i><b>B.4</b> Modeling with Continuous Distributions</a></li>
-<li class="chapter" data-level="B.5" data-path="appidmsecfitContinuous.html"><a href="appidmsecfitContinuous.html"><i class="fa fa-check"></i><b>B.5</b> Fitting Continuous Distributions</a>
-<ul>
-<li class="chapter" data-level="B.5.1" data-path="appidmsecfitContinuous.html"><a href="appidmsecfitContinuous.html#appidmsubsecvisualizedata"><i class="fa fa-check"></i><b>B.5.1</b> Visualizing the Data</a></li>
-<li class="chapter" data-level="B.5.2" data-path="appidmsecfitContinuous.html"><a href="appidmsecfitContinuous.html#appidmsubsecstatsdata"><i class="fa fa-check"></i><b>B.5.2</b> Statistically Summarize the Data</a></li>
-<li class="chapter" data-level="B.5.3" data-path="appidmsecfitContinuous.html"><a href="appidmsecfitContinuous.html#appidmsubsechypothDist"><i class="fa fa-check"></i><b>B.5.3</b> Hypothesizing and Testing a Distribution</a></li>
-<li class="chapter" data-level="B.5.4" data-path="appidmsecfitContinuous.html"><a href="appidmsecfitContinuous.html#kolmogorov-smirnov-test"><i class="fa fa-check"></i><b>B.5.4</b> Kolmogorov-Smirnov Test</a></li>
-<li class="chapter" data-level="B.5.5" data-path="appidmsecfitContinuous.html"><a href="appidmsecfitContinuous.html#appidmsubsecvisFit"><i class="fa fa-check"></i><b>B.5.5</b> Visualizing the Fit</a></li>
-<li class="chapter" data-level="B.5.6" data-path="appidmsecfitContinuous.html"><a href="appidmsecfitContinuous.html#appidms2sb3"><i class="fa fa-check"></i><b>B.5.6</b> Using the Input Analyzer</a></li>
-</ul></li>
-<li class="chapter" data-level="B.6" data-path="appdistfittestU01.html"><a href="appdistfittestU01.html"><i class="fa fa-check"></i><b>B.6</b> Testing Uniform (0,1) Pseudo-Random Numbers</a>
-<ul>
-<li class="chapter" data-level="B.6.1" data-path="appdistfittestU01.html"><a href="appdistfittestU01.html#chi-squared-goodness-of-fit-tests-for-pseudo-random-numbers"><i class="fa fa-check"></i><b>B.6.1</b> Chi-Squared Goodness of Fit Tests for Pseudo-Random Numbers</a></li>
-<li class="chapter" data-level="B.6.2" data-path="appdistfittestU01.html"><a href="appdistfittestU01.html#higher-dimensional-chi-squared-test"><i class="fa fa-check"></i><b>B.6.2</b> Higher Dimensional Chi-Squared Test</a></li>
-<li class="chapter" data-level="B.6.3" data-path="appdistfittestU01.html"><a href="appdistfittestU01.html#kolmogorov-smirnov-test-for-pseudo-random-numbers"><i class="fa fa-check"></i><b>B.6.3</b> Kolmogorov-Smirnov Test for Pseudo-Random Numbers</a></li>
-<li class="chapter" data-level="B.6.4" data-path="appdistfittestU01.html"><a href="appdistfittestU01.html#testing-for-independence-and-patterns-in-pseudo-random-numbers"><i class="fa fa-check"></i><b>B.6.4</b> Testing for Independence and Patterns in Pseudo-Random Numbers</a></li>
-</ul></li>
-<li class="chapter" data-level="B.7" data-path="appdistfitidms2sb4.html"><a href="appdistfitidms2sb4.html"><i class="fa fa-check"></i><b>B.7</b> Additional Distribution Modeling Concepts</a></li>
-<li class="chapter" data-level="B.8" data-path="appidmSummary.html"><a href="appidmSummary.html"><i class="fa fa-check"></i><b>B.8</b> Summary</a></li>
-<li class="chapter" data-level="B.9" data-path="exercises-11.html"><a href="exercises-11.html"><i class="fa fa-check"></i><b>B.9</b> Exercises</a></li>
-</ul></li>
-<li class="chapter" data-level="C" data-path="appqtAndInvT.html"><a href="appqtAndInvT.html"><i class="fa fa-check"></i><b>C</b> Queueing Theory</a>
-<ul>
-<li class="chapter" data-level="C.1" data-path="appqts1.html"><a href="appqts1.html"><i class="fa fa-check"></i><b>C.1</b> Single Line Queueing Stations</a>
-<ul>
-<li class="chapter" data-level="C.1.1" data-path="appqts1.html"><a href="appqts1.html#queueing-notation"><i class="fa fa-check"></i><b>C.1.1</b> Queueing Notation</a></li>
-<li class="chapter" data-level="C.1.2" data-path="appqts1.html"><a href="appqts1.html#littles-formula"><i class="fa fa-check"></i><b>C.1.2</b> Little’s Formula</a></li>
-<li class="chapter" data-level="C.1.3" data-path="appqts1.html"><a href="appqts1.html#appqts1sb1"><i class="fa fa-check"></i><b>C.1.3</b> Deriving Formulas for Markovian Single Queue Systems</a></li>
-</ul></li>
-<li class="chapter" data-level="C.2" data-path="appqts1sb2.html"><a href="appqts1sb2.html"><i class="fa fa-check"></i><b>C.2</b> Examples and Applications of Queueing Analysis</a>
-<ul>
-<li class="chapter" data-level="C.2.1" data-path="appqts1sb2.html"><a href="appqts1sb2.html#infinite-queue-examples"><i class="fa fa-check"></i><b>C.2.1</b> Infinite Queue Examples</a></li>
-<li class="chapter" data-level="C.2.2" data-path="appqts1sb2.html"><a href="appqts1sb2.html#finite-queue-examples"><i class="fa fa-check"></i><b>C.2.2</b> Finite Queue Examples</a></li>
-</ul></li>
-<li class="chapter" data-level="C.3" data-path="appqts1sb3.html"><a href="appqts1sb3.html"><i class="fa fa-check"></i><b>C.3</b> Non-Markovian Queues and Approximations</a></li>
-<li class="chapter" data-level="C.4" data-path="appqtsecformulas.html"><a href="appqtsecformulas.html"><i class="fa fa-check"></i><b>C.4</b> Summary of Queueing Formulas</a>
-<ul>
-<li class="chapter" data-level="C.4.1" data-path="appqtsecformulas.html"><a href="appqtsecformulas.html#mm1-queue"><i class="fa fa-check"></i><b>C.4.1</b> M/M/1 Queue</a></li>
-<li class="chapter" data-level="C.4.2" data-path="appqtsecformulas.html"><a href="appqtsecformulas.html#mmc-queue"><i class="fa fa-check"></i><b>C.4.2</b> M/M/c Queue</a></li>
-<li class="chapter" data-level="C.4.3" data-path="appqtsecformulas.html"><a href="appqtsecformulas.html#mmck-queue"><i class="fa fa-check"></i><b>C.4.3</b> M/M/c/k Queue</a></li>
-<li class="chapter" data-level="C.4.4" data-path="appqtsecformulas.html"><a href="appqtsecformulas.html#mgcc-queue"><i class="fa fa-check"></i><b>C.4.4</b> M/G/c/c Queue</a></li>
-<li class="chapter" data-level="C.4.5" data-path="appqtsecformulas.html"><a href="appqtsecformulas.html#mm1k-queue"><i class="fa fa-check"></i><b>C.4.5</b> M/M/1/k Queue</a></li>
-<li class="chapter" data-level="C.4.6" data-path="appqtsecformulas.html"><a href="appqtsecformulas.html#mmck-queue-1"><i class="fa fa-check"></i><b>C.4.6</b> M/M/c/k Queue</a></li>
-<li class="chapter" data-level="C.4.7" data-path="appqtsecformulas.html"><a href="appqtsecformulas.html#mm1kk-queue"><i class="fa fa-check"></i><b>C.4.7</b> M/M/1/k/k Queue</a></li>
-<li class="chapter" data-level="C.4.8" data-path="appqtsecformulas.html"><a href="appqtsecformulas.html#mmckk-queue"><i class="fa fa-check"></i><b>C.4.8</b> M/M/c/k/k Queue</a></li>
-</ul></li>
-<li class="chapter" data-level="C.5" data-path="exercises-12.html"><a href="exercises-12.html"><i class="fa fa-check"></i><b>C.5</b> Exercises</a></li>
-</ul></li>
-<li class="chapter" data-level="D" data-path="appUtilities.html"><a href="appUtilities.html"><i class="fa fa-check"></i><b>D</b> KSL Utility Packages</a>
-<ul>
-<li class="chapter" data-level="D.1" data-path="the-outputdirectory-class-and-ksl-object.html"><a href="the-outputdirectory-class-and-ksl-object.html"><i class="fa fa-check"></i><b>D.1</b> The <code>OutputDirectory</code> Class and <code>KSL</code> Object</a></li>
-<li class="chapter" data-level="D.2" data-path="logging-options.html"><a href="logging-options.html"><i class="fa fa-check"></i><b>D.2</b> Logging Options</a></li>
-<li class="chapter" data-level="D.3" data-path="the-kslfileutil-object.html"><a href="the-kslfileutil-object.html"><i class="fa fa-check"></i><b>D.3</b> The <code>KSLFileUtil</code> Object</a></li>
-<li class="chapter" data-level="D.4" data-path="appDCSVEtc.html"><a href="appDCSVEtc.html"><i class="fa fa-check"></i><b>D.4</b> CSV, Excel, and Tabular Data Files</a></li>
-<li class="chapter" data-level="D.5" data-path="dfUtil.html"><a href="dfUtil.html"><i class="fa fa-check"></i><b>D.5</b> The <code>DataFrameUtil</code> Object</a></li>
-<li class="chapter" data-level="D.6" data-path="ksl-database-utilities.html"><a href="ksl-database-utilities.html"><i class="fa fa-check"></i><b>D.6</b> KSL Database Utilities</a></li>
-<li class="chapter" data-level="D.7" data-path="appUtilitiesArrays.html"><a href="appUtilitiesArrays.html"><i class="fa fa-check"></i><b>D.7</b> Array Utilities</a></li>
-<li class="chapter" data-level="D.8" data-path="appPlotting.html"><a href="appPlotting.html"><i class="fa fa-check"></i><b>D.8</b> KSL Plotting Utilities</a></li>
-<li class="chapter" data-level="D.9" data-path="appUtilitiesMisc.html"><a href="appUtilitiesMisc.html"><i class="fa fa-check"></i><b>D.9</b> Miscellaneous Utilities</a></li>
-</ul></li>
-<li class="chapter" data-level="E" data-path="distributions.html"><a href="distributions.html"><i class="fa fa-check"></i><b>E</b> Distributions</a>
-<ul>
-<li class="chapter" data-level="E.1" data-path="appDiscreteDistributions.html"><a href="appDiscreteDistributions.html"><i class="fa fa-check"></i><b>E.1</b> Discrete Distrbutions</a></li>
-<li class="chapter" data-level="E.2" data-path="appContinuousDistributions.html"><a href="appContinuousDistributions.html"><i class="fa fa-check"></i><b>E.2</b> Continuous Distrbutions</a></li>
-</ul></li>
-<li class="chapter" data-level="F" data-path="appStatTables.html"><a href="appStatTables.html"><i class="fa fa-check"></i><b>F</b> Statistical Tables</a></li>
-<li class="chapter" data-level="G" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i><b>G</b> References</a></li>
-<li class="divider"></li>
-<li><a href="https://bookdown.org" target="_blank">Published with bookdown</a></li>
-
-</ul>
-
-      </nav>
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./12-AppRNRV.html">Appendices</a></li><li class="breadcrumb-item"><a href="./references.html">References</a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+      <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
     </div>
-
-    <div class="book-body">
-      <div class="body-inner">
-        <div class="book-header" role="navigation">
-          <h1>
-            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Simulation Modeling using the Kotlin Simulation Library (KSL)</a>
-          </h1>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header">
+    <div class="sidebar-title mb-0 py-0">
+      <a href="./">Simulation Modeling using the Kotlin Simulation Library (KSL)</a> 
+        <div class="sidebar-tools-main">
+    <div class="dropdown">
+      <a href="" title="Download" id="quarto-navigation-tool-dropdown-0" class="quarto-navigation-tool dropdown-toggle px-1" data-bs-toggle="dropdown" aria-expanded="false" role="link" aria-label="Download"><i class="bi bi-download"></i></a>
+      <ul class="dropdown-menu" aria-labelledby="quarto-navigation-tool-dropdown-0">
+          <li>
+            <a class="dropdown-item sidebar-tools-main-item" href="./ksl-book.pdf">
+              <i class="bi bi-file-pdf pe-1"></i>
+            Download PDF
+            </a>
+          </li>
+          <li>
+            <a class="dropdown-item sidebar-tools-main-item" href="./ksl-book.epub">
+              <i class="bi bi-journal pe-1"></i>
+            Download ePub
+            </a>
+          </li>
+      </ul>
+    </div>
+  <a href="" class="quarto-color-scheme-toggle quarto-navigation-tool  px-1" onclick="window.quartoToggleColorScheme(); return false;" title="Toggle dark mode"><i class="bi"></i></a>
+</div>
+    </div>
+      </div>
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
         </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Preface</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./00-author.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">About the Author</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./01-Chapter1.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Simulation Modeling</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./02-Chapter2.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Modeling Randomness</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./03-Chapter3.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Monte Carlo Methods</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./04-Chapter4.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Introduction to Discrete Event Modeling</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./05-Chapter5.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Analyzing and Accessing Simulation Output</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./06-Chapter6.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Process View Modeling Using the KSL</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./07-Chapter7.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Advanced Event and Process View Modeling</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./08-Chapter8.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Modeling Entity Movement</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./09-Chapter9.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Advanced Monte Carlo Methods</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./10-Chapter10.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Simulating Many Scenarios and Performing Experiments</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./11-Chapter11.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Simulation Optimization Methods</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true">
+ <span class="menu-text">Appendices</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./12-AppRNRV.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">A</span>&nbsp; <span class="chapter-title">Generating Pseudo-Random Numbers and Random Variates</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./13-AppDistributionFitting.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">B</span>&nbsp; <span class="chapter-title">Probability Distribution Modeling</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./14-QueuingTheory.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">C</span>&nbsp; <span class="chapter-title">Queueing Theory</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./15-CommonDistributions.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">D</span>&nbsp; <span class="chapter-title">Distributions</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./16-Utilities.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">E</span>&nbsp; <span class="chapter-title">KSL Utility Packages</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./17-StatisticalTables.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">F</span>&nbsp; <span class="chapter-title">Statistical Tables</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./references.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text">References</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar zindex-bottom">
+        
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
 
-        <div class="page-wrapper" tabindex="-1" role="main">
-          <div class="page-inner">
 
-            <section class="normal" id="section-">
-<div id="references" class="section level1 hasAnchor" number="17">
-<h1><span class="header-section-number">G</span> References<a href="references.html#references" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./12-AppRNRV.html">Appendices</a></li><li class="breadcrumb-item"><a href="./references.html">References</a></li></ol></nav>
+<div class="quarto-title">
+<h1 class="title"><span id="sec-references" class="quarto-section-identifier">References</span></h1>
+</div>
 
-<div id="refs" class="references csl-bib-body hanging-indent">
-<div class="csl-entry">
-Ahrens, J., and V. Dieter. 1972. <span>“Computer Methods for Sampling from the Exponential and Normal Distributions.”</span> <em>Communications of the Association for Computing Machinery</em> 15: 873–82.
-</div>
-<div class="csl-entry">
-Akaike, H. 1974. <span>“A New Look at the Statistical Model Identification.”</span> <em>IEEE Transactions on Automatic Control</em> 19 (6): 716–23. <a href="https://doi.org/10.1109/TAC.1974.1100705">https://doi.org/10.1109/TAC.1974.1100705</a>.
-</div>
-<div class="csl-entry">
-Alexopoulos, C., and A. F. Seila. 1998. <span>“Output Data Analysis.”</span> In <em>Handbook of Simulation</em>, edited by J. Banks. John Wiley &amp; Sons, New York.
-</div>
-<div class="csl-entry">
-Askin, R. G., and J. B. Goldberg. 2002. <em>Design and Analysis of Lean Production Systems</em>. John Wiley &amp; Sons.
-</div>
-<div class="csl-entry">
-Axsäter, S. 2006. <em>Inventory Control</em>. Springer Science + Business Media.
-</div>
-<div class="csl-entry">
-Balci, O. 1997. <span>“Principles of Simulation Model Validation, Verification, and Testing.”</span> <em>Transactions of the Society for Computer Simulation International</em>.
-</div>
-<div class="csl-entry">
-Balci, O. 1998. <span>“Verification, Validation, and Testing.”</span> In <em>The Handbook of Simulation</em>. John Wiley &amp; Sons.
-</div>
-<div class="csl-entry">
-Ballou, R. H. 2004. <em>Business Logistics/Supply Chain Management: Planning, Organizing, and Controlling the Supply Chain</em>. 5th ed. Prentice-Hall.
-</div>
-<div class="csl-entry">
-Banks, J. 1998. <em>Handbook of Simulation: Principles, Methodology, Advances, Applications, and Practice</em>. Edited by J. Banks. John Wiley &amp; Sons.
-</div>
-<div class="csl-entry">
-Banks, J., J. Carson, B. Nelson, and D. Nicol. 2005. <em>Discrete-Event System Simulation</em>. 4th ed. Prentice Hall.
-</div>
-<div class="csl-entry">
-Ben-Ameur, Walid. 2004. <span>“Computing the <span>Initial</span> <span>Temperature</span> of <span>Simulated</span> <span>Annealing</span>.”</span> <em>Computational Optimization and Applications</em> 29 (3): 369–85. <a href="https://doi.org/10.1023/B:COAP.0000044187.23143.bd">https://doi.org/10.1023/B:COAP.0000044187.23143.bd</a>.
-</div>
-<div class="csl-entry">
-Biller, B., and B. L. Nelson. 2003. <span>“Modeling and Generating Multivarate Time- Series Input Processes Using a Vector Autogressive Technique.”</span> <em>Assoc. Comput. Mach. Trans. Modeling and Comput. Simul.</em> 13: 211–37.
-</div>
-<div class="csl-entry">
-Blanchard, B. S., and W. J Fabrycky. 1990. <em>Systems Engineering and Analysis</em>. Prentice- Hall.
-</div>
-<div class="csl-entry">
-Box, G. E. P., G. M. Jenkins, and G. C. Time Series Analysis Reinsel. 1994. <em>Forecasting and Control</em>. 3rd ed. Prentice Hall.
-</div>
-<div class="csl-entry">
-Box, G. E. P., and M. F. Muller. 1958. <span>“Note on the Generation of Random Normal Deviates.”</span> <em>Annals of Mathematical Statistics</em> 29: 610–11.
-</div>
-<div class="csl-entry">
-Brooks, Stephen. 1998. <span>“Markov Chain Monte Carlo Method and Its Application.”</span> <em>Journal of the Royal Statistical Society: Series D (The Statistician)</em> 47 (1): 69–100.
-</div>
-<div class="csl-entry">
-Cario, M. C., and B. L. Nelson. 1996. <span>“Autoregressive to Anything: Time Series Input Processes for Simulation.”</span> <em>Operations Research Letters</em> 19: 51–58.
-</div>
-<div class="csl-entry">
-Cario, M. C., and B. L. Nelson. 1998. <span>“Numerical Methods for Fitting and Simulating Autoregressive-to-Anything Processes.”</span> <em>INFORMS Journal of Computing</em> 10: 72–81.
-</div>
-<div class="csl-entry">
-Casella, G., and R. Berger. 1990. <em>Statistical Inference</em>. Wadsworth &amp; Brooks/Cole.
-</div>
-<div class="csl-entry">
-Cash, C. R., D. G. Dippold, J. M. Long, B. L. Nelson, and W. P. Pollard. 1992. <span>“Evaluation of Tests for Initial Conditions Bias.”</span> In <em>Proceedings of the 1992 Winter Simulation Conference</em>, edited by J. J. Swain, D. Goldsman, R. C. Crain, and J. R. Wilson.
-</div>
-<div class="csl-entry">
-Chen, E. Jack, and W. David Kelton. 1999. <span>“Simulation-Based Estimation of Quantiles.”</span> <em>Proceedings of the 31st Conference on <span>Winter</span> Simulation <span>Simulation</span>—a Bridge to the Future - <span>WSC</span> ’99</em> (Phoenix, Arizona, United States) 1: 428–34. <a href="https://doi.org/10.1145/324138.324272">https://doi.org/10.1145/324138.324272</a>.
-</div>
-<div class="csl-entry">
-Cheng, R. C. 1977. <span>“The Generation of Gamma Variables with Nonintegral Shape Parameters.”</span> <em>Applied Statistics</em> 26 (1): 71–75.
-</div>
-<div class="csl-entry">
-Chopra, S., and Meindl. 2007. <em>Supply Chain Management: Strategy, Planning, and Operations</em>. 3rd ed. Prentice-Hall.
-</div>
-<div class="csl-entry">
-Chung, C. A. 2004. <em>Simulation Modeling Handbook: A Practical Approach</em>. CRC Press.
-</div>
-<div class="csl-entry">
-Cody, W. J. 1969. <span>“Rational Chebyshev Approximations for the Error Function.”</span> <em>Mathematics of Computation</em> 23 (107): 631–37.
-</div>
-<div class="csl-entry">
-Command, Air Force Systems. 1991. <em>ASD Directorate of Systems Engineering and <span>DSMC</span> Technical Management Department</em>.
-</div>
-<div class="csl-entry">
-Cooper, R. B. 1990. <em>Introduction to Queueing Theory</em>. 3rd ed. CEEPress Books.
-</div>
-<div class="csl-entry">
-Davison AC, Hinkley DV. 1997. <em>Bootstrap Methods and Their Application</em>. Cambridge University Press.
-</div>
-<div class="csl-entry">
-De Boer, Pieter-Tjerk, Dirk P. Kroese, Shie Mannor, and Reuven Y. Rubinstein. 2005. <span>“A <span>Tutorial</span> on the <span>Cross</span>-<span>Entropy</span> <span>Method</span>.”</span> <em>Annals of Operations Research</em> 134 (1): 19–67. <a href="https://doi.org/10.1007/s10479-005-5724-z">https://doi.org/10.1007/s10479-005-5724-z</a>.
-</div>
-<div class="csl-entry">
-Devroye, L. 1986. <em>Non-Uniform Random Variate Generation</em>. Springer-Verlag.
-</div>
-<div class="csl-entry">
-Efron, B., and R. Tibshirani. 1986. <span>“Bootstrap Methods for Standard Errors, Confidence Intervals, and Other Measures of Statistical Accuracy.”</span> <em>Statistical Science</em> 1 (1): 54–75.
-</div>
-<div class="csl-entry">
-Efron, B., and R. Tibshirani. 1994. <em>An Introduction to the Bootstrap</em>. CRC Press.
-</div>
-<div class="csl-entry">
-Fishman, G. S. 2001. <em>Discrete-Event Simulation: Modeling, Programming, and Analysis</em>. Springer.
-</div>
-<div class="csl-entry">
-Fishman, G. S., and L. S. Yarberry. 1997. <span>“An Implementation of the Batch Means Method.”</span> <em>INFORMS Journal on Computing</em> 9.
-</div>
-<div class="csl-entry">
-Fishman, George. 2006. <em>A First Course in Monte Carlo</em>. Thomson Brooks/Cole.
-</div>
-<div class="csl-entry">
-Fox, J., and S. Weisberg. 2018. <em>An r Companion to Applied Regression</em>. SAGE Publications.
-</div>
-<div class="csl-entry">
-Gan, F., and K. J. Koehler. 1990. <span>“Goodness-of-Fit Tests Based on p-p Probability Plots.”</span> <em>Technometrics</em> 32 (3): 289–303.
-</div>
-<div class="csl-entry">
-Geyer, Charles. 2011. <em>Handbook of Markov Chain Monte Carlo</em>. Edited by Galin Jones Steve Brooks Andrew Gelman and Xiao-Li Meng. Vol. 20116022. CRC Handbooks of Modern Statistical Methods. Chapman &amp; Hall.
-</div>
-<div class="csl-entry">
-Glynn, P. W., and W. Whitt. 1989. <span>“Extensions of the Queueing Relation and <span class="math inline">\({L}=\lambda {W}\)</span> and <span class="math inline">\({H}=\lambda {G}\)</span>.”</span> <em>Operations Research</em> 37: 634–44.
-</div>
-<div class="csl-entry">
-Goldsman, D., and B. L. Nelson. 1998. <span>“Comparing Systems via Simulation.”</span> In <em>Handbook of Simulation</em>, edited by J. Banks. John Wiley &amp; Sons.
-</div>
-<div class="csl-entry">
-Gross, D., and C. M. Harris. 1998. <em>Fundamentals of Queueing Theory</em>. 3rd ed. John Wiley &amp; Sons.
-</div>
-<div class="csl-entry">
-Gross, D., J. F. Shortle, J. M. Thompson, and C. M. Harris. 2008. <em>Fundamentals of Queueing Theory</em>. John Wiley &amp; Sons.
-</div>
-<div class="csl-entry">
-Hadley, G., and T. M. Whitin. 1963. <em>Analysis of Inventory Systems</em>. Prentice Hall.
-</div>
-<div class="csl-entry">
-Henderson, Shane G. 2021. <span>“Reflections <span>On</span> <span>Simulation</span> <span>Optimization</span>.”</span> <em>2021 <span>Winter</span> <span>Simulation</span> <span>Conference</span> (<span>WSC</span>)</em> (Phoenix, AZ, USA), December, 1–15. <a href="https://doi.org/10.1109/WSC52266.2021.9715361">https://doi.org/10.1109/WSC52266.2021.9715361</a>.
-</div>
-<div class="csl-entry">
-Henriksen, J., and T. Schriber. 1986. <span>“Simplified Approaches to Modeling Accumulating and Non-Accumulating Conveyor Systems.”</span> In <em>Proceedings of the 1986 Winter Simulation Conference</em>. Institute of Electrical; Electronic Engineers.
-</div>
-<div class="csl-entry">
-Hull, T. E., and A. R. Dobell. 1962. <span>“Random Number Generators.”</span> <em>SIAM Review</em> 4: 230–54.
-</div>
-<div class="csl-entry">
-Jian, Nanjing, and Shane G. Henderson. 2015. <span>“An Introduction to Simulation Optimization.”</span> <em>Proceedings of the 2015 Winter Simulation Conference</em> (Huntington Beach, California), WSC ’15, 1780–94.
-</div>
-<div class="csl-entry">
-Kelton, W. D., R. P. Sadowski, and D. T. Sturrock. 2004. <em>Simulation with Arena</em>. 3rd ed. McGraw-Hill.
-</div>
-<div class="csl-entry">
-Kendall, D. G. 1953. <span>“Stochastic Processes Occurring in the Theory of Queues and Their Analysis by the Method of Imbedded Markov Chains.”</span> <em>Annals of Mathematical Statistics</em> 24: 338–54.
-</div>
-<div class="csl-entry">
-Kingman, J. F. C. 1964. <em>The Heavy Traffic Approximation in the Theory of Queues</em>. Proceedings of the Symposium On Congestion Theory.
-</div>
-<div class="csl-entry">
-Kirkpatrick, S, C D Gelatt, and M P Vecchi. 1983. <span>“Optimization by <span>Simulated</span> <span>Annealing</span>.”</span> <em>Science</em> 220 (4598): 671–80. <a href="https://doi.org/10.1126/science.220.4598.6">https://doi.org/10.1126/science.220.4598.6</a>.
-</div>
-<div class="csl-entry">
-Kleinrock, L. 1975. <em>Queueing Systems</em>. Vol. 1. John Wiley &amp; Sons.
-</div>
-<div class="csl-entry">
-L’Ecuyer, P., R. Simard, and W. D. Kelton. 2002. <span>“An Object-Oriented Random Number Package with Many Long Streams and Substreams.”</span> <em>Operations Research</em> 50: 1073–75.
-</div>
-<div class="csl-entry">
-Lada, E. K., J. R. Wilson, and N. M. Steiger. 2003. <em>A Wavelet-Based Spectral Method for Steady-State Simulation Analysis</em>. Proceedings of the 2003 Winter Simulation Conference.
-</div>
-<div class="csl-entry">
-Law, A. 2007. <em>Simulation Modeling and Analysis</em>. 4th ed. McGraw-Hill.
-</div>
-<div class="csl-entry">
-Leemis, L. 1991. <span>“Nonparametric Estimation of the Cumulative Intensity Function for a Nonhomogeneous Poisson Process.”</span> <em>Management Science</em> 37 (7): 886–900.
-</div>
-<div class="csl-entry">
-Leemis, L. M., and S. K. Park. 2006. <em>Discrete-Event Simulation: A First Course</em>. Prentice-Hall.
-</div>
-<div class="csl-entry">
-Levina, E., and P. Bickel. 2001. <span>“The Earth Mover’s Distance Is the Mallows Distance: Some Insights from Statistics.”</span> <em>Proceedings Eighth IEEE International Conference on Computer Vision. ICCV 2001</em> 2: 251–256 vol.2. <a href="https://doi.org/10.1109/ICCV.2001.937632">https://doi.org/10.1109/ICCV.2001.937632</a>.
-</div>
-<div class="csl-entry">
-Little, J. D. C. 1961. <span>“A Proof for the Queuing Formula <span class="math inline">\({L}=\lambda {W}\)</span>.”</span> <em>Operations Research</em> 9: 383–87.
-</div>
-<div class="csl-entry">
-Litton, J. R., and C. H. Harmonosky. 2002. <em>A Comparison of Selective Initialization Bias Elimination Methods</em>. Proceeding of the 2002 Winter Simulation Conference.
-</div>
-<div class="csl-entry">
-Livny, M., B. Melamed, and A. K. Tsiolis. 1993. <span>“The Impact of Autocorrelation on Queueing Systems.”</span> <em>Management Science</em> 39 (3): 322–39.
-</div>
-<div class="csl-entry">
-Matejcik, F. J., and B. L. Nelson. 1995. <span>“Two-Stage Multiple Comparisons with the Best for Computer Simulation.”</span> <em>Operations Research</em> 43 (4): 633–40.
-</div>
-<div class="csl-entry">
-Miller, L. H. 1956. <span>“Table of Percentage Points of Kolmogorov Statistics.”</span> <em>Journal of the American Statistical Association</em>, 111–21.
-</div>
-<div class="csl-entry">
-Montgomery, D. C., and G. C. Runger. 2006. <em>Applied Statistics and Probability for Engineers</em>. 4th ed. John Wiley &amp; Sons.
-</div>
-<div class="csl-entry">
-Muckstadt, J. A., and A. Sapras. 2010. <em>Principles of Inventory Management: When You Are down to Four, Order More</em>. Springer.
-</div>
-<div class="csl-entry">
-Nadarajah, Saralees, Emmanuel Afuecheta, and Stephen Chan. 2017. <span>“A Compendium of Copulas.”</span> <em>Statistica</em> 77 (4): 279–328. <a href="https://doi.org/10.6092/issn.1973-2201/7202">https://doi.org/10.6092/issn.1973-2201/7202</a>.
-</div>
-<div class="csl-entry">
-Nahmias, S. 2001. <em>Production and Operations Analysis</em>. 4th ed. McGraw-Hill.
-</div>
-<div class="csl-entry">
-Nelsen, Roger B. 2004. <span>“Properties and Applications of Copulas : A Brief Survey.”</span> <a href="https://api.semanticscholar.org/CorpusID:2508363">https://api.semanticscholar.org/CorpusID:2508363</a>.
-</div>
-<div class="csl-entry">
-Nelson, B. L. 1990. <span>“Control Variate Remedies.”</span> <em>Operations Research</em> 38 (6): 974–92.
-</div>
-<div class="csl-entry">
-Nelson, B. L. 1995. <em>Stochastic Modeling Analysis and Simulation</em>. McGraw-Hill.
-</div>
-<div class="csl-entry">
-Nelson, B. L., and L. Pei. 2021. <em>Foundations and Methods of Stochastic Simulation: A First Course</em>. Vol. 316. International Series in Operations Research &amp; Management Science. Springer International Publishing.
-</div>
-<div class="csl-entry">
-Nelson, B. L., J. Swan, D. Goldsman, and W. Song. 2001. <span>“Simple Procedures for Selecting the Best Simulated System When the Number of Alternatives Is Large.”</span> <em>Operations Research</em> 49 (6): 950–63.
-</div>
-<div class="csl-entry">
-Nelson, Barry L. 2014. <span>“Optimization via <span>Simulation</span> <span>Over</span> <span>Discrete</span> <span>Decision</span> <span>Variables</span>.”</span> <em>TutORials in Operations Research. Models, Methods, and Applications for Innovative Decision Making</em>, October, 193–207. <a href="https://doi.org/10.1287/educ.1100.0069">https://doi.org/10.1287/educ.1100.0069</a>.
-</div>
-<div class="csl-entry">
-Nelson, Roger B. 1999. <em>An Introduction to Copulas</em>. ISBN o-387-98623-5. Springer-Verlag.
-</div>
-<div class="csl-entry">
-Park, Chuljin, and Seong-Hee Kim. 2015. <span>“Penalty <span>Function</span> with <span>Memory</span> for <span>Discrete</span> <span>Optimization</span> via <span>Simulation</span> with <span>Stochastic</span> <span>Constraints</span>.”</span> <em>Operations Research</em> 63 (5): 1195–212. <a href="https://doi.org/10.1287/opre.2015.1417">https://doi.org/10.1287/opre.2015.1417</a>.
-</div>
-<div class="csl-entry">
-Pasupathy, Raghu, and Soumyadip Ghosh. 2013. <span>“Simulation <span>Optimization</span>: <span>A</span> <span>Concise</span> <span>Overview</span> and <span>Implementation</span> <span>Guide</span>.”</span> In <em>Theory <span>Driven</span> by <span>Influential</span> <span>Applications</span></em>, edited by Huseyin Topaloglu, J. Cole Smith, and Harvey J. Greenberg. INFORMS. <a href="https://doi.org/10.1287/educ.2013.0118">https://doi.org/10.1287/educ.2013.0118</a>.
-</div>
-<div class="csl-entry">
-Patuwo, B. E., R. L. Disney, and D. C. Mcnickle. 1993. <span>“The Effect of Correlated Arrivals on Queues.”</span> <em>IIE Transactions</em> 25 (3): 105–10.
-</div>
-<div class="csl-entry">
-Pegden, C. D., R. E. Shannon, and R. P. Sadowski. 1995. <em>Introduction to Simulation Using SIMAN</em>. 2nd ed. McGraw-Hill.
-</div>
-<div class="csl-entry">
-Pishro-Nik, H. 2014. <em>Introduction to Probability, Statistics, and Random Processes</em>. Kappa Research LLC.
-</div>
-<div class="csl-entry">
-Ravindran, A., D. Phillips, and J Solberg. 1987. <em>Operations Research Principles and Practice</em>. 2nd ed. John Wiley &amp; Sons.
-</div>
-<div class="csl-entry">
-Ripley, B. D. 1987. <em>Stochastic Simulation</em>. John Wiley &amp; Sons Inc.
-</div>
-<div class="csl-entry">
-Robert, Christian P., and Wu Changye. n.d. <span>“Markov Chain Monte Carlo Methods, a Survey with Some Frequent Misunderstandings.”</span> <a href="http://arxiv.org/abs/2001.06249">http://arxiv.org/abs/2001.06249</a>.
-</div>
-<div class="csl-entry">
-Robinson, S. 2005. <span>“Automated Analysis of Simulation Output Data.”</span> <em>Proceedings of the 2005 Winter Simulation Conference</em> (Piscataway, New Jersey) 763-770.
-</div>
-<div class="csl-entry">
-Ross, S. 1997. <em>Introduction to Probability Models</em>. 6th ed. Academic Press.
-</div>
-<div class="csl-entry">
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<div id="refs" class="references csl-bib-body hanging-indent" role="list">
+<div id="ref-ahrens1972computer" class="csl-entry" role="listitem">
+Ahrens, J., and V. Dieter. 1972. <span>“Computer Methods for Sampling
+from the Exponential and Normal Distributions.”</span>
+<em>Communications of the Association for Computing Machinery</em> 15:
+873–82.
+</div>
+<div id="ref-akaike74" class="csl-entry" role="listitem">
+Akaike, H. 1974. <span>“A New Look at the Statistical Model
+Identification.”</span> <em>IEEE Transactions on Automatic Control</em>
+19 (6): 716–23. <a href="https://doi.org/10.1109/TAC.1974.1100705">https://doi.org/10.1109/TAC.1974.1100705</a>.
+</div>
+<div id="ref-alexopoulos1998output" class="csl-entry" role="listitem">
+Alexopoulos, C., and A. F. Seila. 1998. <span>“Output Data
+Analysis.”</span> In <em>Handbook of Simulation</em>, edited by J.
+Banks. John Wiley &amp; Sons, New York.
+</div>
+<div id="ref-askin2002design" class="csl-entry" role="listitem">
+Askin, R. G., and J. B. Goldberg. 2002. <em>Design and Analysis of Lean
+Production Systems</em>. John Wiley &amp; Sons.
+</div>
+<div id="ref-2006inventory" class="csl-entry" role="listitem">
+Axsäter, S. 2006. <em>Inventory Control</em>. Springer Science +
+Business Media.
+</div>
+<div id="ref-balci1997principles" class="csl-entry" role="listitem">
+Balci, O. 1997. <span>“Principles of Simulation Model Validation,
+Verification, and Testing.”</span> <em>Transactions of the Society for
+Computer Simulation International</em>.
+</div>
+<div id="ref-balci1998verification" class="csl-entry" role="listitem">
+Balci, O. 1998. <span>“Verification, Validation, and Testing.”</span> In
+<em>The Handbook of Simulation</em>. John Wiley &amp; Sons.
+</div>
+<div id="ref-ballou2004business" class="csl-entry" role="listitem">
+Ballou, R. H. 2004. <em>Business Logistics/Supply Chain Management:
+Planning, Organizing, and Controlling the Supply Chain</em>. 5th ed.
+Prentice-Hall.
+</div>
+<div id="ref-Banks1998aa" class="csl-entry" role="listitem">
+Banks, J. 1998. <em>Handbook of Simulation: Principles, Methodology,
+Advances, Applications, and Practice</em>. Edited by J. Banks. John
+Wiley &amp; Sons.
+</div>
+<div id="ref-banks2005discreteevent" class="csl-entry" role="listitem">
+Banks, J., J. Carson, B. Nelson, and D. Nicol. 2005. <em>Discrete-Event
+System Simulation</em>. 4th ed. Prentice Hall.
+</div>
+<div id="ref-ben-ameur_computing_2004" class="csl-entry" role="listitem">
+Ben-Ameur, Walid. 2004. <span>“Computing the <span>Initial</span>
+<span>Temperature</span> of <span>Simulated</span>
+<span>Annealing</span>.”</span> <em>Computational Optimization and
+Applications</em> 29 (3): 369–85. <a href="https://doi.org/10.1023/B:COAP.0000044187.23143.bd">https://doi.org/10.1023/B:COAP.0000044187.23143.bd</a>.
+</div>
+<div id="ref-biller2003modeling" class="csl-entry" role="listitem">
+Biller, B., and B. L. Nelson. 2003. <span>“Modeling and Generating
+Multivarate Time- Series Input Processes Using a Vector Autogressive
+Technique.”</span> <em>Assoc. Comput. Mach. Trans. Modeling and Comput.
+Simul.</em> 13: 211–37.
+</div>
+<div id="ref-blanchard1990systems" class="csl-entry" role="listitem">
+Blanchard, B. S., and W. J Fabrycky. 1990. <em>Systems Engineering and
+Analysis</em>. Prentice- Hall.
+</div>
+<div id="ref-box1994forecasting" class="csl-entry" role="listitem">
+Box, G. E. P., G. M. Jenkins, and G. C. Time Series Analysis Reinsel.
+1994. <em>Forecasting and Control</em>. 3rd ed. Prentice Hall.
+</div>
+<div id="ref-box1958note" class="csl-entry" role="listitem">
+Box, G. E. P., and M. F. Muller. 1958. <span>“Note on the Generation of
+Random Normal Deviates.”</span> <em>Annals of Mathematical
+Statistics</em> 29: 610–11.
+</div>
+<div id="ref-brooks1998" class="csl-entry" role="listitem">
+Brooks, Stephen. 1998. <span>“Markov Chain Monte Carlo Method and Its
+Application.”</span> <em>Journal of the Royal Statistical Society:
+Series D (The Statistician)</em> 47 (1): 69–100.
+</div>
+<div id="ref-cario1996autoregressive" class="csl-entry" role="listitem">
+Cario, M. C., and B. L. Nelson. 1996. <span>“Autoregressive to Anything:
+Time Series Input Processes for Simulation.”</span> <em>Operations
+Research Letters</em> 19: 51–58.
+</div>
+<div id="ref-cario1998numerical" class="csl-entry" role="listitem">
+Cario, M. C., and B. L. Nelson. 1998. <span>“Numerical Methods for
+Fitting and Simulating Autoregressive-to-Anything Processes.”</span>
+<em>INFORMS Journal of Computing</em> 10: 72–81.
+</div>
+<div id="ref-casella1990statistical" class="csl-entry" role="listitem">
+Casella, G., and R. Berger. 1990. <em>Statistical Inference</em>.
+Wadsworth &amp; Brooks/Cole.
+</div>
+<div id="ref-cash1992" class="csl-entry" role="listitem">
+Cash, C. R., D. G. Dippold, J. M. Long, B. L. Nelson, and W. P. Pollard.
+1992. <span>“Evaluation of Tests for Initial Conditions Bias.”</span> In
+<em>Proceedings of the 1992 Winter Simulation Conference</em>, edited by
+J. J. Swain, D. Goldsman, R. C. Crain, and J. R. Wilson.
+</div>
+<div id="ref-chen_simulation-based_1999" class="csl-entry" role="listitem">
+Chen, E. Jack, and W. David Kelton. 1999. <span>“Simulation-Based
+Estimation of Quantiles.”</span> <em>Proceedings of the 31st Conference
+on <span>Winter</span> Simulation <span>Simulation</span>—a Bridge to
+the Future - <span>WSC</span> ’99</em> (Phoenix, Arizona, United States)
+1: 428–34. <a href="https://doi.org/10.1145/324138.324272">https://doi.org/10.1145/324138.324272</a>.
+</div>
+<div id="ref-cheng1977the" class="csl-entry" role="listitem">
+Cheng, R. C. 1977. <span>“The Generation of Gamma Variables with
+Nonintegral Shape Parameters.”</span> <em>Applied Statistics</em> 26
+(1): 71–75.
+</div>
+<div id="ref-chopra2007supply" class="csl-entry" role="listitem">
+Chopra, S., and Meindl. 2007. <em>Supply Chain Management: Strategy,
+Planning, and Operations</em>. 3rd ed. Prentice-Hall.
+</div>
+<div id="ref-chung2004simulation" class="csl-entry" role="listitem">
+Chung, C. A. 2004. <em>Simulation Modeling Handbook: A Practical
+Approach</em>. CRC Press.
+</div>
+<div id="ref-cody1969" class="csl-entry" role="listitem">
+Cody, W. J. 1969. <span>“Rational Chebyshev Approximations for the Error
+Function.”</span> <em>Mathematics of Computation</em> 23 (107): 631–37.
+</div>
+<div id="ref-command1991asd" class="csl-entry" role="listitem">
+Command, Air Force Systems. 1991. <em>ASD Directorate of Systems
+Engineering and <span>DSMC</span> Technical Management Department</em>.
+</div>
+<div id="ref-cooper1990introduction" class="csl-entry" role="listitem">
+Cooper, R. B. 1990. <em>Introduction to Queueing Theory</em>. 3rd ed.
+CEEPress Books.
+</div>
+<div id="ref-davison-hinkley" class="csl-entry" role="listitem">
+Davison AC, Hinkley DV. 1997. <em>Bootstrap Methods and Their
+Application</em>. Cambridge University Press.
+</div>
+<div id="ref-de_boer_tutorial_2005" class="csl-entry" role="listitem">
+De Boer, Pieter-Tjerk, Dirk P. Kroese, Shie Mannor, and Reuven Y.
+Rubinstein. 2005. <span>“A <span>Tutorial</span> on the
+<span>Cross</span>-<span>Entropy</span> <span>Method</span>.”</span>
+<em>Annals of Operations Research</em> 134 (1): 19–67. <a href="https://doi.org/10.1007/s10479-005-5724-z">https://doi.org/10.1007/s10479-005-5724-z</a>.
+</div>
+<div id="ref-devroye1986nonuniform" class="csl-entry" role="listitem">
+Devroye, L. 1986. <em>Non-Uniform Random Variate Generation</em>.
+Springer-Verlag.
+</div>
+<div id="ref-efron-tibshirani-1986" class="csl-entry" role="listitem">
+Efron, B., and R. Tibshirani. 1986. <span>“Bootstrap Methods for
+Standard Errors, Confidence Intervals, and Other Measures of Statistical
+Accuracy.”</span> <em>Statistical Science</em> 1 (1): 54–75.
+</div>
+<div id="ref-efron-tibshirani" class="csl-entry" role="listitem">
+Efron, B., and R. Tibshirani. 1994. <em>An Introduction to the
+Bootstrap</em>. CRC Press.
+</div>
+<div id="ref-fishman2001discreteevent" class="csl-entry" role="listitem">
+Fishman, G. S. 2001. <em>Discrete-Event Simulation: Modeling,
+Programming, and Analysis</em>. Springer.
+</div>
+<div id="ref-fishman1997an" class="csl-entry" role="listitem">
+Fishman, G. S., and L. S. Yarberry. 1997. <span>“An Implementation of
+the Batch Means Method.”</span> <em>INFORMS Journal on Computing</em> 9.
+</div>
+<div id="ref-fishman2006first" class="csl-entry" role="listitem">
+Fishman, George. 2006. <em>A First Course in Monte Carlo</em>. Thomson
+Brooks/Cole.
+</div>
+<div id="ref-fox2018r" class="csl-entry" role="listitem">
+Fox, J., and S. Weisberg. 2018. <em>An r Companion to Applied
+Regression</em>. SAGE Publications.
+</div>
+<div id="ref-gan-koehler" class="csl-entry" role="listitem">
+Gan, F., and K. J. Koehler. 1990. <span>“Goodness-of-Fit Tests Based on
+p-p Probability Plots.”</span> <em>Technometrics</em> 32 (3): 289–303.
+</div>
+<div id="ref-geyer2011" class="csl-entry" role="listitem">
+Geyer, Charles. 2011. <em>Handbook of Markov Chain Monte Carlo</em>.
+Edited by Galin Jones Steve Brooks Andrew Gelman and Xiao-Li Meng. Vol.
+20116022. CRC Handbooks of Modern Statistical Methods. Chapman &amp;
+Hall.
+</div>
+<div id="ref-glynn1989extensions" class="csl-entry" role="listitem">
+Glynn, P. W., and W. Whitt. 1989. <span>“Extensions of the Queueing
+Relation and <span class="math inline"><em>L</em> = <em>λ</em><em>W</em></span> and <span class="math inline"><em>H</em> = <em>λ</em><em>G</em></span>.”</span>
+<em>Operations Research</em> 37: 634–44.
+</div>
+<div id="ref-goldsman1998comparing" class="csl-entry" role="listitem">
+Goldsman, D., and B. L. Nelson. 1998. <span>“Comparing Systems via
+Simulation.”</span> In <em>Handbook of Simulation</em>, edited by J.
+Banks. John Wiley &amp; Sons.
+</div>
+<div id="ref-gross1998fundamentals" class="csl-entry" role="listitem">
+Gross, D., and C. M. Harris. 1998. <em>Fundamentals of Queueing
+Theory</em>. 3rd ed. John Wiley &amp; Sons.
+</div>
+<div id="ref-Gross2008aa" class="csl-entry" role="listitem">
+Gross, D., J. F. Shortle, J. M. Thompson, and C. M. Harris. 2008.
+<em>Fundamentals of Queueing Theory</em>. John Wiley &amp; Sons.
+</div>
+<div id="ref-hadley1963analysis" class="csl-entry" role="listitem">
+Hadley, G., and T. M. Whitin. 1963. <em>Analysis of Inventory
+Systems</em>. Prentice Hall.
+</div>
+<div id="ref-henderson_reflections_2021" class="csl-entry" role="listitem">
+Henderson, Shane G. 2021. <span>“Reflections <span>On</span>
+<span>Simulation</span> <span>Optimization</span>.”</span> <em>2021
+<span>Winter</span> <span>Simulation</span> <span>Conference</span>
+(<span>WSC</span>)</em> (Phoenix, AZ, USA), December, 1–15. <a href="https://doi.org/10.1109/WSC52266.2021.9715361">https://doi.org/10.1109/WSC52266.2021.9715361</a>.
+</div>
+<div id="ref-henriksen1986simplified" class="csl-entry" role="listitem">
+Henriksen, J., and T. Schriber. 1986. <span>“Simplified Approaches to
+Modeling Accumulating and Non-Accumulating Conveyor Systems.”</span> In
+<em>Proceedings of the 1986 Winter Simulation Conference</em>. Institute
+of Electrical; Electronic Engineers.
+</div>
+<div id="ref-holland_adaptation_1975" class="csl-entry" role="listitem">
+Holland, John H. 1975. <em>Adaptation in Natural and Artificial Systems:
+An Introductory Analysis with Applications to Biology, Control, and
+Artificial Intelligence</em>. University of Michigan Press.
+</div>
+<div id="ref-hong_discrete_2006" class="csl-entry" role="listitem">
+Hong, L. Jeff, and Barry L. Nelson. 2006. <span>“Discrete Optimization
+via Simulation Using <span>COMPASS</span>.”</span> <em>Operations
+Research</em> 54 (1): 115–29. <a href="https://doi.org/10.1287/opre.1050.0237">https://doi.org/10.1287/opre.1050.0237</a>.
+</div>
+<div id="ref-hull1962random" class="csl-entry" role="listitem">
+Hull, T. E., and A. R. Dobell. 1962. <span>“Random Number
+Generators.”</span> <em>SIAM Review</em> 4: 230–54.
+</div>
+<div id="ref-jian_henderson_2015" class="csl-entry" role="listitem">
+Jian, Nanjing, and Shane G. Henderson. 2015. <span>“An Introduction to
+Simulation Optimization.”</span> <em>Proceedings of the 2015 Winter
+Simulation Conference</em> (Huntington Beach, California), WSC ’15,
+1780–94.
+</div>
+<div id="ref-jones_efficient_1998" class="csl-entry" role="listitem">
+Jones, Donald R., Matthias Schonlau, and William J. Welch. 1998.
+<span>“Efficient Global Optimization of Expensive Black-Box
+Functions.”</span> <em>Journal of Global Optimization</em> 13 (4):
+455–92. <a href="https://doi.org/10.1023/A:1008306431147">https://doi.org/10.1023/A:1008306431147</a>.
+</div>
+<div id="ref-kelton2004simulation" class="csl-entry" role="listitem">
+Kelton, W. D., R. P. Sadowski, and D. T. Sturrock. 2004. <em>Simulation
+with Arena</em>. 3rd ed. McGraw-Hill.
+</div>
+<div id="ref-kendall1953stochastic" class="csl-entry" role="listitem">
+Kendall, D. G. 1953. <span>“Stochastic Processes Occurring in the Theory
+of Queues and Their Analysis by the Method of Imbedded Markov
+Chains.”</span> <em>Annals of Mathematical Statistics</em> 24: 338–54.
+</div>
+<div id="ref-kennedy_particle_1995" class="csl-entry" role="listitem">
+Kennedy, James, and Russell Eberhart. 1995. <span>“Particle Swarm
+Optimization.”</span> <em>Proceedings of ICNN’95 - International
+Conference on Neural Networks</em> (Perth, WA, Australia) 4: 1942–48. <a href="https://doi.org/10.1109/ICNN.1995.488968">https://doi.org/10.1109/ICNN.1995.488968</a>.
+</div>
+<div id="ref-kingman1964the" class="csl-entry" role="listitem">
+Kingman, J. F. C. 1964. <em>The Heavy Traffic Approximation in the
+Theory of Queues</em>. Proceedings of the Symposium On Congestion
+Theory.
+</div>
+<div id="ref-kirkpatrick_optimization_1983" class="csl-entry" role="listitem">
+Kirkpatrick, S, C D Gelatt, and M P Vecchi. 1983. <span>“Optimization by
+<span>Simulated</span> <span>Annealing</span>.”</span> <em>Science</em>
+220 (4598): 671–80. <a href="https://doi.org/10.1126/science.220.4598.6">https://doi.org/10.1126/science.220.4598.6</a>.
+</div>
+<div id="ref-kleinrock1975queueing" class="csl-entry" role="listitem">
+Kleinrock, L. 1975. <em>Queueing Systems</em>. Vol. 1. John Wiley &amp;
+Sons.
+</div>
+<div id="ref-ecuyer2002an" class="csl-entry" role="listitem">
+L’Ecuyer, P., R. Simard, and W. D. Kelton. 2002. <span>“An
+Object-Oriented Random Number Package with Many Long Streams and
+Substreams.”</span> <em>Operations Research</em> 50: 1073–75.
+</div>
+<div id="ref-lada2003a" class="csl-entry" role="listitem">
+Lada, E. K., J. R. Wilson, and N. M. Steiger. 2003. <em>A Wavelet-Based
+Spectral Method for Steady-State Simulation Analysis</em>. Proceedings
+of the 2003 Winter Simulation Conference.
+</div>
+<div id="ref-law2007simulation" class="csl-entry" role="listitem">
+Law, A. 2007. <em>Simulation Modeling and Analysis</em>. 4th ed.
+McGraw-Hill.
+</div>
+<div id="ref-Leemis1991aa" class="csl-entry" role="listitem">
+Leemis, L. 1991. <span>“Nonparametric Estimation of the Cumulative
+Intensity Function for a Nonhomogeneous Poisson Process.”</span>
+<em>Management Science</em> 37 (7): 886–900.
+</div>
+<div id="ref-leemis2006discreteevent" class="csl-entry" role="listitem">
+Leemis, L. M., and S. K. Park. 2006. <em>Discrete-Event Simulation: A
+First Course</em>. Prentice-Hall.
+</div>
+<div id="ref-levina-bickel2001" class="csl-entry" role="listitem">
+Levina, E., and P. Bickel. 2001. <span>“The Earth Mover’s Distance Is
+the Mallows Distance: Some Insights from Statistics.”</span>
+<em>Proceedings Eighth IEEE International Conference on Computer Vision.
+ICCV 2001</em> 2: 251–256 vol.2. <a href="https://doi.org/10.1109/ICCV.2001.937632">https://doi.org/10.1109/ICCV.2001.937632</a>.
+</div>
+<div id="ref-little1961a" class="csl-entry" role="listitem">
+Little, J. D. C. 1961. <span>“A Proof for the Queuing Formula <span class="math inline"><em>L</em> = <em>λ</em><em>W</em></span>.”</span>
+<em>Operations Research</em> 9: 383–87.
+</div>
+<div id="ref-Litton:2002aa" class="csl-entry" role="listitem">
+Litton, J. R., and C. H. Harmonosky. 2002. <em>A Comparison of Selective
+Initialization Bias Elimination Methods</em>. Proceeding of the 2002
+Winter Simulation Conference.
+</div>
+<div id="ref-livny1993the" class="csl-entry" role="listitem">
+Livny, M., B. Melamed, and A. K. Tsiolis. 1993. <span>“The Impact of
+Autocorrelation on Queueing Systems.”</span> <em>Management Science</em>
+39 (3): 322–39.
+</div>
+<div id="ref-nelsonMatejcik1995" class="csl-entry" role="listitem">
+Matejcik, F. J., and B. L. Nelson. 1995. <span>“Two-Stage Multiple
+Comparisons with the Best for Computer Simulation.”</span>
+<em>Operations Research</em> 43 (4): 633–40.
+</div>
+<div id="ref-Miller1956aa" class="csl-entry" role="listitem">
+Miller, L. H. 1956. <span>“Table of Percentage Points of Kolmogorov
+Statistics.”</span> <em>Journal of the American Statistical
+Association</em>, 111–21.
+</div>
+<div id="ref-montgomery2006applied" class="csl-entry" role="listitem">
+Montgomery, D. C., and G. C. Runger. 2006. <em>Applied Statistics and
+Probability for Engineers</em>. 4th ed. John Wiley &amp; Sons.
+</div>
+<div id="ref-Muckstadt2010aa" class="csl-entry" role="listitem">
+Muckstadt, J. A., and A. Sapras. 2010. <em>Principles of Inventory
+Management: When You Are down to Four, Order More</em>. Springer.
+</div>
+<div id="ref-Nadarajah_Afuecheta_Chan_2017" class="csl-entry" role="listitem">
+Nadarajah, Saralees, Emmanuel Afuecheta, and Stephen Chan. 2017.
+<span>“A Compendium of Copulas.”</span> <em>Statistica</em> 77 (4):
+279–328. <a href="https://doi.org/10.6092/issn.1973-2201/7202">https://doi.org/10.6092/issn.1973-2201/7202</a>.
+</div>
+<div id="ref-nahmias2001production" class="csl-entry" role="listitem">
+Nahmias, S. 2001. <em>Production and Operations Analysis</em>. 4th ed.
+McGraw-Hill.
+</div>
+<div id="ref-Nelsen2004PropertiesAA" class="csl-entry" role="listitem">
+Nelsen, Roger B. 2004. <span>“Properties and Applications of Copulas : A
+Brief Survey.”</span> <a href="https://api.semanticscholar.org/CorpusID:2508363">https://api.semanticscholar.org/CorpusID:2508363</a>.
+</div>
+<div id="ref-nelson1990" class="csl-entry" role="listitem">
+Nelson, B. L. 1990. <span>“Control Variate Remedies.”</span>
+<em>Operations Research</em> 38 (6): 974–92.
+</div>
+<div id="ref-nelson1995" class="csl-entry" role="listitem">
+Nelson, B. L. 1995. <em>Stochastic Modeling Analysis and
+Simulation</em>. McGraw-Hill.
+</div>
+<div id="ref-nelson-pei" class="csl-entry" role="listitem">
+Nelson, B. L., and L. Pei. 2021. <em>Foundations and Methods of
+Stochastic Simulation: A First Course</em>. Vol. 316. International
+Series in Operations Research &amp; Management Science. Springer
+International Publishing.
+</div>
+<div id="ref-nelson2001" class="csl-entry" role="listitem">
+Nelson, B. L., J. Swan, D. Goldsman, and W. Song. 2001. <span>“Simple
+Procedures for Selecting the Best Simulated System When the Number of
+Alternatives Is Large.”</span> <em>Operations Research</em> 49 (6):
+950–63.
+</div>
+<div id="ref-nelson_optimization_2014" class="csl-entry" role="listitem">
+Nelson, Barry L. 2014. <span>“Optimization via <span>Simulation</span>
+<span>Over</span> <span>Discrete</span> <span>Decision</span>
+<span>Variables</span>.”</span> <em>TutORials in Operations Research.
+Models, Methods, and Applications for Innovative Decision Making</em>,
+October, 193–207. <a href="https://doi.org/10.1287/educ.1100.0069">https://doi.org/10.1287/educ.1100.0069</a>.
+</div>
+<div id="ref-rbNelson1999" class="csl-entry" role="listitem">
+Nelson, Roger B. 1999. <em>An Introduction to Copulas</em>. ISBN
+o-387-98623-5. Springer-Verlag.
+</div>
+<div id="ref-park_penalty_2015" class="csl-entry" role="listitem">
+Park, Chuljin, and Seong-Hee Kim. 2015. <span>“Penalty
+<span>Function</span> with <span>Memory</span> for <span>Discrete</span>
+<span>Optimization</span> via <span>Simulation</span> with
+<span>Stochastic</span> <span>Constraints</span>.”</span> <em>Operations
+Research</em> 63 (5): 1195–212. <a href="https://doi.org/10.1287/opre.2015.1417">https://doi.org/10.1287/opre.2015.1417</a>.
+</div>
+<div id="ref-topaloglu_simulation_2013" class="csl-entry" role="listitem">
+Pasupathy, Raghu, and Soumyadip Ghosh. 2013. <span>“Simulation
+<span>Optimization</span>: <span>A</span> <span>Concise</span>
+<span>Overview</span> and <span>Implementation</span>
+<span>Guide</span>.”</span> In <em>Theory <span>Driven</span> by
+<span>Influential</span> <span>Applications</span></em>, edited by
+Huseyin Topaloglu, J. Cole Smith, and Harvey J. Greenberg. INFORMS. <a href="https://doi.org/10.1287/educ.2013.0118">https://doi.org/10.1287/educ.2013.0118</a>.
+</div>
+<div id="ref-patuwo1993the" class="csl-entry" role="listitem">
+Patuwo, B. E., R. L. Disney, and D. C. Mcnickle. 1993. <span>“The Effect
+of Correlated Arrivals on Queues.”</span> <em>IIE Transactions</em> 25
+(3): 105–10.
+</div>
+<div id="ref-pegden1995introduction" class="csl-entry" role="listitem">
+Pegden, C. D., R. E. Shannon, and R. P. Sadowski. 1995. <em>Introduction
+to Simulation Using SIMAN</em>. 2nd ed. McGraw-Hill.
+</div>
+<div id="ref-pishro-nik" class="csl-entry" role="listitem">
+Pishro-Nik, H. 2014. <em>Introduction to Probability, Statistics, and
+Random Processes</em>. Kappa Research LLC.
+</div>
+<div id="ref-ravindran1987and" class="csl-entry" role="listitem">
+Ravindran, A., D. Phillips, and J Solberg. 1987. <em>Operations Research
+Principles and Practice</em>. 2nd ed. John Wiley &amp; Sons.
+</div>
+<div id="ref-ripley1987stochastic" class="csl-entry" role="listitem">
+Ripley, B. D. 1987. <em>Stochastic Simulation</em>. John Wiley &amp;
+Sons Inc.
+</div>
+<div id="ref-Christian2020" class="csl-entry" role="listitem">
+Robert, Christian P., and Wu Changye. n.d. <span>“Markov Chain Monte
+Carlo Methods, a Survey with Some Frequent Misunderstandings.”</span> <a href="http://arxiv.org/abs/2001.06249">http://arxiv.org/abs/2001.06249</a>.
+</div>
+<div id="ref-robinson2005automated" class="csl-entry" role="listitem">
+Robinson, S. 2005. <span>“Automated Analysis of Simulation Output
+Data.”</span> <em>Proceedings of the 2005 Winter Simulation
+Conference</em> (Piscataway, New Jersey) 763-770.
+</div>
+<div id="ref-ross1997introduction" class="csl-entry" role="listitem">
+Ross, S. 1997. <em>Introduction to Probability Models</em>. 6th ed.
+Academic Press.
+</div>
+<div id="ref-ross2023" class="csl-entry" role="listitem">
 Ross, Sheldon M. 2023. <em>Simulation (6th Edition)</em>. Elsevier.
 </div>
-<div class="csl-entry">
-Rossetti, M. D. 2008. <span>“<span>JSL</span>: An Open-Source Object-Oriented Framework for Discrete-Event Simulation in <span>J</span>ava.”</span> <em>International Journal of Simulation and Process Modeling</em> 4 (1): 69–87.
+<div id="ref-Rossetti2008aa" class="csl-entry" role="listitem">
+Rossetti, M. D. 2008. <span>“<span>JSL</span>: An Open-Source
+Object-Oriented Framework for Discrete-Event Simulation in
+<span>J</span>ava.”</span> <em>International Journal of Simulation and
+Process Modeling</em> 4 (1): 69–87.
 </div>
-<div class="csl-entry">
-Rossetti, M. D. 2015. <em>Simulation Modeling and Arena</em>. John Wiley &amp; Sons.
+<div id="ref-Rossetti2015" class="csl-entry" role="listitem">
+Rossetti, M. D. 2015. <em>Simulation Modeling and Arena</em>. John Wiley
+&amp; Sons.
 </div>
-<div class="csl-entry">
-Rossetti, M. D., and P. J. Delaney. 1995. <em>Control of Initialization Bias in Queueing Simulations Using Queueing Approximations</em>. Institute of Electrical; Electronics Engineers.
+<div id="ref-rossetti1995control" class="csl-entry" role="listitem">
+Rossetti, M. D., and P. J. Delaney. 1995. <em>Control of Initialization
+Bias in Queueing Simulations Using Queueing Approximations</em>.
+Institute of Electrical; Electronics Engineers.
 </div>
-<div class="csl-entry">
-Rossetti, M. D., and Z. Li. 2005. <span>“Exploring Exponentially Weighted Moving Average Control Charts to Determine the Warm-up Period.”</span> In <em>Proceedings of the 2005 Winter Simulation Conference</em>, edited by M. E. Kuhl, N. M. Steiger, F. B. Armstrong, and J. A. Joines. Institute of Electrical; Electronics Engineers.
+<div id="ref-Rossetti2005aa" class="csl-entry" role="listitem">
+Rossetti, M. D., and Z. Li. 2005. <span>“Exploring Exponentially
+Weighted Moving Average Control Charts to Determine the Warm-up
+Period.”</span> In <em>Proceedings of the 2005 Winter Simulation
+Conference</em>, edited by M. E. Kuhl, N. M. Steiger, F. B. Armstrong,
+and J. A. Joines. Institute of Electrical; Electronics Engineers.
 </div>
-<div class="csl-entry">
-Rubinstein, R., and D. Kroese. 2017. <em>Simulation and the Monte Carlo Method</em>. John Wiley &amp; Sons Inc.
+<div id="ref-rubenstein-kroese" class="csl-entry" role="listitem">
+Rubinstein, R., and D. Kroese. 2017. <em>Simulation and the Monte Carlo
+Method</em>. John Wiley &amp; Sons Inc.
 </div>
-<div class="csl-entry">
-Rumbaugh, J. R., M. R. Blaha, L. Lorenson, F. Eddy, and W. Premerlani. 1991. <em>Object-Oriented Modeling and Design</em>. Prentice Hall.
+<div id="ref-rumbaugh1991" class="csl-entry" role="listitem">
+Rumbaugh, J. R., M. R. Blaha, L. Lorenson, F. Eddy, and W. Premerlani.
+1991. <em>Object-Oriented Modeling and Design</em>. Prentice Hall.
 </div>
-<div class="csl-entry">
-Schmeiser, B. W. 1982. <span>“Batch Size Effects in the Analysis of Simulation Output.”</span> <em>Operations Research</em> 30: 556–68.
+<div id="ref-schmeiser1982batch" class="csl-entry" role="listitem">
+Schmeiser, B. W. 1982. <span>“Batch Size Effects in the Analysis of
+Simulation Output.”</span> <em>Operations Research</em> 30: 556–68.
 </div>
-<div class="csl-entry">
-Schwarz, Gideon. 1978. <span>“<span class="nocase">Estimating the Dimension of a Model</span>.”</span> <em>The Annals of Statistics</em> 6 (2): 461–64. <a href="https://doi.org/10.1214/aos/1176344136">https://doi.org/10.1214/aos/1176344136</a>.
+<div id="ref-schwarz1978" class="csl-entry" role="listitem">
+Schwarz, Gideon. 1978. <span>“<span class="nocase">Estimating the
+Dimension of a Model</span>.”</span> <em>The Annals of Statistics</em> 6
+(2): 461–64. <a href="https://doi.org/10.1214/aos/1176344136">https://doi.org/10.1214/aos/1176344136</a>.
 </div>
-<div class="csl-entry">
-Silver, E. A., D. F. Pyke, and R. Peterson. 1998. <em>Inventory Management and Production Planning and Scheduling</em>. 3rd ed. John Wiley &amp; Sons.
+<div id="ref-silver1998inventory" class="csl-entry" role="listitem">
+Silver, E. A., D. F. Pyke, and R. Peterson. 1998. <em>Inventory
+Management and Production Planning and Scheduling</em>. 3rd ed. John
+Wiley &amp; Sons.
 </div>
-<div class="csl-entry">
-Sklar, A. 1959. <span>“Fonctions de r ́Epartition a ́ n Dimensions Et Leurs Marges.”</span> <em>Publ. Inst. Statist. Univ. Paris</em> 8: 229–31.
+<div id="ref-sklar1959" class="csl-entry" role="listitem">
+Sklar, A. 1959. <span>“Fonctions de r ́Epartition a ́ n Dimensions Et
+Leurs Marges.”</span> <em>Publ. Inst. Statist. Univ. Paris</em> 8:
+229–31.
 </div>
-<div class="csl-entry">
-Soto, J. 1999. <span>“Statistical Testing of Random Numbers.”</span> <em>Proceedings of the 22nd National Information Systems Security Conference</em>.
+<div id="ref-soto1999statistical" class="csl-entry" role="listitem">
+Soto, J. 1999. <span>“Statistical Testing of Random Numbers.”</span>
+<em>Proceedings of the 22nd National Information Systems Security
+Conference</em>.
 </div>
-<div class="csl-entry">
-Spall, James C. 2012. <span>“Stochastic <span>Optimization</span>.”</span> In <em>Handbook of <span>Computational</span> <span>Statistics</span></em>, edited by James E. Gentle, Wolfgang Karl Härdle, and Yuichi Mori. Springer Berlin Heidelberg. <a href="https://doi.org/10.1007/978-3-642-21551-3_7">https://doi.org/10.1007/978-3-642-21551-3_7</a>.
+<div id="ref-gentle_stochastic_2012" class="csl-entry" role="listitem">
+Spall, James C. 2012. <span>“Stochastic
+<span>Optimization</span>.”</span> In <em>Handbook of
+<span>Computational</span> <span>Statistics</span></em>, edited by James
+E. Gentle, Wolfgang Karl Härdle, and Yuichi Mori. Springer Berlin
+Heidelberg. <a href="https://doi.org/10.1007/978-3-642-21551-3_7">https://doi.org/10.1007/978-3-642-21551-3_7</a>.
 </div>
-<div class="csl-entry">
-Speagle, Joshua S. 2020. <span>“A Conceptual Introduction to Markov Chain Monte Carlo Methods.”</span> <a href="http://arxiv.org/abs/1909.12313">http://arxiv.org/abs/1909.12313</a>.
+<div id="ref-speagle2020" class="csl-entry" role="listitem">
+Speagle, Joshua S. 2020. <span>“A Conceptual Introduction to Markov
+Chain Monte Carlo Methods.”</span> <a href="http://arxiv.org/abs/1909.12313">http://arxiv.org/abs/1909.12313</a>.
 </div>
-<div class="csl-entry">
-Stecke, K. E. 1992. <span>“Machine Interference: Assignment of Machines to Operators.”</span> Chap. 57 in <em>Handbook of Industrial Engineering</em>, edited by G. Salvendy. John-Wiley &amp; Sons.
+<div id="ref-stecke1992machine" class="csl-entry" role="listitem">
+Stecke, K. E. 1992. <span>“Machine Interference: Assignment of Machines
+to Operators.”</span> Chap. 57 in <em>Handbook of Industrial
+Engineering</em>, edited by G. Salvendy. John-Wiley &amp; Sons.
 </div>
-<div class="csl-entry">
-Steiger, N. M., and J. R. Wilson. 2002. <span>“An Improved Batch Means Procedure for Simulation Output Analysis.”</span> <em>Management Science</em> 48.
+<div id="ref-steiger2002an" class="csl-entry" role="listitem">
+Steiger, N. M., and J. R. Wilson. 2002. <span>“An Improved Batch Means
+Procedure for Simulation Output Analysis.”</span> <em>Management
+Science</em> 48.
 </div>
-<div class="csl-entry">
-Tijms, H. C. 2003. <em>A First Course in Stochastic Models</em>. John-Wiley &amp; Sons.
+<div id="ref-tijms2003first" class="csl-entry" role="listitem">
+Tijms, H. C. 2003. <em>A First Course in Stochastic Models</em>.
+John-Wiley &amp; Sons.
 </div>
-<div class="csl-entry">
-Van Ravenzwaaij, Pete Cassey, Don, and Scott D. Brown. 2018. <span>“A Simple Introduction to Markov Chain Monte–Carlo Sampling.”</span> <em>Psychonomic Bulletin &amp; Review</em> 25 (1): 143–54.
+<div id="ref-Ravenzwaaij2018" class="csl-entry" role="listitem">
+Van Ravenzwaaij, Pete Cassey, Don, and Scott D. Brown. 2018. <span>“A
+Simple Introduction to Markov Chain Monte–Carlo Sampling.”</span>
+<em>Psychonomic Bulletin &amp; Review</em> 25 (1): 143–54.
 </div>
-<div class="csl-entry">
+<div id="ref-vose2010" class="csl-entry" role="listitem">
 Vose, David. 2010. <span>“Fitting Distributions to Data.”</span> <a href="https://citeseerx.ist.psu.edu/document?repid=rep1&amp;type=pdf&amp;doi=19631811c7fd08cac567a4ee886acae6d82e8f3f">https://citeseerx.ist.psu.edu/document?repid=rep1&amp;type=pdf&amp;doi=19631811c7fd08cac567a4ee886acae6d82e8f3f</a>.
 </div>
-<div class="csl-entry">
-Wang, Honggang, Raghu Pasupathy, and Bruce W. Schmeiser. 2013. <span>“Integer-<span>Ordered</span> <span>Simulation</span> <span>Optimization</span> Using <span>R</span>-<span>SPLINE</span>: <span>Retrospective</span> <span>Search</span> with <span>Piecewise</span>-<span>Linear</span> <span>Interpolation</span> and <span>Neighborhood</span> <span>Enumeration</span>.”</span> <em>ACM Transactions on Modeling and Computer Simulation (TOMACS)</em> 23 (3): 17–24. <a href="https://doi.org/10.1145/2499913.2499916">https://doi.org/10.1145/2499913.2499916</a>.
+<div id="ref-wang_integer-ordered_2013" class="csl-entry" role="listitem">
+Wang, Honggang, Raghu Pasupathy, and Bruce W. Schmeiser. 2013.
+<span>“Integer-<span>Ordered</span> <span>Simulation</span>
+<span>Optimization</span> Using <span>R</span>-<span>SPLINE</span>:
+<span>Retrospective</span> <span>Search</span> with
+<span>Piecewise</span>-<span>Linear</span> <span>Interpolation</span>
+and <span>Neighborhood</span> <span>Enumeration</span>.”</span> <em>ACM
+Transactions on Modeling and Computer Simulation (TOMACS)</em> 23 (3):
+17–24. <a href="https://doi.org/10.1145/2499913.2499916">https://doi.org/10.1145/2499913.2499916</a>.
 </div>
-<div class="csl-entry">
-Wehrens, Hein Putter, Ron, and Lutgarde M. C Buydens. 2000. <span>“The Bootstrap: A Tutorial.”</span> <em>Chemometrics and Intelligent Laboratory Systems</em> 54 (1): 35–52.
+<div id="ref-wehrens2000" class="csl-entry" role="listitem">
+Wehrens, Hein Putter, Ron, and Lutgarde M. C Buydens. 2000. <span>“The
+Bootstrap: A Tutorial.”</span> <em>Chemometrics and Intelligent
+Laboratory Systems</em> 54 (1): 35–52.
 </div>
-<div class="csl-entry">
-Welch, P. D. 1983. <span>“A Graphical Approach to the Initial Transient Problem in Steady State Simulation.”</span> <em>10th <span>IMACS</span> World Congress on System Simulation and Scientific Computation</em>, 219–21.
+<div id="ref-welch1983a" class="csl-entry" role="listitem">
+Welch, P. D. 1983. <span>“A Graphical Approach to the Initial Transient
+Problem in Steady State Simulation.”</span> <em>10th <span>IMACS</span>
+World Congress on System Simulation and Scientific Computation</em>,
+219–21.
 </div>
-<div class="csl-entry">
-White, K. P., M. J. Cobb, and S. C. Spratt. 2000. <em>A Comparison of Five Steady-State Truncation Heuristics for Simulation</em>. Proceeding of the 2000 Winter Simulation Conference.
+<div id="ref-white2000a" class="csl-entry" role="listitem">
+White, K. P., M. J. Cobb, and S. C. Spratt. 2000. <em>A Comparison of
+Five Steady-State Truncation Heuristics for Simulation</em>. Proceeding
+of the 2000 Winter Simulation Conference.
 </div>
-<div class="csl-entry">
-Whitt, W. 1983. <span>“The Queueing Network Analyzer.”</span> <em>The Bell System Technical Journal</em> 62 (9): 2779–815.
+<div id="ref-whitt1983the" class="csl-entry" role="listitem">
+Whitt, W. 1983. <span>“The Queueing Network Analyzer.”</span> <em>The
+Bell System Technical Journal</em> 62 (9): 2779–815.
 </div>
-<div class="csl-entry">
-Whitt, W. 1989. <span>“Planning Queueing Simulations.”</span> <em>Management Science</em> 35 (11): 1341–66.
+<div id="ref-whitt1989planning" class="csl-entry" role="listitem">
+Whitt, W. 1989. <span>“Planning Queueing Simulations.”</span>
+<em>Management Science</em> 35 (11): 1341–66.
 </div>
-<div class="csl-entry">
-Whitt, W. 1993. <span>“Approximations for the <span>GI</span>/<span>G</span>/m Queue.”</span> <em>Productions and Operations Management</em> 2 (2): 114–61.
+<div id="ref-whitt1993approximations" class="csl-entry" role="listitem">
+Whitt, W. 1993. <span>“Approximations for the
+<span>GI</span>/<span>G</span>/m Queue.”</span> <em>Productions and
+Operations Management</em> 2 (2): 114–61.
 </div>
-<div class="csl-entry">
-Williams, C. Arthur. 1950. <span>“On the Choice of the Number and Width of Classes for the Chi-Square Test of Goodness of Fit.”</span> <em>Journal of the American Statistical Association</em> 45 (249): 77–86.
+<div id="ref-CAWilliams1950" class="csl-entry" role="listitem">
+Williams, C. Arthur. 1950. <span>“On the Choice of the Number and Width
+of Classes for the Chi-Square Test of Goodness of Fit.”</span>
+<em>Journal of the American Statistical Association</em> 45 (249):
+77–86.
 </div>
-<div class="csl-entry">
-Wilson, J. R., and A. A. B. Pritsker. 1978. <span>“A Survey of Re-Search on the Simulation Startup Problem.”</span> <em>Simulation</em>.
+<div id="ref-wilson1978a" class="csl-entry" role="listitem">
+Wilson, J. R., and A. A. B. Pritsker. 1978. <span>“A Survey of Re-Search
+on the Simulation Startup Problem.”</span> <em>Simulation</em>.
 </div>
-<div class="csl-entry">
-Zipkin, P. H. 2000. <em>Foundations of Inventory Management</em>. McGraw-Hill.
+<div id="ref-xu_industrial_2010" class="csl-entry" role="listitem">
+Xu, Jie, Barry L. Nelson, and L. Jeff Hong. 2010. <span>“Industrial
+Strength <span>COMPASS</span>: A Comprehensive Algorithm and Software
+for Optimization via Simulation.”</span> <em>ACM Transactions on
+Modeling and Computer Simulation</em> 20 (1): 1–29. <a href="https://doi.org/10.1145/1667072.1667075">https://doi.org/10.1145/1667072.1667075</a>.
+</div>
+<div id="ref-zipkin2000foundations" class="csl-entry" role="listitem">
+Zipkin, P. H. 2000. <em>Foundations of Inventory Management</em>.
+McGraw-Hill.
 </div>
 </div>
-</div>
-            </section>
 
-          </div>
-        </div>
-      </div>
-<a href="appStatTables.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
 
-    </div>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    // Ensure there is a toggle, if there isn't float one in the top right
+    if (window.document.querySelector('.quarto-color-scheme-toggle') === null) {
+      const a = window.document.createElement('a');
+      a.classList.add('top-right');
+      a.classList.add('quarto-color-scheme-toggle');
+      a.href = "";
+      a.onclick = function() { try { window.quartoToggleColorScheme(); } catch {} return false; };
+      const i = window.document.createElement("i");
+      i.classList.add('bi');
+      a.appendChild(i);
+      window.document.body.appendChild(a);
+    }
+    setColorSchemeToggle(hasAlternateSentinel())
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp('/' + window.location.host + '/');
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a href="./17-StatisticalTables.html" class="pagination-link" aria-label="Statistical Tables">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">F</span>&nbsp; <span class="chapter-title">Statistical Tables</span></span>
+      </a>          
   </div>
-<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
-<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
-<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
-<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
-<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
-<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
-<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
-<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
-<script>
-gitbook.require(["gitbook"], function(gitbook) {
-gitbook.start({
-"sharing": {
-"github": false,
-"facebook": true,
-"twitter": true,
-"linkedin": false,
-"weibo": false,
-"instapaper": false,
-"vk": false,
-"whatsapp": false,
-"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
-},
-"fontsettings": {
-"theme": "white",
-"family": "sans",
-"size": 2
-},
-"edit": {
-"link": null,
-"text": null
-},
-"history": {
-"link": null,
-"text": null
-},
-"view": {
-"link": null,
-"text": null
-},
-"download": null,
-"search": {
-"engine": "fuse",
-"options": null
-},
-"toc": {
-"collapse": "subsection"
-}
-});
-});
-</script>
+  <div class="nav-page nav-page-next">
+  </div>
+</nav>
+</div> <!-- /content -->
 
-<!-- dynamically load mathjax for compatibility with self-contained -->
-<script>
-  (function () {
-    var script = document.createElement("script");
-    script.type = "text/javascript";
-    var src = "true";
-    if (src === "" || src === "true") src = "https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.9/latest.js?config=TeX-MML-AM_CHTML";
-    if (location.protocol !== "file:")
-      if (/^https?:/.test(src))
-        src = src.replace(/^https?:/, '');
-    script.src = src;
-    document.getElementsByTagName("head")[0].appendChild(script);
-  })();
-</script>
-</body>
 
-</html>
+
+
+</body></html>

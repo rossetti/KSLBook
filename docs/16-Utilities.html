@@ -1,0 +1,1789 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.9.38">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="description" content="An introductory textbook on discrete-event and Monte Carlo simulation modeling using the Kotlin Simulation Library (KSL).">
+
+<title>Appendix E — KSL Utility Packages – Simulation Modeling using the Kotlin Simulation Library (KSL)</title>
+<style>
+/* Default styles provided by pandoc.
+** See https://pandoc.org/MANUAL.html#variables-for-html for config info.
+*/
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+/* CSS for citations */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+}
+.hanging-indent div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}</style>
+
+
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/quarto-nav/headroom.min.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<link href="./17-StatisticalTables.html" rel="next">
+<link href="./15-CommonDistributions.html" rel="prev">
+<script src="site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-de63f62b328812d8e578a4d74e282472.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-dark-6b6957c917596b414ec0b78690761e87.css" rel="stylesheet" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-de63f62b328812d8e578a4d74e282472.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap-963416d920756dc736a72a752bf6912f.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="site_libs/bootstrap/bootstrap-dark-10629767a8d3d760d9707fc59134ae44.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
+<link href="site_libs/bootstrap/bootstrap-963416d920756dc736a72a752bf6912f.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script defer="" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
+<link rel="stylesheet" href="css/cover.css">
+</head>
+
+<body class="nav-sidebar floating quarto-light"><script id="quarto-html-before-body" type="application/javascript">
+    const toggleBodyColorMode = (bsSheetEl) => {
+      const mode = bsSheetEl.getAttribute("data-mode");
+      const bodyEl = window.document.querySelector("body");
+      if (mode === "dark") {
+        bodyEl.classList.add("quarto-dark");
+        bodyEl.classList.remove("quarto-light");
+      } else {
+        bodyEl.classList.add("quarto-light");
+        bodyEl.classList.remove("quarto-dark");
+      }
+    }
+    const toggleBodyColorPrimary = () => {
+      const bsSheetEl = window.document.querySelector("link#quarto-bootstrap:not([rel=disabled-stylesheet])");
+      if (bsSheetEl) {
+        toggleBodyColorMode(bsSheetEl);
+      }
+    }
+    const setColorSchemeToggle = (alternate) => {
+      const toggles = window.document.querySelectorAll('.quarto-color-scheme-toggle');
+      for (let i=0; i < toggles.length; i++) {
+        const toggle = toggles[i];
+        if (toggle) {
+          if (alternate) {
+            toggle.classList.add("alternate");
+          } else {
+            toggle.classList.remove("alternate");
+          }
+        }
+      }
+    };
+    const toggleColorMode = (alternate) => {
+      // Switch the stylesheets
+      const primaryStylesheets = window.document.querySelectorAll('link.quarto-color-scheme:not(.quarto-color-alternate)');
+      const alternateStylesheets = window.document.querySelectorAll('link.quarto-color-scheme.quarto-color-alternate');
+      manageTransitions('#quarto-margin-sidebar .nav-link', false);
+      if (alternate) {
+        // note: dark is layered on light, we don't disable primary!
+        enableStylesheet(alternateStylesheets);
+        for (const sheetNode of alternateStylesheets) {
+          if (sheetNode.id === "quarto-bootstrap") {
+            toggleBodyColorMode(sheetNode);
+          }
+        }
+      } else {
+        disableStylesheet(alternateStylesheets);
+        enableStylesheet(primaryStylesheets)
+        toggleBodyColorPrimary();
+      }
+      manageTransitions('#quarto-margin-sidebar .nav-link', true);
+      // Switch the toggles
+      setColorSchemeToggle(alternate)
+      // Hack to workaround the fact that safari doesn't
+      // properly recolor the scrollbar when toggling (#1455)
+      if (navigator.userAgent.indexOf('Safari') > 0 && navigator.userAgent.indexOf('Chrome') == -1) {
+        manageTransitions("body", false);
+        window.scrollTo(0, 1);
+        setTimeout(() => {
+          window.scrollTo(0, 0);
+          manageTransitions("body", true);
+        }, 40);
+      }
+    }
+    const disableStylesheet = (stylesheets) => {
+      for (let i=0; i < stylesheets.length; i++) {
+        const stylesheet = stylesheets[i];
+        stylesheet.rel = 'disabled-stylesheet';
+      }
+    }
+    const enableStylesheet = (stylesheets) => {
+      for (let i=0; i < stylesheets.length; i++) {
+        const stylesheet = stylesheets[i];
+        if(stylesheet.rel !== 'stylesheet') { // for Chrome, which will still FOUC without this check
+          stylesheet.rel = 'stylesheet';
+        }
+      }
+    }
+    const manageTransitions = (selector, allowTransitions) => {
+      const els = window.document.querySelectorAll(selector);
+      for (let i=0; i < els.length; i++) {
+        const el = els[i];
+        if (allowTransitions) {
+          el.classList.remove('notransition');
+        } else {
+          el.classList.add('notransition');
+        }
+      }
+    }
+    const isFileUrl = () => {
+      return window.location.protocol === 'file:';
+    }
+    const hasAlternateSentinel = () => {
+      let styleSentinel = getColorSchemeSentinel();
+      if (styleSentinel !== null) {
+        return styleSentinel === "alternate";
+      } else {
+        return false;
+      }
+    }
+    const setStyleSentinel = (alternate) => {
+      const value = alternate ? "alternate" : "default";
+      if (!isFileUrl()) {
+        window.localStorage.setItem("quarto-color-scheme", value);
+      } else {
+        localAlternateSentinel = value;
+      }
+    }
+    const getColorSchemeSentinel = () => {
+      if (!isFileUrl()) {
+        const storageValue = window.localStorage.getItem("quarto-color-scheme");
+        return storageValue != null ? storageValue : localAlternateSentinel;
+      } else {
+        return localAlternateSentinel;
+      }
+    }
+    const toggleGiscusIfUsed = (isAlternate, darkModeDefault) => {
+      const baseTheme = document.querySelector('#giscus-base-theme')?.value ?? 'light';
+      const alternateTheme = document.querySelector('#giscus-alt-theme')?.value ?? 'dark';
+      let newTheme = '';
+      if(authorPrefersDark) {
+        newTheme = isAlternate ? baseTheme : alternateTheme;
+      } else {
+        newTheme = isAlternate ? alternateTheme : baseTheme;
+      }
+      const changeGiscusTheme = () => {
+        // From: https://github.com/giscus/giscus/issues/336
+        const sendMessage = (message) => {
+          const iframe = document.querySelector('iframe.giscus-frame');
+          if (!iframe) return;
+          iframe.contentWindow.postMessage({ giscus: message }, 'https://giscus.app');
+        }
+        sendMessage({
+          setConfig: {
+            theme: newTheme
+          }
+        });
+      }
+      const isGiscussLoaded = window.document.querySelector('iframe.giscus-frame') !== null;
+      if (isGiscussLoaded) {
+        changeGiscusTheme();
+      }
+    };
+    const authorPrefersDark = false;
+    const darkModeDefault = authorPrefersDark;
+      document.querySelector('link#quarto-text-highlighting-styles.quarto-color-scheme-extra').rel = 'disabled-stylesheet';
+      document.querySelector('link#quarto-bootstrap.quarto-color-scheme-extra').rel = 'disabled-stylesheet';
+    let localAlternateSentinel = darkModeDefault ? 'alternate' : 'default';
+    // Dark / light mode switch
+    window.quartoToggleColorScheme = () => {
+      // Read the current dark / light value
+      let toAlternate = !hasAlternateSentinel();
+      toggleColorMode(toAlternate);
+      setStyleSentinel(toAlternate);
+      toggleGiscusIfUsed(toAlternate, darkModeDefault);
+      window.dispatchEvent(new Event('resize'));
+    };
+    // Switch to dark mode if need be
+    if (hasAlternateSentinel()) {
+      toggleColorMode(true);
+    } else {
+      toggleColorMode(false);
+    }
+  </script>
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./12-AppRNRV.html">Appendices</a></li><li class="breadcrumb-item"><a href="./16-Utilities.html"><span class="chapter-number">E</span>&nbsp; <span class="chapter-title">KSL Utility Packages</span></a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+      <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header">
+    <div class="sidebar-title mb-0 py-0">
+      <a href="./">Simulation Modeling using the Kotlin Simulation Library (KSL)</a> 
+        <div class="sidebar-tools-main">
+    <div class="dropdown">
+      <a href="" title="Download" id="quarto-navigation-tool-dropdown-0" class="quarto-navigation-tool dropdown-toggle px-1" data-bs-toggle="dropdown" aria-expanded="false" role="link" aria-label="Download"><i class="bi bi-download"></i></a>
+      <ul class="dropdown-menu" aria-labelledby="quarto-navigation-tool-dropdown-0">
+          <li>
+            <a class="dropdown-item sidebar-tools-main-item" href="./ksl-book.pdf">
+              <i class="bi bi-file-pdf pe-1"></i>
+            Download PDF
+            </a>
+          </li>
+          <li>
+            <a class="dropdown-item sidebar-tools-main-item" href="./ksl-book.epub">
+              <i class="bi bi-journal pe-1"></i>
+            Download ePub
+            </a>
+          </li>
+      </ul>
+    </div>
+  <a href="" class="quarto-color-scheme-toggle quarto-navigation-tool  px-1" onclick="window.quartoToggleColorScheme(); return false;" title="Toggle dark mode"><i class="bi"></i></a>
+</div>
+    </div>
+      </div>
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">Preface</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./00-author.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">About the Author</span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./01-Chapter1.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">Simulation Modeling</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./02-Chapter2.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">Modeling Randomness</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./03-Chapter3.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Monte Carlo Methods</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./04-Chapter4.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">Introduction to Discrete Event Modeling</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./05-Chapter5.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">Analyzing and Accessing Simulation Output</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./06-Chapter6.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">Process View Modeling Using the KSL</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./07-Chapter7.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">Advanced Event and Process View Modeling</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./08-Chapter8.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">Modeling Entity Movement</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./09-Chapter9.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">Advanced Monte Carlo Methods</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./10-Chapter10.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">Simulating Many Scenarios and Performing Experiments</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./11-Chapter11.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">Simulation Optimization Methods</span></span></a>
+  </div>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true">
+ <span class="menu-text">Appendices</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./12-AppRNRV.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">A</span>&nbsp; <span class="chapter-title">Generating Pseudo-Random Numbers and Random Variates</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./13-AppDistributionFitting.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">B</span>&nbsp; <span class="chapter-title">Probability Distribution Modeling</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./14-QueuingTheory.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">C</span>&nbsp; <span class="chapter-title">Queueing Theory</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./15-CommonDistributions.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">D</span>&nbsp; <span class="chapter-title">Distributions</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./16-Utilities.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text"><span class="chapter-number">E</span>&nbsp; <span class="chapter-title">KSL Utility Packages</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./17-StatisticalTables.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">F</span>&nbsp; <span class="chapter-title">Statistical Tables</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./references.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">References</span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+  <li><a href="#the-outputdirectory-class-and-ksl-object" id="toc-the-outputdirectory-class-and-ksl-object" class="nav-link active" data-scroll-target="#the-outputdirectory-class-and-ksl-object"><span class="header-section-number">E.1</span> The <code>OutputDirectory</code> Class and <code>KSL</code> Object</a></li>
+  <li><a href="#logging-options" id="toc-logging-options" class="nav-link" data-scroll-target="#logging-options"><span class="header-section-number">E.2</span> Logging Options</a></li>
+  <li><a href="#the-kslfileutil-object" id="toc-the-kslfileutil-object" class="nav-link" data-scroll-target="#the-kslfileutil-object"><span class="header-section-number">E.3</span> The <code>KSLFileUtil</code> Object</a></li>
+  <li><a href="#sec-appDCSVEtc" id="toc-sec-appDCSVEtc" class="nav-link" data-scroll-target="#sec-appDCSVEtc"><span class="header-section-number">E.4</span> CSV, Excel, and Tabular Data Files</a></li>
+  <li><a href="#sec-dfUtil" id="toc-sec-dfUtil" class="nav-link" data-scroll-target="#sec-dfUtil"><span class="header-section-number">E.5</span> The <code>DataFrameUtil</code> Object</a></li>
+  <li><a href="#ksl-database-utilities" id="toc-ksl-database-utilities" class="nav-link" data-scroll-target="#ksl-database-utilities"><span class="header-section-number">E.6</span> KSL Database Utilities</a></li>
+  <li><a href="#sec-appUtilitiesArrays" id="toc-sec-appUtilitiesArrays" class="nav-link" data-scroll-target="#sec-appUtilitiesArrays"><span class="header-section-number">E.7</span> Array Utilities</a></li>
+  <li><a href="#sec-appPlotting" id="toc-sec-appPlotting" class="nav-link" data-scroll-target="#sec-appPlotting"><span class="header-section-number">E.8</span> KSL Plotting Utilities</a></li>
+  <li><a href="#sec-appUtilitiesMisc" id="toc-sec-appUtilitiesMisc" class="nav-link" data-scroll-target="#sec-appUtilitiesMisc"><span class="header-section-number">E.9</span> Miscellaneous Utilities</a></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./12-AppRNRV.html">Appendices</a></li><li class="breadcrumb-item"><a href="./16-Utilities.html"><span class="chapter-number">E</span>&nbsp; <span class="chapter-title">KSL Utility Packages</span></a></li></ol></nav>
+<div class="quarto-title">
+<h1 class="title"><span id="sec-appUtilities" class="quarto-section-identifier">Appendix E — KSL Utility Packages</span></h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<p><strong><span class="smallcaps">Learning Objectives</span></strong></p>
+<ul>
+<li><p>To be become familiar with the classes and functionality associated with KSL utilities</p></li>
+<li><p>To be able to use the KSL file input and output related utilities for CSV, Excel, data frames, and databases</p></li>
+<li><p>To be able to use the KSL array related utilities</p></li>
+<li><p>To be able to use the KSL plotting functionality</p></li>
+<li><p>To be able to use the KSL functionality for performing designed experiments</p></li>
+</ul>
+<p>The purpose of this appendix is to describe the general utilities available within the KSL. The utilities are meant to assist programmers in using Kotlin and especially the use of the simulation constructs available within the KSL. The package <code>ksl.utilities</code> hold a wide variety of classes that support both the programmer and the developer of simulation models. The important items to be discussed in this appendix include:</p>
+<ul>
+<li>The <code>ksl.utilities.io</code> package, which provides support mostly for file input and output some of which, e.g.&nbsp;the <code>MarkDown</code> and <code>StatisticReporter</code> classes have already been mentioned.</li>
+<li>The <code>KSLArrays</code> and <code>RArrays</code> classes provide support for working with 1-D and 2-D arrays, including a number of extension functions that are useful for computational work and simulation related activities.</li>
+<li>Miscellaneous utilities involving observers, math, and useful interfaces and classes that facilitate working within the KSL</li>
+</ul>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Note
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>This chapter provides illustrative examples of some of the functionality of the <code>ksl.utilities</code> package. The full source code of the examples can be found in the accompanying <code>KSLExamples</code> project associated with the <a href="https://github.com/rossetti/KSL">KSL repository</a>. The files for each example of this chapter can be found <a href="https://github.com/rossetti/KSL/tree/main/KSLExamples/src/main/kotlin/ksl/examples/book/appendixD">here</a>.</p>
+</div>
+</div>
+<p>We will start by looking at the utilities for input and output.</p>
+<section id="the-outputdirectory-class-and-ksl-object" class="level2" data-number="E.1">
+<h2 data-number="E.1" class="anchored" data-anchor-id="the-outputdirectory-class-and-ksl-object"><span class="header-section-number">E.1</span> The <code>OutputDirectory</code> Class and <code>KSL</code> Object</h2>
+<p>We often need to get data into a program or to write data out. Because of the plethora of file formats and differing methods for creating and using files, the KSL provides some utilities for working with comma separated value (CSV), Excel, Markdown, text, and database files. The most relevant classes include <code>OutputDirectory</code> class, the <code>KSL</code> <em>object</em> and the <code>KSLFileUtil</code> class. <a href="#fig-FileUtilities" class="quarto-xref">Figure&nbsp;<span>E.1</span></a> illustrates the functions and properties of the <code>KSL</code> object and the <code>OutputDirectory</code> class.</p>
+<div id="fig-FileUtilities" class="quarto-float quarto-figure quarto-figure-left anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-FileUtilities-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="./figures/AppUtilities/KSL.png" style="width:90.0%;height:90.0%" class="figure-img">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-FileUtilities-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;E.1: OutputDirectory and KSL
+</figcaption>
+</figure>
+</div>
+<p>The <code>OutputDirectory</code> class is an abstraction for a file directory to store output. When working with a particular simulation model, it is useful to store all of the results and files generated by the model in one directory. The <code>OutputDirectory</code> class facilitates this common use case. An instance of <code>OutputDirectory</code> requires a path to the file directory and then forms some standard sub-directories (<code>excelDir</code>, <code>dbDir</code>, <code>csvDir</code>, <code>outDir</code>) to hold various files that may be generated for these common types of files. The <code>KSL</code> object is, in essence, a default directory to hold all KSL output. Notice that <code>OutputDirectory</code> provides functions for creating files and directories within it. The most useful of the functions is the <code>createPrintWriter(name: String)</code> function which takes in the name of the file and creates a <code>PrintWriter</code> set up to write to the file. Also, notice the <code>createSubDirectory()</code> function. The directories created by this function are relative to the defined output directory. This alleviates the burden of fully specifying path strings and working with paths.</p>
+<p>Here is some sample code that uses the <code>OutputDirectory</code> class.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode kotlin code-with-copy"><code class="sourceCode kotlin"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>    <span class="co">// get the working directory</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>    <span class="kw">val</span> <span class="va">path</span> <span class="op">=</span> Paths<span class="op">.</span><span class="kw">get</span><span class="op">(</span><span class="st">""</span><span class="op">).</span>toAbsolutePath<span class="op">()</span></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>    println<span class="op">(</span><span class="st">"Working Directory = </span><span class="ss">$path</span><span class="st">"</span><span class="op">)</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>    <span class="co">// creates a directory called TestOutputDir in the current working directory</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>    <span class="co">// Creates subdirectories: csvDir, dbDir, excelDir and file out.txt</span></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>    <span class="kw">val</span> <span class="va">outDir</span> <span class="op">=</span> OutputDirectory<span class="op">(</span>path<span class="op">.</span>resolve<span class="op">(</span><span class="st">"TestOutputDir"</span><span class="op">))</span></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>    <span class="co">// write to the default file</span></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>    outDir<span class="op">.</span><span class="kw">out</span><span class="op">.</span>println<span class="op">(</span><span class="st">"Use out property to write out text to a file."</span><span class="op">)</span></span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>    <span class="co">// Creates a PrintWriter (and file) to write to within TestOutputDir</span></span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>    <span class="kw">val</span> <span class="va">pw</span> <span class="op">=</span> outDir<span class="op">.</span>createPrintWriter<span class="op">(</span><span class="st">"PW_File.txt"</span><span class="op">)</span></span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>    pw<span class="op">.</span>println<span class="op">(</span><span class="st">"Hello, World"</span><span class="op">)</span></span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>    <span class="kw">val</span> <span class="va">subDir</span> <span class="op">=</span> outDir<span class="op">.</span>createSubDirectory<span class="op">(</span><span class="st">"SubDir"</span><span class="op">)</span></span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a>    println<span class="op">(</span>outDir<span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>The <code>KSL</code> object is essentially a predefined instance of <code>OutputDirectory</code> that creates a default directory called <code>kslOutput</code> within the current working directory. The property <code>out</code> is an instance of a <code>LogPrintWriter</code>, which is a class that wraps a <code>PrintWriter</code> but also has a property called <code>OUTPUT_ON</code>, which has type boolean, where true indicates that output will be written and false turns off the output. You can use this to stop excessive print messages globally. I find this useful for simple debugging messages. Besides this field, <code>KSL</code> has a standard logger for logging program messages.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode kotlin code-with-copy"><code class="sourceCode kotlin"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>    <span class="co">// use KSL like you use OutputDirectory but with some added functionality</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>    <span class="co">// The PW_File.txt file with be within the kslOutput directory within the working directory</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>    <span class="kw">val</span> <span class="va">pw</span> <span class="op">=</span> KSL<span class="op">.</span>createPrintWriter<span class="op">(</span><span class="st">"PW_File.txt"</span><span class="op">)</span></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>    pw<span class="op">.</span>println<span class="op">(</span><span class="st">"Hello, World!"</span><span class="op">)</span></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>    <span class="co">// Creates subdirectory SubDir within the kslOutput directory</span></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>    KSL<span class="op">.</span>createSubDirectory<span class="op">(</span><span class="st">"SubDir"</span><span class="op">)</span></span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>    <span class="co">// use KSL.out to write to kslOutput.txt</span></span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>    KSL<span class="op">.</span><span class="kw">out</span><span class="op">.</span>println<span class="op">(</span><span class="st">"Information written into kslOutput.txt"</span><span class="op">)</span></span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>    println<span class="op">(</span>KSL<span class="op">)</span></span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>    <span class="co">// KSL also has logger. This logs to logs/ksl.log</span></span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a>    KSL<span class="op">.</span>logger<span class="op">.</span>info <span class="op">{</span> <span class="st">"This is an informational log comment!"</span> <span class="op">}</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="logging-options" class="level2" data-number="E.2">
+<h2 data-number="E.2" class="anchored" data-anchor-id="logging-options"><span class="header-section-number">E.2</span> Logging Options</h2>
+<p>Logging is controlled by a <a href="https://logback.qos.ch/">logback</a> XML file for configuring the loggers. The <code>logback.xml</code> file can be found in the resources folder within the source code repository. The more interesting classes that have default loggers written to the logs directory include:</p>
+<ul>
+<li><code>KSL</code> useful for general purpose logging and written to <code>ksl.log</code> with default level DEBUG.</li>
+<li><code>DatabaseIfc</code> captures database interaction, written to <code>kslDbLog.log</code> with default level INFO.</li>
+<li><code>ExcelUtil</code> captures Excel file interactions, written to <code>kslExcelLog.log</code> with default level INFO.</li>
+<li><code>KSLFileUtil</code> captures file interactions, written to <code>ksl_io.log</code> with default level INFO.</li>
+<li><code>Model</code> captures key model actions as the model is processed, written to <code>kslSim.log</code> with default level of INFO.</li>
+<li><code>ModelElement</code> captures detailed actions related to model element processing, written to <code>kslModelElement.log</code> with default level INFO.</li>
+<li><code>ProcessModel</code> captures detailed actions related to entity processing, written to <code>kslEntity.log</code> with default level INFO. Very detailed entity tracing can be achieved by setting the log level to TRACE.</li>
+<li><code>RNStreamProvider</code> captures random number stream assignments, written to <code>kslStreams.log</code> with default level INFO.</li>
+<li><code>Controls</code> captures simulation control assignment, written to <code>controlsFile.log</code> with default level INFO.</li>
+</ul>
+<p>For diagnosing issues related to these classes, you can change the debug level within the <code>logback.xml</code> file. Be careful with setting the <code>ProcessModel</code> logger to trace because the generated files will be large and the execution time of the model will be longer because of the extra IO.</p>
+</section>
+<section id="the-kslfileutil-object" class="level2" data-number="E.3">
+<h2 data-number="E.3" class="anchored" data-anchor-id="the-kslfileutil-object"><span class="header-section-number">E.3</span> The <code>KSLFileUtil</code> Object</h2>
+<p>The <code>KSLFileUtil</code> Object supports the creation/deletion of files, directories, and working with file extensions. It also facilitates the reading and writing of 1-D and 2-D arrays. <a href="#fig-KSLFileUtil" class="quarto-xref">Figure&nbsp;<span>E.2</span></a> illustrates the functions and properties of the <code>KSLFileUtil</code> object</p>
+<div id="fig-KSLFileUtil" class="quarto-float quarto-figure quarto-figure-left anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-KSLFileUtil-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="./figures/AppUtilities/KSLFileUtil.png" style="width:70.0%;height:70.0%" class="figure-img">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-KSLFileUtil-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;E.2: KSLFileUtil Class
+</figcaption>
+</figure>
+</div>
+<ul>
+<li><code>copyDirectory()</code> and <code>copyFile()</code> facilitate path and file based copying</li>
+<li><code>createFile()</code>, <code>createDirectories()</code>, <code>createPrintWriter()</code>, all create according to their function names</li>
+<li><code>deleteDirectory()</code> will delete a directory based on a <code>File</code> or a <code>Path</code></li>
+<li><code>createCSVFileName()</code>, <code>createTxtFileName()</code> will make a string that has the appropriate extension</li>
+<li><code>isCSVFile()</code>, <code>isTeXFile()</code>, <code>isTextFile()</code> check for the appropriate extension</li>
+</ul>
+<p>As previously noted, there is a logger available for logging file interactions. A useful property is the <code>programLaunchDirectory</code>, which provides the path to the directory in which the program is executing.</p>
+<p>The <code>KSLFileUtil</code> object also helps with array IO.</p>
+<ul>
+<li><code>write(array, out: PrintWriter)</code> has versions for working with arrays of primitives: <code>Array&lt;DoubleArray&gt;</code>, <code>Array&lt;IntArray&gt;</code>, <code>DoubleArray</code>, <code>IntArray</code>. The functions that write double values also have an optional argument to control formatting, <code>df: DecimalFormat?</code>. There are equivalent extension functions for <code>Array&lt;DoubleArray&gt;</code>, <code>Array&lt;IntArray&gt;</code>, <code>DoubleArray</code>, <code>IntArray</code> for writing to files.</li>
+<li><code>scanToArray(path:  Path)</code> will read the values file associated with the path into an <code>DoubleArray.</code></li>
+<li><code>toCSVString(array: DoubleArray, df: DecimalFormat?)</code> will format a line representing the array of data as a comma separated value string.</li>
+</ul>
+<p>These functions are used in a number of other packages when working with data and files.</p>
+</section>
+<section id="sec-appDCSVEtc" class="level2" data-number="E.4">
+<h2 data-number="E.4" class="anchored" data-anchor-id="sec-appDCSVEtc"><span class="header-section-number">E.4</span> CSV, Excel, and Tabular Data Files</h2>
+<p>The KSL also has simple utilities to work with comma separated value (CSV) files and Excel files. The underlying CSV file processing library used by the KSL is <a href="https://commons.apache.org/proper/commons-csv/">Commons CSV</a>. The KSL provision of working with CSV files is not meant to replace the functionality of those libraries. Instead, the purpose is to provide a simple facade so that users can do some simple processing without worrying about the complexities of a full featured CSV library. <a href="#fig-CSVUtil" class="quarto-xref">Figure&nbsp;<span>E.3</span></a> illustrates the functions and properties of the <code>CSVUtil</code> object</p>
+<div id="fig-CSVUtil" class="quarto-float quarto-figure quarto-figure-left anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-CSVUtil-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="./figures/AppUtilities/CSVUtil.png" style="width:60.0%;height:60.0%" class="figure-img">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-CSVUtil-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;E.3: CSVUtil Class
+</figcaption>
+</figure>
+</div>
+<p>Assuming that the CSV data is organized with first row as a header and each subsequent row as the data for each column as follows:</p>
+<pre><code>"x", "y"
+1.1, 2.0
+4.3, 6.4</code></pre>
+<p>The KSL class <code>CSVUtil</code> has the following functions:</p>
+<ul>
+<li><code>readRows() : List&lt;Array&lt;String&gt;&gt;</code> Reads all rows into list holding the rows within an array of strings</li>
+<li><code>readRows() : Array&lt;DoubleArray&gt;</code> Reads all rows into array holding the rows within an array of doubles</li>
+<li><code>readToColumns() : Array&lt;DoubleArray&gt;</code> reads all of the rows and transposes them into the columns</li>
+<li><code>writeArrayToCSVFile(array: Array&lt;DoubleArray&gt;)</code> will write a 2-D array to a file with the CSV format, allowing an optional header and whether quotes are added to strings.</li>
+<li><code>csvIterator(): Iterator&lt;Array&lt;String&gt;&gt;</code> will iterate through a CSV file.</li>
+</ul>
+<p>The following code illustrates the use of the <code>CSVUtil</code> class. An instance of a <code>NormalRV</code> random variable is used to make a 5 row, 4 column matrix of normal <span class="math inline">\(\mu = 0\)</span> and <span class="math inline">\(\sigma = 1\)</span> random variates.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb4"><pre class="sourceCode kotlin code-with-copy"><code class="sourceCode kotlin"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>    <span class="kw">val</span> <span class="va">n</span> <span class="op">=</span> NormalRV<span class="op">()</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>    <span class="kw">val</span> <span class="va">matrix</span> <span class="op">=</span> n<span class="op">.</span>sampleAsColumns<span class="op">(</span>sampleSize <span class="op">=</span> <span class="dv">5</span><span class="op">,</span> nCols <span class="op">=</span> <span class="dv">4</span><span class="op">)</span></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span><span class="op">(</span>i <span class="kw">in</span> matrix<span class="op">.</span>indices<span class="op">){</span></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>        println<span class="op">(</span>matrix<span class="op">[</span>i<span class="op">].</span>contentToString<span class="op">())</span></span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>    <span class="kw">val</span> <span class="va">h</span> <span class="op">=</span> listOf<span class="op">(</span><span class="st">"col1"</span><span class="op">,</span> <span class="st">"col2"</span><span class="op">,</span> <span class="st">"col3"</span><span class="op">,</span> <span class="st">"col4"</span><span class="op">)</span></span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>    <span class="kw">val</span> <span class="va">p</span> <span class="op">=</span> KSL<span class="op">.</span>csvDir<span class="op">.</span>resolve<span class="op">(</span><span class="st">"data.csv"</span><span class="op">)</span></span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>    CSVUtil<span class="op">.</span>writeArrayToCSVFile<span class="op">(</span>matrix<span class="op">,</span> header <span class="op">=</span> h<span class="op">.</span>toMutableList<span class="op">(),</span> pathToFile <span class="op">=</span> p<span class="op">)</span></span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a>    println<span class="op">()</span></span>
+<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a>    <span class="kw">val</span> <span class="va">dataAsList</span><span class="op">:</span> List<span class="op">&lt;</span>Array<span class="op">&lt;</span><span class="kw">String</span><span class="op">&gt;&gt;</span> <span class="op">=</span> CSVUtil<span class="op">.</span>readRowsToListOfStringArrays<span class="op">(</span>p<span class="op">,</span> skipLines <span class="op">=</span> <span class="dv">1</span><span class="op">)</span></span>
+<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a>    <span class="kw">val</span> <span class="va">m</span> <span class="op">=</span> KSLArrays<span class="op">.</span>parseTo2DArray<span class="op">(</span>dataAsList<span class="op">)</span></span>
+<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span><span class="op">(</span>i <span class="kw">in</span> matrix<span class="op">.</span>indices<span class="op">){</span></span>
+<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a>        println<span class="op">(</span>m<span class="op">[</span>i<span class="op">].</span>joinToString<span class="op">(</span>prefix <span class="op">=</span> <span class="st">"["</span><span class="op">,</span> postfix <span class="op">=</span> <span class="st">"]"</span><span class="op">))</span></span>
+<span id="cb4-14"><a href="#cb4-14" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>The contents of the matrix are printed to console. The header is made for the CSV file and then the matrix is written to the file using the <code>CSVUtil</code> function to write an array to a CSV file. Then, the <code>CSVUtil</code> object is used to read the data into list of strings, which are parsed to double values. You can use the <a href="https://commons.apache.org/proper/commons-csv/">Commons CSV</a> functionality to read and write values via its API. The approach illustrated here is only meant for simple file processing.</p>
+<p>Excel file operations are available within the KSL through the <a href="https://poi.apache.org/">Apache POI library</a>. The KSL provision of working with Excel files is not meant to replace the functionality of the POI library. Instead, the purpose is to provide a simple facade so that users can do some simple processing without worrying about the complexities of a full featured POI library. <a href="#fig-ExcelUtil" class="quarto-xref">Figure&nbsp;<span>E.4</span></a> illustrates the functions and properties of the <code>ExcelUtil</code> object.</p>
+<div id="fig-ExcelUtil" class="quarto-float quarto-figure quarto-figure-left anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-ExcelUtil-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="./figures/AppUtilities/ExcelUtil.png" style="width:60.0%;height:60.0%" class="figure-img">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-ExcelUtil-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;E.4: ExcelUtil Class
+</figcaption>
+</figure>
+</div>
+<p>The KSL class <code>ExcelUtil</code> provides the basic functions primarily concerned with reading and writing tabular data:</p>
+<ul>
+<li><code>createSheet(workbook: Workbook, sheetName:String)</code> Creates a sheet within the workbook with the name.</li>
+<li><code>writeSheetToCSV()</code> Treats the columns as fields in a csv file, writes each row as a separate csv row in the resulting csv file</li>
+<li><code>writeCell()</code> Writes the object to the Excel cell</li>
+<li><code>readCellAsObject() : Any?</code> the data in the form of an object</li>
+<li><code>readCellAsString() : String</code> the data in the form of a String</li>
+<li><code>readRowAsObjectList() : List&lt;Any?&gt;</code> an list of strings representing the contents of the cells</li>
+<li><code>readRowAsStringArray() : Array&lt;String?&gt;</code> an array of strings representing the contents of the cells</li>
+<li><code>readRowAsStringList() : List&lt;String?&gt;</code> a list of strings representing the contents of the cells</li>
+<li><code>readSheetAsObjects() : List&lt;List&lt;Any?&gt;&gt;</code> a list of lists of the objects representing each cell of each row of the sheet</li>
+<li><code>columnSize()</code> number of rows that have data in a particular column as defined by not having a null cell.</li>
+</ul>
+<p>To use the <code>ExcelUtil</code> object, it is useful to know how the Apache POI library works because you need to know how to create workbooks. The functionality of the POI library is also exposed as part of the KSL API. The main use of the object <code>ExcelUtil</code> within the KSL is for importing and exporting database tables and record sets to Excel.</p>
+<p>Comma separated value (CSV) files and Excel files are commonly used to store data in a tabular (row/column) format. The KSL also provides some basic functionality for reading and writing tabular files.</p>
+<p>A common programming necessity is to write or read data that is organized in rows and columns. While libraries that support CSV file processing are readily available, it is sometimes useful to have a quick and easy way to write (or read) tabular data that is not as sophisticated as a database. While Excel files also provide this ability, using the Apache POI may be more than is required. To make this type of file processing easier, the KSL provides a general interface for representing tabular data as a data class via the <code>TabularData</code> class. In addition, the <code>TabularFile</code>, <code>TabularOutputFile,</code> and <code>TabularInputFile</code> classes permit simple row oriented reading and writing of tabular data.</p>
+<div id="fig-TabularData" class="quarto-float quarto-figure quarto-figure-left anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-TabularData-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="./figures/AppUtilities/TabularData.png" style="width:60.0%;height:60.0%" class="figure-img">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-TabularData-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;E.5: TabularData Class
+</figcaption>
+</figure>
+</div>
+<p><a href="#fig-TabularData" class="quarto-xref">Figure&nbsp;<span>E.5</span></a> illustrates the functions and properties of the <code>TabularData</code> class. The basic usage of this class is to subclass a data class from it to define the contents of a row of data. This can be used for database processing as well as for working with the tabular file classes.</p>
+<div id="fig-TabularFile" class="quarto-float quarto-figure quarto-figure-left anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-TabularFile-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="./figures/AppUtilities/TabularFile.png" style="width:90.0%;height:90.0%" class="figure-img">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-TabularFile-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;E.6: Tabular File Classes
+</figcaption>
+</figure>
+</div>
+<p><a href="#fig-TabularFile" class="quarto-xref">Figure&nbsp;<span>E.6</span></a> illustrates the functions and properties of the classes for working with tabular data stored in files.</p>
+<p>The following code illustrates how to make a tabular file with 5 columns. The first three columns hold numeric data. The fourth column holds text, and the fifth column holds numeric data. The enum <code>DataType</code> defines two types of data to be held in columns: numeric or text. This covers a vast majority of simple computing needs.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb5"><pre class="sourceCode kotlin code-with-copy"><code class="sourceCode kotlin"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>    <span class="kw">val</span> <span class="va">path</span><span class="op">:</span> Path <span class="op">=</span> KSL<span class="op">.</span>outDir<span class="op">.</span>resolve<span class="op">(</span><span class="st">"demoFile"</span><span class="op">)</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>    <span class="co">// configure the columns</span></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>    <span class="kw">val</span> <span class="va">columns</span><span class="op">:</span> MutableMap<span class="op">&lt;</span><span class="kw">String</span><span class="op">,</span> DataType<span class="op">&gt;</span> <span class="op">=</span> TabularFile<span class="op">.</span>columns<span class="op">(</span><span class="dv">3</span><span class="op">,</span> DataType<span class="op">.</span>NUMERIC<span class="op">).</span>toMutableMap<span class="op">()</span></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>    columns<span class="op">[</span><span class="st">"c4"</span><span class="op">]</span> <span class="op">=</span> DataType<span class="op">.</span>TEXT</span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>    columns<span class="op">[</span><span class="st">"c5"</span><span class="op">]</span> <span class="op">=</span> DataType<span class="op">.</span>NUMERIC</span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>    <span class="co">// make the file</span></span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>    <span class="kw">val</span> <span class="va">tif</span> <span class="op">=</span> TabularOutputFile<span class="op">(</span>columns<span class="op">,</span> path<span class="op">)</span></span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>    println<span class="op">(</span>tif<span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>The <code>columns()</code> function is used to define the columns as a map of column names and the data types. This describes a type of column within the tabular file.</p>
+<p>The numeric type should be used for numeric data (float, double, long, int, etc.). In addition, use the numeric type for boolean values, which are stored 1.0 = true, 0.0 = false). The text type should be used for strings and date/time data. Date and time data is saved as ISO8601 strings (“YYYY-MM-DD HH:MM:SS.SSS”). If you need more type complexity, you should use a database or some other more advanced serialization method such as <a href="https://www.json.org/json-en.html">JSON</a>, <a href="https://parquet.apache.org/">Parquet</a>, or <a href="https://arrow.apache.org/">Arrow</a>.</p>
+<p>The following code creates some random data and writes rows of data to the file. The <code>RowSetterIfc</code> interface is use in that it allows for the writing of any numeric columns and any text columns as separate row operations.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb6"><pre class="sourceCode kotlin code-with-copy"><code class="sourceCode kotlin"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>    <span class="co">// needed for some random data</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>    <span class="kw">val</span> <span class="va">n</span> <span class="op">=</span> NormalRV<span class="op">(</span><span class="fl">10.0</span><span class="op">,</span> <span class="fl">1.0</span><span class="op">)</span></span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>    <span class="kw">val</span> <span class="va">k</span> <span class="op">=</span> <span class="dv">15</span></span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>    <span class="co">// get a row</span></span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>    <span class="kw">val</span> <span class="va">row</span><span class="op">:</span> RowSetterIfc <span class="op">=</span> tif<span class="op">.</span>row<span class="op">()</span></span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>    <span class="co">// write some data to each row</span></span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>    println<span class="op">(</span><span class="st">"Writing rows..."</span><span class="op">)</span></span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> <span class="op">(</span>i <span class="kw">in</span> <span class="fl">1.</span><span class="op">.</span>k<span class="op">)</span> <span class="op">{</span></span>
+<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a>        <span class="co">// reuse the same row, many times</span></span>
+<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a>        <span class="co">// can fill all numeric columns</span></span>
+<span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a>        row<span class="op">.</span>setNumeric<span class="op">(</span>n<span class="op">.</span>sample<span class="op">(</span><span class="dv">5</span><span class="op">))</span></span>
+<span id="cb6-12"><a href="#cb6-12" aria-hidden="true" tabindex="-1"></a>        <span class="co">// can set specific columns</span></span>
+<span id="cb6-13"><a href="#cb6-13" aria-hidden="true" tabindex="-1"></a>        row<span class="op">.</span>setText<span class="op">(</span><span class="dv">3</span><span class="op">,</span> <span class="st">"text data </span><span class="ss">$i</span><span class="st">"</span><span class="op">)</span></span>
+<span id="cb6-14"><a href="#cb6-14" aria-hidden="true" tabindex="-1"></a>        <span class="co">// need to write the row to the buffer</span></span>
+<span id="cb6-15"><a href="#cb6-15" aria-hidden="true" tabindex="-1"></a>        tif<span class="op">.</span>writeRow<span class="op">(</span>row<span class="op">)</span></span>
+<span id="cb6-16"><a href="#cb6-16" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
+<span id="cb6-17"><a href="#cb6-17" aria-hidden="true" tabindex="-1"></a>    <span class="co">// don't forget to flush the buffer</span></span>
+<span id="cb6-18"><a href="#cb6-18" aria-hidden="true" tabindex="-1"></a>    tif<span class="op">.</span>flushRows<span class="op">()</span></span>
+<span id="cb6-19"><a href="#cb6-19" aria-hidden="true" tabindex="-1"></a>    println<span class="op">(</span><span class="st">"Done writing rows!"</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>The tabular file package also allows for the defintion of the data schema via data class. The type of the properties of the data class are translated to either text or numeric columns. The following code illustrates this functionality. Here a data class is used to define a text field and a numeric field, which are then written to the file.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb7"><pre class="sourceCode kotlin code-with-copy"><code class="sourceCode kotlin"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>    <span class="kw">val</span> <span class="va">path</span><span class="op">:</span> Path <span class="op">=</span> KSL<span class="op">.</span>outDir<span class="op">.</span>resolve<span class="op">(</span><span class="st">"TabularDataFile"</span><span class="op">)</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>    <span class="kw">data</span> <span class="kw">class</span> SomeData<span class="op">(</span><span class="kw">var</span> <span class="va">someText</span><span class="op">:</span> <span class="dt">String</span> <span class="op">=</span> <span class="st">""</span><span class="op">,</span> <span class="kw">var</span> <span class="va">someData</span><span class="op">:</span> <span class="dt">Double</span> <span class="op">=</span> <span class="fl">0.0</span><span class="op">):</span> <span class="dt">TabularData</span><span class="op">(</span>"<span class="va">SomeData</span>"<span class="op">)</span></span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>    <span class="kw">val</span> <span class="va">rowData</span> <span class="op">=</span> SomeData<span class="op">()</span></span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>    <span class="co">// use the data class instance to define the columns and their types</span></span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>    <span class="kw">val</span> <span class="va">tof</span> <span class="op">=</span> TabularOutputFile<span class="op">(</span>rowData<span class="op">,</span> path<span class="op">)</span></span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>    println<span class="op">(</span>tof<span class="op">)</span></span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a>    <span class="co">// needed for some random data</span></span>
+<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a>    <span class="kw">val</span> <span class="va">n</span> <span class="op">=</span> NormalRV<span class="op">(</span><span class="fl">10.0</span><span class="op">,</span> <span class="fl">1.0</span><span class="op">)</span></span>
+<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a>    <span class="kw">val</span> <span class="va">k</span> <span class="op">=</span> <span class="dv">15</span></span>
+<span id="cb7-11"><a href="#cb7-11" aria-hidden="true" tabindex="-1"></a>    <span class="co">// write some data to each row</span></span>
+<span id="cb7-12"><a href="#cb7-12" aria-hidden="true" tabindex="-1"></a>    println<span class="op">(</span><span class="st">"Writing rows..."</span><span class="op">)</span></span>
+<span id="cb7-13"><a href="#cb7-13" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> <span class="op">(</span>i <span class="kw">in</span> <span class="fl">1.</span><span class="op">.</span>k<span class="op">)</span> <span class="op">{</span></span>
+<span id="cb7-14"><a href="#cb7-14" aria-hidden="true" tabindex="-1"></a>        <span class="co">// reuse the same row, many times</span></span>
+<span id="cb7-15"><a href="#cb7-15" aria-hidden="true" tabindex="-1"></a>        <span class="co">// can fill all numeric columns</span></span>
+<span id="cb7-16"><a href="#cb7-16" aria-hidden="true" tabindex="-1"></a>        rowData<span class="op">.</span>someData <span class="op">=</span> n<span class="op">.</span>value</span>
+<span id="cb7-17"><a href="#cb7-17" aria-hidden="true" tabindex="-1"></a>        rowData<span class="op">.</span>someText <span class="op">=</span> <span class="st">"text data </span><span class="ss">$i</span><span class="st">"</span></span>
+<span id="cb7-18"><a href="#cb7-18" aria-hidden="true" tabindex="-1"></a>        <span class="co">// need to write the row to the buffer</span></span>
+<span id="cb7-19"><a href="#cb7-19" aria-hidden="true" tabindex="-1"></a>        tof<span class="op">.</span>writeRow<span class="op">(</span>rowData<span class="op">)</span></span>
+<span id="cb7-20"><a href="#cb7-20" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
+<span id="cb7-21"><a href="#cb7-21" aria-hidden="true" tabindex="-1"></a>    <span class="co">// don't forget to flush the buffer</span></span>
+<span id="cb7-22"><a href="#cb7-22" aria-hidden="true" tabindex="-1"></a>    tof<span class="op">.</span>flushRows<span class="op">()</span></span>
+<span id="cb7-23"><a href="#cb7-23" aria-hidden="true" tabindex="-1"></a>    println<span class="op">(</span><span class="st">"Done writing rows!"</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>As long as the data class is compatible with the rows of the file, then the same approach can be used to read in the data as illustrated in the next code snippet.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb8"><pre class="sourceCode kotlin code-with-copy"><code class="sourceCode kotlin"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>    <span class="kw">val</span> <span class="va">tif</span> <span class="op">=</span> TabularInputFile<span class="op">(</span>path<span class="op">)</span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>    println<span class="op">(</span>tif<span class="op">)</span></span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>    <span class="co">// TabularInputFile is Iterable and foreach construct works across rows</span></span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>    println<span class="op">(</span><span class="st">"Printing all rows from an iterator using data class"</span><span class="op">)</span></span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> <span class="op">(</span>row <span class="kw">in</span> tif<span class="op">.</span>iterator<span class="op">())</span> <span class="op">{</span></span>
+<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a>        rowData<span class="op">.</span>setPropertyValues<span class="op">(</span>row<span class="op">)</span></span>
+<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a>        println<span class="op">(</span>rowData<span class="op">)</span></span>
+<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
+<span id="cb8-10"><a href="#cb8-10" aria-hidden="true" tabindex="-1"></a>    println<span class="op">()</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Reading data from the file has a bit more functionality through some useful iterators. The following code opens a tabular file and iterates the rows.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb9"><pre class="sourceCode kotlin code-with-copy"><code class="sourceCode kotlin"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>    <span class="kw">val</span> <span class="va">path</span><span class="op">:</span> Path <span class="op">=</span> KSL<span class="op">.</span>outDir<span class="op">.</span>resolve<span class="op">(</span><span class="st">"demoFile"</span><span class="op">)</span></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>    <span class="kw">val</span> <span class="va">tif</span> <span class="op">=</span> TabularInputFile<span class="op">(</span>path<span class="op">)</span></span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>    println<span class="op">(</span>tif<span class="op">)</span></span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>    <span class="co">// TabularInputFile is Iterable and foreach construct works across rows</span></span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a>    println<span class="op">(</span><span class="st">"Printing all rows from an iterator"</span><span class="op">)</span></span>
+<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> <span class="op">(</span>row <span class="kw">in</span> tif<span class="op">.</span>iterator<span class="op">())</span> <span class="op">{</span></span>
+<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a>        println<span class="op">(</span>row<span class="op">)</span></span>
+<span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
+<span id="cb9-10"><a href="#cb9-10" aria-hidden="true" tabindex="-1"></a>    println<span class="op">()</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>You can fetch specific rows or a subset of rows. Multiple iterators can be active at the same time.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb10"><pre class="sourceCode kotlin code-with-copy"><code class="sourceCode kotlin"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>    <span class="co">// You can fetch rows as a list</span></span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>    println<span class="op">(</span><span class="st">"Printing a subset of rows"</span><span class="op">)</span></span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>    <span class="kw">val</span> <span class="va">rows</span><span class="op">:</span> List<span class="op">&lt;</span>RowGetterIfc<span class="op">&gt;</span> <span class="op">=</span> tif<span class="op">.</span>fetchRows<span class="op">(</span><span class="dv">1</span><span class="op">,</span> <span class="dv">5</span><span class="op">)</span></span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> <span class="op">(</span>row <span class="kw">in</span> rows<span class="op">)</span> <span class="op">{</span></span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>        println<span class="op">(</span>row<span class="op">)</span></span>
+<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
+<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a>    println<span class="op">()</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>You can start the iterator at a particular row.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb11"><pre class="sourceCode kotlin code-with-copy"><code class="sourceCode kotlin"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>    println<span class="op">(</span><span class="st">"Print starting at row 9"</span><span class="op">)</span></span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>    <span class="kw">val</span> <span class="va">iterator</span><span class="op">:</span> TabularInputFile<span class="op">.</span>RowIterator <span class="op">=</span> tif<span class="op">.</span>iterator<span class="op">(</span><span class="dv">9</span><span class="op">)</span></span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>    <span class="cf">while</span> <span class="op">(</span>iterator<span class="op">.</span>hasNext<span class="op">())</span> <span class="op">{</span></span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>        println<span class="op">(</span>iterator<span class="op">.</span>next<span class="op">())</span></span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
+<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a>    println<span class="op">()</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>You can grab various columns as arrays.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb12"><pre class="sourceCode kotlin code-with-copy"><code class="sourceCode kotlin"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>    println<span class="op">(</span><span class="st">"Printing column 0"</span><span class="op">)</span></span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>    <span class="kw">val</span> <span class="va">numericColumn</span><span class="op">:</span> DoubleArray <span class="op">=</span> tif<span class="op">.</span>fetchNumericColumn<span class="op">(</span><span class="dv">0</span><span class="op">,</span> <span class="dv">10</span><span class="op">,</span> <span class="kw">true</span><span class="op">)</span></span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> <span class="op">(</span>v <span class="kw">in</span> numericColumn<span class="op">)</span> <span class="op">{</span></span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>        println<span class="op">(</span>v<span class="op">)</span></span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>You can write the data to an Excel workbook.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb13"><pre class="sourceCode kotlin code-with-copy"><code class="sourceCode kotlin"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>    <span class="cf">try</span> <span class="op">{</span></span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>        tif<span class="op">.</span>exportToExcelWorkbook<span class="op">(</span><span class="st">"demoData.xlsx"</span><span class="op">,</span> KSL<span class="op">.</span>excelDir<span class="op">)</span></span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span> <span class="cf">catch</span> <span class="op">(</span>e<span class="op">:</span> IOException<span class="op">)</span> <span class="op">{</span></span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a>        e<span class="op">.</span>printStackTrace<span class="op">()</span></span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>You can pretty print rows of the data and export the data to a CSV file.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb14"><pre class="sourceCode kotlin code-with-copy"><code class="sourceCode kotlin"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a>    tif<span class="op">.</span>printAsText<span class="op">(</span><span class="dv">1</span><span class="op">,</span> <span class="dv">5</span><span class="op">)</span></span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>    <span class="kw">val</span> <span class="va">printWriter</span><span class="op">:</span> PrintWriter <span class="op">=</span> KSL<span class="op">.</span>createPrintWriter<span class="op">(</span><span class="st">"data.csv"</span><span class="op">)</span></span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>    tif<span class="op">.</span>exportToCSV<span class="op">(</span>printWriter<span class="op">,</span> <span class="kw">true</span><span class="op">)</span></span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a>    printWriter<span class="op">.</span>close<span class="op">()</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>You can even convert the tabular data to an SQLLite database or turn the data into a data frame.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb15"><pre class="sourceCode kotlin code-with-copy"><code class="sourceCode kotlin"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>    <span class="cf">try</span> <span class="op">{</span></span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>        <span class="kw">val</span> <span class="va">database</span><span class="op">:</span> DatabaseIfc <span class="op">=</span> tif<span class="op">.</span>asDatabase<span class="op">()</span></span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span> <span class="cf">catch</span> <span class="op">(</span>e<span class="op">:</span> IOException<span class="op">)</span> <span class="op">{</span></span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a>        e<span class="op">.</span>printStackTrace<span class="op">()</span></span>
+<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
+<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a>    println<span class="op">()</span></span>
+<span id="cb15-7"><a href="#cb15-7" aria-hidden="true" tabindex="-1"></a>    println<span class="op">(</span><span class="st">"Printing a data frame version"</span><span class="op">)</span></span>
+<span id="cb15-8"><a href="#cb15-8" aria-hidden="true" tabindex="-1"></a>    <span class="kw">val</span> <span class="va">df</span> <span class="op">=</span> tif<span class="op">.</span>asDataFrame<span class="op">()</span></span>
+<span id="cb15-9"><a href="#cb15-9" aria-hidden="true" tabindex="-1"></a>    println<span class="op">(</span>df<span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Much of this functionality is used within the implementation of the KSL database implementation, which will be discussed in a subsequent section. Since we just mentioned data frames, we discuss that functionality in the next section.</p>
+</section>
+<section id="sec-dfUtil" class="level2" data-number="E.5">
+<h2 data-number="E.5" class="anchored" data-anchor-id="sec-dfUtil"><span class="header-section-number">E.5</span> The <code>DataFrameUtil</code> Object</h2>
+<p>A data frame is an in-memory data structure that holds tabular data. That is, data having rows and columns. Kotlin has a library to support this type of functionality and the <code>DataFrameUtil</code> object has been designed to facilitate the use of data frame within the <code>KSL.</code> Documentation, examples, and the basic functionality of Kotlin data frames can be found at this <a href="https://github.com/Kotlin/dataframe">repository</a>. Kotlin data frames provide similar functionality as that found in other data frame libraries such as R. <a href="#fig-DataFrameUtil" class="quarto-xref">Figure&nbsp;<span>E.7</span></a> illustrates the functions and properties of the <code>DataFrameUtil</code> object.</p>
+<div id="fig-DataFrameUtil" class="quarto-float quarto-figure quarto-figure-left anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-DataFrameUtil-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="./figures/AppUtilities/DataFrameUtil.png" style="width:90.0%;height:90.0%" class="figure-img">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-DataFrameUtil-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;E.7: The DataFrameUtil Object
+</figcaption>
+</figure>
+</div>
+<p>The main functionality added by <code>DataFrameUtil</code> is sampling from rows and columns of the data frame and computing some basic statistics. The functions for sampling without replacement return a new data frame with the sampled rows. The functions for permutation return a new data frame with the permuted rows. The functions for randomly selection will select an element from the a column of the data frame or for selecting an entire row. The element or row can be selected with equal probability or via an empirical distribution over the elements (by row). <code>KSL</code> statistics, histogram, box plot statistics, and frequencies can all be computed over the columns.</p>
+<ul>
+<li>sampleWithoutReplacement(DataFrame<span class="math inline">\(&lt;T&gt;\)</span>, Int, RNStreamIfc) DataFrame<span class="math inline">\(&lt;T&gt;\)</span></li>
+<li>sampleWithoutReplacement(DataFrame<span class="math inline">\(&lt;T&gt;\)</span> Int, Int) DataFrame<span class="math inline">\(&lt;T&gt;\)</span></li>
+<li>permute(DataFrame<span class="math inline">\(&lt;T&gt;\)</span>, Int) DataFrame<span class="math inline">\(&lt;T&gt;\)</span></li>
+<li>permute(DataFrame<span class="math inline">\(&lt;T&gt;\)</span>, RNStreamIfc) DataFrame<span class="math inline">\(&lt;T&gt;\)</span></li>
+<li>randomlySelect(DataColumn<span class="math inline">\(&lt;T&gt;\)</span>, RNStreamIfc) T</li>
+<li>randomlySelect(DataColumn<span class="math inline">\(&lt;T&gt;\)</span>, Int) T</li>
+<li>randomlySelect(DataColumn<span class="math inline">\(&lt;T&gt;\)</span>, Double[], RNStreamIfc) T</li>
+<li>randomlySelect(DataColumn<span class="math inline">\(&lt;T&gt;\)</span>, Double[], Int) T</li>
+<li>randomlySelect(DataFrame<span class="math inline">\(&lt;T&gt;\)</span>, Int) DataRow<span class="math inline">\(&lt;T&gt;\)</span></li>
+<li>randomlySelect(DataFrame<span class="math inline">\(&lt;T&gt;\)</span>, RNStreamIfc) DataRow<span class="math inline">\(&lt;T&gt;\)</span></li>
+<li>randomlySelect(DataFrame<span class="math inline">\(&lt;T&gt;\)</span>, Double[], Int) DataRow<span class="math inline">\(&lt;T&gt;\)</span></li>
+<li>randomlySelect(DataFrame<span class="math inline">\(&lt;T&gt;\)</span>, Double[], RNStreamIfc) DataRow<span class="math inline">\(&lt;T&gt;\)</span></li>
+<li>buildMarkDown(DataFrame<span class="math inline">\(&lt;T&gt;\)</span>, Appendable) Unit</li>
+<li>histogram(DataColumn<span class="math inline">\(&lt;Double&gt;\)</span>, Double[]) Histogram</li>
+<li>statistics(DataColumn<span class="math inline">\(&lt;Double&gt;\)</span>) Statistic</li>
+<li>frequencies(DataColumn<span class="math inline">\(&lt;Int&gt;\)</span>) IntegerFrequency</li>
+<li>boxPlotSummary(DataColumn<span class="math inline">\(&lt;Double&gt;\)</span>) BoxPlotSummary</li>
+</ul>
+<p>Extension functions are also available for a data frame and its columns. The Kotlin data frame library has been included in the KSL as part of the API. Thus, clients also have access to the full features associated with the library. The main usage within the KSL is in the capturing of simulation output data. The easiest way to do this is by using the <code>KSLDatabase</code> class. Data frame instances can be requested as part of the database functionality of the KSL.</p>
+</section>
+<section id="ksl-database-utilities" class="level2" data-number="E.6">
+<h2 data-number="E.6" class="anchored" data-anchor-id="ksl-database-utilities"><span class="header-section-number">E.6</span> KSL Database Utilities</h2>
+<p>Some of the database functionality for use when accessing simulation results has already been discussed in <a href="05-Chapter5.html" class="quarto-xref"><span>Chapter 5</span></a>. This section presents some of the more general database utilities available within the KSL framework. These utilities basically exist to help with implementing the KSL database functionality. However, users may find some of this functionality useful for other purpose. However, these utilities are not meant as a substitute for more advanced database frameworks such as <a href="https://www.jooq.org/">JOOQ</a>, <a href="https://github.com/JetBrains/Exposed">Exposed</a>, and <a href="https://www.ktorm.org/">KTorm</a>. We refer the interested reader to those libraries for more advanced work for database processing using Kotlin.</p>
+<p><a href="#fig-DbProperties" class="quarto-xref">Figure&nbsp;<span>E.8</span></a> illustrates the properties of the interfaces, <code>DatabaseIOIfc</code> and <code>DatabaseIfc</code> which represent the main functionality for working with databases.</p>
+<div id="fig-DbProperties" class="quarto-float quarto-figure quarto-figure-left anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-DbProperties-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="./figures/AppUtilities/DbProperties.png" style="width:90.0%;height:90.0%" class="figure-img">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-DbProperties-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;E.8: Properties of the Main Database Classes
+</figcaption>
+</figure>
+</div>
+<p>The <code>DatabaseIOIfc</code> interface is responsible for defining the functionality related to input and output. As shown in <a href="#fig-DatabaseIOIfc" class="quarto-xref">Figure&nbsp;<span>E.9</span></a> the capabilities are easily discerned from the names of the methods. Exporting tables and views to Excel or CSV files are probably the most useful functions. For small tables, capturing the table as a Markdown table can be useful.</p>
+<div id="fig-DatabaseIOIfc" class="quarto-float quarto-figure quarto-figure-left anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-DatabaseIOIfc-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="./figures/AppUtilities/DatabaseIOIfc.png" style="width:80.0%;height:80.0%" class="figure-img">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-DatabaseIOIfc-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;E.9: Methods of the DatabaseIOIfc Interface
+</figcaption>
+</figure>
+</div>
+<p>The <code>DatabaseIfc</code> interface defines what a database can do and the <code>Database</code> class provides a concrete implementation for working with a database. The functionality of the <code>DatabaseIfc</code> interface is extensive. Besides the IO related functions, we note a few useful methods here. The <code>execute</code> methods allow the execution of an SQL string, list of SQL commands, or script file. It is the user’s responsibility for forming an appropriate SQL string.</p>
+<ul>
+<li>executeCommand(String) Boolean</li>
+<li>executeCommand(String) Boolean</li>
+<li>executeCommands(List<span class="math inline">\(&lt;\)</span>String<span class="math inline">\(&gt;\)</span>) Boolean</li>
+<li>executeCommands(List<span class="math inline">\(&lt;\)</span>String<span class="math inline">\(&gt;\)</span>) Boolean</li>
+<li>executeScript(Path) Boolean</li>
+<li>executeScript(Path) Boolean</li>
+</ul>
+<p>There are methods for checking if the database contains specific named tables or views.</p>
+<ul>
+<li>containsSchema(String) Boolean</li>
+<li>containsSchema(String) Boolean</li>
+<li>containsTable(String) Boolean</li>
+<li>containsTable(String, String) Boolean</li>
+<li>containsTable(String, String) Boolean</li>
+<li>containsTable(String) Boolean</li>
+<li>containsView(String) Boolean</li>
+<li>containsView(String) Boolean</li>
+</ul>
+<p>A set of methods for fetching data from the database facilitate the execution of SQL select statements. The select all methods will select all the data from a named table or view.</p>
+<ul>
+<li>fetchCachedRowSet(String) CachedRowSet?</li>
+<li>fetchCachedRowSet(String) CachedRowSet?</li>
+<li>fetchOpenResultSet(String) ResultSet?</li>
+<li>fetchOpenResultSet(String) ResultSet?</li>
+<li>selectAll(String, String?) CachedRowSet?</li>
+<li>selectAll(String, String?) CachedRowSet?</li>
+<li>selectAllIntoOpenResultSet(String, String?) ResultSet?</li>
+<li>selectAllIntoOpenResultSet(String, String?) ResultSet?</li>
+</ul>
+<p>The interface also provides some basic methods for inserting and updating data within the database by using Kotlin data classes, specifically sub-classes of the <code>DbTableData</code> class, which extends the <code>TabularData</code> class and allows the user to supply the data for a table in a data class instance similar to how it was done for working with tabular files. However, in this case more general mapping of data types to database types is permitted besides just numeric or text.</p>
+<ul>
+<li>insertDbDataIntoTable(List<span class="math inline">\(&lt;\)</span>String<span class="math inline">\(&gt;\)</span>, String, String?) Int</li>
+<li>insertDbDataIntoTable(T, String, String?) Int</li>
+<li>insertDbDataIntoTable(List<span class="math inline">\(&lt;\)</span>String<span class="math inline">\(&gt;\)</span>, String, String?) Int</li>
+<li>insertDbDataIntoTable(T, String, String?) Int</li>
+<li>updateDbDataInTable(List<span class="math inline">\(&lt;\)</span>String<span class="math inline">\(&gt;\)</span>, String, String?) Int</li>
+<li>updateDbDataInTable(T, String, String?) Int</li>
+<li>updateDbDataInTable(List<span class="math inline">\(&lt;\)</span>String<span class="math inline">\(&gt;\)</span>, String, String?) Int</li>
+<li>updateDbDataInTable(T, String, String?) Int</li>
+</ul>
+<p>When working with the database it is useful to get a connection, access table meta data, check if tables have data, check if tables or views exist.</p>
+<ul>
+<li>getConnection() Connection</li>
+<li>getSchemas() List<span class="math inline">\(&lt;\)</span>String<span class="math inline">\(&gt;\)</span></li>
+<li>getUserDefinedTables() List~<span class="math inline">\(&lt;\)</span>String<span class="math inline">\(&gt;\)</span></li>
+<li>getViews() List<span class="math inline">\(&lt;\)</span>String<span class="math inline">\(&gt;\)</span></li>
+<li>hasData(String?) Boolean</li>
+<li>hasData(String?) Boolean</li>
+<li>hasTables(String) Boolean</li>
+<li>hasTables(String) Boolean</li>
+<li>isTableEmpty(String, String?) Boolean</li>
+<li>isTableEmpty(String, String?) Boolean</li>
+<li>numRows(String, String?) Long</li>
+<li>numRows(String, String?) Long</li>
+<li>tableMetaData(String, String?) List<span class="math inline">\(&lt;\)</span>ColumnMetaData<span class="math inline">\(&gt;\)</span></li>
+<li>tableMetaData(String, String?) List<span class="math inline">\(&lt;\)</span>ColumnMetaData<span class="math inline">\(&gt;\)</span></li>
+<li>tableNames(String) List<span class="math inline">\(&lt;\)</span>String<span class="math inline">\(&gt;\)</span></li>
+<li>tableNames(String) List<span class="math inline">\(&lt;\)</span>String<span class="math inline">\(&gt;\)</span></li>
+<li>viewNames(String) List<span class="math inline">\(&lt;\)</span>String<span class="math inline">\(&gt;\)</span></li>
+<li>viewNames(String) List<span class="math inline">\(&lt;\)</span>String<span class="math inline">\(&gt;\)</span></li>
+</ul>
+<p>We refer the interested reader to the <a href="https://rossetti.github.io/KSLDocs/">KSL KDoc</a> documentation for further details about using these methods.</p>
+<p>The <code>DatabaseIfc</code> functionality defines basic capabilities for working with any database implementation. The KSL provides functionality to create <a href="https://www.sqlite.org/index.html">SQLite</a>, <a href="https://db.apache.org/derby/">Derby</a> , and <a href="https://duckdb.org/">DuckDb</a> embedded databases. In addition, the KSL facilitates the creation of a database on a <a href="https://www.postgresql.org/">Postgres</a> database server.</p>
+<div id="fig-EmbeddedDb" class="quarto-float quarto-figure quarto-figure-left anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-EmbeddedDb-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="./figures/AppUtilities/EmbeddedDb.png" style="width:95.0%;height:95.0%" class="figure-img">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-EmbeddedDb-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;E.10: Working with Embedded Databases
+</figcaption>
+</figure>
+</div>
+<p><a href="#fig-EmbeddedDb" class="quarto-xref">Figure&nbsp;<span>E.10</span></a> illustrates the functionality of the <code>EmbeddedDbIfc</code> interface, and its SQLite, Derby, and DuckDb implementations. Readers interested in other databases can review these implementations for how to structure code for other databases. The <code>PostgresDb</code> class provides similar functionality. The main purpose is to be able to supply a data source to the <code>Database</code> class.</p>
+<p><a href="#fig-Ch13KSLDatabase" class="quarto-xref">Figure&nbsp;<span>E.11</span></a> provides the functionality for the <code>KSLDatabase</code> class. Although most of this functionality has been mentioned within Chapter 5, it is useful to note that since the <code>KSLDatabase</code> class is a database, it also has all of the previously mentioned database functionality.</p>
+<div id="fig-Ch13KSLDatabase" class="quarto-float quarto-figure quarto-figure-left anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-Ch13KSLDatabase-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="./figures/AppUtilities/KSLDatabase.png" style="width:80.0%;height:80.0%" class="figure-img">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-Ch13KSLDatabase-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;E.11: The KSLDatabase Class
+</figcaption>
+</figure>
+</div>
+<p>The main notable methods involve the export, printing, or writing of the underlying data from the tables or views storing the simulation statistical results. In addition, there are a number of properties that will provide data frame representations of the simulation output data. For example, the data class <code>WithinRepStatTableData</code> represents the statistics collected within each replication and is used to by the <code>withinReplicationResponseStatistics</code> property to create a data frame that holds the statistical data. <a href="#fig-WithinRepStatTableData" class="quarto-xref">Figure&nbsp;<span>E.12</span></a> provides the data elements held for within replication data.</p>
+<div id="fig-WithinRepStatTableData" class="quarto-float quarto-figure quarto-figure-left anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-WithinRepStatTableData-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="./figures/AppUtilities/WithinRepStatTableData.png" style="width:90.0%;height:90.0%" class="figure-img">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-WithinRepStatTableData-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;E.12: Within Replication Statistical Data
+</figcaption>
+</figure>
+</div>
+<p>The within replication statistical data represents the summary statistics of the data collected during a replication. The most relevant properties are the <code>average</code>, <code>minimum</code>, and <code>maximum</code>. To compute across replication statistics we can use the <code>average</code> for each replication. The statistical quantities are captured within the underlying database as discussed in <a href="05-Chapter5.html" class="quarto-xref"><span>Chapter 5</span></a>. The user can post-process any of this data using commonly available database technology and SQL.</p>
+<p>The database utilities also offers the ability to quickly create simple databases via the <code>Database</code> companion object’s <code>createSimpleDb()</code> function. The purpose of this function is to allow the creation of a quick and dirty database solution based on the <code>DbTableData</code> data classes. By defining data classes that are sub-classes of <code>DbTableData</code>, a <code>CREATE TABLE</code> specification can be obtained and the database created. Then, the database can be used to insert data from instances of the <code>DbTableData</code> sub-classes. The following code illustrates this possibility.</p>
+<p>First, we define two data classes that extend the <code>DbTableData</code> class. In this code, we define a <code>Person</code> and a <code>City</code> class, each with a property <code>id</code> that will act as the primary key of the table. The primary key must be specified; however, the use of an auto-generated (surrogate) key is not supported at this time.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb16"><pre class="sourceCode kotlin code-with-copy"><code class="sourceCode kotlin"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="kw">data</span> <span class="kw">class</span> Person<span class="op">(</span></span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>    <span class="kw">var</span> <span class="va">id</span><span class="op">:</span> <span class="dt">Int</span><span class="op">,</span></span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>    <span class="kw">var</span> <span class="va">name</span><span class="op">:</span> <span class="dt">String</span><span class="op">,</span></span>
+<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a>    <span class="kw">var</span> <span class="va">age</span><span class="op">:</span> <span class="dt">Int</span></span>
+<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a><span class="op">)</span> <span class="op">:</span> <span class="dt">DbTableData</span><span class="op">(</span>"<span class="va">Persons</span>"<span class="op">,</span> <span class="va">listOf</span>("<span class="va">id</span>"<span class="op">)</span>)</span>
+<span id="cb16-6"><a href="#cb16-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-7"><a href="#cb16-7" aria-hidden="true" tabindex="-1"></a><span class="kw">data</span> <span class="kw">class</span> City<span class="op">(</span></span>
+<span id="cb16-8"><a href="#cb16-8" aria-hidden="true" tabindex="-1"></a>    <span class="kw">var</span> <span class="va">id</span><span class="op">:</span> <span class="dt">Int</span><span class="op">,</span></span>
+<span id="cb16-9"><a href="#cb16-9" aria-hidden="true" tabindex="-1"></a>    <span class="kw">var</span> <span class="va">name</span><span class="op">:</span> <span class="dt">String</span><span class="op">,</span></span>
+<span id="cb16-10"><a href="#cb16-10" aria-hidden="true" tabindex="-1"></a>    <span class="kw">var</span> <span class="va">population</span><span class="op">:</span> <span class="dt">Int</span></span>
+<span id="cb16-11"><a href="#cb16-11" aria-hidden="true" tabindex="-1"></a><span class="op">)</span> <span class="op">:</span> <span class="dt">DbTableData</span><span class="op">(</span>"<span class="va">Cities</span>"<span class="op">,</span> <span class="va">listOf</span>("<span class="va">id</span>"<span class="op">)</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Then, by providing a simple instance of these classes to the <code>SimpleDb</code> class constructor, we will cause a database to be created that is setup to hold the data from the supplied data classes. If you want to see the <code>CREATE TABLE</code> statements used to define the tables, then uncomment the two print statements in the following code.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb17"><pre class="sourceCode kotlin code-with-copy"><code class="sourceCode kotlin"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>    <span class="kw">val</span> <span class="va">p</span> <span class="op">=</span> Person<span class="op">(</span><span class="dv">1</span><span class="op">,</span> <span class="st">"manuel"</span><span class="op">,</span> age <span class="op">=</span> <span class="dv">10</span><span class="op">)</span></span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a><span class="co">//    println(p.createTableSQLStatement())</span></span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>    <span class="kw">val</span> <span class="va">c</span> <span class="op">=</span> City<span class="op">(</span><span class="dv">1</span><span class="op">,</span> <span class="st">"London"</span><span class="op">,</span> population <span class="op">=</span> <span class="dv">1000</span><span class="op">)</span></span>
+<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a><span class="co">//    println(c.createTableSQLStatement())</span></span>
+<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a>    <span class="kw">val</span> <span class="va">db</span> <span class="op">=</span> Database<span class="op">.</span>createSimpleDb<span class="op">(</span>setOf<span class="op">(</span>p<span class="op">,</span> c<span class="op">),</span> <span class="st">"TestSimpleDb"</span><span class="op">)</span></span>
+<span id="cb17-6"><a href="#cb17-6" aria-hidden="true" tabindex="-1"></a>    db<span class="op">.</span>insertDbDataIntoTable<span class="op">(</span>p<span class="op">)</span></span>
+<span id="cb17-7"><a href="#cb17-7" aria-hidden="true" tabindex="-1"></a>    db<span class="op">.</span>insertDbDataIntoTable<span class="op">(</span>c<span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>You can then used the full functionality provided by the KSL database utilities because the <code>createSimpleDb()</code> function returns an instance of the <code>DatabaseIfc</code> and <code>DatabaseIOIfc</code> interfaces. This functionality is useful for setting up small databases to hold generated data. It does not facilitate more advanced data definition or object-relational mappings. Please see more advanced database frameworks such as <a href="https://www.jooq.org/">JOOQ</a>, <a href="https://github.com/JetBrains/Exposed">Exposed</a>, and <a href="https://www.ktorm.org/">KTorm</a> for more robust solutions.</p>
+</section>
+<section id="sec-appUtilitiesArrays" class="level2" data-number="E.7">
+<h2 data-number="E.7" class="anchored" data-anchor-id="sec-appUtilitiesArrays"><span class="header-section-number">E.7</span> Array Utilities</h2>
+<p>The KSL provides a wide-variety of functions and extensions for working with <code>Double</code>, <code>Int</code>, and <code>Long</code> arrays. Most of the functionality is focused on working with one-dimensional <code>Double</code> arrays. <a href="#fig-KSLArrays" class="quarto-xref">Figure&nbsp;<span>E.13</span></a> illustrates the many methods for working with arrays via the <code>KSLArrays</code> object. These methods are also available as extension functions.</p>
+<div id="fig-KSLArrays" class="quarto-float quarto-figure quarto-figure-left anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-KSLArrays-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="./figures/AppUtilities/KSLArrays.png" style="width:70.0%;height:70.0%" class="figure-img">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-KSLArrays-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;E.13: Array Utilities
+</figcaption>
+</figure>
+</div>
+<p>There are a number of functions that facilitate conversions: to primitive types, to strings, conversion between types, and parsing.</p>
+<ul>
+<li>toPrimitives(Double[], Double) Double[]</li>
+<li>toPrimitives(List<span class="math inline">\(&lt;\)</span>Double<span class="math inline">\(&gt;\)</span>, Double) Double[]</li>
+<li>toPrimitives(Int[], Int) Int[]</li>
+<li>toPrimitives(List<span class="math inline">\(&lt;\)</span>Int<span class="math inline">\(&gt;\)</span>, Int) Int[]</li>
+<li>toPrimitives(Long[], Long) Long[]</li>
+<li>toPrimitives(List<span class="math inline">\(&lt;\)</span>Long<span class="math inline">\(&gt;\)</span>, Long) Long[]</li>
+<li>toCSVString(Double[]) String</li>
+<li>toCSVString(Int[]) String</li>
+<li>toCSVString(Long[]) String</li>
+<li>toDoubles(Int[]) Double[]</li>
+<li>toDoubles(Int[]) Double[]</li>
+<li>toDoubles(Long[]) Double[]</li>
+<li>toDoubles(Long[]) Double[]</li>
+<li>toDoubles(Double[][]) Double[][]</li>
+<li>parseToDoubles(String[], Double) Double[]</li>
+<li>parseToDoubles(List<span class="math inline">\(&lt;\)</span>String<span class="math inline">\(&gt;\)</span>, Double) Double[]</li>
+<li>toStrings(Double[]) String[]</li>
+<li>toInts(Int[][]) Int[][]</li>
+<li>toLongs(Long[][]) Long[][]</li>
+</ul>
+<p>Then, there are useful functions for performing basic statistical computations such as finding the indices of the minimum or maximum, counting elements, finding the minimum, finding the maximum, and computing statistics.</p>
+<ul>
+<li>indexOfMax(Double[]) Int</li>
+<li>indexOfMax(Int[]) Int</li>
+<li>indexOfMax(Long[]) Int</li>
+<li>indexOfMin(Double[]) Int</li>
+<li>indexOfMin(Int[]) Int</li>
+<li>indexOfMin(Long[]) Int</li>
+<li>countLessEqualTo(Double[], Double) Int</li>
+<li>countLessEqualTo(Int[], Int) Int</li>
+<li>countLessThan(Double[], Double) Int</li>
+<li>countLessThan(Int[], Int) Int</li>
+<li>statistics(Double[]) Statistic</li>
+<li>min(Double[]) Double</li>
+<li>min(Int[]) Int</li>
+<li>min(Long[]) Long</li>
+<li>histogram(Double[], Double[]) Histogram</li>
+<li>countGreaterEqualTo(Double[], Double) Int</li>
+<li>max(Double[]) Double</li>
+<li>countGreaterEqualTo(Int[], Int) Int</li>
+<li>max(Int[]) Int</li>
+<li>max(Long[]) Long</li>
+<li>range(Double[]) Double</li>
+<li>countGreaterThan(Double[], Double) Int</li>
+<li>countGreaterThan(Int[], Int) Int</li>
+<li>subtractConstant(Double[], Double) Double[]</li>
+<li>orderStatistics(Double[]) Double[]</li>
+<li>sumOfSquares(Double[]) Double</li>
+<li>sumOfSquareRoots(Double[]) Double</li>
+</ul>
+<p>In addition, there are methods for checking the arrays. For example, methods exist to check if the 2-D array is rectangular in shape. That is, the rows all have the same number of elements. You can also check if the elements are all different, are strictly increasing or decreasing, and contain a zero value.</p>
+<ul>
+<li>isRectangular(T[][]) Boolean</li>
+<li>isRectangular(Double[][]) Boolean</li>
+<li>isRectangular(Int[][]) Boolean</li>
+<li>isRectangular(Long[][]) Boolean</li>
+<li>isIncreasing(Double[]) Boolean</li>
+<li>isIncreasing(Int[]) Boolean</li>
+<li>isAllDifferent(Double[]) Boolean</li>
+<li>isAllDifferent(Int[]) Boolean</li>
+<li>isStrictlyIncreasing(Double[]) Boolean</li>
+<li>isStrictlyIncreasing(Int[]) Boolean</li>
+<li>hasElement(Double[], Double) Boolean</li>
+<li>hasElement(Int[], Int) Boolean</li>
+<li>hasElement(Long[], Long) Boolean</li>
+<li>findIndex(Double[], Double) Int</li>
+<li>findIndex(Int[], Int) Int</li>
+<li>findIndex(Long[], Long) Int</li>
+<li>findIndex(String[], String) Int</li>
+<li>isStrictlyDecreasing(Double[]) Boolean</li>
+<li>isStrictlyDecreasing(Int[]) Boolean</li>
+<li>hasZero(Double[]) Boolean</li>
+<li>hasZero(Int[]) Boolean</li>
+<li>hasZero(Long[]) Boolean</li>
+<li>isDecreasing(Double[]) Boolean</li>
+<li>isDecreasing(Int[]) Boolean</li>
+</ul>
+<p>Then, there are methods for operating on the entire array. First, there are functions to reshape the arrays such as trimming non-rectangular arrays to rectangular, transposing the arrays, and expanding non-rectangular arrays to be rectangular. Then, there are functions to apply to each element such as multiplying the elements by a constant, adding a constant, and dividing by a constant. You can also apply a function to the elements in-place. That is transform each element without creating a new array.</p>
+<ul>
+<li>trimToRectangular(Double[][]) Double[][]</li>
+<li>minMaxScaledArray(Double[]) Double[]</li>
+<li>multiplyElements(Double[], Double[]) Double[]</li>
+<li>multiplyConstant(Double[], Double) Double[]</li>
+<li>addConstant(Double[], Double) Double[]</li>
+<li>copyWithout(Double[], Int) Double[]</li>
+<li>expandToRectangular(Double[][], Double) Double[][]</li>
+<li>transpose(Int[][]) Int[][]</li>
+<li>transpose(Double[][]) Double[][]</li>
+<li>transpose(Long[][]) Long[][]</li>
+<li>divideConstant(Double[], Double) Double[]</li>
+<li>normScaledArray(Double[]) Double[]</li>
+<li>toMapOfLists(Double[][], List<span class="math inline">\(&lt;\)</span>String<span class="math inline">\(&gt;\)</span>) Map<span class="math inline">\(&lt;\)</span>String, List<span class="math inline">\(&lt;\)</span>Double<span class="math inline">\(&gt;\)</span><span class="math inline">\(&gt;\)</span></li>
+<li>toMapOfColumns(Double[][], List<span class="math inline">\(&lt;\)</span>String<span class="math inline">\(&gt;\)</span>) Map<span class="math inline">\(&lt;\)</span>String, Double[]<span class="math inline">\(&gt;\)</span></li>
+<li>toMapOfRows(Double[][], List<span class="math inline">\(&lt;\)</span>String<span class="math inline">\(&gt;\)</span>) Map<span class="math inline">\(&lt;\)</span>String, Double[]<span class="math inline">\(&gt;\)</span></li>
+<li>mapInPlace(T[], (T) -<span class="math inline">\(&gt;\)</span> T) Unit</li>
+<li>mapInPlace(Int[], (Int) -<span class="math inline">\(&gt;\)</span> Int) Unit</li>
+<li>mapInPlace(Double[], (Double) -<span class="math inline">\(&gt;\)</span> Double) Unit</li>
+<li>fillColumn(Double[][], Int, Double[]) Unit</li>
+<li>fill(Double[], GetValueIfc) Unit</li>
+<li>fill(Double[][], GetValueIfc) Unit</li>
+</ul>
+<p><a href="#fig-RArrays" class="quarto-xref">Figure&nbsp;<span>E.14</span></a> illustrates the many methods for permuting and sampling arrays.</p>
+<div id="fig-RArrays" class="quarto-float quarto-figure quarto-figure-left anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-RArrays-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="./figures/AppUtilities/RArrays.png" style="width:70.0%;height:70.0%" class="figure-img">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-RArrays-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;E.14: Random Array Utilities
+</figcaption>
+</figure>
+</div>
+<p>Much of the functionality described here can (and has been) used to implement more complex operations used within the KSL. There are other libraries that are under active develop for working with arrays with design goals that focus on efficiency and memory. The interested reader might look at <a href="https://github.com/SciProgCentre/kmath">kmath</a> and the multi-dimensional arrays library, <a href="https://github.com/Kotlin/multik">multik</a>.</p>
+</section>
+<section id="sec-appPlotting" class="level2" data-number="E.8">
+<h2 data-number="E.8" class="anchored" data-anchor-id="sec-appPlotting"><span class="header-section-number">E.8</span> KSL Plotting Utilities</h2>
+<p>This file demonstrates how to create many of the plots that are available within the ksl.utilities.io.plotting package. The KSL uses the <a href="https://github.com/JetBrains/lets-plot-kotlin">lets-plot library</a> as its underlying plotting platform.</p>
+<p>The KSL wraps the lets-plot functionality into a set of classes to create commonly used plots within simulation. The KSL has classes that facilitate the construction of the following plots.</p>
+<ul>
+<li><code>ACFPlot</code> - The autocorrelation function (ACF) for an array of data plots the correlation between <span class="math inline">\(X_i\)</span> and <span class="math inline">\(X_{i+k}\)</span> for different values of <span class="math inline">\(k\)</span>.</li>
+<li><code>BoxPlot</code> - The box plot summary for an array of data plots the summary statistics representing the first quartile, median, and third quartile of the data along with outliers.</li>
+<li><code>MultiBoxPlot</code> A multi-box plot presents multiple box plots on the same plotting frame.</li>
+<li><code>CDFDiffPlot</code> - CDF difference plot, as defined in Chapter 6 of <span class="citation" data-cites="law2007simulation">(<a href="references.html#ref-law2007simulation" role="doc-biblioref">Law 2007</a>)</span>, plots the difference between the theoretical distribution <span class="math inline">\(F(x)\)</span> and the empirical distribution <span class="math inline">\(F_n(x)\)</span> over the range of the data.</li>
+<li><code>ConfidenceIntervalsPlot</code> - A confidence intervals plot presents a set of confidence interval on one plotting frame.</li>
+<li><code>DensityPlot</code> - A density plot presents the density of the data relative to a possible probability distribution.</li>
+<li><code>DiscreteCDFPlot</code> - A discrete CDF plot presents the cumulative distribution function for a discrete empirical random variable with a step-function representation.</li>
+<li><code>DotPlot</code> - A dot plot present the distribution of the data as a sequence of dots.</li>
+<li><code>ECDFPlot</code> - An empirical CDF plot presents the distribution of the data as a cumulative estimate of the CDF.</li>
+<li><code>FitDistPlot</code> - A fit distribution plot presents four plots (ECDFPlot, PPPlot, QQPlot, HistogramPlot) of data for distribution fitting diagnostics.</li>
+<li><code>FunctionPlot</code> - A function plot facilitates the plotting of a univariate function.</li>
+<li><code>HistogramPlot</code> - A histogram plot summarizes the distribution of the data over well-defined bins.</li>
+<li><code>HistogramDensityPlot</code> - A histogram plot summarizes the distribution of the data over well-defined bins and super imposes a density representation over the histogram.</li>
+<li><code>IntegerFrequencyPlot</code> - An integer frequency plot presents a bar graph representation of integer frequency tabulated data.</li>
+<li><code>StateFrequencyPlot</code> - A state frequency plot presents a bar graph representation of integer frequency data tabulated across state observations.</li>
+<li><code>ObservationsPlot</code> - An observations plot presents a time-ordered plot of the data.</li>
+<li><code>PMFComparisonsPlot</code> - A PMF comparison plot presents plots the theoretical PMF versus an empirical PMF.</li>
+<li><code>PMFPlot</code> - A PMF plot presents a dot bar graph representation of a probability mass function.</li>
+<li><code>PPPlot</code> - A P-P plot presents the model probability <span class="math inline">\(\hat{F}(x_{(i)})\)</span> versus the empirical probability <span class="math inline">\(\tilde{F}_n (x_{(i)})\)</span> based on the sample for i= 1, 2,<span class="math inline">\(\ldots\)</span> n</li>
+<li><code>QQPlot</code> A Q-Q plot presents the order statistics versus the theoretical order statistics, <span class="math inline">\(x_{q_i}\)</span> versus <span class="math inline">\(x_{(i)}\)</span> for i = 1, 2, <span class="math inline">\(\ldots\)</span> n.</li>
+<li><code>ScatterPlot</code> - A scatter plot is a simple x-y plot of two data arrays.</li>
+<li><code>StateVariablePlot</code> - A state variable plot presents a step-function representation for time-persistent variables as per <a href="04-Chapter4.html#fig-NCInQ" class="quarto-xref">Figure&nbsp;<span>4.4</span></a>.</li>
+<li><code>WelchPlot</code> - A Welch plot presents the cumulative sum plot of Welch data as illustrate in <a href="05-Chapter5.html#fig-WelchPlot" class="quarto-xref">Figure&nbsp;<span>5.15</span></a>.</li>
+<li><code>PartialSumsPlot</code> - A partial sums plot presents the partial sums process for diagnosing whether initialization bias is present.</li>
+</ul>
+<p>In what follows, we present some example code for creating a few of these plots. The full code can be found in the files associated with this appendix.</p>
+<p>In the following code, a bivariate normal random variable is created and a sample array is made containing the <span class="math inline">\(X\)</span> and <span class="math inline">\(Y\)</span> data. Then a scatter plot is made from the data.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb18"><pre class="sourceCode kotlin code-with-copy"><code class="sourceCode kotlin"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a>    <span class="kw">val</span> <span class="va">bvn</span> <span class="op">=</span> BivariateNormalRV<span class="op">(</span><span class="fl">0.0</span><span class="op">,</span> <span class="fl">1.0</span><span class="op">,</span> <span class="fl">0.0</span><span class="op">,</span> <span class="fl">1.0</span><span class="op">,</span> <span class="fl">0.8</span><span class="op">)</span></span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a>    <span class="kw">val</span> <span class="va">data</span> <span class="op">=</span> bvn<span class="op">.</span>sampleByColumn<span class="op">(</span><span class="dv">1000</span><span class="op">)</span></span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>    <span class="kw">val</span> <span class="va">plot</span> <span class="op">=</span> ScatterPlot<span class="op">(</span><span class="kw">data</span><span class="op">[</span><span class="dv">0</span><span class="op">],</span> <span class="kw">data</span><span class="op">[</span><span class="dv">1</span><span class="op">])</span></span>
+<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a>    plot<span class="op">.</span>showInBrowser<span class="op">(</span>plotTitle <span class="op">=</span>  <span class="st">"Scatter Plot of Bivariate Normal RV"</span><span class="op">)</span></span>
+<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a>    plot<span class="op">.</span>saveToFile<span class="op">(</span><span class="st">"ScatterPlotDemo"</span><span class="op">,</span> plotTitle <span class="op">=</span> <span class="st">"Scatter Plot of Bivariate Normal RV"</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p><a href="#fig-ScatterPlotDemo" class="quarto-xref">Figure&nbsp;<span>E.15</span></a> presents the plot as generated by the <code>saveToFile()</code> function.</p>
+<div id="fig-ScatterPlotDemo" class="quarto-float quarto-figure quarto-figure-left anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-ScatterPlotDemo-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="./figures/AppUtilities/ScatterPlotDemo.PNG" style="width:70.0%;height:70.0%" class="figure-img">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-ScatterPlotDemo-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;E.15: Example Scatter Plot
+</figcaption>
+</figure>
+</div>
+<p>The returned <code>plot</code> variable implements the <code>PlotIfc</code> interface. The <code>PlotIfc</code> interface is shown in <a href="#fig-PlotIfc" class="quarto-xref">Figure&nbsp;<span>E.16</span></a>. The function <code>buildPlot()</code> returns an instance of the <code>Plot</code> class from the lets-plot library. This instance can be further customized using the concepts of that library. The <code>toHTML()</code> function generates an HTML file that can be opened by a browser. This is what the <code>showInBrowser()</code> function does.</p>
+<div id="fig-PlotIfc" class="quarto-float quarto-figure quarto-figure-left anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-PlotIfc-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="./figures/AppUtilities/PlotIfc.png" style="width:50.0%;height:50.0%" class="figure-img">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-PlotIfc-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;E.16: PlotIfc Interface
+</figcaption>
+</figure>
+</div>
+<p>The following code illustrates how to display multiple box plots.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb19"><pre class="sourceCode kotlin code-with-copy"><code class="sourceCode kotlin"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>    <span class="kw">val</span> <span class="va">n</span> <span class="op">=</span> NormalRV<span class="op">()</span></span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>    <span class="kw">val</span> <span class="va">m</span> <span class="op">=</span> mutableMapOf<span class="op">&lt;</span><span class="kw">String</span><span class="op">,</span> BoxPlotSummary<span class="op">&gt;()</span></span>
+<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> <span class="op">(</span>i <span class="kw">in</span> <span class="fl">1..5</span><span class="op">)</span> <span class="op">{</span></span>
+<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a>        <span class="kw">val</span> <span class="va">bps</span> <span class="op">=</span> BoxPlotSummary<span class="op">(</span>n<span class="op">.</span>sample<span class="op">(</span><span class="dv">200</span><span class="op">),</span> <span class="st">"BPS</span><span class="ss">$i</span><span class="st">"</span><span class="op">)</span></span>
+<span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a>        m<span class="op">[</span>bps<span class="op">.</span>name<span class="op">]</span> <span class="op">=</span> bps</span>
+<span id="cb19-6"><a href="#cb19-6" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
+<span id="cb19-7"><a href="#cb19-7" aria-hidden="true" tabindex="-1"></a>    <span class="kw">val</span> <span class="va">plot</span> <span class="op">=</span> MultiBoxPlot<span class="op">(</span>m<span class="op">)</span></span>
+<span id="cb19-8"><a href="#cb19-8" aria-hidden="true" tabindex="-1"></a>    plot<span class="op">.</span>showInBrowser<span class="op">(</span>plotTitle <span class="op">=</span>  <span class="st">"Box Plots"</span><span class="op">)</span></span>
+<span id="cb19-9"><a href="#cb19-9" aria-hidden="true" tabindex="-1"></a>    plot<span class="op">.</span>saveToFile<span class="op">(</span><span class="st">"BoxPlotDemo"</span><span class="op">,</span> plotTitle <span class="op">=</span> <span class="st">"Box Plots"</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>The code makes a map of <code>BoxPlot</code> instances indexed by their names and then displays them together on a single plot axis.</p>
+<div id="fig-BoxPlotDemo" class="quarto-float quarto-figure quarto-figure-left anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-BoxPlotDemo-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="./figures/AppUtilities/BoxPlotDemo.PNG" style="width:70.0%;height:70.0%" class="figure-img">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-BoxPlotDemo-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;E.17: Example Multiple Box Plots
+</figcaption>
+</figure>
+</div>
+<p>The following code illustrates how to display multiple confidence intervals on the same plot.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb20"><pre class="sourceCode kotlin code-with-copy"><code class="sourceCode kotlin"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>    <span class="kw">val</span> <span class="va">n</span> <span class="op">=</span> NormalRV<span class="op">()</span></span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>    <span class="kw">val</span> <span class="va">m</span> <span class="op">=</span> mutableMapOf<span class="op">&lt;</span><span class="kw">String</span><span class="op">,</span> Interval<span class="op">&gt;()</span></span>
+<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> <span class="op">(</span>i <span class="kw">in</span> <span class="fl">1..5</span><span class="op">)</span> <span class="op">{</span></span>
+<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a>        <span class="kw">val</span> <span class="va">s</span> <span class="op">=</span> Statistic<span class="op">(</span>n<span class="op">.</span>sample<span class="op">(</span><span class="dv">200</span><span class="op">))</span></span>
+<span id="cb20-5"><a href="#cb20-5" aria-hidden="true" tabindex="-1"></a>        m<span class="op">[</span>s<span class="op">.</span>name<span class="op">]</span> <span class="op">=</span> s<span class="op">.</span>confidenceInterval</span>
+<span id="cb20-6"><a href="#cb20-6" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
+<span id="cb20-7"><a href="#cb20-7" aria-hidden="true" tabindex="-1"></a>    <span class="kw">val</span> <span class="va">plot</span> <span class="op">=</span> ConfidenceIntervalsPlot<span class="op">(</span>m<span class="op">,</span> referencePoint <span class="op">=</span> <span class="fl">0.0</span><span class="op">)</span></span>
+<span id="cb20-8"><a href="#cb20-8" aria-hidden="true" tabindex="-1"></a>    plot<span class="op">.</span>showInBrowser<span class="op">(</span>plotTitle <span class="op">=</span> <span class="st">"Confidence Intervals"</span><span class="op">)</span></span>
+<span id="cb20-9"><a href="#cb20-9" aria-hidden="true" tabindex="-1"></a>    plot<span class="op">.</span>saveToFile<span class="op">(</span><span class="st">"ConfidenceIntervalsPlot"</span><span class="op">,</span> plotTitle <span class="op">=</span> <span class="st">"Confidence Intervals"</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>The code makes a map of <code>Interval</code> instances indexed by the names of their associated statistics and then displays them together on a single plot axis.</p>
+<div id="fig-CIPlotDemo" class="quarto-float quarto-figure quarto-figure-left anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-CIPlotDemo-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="./figures/AppUtilities/ConfidenceIntervalsDemo.PNG" style="width:70.0%;height:70.0%" class="figure-img">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-CIPlotDemo-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;E.18: Example Multiple Confidence Interval Plots
+</figcaption>
+</figure>
+</div>
+<p>Finally, the following code illustrates how to create a state variable plot. In this case, two arrays are required. The first arrays hold the times at which the state variable changes. The second array holds the value of the state variable for the associated times.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb21"><pre class="sourceCode kotlin code-with-copy"><code class="sourceCode kotlin"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>    <span class="kw">val</span> <span class="va">t</span> <span class="op">=</span> doubleArrayOf<span class="op">(</span><span class="fl">0.0</span><span class="op">,</span> <span class="fl">2.0</span><span class="op">,</span> <span class="fl">5.0</span><span class="op">,</span> <span class="fl">11.0</span><span class="op">,</span> <span class="fl">14.0</span><span class="op">,</span> <span class="fl">17.0</span><span class="op">,</span> <span class="fl">22.0</span><span class="op">,</span> <span class="fl">26.0</span><span class="op">,</span> <span class="fl">28.0</span><span class="op">,</span> <span class="fl">31.0</span><span class="op">,</span> <span class="fl">35.0</span><span class="op">,</span> <span class="fl">36.0</span><span class="op">)</span></span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a>    <span class="kw">val</span> <span class="va">n</span> <span class="op">=</span> doubleArrayOf<span class="op">(</span><span class="fl">0.0</span><span class="op">,</span> <span class="fl">1.0</span><span class="op">,</span> <span class="fl">0.0</span><span class="op">,</span> <span class="fl">1.0</span><span class="op">,</span> <span class="fl">2.0</span><span class="op">,</span> <span class="fl">3.0</span><span class="op">,</span> <span class="fl">4.0</span><span class="op">,</span> <span class="fl">3.0</span><span class="op">,</span> <span class="fl">2.0</span><span class="op">,</span> <span class="fl">1.0</span><span class="op">,</span> <span class="fl">0.0</span><span class="op">,</span> <span class="fl">0.0</span><span class="op">)</span></span>
+<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a>    <span class="kw">val</span> <span class="va">plot</span> <span class="op">=</span> StateVariablePlot<span class="op">(</span>n<span class="op">,</span> t<span class="op">,</span> <span class="st">"Response"</span><span class="op">)</span></span>
+<span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a>    plot<span class="op">.</span>showInBrowser<span class="op">()</span></span>
+<span id="cb21-5"><a href="#cb21-5" aria-hidden="true" tabindex="-1"></a>    plot<span class="op">.</span>saveToFile<span class="op">(</span><span class="st">"StateVariableDemo"</span><span class="op">,</span> plotTitle <span class="op">=</span> <span class="st">"State Variable Plot"</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div id="fig-ResponseTraceFig" class="quarto-float quarto-figure quarto-figure-left anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-ResponseTraceFig-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="./figures/AppUtilities/ResponseTrace.png" style="width:50.0%;height:50.0%" class="figure-img">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-ResponseTraceFig-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;E.19: ResponseTrace Class
+</figcaption>
+</figure>
+</div>
+<p><a href="05-Chapter5.html#sec-simoaCapture" class="quarto-xref"><span>Section 5.4.1</span></a> of <a href="05-Chapter5.html" class="quarto-xref"><span>Chapter 5</span></a> presented how to make a <code>ResponseTrace</code> of a variable from a simulation model. In reviewing, <a href="#fig-ResponseTraceFig" class="quarto-xref">Figure&nbsp;<span>E.19</span></a>, we see that the <code>traceDataMap()</code> function will allow you to grab the data for a state variable plot. The function returns a map that has the time and values for the variable for a particular replication less than or equal to the provided <code>time</code> value.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb22"><pre class="sourceCode kotlin code-with-copy"><code class="sourceCode kotlin"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="kw">fun</span> <span class="fu">traceDataMap</span><span class="op">(</span><span class="va">repNum</span><span class="op">:</span> <span class="dt">Double</span><span class="op">,</span> <span class="va">time</span><span class="op">:</span> <span class="dt">Double</span> <span class="op">=</span> Double<span class="op">.</span>MAX_VALUE<span class="op">)</span> <span class="op">:</span> <span class="dt">Map</span><span class="op">&lt;</span><span class="dt">String</span>, <span class="dt">DoubleArray</span><span class="op">&gt;{</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Thus, you can easily create a state variable plot for a response trace when needed.</p>
+<div id="fig-SVPlotDemo" class="quarto-float quarto-figure quarto-figure-left anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-SVPlotDemo-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="./figures/AppUtilities/StateVariableDemo.PNG" style="width:70.0%;height:70.0%" class="figure-img">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-SVPlotDemo-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;E.20: Example State Variable Plot
+</figcaption>
+</figure>
+</div>
+</section>
+<section id="sec-appUtilitiesMisc" class="level2" data-number="E.9">
+<h2 data-number="E.9" class="anchored" data-anchor-id="sec-appUtilitiesMisc"><span class="header-section-number">E.9</span> Miscellaneous Utilities</h2>
+<p>The KSL also provides a number of other useful class within the utilities package. The <code>KSLMath</code> class provides for working with finer levels of numerical precision and has some useful functions for computing factorials and binomial coefficients. In addition, there are functions for converting doubles to other numeric values.</p>
+<ul>
+<li><code>double getDefaultNumericalPrecision()</code> - returns the default numerical precision that can be expected on the machine</li>
+<li><code>boolean equal(double a, double b)</code> - returns true if the two doubles are equal with respect to the default numerical precision</li>
+<li><code>boolean equal(double a, double b, double precision)</code> - returns true if the two doubles are equal with respect to the specified precision</li>
+<li><code>boolean within(double a, double b, double precision)</code> - returns true if the absolute difference between the double is within the specified precision</li>
+<li><code>double factorial(int n)</code> - returns a numerically stable computed value of the factorial</li>
+<li><code>double binomialCoefficient(int n, int k)</code> - returns a numerically stable computed value of the binomial coefficient</li>
+<li><code>double logFactorial(int n)</code> - returns the natural logarithm of the factorial</li>
+</ul>
+<p>The following list may be of interest and lead the reader to further exploration of the details.</p>
+<ul>
+<li><code>GetValueIfc</code> defines a general function and property to return a value</li>
+<li><code>IdentityIfc</code> a general interface to ensure that an implementer have an identity and a name.</li>
+<li><code>Interval</code> is useful to representing an inclusive real-valued interval such as a confidence interval.</li>
+<li><code>PreviousValueIfc</code> allows an implementer to remember and return the previous value.</li>
+<li><code>KSLMaps</code> hold utility functions for making maps from arrays, flattening maps of maps, unflattening maps, and converting maps to JSON.</li>
+<li><code>utilities.rootfinding</code> This package has an implementation for finding the root of a function via binary search</li>
+<li><code>utilities.observers</code> has base classes for implementing and using components that implement the <a href="https://en.wikipedia.org/wiki/Observer_pattern">observer pattern</a>.</li>
+</ul>
+
+
+<div id="refs" class="references csl-bib-body hanging-indent" role="list" style="display: none">
+<div id="ref-law2007simulation" class="csl-entry" role="listitem">
+Law, A. 2007. <em>Simulation Modeling and Analysis</em>. 4th ed. McGraw-Hill.
+</div>
+</div>
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    // Ensure there is a toggle, if there isn't float one in the top right
+    if (window.document.querySelector('.quarto-color-scheme-toggle') === null) {
+      const a = window.document.createElement('a');
+      a.classList.add('top-right');
+      a.classList.add('quarto-color-scheme-toggle');
+      a.href = "";
+      a.onclick = function() { try { window.quartoToggleColorScheme(); } catch {} return false; };
+      const i = window.document.createElement("i");
+      i.classList.add('bi');
+      a.appendChild(i);
+      window.document.body.appendChild(a);
+    }
+    setColorSchemeToggle(hasAlternateSentinel())
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp('/' + window.location.host + '/');
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a href="./15-CommonDistributions.html" class="pagination-link" aria-label="Distributions">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">D</span>&nbsp; <span class="chapter-title">Distributions</span></span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="./17-StatisticalTables.html" class="pagination-link" aria-label="Statistical Tables">
+        <span class="nav-page-text"><span class="chapter-number">F</span>&nbsp; <span class="chapter-title">Statistical Tables</span></span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav>
+</div> <!-- /content -->
+
+
+
+
+</body></html>

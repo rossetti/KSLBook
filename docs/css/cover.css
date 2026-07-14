@@ -1,0 +1,18 @@
+/* -----------------------------------------------------------------------------
+   Book cover styling (HTML site).
+   Quarto injects the `cover-image` (see _quarto.yml) into the landing/Preface
+   page as <img class="quarto-cover-image">, immediately after the page title.
+   By default it is full content-width; the rule below constrains and centers it
+   and adds a soft drop shadow so it reads as a book cover rather than a figure.
+-------------------------------------------------------------------------------*/
+.quarto-cover-image {
+  display: block;
+  float: none;                 /* Quarto floats it by default; center it instead */
+  clear: both;
+  max-width: min(380px, 82%);
+  height: auto;
+  margin: 0.5rem auto 2.5rem;
+  border-radius: 10px;
+  box-shadow: 0 14px 40px rgba(10, 15, 36, 0.30),
+              0 2px 6px rgba(10, 15, 36, 0.18);
+}
