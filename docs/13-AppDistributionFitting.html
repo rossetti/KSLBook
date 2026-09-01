@@ -354,6 +354,7 @@ window.Quarto = {
       <a href="./">Simulation Modeling using the Kotlin Simulation Library (KSL)</a> 
         <div class="sidebar-tools-main tools-wide">
     <a href="./slides/index.html" title="Lecture Slides" class="quarto-navigation-tool px-1" aria-label="Lecture Slides"><i class="bi bi-easel"></i></a>
+    <a href="./study-guides/index.html" title="Quiz Study Guides" class="quarto-navigation-tool px-1" aria-label="Quiz Study Guides"><i class="bi bi-mortarboard"></i></a>
     <div class="dropdown">
       <a href="" title="Download" id="quarto-navigation-tool-dropdown-0" class="quarto-navigation-tool dropdown-toggle px-1" data-bs-toggle="dropdown" aria-expanded="false" role="link" aria-label="Download"><i class="bi bi-download"></i></a>
       <ul class="dropdown-menu" aria-labelledby="quarto-navigation-tool-dropdown-0">
@@ -2355,8 +2356,8 @@ Figure&nbsp;B.16: The Q-Q Plot for the Task Times with gamma(shape = 3.56, scale
 <pre><code>Fitting of the distribution ' gamma ' by maximum likelihood 
 Parameters:
        estimate Std. Error
-shape 3.4098479 0.46055722
-rate  0.2542252 0.03699365</code></pre>
+shape 3.4102879 0.46061917
+rate  0.2542498 0.03699707</code></pre>
 </div>
 </div>
 <p>Then, the <em>gofstat</em> function does all the work to compute the chi-square goodness of fit, K-S test statistic, as well as other goodness of fit criteria. The results lead to the same conclusion that we had before: the gamma distribution is a good model for this data.</p>
@@ -2366,9 +2367,9 @@ rate  0.2542252 0.03699365</code></pre>
 <div class="cell-output cell-output-stdout">
 <pre><code>Goodness-of-fit statistics
                              1-mle-gamma
-Kolmogorov-Smirnov statistic  0.04930008
-Cramer-von Mises statistic    0.03754480
-Anderson-Darling statistic    0.25485917
+Kolmogorov-Smirnov statistic  0.04929185
+Cramer-von Mises statistic    0.03756130
+Anderson-Darling statistic    0.25487215
 
 Goodness-of-fit criteria
                                1-mle-gamma
@@ -2377,11 +2378,11 @@ Bayesian Information Criterion    668.5260</code></pre>
 </div>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb72"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb72-1"><a href="#cb72-1" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(gfy<span class="sc">$</span>chisq) <span class="co"># chi-squared test statistic</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] 3.544766</code></pre>
+<pre><code>[1] 3.544628</code></pre>
 </div>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb74"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb74-1"><a href="#cb74-1" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(gfy<span class="sc">$</span>chisqpvalue) <span class="co"># chi-squared p-value</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1] 0.8956877</code></pre>
+<pre><code>[1] 0.8956986</code></pre>
 </div>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb76"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb76-1"><a href="#cb76-1" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(gfy<span class="sc">$</span>chisqdf)  <span class="co"># chi-squared degrees of freedom</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
