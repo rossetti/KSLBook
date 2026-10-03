@@ -561,7 +561,7 @@ window.Quarto = {
 
 <p><strong><span class="smallcaps">Learning Objectives</span></strong></p>
 <ul>
-<li><p>To be become familiar with the classes and functionality associated with KSL utilities</p></li>
+<li><p>To be able to use the classes and functionality associated with KSL utilities</p></li>
 <li><p>To be able to use the KSL file input and output related utilities for CSV, Excel, data frames, and databases</p></li>
 <li><p>To be able to use the KSL array related utilities</p></li>
 <li><p>To be able to use the KSL plotting functionality</p></li>
@@ -794,7 +794,7 @@ Figure&nbsp;E.6: Tabular File Classes
 <span id="cb6-17"><a href="#cb6-17" aria-hidden="true" tabindex="-1"></a>    <span class="co">// don't forget to flush the buffer</span></span>
 <span id="cb6-18"><a href="#cb6-18" aria-hidden="true" tabindex="-1"></a>    tif<span class="op">.</span>flushRows<span class="op">()</span></span>
 <span id="cb6-19"><a href="#cb6-19" aria-hidden="true" tabindex="-1"></a>    println<span class="op">(</span><span class="st">"Done writing rows!"</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p>The tabular file package also allows for the defintion of the data schema via data class. The type of the properties of the data class are translated to either text or numeric columns. The following code illustrates this functionality. Here a data class is used to define a text field and a numeric field, which are then written to the file.</p>
+<p>The tabular file package also allows for the definition of the data schema via data class. The type of the properties of the data class are translated to either text or numeric columns. The following code illustrates this functionality. Here a data class is used to define a text field and a numeric field, which are then written to the file.</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb7"><pre class="sourceCode kotlin code-with-copy"><code class="sourceCode kotlin"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>    <span class="kw">val</span> <span class="va">path</span><span class="op">:</span> Path <span class="op">=</span> KSL<span class="op">.</span>outDir<span class="op">.</span>resolve<span class="op">(</span><span class="st">"TabularDataFile"</span><span class="op">)</span></span>
 <span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>    <span class="kw">data</span> <span class="kw">class</span> SomeData<span class="op">(</span><span class="kw">var</span> <span class="va">someText</span><span class="op">:</span> <span class="dt">String</span> <span class="op">=</span> <span class="st">""</span><span class="op">,</span> <span class="kw">var</span> <span class="va">someData</span><span class="op">:</span> <span class="dt">Double</span> <span class="op">=</span> <span class="fl">0.0</span><span class="op">):</span> <span class="dt">TabularData</span><span class="op">(</span>"<span class="va">SomeData</span>"<span class="op">)</span></span>
 <span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>    <span class="kw">val</span> <span class="va">rowData</span> <span class="op">=</span> SomeData<span class="op">()</span></span>
@@ -1200,30 +1200,30 @@ Figure&nbsp;E.14: Random Array Utilities
 <p>This file demonstrates how to create many of the plots that are available within the ksl.utilities.io.plotting package. The KSL uses the <a href="https://github.com/JetBrains/lets-plot-kotlin">lets-plot library</a> as its underlying plotting platform.</p>
 <p>The KSL wraps the lets-plot functionality into a set of classes to create commonly used plots within simulation. The KSL has classes that facilitate the construction of the following plots.</p>
 <ul>
-<li><code>ACFPlot</code> - The autocorrelation function (ACF) for an array of data plots the correlation between <span class="math inline">\(X_i\)</span> and <span class="math inline">\(X_{i+k}\)</span> for different values of <span class="math inline">\(k\)</span>.</li>
-<li><code>BoxPlot</code> - The box plot summary for an array of data plots the summary statistics representing the first quartile, median, and third quartile of the data along with outliers.</li>
+<li><code>ACFPlot</code>: The autocorrelation function (ACF) for an array of data plots the correlation between <span class="math inline">\(X_i\)</span> and <span class="math inline">\(X_{i+k}\)</span> for different values of <span class="math inline">\(k\)</span>.</li>
+<li><code>BoxPlot</code>: The box plot summary for an array of data plots the summary statistics representing the first quartile, median, and third quartile of the data along with outliers.</li>
 <li><code>MultiBoxPlot</code> A multi-box plot presents multiple box plots on the same plotting frame.</li>
-<li><code>CDFDiffPlot</code> - CDF difference plot, as defined in Chapter 6 of <span class="citation" data-cites="law2007simulation">(<a href="references.html#ref-law2007simulation" role="doc-biblioref">Law 2007</a>)</span>, plots the difference between the theoretical distribution <span class="math inline">\(F(x)\)</span> and the empirical distribution <span class="math inline">\(F_n(x)\)</span> over the range of the data.</li>
-<li><code>ConfidenceIntervalsPlot</code> - A confidence intervals plot presents a set of confidence interval on one plotting frame.</li>
-<li><code>DensityPlot</code> - A density plot presents the density of the data relative to a possible probability distribution.</li>
-<li><code>DiscreteCDFPlot</code> - A discrete CDF plot presents the cumulative distribution function for a discrete empirical random variable with a step-function representation.</li>
-<li><code>DotPlot</code> - A dot plot present the distribution of the data as a sequence of dots.</li>
-<li><code>ECDFPlot</code> - An empirical CDF plot presents the distribution of the data as a cumulative estimate of the CDF.</li>
-<li><code>FitDistPlot</code> - A fit distribution plot presents four plots (ECDFPlot, PPPlot, QQPlot, HistogramPlot) of data for distribution fitting diagnostics.</li>
-<li><code>FunctionPlot</code> - A function plot facilitates the plotting of a univariate function.</li>
-<li><code>HistogramPlot</code> - A histogram plot summarizes the distribution of the data over well-defined bins.</li>
-<li><code>HistogramDensityPlot</code> - A histogram plot summarizes the distribution of the data over well-defined bins and super imposes a density representation over the histogram.</li>
-<li><code>IntegerFrequencyPlot</code> - An integer frequency plot presents a bar graph representation of integer frequency tabulated data.</li>
-<li><code>StateFrequencyPlot</code> - A state frequency plot presents a bar graph representation of integer frequency data tabulated across state observations.</li>
-<li><code>ObservationsPlot</code> - An observations plot presents a time-ordered plot of the data.</li>
-<li><code>PMFComparisonsPlot</code> - A PMF comparison plot presents plots the theoretical PMF versus an empirical PMF.</li>
-<li><code>PMFPlot</code> - A PMF plot presents a dot bar graph representation of a probability mass function.</li>
-<li><code>PPPlot</code> - A P-P plot presents the model probability <span class="math inline">\(\hat{F}(x_{(i)})\)</span> versus the empirical probability <span class="math inline">\(\tilde{F}_n (x_{(i)})\)</span> based on the sample for i= 1, 2,<span class="math inline">\(\ldots\)</span> n</li>
+<li><code>CDFDiffPlot</code>: CDF difference plot, as defined in Chapter 6 of <span class="citation" data-cites="law2007simulation">(<a href="references.html#ref-law2007simulation" role="doc-biblioref">Law 2007</a>)</span>, plots the difference between the theoretical distribution <span class="math inline">\(F(x)\)</span> and the empirical distribution <span class="math inline">\(F_n(x)\)</span> over the range of the data.</li>
+<li><code>ConfidenceIntervalsPlot</code>: A confidence intervals plot presents a set of confidence interval on one plotting frame.</li>
+<li><code>DensityPlot</code>: A density plot presents the density of the data relative to a possible probability distribution.</li>
+<li><code>DiscreteCDFPlot</code>: A discrete CDF plot presents the cumulative distribution function for a discrete empirical random variable with a step-function representation.</li>
+<li><code>DotPlot</code>: A dot plot present the distribution of the data as a sequence of dots.</li>
+<li><code>ECDFPlot</code>: An empirical CDF plot presents the distribution of the data as a cumulative estimate of the CDF.</li>
+<li><code>FitDistPlot</code>: A fit distribution plot presents four plots (ECDFPlot, PPPlot, QQPlot, HistogramPlot) of data for distribution fitting diagnostics.</li>
+<li><code>FunctionPlot</code>: A function plot facilitates the plotting of a univariate function.</li>
+<li><code>HistogramPlot</code>: A histogram plot summarizes the distribution of the data over well-defined bins.</li>
+<li><code>HistogramDensityPlot</code>: A histogram plot summarizes the distribution of the data over well-defined bins and super imposes a density representation over the histogram.</li>
+<li><code>IntegerFrequencyPlot</code>: An integer frequency plot presents a bar graph representation of integer frequency tabulated data.</li>
+<li><code>StateFrequencyPlot</code>: A state frequency plot presents a bar graph representation of integer frequency data tabulated across state observations.</li>
+<li><code>ObservationsPlot</code>: An observations plot presents a time-ordered plot of the data.</li>
+<li><code>PMFComparisonsPlot</code>: A PMF comparison plot presents plots the theoretical PMF versus an empirical PMF.</li>
+<li><code>PMFPlot</code>: A PMF plot presents a dot bar graph representation of a probability mass function.</li>
+<li><code>PPPlot</code>: A P-P plot presents the model probability <span class="math inline">\(\hat{F}(x_{(i)})\)</span> versus the empirical probability <span class="math inline">\(\tilde{F}_n (x_{(i)})\)</span> based on the sample for i= 1, 2,<span class="math inline">\(\ldots\)</span> n</li>
 <li><code>QQPlot</code> A Q-Q plot presents the order statistics versus the theoretical order statistics, <span class="math inline">\(x_{q_i}\)</span> versus <span class="math inline">\(x_{(i)}\)</span> for i = 1, 2, <span class="math inline">\(\ldots\)</span> n.</li>
-<li><code>ScatterPlot</code> - A scatter plot is a simple x-y plot of two data arrays.</li>
-<li><code>StateVariablePlot</code> - A state variable plot presents a step-function representation for time-persistent variables as per <a href="04-Chapter4.html#fig-NCInQ" class="quarto-xref">Figure&nbsp;<span>4.4</span></a>.</li>
-<li><code>WelchPlot</code> - A Welch plot presents the cumulative sum plot of Welch data as illustrate in <a href="05-Chapter5.html#fig-WelchPlot" class="quarto-xref">Figure&nbsp;<span>5.15</span></a>.</li>
-<li><code>PartialSumsPlot</code> - A partial sums plot presents the partial sums process for diagnosing whether initialization bias is present.</li>
+<li><code>ScatterPlot</code>: A scatter plot is a simple x-y plot of two data arrays.</li>
+<li><code>StateVariablePlot</code>: A state variable plot presents a step-function representation for time-persistent variables as per <a href="04-Chapter4.html#fig-NCInQ" class="quarto-xref">Figure&nbsp;<span>4.4</span></a>.</li>
+<li><code>WelchPlot</code>: A Welch plot presents the cumulative sum plot of Welch data as illustrate in <a href="05-Chapter5.html#fig-WelchPlot" class="quarto-xref">Figure&nbsp;<span>5.15</span></a>.</li>
+<li><code>PartialSumsPlot</code>: A partial sums plot presents the partial sums process for diagnosing whether initialization bias is present.</li>
 </ul>
 <p>In what follows, we present some example code for creating a few of these plots. The full code can be found in the files associated with this appendix.</p>
 <p>In the following code, a bivariate normal random variable is created and a sample array is made containing the <span class="math inline">\(X\)</span> and <span class="math inline">\(Y\)</span> data. Then a scatter plot is made from the data.</p>
@@ -1330,13 +1330,13 @@ Figure&nbsp;E.20: Example State Variable Plot
 <h2 data-number="E.9" class="anchored" data-anchor-id="sec-appUtilitiesMisc"><span class="header-section-number">E.9</span> Miscellaneous Utilities</h2>
 <p>The KSL also provides a number of other useful class within the utilities package. The <code>KSLMath</code> class provides for working with finer levels of numerical precision and has some useful functions for computing factorials and binomial coefficients. In addition, there are functions for converting doubles to other numeric values.</p>
 <ul>
-<li><code>double getDefaultNumericalPrecision()</code> - returns the default numerical precision that can be expected on the machine</li>
-<li><code>boolean equal(double a, double b)</code> - returns true if the two doubles are equal with respect to the default numerical precision</li>
-<li><code>boolean equal(double a, double b, double precision)</code> - returns true if the two doubles are equal with respect to the specified precision</li>
-<li><code>boolean within(double a, double b, double precision)</code> - returns true if the absolute difference between the double is within the specified precision</li>
-<li><code>double factorial(int n)</code> - returns a numerically stable computed value of the factorial</li>
-<li><code>double binomialCoefficient(int n, int k)</code> - returns a numerically stable computed value of the binomial coefficient</li>
-<li><code>double logFactorial(int n)</code> - returns the natural logarithm of the factorial</li>
+<li><code>double getDefaultNumericalPrecision()</code>: returns the default numerical precision that can be expected on the machine</li>
+<li><code>boolean equal(double a, double b)</code>: returns true if the two doubles are equal with respect to the default numerical precision</li>
+<li><code>boolean equal(double a, double b, double precision)</code>: returns true if the two doubles are equal with respect to the specified precision</li>
+<li><code>boolean within(double a, double b, double precision)</code>: returns true if the absolute difference between the double is within the specified precision</li>
+<li><code>double factorial(int n)</code>: returns a numerically stable computed value of the factorial</li>
+<li><code>double binomialCoefficient(int n, int k)</code>: returns a numerically stable computed value of the binomial coefficient</li>
+<li><code>double logFactorial(int n)</code>: returns the natural logarithm of the factorial</li>
 </ul>
 <p>The following list may be of interest and lead the reader to further exploration of the details.</p>
 <ul>

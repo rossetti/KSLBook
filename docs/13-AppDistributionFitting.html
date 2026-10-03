@@ -584,8 +584,8 @@ window.Quarto = {
 
 <p><strong><span class="smallcaps">Learning Objectives</span></strong></p>
 <ul>
-<li><p>To be able model discrete distributions based on data</p></li>
-<li><p>To be able model continuous distributions based on data</p></li>
+<li><p>To be able to model discrete distributions based on data</p></li>
+<li><p>To be able to model continuous distributions based on data</p></li>
 <li><p>To be able to perform basic statistical tests on uniform pseudo-random numbers</p></li>
 </ul>
 <p>When performing a simulation study, there is no substitution for actually observing the system and collecting the data required for the modeling effort. As outlined in <a href="01-Chapter1.html#sec-ch1secsimMeth" class="quarto-xref"><span>Section 1.7</span></a>, a good simulation methodology recognizes that modeling and data collection often occurs in parallel. That is, observing the system allows conceptual modeling which allows for an understanding of the input models that are needed for the simulation. The collection of the data for the input models allow further observation of the system and further refinement of the conceptual model, including the identification of additional input models. Eventually, this cycle converges to the point where the modeler has a well defined understanding of the input data requirements. The data for the input model must be collected and modeled.</p>
@@ -626,7 +626,7 @@ Figure&nbsp;B.1: Random Variables Map Outcomes to Real Numbers
 <img src="./figures/AppDistFitting/fig2ProbDist.png" style="width:55.0%;height:55.0%" class="figure-img">
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-fig2ProbDist-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;B.2: robability Distributions Map Random Variables to Probabilities
+Figure&nbsp;B.2: Probability Distributions Map Random Variables to Probabilities
 </figcaption>
 </figure>
 </div>
@@ -671,7 +671,7 @@ Var[X] &amp; = E[(X - E[X])^2] \\
 <p>The coefficient of variation measures the amount of variation relative to the mean value (provided that <span class="math inline">\(E\{X\} \neq 0\)</span>).</p>
 <p>To estimate <span class="math inline">\(E\{X\}\)</span>, the sample average, <span class="math inline">\(\bar{X}(n)\)</span>,</p>
 <p><span class="math display">\[\bar{X}(n) = \frac{1}{n}\sum_{i=1}^{n}X_i\]</span></p>
-<p>is often used. To estimate <span class="math inline">\(Var[X]\)</span>, assuming that the data are independent, the sample variance, <span class="math inline">\(S^{2}\)</span>,</p>
+<p>is often used. To estimate <span class="math inline">\(Var[X]\)</span>, assuming that the data is independent, the sample variance, <span class="math inline">\(S^{2}\)</span>,</p>
 <p><span class="math display">\[S^{2}(n) = \frac{1}{n-1}\sum_{i=1}^{n}(X_i - \bar{X})^2\]</span></p>
 <p>can be used. Thus, an estimator for the coefficient of variation is:</p>
 <p><span class="math display">\[\hat{c}_v = \frac{s}{\bar{x}}\]</span></p>
@@ -690,7 +690,7 @@ Var[X] &amp; = E[(X - E[X])^2] \\
 <p><span class="math display">\[\hat{\gamma}_{2} = \frac{n-1}{(n-2)(n-3)}\left((n+1) g_{2} +6\right)\]</span></p>
 <p>where, <span class="math inline">\(g_{2}\)</span> is:</p>
 <p><span class="math display">\[g_{2} = \frac{\frac{1}{n}\sum\nolimits_{i=1}^{n}\left(X_i - \bar{X}\right)^4}{\left(\frac{1}{n}\sum\nolimits_{i=1}^{n}\left(X_i - \bar{X}\right)^2\right)^2} -3\]</span></p>
-<p>Order statistics are just a fancy name for the the sorted data. Let (<span class="math inline">\(x_1, x_2, \ldots x_n\)</span>) represent a sample of data. If the data is sorted from smallest to largest, then the <span class="math inline">\(i^{th}\)</span> ordered element can be denoted as,<span class="math inline">\(x_{(i)}\)</span>. For example, <span class="math inline">\(x_{(1)}\)</span> is the smallest element, and <span class="math inline">\(x_{(n)}\)</span> is the largest, so that (<span class="math inline">\(x_{(1)}, x_{(2)}, \ldots x_{(n)}\)</span>) represents the ordered data and these values are called the order statistics. From the order statistics, a variety of other statistics can be computed:</p>
+<p>Order statistics are just a fancy name for the sorted data. Let (<span class="math inline">\(x_1, x_2, \ldots x_n\)</span>) represent a sample of data. If the data is sorted from smallest to largest, then the <span class="math inline">\(i^{th}\)</span> ordered element can be denoted as,<span class="math inline">\(x_{(i)}\)</span>. For example, <span class="math inline">\(x_{(1)}\)</span> is the smallest element, and <span class="math inline">\(x_{(n)}\)</span> is the largest, so that (<span class="math inline">\(x_{(1)}, x_{(2)}, \ldots x_{(n)}\)</span>) represents the ordered data and these values are called the order statistics. From the order statistics, a variety of other statistics can be computed:</p>
 <ol type="1">
 <li><p>minimum = <span class="math inline">\(x_{(1)}\)</span></p></li>
 <li><p>maximum = <span class="math inline">\(x_{(n)}\)</span></p></li>
@@ -924,7 +924,7 @@ Table&nbsp;B.2: Computer Laboratory Arrival Counts by Week, Period, and Day
 </section>
 <section id="visualizing-the-data" class="level3" data-number="B.3.2">
 <h3 data-number="B.3.2" class="anchored" data-anchor-id="visualizing-the-data"><span class="header-section-number">B.3.2</span> Visualizing the Data</h3>
-<p>When analyzing a data set it is best to begin with visualizing the data. We will analyze this data utilizing the R statistical software package. Assuming that the data is in a comma separate value (csv) file called <em>PoissonCountData.csv</em> in the R working directory, the following commands will read the data into the R enviroment, plot a histogram, plot a time series plot, and make an autocorrelation plot of the data.</p>
+<p>When analyzing a data set it is best to begin with visualizing the data. We will analyze this data utilizing the R statistical software package. Assuming that the data is in a comma separate value (csv) file called <em>PoissonCountData.csv</em> in the R working directory, the following commands will read the data into the R environment, plot a histogram, plot a time series plot, and make an autocorrelation plot of the data.</p>
 <pre><code>p2 = read.csv("PoissonCountData.csv")
 hist(p2$N, main="Computer Lab Arrivals", xlab = "Counts")
 plot(p2$N,type="b",main="Computer Lab Arrivals", ylab = "Count", xlab = "Observation#")
@@ -1143,7 +1143,7 @@ r_{k} = \frac{c_{k}}{c_{0}} = \frac{\sum\limits_{i=1}^{n-k}\left(X_{i} - \bar{X}
 c_{k} = \frac{1}{n}\sum\limits_{i=1}^{n-k}\left(X_{i} - \bar{X}(n) \right)\left(X_{i+k} - \bar{X}(n) \right)
 \tag{B.5}\]</span></span></p>
 <p>Notice that the numerator in <a href="#eq-CovEst2" class="quarto-xref">Equation&nbsp;<span>B.4</span></a> has <span class="math inline">\(n-k\)</span> terms and the denominator has <span class="math inline">\(n\)</span> terms. A plot of <span class="math inline">\(r_{k}\)</span> versus <span class="math inline">\(k\)</span> is called a correlogram or sample autocorrelation plot. For the data to be uncorrelated, <span class="math inline">\(r_{k}\)</span> should be approximately zero for the values of <span class="math inline">\(k\)</span>. Unfortunately, estimators of <span class="math inline">\(r_{k}\)</span> are often highly variable, especially for large <span class="math inline">\(k\)</span>; however, an autocorrelation plot should still provide you with a good idea of independence.</p>
-<p>Formal tests can be performed using various time series techniques and their assumptions. A simple test can be performed based on the assumption that the series is white noise, <span class="math inline">\(N(0,1)\)</span> with all <span class="math inline">\(\rho_{k} = 0\)</span>. <span class="citation" data-cites="box1994forecasting">Box et al. (<a href="references.html#ref-box1994forecasting" role="doc-biblioref">1994</a>)</span> indicate that for large <span class="math inline">\(n\)</span>, <span class="math inline">\(\text{Var}(r_{k}) \approx \frac{1}{n}\)</span>. Thus, a quick test of dependence is to check if sampled correlations fall within a reasonable confidence band around zero. For example, suppose <span class="math inline">\(n = 100\)</span>, then <span class="math inline">\(\text{Var}(r_{k}) \approx \frac{1}{100} = 0.01\)</span>. Then, the standard deviation is <span class="math inline">\(\sqrt{0.01} = 0.1\)</span>. Assuming an approximate, <span class="math inline">\(95\%\)</span> confidence level, yields a confidence band of <span class="math inline">\(\pm 1.645 \times 0.1 = \pm 0.1645\)</span> about zero. Therefore, as long as the plotted values for <span class="math inline">\(r_{k}\)</span> do not fall outside of this confidence band, it is likely that the data are independent.</p>
+<p>Formal tests can be performed using various time series techniques and their assumptions. A simple test can be performed based on the assumption that the series is white noise, <span class="math inline">\(N(0,1)\)</span> with all <span class="math inline">\(\rho_{k} = 0\)</span>. <span class="citation" data-cites="box1994forecasting">Box et al. (<a href="references.html#ref-box1994forecasting" role="doc-biblioref">1994</a>)</span> indicate that for large <span class="math inline">\(n\)</span>, <span class="math inline">\(\text{Var}(r_{k}) \approx \frac{1}{n}\)</span>. Thus, a quick test of dependence is to check if sampled correlations fall within a reasonable confidence band around zero. For example, suppose <span class="math inline">\(n = 100\)</span>, then <span class="math inline">\(\text{Var}(r_{k}) \approx \frac{1}{100} = 0.01\)</span>. Then, the standard deviation is <span class="math inline">\(\sqrt{0.01} = 0.1\)</span>. Assuming an approximate, <span class="math inline">\(95\%\)</span> confidence level, yields a confidence band of <span class="math inline">\(\pm 1.645 \times 0.1 = \pm 0.1645\)</span> about zero. Therefore, as long as the plotted values for <span class="math inline">\(r_{k}\)</span> do not fall outside of this confidence band, it is likely that the data is independent.</p>
 <p>A sample autocorrelation plot can be easily developed once the autocorrelations have been computed. Generally, the maximum lag should be set to no larger than one tenth of the size of the data set because the estimation of higher lags is generally unreliable.</p>
 <p>As we can see from <a href="#fig-PCntACFPlot" class="quarto-xref">Figure&nbsp;<span>B.5</span></a>, there does not appear to be any significant correlation with respect to observation number for the computer lab arrival data. The autocorrelation is well-contained within the lag correlation limits denoted with the dashed lines within the plot.</p>
 <div class="cell">
@@ -1194,9 +1194,9 @@ Figure&nbsp;B.6: Scatter Plot Matrix from Lattice Package for Computer Lab Arriv
 <p>There are two main methods for estimating the parameters of distribution functions 1) the method of moments and 2) the method of maximum likelihood. The method of moments matches the empirical moments to the theoretical moments of the distribution and attempts to solve the resulting system of equations. The method of maximum likelihood attempts to find the parameter values that maximize the joint probability distribution function of the sample. Estimation of the parameters from sample data is based on important statistical theory that requires the estimators for the parameters to satisfy statistical properties (e.g. unique, unbiased, invariant, and consistency). It is beyond the scope of this book to cover the properties of these techniques. The interested reader is referred to <span class="citation" data-cites="law2007simulation">(<a href="references.html#ref-law2007simulation" role="doc-biblioref">Law 2007</a>)</span> or to <span class="citation" data-cites="casella1990statistical">(<a href="references.html#ref-casella1990statistical" role="doc-biblioref">Casella and Berger 1990</a>)</span> for more details on the theory of these methods.</p>
 <p>To make concrete the challenges associated with fitting the parameters of a hypothesized distribution, the maximum likelihood method for fitting the Poisson distribution will be used on the count data. Suppose that you hypothesize that the distribution of the count of the number of arrivals in the <span class="math inline">\(i^{th}\)</span> 15 minute interval can be modeled with a Poisson distribution. Let <span class="math inline">\(N\)</span> be the number of arrivals in a 15 minute interval. Note that the intervals do not overlap and that we have shown that they can be considered independent of each other. We are hypothesizing that <span class="math inline">\(N\)</span> has a Poisson distribution with rate parameter <span class="math inline">\(\lambda\)</span>, where <span class="math inline">\(\lambda\)</span> represents the expected number of arrivals per 15 minute interval.</p>
 <p><span class="math display">\[f(n;\lambda) = P\{N=n\} = \frac{e^{-\lambda}\left(\lambda \right)^{n}}{n!}\]</span></p>
-<p>Let <span class="math inline">\(N_{i}\)</span> be the number of arrivals in the <span class="math inline">\(i^{th}\)</span> interval of the <span class="math inline">\(k=160\)</span> intervals. The <span class="math inline">\(N_{1}, N_{2},...,N_{k}\)</span> form a random sample of size <span class="math inline">\(k\)</span>. Then, the joint probability probability mass function of the sample is:</p>
+<p>Let <span class="math inline">\(N_{i}\)</span> be the number of arrivals in the <span class="math inline">\(i^{th}\)</span> interval of the <span class="math inline">\(k=160\)</span> intervals. The <span class="math inline">\(N_{1}, N_{2},...,N_{k}\)</span> form a random sample of size <span class="math inline">\(k\)</span>. Then, the joint probability mass function of the sample is:</p>
 <p><span class="math display">\[L(\lambda) = g(n_{1}, n_{2},...,n_{k};\lambda) = f(n_1;\lambda)f(n_2;\lambda) \ldots f(n_k;\lambda) = \prod_{i = 1}^{k} f(n_i; \lambda)\]</span></p>
-<p>The <span class="math inline">\((n_{1}, n_{2},...,n_{k})\)</span> are observed (known values) and <span class="math inline">\(\lambda\)</span> is unknown. The function <span class="math inline">\(L(\lambda)\)</span> is called the likelihood function. To estimate the value of of <span class="math inline">\(\lambda\)</span> by the method of maximum likelihood, we must find the value of <span class="math inline">\(\lambda\)</span> that maximizes the function <span class="math inline">\(L(\lambda)\)</span>. The interpretation is that we are finding the value of the parameter that is maximizing the likelihood that it came from this sample.</p>
+<p>The <span class="math inline">\((n_{1}, n_{2},...,n_{k})\)</span> are observed (known values) and <span class="math inline">\(\lambda\)</span> is unknown. The function <span class="math inline">\(L(\lambda)\)</span> is called the likelihood function. To estimate the value of <span class="math inline">\(\lambda\)</span> by the method of maximum likelihood, we must find the value of <span class="math inline">\(\lambda\)</span> that maximizes the function <span class="math inline">\(L(\lambda)\)</span>. The interpretation is that we are finding the value of the parameter that is maximizing the likelihood that it came from this sample.</p>
 <p>Substituting the definition of the Poisson distribution into the likelihood function yields:</p>
 <p><span class="math display">\[\begin{aligned}
 L(\lambda) &amp; = \prod_{i = 1}^{k}\frac{e^{-\lambda}\left(\lambda \right)^{n_i}}{n_{i}!}\\
@@ -1216,7 +1216,7 @@ L(\lambda) &amp; = \prod_{i = 1}^{k}\frac{e^{-\lambda}\left(\lambda \right)^{n_i
 </section>
 <section id="chi-squared-goodness-of-fit-test-for-poisson-distribution" class="level3" data-number="B.3.4">
 <h3 data-number="B.3.4" class="anchored" data-anchor-id="chi-squared-goodness-of-fit-test-for-poisson-distribution"><span class="header-section-number">B.3.4</span> Chi-Squared Goodness of Fit Test for Poisson Distribution</h3>
-<p>In essence, a distributional test examines the hypothesis <span class="math inline">\(H_{0}: X_{i} \sim F_0\)</span> versus the alternate hypothesis of <span class="math inline">\(H_{a}: X_{i} \nsim F_0\)</span>. That is, the null hypothesis is that data come from distribution function, <span class="math inline">\(F_0\)</span> and the alternative hypothesis that the data are not distributed according to <span class="math inline">\(F_0\)</span>.</p>
+<p>In essence, a distributional test examines the hypothesis <span class="math inline">\(H_{0}: X_{i} \sim F_0\)</span> versus the alternate hypothesis of <span class="math inline">\(H_{a}: X_{i} \nsim F_0\)</span>. That is, the null hypothesis is that data come from distribution function, <span class="math inline">\(F_0\)</span> and the alternative hypothesis that the data is not distributed according to <span class="math inline">\(F_0\)</span>.</p>
 <p>As a reminder, when using a hypothesis testing framework, we can perform the test in two ways: 1) pre-specifying the Type 1 error and comparing to a critical value or 2) pre-specifying the Type 1 error and comparing to a p-value. For example, in the first case, suppose we let our Type 1 error <span class="math inline">\(\alpha = 0.05\)</span>, then we look up a critical value appropriate for the test, compute the test statistic, and reject the null hypothesis <span class="math inline">\(H_{0}\)</span> if test statistic is too extreme (large or small depending on the test). In the second case, we compute the p-value for the test based on the computed test statistic, and then reject <span class="math inline">\(H_{0}\)</span> if the p-value is less than or equal to the specified Type 1 error value.</p>
 <p>This text emphasizes the p-value approach to hypothesis testing because computing the p-value provides additional information about the significance of the result. The p-value for a statistical test is the smallest <span class="math inline">\(\alpha\)</span> level at which the observed test statistic is significant. This smallest <span class="math inline">\(\alpha\)</span> level is also called the observed level of significance for the test. The smaller the p-value, the more the result can be considered statistically significant. Thus, the p-value can be compared to the desired significance level, <span class="math inline">\(\alpha\)</span>. Thus, when using the p-value approach to hypothesis testing the testing criterion is:</p>
 <ul>
@@ -2326,7 +2326,7 @@ abline(0,1) # add a reference line to the plot</code></pre>
 <img src="13-AppDistributionFitting_files/figure-html/fig-PPTaskTimes-1.png" class="img-fluid figure-img" width="672">
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-PPTaskTimes-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;B.15: The P-P Plot for the Task Times with gamma(shape = 3.56, scale = 3.76)
+Figure&nbsp;B.15: The P-P Plot for the Task Times with Gamma(shape = 3.56, scale = 3.76)
 </figcaption>
 </figure>
 </div>
@@ -2341,7 +2341,7 @@ Figure&nbsp;B.15: The P-P Plot for the Task Times with gamma(shape = 3.56, scale
 <img src="13-AppDistributionFitting_files/figure-html/fig-QQTaskTimes-1.png" class="img-fluid figure-img" width="672">
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-QQTaskTimes-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;B.16: The Q-Q Plot for the Task Times with gamma(shape = 3.56, scale = 3.76)
+Figure&nbsp;B.16: The Q-Q Plot for the Task Times with Gamma(shape = 3.56, scale = 3.76)
 </figcaption>
 </figure>
 </div>
@@ -2614,7 +2614,7 @@ Table&nbsp;B.7: Pharmacy Service Times
 <img src="./figures/AppDistFitting/figInputAnalyzerImport.png" style="width:70.0%;height:70.0%" class="figure-img">
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-InputAnalyzerImport-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;B.19: Input Analyzer After Data Import
+Figure&nbsp;B.19: Input Analyzer after Data Import
 </figcaption>
 </figure>
 </div>
@@ -2916,7 +2916,7 @@ Figure&nbsp;B.27: Distribution Plot from fitdistrplus for Service Time Data
 <p>When considering the quality of random number generators, the higher dimensional properties of the sequence also need to be considered. For example, the serial test is a higher dimensional Chi-Squared test. Just like for general continuous distributions, the two major tests that are utilized to examine the distributional properties of sequences of pseudo-random numbers are the Chi-Squared Goodness of Fit test and the Kolmogorov-Smirnov test. In the case of testing for <span class="math inline">\(U(0,1)\)</span> random variates some simplifications can be made in computing the test statistics.</p>
 <section id="chi-squared-goodness-of-fit-tests-for-pseudo-random-numbers" class="level3" data-number="B.6.1">
 <h3 data-number="B.6.1" class="anchored" data-anchor-id="chi-squared-goodness-of-fit-tests-for-pseudo-random-numbers"><span class="header-section-number">B.6.1</span> Chi-Squared Goodness of Fit Tests for Pseudo-Random Numbers</h3>
-<p>When applying the Chi-Squared goodness of fit to test if the data are <span class="math inline">\(U(0,1)\)</span>, the following is the typical procedure:</p>
+<p>When applying the Chi-Squared goodness of fit to test if the data is <span class="math inline">\(U(0,1)\)</span>, the following is the typical procedure:</p>
 <ol type="1">
 <li><p>Divide the interval <span class="math inline">\((0,1)\)</span> into <span class="math inline">\(k\)</span> equally spaced classes so that <span class="math inline">\(\Delta b = b_{j} - b_{j-1}\)</span> resulting in <span class="math inline">\(p_{j} = \frac{1}{k}\)</span> for <span class="math inline">\(j=1, 2, \cdots, k\)</span>. This results in the expected number in each interval being <span class="math inline">\(np_{j} = n \times \frac{1}{k} = \frac{n}{k}\)</span></p></li>
 <li><p>As a practical rule, the expected number in each interval <span class="math inline">\(np_{j}\)</span> should be at least 5. Thus, in this case <span class="math inline">\(\frac{n}{k} \geq 5\)</span> or <span class="math inline">\(n \geq 5k\)</span> or <span class="math inline">\(k \leq \frac{n}{5}\)</span>. Thus, for a given value of <span class="math inline">\(n\)</span>, you should choose the number of intervals <span class="math inline">\(k \leq \frac{n}{5}\)</span>,</p></li>
@@ -3467,7 +3467,7 @@ alternative hypothesis: two-sided</code></pre>
 <h3 data-number="B.6.4" class="anchored" data-anchor-id="testing-for-independence-and-patterns-in-pseudo-random-numbers"><span class="header-section-number">B.6.4</span> Testing for Independence and Patterns in Pseudo-Random Numbers</h3>
 <p>A full treatment for testing for independence and patterns within sequences of pseudo-random numbers is beyond the scope of this text. However, we will illustrate some of the basic concepts in this section.</p>
 <p>As previously noted an analysis of the autocorrelation structure associated with the sequence of pseudo-random numbers forms a basis for testing dependence. A sample autocorrelation plot can be easily developed once the autocorrelation values have been estimated Generally, the maximum lag should be set to no larger than one tenth of the size of the data set because the estimation of higher lags is generally unreliable.</p>
-<p>An autocorrelation plot can be easily performed using the statistical software <span class="math inline">\(R\)</span> for the data in <a href="#exm-TestU01" class="quarto-xref">Example&nbsp;<span>B.3</span></a>. Using the *acf()$ function in R makes it easy to get estimates of the autocorrelation estimates. The resulting plot is shown in <a href="#fig-TestU01ACF" class="quarto-xref">Figure&nbsp;<span>B.28</span></a>. The <span class="math inline">\(r_{0}\)</span> value represents the estimated variance. As can be seen in the figure, the acf() function of <span class="math inline">\(R\)</span> automatically places the confidence band within the plot. In this instance, since none of the <span class="math inline">\(r_{k}, k \geq 1\)</span> are outside the confidence band, we can conclude that the data are likely independent observations.</p>
+<p>An autocorrelation plot can be easily performed using the statistical software <span class="math inline">\(R\)</span> for the data in <a href="#exm-TestU01" class="quarto-xref">Example&nbsp;<span>B.3</span></a>. Using the *acf()$ function in R makes it easy to get estimates of the autocorrelation estimates. The resulting plot is shown in <a href="#fig-TestU01ACF" class="quarto-xref">Figure&nbsp;<span>B.28</span></a>. The <span class="math inline">\(r_{0}\)</span> value represents the estimated variance. As can be seen in the figure, the acf() function of <span class="math inline">\(R\)</span> automatically places the confidence band within the plot. In this instance, since none of the <span class="math inline">\(r_{k}, k \geq 1\)</span> are outside the confidence band, we can conclude that the data is likely independent observations.</p>
 <div class="cell">
 <div class="cell-output-display">
 <div id="fig-TestU01ACF" class="quarto-float quarto-figure quarto-figure-left anchored">
@@ -3652,10 +3652,14 @@ Table&nbsp;B.10: Simple Empirical Distribution
 <p>What do you do if the analysis indicates that the data is dependent or that the data is non-stationary? Either of these situations can invalidate the basic assumptions behind the standard distribution fitting process. First, suppose that the data shows some correlation. The first thing that you should do is to verify that the data was correctly collected. The sampling plan for the data collection effort should attempt to ensure the collection of a random sample. If the data was from an automatic collection procedure then it is quite likely that there may be correlation in the observations. This is one of the hazards of using automatic data collection mechanisms. You then need to decide whether modeling the correlation is important or not to the study at hand. Thus, one alternative is to simply ignore the correlation and to continue with the model fitting process. This can be problematic for two reasons. First, the statistical tests within the model fitting process will be suspect, and second, the correlation may be an important part of the input modeling. For example, it has been shown that correlated arrivals and correlated service times in a simple queueing model can have significant effects on the values of the queue’s performance measures. If you have a large enough data set, a basic approach is to form a random sample from the data set itself in order to break up the correlation. Then, you can proceed with fitting a distribution to the random sample; however, you should still model the dependence by trying to incorporate it into the random generation process. There are some techniques for incorporating correlation into the random variable generation process. An introduction to the topic is provided in <span class="citation" data-cites="banks2005discreteevent">(<a href="references.html#ref-banks2005discreteevent" role="doc-biblioref">Banks et al. 2005</a>)</span>.</p>
 <p>If the data show non-stationary behavior, then you can attempt to model the dependence on time using time series models or other non-stationary models. Suffice to say, that these advanced techniques are beyond the scope of this text; however, the next section will discuss the modeling of a special non-stationary model, the non-homogeneous Poisson process, which is very useful for modeling time dependent arrival processes. For additional information on these methods, the interested reader is referred to <span class="citation" data-cites="law2007simulation">(<a href="references.html#ref-law2007simulation" role="doc-biblioref">Law 2007</a>)</span> and <span class="citation" data-cites="leemis2006discreteevent">(<a href="references.html#ref-leemis2006discreteevent" role="doc-biblioref">Leemis and Park 2006</a>)</span> or the references therein.</p>
 <p>Finally, all of the above assumes that you have data from which you can perform an analysis. In many situations, you might have no data whatsoever either because it is too costly to collect or because the system that you are modeling does not exist. In the latter case, you can look at similar systems and see how their inputs were modeled, perhaps adopting some of those input models for the current situation. In either case, you might also rely on expert opinion. In this situation, you can ask an expert in the process to describe the characteristics of a probability distribution that might model the situation. This is where the uniform and the triangular distributions can be very useful, since it is relatively easy to get an expert to indicate a minimum possible value, a maximum possible value, and even a most likely value.</p>
-<p>Alternatively, you can ask the expert to assist in making an empirical distribution based on providing the chance that the random variable falls within various intervals. The breakpoints near the extremes are especially important to get. Table&nbsp;<a href="#Table:5-9" data-reference-type="ref" data-reference="Table:5-9">1.8</a> presents a distribution for the service times based on this method.</p>
-<div id="Table:5-9">
+<p>Alternatively, you can ask the expert to assist in making an empirical distribution based on providing the chance that the random variable falls within various intervals. The breakpoints near the extremes are especially important to get. <a href="#tbl-BreakpointEmpDist" class="quarto-xref">Table&nbsp;<span>B.11</span></a> presents a distribution for the service times based on this method.</p>
+<div id="tbl-BreakpointEmpDist" class="quarto-float quarto-figure quarto-figure-left anchored">
+<figure class="quarto-float quarto-float-tbl figure">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-BreakpointEmpDist-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Table&nbsp;B.11: Breakpoint Based Empirical Distribution
+</figcaption>
+<div aria-describedby="tbl-BreakpointEmpDist-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <table class="caption-top table">
-<caption>Breakpoint Based Empirical Distribution</caption>
 <thead>
 <tr class="header">
 <th style="text-align: left;"><span class="math inline">\(X\)</span></th>
@@ -3675,8 +3679,8 @@ Table&nbsp;B.10: Simple Empirical Distribution
 <td style="text-align: center;">0.2</td>
 </tr>
 <tr class="odd">
-<td style="text-align: left;">(200 - 400]</td>
-<td style="text-align: center;">0.3</td>
+<td style="text-align: left;">(200, 400]</td>
+<td style="text-align: center;">0.4</td>
 <td style="text-align: center;">0.6</td>
 </tr>
 <tr class="even">
@@ -3691,6 +3695,8 @@ Table&nbsp;B.10: Simple Empirical Distribution
 </tr>
 </tbody>
 </table>
+</div>
+</figure>
 </div>
 <p>&nbsp;</p>
 <p>Whether you have lots of data, little data, or no data, the key final step in the input modeling process is <em>sensitivity analysis</em>. Your ultimate goal is to use the input models to drive your larger simulation model of the system under study. You can spend significant time and energy collecting and analyzing data for an input model that has no significant effect on the output measures of interest to your study. You should start out with simple input models and incorporate them into your simulation model. Then, you can vary the parameters and characteristics of those models in an experimental design to assess how sensitive your output is to the changes in the inputs. If you find that the output is very sensitive to particular input models, then you can plan, collect, and develop better models for those situations. The amount of sensitivity is entirely modeler dependent. Remember that in this whole process, you are in charge, not the software. The software is only there to support your decision making process. Use the software to justify your art.</p>
@@ -3818,7 +3824,7 @@ Table&nbsp;B.10: Simple Empirical Distribution
 </tbody>
 </table>
 <ol type="a">
-<li><p>Test the hypothesis that these data are drawn from a uniform distribution at a 95% confidence level assuming that the interval is between 0 and 100.</p></li>
+<li><p>Test the hypothesis that this data is drawn from a uniform distribution at a 95% confidence level assuming that the interval is between 0 and 100.</p></li>
 <li><p>The interval of the distribution is between <em>a</em> and <em>b</em>, where <em>a</em> and <em>b</em> are unknown parameters estimated from the data.</p></li>
 <li><p>Consider the following output for fitting a uniform distribution to a data set with the Arena Input Analyzer. Would you reject or not reject the hypothesis that the data is uniformly distributed.</p></li>
 </ol>

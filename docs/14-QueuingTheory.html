@@ -544,12 +544,12 @@ window.Quarto = {
 
 <p><strong><span class="smallcaps">Learning Objectives</span></strong></p>
 <ul>
-<li><p>To be able understand basic queueing theory notation</p></li>
+<li><p>To be able to interpret basic queueing theory notation</p></li>
 <li><p>To be able to compute queueing results for single queue situations</p></li>
 <li><p>To be able to identify and apply standard queueing models</p></li>
 </ul>
-<p>Many real-life situations involve the possible waiting of entities (e.g.&nbsp;customers, parts, etc.) for resources (e.g.&nbsp;bank tellers, machines, etc.). Systems that involve waiting lines are called queuing systems. This appendix introduces analytical (formula-based) approaches to modeling the performance of these systems.</p>
-<p>Once the performance of the system is modeled, the design of the system to meet operational requirements becomes an important issue. For example, in the simple situation of modeling a drive through pharmacy, you might want to determine the number of waiting spaces that should be available so that arriving customers can have a high chance of entering the line. In these situations, having more of the resource (pharmacist) available at any time will assist in meeting the design criteria; however, an increase in a resource typically comes at some cost. Thus, design questions within queuing systems involve a fundamental trade-off between customer service and the cost of providing that service.</p>
+<p>Many real-life situations involve the possible waiting of entities (e.g.&nbsp;customers, parts, etc.) for resources (e.g.&nbsp;bank tellers, machines, etc.). Systems that involve waiting lines are called queueing systems. This appendix introduces analytical (formula-based) approaches to modeling the performance of these systems.</p>
+<p>Once the performance of the system is modeled, the design of the system to meet operational requirements becomes an important issue. For example, in the simple situation of modeling a drive through pharmacy, you might want to determine the number of waiting spaces that should be available so that arriving customers can have a high chance of entering the line. In these situations, having more of the resource (pharmacist) available at any time will assist in meeting the design criteria; however, an increase in a resource typically comes at some cost. Thus, design questions within queueing systems involve a fundamental trade-off between customer service and the cost of providing that service.</p>
 <p>To begin the analysis of these systems, a brief analytical treatment of the key modeling issues is presented. Analytical results are available only for simplified situations; however, the analytical treatment will serve two purposes. First, it will provide an introduction to the key modeling issues, and second, it can provide approximate models for more complicated situations. The purpose of this appendix is not to provide a comprehensive treatment of queueing theory for which there are many excellent books already. The purpose of this appendix is to provide an introduction to this topic for persons new to simulation so that they can better understand their modeling and analysis of queueing systems. This appendix also serves as a reference for the formulas associated with these models to facilitate their use in verifying and validating simulation models.</p>
 <section id="sec-appqts1" class="level2" data-number="C.1">
 <h2 data-number="C.1" class="anchored" data-anchor-id="sec-appqts1"><span class="header-section-number">C.1</span> Single Line Queueing Stations</h2>
@@ -561,7 +561,7 @@ window.Quarto = {
 <img src="./figures/AppQueueing/fig1SingleQueue.png" style="width:75.0%;height:75.0%" class="figure-img">
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-SingleQueue-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;C.1: Example single queue system
+Figure&nbsp;C.1: Example Single Queue System
 </figcaption>
 </figure>
 </div>
@@ -585,7 +585,7 @@ Figure&nbsp;C.1: Example single queue system
 <img src="./figures/AppQueueing/fig2CommonQueueing.png" style="width:85.0%;height:85.0%" class="figure-img">
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-CommonQueueing-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;C.2: Illustrating some common queueing situations
+Figure&nbsp;C.2: Illustrating Some Common Queueing Situations
 </figcaption>
 </figure>
 </div>
@@ -613,7 +613,7 @@ Figure&nbsp;C.2: Illustrating some common queueing situations
 <img src="./figures/AppQueueing/fig3NumInQPath.png" style="width:70.0%;height:70.0%" class="figure-img">
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-NumInQPath-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;C.3: Sample path for the number of customers in a queue
+Figure&nbsp;C.3: Sample Path for the Number of Customers in a Queue
 </figcaption>
 </figure>
 </div>
@@ -725,7 +725,7 @@ P_1 = \lim_{t \to \infty} P_1(t) = \frac{\lambda}{\lambda + \mu}
 <img src="./figures/AppQueueing/fig4TwoStates.png" style="width:25.0%;height:25.0%" class="figure-img">
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-TwoStates-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;C.4: Two state rate transition diagram
+Figure&nbsp;C.4: Two State Rate Transition Diagram
 </figcaption>
 </figure>
 </div>
@@ -762,7 +762,7 @@ Figure&nbsp;C.4: Two state rate transition diagram
 <img src="./figures/AppQueueing/fig5GeneralStateDiagram.png" style="width:85.0%;height:85.0%" class="figure-img">
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-GeneralStateDiagram-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;C.5: General rate transition diagram for any number of states
+Figure&nbsp;C.5: General Rate Transition Diagram for Any Number of States
 </figcaption>
 </figure>
 </div>
@@ -841,7 +841,7 @@ B &amp; = \frac{\lambda_e}{\mu} \\
 \rho &amp; = \frac{\lambda_e}{c\mu}\\
 L &amp; = L_q + B \\
 W &amp; = W_q + \frac{1}{\mu}\end{aligned}\]</span></p>
-<p><a href="#sec-appqtsecformulas" class="quarto-xref"><span>Section C.4</span></a> presents the results of applying the general solution for <span class="math inline">\(P_n\)</span> to different queueing system configurations. <a href="#tbl-mmcResults" class="quarto-xref">Table&nbsp;<span>C.1</span></a> presents specific results for the M/M/c queuing system for <span class="math inline">\(c = 1,2,3\)</span>. Using these results and those in <a href="#sec-appqtsecformulas" class="quarto-xref"><span>Section C.4</span></a>, the analysis of a variety of different queueing situations is possible.</p>
+<p><a href="#sec-appqtsecformulas" class="quarto-xref"><span>Section C.4</span></a> presents the results of applying the general solution for <span class="math inline">\(P_n\)</span> to different queueing system configurations. <a href="#tbl-mmcResults" class="quarto-xref">Table&nbsp;<span>C.1</span></a> presents specific results for the M/M/c queueing system for <span class="math inline">\(c = 1,2,3\)</span>. Using these results and those in <a href="#sec-appqtsecformulas" class="quarto-xref"><span>Section C.4</span></a>, the analysis of a variety of different queueing situations is possible.</p>
 <div id="tbl-mmcResults" class="quarto-float quarto-figure quarto-figure-left anchored">
 <figure class="quarto-float quarto-float-tbl figure">
 <figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-mmcResults-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
@@ -995,7 +995,7 @@ Table&nbsp;C.2: Results for <a href="#exm-exSSC" class="quarto-xref">Example&nbs
 <img src="./figures/AppQueueing/fig6QTSSpreadsheet.png" style="width:60.0%;height:60.0%" class="figure-img">
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-QTSSpreadsheet-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;C.6: QTSPlus M/M/c spreadsheet results
+Figure&nbsp;C.6: QTSPlus M/M/c Spreadsheet Results
 </figcaption>
 </figure>
 </div>
@@ -1005,7 +1005,7 @@ Figure&nbsp;C.6: QTSPlus M/M/c spreadsheet results
 <img src="./figures/AppQueueing/fig7QTSResults.png" style="width:50.0%;height:50.0%" class="figure-img">
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-QTSResults-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;C.7: QTSPlus M/M/c state probability results
+Figure&nbsp;C.7: QTSPlus M/M/c State Probability Results
 </figcaption>
 </figure>
 </div>
@@ -1031,7 +1031,7 @@ Figure&nbsp;C.7: QTSPlus M/M/c state probability results
 <img src="./figures/AppQueueing/fig8SqrtStaffingRule.png" style="width:75.0%;height:75.0%" class="figure-img">
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-SqrtStaffingRule-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;C.8: Spreadsheet for square root staffing rule
+Figure&nbsp;C.8: Spreadsheet for Square Root Staffing Rule
 </figcaption>
 </figure>
 </div>
@@ -1056,7 +1056,7 @@ Figure&nbsp;C.8: Spreadsheet for square root staffing rule
 <img src="./figures/AppQueueing/fig9MM1KResults.png" style="width:70.0%;height:70.0%" class="figure-img">
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-MM1KResults-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;C.9: Results for finite buffer M/M/1/6 queue
+Figure&nbsp;C.9: Results for Finite Buffer M/M/1/6 Queue
 </figcaption>
 </figure>
 </div>
@@ -1077,7 +1077,7 @@ Figure&nbsp;C.9: Results for finite buffer M/M/1/6 queue
 <img src="./figures/AppQueueing/fig10MMccResults.png" style="width:70.0%;height:70.0%" class="figure-img">
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-MMccResults-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;C.10: Parking lot results for M/M/10/10 system
+Figure&nbsp;C.10: Parking Lot Results for M/M/10/10 System
 </figcaption>
 </figure>
 </div>
@@ -1103,7 +1103,7 @@ Figure&nbsp;C.10: Parking lot results for M/M/10/10 system
 <img src="./figures/AppQueueing/fig11MachineInterference.png" style="width:70.0%;height:70.0%" class="figure-img">
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-MachineInterference-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;C.11: System involving machine interference
+Figure&nbsp;C.11: System Involving Machine Interference
 </figcaption>
 </figure>
 </div>
@@ -1127,7 +1127,7 @@ Figure&nbsp;C.11: System involving machine interference
 <img src="./figures/AppQueueing/fig12MIMResults.png" style="width:80.0%;height:80.0%" class="figure-img">
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-MIMResults-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;C.12: Modeling the machine interference problem in QTSPlus
+Figure&nbsp;C.12: Modeling the Machine Interference Problem in QTSPlus
 </figcaption>
 </figure>
 </div>
@@ -1284,13 +1284,13 @@ Table&nbsp;C.4: Results M/G/1 and M/D/1
 <p><span class="math display">\[W_q(GI/G/1) \approx \Biggl(\dfrac{c_a^2 + c_s^2}{2}\Biggr) W_q(M/M/1)\]</span></p>
 <p>In this equation, <span class="math inline">\(W_q\)</span>(M/M/1) denotes the expected waiting time in the queue for the M/M/1 model <span class="math inline">\(c_a^2\)</span> and <span class="math inline">\(c_s^2\)</span> and represent the squared coefficient of variation for the inter-arrival time and service time distributions. Recall that for a random variable, <span class="math inline">\(X\)</span>, the squared coefficient of variation is given by <span class="math inline">\(c_X^2 = Var[X]/(E[X])^2\)</span>. <span class="citation" data-cites="whitt1983the">(<a href="references.html#ref-whitt1983the" role="doc-biblioref">Whitt 1983</a>)</span> used a very similar approximation for the GI/G/c queue to compute the traffic congestion at each node in a queueing network for his Queueing Network Analyzer:</p>
 <p><span class="math display">\[W_q(GI/G/c) \approx \Biggl(\dfrac{c_a^2 + c_s^2}{2}\Biggr) W_q(M/M/c)\]</span></p>
-<p>A discussion of queuing approximations of this form as well as additional references can be found in <span class="citation" data-cites="whitt1993approximations">(<a href="references.html#ref-whitt1993approximations" role="doc-biblioref">Whitt 1993</a>)</span>.</p>
+<p>A discussion of queueing approximations of this form as well as additional references can be found in <span class="citation" data-cites="whitt1993approximations">(<a href="references.html#ref-whitt1993approximations" role="doc-biblioref">Whitt 1993</a>)</span>.</p>
 <p>Thus, to approximate the performance of a GI/G/c queue, you need only the first two moments of the inter-arrival and service time distributions and a way to compute the waiting time in the queue for a M/M/c queueing system. These results are useful when trying to verify and validate a simulation model of a queueing system, especially in the case of a system that consists of more than one queueing system organized into a network. Before examining that more complicated case, some of the issues related to using to simulate single queue systems should be examined.</p>
-<p>The following section summarizes the formulas for the previously mentioned queueing systems. The appendis is finished off with some example exercises that can be used to test your understanding of the application of these formulas.</p>
+<p>The following section summarizes the formulas for the previously mentioned queueing systems. The appendix is finished off with some example exercises that can be used to test your understanding of the application of these formulas.</p>
 </section>
 <section id="sec-appqtsecformulas" class="level2" data-number="C.4">
 <h2 data-number="C.4" class="anchored" data-anchor-id="sec-appqtsecformulas"><span class="header-section-number">C.4</span> Summary of Queueing Formulas</h2>
-<p>This section provides the formulas for basic single queue stations and is meant simply as a resource where the formulas are readily available for potential applicaiton. The following notation is used within this section.</p>
+<p>This section provides the formulas for basic single queue stations and is meant simply as a resource where the formulas are readily available for potential application. The following notation is used within this section.</p>
 <p>Let <span class="math inline">\(N\)</span> represent the steady state number of customers in the system, where <span class="math inline">\(N \in \{0,1,2,...,k\}\)</span> where <span class="math inline">\(k\)</span> is the maximum number of customers in the system and may be infinite (<span class="math inline">\(\infty\)</span>).</p>
 <p>Let <span class="math inline">\(\lambda_{n}\)</span> be the arrival rate when there are <span class="math inline">\(N=n\)</span> customers in the system.</p>
 <p>Let <span class="math inline">\(\mu_{n}\)</span> be the service rate when there are <span class="math inline">\(N=n\)</span> customers in the system.</p>
@@ -1548,7 +1548,7 @@ P_0 = \biggl[\sum\limits_{n=0}^k \prod\limits_{j=0}^{n-1} (\dfrac{\lambda_j}{\mu
 </div>
 <hr>
 <div id="exr-chQTP2" class="theorem exercise">
-<p><span class="theorem-title"><strong>Exercise C.2</strong></span> The Burger Joint in the UA food court uses an average of 10,000 pounds of potatoes per week. The average number of pounds of potatoes on hand is 5,000. On average, how long do potatoes stay in the restaurant before being used? What queuing concept is use to solve this problem?</p>
+<p><span class="theorem-title"><strong>Exercise C.2</strong></span> The Burger Joint in the UA food court uses an average of 10,000 pounds of potatoes per week. The average number of pounds of potatoes on hand is 5,000. On average, how long do potatoes stay in the restaurant before being used? What queueing concept is use to solve this problem?</p>
 </div>
 <hr>
 <div id="exr-chQTP3" class="theorem exercise">
@@ -1607,7 +1607,7 @@ P_0 = \biggl[\sum\limits_{n=0}^k \prod\limits_{j=0}^{n-1} (\dfrac{\lambda_j}{\mu
 <hr>
 <div id="exr-chQTP11" class="theorem exercise">
 <p><span class="theorem-title"><strong>Exercise C.11</strong></span> You have been hired to analyze the needs for loading dock facilities at a trucking terminal. The present terminal has 4 docks on the main building. Any trucks that arrive when all docks are full are assigned to a secondary terminal, which is a short distance away from the main terminal. Assume that the arrival process is Poisson with a rate of 5 trucks each hour. There is no available space at the main terminal for trucks to wait for a dock. At the present time nearly 50% of the arriving trucks are diverted to the secondary terminal. The average service time per truck is two hours on the main terminal and 3 hours on the secondary terminal, both exponentially distributed. Two proposals are being considered. The first proposal is to expand the main terminal by adding docks so that at least 80% of the arriving trucks can be served there with the remainder being diverted to the secondary terminal. The second proposal is to expand the space that can accommodate up to 8 trucks. Then, only when the holding area is full will the trucks be diverted to secondary terminal.</p>
-<p>What queuing model should you use to analyze the first proposal? State the model and its parameters. State what you would do to determine the required number of docks so that at least 80% of the arriving trucks can be served for the first proposal. Note you do not have to compute anything. What model should you use to analyze the 2nd proposal? State the model and its parameters.</p>
+<p>What queueing model should you use to analyze the first proposal? State the model and its parameters. State what you would do to determine the required number of docks so that at least 80% of the arriving trucks can be served for the first proposal. Note you do not have to compute anything. What model should you use to analyze the 2nd proposal? State the model and its parameters.</p>
 </div>
 <hr>
 <div id="exr-chQTP12" class="theorem exercise">

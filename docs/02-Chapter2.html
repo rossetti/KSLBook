@@ -578,9 +578,9 @@ window.Quarto = {
 <p><strong><span class="smallcaps">Learning Objectives</span></strong></p>
 <ul>
 <li>To be able to generate random numbers using the Kotlin Simulation Library (KSL)</li>
-<li>To understand how to control random number streams within the KSL</li>
+<li>To be able to control random number streams within the KSL</li>
 <li>To be able to generate random variates using the KSL</li>
-<li>To understand how to use the KSL for basic probability computations</li>
+<li>To be able to use the KSL for basic probability computations</li>
 </ul>
 <p>This chapter overviews the functionality of the KSL for modeling randomness within simulation models. The focus of this chapter is on getting started using the basic classes and functionality of the KSL. The theory and methods related to random number generation and random variate generation are provided in <a href="12-AppRNRV.html" class="quarto-xref"><span>Appendix A</span></a>. In that appendix, the underlying theory of the inverse transform method, convolution, acceptance rejection, and particular distribution modeling concepts are reviewed. In addition, the concepts of pseudo-random number generation are discussed. This chapter assumes that the reader has some familiarity with the general concepts presented in <a href="12-AppRNRV.html" class="quarto-xref"><span>Appendix A</span></a>.</p>
 <div class="callout callout-style-default callout-note callout-titled">
@@ -726,7 +726,7 @@ U_i &amp; = \frac{Y_i}{2^{32}-209}
 </tr>
 </tbody>
 </table>
-<p>While it is beyond the scope of this document to explore the theoretical underpinnings of this generator, it is important to note that the generator allows multiple independent streams to be defined along with sub-streams.</p>
+<p>While it is beyond the scope of this book to explore the theoretical underpinnings of this generator, it is important to note that the generator allows multiple independent streams to be defined along with sub-streams.</p>
 <p>The fantastic thing about this generator is the sheer size of the period. Based on their analysis, <span class="citation" data-cites="ecuyer2002an">L’Ecuyer et al. (<a href="references.html#ref-ecuyer2002an" role="doc-biblioref">2002</a>)</span> state that it will be “approximately 219 years into the future before average desktop computers will have the capability to exhaust the cycle of the (generator) in a year of continuous computing.” In addition to the period length, the generator has an enormous number of streams, approximately <span class="math inline">\(1.8 \times 10^{19}\)</span> with stream lengths of <span class="math inline">\(1.7 \times 10^{38}\)</span> and sub-streams of length <span class="math inline">\(7.6 \times 10^{22}\)</span> numbering at <span class="math inline">\(2.3 \times 10^{15}\)</span> per stream. Clearly, with these properties, you do not have to worry about overlapping random numbers when performing simulation experiments. The generator was subjected to a rigorous battery of statistical tests and is known to have excellent statistical properties.</p>
 <section id="sec-ch2randompkg" class="level3" data-number="2.1.1">
 <h3 data-number="2.1.1" class="anchored" data-anchor-id="sec-ch2randompkg"><span class="header-section-number">2.1.1</span> Random Package</h3>
@@ -744,15 +744,15 @@ Figure&nbsp;2.1: Random Number Stream Interfaces
 <p><a href="#fig-RNStreamInterfaces" class="quarto-xref">Figure&nbsp;<span>2.1</span></a> shows the important interfaces within the <code>ksl.utilities.random.rng</code> package. The <code>RandU01Ifc</code> defines the methods for getting the next pseudo-random number and the previous pseudo-random number via <code>randU01()</code> and <code>previousU.</code> The <code>randInt(i: Int, j: Int)</code> method can be used to generate a random integer uniformly over the range from <span class="math inline">\(i\)</span> to <span class="math inline">\(j\)</span>. The <code>GetAntitheticStreamIfc</code> and <code>RNStreamNewInstanceIfc</code> interfaces allow a new object instance to be created from the stream. In the case of the <code>GetAntitheticStreamIfc</code> interface the created stream will produce antithetic variates from the stream. If <span class="math inline">\(U\)</span> is a pseudo-random number, then <span class="math inline">\(1-U\)</span> is the antithetic variate of <span class="math inline">\(U\)</span>.</p>
 <p>The <code>RNStreamControlIfc</code> defines methods for controlling the underlying stream of pseudo-random numbers.</p>
 <ul>
-<li><code>resetStartStream()</code> - positions the random number stream at the beginning of its sequence. This is the same location in the stream as assigned when the random number stream was created and initialized.</li>
-<li><code>resetStartSubstream()</code> - resets the position of the random number stream to the start of the current substream. If the random number stream has advanced into the substream, then this method resets to the beginning of the substream.</li>
-<li><code>advanceToNextSubStream()</code> - positions the random number stream at the beginning of its next substream. This method move through the current substream and positions the stream at the beginning of the next substream.</li>
+<li><code>resetStartStream()</code>: positions the random number stream at the beginning of its sequence. This is the same location in the stream as assigned when the random number stream was created and initialized.</li>
+<li><code>resetStartSubstream()</code>: resets the position of the random number stream to the start of the current substream. If the random number stream has advanced into the substream, then this method resets to the beginning of the substream.</li>
+<li><code>advanceToNextSubStream()</code>: positions the random number stream at the beginning of its next substream. This method move through the current substream and positions the stream at the beginning of the next substream.</li>
 <li><code>antithetic</code> indicates to the stream to start producing antithetic variates. If the option is true, the stream should start producing antithetic variates with the next call to <code>randU01().</code> If the option is false, the stream should stop producing antithetic variates.</li>
 </ul>
 <p>The <code>StreamOptionIfc</code> defines methods for automating the control of the stream during simulation runs.</p>
 <ul>
-<li><code>advanceToNextSubStreamOption</code> - Indicates that the stream will be advanced to the next substream for the beginning of the next simulation replication.</li>
-<li><code>resetStartStreamOption</code> - Indicates that the underlying stream will be reset to its starting point for the beginning of the next simulation replication.</li>
+<li><code>advanceToNextSubStreamOption</code>: Indicates that the stream will be advanced to the next substream for the beginning of the next simulation replication.</li>
+<li><code>resetStartStreamOption</code>: Indicates that the underlying stream will be reset to its starting point for the beginning of the next simulation replication.</li>
 </ul>
 <p>The <code>RNStreamIfc</code> interface assumes that the underlying pseudo-random number generator can produce multiple streams that can be further divided into substreams. The reset methods allow the user to move within the streams. Classes that implement the <code>RNStreamControlIfc</code> can manipulate the streams in a well-defined manner.</p>
 <div id="fig-RNStreamProvider" class="quarto-float quarto-figure quarto-figure-left anchored">
@@ -768,26 +768,26 @@ Figure&nbsp;2.2: RNStreamProviderIfc Interface
 <p>To create a concrete instance of a stream, we must have a random number stream provider. This functionality is defined by the <code>RNStreamProviderIfc</code> interface and its default implementation, <code>RNStreamProvider.</code> <a href="#fig-RNStreamProvider" class="quarto-xref">Figure&nbsp;<span>2.2</span></a> illustrates the functionality available for creating random number streams. This interface conceptualizes the creation of random number streams as a process of making a sequence of streams numbered 1, 2, 3, …</p>
 <p>A random number stream provider must define a default stream, which can be retrieved via the <code>defaultRNStream()</code> method. By default, for the KSL, the default stream is the first stream created and is labeled with the sequence number 1. The sequence number of a stream can be used to retrieve a particular stream from the provider. The following methods allow for creation and access to streams.</p>
 <ul>
-<li><code>nextRNStream()</code> - returns the next random number stream associated with the provider. Each call to <code>nextRNStream()</code> makes a new stream in the sequence of streams.</li>
-<li><code>lastRNStreamNumber()</code> - returns the number of the stream that was last made. This indicates how many streams have been made. If <span class="math inline">\(0\)</span> is returned, then no streams have been made by the provider.</li>
-<li><code>rnStream(k : Int)</code> - returns the <span class="math inline">\(k^{th}\)</span> stream. If <span class="math inline">\(k\)</span> is greater than <code>lastRNStreamNumber()</code> then <code>lastRNStreamNumber()</code> is advanced according to the additional number of streams by creating any intermediate streams. For example, if <code>lastRNStreamNumber()</code> = 10 and k = 15, then streams 11, 12, 13, 14, 15 are assumed provided and stream 15 is returned and <code>lastRNStreamNumber()</code> now equals 15. If <span class="math inline">\(k\)</span> is less than or equal to <code>lastRNStreamNumber()</code>, then no new streams are created and <code>lastRNStreamNumber()</code>stays at its current value and the <span class="math inline">\(k^{th}\)</span> stream is returned.</li>
-<li><code>streamNumber(RNStreamIfc stream)</code> - returns the stream number of the instance of a stream.</li>
-<li><code>advanceStreamMechanism(int n)</code> - advances the underlying stream mechanism by the specified number of streams, without actually creating the streams. The value of <code>lastRNStreamNumber()</code> remains the same after advancing through the streams. In other words, this method should act as if <code>nextRNStream()</code> was not called but advance the underlying stream mechanism as if <span class="math inline">\(n\)</span> streams had been provided.</li>
-<li><code>resetRNStreamSequence()</code> - Causes the random number stream provider to act as if has never created any streams. Thus, the next call to <code>nextRNStream()</code> will return the <span class="math inline">\(1^{st}\)</span> stream.</li>
+<li><code>nextRNStream()</code>: returns the next random number stream associated with the provider. Each call to <code>nextRNStream()</code> makes a new stream in the sequence of streams.</li>
+<li><code>lastRNStreamNumber()</code>: returns the number of the stream that was last made. This indicates how many streams have been made. If <span class="math inline">\(0\)</span> is returned, then no streams have been made by the provider.</li>
+<li><code>rnStream(k : Int)</code>: returns the <span class="math inline">\(k^{th}\)</span> stream. If <span class="math inline">\(k\)</span> is greater than <code>lastRNStreamNumber()</code> then <code>lastRNStreamNumber()</code> is advanced according to the additional number of streams by creating any intermediate streams. For example, if <code>lastRNStreamNumber()</code> = 10 and k = 15, then streams 11, 12, 13, 14, 15 are assumed provided and stream 15 is returned and <code>lastRNStreamNumber()</code> now equals 15. If <span class="math inline">\(k\)</span> is less than or equal to <code>lastRNStreamNumber()</code>, then no new streams are created and <code>lastRNStreamNumber()</code>stays at its current value and the <span class="math inline">\(k^{th}\)</span> stream is returned.</li>
+<li><code>streamNumber(RNStreamIfc stream)</code>: returns the stream number of the instance of a stream.</li>
+<li><code>advanceStreamMechanism(int n)</code>: advances the underlying stream mechanism by the specified number of streams, without actually creating the streams. The value of <code>lastRNStreamNumber()</code> remains the same after advancing through the streams. In other words, this method should act as if <code>nextRNStream()</code> was not called but advance the underlying stream mechanism as if <span class="math inline">\(n\)</span> streams had been provided.</li>
+<li><code>resetRNStreamSequence()</code>: Causes the random number stream provider to act as if has never created any streams. Thus, the next call to <code>nextRNStream()</code> will return the <span class="math inline">\(1^{st}\)</span> stream.</li>
 </ul>
 <p>The random number stream provider also facilitates the control of all streams that have been created. This functionality is similar to how the position within an individual stream can be manipulated, except the provider performs the functionality on <em>all streams</em> that it has provided The following methods perform this functionality.</p>
 <ul>
-<li><code>resetAllStreamsToStart()</code> - resets all created streams to the start of their stream.</li>
-<li><code>resetAllStreamsToStartOfCurrentSubStream()</code> - resets all created streams to the start of their current sub-stream.</li>
-<li><code>advanceAllStreamsToNextSubstream()</code> - advances all created streams to the start of their next sub-stream.</li>
-<li><code>setAllStreamsAntitheticOption(option: Boolean)</code> - changes all created streams to have their antithetic option either off = false or on = true.</li>
+<li><code>resetAllStreamsToStart()</code>: resets all created streams to the start of their stream.</li>
+<li><code>resetAllStreamsToStartOfCurrentSubStream()</code>: resets all created streams to the start of their current sub-stream.</li>
+<li><code>advanceAllStreamsToNextSubstream()</code>: advances all created streams to the start of their next sub-stream.</li>
+<li><code>setAllStreamsAntitheticOption(option: Boolean)</code>: changes all created streams to have their antithetic option either off = false or on = true.</li>
 </ul>
 <p>Many random number generators require the specification of a seed to start the generated sequence. Even though the generator within the KSL uses seeds, there really is no need to specify the seeds because of the well defined methods for moving within the streams. However, if you really want to get into the details and specify seeds, the you should review the <code>RNStreamFactory</code> class, which directly implements the random number generator discussed in <span class="citation" data-cites="ecuyer2002an">L’Ecuyer et al. (<a href="references.html#ref-ecuyer2002an" role="doc-biblioref">2002</a>)</span>.</p>
 <p>Now, let’s illustrate how to create and manipulate streams.</p>
 </section>
 <section id="sec-ch2creatingStreams" class="level3" data-number="2.1.2">
 <h3 data-number="2.1.2" class="anchored" data-anchor-id="sec-ch2creatingStreams"><span class="header-section-number">2.1.2</span> Creating and Using Streams</h3>
-<p>To create a random number stream, the user must utilize an instance of <code>RNStreamProvider.</code> This process is illustrated in in the following code. This code creates two instances of <code>RNStreamProvider</code> and gets the first stream from each instance. The instances of <code>RNStreamProvider</code> use the exact same underlying default seeds. Thus, they produce <em>exactly the same</em> sequence of streams.</p>
+<p>To create a random number stream, the user must utilize an instance of <code>RNStreamProvider.</code> This process is illustrated in the following code. This code creates two instances of <code>RNStreamProvider</code> and gets the first stream from each instance. The instances of <code>RNStreamProvider</code> use the exact same underlying default seeds. Thus, they produce <em>exactly the same</em> sequence of streams.</p>
 <div id="exm-ch2ex1" class="theorem example">
 <p><span class="theorem-title"><strong>Example 2.1 (RNStreamProvider)</strong></span> This example illustrates how to create a <code>RNStreamProvider</code>, create streams, and generate pseudo-random numbers from the stream.</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb1"><pre class="sourceCode kotlin code-with-copy"><code class="sourceCode kotlin"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="kw">fun</span> <span class="fu">main</span><span class="op">()</span> <span class="op">{</span></span>
@@ -812,12 +812,12 @@ Figure&nbsp;2.2: RNStreamProviderIfc Interface
   3        0.309186        0.309186 
   4        0.825847        0.825847 
   5        0.221630        0.221630 </code></pre>
-<p>There is is really very little need for the general programmer to create a <code>RNStreamProvider</code> because the KSL supplies a default provider that can be used to provide a virtually infinite number of streams. The need for directly accessing the functionality of <code>RNStreamProvider</code> is for explicit control of stream creation in such situations like running code on different computers in parallel. While the providers produce the same streams, you can force one provider to be different from another provider by manipulating the seeds. The function, <code>advanceStreamMechanism(n: Int),</code> essentially manipulates the underlying seed vector by advancing the seed values as if <code>n</code> streams have been created. If this function is used prior to creating any streams, you have essentially set the starting seed value, causing the created streams to be <em>different</em> from the default starting values. In addition, the provider can control all streams that it produces. So, unless you are trying to do some advanced work that involves coordinating multiple streams, you should not need to create multiple instances of <code>RNStreamProvider.</code></p>
+<p>There is really very little need for the general programmer to create a <code>RNStreamProvider</code> because the KSL supplies a default provider that can be used to provide a virtually infinite number of streams. The need for directly accessing the functionality of <code>RNStreamProvider</code> is for explicit control of stream creation in such situations like running code on different computers in parallel. While the providers produce the same streams, you can force one provider to be different from another provider by manipulating the seeds. The function, <code>advanceStreamMechanism(n: Int),</code> essentially manipulates the underlying seed vector by advancing the seed values as if <code>n</code> streams have been created. If this function is used prior to creating any streams, you have essentially set the starting seed value, causing the created streams to be <em>different</em> from the default starting values. In addition, the provider can control all streams that it produces. So, unless you are trying to do some advanced work that involves coordinating multiple streams, you should not need to create multiple instances of <code>RNStreamProvider.</code></p>
 <p>Because the most common use case is to just have a single provider of streams, the KSL facilitates this through the <code>KSLRandom</code> <em>object.</em> The <code>KSLRandom</code> object has a wide range of methods to facilitate random variate generation.The most important methods include:</p>
 <ul>
-<li><code>nextRNStream()</code> - calls the underlying default <code>RNStreamProvider</code> to create a new random number stream</li>
-<li><code>rnStream(int k)</code> - returns the <span class="math inline">\(k^{th}\)</span> stream from the default <code>RNStreamProvider</code></li>
-<li><code>defaultRNStream()</code> - calls the underlying default <code>RNStreamProvider</code> for its default stream</li>
+<li><code>nextRNStream()</code>: calls the underlying default <code>RNStreamProvider</code> to create a new random number stream</li>
+<li><code>rnStream(int k)</code>: returns the <span class="math inline">\(k^{th}\)</span> stream from the default <code>RNStreamProvider</code></li>
+<li><code>defaultRNStream()</code>: calls the underlying default <code>RNStreamProvider</code> for its default stream</li>
 </ul>
 <p>In the following code example, these methods are used to create streams that are used to generate random numbers. The first line of the code uses the static method <code>defaultRNStream()</code> of <code>KSLRandom</code> to get the default stream and then generates three random numbers. The stream is then advanced and three new random numbers are generated. Then,the stream is reset to its starting (initial seed) and it then repeats the original values. Finally, the a new stream is created via <code>KSLRandom.nextRNStream()</code> and then used to generate new random numbers. From a conceptual standpoint, each stream contains an independent sequence of random numbers from any other stream (unless of course they are made from different providers). They are conceptually infinite and independent due to their enormous periods.</p>
 <div id="exm-ch2ex2" class="theorem example">
@@ -1587,19 +1587,19 @@ Figure&nbsp;2.6: Distribution Interfaces
 </div>
 <p><a href="#fig-DistPackage" class="quarto-xref">Figure&nbsp;<span>2.6</span></a> illustrates the interfaces used to define probability distributions. First, the interface, <code>CDFIfc</code> serves as the basis for discrete distributions via the <code>DiscreteDistributionIfc</code> interface, for continuous distributions via the <code>ContinuousDistributionIfc</code> interface and the general <code>DistributionIfc</code> interface. The discrete distributions such as the geometric, binomial, etc. implement the <code>DiscreteDistributionIfc</code> and <code>PMFIfc</code> interfaces. Similarly, continuous distributions like the normal, uniform, etc. implement the <code>ContinuousDistributionIfc</code> and <code>PDFIfc</code> interfaces. All concrete implementations of distributions extend from the abstract <code>Distribution</code> class, which implements the <code>DistributionIfc</code> interface. Thus, all distributions have the following capabilities:</p>
 <ul>
-<li><code>cdf(b: Double)</code> - computes the cumulative probability, <span class="math inline">\(F(b) = P(X \leq b)\)</span></li>
-<li><code>cdf(a: Double, b: Double)</code> - computes the cumulative probability, <span class="math inline">\(P( a \leq X \leq b)\)</span></li>
-<li><code>complementaryCDF(b: Double)</code> - computes the cumulative probability, <span class="math inline">\(1-F(b) = P(X &gt; b)\)</span></li>
-<li><code>mean()</code> - returns the expected value (mean) of the distribution</li>
-<li><code>variance()</code> - returns the variance of the distribution</li>
-<li><code>standardDeviation()</code> - returns the standard deviation of the distribution</li>
-<li><code>invCDF(p: Double)</code> - returns the inverse of the cumulative distribution function <span class="math inline">\(F^{-1}(p)\)</span>. This is performed by numerical search if necessary</li>
+<li><code>cdf(b: Double)</code>: computes the cumulative probability, <span class="math inline">\(F(b) = P(X \leq b)\)</span></li>
+<li><code>cdf(a: Double, b: Double)</code>: computes the cumulative probability, <span class="math inline">\(P( a \leq X \leq b)\)</span></li>
+<li><code>complementaryCDF(b: Double)</code>: computes the cumulative probability, <span class="math inline">\(1-F(b) = P(X &gt; b)\)</span></li>
+<li><code>mean()</code>: returns the expected value (mean) of the distribution</li>
+<li><code>variance()</code>: returns the variance of the distribution</li>
+<li><code>standardDeviation()</code>: returns the standard deviation of the distribution</li>
+<li><code>invCDF(p: Double)</code>: returns the inverse of the cumulative distribution function <span class="math inline">\(F^{-1}(p)\)</span>. This is performed by numerical search if necessary</li>
 </ul>
 <p>Discrete distributions have a method called <code>pmf(k: Double)</code> that returns the probability associated with the value <span class="math inline">\(k\)</span>. Continuous distributions have a probability density function, <span class="math inline">\(f(x)\)</span>, implemented in the method, <code>pdf(x : Double).</code> Finally, all distributions know how to create random variables through the <code>GetRVariableIfc</code> interface that provides the following methods.</p>
 <ul>
-<li><code>RVariableIfc randomVariable(stream: RNStreamIfc)</code> - returns a new instance of a random variable based on the current values of the distribution’s parameters that uses the supplied stream</li>
-<li><code>RVariableIfc randomVariable(streamNum: Int)</code> - returns a new instance of a random variable based on the current values of the distribution’s parameters that uses the supplied stream number</li>
-<li><code>RVariableIfc randomVariable()</code> - returns a new instance of a random variable based on the current values of the distribution’s parameters that uses a newly created stream</li>
+<li><code>RVariableIfc randomVariable(stream: RNStreamIfc)</code>: returns a new instance of a random variable based on the current values of the distribution’s parameters that uses the supplied stream</li>
+<li><code>RVariableIfc randomVariable(streamNum: Int)</code>: returns a new instance of a random variable based on the current values of the distribution’s parameters that uses the supplied stream number</li>
+<li><code>RVariableIfc randomVariable()</code>: returns a new instance of a random variable based on the current values of the distribution’s parameters that uses a newly created stream</li>
 </ul>
 <p>As an example, the following code illustrates some calculations for the binomial distribution.</p>
 <div id="exm-ch2ex22" class="theorem example">
@@ -1664,21 +1664,21 @@ variance = 5.0
 <p>The results are as we would expect. Similar calculations can be made for continuous distributions. In most cases, the concrete implementations of the various distributions have specialized methods beyond those generic methods described here. Please refer to the documentation for further details.</p>
 <p>There are a number of useful companion object methods defined for the binomial, normal, gamma, and Student-T distributions. Specifically, for the binomial distribution, has the following methods</p>
 <ul>
-<li><code>binomialPMF(j: Int, n: Int, p: Double)</code> - directly computes the probability for the value <span class="math inline">\(j\)</span></li>
-<li><code>binomialCDF(j: Int, n: Int, p: Double)</code> - directly computes the cumulative distribution function for the value <span class="math inline">\(j\)</span></li>
+<li><code>binomialPMF(j: Int, n: Int, p: Double)</code>: directly computes the probability for the value <span class="math inline">\(j\)</span></li>
+<li><code>binomialCDF(j: Int, n: Int, p: Double)</code>: directly computes the cumulative distribution function for the value <span class="math inline">\(j\)</span></li>
 <li><code>binomialCCDF(j: Int, n: Int, p: Double)</code>- directly computes the complementary cumulative distribution function for the value of <span class="math inline">\(j\)</span></li>
-<li><code>binomialInvCDF(x: Double, n: Int, p: Double)</code> - directly computes the inverse cumulative distribution function</li>
+<li><code>binomialInvCDF(x: Double, n: Int, p: Double)</code>: directly computes the inverse cumulative distribution function</li>
 </ul>
 <p>These methods are designed to perform their calculations in a numerically stable manner to ensure numerical accuracy. The normal distribution has the following companion object methods for computations involving the standard normal distribution.</p>
 <ul>
-<li><code>stdNormalCDF(z: Double)</code> - the cumulative probability for a <span class="math inline">\(Z ~ N(0,1)\)</span> random variable, i.e.&nbsp;<span class="math inline">\(F(z) = P(Z \leq z)\)</span></li>
-<li><code>stdNormalComplementaryCDF(z: Double)</code> - returns <span class="math inline">\(1-P(Z \leq z)\)</span></li>
-<li><code>stdNormalInvCDF(p: Double)</code> - returns <span class="math inline">\(z = F^{-1}(p)\)</span> the inverse of the cumulative distribution function</li>
+<li><code>stdNormalCDF(z: Double)</code>: the cumulative probability for a <span class="math inline">\(Z ~ N(0,1)\)</span> random variable, i.e.&nbsp;<span class="math inline">\(F(z) = P(Z \leq z)\)</span></li>
+<li><code>stdNormalComplementaryCDF(z: Double)</code>: returns <span class="math inline">\(1-P(Z \leq z)\)</span></li>
+<li><code>stdNormalInvCDF(p: Double)</code>: returns <span class="math inline">\(z = F^{-1}(p)\)</span> the inverse of the cumulative distribution function</li>
 </ul>
 <p>The Student-T distribution also has two convenience methods to facilitate computations.</p>
 <ul>
-<li><code>cdf(dof: Double, x: Double)</code> - computes the cumulative distribution function for <span class="math inline">\(x\)</span> given the degrees of freedom</li>
-<li><code>invCDF(dof: Double, p: Double)</code> - computes the inverse cumulative distribution function or t-value for the supplied probability given the degrees of freedom.</li>
+<li><code>cdf(dof: Double, x: Double)</code>: computes the cumulative distribution function for <span class="math inline">\(x\)</span> given the degrees of freedom</li>
+<li><code>invCDF(dof: Double, p: Double)</code>: computes the inverse cumulative distribution function or t-value for the supplied probability given the degrees of freedom.</li>
 </ul>
 <p>Within the <code>Gamma</code> class’s companion object there are some convenience methods for computing the gamma function, the natural logarithm of the gamma function, the incomplete gamma function, and the digamma function (derivative of the natural logarithm of the gamma function).</p>
 </section>
@@ -1804,21 +1804,21 @@ basic c.i. = [3.163271658068438, 5.717662725018807]
 percentile c.i. = [3.3044984632300505, 5.858889530180419]</code></pre>
 <p>The parameters of the following distributions can be estimated from data using the KSL.</p>
 <ul>
-<li>Beta - via <code>BetaMOMParameterEstimator</code></li>
-<li>Binomial - via <code>BinomialMaxParameterEstimator</code> or <code>BinomialMOMParameterEstimator</code></li>
-<li>Exponential - via <code>ExponentialMLEEstimator</code></li>
-<li>Gamma - via <code>GammaMLEParameterEstimator</code> or <code>GammaMOMParameterEstimator</code></li>
-<li>Generalized Beta - via <code>GeneralizedBetaMOMParameterEstimator</code></li>
-<li>Laplace - via <code>LaplaceMLEParameterEstimator</code></li>
-<li>Logistic - via <code>LogisticMOMParameterEstimator</code></li>
-<li>Lognormal - via <code>LognormalMLEParameterEstimator</code></li>
-<li>Negative Binomial - via <code>NegBinomialMOMParameterEstimator</code></li>
-<li>Normal - via <code>NormalMLEParameterEstimator</code></li>
-<li>Pearson Type 5 - via <code>PearsonType5MLEParameterEstimator</code></li>
-<li>Poisson - via <code>PoissonMLEParameterEstimator</code></li>
-<li>Triangular - via <code>TriangularParameterEstimator</code></li>
-<li>Uniform - via <code>UniformParameterEstimator</code></li>
-<li>Weibull - via <code>WeibullMLEParameterEstimator</code> or <code>WeibullPercentileParameterEstimator</code></li>
+<li>Beta: via <code>BetaMOMParameterEstimator</code></li>
+<li>Binomial: via <code>BinomialMaxParameterEstimator</code> or <code>BinomialMOMParameterEstimator</code></li>
+<li>Exponential: via <code>ExponentialMLEEstimator</code></li>
+<li>Gamma: via <code>GammaMLEParameterEstimator</code> or <code>GammaMOMParameterEstimator</code></li>
+<li>Generalized Beta: via <code>GeneralizedBetaMOMParameterEstimator</code></li>
+<li>Laplace: via <code>LaplaceMLEParameterEstimator</code></li>
+<li>Logistic: via <code>LogisticMOMParameterEstimator</code></li>
+<li>Lognormal: via <code>LognormalMLEParameterEstimator</code></li>
+<li>Negative Binomial: via <code>NegBinomialMOMParameterEstimator</code></li>
+<li>Normal: via <code>NormalMLEParameterEstimator</code></li>
+<li>Pearson Type 5: via <code>PearsonType5MLEParameterEstimator</code></li>
+<li>Poisson: via <code>PoissonMLEParameterEstimator</code></li>
+<li>Triangular: via <code>TriangularParameterEstimator</code></li>
+<li>Uniform: via <code>UniformParameterEstimator</code></li>
+<li>Weibull: via <code>WeibullMLEParameterEstimator</code> or <code>WeibullPercentileParameterEstimator</code></li>
 </ul>
 <p>Again, by implementing the concepts illustrated in <a href="#fig-ParameterEstimatorLabel" class="quarto-xref">Figure&nbsp;<span>2.7</span></a>, a KSL user can implement additional distribution parameter estimation methods. If you need to fit a distribution that is not modeled within the KSL, then you need to implement the distribution’s parameter estimation procedure. In addition, you will also need to implement a class representing the distribution. Depending on the type of distribution, this may involve implementing the requirements of the <code>ContinuousDistributionIfc</code> interface or the <code>DiscreteDistributionIfc</code> interface for the underlying probability model.</p>
 </section>
@@ -1857,7 +1857,7 @@ p_j = P\{b_{j-1} \leq X \leq b_{j}\} = \int\limits_{b_{j-1}}^{b_{j}} f(x) \mathr
 \chi^{2}_{0} = \sum\limits_{j=1}^{k} \frac{\left( c_{j} - np_{j} \right)^{2}}{np_{j}}
 \]</span></p>
 <ul>
-<li>Mallows L2 Criterion - <span class="citation" data-cites="levina-bickel2001">(<a href="references.html#ref-levina-bickel2001" role="doc-biblioref">Levina and Bickel 2001</a>)</span> provide the definition of the Mallows L2 distance, also known as the earthmovers distance. In terms of <span class="math inline">\(p_j\)</span> and <span class="math inline">\(h_j\)</span>, this is:</li>
+<li>Mallows L2 Criterion: <span class="citation" data-cites="levina-bickel2001">(<a href="references.html#ref-levina-bickel2001" role="doc-biblioref">Levina and Bickel 2001</a>)</span> provide the definition of the Mallows L2 distance, also known as the earthmovers distance. In terms of <span class="math inline">\(p_j\)</span> and <span class="math inline">\(h_j\)</span>, this is:</li>
 </ul>
 <p><span class="math display">\[
 M_{L_2} = \Bigg( \frac{1}{k} \sum_{j=1}^{k}(h_j - p_j)^2\Bigg)^{\frac{1}{2}}
@@ -1955,7 +1955,7 @@ L(\vec{\theta};\vec{x}) = \prod_{i=1}^{n}f(x_i;\vec{\theta})
 \]</span></p>
 <p>These scoring models avoid summarizing the data based on a histogram, which requires a specification of the bin sizes (or widths) and tabulation of frequencies or proportions associated with the bins.</p>
 <p>As illustrated in <a href="#fig-ScoringModelLabel" class="quarto-xref">Figure&nbsp;<span>2.8</span></a>, the scoring models are implemented by sub-classing from the <code>PDFScoringModel</code> abstract base class. Users of the KSL distribution recommendation framework can select which scoring models to include during the evaluation process. The default set of scoring models are BIC, AD, CVM, and QQC. During testing, the BIC criterion performed very well across all but very low sample sizes. The AD and CVM criteria tend to perform better for lower sample sizes, while the QQC criterion tends to perform better for higher sample sizes and for particular distribution families.</p>
-<p>The quality of a parametric fit for a specific distribution can be evaluated by one or more scoring models. Since distribution quality metrics have been designed to measure different aspects of the fit, the KSL allows the scoring results to be combined into an overall score. Suppose distribution <span class="math inline">\(F_k\)</span> is evaluated by the the scoring models, each resulting in score <span class="math inline">\(S_i\)</span> for <span class="math inline">\(i=1,2,\cdots, m\)</span>, where <span class="math inline">\(m\)</span> is the number of scoring models. In general, the scores may not have the same scales and the same direction of <em>goodness</em>. The KSL scoring system translates and scales each score <span class="math inline">\(S_i\)</span> in to a value measure, <span class="math inline">\(M_i\)</span>, that has a common scale and direction (a bigger score is better). These value measures are then combined into an overall value (<span class="math inline">\(V_k\)</span>) for the distribution using weights (<span class="math inline">\(w_i\)</span>) across the scoring criteria:</p>
+<p>The quality of a parametric fit for a specific distribution can be evaluated by one or more scoring models. Since distribution quality metrics have been designed to measure different aspects of the fit, the KSL allows the scoring results to be combined into an overall score. Suppose distribution <span class="math inline">\(F_k\)</span> is evaluated by the scoring models, each resulting in score <span class="math inline">\(S_i\)</span> for <span class="math inline">\(i=1,2,\cdots, m\)</span>, where <span class="math inline">\(m\)</span> is the number of scoring models. In general, the scores may not have the same scales and the same direction of <em>goodness</em>. The KSL scoring system translates and scales each score <span class="math inline">\(S_i\)</span> in to a value measure, <span class="math inline">\(M_i\)</span>, that has a common scale and direction (a bigger score is better). These value measures are then combined into an overall value (<span class="math inline">\(V_k\)</span>) for the distribution using weights (<span class="math inline">\(w_i\)</span>) across the scoring criteria:</p>
 <p><span class="math display">\[
 V_{k} = \sum_{i=1}^{m}w_i \times M_i
 \]</span></p>
@@ -1974,11 +1974,11 @@ Figure&nbsp;2.9: PDF Modeling Framework
 </div>
 <p>The modeling process starts with creating an instance of <code>PDFModeler</code> by supplying the data to be modeled and the set of scoring models to be used within the evaluation process. Then, functions can be used to perform the estimation and scoring tasks.</p>
 <ul>
-<li><p><code>estimateParameters(estimators: Set&lt;ParameterEstimatorIfc&gt;, automaticShifting: Boolean = true)</code> - This function estimates the parameters for all estimators represented by the supplied set of estimators. The parameter, <code>automaticShifting</code> controls whether the data will be automatically shifted. If the automatic shift parameter is true (the default), then a confidence interval for the minimum of the data is estimated from the data. If the upper limit of the estimated confidence interval is greater than the value specified by the default zero tolerance property, then the data is shifted to the left and used in the estimation process. The estimated shift will be recorded in the result. Automated shift estimation will occur only if the automatic shifting parameter is true, if the estimator requires that its range be checked, and if the data actually requires a shift. If the automatic shifting parameter is false, then no shifting will occur. In this case it is up to the user to ensure that the supplied data is representative of the set of estimators to be estimated. The returned list will contain the results for each estimator.</p></li>
-<li><p><code>evaluateScores(estimationResults: List&lt;EstimationResult&gt;)</code> - This function applies the supplied scoring models to the results from the parameter estimation process. Each distribution with estimated parameters will be scored by each of the supplied models and the results tabulated as an instance of the <code>PDFModelingResults</code> class.</p></li>
-<li><p><code>estimateAndEvaluateScores(estimators: Set&lt;ParameterEstimatorIfc&gt; = allEstimators, automaticShifting: Boolean = true, scoringModels: Set&lt;PDFScoringModel&gt; = allScoringModels)</code> - As its name implies, this function combines the functions of <code>estimateParameters()</code> and <code>evaluateScores()</code> into a single function for the convenience of the modeler. The returned instance of the <code>PDFModelingResults</code> class has the estimation results and the scoring results.</p></li>
-<li><p><code>showAllResultsInBrowser(fileName: String = "pdfModelingResults")</code> - This function makes a histogram, observations plot, auto-correlation plot, performs the fitting and scoring process, and performs goodness of fit tests on the top scoring distribution and displays all the results by opening a browser window. The generated <code>html</code> file is stored in the <code>KSL.plotDir</code> directory using the supplied name as the pre-fix for a temporary file. This one function performs all the necessary fitting steps and returns the results, including plots, within an <code>html</code> page.</p></li>
-<li><p><code>showAllGoodnessofFitSummariesInBrowser(pdfModelingResults: PDFModelingResults)</code> - This function shows the goodness of fit summaries for every distribution used within the fitting process. This function shows the raw scores, the scaled scores, the ranked scores, and the PDF summary results for each distribution. The PDF summary results includes the <code>FitDistPlot</code> plots as well as the results of the Chi-Squared, K-S, Anderson Darling, and Cramer Von Mises, statistical tests. This function is very useful when comparing the quality of the fitted distributions.</p></li>
+<li><p><code>estimateParameters(estimators: Set&lt;ParameterEstimatorIfc&gt;, automaticShifting: Boolean = true)</code>: This function estimates the parameters for all estimators represented by the supplied set of estimators. The parameter, <code>automaticShifting</code> controls whether the data will be automatically shifted. If the automatic shift parameter is true (the default), then a confidence interval for the minimum of the data is estimated from the data. If the upper limit of the estimated confidence interval is greater than the value specified by the default zero tolerance property, then the data is shifted to the left and used in the estimation process. The estimated shift will be recorded in the result. Automated shift estimation will occur only if the automatic shifting parameter is true, if the estimator requires that its range be checked, and if the data actually requires a shift. If the automatic shifting parameter is false, then no shifting will occur. In this case it is up to the user to ensure that the supplied data is representative of the set of estimators to be estimated. The returned list will contain the results for each estimator.</p></li>
+<li><p><code>evaluateScores(estimationResults: List&lt;EstimationResult&gt;)</code>: This function applies the supplied scoring models to the results from the parameter estimation process. Each distribution with estimated parameters will be scored by each of the supplied models and the results tabulated as an instance of the <code>PDFModelingResults</code> class.</p></li>
+<li><p><code>estimateAndEvaluateScores(estimators: Set&lt;ParameterEstimatorIfc&gt; = allEstimators, automaticShifting: Boolean = true, scoringModels: Set&lt;PDFScoringModel&gt; = allScoringModels)</code>: As its name implies, this function combines the functions of <code>estimateParameters()</code> and <code>evaluateScores()</code> into a single function for the convenience of the modeler. The returned instance of the <code>PDFModelingResults</code> class has the estimation results and the scoring results.</p></li>
+<li><p><code>showAllResultsInBrowser(fileName: String = "pdfModelingResults")</code>: This function makes a histogram, observations plot, auto-correlation plot, performs the fitting and scoring process, and performs goodness of fit tests on the top scoring distribution and displays all the results by opening a browser window. The generated <code>html</code> file is stored in the <code>KSL.plotDir</code> directory using the supplied name as the pre-fix for a temporary file. This one function performs all the necessary fitting steps and returns the results, including plots, within an <code>html</code> page.</p></li>
+<li><p><code>showAllGoodnessofFitSummariesInBrowser(pdfModelingResults: PDFModelingResults)</code>: This function shows the goodness of fit summaries for every distribution used within the fitting process. This function shows the raw scores, the scaled scores, the ranked scores, and the PDF summary results for each distribution. The PDF summary results includes the <code>FitDistPlot</code> plots as well as the results of the Chi-Squared, K-S, Anderson Darling, and Cramer Von Mises, statistical tests. This function is very useful when comparing the quality of the fitted distributions.</p></li>
 </ul>
 <p>The <code>PDFModeling</code> class encapsulates the estimation and scoring process. The purpose of this class is to serve as the general location for implementing the estimation of distribution parameters across many distributions. The general use involves the following:</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb43"><pre class="sourceCode kotlin code-with-copy"><code class="sourceCode kotlin"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a><span class="kw">val</span> <span class="va">d</span> <span class="op">=</span> PDFModeler<span class="op">(</span><span class="kw">data</span><span class="op">)</span></span>
@@ -2802,7 +2802,7 @@ Anderson-Darling test p-value = 0.9710833730000956
 
 Cramer-Von-Mises test statistic = 0.025283543923658194
 Cramer-Von-Mises test p-value = 0.9893094979248238</code></pre>
-<p>Finally, we can review the distribution plot, <a href="#fig-ch2PharmacyPDFPlot" class="quarto-xref">Figure&nbsp;<span>2.23</span></a>, and see that according the the P-P plot, Q-Q plot, histogram overlay, and empirical cumulative distribution overlay plot that the exponential distribution is an excellent probability model for this data.</p>
+<p>Finally, we can review the distribution plot, <a href="#fig-ch2PharmacyPDFPlot" class="quarto-xref">Figure&nbsp;<span>2.23</span></a>, and see that according to the P-P plot, Q-Q plot, histogram overlay, and empirical cumulative distribution overlay plot that the exponential distribution is an excellent probability model for this data.</p>
 <div id="fig-ch2PharmacyPDFPlot" class="quarto-float quarto-figure quarto-figure-left anchored">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-ch2PharmacyPDFPlot-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
@@ -2837,23 +2837,31 @@ Figure&nbsp;2.23: Distribution Plot for Pharmacy Data
 </section>
 <section id="summary" class="level2" data-number="2.5">
 <h2 data-number="2.5" class="anchored" data-anchor-id="summary"><span class="header-section-number">2.5</span> Summary</h2>
-<p>The KSL contains packages that support the generation of random numbers, random variates, and the modeling of probability distributions that are commonly found in practice. These constructs facilitate the incorporation of randomness within simulation modeling. The following additional classes may be of interest:</p>
-<ul>
-<li><code>ShiftedRV</code> - models random variables that have their domain shifted to the right</li>
-<li><code>MixtureRV</code> - models random variables that are expressed as a mixture distribution. That is, a distribution that is a weighted mixture of other distributions</li>
-<li><code>AcceptanceRejectionRV</code> - permits the implementation of the acceptance and rejection algorithm for generating random variates in a general manner</li>
-<li><code>InverseCDFRV</code> - facilitates the implementation of the inverse transform method via bisection search of the CDF</li>
-<li><code>RatioOfUniformsRV</code> - facilitates the implementation of the ratio of uniforms method for generating random variates</li>
-</ul>
-<p>In addition, the KSL has additional utilities that assist the modeler with common aspects of working with arrays and generating arrays of data. That is, the generation of multi-variate random vectors of data. The following classes may be of interest for situations involving multi-variate distributions:</p>
-<ul>
-<li><code>RArrays</code> - defines extension functions for randomly sampling from arrays and some lists</li>
-<li><code>MVSampleIfc</code> - defines the interface for generating random arrays of data</li>
-<li><code>MVRVariableIfc</code> - the multi-variate analog for the <code>RVariableIfc</code></li>
-<li><code>MVRVariable</code> - an abstract base class for defining multi-variate random variables</li>
-<li><code>MVIndependentMarginals</code> - a concrete implementation for generating independent vectors that have specified random variates for each coordinate of the vector.</li>
-</ul>
-<p>Some of these more advanced capabilities will be illustrated in future chapters.</p>
+<p>The KSL contains packages that support the generation of random numbers, random variates, and the modeling of probability distributions that are commonly found in practice. These constructs facilitate the incorporation of randomness within simulation modeling. In addition, the KSL provides a framework for estimating the parameters of probability distributions and for recommending a distribution that fits a set of data.</p>
+<p>The following new KSL constructs were discussed in this chapter:</p>
+<p><code>RNStreamIfc</code>: An interface that defines a stream of pseudo-random numbers, including the ability to reset the stream and to produce antithetic numbers.</p>
+<p><code>RNStreamProvider</code>: A class that creates and manages the random number streams used within a model.</p>
+<p><code>KSLRandom</code>: An object that provides functions for generating random variates from many common distributions and for randomly sampling from arrays and lists.</p>
+<p><code>RVariableIfc</code>: The interface implemented by all random variables, which provides the <code>value</code> property and the <code>sample()</code> function.</p>
+<p><code>NormalRV</code>, <code>ExponentialRV</code>, etc.: Classes that implement random variables for the common discrete and continuous distributions.</p>
+<p><code>DEmpiricalRV</code>: A random variable that is defined by a discrete empirical distribution.</p>
+<p><code>MixtureRV</code>: A random variable that is expressed as a mixture distribution. That is, a distribution that is a weighted mixture of other distributions.</p>
+<p><code>TruncatedRV</code>: A random variable whose distribution is truncated to a specified interval.</p>
+<p><code>ShiftedRV</code>: A random variable that has its domain shifted to the right.</p>
+<p><code>AcceptanceRejectionRV</code>: A random variable that implements the acceptance and rejection algorithm for generating random variates in a general manner.</p>
+<p><code>InverseCDFRV</code>: A random variable that implements the inverse transform method via bisection search of the CDF.</p>
+<p><code>RatioOfUniformsRV</code>: A random variable that implements the ratio of uniforms method for generating random variates.</p>
+<p><code>DistributionIfc</code>, <code>ContinuousDistributionIfc</code>, <code>DiscreteDistributionIfc</code>: Interfaces that define the probability distributions (e.g.&nbsp;computing the CDF, the PDF or PMF, and the moments) that underlie the random variables.</p>
+<p><code>ParameterEstimatorIfc</code>: An interface for estimating the parameters of a distribution from data.</p>
+<p><code>PDFModeler</code>: A class that fits and recommends continuous distributions for a set of data.</p>
+<p><code>PMFModeler</code>: A class that fits discrete distributions to a set of data.</p>
+<p><code>ContinuousCDFGoodnessOfFit</code>: A class that performs goodness of fit tests for a fitted continuous distribution.</p>
+<p><code>PoissonGoodnessOfFit</code>: A class that performs goodness of fit tests for a fitted Poisson distribution.</p>
+<p><code>MVSampleIfc</code>: An interface that defines the generation of random arrays of data.</p>
+<p><code>MVRVariableIfc</code>: The multi-variate analog of the <code>RVariableIfc</code> interface.</p>
+<p><code>MVRVariable</code>: An abstract base class for defining multi-variate random variables.</p>
+<p><code>MVIndependentMarginals</code>: A concrete implementation for generating independent vectors that have specified random variates for each coordinate of the vector.</p>
+<p>The next chapter shows how to use these random variates together with the KSL’s statistical collection classes to perform Monte Carlo experiments.</p>
 </section>
 <section id="exercises" class="level2" data-number="2.6">
 <h2 data-number="2.6" class="anchored" data-anchor-id="exercises"><span class="header-section-number">2.6</span> Exercises</h2>

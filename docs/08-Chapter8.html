@@ -554,8 +554,22 @@ window.Quarto = {
   </ul></li>
   <li><a href="#sec-secMiscConveyor" id="toc-sec-secMiscConveyor" class="nav-link" data-scroll-target="#sec-secMiscConveyor"><span class="header-section-number">8.4.4</span> Miscellaneous Concepts in Conveyor Modeling</a></li>
   </ul></li>
-  <li><a href="#summary-of-new-concepts" id="toc-summary-of-new-concepts" class="nav-link" data-scroll-target="#summary-of-new-concepts"><span class="header-section-number">8.5</span> Summary of New Concepts</a></li>
-  <li><a href="#exercises" id="toc-exercises" class="nav-link" data-scroll-target="#exercises"><span class="header-section-number">8.6</span> Exercises</a></li>
+  <li><a href="#sec-secAGVs" id="toc-sec-secAGVs" class="nav-link" data-scroll-target="#sec-secAGVs"><span class="header-section-number">8.5</span> Modeling Guided Path Transporters</a>
+  <ul>
+  <li><a href="#sec-secGuidedPathNetworks" id="toc-sec-secGuidedPathNetworks" class="nav-link" data-scroll-target="#sec-secGuidedPathNetworks"><span class="header-section-number">8.5.1</span> Guided Path Networks</a></li>
+  <li><a href="#sec-secKSLGuidedPathConstructs" id="toc-sec-secKSLGuidedPathConstructs" class="nav-link" data-scroll-target="#sec-secKSLGuidedPathConstructs"><span class="header-section-number">8.5.2</span> KSL Guided Path Constructs</a>
+  <ul class="collapse">
+  <li><a href="#building-a-network" id="toc-building-a-network" class="nav-link" data-scroll-target="#building-a-network"><span class="header-section-number">8.5.2.1</span> Building a Network</a></li>
+  <li><a href="#guided-transporters-and-pools" id="toc-guided-transporters-and-pools" class="nav-link" data-scroll-target="#guided-transporters-and-pools"><span class="header-section-number">8.5.2.2</span> Guided Transporters and Pools</a></li>
+  <li><a href="#suspending-functions-for-guided-transport" id="toc-suspending-functions-for-guided-transport" class="nav-link" data-scroll-target="#suspending-functions-for-guided-transport"><span class="header-section-number">8.5.2.3</span> Suspending Functions for Guided Transport</a></li>
+  </ul></li>
+  <li><a href="#sec-secSimpleAGV" id="toc-sec-secSimpleAGV" class="nav-link" data-scroll-target="#sec-secSimpleAGV"><span class="header-section-number">8.5.3</span> A Simple AGV System</a></li>
+  <li><a href="#sec-secAGVDeadlock" id="toc-sec-secAGVDeadlock" class="nav-link" data-scroll-target="#sec-secAGVDeadlock"><span class="header-section-number">8.5.4</span> Deadlock, Spurs, and Idle Vehicles</a></li>
+  <li><a href="#sec-secTestAndRepairGuided" id="toc-sec-secTestAndRepairGuided" class="nav-link" data-scroll-target="#sec-secTestAndRepairGuided"><span class="header-section-number">8.5.5</span> Test and Repair with Guided Transporters</a></li>
+  <li><a href="#further-topics-in-guided-path-modeling" id="toc-further-topics-in-guided-path-modeling" class="nav-link" data-scroll-target="#further-topics-in-guided-path-modeling"><span class="header-section-number">8.5.6</span> Further Topics in Guided Path Modeling</a></li>
+  </ul></li>
+  <li><a href="#summary" id="toc-summary" class="nav-link" data-scroll-target="#summary"><span class="header-section-number">8.6</span> Summary</a></li>
+  <li><a href="#exercises" id="toc-exercises" class="nav-link" data-scroll-target="#exercises"><span class="header-section-number">8.7</span> Exercises</a></li>
   </ul>
 </nav>
     </div>
@@ -582,19 +596,17 @@ window.Quarto = {
 </header>
 
 
-<p><strong><span class="smallcaps">LEARNING OBJECTIVES</span></strong></p>
+<p><strong><span class="smallcaps">Learning Objectives</span></strong></p>
 <ul>
 <li><p>To be able to model constrained entity transfer with resources</p></li>
 <li><p>To be able to model constrained entity transfer with movable resources</p></li>
 <li><p>To be able to model systems involving conveyors</p></li>
+<li><p>To be able to model systems involving automatic guided vehicles</p></li>
 </ul>
-<!-- -   To be able to model systems involving automatic guided vehicles -->
 <p><a href="07-Chapter7.html#sec-ch7RevisedJFEModelingWalking" class="quarto-xref"><span>Section 7.4.2</span></a> of <a href="07-Chapter7.html" class="quarto-xref"><span>Chapter 7</span></a> introduced the concept entity movement by computing a movement time from a velocity and a known distance. The entities can be imagined as “having little feet” that allow them to move from one location to another. That is, the entity is able to move itself. For example, in the test and repair example of <a href="07-Chapter7.html#sec-secTestAndRepair" class="quarto-xref"><span>Section 7.1.3</span></a>, the parts moved between stations with a time delay. But how did they physically move?</p>
 <p>One way to think about this is that there were workers always available to move the parts between the stations. If there is <em>always</em> a worker available, then it is as if there is an infinite supply of workers. Thus, whenever a part must be moved from one location to another the part uses one of the workers to make the movement. Since there is an infinite supply of workers, this is the same as the part moving itself (i.e.&nbsp;having little feet) and only the time delay for moving between the locations is relevant. If the entity is a person (e.g.&nbsp;a patient in a clinic), this analogy makes sense; however, if the entity is a part in a manufacturing system, this analogy begins to lose its appeal.</p>
 <p>In many situations, modeling transfers with a delay is perfectly reasonable, especially if you are not interested in how the entities moved (only that they moved). However, in many situations, the movement of entities can become constrained by the lack of availability of the transfer mechanism. For example, the movement of parts may require that the parts be placed on a pallet and that a fork lift be used to move the parts. At any point in time, there may not be enough fork lifts available and thus the parts may have to wait for a fork lift to become available. When the potential for waiting for transport is significant, including the details the “how” behind the entity transfer becomes important. In addition, since movement can be a significant part of an operation, the design of the material movement system may be the main focus of the simulation modeling effort.</p>
-<p>This chapter explores the various KSL constructs available to facilitate the modeling of the physical movement of entities between locations. The chapter begins by describing how to model transfers using resources. In this case, the transfer delay is accompanied by the use of a resource. Then, <a href="#sec-movableResources" class="quarto-xref"><span>Section 8.2</span></a> presents how the KSL facilitates resource constrained movement using resources that can move. Since not all movement is as freely moving through space as people walking or fork trucks moving, the KSL provides constructs for modeling entity movement when the space between the locations becomes an important aspect of the modeling.</p>
-<!-- @sec-secConveyors indicates how conveyors can be -->
-<!-- represented within and how they represent the space between stations. -->
+<p>This chapter explores the various KSL constructs available to facilitate the modeling of the physical movement of entities between locations. The chapter begins by describing how to model transfers using resources. In this case, the transfer delay is accompanied by the use of a resource. Then, <a href="#sec-movableResources" class="quarto-xref"><span>Section 8.2</span></a> presents how the KSL facilitates resource constrained movement using resources that can move. Since not all movement is as freely moving through space as people walking or fork trucks moving, the KSL provides constructs for modeling entity movement when the space between the locations becomes an important aspect of the modeling. <a href="#sec-secConveyors" class="quarto-xref"><span>Section 8.4</span></a> indicates how conveyors can be represented within the KSL and how they represent the space between locations. Then, in <a href="#sec-secAGVs" class="quarto-xref"><span>Section 8.5</span></a>, transport is revisited to understand how to model the situation where the transporters compete for space while moving. This involves the modeling of the space between stations as a fixed path (i.e.&nbsp;like a road network with intersections). As usual, these concepts will be illustrated with example models.</p>
 <div class="callout callout-style-default callout-note callout-titled">
 <div class="callout-header d-flex align-content-center">
 <div class="callout-icon-container">
@@ -608,12 +620,6 @@ Note
 <p>This chapter provides a series of example Kotlin code that illustrates the use of KSL constructs for implementing the modeling of entity movement. The full source code of the examples can be found in the accompanying <code>KSLExamples</code> project associated with the <a href="https://github.com/rossetti/KSL">KSL repository</a>. The files for each example of this chapter can be found <a href="https://github.com/rossetti/KSL/tree/main/KSLExamples/src/main/kotlin/ksl/examples/book/chapter8">here</a>.</p>
 </div>
 </div>
-<!-- Then, in @sec-secAGVs, the modeling of transporters will be -->
-<!-- revisited to understand how to model the situation where the -->
-<!-- transporters may compete for space while moving. This will involve the -->
-<!-- modeling of the space between stations as a fixed path (i.e. like a road -->
-<!-- network with intersections, etc.) As usual, these concepts will be -->
-<!-- illustrated with example models. -->
 <section id="sec-secRCT" class="level2" data-number="8.1">
 <h2 data-number="8.1" class="anchored" data-anchor-id="sec-secRCT"><span class="header-section-number">8.1</span> Resource Constrained Transfer</h2>
 <p>When an entity requires the use of something to complete the movement between locations, the KSL’s <code>Resource</code> class can be used to model the situation. In this case, the physical (e.g.&nbsp;distance) aspects of the movement are not of interest; however, the time that may be constrained by the availability of the transport mechanism should be part of the modeling. For this situation, it is sufficient to model the transport mechanism with a resource (or resource pool). We will illustrate the approach by enhancing the test and repair example from <a href="07-Chapter7.html#sec-secTestAndRepair" class="quarto-xref"><span>Section 7.1.3</span></a>.</p>
@@ -629,7 +635,7 @@ Note
 <img src="./figures/ch8/ch8fig1.jpg" class="img-fluid figure-img">
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-ch8fig1-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;8.1: Test and repair shop with workers providing the movement
+Figure&nbsp;8.1: Test and Repair Shop with Workers Providing the Movement
 </figcaption>
 </figure>
 </div>
@@ -641,7 +647,7 @@ Figure&nbsp;8.1: Test and repair shop with workers providing the movement
 <img src="./figures/ch8/ch8fig2.jpg" style="width:80.0%;height:80.0%" class="figure-img">
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-ch8fig2-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;8.2: Activity diagram for revised test and repair situation
+Figure&nbsp;8.2: Activity Diagram for Revised Test and Repair Situation
 </figcaption>
 </figure>
 </div>
@@ -815,10 +821,10 @@ Figure&nbsp;8.3: Spatial Models
 <span id="cb7-23"><a href="#cb7-23" aria-hidden="true" tabindex="-1"></a>    <span class="kw">abstract</span> <span class="kw">fun</span> <span class="fu">compareLocations</span><span class="op">(</span><span class="va">firstLocation</span><span class="op">:</span> <span class="dt">LocationIfc</span><span class="op">,</span> <span class="va">secondLocation</span><span class="op">:</span> <span class="dt">LocationIfc</span><span class="op">):</span> <span class="dt">Boolean</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>The KSL provides basic spatial model implementations for the following situations.</p>
 <ul>
-<li>Distances - The distance between locations is provided based on an origin-destination matrix.</li>
-<li>Great Circle - A <a href="https://en.wikipedia.org/wiki/Great-circle_distance">great circle</a> spatial model represents the distance between two coordinates on the earth based on latitude and longitude. It provides an approximate distance of travelling along the great circle between the coordinates. The model implemented within the KSL allows for the adjustment of the distance based on circuity factor. The circuity factor will adjust the distance based on the mode of transport road or rail.</li>
-<li>Euclidean 2D Plane - The distance is based on computing the distance between two points in the Euclidean 2D plane.</li>
-<li>Rectangular Grid - The 2D plane is divided into a grid with the upper left most corner point representing (0,0). The grid is specified based on the width and height divided into a number of rows and columns. This facilitates the moving between the cells of the grid.</li>
+<li>Distances: The distance between locations is provided based on an origin-destination matrix.</li>
+<li>Great Circle: A <a href="https://en.wikipedia.org/wiki/Great-circle_distance">great circle</a> spatial model represents the distance between two coordinates on the earth based on latitude and longitude. It provides an approximate distance of traveling along the great circle between the coordinates. The model implemented within the KSL allows for the adjustment of the distance based on circuity factor. The circuity factor will adjust the distance based on the mode of transport road or rail.</li>
+<li>Euclidean 2D Plane: The distance is based on computing the distance between two points in the Euclidean 2D plane.</li>
+<li>Rectangular Grid: The 2D plane is divided into a grid with the upper left most corner point representing (0,0). The grid is specified based on the width and height divided into a number of rows and columns. This facilitates the moving between the cells of the grid.</li>
 </ul>
 <p>The main abstraction for a spatial model is computing the distance between two locations.</p>
 <div id="fig-Locationfig" class="quarto-float quarto-figure quarto-figure-left anchored">
@@ -1162,14 +1168,14 @@ worker2:SeizeCount                    30       14979.4667         41.3926
 <span id="cb21-20"><a href="#cb21-20" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>The KSL provides the following movable resource allocation rules.</p>
 <ul>
-<li><code>ClosestMovableResourceAllocationRule</code> - This rule determines which of the available movable resources is closest to the request’s location. This is the default rule.</li>
-<li><code>FurthestMovableResourceAllocationRule</code> - This rule determines which of the available movable resources is furthers from the request’s location. This rule may be useful to return movable resources from the outskirts of the spatial model to more central activities.</li>
-<li><code>RandomMovableResourceAllocationRule</code> - This rule randomly selects from the available movable resources. This rule may be useful for a fairer distribution of activity across the resources.</li>
+<li><code>ClosestMovableResourceAllocationRule</code>: This rule determines which of the available movable resources is closest to the request’s location. This is the default rule.</li>
+<li><code>FurthestMovableResourceAllocationRule</code>: This rule determines which of the available movable resources is furthers from the request’s location. This rule may be useful to return movable resources from the outskirts of the spatial model to more central activities.</li>
+<li><code>RandomMovableResourceAllocationRule</code>: This rule randomly selects from the available movable resources. This rule may be useful for a fairer distribution of activity across the resources.</li>
 <li><code>MovableResourceAllocateInOrderListedRule</code> This rule returns the first available resource from the selected resources.</li>
-<li><code>MovableResourceAllocationRule</code> - This rule allows a user to determine the order of allocation based on a user defined comparator. The following comparison based rules are based on this approach.
+<li><code>MovableResourceAllocationRule</code>: This rule allows a user to determine the order of allocation based on a user defined comparator. The following comparison based rules are based on this approach.
 <ul>
-<li><code>LeastUtilizedMovableResourceAllocationRule</code> - Allocates to the movable resource that is currently the least utilized (based on the utilization statistics). This can be useful if fairness is a criteria.</li>
-<li><code>LeastSeizedMovableResourceAllocationRule</code> - Allocates to the movable resource that has been seized (allocated) the least. This can be useful if fairness is a criteria.</li>
+<li><code>LeastUtilizedMovableResourceAllocationRule</code>: Allocates to the movable resource that is currently the least utilized (based on the utilization statistics). This can be useful if fairness is a criteria.</li>
+<li><code>LeastSeizedMovableResourceAllocationRule</code>: Allocates to the movable resource that has been seized (allocated) the least. This can be useful if fairness is a criteria.</li>
 </ul></li>
 </ul>
 <p>The reader will be asked to explore the use of these different rules within the exercises.</p>
@@ -1183,7 +1189,7 @@ worker2:SeizeCount                    30       14979.4667         41.3926
 <div id="tbl-TRDistances" class="quarto-float quarto-figure quarto-figure-left anchored">
 <figure class="quarto-float quarto-float-tbl figure">
 <figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-TRDistances-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Table&nbsp;8.1: Transporter distances between stations
+Table&nbsp;8.1: Transporter Distances between Stations
 </figcaption>
 <div aria-describedby="tbl-TRDistances-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <table class="caption-top table">
@@ -1286,7 +1292,7 @@ Table&nbsp;8.1: Transporter distances between stations
 <p>Now, we can define the transport workers as a pool of movable resources. We will specify that there will be three workers dedicated to the transport task. In this case, the workers will start active at the diagnostics station. For the purposes of this example, we will rely on the default movable resource selection and allocation rules.</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb24"><pre class="sourceCode kotlin code-with-copy"><code class="sourceCode kotlin"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a>    <span class="kw">private</span> <span class="kw">val</span> <span class="va">transportWorkers</span> <span class="op">=</span> MovableResourcePoolWithQ<span class="op">(</span></span>
 <span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a>        <span class="kw">this</span><span class="op">,</span> <span class="dv">3</span><span class="op">,</span> diagnosticStation<span class="op">,</span> myWalkingSpeedRV<span class="op">,</span> name <span class="op">=</span> <span class="st">"TransportWorkerPool"</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p>Since this situation involves travelling to and from the stations, we need to make a slight change to the test plan definitions given in <a href="07-Chapter7.html#exm-exTestAndRepair" class="quarto-xref">Example&nbsp;<span>7.4</span></a> of <a href="07-Chapter7.html#sec-secTestAndRepair" class="quarto-xref"><span>Section 7.1.3</span></a>. We need to add the destination location to the test plan sequences.</p>
+<p>Since this situation involves traveling to and from the stations, we need to make a slight change to the test plan definitions given in <a href="07-Chapter7.html#exm-exTestAndRepair" class="quarto-xref">Example&nbsp;<span>7.4</span></a> of <a href="07-Chapter7.html#sec-secTestAndRepair" class="quarto-xref"><span>Section 7.1.3</span></a>. We need to add the destination location to the test plan sequences.</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb25"><pre class="sourceCode kotlin code-with-copy"><code class="sourceCode kotlin"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a>    <span class="co">// define steps to represent a plan, include location information</span></span>
 <span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a>    <span class="kw">inner</span> <span class="kw">class</span> TestPlanStep<span class="op">(</span></span>
 <span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a>        <span class="kw">val</span> <span class="va">testMachine</span><span class="op">:</span> <span class="dt">ResourceWithQ</span><span class="op">,</span></span>
@@ -1341,206 +1347,206 @@ Table&nbsp;8.1: Transporter distances between stations
 <tr class="odd">
 <td style="text-align: center;">DiagnosticWorkers:InstantaneousUtil</td>
 <td style="text-align: center;">10</td>
-<td style="text-align: center;">0.75</td>
-<td style="text-align: center;">0.005</td>
+<td style="text-align: center;">0.753</td>
+<td style="text-align: center;">0.007</td>
 </tr>
 <tr class="even">
 <td style="text-align: center;">DiagnosticWorkers:NumBusyUnits</td>
 <td style="text-align: center;">10</td>
-<td style="text-align: center;">1.5</td>
-<td style="text-align: center;">0.011</td>
+<td style="text-align: center;">1.506</td>
+<td style="text-align: center;">0.014</td>
 </tr>
 <tr class="odd">
 <td style="text-align: center;">DiagnosticWorkers:ScheduledUtil</td>
 <td style="text-align: center;">10</td>
-<td style="text-align: center;">0.75</td>
-<td style="text-align: center;">0.005</td>
+<td style="text-align: center;">0.753</td>
+<td style="text-align: center;">0.007</td>
 </tr>
 <tr class="even">
 <td style="text-align: center;">DiagnosticWorkers:Q:NumInQ</td>
 <td style="text-align: center;">10</td>
-<td style="text-align: center;">1.928</td>
-<td style="text-align: center;">0.107</td>
+<td style="text-align: center;">2.006</td>
+<td style="text-align: center;">0.129</td>
 </tr>
 <tr class="odd">
 <td style="text-align: center;">DiagnosticWorkers:Q:TimeInQ</td>
 <td style="text-align: center;">10</td>
-<td style="text-align: center;">38.512</td>
-<td style="text-align: center;">2.167</td>
+<td style="text-align: center;">39.92</td>
+<td style="text-align: center;">2.475</td>
 </tr>
 <tr class="even">
 <td style="text-align: center;">DiagnosticWorkers:WIP</td>
 <td style="text-align: center;">10</td>
-<td style="text-align: center;">3.428</td>
-<td style="text-align: center;">0.114</td>
+<td style="text-align: center;">3.512</td>
+<td style="text-align: center;">0.142</td>
 </tr>
 <tr class="odd">
 <td style="text-align: center;">Test1:InstantaneousUtil</td>
 <td style="text-align: center;">10</td>
-<td style="text-align: center;">0.857</td>
+<td style="text-align: center;">0.858</td>
 <td style="text-align: center;">0.007</td>
 </tr>
 <tr class="even">
 <td style="text-align: center;">Test1:NumBusyUnits</td>
 <td style="text-align: center;">10</td>
-<td style="text-align: center;">0.857</td>
+<td style="text-align: center;">0.858</td>
 <td style="text-align: center;">0.007</td>
 </tr>
 <tr class="odd">
 <td style="text-align: center;">Test1:ScheduledUtil</td>
 <td style="text-align: center;">10</td>
-<td style="text-align: center;">0.857</td>
+<td style="text-align: center;">0.858</td>
 <td style="text-align: center;">0.007</td>
 </tr>
 <tr class="even">
 <td style="text-align: center;">Test1:Q:NumInQ</td>
 <td style="text-align: center;">10</td>
-<td style="text-align: center;">3.232</td>
-<td style="text-align: center;">0.266</td>
+<td style="text-align: center;">3.007</td>
+<td style="text-align: center;">0.276</td>
 </tr>
 <tr class="odd">
 <td style="text-align: center;">Test1:Q:TimeInQ</td>
 <td style="text-align: center;">10</td>
-<td style="text-align: center;">57.414</td>
-<td style="text-align: center;">4.459</td>
+<td style="text-align: center;">53.326</td>
+<td style="text-align: center;">4.489</td>
 </tr>
 <tr class="even">
 <td style="text-align: center;">Test1:WIP</td>
 <td style="text-align: center;">10</td>
-<td style="text-align: center;">4.088</td>
-<td style="text-align: center;">0.271</td>
+<td style="text-align: center;">3.866</td>
+<td style="text-align: center;">0.283</td>
 </tr>
 <tr class="odd">
 <td style="text-align: center;">Test2:InstantaneousUtil</td>
 <td style="text-align: center;">10</td>
-<td style="text-align: center;">0.776</td>
-<td style="text-align: center;">0.008</td>
+<td style="text-align: center;">0.781</td>
+<td style="text-align: center;">0.006</td>
 </tr>
 <tr class="even">
 <td style="text-align: center;">Test2:NumBusyUnits</td>
 <td style="text-align: center;">10</td>
-<td style="text-align: center;">0.776</td>
-<td style="text-align: center;">0.008</td>
+<td style="text-align: center;">0.781</td>
+<td style="text-align: center;">0.006</td>
 </tr>
 <tr class="odd">
 <td style="text-align: center;">Test2:ScheduledUtil</td>
 <td style="text-align: center;">10</td>
-<td style="text-align: center;">0.776</td>
-<td style="text-align: center;">0.008</td>
+<td style="text-align: center;">0.781</td>
+<td style="text-align: center;">0.006</td>
 </tr>
 <tr class="even">
 <td style="text-align: center;">Test2:Q:NumInQ</td>
 <td style="text-align: center;">10</td>
-<td style="text-align: center;">1.584</td>
-<td style="text-align: center;">0.138</td>
+<td style="text-align: center;">1.651</td>
+<td style="text-align: center;">0.065</td>
 </tr>
 <tr class="odd">
 <td style="text-align: center;">Test2:Q:TimeInQ</td>
 <td style="text-align: center;">10</td>
-<td style="text-align: center;">42.121</td>
-<td style="text-align: center;">3.445</td>
+<td style="text-align: center;">43.608</td>
+<td style="text-align: center;">1.468</td>
 </tr>
 <tr class="even">
 <td style="text-align: center;">Test2:WIP</td>
 <td style="text-align: center;">10</td>
-<td style="text-align: center;">2.36</td>
-<td style="text-align: center;">0.142</td>
+<td style="text-align: center;">2.432</td>
+<td style="text-align: center;">0.07</td>
 </tr>
 <tr class="odd">
 <td style="text-align: center;">Test3:InstantaneousUtil</td>
 <td style="text-align: center;">10</td>
-<td style="text-align: center;">0.862</td>
-<td style="text-align: center;">0.005</td>
+<td style="text-align: center;">0.866</td>
+<td style="text-align: center;">0.006</td>
 </tr>
 <tr class="even">
 <td style="text-align: center;">Test3:NumBusyUnits</td>
 <td style="text-align: center;">10</td>
-<td style="text-align: center;">0.862</td>
-<td style="text-align: center;">0.005</td>
+<td style="text-align: center;">0.866</td>
+<td style="text-align: center;">0.006</td>
 </tr>
 <tr class="odd">
 <td style="text-align: center;">Test3:ScheduledUtil</td>
 <td style="text-align: center;">10</td>
-<td style="text-align: center;">0.862</td>
-<td style="text-align: center;">0.005</td>
+<td style="text-align: center;">0.866</td>
+<td style="text-align: center;">0.006</td>
 </tr>
 <tr class="even">
 <td style="text-align: center;">Test3:Q:NumInQ</td>
 <td style="text-align: center;">10</td>
-<td style="text-align: center;">2.587</td>
-<td style="text-align: center;">0.158</td>
+<td style="text-align: center;">2.613</td>
+<td style="text-align: center;">0.188</td>
 </tr>
 <tr class="odd">
 <td style="text-align: center;">Test3:Q:TimeInQ</td>
 <td style="text-align: center;">10</td>
-<td style="text-align: center;">51.666</td>
-<td style="text-align: center;">3.03</td>
+<td style="text-align: center;">52.011</td>
+<td style="text-align: center;">3.535</td>
 </tr>
 <tr class="even">
 <td style="text-align: center;">Test3:WIP</td>
 <td style="text-align: center;">10</td>
-<td style="text-align: center;">3.449</td>
-<td style="text-align: center;">0.16</td>
+<td style="text-align: center;">3.48</td>
+<td style="text-align: center;">0.193</td>
 </tr>
 <tr class="odd">
 <td style="text-align: center;">RepairWorkers:InstantaneousUtil</td>
 <td style="text-align: center;">10</td>
-<td style="text-align: center;">0.868</td>
-<td style="text-align: center;">0.005</td>
+<td style="text-align: center;">0.872</td>
+<td style="text-align: center;">0.004</td>
 </tr>
 <tr class="even">
 <td style="text-align: center;">RepairWorkers:NumBusyUnits</td>
 <td style="text-align: center;">10</td>
-<td style="text-align: center;">2.605</td>
-<td style="text-align: center;">0.014</td>
+<td style="text-align: center;">2.616</td>
+<td style="text-align: center;">0.012</td>
 </tr>
 <tr class="odd">
 <td style="text-align: center;">RepairWorkers:ScheduledUtil</td>
 <td style="text-align: center;">10</td>
-<td style="text-align: center;">0.868</td>
-<td style="text-align: center;">0.005</td>
+<td style="text-align: center;">0.872</td>
+<td style="text-align: center;">0.004</td>
 </tr>
 <tr class="even">
 <td style="text-align: center;">RepairWorkers:Q:NumInQ</td>
 <td style="text-align: center;">10</td>
-<td style="text-align: center;">1.294</td>
-<td style="text-align: center;">0.081</td>
+<td style="text-align: center;">1.283</td>
+<td style="text-align: center;">0.092</td>
 </tr>
 <tr class="odd">
 <td style="text-align: center;">RepairWorkers:Q:TimeInQ</td>
 <td style="text-align: center;">10</td>
-<td style="text-align: center;">25.864</td>
-<td style="text-align: center;">1.559</td>
+<td style="text-align: center;">25.551</td>
+<td style="text-align: center;">1.724</td>
 </tr>
 <tr class="even">
 <td style="text-align: center;">RepairWorkers:WIP</td>
 <td style="text-align: center;">10</td>
 <td style="text-align: center;">3.899</td>
-<td style="text-align: center;">0.09</td>
+<td style="text-align: center;">0.102</td>
 </tr>
 <tr class="odd">
 <td style="text-align: center;">TransportWorkerPool:R1:InstantaneousUtil</td>
 <td style="text-align: center;">10</td>
 <td style="text-align: center;">0.224</td>
-<td style="text-align: center;">0.002</td>
+<td style="text-align: center;">0.001</td>
 </tr>
 <tr class="even">
 <td style="text-align: center;">TransportWorkerPool:R1:NumBusyUnits</td>
 <td style="text-align: center;">10</td>
 <td style="text-align: center;">0.224</td>
-<td style="text-align: center;">0.002</td>
+<td style="text-align: center;">0.001</td>
 </tr>
 <tr class="odd">
 <td style="text-align: center;">TransportWorkerPool:R1:ScheduledUtil</td>
 <td style="text-align: center;">10</td>
 <td style="text-align: center;">0.224</td>
-<td style="text-align: center;">0.002</td>
+<td style="text-align: center;">0.001</td>
 </tr>
 <tr class="even">
 <td style="text-align: center;">TransportWorkerPool:R1:FracTimeMoving</td>
 <td style="text-align: center;">10</td>
 <td style="text-align: center;">0.224</td>
-<td style="text-align: center;">0.002</td>
+<td style="text-align: center;">0.001</td>
 </tr>
 <tr class="odd">
 <td style="text-align: center;">TransportWorkerPool:R1:FracTimeTransporting</td>
@@ -1551,31 +1557,31 @@ Table&nbsp;8.1: Transporter distances between stations
 <tr class="even">
 <td style="text-align: center;">TransportWorkerPool:R1:FracTimeMovingEmpty</td>
 <td style="text-align: center;">10</td>
-<td style="text-align: center;">0.076</td>
+<td style="text-align: center;">0.077</td>
 <td style="text-align: center;">0.001</td>
 </tr>
 <tr class="odd">
 <td style="text-align: center;">TransportWorkerPool:R2:InstantaneousUtil</td>
 <td style="text-align: center;">10</td>
-<td style="text-align: center;">0.158</td>
+<td style="text-align: center;">0.159</td>
 <td style="text-align: center;">0.001</td>
 </tr>
 <tr class="even">
 <td style="text-align: center;">TransportWorkerPool:R2:NumBusyUnits</td>
 <td style="text-align: center;">10</td>
-<td style="text-align: center;">0.158</td>
+<td style="text-align: center;">0.159</td>
 <td style="text-align: center;">0.001</td>
 </tr>
 <tr class="odd">
 <td style="text-align: center;">TransportWorkerPool:R2:ScheduledUtil</td>
 <td style="text-align: center;">10</td>
-<td style="text-align: center;">0.158</td>
+<td style="text-align: center;">0.159</td>
 <td style="text-align: center;">0.001</td>
 </tr>
 <tr class="even">
 <td style="text-align: center;">TransportWorkerPool:R2:FracTimeMoving</td>
 <td style="text-align: center;">10</td>
-<td style="text-align: center;">0.158</td>
+<td style="text-align: center;">0.159</td>
 <td style="text-align: center;">0.001</td>
 </tr>
 <tr class="odd">
@@ -1593,25 +1599,25 @@ Table&nbsp;8.1: Transporter distances between stations
 <tr class="odd">
 <td style="text-align: center;">TransportWorkerPool:R3:InstantaneousUtil</td>
 <td style="text-align: center;">10</td>
-<td style="text-align: center;">0.085</td>
+<td style="text-align: center;">0.086</td>
 <td style="text-align: center;">0.001</td>
 </tr>
 <tr class="even">
 <td style="text-align: center;">TransportWorkerPool:R3:NumBusyUnits</td>
 <td style="text-align: center;">10</td>
-<td style="text-align: center;">0.085</td>
+<td style="text-align: center;">0.086</td>
 <td style="text-align: center;">0.001</td>
 </tr>
 <tr class="odd">
 <td style="text-align: center;">TransportWorkerPool:R3:ScheduledUtil</td>
 <td style="text-align: center;">10</td>
-<td style="text-align: center;">0.085</td>
+<td style="text-align: center;">0.086</td>
 <td style="text-align: center;">0.001</td>
 </tr>
 <tr class="even">
 <td style="text-align: center;">TransportWorkerPool:R3:FracTimeMoving</td>
 <td style="text-align: center;">10</td>
-<td style="text-align: center;">0.085</td>
+<td style="text-align: center;">0.086</td>
 <td style="text-align: center;">0.001</td>
 </tr>
 <tr class="odd">
@@ -1624,12 +1630,12 @@ Table&nbsp;8.1: Transporter distances between stations
 <td style="text-align: center;">TransportWorkerPool:R3:FracTimeMovingEmpty</td>
 <td style="text-align: center;">10</td>
 <td style="text-align: center;">0.029</td>
-<td style="text-align: center;">0.001</td>
+<td style="text-align: center;">0</td>
 </tr>
 <tr class="odd">
 <td style="text-align: center;">TransportWorkerPool:NumBusy</td>
 <td style="text-align: center;">10</td>
-<td style="text-align: center;">0.467</td>
+<td style="text-align: center;">0.468</td>
 <td style="text-align: center;">0.003</td>
 </tr>
 <tr class="even">
@@ -1651,70 +1657,70 @@ Table&nbsp;8.1: Transporter distances between stations
 <td style="text-align: center;">0</td>
 </tr>
 <tr class="odd">
-<td style="text-align: center;">TestAndRepairWithMovableResources:NumInSystem</td>
+<td style="text-align: center;">NumInSystem</td>
 <td style="text-align: center;">10</td>
-<td style="text-align: center;">17.692</td>
-<td style="text-align: center;">0.363</td>
+<td style="text-align: center;">17.658</td>
+<td style="text-align: center;">0.543</td>
 </tr>
 <tr class="even">
-<td style="text-align: center;">TestAndRepairWithMovableResources:TimeInSystem</td>
+<td style="text-align: center;">TimeInSystem</td>
 <td style="text-align: center;">10</td>
-<td style="text-align: center;">353.457</td>
-<td style="text-align: center;">5.965</td>
+<td style="text-align: center;">351.557</td>
+<td style="text-align: center;">9.033</td>
 </tr>
 <tr class="odd">
 <td style="text-align: center;">ProbWithinLimit</td>
 <td style="text-align: center;">10</td>
-<td style="text-align: center;">0.811</td>
-<td style="text-align: center;">0.015</td>
+<td style="text-align: center;">0.819</td>
+<td style="text-align: center;">0.018</td>
 </tr>
 <tr class="even">
 <td style="text-align: center;">DiagnosticWorkers:SeizeCount</td>
 <td style="text-align: center;">10</td>
-<td style="text-align: center;">12498.4</td>
-<td style="text-align: center;">75.757</td>
+<td style="text-align: center;">12540.1</td>
+<td style="text-align: center;">71.465</td>
 </tr>
 <tr class="odd">
 <td style="text-align: center;">Test1:SeizeCount</td>
 <td style="text-align: center;">10</td>
-<td style="text-align: center;">14038.7</td>
-<td style="text-align: center;">112.996</td>
+<td style="text-align: center;">14058</td>
+<td style="text-align: center;">116.688</td>
 </tr>
 <tr class="even">
 <td style="text-align: center;">Test2:SeizeCount</td>
 <td style="text-align: center;">10</td>
-<td style="text-align: center;">9377.7</td>
-<td style="text-align: center;">97.686</td>
+<td style="text-align: center;">9442.7</td>
+<td style="text-align: center;">63.431</td>
 </tr>
 <tr class="odd">
 <td style="text-align: center;">Test3:SeizeCount</td>
 <td style="text-align: center;">10</td>
-<td style="text-align: center;">12491</td>
-<td style="text-align: center;">74.153</td>
+<td style="text-align: center;">12532.6</td>
+<td style="text-align: center;">70.454</td>
 </tr>
 <tr class="even">
 <td style="text-align: center;">RepairWorkers:SeizeCount</td>
 <td style="text-align: center;">10</td>
-<td style="text-align: center;">12485.3</td>
-<td style="text-align: center;">73.123</td>
+<td style="text-align: center;">12527.2</td>
+<td style="text-align: center;">68.882</td>
 </tr>
 <tr class="odd">
 <td style="text-align: center;">TransportWorkerPool:R1:SeizeCount</td>
 <td style="text-align: center;">10</td>
-<td style="text-align: center;">23121.6</td>
-<td style="text-align: center;">165.847</td>
+<td style="text-align: center;">23114.5</td>
+<td style="text-align: center;">129.863</td>
 </tr>
 <tr class="even">
 <td style="text-align: center;">TransportWorkerPool:R2:SeizeCount</td>
 <td style="text-align: center;">10</td>
-<td style="text-align: center;">16375.3</td>
-<td style="text-align: center;">133.58</td>
+<td style="text-align: center;">16478.3</td>
+<td style="text-align: center;">88.372</td>
 </tr>
 <tr class="odd">
 <td style="text-align: center;">TransportWorkerPool:R3:SeizeCount</td>
 <td style="text-align: center;">10</td>
-<td style="text-align: center;">8905.1</td>
-<td style="text-align: center;">137.667</td>
+<td style="text-align: center;">8977</td>
+<td style="text-align: center;">124.473</td>
 </tr>
 </tbody>
 </table>
@@ -1769,7 +1775,7 @@ Table&nbsp;8.1: Transporter distances between stations
 <img src="./figures/ch8/ConveyorAsCells.jpg" class="img-fluid figure-img">
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-ConveyorAsCells-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;8.8: A conveyor conceptualized as a set of contiguous cells
+Figure&nbsp;8.8: A Conveyor Conceptualized as a Set of Contiguous Cells
 </figcaption>
 </figure>
 </div>
@@ -1782,7 +1788,7 @@ Figure&nbsp;8.8: A conveyor conceptualized as a set of contiguous cells
 <img src="./figures/ch8/EntitySizesAndCells.jpg" style="width:70.0%;height:70.0%" class="figure-img">
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-EntitySizesAndCells-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;8.9: Different entity sizes on a conveyor
+Figure&nbsp;8.9: Different Entity Sizes on a Conveyor
 </figcaption>
 </figure>
 </div>
@@ -1793,7 +1799,7 @@ Figure&nbsp;8.9: Different entity sizes on a conveyor
 <img src="./figures/ch8/ConveyorActDiagram.jpg" style="width:60.0%;height:60.0%" class="figure-img">
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-ConveyorActDiagram-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;8.10: Activity diagram for non-accumulating conveyor
+Figure&nbsp;8.10: Activity Diagram for Non-Accumulating Conveyor
 </figcaption>
 </figure>
 </div>
@@ -1825,7 +1831,7 @@ Figure&nbsp;8.10: Activity diagram for non-accumulating conveyor
 <img src="./figures/ch8/ConveyorSegments.png" style="width:90.0%;height:90.0%" class="figure-img">
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-ConveyorSegments-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;8.11: Tandem Queue with Conveyors
+Figure&nbsp;8.11: ConveyorSegments and Segment Classes
 </figcaption>
 </figure>
 </div>
@@ -1866,10 +1872,10 @@ Figure&nbsp;8.12: Conveyor Requests
 <p>Similar to the <code>Allocation</code> class when using resources, an entity having control of cells on a conveyor needs an instance of the <code>ConveyorRequestIfc</code> interface. Besides providing information about the request and cells associated with using a conveyor, instances of this interface essentially act as a ‘ticket’ to ride on the conveyor and are necessary when exiting the conveyor.</p>
 <p>The suspending functions associated with using a conveyor are as follows.</p>
 <ul>
-<li><p><code>requestConveyor(conveyor: Conveyor, entryLocation: String, numCellsNeeded: Int)</code> - This function returns an instance of the <code>ConveyorRequestIfc</code> interface. This suspending function requests the number of cells indicated at the entry location of the conveyor. If the number of cells are not immediately available the process is suspended until the number of cells can be allocated (in full). The request for the cells will wait for the allocation in the queue associated with the start of the segment associated with the entry location of the conveyor. After this suspending function returns, the entity holds the cells in the returned cell allocation, but the entity is not on the conveyor. The entity can then decide to ride on the conveyor using the cell allocation or release the cell allocation by exiting the conveyor without riding. The behavior of the conveyor during access is governed by the type of conveyor. A blockage occurs at the entry point of the segment while the entity has the allocated cells and before exiting or riding.</p></li>
-<li><p><code>rideConveyor(conveyorRequest: ConveyorRequestIfc, destination: String)</code> - This suspending function causes the entity to be associated with an item that occupies the allocated cells on the conveyor. The item will move on the conveyor until it reaches the supplied destination. After this suspending function returns, the item associated with the entity will be occupying the cells it requires at the exit location of the segment associated with the destination. The item will remain on the conveyor until the entity indicates that the cells are to be released by using the exit function. The behavior of the conveyor during the ride and when the item reaches its destination is governed by the type of conveyor. A blockage occurs at the destination location of the segment while the entity occupies the final cells before exiting or riding again. If the destination implements the <code>LocationIfc</code> interface then the current location property of the entity will be updated to this value at the completion of the ride.</p></li>
-<li><p><code>exitConveyor(conveyorRequest: ConveyorRequestIfc)</code> - This suspending function causes the item associated with the allocated cells to exit the conveyor. If there is no item associated with the allocated cells, the cells are immediately released without a time delay. If there is an item occupying the associated cells there will be a delay while the item moves through the deallocated cells and then the cells are deallocated. After exiting the conveyor, the cell allocation is deallocated and cannot be used for further interaction with the conveyor.</p></li>
-<li><p><code>convey(conveyor: Conveyor, entryLocation: String, destination: String, numCellsNeeded: Int)</code> - This suspending function combines the <code>requestConveyor()</code>, <code>rideConveyor()</code>, and <code>exit()</code> functions into one suspending function.</p></li>
+<li><p><code>requestConveyor(conveyor: Conveyor, entryLocation: String, numCellsNeeded: Int)</code>: This function returns an instance of the <code>ConveyorRequestIfc</code> interface. This suspending function requests the number of cells indicated at the entry location of the conveyor. If the number of cells are not immediately available the process is suspended until the number of cells can be allocated (in full). The request for the cells will wait for the allocation in the queue associated with the start of the segment associated with the entry location of the conveyor. After this suspending function returns, the entity holds the cells in the returned cell allocation, but the entity is not on the conveyor. The entity can then decide to ride on the conveyor using the cell allocation or release the cell allocation by exiting the conveyor without riding. The behavior of the conveyor during access is governed by the type of conveyor. A blockage occurs at the entry point of the segment while the entity has the allocated cells and before exiting or riding.</p></li>
+<li><p><code>rideConveyor(conveyorRequest: ConveyorRequestIfc, destination: String)</code>: This suspending function causes the entity to be associated with an item that occupies the allocated cells on the conveyor. The item will move on the conveyor until it reaches the supplied destination. After this suspending function returns, the item associated with the entity will be occupying the cells it requires at the exit location of the segment associated with the destination. The item will remain on the conveyor until the entity indicates that the cells are to be released by using the exit function. The behavior of the conveyor during the ride and when the item reaches its destination is governed by the type of conveyor. A blockage occurs at the destination location of the segment while the entity occupies the final cells before exiting or riding again. If the destination implements the <code>LocationIfc</code> interface then the current location property of the entity will be updated to this value at the completion of the ride.</p></li>
+<li><p><code>exitConveyor(conveyorRequest: ConveyorRequestIfc)</code>: This suspending function causes the item associated with the allocated cells to exit the conveyor. If there is no item associated with the allocated cells, the cells are immediately released without a time delay. If there is an item occupying the associated cells there will be a delay while the item moves through the deallocated cells and then the cells are deallocated. After exiting the conveyor, the cell allocation is deallocated and cannot be used for further interaction with the conveyor.</p></li>
+<li><p><code>convey(conveyor: Conveyor, entryLocation: String, destination: String, numCellsNeeded: Int)</code>: This suspending function combines the <code>requestConveyor()</code>, <code>rideConveyor()</code>, and <code>exit()</code> functions into one suspending function.</p></li>
 <li><p><code>transferTo(conveyorRequest: ConveyorRequestIfc, nextConveyor: Conveyor, entryLocation: String,)</code> This suspending function causes the entity to transfer from one conveyor to another. The entity will suspend while accessing the required cells at the next conveyor. Once the desired cells are obtained the entity will exit its current conveyor and be positioned to ride on the next conveyor.</p></li>
 </ul>
 <p>Now we are ready to put these concepts into action.</p>
@@ -2905,7 +2911,7 @@ Figure&nbsp;8.14: Tandem Queue with Conveyors
 <img src="./figures/ch8/TestAndRepairWithConveyors.jpg" style="width:90.0%;height:90.0%" class="figure-img">
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-TestAndRepairWithConveyors-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;8.15: Test and repair shop with conveyors
+Figure&nbsp;8.15: Test and Repair Shop with Conveyors
 </figcaption>
 </figure>
 </div>
@@ -2917,7 +2923,7 @@ Figure&nbsp;8.15: Test and repair shop with conveyors
 <p>For this example, we will assume that the conveyor is an accumulating conveyor. Now, we are ready to define the conveyor and its segments.</p>
 <section id="test-and-repair-conveyor-definitions" class="level4" data-number="8.4.3.1">
 <h4 data-number="8.4.3.1" class="anchored" data-anchor-id="test-and-repair-conveyor-definitions"><span class="header-section-number">8.4.3.1</span> Test and Repair Conveyor Definitions</h4>
-<p>To define the conveyor within code, we can use the builder functionality provided by the <code>Conveyor</code> class’s companion object. Because we have parts that require different amounts of space on the conveyor, we need to set the maximum number of cells allowed by any entity. The following KSL code provides the conveyor definition. Also, note the the code turns off the reporting of access queues associated with the repair station. This is done because no parts need to access the conveyor at the repair station. For this illustrative example, the code also prints out the conveyor configuration, which we will review.</p>
+<p>To define the conveyor within code, we can use the builder functionality provided by the <code>Conveyor</code> class’s companion object. Because we have parts that require different amounts of space on the conveyor, we need to set the maximum number of cells allowed by any entity. The following KSL code provides the conveyor definition. Also, note the code turns off the reporting of access queues associated with the repair station. This is done because no parts need to access the conveyor at the repair station. For this illustrative example, the code also prints out the conveyor configuration, which we will review.</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb34"><pre class="sourceCode kotlin code-with-copy"><code class="sourceCode kotlin"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a>    <span class="kw">private</span> <span class="kw">val</span> <span class="va">loopConveyor</span><span class="op">:</span> Conveyor <span class="op">=</span> Conveyor<span class="op">.</span>builder<span class="op">(</span><span class="kw">this</span><span class="op">,</span> <span class="st">"LoopConveyor"</span><span class="op">)</span></span>
 <span id="cb34-2"><a href="#cb34-2" aria-hidden="true" tabindex="-1"></a>        <span class="op">.</span>conveyorType<span class="op">(</span>Conveyor<span class="op">.</span>Type<span class="op">.</span>ACCUMULATING<span class="op">)</span></span>
 <span id="cb34-3"><a href="#cb34-3" aria-hidden="true" tabindex="-1"></a>        <span class="op">.</span>velocity<span class="op">(</span><span class="fl">10.0</span><span class="op">)</span></span>
@@ -3338,7 +3344,7 @@ Figure&nbsp;8.16: Two Conveyors Merge into One
 <span id="cb39-28"><a href="#cb39-28" aria-hidden="true" tabindex="-1"></a>            myAreaBSystemTime<span class="op">.</span>value <span class="op">=</span> time <span class="op">-</span> entity<span class="op">.</span>createTime</span>
 <span id="cb39-29"><a href="#cb39-29" aria-hidden="true" tabindex="-1"></a>        <span class="op">}</span></span>
 <span id="cb39-30"><a href="#cb39-30" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p>Notice that the part requests the cells on the conveyor at area A, and then rides to sorting. Then, the part transfers from conveyor 1 to conveyor 3. Notice that the returned conveyor request must be supplied to the <code>transferTo()</code> function. Also, notice that the sorting location is both an exit location for conveyor 1 and an entry location for conveyor 3. The <code>transferTo()</code> function returns a new conveyor request that represents the fact that the entity is now on the next conveyor. This new conveyor request is used to ride conveyor 3 to the processing at area C and to exit at the processing area. The logic for the parts travelling from area B to processing is very similar. They start at area B and transfer to conveyor 3 at the sorting area. It is important to note that the parts from the two feeder conveyors will compete for the entry cell of conveyor 3 at the sorting location. The parts traveling on conveyors 1 and 2 do not immediately exit at the transfer point. They first receive the necessary cells on conveyor 3 before exiting their current conveyor. Thus, they will block their current conveyor while waiting to access the next conveyor. Thus, we can see why it may be important to model this situation with accumulating conveyors.</p>
+<p>Notice that the part requests the cells on the conveyor at area A, and then rides to sorting. Then, the part transfers from conveyor 1 to conveyor 3. Notice that the returned conveyor request must be supplied to the <code>transferTo()</code> function. Also, notice that the sorting location is both an exit location for conveyor 1 and an entry location for conveyor 3. The <code>transferTo()</code> function returns a new conveyor request that represents the fact that the entity is now on the next conveyor. This new conveyor request is used to ride conveyor 3 to the processing at area C and to exit at the processing area. The logic for the parts traveling from area B to processing is very similar. They start at area B and transfer to conveyor 3 at the sorting area. It is important to note that the parts from the two feeder conveyors will compete for the entry cell of conveyor 3 at the sorting location. The parts traveling on conveyors 1 and 2 do not immediately exit at the transfer point. They first receive the necessary cells on conveyor 3 before exiting their current conveyor. Thus, they will block their current conveyor while waiting to access the next conveyor. Thus, we can see why it may be important to model this situation with accumulating conveyors.</p>
 <p><a href="#fig-MergeOneIntoOne" class="quarto-xref">Figure&nbsp;<span>8.17</span></a> also illustrates the concept of merging. In this case, there are two conveyors, with one conveyor connecting to the mid-point of the other conveyor. Again, the <code>transferTo()</code> function for use with conveyors can be used to address this situation.</p>
 <div id="fig-MergeOneIntoOne" class="quarto-float quarto-figure quarto-figure-left anchored">
 <figure class="quarto-float quarto-float-fig figure">
@@ -3359,7 +3365,7 @@ Figure&nbsp;8.17: One Conveyor Merges into Another
 <img src="./figures/ch8/DivergeToTwo.PNG" style="width:90.0%;height:90.0%" class="figure-img">
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-Diverging-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;8.18: One Conveyor Diverges Into Two Conveyors
+Figure&nbsp;8.18: One Conveyor Diverges into Two Conveyors
 </figcaption>
 </figure>
 </div>
@@ -3369,35 +3375,650 @@ Figure&nbsp;8.18: One Conveyor Diverges Into Two Conveyors
 <p>We could wait on the conveyor at test station 2 until there is space, but this will block the entire conveyor while the processing at test station 2 proceeds and its queue reduces. Alternatively, we would not exit the conveyor at test station 2 and instead ride the full conveyor’s length <em>back</em> to test station 2. By the time that the entity has ridden around the conveyor, there may now be space available at test station 2. As previously noted, in essence, the entire conveyor is being used as waiting space. This kind of situation can be easily modeled with if statements that check if the there is space and if not cause the entity to continue riding. The exercises ask the reader to implement this situation.</p>
 </section>
 </section>
-<section id="summary-of-new-concepts" class="level2" data-number="8.5">
-<h2 data-number="8.5" class="anchored" data-anchor-id="summary-of-new-concepts"><span class="header-section-number">8.5</span> Summary of New Concepts</h2>
-<p>The modeling of entity movement can be achieved with a simple delay. If distance and velocity are available, then we can compute the time of the delay. The KSL provides spatial models and suspending functions that facilitate the movement of entities. The KSL <code>DistancesModel</code> is a <code>SpatialModel</code> that provides named locations and the distances associated with movement between them. The <code>Entity</code> class provides basic tracking of the location of the entity when using movement constructs. Movable resources are resources that can move within a spatial model.</p>
-<p>In such situations, the distance between origins and destinations becomes an essential component of the modeling.</p>
-<p>The new suspend functions include: - <code>move()</code> moves a spatial element to a particular location from another location - <code>moveWith()</code> used with movable resources to move both the resource and the entity to the location - <code>transportWith()</code> used to move a movable resource to the entity’s location and then move both the entity and the resource to the specified destination.</p>
-<p>The new KSL modeling constructs include:</p>
-<ul>
-<li><code>MovableResource</code> A resource that can be moved and used for pickup and delivery.</li>
-<li><code>MovableResourceWithQ</code> A movable resource that has a queue to hold requests for pickup and delivery.</li>
-<li><code>SpatialModel</code> A representation of space that can track elements in the space, their movement, and govern how they move.</li>
-<li><code>DistancesModel</code> A special case of a spatial model that holds the distance between named locations with a spatial context.</li>
-<li><code>LocationIfc</code> An interface that describes a location within a spatial model from which distances can be computed.</li>
-<li><code>MovableResourcPool</code> A pool of movable resources that can be used to transport entities between locations.</li>
-<li><code>MovableResourcePoolWithQ</code> A pool of movable resources with a queue to hold requests for pick up and delivery.</li>
-<li>Entity properties, <code>initialLocation,</code> <code>previousLocation,</code>, <code>currentLocation,</code>,<code>isMoving,</code>, and <code>velocity.</code></li>
-<li><code>MovableResourceSelectionRuleIfc</code> - to select movable resources within pools.</li>
-<li><code>MovableResourceAllocationRuleIfc</code> - to determine which movable resource will receive the allocation.</li>
-</ul>
-<p>In addition to movable resources, this chapter presented the KSL constructs for modeling conveyors. The simplest approach to modeling conveyors is to simply model the transport time with deterministic delays. However, if the space associated with the conveyors is an important modeling issue, then the KSL <code>Conveyor</code> class can be used. The new suspending functions related to conveyors include:</p>
-<ul>
-<li><code>requestConveyor()</code> - to request cells (space) on the conveyor</li>
-<li><code>rideConveyor()</code> - to cause the entity to move through cells on the conveyor</li>
-<li><code>exitConveyor()</code> - to cause the entity to exit the cell that it occupies on the conveyor</li>
-<li><code>convey()</code> - a combination of requesting, riding, and exiting the conveyor</li>
-<li><code>transferTo()</code> - to cause an entity to transfer from one conveyor to another</li>
-</ul>
+<section id="sec-secAGVs" class="level2" data-number="8.5">
+<h2 data-number="8.5" class="anchored" data-anchor-id="sec-secAGVs"><span class="header-section-number">8.5</span> Modeling Guided Path Transporters</h2>
+<p>This section presents the KSL’s modeling constructs for automated guided vehicle (AGV) systems. An AGV is an autonomous battery powered vehicle that can be programmed to move between locations along paths. A complete discussion of AGV systems is beyond the scope of this text. The interested reader should refer to standard texts on material handling or manufacturing systems design for a more complete introduction to the technology. For example, the texts by <span class="citation" data-cites="askin1993modeling">(<a href="references.html#ref-askin1993modeling" role="doc-biblioref">Askin and Standridge 1993</a>)</span> and <span class="citation" data-cites="singh1996systems">(<a href="references.html#ref-singh1996systems" role="doc-biblioref">Singh 1996</a>)</span> have complete chapters dedicated to the modeling of AGV systems. For the purposes of this section, the discussion will be limited to AGV systems that follow a prescribed path (e.g.&nbsp;tape, embedded wires, etc.) to make things simpler. There are newer AGVs that do not rely on following a path, but rather are capable of navigating via sensors within buildings, see for example <span class="citation" data-cites="rossetti2001multiobjective">(<a href="references.html#ref-rossetti2001multiobjective" role="doc-biblioref">Rossetti and Seldanari 2001</a>)</span>.</p>
+<p>When modeling with guided transporters, the most important issue to understand is that the transporters can now compete with each other for the space along their paths. Recall from <a href="#sec-secMovableResources" class="quarto-xref"><span>Section 8.2.2</span></a> that a movable resource travels from one location to another over a distance supplied by a spatial model. Two movable resources can be in the same place at the same time, in the same way that two workers can walk down the same corridor. An AGV on a guide path cannot do this. The space along the path must be explicitly modeled (like it was for conveyors) and the size of the transporter matters. Conceptually, a <em>guided transporter</em> is a mobile resource that moves along a fixed path and competes with other mobile resources for space along the path.</p>
+<p>The difference is not a small correction. <a href="#tbl-FreeVsGuided" class="quarto-xref">Table&nbsp;<span>8.2</span></a> compares the same delivery system modeled both ways. Parts arrive every 4 minutes to an entry station and are carried 204 feet to an exit station at the end of a dead end aisle, at 10 feet per minute, over 2000 minutes. The only difference between the two models is whether the carts are movable resources over a distances model or guided transporters on a guide path. The results come from the KSL’s automated tests, which check this comparison as part of the library’s test suite. Because the arrivals are deterministic, there is no sampling error in these numbers.</p>
+<div id="tbl-FreeVsGuided" class="quarto-float quarto-figure quarto-figure-left anchored">
+<figure class="quarto-float quarto-float-tbl figure">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-FreeVsGuided-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Table&nbsp;8.2: Free Path and Guided Path Models of the Same Delivery System
+</figcaption>
+<div aria-describedby="tbl-FreeVsGuided-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<table class="caption-top table">
+<colgroup>
+<col style="width: 20%">
+<col style="width: 20%">
+<col style="width: 20%">
+<col style="width: 20%">
+<col style="width: 20%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: center;">Carts</th>
+<th style="text-align: center;">Free path completions</th>
+<th style="text-align: center;">Guided completions</th>
+<th style="text-align: center;">Free path time in system</th>
+<th style="text-align: center;">Guided time in system</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: center;">1</td>
+<td style="text-align: center;">64</td>
+<td style="text-align: center;">64</td>
+<td style="text-align: center;">878.4</td>
+<td style="text-align: center;">878.4</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">2</td>
+<td style="text-align: center;">128</td>
+<td style="text-align: center;">128</td>
+<td style="text-align: center;">752.4</td>
+<td style="text-align: center;">754.6</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">4</td>
+<td style="text-align: center;">255</td>
+<td style="text-align: center;">236</td>
+<td style="text-align: center;">498.5</td>
+<td style="text-align: center;">538.6</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">6</td>
+<td style="text-align: center;">380</td>
+<td style="text-align: center;">236</td>
+<td style="text-align: center;">248.4</td>
+<td style="text-align: center;">538.6</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">8</td>
+<td style="text-align: center;">492</td>
+<td style="text-align: center;">236</td>
+<td style="text-align: center;">31.0</td>
+<td style="text-align: center;">538.6</td>
+</tr>
+</tbody>
+</table>
+</div>
+</figure>
+</div>
+<p>Notice that with one or two carts the two models agree. In that range, a free path model is a fair approximation. Beyond four carts, the guided model stops improving because the aisle to the exit admits one cart at a time, and no number of carts can put two of them down it. The free path model has no notion of an aisle, so it keeps rewarding every cart that is added. Thus, a study that sized this fleet from the free path model would buy eight carts, expect about 31 minutes in the system, and get about 539.</p>
+<div class="callout callout-style-default callout-important callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Important
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p>The guided path constructs (the <code>ksl.modeling.guidedpath</code> package) are new in KSL release R1.7 and are marked as <em>experimental</em>. The basic constructs presented in this section have been checked against results from a commercial guided path simulation package; however, details of the API may change in later releases. The KSL guided path implementation does not model vehicle acceleration, deceleration, or turning. The time to traverse a zone is the zone’s length divided by the vehicle’s velocity (adjusted by the zone’s velocity factor).</p>
+</div>
+</div>
+<p>The rest of this section proceeds as follows. First, we discuss the concepts of guided path networks: links, zones, intersections, and stations. Then, we present the KSL classes that represent these concepts and the suspending functions that entities use to request and ride a guided transporter. A simple AGV system illustrates the constructs, and then the issues of deadlock, spurs, and idle vehicles are discussed. Finally, the test and repair system is revisited with its transport workers moving on a guide path.</p>
+<section id="sec-secGuidedPathNetworks" class="level3" data-number="8.5.1">
+<h3 data-number="8.5.1" class="anchored" data-anchor-id="sec-secGuidedPathNetworks"><span class="header-section-number">8.5.1</span> Guided Path Networks</h3>
+<p>When using a guided transporter, the travel path is divided into a network of links and intersections. This is called the vehicle’s <em>path network</em>. <a href="#fig-GuidedPathConcepts" class="quarto-xref">Figure&nbsp;<span>8.19</span></a> illustrates the major concepts in guided vehicle modeling: networks, links, intersections, zones, and stations.</p>
+<div id="fig-GuidedPathConcepts" class="quarto-float quarto-figure quarto-figure-left anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-GuidedPathConcepts-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="./figures/diagrams/guided-path-concepts.png" class="img-fluid figure-img" style="width:55.0%">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-GuidedPathConcepts-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;8.19: Concepts of a Guided Path Network
+</figcaption>
+</figure>
+</div>
+<p>A <em>link</em> is a connection between two points in a network. Every link has a beginning intersection and an ending intersection. The link represents the space between two intersections. The space on the link is divided into an integer number of zones. Each <em>zone</em> has a given length as specified in a consistent unit of measure. All zones on a link have the same length. That is, the length of a link must be an integer multiple of its zone length. For example, a 48 foot link with a zone length of 12 feet consists of 4 zones.</p>
+<p>The link can also be of a certain type (unidirectional, bidirectional, or spur). A unidirectional link restricts traffic to one direction, from its beginning intersection to its ending intersection. A bidirectional link implies that the transporter is allowed to traverse in both directions along the link, but only one direction at a time. A spur is used to model “dead ends”. A velocity change factor can also be associated with a link to indicate a change in the basic velocity of the vehicle while traversing the link. For example, for a link going through an area with many people present, you may want the velocity of the transporter to automatically be reduced. <a href="#fig-ThreeLinkNetwork" class="quarto-xref">Figure&nbsp;<span>8.20</span></a> illustrates a simple three link network.</p>
+<div id="fig-ThreeLinkNetwork" class="quarto-float quarto-figure quarto-figure-left anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-ThreeLinkNetwork-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="./figures/ch8/ThreeLinkNetwork.jpg" class="img-fluid figure-img" style="width:60.0%">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-ThreeLinkNetwork-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;8.20: Example Three Link Network
+</figcaption>
+</figure>
+</div>
+<p>In the figure, Link 1 is bidirectional with a beginning intersection labeled <code>I1</code> and an ending intersection labeled <code>I2</code>. Link 1 consists of 4 zones and Links 2 and 3 each consist of 5 zones. The figure also shows a direction of travel for each link, measured in degrees with zero (or 360) degrees to the east (right). Thus, the beginning direction for Link 1 in the figure is 60 degrees, and the beginning direction for Link 2 is 300 degrees. In a simulation package that models the acceleration, deceleration, and turning of vehicles, these directions determine how much a vehicle must turn when moving from one link to the next. The KSL records a beginning direction for each link; however, the direction is only used for drawing the network and for animation. The KSL never uses the direction (or the drawing coordinates of the intersections) to compute travel. Movement is based entirely on the declared lengths of the links.</p>
+<p>In general, an <em>intersection</em> is simply a point in the network; however, the representation of intersections can be more detailed. An intersection also models space: the space between two or more links. Thus, as indicated in <a href="#fig-GuidedPathConcepts" class="quarto-xref">Figure&nbsp;<span>8.19</span></a>, an intersection has a length (zero by default) and a velocity change factor. In the KSL, an intersection is itself a zone. That is, an intersection can hold at most one vehicle at a time, just like a zone on a link. When there is more than one path between two intersections, the network chooses a path using a route selection rule. By default, the shortest path (based on link lengths) is used.</p>
+<p>Clearly, a fixed path network consists of a set of links and the associated intersections. Also from <a href="#fig-GuidedPathConcepts" class="quarto-xref">Figure&nbsp;<span>8.19</span></a>, a <em>station</em> may be associated with an intersection within the network and an intersection may be associated with many stations. In the KSL, a station is simply a name (an alias) for an intersection, which allows the modeler to refer to the place where work occurs (e.g.&nbsp;<code>"EntryStation"</code>) rather than to the intersection’s label (e.g.&nbsp;<code>"I1"</code>). Transporters within a guided path network can be sent to specific stations or intersections.</p>
 </section>
-<section id="exercises" class="level2" data-number="8.6">
-<h2 data-number="8.6" class="anchored" data-anchor-id="exercises"><span class="header-section-number">8.6</span> Exercises</h2>
+<section id="sec-secKSLGuidedPathConstructs" class="level3" data-number="8.5.2">
+<h3 data-number="8.5.2" class="anchored" data-anchor-id="sec-secKSLGuidedPathConstructs"><span class="header-section-number">8.5.2</span> KSL Guided Path Constructs</h3>
+<p>The KSL represents guided path networks and guided transporters with the classes in the <code>ksl.modeling.guidedpath</code> package. <a href="#fig-GuidedPathClasses" class="quarto-xref">Figure&nbsp;<span>8.21</span></a> illustrates the main classes and some of their key properties.</p>
+<div id="fig-GuidedPathClasses" class="quarto-float quarto-figure quarto-figure-left anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-GuidedPathClasses-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="./figures/diagrams/guided-path-classes.png" class="img-fluid figure-img" style="width:95.0%">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-GuidedPathClasses-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;8.21: Guided Path Classes
+</figcaption>
+</figure>
+</div>
+<p>There are four main classes:</p>
+<ul>
+<li><code>GuidedPathNetwork</code> represents the fixed geometry of the network: the intersections, the links, and the zones of the links. A network is built once and does not change during the simulation. Notice from <a href="#fig-GuidedPathClasses" class="quarto-xref">Figure&nbsp;<span>8.21</span></a> that <code>GuidedPathNetwork</code> is a sub-class of <code>SpatialModel</code>. Thus, a network can serve as the spatial model of a process model (see <a href="#sec-movableResources" class="quarto-xref"><span>Section 8.2</span></a>), and its intersections (<code>GuidedPathNetwork.Intersection</code>) are locations that implement the <code>LocationIfc</code> interface. The distance between two intersections is the shortest path distance along the links of the network.</li>
+<li><code>GuidedPathTransportSystem</code> is a model element that operates a network during the simulation. It keeps track of which transporter holds which zone, resets the zones between replications, and collects statistics on blocking and congestion. Its super-class, <code>GuidedPathSpace</code>, provides the zone bookkeeping.</li>
+<li><code>GuidedTransporter</code> represents a vehicle. Notice that it is a sub-class of <code>Resource</code> with a capacity of one. Thus, a guided transporter is seized and released in the same manner as any other resource.</li>
+<li><code>GuidedTransporterPoolWithQ</code> represents a group of guided transporters (a fleet) with a queue that holds the requests for transport. This class is similar to the <code>MovableResourcePoolWithQ</code> class of <a href="#sec-secTestAndRepairMovableResources" class="quarto-xref"><span>Section 8.3</span></a>.</li>
+</ul>
+<p>Why are there separate network and system objects? The network represents what is fixed (the geometry) and the system represents what changes during the simulation (the occupancy of the zones). A network should be used by only one transport system. The KSL will throw an exception if a second system is attached to the same network.</p>
+<section id="building-a-network" class="level4" data-number="8.5.2.1">
+<h4 data-number="8.5.2.1" class="anchored" data-anchor-id="building-a-network"><span class="header-section-number">8.5.2.1</span> Building a Network</h4>
+<p>A network is constructed by using a builder that is accessed from the <code>GuidedPathNetwork</code> class. The builder provides functions for declaring intersections, links, and stations. The following code illustrates how to build the three link network of <a href="#fig-ThreeLinkNetwork" class="quarto-xref">Figure&nbsp;<span>8.20</span></a>, assuming that each zone is 12 feet long.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb40"><pre class="sourceCode kotlin code-with-copy"><code class="sourceCode kotlin"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a><span class="kw">val</span> <span class="va">network</span> <span class="op">=</span> GuidedPathNetwork<span class="op">.</span>builder<span class="op">(</span><span class="st">"ThreeLinkNetwork"</span><span class="op">)</span></span>
+<span id="cb40-2"><a href="#cb40-2" aria-hidden="true" tabindex="-1"></a>    <span class="op">.</span>link<span class="op">(</span><span class="st">"Link1"</span><span class="op">,</span> <span class="st">"I1"</span><span class="op">,</span> <span class="st">"I2"</span><span class="op">,</span> length <span class="op">=</span> <span class="fl">48.0</span><span class="op">,</span> zoneLength <span class="op">=</span> <span class="fl">12.0</span><span class="op">,</span></span>
+<span id="cb40-3"><a href="#cb40-3" aria-hidden="true" tabindex="-1"></a>        type <span class="op">=</span> LinkType<span class="op">.</span>BIDIRECTIONAL<span class="op">,</span> beginDirection <span class="op">=</span> <span class="fl">60.0</span><span class="op">)</span></span>
+<span id="cb40-4"><a href="#cb40-4" aria-hidden="true" tabindex="-1"></a>    <span class="op">.</span>link<span class="op">(</span><span class="st">"Link2"</span><span class="op">,</span> <span class="st">"I2"</span><span class="op">,</span> <span class="st">"I3"</span><span class="op">,</span> length <span class="op">=</span> <span class="fl">60.0</span><span class="op">,</span> zoneLength <span class="op">=</span> <span class="fl">12.0</span><span class="op">,</span></span>
+<span id="cb40-5"><a href="#cb40-5" aria-hidden="true" tabindex="-1"></a>        type <span class="op">=</span> LinkType<span class="op">.</span>BIDIRECTIONAL<span class="op">,</span> beginDirection <span class="op">=</span> <span class="fl">300.0</span><span class="op">)</span></span>
+<span id="cb40-6"><a href="#cb40-6" aria-hidden="true" tabindex="-1"></a>    <span class="op">.</span>link<span class="op">(</span><span class="st">"Link3"</span><span class="op">,</span> <span class="st">"I1"</span><span class="op">,</span> <span class="st">"I3"</span><span class="op">,</span> length <span class="op">=</span> <span class="fl">60.0</span><span class="op">,</span> zoneLength <span class="op">=</span> <span class="fl">12.0</span><span class="op">,</span></span>
+<span id="cb40-7"><a href="#cb40-7" aria-hidden="true" tabindex="-1"></a>        type <span class="op">=</span> LinkType<span class="op">.</span>BIDIRECTIONAL<span class="op">,</span> beginDirection <span class="op">=</span> <span class="fl">0.0</span><span class="op">)</span></span>
+<span id="cb40-8"><a href="#cb40-8" aria-hidden="true" tabindex="-1"></a>    <span class="op">.</span>station<span class="op">(</span><span class="st">"Shipping"</span><span class="op">,</span> <span class="st">"I3"</span><span class="op">)</span></span>
+<span id="cb40-9"><a href="#cb40-9" aria-hidden="true" tabindex="-1"></a>    <span class="op">.</span>build<span class="op">()</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>The <code>link()</code> function requires the name of the link, the name of its beginning intersection, the name of its ending intersection, the length of the link, and the zone length. Intersections that are named by a link are created automatically. The type of link is specified with the <code>LinkType</code> enumeration, which has values <code>UNIDIRECTIONAL</code> (the default), <code>BIDIRECTIONAL</code>, and <code>SPUR</code>. The link’s <code>velocityFactor</code> (default 1.0) and <code>beginDirection</code> (default 0.0) can also be supplied. A variation of the <code>link()</code> function accepts the number of zones (<code>numZones</code>) rather than the zone length. Notice that the zone length is specified for each link. Thus, different links within the same network can have different zone sizes. The <code>station()</code> function associates a station name with an intersection. Finally, the <code>build()</code> function checks the specification and creates the network.</p>
+<p>The <code>intersection()</code> function of the builder can be used to explicitly declare an intersection along with its length, velocity factor, and drawing coordinates (<code>x</code>, <code>y</code>). If no intersection is given coordinates, the KSL lays out the network for drawing based on the lengths of the links.</p>
+<p>When the network is built, the KSL logs a warning for each bidirectional link because bidirectional links are the usual source of deadlock (see <a href="#sec-secAGVDeadlock" class="quarto-xref"><span>Section 8.5.4</span></a>). It also warns if some intersection cannot be reached from another intersection. For example, on a network of only unidirectional links, there may be no path back to where a vehicle started.</p>
+</section>
+<section id="guided-transporters-and-pools" class="level4" data-number="8.5.2.2">
+<h4 data-number="8.5.2.2" class="anchored" data-anchor-id="guided-transporters-and-pools"><span class="header-section-number">8.5.2.2</span> Guided Transporters and Pools</h4>
+<p>The constructor of the <code>GuidedTransporter</code> class is as follows:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb41"><pre class="sourceCode kotlin code-with-copy"><code class="sourceCode kotlin"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> GuidedTransporter @JvmOverloads <span class="kw">constructor</span><span class="op">(</span></span>
+<span id="cb41-2"><a href="#cb41-2" aria-hidden="true" tabindex="-1"></a>    <span class="kw">val</span> <span class="va">system</span><span class="op">:</span> <span class="dt">GuidedPathSpace</span><span class="op">,</span></span>
+<span id="cb41-3"><a href="#cb41-3" aria-hidden="true" tabindex="-1"></a>    <span class="va">initialPlacement</span><span class="op">:</span> <span class="dt">TransporterPlacement</span><span class="op">,</span></span>
+<span id="cb41-4"><a href="#cb41-4" aria-hidden="true" tabindex="-1"></a>    <span class="va">velocity</span><span class="op">:</span> <span class="dt">RVariableIfc</span><span class="op">,</span></span>
+<span id="cb41-5"><a href="#cb41-5" aria-hidden="true" tabindex="-1"></a>    <span class="kw">override</span> <span class="kw">val</span> <span class="va">lengthInZones</span><span class="op">:</span> <span class="dt">Int</span> <span class="op">=</span> <span class="dv">1</span><span class="op">,</span></span>
+<span id="cb41-6"><a href="#cb41-6" aria-hidden="true" tabindex="-1"></a>    <span class="kw">val</span> <span class="va">zoneControlRule</span><span class="op">:</span> <span class="dt">ZoneControlRuleIfc</span> <span class="op">=</span> EndOfZoneControl<span class="op">(),</span></span>
+<span id="cb41-7"><a href="#cb41-7" aria-hidden="true" tabindex="-1"></a>    <span class="va">name</span><span class="op">:</span> <span class="dt">String</span><span class="op">?</span> <span class="op">=</span> null<span class="op">,</span></span>
+<span id="cb41-8"><a href="#cb41-8" aria-hidden="true" tabindex="-1"></a>    <span class="kw">override</span> <span class="kw">val</span> <span class="va">physicalLength</span><span class="op">:</span> <span class="dt">Double</span><span class="op">?</span> <span class="op">=</span> null<span class="op">,</span></span>
+<span id="cb41-9"><a href="#cb41-9" aria-hidden="true" tabindex="-1"></a>    <span class="kw">override</span> <span class="kw">val</span> <span class="va">loadCapacity</span><span class="op">:</span> <span class="dt">Int</span> <span class="op">=</span> <span class="dv">1</span></span>
+<span id="cb41-10"><a href="#cb41-10" aria-hidden="true" tabindex="-1"></a><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>A guided transporter belongs to a transport system. The initial placement of the transporter is specified with an instance of the <code>TransporterPlacement</code> class: <code>TransporterPlacement.At(name)</code> places the transporter at a named intersection or station and <code>TransporterPlacement.OnZone(name)</code> places it on a named zone of a link. The transporter is placed at its initial position at the start of every replication. Because transporters take space on the path, the choice of initial position can be important. Two transporters cannot be placed in the same zone.</p>
+<p>The velocity of the transporter is specified by a random variable. By default, the velocity is sampled for each move. The <code>lengthInZones</code> property specifies how many zones the vehicle covers. Thus, a vehicle that is two zones long covers two zones of a link while it moves. The <code>zoneControlRule</code> governs when the transporter releases the zone behind it, which will be discussed shortly. The optional <code>physicalLength</code> property allows the length of a vehicle that is shorter than a zone to be specified in the units of the network; however, most models can ignore this property and use <code>lengthInZones</code>. Finally, each transporter also has a <code>homeBase</code> property, which names an intersection or station to which the transporter can return when it is idle.</p>
+<p>Guided path transporters move from zone to zone on the links. The size of the zone, the zone control, and the size of the transporter govern how close the transporters can get to each other while moving. Zones are similar to the cell concept for conveyors. The selection of the size of the zones is really governed by the physical characteristics of the actual system. A zone represents the unit of space that the control system of the real system reserves for a vehicle. In addition, each zone traversal is one event in the simulation. Thus, halving the zone size will double the number of events needed to model the same movement.</p>
+<p><em>Zone control</em> governs how the transporter moves from zone to zone. <a href="#fig-ZoneControl" class="quarto-xref">Figure&nbsp;<span>8.22</span></a> illustrates two zone control rules. The KSL provides three rules:</p>
+<ul>
+<li><code>StartOfZoneControl</code> specifies that the transporter will release its backward most zone when it starts into its next zone. This allows following vehicles to immediately begin to move into the released zone.</li>
+<li><code>EndOfZoneControl</code> specifies that the transporter will release its backward most zone after it has moved into the next zone (i.e.&nbsp;reached the end of the next zone). This prevents a following vehicle from moving into the transporter’s current zone until it is fully out of the zone. This is the default rule.</li>
+<li><code>DistanceIntoZoneControl(d)</code> specifies that the transporter releases its backward-most zone after traveling <code>d</code> distance units into the next zone. The start and end rules are the two extremes of this rule.</li>
+</ul>
+<div id="fig-ZoneControl" class="quarto-float quarto-figure quarto-figure-left anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-ZoneControl-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="./figures/ch8/ZoneControl.jpg" class="img-fluid figure-img" style="width:85.0%">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-ZoneControl-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;8.22: Illustrating Zone Control
+</figcaption>
+</figure>
+</div>
+<p>In the figure, the vehicle is contained in only one zone. In general, a vehicle could cover many zones. The release at end form of control allows for more separation between the vehicles when they are moving. These rules also apply to how the vehicles move through intersections and onto links because an intersection is a zone. For example, under the end rule, a vehicle crossing an intersection holds the intersection until it has traveled through the first zone of the link that it is entering. The zone control rule is a modeling parameter. The control system of a real installation implements one of these rules, and which one it implements can change the throughput of the system.</p>
+<p>The constructor of the <code>GuidedTransporterPoolWithQ</code> class is as follows:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb42"><pre class="sourceCode kotlin code-with-copy"><code class="sourceCode kotlin"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true" tabindex="-1"></a><span class="kw">open</span> <span class="kw">class</span> GuidedTransporterPoolWithQ @JvmOverloads <span class="kw">constructor</span><span class="op">(</span></span>
+<span id="cb42-2"><a href="#cb42-2" aria-hidden="true" tabindex="-1"></a>    <span class="va">parent</span><span class="op">:</span> <span class="dt">ModelElement</span><span class="op">,</span></span>
+<span id="cb42-3"><a href="#cb42-3" aria-hidden="true" tabindex="-1"></a>    <span class="kw">val</span> <span class="va">system</span><span class="op">:</span> <span class="dt">GuidedPathTransportSystem</span><span class="op">,</span></span>
+<span id="cb42-4"><a href="#cb42-4" aria-hidden="true" tabindex="-1"></a>    <span class="va">transporters</span><span class="op">:</span> <span class="dt">List</span>&lt;<span class="va">GuidedTransporter</span>&gt;<span class="op">,</span></span>
+<span id="cb42-5"><a href="#cb42-5" aria-hidden="true" tabindex="-1"></a>    <span class="va">allocationRule</span><span class="op">:</span> <span class="dt">GuidedTransporterAllocationRuleIfc</span> <span class="op">=</span> ClosestByNetworkDistanceRule<span class="op">(),</span></span>
+<span id="cb42-6"><a href="#cb42-6" aria-hidden="true" tabindex="-1"></a>    <span class="kw">override</span> <span class="kw">var</span> <span class="va">idleDispositionRule</span><span class="op">:</span> <span class="dt">IdleDispositionRuleIfc</span> <span class="op">=</span> ParkInPlaceRule<span class="op">(),</span></span>
+<span id="cb42-7"><a href="#cb42-7" aria-hidden="true" tabindex="-1"></a>    <span class="va">name</span><span class="op">:</span> <span class="dt">String</span><span class="op">?</span> <span class="op">=</span> null</span>
+<span id="cb42-8"><a href="#cb42-8" aria-hidden="true" tabindex="-1"></a><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>The pool holds a list of transporters that all belong to the same transport system. Two rules govern the pool. The <em>allocation rule</em> selects which idle transporter will be sent to a pick up location. The default rule, <code>ClosestByNetworkDistanceRule</code>, selects the idle transporter that is closest to the pick up location. Notice that the distance is the distance along the guide path. On a one-way loop, a transporter that is just past the pick up location may have to travel all the way around the loop. Other rules provided by the KSL include <code>FurthestByNetworkDistanceRule</code>, <code>LeastUsedTransporterRule</code>, <code>CyclicalTransporterRule</code>, and <code>RandomTransporterRule</code>.</p>
+<p>The <em>idle disposition rule</em> determines what a transporter does when it is released and there are no requests waiting. The KSL provides three rules:</p>
+<ul>
+<li><code>ParkInPlaceRule</code> leaves the transporter where it was released. This is the default.</li>
+<li><code>ReturnToHomeBaseRule</code> sends the transporter to its <code>homeBase</code> location.</li>
+<li><code>MoveToStagingAreaRule(locationName)</code> sends the transporter to the named staging location.</li>
+</ul>
+<p>As we will see in <a href="#sec-secAGVDeadlock" class="quarto-xref"><span>Section 8.5.4</span></a>, the choice of where idle transporters wait is one of the most important decisions when modeling a guided path system.</p>
+</section>
+<section id="suspending-functions-for-guided-transport" class="level4" data-number="8.5.2.3">
+<h4 data-number="8.5.2.3" class="anchored" data-anchor-id="suspending-functions-for-guided-transport"><span class="header-section-number">8.5.2.3</span> Suspending Functions for Guided Transport</h4>
+<p>Entities use guided transporters through suspending functions that are similar to the <code>transportWith()</code> function of <a href="#sec-secMovableResources" class="quarto-xref"><span>Section 8.2.2</span></a>. The <code>guidedTransport()</code> function encapsulates the full pattern: request a transporter, wait for it to arrive at the pick up location, load, ride to the destination, unload, and release the transporter.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb43"><pre class="sourceCode kotlin code-with-copy"><code class="sourceCode kotlin"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a>    suspend <span class="kw">fun</span> <span class="fu">guidedTransport</span><span class="op">(</span></span>
+<span id="cb43-2"><a href="#cb43-2" aria-hidden="true" tabindex="-1"></a>        <span class="va">pool</span><span class="op">:</span> <span class="dt">GuidedTransporterPoolWithQ</span><span class="op">,</span></span>
+<span id="cb43-3"><a href="#cb43-3" aria-hidden="true" tabindex="-1"></a>        <span class="va">destination</span><span class="op">:</span> <span class="dt">String</span><span class="op">,</span></span>
+<span id="cb43-4"><a href="#cb43-4" aria-hidden="true" tabindex="-1"></a>        <span class="va">pickupLocation</span><span class="op">:</span> <span class="dt">String</span> <span class="op">=</span> entity<span class="op">.</span>currentLocation<span class="op">.</span>name<span class="op">,</span></span>
+<span id="cb43-5"><a href="#cb43-5" aria-hidden="true" tabindex="-1"></a>        <span class="va">loadingDelay</span><span class="op">:</span> <span class="dt">GetValueIfc</span> <span class="op">=</span> ConstantRV<span class="op">.</span>ZERO<span class="op">,</span></span>
+<span id="cb43-6"><a href="#cb43-6" aria-hidden="true" tabindex="-1"></a>        <span class="va">unLoadingDelay</span><span class="op">:</span> <span class="dt">GetValueIfc</span> <span class="op">=</span> ConstantRV<span class="op">.</span>ZERO<span class="op">,</span></span>
+<span id="cb43-7"><a href="#cb43-7" aria-hidden="true" tabindex="-1"></a>        <span class="va">requestPriority</span><span class="op">:</span> <span class="dt">Int</span> <span class="op">=</span> TRANSPORT_REQUEST_PRIORITY<span class="op">,</span></span>
+<span id="cb43-8"><a href="#cb43-8" aria-hidden="true" tabindex="-1"></a>        <span class="va">loadingPriority</span><span class="op">:</span> <span class="dt">Int</span> <span class="op">=</span> DELAY_PRIORITY<span class="op">,</span></span>
+<span id="cb43-9"><a href="#cb43-9" aria-hidden="true" tabindex="-1"></a>        <span class="va">unLoadingPriority</span><span class="op">:</span> <span class="dt">Int</span> <span class="op">=</span> DELAY_PRIORITY<span class="op">,</span></span>
+<span id="cb43-10"><a href="#cb43-10" aria-hidden="true" tabindex="-1"></a>        <span class="va">suspensionName</span><span class="op">:</span> <span class="dt">String</span><span class="op">?</span> <span class="op">=</span> null</span>
+<span id="cb43-11"><a href="#cb43-11" aria-hidden="true" tabindex="-1"></a>    <span class="op">):</span> <span class="dt">GuidedTransportResult</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Notice that the destination and pick up location are names of stations or intersections. By default, the pick up location is the name of the entity’s current location. The function returns an instance of the <code>GuidedTransportResult</code> class, which reports what the journey cost: the time waiting for the transporter to arrive (<code>approachTime</code>), the time riding (<code>rideTime</code>), the time that the transporter was blocked by other vehicles during the journey (<code>blockedTime</code>), the distance traveled (<code>routeLength</code>), and the number of zones traversed (<code>zonesTraversed</code>).</p>
+<p>The <code>guidedTransport()</code> function is built from three suspending functions, which can be used directly when something needs to happen between being picked up and being dropped off:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb44"><pre class="sourceCode kotlin code-with-copy"><code class="sourceCode kotlin"><span id="cb44-1"><a href="#cb44-1" aria-hidden="true" tabindex="-1"></a><span class="kw">val</span> <span class="va">request</span> <span class="op">=</span> requestGuidedTransporter<span class="op">(</span>carts<span class="op">,</span> pickupLocation <span class="op">=</span> <span class="st">"EntryStation"</span><span class="op">)</span></span>
+<span id="cb44-2"><a href="#cb44-2" aria-hidden="true" tabindex="-1"></a>delay<span class="op">(</span><span class="fl">1.0</span><span class="op">)</span> <span class="co">// load by hand</span></span>
+<span id="cb44-3"><a href="#cb44-3" aria-hidden="true" tabindex="-1"></a><span class="kw">val</span> <span class="va">result</span> <span class="op">=</span> transportBy<span class="op">(</span>request<span class="op">,</span> destination <span class="op">=</span> <span class="st">"ExitStation"</span><span class="op">)</span></span>
+<span id="cb44-4"><a href="#cb44-4" aria-hidden="true" tabindex="-1"></a>delay<span class="op">(</span><span class="fl">2.0</span><span class="op">)</span> <span class="co">// unload</span></span>
+<span id="cb44-5"><a href="#cb44-5" aria-hidden="true" tabindex="-1"></a>releaseGuidedTransporter<span class="op">(</span>request<span class="op">,</span> carts<span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>The <code>requestGuidedTransporter()</code> function requests a transporter from the pool and suspends the entity until the allocated transporter has arrived at the pick up location. The returned <code>GuidedTransportRequest</code> represents the entity’s claim on the transporter. The <code>transportBy()</code> function carries the entity to the destination, with optional loading and unloading delays. Finally, the <code>releaseGuidedTransporter()</code> function returns the transporter to the pool. After the release, the request cannot be used again.</p>
+<p>The transport system automatically collects statistics. These include the time-weighted number of transporters moving, blocked, and idle (<code>NumTransportersMoving</code>, <code>NumTransportersBlocked</code>, <code>NumTransportersIdle</code>), the fraction of zones that are occupied (<code>ZoneUtilization</code>), and the per transport responses (<code>ApproachTime</code>, <code>RideTime</code>, <code>TransportBlockedTime</code>, <code>RouteLengthPerTransport</code>, <code>ZonesTraversedPerTransport</code>). For each transporter, the fraction of time moving, transporting, moving empty, and blocked are collected (<code>FracTimeMoving</code>, <code>FracTimeTransporting</code>, <code>FracTimeMovingEmpty</code>, <code>FracTimeBlocked</code>). Statistics for each link and each zone can be turned on with the <code>collectLinkStatistics</code> and <code>collectZoneStatistics</code> properties of the transport system. They are off by default because a network with many zones would otherwise produce a very large report.</p>
+<p>We are now ready to illustrate these constructs with an example.</p>
+</section>
+</section>
+<section id="sec-secSimpleAGV" class="level3" data-number="8.5.3">
+<h3 data-number="8.5.3" class="anchored" data-anchor-id="sec-secSimpleAGV"><span class="header-section-number">8.5.3</span> A Simple AGV System</h3>
+<p>In this example, parts arrive to an entry station according to a Poisson process with a mean time between arrivals of 20 minutes, where they wait for one of two available AGVs. Once loaded onto the AGV (taking 0.5 minutes) they are transported to the exit station. At the exit station, the part is unloaded, again taking 0.5 minutes. The basic layout of the system is shown in <a href="#fig-SimpleAGVLayout" class="quarto-xref">Figure&nbsp;<span>8.23</span></a>. There are seven intersections and seven links in this example. The distances between the intersections are shown in the figure.</p>
+<div id="fig-SimpleAGVLayout" class="quarto-float quarto-figure quarto-figure-left anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-SimpleAGVLayout-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="./figures/ch8/SimpleAGVLayout.jpg" class="img-fluid figure-img" style="width:70.0%">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-SimpleAGVLayout-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;8.23: Layout for Simple AGV Example
+</figcaption>
+</figure>
+</div>
+<p>In modeling this situation, you need to make a number of decisions regarding transporter characteristics, the division of space along the links, the directions of the links, and where the vehicles wait. Let’s assume that the item being transported is rather large. Because of this, the transporter is a cart that is 6 feet in length and only travels 10 feet per minute. There are two carts available for transport.</p>
+<p>In this example, assume that the carts should not get too close to each other during movement (perhaps because the big part overhangs the cart). Let’s choose a zone size of 12 feet for the links of the main loop. Thus, while the cart is in a zone it essentially takes up half of the zone. Each cart is one zone long, and under the default end of zone control, a following cart remains a full zone behind the cart in front of it. With a zone length of 12 feet, Link 1 consists of 4 zones of 12 feet in length. Thus, the maximum number of vehicles that could be on Link 1 is four.</p>
+<p>Now, you need to decide on the direction of travel permitted on the links. In this system, let’s assume that the AGVs will travel clockwise around the main loop on unidirectional links. The link from intersection <code>I4</code> to the exit station at <code>I5</code> is a spur. Since AGVs are battery powered, they typically have a charging station. Because of this, most systems will be designed with a set of spurs to act as a “home base” for the vehicles. For this simple system, spurs to intersections <code>I6</code> and <code>I7</code> will be used as the home bases and initial positions of the two carts. These spurs are only 6 feet long (one cart length), so they are given a zone length of 6 feet. Since the zone length is specified for each link, the home spurs can have a different zone size than the main loop.</p>
+<p>The following code builds the network for this example. The full source code is in the file <code>SimpleAGVExample.kt</code> within the <code>ksl.examples.general.guidedpath</code> package of the <code>KSLExamples</code> project.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb45"><pre class="sourceCode kotlin code-with-copy"><code class="sourceCode kotlin"><span id="cb45-1"><a href="#cb45-1" aria-hidden="true" tabindex="-1"></a>    <span class="kw">private</span> <span class="kw">val</span> <span class="va">entryStation</span> <span class="op">=</span> <span class="st">"EntryStation"</span></span>
+<span id="cb45-2"><a href="#cb45-2" aria-hidden="true" tabindex="-1"></a>    <span class="kw">private</span> <span class="kw">val</span> <span class="va">exitStation</span> <span class="op">=</span> <span class="st">"ExitStation"</span></span>
+<span id="cb45-3"><a href="#cb45-3" aria-hidden="true" tabindex="-1"></a>    <span class="kw">private</span> <span class="kw">val</span> <span class="va">agv1Home</span> <span class="op">=</span> <span class="st">"I6"</span></span>
+<span id="cb45-4"><a href="#cb45-4" aria-hidden="true" tabindex="-1"></a>    <span class="kw">private</span> <span class="kw">val</span> <span class="va">agv2Home</span> <span class="op">=</span> <span class="st">"I7"</span></span>
+<span id="cb45-5"><a href="#cb45-5" aria-hidden="true" tabindex="-1"></a>    <span class="kw">private</span> <span class="kw">val</span> <span class="va">loopZoneLength</span> <span class="op">=</span> <span class="fl">12.0</span></span>
+<span id="cb45-6"><a href="#cb45-6" aria-hidden="true" tabindex="-1"></a>    <span class="kw">private</span> <span class="kw">val</span> <span class="va">homeSpurZoneLength</span> <span class="op">=</span> <span class="fl">6.0</span></span>
+<span id="cb45-7"><a href="#cb45-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb45-8"><a href="#cb45-8" aria-hidden="true" tabindex="-1"></a>    <span class="kw">private</span> <span class="kw">fun</span> <span class="fu">buildNetwork</span><span class="op">():</span> <span class="dt">GuidedPathNetwork</span> <span class="op">=</span></span>
+<span id="cb45-9"><a href="#cb45-9" aria-hidden="true" tabindex="-1"></a>        GuidedPathNetwork<span class="op">.</span>builder<span class="op">(</span><span class="st">"SimpleAgvNetwork"</span><span class="op">)</span></span>
+<span id="cb45-10"><a href="#cb45-10" aria-hidden="true" tabindex="-1"></a>            <span class="op">.</span>intersection<span class="op">(</span><span class="st">"I1"</span><span class="op">,</span> x <span class="op">=</span> <span class="fl">0.0</span><span class="op">,</span> y <span class="op">=</span> <span class="fl">72.0</span><span class="op">)</span></span>
+<span id="cb45-11"><a href="#cb45-11" aria-hidden="true" tabindex="-1"></a>            <span class="op">.</span>intersection<span class="op">(</span><span class="st">"I2"</span><span class="op">,</span> x <span class="op">=</span> <span class="fl">48.0</span><span class="op">,</span> y <span class="op">=</span> <span class="fl">72.0</span><span class="op">)</span></span>
+<span id="cb45-12"><a href="#cb45-12" aria-hidden="true" tabindex="-1"></a>            <span class="op">.</span>intersection<span class="op">(</span><span class="st">"I3"</span><span class="op">,</span> x <span class="op">=</span> <span class="fl">48.0</span><span class="op">,</span> y <span class="op">=</span> <span class="fl">0.0</span><span class="op">)</span></span>
+<span id="cb45-13"><a href="#cb45-13" aria-hidden="true" tabindex="-1"></a>            <span class="op">.</span>intersection<span class="op">(</span><span class="st">"I4"</span><span class="op">,</span> x <span class="op">=</span> <span class="fl">0.0</span><span class="op">,</span> y <span class="op">=</span> <span class="fl">0.0</span><span class="op">)</span></span>
+<span id="cb45-14"><a href="#cb45-14" aria-hidden="true" tabindex="-1"></a>            <span class="op">.</span>intersection<span class="op">(</span><span class="st">"I5"</span><span class="op">,</span> x <span class="op">=</span> <span class="fl">0.0</span><span class="op">,</span> y <span class="op">=</span> <span class="op">-</span><span class="fl">36.0</span><span class="op">)</span></span>
+<span id="cb45-15"><a href="#cb45-15" aria-hidden="true" tabindex="-1"></a>            <span class="op">.</span>intersection<span class="op">(</span><span class="st">"I6"</span><span class="op">,</span> x <span class="op">=</span> <span class="fl">54.0</span><span class="op">,</span> y <span class="op">=</span> <span class="fl">72.0</span><span class="op">)</span></span>
+<span id="cb45-16"><a href="#cb45-16" aria-hidden="true" tabindex="-1"></a>            <span class="op">.</span>intersection<span class="op">(</span><span class="st">"I7"</span><span class="op">,</span> x <span class="op">=</span> <span class="fl">54.0</span><span class="op">,</span> y <span class="op">=</span> <span class="fl">0.0</span><span class="op">)</span></span>
+<span id="cb45-17"><a href="#cb45-17" aria-hidden="true" tabindex="-1"></a>            <span class="op">.</span>link<span class="op">(</span><span class="st">"Link1"</span><span class="op">,</span> <span class="st">"I1"</span><span class="op">,</span> <span class="st">"I2"</span><span class="op">,</span> length <span class="op">=</span> <span class="fl">48.0</span><span class="op">,</span> zoneLength <span class="op">=</span> loopZoneLength<span class="op">,</span> beginDirection <span class="op">=</span> <span class="fl">0.0</span><span class="op">)</span></span>
+<span id="cb45-18"><a href="#cb45-18" aria-hidden="true" tabindex="-1"></a>            <span class="op">.</span>link<span class="op">(</span><span class="st">"Link2"</span><span class="op">,</span> <span class="st">"I2"</span><span class="op">,</span> <span class="st">"I3"</span><span class="op">,</span> length <span class="op">=</span> <span class="fl">72.0</span><span class="op">,</span> zoneLength <span class="op">=</span> loopZoneLength<span class="op">,</span> beginDirection <span class="op">=</span> <span class="fl">270.0</span><span class="op">)</span></span>
+<span id="cb45-19"><a href="#cb45-19" aria-hidden="true" tabindex="-1"></a>            <span class="op">.</span>link<span class="op">(</span><span class="st">"Link3"</span><span class="op">,</span> <span class="st">"I3"</span><span class="op">,</span> <span class="st">"I4"</span><span class="op">,</span> length <span class="op">=</span> <span class="fl">48.0</span><span class="op">,</span> zoneLength <span class="op">=</span> loopZoneLength<span class="op">,</span> beginDirection <span class="op">=</span> <span class="fl">180.0</span><span class="op">)</span></span>
+<span id="cb45-20"><a href="#cb45-20" aria-hidden="true" tabindex="-1"></a>            <span class="op">.</span>link<span class="op">(</span><span class="st">"Link4"</span><span class="op">,</span> <span class="st">"I4"</span><span class="op">,</span> <span class="st">"I1"</span><span class="op">,</span> length <span class="op">=</span> <span class="fl">72.0</span><span class="op">,</span> zoneLength <span class="op">=</span> loopZoneLength<span class="op">,</span> beginDirection <span class="op">=</span> <span class="fl">90.0</span><span class="op">)</span></span>
+<span id="cb45-21"><a href="#cb45-21" aria-hidden="true" tabindex="-1"></a>            <span class="op">.</span>link<span class="op">(</span></span>
+<span id="cb45-22"><a href="#cb45-22" aria-hidden="true" tabindex="-1"></a>                <span class="st">"Spur"</span><span class="op">,</span> <span class="st">"I4"</span><span class="op">,</span> <span class="st">"I5"</span><span class="op">,</span> length <span class="op">=</span> <span class="fl">36.0</span><span class="op">,</span> zoneLength <span class="op">=</span> loopZoneLength<span class="op">,</span></span>
+<span id="cb45-23"><a href="#cb45-23" aria-hidden="true" tabindex="-1"></a>                type <span class="op">=</span> LinkType<span class="op">.</span>SPUR<span class="op">,</span> beginDirection <span class="op">=</span> <span class="fl">270.0</span></span>
+<span id="cb45-24"><a href="#cb45-24" aria-hidden="true" tabindex="-1"></a>            <span class="op">)</span></span>
+<span id="cb45-25"><a href="#cb45-25" aria-hidden="true" tabindex="-1"></a>            <span class="op">.</span>link<span class="op">(</span></span>
+<span id="cb45-26"><a href="#cb45-26" aria-hidden="true" tabindex="-1"></a>                <span class="st">"Link5"</span><span class="op">,</span> <span class="st">"I2"</span><span class="op">,</span> <span class="st">"I6"</span><span class="op">,</span> length <span class="op">=</span> <span class="fl">6.0</span><span class="op">,</span> zoneLength <span class="op">=</span> homeSpurZoneLength<span class="op">,</span></span>
+<span id="cb45-27"><a href="#cb45-27" aria-hidden="true" tabindex="-1"></a>                type <span class="op">=</span> LinkType<span class="op">.</span>SPUR<span class="op">,</span> beginDirection <span class="op">=</span> <span class="fl">0.0</span></span>
+<span id="cb45-28"><a href="#cb45-28" aria-hidden="true" tabindex="-1"></a>            <span class="op">)</span></span>
+<span id="cb45-29"><a href="#cb45-29" aria-hidden="true" tabindex="-1"></a>            <span class="op">.</span>link<span class="op">(</span></span>
+<span id="cb45-30"><a href="#cb45-30" aria-hidden="true" tabindex="-1"></a>                <span class="st">"Link6"</span><span class="op">,</span> <span class="st">"I3"</span><span class="op">,</span> <span class="st">"I7"</span><span class="op">,</span> length <span class="op">=</span> <span class="fl">6.0</span><span class="op">,</span> zoneLength <span class="op">=</span> homeSpurZoneLength<span class="op">,</span></span>
+<span id="cb45-31"><a href="#cb45-31" aria-hidden="true" tabindex="-1"></a>                type <span class="op">=</span> LinkType<span class="op">.</span>SPUR<span class="op">,</span> beginDirection <span class="op">=</span> <span class="fl">0.0</span></span>
+<span id="cb45-32"><a href="#cb45-32" aria-hidden="true" tabindex="-1"></a>            <span class="op">)</span></span>
+<span id="cb45-33"><a href="#cb45-33" aria-hidden="true" tabindex="-1"></a>            <span class="op">.</span>station<span class="op">(</span>entryStation<span class="op">,</span> <span class="st">"I1"</span><span class="op">)</span></span>
+<span id="cb45-34"><a href="#cb45-34" aria-hidden="true" tabindex="-1"></a>            <span class="op">.</span>station<span class="op">(</span>exitStation<span class="op">,</span> <span class="st">"I5"</span><span class="op">)</span></span>
+<span id="cb45-35"><a href="#cb45-35" aria-hidden="true" tabindex="-1"></a>            <span class="op">.</span>build<span class="op">()</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Notice that the intersections are declared with coordinates so that the network can be drawn and animated. The four links of the main loop are unidirectional (the default type). The beginning directions of 0, 270, 180, and 90 degrees indicate the clockwise travel around the loop, but recall that the KSL does not use them to compute movement. The spur to the exit station and the two home spurs are declared with <code>LinkType.SPUR</code>. Finally, the entry station is associated with intersection <code>I1</code> and the exit station is associated with intersection <code>I5</code>.</p>
+<p>Because the loop is one way, the distances in the network are not symmetric. The trip from the entry station to the exit station must go the long way around the loop: <span class="math inline">\(48 + 72 + 48 + 36 = 204\)</span> feet. The return trip from the exit station to the entry station is only <span class="math inline">\(36 + 72 = 108\)</span> feet because the spur can be traveled in both directions and Link 4 runs directly from <code>I4</code> to <code>I1</code>.</p>
+<p>The following code defines the transport system, the two carts, and the pool of carts.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb46"><pre class="sourceCode kotlin code-with-copy"><code class="sourceCode kotlin"><span id="cb46-1"><a href="#cb46-1" aria-hidden="true" tabindex="-1"></a>    <span class="kw">private</span> <span class="kw">val</span> <span class="va">network</span><span class="op">:</span> GuidedPathNetwork <span class="op">=</span> buildNetwork<span class="op">()</span></span>
+<span id="cb46-2"><a href="#cb46-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb46-3"><a href="#cb46-3" aria-hidden="true" tabindex="-1"></a>    init <span class="op">{</span></span>
+<span id="cb46-4"><a href="#cb46-4" aria-hidden="true" tabindex="-1"></a>        spatialModel <span class="op">=</span> network</span>
+<span id="cb46-5"><a href="#cb46-5" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
+<span id="cb46-6"><a href="#cb46-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb46-7"><a href="#cb46-7" aria-hidden="true" tabindex="-1"></a>    <span class="kw">val</span> <span class="va">system</span> <span class="op">=</span> GuidedPathTransportSystem<span class="op">(</span><span class="kw">this</span><span class="op">,</span> network<span class="op">,</span> name <span class="op">=</span> <span class="st">"AgvSystem"</span><span class="op">)</span></span>
+<span id="cb46-8"><a href="#cb46-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb46-9"><a href="#cb46-9" aria-hidden="true" tabindex="-1"></a>    <span class="kw">private</span> <span class="kw">val</span> <span class="va">cart1</span> <span class="op">=</span> GuidedTransporter<span class="op">(</span></span>
+<span id="cb46-10"><a href="#cb46-10" aria-hidden="true" tabindex="-1"></a>        system<span class="op">,</span> TransporterPlacement<span class="op">.</span>At<span class="op">(</span>agv1Home<span class="op">),</span> ConstantRV<span class="op">(</span><span class="fl">10.0</span><span class="op">),</span> <span class="dv">1</span><span class="op">,</span> EndOfZoneControl<span class="op">(),</span> <span class="st">"Cart1"</span></span>
+<span id="cb46-11"><a href="#cb46-11" aria-hidden="true" tabindex="-1"></a>    <span class="op">).</span>apply <span class="op">{</span> homeBase <span class="op">=</span> agv1Home <span class="op">}</span></span>
+<span id="cb46-12"><a href="#cb46-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb46-13"><a href="#cb46-13" aria-hidden="true" tabindex="-1"></a>    <span class="kw">private</span> <span class="kw">val</span> <span class="va">cart2</span> <span class="op">=</span> GuidedTransporter<span class="op">(</span></span>
+<span id="cb46-14"><a href="#cb46-14" aria-hidden="true" tabindex="-1"></a>        system<span class="op">,</span> TransporterPlacement<span class="op">.</span>At<span class="op">(</span>agv2Home<span class="op">),</span> ConstantRV<span class="op">(</span><span class="fl">10.0</span><span class="op">),</span> <span class="dv">1</span><span class="op">,</span> EndOfZoneControl<span class="op">(),</span> <span class="st">"Cart2"</span></span>
+<span id="cb46-15"><a href="#cb46-15" aria-hidden="true" tabindex="-1"></a>    <span class="op">).</span>apply <span class="op">{</span> homeBase <span class="op">=</span> agv2Home <span class="op">}</span></span>
+<span id="cb46-16"><a href="#cb46-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb46-17"><a href="#cb46-17" aria-hidden="true" tabindex="-1"></a>    <span class="kw">private</span> <span class="kw">val</span> <span class="va">carts</span> <span class="op">=</span> GuidedTransporterPoolWithQ<span class="op">(</span></span>
+<span id="cb46-18"><a href="#cb46-18" aria-hidden="true" tabindex="-1"></a>        <span class="kw">this</span><span class="op">,</span> system<span class="op">,</span> listOf<span class="op">(</span>cart1<span class="op">,</span> cart2<span class="op">),</span></span>
+<span id="cb46-19"><a href="#cb46-19" aria-hidden="true" tabindex="-1"></a>        ClosestByNetworkDistanceRule<span class="op">(),</span> ReturnToHomeBaseRule<span class="op">(),</span> <span class="st">"Carts"</span></span>
+<span id="cb46-20"><a href="#cb46-20" aria-hidden="true" tabindex="-1"></a>    <span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Notice that the network is assigned as the spatial model of the process model. The parts travel on the guide path, so the network is their spatial model too. Each cart is placed at its home intersection, travels at a constant 10 feet per minute, is one zone long, and uses the end of zone control rule. The <code>homeBase</code> property of each cart is set to its starting intersection. The pool uses the closest by network distance allocation rule and returns idle carts to their home bases.</p>
+<p>The process for the parts is very simple.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb47"><pre class="sourceCode kotlin code-with-copy"><code class="sourceCode kotlin"><span id="cb47-1"><a href="#cb47-1" aria-hidden="true" tabindex="-1"></a>    <span class="kw">private</span> <span class="kw">inner</span> <span class="kw">class</span> Part <span class="op">:</span> <span class="dt">Entity</span><span class="op">(</span>"<span class="va">Part</span>"<span class="op">)</span> <span class="op">{</span></span>
+<span id="cb47-2"><a href="#cb47-2" aria-hidden="true" tabindex="-1"></a>        <span class="kw">val</span> <span class="va">delivery</span> <span class="op">=</span> process<span class="op">(</span>isDefaultProcess <span class="op">=</span> <span class="kw">true</span><span class="op">)</span> <span class="op">{</span></span>
+<span id="cb47-3"><a href="#cb47-3" aria-hidden="true" tabindex="-1"></a>            <span class="kw">val</span> <span class="va">arrived</span> <span class="op">=</span> time</span>
+<span id="cb47-4"><a href="#cb47-4" aria-hidden="true" tabindex="-1"></a>            currentLocation <span class="op">=</span> network<span class="op">.</span>requireLocation<span class="op">(</span>entryStation<span class="op">)</span></span>
+<span id="cb47-5"><a href="#cb47-5" aria-hidden="true" tabindex="-1"></a>            guidedTransport<span class="op">(</span></span>
+<span id="cb47-6"><a href="#cb47-6" aria-hidden="true" tabindex="-1"></a>                carts<span class="op">,</span></span>
+<span id="cb47-7"><a href="#cb47-7" aria-hidden="true" tabindex="-1"></a>                destination <span class="op">=</span> exitStation<span class="op">,</span></span>
+<span id="cb47-8"><a href="#cb47-8" aria-hidden="true" tabindex="-1"></a>                pickupLocation <span class="op">=</span> entryStation<span class="op">,</span></span>
+<span id="cb47-9"><a href="#cb47-9" aria-hidden="true" tabindex="-1"></a>                loadingDelay <span class="op">=</span> myLoadingTime<span class="op">,</span></span>
+<span id="cb47-10"><a href="#cb47-10" aria-hidden="true" tabindex="-1"></a>                unLoadingDelay <span class="op">=</span> myUnLoadingTime</span>
+<span id="cb47-11"><a href="#cb47-11" aria-hidden="true" tabindex="-1"></a>            <span class="op">)</span></span>
+<span id="cb47-12"><a href="#cb47-12" aria-hidden="true" tabindex="-1"></a>            myTimeInSystem<span class="op">.</span>value <span class="op">=</span> time <span class="op">-</span> arrived</span>
+<span id="cb47-13"><a href="#cb47-13" aria-hidden="true" tabindex="-1"></a>            myCompleted<span class="op">.</span>increment<span class="op">()</span></span>
+<span id="cb47-14"><a href="#cb47-14" aria-hidden="true" tabindex="-1"></a>        <span class="op">}</span></span>
+<span id="cb47-15"><a href="#cb47-15" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>The part records its arrival time and sets its current location to the entry station. Then, the <code>guidedTransport()</code> function is used to request a cart from the pool, have the cart pick up the part at the entry station, and carry it to the exit station. The loading and unloading times are random variables (<code>myLoadingTime</code> and <code>myUnLoadingTime</code>) defined as constants of 0.5 minutes. After the part is unloaded and the cart is released, the part’s time in the system is collected and the count of delivered parts is incremented.</p>
+<p>Before running the model, let’s think about what we should expect. Let <span class="math inline">\(d\)</span> represent the distance traveled from the entry station to the exit station and let <span class="math inline">\(v\)</span> represent the velocity of a cart. A loaded cart that is never blocked by the other cart rides for <span class="math inline">\(d/v = 204/10 = 20.4\)</span> minutes. Counting the zones along the route, the cart enters 4 zones on Link 1, 6 zones on Link 2, 4 zones on Link 3, 3 zones on the spur, and the 4 intersections <code>I2</code>, <code>I3</code>, <code>I4</code>, and <code>I5</code>, for a total of 21 zones. The model was run for 10 replications of 8000 minutes with a warm up period of 1000 minutes. <a href="#tbl-SimpleAGVResults" class="quarto-xref">Table&nbsp;<span>8.3</span></a> presents selected results.</p>
+<div id="tbl-SimpleAGVResults" class="quarto-float quarto-figure quarto-figure-left anchored">
+<figure class="quarto-float quarto-float-tbl figure">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-SimpleAGVResults-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Table&nbsp;8.3: Selected Results for the Simple AGV System
+</figcaption>
+<div aria-describedby="tbl-SimpleAGVResults-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th style="text-align: left;">Response</th>
+<th style="text-align: center;">Average</th>
+<th style="text-align: center;">Half-Width</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">AgvSystem:RideTime</td>
+<td style="text-align: center;">20.576</td>
+<td style="text-align: center;">0.026</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">AgvSystem:ApproachTime</td>
+<td style="text-align: center;">11.252</td>
+<td style="text-align: center;">0.136</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">AgvSystem:TransportBlockedTime</td>
+<td style="text-align: center;">0.203</td>
+<td style="text-align: center;">0.029</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">AgvSystem:ZonesTraversedPerTransport</td>
+<td style="text-align: center;">21.000</td>
+<td style="text-align: center;">0.000</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">AgvSystem:RouteLengthPerTransport</td>
+<td style="text-align: center;">204.000</td>
+<td style="text-align: center;">0.000</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">AgvSystem:NumTransportersBlocked</td>
+<td style="text-align: center;">0.010</td>
+<td style="text-align: center;">0.001</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Carts:FractionBusy</td>
+<td style="text-align: center;">0.821</td>
+<td style="text-align: center;">0.019</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Carts:Q:TimeInQ</td>
+<td style="text-align: center;">29.050</td>
+<td style="text-align: center;">4.390</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Cart1:FracTimeBlocked</td>
+<td style="text-align: center;">0.005</td>
+<td style="text-align: center;">0.001</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Cart2:FracTimeBlocked</td>
+<td style="text-align: center;">0.005</td>
+<td style="text-align: center;">0.002</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">TimeInSystem</td>
+<td style="text-align: center;">61.764</td>
+<td style="text-align: center;">4.355</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">PartsDelivered</td>
+<td style="text-align: center;">349.900</td>
+<td style="text-align: center;">8.777</td>
+</tr>
+</tbody>
+</table>
+</div>
+</figure>
+</div>
+<p>Notice that the route length (204 feet) and the number of zones traversed (21) match the hand calculation exactly. The average ride time of 20.576 minutes is slightly more than the 20.4 minutes of unobstructed travel. The difference is caused by the cart occasionally being blocked by the other cart, which is a delay that a free path model cannot represent. The carts are busy about 82% of the time, and a part waits on average about 29 minutes for a cart to be allocated. The approach time (about 11.3 minutes) is the time from the cart’s allocation until the part is aboard, excluding the loading time. Thus, the bulk of a part’s 61.8 minutes in the system is spent waiting for a cart and riding on a cart.</p>
+</section>
+<section id="sec-secAGVDeadlock" class="level3" data-number="8.5.4">
+<h3 data-number="8.5.4" class="anchored" data-anchor-id="sec-secAGVDeadlock"><span class="header-section-number">8.5.4</span> Deadlock, Spurs, and Idle Vehicles</h3>
+<p>To understand why the direction of travel and spurs are important, you need to understand the concept of deadlock. As indicated in the zone control discussion, guided path transporters move by seizing and releasing zones. Now consider the possibility of a bidirectional link with two transporters moving in opposite directions. What will happen when the transporters meet? They will crash! No, not really, but they will cause the system to get in a state of deadlock. <em>Deadlock</em> occurs when one vehicle requires a zone currently under the control of a second vehicle, and the second vehicle requires the zone held by the first vehicle. More generally, deadlock is a circular wait among two or more vehicles. The KSL checks for a circular wait whenever a vehicle is blocked. If one is detected, the simulation stops by throwing a <code>GuidedPathDeadlockException</code>. The exception includes a report that names each vehicle in the cycle, the zone that it holds, and the zone that it is waiting for.</p>
+<p>There is a related situation that is not a circular wait. Suppose a station was attached to <code>I4</code> in the simple AGV example and a transporter (<code>T1</code>) was sent directly to that station for some processing. Now, suppose that transporter (<code>T2</code>) has just dropped off something at the exit point, <code>I5</code>, and that a new part has just come in at <code>I1</code>. Transporter (<code>T2</code>) will want to go through <code>I4</code> on its way to <code>I1</code> to pick up the new part. Transporter (<code>T2</code>) will wait until transporter (<code>T1</code>) finishes its processing at <code>I4</code> and if transporter (<code>T1</code>) <em>eventually</em> moves there will be no problem. However, suppose transporter (<code>T1</code>) is released at <code>I4</code>, it is left where it stands, and no other parts arrive for processing. Transporter (<code>T1</code>) will become idle at the station attached to <code>I4</code> and will continue to occupy the space associated with <code>I4</code>. Since no arriving parts will ever cause transporter (<code>T1</code>) to move, transporter (<code>T2</code>) will be stuck. There will be the one part waiting for transporter (<code>T2</code>), but transporter (<code>T2</code>) will never get there to pick it up.</p>
+<p>This situation is not a circular wait, because it ends the moment that something dispatches transporter (<code>T1</code>). The KSL calls this an <em>idle transporter obstruction</em>. When a transporter becomes blocked by an idle transporter that has nothing scheduled to move it, the KSL logs a warning, counts the occurrence in the <code>NumObstructionsDetected</code> response, and tracks the time-weighted number of transporters waiting behind idle vehicles in the <code>NumBlockedByIdleVehicle</code> response. The simulation is not stopped. If you want the simulation to stop when an obstruction occurs, set the <code>strictObstructionPolicy</code> property of the transport system to true. Here is an example of the warning:</p>
+<pre><code>WARN  k.m.guidedpath.GuidedPathSpace - At time 306.2407379572777, transporter (Cart1)
+is blocked on zone (I4), which is held by idle transporter (Cart2). Nothing is scheduled
+to move the idle transporter, so this wait lasts until something dispatches it, and
+lasts to the end of the replication if nothing does. This is not a circular wait.
+Give idle transporters a home base or a staging area so that they leave the path.</code></pre>
+<p>The point is: care must be taken when designing guided path networks so that deadlock is prevented by design. For novice modelers, deadlock can seem troublesome, especially if you don’t think about where to place the vehicles and if you have bidirectional links. In most real systems, you should not have to worry about deadlock because you should design the system not to have it in the first place! In the simple example, all unidirectional links were used along with spurs. This prevents many possible deadlock situations. To illustrate what is meant by design, consider the obstruction situation. A simple solution to prevent it would be to provide a spur for transporter (<code>T1</code>) to receive the processing that was occurring at the station associated with <code>I4</code>, and instead associate the processing station with the intersection at the end of the new spur. Thus, during the processing the vehicle will be out of the way. If you were designing a real system, wouldn’t you do this common sense thing anyway? Another simple solution would be to always send idle vehicles to a staging area or home base that gets them out of the way of the main path network. In the KSL, this is the purpose of the <code>ReturnToHomeBaseRule</code> and <code>MoveToStagingAreaRule</code> idle disposition rules.</p>
+<p>Let’s briefly discuss the operation of spurs and bidirectional links. Notice that the link from <code>I4</code> to <code>I5</code> is a spur in the simple AGV example. A spur is a special type of link designed to help prevent some deadlock situations. A spur models a “dead end” and is bidirectional. If a vehicle is sent to the intersection at the end of the spur (or to a station attached to the end intersection), then the vehicle reserves the spur so that it can get back out. Any other vehicle that is sent to the end of the spur is not permitted to enter the intersection at the entrance of the spur until the first vehicle has left the spur, including the intersection at its dead end. Thus, the second vehicle waits on the main path rather than following the first vehicle into the spur, where the two would face each other with neither able to move. This logic only applies to vehicles that are sent to the end of the spur. Any vehicles sent to or through the entering intersection of the spur are still permitted to gain access to the spur’s entering intersection. This allows traffic to continue on the main path while vehicles are down the spur. Unfortunately, if a vehicle stops at the entering intersection and then never moves, the obstruction situation described previously occurs.</p>
+<p>Bidirectional links work similarly to unidirectional links, but a vehicle moving on a bidirectional link must have control of both the entering zone on the link and the direction of travel. If another vehicle tries to move on the bidirectional link it must be moving in the same direction as any vehicles currently on the link; otherwise, it will wait. Unfortunately, if a vehicle (wanting to go down a bidirectional link) gains control of the intersection that a vehicle traveling on the bidirectional link needs to exit the link, deadlock may be possible. Because it is so easy to get in deadlock situations with bidirectional links, you should think carefully about their use when using them within your models. Where the physical aisle is wide enough for two vehicles to pass, it should be modeled as a pair of unidirectional links (one in each direction) rather than as one bidirectional link.</p>
+<p>The simple AGV example can illustrate the effect of where idle vehicles wait. The <code>SimpleAGVExample</code> class has a control (<code>sendCartsHome</code>) that switches the idle disposition rule of the pool between <code>ReturnToHomeBaseRule</code> and <code>ParkInPlaceRule</code>. The <code>main()</code> function of the example runs both configurations as two scenarios using the same random number streams, and then computes the paired difference of selected responses (carts sent home minus carts left in place). The following output presents the results.</p>
+<pre><code>Where an idle cart waits: CartsSentHome minus CartsLeftInPlace, paired by replication
+(10 replications, 95% intervals)
+  response                                   difference   half-width  detectable?
+  PartsDelivered                                 0.1000       0.5278           no
+  TimeInSystem                                  -1.2009       1.0846          yes
+  AgvSystem:NumObstructionsDetected            -40.5000       5.3453          yes
+  AgvSystem:NumBlockedByIdleVehicle             -0.1166       0.0104          yes
+  AgvSystem:NumTransportersBlocked              -0.1380       0.0126          yes</code></pre>
+<p>When the carts are left in place, about 40.5 obstructions occur per replication. Every one of them is at <code>I4</code>, the intersection at the entrance of the exit spur: one cart stands at <code>I4</code> with nothing to do and the other cart needs <code>I4</code> in order to continue. None of these waits lasts. Parts keep arriving, each arrival dispatches the parked cart, and both configurations deliver the same number of parts because the throughput of this system is limited by the arrivals. Thus, the cost of leaving the carts in place shows up as about 1.2 minutes of additional time in the system and an increase in the number of transporters blocked. In a system where arrivals stop or become infrequent, the same obstruction can last until the end of the replication, with the rest of the fleet stuck behind it. Thus, you should give the vehicles a place to wait that is off the main path.</p>
+</section>
+<section id="sec-secTestAndRepairGuided" class="level3" data-number="8.5.5">
+<h3 data-number="8.5.5" class="anchored" data-anchor-id="sec-secTestAndRepairGuided"><span class="header-section-number">8.5.5</span> Test and Repair with Guided Transporters</h3>
+<p>This section revisits the test and repair shop of <a href="#sec-secTestAndRepairMovableResources" class="quarto-xref"><span>Section 8.3</span></a>. In that section, three transport workers were modeled as a pool of movable resources over a distances model. Here, the transport workers travel on a guide path. Everything about the work is identical: the same test plans, processing times, repair times, arrival process, stations, number of transport workers, and walking speed distribution. Only the representation of the space changes.</p>
+<p><a href="#fig-TestRepairGuidedPath" class="quarto-xref">Figure&nbsp;<span>8.24</span></a> presents the guide path for the shop. The stations are connected by a single one-way aisle that forms a loop: diagnostics, test station 1, test station 2, test station 3, repair, and back to diagnostics. The lengths of the aisles are the distances from the distances model of <a href="#sec-secTestAndRepairMovableResources" class="quarto-xref"><span>Section 8.3</span></a> along this cycle. Thus, the two models agree on how far apart the stations are; however, on the guide path a worker can only travel one way around the loop and can be held up by another worker in front of it. Each transport worker also has its own 5 meter parking spur off the diagnostic station.</p>
+<div id="fig-TestRepairGuidedPath" class="quarto-float quarto-figure quarto-figure-left anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-TestRepairGuidedPath-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="./figures/diagrams/test-repair-guided-path.png" class="img-fluid figure-img" style="width:85.0%">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-TestRepairGuidedPath-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;8.24: Guide Path for the Test and Repair Shop
+</figcaption>
+</figure>
+</div>
+<p>The following code creates the network. The full source code is in the file <code>TestAndRepairShopWithGuidedTransporters.kt</code> within the <code>ksl.examples.book.chapter8</code> package of the <code>KSLExamples</code> project.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb50"><pre class="sourceCode kotlin code-with-copy"><code class="sourceCode kotlin"><span id="cb50-1"><a href="#cb50-1" aria-hidden="true" tabindex="-1"></a>    <span class="kw">private</span> <span class="kw">val</span> <span class="va">diagnosticStation</span> <span class="op">=</span> <span class="st">"DiagnosticStation"</span></span>
+<span id="cb50-2"><a href="#cb50-2" aria-hidden="true" tabindex="-1"></a>    <span class="kw">private</span> <span class="kw">val</span> <span class="va">testStation1</span> <span class="op">=</span> <span class="st">"TestStation1"</span></span>
+<span id="cb50-3"><a href="#cb50-3" aria-hidden="true" tabindex="-1"></a>    <span class="kw">private</span> <span class="kw">val</span> <span class="va">testStation2</span> <span class="op">=</span> <span class="st">"TestStation2"</span></span>
+<span id="cb50-4"><a href="#cb50-4" aria-hidden="true" tabindex="-1"></a>    <span class="kw">private</span> <span class="kw">val</span> <span class="va">testStation3</span> <span class="op">=</span> <span class="st">"TestStation3"</span></span>
+<span id="cb50-5"><a href="#cb50-5" aria-hidden="true" tabindex="-1"></a>    <span class="kw">private</span> <span class="kw">val</span> <span class="va">repairStation</span> <span class="op">=</span> <span class="st">"RepairStation"</span></span>
+<span id="cb50-6"><a href="#cb50-6" aria-hidden="true" tabindex="-1"></a>    <span class="kw">private</span> <span class="kw">val</span> <span class="va">zoneLength</span> <span class="op">=</span> <span class="fl">5.0</span></span>
+<span id="cb50-7"><a href="#cb50-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb50-8"><a href="#cb50-8" aria-hidden="true" tabindex="-1"></a>    <span class="kw">private</span> <span class="kw">fun</span> <span class="fu">createNetwork</span><span class="op">(</span><span class="va">numSpurs</span><span class="op">:</span> <span class="dt">Int</span><span class="op">,</span> <span class="va">networkName</span><span class="op">:</span> <span class="dt">String</span> <span class="op">=</span> <span class="st">"ShopAisle"</span><span class="op">):</span> <span class="dt">GuidedPathNetwork</span> <span class="op">{</span></span>
+<span id="cb50-9"><a href="#cb50-9" aria-hidden="true" tabindex="-1"></a>        <span class="kw">var</span> <span class="va">b</span> <span class="op">=</span> GuidedPathNetwork<span class="op">.</span>builder<span class="op">(</span>networkName<span class="op">)</span></span>
+<span id="cb50-10"><a href="#cb50-10" aria-hidden="true" tabindex="-1"></a>            <span class="op">.</span>intersection<span class="op">(</span>diagnosticStation<span class="op">,</span> x <span class="op">=</span> <span class="fl">0.0</span><span class="op">,</span> y <span class="op">=</span> <span class="fl">0.0</span><span class="op">)</span></span>
+<span id="cb50-11"><a href="#cb50-11" aria-hidden="true" tabindex="-1"></a>            <span class="op">.</span>intersection<span class="op">(</span>testStation1<span class="op">,</span> x <span class="op">=</span> <span class="fl">40.0</span><span class="op">,</span> y <span class="op">=</span> <span class="fl">0.0</span><span class="op">)</span></span>
+<span id="cb50-12"><a href="#cb50-12" aria-hidden="true" tabindex="-1"></a>            <span class="op">.</span>intersection<span class="op">(</span>testStation2<span class="op">,</span> x <span class="op">=</span> <span class="fl">50.0</span><span class="op">,</span> y <span class="op">=</span> <span class="fl">0.0</span><span class="op">)</span></span>
+<span id="cb50-13"><a href="#cb50-13" aria-hidden="true" tabindex="-1"></a>            <span class="op">.</span>intersection<span class="op">(</span>testStation3<span class="op">,</span> x <span class="op">=</span> <span class="fl">50.0</span><span class="op">,</span> y <span class="op">=</span> <span class="op">-</span><span class="fl">65.0</span><span class="op">)</span></span>
+<span id="cb50-14"><a href="#cb50-14" aria-hidden="true" tabindex="-1"></a>            <span class="op">.</span>intersection<span class="op">(</span>repairStation<span class="op">,</span> x <span class="op">=</span> <span class="fl">25.0</span><span class="op">,</span> y <span class="op">=</span> <span class="op">-</span><span class="fl">65.0</span><span class="op">)</span></span>
+<span id="cb50-15"><a href="#cb50-15" aria-hidden="true" tabindex="-1"></a>            <span class="op">.</span>link<span class="op">(</span><span class="st">"Aisle1"</span><span class="op">,</span> diagnosticStation<span class="op">,</span> testStation1<span class="op">,</span> length <span class="op">=</span> <span class="fl">40.0</span><span class="op">,</span> zoneLength <span class="op">=</span> zoneLength<span class="op">,</span> beginDirection <span class="op">=</span> <span class="fl">0.0</span><span class="op">)</span></span>
+<span id="cb50-16"><a href="#cb50-16" aria-hidden="true" tabindex="-1"></a>            <span class="op">.</span>link<span class="op">(</span><span class="st">"Aisle2"</span><span class="op">,</span> testStation1<span class="op">,</span> testStation2<span class="op">,</span> length <span class="op">=</span> <span class="fl">10.0</span><span class="op">,</span> zoneLength <span class="op">=</span> zoneLength<span class="op">,</span> beginDirection <span class="op">=</span> <span class="fl">0.0</span><span class="op">)</span></span>
+<span id="cb50-17"><a href="#cb50-17" aria-hidden="true" tabindex="-1"></a>            <span class="op">.</span>link<span class="op">(</span><span class="st">"Aisle3"</span><span class="op">,</span> testStation2<span class="op">,</span> testStation3<span class="op">,</span> length <span class="op">=</span> <span class="fl">65.0</span><span class="op">,</span> zoneLength <span class="op">=</span> zoneLength<span class="op">,</span> beginDirection <span class="op">=</span> <span class="fl">270.0</span><span class="op">)</span></span>
+<span id="cb50-18"><a href="#cb50-18" aria-hidden="true" tabindex="-1"></a>            <span class="op">.</span>link<span class="op">(</span><span class="st">"Aisle4"</span><span class="op">,</span> testStation3<span class="op">,</span> repairStation<span class="op">,</span> length <span class="op">=</span> <span class="fl">25.0</span><span class="op">,</span> zoneLength <span class="op">=</span> zoneLength<span class="op">,</span> beginDirection <span class="op">=</span> <span class="fl">180.0</span><span class="op">)</span></span>
+<span id="cb50-19"><a href="#cb50-19" aria-hidden="true" tabindex="-1"></a>            <span class="op">.</span>link<span class="op">(</span><span class="st">"Aisle5"</span><span class="op">,</span> repairStation<span class="op">,</span> diagnosticStation<span class="op">,</span> length <span class="op">=</span> <span class="fl">110.0</span><span class="op">,</span> zoneLength <span class="op">=</span> zoneLength<span class="op">,</span> beginDirection <span class="op">=</span> <span class="fl">90.0</span><span class="op">)</span></span>
+<span id="cb50-20"><a href="#cb50-20" aria-hidden="true" tabindex="-1"></a>        <span class="cf">for</span> <span class="op">(</span>i <span class="kw">in</span> <span class="fl">1.</span><span class="op">.</span>numSpurs<span class="op">)</span> <span class="op">{</span></span>
+<span id="cb50-21"><a href="#cb50-21" aria-hidden="true" tabindex="-1"></a>            b <span class="op">=</span> b<span class="op">.</span>intersection<span class="op">(</span><span class="st">"Park</span><span class="ss">$i</span><span class="st">"</span><span class="op">,</span> x <span class="op">=</span> <span class="op">-</span><span class="fl">10.0</span><span class="op">,</span> y <span class="op">=</span> <span class="op">-</span><span class="fl">10.0</span> <span class="op">*</span> i<span class="op">)</span></span>
+<span id="cb50-22"><a href="#cb50-22" aria-hidden="true" tabindex="-1"></a>            b <span class="op">=</span> b<span class="op">.</span>link<span class="op">(</span></span>
+<span id="cb50-23"><a href="#cb50-23" aria-hidden="true" tabindex="-1"></a>                <span class="st">"ParkSpur</span><span class="ss">$i</span><span class="st">"</span><span class="op">,</span> diagnosticStation<span class="op">,</span> <span class="st">"Park</span><span class="ss">$i</span><span class="st">"</span><span class="op">,</span> length <span class="op">=</span> zoneLength<span class="op">,</span> zoneLength <span class="op">=</span> zoneLength<span class="op">,</span></span>
+<span id="cb50-24"><a href="#cb50-24" aria-hidden="true" tabindex="-1"></a>                type <span class="op">=</span> LinkType<span class="op">.</span>SPUR<span class="op">,</span> beginDirection <span class="op">=</span> <span class="fl">180.0</span></span>
+<span id="cb50-25"><a href="#cb50-25" aria-hidden="true" tabindex="-1"></a>            <span class="op">)</span></span>
+<span id="cb50-26"><a href="#cb50-26" aria-hidden="true" tabindex="-1"></a>        <span class="op">}</span></span>
+<span id="cb50-27"><a href="#cb50-27" aria-hidden="true" tabindex="-1"></a>        <span class="kw">return</span> b<span class="op">.</span>build<span class="op">()</span></span>
+<span id="cb50-28"><a href="#cb50-28" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Notice that in this network, the intersections are named after the stations, so no station aliases are needed. The aisle is divided into 5 meter zones, which divides every aisle length exactly. A loop adds one parking spur for each transport worker. The coordinates are only used for drawing. For example, the declared length of <code>Aisle5</code> is 110 meters, even though the straight line distance between the drawing coordinates of the repair station and the diagnostic station is about 70 meters. A guide path does not need to be drawn to scale.</p>
+<p>The transport system, the workers, and the pool are defined as follows. The workers walk with the same triangular distributed speed (in meters per minute) as in <a href="#sec-secTestAndRepairMovableResources" class="quarto-xref"><span>Section 8.3</span></a>.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb51"><pre class="sourceCode kotlin code-with-copy"><code class="sourceCode kotlin"><span id="cb51-1"><a href="#cb51-1" aria-hidden="true" tabindex="-1"></a>    <span class="kw">val</span> <span class="va">network</span><span class="op">:</span> GuidedPathNetwork <span class="op">=</span> aisleNetwork <span class="op">?:</span> createNetwork<span class="op">(</span>numTransporters<span class="op">)</span></span>
+<span id="cb51-2"><a href="#cb51-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb51-3"><a href="#cb51-3" aria-hidden="true" tabindex="-1"></a>    init <span class="op">{</span></span>
+<span id="cb51-4"><a href="#cb51-4" aria-hidden="true" tabindex="-1"></a>        spatialModel <span class="op">=</span> network</span>
+<span id="cb51-5"><a href="#cb51-5" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
+<span id="cb51-6"><a href="#cb51-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb51-7"><a href="#cb51-7" aria-hidden="true" tabindex="-1"></a>    <span class="kw">val</span> <span class="va">transportSystem</span> <span class="op">=</span> GuidedPathTransportSystem<span class="op">(</span><span class="kw">this</span><span class="op">,</span> network<span class="op">,</span> name <span class="op">=</span> <span class="st">"ShopTransport"</span><span class="op">)</span></span>
+<span id="cb51-8"><a href="#cb51-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb51-9"><a href="#cb51-9" aria-hidden="true" tabindex="-1"></a>    <span class="kw">private</span> <span class="kw">val</span> <span class="va">homes</span><span class="op">:</span> List<span class="op">&lt;</span><span class="kw">String</span><span class="op">&gt;</span> <span class="op">=</span></span>
+<span id="cb51-10"><a href="#cb51-10" aria-hidden="true" tabindex="-1"></a>        transporterHomes <span class="op">?:</span> <span class="op">(</span><span class="fl">1.</span><span class="op">.</span>numTransporters<span class="op">).</span>map <span class="op">{</span> <span class="st">"Park</span><span class="ss">$it</span><span class="st">"</span> <span class="op">}</span></span>
+<span id="cb51-11"><a href="#cb51-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb51-12"><a href="#cb51-12" aria-hidden="true" tabindex="-1"></a>    <span class="kw">private</span> <span class="kw">val</span> <span class="va">carts</span><span class="op">:</span> List<span class="op">&lt;</span>GuidedTransporter<span class="op">&gt;</span> <span class="op">=</span> <span class="op">(</span><span class="fl">1.</span><span class="op">.</span>numTransporters<span class="op">).</span>map <span class="op">{</span> i <span class="op">-&gt;</span></span>
+<span id="cb51-13"><a href="#cb51-13" aria-hidden="true" tabindex="-1"></a>        GuidedTransporter<span class="op">(</span></span>
+<span id="cb51-14"><a href="#cb51-14" aria-hidden="true" tabindex="-1"></a>            transportSystem<span class="op">,</span> TransporterPlacement<span class="op">.</span>At<span class="op">(</span>homes<span class="op">[</span>i <span class="op">-</span> <span class="dv">1</span><span class="op">]),</span></span>
+<span id="cb51-15"><a href="#cb51-15" aria-hidden="true" tabindex="-1"></a>            transporterVelocity <span class="op">?:</span> myWalkingSpeedRV<span class="op">,</span> <span class="dv">1</span><span class="op">,</span> zoneControlRule<span class="op">,</span> name <span class="op">=</span> <span class="st">"Worker</span><span class="ss">$i</span><span class="st">"</span><span class="op">,</span></span>
+<span id="cb51-16"><a href="#cb51-16" aria-hidden="true" tabindex="-1"></a>            physicalLength <span class="op">=</span> transporterPhysicalLength</span>
+<span id="cb51-17"><a href="#cb51-17" aria-hidden="true" tabindex="-1"></a>        <span class="op">).</span>apply <span class="op">{</span> homeBase <span class="op">=</span> homes<span class="op">[</span>i <span class="op">-</span> <span class="dv">1</span><span class="op">]</span> <span class="op">}</span></span>
+<span id="cb51-18"><a href="#cb51-18" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
+<span id="cb51-19"><a href="#cb51-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb51-20"><a href="#cb51-20" aria-hidden="true" tabindex="-1"></a>    <span class="kw">val</span> <span class="va">transportWorkers</span> <span class="op">=</span> GuidedTransporterPoolWithQ<span class="op">(</span></span>
+<span id="cb51-21"><a href="#cb51-21" aria-hidden="true" tabindex="-1"></a>        <span class="kw">this</span><span class="op">,</span> transportSystem<span class="op">,</span> carts<span class="op">,</span></span>
+<span id="cb51-22"><a href="#cb51-22" aria-hidden="true" tabindex="-1"></a>        ClosestByNetworkDistanceRule<span class="op">(),</span> idleDispositionRule<span class="op">,</span> <span class="st">"TransportWorkerPool"</span></span>
+<span id="cb51-23"><a href="#cb51-23" aria-hidden="true" tabindex="-1"></a>    <span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>The class’s constructor has parameters for the number of transporters (default 3), the zone control rule (default <code>EndOfZoneControl()</code>), and the idle disposition rule (default <code>ReturnToHomeBaseRule()</code>). It also allows a different network, velocity, and set of home locations to be supplied, which makes it convenient to experiment with alternative layouts. Each worker starts at, and returns to, its own parking spur.</p>
+<p>The process for the parts follows the same structure as in <a href="#sec-secTestAndRepairMovableResources" class="quarto-xref"><span>Section 8.3</span></a>. The key difference is that the guided transport needs the name of the pick up station, so the part keeps track of the station where it currently is (<code>at</code>).</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb52"><pre class="sourceCode kotlin code-with-copy"><code class="sourceCode kotlin"><span id="cb52-1"><a href="#cb52-1" aria-hidden="true" tabindex="-1"></a>        <span class="kw">val</span> <span class="va">testAndRepairProcess</span><span class="op">:</span> KSLProcess <span class="op">=</span> process<span class="op">(</span>isDefaultProcess <span class="op">=</span> <span class="kw">true</span><span class="op">)</span> <span class="op">{</span></span>
+<span id="cb52-2"><a href="#cb52-2" aria-hidden="true" tabindex="-1"></a>            <span class="kw">var</span> <span class="va">at</span> <span class="op">=</span> diagnosticStation</span>
+<span id="cb52-3"><a href="#cb52-3" aria-hidden="true" tabindex="-1"></a>            <span class="kw">var</span> <span class="va">carried</span> <span class="op">=</span> <span class="fl">0.0</span></span>
+<span id="cb52-4"><a href="#cb52-4" aria-hidden="true" tabindex="-1"></a>            currentLocation <span class="op">=</span> network<span class="op">.</span>requireLocation<span class="op">(</span>diagnosticStation<span class="op">)</span></span>
+<span id="cb52-5"><a href="#cb52-5" aria-hidden="true" tabindex="-1"></a>            wip<span class="op">.</span>increment<span class="op">()</span></span>
+<span id="cb52-6"><a href="#cb52-6" aria-hidden="true" tabindex="-1"></a>            myNumberIn<span class="op">.</span>increment<span class="op">()</span></span>
+<span id="cb52-7"><a href="#cb52-7" aria-hidden="true" tabindex="-1"></a>            timeStamp <span class="op">=</span> time</span>
+<span id="cb52-8"><a href="#cb52-8" aria-hidden="true" tabindex="-1"></a>            use<span class="op">(</span>diagnosticWorkers<span class="op">,</span> delayDuration <span class="op">=</span> diagnosticTime<span class="op">)</span></span>
+<span id="cb52-9"><a href="#cb52-9" aria-hidden="true" tabindex="-1"></a>            <span class="cf">for</span> <span class="op">(</span>tp <span class="kw">in</span> plan<span class="op">)</span> <span class="op">{</span></span>
+<span id="cb52-10"><a href="#cb52-10" aria-hidden="true" tabindex="-1"></a>                <span class="kw">val</span> <span class="va">leg</span> <span class="op">=</span> guidedTransport<span class="op">(</span></span>
+<span id="cb52-11"><a href="#cb52-11" aria-hidden="true" tabindex="-1"></a>                    transportWorkers<span class="op">,</span> destination <span class="op">=</span> tp<span class="op">.</span>testStation<span class="op">,</span> pickupLocation <span class="op">=</span> at</span>
+<span id="cb52-12"><a href="#cb52-12" aria-hidden="true" tabindex="-1"></a>                <span class="op">)</span></span>
+<span id="cb52-13"><a href="#cb52-13" aria-hidden="true" tabindex="-1"></a>                carried <span class="op">+=</span> leg<span class="op">.</span>approachTime <span class="op">+</span> leg<span class="op">.</span>rideTime</span>
+<span id="cb52-14"><a href="#cb52-14" aria-hidden="true" tabindex="-1"></a>                at <span class="op">=</span> tp<span class="op">.</span>testStation</span>
+<span id="cb52-15"><a href="#cb52-15" aria-hidden="true" tabindex="-1"></a>                use<span class="op">(</span>tp<span class="op">.</span>testMachine<span class="op">,</span> delayDuration <span class="op">=</span> tp<span class="op">.</span>processTime<span class="op">)</span></span>
+<span id="cb52-16"><a href="#cb52-16" aria-hidden="true" tabindex="-1"></a>            <span class="op">}</span></span>
+<span id="cb52-17"><a href="#cb52-17" aria-hidden="true" tabindex="-1"></a>            <span class="kw">val</span> <span class="va">lastLeg</span> <span class="op">=</span> guidedTransport<span class="op">(</span>transportWorkers<span class="op">,</span> destination <span class="op">=</span> repairStation<span class="op">,</span> pickupLocation <span class="op">=</span> at<span class="op">)</span></span>
+<span id="cb52-18"><a href="#cb52-18" aria-hidden="true" tabindex="-1"></a>            carried <span class="op">+=</span> lastLeg<span class="op">.</span>approachTime <span class="op">+</span> lastLeg<span class="op">.</span>rideTime</span>
+<span id="cb52-19"><a href="#cb52-19" aria-hidden="true" tabindex="-1"></a>            use<span class="op">(</span>repairWorkers<span class="op">,</span> delayDuration <span class="op">=</span> repairTimes<span class="op">[</span>plan<span class="op">]!!)</span></span>
+<span id="cb52-20"><a href="#cb52-20" aria-hidden="true" tabindex="-1"></a>            myTransferTime<span class="op">.</span>value <span class="op">=</span> carried</span>
+<span id="cb52-21"><a href="#cb52-21" aria-hidden="true" tabindex="-1"></a>            timeInSystem<span class="op">.</span>value <span class="op">=</span> time <span class="op">-</span> timeStamp</span>
+<span id="cb52-22"><a href="#cb52-22" aria-hidden="true" tabindex="-1"></a>            myNumberOut<span class="op">.</span>increment<span class="op">()</span></span>
+<span id="cb52-23"><a href="#cb52-23" aria-hidden="true" tabindex="-1"></a>            wip<span class="op">.</span>decrement<span class="op">()</span></span>
+<span id="cb52-24"><a href="#cb52-24" aria-hidden="true" tabindex="-1"></a>        <span class="op">}</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Notice that the <code>testStation</code> property of each test plan step now holds the name of the station on the guide path. For each step of the test plan, the part uses <code>guidedTransport()</code> to be carried from its current station to the next test station. The <code>GuidedTransportResult</code> returned from each transport is used to accumulate the time that the part spent with a worker (the approach time plus the ride time), which is collected in the <code>TransferTime</code> response. After the test plan is complete, the part is carried to the repair station.</p>
+<p>Both models were run for 10 replications of 249,600 minutes (52 weeks, 5 days per week, two 480 minute shifts per day). <a href="#tbl-TRGuidedComparison" class="quarto-xref">Table&nbsp;<span>8.4</span></a> compares selected results from the movable resource model of <a href="#sec-secTestAndRepairMovableResources" class="quarto-xref"><span>Section 8.3</span></a> and the guided path model, both run with the same version of the KSL.</p>
+<div id="tbl-TRGuidedComparison" class="quarto-float quarto-figure quarto-figure-left anchored">
+<figure class="quarto-float quarto-float-tbl figure">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-TRGuidedComparison-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Table&nbsp;8.4: Test and Repair Shop with Movable Resources and with Guided Transporters
+</figcaption>
+<div aria-describedby="tbl-TRGuidedComparison-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<table class="caption-top table">
+<colgroup>
+<col style="width: 28%">
+<col style="width: 35%">
+<col style="width: 35%">
+</colgroup>
+<thead>
+<tr class="header">
+<th style="text-align: left;">Response</th>
+<th style="text-align: center;">Movable resources</th>
+<th style="text-align: center;">Guided path</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Test1:InstantaneousUtil</td>
+<td style="text-align: center;">0.858 <span class="math inline">\(\pm\)</span> 0.007</td>
+<td style="text-align: center;">0.858 <span class="math inline">\(\pm\)</span> 0.007</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Test3:InstantaneousUtil</td>
+<td style="text-align: center;">0.866 <span class="math inline">\(\pm\)</span> 0.006</td>
+<td style="text-align: center;">0.866 <span class="math inline">\(\pm\)</span> 0.006</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">RepairWorkers:InstantaneousUtil</td>
+<td style="text-align: center;">0.872 <span class="math inline">\(\pm\)</span> 0.004</td>
+<td style="text-align: center;">0.872 <span class="math inline">\(\pm\)</span> 0.004</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">TransportWorkerPool:FractionBusy</td>
+<td style="text-align: center;">0.156 <span class="math inline">\(\pm\)</span> 0.001</td>
+<td style="text-align: center;">0.293 <span class="math inline">\(\pm\)</span> 0.002</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">TransportWorkerPool:Q:TimeInQ</td>
+<td style="text-align: center;">0.005 <span class="math inline">\(\pm\)</span> 0.000</td>
+<td style="text-align: center;">0.021 <span class="math inline">\(\pm\)</span> 0.001</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">NumInSystem</td>
+<td style="text-align: center;">17.658 <span class="math inline">\(\pm\)</span> 0.543</td>
+<td style="text-align: center;">18.028 <span class="math inline">\(\pm\)</span> 0.547</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">TimeInSystem</td>
+<td style="text-align: center;">351.557 <span class="math inline">\(\pm\)</span> 9.033</td>
+<td style="text-align: center;">358.931 <span class="math inline">\(\pm\)</span> 9.058</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">ProbWithinLimit</td>
+<td style="text-align: center;">0.819 <span class="math inline">\(\pm\)</span> 0.018</td>
+<td style="text-align: center;">0.809 <span class="math inline">\(\pm\)</span> 0.019</td>
+</tr>
+</tbody>
+</table>
+</div>
+</figure>
+</div>
+<p>Notice that the utilizations of the test and repair stations are the same in both models. They have to be. The processing times are drawn from the same random number streams by the same parts in the same order, regardless of how the parts move between the stations. The transport workers, however, are busy almost twice as much of the time on the guide path (0.293 versus 0.156). Because the aisle is one way, a worker that is allocated to pick up a part must travel forward around the loop to reach it, and the trip from one station to another can be much longer than the direct distance. For example, test plan 1 requires a part to move from test station 3 back to test station 2. On the guide path, the part is carried through the repair station, the diagnostic station, and test station 1, a distance of <span class="math inline">\(25 + 110 + 40 + 10 = 185\)</span> meters. The guided path results also report how much the workers interfered with each other. Each worker was blocked by another worker for less than 1% of the time (<code>FracTimeBlocked</code> ranges from 0.006 to 0.010). The net effect is about 7.4 more minutes in the system for the average part. This difference is smaller than the half-widths of the two estimates, so more replications (or a paired comparison using common random numbers) would be needed to determine whether the difference is significant.</p>
+<p>There is one subtle aspect of these results to be careful about. The individual worker utilizations from the guided path model are quite different: about 0.43 for <code>Worker1</code>, 0.30 for <code>Worker2</code>, and 0.14 for <code>Worker3</code>. This is not a finding about the layout. All three workers return to parking spurs of the same length off the diagnostic station, so their network distances to any pick up location are the same when they are idle. The <code>ClosestByNetworkDistanceRule</code> then breaks the tie in the order that the workers were declared. Using the <code>LeastUsedTransporterRule</code> allocation rule would spread the work more evenly. The exercises ask you to explore these issues.</p>
+</section>
+<section id="further-topics-in-guided-path-modeling" class="level3" data-number="8.5.6">
+<h3 data-number="8.5.6" class="anchored" data-anchor-id="further-topics-in-guided-path-modeling"><span class="header-section-number">8.5.6</span> Further Topics in Guided Path Modeling</h3>
+<p>This section has provided a basic introduction to using guided path transporters in models. There are many more issues related to the use of these constructs that have not been covered:</p>
+<ol type="1">
+<li><p>Closing zones for a period of time (e.g.&nbsp;a spill or a maintenance activity in an aisle) and modeling places where pedestrians cross the aisles of the vehicles.</p></li>
+<li><p>Statistics for individual links and zones, which help identify where congestion occurs within a network.</p></li>
+<li><p>Specifying the allocation, idle disposition, and zone contention rules by name, so that the rules can be varied within scenarios and experiments.</p></li>
+<li><p>Multi-floor layouts, in which a lift is modeled as a link with a single zone.</p></li>
+<li><p>The <em>active</em> AGV constructs of the <code>ksl.modeling.agv</code> package, in which the vehicles are agents that decide what to do next and are directed by a dispatcher, rather than passive resources that are requested by entities.</p></li>
+</ol>
+<p>More details on these topics can be found in the KSL guided path guide (<code>docs/guides/ksl-guidedpath.md</code> in the <a href="https://github.com/rossetti/KSL">KSL repository</a>) and in the examples within the <code>ksl.examples.general.guidedpath</code> package of the <code>KSLExamples</code> project. Advanced discussions of guided path modeling are also given in <span class="citation" data-cites="banks1995introduction">Banks et al. (<a href="references.html#ref-banks1995introduction" role="doc-biblioref">1995</a>)</span> and <span class="citation" data-cites="pegden1995introduction">Pegden et al. (<a href="references.html#ref-pegden1995introduction" role="doc-biblioref">1995</a>)</span>, including within <span class="citation" data-cites="pegden1995introduction">Pegden et al. (<a href="references.html#ref-pegden1995introduction" role="doc-biblioref">1995</a>)</span> the possible use of guided path constructs for modeling automated storage and retrieval systems (AS/RS) and overhead cranes.</p>
+</section>
+</section>
+<section id="summary" class="level2" data-number="8.6">
+<h2 data-number="8.6" class="anchored" data-anchor-id="summary"><span class="header-section-number">8.6</span> Summary</h2>
+<p>The modeling of entity movement can be achieved with a simple delay. If distance and velocity are available, then we can compute the time of the delay. The KSL provides spatial models and suspending functions that facilitate the movement of entities. The <code>Entity</code> class provides basic tracking of the location of the entity when using movement constructs (the <code>initialLocation</code>, <code>previousLocation</code>, <code>currentLocation</code>, <code>isMoving</code>, and <code>velocity</code> properties). Movable resources are resources that can move within a spatial model. In such situations, the distance between origins and destinations becomes an essential component of the modeling.</p>
+<p>In addition to movable resources, this chapter presented the KSL constructs for modeling conveyors. The simplest approach to modeling conveyors is to simply model the transport time with deterministic delays. However, if the space associated with the conveyors is an important modeling issue, then the KSL <code>Conveyor</code> class can be used.</p>
+<p>Finally, this chapter presented the KSL constructs for modeling guided path transporters, such as automated guided vehicles. When transporters compete for the space along a fixed path, a free path model of their movement can be very optimistic. The KSL represents the path as a network of links and intersections whose space is divided into zones, and each zone can be held by at most one vehicle. The modeling of guided path systems requires careful thought about the design of the network. One-way links, spurs, and home bases for idle vehicles prevent many deadlock and obstruction situations.</p>
+<p>The following new KSL constructs were discussed in this chapter:</p>
+<p><code>SpatialModel</code>: A representation of space that can track elements in the space, their movement, and govern how they move.</p>
+<p><code>DistancesModel</code>: A special case of a spatial model that holds the distance between named locations.</p>
+<p><code>LocationIfc</code>: An interface that describes a location within a spatial model from which distances can be computed.</p>
+<p><code>MovableResource</code>: A resource that can be moved and used for pickup and delivery.</p>
+<p><code>MovableResourceWithQ</code>: A movable resource that has a queue to hold requests for pickup and delivery.</p>
+<p><code>MovableResourcePool</code>: A pool of movable resources that can be used to transport entities between locations.</p>
+<p><code>MovableResourcePoolWithQ</code>: A pool of movable resources with a queue to hold requests for pickup and delivery.</p>
+<p><code>MovableResourceSelectionRuleIfc</code>: An interface for rules that select movable resources within pools.</p>
+<p><code>MovableResourceAllocationRuleIfc</code>: An interface for rules that determine which movable resource will receive the allocation.</p>
+<p><code>move()</code>: A suspending function that moves a spatial element from its location to another location.</p>
+<p><code>moveWith()</code>: A suspending function used with movable resources to move both the resource and the entity to a location.</p>
+<p><code>transportWith()</code>: A suspending function that moves a movable resource to the entity’s location and then moves both the entity and the resource to the specified destination.</p>
+<p><code>Conveyor</code>: A class that models a conveyor as a series of segments, each divided into cells, on which entities ride between locations.</p>
+<p><code>ConveyorRequestIfc</code>: An interface for the request (the “ticket”) that gives an entity control of cells on a conveyor.</p>
+<p><code>requestConveyor()</code>: A suspending function that requests cells (space) on the conveyor.</p>
+<p><code>rideConveyor()</code>: A suspending function that causes the entity to move through cells on the conveyor.</p>
+<p><code>exitConveyor()</code>: A suspending function that causes the entity to exit the cells that it occupies on the conveyor.</p>
+<p><code>convey()</code>: A suspending function that combines requesting, riding, and exiting the conveyor.</p>
+<p><code>transferTo()</code>: A suspending function that causes an entity to transfer from one conveyor to another.</p>
+<p><code>GuidedPathNetwork</code>: The fixed network of intersections, links, zones, and stations, which is also a spatial model.</p>
+<p><code>GuidedPathTransportSystem</code>: The model element that operates a network, tracks the occupancy of its zones, and collects congestion statistics.</p>
+<p><code>GuidedTransporter</code>: A capacity one resource that moves on the network by claiming the zone ahead of it.</p>
+<p><code>GuidedTransporterPoolWithQ</code>: A pool of guided transporters with a queue for requests, governed by an allocation rule and an idle disposition rule.</p>
+<p><code>LinkType</code>: The type of a link: unidirectional, bidirectional, or spur.</p>
+<p><code>StartOfZoneControl</code>, <code>EndOfZoneControl</code>, <code>DistanceIntoZoneControl</code>: Rules for when a transporter releases the zone behind it.</p>
+<p><code>ReturnToHomeBaseRule</code>, <code>ParkInPlaceRule</code>, <code>MoveToStagingAreaRule</code>: Rules for where idle transporters wait.</p>
+<p><code>guidedTransport()</code>: A suspending function that requests a guided transporter, rides it to a destination, and releases it.</p>
+<p><code>requestGuidedTransporter()</code>: A suspending function that requests a guided transporter and waits for it to arrive at the pick up location.</p>
+<p><code>transportBy()</code>: A suspending function that rides an allocated guided transporter to a destination.</p>
+<p><code>releaseGuidedTransporter()</code>: A suspending function that returns the guided transporter to its pool.</p>
+<p>The next chapter returns to Monte Carlo methods and presents advanced techniques, including bootstrapping, variance reduction, and the generation of multi-variate and correlated random variates.</p>
+</section>
+<section id="exercises" class="level2" data-number="8.7">
+<h2 data-number="8.7" class="anchored" data-anchor-id="exercises"><span class="header-section-number">8.7</span> Exercises</h2>
 <div id="exr-ch8P1" class="theorem exercise">
 <p><span class="theorem-title"><strong>Exercise 8.1</strong></span> Consider the STEM Career Fair Mixer of <a href="07-Chapter7.html#exm-exSTEMEnhanced" class="quarto-xref">Example&nbsp;<span>7.7</span></a>. Change the model so that the implementation uses the <code>DistancesModel</code> class to represent the travel distances. Use the <code>moveTo()</code> function to model the movement of the students within the STEM Career Fair. Compare your results to the implementation in <a href="07-Chapter7.html" class="quarto-xref"><span>Chapter 7</span></a>.</p>
 </div>
@@ -3670,14 +4291,133 @@ Figure&nbsp;8.18: One Conveyor Diverges Into Two Conveyors
 <p>Develop a KSL model for this situation using base time units of minutes. Report the results for system time and throughput for the parts based on 120 minutes of operation.</p>
 </div>
 <hr>
+<div id="exr-ch8P12" class="theorem exercise">
+<p><span class="theorem-title"><strong>Exercise 8.13</strong></span> Answer the following questions concerning guided path networks in the KSL.</p>
+<ol type="a">
+<li><p>True or False: In the KSL, the beginning direction of a link (in degrees) affects the time required for a guided transporter to traverse the link.</p></li>
+<li><p>The length of a link must be an integer multiple of its ________.</p></li>
+<li><p>A transporter is sent to the intersection at the dead end of a spur while another transporter is already at the dead end. Where does the second transporter wait?</p></li>
+<li><p>What is the difference between a deadlock and an idle transporter obstruction? Which one stops the simulation by default?</p></li>
+<li><p>True or False: Under the <code>EndOfZoneControl</code> rule, a following transporter can begin moving into a zone as soon as the transporter in front of it starts moving out of the zone.</p></li>
+</ol>
+</div>
+<hr>
+<div id="exr-ch8P13" class="theorem exercise">
+<p><span class="theorem-title"><strong>Exercise 8.14</strong></span> Consider the simple AGV system of <a href="#sec-secSimpleAGV" class="quarto-xref"><span>Section 8.5.3</span></a> with the same arrival process, loading and unloading times, layout, and run settings (10 replications of 8000 minutes with a warm up period of 1000 minutes).</p>
+<ol type="a">
+<li><p>Change the zone control rule of both carts to <code>StartOfZoneControl</code>. Compare the time in the system of the parts and the fraction of time each cart is blocked to the results in <a href="#tbl-SimpleAGVResults" class="quarto-xref">Table&nbsp;<span>8.3</span></a>.</p></li>
+<li><p>Using the original zone control rule, change the mean time between arrivals from 20 minutes to 15 minutes. What happens to the queue of parts waiting for a cart? Add a third cart with its own 6 foot home spur off intersection <code>I1</code>, and recommend the number of carts for the system.</p></li>
+</ol>
+</div>
+<hr>
+<div id="exr-ch8P14" class="theorem exercise">
+<p><span class="theorem-title"><strong>Exercise 8.15</strong></span> Consider the test and repair shop with guided transporters of <a href="#sec-secTestAndRepairGuided" class="quarto-xref"><span>Section 8.5.5</span></a>. Use the same run settings as in the section (10 replications of 249,600 minutes).</p>
+<ol type="a">
+<li><p>Run the model with 1, 2, and 3 transport workers. Recommend the number of transport workers needed for the shop and justify your recommendation in terms of the time in the system of the parts and the queueing for the workers.</p></li>
+<li><p>Using 3 transport workers, change the allocation rule of the pool to <code>LeastUsedTransporterRule</code>. How does the rule affect the utilization of the individual workers and the time in the system of the parts?</p></li>
+<li><p>Using 3 transport workers, change the idle disposition rule to <code>ParkInPlaceRule</code>. Report the number of obstructions detected and discuss the effect on the system.</p></li>
+</ol>
+</div>
+<hr>
+<div id="exr-ch8P15" class="theorem exercise">
+<p><span class="theorem-title"><strong>Exercise 8.16</strong></span> This problem considers the use of AGVs for the test and repair system of <a href="#sec-secTestAndRepairMovableResources" class="quarto-xref"><span>Section 8.3</span></a>. The layout of the proposed system is given in <a href="#fig-TestAndRepairAGVProposedLayout" class="quarto-xref">Figure&nbsp;<span>8.25</span></a> with all measurements in meters.</p>
+<div id="fig-TestAndRepairAGVProposedLayout" class="quarto-float quarto-figure quarto-figure-left anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-TestAndRepairAGVProposedLayout-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="./figures/ch8/TestAndRepairAGVProposedLayout.jpg" class="img-fluid figure-img" style="width:70.0%">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-TestAndRepairAGVProposedLayout-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;8.25: Proposed Layout for the AGV Test and Repair System
+</figcaption>
+</figure>
+</div>
+<p>There is only 1 AGV in this system. It is 1 meter in length and moves at a velocity of 30 meters per minute. Its home base is at the dead end of the 9 meter spur. Since there will be only one AGV all links are bidirectional. The design associates the stations with the nearest intersection on the path network.</p>
+<ol type="a">
+<li><p>Simulate the system for 10 replications of 249,600 minutes (4160 hours). Estimate the chance that the contract specifications are met and the average system time of the jobs. In addition, assess the queueing for and the utilization of the AGV.</p></li>
+<li><p>Consider the possibility of having a 2 AGV system. What changes to your design do you recommend? Be specific enough that you could simulate your design.</p></li>
+</ol>
+</div>
+<hr>
+<div id="exr-ch8P16" class="theorem exercise">
+<p><span class="theorem-title"><strong>Exercise 8.17</strong></span> <em>(This problem is based on an example on page 381 of <span class="citation" data-cites="pegden1995introduction">(<a href="references.html#ref-pegden1995introduction" role="doc-biblioref">Pegden et al. 1995</a>)</span>. Used with permission)</em> This problem is Exercise 7.15 of the <a href="https://rossetti.github.io/RossettiArenaBook/07-Chapter7.html#exr-ch7P15">online edition</a> of <span class="citation" data-cites="Rossetti2015">(<a href="references.html#ref-Rossetti2015" role="doc-biblioref">Rossetti 2015</a>)</span>, adapted for the KSL. Reconsider <a href="#exr-ch8P7" class="quarto-xref">Exercise&nbsp;<span>8.8</span></a> with the use of AGVs. There are now 3 AGVs that travel at a speed of 100 feet per minute to transport the parts within the system.</p>
+<p>To avoid deadlock situations the guided path network has been designed for one way travel. In addition, to prevent an idle vehicle from blocking vehicles performing transports, a staging area (Intersection 12) has been placed on the guided path network. Whenever a vehicle completes a transport, a check should be made of the number of requests pending for the transporters. If there are no requests pending, the AGV should be sent to the staging area. If there are multiple vehicles idle, they should wait on Link 11. Link 15 is a spur from intersection 11 to intersection 6. The stations for the operation on the parts should be assigned to the intersections as shown in the figure. The links should all be divided into zones of 10 feet each. The initial position of the vehicles should be along Link 11. Each vehicle is 10 feet in length or 1 zone. The release at start form of zone control should be used.</p>
+<p>The guided path network for the AGVs is given in <a href="#fig-PaintingFlowLineAGVLayout" class="quarto-xref">Figure&nbsp;<span>8.26</span></a>. Note that two links in the figure are labeled Link 4. Treat the 40 foot link from intersection 7 to intersection 4 as Link 3 and the 80 foot link from intersection 4 to intersection 8 as Link 4. In addition, the figure shows Link 16 (from intersection 11 to intersection 1) as 90 feet. Use 80 feet (8 zones) for Link 16.</p>
+<div id="fig-PaintingFlowLineAGVLayout" class="quarto-float quarto-figure quarto-figure-left anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-PaintingFlowLineAGVLayout-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="./figures/ch8/PaintingFlowLineAGVLayout.jpg" class="img-fluid figure-img" style="width:80.0%">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-PaintingFlowLineAGVLayout-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Figure&nbsp;8.26: AGV System Layout for the Painting Flow Line
+</figcaption>
+</figure>
+</div>
+<p>Analyze this system to determine any potential bottleneck operations. Report on the average flow times of the parts as a whole and individually. Also obtain statistics representing the average number of parts waiting for allocation of a transporter and the number of busy transporters. Run the model for 600,000 minutes with a 50,000 minute warm up period.</p>
+</div>
+<hr>
+<div id="exr-ch8P17" class="theorem exercise">
+<p><span class="theorem-title"><strong>Exercise 8.18</strong></span> A single automatic guided vehicle (AGV) is used to pick up finished parts from three machines and drop them off at a store room. The AGV is designed to carry 5 totes. Each tote can hold up to 10 parts. The machines produce individual parts according to a Poisson process with the rates indicated in the table below. The machines are designed to directly drop the parts into a tote. When a tote is full, it is released down a gravity conveyor to the AGV loading area. It takes 2 seconds for the tote to move along the conveyor to the machine’s loading area.</p>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th style="text-align: left;">Station</th>
+<th style="text-align: center;">Production Rate</th>
+<th style="text-align: center;">Tote Loading Time</th>
+<th style="text-align: center;">Travel distance to next station</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left;">Machine 1</td>
+<td style="text-align: center;">2 per minute</td>
+<td style="text-align: center;">uniform(3,5) seconds</td>
+<td style="text-align: center;">40 meters</td>
+</tr>
+<tr class="even">
+<td style="text-align: left;">Machine 2</td>
+<td style="text-align: center;">1 per minute</td>
+<td style="text-align: center;">uniform(2,5) seconds</td>
+<td style="text-align: center;">28 meters</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left;">Machine 3</td>
+<td style="text-align: center;">3 per minute</td>
+<td style="text-align: center;">uniform(4,6) seconds</td>
+<td style="text-align: center;">55 meters</td>
+</tr>
+</tbody>
+</table>
+<p>The AGV moves from station to station in the sequence (Machine 1, Machine 2, Machine 3, store room). If there are totes waiting at the machine’s loading area, the AGV loads the totes up to its capacity. After the loading is completed, the AGV moves to the next station. If there are no totes waiting at the station, the AGV delays for 5 seconds, if any totes arrive during the delay they are loaded; otherwise, the AGV proceeds to the next station. After visiting the third machine’s station, the AGV proceeds to the store room. At the storeroom any totes that the AGV is carrying are dropped off. The AGV is designed to release all totes at once, which takes between 8 and 12 seconds uniformly distributed. After completing its visit to the store room, it proceeds to the first machine. The distance from the storeroom to the first station is 30 meters. The AGV travels at a velocity of 30 meters per minute. Simulate the performance of this system over a period of 10,000 minutes.</p>
+<p>Model the route of the AGV as a one-way guided path loop through the four stations. Hint: Represent the AGV’s route with a single entity that requests the guided transporter once, keeps it for the entire simulation, and uses the <code>transportBy()</code> function to move from each station to the next. The totes can be entities that wait at the loading areas until the AGV picks them up.</p>
+<ol type="a">
+<li><p>Estimate the average system time for a part. What is the average number of totes carried by the AGV? What is the average route time? That is, what is the average time that it takes for the AGV to complete one circuit of its route?</p></li>
+<li><p>Suppose the sizing of the loading area for the totes is of interest. What is the required size of the loading area (in terms of the number of totes) such that the probability that all totes can wait is virtually 100%.</p></li>
+</ol>
+</div>
+<hr>
 
 
 <div id="refs" class="references csl-bib-body hanging-indent" role="list" style="display: none">
+<div id="ref-askin1993modeling" class="csl-entry" role="listitem">
+Askin, R. G., and C. R. Standridge. 1993. <em>Modeling and Analysis of Manufacturing Systems</em>. John Wiley &amp; Sons.
+</div>
+<div id="ref-banks1995introduction" class="csl-entry" role="listitem">
+Banks, J., B. Burnette, H. Kozloski, and J. Rose. 1995. <em>Introduction to <span>SIMAN</span> v and <span>CINEMA</span> v</em>. John Wiley &amp; Sons.
+</div>
 <div id="ref-henriksen1986simplified" class="csl-entry" role="listitem">
 Henriksen, J., and T. Schriber. 1986. <span>“Simplified Approaches to Modeling Accumulating and Non-Accumulating Conveyor Systems.”</span> In <em>Proceedings of the 1986 Winter Simulation Conference</em>. Institute of Electrical; Electronic Engineers.
 </div>
 <div id="ref-pegden1995introduction" class="csl-entry" role="listitem">
 Pegden, C. D., R. E. Shannon, and R. P. Sadowski. 1995. <em>Introduction to Simulation Using SIMAN</em>. 2nd ed. McGraw-Hill.
+</div>
+<div id="ref-Rossetti2015" class="csl-entry" role="listitem">
+Rossetti, M. D. 2015. <em>Simulation Modeling and Arena</em>. John Wiley &amp; Sons.
+</div>
+<div id="ref-rossetti2001multiobjective" class="csl-entry" role="listitem">
+Rossetti, M. D., and F. Seldanari. 2001. <span>“Multi-Objective Analysis of <span>Hospital</span> <span>Delivery</span> <span>Systems</span>.”</span> <em>Computers and Industrial Engineering</em> 41: 309–33.
+</div>
+<div id="ref-singh1996systems" class="csl-entry" role="listitem">
+Singh, N. 1996. <em>Systems Approach to Computer-Integrated Design and Manufacturing</em>. John Wiley &amp; Sons.
 </div>
 </div>
 </section>

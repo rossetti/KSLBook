@@ -593,15 +593,15 @@ window.Quarto = {
 </header>
 
 
-<p><strong><span class="smallcaps">LEARNING OBJECTIVES</span></strong></p>
+<p><strong><span class="smallcaps">Learning Objectives</span></strong></p>
 <ul>
-<li><p>To develop a deeper understanding of effective modeling with processes and resources.</p></li>
+<li><p>To be able to model complex systems effectively with processes and resources.</p></li>
 <li><p>To be able to model non-stationary arrivals using arrival schedules.</p></li>
 <li><p>To be able to model the staffing/scheduling of resources using resource capacity schedules.</p></li>
 <li><p>To be able to capture statistics over specific periods of time.</p></li>
-<li><p>To be able to model balking and reneging within queuing situations.</p></li>
-<li><p>To develop a deeper understanding of effective modeling with events.</p></li>
-<li><p>To develop a basic understanding of verification and validation methods within simulation.</p></li>
+<li><p>To be able to model balking and reneging within queueing situations.</p></li>
+<li><p>To be able to model complex systems effectively with events.</p></li>
+<li><p>To be able to apply basic verification and validation methods within simulation.</p></li>
 </ul>
 <p>The primary purpose of this chapter is to dive deeper into more complex modeling situations that are commonly experienced within discrete-event dynamic systems. First we will explore how to use the KSL process view constructs to model the common situation of a station where work is performed. Because the KSL is built upon and can take advantage of the flow of control and data structures available within Kotlin, we will see that fairly complex systems can be readily modeled using the primitive elements discussed in the previous chapter. In addition, when modeling a system, there may be situations where there is limited waiting space for the entities to be processed or we need to maintain some distance between entities that wait (such as social distance requirements) This situation presents a number of interesting modeling possibilities. We will look at a way to use resources to handle this situation.</p>
 <p>Many realistic modeling situations have non-stationary characteristics that require the generation of arrivals where the mean rate of arrival depends on the time, such as lunch hour at your favorite fast food restaurant. We will see how the KSL provides constructs for this situation. In addition, if the arrivals to a system vary with time, we may want to vary the capacity of the resources with respect to time. The KSL also provides some basic ways to address this situation. In addition, because the system performance can be non-stationary, we may want to collect statistics during specific intervals of time. The KSL has the ability to specify the collect of responses during specific intervals according to a schedule.</p>
@@ -1022,7 +1022,7 @@ Figure&nbsp;7.3: Activity Diagram Tandem Queue with Blocking
 <span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a><span class="co">     */</span></span>
 <span id="cb6-12"><a href="#cb6-12" aria-hidden="true" tabindex="-1"></a>    <span class="kw">fun</span> <span class="fu">selectResources</span><span class="op">(</span><span class="va">amountNeeded</span><span class="op">:</span> <span class="dt">Int</span><span class="op">,</span> <span class="va">list</span><span class="op">:</span> <span class="dt">List</span>&lt;<span class="va">Resource</span>&gt;<span class="op">):</span> <span class="dt">MutableList</span><span class="op">&lt;</span><span class="dt">Resource</span><span class="op">&gt;</span></span>
 <span id="cb6-13"><a href="#cb6-13" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p>The <code>AllocationRuleIfc</code> interface provides a mechanism for selecting resources from a list of resources that can satisfy the request. In essence, the <code>ResourceSelectionRuleIfc</code> interface selects the possible resources to allocated units from and supplies them to the the allocation rule for allocation. As noted in the documentation, the supplied list must have sufficient units to meet the allocation request.</p>
+<p>The <code>AllocationRuleIfc</code> interface provides a mechanism for selecting resources from a list of resources that can satisfy the request. In essence, the <code>ResourceSelectionRuleIfc</code> interface selects the possible resources to allocated units from and supplies them to the allocation rule for allocation. As noted in the documentation, the supplied list must have sufficient units to meet the allocation request.</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb7"><pre class="sourceCode kotlin code-with-copy"><code class="sourceCode kotlin"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="co">/**</span></span>
 <span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a><span class="co"> *  Function to determine how to allocate requirement for units across</span></span>
@@ -1361,7 +1361,7 @@ Note
 <div id="tbl-TestPlans" class="quarto-float quarto-figure quarto-figure-left anchored">
 <figure class="quarto-float quarto-float-tbl figure">
 <figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-TestPlans-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Table&nbsp;7.1: Test plan sequences
+Table&nbsp;7.1: Test Plan Sequences
 </figcaption>
 <div aria-describedby="tbl-TestPlans-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <table class="caption-top table">
@@ -1405,7 +1405,7 @@ Table&nbsp;7.1: Test plan sequences
 <div id="tbl-TestDist" class="quarto-float quarto-figure quarto-figure-left anchored">
 <figure class="quarto-float quarto-float-tbl figure">
 <figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-TestDist-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Table&nbsp;7.2: Testing and repair distributions
+Table&nbsp;7.2: Testing and Repair Distributions
 </figcaption>
 <div aria-describedby="tbl-TestDist-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <table class="caption-top table">
@@ -1450,7 +1450,7 @@ Table&nbsp;7.2: Testing and repair distributions
 <img src="./figures/ch7/figTestAndRepairSystem.png" style="width:80.0%;height:80.0%" class="figure-img">
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-TestAndRepairSystem-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;7.4: Overview of the test and repair shop
+Figure&nbsp;7.4: Overview of the Test and Repair Shop
 </figcaption>
 </figure>
 </div>
@@ -1464,7 +1464,7 @@ Figure&nbsp;7.4: Overview of the test and repair shop
 <img src="./figures/ch7/figTestAndRepairActivityDiagram.png" style="width:65.0%;height:65.0%" class="figure-img">
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-TestAndRepairActivityDiagram-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;7.5: Activity diagram for test and repair system
+Figure&nbsp;7.5: Activity Diagram for Test and Repair System
 </figcaption>
 </figure>
 </div>
@@ -1831,7 +1831,7 @@ Figure&nbsp;7.5: Activity diagram for test and repair system
 <p>There are many ways in which you can model non-stationary (time varying) processes in your simulation models. Many of these ways depend entirely on the system being studied and through that study appropriate modeling methods will become apparent. For example, suppose that workers performing a task learn how to more efficiently perform the task every time that they repeat the task. The task time will depend on the time (number of previously performed tasks). For this situation, you might use a learning curve model as a basis for changing the task times as the number of repetitions of the task increases.</p>
 <p>As another example, suppose the worker’s availability depends on a schedule, such as having a 30-minute break after accumulating so much time. In this situation, the system’s resources are dependent on time. Modeling this situation is described later in this section.</p>
 <p>Let’s suppose that the following situation needs to be modeled. Workers are assigned a shift of 8 hours and have a quota to fill. Do you think that it is possible that their service times would, on average, be less during the latter part of the shift? Sure. They might work faster in order to meet their quota during the latter part of the shift. If you did not suspect this phenomenon and performed a time study on the workers in the morning and fit a distribution to these data, you would be developing a distribution for the service times during the morning. If you applied this distribution to the entire shift, then you may have a problem matching your simulation throughput numbers to the real throughput.</p>
-<p>As you can see, if you suspect that a non-stationary process is involved, then it is critical that you also record the time that the observation was made. The time series plot that was discussed for input modeling helps in assessing non-stationary behavior; however, it only plots the order in which the data were collected. If you collect 25 observations of the service time every morning, you might not observe non-stationary behavior. To observe non-stationary behavior it is important to collect observations across periods of time.</p>
+<p>As you can see, if you suspect that a non-stationary process is involved, then it is critical that you also record the time that the observation was made. The time series plot that was discussed for input modeling helps in assessing non-stationary behavior; however, it only plots the order in which the data was collected. If you collect 25 observations of the service time every morning, you might not observe non-stationary behavior. To observe non-stationary behavior it is important to collect observations across periods of time.</p>
 <p>One way to better plan your observations is to randomize when you will take the observations. Work sampling methods often require this. The day is divided into intervals of time and the intervals randomly selected in which to record an activity. By comparing the behavior of the data across the intervals, you can begin to assess whether time matters in the modeling as demonstrated in <a href="13-AppDistributionFitting.html#sec-AppDisFitPoissonFit" class="quarto-xref"><span>Section B.3.1</span></a>. Even if you do not divide time into logical intervals, it is good practice to record the date and time for each of the observations that you make so that the observations can later be placed into logical intervals. As you may now be thinking, modeling a non-stationary process will take a lot of care and more observations than a stationary process.</p>
 <p>A very common non-stationary process that you have probably experienced is a non- stationary arrival process. In a non-stationary arrival process, the arrival process to the system will vary by time (e.g., by hour of the day). Because the arrival process is a key input to the system, the system will thus become non-stationary. For example, in the drive-through pharmacy example, the arrival of customers occurred according to a Poisson process with mean rate <span class="math inline">\(\lambda\)</span> per hour.</p>
 <p>As a reminder, <span class="math inline">\(\lambda\)</span> represents the mean arrival rate or the expected number of customers per unit time. Suppose that the expected arrival rate is five per hour. This does not mean that the pharmacy will get five customers every hour, but rather that on average five customers will arrive every hour. Some hours will get more than five customers and other hours will get less. The implication for the pharmacy is that they should expect about five per hour (every hour of the day) regardless of the time of day. Is this realistic? It could be, but it is more likely that the mean number of arriving customers will vary by time of day. For example, would you expect to get five customers per hour from 4 a.m. to 5 a.m., from 12 noon to 1 p.m., from 4 p.m. to 6 p.m.? Probably not! A system like the pharmacy will have peaks and valleys associated with the arrival of customers. Thus, the mean arrival rate of the customers may vary with the time of day. That is, <span class="math inline">\(\lambda\)</span> is really a function of time, <span class="math inline">\(\lambda(t)\)</span>.</p>
@@ -1846,7 +1846,7 @@ Figure&nbsp;7.5: Activity diagram for test and repair system
 <div id="tbl-ExArrivalCounts" class="quarto-float quarto-figure quarto-figure-left anchored">
 <figure class="quarto-float quarto-float-tbl figure">
 <figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-ExArrivalCounts-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Table&nbsp;7.3: Example arrival counts
+Table&nbsp;7.3: Example Arrival Counts
 </figcaption>
 <div aria-describedby="tbl-ExArrivalCounts-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <table class="caption-top table">
@@ -1938,14 +1938,14 @@ Table&nbsp;7.3: Example arrival counts
 </div>
 </figure>
 </div>
-<p>Of course, how the data are grouped into intervals will affect how the data can be modeled. Grouping is part of the modeling process. Let’s accept these groups as appropriate for this situation. Looking at the intervals, you see that more arrivals tend to occur from 12 pm to 2 pm and from 5 pm to 8 pm. As discussed in <a href="13-AppDistributionFitting.html#sec-AppDisFitPoissonFit" class="quarto-xref"><span>Section B.3.1</span></a>, we could test for this non-stationary behavior and check if the counts depend on the time of day. It is pretty clear that this is the case for this situation. Perhaps this corresponds to when people who visit the pharmacy can get off of work. Clearly, this is a non-stationary situation. What kinds of models can be used for this type of count data?</p>
+<p>Of course, how the data is grouped into intervals will affect how the data can be modeled. Grouping is part of the modeling process. Let’s accept these groups as appropriate for this situation. Looking at the intervals, you see that more arrivals tend to occur from 12 pm to 2 pm and from 5 pm to 8 pm. As discussed in <a href="13-AppDistributionFitting.html#sec-AppDisFitPoissonFit" class="quarto-xref"><span>Section B.3.1</span></a>, we could test for this non-stationary behavior and check if the counts depend on the time of day. It is pretty clear that this is the case for this situation. Perhaps this corresponds to when people who visit the pharmacy can get off of work. Clearly, this is a non-stationary situation. What kinds of models can be used for this type of count data?</p>
 <p>A simple and often reasonable approach to this situation is to check whether the number of arrivals in <em>each</em> interval occurs according to a Poisson distribution. If so, then you know that the time between arrivals in an interval is exponential. When you can divide time so that the number of events in the intervals is Poisson (with different mean rates), then you can use a non-stationary or non-homogeneous Poisson process as the arrival process.</p>
 <p>Consider the first interval to be 12 am to 6 am; to check if the counts are Poisson in this interval, there are seven data points (one for every day of the week for the given period). This is not a lot of data to use to perform a chi-square goodness-of-fit test for the Poisson distribution. So, to do a better job at modeling the situation, many more days of data are needed. The next question is: Are all the days the same? It looks like Sunday may be a little different than the rest of the days. In particular, the counts on Sunday appear to be a little less on average than the other days of the week. In this situation, you should also check whether the day of the week matters to the counts. As we illustrated in <a href="13-AppDistributionFitting.html#sec-AppDisFitPoissonFit" class="quarto-xref"><span>Section B.3.1</span></a>, one method of doing this is to perform a contingency table test.</p>
 <p>Let’s assume for simplicity that there is not enough evidence to suggest that the days are different and that the count data in each interval is well modeled with a Poisson distribution. In this situation, you can proceed with using a non-stationary Poisson process. From the data you can calculate the average arrival rate for each interval and the rate per hour for each interval as shown in <a href="#tbl-MeanArrivalRates" class="quarto-xref">Table&nbsp;<span>7.4</span></a>. In the table, 2.14 is the average of the counts across the days for the interval 12 am to 6 pm. In the rate per hour column, the interval rate has been converted to an hourly basis by dividing the rate for the interval by the number of hours in the interval. <a href="#fig-NSArrivals" class="quarto-xref">Figure&nbsp;<span>7.6</span></a> illustrates the time-varying behavior of the mean arrival rates over the course of a day.</p>
 <div id="tbl-MeanArrivalRates" class="quarto-float quarto-figure quarto-figure-left anchored">
 <figure class="quarto-float quarto-float-tbl figure">
 <figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-MeanArrivalRates-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Table&nbsp;7.4: Mean arrival rates for each time interval
+Table&nbsp;7.4: Mean Arrival Rates for Each Time Interval
 </figcaption>
 <div aria-describedby="tbl-MeanArrivalRates-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <table class="caption-top table">
@@ -2011,7 +2011,7 @@ Table&nbsp;7.4: Mean arrival rates for each time interval
 <img src="./figures/ch7/ch6NSArrivals.png" style="width:70.0%;height:70.0%" class="figure-img">
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-NSArrivals-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;7.6: Arrival rate per hour for time intervals
+Figure&nbsp;7.6: Arrival Rate per Hour for Time Intervals
 </figcaption>
 </figure>
 </div>
@@ -2238,7 +2238,7 @@ Interval FC 5                      349.919000       18.208899     1000.000000
 <p>The net effect of case 2 is that the professor did not get to eat lunch that day. During the 30 minute scheduled break, the professor was busy for 30 minutes.</p>
 <p>This rule is called Ignore since the scheduled break may be <em>ignored</em> by the resource if the resource is busy when the break occurs. Technically, the scheduled break actually occurs and the time that was scheduled may be considered as unscheduled (inactive) time.</p>
 <p>Let’s assume that the professor is at work for 8 hours each day (including the lunch break). But because of the scheduled lunch break, the total time available for useful work is 450 minutes. In case 1, the professor worked for 5 minutes more than they were scheduled. In case 2, the professor worked for 30 minutes more than they were scheduled. As will be indicated shortly, this extra work time, must be factored into how the utilization of the resource (professor) is computed.</p>
-<p>The situation is a bit more complex because another scheduled change may be required to occur (either positive or negative) while a current scheduled change is in progress. For the ignore case, if a positive change occurs before the end of the currently scheduled change, its duration must be long enough for the change to last longer than the current change’s end time. That is, the next change cannot be scheduled to end before the current change ends. If we have a legal change notice, then if the change is a positive change, it happens immediately. In essence the current negative change is cancelled and the positive change occurs. If the change is a negative change, then its end is scheduled, but it waits until the current negative change completes before proceeded with the new negative change. Thus, for ignore, negative changes can pile up if they occur sequentially.</p>
+<p>The situation is a bit more complex because another scheduled change may be required to occur (either positive or negative) while a current scheduled change is in progress. For the ignore case, if a positive change occurs before the end of the currently scheduled change, its duration must be long enough for the change to last longer than the current change’s end time. That is, the next change cannot be scheduled to end before the current change ends. If we have a legal change notice, then if the change is a positive change, it happens immediately. In essence the current negative change is canceled and the positive change occurs. If the change is a negative change, then its end is scheduled, but it waits until the current negative change completes before proceeded with the new negative change. Thus, for ignore, negative changes can pile up if they occur sequentially.</p>
 <p>Now, let’s examine what happens if the rule is Wait.</p>
 <p><strong>Wait Case 1:</strong></p>
 <ul>
@@ -2281,7 +2281,7 @@ Interval FC 5                      349.919000       18.208899     1000.000000
 <div id="tbl-ProfUtil" class="quarto-float quarto-figure quarto-figure-left anchored">
 <figure class="quarto-float quarto-float-tbl figure">
 <figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-ProfUtil-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Table&nbsp;7.5: Example Calculation for professor utilization
+Table&nbsp;7.5: Example Calculation for Professor Utilization
 </figcaption>
 <div aria-describedby="tbl-ProfUtil-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <table class="caption-top table">
@@ -2375,7 +2375,7 @@ Table&nbsp;7.5: Example Calculation for professor utilization
 <img src="./figures/ch7/IntervalAreaConcept.png" style="width:75.0%;height:75.0%" class="figure-img">
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-IntervalAreaConcept-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;7.7: The time average of a time-persistent variable over the interval <span class="math inline">\((t_{b}, t_{e}\rbrack\)</span>
+Figure&nbsp;7.7: The Time Average of a Time-Persistent Variable over the Interval <span class="math inline">\((t_{b}, t_{e}\rbrack\)</span>
 </figcaption>
 </figure>
 </div>
@@ -2393,7 +2393,7 @@ Figure&nbsp;7.7: The time average of a time-persistent variable over the interva
 <div id="tbl-IntervalMath" class="quarto-float quarto-figure quarto-figure-left anchored">
 <figure class="quarto-float quarto-float-tbl figure">
 <figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-IntervalMath-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Table&nbsp;7.6: Mapping the interval computation to the derived formulas
+Table&nbsp;7.6: Mapping the Interval Computation to the Derived Formulas
 </figcaption>
 <div aria-describedby="tbl-IntervalMath-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <table class="caption-top table">
@@ -2475,7 +2475,7 @@ Figure&nbsp;7.9: ResponseSchedule and ResponseScheduleItem Classes
 <div id="tbl-IntervalNames" class="quarto-float quarto-figure quarto-figure-left anchored">
 <figure class="quarto-float quarto-float-tbl figure">
 <figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-IntervalNames-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Table&nbsp;7.7: Naming of automatically created interval responses
+Table&nbsp;7.7: Naming of Automatically Created Interval Responses
 </figcaption>
 <div aria-describedby="tbl-IntervalNames-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <table class="caption-top table">
@@ -2514,7 +2514,7 @@ Table&nbsp;7.7: Naming of automatically created interval responses
 <p>When the interval belongs to a schedule, the <code>&lt;label&gt;</code> is itself composed of the name of the schedule, a two digit sequence number, and the label of the interval. An <code>addIntervals()</code> function call that is not supplied a label will generate one from the start and end times of the interval. Thus, the first hourly interval of a schedule named <code>Hourly</code> produces, for the number of busy units response of the JHBunt recruiters, a statistic named:</p>
 <pre><code>JHBuntR:NumBusyUnits:IntervalAvg:Hourly:01:[0_0,60_0]</code></pre>
 <p>The <code>ValueAtStart</code> response deserves comment. It is created automatically for every <code>TWResponse</code> instance that is added to an interval and it records the value of the variable at the moment that the interval began. For example, it captures the number of students that were already waiting in a queue when the third hour of operation started. An interval average can be misleading without this information, because a high average during an interval may reflect congestion that was inherited from the previous interval rather than conditions that were created during the interval itself.</p>
-<p>An additional approach to collecting statistics by period is to use the <code>TimeSeriesResponse</code> class. The <code>TimeSeriesResponse</code> class addresses the problem of collecting simulation responses by period. A typical use case involves the reporting of statistics over fixed time periods, such as hourly, daily, monthly, yearly, etc. A time series response divides the simulated time horizon into sequential periods, with the periods marking the time frame over which performance is observed. Users specify which responses will be tabulated by providing <code>Response,</code> <code>TWResponse,</code> or <code>Counter</code> instances. Then, for each period during the simulation horizon, the response over the period is recorded into a series of records, constituting a time series for the response. For <code>Response</code> and <code>TWResponse</code> instances, the recorded response represents the average of the variable during the period. For <code>Counter</code> instances, the total count during the period is recorded. Essentially, the data collected is the same as via the use of a <code>ResponseSchedule</code> with intervals representing the the time periods. This data is recorded for every response, for every period, for each replication. The response or counter information is recorded at the end of each completed period. The number of periods to collect must be supplied.</p>
+<p>An additional approach to collecting statistics by period is to use the <code>TimeSeriesResponse</code> class. The <code>TimeSeriesResponse</code> class addresses the problem of collecting simulation responses by period. A typical use case involves the reporting of statistics over fixed time periods, such as hourly, daily, monthly, yearly, etc. A time series response divides the simulated time horizon into sequential periods, with the periods marking the time frame over which performance is observed. Users specify which responses will be tabulated by providing <code>Response,</code> <code>TWResponse,</code> or <code>Counter</code> instances. Then, for each period during the simulation horizon, the response over the period is recorded into a series of records, constituting a time series for the response. For <code>Response</code> and <code>TWResponse</code> instances, the recorded response represents the average of the variable during the period. For <code>Counter</code> instances, the total count during the period is recorded. Essentially, the data collected is the same as via the use of a <code>ResponseSchedule</code> with intervals representing the time periods. This data is recorded for every response, for every period, for each replication. The response or counter information is recorded at the end of each completed period. The number of periods to collect must be supplied.</p>
 <p>The periods are contiguous and of equal length. Let <span class="math inline">\(t_{0}\)</span> denote the time at which the first period begins and let <span class="math inline">\(\Delta\)</span> denote the length of a period. Then the <span class="math inline">\(j^{th}\)</span> period covers the interval</p>
 <p><span class="math display">\[P_{j} = \left( \tau_{j - 1},\tau_{j} \right\rbrack \quad \text{where} \quad \tau_{j} = t_{0} + j\Delta \quad \text{for} \quad j = 1,2,\ldots,m\]</span></p>
 <p>where <span class="math inline">\(m\)</span> is the number of periods to be collected. The starting time, <span class="math inline">\(t_{0}\)</span>, is specified by the <code>defaultStartTime</code> property, and the period length, <span class="math inline">\(\Delta\)</span>, and the number of periods, <span class="math inline">\(m\)</span>, are supplied when the time series response is defined. Because the periods are contiguous, of equal length, and non-overlapping, they form a partition of the observed portion of the time horizon. This is the essential structural difference from a <code>ResponseSchedule</code>, whose intervals are placed individually and may overlap.</p>
@@ -2522,7 +2522,7 @@ Table&nbsp;7.7: Naming of automatically created interval responses
 <div id="tbl-PeriodValues" class="quarto-float quarto-figure quarto-figure-left anchored">
 <figure class="quarto-float quarto-float-tbl figure">
 <figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-PeriodValues-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Table&nbsp;7.8: What is recorded for each period, by response type
+Table&nbsp;7.8: What Is Recorded for Each Period, by Response Type
 </figcaption>
 <div aria-describedby="tbl-PeriodValues-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <table class="caption-top table">
@@ -2610,7 +2610,7 @@ Warning
 <img src="./figures/ch7/PeriodMechanismTimeline.png" style="width:85.0%;height:85.0%" class="figure-img">
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-PeriodMechanismTimeline-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;7.11: How each mechanism places observation intervals over the simulated horizon
+Figure&nbsp;7.11: How Each Mechanism Places Observation Intervals over the Simulated Horizon
 </figcaption>
 </figure>
 </div>
@@ -2618,7 +2618,7 @@ Figure&nbsp;7.11: How each mechanism places observation intervals over the simul
 <div id="tbl-PeriodMechanisms" class="quarto-float quarto-figure quarto-figure-left anchored">
 <figure class="quarto-float quarto-float-tbl figure">
 <figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-PeriodMechanisms-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Table&nbsp;7.9: Comparing the <code>ResponseSchedule</code> and <code>TimeSeriesResponse</code> classes
+Table&nbsp;7.9: Comparing the <code>ResponseSchedule</code> and <code>TimeSeriesResponse</code> Classes
 </figcaption>
 <div aria-describedby="tbl-PeriodMechanisms-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <table class="caption-top table">
@@ -2711,7 +2711,7 @@ Table&nbsp;7.9: Comparing the <code>ResponseSchedule</code> and <code>TimeSeries
 <div id="tbl-STEMArrivals" class="quarto-float quarto-figure quarto-figure-left anchored">
 <figure class="quarto-float quarto-float-tbl figure">
 <figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-STEMArrivals-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Table&nbsp;7.10: Student hourly arrival rates by 30 minute periods
+Table&nbsp;7.10: Student Hourly Arrival Rates by 30 Minute Periods
 </figcaption>
 <div aria-describedby="tbl-STEMArrivals-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <table class="caption-top table">
@@ -2816,7 +2816,7 @@ Table&nbsp;7.10: Student hourly arrival rates by 30 minute periods
 </section>
 <section id="sec-ch7RevisedJFEModelingWalking" class="level3" data-number="7.4.2">
 <h3 data-number="7.4.2" class="anchored" data-anchor-id="sec-ch7RevisedJFEModelingWalking"><span class="header-section-number">7.4.2</span> Modeling Walking Time</h3>
-<p>To model the walking within the mixer, we need to translate the distance travelled into time. Since we are told the typical velocity for walking within a building for a person, we can randomly generate the velocity associated with a walking trip. Then, if we know the distance to walk, we can determine the time via the following relationship, where <span class="math inline">\(v\)</span> is the speed (velocity), <span class="math inline">\(d\)</span> is the distance, and <span class="math inline">\(t\)</span> is the time.</p>
+<p>To model the walking within the mixer, we need to translate the distance traveled into time. Since we are told the typical velocity for walking within a building for a person, we can randomly generate the velocity associated with a walking trip. Then, if we know the distance to walk, we can determine the time via the following relationship, where <span class="math inline">\(v\)</span> is the speed (velocity), <span class="math inline">\(d\)</span> is the distance, and <span class="math inline">\(t\)</span> is the time.</p>
 <p><span class="math display">\[v = \frac{d}{t}\]</span></p>
 <p>Thus, we can randomly generate the value of <span class="math inline">\(v\)</span>, and use the relationship to determine the time taken.</p>
 <p><span class="math display">\[t = \frac{d}{v}\]</span></p>
@@ -4859,7 +4859,7 @@ Table&nbsp;7.10: Student hourly arrival rates by 30 minute periods
 </tr>
 </tbody>
 </table>
-<p>Notice that a fairly high (28%) of the low priority patients renege before seeing the doctor. This may or may not be acceptable in light of the other performance measures for the system. The reader is asked to further explore this model in the exercises. While some analytical work has been done for queuing systems involving balking and reneging, simulation allows for the modeling of more realistic types of queueing situations as well as even more complicated systems. The next subsection will explore such a situation.</p>
+<p>Notice that a fairly high (28%) of the low priority patients renege before seeing the doctor. This may or may not be acceptable in light of the other performance measures for the system. The reader is asked to further explore this model in the exercises. While some analytical work has been done for queueing systems involving balking and reneging, simulation allows for the modeling of more realistic types of queueing situations as well as even more complicated systems. The next subsection will explore such a situation.</p>
 </section>
 <section id="sec-rqModel" class="level3" data-number="7.5.2">
 <h3 data-number="7.5.2" class="anchored" data-anchor-id="sec-rqModel"><span class="header-section-number">7.5.2</span> Modeling a Reorder Point, Reorder Quantity Inventory Policy</h3>
@@ -4870,7 +4870,7 @@ Table&nbsp;7.10: Student hourly arrival rates by 30 minute periods
 <img src="./figures/ch7/figInventory.png" style="width:90.0%;height:90.0%" class="figure-img">
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-Inventory-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;7.12: A simple reorder point, reorder quantity inventory system
+Figure&nbsp;7.12: A Simple Reorder Point, Reorder Quantity Inventory System
 </figcaption>
 </figure>
 </div>
@@ -4922,49 +4922,103 @@ Figure&nbsp;7.12: A simple reorder point, reorder quantity inventory system
 <span id="cb47-6"><a href="#cb47-6" aria-hidden="true" tabindex="-1"></a><span class="co">     */</span></span>
 <span id="cb47-7"><a href="#cb47-7" aria-hidden="true" tabindex="-1"></a>    <span class="kw">fun</span> <span class="fu">fillInventory</span><span class="op">(</span><span class="va">demand</span><span class="op">:</span> <span class="dt">Int</span><span class="op">)</span></span>
 <span id="cb47-8"><a href="#cb47-8" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p>Then, we implement an abstract base class to represent different kinds of inventory situations. The class <code>Inventory</code> represents the key state variables of on-hand, on-order, and amount back ordered as time weighted response variables. The class requires the specification of the initial amount of inventory on-hand and a reference to an instance of an class that implements the <code>InventoryFillerIfc</code> interface. This instance is responsible for resupplying the inventory when it places a replenishment order.</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb48"><pre class="sourceCode kotlin code-with-copy"><code class="sourceCode kotlin"><span id="cb48-1"><a href="#cb48-1" aria-hidden="true" tabindex="-1"></a><span class="kw">abstract</span> <span class="kw">class</span> Inventory<span class="op">(</span><span class="va">parent</span><span class="op">:</span> <span class="dt">ModelElement</span><span class="op">,</span> <span class="va">initialOnHand</span><span class="op">:</span> <span class="dt">Int</span> <span class="op">=</span> <span class="dv">1</span><span class="op">,</span> <span class="va">replenisher</span><span class="op">:</span> <span class="dt">InventoryFillerIfc</span><span class="op">,</span> <span class="va">name</span><span class="op">:</span> <span class="dt">String</span><span class="op">?)</span> <span class="op">:</span></span>
-<span id="cb48-2"><a href="#cb48-2" aria-hidden="true" tabindex="-1"></a>    <span class="dt">ModelElement</span><span class="op">(</span><span class="va">parent</span><span class="op">,</span> <span class="va">name</span><span class="op">),</span> <span class="dt">InventoryFillerIfc</span> <span class="op">{</span></span>
-<span id="cb48-3"><a href="#cb48-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb48-4"><a href="#cb48-4" aria-hidden="true" tabindex="-1"></a>    <span class="kw">var</span> <span class="va">replenishmentFiller</span><span class="op">:</span> InventoryFillerIfc <span class="op">=</span> replenisher</span>
-<span id="cb48-5"><a href="#cb48-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb48-6"><a href="#cb48-6" aria-hidden="true" tabindex="-1"></a>    <span class="kw">protected</span> <span class="kw">val</span> <span class="va">myAmountBackOrdered</span> <span class="op">=</span> TWResponse<span class="op">(</span><span class="kw">this</span><span class="op">,</span> <span class="st">"</span><span class="ss">${</span><span class="kw">this</span><span class="op">.</span>name<span class="ss">}</span><span class="st">:AmountBackOrdered"</span><span class="op">)</span></span>
-<span id="cb48-7"><a href="#cb48-7" aria-hidden="true" tabindex="-1"></a>    <span class="kw">val</span> <span class="va">amountBackOrdered</span><span class="op">:</span> <span class="kw">Int</span></span>
-<span id="cb48-8"><a href="#cb48-8" aria-hidden="true" tabindex="-1"></a>        <span class="kw">get</span><span class="op">()</span> <span class="op">=</span> myAmountBackOrdered<span class="op">.</span>value<span class="op">.</span>toInt<span class="op">()</span></span>
-<span id="cb48-9"><a href="#cb48-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb48-10"><a href="#cb48-10" aria-hidden="true" tabindex="-1"></a>    <span class="kw">protected</span> <span class="kw">val</span> <span class="va">myOnOrder</span> <span class="op">=</span> TWResponse<span class="op">(</span><span class="kw">this</span><span class="op">,</span> <span class="st">"</span><span class="ss">${</span><span class="kw">this</span><span class="op">.</span>name<span class="ss">}</span><span class="st">:OnOrder"</span><span class="op">)</span></span>
-<span id="cb48-11"><a href="#cb48-11" aria-hidden="true" tabindex="-1"></a>    <span class="kw">val</span> <span class="va">onOrder</span><span class="op">:</span> <span class="kw">Int</span></span>
-<span id="cb48-12"><a href="#cb48-12" aria-hidden="true" tabindex="-1"></a>        <span class="kw">get</span><span class="op">()</span> <span class="op">=</span> myOnOrder<span class="op">.</span>value<span class="op">.</span>toInt<span class="op">()</span></span>
-<span id="cb48-13"><a href="#cb48-13" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb48-14"><a href="#cb48-14" aria-hidden="true" tabindex="-1"></a>    <span class="kw">protected</span> <span class="kw">val</span> <span class="va">myOnHand</span> <span class="op">=</span> TWResponse<span class="op">(</span><span class="kw">this</span><span class="op">,</span> theInitialValue <span class="op">=</span> initialOnHand<span class="op">.</span>toDouble<span class="op">(),</span> name <span class="op">=</span> <span class="st">"</span><span class="ss">${</span><span class="kw">this</span><span class="op">.</span>name<span class="ss">}</span><span class="st">:OnHand"</span><span class="op">)</span></span>
+<p>Then, we implement an abstract base class to represent different kinds of inventory situations. The class <code>Inventory</code> represents the key state variables of on-hand, on-order, and amount back ordered as time weighted response variables. The class requires the specification of the initial amount of inventory on-hand and a reference to an instance of an class that implements the <code>InventoryFillerIfc</code> interface. This instance is responsible for resupplying the inventory when it places a replenishment order. The initial amount on hand can also be changed through the <code>initialOnHand</code> property.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb48"><pre class="sourceCode kotlin code-with-copy"><code class="sourceCode kotlin"><span id="cb48-1"><a href="#cb48-1" aria-hidden="true" tabindex="-1"></a><span class="kw">abstract</span> <span class="kw">class</span> Inventory<span class="op">(</span></span>
+<span id="cb48-2"><a href="#cb48-2" aria-hidden="true" tabindex="-1"></a>    <span class="va">parent</span><span class="op">:</span> <span class="dt">ModelElement</span><span class="op">,</span></span>
+<span id="cb48-3"><a href="#cb48-3" aria-hidden="true" tabindex="-1"></a>    <span class="va">initialOnHand</span><span class="op">:</span> <span class="dt">Int</span> <span class="op">=</span> <span class="dv">1</span><span class="op">,</span></span>
+<span id="cb48-4"><a href="#cb48-4" aria-hidden="true" tabindex="-1"></a>    <span class="va">replenisher</span><span class="op">:</span> <span class="dt">InventoryFillerIfc</span><span class="op">,</span></span>
+<span id="cb48-5"><a href="#cb48-5" aria-hidden="true" tabindex="-1"></a>    <span class="va">name</span><span class="op">:</span> <span class="dt">String</span><span class="op">?</span></span>
+<span id="cb48-6"><a href="#cb48-6" aria-hidden="true" tabindex="-1"></a><span class="op">)</span> <span class="op">:</span> <span class="dt">ModelElement</span><span class="op">(</span><span class="va">parent</span><span class="op">,</span> <span class="va">name</span><span class="op">),</span> <span class="dt">InventoryFillerIfc</span> <span class="op">{</span></span>
+<span id="cb48-7"><a href="#cb48-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb48-8"><a href="#cb48-8" aria-hidden="true" tabindex="-1"></a>    init <span class="op">{</span></span>
+<span id="cb48-9"><a href="#cb48-9" aria-hidden="true" tabindex="-1"></a>        require<span class="op">(</span>initialOnHand <span class="op">&gt;=</span> <span class="dv">0</span><span class="op">)</span> <span class="op">{</span> <span class="st">"The initial on-hand inventory must be &gt;= 0"</span> <span class="op">}</span></span>
+<span id="cb48-10"><a href="#cb48-10" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
+<span id="cb48-11"><a href="#cb48-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb48-12"><a href="#cb48-12" aria-hidden="true" tabindex="-1"></a>    <span class="kw">protected</span> <span class="kw">val</span> <span class="va">myOnHand</span> <span class="op">=</span> TWResponse<span class="op">(</span><span class="kw">this</span><span class="op">,</span> initialValue <span class="op">=</span> initialOnHand<span class="op">.</span>toDouble<span class="op">(),</span></span>
+<span id="cb48-13"><a href="#cb48-13" aria-hidden="true" tabindex="-1"></a>        name <span class="op">=</span> <span class="st">"</span><span class="ss">${</span><span class="kw">this</span><span class="op">.</span>name<span class="ss">}</span><span class="st">:OnHand"</span><span class="op">)</span></span>
+<span id="cb48-14"><a href="#cb48-14" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb48-15"><a href="#cb48-15" aria-hidden="true" tabindex="-1"></a>    <span class="kw">val</span> <span class="va">onHand</span><span class="op">:</span> <span class="kw">Int</span></span>
 <span id="cb48-16"><a href="#cb48-16" aria-hidden="true" tabindex="-1"></a>        <span class="kw">get</span><span class="op">()</span> <span class="op">=</span> myOnHand<span class="op">.</span>value<span class="op">.</span>toInt<span class="op">()</span></span>
 <span id="cb48-17"><a href="#cb48-17" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb48-18"><a href="#cb48-18" aria-hidden="true" tabindex="-1"></a>    <span class="kw">fun</span> <span class="fu">setInitialOnHand</span><span class="op">(</span><span class="va">amount</span><span class="op">:</span> <span class="dt">Int</span><span class="op">){</span></span>
-<span id="cb48-19"><a href="#cb48-19" aria-hidden="true" tabindex="-1"></a>        require<span class="op">(</span>amount<span class="op">&gt;=</span> <span class="dv">0</span><span class="op">)</span> <span class="op">{</span><span class="st">"The initial amount on hand must be &gt;= 0"</span><span class="op">}</span></span>
-<span id="cb48-20"><a href="#cb48-20" aria-hidden="true" tabindex="-1"></a>        myOnHand<span class="op">.</span>initialValue <span class="op">=</span> amount<span class="op">.</span>toDouble<span class="op">()</span></span>
-<span id="cb48-21"><a href="#cb48-21" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb48-18"><a href="#cb48-18" aria-hidden="true" tabindex="-1"></a>    <span class="kw">val</span> <span class="va">onHandResponse</span><span class="op">:</span> TWResponseCIfc</span>
+<span id="cb48-19"><a href="#cb48-19" aria-hidden="true" tabindex="-1"></a>        <span class="kw">get</span><span class="op">()</span> <span class="op">=</span> myOnHand</span>
+<span id="cb48-20"><a href="#cb48-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb48-21"><a href="#cb48-21" aria-hidden="true" tabindex="-1"></a>    <span class="kw">val</span> <span class="va">probOfStockOnHandResponse</span> <span class="op">=</span> TWResponseFunction<span class="op">({</span> x <span class="op">-&gt;</span> <span class="op">(</span>x <span class="op">&gt;</span> <span class="dv">0</span><span class="op">).</span>toDouble<span class="op">()</span> <span class="op">},</span></span>
+<span id="cb48-22"><a href="#cb48-22" aria-hidden="true" tabindex="-1"></a>        myOnHand<span class="op">,</span> name <span class="op">=</span> <span class="st">"</span><span class="ss">${</span><span class="kw">this</span><span class="op">.</span>name<span class="ss">}</span><span class="st">:PTimeWithStockOnHand"</span><span class="op">)</span></span>
+<span id="cb48-23"><a href="#cb48-23" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb48-24"><a href="#cb48-24" aria-hidden="true" tabindex="-1"></a>    <span class="at">@set</span><span class="op">:</span><span class="at">KSLControl</span><span class="op">(</span></span>
+<span id="cb48-25"><a href="#cb48-25" aria-hidden="true" tabindex="-1"></a>        controlType <span class="op">=</span> ControlType<span class="op">.</span>INTEGER<span class="op">,</span></span>
+<span id="cb48-26"><a href="#cb48-26" aria-hidden="true" tabindex="-1"></a>        lowerBound <span class="op">=</span> <span class="fl">0.0</span></span>
+<span id="cb48-27"><a href="#cb48-27" aria-hidden="true" tabindex="-1"></a>    <span class="op">)</span></span>
+<span id="cb48-28"><a href="#cb48-28" aria-hidden="true" tabindex="-1"></a>    <span class="kw">var</span> <span class="va">initialOnHand</span><span class="op">:</span> <span class="kw">Int</span></span>
+<span id="cb48-29"><a href="#cb48-29" aria-hidden="true" tabindex="-1"></a>        <span class="kw">get</span><span class="op">()</span> <span class="op">=</span> myOnHand<span class="op">.</span>initialValue<span class="op">.</span>toInt<span class="op">()</span></span>
+<span id="cb48-30"><a href="#cb48-30" aria-hidden="true" tabindex="-1"></a>        <span class="kw">set</span><span class="op">(</span>amount<span class="op">)</span> <span class="op">{</span></span>
+<span id="cb48-31"><a href="#cb48-31" aria-hidden="true" tabindex="-1"></a>            require<span class="op">(</span>model<span class="op">.</span>isNotRunning<span class="op">)</span> <span class="op">{</span> <span class="st">"The initial on-hand cannot be changed while the model is running."</span><span class="op">}</span></span>
+<span id="cb48-32"><a href="#cb48-32" aria-hidden="true" tabindex="-1"></a>            require<span class="op">(</span>amount <span class="op">&gt;=</span> <span class="dv">0</span><span class="op">)</span> <span class="op">{</span> <span class="st">"The initial amount on hand must be &gt;= 0"</span> <span class="op">}</span></span>
+<span id="cb48-33"><a href="#cb48-33" aria-hidden="true" tabindex="-1"></a>            myOnHand<span class="op">.</span>initialValue <span class="op">=</span> amount<span class="op">.</span>toDouble<span class="op">()</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>The base class also defines some additional responses and a queue to hold demands that must be back ordered because they cannot be immediately filled from stock on-hand. Then, it defines three abstract methods that must be implemented by sub-classes. There must be a way to define the initial policy parameters of the inventory control policy, a method for placing replenishment orders, and a method to check the inventory position.</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb49"><pre class="sourceCode kotlin code-with-copy"><code class="sourceCode kotlin"><span id="cb49-1"><a href="#cb49-1" aria-hidden="true" tabindex="-1"></a>    <span class="kw">val</span> <span class="va">onHandResponse</span><span class="op">:</span> TWResponseCIfc</span>
-<span id="cb49-2"><a href="#cb49-2" aria-hidden="true" tabindex="-1"></a>        <span class="kw">get</span><span class="op">()</span> <span class="op">=</span> myOnHand</span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb49"><pre class="sourceCode kotlin code-with-copy"><code class="sourceCode kotlin"><span id="cb49-1"><a href="#cb49-1" aria-hidden="true" tabindex="-1"></a>    <span class="kw">val</span> <span class="va">probOfStockOnHandResponse</span> <span class="op">=</span> TWResponseFunction<span class="op">({</span> x <span class="op">-&gt;</span> <span class="op">(</span>x <span class="op">&gt;</span> <span class="dv">0</span><span class="op">).</span>toDouble<span class="op">()</span> <span class="op">},</span></span>
+<span id="cb49-2"><a href="#cb49-2" aria-hidden="true" tabindex="-1"></a>        myOnHand<span class="op">,</span> name <span class="op">=</span> <span class="st">"</span><span class="ss">${</span><span class="kw">this</span><span class="op">.</span>name<span class="ss">}</span><span class="st">:PTimeWithStockOnHand"</span><span class="op">)</span></span>
 <span id="cb49-3"><a href="#cb49-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb49-4"><a href="#cb49-4" aria-hidden="true" tabindex="-1"></a>    init <span class="op">{</span></span>
-<span id="cb49-5"><a href="#cb49-5" aria-hidden="true" tabindex="-1"></a>        myOnHand<span class="op">.</span>attachIndicator<span class="op">({</span> x <span class="op">-&gt;</span> x <span class="op">&gt;</span> <span class="dv">0</span> <span class="op">},</span> name <span class="op">=</span> <span class="st">"</span><span class="ss">${</span><span class="kw">this</span><span class="op">.</span>name<span class="ss">}</span><span class="st">:PTimeWithStockOnHand"</span><span class="op">)</span></span>
-<span id="cb49-6"><a href="#cb49-6" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
-<span id="cb49-7"><a href="#cb49-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb49-8"><a href="#cb49-8" aria-hidden="true" tabindex="-1"></a>    <span class="kw">val</span> <span class="va">inventoryPosition</span><span class="op">:</span> <span class="kw">Int</span></span>
-<span id="cb49-9"><a href="#cb49-9" aria-hidden="true" tabindex="-1"></a>        <span class="kw">get</span><span class="op">()</span> <span class="op">=</span> onHand <span class="op">+</span> onOrder <span class="op">-</span> amountBackOrdered</span>
-<span id="cb49-10"><a href="#cb49-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb49-11"><a href="#cb49-11" aria-hidden="true" tabindex="-1"></a>    <span class="kw">protected</span> <span class="kw">val</span> <span class="va">myBackOrderQ</span><span class="op">:</span> Queue<span class="op">&lt;</span>Demand<span class="op">&gt;</span> <span class="op">=</span> Queue<span class="op">(</span><span class="kw">this</span><span class="op">,</span> <span class="st">"</span><span class="ss">${</span><span class="kw">this</span><span class="op">.</span>name<span class="ss">}</span><span class="st">:BackOrderQ"</span><span class="op">)</span></span>
-<span id="cb49-12"><a href="#cb49-12" aria-hidden="true" tabindex="-1"></a>    <span class="kw">protected</span> <span class="kw">val</span> <span class="va">myFirstFillRate</span> <span class="op">=</span> Response<span class="op">(</span><span class="kw">this</span><span class="op">,</span> <span class="st">"</span><span class="ss">${</span><span class="kw">this</span><span class="op">.</span>name<span class="ss">}</span><span class="st">:FillRate"</span><span class="op">)</span></span>
-<span id="cb49-13"><a href="#cb49-13" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb49-14"><a href="#cb49-14" aria-hidden="true" tabindex="-1"></a>    <span class="kw">inner</span> <span class="kw">class</span> Demand<span class="op">(</span><span class="kw">val</span> <span class="va">originalAmount</span><span class="op">:</span> <span class="dt">Int</span> <span class="op">=</span> <span class="dv">1</span><span class="op">,</span> <span class="kw">var</span> <span class="va">amountNeeded</span><span class="op">:</span> <span class="dt">Int</span><span class="op">)</span> <span class="op">:</span> <span class="dt">QObject</span><span class="op">()</span></span>
+<span id="cb49-4"><a href="#cb49-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">@set</span><span class="op">:</span><span class="at">KSLControl</span><span class="op">(</span></span>
+<span id="cb49-5"><a href="#cb49-5" aria-hidden="true" tabindex="-1"></a>        controlType <span class="op">=</span> ControlType<span class="op">.</span>INTEGER<span class="op">,</span></span>
+<span id="cb49-6"><a href="#cb49-6" aria-hidden="true" tabindex="-1"></a>        lowerBound <span class="op">=</span> <span class="fl">0.0</span></span>
+<span id="cb49-7"><a href="#cb49-7" aria-hidden="true" tabindex="-1"></a>    <span class="op">)</span></span>
+<span id="cb49-8"><a href="#cb49-8" aria-hidden="true" tabindex="-1"></a>    <span class="kw">var</span> <span class="va">initialOnHand</span><span class="op">:</span> <span class="kw">Int</span></span>
+<span id="cb49-9"><a href="#cb49-9" aria-hidden="true" tabindex="-1"></a>        <span class="kw">get</span><span class="op">()</span> <span class="op">=</span> myOnHand<span class="op">.</span>initialValue<span class="op">.</span>toInt<span class="op">()</span></span>
+<span id="cb49-10"><a href="#cb49-10" aria-hidden="true" tabindex="-1"></a>        <span class="kw">set</span><span class="op">(</span>amount<span class="op">)</span> <span class="op">{</span></span>
+<span id="cb49-11"><a href="#cb49-11" aria-hidden="true" tabindex="-1"></a>            require<span class="op">(</span>model<span class="op">.</span>isNotRunning<span class="op">)</span> <span class="op">{</span> <span class="st">"The initial on-hand cannot be changed while the model is running."</span><span class="op">}</span></span>
+<span id="cb49-12"><a href="#cb49-12" aria-hidden="true" tabindex="-1"></a>            require<span class="op">(</span>amount <span class="op">&gt;=</span> <span class="dv">0</span><span class="op">)</span> <span class="op">{</span> <span class="st">"The initial amount on hand must be &gt;= 0"</span> <span class="op">}</span></span>
+<span id="cb49-13"><a href="#cb49-13" aria-hidden="true" tabindex="-1"></a>            myOnHand<span class="op">.</span>initialValue <span class="op">=</span> amount<span class="op">.</span>toDouble<span class="op">()</span></span>
+<span id="cb49-14"><a href="#cb49-14" aria-hidden="true" tabindex="-1"></a>        <span class="op">}</span></span>
 <span id="cb49-15"><a href="#cb49-15" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb49-16"><a href="#cb49-16" aria-hidden="true" tabindex="-1"></a>    <span class="kw">abstract</span> <span class="kw">fun</span> <span class="fu">setInitialPolicyParameters</span><span class="op">(</span><span class="va">param</span><span class="op">:</span> <span class="dt">DoubleArray</span><span class="op">)</span></span>
+<span id="cb49-16"><a href="#cb49-16" aria-hidden="true" tabindex="-1"></a>    <span class="kw">protected</span> <span class="kw">val</span> <span class="va">myAmountBackOrdered</span> <span class="op">=</span> TWResponse<span class="op">(</span><span class="kw">this</span><span class="op">,</span> <span class="st">"</span><span class="ss">${</span><span class="kw">this</span><span class="op">.</span>name<span class="ss">}</span><span class="st">:AmountBackOrdered"</span><span class="op">)</span></span>
 <span id="cb49-17"><a href="#cb49-17" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb49-18"><a href="#cb49-18" aria-hidden="true" tabindex="-1"></a>    <span class="kw">abstract</span> <span class="kw">fun</span> <span class="fu">replenishmentArrival</span><span class="op">(</span><span class="va">orderAmount</span><span class="op">:</span> <span class="dt">Int</span><span class="op">)</span></span>
-<span id="cb49-19"><a href="#cb49-19" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb49-20"><a href="#cb49-20" aria-hidden="true" tabindex="-1"></a>    <span class="kw">protected</span> <span class="kw">abstract</span> <span class="kw">fun</span> <span class="fu">checkInventoryPosition</span><span class="op">()</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb49-18"><a href="#cb49-18" aria-hidden="true" tabindex="-1"></a>    <span class="kw">val</span> <span class="va">amountBackOrdered</span><span class="op">:</span> <span class="kw">Int</span></span>
+<span id="cb49-19"><a href="#cb49-19" aria-hidden="true" tabindex="-1"></a>        <span class="kw">get</span><span class="op">()</span> <span class="op">=</span> myAmountBackOrdered<span class="op">.</span>value<span class="op">.</span>toInt<span class="op">()</span></span>
+<span id="cb49-20"><a href="#cb49-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb49-21"><a href="#cb49-21" aria-hidden="true" tabindex="-1"></a>    <span class="kw">val</span> <span class="va">amountBackOrderedResponse</span><span class="op">:</span> TWResponseCIfc</span>
+<span id="cb49-22"><a href="#cb49-22" aria-hidden="true" tabindex="-1"></a>        <span class="kw">get</span><span class="op">()</span> <span class="op">=</span> myAmountBackOrdered</span>
+<span id="cb49-23"><a href="#cb49-23" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb49-24"><a href="#cb49-24" aria-hidden="true" tabindex="-1"></a>    <span class="kw">protected</span> <span class="kw">val</span> <span class="va">myOnOrder</span> <span class="op">=</span> TWResponse<span class="op">(</span><span class="kw">this</span><span class="op">,</span> <span class="st">"</span><span class="ss">${</span><span class="kw">this</span><span class="op">.</span>name<span class="ss">}</span><span class="st">:OnOrder"</span><span class="op">)</span></span>
+<span id="cb49-25"><a href="#cb49-25" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb49-26"><a href="#cb49-26" aria-hidden="true" tabindex="-1"></a>    <span class="kw">val</span> <span class="va">onOrder</span><span class="op">:</span> <span class="kw">Int</span></span>
+<span id="cb49-27"><a href="#cb49-27" aria-hidden="true" tabindex="-1"></a>        <span class="kw">get</span><span class="op">()</span> <span class="op">=</span> myOnOrder<span class="op">.</span>value<span class="op">.</span>toInt<span class="op">()</span></span>
+<span id="cb49-28"><a href="#cb49-28" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb49-29"><a href="#cb49-29" aria-hidden="true" tabindex="-1"></a>    <span class="kw">val</span> <span class="va">onOrderedResponse</span><span class="op">:</span> TWResponseCIfc</span>
+<span id="cb49-30"><a href="#cb49-30" aria-hidden="true" tabindex="-1"></a>        <span class="kw">get</span><span class="op">()</span> <span class="op">=</span> myOnOrder</span>
+<span id="cb49-31"><a href="#cb49-31" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb49-32"><a href="#cb49-32" aria-hidden="true" tabindex="-1"></a>    <span class="kw">protected</span> <span class="kw">val</span> <span class="va">myNumReplenishmentOrders</span><span class="op">:</span> Counter <span class="op">=</span> Counter<span class="op">(</span><span class="kw">this</span><span class="op">,</span> <span class="st">"</span><span class="ss">${</span><span class="kw">this</span><span class="op">.</span>name<span class="ss">}</span><span class="st">:NumReplenishmentOrders"</span><span class="op">)</span></span>
+<span id="cb49-33"><a href="#cb49-33" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb49-34"><a href="#cb49-34" aria-hidden="true" tabindex="-1"></a>    <span class="kw">val</span> <span class="va">numReplenishmentOrders</span><span class="op">:</span> CounterCIfc</span>
+<span id="cb49-35"><a href="#cb49-35" aria-hidden="true" tabindex="-1"></a>        <span class="kw">get</span><span class="op">()</span> <span class="op">=</span> myNumReplenishmentOrders</span>
+<span id="cb49-36"><a href="#cb49-36" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb49-37"><a href="#cb49-37" aria-hidden="true" tabindex="-1"></a>    <span class="kw">val</span> <span class="va">inventoryPosition</span><span class="op">:</span> <span class="kw">Int</span></span>
+<span id="cb49-38"><a href="#cb49-38" aria-hidden="true" tabindex="-1"></a>        <span class="kw">get</span><span class="op">()</span> <span class="op">=</span> onHand <span class="op">+</span> onOrder <span class="op">-</span> amountBackOrdered</span>
+<span id="cb49-39"><a href="#cb49-39" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb49-40"><a href="#cb49-40" aria-hidden="true" tabindex="-1"></a>    <span class="kw">protected</span> <span class="kw">val</span> <span class="va">myBackOrderQ</span><span class="op">:</span> Queue<span class="op">&lt;</span>Demand<span class="op">&gt;</span> <span class="op">=</span> Queue<span class="op">(</span><span class="kw">this</span><span class="op">,</span> <span class="st">"</span><span class="ss">${</span><span class="kw">this</span><span class="op">.</span>name<span class="ss">}</span><span class="st">:BackOrderQ"</span><span class="op">)</span></span>
+<span id="cb49-41"><a href="#cb49-41" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb49-42"><a href="#cb49-42" aria-hidden="true" tabindex="-1"></a>    <span class="kw">val</span> <span class="va">backOrderQTimeResponse</span><span class="op">:</span> ResponseIfc</span>
+<span id="cb49-43"><a href="#cb49-43" aria-hidden="true" tabindex="-1"></a>        <span class="kw">get</span><span class="op">()</span> <span class="op">=</span> myBackOrderQ<span class="op">.</span>timeInQ</span>
+<span id="cb49-44"><a href="#cb49-44" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb49-45"><a href="#cb49-45" aria-hidden="true" tabindex="-1"></a>    <span class="kw">val</span> <span class="va">backOrderNumInQResponse</span><span class="op">:</span> TWResponseCIfc</span>
+<span id="cb49-46"><a href="#cb49-46" aria-hidden="true" tabindex="-1"></a>        <span class="kw">get</span><span class="op">()</span> <span class="op">=</span> myBackOrderQ<span class="op">.</span>numInQ</span>
+<span id="cb49-47"><a href="#cb49-47" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb49-48"><a href="#cb49-48" aria-hidden="true" tabindex="-1"></a>    <span class="kw">protected</span> <span class="kw">val</span> <span class="va">myFirstFillRate</span> <span class="op">=</span> Response<span class="op">(</span><span class="kw">this</span><span class="op">,</span> <span class="st">"</span><span class="ss">${</span><span class="kw">this</span><span class="op">.</span>name<span class="ss">}</span><span class="st">:FillRate"</span><span class="op">)</span></span>
+<span id="cb49-49"><a href="#cb49-49" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb49-50"><a href="#cb49-50" aria-hidden="true" tabindex="-1"></a>    <span class="kw">val</span> <span class="va">fillRateResponse</span><span class="op">:</span> ResponseIfc</span>
+<span id="cb49-51"><a href="#cb49-51" aria-hidden="true" tabindex="-1"></a>        <span class="kw">get</span><span class="op">()</span> <span class="op">=</span> myFirstFillRate</span>
+<span id="cb49-52"><a href="#cb49-52" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb49-53"><a href="#cb49-53" aria-hidden="true" tabindex="-1"></a>    <span class="kw">var</span> <span class="va">replenishmentFiller</span><span class="op">:</span> InventoryFillerIfc <span class="op">=</span> replenisher</span>
+<span id="cb49-54"><a href="#cb49-54" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb49-55"><a href="#cb49-55" aria-hidden="true" tabindex="-1"></a>    <span class="kw">inner</span> <span class="kw">class</span> Demand<span class="op">(</span><span class="kw">val</span> <span class="va">originalAmount</span><span class="op">:</span> <span class="dt">Int</span> <span class="op">=</span> <span class="dv">1</span><span class="op">,</span> <span class="kw">var</span> <span class="va">amountNeeded</span><span class="op">:</span> <span class="dt">Int</span><span class="op">)</span> <span class="op">:</span> <span class="dt">QObject</span><span class="op">()</span></span>
+<span id="cb49-56"><a href="#cb49-56" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb49-57"><a href="#cb49-57" aria-hidden="true" tabindex="-1"></a>    <span class="kw">abstract</span> <span class="kw">fun</span> <span class="fu">setInitialPolicyParameters</span><span class="op">(</span><span class="va">param</span><span class="op">:</span> <span class="dt">DoubleArray</span><span class="op">)</span></span>
+<span id="cb49-58"><a href="#cb49-58" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb49-59"><a href="#cb49-59" aria-hidden="true" tabindex="-1"></a>    <span class="kw">abstract</span> <span class="kw">fun</span> <span class="fu">replenishmentArrival</span><span class="op">(</span><span class="va">orderAmount</span><span class="op">:</span> <span class="dt">Int</span><span class="op">)</span></span>
+<span id="cb49-60"><a href="#cb49-60" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb49-61"><a href="#cb49-61" aria-hidden="true" tabindex="-1"></a>    <span class="kw">protected</span> <span class="kw">abstract</span> <span class="kw">fun</span> <span class="fu">checkInventoryPosition</span><span class="op">()</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>Notice that the <code>probOfStockOnHandResponse</code> property uses a <code>TWResponseFunction</code> to observe the on-hand response and to record whether stock is on hand. Its time average is the fraction of time that stock is on hand (the <em>ready rate</em>), which is reported as <code>PTimeWithStockOnHand</code>.</p>
 <p>The base class defines what must happen to fill a demand, how to back order demand, and how to fill waiting back orders. The following code presents the default implementations. The fill demand method implements what happens when demand is fully filled. The back order demand method indicates what should be done for the amount that must be back ordered.</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb50"><pre class="sourceCode kotlin code-with-copy"><code class="sourceCode kotlin"><span id="cb50-1"><a href="#cb50-1" aria-hidden="true" tabindex="-1"></a>    <span class="kw">protected</span> <span class="kw">open</span> <span class="kw">fun</span> <span class="fu">fillDemand</span><span class="op">(</span><span class="va">demand</span><span class="op">:</span> <span class="dt">Int</span><span class="op">)</span> <span class="op">{</span></span>
 <span id="cb50-2"><a href="#cb50-2" aria-hidden="true" tabindex="-1"></a>        myFirstFillRate<span class="op">.</span>value <span class="op">=</span> <span class="fl">1.0</span></span>
@@ -4985,173 +5039,295 @@ Figure&nbsp;7.12: A simple reorder point, reorder quantity inventory system
 <span id="cb50-17"><a href="#cb50-17" aria-hidden="true" tabindex="-1"></a>        myBackOrderQ<span class="op">.</span>enqueue<span class="op">(</span>d<span class="op">)</span></span>
 <span id="cb50-18"><a href="#cb50-18" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>The <code>fillBackOrders()</code> method can be called after a replenishment order comes in to fill requests that are waiting for inventory. In the default implementation, the amount to fill is determined and it is allocated to the waiting demand. If the demand is filled in full, it is removed from the queue; otherwise, its amount needed is reduced and it continues to wait.</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb51"><pre class="sourceCode kotlin code-with-copy"><code class="sourceCode kotlin"><span id="cb51-1"><a href="#cb51-1" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb51-2"><a href="#cb51-2" aria-hidden="true" tabindex="-1"></a>    <span class="kw">protected</span> <span class="kw">open</span> <span class="kw">fun</span> <span class="fu">fillBackOrders</span><span class="op">()</span> <span class="op">{</span></span>
-<span id="cb51-3"><a href="#cb51-3" aria-hidden="true" tabindex="-1"></a>        <span class="kw">var</span> <span class="va">amtToFill</span><span class="op">:</span> <span class="kw">Int</span> <span class="op">=</span> minOf<span class="op">(</span>amountBackOrdered<span class="op">,</span> onHand<span class="op">)</span></span>
-<span id="cb51-4"><a href="#cb51-4" aria-hidden="true" tabindex="-1"></a>        myAmountBackOrdered<span class="op">.</span>decrement<span class="op">(</span>amtToFill<span class="op">.</span>toDouble<span class="op">())</span></span>
-<span id="cb51-5"><a href="#cb51-5" aria-hidden="true" tabindex="-1"></a>        myOnHand<span class="op">.</span>decrement<span class="op">(</span>amtToFill<span class="op">.</span>toDouble<span class="op">())</span></span>
-<span id="cb51-6"><a href="#cb51-6" aria-hidden="true" tabindex="-1"></a>        <span class="co">// now we have to give the amount to those waiting in the backlog queue</span></span>
-<span id="cb51-7"><a href="#cb51-7" aria-hidden="true" tabindex="-1"></a>        <span class="co">// we assume filling is from first waiting until all of amtToFill is used</span></span>
-<span id="cb51-8"><a href="#cb51-8" aria-hidden="true" tabindex="-1"></a>        <span class="cf">while</span> <span class="op">(</span>myBackOrderQ<span class="op">.</span>isNotEmpty<span class="op">)</span> <span class="op">{</span></span>
-<span id="cb51-9"><a href="#cb51-9" aria-hidden="true" tabindex="-1"></a>            <span class="kw">val</span> <span class="va">d</span> <span class="op">=</span> myBackOrderQ<span class="op">.</span>peekNext<span class="op">()!!</span></span>
-<span id="cb51-10"><a href="#cb51-10" aria-hidden="true" tabindex="-1"></a>            <span class="cf">if</span> <span class="op">(</span>amtToFill <span class="op">&gt;=</span> d<span class="op">.</span>amountNeeded<span class="op">)</span> <span class="op">{</span></span>
-<span id="cb51-11"><a href="#cb51-11" aria-hidden="true" tabindex="-1"></a>                amtToFill <span class="op">=</span> amtToFill <span class="op">-</span> d<span class="op">.</span>amountNeeded</span>
-<span id="cb51-12"><a href="#cb51-12" aria-hidden="true" tabindex="-1"></a>                d<span class="op">.</span>amountNeeded <span class="op">=</span> <span class="dv">0</span></span>
-<span id="cb51-13"><a href="#cb51-13" aria-hidden="true" tabindex="-1"></a>                myBackOrderQ<span class="op">.</span>removeNext<span class="op">()</span></span>
-<span id="cb51-14"><a href="#cb51-14" aria-hidden="true" tabindex="-1"></a>            <span class="op">}</span> <span class="cf">else</span> <span class="op">{</span></span>
-<span id="cb51-15"><a href="#cb51-15" aria-hidden="true" tabindex="-1"></a>                d<span class="op">.</span>amountNeeded <span class="op">=</span> d<span class="op">.</span>amountNeeded <span class="op">-</span> amtToFill</span>
-<span id="cb51-16"><a href="#cb51-16" aria-hidden="true" tabindex="-1"></a>                amtToFill <span class="op">=</span> <span class="dv">0</span></span>
-<span id="cb51-17"><a href="#cb51-17" aria-hidden="true" tabindex="-1"></a>            <span class="op">}</span></span>
-<span id="cb51-18"><a href="#cb51-18" aria-hidden="true" tabindex="-1"></a>            <span class="cf">if</span> <span class="op">(</span>amtToFill <span class="op">==</span> <span class="dv">0</span><span class="op">)</span> <span class="op">{</span></span>
-<span id="cb51-19"><a href="#cb51-19" aria-hidden="true" tabindex="-1"></a>                <span class="cf">break</span></span>
-<span id="cb51-20"><a href="#cb51-20" aria-hidden="true" tabindex="-1"></a>            <span class="op">}</span></span>
-<span id="cb51-21"><a href="#cb51-21" aria-hidden="true" tabindex="-1"></a>        <span class="op">}</span></span>
-<span id="cb51-22"><a href="#cb51-22" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
-<span id="cb51-23"><a href="#cb51-23" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb51-24"><a href="#cb51-24" aria-hidden="true" tabindex="-1"></a>    <span class="kw">protected</span> <span class="kw">open</span> <span class="kw">fun</span> <span class="fu">requestReplenishment</span><span class="op">(</span><span class="va">orderAmt</span><span class="op">:</span> <span class="dt">Int</span><span class="op">)</span> <span class="op">{</span></span>
-<span id="cb51-25"><a href="#cb51-25" aria-hidden="true" tabindex="-1"></a>        myOnOrder<span class="op">.</span>increment<span class="op">(</span>orderAmt<span class="op">.</span>toDouble<span class="op">())</span></span>
-<span id="cb51-26"><a href="#cb51-26" aria-hidden="true" tabindex="-1"></a>        replenishmentFiller<span class="op">.</span>fillInventory<span class="op">(</span>orderAmt<span class="op">)</span></span>
-<span id="cb51-27"><a href="#cb51-27" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb51"><pre class="sourceCode kotlin code-with-copy"><code class="sourceCode kotlin"><span id="cb51-1"><a href="#cb51-1" aria-hidden="true" tabindex="-1"></a>    <span class="kw">protected</span> <span class="kw">open</span> <span class="kw">fun</span> <span class="fu">fillBackOrders</span><span class="op">()</span> <span class="op">{</span></span>
+<span id="cb51-2"><a href="#cb51-2" aria-hidden="true" tabindex="-1"></a>        <span class="kw">var</span> <span class="va">amtToFill</span><span class="op">:</span> <span class="kw">Int</span> <span class="op">=</span> minOf<span class="op">(</span>amountBackOrdered<span class="op">,</span> onHand<span class="op">)</span></span>
+<span id="cb51-3"><a href="#cb51-3" aria-hidden="true" tabindex="-1"></a>        myAmountBackOrdered<span class="op">.</span>decrement<span class="op">(</span>amtToFill<span class="op">.</span>toDouble<span class="op">())</span></span>
+<span id="cb51-4"><a href="#cb51-4" aria-hidden="true" tabindex="-1"></a>        myOnHand<span class="op">.</span>decrement<span class="op">(</span>amtToFill<span class="op">.</span>toDouble<span class="op">())</span></span>
+<span id="cb51-5"><a href="#cb51-5" aria-hidden="true" tabindex="-1"></a>        <span class="co">// now we have to give the amount to those waiting in the backlog queue</span></span>
+<span id="cb51-6"><a href="#cb51-6" aria-hidden="true" tabindex="-1"></a>        <span class="co">// we assume filling is from first waiting until all of amtToFill is used</span></span>
+<span id="cb51-7"><a href="#cb51-7" aria-hidden="true" tabindex="-1"></a>        <span class="cf">while</span> <span class="op">(</span>myBackOrderQ<span class="op">.</span>isNotEmpty<span class="op">)</span> <span class="op">{</span></span>
+<span id="cb51-8"><a href="#cb51-8" aria-hidden="true" tabindex="-1"></a>            <span class="kw">val</span> <span class="va">d</span> <span class="op">=</span> myBackOrderQ<span class="op">.</span>peekNext<span class="op">()!!</span></span>
+<span id="cb51-9"><a href="#cb51-9" aria-hidden="true" tabindex="-1"></a>            <span class="cf">if</span> <span class="op">(</span>amtToFill <span class="op">&gt;=</span> d<span class="op">.</span>amountNeeded<span class="op">)</span> <span class="op">{</span></span>
+<span id="cb51-10"><a href="#cb51-10" aria-hidden="true" tabindex="-1"></a>                amtToFill <span class="op">=</span> amtToFill <span class="op">-</span> d<span class="op">.</span>amountNeeded</span>
+<span id="cb51-11"><a href="#cb51-11" aria-hidden="true" tabindex="-1"></a>                d<span class="op">.</span>amountNeeded <span class="op">=</span> <span class="dv">0</span></span>
+<span id="cb51-12"><a href="#cb51-12" aria-hidden="true" tabindex="-1"></a>                myBackOrderQ<span class="op">.</span>removeNext<span class="op">()</span></span>
+<span id="cb51-13"><a href="#cb51-13" aria-hidden="true" tabindex="-1"></a>            <span class="op">}</span> <span class="cf">else</span> <span class="op">{</span></span>
+<span id="cb51-14"><a href="#cb51-14" aria-hidden="true" tabindex="-1"></a>                d<span class="op">.</span>amountNeeded <span class="op">=</span> d<span class="op">.</span>amountNeeded <span class="op">-</span> amtToFill</span>
+<span id="cb51-15"><a href="#cb51-15" aria-hidden="true" tabindex="-1"></a>                amtToFill <span class="op">=</span> <span class="dv">0</span></span>
+<span id="cb51-16"><a href="#cb51-16" aria-hidden="true" tabindex="-1"></a>            <span class="op">}</span></span>
+<span id="cb51-17"><a href="#cb51-17" aria-hidden="true" tabindex="-1"></a>            <span class="cf">if</span> <span class="op">(</span>amtToFill <span class="op">==</span> <span class="dv">0</span><span class="op">)</span> <span class="op">{</span></span>
+<span id="cb51-18"><a href="#cb51-18" aria-hidden="true" tabindex="-1"></a>                <span class="cf">break</span></span>
+<span id="cb51-19"><a href="#cb51-19" aria-hidden="true" tabindex="-1"></a>            <span class="op">}</span></span>
+<span id="cb51-20"><a href="#cb51-20" aria-hidden="true" tabindex="-1"></a>        <span class="op">}</span></span>
+<span id="cb51-21"><a href="#cb51-21" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
+<span id="cb51-22"><a href="#cb51-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb51-23"><a href="#cb51-23" aria-hidden="true" tabindex="-1"></a>    <span class="kw">protected</span> <span class="kw">open</span> <span class="kw">fun</span> <span class="fu">requestReplenishment</span><span class="op">(</span><span class="va">orderAmt</span><span class="op">:</span> <span class="dt">Int</span><span class="op">)</span> <span class="op">{</span></span>
+<span id="cb51-24"><a href="#cb51-24" aria-hidden="true" tabindex="-1"></a>        myOnOrder<span class="op">.</span>increment<span class="op">(</span>orderAmt<span class="op">.</span>toDouble<span class="op">())</span></span>
+<span id="cb51-25"><a href="#cb51-25" aria-hidden="true" tabindex="-1"></a>        myNumReplenishmentOrders<span class="op">.</span>increment<span class="op">()</span></span>
+<span id="cb51-26"><a href="#cb51-26" aria-hidden="true" tabindex="-1"></a>        replenishmentFiller<span class="op">.</span>fillInventory<span class="op">(</span>orderAmt<span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>Finally, the <code>requestReplenishment()</code> method increments the amount on order and calls the registered replenishment filler to fill the order. Thus, an instance of <code>Inventory</code> acts like a filler of inventory via its implementation of the <code>InventoryFillerIfc</code> interface and the fact that it uses an instance of such a class to meet its own replenishment requirements. Now, we are ready to explore the concrete implementation for the reorder point, reorder quantity inventory policy situation. This is implemented within the <code>RQInventory</code> class.</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb52"><pre class="sourceCode kotlin code-with-copy"><code class="sourceCode kotlin"><span id="cb52-1"><a href="#cb52-1" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> RQInventory<span class="op">(</span></span>
 <span id="cb52-2"><a href="#cb52-2" aria-hidden="true" tabindex="-1"></a>    <span class="va">parent</span><span class="op">:</span> <span class="dt">ModelElement</span><span class="op">,</span></span>
-<span id="cb52-3"><a href="#cb52-3" aria-hidden="true" tabindex="-1"></a>    <span class="va">reOrderPoint</span><span class="op">:</span> <span class="dt">Int</span> <span class="op">=</span> <span class="dv">1</span><span class="op">,</span></span>
-<span id="cb52-4"><a href="#cb52-4" aria-hidden="true" tabindex="-1"></a>    <span class="va">reOrderQuantity</span><span class="op">:</span> <span class="dt">Int</span> <span class="op">=</span> <span class="dv">1</span><span class="op">,</span></span>
-<span id="cb52-5"><a href="#cb52-5" aria-hidden="true" tabindex="-1"></a>    <span class="va">initialOnHand</span> <span class="op">:</span> <span class="dt">Int</span> <span class="op">=</span> reOrderPoint + reOrderQuantity<span class="op">,</span></span>
+<span id="cb52-3"><a href="#cb52-3" aria-hidden="true" tabindex="-1"></a>    <span class="va">reorderPt</span><span class="op">:</span> <span class="dt">Int</span> <span class="op">=</span> <span class="dv">1</span><span class="op">,</span></span>
+<span id="cb52-4"><a href="#cb52-4" aria-hidden="true" tabindex="-1"></a>    <span class="va">reorderQty</span><span class="op">:</span> <span class="dt">Int</span> <span class="op">=</span> <span class="dv">1</span><span class="op">,</span></span>
+<span id="cb52-5"><a href="#cb52-5" aria-hidden="true" tabindex="-1"></a>    <span class="va">initialOnHand</span><span class="op">:</span> <span class="dt">Int</span> <span class="op">=</span> reorderPt + reorderQty<span class="op">,</span></span>
 <span id="cb52-6"><a href="#cb52-6" aria-hidden="true" tabindex="-1"></a>    <span class="va">replenisher</span><span class="op">:</span> <span class="dt">InventoryFillerIfc</span><span class="op">,</span></span>
 <span id="cb52-7"><a href="#cb52-7" aria-hidden="true" tabindex="-1"></a>    <span class="va">name</span><span class="op">:</span> <span class="dt">String</span><span class="op">?</span></span>
-<span id="cb52-8"><a href="#cb52-8" aria-hidden="true" tabindex="-1"></a><span class="op">)</span> <span class="op">:</span> <span class="dt">Inventory</span><span class="op">(</span><span class="va">parent</span><span class="op">,</span> <span class="va">initialOnHand</span><span class="op">,</span> <span class="va">replenisher</span><span class="op">,</span> <span class="va">name</span><span class="op">){</span></span>
+<span id="cb52-8"><a href="#cb52-8" aria-hidden="true" tabindex="-1"></a><span class="op">)</span> <span class="op">:</span> <span class="dt">Inventory</span><span class="op">(</span><span class="va">parent</span><span class="op">,</span> <span class="va">initialOnHand</span><span class="op">,</span> <span class="va">replenisher</span><span class="op">,</span> <span class="va">name</span><span class="op">)</span> <span class="op">{</span></span>
 <span id="cb52-9"><a href="#cb52-9" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb52-10"><a href="#cb52-10" aria-hidden="true" tabindex="-1"></a>    init <span class="op">{</span></span>
-<span id="cb52-11"><a href="#cb52-11" aria-hidden="true" tabindex="-1"></a>        require<span class="op">(</span>reOrderQuantity <span class="op">&gt;</span> <span class="dv">0</span><span class="op">)</span> <span class="op">{</span><span class="st">"The reorder quantity must be &gt; 0"</span><span class="op">}</span></span>
-<span id="cb52-12"><a href="#cb52-12" aria-hidden="true" tabindex="-1"></a>        require<span class="op">(</span>reOrderPoint <span class="op">&gt;=</span> <span class="op">-</span>reOrderQuantity<span class="op">){</span><span class="st">"reorder point (</span><span class="ss">$reOrderPoint</span><span class="st">) must be &gt;= - reorder quantity (</span><span class="ss">$reOrderQuantity</span><span class="st">)"</span><span class="op">}</span></span>
+<span id="cb52-11"><a href="#cb52-11" aria-hidden="true" tabindex="-1"></a>        require<span class="op">(</span>reorderQty <span class="op">&gt;</span> <span class="dv">0</span><span class="op">)</span> <span class="op">{</span> <span class="st">"The reorder quantity must be &gt; 0"</span> <span class="op">}</span></span>
+<span id="cb52-12"><a href="#cb52-12" aria-hidden="true" tabindex="-1"></a>        require<span class="op">(</span>reorderPt <span class="op">&gt;=</span> <span class="op">-</span>reorderQty<span class="op">)</span> <span class="op">{</span> <span class="st">"reorder point (</span><span class="ss">$reorderPt</span><span class="st">) must be &gt;= - reorder quantity (</span><span class="ss">$reorderQty</span><span class="st">)"</span> <span class="op">}</span></span>
 <span id="cb52-13"><a href="#cb52-13" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
 <span id="cb52-14"><a href="#cb52-14" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb52-15"><a href="#cb52-15" aria-hidden="true" tabindex="-1"></a>    <span class="kw">private</span> <span class="kw">var</span> <span class="va">myInitialReorderPt</span> <span class="op">=</span> reOrderPoint</span>
-<span id="cb52-16"><a href="#cb52-16" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb52-17"><a href="#cb52-17" aria-hidden="true" tabindex="-1"></a>    <span class="kw">private</span> <span class="kw">var</span> <span class="va">myInitialReorderQty</span> <span class="op">=</span> reOrderQuantity</span>
-<span id="cb52-18"><a href="#cb52-18" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb52-19"><a href="#cb52-19" aria-hidden="true" tabindex="-1"></a>    <span class="kw">private</span> <span class="kw">var</span> <span class="va">myReorderPt</span> <span class="op">=</span> myInitialReorderPt</span>
-<span id="cb52-20"><a href="#cb52-20" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb52-21"><a href="#cb52-21" aria-hidden="true" tabindex="-1"></a>    <span class="kw">private</span> <span class="kw">var</span> <span class="va">myReorderQty</span> <span class="op">=</span> myInitialReorderQty</span>
-<span id="cb52-22"><a href="#cb52-22" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb52-23"><a href="#cb52-23" aria-hidden="true" tabindex="-1"></a>    <span class="kw">fun</span> <span class="fu">setInitialPolicyParameters</span><span class="op">(</span><span class="va">reorderPt</span><span class="op">:</span> <span class="dt">Int</span> <span class="op">=</span> myInitialReorderPt<span class="op">,</span> <span class="va">reorderQty</span><span class="op">:</span> <span class="dt">Int</span> <span class="op">=</span> myInitialReorderQty<span class="op">)</span> <span class="op">{</span></span>
-<span id="cb52-24"><a href="#cb52-24" aria-hidden="true" tabindex="-1"></a>        require<span class="op">(</span>reorderQty <span class="op">&gt;</span> <span class="dv">0</span><span class="op">)</span> <span class="op">{</span> <span class="st">"reorder quantity must be &gt; 0"</span> <span class="op">}</span></span>
-<span id="cb52-25"><a href="#cb52-25" aria-hidden="true" tabindex="-1"></a>        require<span class="op">(</span>reorderPt <span class="op">&gt;=</span> <span class="op">-</span>reorderQty<span class="op">)</span> <span class="op">{</span> <span class="st">"reorder point must be &gt;= - reorder quantity"</span> <span class="op">}</span></span>
-<span id="cb52-26"><a href="#cb52-26" aria-hidden="true" tabindex="-1"></a>        myInitialReorderPt <span class="op">=</span> reorderPt</span>
-<span id="cb52-27"><a href="#cb52-27" aria-hidden="true" tabindex="-1"></a>        myInitialReorderQty <span class="op">=</span> reorderQty</span>
-<span id="cb52-28"><a href="#cb52-28" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
+<span id="cb52-15"><a href="#cb52-15" aria-hidden="true" tabindex="-1"></a>    <span class="kw">private</span> <span class="kw">var</span> <span class="va">myInitialReorderPt</span><span class="op">:</span> <span class="kw">Int</span> <span class="op">=</span> reorderPt</span>
+<span id="cb52-16"><a href="#cb52-16" aria-hidden="true" tabindex="-1"></a>    <span class="kw">private</span> <span class="kw">var</span> <span class="va">myInitialReorderQty</span><span class="op">:</span> <span class="kw">Int</span> <span class="op">=</span> reorderQty</span>
+<span id="cb52-17"><a href="#cb52-17" aria-hidden="true" tabindex="-1"></a>    <span class="kw">private</span> <span class="kw">var</span> <span class="va">myReorderPt</span> <span class="op">=</span> myInitialReorderPt</span>
+<span id="cb52-18"><a href="#cb52-18" aria-hidden="true" tabindex="-1"></a>    <span class="kw">private</span> <span class="kw">var</span> <span class="va">myReorderQty</span> <span class="op">=</span> myInitialReorderQty</span>
+<span id="cb52-19"><a href="#cb52-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb52-20"><a href="#cb52-20" aria-hidden="true" tabindex="-1"></a>    <span class="at">@set</span><span class="op">:</span><span class="at">KSLControl</span><span class="op">(</span></span>
+<span id="cb52-21"><a href="#cb52-21" aria-hidden="true" tabindex="-1"></a>        controlType <span class="op">=</span> ControlType<span class="op">.</span>INTEGER<span class="op">,</span></span>
+<span id="cb52-22"><a href="#cb52-22" aria-hidden="true" tabindex="-1"></a>        lowerBound <span class="op">=</span> <span class="fl">0.0</span></span>
+<span id="cb52-23"><a href="#cb52-23" aria-hidden="true" tabindex="-1"></a>    <span class="op">)</span></span>
+<span id="cb52-24"><a href="#cb52-24" aria-hidden="true" tabindex="-1"></a>    <span class="kw">var</span> <span class="va">initialReorderPoint</span><span class="op">:</span> <span class="kw">Int</span></span>
+<span id="cb52-25"><a href="#cb52-25" aria-hidden="true" tabindex="-1"></a>        <span class="kw">get</span><span class="op">()</span> <span class="op">=</span> myInitialReorderPt</span>
+<span id="cb52-26"><a href="#cb52-26" aria-hidden="true" tabindex="-1"></a>        <span class="kw">set</span><span class="op">(</span>value<span class="op">)</span> <span class="op">{</span></span>
+<span id="cb52-27"><a href="#cb52-27" aria-hidden="true" tabindex="-1"></a>            setInitialPolicyParameters<span class="op">(</span>value<span class="op">,</span> myInitialReorderQty<span class="op">)</span></span>
+<span id="cb52-28"><a href="#cb52-28" aria-hidden="true" tabindex="-1"></a>        <span class="op">}</span></span>
 <span id="cb52-29"><a href="#cb52-29" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb52-30"><a href="#cb52-30" aria-hidden="true" tabindex="-1"></a>    <span class="kw">override</span> <span class="kw">fun</span> <span class="fu">setInitialPolicyParameters</span><span class="op">(</span><span class="va">param</span><span class="op">:</span> <span class="dt">DoubleArray</span><span class="op">)</span> <span class="op">{</span></span>
-<span id="cb52-31"><a href="#cb52-31" aria-hidden="true" tabindex="-1"></a>        require<span class="op">(</span>param<span class="op">.</span>size <span class="op">==</span> <span class="dv">2</span><span class="op">)</span> <span class="op">{</span> <span class="st">"There must be 2 parameters"</span> <span class="op">}</span></span>
-<span id="cb52-32"><a href="#cb52-32" aria-hidden="true" tabindex="-1"></a>        setInitialPolicyParameters<span class="op">(</span>param<span class="op">[</span><span class="dv">0</span><span class="op">].</span>toInt<span class="op">(),</span> param<span class="op">[</span><span class="dv">1</span><span class="op">].</span>toInt<span class="op">())</span></span>
-<span id="cb52-33"><a href="#cb52-33" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb52-30"><a href="#cb52-30" aria-hidden="true" tabindex="-1"></a>    <span class="at">@set</span><span class="op">:</span><span class="at">KSLControl</span><span class="op">(</span></span>
+<span id="cb52-31"><a href="#cb52-31" aria-hidden="true" tabindex="-1"></a>        controlType <span class="op">=</span> ControlType<span class="op">.</span>INTEGER<span class="op">,</span></span>
+<span id="cb52-32"><a href="#cb52-32" aria-hidden="true" tabindex="-1"></a>        lowerBound <span class="op">=</span> <span class="fl">1.0</span></span>
+<span id="cb52-33"><a href="#cb52-33" aria-hidden="true" tabindex="-1"></a>    <span class="op">)</span></span>
+<span id="cb52-34"><a href="#cb52-34" aria-hidden="true" tabindex="-1"></a>    <span class="kw">var</span> <span class="va">initialReorderQty</span><span class="op">:</span> <span class="kw">Int</span></span>
+<span id="cb52-35"><a href="#cb52-35" aria-hidden="true" tabindex="-1"></a>        <span class="kw">get</span><span class="op">()</span> <span class="op">=</span> myInitialReorderQty</span>
+<span id="cb52-36"><a href="#cb52-36" aria-hidden="true" tabindex="-1"></a>        <span class="kw">set</span><span class="op">(</span>value<span class="op">)</span> <span class="op">{</span></span>
+<span id="cb52-37"><a href="#cb52-37" aria-hidden="true" tabindex="-1"></a>            setInitialPolicyParameters<span class="op">(</span>myInitialReorderPt<span class="op">,</span> value<span class="op">)</span></span>
+<span id="cb52-38"><a href="#cb52-38" aria-hidden="true" tabindex="-1"></a>        <span class="op">}</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>The class also defines properties for the cost per order and the unit holding and back order costs (each 1.0 by default), along with responses that collect the ordering frequency and the components of the average total cost, <span class="math inline">\(\overline{\mathit{TC}}\)</span>.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb53"><pre class="sourceCode kotlin code-with-copy"><code class="sourceCode kotlin"><span id="cb53-1"><a href="#cb53-1" aria-hidden="true" tabindex="-1"></a>    <span class="kw">private</span> <span class="kw">val</span> <span class="va">myOrderingFrequency</span> <span class="op">=</span> Response<span class="op">(</span><span class="kw">this</span><span class="op">,</span> <span class="st">"</span><span class="ss">${</span><span class="kw">this</span><span class="op">.</span>name<span class="ss">}</span><span class="st">:OrderingFrequency"</span><span class="op">)</span></span>
+<span id="cb53-2"><a href="#cb53-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb53-3"><a href="#cb53-3" aria-hidden="true" tabindex="-1"></a>    <span class="kw">val</span> <span class="va">orderingFrequency</span><span class="op">:</span> ResponseCIfc</span>
+<span id="cb53-4"><a href="#cb53-4" aria-hidden="true" tabindex="-1"></a>        <span class="kw">get</span><span class="op">()</span> <span class="op">=</span> myOrderingFrequency</span>
+<span id="cb53-5"><a href="#cb53-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb53-6"><a href="#cb53-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">@set</span><span class="op">:</span><span class="at">KSLControl</span><span class="op">(</span></span>
+<span id="cb53-7"><a href="#cb53-7" aria-hidden="true" tabindex="-1"></a>        controlType <span class="op">=</span> ControlType<span class="op">.</span>DOUBLE<span class="op">,</span></span>
+<span id="cb53-8"><a href="#cb53-8" aria-hidden="true" tabindex="-1"></a>        lowerBound <span class="op">=</span> <span class="fl">0.0</span><span class="op">,</span></span>
+<span id="cb53-9"><a href="#cb53-9" aria-hidden="true" tabindex="-1"></a>        comment <span class="op">=</span> <span class="st">"</span><span class="ss">$</span><span class="st">/order"</span></span>
+<span id="cb53-10"><a href="#cb53-10" aria-hidden="true" tabindex="-1"></a>    <span class="op">)</span></span>
+<span id="cb53-11"><a href="#cb53-11" aria-hidden="true" tabindex="-1"></a>    <span class="kw">var</span> <span class="va">costPerOrder</span><span class="op">:</span> <span class="kw">Double</span> <span class="op">=</span> <span class="fl">1.0</span></span>
+<span id="cb53-12"><a href="#cb53-12" aria-hidden="true" tabindex="-1"></a>        <span class="kw">set</span><span class="op">(</span>value<span class="op">)</span> <span class="op">{</span></span>
+<span id="cb53-13"><a href="#cb53-13" aria-hidden="true" tabindex="-1"></a>            require<span class="op">(</span>value <span class="op">&gt;=</span> <span class="fl">0.0</span><span class="op">)</span> <span class="op">{</span> <span class="st">"The ordering cost must be &gt;= 0.0"</span> <span class="op">}</span></span>
+<span id="cb53-14"><a href="#cb53-14" aria-hidden="true" tabindex="-1"></a>            field <span class="op">=</span> value</span>
+<span id="cb53-15"><a href="#cb53-15" aria-hidden="true" tabindex="-1"></a>        <span class="op">}</span></span>
+<span id="cb53-16"><a href="#cb53-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb53-17"><a href="#cb53-17" aria-hidden="true" tabindex="-1"></a>    <span class="at">@set</span><span class="op">:</span><span class="at">KSLControl</span><span class="op">(</span></span>
+<span id="cb53-18"><a href="#cb53-18" aria-hidden="true" tabindex="-1"></a>        controlType <span class="op">=</span> ControlType<span class="op">.</span>DOUBLE<span class="op">,</span></span>
+<span id="cb53-19"><a href="#cb53-19" aria-hidden="true" tabindex="-1"></a>        lowerBound <span class="op">=</span> <span class="fl">0.0</span><span class="op">,</span></span>
+<span id="cb53-20"><a href="#cb53-20" aria-hidden="true" tabindex="-1"></a>        comment <span class="op">=</span> <span class="st">"</span><span class="ss">$</span><span class="st">/unit/time"</span></span>
+<span id="cb53-21"><a href="#cb53-21" aria-hidden="true" tabindex="-1"></a>    <span class="op">)</span></span>
+<span id="cb53-22"><a href="#cb53-22" aria-hidden="true" tabindex="-1"></a>    <span class="kw">var</span> <span class="va">unitHoldingCost</span><span class="op">:</span> <span class="kw">Double</span> <span class="op">=</span> <span class="fl">1.0</span></span>
+<span id="cb53-23"><a href="#cb53-23" aria-hidden="true" tabindex="-1"></a>        <span class="kw">set</span><span class="op">(</span>value<span class="op">)</span> <span class="op">{</span></span>
+<span id="cb53-24"><a href="#cb53-24" aria-hidden="true" tabindex="-1"></a>            require<span class="op">(</span>value <span class="op">&gt;=</span> <span class="fl">0.0</span><span class="op">)</span> <span class="op">{</span> <span class="st">"The holding cost must be &gt;= 0.0"</span> <span class="op">}</span></span>
+<span id="cb53-25"><a href="#cb53-25" aria-hidden="true" tabindex="-1"></a>            field <span class="op">=</span> value</span>
+<span id="cb53-26"><a href="#cb53-26" aria-hidden="true" tabindex="-1"></a>        <span class="op">}</span></span>
+<span id="cb53-27"><a href="#cb53-27" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb53-28"><a href="#cb53-28" aria-hidden="true" tabindex="-1"></a>    <span class="at">@set</span><span class="op">:</span><span class="at">KSLControl</span><span class="op">(</span></span>
+<span id="cb53-29"><a href="#cb53-29" aria-hidden="true" tabindex="-1"></a>        controlType <span class="op">=</span> ControlType<span class="op">.</span>DOUBLE<span class="op">,</span></span>
+<span id="cb53-30"><a href="#cb53-30" aria-hidden="true" tabindex="-1"></a>        lowerBound <span class="op">=</span> <span class="fl">0.0</span><span class="op">,</span></span>
+<span id="cb53-31"><a href="#cb53-31" aria-hidden="true" tabindex="-1"></a>        comment <span class="op">=</span> <span class="st">"</span><span class="ss">$</span><span class="st">/unit/time"</span></span>
+<span id="cb53-32"><a href="#cb53-32" aria-hidden="true" tabindex="-1"></a>    <span class="op">)</span></span>
+<span id="cb53-33"><a href="#cb53-33" aria-hidden="true" tabindex="-1"></a>    <span class="kw">var</span> <span class="va">unitBackOrderCost</span><span class="op">:</span> <span class="kw">Double</span> <span class="op">=</span> <span class="fl">1.0</span></span>
+<span id="cb53-34"><a href="#cb53-34" aria-hidden="true" tabindex="-1"></a>        <span class="kw">set</span><span class="op">(</span>value<span class="op">)</span> <span class="op">{</span></span>
+<span id="cb53-35"><a href="#cb53-35" aria-hidden="true" tabindex="-1"></a>            require<span class="op">(</span>value <span class="op">&gt;=</span> <span class="fl">0.0</span><span class="op">)</span> <span class="op">{</span> <span class="st">"The backorder cost must be &gt;= 0.0"</span> <span class="op">}</span></span>
+<span id="cb53-36"><a href="#cb53-36" aria-hidden="true" tabindex="-1"></a>            field <span class="op">=</span> value</span>
+<span id="cb53-37"><a href="#cb53-37" aria-hidden="true" tabindex="-1"></a>        <span class="op">}</span></span>
+<span id="cb53-38"><a href="#cb53-38" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb53-39"><a href="#cb53-39" aria-hidden="true" tabindex="-1"></a>    <span class="kw">private</span> <span class="kw">val</span> <span class="va">myTotalCost</span> <span class="op">=</span> Response<span class="op">(</span><span class="kw">this</span><span class="op">,</span> <span class="st">"</span><span class="ss">${</span><span class="kw">this</span><span class="op">.</span>name<span class="ss">}</span><span class="st">:TotalCost"</span><span class="op">)</span></span>
+<span id="cb53-40"><a href="#cb53-40" aria-hidden="true" tabindex="-1"></a>    <span class="kw">val</span> <span class="va">totalCost</span><span class="op">:</span> ResponseCIfc</span>
+<span id="cb53-41"><a href="#cb53-41" aria-hidden="true" tabindex="-1"></a>        <span class="kw">get</span><span class="op">()</span> <span class="op">=</span> myTotalCost</span>
+<span id="cb53-42"><a href="#cb53-42" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb53-43"><a href="#cb53-43" aria-hidden="true" tabindex="-1"></a>    <span class="kw">private</span> <span class="kw">val</span> <span class="va">myOrderingCost</span> <span class="op">=</span> Response<span class="op">(</span><span class="kw">this</span><span class="op">,</span> <span class="st">"</span><span class="ss">${</span><span class="kw">this</span><span class="op">.</span>name<span class="ss">}</span><span class="st">:OrderingCost"</span><span class="op">)</span></span>
+<span id="cb53-44"><a href="#cb53-44" aria-hidden="true" tabindex="-1"></a>    <span class="kw">val</span> <span class="va">orderingCost</span><span class="op">:</span> ResponseCIfc</span>
+<span id="cb53-45"><a href="#cb53-45" aria-hidden="true" tabindex="-1"></a>        <span class="kw">get</span><span class="op">()</span> <span class="op">=</span> myOrderingCost</span>
+<span id="cb53-46"><a href="#cb53-46" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb53-47"><a href="#cb53-47" aria-hidden="true" tabindex="-1"></a>    <span class="kw">private</span> <span class="kw">val</span> <span class="va">myHoldingCost</span> <span class="op">=</span> Response<span class="op">(</span><span class="kw">this</span><span class="op">,</span> <span class="st">"</span><span class="ss">${</span><span class="kw">this</span><span class="op">.</span>name<span class="ss">}</span><span class="st">:HoldingCost"</span><span class="op">)</span></span>
+<span id="cb53-48"><a href="#cb53-48" aria-hidden="true" tabindex="-1"></a>    <span class="kw">val</span> <span class="va">holdingCost</span><span class="op">:</span> ResponseCIfc</span>
+<span id="cb53-49"><a href="#cb53-49" aria-hidden="true" tabindex="-1"></a>        <span class="kw">get</span><span class="op">()</span> <span class="op">=</span> myHoldingCost</span>
+<span id="cb53-50"><a href="#cb53-50" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb53-51"><a href="#cb53-51" aria-hidden="true" tabindex="-1"></a>    <span class="kw">private</span> <span class="kw">val</span> <span class="va">myBackorderCost</span> <span class="op">=</span> Response<span class="op">(</span><span class="kw">this</span><span class="op">,</span> <span class="st">"</span><span class="ss">${</span><span class="kw">this</span><span class="op">.</span>name<span class="ss">}</span><span class="st">:BackorderCost"</span><span class="op">)</span></span>
+<span id="cb53-52"><a href="#cb53-52" aria-hidden="true" tabindex="-1"></a>    <span class="kw">val</span> <span class="va">backOrderCost</span><span class="op">:</span> ResponseCIfc</span>
+<span id="cb53-53"><a href="#cb53-53" aria-hidden="true" tabindex="-1"></a>        <span class="kw">get</span><span class="op">()</span> <span class="op">=</span> myBackorderCost</span>
+<span id="cb53-54"><a href="#cb53-54" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb53-55"><a href="#cb53-55" aria-hidden="true" tabindex="-1"></a>    <span class="kw">private</span> <span class="kw">val</span> <span class="va">myOrderingAndHoldingCost</span> <span class="op">=</span> Response<span class="op">(</span><span class="kw">this</span><span class="op">,</span> <span class="st">"</span><span class="ss">${</span><span class="kw">this</span><span class="op">.</span>name<span class="ss">}</span><span class="st">:OrderingAndHoldingCost"</span><span class="op">)</span></span>
+<span id="cb53-56"><a href="#cb53-56" aria-hidden="true" tabindex="-1"></a>    <span class="kw">val</span> <span class="va">orderingAndHoldingCost</span><span class="op">:</span> ResponseCIfc</span>
+<span id="cb53-57"><a href="#cb53-57" aria-hidden="true" tabindex="-1"></a>        <span class="kw">get</span><span class="op">()</span> <span class="op">=</span> myOrderingAndHoldingCost</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>The policy parameters can also be set through the <code>setInitialPolicyParameters()</code> functions.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb54"><pre class="sourceCode kotlin code-with-copy"><code class="sourceCode kotlin"><span id="cb54-1"><a href="#cb54-1" aria-hidden="true" tabindex="-1"></a>    <span class="kw">fun</span> <span class="fu">setInitialPolicyParameters</span><span class="op">(</span><span class="va">reorderPt</span><span class="op">:</span> <span class="dt">Int</span><span class="op">,</span> <span class="va">reorderQty</span><span class="op">:</span> <span class="dt">Int</span><span class="op">)</span> <span class="op">{</span></span>
+<span id="cb54-2"><a href="#cb54-2" aria-hidden="true" tabindex="-1"></a>        require<span class="op">(</span>model<span class="op">.</span>isNotRunning<span class="op">)</span> <span class="op">{</span> <span class="st">"The initial policy parameters cannot be changed while the model is running."</span><span class="op">}</span></span>
+<span id="cb54-3"><a href="#cb54-3" aria-hidden="true" tabindex="-1"></a>        require<span class="op">(</span>reorderQty <span class="op">&gt;</span> <span class="dv">0</span><span class="op">)</span> <span class="op">{</span> <span class="st">"reorder quantity must be &gt; 0"</span> <span class="op">}</span></span>
+<span id="cb54-4"><a href="#cb54-4" aria-hidden="true" tabindex="-1"></a>        require<span class="op">(</span>reorderPt <span class="op">&gt;=</span> <span class="op">-</span>reorderQty<span class="op">)</span> <span class="op">{</span> <span class="st">"reorder point must be &gt;= - reorder quantity"</span> <span class="op">}</span></span>
+<span id="cb54-5"><a href="#cb54-5" aria-hidden="true" tabindex="-1"></a>        myInitialReorderPt <span class="op">=</span> reorderPt</span>
+<span id="cb54-6"><a href="#cb54-6" aria-hidden="true" tabindex="-1"></a>        myInitialReorderQty <span class="op">=</span> reorderQty</span>
+<span id="cb54-7"><a href="#cb54-7" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
+<span id="cb54-8"><a href="#cb54-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb54-9"><a href="#cb54-9" aria-hidden="true" tabindex="-1"></a>    <span class="kw">override</span> <span class="kw">fun</span> <span class="fu">setInitialPolicyParameters</span><span class="op">(</span><span class="va">param</span><span class="op">:</span> <span class="dt">DoubleArray</span><span class="op">)</span> <span class="op">{</span></span>
+<span id="cb54-10"><a href="#cb54-10" aria-hidden="true" tabindex="-1"></a>        require<span class="op">(</span>param<span class="op">.</span>size <span class="op">==</span> <span class="dv">2</span><span class="op">)</span> <span class="op">{</span> <span class="st">"There must be 2 parameters"</span> <span class="op">}</span></span>
+<span id="cb54-11"><a href="#cb54-11" aria-hidden="true" tabindex="-1"></a>        setInitialPolicyParameters<span class="op">(</span>param<span class="op">[</span><span class="dv">0</span><span class="op">].</span>toInt<span class="op">(),</span> param<span class="op">[</span><span class="dv">1</span><span class="op">].</span>toInt<span class="op">())</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>Notice that the constructor for the class requires the reorder point and reorder quantity parameters and provides for the setting of the parameters. The class is a subclass of <code>Inventory,</code> which is a subclass of <code>ModelElement.</code> We need to have an <code>initialize()</code> method. Notice that the initialization resets the reorder point and reorder quantity and checks the inventory position. The check of the inventory position is required because the inventory on-hand at the start of the replication might trigger the need for a replenishment at time 0.0.</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb53"><pre class="sourceCode kotlin code-with-copy"><code class="sourceCode kotlin"><span id="cb53-1"><a href="#cb53-1" aria-hidden="true" tabindex="-1"></a>    <span class="kw">override</span> <span class="kw">fun</span> <span class="fu">initialize</span><span class="op">()</span> <span class="op">{</span></span>
-<span id="cb53-2"><a href="#cb53-2" aria-hidden="true" tabindex="-1"></a>        <span class="kw">super</span><span class="op">.</span>initialize<span class="op">()</span></span>
-<span id="cb53-3"><a href="#cb53-3" aria-hidden="true" tabindex="-1"></a>        myReorderPt <span class="op">=</span> myInitialReorderPt</span>
-<span id="cb53-4"><a href="#cb53-4" aria-hidden="true" tabindex="-1"></a>        myReorderQty <span class="op">=</span> myInitialReorderQty</span>
-<span id="cb53-5"><a href="#cb53-5" aria-hidden="true" tabindex="-1"></a>        checkInventoryPosition<span class="op">()</span></span>
-<span id="cb53-6"><a href="#cb53-6" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb55"><pre class="sourceCode kotlin code-with-copy"><code class="sourceCode kotlin"><span id="cb55-1"><a href="#cb55-1" aria-hidden="true" tabindex="-1"></a>    <span class="kw">override</span> <span class="kw">fun</span> <span class="fu">initialize</span><span class="op">()</span> <span class="op">{</span></span>
+<span id="cb55-2"><a href="#cb55-2" aria-hidden="true" tabindex="-1"></a>        <span class="kw">super</span><span class="op">.</span>initialize<span class="op">()</span></span>
+<span id="cb55-3"><a href="#cb55-3" aria-hidden="true" tabindex="-1"></a>        myReorderPt <span class="op">=</span> myInitialReorderPt</span>
+<span id="cb55-4"><a href="#cb55-4" aria-hidden="true" tabindex="-1"></a>        myReorderQty <span class="op">=</span> myInitialReorderQty</span>
+<span id="cb55-5"><a href="#cb55-5" aria-hidden="true" tabindex="-1"></a>        checkInventoryPosition<span class="op">()</span></span>
+<span id="cb55-6"><a href="#cb55-6" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>To fill the inventory, we simply need to check if the amount on hand is sufficient, if so, the amount is filled, if not the amount to back order is determined. Because the filling of demand or the back ordering of demand may cause the change of the inventory position, the inventory position must be checked to see if a replenishment is required.</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb54"><pre class="sourceCode kotlin code-with-copy"><code class="sourceCode kotlin"><span id="cb54-1"><a href="#cb54-1" aria-hidden="true" tabindex="-1"></a>    <span class="kw">override</span> <span class="kw">fun</span> <span class="fu">fillInventory</span><span class="op">(</span><span class="va">demand</span><span class="op">:</span> <span class="dt">Int</span><span class="op">)</span> <span class="op">{</span></span>
-<span id="cb54-2"><a href="#cb54-2" aria-hidden="true" tabindex="-1"></a>        require<span class="op">(</span>demand <span class="op">&gt;</span> <span class="dv">0</span><span class="op">)</span> <span class="op">{</span> <span class="st">"arriving demand must be &gt; 0"</span> <span class="op">}</span></span>
-<span id="cb54-3"><a href="#cb54-3" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> <span class="op">(</span>onHand <span class="op">&gt;=</span> demand<span class="op">)</span> <span class="op">{</span> <span class="co">// fully filled</span></span>
-<span id="cb54-4"><a href="#cb54-4" aria-hidden="true" tabindex="-1"></a>            fillDemand<span class="op">(</span>demand<span class="op">)</span></span>
-<span id="cb54-5"><a href="#cb54-5" aria-hidden="true" tabindex="-1"></a>        <span class="op">}</span> <span class="cf">else</span> <span class="op">{</span> <span class="co">// some is back ordered</span></span>
-<span id="cb54-6"><a href="#cb54-6" aria-hidden="true" tabindex="-1"></a>            backOrderDemand<span class="op">(</span>demand<span class="op">)</span></span>
-<span id="cb54-7"><a href="#cb54-7" aria-hidden="true" tabindex="-1"></a>        <span class="op">}</span></span>
-<span id="cb54-8"><a href="#cb54-8" aria-hidden="true" tabindex="-1"></a>        checkInventoryPosition<span class="op">()</span></span>
-<span id="cb54-9"><a href="#cb54-9" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p>The check of the inventory position for a <span class="math inline">\((r, q)\)</span> inventory policy checks to see if the inventory position has falled below the reorder point, <span class="math inline">\(r\)</span>, and if so, an order must be placed. Because the amount below the reorder point may be large due to random demand, batch multiples of the reorder quantity may be required to be ordered in order to get above the reorder position.</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb55"><pre class="sourceCode kotlin code-with-copy"><code class="sourceCode kotlin"><span id="cb55-1"><a href="#cb55-1" aria-hidden="true" tabindex="-1"></a>    <span class="kw">override</span> <span class="kw">fun</span> <span class="fu">checkInventoryPosition</span><span class="op">()</span> <span class="op">{</span></span>
-<span id="cb55-2"><a href="#cb55-2" aria-hidden="true" tabindex="-1"></a>         <span class="cf">if</span> <span class="op">(</span>inventoryPosition <span class="op">&lt;=</span> myReorderPt<span class="op">)</span> <span class="op">{</span></span>
-<span id="cb55-3"><a href="#cb55-3" aria-hidden="true" tabindex="-1"></a>            <span class="co">// determine the amount to order and request the replenishment</span></span>
-<span id="cb55-4"><a href="#cb55-4" aria-hidden="true" tabindex="-1"></a>            <span class="co">// need to place an order, figure out the amount below reorder point</span></span>
-<span id="cb55-5"><a href="#cb55-5" aria-hidden="true" tabindex="-1"></a>            <span class="cf">if</span> <span class="op">(</span>inventoryPosition <span class="op">==</span> myReorderPt<span class="op">)</span> <span class="op">{</span> <span class="co">// hit reorder point exactly</span></span>
-<span id="cb55-6"><a href="#cb55-6" aria-hidden="true" tabindex="-1"></a>                requestReplenishment<span class="op">(</span>myReorderQty<span class="op">)</span></span>
-<span id="cb55-7"><a href="#cb55-7" aria-hidden="true" tabindex="-1"></a>            <span class="op">}</span> <span class="cf">else</span> <span class="op">{</span></span>
-<span id="cb55-8"><a href="#cb55-8" aria-hidden="true" tabindex="-1"></a>                <span class="kw">val</span> <span class="va">gap</span> <span class="op">=</span> <span class="op">(</span>myReorderPt <span class="op">-</span> inventoryPosition<span class="op">).</span>toDouble<span class="op">()</span></span>
-<span id="cb55-9"><a href="#cb55-9" aria-hidden="true" tabindex="-1"></a>                <span class="co">// find number of batches to order</span></span>
-<span id="cb55-10"><a href="#cb55-10" aria-hidden="true" tabindex="-1"></a>                <span class="kw">val</span> <span class="va">n</span> <span class="op">=</span> ceil<span class="op">(</span>gap <span class="op">/</span> myReorderQty<span class="op">).</span>toInt<span class="op">()</span></span>
-<span id="cb55-11"><a href="#cb55-11" aria-hidden="true" tabindex="-1"></a>                requestReplenishment<span class="op">(</span>n <span class="op">*</span> myReorderQty<span class="op">)</span></span>
-<span id="cb55-12"><a href="#cb55-12" aria-hidden="true" tabindex="-1"></a>            <span class="op">}</span></span>
-<span id="cb55-13"><a href="#cb55-13" aria-hidden="true" tabindex="-1"></a>        <span class="op">}</span></span>
-<span id="cb55-14"><a href="#cb55-14" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p>The <code>requestReplenishment</code> method is used to place the order. When the replenishment order arrives, we must increase the amount on-hand, decrease the amount ordered, and process any back ordered demand.</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb56"><pre class="sourceCode kotlin code-with-copy"><code class="sourceCode kotlin"><span id="cb56-1"><a href="#cb56-1" aria-hidden="true" tabindex="-1"></a>    <span class="kw">override</span> <span class="kw">fun</span> <span class="fu">replenishmentArrival</span><span class="op">(</span><span class="va">orderAmount</span><span class="op">:</span> <span class="dt">Int</span><span class="op">)</span> <span class="op">{</span></span>
-<span id="cb56-2"><a href="#cb56-2" aria-hidden="true" tabindex="-1"></a>        myOnOrder<span class="op">.</span>decrement<span class="op">(</span>orderAmount<span class="op">.</span>toDouble<span class="op">())</span></span>
-<span id="cb56-3"><a href="#cb56-3" aria-hidden="true" tabindex="-1"></a>        myOnHand<span class="op">.</span>increment<span class="op">(</span>orderAmount<span class="op">.</span>toDouble<span class="op">())</span></span>
-<span id="cb56-4"><a href="#cb56-4" aria-hidden="true" tabindex="-1"></a>        <span class="co">// need to fill any back orders</span></span>
-<span id="cb56-5"><a href="#cb56-5" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> <span class="op">(</span>amountBackOrdered <span class="op">&gt;</span> <span class="dv">0</span><span class="op">)</span> <span class="op">{</span> <span class="co">// back orders to fill</span></span>
-<span id="cb56-6"><a href="#cb56-6" aria-hidden="true" tabindex="-1"></a>            fillBackOrders<span class="op">()</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb56"><pre class="sourceCode kotlin code-with-copy"><code class="sourceCode kotlin"><span id="cb56-1"><a href="#cb56-1" aria-hidden="true" tabindex="-1"></a>    <span class="kw">override</span> <span class="kw">fun</span> <span class="fu">fillInventory</span><span class="op">(</span><span class="va">demand</span><span class="op">:</span> <span class="dt">Int</span><span class="op">)</span> <span class="op">{</span></span>
+<span id="cb56-2"><a href="#cb56-2" aria-hidden="true" tabindex="-1"></a>        require<span class="op">(</span>demand <span class="op">&gt;</span> <span class="dv">0</span><span class="op">)</span> <span class="op">{</span> <span class="st">"arriving demand must be &gt; 0"</span> <span class="op">}</span></span>
+<span id="cb56-3"><a href="#cb56-3" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> <span class="op">(</span>onHand <span class="op">&gt;=</span> demand<span class="op">)</span> <span class="op">{</span> <span class="co">// fully filled</span></span>
+<span id="cb56-4"><a href="#cb56-4" aria-hidden="true" tabindex="-1"></a>            fillDemand<span class="op">(</span>demand<span class="op">)</span></span>
+<span id="cb56-5"><a href="#cb56-5" aria-hidden="true" tabindex="-1"></a>        <span class="op">}</span> <span class="cf">else</span> <span class="op">{</span> <span class="co">// some is back ordered</span></span>
+<span id="cb56-6"><a href="#cb56-6" aria-hidden="true" tabindex="-1"></a>            backOrderDemand<span class="op">(</span>demand<span class="op">)</span></span>
 <span id="cb56-7"><a href="#cb56-7" aria-hidden="true" tabindex="-1"></a>        <span class="op">}</span></span>
 <span id="cb56-8"><a href="#cb56-8" aria-hidden="true" tabindex="-1"></a>        checkInventoryPosition<span class="op">()</span></span>
 <span id="cb56-9"><a href="#cb56-9" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>The check of the inventory position for a <span class="math inline">\((r, q)\)</span> inventory policy checks to see if the inventory position has fallen to or below the reorder point, <span class="math inline">\(r\)</span>, and if so, an order must be placed. Because the amount below the reorder point may be large due to random demand, batch multiples of the reorder quantity may be required in order to get above the reorder point. Let <span class="math inline">\(IP\)</span> represent the inventory position. The number of batches ordered is the fewest that lifts the inventory position strictly above the reorder point, <span class="math inline">\(\lfloor (r - IP)/Q \rfloor + 1\)</span>.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb57"><pre class="sourceCode kotlin code-with-copy"><code class="sourceCode kotlin"><span id="cb57-1"><a href="#cb57-1" aria-hidden="true" tabindex="-1"></a>    <span class="kw">override</span> <span class="kw">fun</span> <span class="fu">checkInventoryPosition</span><span class="op">()</span> <span class="op">{</span></span>
+<span id="cb57-2"><a href="#cb57-2" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> <span class="op">(</span>inventoryPosition <span class="op">&lt;=</span> myReorderPt<span class="op">)</span> <span class="op">{</span></span>
+<span id="cb57-3"><a href="#cb57-3" aria-hidden="true" tabindex="-1"></a>            <span class="co">// Order the fewest whole batches that lift the position strictly above r:</span></span>
+<span id="cb57-4"><a href="#cb57-4" aria-hidden="true" tabindex="-1"></a>            <span class="co">// floor((r - IP)/Q) + 1. The difference is non-negative here, so integer division is</span></span>
+<span id="cb57-5"><a href="#cb57-5" aria-hidden="true" tabindex="-1"></a>            <span class="co">// the floor. A ceiling instead leaves the position exactly at r whenever r - IP is a</span></span>
+<span id="cb57-6"><a href="#cb57-6" aria-hidden="true" tabindex="-1"></a>            <span class="co">// multiple of Q, one batch short.</span></span>
+<span id="cb57-7"><a href="#cb57-7" aria-hidden="true" tabindex="-1"></a>            <span class="kw">val</span> <span class="va">n</span> <span class="op">=</span> <span class="op">(</span>myReorderPt <span class="op">-</span> inventoryPosition<span class="op">)</span> <span class="op">/</span> myReorderQty <span class="op">+</span> <span class="dv">1</span></span>
+<span id="cb57-8"><a href="#cb57-8" aria-hidden="true" tabindex="-1"></a>            requestReplenishment<span class="op">(</span>n <span class="op">*</span> myReorderQty<span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>The <code>requestReplenishment</code> method is used to place the order. When the replenishment order arrives, we must increase the amount on-hand, decrease the amount ordered, and process any back ordered demand.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb58"><pre class="sourceCode kotlin code-with-copy"><code class="sourceCode kotlin"><span id="cb58-1"><a href="#cb58-1" aria-hidden="true" tabindex="-1"></a>    <span class="kw">override</span> <span class="kw">fun</span> <span class="fu">replenishmentArrival</span><span class="op">(</span><span class="va">orderAmount</span><span class="op">:</span> <span class="dt">Int</span><span class="op">)</span> <span class="op">{</span></span>
+<span id="cb58-2"><a href="#cb58-2" aria-hidden="true" tabindex="-1"></a>        myOnOrder<span class="op">.</span>decrement<span class="op">(</span>orderAmount<span class="op">.</span>toDouble<span class="op">())</span></span>
+<span id="cb58-3"><a href="#cb58-3" aria-hidden="true" tabindex="-1"></a>        myOnHand<span class="op">.</span>increment<span class="op">(</span>orderAmount<span class="op">.</span>toDouble<span class="op">())</span></span>
+<span id="cb58-4"><a href="#cb58-4" aria-hidden="true" tabindex="-1"></a>        <span class="co">// need to fill any back orders</span></span>
+<span id="cb58-5"><a href="#cb58-5" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> <span class="op">(</span>amountBackOrdered <span class="op">&gt;</span> <span class="dv">0</span><span class="op">)</span> <span class="op">{</span> <span class="co">// back orders to fill</span></span>
+<span id="cb58-6"><a href="#cb58-6" aria-hidden="true" tabindex="-1"></a>            fillBackOrders<span class="op">()</span></span>
+<span id="cb58-7"><a href="#cb58-7" aria-hidden="true" tabindex="-1"></a>        <span class="op">}</span></span>
+<span id="cb58-8"><a href="#cb58-8" aria-hidden="true" tabindex="-1"></a>        checkInventoryPosition<span class="op">()</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>At the end of each replication, the components of the average total cost are computed from the time averages of the on-hand and back ordered responses and from the ordering frequency, following the equation for <span class="math inline">\(\overline{\mathit{TC}}\)</span>.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb59"><pre class="sourceCode kotlin code-with-copy"><code class="sourceCode kotlin"><span id="cb59-1"><a href="#cb59-1" aria-hidden="true" tabindex="-1"></a>    <span class="kw">override</span> <span class="kw">fun</span> <span class="fu">replicationEnded</span><span class="op">()</span> <span class="op">{</span></span>
+<span id="cb59-2"><a href="#cb59-2" aria-hidden="true" tabindex="-1"></a>        myHoldingCost<span class="op">.</span>value <span class="op">=</span> unitHoldingCost <span class="op">*</span> myOnHand<span class="op">.</span>withinReplicationStatistic<span class="op">.</span>weightedAverage</span>
+<span id="cb59-3"><a href="#cb59-3" aria-hidden="true" tabindex="-1"></a>        myBackorderCost<span class="op">.</span>value <span class="op">=</span> unitBackOrderCost <span class="op">*</span> myAmountBackOrdered<span class="op">.</span>withinReplicationStatistic<span class="op">.</span>weightedAverage</span>
+<span id="cb59-4"><a href="#cb59-4" aria-hidden="true" tabindex="-1"></a>        myOrderingFrequency<span class="op">.</span>value <span class="op">=</span> myNumReplenishmentOrders<span class="op">.</span>value<span class="op">/(</span>time <span class="op">-</span> myNumReplenishmentOrders<span class="op">.</span>timeOfWarmUp<span class="op">)</span></span>
+<span id="cb59-5"><a href="#cb59-5" aria-hidden="true" tabindex="-1"></a>        myOrderingCost<span class="op">.</span>value <span class="op">=</span> costPerOrder <span class="op">*</span> myOrderingFrequency<span class="op">.</span>value</span>
+<span id="cb59-6"><a href="#cb59-6" aria-hidden="true" tabindex="-1"></a>        myOrderingAndHoldingCost<span class="op">.</span>value <span class="op">=</span> myOrderingCost<span class="op">.</span>value <span class="op">+</span> myHoldingCost<span class="op">.</span>value</span>
+<span id="cb59-7"><a href="#cb59-7" aria-hidden="true" tabindex="-1"></a>        myTotalCost<span class="op">.</span>value <span class="op">=</span> myOrderingCost<span class="op">.</span>value <span class="op">+</span> myHoldingCost<span class="op">.</span>value <span class="op">+</span> myBackorderCost<span class="op">.</span>value</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>Now we are ready to model the inventory situation described in the problem. In the following code, we encapsulate the problem within a class called <code>RQInventorySystem.</code> The key aspects of this model are the use of an event generator to generate the demand and the use of an inner class to provide a warehouse to fill the replenishment orders.</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb57"><pre class="sourceCode kotlin code-with-copy"><code class="sourceCode kotlin"><span id="cb57-1"><a href="#cb57-1" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> RQInventorySystem<span class="op">(</span></span>
-<span id="cb57-2"><a href="#cb57-2" aria-hidden="true" tabindex="-1"></a>    <span class="va">parent</span><span class="op">:</span> <span class="dt">ModelElement</span><span class="op">,</span></span>
-<span id="cb57-3"><a href="#cb57-3" aria-hidden="true" tabindex="-1"></a>    <span class="va">reorderPt</span><span class="op">:</span> <span class="dt">Int</span> <span class="op">=</span> <span class="dv">1</span><span class="op">,</span></span>
-<span id="cb57-4"><a href="#cb57-4" aria-hidden="true" tabindex="-1"></a>    <span class="va">reorderQty</span><span class="op">:</span> <span class="dt">Int</span> <span class="op">=</span> <span class="dv">1</span><span class="op">,</span></span>
-<span id="cb57-5"><a href="#cb57-5" aria-hidden="true" tabindex="-1"></a>    <span class="va">name</span><span class="op">:</span> <span class="dt">String</span><span class="op">?</span> <span class="op">=</span> null</span>
-<span id="cb57-6"><a href="#cb57-6" aria-hidden="true" tabindex="-1"></a><span class="op">)</span> <span class="op">:</span> <span class="dt">ModelElement</span><span class="op">(</span><span class="va">parent</span><span class="op">,</span> <span class="va">name</span><span class="op">)</span> <span class="op">{</span></span>
-<span id="cb57-7"><a href="#cb57-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb57-8"><a href="#cb57-8" aria-hidden="true" tabindex="-1"></a>    <span class="kw">private</span> <span class="kw">var</span> <span class="va">leadTimeRV</span> <span class="op">=</span> RandomVariable<span class="op">(</span><span class="kw">this</span><span class="op">,</span> ConstantRV<span class="op">(</span><span class="fl">10.0</span><span class="op">))</span></span>
-<span id="cb57-9"><a href="#cb57-9" aria-hidden="true" tabindex="-1"></a>    <span class="kw">val</span> <span class="va">leadTime</span><span class="op">:</span> RandomSourceCIfc</span>
-<span id="cb57-10"><a href="#cb57-10" aria-hidden="true" tabindex="-1"></a>        <span class="kw">get</span><span class="op">()</span> <span class="op">=</span> leadTimeRV</span>
-<span id="cb57-11"><a href="#cb57-11" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb57-12"><a href="#cb57-12" aria-hidden="true" tabindex="-1"></a>    <span class="kw">private</span> <span class="kw">var</span> <span class="va">timeBetweenDemand</span><span class="op">:</span> RandomVariable <span class="op">=</span> RandomVariable<span class="op">(</span>parent<span class="op">,</span> ExponentialRV<span class="op">(</span><span class="fl">365.0</span> <span class="op">/</span> <span class="fl">14.0</span><span class="op">))</span></span>
-<span id="cb57-13"><a href="#cb57-13" aria-hidden="true" tabindex="-1"></a>    <span class="kw">val</span> <span class="va">timeBetweenDemandRV</span><span class="op">:</span> RandomSourceCIfc</span>
-<span id="cb57-14"><a href="#cb57-14" aria-hidden="true" tabindex="-1"></a>        <span class="kw">get</span><span class="op">()</span> <span class="op">=</span> timeBetweenDemand</span>
-<span id="cb57-15"><a href="#cb57-15" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb57-16"><a href="#cb57-16" aria-hidden="true" tabindex="-1"></a>    <span class="kw">private</span> <span class="kw">val</span> <span class="va">demandGenerator</span> <span class="op">=</span> EventGenerator<span class="op">(</span><span class="kw">this</span><span class="op">,</span> <span class="kw">this</span><span class="op">::</span>sendDemand<span class="op">,</span> timeBetweenDemand<span class="op">,</span> timeBetweenDemand<span class="op">)</span></span>
-<span id="cb57-17"><a href="#cb57-17" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb57-18"><a href="#cb57-18" aria-hidden="true" tabindex="-1"></a>    <span class="kw">private</span> <span class="kw">val</span> <span class="va">inventory</span><span class="op">:</span> RQInventory <span class="op">=</span> RQInventory<span class="op">(</span></span>
-<span id="cb57-19"><a href="#cb57-19" aria-hidden="true" tabindex="-1"></a>        <span class="kw">this</span><span class="op">,</span> reorderPt<span class="op">,</span> reorderQty<span class="op">,</span> replenisher <span class="op">=</span> Warehouse<span class="op">(),</span> name <span class="op">=</span> <span class="st">"Item"</span></span>
-<span id="cb57-20"><a href="#cb57-20" aria-hidden="true" tabindex="-1"></a>    <span class="op">)</span></span>
-<span id="cb57-21"><a href="#cb57-21" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb57-22"><a href="#cb57-22" aria-hidden="true" tabindex="-1"></a>    <span class="kw">fun</span> <span class="fu">setInitialOnHand</span><span class="op">(</span><span class="va">amount</span><span class="op">:</span> <span class="dt">Int</span><span class="op">){</span></span>
-<span id="cb57-23"><a href="#cb57-23" aria-hidden="true" tabindex="-1"></a>        inventory<span class="op">.</span>setInitialOnHand<span class="op">(</span>amount<span class="op">)</span></span>
-<span id="cb57-24"><a href="#cb57-24" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
-<span id="cb57-25"><a href="#cb57-25" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb57-26"><a href="#cb57-26" aria-hidden="true" tabindex="-1"></a>    <span class="kw">fun</span> <span class="fu">setInitialPolicyParameters</span><span class="op">(</span><span class="va">reorderPt</span><span class="op">:</span> <span class="dt">Int</span><span class="op">,</span> <span class="va">reorderQty</span><span class="op">:</span> <span class="dt">Int</span><span class="op">){</span></span>
-<span id="cb57-27"><a href="#cb57-27" aria-hidden="true" tabindex="-1"></a>        inventory<span class="op">.</span>setInitialPolicyParameters<span class="op">(</span>reorderPt<span class="op">,</span> reorderQty<span class="op">)</span></span>
-<span id="cb57-28"><a href="#cb57-28" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
-<span id="cb57-29"><a href="#cb57-29" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb57-30"><a href="#cb57-30" aria-hidden="true" tabindex="-1"></a>    <span class="kw">private</span> <span class="kw">fun</span> <span class="fu">sendDemand</span><span class="op">(</span><span class="va">generator</span><span class="op">:</span> <span class="dt">EventGenerator</span><span class="op">)</span> <span class="op">{</span></span>
-<span id="cb57-31"><a href="#cb57-31" aria-hidden="true" tabindex="-1"></a>        inventory<span class="op">.</span>fillInventory<span class="op">(</span><span class="dv">1</span><span class="op">)</span></span>
-<span id="cb57-32"><a href="#cb57-32" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
-<span id="cb57-33"><a href="#cb57-33" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb57-34"><a href="#cb57-34" aria-hidden="true" tabindex="-1"></a>    <span class="kw">inner</span> <span class="kw">class</span> Warehouse <span class="op">:</span> <span class="dt">InventoryFillerIfc</span> <span class="op">{</span></span>
-<span id="cb57-35"><a href="#cb57-35" aria-hidden="true" tabindex="-1"></a>        <span class="kw">override</span> <span class="kw">fun</span> <span class="fu">fillInventory</span><span class="op">(</span><span class="va">demand</span><span class="op">:</span> <span class="dt">Int</span><span class="op">)</span> <span class="op">{</span></span>
-<span id="cb57-36"><a href="#cb57-36" aria-hidden="true" tabindex="-1"></a>            schedule<span class="op">(</span><span class="kw">this</span><span class="op">::</span>endLeadTimeAction<span class="op">,</span> leadTimeRV<span class="op">,</span> message <span class="op">=</span> demand<span class="op">)</span></span>
-<span id="cb57-37"><a href="#cb57-37" aria-hidden="true" tabindex="-1"></a>        <span class="op">}</span></span>
-<span id="cb57-38"><a href="#cb57-38" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb57-39"><a href="#cb57-39" aria-hidden="true" tabindex="-1"></a>        <span class="kw">private</span> <span class="kw">fun</span> <span class="fu">endLeadTimeAction</span><span class="op">(</span><span class="va">event</span><span class="op">:</span> <span class="dt">KSLEvent</span>&lt;<span class="va">Int</span>&gt;<span class="op">)</span> <span class="op">{</span></span>
-<span id="cb57-40"><a href="#cb57-40" aria-hidden="true" tabindex="-1"></a>            inventory<span class="op">.</span>replenishmentArrival<span class="op">(</span>event<span class="op">.</span>message<span class="op">!!)</span></span>
-<span id="cb57-41"><a href="#cb57-41" aria-hidden="true" tabindex="-1"></a>        <span class="op">}</span></span>
-<span id="cb57-42"><a href="#cb57-42" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
-<span id="cb57-43"><a href="#cb57-43" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p>The implementation of the warehouse simply schedules a delay to represent the lead time and then calls the inventory with the amount of the replenishment after the lead time interval. In this implementation, we assume that the demand occurs in units of one. The exercises will ask the reader to generalize on this situation. Finally, we create an instance that represents the problem and perform the simulation.</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb58"><pre class="sourceCode kotlin code-with-copy"><code class="sourceCode kotlin"><span id="cb58-1"><a href="#cb58-1" aria-hidden="true" tabindex="-1"></a><span class="kw">fun</span> <span class="fu">main</span><span class="op">()</span> <span class="op">{</span></span>
-<span id="cb58-2"><a href="#cb58-2" aria-hidden="true" tabindex="-1"></a>    <span class="kw">val</span> <span class="va">m</span> <span class="op">=</span> Model<span class="op">()</span></span>
-<span id="cb58-3"><a href="#cb58-3" aria-hidden="true" tabindex="-1"></a>    <span class="kw">val</span> <span class="va">reorderPoint</span> <span class="op">=</span> <span class="dv">1</span></span>
-<span id="cb58-4"><a href="#cb58-4" aria-hidden="true" tabindex="-1"></a>    <span class="kw">val</span> <span class="va">reorderQty</span> <span class="op">=</span> <span class="dv">2</span></span>
-<span id="cb58-5"><a href="#cb58-5" aria-hidden="true" tabindex="-1"></a>    <span class="kw">val</span> <span class="va">rqModel</span> <span class="op">=</span> RQInventorySystem<span class="op">(</span>m<span class="op">,</span> reorderPoint<span class="op">,</span> reorderQty<span class="op">,</span> <span class="st">"RQ Inventory Model"</span><span class="op">)</span></span>
-<span id="cb58-6"><a href="#cb58-6" aria-hidden="true" tabindex="-1"></a>    rqModel<span class="op">.</span>initialOnHand <span class="op">=</span> <span class="dv">0</span></span>
-<span id="cb58-7"><a href="#cb58-7" aria-hidden="true" tabindex="-1"></a>    rqModel<span class="op">.</span>timeBetweenDemand<span class="op">.</span>initialRandomSource <span class="op">=</span> ExponentialRV<span class="op">(</span><span class="fl">1.0</span> <span class="op">/</span> <span class="fl">3.6</span><span class="op">)</span></span>
-<span id="cb58-8"><a href="#cb58-8" aria-hidden="true" tabindex="-1"></a>    rqModel<span class="op">.</span>leadTime<span class="op">.</span>initialRandomSource <span class="op">=</span> ConstantRV<span class="op">(</span><span class="fl">0.5</span><span class="op">)</span></span>
-<span id="cb58-9"><a href="#cb58-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb58-10"><a href="#cb58-10" aria-hidden="true" tabindex="-1"></a>    m<span class="op">.</span>lengthOfReplication <span class="op">=</span> <span class="fl">110000.0</span></span>
-<span id="cb58-11"><a href="#cb58-11" aria-hidden="true" tabindex="-1"></a>    m<span class="op">.</span>lengthOfReplicationWarmUp <span class="op">=</span> <span class="fl">10000.0</span></span>
-<span id="cb58-12"><a href="#cb58-12" aria-hidden="true" tabindex="-1"></a>    m<span class="op">.</span>numberOfReplications <span class="op">=</span> <span class="dv">40</span></span>
-<span id="cb58-13"><a href="#cb58-13" aria-hidden="true" tabindex="-1"></a>    m<span class="op">.</span>simulate<span class="op">()</span></span>
-<span id="cb58-14"><a href="#cb58-14" aria-hidden="true" tabindex="-1"></a>    m<span class="op">.</span>print<span class="op">()</span></span>
-<span id="cb58-15"><a href="#cb58-15" aria-hidden="true" tabindex="-1"></a>    <span class="kw">val</span> <span class="va">r</span> <span class="op">=</span> m<span class="op">.</span>simulationReporter</span>
-<span id="cb58-16"><a href="#cb58-16" aria-hidden="true" tabindex="-1"></a>    <span class="kw">val</span> <span class="va">out</span> <span class="op">=</span> m<span class="op">.</span>outputDirectory<span class="op">.</span>createPrintWriter<span class="op">(</span><span class="st">"R-Q Inventory Results.md"</span><span class="op">)</span></span>
-<span id="cb58-17"><a href="#cb58-17" aria-hidden="true" tabindex="-1"></a>    r<span class="op">.</span>writeHalfWidthSummaryReportAsMarkDown<span class="op">(</span><span class="kw">out</span><span class="op">,</span> df <span class="op">=</span> MarkDown<span class="op">.</span>D3FORMAT<span class="op">)</span></span>
-<span id="cb58-18"><a href="#cb58-18" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p>The results for this simulation match the theoretical expected analytical results for this situation.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb60"><pre class="sourceCode kotlin code-with-copy"><code class="sourceCode kotlin"><span id="cb60-1"><a href="#cb60-1" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> RQInventorySystem<span class="op">(</span></span>
+<span id="cb60-2"><a href="#cb60-2" aria-hidden="true" tabindex="-1"></a>    <span class="va">parent</span><span class="op">:</span> <span class="dt">ModelElement</span><span class="op">,</span></span>
+<span id="cb60-3"><a href="#cb60-3" aria-hidden="true" tabindex="-1"></a>    <span class="va">reorderPt</span><span class="op">:</span> <span class="dt">Int</span> <span class="op">=</span> <span class="dv">1</span><span class="op">,</span></span>
+<span id="cb60-4"><a href="#cb60-4" aria-hidden="true" tabindex="-1"></a>    <span class="va">reorderQty</span><span class="op">:</span> <span class="dt">Int</span> <span class="op">=</span> <span class="dv">1</span><span class="op">,</span></span>
+<span id="cb60-5"><a href="#cb60-5" aria-hidden="true" tabindex="-1"></a>    <span class="va">name</span><span class="op">:</span> <span class="dt">String</span><span class="op">?</span> <span class="op">=</span> null</span>
+<span id="cb60-6"><a href="#cb60-6" aria-hidden="true" tabindex="-1"></a><span class="op">)</span> <span class="op">:</span> <span class="dt">ModelElement</span><span class="op">(</span><span class="va">parent</span><span class="op">,</span> <span class="va">name</span><span class="op">)</span> <span class="op">{</span></span>
+<span id="cb60-7"><a href="#cb60-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb60-8"><a href="#cb60-8" aria-hidden="true" tabindex="-1"></a>    <span class="kw">private</span> <span class="kw">var</span> <span class="va">demandAmountRV</span> <span class="op">=</span> RandomVariable<span class="op">(</span></span>
+<span id="cb60-9"><a href="#cb60-9" aria-hidden="true" tabindex="-1"></a>        <span class="kw">this</span><span class="op">,</span> ConstantRV<span class="op">(</span><span class="fl">1.0</span><span class="op">),</span></span>
+<span id="cb60-10"><a href="#cb60-10" aria-hidden="true" tabindex="-1"></a>        name <span class="op">=</span> <span class="st">"</span><span class="ss">${</span><span class="kw">this</span><span class="op">.</span>name<span class="ss">}</span><span class="st">:DemandAmountRV"</span></span>
+<span id="cb60-11"><a href="#cb60-11" aria-hidden="true" tabindex="-1"></a>    <span class="op">)</span></span>
+<span id="cb60-12"><a href="#cb60-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb60-13"><a href="#cb60-13" aria-hidden="true" tabindex="-1"></a>    <span class="kw">val</span> <span class="va">demandAmount</span><span class="op">:</span> RandomVariableCIfc</span>
+<span id="cb60-14"><a href="#cb60-14" aria-hidden="true" tabindex="-1"></a>        <span class="kw">get</span><span class="op">()</span> <span class="op">=</span> demandAmountRV</span>
+<span id="cb60-15"><a href="#cb60-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb60-16"><a href="#cb60-16" aria-hidden="true" tabindex="-1"></a>    <span class="kw">private</span> <span class="kw">var</span> <span class="va">leadTimeRV</span> <span class="op">=</span> RandomVariable<span class="op">(</span></span>
+<span id="cb60-17"><a href="#cb60-17" aria-hidden="true" tabindex="-1"></a>        <span class="kw">this</span><span class="op">,</span> ConstantRV<span class="op">(</span><span class="fl">10.0</span><span class="op">),</span></span>
+<span id="cb60-18"><a href="#cb60-18" aria-hidden="true" tabindex="-1"></a>        name <span class="op">=</span> <span class="st">"</span><span class="ss">${</span><span class="kw">this</span><span class="op">.</span>name<span class="ss">}</span><span class="st">:LeadTimeRV"</span></span>
+<span id="cb60-19"><a href="#cb60-19" aria-hidden="true" tabindex="-1"></a>    <span class="op">)</span></span>
+<span id="cb60-20"><a href="#cb60-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb60-21"><a href="#cb60-21" aria-hidden="true" tabindex="-1"></a>    <span class="kw">var</span> <span class="va">unitHoldingCost</span><span class="op">:</span> <span class="kw">Double</span></span>
+<span id="cb60-22"><a href="#cb60-22" aria-hidden="true" tabindex="-1"></a>        <span class="kw">get</span><span class="op">()</span> <span class="op">=</span> inventory<span class="op">.</span>unitHoldingCost</span>
+<span id="cb60-23"><a href="#cb60-23" aria-hidden="true" tabindex="-1"></a>        <span class="kw">set</span><span class="op">(</span>value<span class="op">)</span> <span class="op">{</span></span>
+<span id="cb60-24"><a href="#cb60-24" aria-hidden="true" tabindex="-1"></a>            inventory<span class="op">.</span>unitHoldingCost <span class="op">=</span> value</span>
+<span id="cb60-25"><a href="#cb60-25" aria-hidden="true" tabindex="-1"></a>        <span class="op">}</span></span>
+<span id="cb60-26"><a href="#cb60-26" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb60-27"><a href="#cb60-27" aria-hidden="true" tabindex="-1"></a>    <span class="kw">var</span> <span class="va">unitBackorderCost</span><span class="op">:</span> <span class="kw">Double</span></span>
+<span id="cb60-28"><a href="#cb60-28" aria-hidden="true" tabindex="-1"></a>        <span class="kw">get</span><span class="op">()</span> <span class="op">=</span> inventory<span class="op">.</span>unitBackOrderCost</span>
+<span id="cb60-29"><a href="#cb60-29" aria-hidden="true" tabindex="-1"></a>        <span class="kw">set</span><span class="op">(</span>value<span class="op">)</span> <span class="op">{</span></span>
+<span id="cb60-30"><a href="#cb60-30" aria-hidden="true" tabindex="-1"></a>            inventory<span class="op">.</span>unitBackOrderCost <span class="op">=</span> value</span>
+<span id="cb60-31"><a href="#cb60-31" aria-hidden="true" tabindex="-1"></a>        <span class="op">}</span></span>
+<span id="cb60-32"><a href="#cb60-32" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb60-33"><a href="#cb60-33" aria-hidden="true" tabindex="-1"></a>    <span class="kw">var</span> <span class="va">costPerOrder</span><span class="op">:</span> <span class="kw">Double</span></span>
+<span id="cb60-34"><a href="#cb60-34" aria-hidden="true" tabindex="-1"></a>        <span class="kw">get</span><span class="op">()</span> <span class="op">=</span> inventory<span class="op">.</span>costPerOrder</span>
+<span id="cb60-35"><a href="#cb60-35" aria-hidden="true" tabindex="-1"></a>        <span class="kw">set</span><span class="op">(</span>value<span class="op">)</span> <span class="op">{</span></span>
+<span id="cb60-36"><a href="#cb60-36" aria-hidden="true" tabindex="-1"></a>            inventory<span class="op">.</span>costPerOrder <span class="op">=</span> value</span>
+<span id="cb60-37"><a href="#cb60-37" aria-hidden="true" tabindex="-1"></a>        <span class="op">}</span></span>
+<span id="cb60-38"><a href="#cb60-38" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb60-39"><a href="#cb60-39" aria-hidden="true" tabindex="-1"></a>    <span class="kw">val</span> <span class="va">leadTime</span><span class="op">:</span> RandomVariableCIfc</span>
+<span id="cb60-40"><a href="#cb60-40" aria-hidden="true" tabindex="-1"></a>        <span class="kw">get</span><span class="op">()</span> <span class="op">=</span> leadTimeRV</span>
+<span id="cb60-41"><a href="#cb60-41" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb60-42"><a href="#cb60-42" aria-hidden="true" tabindex="-1"></a>    <span class="kw">private</span> <span class="kw">var</span> <span class="va">timeBetweenDemandRV</span> <span class="op">=</span> ExponentialRV<span class="op">(</span><span class="fl">365.0</span> <span class="op">/</span> <span class="fl">14.0</span><span class="op">,</span> <span class="dv">1</span><span class="op">)</span></span>
+<span id="cb60-43"><a href="#cb60-43" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb60-44"><a href="#cb60-44" aria-hidden="true" tabindex="-1"></a>    <span class="kw">private</span> <span class="kw">val</span> <span class="va">myDemandGenerator</span> <span class="op">=</span> EventGenerator<span class="op">(</span><span class="kw">this</span><span class="op">,</span> <span class="kw">this</span><span class="op">::</span>sendDemand<span class="op">,</span></span>
+<span id="cb60-45"><a href="#cb60-45" aria-hidden="true" tabindex="-1"></a>        timeBetweenDemandRV<span class="op">,</span> timeBetweenDemandRV<span class="op">)</span></span>
+<span id="cb60-46"><a href="#cb60-46" aria-hidden="true" tabindex="-1"></a>    <span class="kw">val</span> <span class="va">demandGenerator</span><span class="op">:</span> EventGeneratorRVCIfc</span>
+<span id="cb60-47"><a href="#cb60-47" aria-hidden="true" tabindex="-1"></a>        <span class="kw">get</span><span class="op">()</span> <span class="op">=</span> myDemandGenerator</span>
+<span id="cb60-48"><a href="#cb60-48" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb60-49"><a href="#cb60-49" aria-hidden="true" tabindex="-1"></a>    <span class="kw">private</span> <span class="kw">val</span> <span class="va">inventory</span><span class="op">:</span> RQInventory <span class="op">=</span> RQInventory<span class="op">(</span></span>
+<span id="cb60-50"><a href="#cb60-50" aria-hidden="true" tabindex="-1"></a>        <span class="kw">this</span><span class="op">,</span> reorderPt<span class="op">,</span> reorderQty<span class="op">,</span> replenisher <span class="op">=</span> Warehouse<span class="op">(),</span> name <span class="op">=</span> <span class="st">"</span><span class="ss">${</span><span class="kw">this</span><span class="op">.</span>name<span class="ss">}</span><span class="st">:Item"</span></span>
+<span id="cb60-51"><a href="#cb60-51" aria-hidden="true" tabindex="-1"></a>    <span class="op">)</span></span>
+<span id="cb60-52"><a href="#cb60-52" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb60-53"><a href="#cb60-53" aria-hidden="true" tabindex="-1"></a>    <span class="kw">var</span> <span class="va">initialOnHand</span><span class="op">:</span> <span class="kw">Int</span></span>
+<span id="cb60-54"><a href="#cb60-54" aria-hidden="true" tabindex="-1"></a>        <span class="kw">get</span><span class="op">()</span> <span class="op">=</span> inventory<span class="op">.</span>initialOnHand</span>
+<span id="cb60-55"><a href="#cb60-55" aria-hidden="true" tabindex="-1"></a>        <span class="kw">set</span><span class="op">(</span>amount<span class="op">)</span> <span class="op">{</span></span>
+<span id="cb60-56"><a href="#cb60-56" aria-hidden="true" tabindex="-1"></a>            require<span class="op">(</span>amount <span class="op">&gt;=</span> <span class="dv">0</span><span class="op">)</span> <span class="op">{</span> <span class="st">"The initial amount on hand must be &gt;= 0"</span> <span class="op">}</span></span>
+<span id="cb60-57"><a href="#cb60-57" aria-hidden="true" tabindex="-1"></a>            inventory<span class="op">.</span>initialOnHand <span class="op">=</span> amount</span>
+<span id="cb60-58"><a href="#cb60-58" aria-hidden="true" tabindex="-1"></a>        <span class="op">}</span></span>
+<span id="cb60-59"><a href="#cb60-59" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb60-60"><a href="#cb60-60" aria-hidden="true" tabindex="-1"></a>    <span class="kw">var</span> <span class="va">initialReorderPoint</span><span class="op">:</span> <span class="kw">Int</span></span>
+<span id="cb60-61"><a href="#cb60-61" aria-hidden="true" tabindex="-1"></a>        <span class="kw">get</span><span class="op">()</span> <span class="op">=</span> inventory<span class="op">.</span>initialReorderPoint</span>
+<span id="cb60-62"><a href="#cb60-62" aria-hidden="true" tabindex="-1"></a>        <span class="kw">set</span><span class="op">(</span>value<span class="op">)</span> <span class="op">{</span></span>
+<span id="cb60-63"><a href="#cb60-63" aria-hidden="true" tabindex="-1"></a>            require<span class="op">(</span>model<span class="op">.</span>isNotRunning<span class="op">)</span> <span class="op">{</span> <span class="st">"The initial reorder point must be set before the simulation starts"</span><span class="op">}</span></span>
+<span id="cb60-64"><a href="#cb60-64" aria-hidden="true" tabindex="-1"></a>            inventory<span class="op">.</span>initialReorderPoint <span class="op">=</span> value</span>
+<span id="cb60-65"><a href="#cb60-65" aria-hidden="true" tabindex="-1"></a>        <span class="op">}</span></span>
+<span id="cb60-66"><a href="#cb60-66" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb60-67"><a href="#cb60-67" aria-hidden="true" tabindex="-1"></a>    <span class="kw">var</span> <span class="va">initialReorderQty</span><span class="op">:</span> <span class="kw">Int</span></span>
+<span id="cb60-68"><a href="#cb60-68" aria-hidden="true" tabindex="-1"></a>        <span class="kw">get</span><span class="op">()</span> <span class="op">=</span> inventory<span class="op">.</span>initialReorderQty</span>
+<span id="cb60-69"><a href="#cb60-69" aria-hidden="true" tabindex="-1"></a>        <span class="kw">set</span><span class="op">(</span>value<span class="op">)</span> <span class="op">{</span></span>
+<span id="cb60-70"><a href="#cb60-70" aria-hidden="true" tabindex="-1"></a>            inventory<span class="op">.</span>initialReorderQty <span class="op">=</span> value</span>
+<span id="cb60-71"><a href="#cb60-71" aria-hidden="true" tabindex="-1"></a>        <span class="op">}</span></span>
+<span id="cb60-72"><a href="#cb60-72" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb60-73"><a href="#cb60-73" aria-hidden="true" tabindex="-1"></a>    <span class="kw">fun</span> <span class="fu">setInitialPolicyParameters</span><span class="op">(</span><span class="va">reorderPt</span><span class="op">:</span> <span class="dt">Int</span><span class="op">,</span> <span class="va">reorderQty</span><span class="op">:</span> <span class="dt">Int</span><span class="op">)</span> <span class="op">{</span></span>
+<span id="cb60-74"><a href="#cb60-74" aria-hidden="true" tabindex="-1"></a>        inventory<span class="op">.</span>setInitialPolicyParameters<span class="op">(</span>reorderPt<span class="op">,</span> reorderQty<span class="op">)</span></span>
+<span id="cb60-75"><a href="#cb60-75" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
+<span id="cb60-76"><a href="#cb60-76" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb60-77"><a href="#cb60-77" aria-hidden="true" tabindex="-1"></a>    <span class="kw">private</span> <span class="kw">fun</span> <span class="fu">sendDemand</span><span class="op">(</span><span class="va">generator</span><span class="op">:</span> <span class="dt">EventGeneratorIfc</span><span class="op">)</span> <span class="op">{</span></span>
+<span id="cb60-78"><a href="#cb60-78" aria-hidden="true" tabindex="-1"></a>        inventory<span class="op">.</span>fillInventory<span class="op">(</span>demandAmountRV<span class="op">.</span>value<span class="op">.</span>toInt<span class="op">())</span></span>
+<span id="cb60-79"><a href="#cb60-79" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
+<span id="cb60-80"><a href="#cb60-80" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb60-81"><a href="#cb60-81" aria-hidden="true" tabindex="-1"></a>    <span class="kw">inner</span> <span class="kw">class</span> Warehouse <span class="op">:</span> <span class="dt">InventoryFillerIfc</span> <span class="op">{</span></span>
+<span id="cb60-82"><a href="#cb60-82" aria-hidden="true" tabindex="-1"></a>        <span class="kw">override</span> <span class="kw">fun</span> <span class="fu">fillInventory</span><span class="op">(</span><span class="va">demand</span><span class="op">:</span> <span class="dt">Int</span><span class="op">)</span> <span class="op">{</span></span>
+<span id="cb60-83"><a href="#cb60-83" aria-hidden="true" tabindex="-1"></a>            schedule<span class="op">(</span><span class="kw">this</span><span class="op">::</span>endLeadTimeAction<span class="op">,</span> leadTimeRV<span class="op">,</span> message <span class="op">=</span> demand<span class="op">)</span></span>
+<span id="cb60-84"><a href="#cb60-84" aria-hidden="true" tabindex="-1"></a>        <span class="op">}</span></span>
+<span id="cb60-85"><a href="#cb60-85" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb60-86"><a href="#cb60-86" aria-hidden="true" tabindex="-1"></a>        <span class="kw">private</span> <span class="kw">fun</span> <span class="fu">endLeadTimeAction</span><span class="op">(</span><span class="va">event</span><span class="op">:</span> <span class="dt">KSLEvent</span>&lt;<span class="va">Int</span>&gt;<span class="op">)</span> <span class="op">{</span></span>
+<span id="cb60-87"><a href="#cb60-87" aria-hidden="true" tabindex="-1"></a>            inventory<span class="op">.</span>replenishmentArrival<span class="op">(</span>event<span class="op">.</span>message<span class="op">!!)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>The implementation of the warehouse simply schedules a delay to represent the lead time and then calls the inventory with the amount of the replenishment after the lead time interval. In this implementation, the amount of each demand is governed by the <code>demandAmount</code> random variable, which is a constant 1 by default. Thus, we assume that the demand occurs in units of one. The system class also passes the initial amount on hand and the three costs through to the inventory as properties. The exercises will ask the reader to generalize on this situation. Finally, we create an instance that represents the problem and perform the simulation.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb61"><pre class="sourceCode kotlin code-with-copy"><code class="sourceCode kotlin"><span id="cb61-1"><a href="#cb61-1" aria-hidden="true" tabindex="-1"></a><span class="kw">fun</span> <span class="fu">main</span><span class="op">()</span> <span class="op">{</span></span>
+<span id="cb61-2"><a href="#cb61-2" aria-hidden="true" tabindex="-1"></a>    <span class="kw">val</span> <span class="va">m</span> <span class="op">=</span> Model<span class="op">()</span></span>
+<span id="cb61-3"><a href="#cb61-3" aria-hidden="true" tabindex="-1"></a>    <span class="kw">val</span> <span class="va">reorderPoint</span> <span class="op">=</span> <span class="dv">1</span></span>
+<span id="cb61-4"><a href="#cb61-4" aria-hidden="true" tabindex="-1"></a>    <span class="kw">val</span> <span class="va">reorderQty</span> <span class="op">=</span> <span class="dv">2</span></span>
+<span id="cb61-5"><a href="#cb61-5" aria-hidden="true" tabindex="-1"></a>    <span class="kw">val</span> <span class="va">rqModel</span> <span class="op">=</span> RQInventorySystem<span class="op">(</span>m<span class="op">,</span> reorderPoint<span class="op">,</span> reorderQty<span class="op">,</span> <span class="st">"RQ Inventory Model"</span><span class="op">)</span></span>
+<span id="cb61-6"><a href="#cb61-6" aria-hidden="true" tabindex="-1"></a>    rqModel<span class="op">.</span>initialOnHand <span class="op">=</span> <span class="dv">0</span></span>
+<span id="cb61-7"><a href="#cb61-7" aria-hidden="true" tabindex="-1"></a>    rqModel<span class="op">.</span>demandGenerator<span class="op">.</span>setInitialEventTimeProcesses<span class="op">(</span>ExponentialRV<span class="op">(</span><span class="fl">1.0</span> <span class="op">/</span> <span class="fl">3.6</span><span class="op">,</span> streamNum <span class="op">=</span> <span class="dv">2</span><span class="op">))</span></span>
+<span id="cb61-8"><a href="#cb61-8" aria-hidden="true" tabindex="-1"></a>    rqModel<span class="op">.</span>leadTime<span class="op">.</span>initialRandomSource <span class="op">=</span> ConstantRV<span class="op">(</span><span class="fl">0.5</span><span class="op">)</span></span>
+<span id="cb61-9"><a href="#cb61-9" aria-hidden="true" tabindex="-1"></a>    rqModel<span class="op">.</span>costPerOrder <span class="op">=</span> <span class="fl">0.15</span></span>
+<span id="cb61-10"><a href="#cb61-10" aria-hidden="true" tabindex="-1"></a>    rqModel<span class="op">.</span>unitHoldingCost <span class="op">=</span> <span class="fl">0.25</span></span>
+<span id="cb61-11"><a href="#cb61-11" aria-hidden="true" tabindex="-1"></a>    rqModel<span class="op">.</span>unitBackorderCost <span class="op">=</span> <span class="fl">1.75</span></span>
+<span id="cb61-12"><a href="#cb61-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb61-13"><a href="#cb61-13" aria-hidden="true" tabindex="-1"></a>    m<span class="op">.</span>lengthOfReplication <span class="op">=</span> <span class="fl">110000.0</span></span>
+<span id="cb61-14"><a href="#cb61-14" aria-hidden="true" tabindex="-1"></a>    m<span class="op">.</span>lengthOfReplicationWarmUp <span class="op">=</span> <span class="fl">10000.0</span></span>
+<span id="cb61-15"><a href="#cb61-15" aria-hidden="true" tabindex="-1"></a>    m<span class="op">.</span>numberOfReplications <span class="op">=</span> <span class="dv">40</span></span>
+<span id="cb61-16"><a href="#cb61-16" aria-hidden="true" tabindex="-1"></a>    m<span class="op">.</span>simulate<span class="op">()</span></span>
+<span id="cb61-17"><a href="#cb61-17" aria-hidden="true" tabindex="-1"></a>    m<span class="op">.</span>print<span class="op">()</span></span>
+<span id="cb61-18"><a href="#cb61-18" aria-hidden="true" tabindex="-1"></a>    <span class="kw">val</span> <span class="va">r</span> <span class="op">=</span> m<span class="op">.</span>simulationReporter</span>
+<span id="cb61-19"><a href="#cb61-19" aria-hidden="true" tabindex="-1"></a>    <span class="kw">val</span> <span class="va">out</span> <span class="op">=</span> m<span class="op">.</span>outputDirectory<span class="op">.</span>createPrintWriter<span class="op">(</span><span class="st">"R-Q Inventory Results.md"</span><span class="op">)</span></span>
+<span id="cb61-20"><a href="#cb61-20" aria-hidden="true" tabindex="-1"></a>    r<span class="op">.</span>writeHalfWidthSummaryReportAsMarkDown<span class="op">(</span><span class="kw">out</span><span class="op">,</span> df <span class="op">=</span> MarkDown<span class="op">.</span>D3FORMAT<span class="op">)</span></span>
+<span id="cb61-21"><a href="#cb61-21" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>The results of the simulation can be checked against the analytical results for this situation. With unit Poisson demand, the inventory position of an <span class="math inline">\((r, Q)\)</span> policy is uniformly distributed on <span class="math inline">\(\{r+1, \dots, r+Q\}\)</span>, which is <span class="math inline">\(\{2, 3\}\)</span> for this example. Let <span class="math inline">\(D\)</span> represent the demand during the lead time, which is Poisson with mean <span class="math inline">\(3.6 \times 0.5 = 1.8\)</span>. A demand is filled immediately if the inventory position exceeds the lead time demand. Thus, the fill rate is the average of <span class="math inline">\(P(D \le 1)\)</span> and <span class="math inline">\(P(D \le 2)\)</span>, which is <span class="math inline">\((0.4628 + 0.7306)/2 = 0.5967\)</span>. The simulated fill rate of 0.597 agrees. Because the demand process is Poisson, an arriving customer sees the time average state of the system. Thus, the fraction of time with stock on hand (0.597) also equals the fill rate. The cost results reflect the example’s costs: an ordering cost of <span class="math inline">\(0.15 \times 1.8 = 0.27\)</span>, a holding cost of <span class="math inline">\(0.25 \times 0.993 \approx 0.248\)</span>, and a back order cost of <span class="math inline">\(1.75 \times 0.294 \approx 0.514\)</span>, for a total cost of about 1.032 per month.</p>
 <p><strong>Inventory Model Statistical Summary Report</strong></p>
 <table class="caption-top table">
 <thead>
@@ -5166,83 +5342,90 @@ Figure&nbsp;7.12: A simple reorder point, reorder quantity inventory system
 <tr class="odd">
 <td style="text-align: center;">RQ Inventory Model:Item:OnHand</td>
 <td style="text-align: center;">40</td>
-<td style="text-align: center;">1.804</td>
+<td style="text-align: center;">0.993</td>
 <td style="text-align: center;">0.001</td>
 </tr>
 <tr class="even">
 <td style="text-align: center;">RQ Inventory Model:Item:PTimeWithStockOnHand</td>
 <td style="text-align: center;">40</td>
-<td style="text-align: center;">0.72</td>
+<td style="text-align: center;">0.597</td>
 <td style="text-align: center;">0</td>
 </tr>
 <tr class="odd">
 <td style="text-align: center;">RQ Inventory Model:Item:AmountBackOrdered</td>
 <td style="text-align: center;">40</td>
-<td style="text-align: center;">0.104</td>
+<td style="text-align: center;">0.294</td>
 <td style="text-align: center;">0</td>
 </tr>
 <tr class="even">
 <td style="text-align: center;">RQ Inventory Model:Item:OnOrder</td>
 <td style="text-align: center;">40</td>
-<td style="text-align: center;">1.801</td>
+<td style="text-align: center;">1.8</td>
 <td style="text-align: center;">0.001</td>
 </tr>
 <tr class="odd">
 <td style="text-align: center;">RQ Inventory Model:Item:BackOrderQ:NumInQ</td>
 <td style="text-align: center;">40</td>
-<td style="text-align: center;">0.104</td>
+<td style="text-align: center;">0.294</td>
 <td style="text-align: center;">0</td>
 </tr>
 <tr class="even">
 <td style="text-align: center;">RQ Inventory Model:Item:BackOrderQ:TimeInQ</td>
 <td style="text-align: center;">40</td>
-<td style="text-align: center;">0.153</td>
+<td style="text-align: center;">0.202</td>
 <td style="text-align: center;">0</td>
 </tr>
 <tr class="odd">
 <td style="text-align: center;">RQ Inventory Model:Item:FillRate</td>
 <td style="text-align: center;">40</td>
-<td style="text-align: center;">0.811</td>
+<td style="text-align: center;">0.597</td>
 <td style="text-align: center;">0</td>
 </tr>
 <tr class="even">
 <td style="text-align: center;">RQ Inventory Model:Item:OrderingFrequency</td>
 <td style="text-align: center;">40</td>
-<td style="text-align: center;">1.801</td>
+<td style="text-align: center;">1.8</td>
 <td style="text-align: center;">0.001</td>
 </tr>
 <tr class="odd">
 <td style="text-align: center;">RQ Inventory Model:Item:TotalCost</td>
 <td style="text-align: center;">40</td>
-<td style="text-align: center;">3.709</td>
+<td style="text-align: center;">1.032</td>
 <td style="text-align: center;">0.001</td>
 </tr>
 <tr class="even">
 <td style="text-align: center;">RQ Inventory Model:Item:OrderingCost</td>
 <td style="text-align: center;">40</td>
-<td style="text-align: center;">1.801</td>
-<td style="text-align: center;">0.001</td>
+<td style="text-align: center;">0.27</td>
+<td style="text-align: center;">0</td>
 </tr>
 <tr class="odd">
 <td style="text-align: center;">RQ Inventory Model:Item:HoldingCost</td>
 <td style="text-align: center;">40</td>
-<td style="text-align: center;">1.804</td>
-<td style="text-align: center;">0.001</td>
+<td style="text-align: center;">0.248</td>
+<td style="text-align: center;">0</td>
 </tr>
 <tr class="even">
 <td style="text-align: center;">RQ Inventory Model:Item:BackorderCost</td>
 <td style="text-align: center;">40</td>
-<td style="text-align: center;">0.104</td>
-<td style="text-align: center;">0</td>
+<td style="text-align: center;">0.514</td>
+<td style="text-align: center;">0.001</td>
 </tr>
 <tr class="odd">
+<td style="text-align: center;">RQ Inventory Model:Item:OrderingAndHoldingCost</td>
+<td style="text-align: center;">40</td>
+<td style="text-align: center;">0.518</td>
+<td style="text-align: center;">0</td>
+</tr>
+<tr class="even">
 <td style="text-align: center;">RQ Inventory Model:Item:NumReplenishmentOrders</td>
 <td style="text-align: center;">40</td>
-<td style="text-align: center;">180060.8</td>
-<td style="text-align: center;">100.105</td>
+<td style="text-align: center;">180032.15</td>
+<td style="text-align: center;">97.616</td>
 </tr>
 </tbody>
 </table>
+<p>The answer to the third question of <a href="#exm-exRQModel" class="quarto-xref">Example&nbsp;<span>7.9</span></a> is the probability that an arriving customer does not have their demand immediately filled. That is, <span class="math inline">\(1 - 0.597 = 0.403\)</span>. Thus, about 40 percent of the customers must wait for their demand to be filled, which suggests that the manager should consider a different policy.</p>
 <p>This example should give you a solid basis for developing more sophisticated inventory models. While analytical results are available for this example, small changes in the assumptions necessitate the need for simulation. For example, what if the lead times are stochastic or the demand is not in units of 1. In the latter case, the filling of the back-order queue should be done in different ways. For example, suppose customers wanting 5 and 3 items respectively were waiting in the queue. Now suppose a replenishment of 4 items comes in. Do you give 4 units of the item to the customer wanting 5 units (partial fill) or do you choose the customer wanting 3 units and fill their entire back-order and give only 1 unit to the customer wanting 5 units. The more realism needed, the less analytical models can be applied, and the more simulation becomes useful.</p>
 </section>
 </section>
@@ -5360,7 +5543,7 @@ Figure&nbsp;7.12: A simple reorder point, reorder quantity inventory system
 <img src="./figures/ch7/MfgFlowDiagram.png" class="img-fluid figure-img">
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-MfgFlowDiagram-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;7.13: Small manufacturing system with flow rates
+Figure&nbsp;7.13: Small Manufacturing System with Flow Rates
 </figcaption>
 </figure>
 </div>
@@ -5422,14 +5605,14 @@ Figure&nbsp;7.13: Small manufacturing system with flow rates
 <p>This can be easily tested within the simulation model by setting all the resource capacities to “infinite”. If you do this, the results will indicate that the expected time in the system is <span class="math inline">\(18.8951 \pm 0.06\)</span> with 95% confidence. Clearly, these results are close enough to provide even more credibility to the simulation results.</p>
 <p>By using additional queueing theory, we can approximate total time spent at each station by approximating the time spent within the queues and then adding up the total time. This will require additional approximations. For a random variable, <span class="math inline">\(X\)</span>, the squared coefficient of variation is given by:</p>
 <p><span class="math display">\[c_{X}^{2} = \frac{\text{Var}(X)}{{(E\left\lbrack X \right\rbrack)}^{2}}\]</span></p>
-<p>Whitt (1983) suggests the following approximation for the queuing time in a GI/G/c queue, where GI is some general independent inter-arrival distribution, G is some general service distribution and c is the number of servers. The approximation has the following form:</p>
+<p>Whitt (1983) suggests the following approximation for the queueing time in a GI/G/c queue, where GI is some general independent inter-arrival distribution, G is some general service distribution and c is the number of servers. The approximation has the following form:</p>
 <p><span class="math display">\[W_{q}(\text{GI}/G/c) \cong \left( \frac{c_{a}^{2} + c_{s}^{2}}{2} \right)W_{q}(M/M/c)\]</span></p>
 <p>Where <span class="math inline">\(c_{a}^{2}\)</span> and <span class="math inline">\(c_{s}^{2}\)</span> represent the squared coefficient of variation of the inter-arrival time distribution and the service time distribution respectively and <span class="math inline">\(W_{q}(M/M/c)\)</span> is the expected waiting time in a M/M/c queue.</p>
 <p>The main difficulty with applying this approximation is determining the variance of the inter-arrival time distribution. In what follows, we will simplify the approach even further and assume that the inter-arrival process at each station is a Poisson process. Thus, the inter-arrival distribution will be assumed to be exponential. Since the variance of an exponential distribution is the square of its mean, the squared coefficient of variation for all the arrival processes will be <span class="math inline">\(c_{a}^{2} = 1.\)</span> We will just need to compute the squared coefficient of variation for each of the service time distributions associated with each station. To determine the waiting time in queue, we will need the waiting time in queue equations for the M/M/c queueing model. The following table summarizes the formulas for the cases of 1, 2, and 3 servers.</p>
 <div id="tbl-MMCFormulas" class="quarto-float quarto-figure quarto-figure-left anchored">
 <figure class="quarto-float quarto-float-tbl figure">
 <figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-MMCFormulas-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Table&nbsp;7.11: Formulas for expected waiting time for M/M/c queue <span class="math inline">\(\rho = \lambda/c \mu\)</span>
+Table&nbsp;7.11: Formulas for Expected Waiting Time for M/M/c Queue <span class="math inline">\(\rho = \lambda/c \mu\)</span>
 </figcaption>
 <div aria-describedby="tbl-MMCFormulas-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <table class="caption-top table">
@@ -5461,7 +5644,7 @@ Table&nbsp;7.11: Formulas for expected waiting time for M/M/c queue <span class=
 <div id="tbl-MMCResults" class="quarto-float quarto-figure quarto-figure-left anchored">
 <figure class="quarto-float quarto-float-tbl figure">
 <figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-MMCResults-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Table&nbsp;7.12: Summary queueing results for each station
+Table&nbsp;7.12: Summary Queueing Results for Each Station
 </figcaption>
 <div aria-describedby="tbl-MMCResults-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <table class="caption-top table">
@@ -5546,13 +5729,13 @@ Table&nbsp;7.12: Summary queueing results for each station
 <p>The second recommended method of verification is debugging the model. Use the debugging capability of your software and step through the model. Check edge cases and debug the model. Run the model with watches on variables that stop the model if an invalid condition occurs, trace output through the debugger or by printing out data or logging the entity flow. Document what you did for the debugging. State what you did and what you found. The fact that you performed these verification steps is the essential first step in validating your model. Validation is whether or not the model meets its intended purpose. Validation cannot be accomplished unless verification steps have occurred.</p>
 <p>Validation cannot be done without convincing the user that the key conceptual elements of the system have been adequately represented in the model. This includes the modeling of the inputs to the system and how the conceptual model has been translated to a computerized representation. This is why documenting the input models and the conceptual model is so important. The old axiom, garbage in equals garbage out is pertinent here. The user must believe that the inputs have been well-modeled. The user must understand what is being modeled.</p>
 <p>It is also important that everyone agrees on how the model is intended to be used. If there is no agreement on the conceptual representation or on the model’s use, then validation will be unsuccessful. Validation is predicated on the model representing the system. Thus, validation often involves comparing the output of the model to the output of the real system. If the user of the model cannot tell the difference between model output and real system output, then the model’s representational power is quite high. If you have data from the real system, especially system output performance measures (e.g.&nbsp;throughput, system time, etc.), then you can compare the results of the simulation model to the actual results from the system. You can perform statistical tests to show that the results from the simulation model are not statistically different from the actual system. Again, a staged approach can be used. Do not feel that you have to validate the whole model against the whole system. Perhaps you can collect data on some critical sub-component of the system being modeled. You can then compare the results of your simulation of that critical sub-component to the actual results from that sub-component. Validating each sub-component goes a long way to validating the overall model. It may be easier to collect data from the actual system in stages or in these smaller components. Besides checking if the output matches the actual system output, you should check if the simulation model behaves as expected. The output of the model should react in the same manner as that expected for the real system or the conceptual understanding of how the system works. If you increase the arrival rate, does congestion go up? If not, it is likely something may be misrepresented within your model.</p>
-<p>In many situations, the real system does not exist yet. Thus, you will not have real data for validation purposes. This is often the case when simulation is being used to design a system. In such situations, you may be able to approximate the expected performance via “hand” calculations. In this context, you can and should approximation the performance of the simulation model using analytical methods, such as queuing theory. This can provide bounds on the expected performance and add to the credibility of the results. In addition, even if the whole system may not yet exist, perhaps sub-components of the real system exist. If so, you can test output from the sub-components to the associated sub-components of your model. Do not think like you have validate the whole model! Think about how you can validate parts of the model, with the validation of each part contributing the validation of the whole.</p>
+<p>In many situations, the real system does not exist yet. Thus, you will not have real data for validation purposes. This is often the case when simulation is being used to design a system. In such situations, you may be able to approximate the expected performance via “hand” calculations. In this context, you can and should approximation the performance of the simulation model using analytical methods, such as queueing theory. This can provide bounds on the expected performance and add to the credibility of the results. In addition, even if the whole system may not yet exist, perhaps sub-components of the real system exist. If so, you can test output from the sub-components to the associated sub-components of your model. Do not think like you have validate the whole model! Think about how you can validate parts of the model, with the validation of each part contributing the validation of the whole.</p>
 <p>Carefully documenting your conceptual model and your assumptions is also an important task for validation. If the user of your model does not understand it through its careful documentation, then they are less likely to believe the results from the model. Performing sensitivity analysis on a set of representative test cases can build credibility in the usage of the model. Validation is ultimately about believability. Does the user believe the results of the model? Validation is whether or not the model/algorithm meets it intended purpose. Verification is about checking if the model/algorithm meets the desired output. You must perform these functions when building a simulation model.</p>
 </section>
 </section>
 <section id="summary" class="level2" data-number="7.7">
 <h2 data-number="7.7" class="anchored" data-anchor-id="summary"><span class="header-section-number">7.7</span> Summary</h2>
-<p>This chapter provided a discussion of miscellaneous modeling constructs that can improve your modeling. The modeling of non-stationary arrivals was discussed and it motivated the exploration of advanced resource modeling constructs. The advanced resource modeling constructs allow for resources to be subjected to either scheduled capacity changes. Finally, a few interesting and useful miscellaneous modeling constructs were presented.</p>
+<p>This chapter provided a discussion of miscellaneous modeling constructs that can improve your modeling. The modeling of non-stationary arrivals was discussed and it motivated the exploration of advanced resource modeling constructs. The advanced resource modeling constructs allow for resources to be subjected to scheduled capacity changes. Finally, a few interesting and useful miscellaneous modeling constructs were presented.</p>
 <p>The following new KSL constructs were discussed in this chapter:</p>
 <p><code>ResourcePool</code>: A class that represents a set of resources from which a resource can be selected and seized.</p>
 <p><code>ResourcePoolWithQ</code>: A class that represents a set of resource from which a resource can be selected and seized with a specified queue to hold entities that are not immediately allocated a resource.</p>
@@ -5563,7 +5746,7 @@ Table&nbsp;7.12: Summary queueing results for each station
 <p><code>ResponseInterval</code>: A class that represents an interval of time over which statistical collection should be performed.</p>
 <p><code>ResponseSchedule</code>: A class that permits the specification of many response intervals and allows the repeating of the intervals over time.</p>
 <p><code>TimeSeriesResponse</code>: A class that divides the simulated time horizon into sequential periods of equal length and records the response for each period, for each replication, producing a time series that is suitable for plotting and further analysis.</p>
-<p>With all of these concepts within your simulation toolkit, you are now prepared to model very advanced situations.</p>
+<p>With these concepts in your simulation toolkit, you are prepared to model more advanced situations. The next chapter explores how to model the movement of entities between locations, including movement that is constrained by resources, by vehicles, and by conveyors.</p>
 </section>
 <section id="exercises" class="level2" data-number="7.8">
 <h2 data-number="7.8" class="anchored" data-anchor-id="exercises"><span class="header-section-number">7.8</span> Exercises</h2>
@@ -5865,7 +6048,7 @@ Table&nbsp;7.12: Summary queueing results for each station
 <img src="./figures/ch7/figSMPaintsExercise.png" style="width:70.0%;height:70.0%" class="figure-img">
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-SMPaintsExercise-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;7.14: Simple painting flow line
+Figure&nbsp;7.14: Simple Painting Flow Line
 </figcaption>
 </figure>
 </div>
@@ -5899,7 +6082,7 @@ Figure&nbsp;7.14: Simple painting flow line
 <div id="tbl-SRAC1" class="quarto-float quarto-figure quarto-figure-left anchored">
 <figure class="quarto-float quarto-float-tbl figure">
 <figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-SRAC1-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Table&nbsp;7.13: Mean Number of Calls Received for each Hour
+Table&nbsp;7.13: Mean Number of Calls Received for Each Hour
 </figcaption>
 <div aria-describedby="tbl-SRAC1-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <table class="caption-top table">
