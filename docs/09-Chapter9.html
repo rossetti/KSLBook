@@ -2473,11 +2473,11 @@ f(x) =
   \end{cases}
 \]</span></p>
 <p>In all cases, implement and test your algorithms.</p>
-</div>
 <ol type="a">
 <li><p>Develop an algorithm to generate random variables from the probability density function that uses both the inverse transform method and the composition method (together).</p></li>
 <li><p>Develop an algorithm to generate random variables from the probability density function that uses acceptance rejection.</p></li>
 </ol>
+</div>
 <hr>
 <div id="exr-Ch9Ex10" class="theorem exercise">
 <p><span class="theorem-title"><strong>Exercise 9.4</strong></span> Consider the following probability density function:</p>
@@ -2492,14 +2492,13 @@ f(x) =
 </div>
 <hr>
 <div id="exr-Ch9Ex20" class="theorem exercise">
-<p><span class="theorem-title"><strong>Exercise 9.5</strong></span> Consider the following probability density function:</p>
-</div>
-<p><span class="math display">\[f(x) =
+<p><span class="theorem-title"><strong>Exercise 9.5</strong></span> Consider the following probability density function: <span class="math display">\[f(x) =
   \begin{cases}
      \dfrac{3x^2}{2} &amp; -1 \leq x \leq 1\\
      0 &amp; \text{otherwise} \\
   \end{cases}\]</span></p>
 <p>Write a KSL program to generate observations from this distribution using MCMC.</p>
+</div>
 <hr>
 <div id="exr-Ch9Ex30" class="theorem exercise">
 <p><span class="theorem-title"><strong>Exercise 9.6</strong></span> Use the Monte Carlo method and antithetic variates to estimate the following integral with 95% confidence to within <span class="math inline">\(\pm 0.01\)</span>.</p>
@@ -2523,7 +2522,6 @@ f(x) =
 <hr>
 <div id="exr-Ch9Ex70" class="theorem exercise">
 <p><span class="theorem-title"><strong>Exercise 9.10</strong></span> A firm is trying to decide whether or not to invest in two proposals A and B that have the net cash flows shown in the following table, where <span class="math inline">\(N(\mu, \sigma)\)</span> represents that the cash flow value comes from a normal distribution with the provided mean and standard deviation.</p>
-</div>
 <table class="caption-top table">
 <thead>
 <tr class="header">
@@ -2557,11 +2555,11 @@ f(x) =
 <p>The interest rate has been varying recently and the firm is unsure of the rate for performing the analysis. To be safe, they have decided that the interest rate should be modeled as a beta random variable over the range from 2 to 7 percent with <span class="math inline">\(\alpha_1 = 4.0\)</span> and <span class="math inline">\(\alpha_2 = 1.2\)</span>. Given all the uncertain elements in the situation, they have decided to perform a simulation analysis in order to assess the situation. Use to answer the following questions:</p>
 <p>Compare the expected present worth of the two alternatives using common random numbers. Estimate the probability that alternative A has a higher present worth than alternative B.</p>
 <p>Determine the number of samples needed to be 95% confidence that you have estimated the <span class="math inline">\(P[PW(A) &gt; PW(B)]\)</span> to within <span class="math inline">\(\pm\)</span> 0.10.</p>
+</div>
 <hr>
 <div id="exr-Ch9Ex80" class="theorem exercise">
 <p><span class="theorem-title"><strong>Exercise 9.11</strong></span> A firm produces YBox gaming stations for the consumer market. Their profit function is: <span class="math display">\[\text{Profit} = (\text{unit price} - \text{unit cost})\times(\text{quantity sold}) - \text{fixed costs}\]</span></p>
 <p>Suppose that the unit price is $200 per gaming station, and that the other variables have the following probability distributions:</p>
-</div>
 <table class="caption-top table">
 <thead>
 <tr class="header">
@@ -2611,6 +2609,7 @@ f(x) =
 </tbody>
 </table>
 <p>Use a simulation model with antithetic variates to estimate the mean profit from your sample and compute a 95% confidence interval for the mean profit. Estimate the probability that the profit will be positive.</p>
+</div>
 <hr>
 <div id="exr-Ch9Ex90" class="theorem exercise">
 <p><span class="theorem-title"><strong>Exercise 9.12</strong></span> YBox video game players arrive at a two-person station for testing. The inspection time per YBox set is EXPO(10) minutes. On the average 82% of the sets pass inspection. The remaining 18% are routed to an adjustment station with a single operator. Adjustment time per YBox is UNIF(7,14) minutes. After adjustments are made, the units are routed back to the inspection station to be retested. Build an simulation model of this system. Use a replication length of 30,000 minutes.</p>
@@ -2713,12 +2712,12 @@ f(x,y) =
      0 &amp; \text{otherwise} \\
   \end{cases}
 \]</span></p>
-</div>
 <ol type="a">
 <li><p>Develop an algorithm to generate from this joint probability distribution.</p></li>
 <li><p>Illustrate a histogram of the marginal distributions using your algorithm</p></li>
 <li><p>Estimate the correlation between x and y using the data from your algorithm</p></li>
 </ol>
+</div>
 <hr>
 <div id="exr-Ch9Ex200" class="theorem exercise">
 <p><span class="theorem-title"><strong>Exercise 9.22</strong></span> Suppose that the random variable <span class="math inline">\(X_1\)</span> is the zinc content of an ore sample with a range of values in <span class="math inline">\([0.5, 1.5]\)</span> and the random variable <span class="math inline">\(X_2\)</span> is the iron content of the ore with values in <span class="math inline">\([20.0, 35.0]\)</span>. The joint distribution density function for the random variables has been modeled as:</p>
