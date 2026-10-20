@@ -1468,7 +1468,7 @@ F^{-1}(u) = \beta\left[ -\ln (1-u)\right]^{1/\alpha}
 </div>
 <hr>
 <div id="exr-AppRNRVP2" class="theorem exercise">
-<p><span class="theorem-title"><strong>Exercise A.2</strong></span> State three major methods of generating random variables from any distribution. (a)<span class="math inline">\(\underline{\hspace{3cm}}\)</span>. (b)<span class="math inline">\(\underline{\hspace{3cm}}\)</span>.(c)<span class="math inline">\(\underline{\hspace{3cm}}\)</span>.</p>
+<p><span class="theorem-title"><strong>Exercise A.2</strong></span> State four major methods of generating random variables from any distribution. (a)<span class="math inline">\(\underline{\hspace{3cm}}\)</span>. (b)<span class="math inline">\(\underline{\hspace{3cm}}\)</span>. (c)<span class="math inline">\(\underline{\hspace{3cm}}\)</span>. (d)<span class="math inline">\(\underline{\hspace{3cm}}\)</span>.</p>
 </div>
 <hr>
 <div id="exr-AppRNRVP3" class="theorem exercise">
@@ -1672,7 +1672,7 @@ F^{-1}(u) = \beta\left[ -\ln (1-u)\right]^{1/\alpha}
 </div>
 <hr>
 <div id="exr-AppRNRVP13" class="theorem exercise">
-<p><span class="theorem-title"><strong>Exercise A.13</strong></span> The service times for a automated storage and retrieval system has a shifted exponential distribution. It is known that it takes a minimum of 15 seconds for any retrieval. The parameter of the exponential distribution is <span class="math inline">\(\lambda = 45\)</span>. Generate two service times for this distribution using the following sequence of U(0,1) random numbers: 0.943, 0.398, 0.372, 0.943.</p>
+<p><span class="theorem-title"><strong>Exercise A.13</strong></span> The service time for an automated storage and retrieval system has a shifted exponential distribution. It is known that it takes a minimum of 15 seconds for any retrieval. The time beyond the minimum is exponentially distributed with a mean of 45 seconds. Generate two service times for this distribution using the following sequence of U(0,1) random numbers: 0.943, 0.398, 0.372, 0.943.</p>
 </div>
 <hr>
 <div id="exr-AppRNRVP14" class="theorem exercise">
@@ -1680,7 +1680,7 @@ F^{-1}(u) = \beta\left[ -\ln (1-u)\right]^{1/\alpha}
 </div>
 <hr>
 <div id="exr-AppRNRVP15" class="theorem exercise">
-<p><span class="theorem-title"><strong>Exercise A.15</strong></span> The interest rate for a capital project is unknown. An accountant has estimated that the minimum interest rate will between 2% and 5% within the next year. The accountant believes that any interest rate in this range is equally likely. You are tasked with generating interest rates for a cash flow analysis of the project. Generate two random variates from this distribution using the following sequence of U(0,1) random numbers: 0.943, 0.398, 0.372, 0.943.</p>
+<p><span class="theorem-title"><strong>Exercise A.15</strong></span> The interest rate for a capital project is unknown. An accountant has estimated that the interest rate will be between 2% and 5% within the next year. The accountant believes that any interest rate in this range is equally likely. You are tasked with generating interest rates for a cash flow analysis of the project. Generate two random variates from this distribution using the following sequence of U(0,1) random numbers: 0.943, 0.398, 0.372, 0.943.</p>
 </div>
 <hr>
 <div id="exr-AppRNRVP16" class="theorem exercise">
@@ -1836,7 +1836,7 @@ F^{-1}(u) = \beta\left[ -\ln (1-u)\right]^{1/\alpha}
 </div>
 <hr>
 <div id="exr-AppRNRVP25" class="theorem exercise">
-<p><span class="theorem-title"><strong>Exercise A.25</strong></span> Suppose that the processing time for a job consists of two distributions. There is a 30% chance that the processing time is lognormally distributed with a mean of 20 minutes and a standard deviation of 2 minutes, and a 70% chance that the time is uniformly distributed between 10 and 20 minutes. Using the first row of random numbers the following table generate two job processing times. Hint: <span class="math inline">\(X \sim LN(\mu, \sigma^2)\)</span> if and only if <span class="math inline">\(\ln(X) \sim N(\mu, \sigma^2)\)</span>. Also, note that:</p>
+<p><span class="theorem-title"><strong>Exercise A.25</strong></span> Suppose that the processing time for a job consists of two distributions. There is a 30% chance that the processing time is lognormally distributed with a mean of 20 minutes and a standard deviation of 2 minutes, and a 70% chance that the time is uniformly distributed between 10 and 20 minutes. Using the first row of random numbers from the following table generate two job processing times. Hint: <span class="math inline">\(X \sim LN(\mu, \sigma^2)\)</span> if and only if <span class="math inline">\(\ln(X) \sim N(\mu, \sigma^2)\)</span>. Also, note that:</p>
 <p><span class="math display">\[\begin{aligned}
 E[X] &amp; = e^{\mu + \sigma^{2}/2}\\
 Var[X] &amp; = e^{2\mu + \sigma^{2}}\left(e^{\sigma^{2}} - 1\right)\end{aligned}\]</span></p>
@@ -1949,7 +1949,7 @@ Var[X] &amp; = e^{2\mu + \sigma^{2}}\left(e^{\sigma^{2}} - 1\right)\end{aligned}
   \begin{cases}
      \dfrac{3x^2}{2} &amp; -1 \leq x \leq 1\\
      0 &amp; \text{otherwise} \\
-  \end{cases}\]</span> a. Derive an acceptance-rejection algorithm for this distribution. b. Using the first row of random numbers from the following table generate 2 random variates using your algorithm.</p>
+  \end{cases}\]</span> a. Derive an acceptance-rejection algorithm for this distribution. b. Using the first two rows of random numbers from the following table generate 2 random variates using your algorithm.</p>
 <table class="caption-top table">
 <tbody>
 <tr class="odd">
@@ -1986,8 +1986,8 @@ Var[X] &amp; = e^{2\mu + \sigma^{2}}\left(e^{\sigma^{2}} - 1\right)\end{aligned}
 <p>where x <span class="math inline">\(&gt;\)</span> 0 and <span class="math inline">\(\alpha &gt;\)</span> 0 is the shape parameter and <span class="math inline">\(\beta &gt;\)</span> 0 is the scale parameter. In the case where <span class="math inline">\(\alpha\)</span> is a positive integer, the distribution reduces to the Erlang distribution and <span class="math inline">\(\alpha = 1\)</span> produces the negative exponential distribution.</p>
 <p>Acceptance-rejection techniques can be applied to the cases of <span class="math inline">\(0 &lt; \alpha &lt; 1\)</span> and <span class="math inline">\(\alpha &gt; 1\)</span>. For the case of <span class="math inline">\(0 &lt; \alpha &lt; 1\)</span> see Ahrens and Dieter (1972). For the case of <span class="math inline">\(\alpha &gt; 1\)</span>, Cheng (1977) proposed the following majorizing function:</p>
 <p><span class="math display">\[g(x) = \biggl[\dfrac{4 \alpha^\alpha e^{-\alpha}}{a \Gamma (\alpha)}\biggr] h(x)\]</span></p>
-<p>where <span class="math inline">\(a = \sqrt{(2 \alpha - 1)}\)</span>, <span class="math inline">\(b = \alpha^a\)</span>, and <span class="math inline">\(h(x)\)</span> is the resulting probability distribution function when converting <span class="math inline">\(g(x)\)</span> to a density function:</p>
-<p><span class="math display">\[h(x) = ab \dfrac{x^{a-1}}{(b + x^a)^2} \ \  \text{for} x &gt; 0\]</span></p>
+<p>where <span class="math inline">\(a = \sqrt{(2 \alpha - 1)}\)</span>, <span class="math inline">\(b = \alpha^a\)</span>, and <span class="math inline">\(h(x)\)</span> is the resulting probability density function when converting <span class="math inline">\(g(x)\)</span> to a density function:</p>
+<p><span class="math display">\[h(x) = ab \dfrac{x^{a-1}}{(b + x^a)^2} \ \  \text{ for } x &gt; 0\]</span></p>
 <ol type="a">
 <li><p>Develop an inverse transform algorithm for generating from <span class="math inline">\(h(x)\)</span></p></li>
 <li><p>Using the first two rows of random numbers from the following table, generate two random variates from a gamma distribution with parameters <span class="math inline">\(\alpha =2\)</span> and <span class="math inline">\(\beta = 10\)</span> via the acceptance/rejection method.</p></li>
@@ -2024,7 +2024,7 @@ Var[X] &amp; = e^{2\mu + \sigma^{2}}\left(e^{\sigma^{2}} - 1\right)\end{aligned}
 <hr>
 <div id="exr-AppRNRVP32" class="theorem exercise">
 <p><span class="theorem-title"><strong>Exercise A.32</strong></span> Parts arrive to a machine center with three drill presses according to a Poisson distribution with mean <span class="math inline">\(\lambda\)</span>. The arriving customers are assigned to one of the three drill presses randomly according to the respective probabilities <span class="math inline">\(p_1\)</span>, <span class="math inline">\(p_2\)</span>, and <span class="math inline">\(p_3\)</span> where <span class="math inline">\(p_1 + p_2 + p_3 = 1\)</span> and <span class="math inline">\(p_i &gt; 0\)</span> for <span class="math inline">\(i = 1, 2, 3\)</span>. What is the distribution of the inter-arrival times to each drill press? Specify the parameters of the distribution. Suppose that <span class="math inline">\(p_1\)</span>, <span class="math inline">\(p_2\)</span>, and <span class="math inline">\(p_3\)</span> equal to 0.25, 0.45, and 0.3 respectively and that <span class="math inline">\(\lambda\)</span> is equal to 12 per minute.</p>
-<p>Using the first row of random numbers from the following table generate the first three arrival times.</p>
+<p>Using the first row of random numbers from the following table generate the time of the first arrival at each drill press.</p>
 <table class="caption-top table">
 <tbody>
 <tr class="odd">
@@ -2064,7 +2064,7 @@ Var[X] &amp; = e^{2\mu + \sigma^{2}}\left(e^{\sigma^{2}} - 1\right)\end{aligned}
   \end{cases}
 \]</span></p>
 <ol type="a">
-<li>Determine the value of <span class="math inline">\(c\)</span> that will turn <span class="math inline">\(g(x)\)</span> into a probability density function. The resulting probability density function is called a parabolic distribution.</li>
+<li>Determine the value of <span class="math inline">\(c\)</span> that will turn <span class="math inline">\(f(x)\)</span> into a probability density function. The resulting probability density function is called a parabolic distribution.</li>
 <li>Denote the probability density function found in part (a), <span class="math inline">\(f(x)\)</span>. Let <span class="math inline">\(X\)</span> be a random variable from <span class="math inline">\(f(x)\)</span>. Derive the inverse cumulative distribution function for <span class="math inline">\(f(x)\)</span>.</li>
 </ol>
 </div>

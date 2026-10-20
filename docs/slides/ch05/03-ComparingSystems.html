@@ -1810,6 +1810,96 @@ Three Workers   average = 426.09362281764646        Two Workers [-Infinity, 503.
 
 Alternatives remaining after screening for minimum:
 [Three Workers]</code></pre>
+</section>
+<section id="comparing-different-models" class="slide level2">
+<h2>Comparing Different Models</h2>
+<ul>
+<li>The examples so far compared <strong>configurations of one model</strong>: change the number of workers, simulate the same <code>Model</code> again.</li>
+<li>Often the alternatives differ in their <strong>logic</strong>, not just their inputs.
+<ul>
+<li>Example: a drive-through pharmacy with one line feeding two pharmacists, versus a separate line for each pharmacist.</li>
+<li>Each design needs its own model; no input setting turns one into the other.</li>
+</ul></li>
+<li>The MCB analysis does not change. What changes is getting the results of <strong>both models into one database</strong>.</li>
+<li>Two ways:
+<ul>
+<li>One shared <code>KSLDatabase</code>, with a <code>KSLDatabaseObserver</code> on each model</li>
+<li>A <code>ScenarioRunner</code>, with one scenario per model</li>
+</ul></li>
+</ul>
+</section>
+<section id="two-models-one-database" class="slide level2">
+<h2>Two Models, One Database</h2>
+<ul>
+<li><code>SingleLinePharmacy</code> and <code>TwoLinePharmacy</code> stand for the two models (not KSL classes); both record a response named “System Time”.</li>
+</ul>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb9"><pre class="sourceCode numberSource kotlin number-lines code-with-copy"><code class="sourceCode kotlin"><span id="cb9-1"><a href></a><span class="kw">fun</span> <span class="fu">main</span><span class="op">()</span> <span class="op">{</span></span>
+<span id="cb9-2"><a href></a>    <span class="kw">val</span> <span class="va">db</span> <span class="op">=</span> KSLDatabase<span class="op">(</span><span class="st">&quot;PharmacyDesigns.db&quot;</span><span class="op">)</span>  <span class="co">// one database for both models</span></span>
+<span id="cb9-3"><a href></a></span>
+<span id="cb9-4"><a href></a>    <span class="kw">val</span> <span class="va">modelA</span> <span class="op">=</span> Model<span class="op">(</span><span class="st">&quot;Single Line Model&quot;</span><span class="op">)</span></span>
+<span id="cb9-5"><a href></a>    SingleLinePharmacy<span class="op">(</span>modelA<span class="op">,</span> name <span class="op">=</span> <span class="st">&quot;Pharmacy&quot;</span><span class="op">)</span></span>
+<span id="cb9-6"><a href></a>    modelA<span class="op">.</span>experimentName <span class="op">=</span> <span class="st">&quot;Single Line&quot;</span></span>
+<span id="cb9-7"><a href></a>    modelA<span class="op">.</span>numberOfReplications <span class="op">=</span> <span class="dv">30</span></span>
+<span id="cb9-8"><a href></a>    modelA<span class="op">.</span>lengthOfReplication <span class="op">=</span> <span class="fl">20000.0</span></span>
+<span id="cb9-9"><a href></a>    modelA<span class="op">.</span>lengthOfReplicationWarmUp <span class="op">=</span> <span class="fl">5000.0</span></span>
+<span id="cb9-10"><a href></a>    KSLDatabaseObserver<span class="op">(</span>modelA<span class="op">,</span> db<span class="op">)</span>             <span class="co">// observer writes to the shared database</span></span>
+<span id="cb9-11"><a href></a></span>
+<span id="cb9-12"><a href></a>    <span class="kw">val</span> <span class="va">modelB</span> <span class="op">=</span> Model<span class="op">(</span><span class="st">&quot;Two Line Model&quot;</span><span class="op">)</span></span>
+<span id="cb9-13"><a href></a>    TwoLinePharmacy<span class="op">(</span>modelB<span class="op">,</span> name <span class="op">=</span> <span class="st">&quot;Pharmacy&quot;</span><span class="op">)</span></span>
+<span id="cb9-14"><a href></a>    modelB<span class="op">.</span>experimentName <span class="op">=</span> <span class="st">&quot;Two Lines&quot;</span></span>
+<span id="cb9-15"><a href></a>    modelB<span class="op">.</span>numberOfReplications <span class="op">=</span> <span class="dv">30</span></span>
+<span id="cb9-16"><a href></a>    modelB<span class="op">.</span>lengthOfReplication <span class="op">=</span> <span class="fl">20000.0</span></span>
+<span id="cb9-17"><a href></a>    modelB<span class="op">.</span>lengthOfReplicationWarmUp <span class="op">=</span> <span class="fl">5000.0</span></span>
+<span id="cb9-18"><a href></a>    KSLDatabaseObserver<span class="op">(</span>modelB<span class="op">,</span> db<span class="op">)</span></span>
+<span id="cb9-19"><a href></a></span>
+<span id="cb9-20"><a href></a>    modelA<span class="op">.</span>simulate<span class="op">()</span></span>
+<span id="cb9-21"><a href></a>    modelB<span class="op">.</span>simulate<span class="op">()</span></span>
+<span id="cb9-22"><a href></a>    <span class="kw">val</span> <span class="va">expNames</span> <span class="op">=</span> listOf<span class="op">(</span><span class="st">&quot;Single Line&quot;</span><span class="op">,</span> <span class="st">&quot;Two Lines&quot;</span><span class="op">)</span></span>
+<span id="cb9-23"><a href></a>    println<span class="op">(</span>db<span class="op">.</span>multipleComparisonAnalyzerFor<span class="op">(</span>expNames<span class="op">,</span> <span class="st">&quot;System Time&quot;</span><span class="op">))</span></span>
+<span id="cb9-24"><a href></a><span class="op">}</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</section>
+<section id="requirements-when-the-models-differ" class="slide level2">
+<h2>Requirements When the Models Differ</h2>
+<p>With one model these hold automatically. With different models, <strong>you</strong> must ensure them:</p>
+<ul>
+<li><strong>The same response name in both models.</strong>
+<ul>
+<li><code>multipleComparisonAnalyzerFor()</code> looks up one name in every experiment; a missing name stops with an error about the data arrays that does not mention the response.</li>
+<li>Many KSL examples prefix names with the element’s name (<code>&quot;${this.name}:TimeInSystem&quot;</code>): give both elements the same name, or name the responses explicitly.</li>
+</ul></li>
+<li><strong>A distinct experiment name for each model.</strong> The database identifies an experiment by its name; reusing one is an error.</li>
+<li><strong>The same number of replications.</strong> MCB works with the pairwise differences of the replications.</li>
+</ul>
+</section>
+<section id="common-random-numbers-across-models" class="slide level2">
+<h2>Common Random Numbers Across Models</h2>
+<ul>
+<li>One model: <code>resetStartStreamOption = true</code> was needed, because one <code>Model</code> owns one set of streams and each experiment would otherwise continue where the last stopped.</li>
+<li>Two different models each own their streams and each <strong>starts at the beginning</strong> of them. No reset is needed.</li>
+<li>CRN only helps if the streams are <strong>synchronized</strong>:
+<ul>
+<li>give the random variables that play the same role (time between arrivals, service times) the <strong>same stream numbers</strong> in both models.</li>
+</ul></li>
+</ul>
+</section>
+<section id="using-a-scenariorunner-instead" class="slide level2">
+<h2>Using a <code>ScenarioRunner</code> Instead</h2>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb10"><pre class="sourceCode numberSource kotlin number-lines code-with-copy"><code class="sourceCode kotlin"><span id="cb10-1"><a href></a><span class="kw">val</span> <span class="va">scenarios</span> <span class="op">=</span> listOf<span class="op">(</span></span>
+<span id="cb10-2"><a href></a>    Scenario<span class="op">(</span>model <span class="op">=</span> modelA<span class="op">,</span> name <span class="op">=</span> <span class="st">&quot;Single Line&quot;</span><span class="op">),</span>   <span class="co">// models built as before,</span></span>
+<span id="cb10-3"><a href></a>    Scenario<span class="op">(</span>model <span class="op">=</span> modelB<span class="op">,</span> name <span class="op">=</span> <span class="st">&quot;Two Lines&quot;</span><span class="op">)</span>      <span class="co">// without the observers</span></span>
+<span id="cb10-4"><a href></a><span class="op">)</span></span>
+<span id="cb10-5"><a href></a><span class="kw">val</span> <span class="va">runner</span> <span class="op">=</span> ScenarioRunner<span class="op">(</span><span class="st">&quot;Pharmacy Designs&quot;</span><span class="op">,</span> scenarios<span class="op">)</span></span>
+<span id="cb10-6"><a href></a>runner<span class="op">.</span>simulate<span class="op">()</span></span>
+<span id="cb10-7"><a href></a><span class="kw">val</span> <span class="va">comparisonAnalyzer</span> <span class="op">=</span> runner<span class="op">.</span>kslDb<span class="op">?.</span>multipleComparisonAnalyzerFor<span class="op">(</span></span>
+<span id="cb10-8"><a href></a>    expNames <span class="op">=</span> runner<span class="op">.</span>scenarioList<span class="op">.</span>map <span class="op">{</span> it<span class="op">.</span>name <span class="op">},</span></span>
+<span id="cb10-9"><a href></a>    responseName <span class="op">=</span> <span class="st">&quot;System Time&quot;</span></span>
+<span id="cb10-10"><a href></a><span class="op">)</span></span>
+<span id="cb10-11"><a href></a>println<span class="op">(</span>comparisonAnalyzer<span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<ul>
+<li>The runner creates the database, observes each model, and <strong>names each experiment after its scenario</strong>.</li>
+<li>Same response name and equal replications are still your job.</li>
+<li>Scales to many alternatives and can run them concurrently: the better choice beyond a few alternatives (Chapter 10).</li>
+</ul>
 
 </section>
     </div>

@@ -2106,28 +2106,28 @@ Figure&nbsp;6.14: Activity Diagram for Tie Dye T-Shirts Example
 
 Name                                          Count           Average      Half-Width 
 ------------------------------------------------------------------------------------- 
-System Time                                    30         75.4521          7.2003 
-Num in System                                  30          1.2393          0.2535 
-ShirtMakers_R:InstantaneousUtil                30          0.5050          0.0712 
-ShirtMakers_R:NumBusyUnits                     30          1.0100          0.1425 
-ShirtMakers_R:ScheduledUtil                    30          0.5050          0.0712 
-ShirtMakers_R:WIP                              30          2.4023          0.5867 
-ShirtMakers_R:Q:NumInQ                         30          1.3924          0.4646 
-ShirtMakers_R:Q:TimeInQ                        30         21.4801          5.0255 
-OrderQ:NumInQ                                  30          0.1870          0.0880 
-OrderQ:TimeInQ                                 30          8.9210          5.6039 
-Packager_R:InstantaneousUtil                   30          0.2737          0.0406 
-Packager_R:NumBusyUnits                        30          0.2737          0.0406 
-Packager_R:ScheduledUtil                       30          0.2737          0.0406 
-Packager_R:WIP                                 30          0.3958          0.0919 
-Packager_R:Q:NumInQ                            30          0.1221          0.0600 
-Packager_R:Q:TimeInQ                           30          6.8163          2.9580 
-Completed Shirt Q:RequestQ:NumInQ              30          0.6565          0.1435 
-Completed Shirt Q:RequestQ:TimeInQ             30         41.6290          5.1649 
-Completed Shirt Q:ChannelQ:NumInQ              30          1.0645          0.2204 
-Completed Shirt Q:ChannelQ:TimeInQ             30         20.5181          4.8296 
-ShirtMakers_R:SeizeCount                       30         24.6667          3.4923 
-Packager_R:SeizeCount                          30         14.0333          2.0767 
+System Time                                    30         69.9237          8.1833 
+Num in System                                  30          1.2040          0.2395 
+ShirtMakers_R:InstantaneousUtil                30          0.5578          0.0713 
+ShirtMakers_R:NumBusyUnits                     30          1.1156          0.1427 
+ShirtMakers_R:ScheduledUtil                    30          0.5578          0.0713 
+ShirtMakers_R:Q:NumInQ                         30          1.8824          0.6407 
+ShirtMakers_R:Q:TimeInQ                        30         26.9951          7.4232 
+ShirtMakers_R:WIP                              30          2.9980          0.7570 
+OrderQ:NumInQ                                  30          0.0354          0.0102 
+OrderQ:TimeInQ                                 30          1.8121          0.4476 
+Packager_R:InstantaneousUtil                   30          0.3038          0.0366 
+Packager_R:NumBusyUnits                        30          0.3038          0.0366 
+Packager_R:ScheduledUtil                       30          0.3038          0.0366 
+Packager_R:Q:NumInQ                            30          0.0104          0.0040 
+Packager_R:Q:TimeInQ                           30          0.5975          0.2438 
+Packager_R:WIP                                 30          0.3142          0.0391 
+Completed Shirt Q:RequestQ:NumInQ              30          0.8544          0.2034 
+Completed Shirt Q:RequestQ:TimeInQ             30         49.4049          7.7277 
+Completed Shirt Q:ChannelQ:NumInQ              30          0.7806          0.1202 
+Completed Shirt Q:ChannelQ:TimeInQ             30         14.1351          0.7906 
+ShirtMakers_R:SeizeCount                       30         27.4333          3.4022 
+Packager_R:SeizeCount                          30         15.6000          1.7640 
 ------------------------------------------------------------------------------------</code></pre>
 </section>
 </section>
@@ -2162,7 +2162,7 @@ Packager_R:SeizeCount                          30         14.0333          2.076
 </div>
 <hr>
 <div id="exr-ch6P2" class="theorem exercise">
-<p><span class="theorem-title"><strong>Exercise 6.2</strong></span> Samples of 20 parts from a metal grinding process are selected every hour. Typically 2% of the parts need rework. Let X denote the number of parts in the sample of 20 that require rework. A process problem is suspected if X exceeds its mean by more than 3 standard deviations. Simulate 30 hours of the process, i.e.&nbsp;30 samples of size 20, and estimate the chance that X exceeds its expected value by more than 1 standard deviation. Use stream 1.</p>
+<p><span class="theorem-title"><strong>Exercise 6.2</strong></span> Samples of 20 parts from a metal grinding process are selected every hour. Typically 2% of the parts need rework. Let X denote the number of parts in the sample of 20 that require rework. A process problem is suspected if X exceeds its mean by more than 1 standard deviation. Simulate 30 hours of the process, i.e.&nbsp;30 samples of size 20, and estimate the chance that X exceeds its expected value by more than 1 standard deviation. Use stream 1.</p>
 </div>
 <hr>
 <div id="exr-ch6P3" class="theorem exercise">
@@ -2176,8 +2176,8 @@ Packager_R:SeizeCount                          30         14.0333          2.076
 </div>
 <hr>
 <div id="exr-ch6P6" class="theorem exercise">
-<p><span class="theorem-title"><strong>Exercise 6.5</strong></span> A simple manufacturing system is staffed by 3 operators. Parts arrive according to a Poisson process with a mean rate of 15 per hour (stream 1) to a workstation for a drilling process at one of three identical drill presses. The parts wait in a single queue until a drill press is available. Each part has a particular number of holes that need to be drilled. Each hole takes a Lognormal time to be drilled with an approximate mean of 1 minute and a standard deviation of 30 seconds (stream 2). Once the holes are drilled, the part goes to the grinding operation. At the grinding operation, one of the 3 available operators grinds out the burrs on the part. This activity takes approximately 5 minutes plus or minus 30 seconds (stream 3). After the grinding operation the part leaves the system. Assume that the parts have a discrete uniform number of holes to drill over the range from 2 to 4 (stream 4)</p>
-<p>Develop model for this situation. Report the average system time for the parts based on 20 replications of 4800 minutes.</p>
+<p><span class="theorem-title"><strong>Exercise 6.5</strong></span> A simple manufacturing system is staffed by 3 operators. Parts arrive according to a Poisson process with a mean rate of 15 per hour (stream 1) to a workstation for a drilling process at one of three identical drill presses. The parts wait in a single queue until a drill press is available. Each part has a particular number of holes that need to be drilled. Each hole takes a Lognormal time to be drilled with an approximate mean of 1 minute and a standard deviation of 30 seconds (stream 2). Once the holes are drilled, the part goes to the grinding operation. At the grinding operation, one of the 3 available operators grinds out the burrs on the part. This activity takes approximately 5 minutes plus or minus 30 seconds (stream 3). After the grinding operation the part leaves the system. The drill presses operate without an operator. Assume that the parts have a discrete uniform number of holes to drill over the range from 2 to 4 (stream 4).</p>
+<p>Develop a model for this situation. Report the average system time for the parts based on 20 replications of 4800 minutes.</p>
 </div>
 <hr>
 <div id="exr-ch6QTP3" class="theorem exercise">
@@ -2193,7 +2193,7 @@ Packager_R:SeizeCount                          30         14.0333          2.076
 <hr>
 <div id="exr-ch6QTP4" class="theorem exercise">
 <p><span class="theorem-title"><strong>Exercise 6.7</strong></span> Suppose an operator has been assigned to the responsibility of maintaining 3 machines. For each machine the probability distribution of the running time before a breakdown is exponentially distributed with a mean of 9 hours. The repair time also has an exponential distribution with a mean of 2 hours.</p>
-<p>Build a KSL model to simulate this situation. Run the model for 20,000 hours with a warm up period of 5,000 hours Based on 30 replications of your simulation, estimate the following performance measures.</p>
+<p>Build a KSL model to simulate this situation. Run the model for 20,000 hours with a warm up period of 5,000 hours. Based on 30 replications of your simulation, estimate the following performance measures.</p>
 <ol type="a">
 <li><p>What is the probability that the operator is idle?</p></li>
 <li><p>What is the expected number of machines that are running?</p></li>
@@ -2204,13 +2204,13 @@ Packager_R:SeizeCount                          30         14.0333          2.076
 <hr>
 <div id="exr-ch6QTP5" class="theorem exercise">
 <p><span class="theorem-title"><strong>Exercise 6.8</strong></span> SuperFastCopy wants to install self-service copiers, but cannot decide whether to put in one or two machines. They predict that arrivals will be Poisson with a rate of 30 per hour, and the time spent copying is exponentially distributed with a mean of 1.75 minutes. Because the shop is small they want the probability of 5 or more customers in the shop to be small, say less than 7%.</p>
-<p>Build a KSL model to analyze this situation. Run the model for 20,000 minutes with a warm up period of 5,000 minutes Based on 30 replications of your simulation, estimate the following performance measures.</p>
+<p>Build a KSL model to analyze this situation. Run the model for 20,000 minutes with a warm up period of 5,000 minutes. Based on 30 replications of your simulation, estimate the probability of 5 or more customers in the shop with one copier and with two copiers, and recommend the number of copiers.</p>
 <p>Use stream 1 for the time between arrivals and stream 2 for the service times.</p>
 </div>
 <hr>
 <div id="exr-ch6QTP6" class="theorem exercise">
 <p><span class="theorem-title"><strong>Exercise 6.9</strong></span> Each airline passenger and his or her carry-on baggage must be checked at the security checkpoint. Suppose XNA averages 10 passengers per minute with exponential inter-arrival times. To screen passengers, the airport must have a metal detector and baggage X-ray machines. Whenever a checkpoint is in operation, two employees are required (one operates the metal detector, one operates the X-ray machine). The passenger goes through the metal detector and simultaneously their bag goes through the X-ray machine. A checkpoint can check an average of 12 passengers per minute according to an exponential distribution.</p>
-<p>Build a KSL model to analyze this situation. Run the model for 20,000 minutes with a warm up period of 5,000 minutes Based on 30 replications of your simulation, estimate the following performance measures.</p>
+<p>Build a KSL model to analyze this situation. Run the model for 20,000 minutes with a warm up period of 5,000 minutes. Based on 30 replications of your simulation, estimate the following performance measures.</p>
 <ol type="a">
 <li><p>What is the probability that a passenger will have to wait before being screened?</p></li>
 <li><p>On average, how many passengers are waiting in line to enter the checkpoint?</p></li>
@@ -2220,14 +2220,14 @@ Packager_R:SeizeCount                          30         14.0333          2.076
 </div>
 <hr>
 <div id="exr-ch6QTP7" class="theorem exercise">
-<p><span class="theorem-title"><strong>Exercise 6.10</strong></span> Two machines are being considered for processing a job within a factory. The first machine has an exponentially distributed processing time with a mean of 10 minutes. For the second machine the vendor has indicated that the mean processing time is 10 minutes but with a standard deviation of 6 minutes with a lognormal distribution.</p>
-<p>Build KSL models to analyze this situation. Run the models for 20,000 minutes with a warm up period of 5,000 minutes Based on 30 replications of your simulation, which machine is better in terms of the average waiting time of the jobs?</p>
+<p><span class="theorem-title"><strong>Exercise 6.10</strong></span> Two machines are being considered for processing a job within a factory. Jobs arrive at the machine according to a Poisson process with a rate of 4.5 jobs per hour. The first machine has an exponentially distributed processing time with a mean of 10 minutes. For the second machine the vendor has indicated that the mean processing time is 10 minutes but with a standard deviation of 6 minutes with a lognormal distribution.</p>
+<p>Build KSL models to analyze this situation. Run the models for 20,000 minutes with a warm up period of 5,000 minutes. Based on 30 replications of your simulation, which machine is better in terms of the average waiting time of the jobs?</p>
 <p>Use stream 1 for the time between arrivals and stream 2 for the service times.</p>
 </div>
 <hr>
 <div id="exr-ch6QTP8" class="theorem exercise">
 <p><span class="theorem-title"><strong>Exercise 6.11</strong></span> Customers arrive at a one-window drive in bank according to a Poisson distribution with a mean of 10 per hour. The service time for each customer is exponentially distributed with a mean of 5 minutes. There are 3 spaces in front of the window including that for the car being served. Other arriving cars can wait outside these 3 spaces.</p>
-<p>Build a KSL model to analyze this situation. Run the model for 20,000 minutes with a warm up period of 5,000 minutes Based on 30 replications of your simulation, estimate the following performance measures.</p>
+<p>Build a KSL model to analyze this situation. Run the model for 20,000 minutes with a warm up period of 5,000 minutes. Based on 30 replications of your simulation, estimate the following performance measures.</p>
 <ol type="a">
 <li><p>What is the probability that an arriving customer can enter one of the 3 spaces in front of the window?</p></li>
 <li><p>What is the probability that an arriving customer will have to wait outside the 3 spaces?</p></li>
@@ -2239,7 +2239,7 @@ Packager_R:SeizeCount                          30         14.0333          2.076
 <hr>
 <div id="exr-ch6QTP9" class="theorem exercise">
 <p><span class="theorem-title"><strong>Exercise 6.12</strong></span> Joe Rose is a student at Big State U. He does odd jobs to supplement his income. Job requests come every 5 days on the average, but the time between requests is exponentially distributed. The time for completing a job is also exponentially distributed with a mean of 4 days.</p>
-<p>Build a KSL model to analyze this situation. Run the model for 20,000 days with a warm up period of 5,000 days Based on 30 replications of your simulation, estimate the following performance measures.</p>
+<p>Build a KSL model to analyze this situation. Run the model for 20,000 days with a warm up period of 5,000 days. Based on 30 replications of your simulation, estimate the following performance measures.</p>
 <ol type="a">
 <li><p>What is the chance that Joe will not have any jobs to work on?</p></li>
 <li><p>What is the average value of the waiting jobs if Joe gets about $25 per job?</p></li>
@@ -2249,7 +2249,7 @@ Packager_R:SeizeCount                          30         14.0333          2.076
 <hr>
 <div id="exr-ch6QTP10" class="theorem exercise">
 <p><span class="theorem-title"><strong>Exercise 6.13</strong></span> The manager of a bank must determine how many tellers should be available. For every minute a customer stands in line, the manager believes that a delay cost of 5 cents is incurred. An average of 15 customers per hour arrive at the bank. On the average, it takes a teller 6 minutes to complete the customer’s transaction. It costs the bank $9 per hour to have a teller available. Inter-arrival and service times can be assumed to be exponentially distributed.</p>
-<p>Build a KSL model to analyze this situation. Run the model for 20,000 minutes with a warm up period of 5,000 minutes Based on 30 replications of your simulation, answer the following questions.</p>
+<p>Build a KSL model to analyze this situation. Run the model for 20,000 minutes with a warm up period of 5,000 minutes. Based on 30 replications of your simulation, answer the following questions.</p>
 <ol type="a">
 <li><p>What is the minimum number of tellers that should be available in order for the system to be stable (i.e.&nbsp;not have an infinite queue)?</p></li>
 <li><p>If the system has 3 tellers, what is the probability that there will be no one in the bank?</p></li>
@@ -2259,8 +2259,8 @@ Packager_R:SeizeCount                          30         14.0333          2.076
 </div>
 <hr>
 <div id="exr-ch6QTP11" class="theorem exercise">
-<p><span class="theorem-title"><strong>Exercise 6.14</strong></span> You have been hired to analyze the needs for loading dock facilities at a trucking terminal. The present terminal has 4 docks on the main building. Any trucks that arrive when all docks are full are assigned to a secondary terminal, which is a short distance away from the main terminal. Assume that the arrival process is Poisson with a rate of 5 trucks each hour. There is no available space at the main terminal for trucks to wait for a dock. At the present time nearly 50% of the arriving trucks are diverted to the secondary terminal. The average service time per truck is two hours on the main terminal and 3 hours on the secondary terminal, both exponentially distributed. Two proposals are being considered. The first proposal is to expand the main terminal by adding docks so that at least 80% of the arriving trucks can be served there with the remainder being diverted to the secondary terminal. The second proposal is to expand the space that can accommodate up to 8 trucks. Then, only when the holding area is full will the trucks be diverted to secondary terminal.</p>
-<p>Build KSL models to analyze this situation. Run the models for 20,000 minutes with a warm up period of 5,000 minutes Based on 30 replications of your simulation, answer the following questions.</p>
+<p><span class="theorem-title"><strong>Exercise 6.14</strong></span> You have been hired to analyze the needs for loading dock facilities at a trucking terminal. The present terminal has 4 docks on the main building. Any trucks that arrive when all docks are full are assigned to a secondary terminal, which is a short distance away from the main terminal. Assume that the arrival process is Poisson with a rate of 5 trucks each hour. There is no available space at the main terminal for trucks to wait for a dock. At the present time nearly two-thirds of the arriving trucks are diverted to the secondary terminal. The average service time per truck is two hours on the main terminal and 3 hours on the secondary terminal, both exponentially distributed. Two proposals are being considered. The first proposal is to expand the main terminal by adding docks so that at least 80% of the arriving trucks can be served there with the remainder being diverted to the secondary terminal. The second proposal is to expand the space that can accommodate up to 8 trucks. Then, only when the holding area is full will the trucks be diverted to secondary terminal.</p>
+<p>Build KSL models to analyze this situation. Run the models for 20,000 minutes with a warm up period of 5,000 minutes. Based on 30 replications of your simulation, answer the following questions.</p>
 <ol type="a">
 <li><p>For the first proposal, what is the required number of docks so that at least 80% of the arriving trucks can be served?</p></li>
 <li><p>For the second proposal, will the specified number of spaces have least 80% of the arriving trucks can be served?</p></li>
@@ -2270,7 +2270,7 @@ Packager_R:SeizeCount                          30         14.0333          2.076
 <hr>
 <div id="exr-ch6QTP12" class="theorem exercise">
 <p><span class="theorem-title"><strong>Exercise 6.15</strong></span> Sly’s convenience store operates a two-pump gas station. The lane leading to the pumps can house at most five cars, including those being serviced. Arriving cars go elsewhere if the lane is full. The distribution of the arriving cars is Poisson with a mean of 20 per hour. The time to fill up and pay for the purchase is exponentially distributed with a mean of 6 minutes.</p>
-<p>Build a KSL model to analyze this situation. Run the model for 20,000 minutes with a warm up period of 5,000 minutes Based on 30 replications of your simulation, answer the following questions.</p>
+<p>Build a KSL model to analyze this situation. Run the model for 20,000 minutes with a warm up period of 5,000 minutes. Based on 30 replications of your simulation, answer the following questions.</p>
 <ol type="a">
 <li><p>What is the percentage of cars that will seek business elsewhere?</p></li>
 <li><p>What is the utilization of the pumps?</p></li>
@@ -2280,7 +2280,7 @@ Packager_R:SeizeCount                          30         14.0333          2.076
 <hr>
 <div id="exr-ch6QTP13" class="theorem exercise">
 <p><span class="theorem-title"><strong>Exercise 6.16</strong></span> An airline ticket office has two ticket agents answering incoming phone calls for flight reservations. In addition, two callers can be put on hold until one of the agents is available to take the call. If all four phone lines (both agent lines and the hold lines) are busy, a potential customer gets a busy signal, and it is assumed that the call goes to another ticket office and that the business is lost. The calls and attempted calls occur randomly (i.e. according to Poisson process) at a mean rate of 15 per hour. The length of a telephone conversation has an exponential distribution with a mean of 4 minutes.</p>
-<p>Build a KSL model to analyze this situation. Run the model for 20,000 minutes with a warm up period of 5,000 minutes Based on 30 replications of your simulation, answer the following questions.</p>
+<p>Build a KSL model to analyze this situation. Run the model for 20,000 minutes with a warm up period of 5,000 minutes. Based on 30 replications of your simulation, answer the following questions.</p>
 <ol type="a">
 <li><p>What is probability of losing a potential customer?</p></li>
 <li><p>What is the probability that an arriving phone call will not start service immediately but will be able to wait on a hold line?</p></li>
@@ -2290,13 +2290,13 @@ Packager_R:SeizeCount                          30         14.0333          2.076
 <hr>
 <div id="exr-ch6QTP14" class="theorem exercise">
 <p><span class="theorem-title"><strong>Exercise 6.17</strong></span> SuperFastCopy has three identical copying machines. When a machine is being used, the time until it breaks down has an exponential distribution with a mean of 2 weeks. A repair person is kept on call to repair the machines. The repair time for a machine has an exponential distribution with a mean of 0.5 week. The downtime cost for each copying machine is $100 per week.</p>
-<p>Build a KSL model to analyze this situation. Run the model for 20,000 weeks with a warm up period of 5,000 weeks Based on 30 replications of your simulation, what is the expected downtime cost per week.</p>
+<p>Build a KSL model to analyze this situation. Run the model for 20,000 weeks with a warm up period of 5,000 weeks. Based on 30 replications of your simulation, what is the expected downtime cost per week.</p>
 <p>Use stream 1 for the time between arrivals and stream 2 for the service times.</p>
 </div>
 <hr>
 <div id="exr-ch6QTP15" class="theorem exercise">
-<p><span class="theorem-title"><strong>Exercise 6.18</strong></span> NWH Cardiac Care Unit (CCU) has 5 beds, which are virtually always occupied by patients who have just undergone major heart surgery. Two registered nurses (RNs) are on duty in the CCU in each of the three 8 hour shifts. About every two hours following an exponential distribution, one of the patients requires a nurse’s attention. The RN will then spend an average of 30 minutes (exponentially distributed) assisting the patient and updating medical records regarding the problem and care provided.</p>
-<p>Build a KSL model to analyze this situation. Run the model for 20,000 minutes with a warm up period of 5,000 minutes Based on 30 replications of your simulation, answer the following questions.</p>
+<p><span class="theorem-title"><strong>Exercise 6.18</strong></span> NWH Cardiac Care Unit (CCU) has 5 beds, which are virtually always occupied by patients who have just undergone major heart surgery. Two registered nurses (RNs) are on duty in the CCU in each of the three 8 hour shifts. Each patient requires a nurse’s attention about every two hours, following an exponential distribution. The RN will then spend an average of 30 minutes (exponentially distributed) assisting the patient and updating medical records regarding the problem and care provided.</p>
+<p>Build a KSL model to analyze this situation. Run the model for 20,000 minutes with a warm up period of 5,000 minutes. Based on 30 replications of your simulation, answer the following questions.</p>
 <ol type="a">
 <li><p>What is the average number of patients being attended by the nurses?</p></li>
 <li><p>What is the average time that a patient spends waiting for one of the nurses to arrive?</p></li>
@@ -2306,13 +2306,13 @@ Packager_R:SeizeCount                          30         14.0333          2.076
 <hr>
 <div id="exr-ch6QTP16" class="theorem exercise">
 <p><span class="theorem-title"><strong>Exercise 6.19</strong></span> HJ Bunt, Transport Company maintains a large fleet of refrigerated trailers. For the purposes of this problem assume that the number of refrigerated trailers is conceptually infinite. The trailers require service on an irregular basis in the company owned and operated service shop. Assume that the arrival of trailers to the shop is approximated by a Poisson distribution with a mean rate of 3 per week. The length of time needed for servicing a trailer varies according to an exponential distribution with a mean service time of one-half week per trailer. The current policy is to utilize a centralized contracted outsourced service center whenever more than two trailers are in the company shop, so that, at most one trailer is allowed to wait. Assume that there is currently one 1 mechanic in the company shop.</p>
-<p>Build a KSL model to analyze this situation. Run the model for 20,000 weeks with a warm up period of 5,000 weeks Based on 30 replications of your simulation, what is the expected number of repairs that are outsourced per week?</p>
+<p>Build a KSL model to analyze this situation. Run the model for 20,000 weeks with a warm up period of 5,000 weeks. Based on 30 replications of your simulation, what is the expected number of repairs that are outsourced per week?</p>
 <p>Use stream 1 for the time between arrivals and stream 2 for the service times.</p>
 </div>
 <hr>
 <div id="exr-ch6P7" class="theorem exercise">
 <p><span class="theorem-title"><strong>Exercise 6.20</strong></span> The Hog BBQ Joint is interested in understanding the flow of customers for diner (5 pm to 9 pm). Customers arrive in parties of 2, 3, 4, or 5 with probabilities 0.4, 0.3, 0.2, 0.1, respectively (stream 1). The time between arrivals is exponentially distributed with a mean of 1.4 minutes (stream 2). Customers must arrive prior to 9 pm in order to be seated. The dining area has 50 tables. Each table can seat 2 people. For parties, with more than 2 customers, the tables are moved together. Each arriving group gets in line to be seated. If there are already 6 parties in line, the arriving group will leave and go to another restaurant. The time that it takes to be served is triangularly distributed with parameters (14, 19, 24) in minutes (stream 3). The time that it takes to eat is lognormally distributed with a mean of 24 minutes and a standard deviation of 5 minutes (stream 4). When customers are finished eating, they go to the cashier to pay their bill. The time that it takes the cashier to process the customers is gamma distributed with a mean of 1.5 minutes and a standard deviation of 0.5 minutes (stream 5).</p>
-<p>Develop an model for this situation. Simulate 30 days of operation. Make a table like the following to summarize your results.</p>
+<p>Develop a model for this situation. Simulate 30 days of operation. Make a table like the following to summarize your results.</p>
 <table class="caption-top table">
 <thead>
 <tr class="header">
@@ -2391,7 +2391,7 @@ Packager_R:SeizeCount                          30         14.0333          2.076
 <hr>
 <div id="exr-ch6P10" class="theorem exercise">
 <p><span class="theorem-title"><strong>Exercise 6.23</strong></span> Hungry customers arrive to a Mickey R’s drive through restaurant at a mean rate of 10 per hour according to a Poisson process (stream 1). Management is interested in improving the total time spent within the system (i.e. from arrival to departure with their food).</p>
-<p>Management is considering a proposed system that splits the order taking, payment activity and the order delivery processes. The first worker will take the orders from an order-taking speaker. This takes on average 1 minute plus or minus 20 seconds uniformly distributed (stream 2). When the order taking activity is completed, the making of the order will start. It takes approximately 3 minutes (plus or minus 20 seconds) to make the customer’s order, uniformly distributed (stream 3). Meanwhile, the customer will be instructed to drive to the first window to pay for the order. Assume that the time that it takes the customer to move forward is negligible. The first worker accepts the payment from the customer. This takes on average 45 seconds plus or minus 20 seconds uniformly distributed (stream 4). After paying for the order the customer is instructed to pull forward to the second window, where a second worker delivers the order. Assume that the time that it takes the customer to move forward is negligible.</p>
+<p>Management is considering a proposed system that splits the order taking, payment activity and the order delivery processes. The first worker will take the orders from an order-taking speaker. This takes on average 1 minute plus or minus 20 seconds uniformly distributed (stream 2). When the order taking activity is completed, the making of the order will start. It takes approximately 3 minutes (plus or minus 20 seconds) to make the customer’s order, uniformly distributed (stream 3). Assume that the kitchen has enough cooks to make orders as soon as they are taken. Meanwhile, the customer will be instructed to drive to the first window to pay for the order. Assume that the time that it takes the customer to move forward is negligible. The first worker accepts the payment from the customer. This takes on average 45 seconds plus or minus 20 seconds uniformly distributed (stream 4). After paying for the order the customer is instructed to pull forward to the second window, where a second worker delivers the order. Assume that the time that it takes the customer to move forward is negligible.</p>
 <p>If the order is not completed by the time the customer reaches the second window, then the customer must wait for the order to be completed. If the order is completed before the customer arrives to the 2nd window, then the order must wait for the customer. After both the order and the customer are at the 2nd window, the 2nd worker packages the customer’s order and gives it to the customer. This takes approximately 30 seconds with a standard deviation of 10 seconds, lognormally distributed (stream 5). After the customer receives their order they depart.</p>
 <p>Simulate this system for the period from 10 am to 2 pm. Report the total time spent in the system for the customers based on 30 days.</p>
 </div>
@@ -2416,7 +2416,7 @@ Packager_R:SeizeCount                          30         14.0333          2.076
 <div id="exr-ch6P12" class="theorem exercise">
 <p><span class="theorem-title"><strong>Exercise 6.25</strong></span> Orders for street lighting poles require the production of the tapered pole, the base assembly, and the wiring/lighting assembly package. Orders are released to the shop floor with an exponential time between arrival of 20 minutes (stream 1). Assume that all the materials for the order are already available within the shop floor.</p>
 <p>Once the order arrives, the production of the pole begins. Pole production requires that the sheet metal be cut to a trapezoidal shape. This process takes place on a cutting shear. After cutting, the pole is rolled using a press brake machine. This machine rolls the sheet to an almost closed form. After rolling, the pole is sealed on an automated welding machine. Each of these processes are uniformly distributed with ranges <span class="math inline">\([3, 5]\)</span>, <span class="math inline">\([6,10]\)</span>, and <span class="math inline">\([4,8]\)</span> minutes, (streams 2, 3, 4) respectively.</p>
-<p>While the pole is being produced, the base is being prepared. The base is a square metal plate with four holes drilled for bolting the place to the mounting piece and a large circular hole for attaching the pole to the base. The base plates are in stock so that only the holes need to be cut. This is done on a water jet cutting machine. This process takes approximately 20 minutes plus or minus 2 minutes, triangularly distributed (stream 5). After the holes are cut, the plate goes to a grinding/deburring station, which takes between 10 minutes, exponentially distributed (stream 6).</p>
+<p>While the pole is being produced, the base is being prepared. The base is a square metal plate with four holes drilled for bolting the place to the mounting piece and a large circular hole for attaching the pole to the base. The base plates are in stock so that only the holes need to be cut. This is done on a water jet cutting machine. This process takes approximately 20 minutes plus or minus 2 minutes, triangularly distributed (stream 5). After the holes are cut, the plate goes to a grinding/deburring station, which takes a mean of 10 minutes, exponentially distributed (stream 6).</p>
 <p>Once the plate and the pole are completed, they are transported to the inspection station. Inspection takes 20 minutes, exponentially distributed (stream 7) with 1 operator. There could be a quality problem with the pole or with the base (or both). The chance that the problem is with the base is 0.02 (stream 8) and the chance that the problem is with the pole is 0.01 (stream 9). If either or both have a quality issue, the pole and base go to a rework station for rework. Rework is performed by a single operator and typically takes on average 100 minutes, exponentially distributed (stream 10). After rework, the pole and base are sent to final assembly. If no problems occur with the pole or the base, the pole and base are sent directly to final assembly.</p>
 <p>At the assembly station, the pole is fixed to the base plate and the wiring assembly is placed within the pole. This process takes 1 operator approximately 30 minutes with a standard deviation of 4 minutes according to a lognormal distribution (stream 11). After assembly, the pole is sent to the shipping area for final delivery.</p>
 <p>The shop is interested in taking on additional orders which would essentially double the arrival rate. Estimate the utilization of each resource and the average system time to produce an order for a lighting pole. Assume that the system runs 5 days per week, with two, eight hours shifts per day. Any production that is not completed within 5 days is continued on the next available shift. Run the model for 10 years assuming 52 weeks per year to report your results.</p>
@@ -2482,7 +2482,7 @@ Packager_R:SeizeCount                          30         14.0333          2.076
 </div>
 <hr>
 <div id="exr-ch6P14" class="theorem exercise">
-<p><span class="theorem-title"><strong>Exercise 6.27</strong></span> Customers enter a fast-food restaurant according to an exponential inter-arrival time with a mean of 0.7 minutes (use stream 1). Customers have a choice of ordering one of three kinds of meals: (1) a soft drink, (2) fries, or (3) soft drink, fries, and a burger. Upon arrive to the restaurant, the customer enters a single queue, awaits the availability of a cashier, gives the order to the cashier, then the customer pays the cashier. After the order is placed, the cooking can begin. The customer then waits until their order is ready. After receiving the order, the customer exits. A cashier may not take any additional orders until the current customer has paid. In this system, there are two cooks and two cashiers. The time to order and pay is represented by a triangular distribution with parameters (0.4, 0.8, 1.2) minutes and (0.2, 0.4, 0.6) minutes, respectively. The cooking time depends on the order as follows:</p>
+<p><span class="theorem-title"><strong>Exercise 6.27</strong></span> Customers enter a fast-food restaurant according to an exponential inter-arrival time with a mean of 0.7 minutes (use stream 1). Customers have a choice of ordering one of three kinds of meals: (1) a soft drink, (2) fries, or (3) soft drink, fries, and a burger. Upon arriving at the restaurant, the customer enters a single queue, awaits the availability of a cashier, gives the order to the cashier, then the customer pays the cashier. After the order is placed, the cooking can begin. The customer then waits until their order is ready. After receiving the order, the customer exits. A cashier may not take any additional orders until the current customer has paid. In this system, there are two cooks and two cashiers. The time to order and pay is represented by a triangular distribution with parameters (0.4, 0.8, 1.2) minutes and (0.2, 0.4, 0.6) minutes, respectively. The cooking time depends on the order as follows:</p>
 <table class="caption-top table">
 <thead>
 <tr class="header">
@@ -2565,7 +2565,7 @@ Packager_R:SeizeCount                          30         14.0333          2.076
 </div>
 <hr>
 <div id="exr-ch6P15" class="theorem exercise">
-<p><span class="theorem-title"><strong>Exercise 6.28</strong></span> Jobs arrive in batches of ten items each. The inter-arrival time is exponentially distributed with a meand of 2 hours (stream 1). The machine shop contains 2 milling machines and one drill press. About 30% of the items require drilling before being processed on the milling machine (stream 2). Drilling time per item is uniformly distributed between (10, 15) minutes (stream 3). The milling time is exponentially distributed (stream 4) with a mean of 15 minutes for items that do not require drilling, and uniformly distributed (stream 5) between (15,20) minutes for items that do. Assume that the shop has two 8-hour shifts each day and that you are only interested in the <em>first</em> shift’s performance. Any jobs left over at the end of the first shift are left to be processed by the second shift. Estimate the average number of jobs left for the second shift to complete at the end of the first shift to within plus or minus 5 jobs with 95% confidence. What is your replication length? Number of replications? Determine the utilization of the drill press and the milling machines as well as the average time an item spends in the system.</p>
+<p><span class="theorem-title"><strong>Exercise 6.28</strong></span> Jobs arrive in batches of ten items each. The inter-arrival time is exponentially distributed with a mean of 2 hours (stream 1). The machine shop contains 2 milling machines and one drill press. About 30% of the items require drilling before being processed on the milling machine (stream 2). Drilling time per item is uniformly distributed between (10, 15) minutes (stream 3). The milling time is exponentially distributed (stream 4) with a mean of 15 minutes for items that do not require drilling, and uniformly distributed (stream 5) between (15,20) minutes for items that do. Assume that the shop has two 8-hour shifts each day and that you are only interested in the <em>first</em> shift’s performance. Any jobs left over at the end of the first shift are left to be processed by the second shift. Estimate the average number of jobs left for the second shift to complete at the end of the first shift to within plus or minus 5 jobs with 95% confidence. What is your replication length? Number of replications? Determine the utilization of the drill press and the milling machines as well as the average time an item spends in the system.</p>
 </div>
 <hr>
 <div id="exr-ch6P16a" class="theorem exercise">
@@ -2594,7 +2594,7 @@ Packager_R:SeizeCount                          30         14.0333          2.076
 <hr>
 <div id="exr-ch6P17" class="theorem exercise">
 <p><span class="theorem-title"><strong>Exercise 6.31</strong></span> As part of a diabetes prevention program, a clinic is considering setting up a screening service in a local mall. They are considering two designs: Design A: After waiting in a single line, each walk-in patient is served by one of three available nurses. Each nurse has their own booth, where the patient is first asked some medical health questions, then the patient’s blood pressure and vitals are taken, finally, a glucose test is performed to check for diabetes. In this design, each nurse performs the tasks in sequence for the patient. If the glucose test indicates a chance of diabetes, the patient is sent to a separate clerk to schedule a follow-up at the clinic. If the test is not positive, then the patient departs.</p>
-<p>Design B: After waiting in a single line, each walk-in is served in order by a clerk who takes the patient’s health information, a nurse who takes the patient’s blood pressure and vitals, and another nurse who performs the diabetes test. If the glucose test indicates a chance of diabetes, the patient is sent to a separate clerk to schedule a follow-up at the clinic. If the test is not positive, then the patient departs. In this configuration, there is no room for the patient to wait between the tasks; therefore, a patient who as had their health information taken cannot move ahead unless the nurse taking the vital signs is available. Also, a patient having their glucose tested must leave that station before the patient in blood pressure and vital checking can move ahead.</p>
+<p>Design B: After waiting in a single line, each walk-in is served in order by a clerk who takes the patient’s health information, a nurse who takes the patient’s blood pressure and vitals, and another nurse who performs the diabetes test. If the glucose test indicates a chance of diabetes, the patient is sent to a separate clerk to schedule a follow-up at the clinic. If the test is not positive, then the patient departs. In this configuration, there is no room for the patient to wait between the tasks; therefore, a patient who has had their health information taken cannot move ahead unless the nurse taking the vital signs is available. Also, a patient having their glucose tested must leave that station before the patient in blood pressure and vital checking can move ahead.</p>
 <p>Patients arrive to the system according to a Poisson arrival process at a rate of 9.5 per hour (stream 1). Assume that there is a 5% chance (stream 2) that the glucose test will be positive. For design A, the time that it takes to have the paperwork completed, the vitals taken, and the glucose tested are all log-normally distributed with means of 6.5, 6.0, and 5.5 minutes respectively (streams 3, 4, 5). They all have a standard deviation of approximately 0.5 minutes. For design B, because of the specialization of the tasks, it is expected that the mean of the task times will decrease by 10%.</p>
 <p>Assume that the clinic is open from 10 am to 8 pm (10 hours each day) and that any patients in the clinic before 8 pm are still served. The distribution used to model the time that it takes to schedule a follow up visit is a Weibull distribution with shape 2.6 and scale 7.3 using stream 6.</p>
 <p>Make a statistically valid recommendation as to the best design based on the average system time of the patients. We want to be 95% confident of our recommendation to within 2 minutes.</p>

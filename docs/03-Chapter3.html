@@ -2127,7 +2127,7 @@ Confidence Interval [1.9973657945263494, 2.002391825899537]</code></pre>
 <tr class="even">
 <td style="text-align: center;">Standard Deviation</td>
 <td style="text-align: center;">39.6</td>
-<td style="text-align: center;">0.15</td>
+<td style="text-align: center;"></td>
 </tr>
 <tr class="odd">
 <td style="text-align: center;">Count</td>
@@ -2143,7 +2143,7 @@ Confidence Interval [1.9973657945263494, 2.002391825899537]</code></pre>
 </div>
 <hr>
 <div id="exr-ch3P7" class="theorem exercise">
-<p><span class="theorem-title"><strong>Exercise 3.7</strong></span> The service times for a automated storage and retrieval system has a shifted exponential distribution. It is known that it takes a minimum of 15 seconds for any retrieval. The rate parameter of the exponential distribution is <span class="math inline">\(\lambda = 45\)</span> retrievals per second. Setup a model that will generate 20 observations of the retrieval times. Report the minimum, maximum, sample average, and 95% confidence interval half-width of the observations. Use stream 1 for your sampling.</p>
+<p><span class="theorem-title"><strong>Exercise 3.7</strong></span> The service time for an automated storage and retrieval system has a shifted exponential distribution. It is known that it takes a minimum of 15 seconds for any retrieval. The time beyond the minimum is exponentially distributed with a mean of 45 seconds. Setup a model that will generate 20 observations of the retrieval times. Report the minimum, maximum, sample average, and 95% confidence interval half-width of the observations. Use stream 1 for your sampling.</p>
 </div>
 <hr>
 <div id="exr-ch3P8" class="theorem exercise">
@@ -2350,7 +2350,7 @@ Figure&nbsp;3.9: Truck Paths
 </figcaption>
 </figure>
 </div>
-<p>Assume that the travel times (in either direction) are lognormally distributed as shown in the figure. For example, the time from NY to St. Louis (or St.&nbsp;Louis to NY) by truck is 30 hours with a standard deviation of 6 hours. In addition, assume that the transfer time in hours in St.&nbsp;Louis is triangularly distributed with parameters (8, 10, 12) for trucks (truck to truck). The transfer time in hours involving rail is triangularly distributed with parameters (13, 15, 17) for rail (rail to rail, rail to truck, truck to rail). We are interested in determining the shortest total shipment time combination from NY to LA. Develop an simulation for this problem.</p>
+<p>Assume that the travel times (in either direction) are lognormally distributed as shown in the figure. For example, the time from NY to St. Louis (or St.&nbsp;Louis to NY) by truck is 30 hours with a standard deviation of 6 hours. In addition, assume that the transfer time in hours in St.&nbsp;Louis is triangularly distributed with parameters (8, 10, 12) for trucks (truck to truck). The transfer time in hours involving rail is triangularly distributed with parameters (13, 15, 17) for rail (rail to rail, rail to truck, truck to rail). We are interested in determining the shortest total shipment time combination from NY to LA. Develop a simulation for this problem. Use stream 1 for the truck time and stream 2 for the rail time between New York and St.&nbsp;Louis, stream 3 for the truck time and stream 4 for the rail time between St.&nbsp;Louis and Los Angeles, stream 5 for the truck-to-truck transfer time and stream 6 for the transfer times involving rail. Base your analysis on 10,000 samples.</p>
 <ol type="a">
 <li><p>How many shipment combinations are there?</p></li>
 <li><p>Write an expression for the total shipment time of the truck only combination.</p></li>
@@ -2396,9 +2396,9 @@ Figure&nbsp;3.9: Truck Paths
 </tr>
 <tr class="even">
 <td style="text-align: center;">Fixed Cost</td>
-<td style="text-align: center;">50000</td>
-<td style="text-align: center;">65000</td>
-<td style="text-align: center;">80000</td>
+<td style="text-align: center;">150000</td>
+<td style="text-align: center;">200000</td>
+<td style="text-align: center;">250000</td>
 <td style="text-align: center;"></td>
 </tr>
 <tr class="odd">
@@ -2555,8 +2555,8 @@ Figure&nbsp;3.9: Truck Paths
 </tbody>
 </table>
 <p>The lead-time is the number of days from placing an order until the firm receives the order from the supplier.</p>
-<p>Assume that the lead-time is a constant 10 days. Develop a model to simulate 1000 instances of LDT. Report the summary statistics for the 1000 observations. Estimate the chance that LDT is greater than or equal to 10. Report a 95% confidence interval on your estimate.</p>
-<p>Assume that the lead-time has a shifted geometric distribution with probability parameter equal to 0.2 (stream 2). Use a model to simulate 1000 instances of LDT. Report the summary statistics for the 1000 observations. Estimate the chance that LDT is greater than or equal to 10. Report a 95% confidence interval on your estimate.</p>
+<p>Assume that the lead-time is a constant 10 days. Develop a model to simulate 1000 instances of LDT. Report the summary statistics for the 1000 observations. Estimate the chance that LDT is greater than or equal to 60. Report a 95% confidence interval on your estimate.</p>
+<p>Assume that the lead-time has a shifted geometric distribution with probability parameter equal to 0.2 (stream 2). Use a model to simulate 1000 instances of LDT. Report the summary statistics for the 1000 observations. Estimate the chance that LDT is greater than or equal to 60. Report a 95% confidence interval on your estimate.</p>
 </div>
 <hr>
 <div id="exr-ch3P28" class="theorem exercise">
@@ -2577,7 +2577,7 @@ Figure&nbsp;3.9: Truck Paths
 <p><span class="math display">\[\begin{aligned}
 X_1 &amp; = \cos (2 \pi U_2) \sqrt{-2 ln(U_1)}\\
 X_2 &amp; = \sin (2 \pi U_2) \sqrt{-2 ln(U_1)}\end{aligned}\]</span></p>
-<p>It can be shown that <span class="math inline">\(X_1\)</span> and <span class="math inline">\(X_2\)</span> will be independent standard normal random variables, i.e.&nbsp;<span class="math inline">\(N(0,1)\)</span>. Use to implement the Box and Muller algorithm for generating normal random variables. Generate 1000 <span class="math inline">\(N(\mu = 2, \sigma = 0.75)\)</span> random variables via this method. Report the minimum, maximum, sample average, and 95% confidence interval half-width of the observations. Assign stream 1 to <span class="math inline">\(U_1\)</span> and stream 2 <span class="math inline">\(U_2\)</span>.</p>
+<p>It can be shown that <span class="math inline">\(X_1\)</span> and <span class="math inline">\(X_2\)</span> will be independent standard normal random variables, i.e.&nbsp;<span class="math inline">\(N(0,1)\)</span>. Use this to implement the Box and Muller algorithm for generating normal random variables. Generate 1000 <span class="math inline">\(N(\mu = 2, \sigma = 0.75)\)</span> random variables via this method. Report the minimum, maximum, sample average, and 95% confidence interval half-width of the observations. Assign stream 1 to <span class="math inline">\(U_1\)</span> and stream 2 <span class="math inline">\(U_2\)</span>.</p>
 </div>
 <hr>
 <div id="exr-ch3P31" class="theorem exercise">

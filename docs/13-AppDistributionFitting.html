@@ -545,7 +545,6 @@ window.Quarto = {
   <li><a href="#sec-appidmsubsechypothDist" id="toc-sec-appidmsubsechypothDist" class="nav-link" data-scroll-target="#sec-appidmsubsechypothDist"><span class="header-section-number">B.5.3</span> Hypothesizing and Testing a Distribution</a></li>
   <li><a href="#kolmogorov-smirnov-test" id="toc-kolmogorov-smirnov-test" class="nav-link" data-scroll-target="#kolmogorov-smirnov-test"><span class="header-section-number">B.5.4</span> Kolmogorov-Smirnov Test</a></li>
   <li><a href="#sec-appidmsubsecvisFit" id="toc-sec-appidmsubsecvisFit" class="nav-link" data-scroll-target="#sec-appidmsubsecvisFit"><span class="header-section-number">B.5.5</span> Visualizing the Fit</a></li>
-  <li><a href="#sec-appidms2sb3" id="toc-sec-appidms2sb3" class="nav-link" data-scroll-target="#sec-appidms2sb3"><span class="header-section-number">B.5.6</span> Using the Input Analyzer</a></li>
   </ul></li>
   <li><a href="#sec-appdistfittestU01" id="toc-sec-appdistfittestU01" class="nav-link" data-scroll-target="#sec-appdistfittestU01"><span class="header-section-number">B.6</span> Testing Uniform (0,1) Pseudo-Random Numbers</a>
   <ul>
@@ -2449,462 +2448,6 @@ Figure&nbsp;B.18: Distribution Plot from fitdistrplus for Uniform Distribution F
 </div>
 </div>
 </section>
-<section id="sec-appidms2sb3" class="level3" data-number="B.5.6">
-<h3 data-number="B.5.6" class="anchored" data-anchor-id="sec-appidms2sb3"><span class="header-section-number">B.5.6</span> Using the Input Analyzer</h3>
-<p>In this section, we will use the Arena Input Analyzer to fit a distribution to service times collected for the pharmacy example. The Arena Input Analyzer is a separate program hat comes with Arena. It is available as part of the free student edition of Arena.</p>
-<p>Let <em><span class="math inline">\(X_i\)</span></em> be the service time of the <span class="math inline">\(i^{th}\)</span> customer, where the service time is defined as starting when the <span class="math inline">\((i - 1)^{st}\)</span> customer begins to drive off and ending when the <span class="math inline">\(i^{th}\)</span> customer drives off after interacting with the pharmacist. In the case where there is no customer already in line when the <span class="math inline">\(i^{th}\)</span> customer arrives, the start of the service can be defined as the point where the customer’s car arrives to the beginning of the space in front of the pharmacist’s window. Notice that in this definition, the time that it takes the car to pull up to the pharmacy window is being included. An alternative definition of service time might simply be the time between when the pharmacist asks the customer what they need until the time in which the customer gets the receipt. Both of these definitions are reasonable interpretations of service times and it is up to you to decide what sort of definition fits best with the overall modeling objectives. As you can see, input modeling is as much an art as it is a science.</p>
-<p>One hundred observations of the service time were collected using a portable digital assistant and are shown in <a href="#tbl-PharmacyData" class="quarto-xref">Table&nbsp;<span>B.7</span></a> where the first observation is in row 1 column 1, the second observation is in row 2 column 1, the <span class="math inline">\(21^{st}\)</span> observation is in row 1 column 2, and so forth. This data is available in the text file <em>PharmacyInputModelingExampleData.txt</em> that accompanies this chapter.</p>
-<div id="tbl-PharmacyData" class="quarto-float quarto-figure quarto-figure-left anchored">
-<figure class="quarto-float quarto-float-tbl figure">
-<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-PharmacyData-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Table&nbsp;B.7: Pharmacy Service Times
-</figcaption>
-<div aria-describedby="tbl-PharmacyData-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<table class="caption-top table">
-<tbody>
-<tr class="odd">
-<td style="text-align: center;">61</td>
-<td style="text-align: center;">278.73</td>
-<td style="text-align: center;">194.68</td>
-<td style="text-align: center;">55.33</td>
-<td style="text-align: center;">398.39</td>
-</tr>
-<tr class="even">
-<td style="text-align: center;">59.09</td>
-<td style="text-align: center;">70.55</td>
-<td style="text-align: center;">151.65</td>
-<td style="text-align: center;">58.45</td>
-<td style="text-align: center;">86.88</td>
-</tr>
-<tr class="odd">
-<td style="text-align: center;">374.89</td>
-<td style="text-align: center;">782.22</td>
-<td style="text-align: center;">185.45</td>
-<td style="text-align: center;">640.59</td>
-<td style="text-align: center;">137.64</td>
-</tr>
-<tr class="even">
-<td style="text-align: center;">195.45</td>
-<td style="text-align: center;">46.23</td>
-<td style="text-align: center;">120.42</td>
-<td style="text-align: center;">409.49</td>
-<td style="text-align: center;">171.39</td>
-</tr>
-<tr class="odd">
-<td style="text-align: center;">185.76</td>
-<td style="text-align: center;">126.49</td>
-<td style="text-align: center;">367.76</td>
-<td style="text-align: center;">87.19</td>
-<td style="text-align: center;">135.6</td>
-</tr>
-<tr class="even">
-<td style="text-align: center;">268.61</td>
-<td style="text-align: center;">110.05</td>
-<td style="text-align: center;">146.81</td>
-<td style="text-align: center;">59</td>
-<td style="text-align: center;">291.63</td>
-</tr>
-<tr class="odd">
-<td style="text-align: center;">257.5</td>
-<td style="text-align: center;">294.19</td>
-<td style="text-align: center;">73.79</td>
-<td style="text-align: center;">71.64</td>
-<td style="text-align: center;">187.02</td>
-</tr>
-<tr class="even">
-<td style="text-align: center;">475.51</td>
-<td style="text-align: center;">433.89</td>
-<td style="text-align: center;">440.7</td>
-<td style="text-align: center;">121.69</td>
-<td style="text-align: center;">174.11</td>
-</tr>
-<tr class="odd">
-<td style="text-align: center;">77.3</td>
-<td style="text-align: center;">211.38</td>
-<td style="text-align: center;">330.09</td>
-<td style="text-align: center;">96.96</td>
-<td style="text-align: center;">911.19</td>
-</tr>
-<tr class="even">
-<td style="text-align: center;">88.71</td>
-<td style="text-align: center;">266.5</td>
-<td style="text-align: center;">97.99</td>
-<td style="text-align: center;">301.43</td>
-<td style="text-align: center;">201.53</td>
-</tr>
-<tr class="odd">
-<td style="text-align: center;">108.17</td>
-<td style="text-align: center;">71.77</td>
-<td style="text-align: center;">53.46</td>
-<td style="text-align: center;">68.98</td>
-<td style="text-align: center;">149.96</td>
-</tr>
-<tr class="even">
-<td style="text-align: center;">94.68</td>
-<td style="text-align: center;">65.52</td>
-<td style="text-align: center;">279.9</td>
-<td style="text-align: center;">276.55</td>
-<td style="text-align: center;">163.27</td>
-</tr>
-<tr class="odd">
-<td style="text-align: center;">244.09</td>
-<td style="text-align: center;">71.61</td>
-<td style="text-align: center;">122.81</td>
-<td style="text-align: center;">497.87</td>
-<td style="text-align: center;">677.92</td>
-</tr>
-<tr class="even">
-<td style="text-align: center;">230.68</td>
-<td style="text-align: center;">155.5</td>
-<td style="text-align: center;">42.93</td>
-<td style="text-align: center;">232.75</td>
-<td style="text-align: center;">255.64</td>
-</tr>
-<tr class="odd">
-<td style="text-align: center;">371.02</td>
-<td style="text-align: center;">83.51</td>
-<td style="text-align: center;">515.66</td>
-<td style="text-align: center;">52.2</td>
-<td style="text-align: center;">396.21</td>
-</tr>
-<tr class="even">
-<td style="text-align: center;">160.39</td>
-<td style="text-align: center;">148.43</td>
-<td style="text-align: center;">56.11</td>
-<td style="text-align: center;">144.24</td>
-<td style="text-align: center;">181.76</td>
-</tr>
-<tr class="odd">
-<td style="text-align: center;">104.98</td>
-<td style="text-align: center;">46.23</td>
-<td style="text-align: center;">74.79</td>
-<td style="text-align: center;">86.43</td>
-<td style="text-align: center;">554.05</td>
-</tr>
-<tr class="even">
-<td style="text-align: center;">102.98</td>
-<td style="text-align: center;">77.65</td>
-<td style="text-align: center;">188.15</td>
-<td style="text-align: center;">106.6</td>
-<td style="text-align: center;">123.22</td>
-</tr>
-<tr class="odd">
-<td style="text-align: center;">140.19</td>
-<td style="text-align: center;">104.15</td>
-<td style="text-align: center;">278.06</td>
-<td style="text-align: center;">183.82</td>
-<td style="text-align: center;">89.12</td>
-</tr>
-<tr class="even">
-<td style="text-align: center;">193.65</td>
-<td style="text-align: center;">351.78</td>
-<td style="text-align: center;">95.53</td>
-<td style="text-align: center;">219.18</td>
-<td style="text-align: center;">546.57</td>
-</tr>
-</tbody>
-</table>
-</div>
-</figure>
-</div>
-<p>Prior to using the Input Analyzer, you should check the data if the observations are stationary (not dependent on time) and whether it is independent. We will leave that analysis as an exercise, since we have already illustrated the process using R in the previous sections.</p>
-<p>After opening the Input Analyzer you should choose New from the File menu to start a new input analyzer data set. Then, using File <span class="math inline">\(&gt;\)</span> Data File <span class="math inline">\(&gt;\)</span> Use Existing, you can import the text file containing the data for analysis. The resulting import should leave the Input Analyzer looking like <a href="#fig-InputAnalyzerImport" class="quarto-xref">Figure&nbsp;<span>B.19</span></a>.</p>
-<div id="fig-InputAnalyzerImport" class="quarto-float quarto-figure quarto-figure-left anchored">
-<figure class="quarto-float quarto-float-fig figure">
-<div aria-describedby="fig-InputAnalyzerImport-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<img src="./figures/AppDistFitting/figInputAnalyzerImport.png" style="width:70.0%;height:70.0%" class="figure-img">
-</div>
-<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-InputAnalyzerImport-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;B.19: Input Analyzer after Data Import
-</figcaption>
-</figure>
-</div>
-<p>You should save the session, which will create a (<em>.dft</em>) file. Notice how the Input Analyzer automatically makes a histogram of the data and performs a basic statistical summary of the data. In looking at <a href="#fig-InputAnalyzerImport" class="quarto-xref">Figure&nbsp;<span>B.19</span></a>, we might hypothesize a distribution that has long tail to the right, such as the exponential distribution.</p>
-<p>The Input Analyzer will fit many of the common distributions that are available within Arena: Beta, Erlang, Exponential, Gamma, Lognormal, Normal, Triangular, Uniform, Weibull, Empirical, Poisson. In addition, it will provide the expression to be used within the Arena model. The fitting process within the Input Analyzer is highly dependent upon the intervals that are chosen for the histogram of the data. Thus, it is very important that you vary the number of intervals and check the sensitivity of the fitting process to the number of intervals in the histogram.</p>
-<p>There are two basic methods by which you can perform the fitting process 1) individually for a specific distribution and 2) by fitting all of the possible distributions. Given the interval specification the Input Analyzer will compute a Chi-Squared goodness of fit statistic, Kolmogorov-Smirnov Test, and squared error criteria, all of which will be discussed in what follows.</p>
-<p>Let’s try to fit an exponential distribution to the observations. With the formerly imported data imported into an input window within the Input Analyzer, go to the Fit menu and select the exponential distribution. The resulting analysis is shown in the following listing.</p>
-<pre><code>Distribution Summary
-Distribution:   Exponential
-Expression: 36 + EXPO(147)
-Square Error:   0.003955
-
-Chi Square Test
-Number of intervals = 4
-Degrees of freedom  = 2
-Test Statistic      = 2.01
-Corresponding p-value   = 0.387
-
-Kolmogorov-Smirnov Test
-Test Statistic  = 0.0445
-Corresponding p-value   &gt; 0.15
-
-Data Summary
-Number of Data Points   = 100
-Min Data Value          = 36.8
-Max Data Value          = 782
-Sample Mean             = 183
-Sample Std Dev          = 142
-
-Histogram Summary
-Histogram Range     = 36 to 783
-Number of Intervals = 10</code></pre>
-<p>The Input Analyzer has made a fit to the data and has recommended the Arena expression (36 + EXPO(147)). What is this value 36? The value 36 is called the offset or location parameter. The visual fit of the data is shown in <a href="#fig-InputAnalyzerExpFit" class="quarto-xref">Figure&nbsp;<span>B.20</span></a></p>
-<div id="fig-InputAnalyzerExpFit" class="quarto-float quarto-figure quarto-figure-left anchored">
-<figure class="quarto-float quarto-float-fig figure">
-<div aria-describedby="fig-InputAnalyzerExpFit-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<img src="./figures/AppDistFitting/figInputAnalyzerExpFit.png" style="width:70.0%;height:70.0%" class="figure-img">
-</div>
-<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-InputAnalyzerExpFit-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;B.20: Histogram for Exponential Fit to Service Times
-</figcaption>
-</figure>
-</div>
-<p>Recall the discussion in <a href="12-AppRNRV.html#sec-AppRNRVsubsecMTSRV" class="quarto-xref"><span>Section A.2.4</span></a> concerning shifted distributions. Any distribution can have this additional parameter that shifts it along the x-axis. This can complicate parameter estimation procedures. The Input Analyzer has an algorithm which will attempt to estimate this parameter. Generally, a reasonable estimate of this parameter can be computed via the floor of the minimum observed value, <span class="math inline">\(\lfloor \min(x_i)\rfloor\)</span>. Is the model reasonable for the service time data? From the histogram with the exponential distribution overlaid, it appears to be a reasonable fit.</p>
-<p>To understand the results of the fit, you must understand how to interpret the results from the Chi-Square Test and the Kolmogorov-Smirnov Test. The null hypothesis is that the data come from they hypothesized distribution versus the alternative hypothesis that the data do not come from the hypothesized distribution. The Input Analyzer shows the p-value of the tests.</p>
-<p>The results of the distribution fitting process indicate that the p-value for the Chi-Square Test is 0.387. Thus, we would not reject the hypothesis that the service times come from the propose exponential distribution. For the K-S test, the p-value is greater than 0.15 which also does not suggest a serious lack of fit for the exponential distribution.</p>
-<p><a href="#fig-InputAnalyzerUnifFit" class="quarto-xref">Figure&nbsp;<span>B.21</span></a> show the results of fitting a uniform distribution to the data.</p>
-<div id="fig-InputAnalyzerUnifFit" class="quarto-float quarto-figure quarto-figure-left anchored">
-<figure class="quarto-float quarto-float-fig figure">
-<div aria-describedby="fig-InputAnalyzerUnifFit-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<img src="./figures/AppDistFitting/figInputAnalyzerUnifFit.png" style="width:70.0%;height:70.0%" class="figure-img">
-</div>
-<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-InputAnalyzerUnifFit-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;B.21: Uniform Distribtuion and Histogram for Service Time Data
-</figcaption>
-</figure>
-</div>
-<p>The following listing shows the results for the uniform distribution. The results show that the p-value for the K-S Test is smaller than 0.01, which indicates that the uniform distribution is probably not a good model for the service times.</p>
-<pre><code>Distribution Summary
-Distribution:   Uniform      
-Expression: UNIF(36, 783)
-Square Error:   0.156400
-
-Chi Square Test
-  Number of intervals   = 7
-  Degrees of freedom    = 6
-  Test Statistic        = 164
-  Corresponding p-value &lt; 0.005
-
-Kolmogorov-Smirnov Test
-  Test Statistic    = 0.495
-  Corresponding p-value &lt; 0.01
-
-Data Summary
-Number of Data Points   = 100
-Min Data Value          = 36.8
-Max Data Value          = 782
-Sample Mean             = 183
-Sample Std Dev          = 142
-
-Histogram Summary
-Histogram Range     = 36 to 783
-Number of Intervals = 10</code></pre>
-<p>In general, you should be cautious of goodness-of-fit tests because they are unlikely to reject any distribution when you have little data, and they are likely to reject every distribution when you have lots of data. The point is, for whatever software that you use for your modeling fitting, you will need to correctly interpret the results of any statistical tests that are performed. Be sure to understand how these tests are computed and how sensitive the tests are to various assumptions within the model fitting process.</p>
-<p>The final result of interest in the Input Analyzer’s distribution summary output is the value labeled <em>Square Error</em>. This is the criteria that the Input Analyzer uses to recommend a particular distribution when fitting multiple distributions at one time to the data. The squared error is defined as the sum over the intervals of the squared difference between the relative frequency and the probability associated with each interval:</p>
-<p><span id="eq-SquaredError"><span class="math display">\[
-\text{Square Error} = \sum_{j = 1}^k (h_j - \hat{p}_j)^2
-\tag{B.14}\]</span></span></p>
-<p><a href="#tbl-SqErrorCalc" class="quarto-xref">Table&nbsp;<span>B.8</span></a> shows the square error calculation for the fit of the exponential distribution to the service time data. The computed square error matches closely the value computed within the Input Analyzer, with the difference attributed to round off errors.</p>
-<div id="tbl-SqErrorCalc" class="quarto-float quarto-figure quarto-figure-left anchored">
-<figure class="quarto-float quarto-float-tbl figure">
-<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-SqErrorCalc-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Table&nbsp;B.8: Square Error Calculation
-</figcaption>
-<div aria-describedby="tbl-SqErrorCalc-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<table class="caption-top table">
-<thead>
-<tr class="header">
-<th style="text-align: center;"><span class="math inline">\(j\)</span></th>
-<th style="text-align: center;"><span class="math inline">\(c_j\)</span></th>
-<th style="text-align: center;"><span class="math inline">\(b_j\)</span></th>
-<th style="text-align: center;"><span class="math inline">\(h_j\)</span></th>
-<th style="text-align: center;"><span class="math inline">\(\hat{p_j}\)</span></th>
-<th style="text-align: center;"><span class="math inline">\((h_j - \hat{p_j})^2\)</span></th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td style="text-align: center;">1</td>
-<td style="text-align: center;">43</td>
-<td style="text-align: center;">111</td>
-<td style="text-align: center;">0.43</td>
-<td style="text-align: center;">0.399</td>
-<td style="text-align: center;">0.000961</td>
-</tr>
-<tr class="even">
-<td style="text-align: center;">2</td>
-<td style="text-align: center;">19</td>
-<td style="text-align: center;">185</td>
-<td style="text-align: center;">0.19</td>
-<td style="text-align: center;">0.24</td>
-<td style="text-align: center;">0.0025</td>
-</tr>
-<tr class="odd">
-<td style="text-align: center;">3</td>
-<td style="text-align: center;">14</td>
-<td style="text-align: center;">260</td>
-<td style="text-align: center;">0.14</td>
-<td style="text-align: center;">0.144</td>
-<td style="text-align: center;">1.6E-05</td>
-</tr>
-<tr class="even">
-<td style="text-align: center;">4</td>
-<td style="text-align: center;">10</td>
-<td style="text-align: center;">335</td>
-<td style="text-align: center;">0.1</td>
-<td style="text-align: center;">0.0866</td>
-<td style="text-align: center;">0.00018</td>
-</tr>
-<tr class="odd">
-<td style="text-align: center;">5</td>
-<td style="text-align: center;">6</td>
-<td style="text-align: center;">410</td>
-<td style="text-align: center;">0.06</td>
-<td style="text-align: center;">0.0521</td>
-<td style="text-align: center;">6.24E-05</td>
-</tr>
-<tr class="even">
-<td style="text-align: center;">6</td>
-<td style="text-align: center;">4</td>
-<td style="text-align: center;">484</td>
-<td style="text-align: center;">0.04</td>
-<td style="text-align: center;">0.0313</td>
-<td style="text-align: center;">7.57E-05</td>
-</tr>
-<tr class="odd">
-<td style="text-align: center;">7</td>
-<td style="text-align: center;">2</td>
-<td style="text-align: center;">559</td>
-<td style="text-align: center;">0.02</td>
-<td style="text-align: center;">0.0188</td>
-<td style="text-align: center;">1.44E-06</td>
-</tr>
-<tr class="even">
-<td style="text-align: center;">8</td>
-<td style="text-align: center;">0</td>
-<td style="text-align: center;">634</td>
-<td style="text-align: center;">0</td>
-<td style="text-align: center;">0.0113</td>
-<td style="text-align: center;">0.000128</td>
-</tr>
-<tr class="odd">
-<td style="text-align: center;">9</td>
-<td style="text-align: center;">1</td>
-<td style="text-align: center;">708</td>
-<td style="text-align: center;">0.01</td>
-<td style="text-align: center;">0.0068</td>
-<td style="text-align: center;">1.02E-05</td>
-</tr>
-<tr class="even">
-<td style="text-align: center;">10</td>
-<td style="text-align: center;">1</td>
-<td style="text-align: center;">783</td>
-<td style="text-align: center;">0.01</td>
-<td style="text-align: center;">0.00409</td>
-<td style="text-align: center;">3.49E-05</td>
-</tr>
-<tr class="odd">
-<td style="text-align: center;"></td>
-<td style="text-align: center;"></td>
-<td style="text-align: center;"></td>
-<td style="text-align: center;"></td>
-<td style="text-align: center;">Square Error</td>
-<td style="text-align: center;">0.003969</td>
-</tr>
-</tbody>
-</table>
-</div>
-</figure>
-</div>
-<p>When you select the Fit All option within the Input Analyzer, each of the possible distributions are fit in turn and the summary results computed. Then, the Input Analyzer ranks the distributions from smallest to largest according to the square error criteria. As you can see from the definition of the square error criteria, the metric is dependent upon the defining intervals. Thus, it is highly recommended that you test the sensitivity of the results to different values for the number of intervals.</p>
-<p>Using the Fit All function results in the Input Analyzer suggesting that 36 + 747 * BETA(0.667, 2.73) expression is a good fit of the model (<a href="#fig-InputAnalyzerFitAllBeta" class="quarto-xref">Figure&nbsp;<span>B.22</span></a>. The Window <span class="math inline">\(&gt;\)</span> Fit All Summary menu option will show the squared error criteria for all the distributions that were fit. <a href="#fig-InputAnalyzerFitAllSummary" class="quarto-xref">Figure&nbsp;<span>B.23</span></a> indicates that the Erlang distribution is second in the fitting process according to the squared error criteria and the Exponential distribution is third in the rankings. Since the Exponential distribution is a special case of the Erlang distribution we see that their squared error criteria is the same. Thus, in reality, these results reflect the same distribution.</p>
-<div id="fig-InputAnalyzerFitAllBeta" class="quarto-float quarto-figure quarto-figure-left anchored">
-<figure class="quarto-float quarto-float-fig figure">
-<div aria-describedby="fig-InputAnalyzerFitAllBeta-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<img src="./figures/AppDistFitting/figInputAnalyzerFitAllBeta.png" style="width:70.0%;height:70.0%" class="figure-img">
-</div>
-<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-InputAnalyzerFitAllBeta-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;B.22: Fit All Beta Recommendation for Service Time Data
-</figcaption>
-</figure>
-</div>
-<div id="fig-InputAnalyzerFitAllSummary" class="quarto-float quarto-figure quarto-figure-left anchored">
-<figure class="quarto-float quarto-float-fig figure">
-<div aria-describedby="fig-InputAnalyzerFitAllSummary-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<img src="./figures/AppDistFitting/figInputAnalyzerFitAllSummary.png" style="width:40.0%;height:40.0%" class="figure-img">
-</div>
-<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-InputAnalyzerFitAllSummary-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;B.23: Fit All Recommendation for Service Time Data
-</figcaption>
-</figure>
-</div>
-<p>By using Options <span class="math inline">\(&gt;\)</span> Parameters <span class="math inline">\(&gt;\)</span> Histogram, the Histogram Parameters dialog can be used to change the parameters associated with the histogram as shown in <a href="#fig-InputAnalyzerHistParameters" class="quarto-xref">Figure&nbsp;<span>B.24</span></a>.</p>
-<div id="fig-InputAnalyzerHistParameters" class="quarto-float quarto-figure quarto-figure-left anchored">
-<figure class="quarto-float quarto-float-fig figure">
-<div aria-describedby="fig-InputAnalyzerHistParameters-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<img src="./figures/AppDistFitting/figInputAnalyzerHistParameters.png" style="width:40.0%;height:40.0%" class="figure-img">
-</div>
-<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-InputAnalyzerHistParameters-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;B.24: Changing the Histogram Parameters
-</figcaption>
-</figure>
-</div>
-<p>Changing the number of intervals to 12 results in the output provided in <a href="#fig-InputAnalyzerFitAll12Intervals" class="quarto-xref">Figure&nbsp;<span>B.25</span></a>, which indicates that the exponential distribution is a reasonable model based on the Chi-Square test, the K-S test, and the squared error criteria. You are encouraged to check other fits with differing number of intervals. In most of the fits, the exponential distribution will be recommended. It is beginning to look like the exponential distribution is a reasonable model for the service time data.</p>
-<div id="fig-InputAnalyzerFitAll12Intervals" class="quarto-float quarto-figure quarto-figure-left anchored">
-<figure class="quarto-float quarto-float-fig figure">
-<div aria-describedby="fig-InputAnalyzerFitAll12Intervals-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<img src="./figures/AppDistFitting/figInputAnalyzerFitAll12Intervals.png" style="width:40.0%;height:40.0%" class="figure-img">
-</div>
-<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-InputAnalyzerFitAll12Intervals-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;B.25: Fit All with 12 Intervals
-</figcaption>
-</figure>
-</div>
-<div id="fig-InputAnalyzerExpFitHistChange" class="quarto-float quarto-figure quarto-figure-left anchored">
-<figure class="quarto-float quarto-float-fig figure">
-<div aria-describedby="fig-InputAnalyzerExpFitHistChange-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<img src="./figures/AppDistFitting/figInputAnalyzerExpFitHistChange.png" style="width:70.0%;height:70.0%" class="figure-img">
-</div>
-<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-InputAnalyzerExpFitHistChange-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;B.26: Exponential Fit with 12 Intervals
-</figcaption>
-</figure>
-</div>
-<p>The Input Analyzer is convenient because it has the fit all summary and will recommend a distribution. However, it does not provide P-P plots and Q-Q plots. To do this, we can use the <em>fitdistrplus</em> package within R. Before proceeding with this analysis, there is a technical issue that must be addressed.</p>
-<p>The proposed model from the Input Analyzer is: 36 + EXPO(147). That is, if <span class="math inline">\(X\)</span> is a random variable that represents the service time then <span class="math inline">\(X \sim 36\)</span> + EXPO(147), where 147 is the mean of the exponential distribution, so that <span class="math inline">\(\lambda = 1/147\)</span>. Since 36 is a constant in this expression, this implies that the random variable <span class="math inline">\(W = X - 36\)</span>, has <span class="math inline">\(W \sim\)</span> EXPO(147). Thus, the model checking versus the exponential distribution can be done on the random variable <span class="math inline">\(W\)</span>. That is, take the original data and subtract 36.</p>
-<p>The following listing illustrates the R commands to make the fit, assuming that the data is in a file called <em>ServiceTimes.txt</em> within the R working directory. <a href="#fig-expfitplot" class="quarto-xref">Figure&nbsp;<span>B.27</span></a> shows that the exponential distribution is a good fit for the service times based on the empirical distribution, P-P plot, and the Q-Q plot.</p>
-<pre><code>x = scan(file="ServiceTimes.txt") #read in the file
-Read 100 items
-w=x-36
-library(fitdistrplus)
-Loading required package: survival
-Loading required package: splines
-fw = fitdist(w, "exp")
-fw
-Fitting of the distribution ' exp ' by maximum likelihood 
-Parameters:
-        estimate   Std. Error
-rate 0.006813019 0.0006662372
-1/fw$estimate
-    rate 
-146.7778 
-plot(fw)</code></pre>
-<div class="cell">
-<div class="cell-output-display">
-<div id="fig-expfitplot" class="quarto-float quarto-figure quarto-figure-left anchored">
-<figure class="quarto-float quarto-float-fig figure">
-<div aria-describedby="fig-expfitplot-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<img src="13-AppDistributionFitting_files/figure-html/fig-expfitplot-1.png" class="img-fluid figure-img" width="672">
-</div>
-<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-expfitplot-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;B.27: Distribution Plot from fitdistrplus for Service Time Data
-</figcaption>
-</figure>
-</div>
-</div>
-</div>
-<p>The P-P and Q-Q plots of the shifted data indicate that the exponential distribution is an excellent fit for the service time data.</p>
-</section>
 </section>
 <section id="sec-appdistfittestU01" class="level2" data-number="B.6">
 <h2 data-number="B.6" class="anchored" data-anchor-id="sec-appdistfittestU01"><span class="header-section-number">B.6</span> Testing Uniform (0,1) Pseudo-Random Numbers</h2>
@@ -2923,10 +2466,10 @@ Figure&nbsp;B.27: Distribution Plot from fitdistrplus for Service Time Data
 <li><p>As a practical rule, the expected number in each interval <span class="math inline">\(np_{j}\)</span> should be at least 5. Thus, in this case <span class="math inline">\(\frac{n}{k} \geq 5\)</span> or <span class="math inline">\(n \geq 5k\)</span> or <span class="math inline">\(k \leq \frac{n}{5}\)</span>. Thus, for a given value of <span class="math inline">\(n\)</span>, you should choose the number of intervals <span class="math inline">\(k \leq \frac{n}{5}\)</span>,</p></li>
 <li><p>Since the parameters of the distribution are known <span class="math inline">\(a=0\)</span> and <span class="math inline">\(b=1\)</span>, then <span class="math inline">\(s=0\)</span>. Therefore, we reject <span class="math inline">\(H_{0}: U_{i} \sim U(0,1)\)</span> if <span class="math inline">\(\chi^{2}_{0} &gt; \chi^{2}_{\alpha, k-1}\)</span> or if the p-value is less than <span class="math inline">\(\alpha\)</span></p></li>
 </ol>
-<p>If <span class="math inline">\(p_{j}\)</span> values are chosen as <span class="math inline">\(\frac{1}{k}\)</span>, then <a href="#eq-chisqU01" class="quarto-xref">Equation&nbsp;<span>B.15</span></a> can be rewritten as:</p>
+<p>If <span class="math inline">\(p_{j}\)</span> values are chosen as <span class="math inline">\(\frac{1}{k}\)</span>, then <a href="#eq-chisqU01" class="quarto-xref">Equation&nbsp;<span>B.14</span></a> can be rewritten as:</p>
 <p><span id="eq-chisqU01"><span class="math display">\[
 \chi^{2}_{0} = \frac{k}{n}\sum\limits_{j=1}^{k} \left( c_{j} - \frac{n}{k} \right)^{2}
-\tag{B.15}\]</span></span></p>
+\tag{B.14}\]</span></span></p>
 <p>Let’s apply these concepts to a small example.</p>
 <hr>
 <div id="exm-TestU01" class="theorem example">
@@ -3190,10 +2733,10 @@ Figure&nbsp;B.27: Distribution Plot from fitdistrplus for Service Time Data
 <p>Summing the last column yields: <span class="math display">\[\chi^{2}_{0} = \sum\limits_{j=1}^{k} \frac{\left( c_{j} - np_{j} \right)^{2}}{np_{j}} = 8.2\]</span> Computing the p-value for <span class="math inline">\(k-s-1=10-0-1=9\)</span> degrees of freedom, yields <span class="math inline">\(P\{\chi^{2}_{9} &gt; 8.2\} = 0.514\)</span>. Thus, given such a high p-value, we would not reject the hypothesis that the observed data is <span class="math inline">\(U(0,1)\)</span>. This process can be readily implemented within a spreadsheet or performed using R. Assuming that the file, u01data.txt, contains the PRNs for this example, then the following R commands will perform the test:<br>
 </p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb81"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb81-1"><a href="#cb81-1" aria-hidden="true" tabindex="-1"></a>data <span class="ot">=</span> <span class="fu">scan</span>(<span class="at">file=</span><span class="st">"data/AppDistFitting/u01data.txt"</span>) <span class="co"># read in the file</span></span>
-<span id="cb81-2"><a href="#cb81-2" aria-hidden="true" tabindex="-1"></a>b <span class="ot">=</span> <span class="fu">seq</span>(<span class="dv">0</span>,<span class="dv">1</span>, <span class="at">by =</span> <span class="fl">0.1</span>) <span class="co"># set up the break points</span></span>
-<span id="cb81-3"><a href="#cb81-3" aria-hidden="true" tabindex="-1"></a>h <span class="ot">=</span> <span class="fu">hist</span>(data, b, <span class="at">right =</span> <span class="cn">FALSE</span>, <span class="at">plot =</span> <span class="cn">FALSE</span>) <span class="co"># tabulate the counts</span></span>
-<span id="cb81-4"><a href="#cb81-4" aria-hidden="true" tabindex="-1"></a><span class="fu">chisq.test</span>(h<span class="sc">$</span>counts) <span class="co"># perform the test</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb78"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb78-1"><a href="#cb78-1" aria-hidden="true" tabindex="-1"></a>data <span class="ot">=</span> <span class="fu">scan</span>(<span class="at">file=</span><span class="st">"data/AppDistFitting/u01data.txt"</span>) <span class="co"># read in the file</span></span>
+<span id="cb78-2"><a href="#cb78-2" aria-hidden="true" tabindex="-1"></a>b <span class="ot">=</span> <span class="fu">seq</span>(<span class="dv">0</span>,<span class="dv">1</span>, <span class="at">by =</span> <span class="fl">0.1</span>) <span class="co"># set up the break points</span></span>
+<span id="cb78-3"><a href="#cb78-3" aria-hidden="true" tabindex="-1"></a>h <span class="ot">=</span> <span class="fu">hist</span>(data, b, <span class="at">right =</span> <span class="cn">FALSE</span>, <span class="at">plot =</span> <span class="cn">FALSE</span>) <span class="co"># tabulate the counts</span></span>
+<span id="cb78-4"><a href="#cb78-4" aria-hidden="true" tabindex="-1"></a><span class="fu">chisq.test</span>(h<span class="sc">$</span>counts) <span class="co"># perform the test</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
     Chi-squared test for given probabilities
@@ -3226,7 +2769,7 @@ X-squared = 8.2, df = 9, p-value = 0.5141</code></pre>
 \begin{aligned}
     \chi^{2}_{0}(d) = \frac{k^{d}}{n}\sum\limits_{j_{1}=1}^{k} \sum\limits_{j_{2}=1}^{k} \dotso \sum\limits_{j_{d}=1}^{k} \left( c_{j_{1}, j_{2}, \cdots, j_{d}} - \frac{n}{k^{d}} \right)^{2}
 \end{aligned}
-\tag{B.16}\]</span></span></p>
+\tag{B.15}\]</span></span></p>
 <ol start="5" type="1">
 <li>Reject the hypothesis that the <span class="math inline">\(\vec{U}_{i}\)</span>’s are uniformly distributed in the d-dimensional unit hyper-cube if <span class="math inline">\(\chi^{2}_{0}(d) &gt; \chi^{2}_{\alpha, k^{d}-1}\)</span> or if the p-value <span class="math inline">\(P\{\chi^{2}_{k^{d}-1} &gt; \chi^{2}_{0}(d)\}\)</span> is less than <span class="math inline">\(\alpha\)</span>.</li>
 </ol>
@@ -3236,7 +2779,7 @@ X-squared = 8.2, df = 9, p-value = 0.5141</code></pre>
 <p><span class="theorem-title"><strong>Example B.4 (2-D Chi-Squared Test in R for U(0,1))</strong></span> Using the same data as in the previous example, perform a 2-Dimensional <span class="math inline">\(\chi^{2}\)</span> Test using the statistical package R. Use 4 intervals for each of the dimensions.</p>
 </div>
 <hr>
-<p>The following code listing is liberally commented for understanding the commands and essentially utilizes some of the classification and tabulation functionality in R to compute <a href="#eq-chisqU01Dim" class="quarto-xref">Equation&nbsp;<span>B.16</span></a>. The code displayed here is available in the files associated with the chapter in file, 2dchisq.R.</p>
+<p>The following code listing is liberally commented for understanding the commands and essentially utilizes some of the classification and tabulation functionality in R to compute <a href="#eq-chisqU01Dim" class="quarto-xref">Equation&nbsp;<span>B.15</span></a>. The code displayed here is available in the files associated with the chapter in file, 2dchisq.R.</p>
 <pre><code>nd = 100 #number of data points
 data &lt;- read.table("u01data.txt") # read in the data
 d = 2 # dimensions to test
@@ -3451,8 +2994,8 @@ D^{-}_{n} &amp; = \underset{1 \leq i \leq n}{\max} \Bigl\lbrace x_{(i)} - \frac{
 <p>The K-S test performed in the solution to <a href="#exm-TestU01KS" class="quarto-xref">Example&nbsp;<span>B.5</span></a> can also be readily performed using the statistical software <span class="math inline">\(R\)</span>. Assuming that the file, <em>u01data.txt</em>, contains the data for this example, then the following R commands will perform the test:<br>
 </p>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb85"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb85-1"><a href="#cb85-1" aria-hidden="true" tabindex="-1"></a>data <span class="ot">=</span> <span class="fu">scan</span>(<span class="at">file=</span><span class="st">"data/AppDistFitting/u01data.txt"</span>) <span class="co"># read in the file</span></span>
-<span id="cb85-2"><a href="#cb85-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ks.test</span>(data,<span class="st">"punif"</span>,<span class="dv">0</span>,<span class="dv">1</span>) <span class="co"># perform the test</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb82"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb82-1"><a href="#cb82-1" aria-hidden="true" tabindex="-1"></a>data <span class="ot">=</span> <span class="fu">scan</span>(<span class="at">file=</span><span class="st">"data/AppDistFitting/u01data.txt"</span>) <span class="co"># read in the file</span></span>
+<span id="cb82-2"><a href="#cb82-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ks.test</span>(data,<span class="st">"punif"</span>,<span class="dv">0</span>,<span class="dv">1</span>) <span class="co"># perform the test</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
     Asymptotic one-sample Kolmogorov-Smirnov test
@@ -3468,7 +3011,7 @@ alternative hypothesis: two-sided</code></pre>
 <h3 data-number="B.6.4" class="anchored" data-anchor-id="testing-for-independence-and-patterns-in-pseudo-random-numbers"><span class="header-section-number">B.6.4</span> Testing for Independence and Patterns in Pseudo-Random Numbers</h3>
 <p>A full treatment for testing for independence and patterns within sequences of pseudo-random numbers is beyond the scope of this text. However, we will illustrate some of the basic concepts in this section.</p>
 <p>As previously noted an analysis of the autocorrelation structure associated with the sequence of pseudo-random numbers forms a basis for testing dependence. A sample autocorrelation plot can be easily developed once the autocorrelation values have been estimated Generally, the maximum lag should be set to no larger than one tenth of the size of the data set because the estimation of higher lags is generally unreliable.</p>
-<p>An autocorrelation plot can be easily performed using the statistical software <span class="math inline">\(R\)</span> for the data in <a href="#exm-TestU01" class="quarto-xref">Example&nbsp;<span>B.3</span></a>. Using the *acf()$ function in R makes it easy to get estimates of the autocorrelation estimates. The resulting plot is shown in <a href="#fig-TestU01ACF" class="quarto-xref">Figure&nbsp;<span>B.28</span></a>. The <span class="math inline">\(r_{0}\)</span> value represents the estimated variance. As can be seen in the figure, the acf() function of <span class="math inline">\(R\)</span> automatically places the confidence band within the plot. In this instance, since none of the <span class="math inline">\(r_{k}, k \geq 1\)</span> are outside the confidence band, we can conclude that the data is likely independent observations.</p>
+<p>An autocorrelation plot can be easily performed using the statistical software <span class="math inline">\(R\)</span> for the data in <a href="#exm-TestU01" class="quarto-xref">Example&nbsp;<span>B.3</span></a>. Using the *acf()$ function in R makes it easy to get estimates of the autocorrelation estimates. The resulting plot is shown in <a href="#fig-TestU01ACF" class="quarto-xref">Figure&nbsp;<span>B.19</span></a>. The <span class="math inline">\(r_{0}\)</span> value represents the estimated variance. As can be seen in the figure, the acf() function of <span class="math inline">\(R\)</span> automatically places the confidence band within the plot. In this instance, since none of the <span class="math inline">\(r_{k}, k \geq 1\)</span> are outside the confidence band, we can conclude that the data is likely independent observations.</p>
 <div class="cell">
 <div class="cell-output-display">
 <div id="fig-TestU01ACF" class="quarto-float quarto-figure quarto-figure-left anchored">
@@ -3477,14 +3020,14 @@ alternative hypothesis: two-sided</code></pre>
 <img src="13-AppDistributionFitting_files/figure-html/fig-TestU01ACF-1.png" class="img-fluid figure-img" width="672">
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-TestU01ACF-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Figure&nbsp;B.28: Autocorrelation Plot for u01data.txt Data Set
+Figure&nbsp;B.19: Autocorrelation Plot for u01data.txt Data Set
 </figcaption>
 </figure>
 </div>
 </div>
 </div>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb87"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb87-1"><a href="#cb87-1" aria-hidden="true" tabindex="-1"></a>rho</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb84"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb84-1"><a href="#cb84-1" aria-hidden="true" tabindex="-1"></a>rho</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>
 Autocorrelations of series 'data', by lag
@@ -3503,11 +3046,11 @@ Autocorrelations of series 'data', by lag
 <!-- ``` -->
 <!-- ![Autocorrelation Plot for *u01data.txt* Data -->
 <!-- Set](./figures/ch2/ACFPlot.png){#fig-ACFPlot} -->
-<p>The autocorrelation test examines serial dependence; however, sequences that do not have other kinds of patterns are also desired. For example, the runs test attempts to test ‘upward’ or ‘downward’ patterns. The runs up and down test count the number of runs up, down or sometimes just total number of runs versus expected number of runs. A run is a succession of similar events preceded and followed by a different event. The length of a run is the number of events in the run. The <a href="#tbl-RunsTest" class="quarto-xref">Table&nbsp;<span>B.9</span></a> illustrates how to compute runs up and runs down for a simple sequence of numbers. In the table, a sequence of ‘-’ indicates a run down and a sequence of ‘+’ indicates a run up. In the table, there are a 8 runs (4 runs up and 4 runs down).</p>
+<p>The autocorrelation test examines serial dependence; however, sequences that do not have other kinds of patterns are also desired. For example, the runs test attempts to test ‘upward’ or ‘downward’ patterns. The runs up and down test count the number of runs up, down or sometimes just total number of runs versus expected number of runs. A run is a succession of similar events preceded and followed by a different event. The length of a run is the number of events in the run. The <a href="#tbl-RunsTest" class="quarto-xref">Table&nbsp;<span>B.7</span></a> illustrates how to compute runs up and runs down for a simple sequence of numbers. In the table, a sequence of ‘-’ indicates a run down and a sequence of ‘+’ indicates a run up. In the table, there are a 8 runs (4 runs up and 4 runs down).</p>
 <div id="tbl-RunsTest" class="quarto-float quarto-figure quarto-figure-left anchored">
 <figure class="quarto-float quarto-float-tbl figure">
 <figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-RunsTest-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Table&nbsp;B.9: Example Runs Up and Runs Down
+Table&nbsp;B.7: Example Runs Up and Runs Down
 </figcaption>
 <div aria-describedby="tbl-RunsTest-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <table class="caption-top table">
@@ -3560,7 +3103,7 @@ Table&nbsp;B.9: Example Runs Up and Runs Down
 <section id="sec-appdistfitidms2sb4" class="level2" data-number="B.7">
 <h2 data-number="B.7" class="anchored" data-anchor-id="sec-appdistfitidms2sb4"><span class="header-section-number">B.7</span> Additional Distribution Modeling Concepts</h2>
 <p>This section wraps up the discussion of input modeling by covering some additional topics that often come up during the modeling process.</p>
-<p>Throughout the service time example, a continuous random variable was being modeled. But what do you do if you are modeling a discrete random variable? The basic complicating factor is that the only discrete distribution available within the Input Analyzer is the Poisson distribution and this option will only become active if the data input file only has integer values. The steps in the modeling process are essentially the same except that you cannot rely on the Input Analyzer. Commercial software will have options for fitting some of the common discrete distributions. The fitting process for a discrete distribution is simplified in one way because the bins for the frequency diagram are naturally determined by the range of the random variable. For example, if you are fitting a geometric distribution, you need only tabulate the frequency of occurrence for each of the possible values of the random variable 1, 2, 3, 4, etc.. Occasionally, you may have to group bins together to get an appropriate number of observations per bin. The fitting process for the discrete case primarily centers on a straightforward application of the Chi-Squared goodness of fit test, which was outlined in this chapter, and is also covered in many introductory probability and statistics textbooks.</p>
+<p>Most of the examples in this appendix model a continuous random variable. But what do you do if you are modeling a discrete random variable? The steps in the modeling process are essentially the same. Commercial software will have options for fitting some of the common discrete distributions. The fitting process for a discrete distribution is simplified in one way because the bins for the frequency diagram are naturally determined by the range of the random variable. For example, if you are fitting a geometric distribution, you need only tabulate the frequency of occurrence for each of the possible values of the random variable 1, 2, 3, 4, etc.. Occasionally, you may have to group bins together to get an appropriate number of observations per bin. The fitting process for the discrete case primarily centers on a straightforward application of the Chi-Squared goodness of fit test, which was outlined in this chapter, and is also covered in many introductory probability and statistics textbooks.</p>
 <p>If you consider the data set as a finite set of values, then why can’t you just reuse the data? In other words, why should you go through all the trouble of fitting a theoretical distribution when you can simply reuse the observed data, say for example by reading in the data from a file. There are a number of problems with this approach. The first difficulty is that the observations in the data set are a <em>sample</em>. That is, they do not necessarily cover all the possible values associated with the random variable. For example, suppose that only a sample of 10 observations was available for the service time problem. Furthermore, assume that the sample was as follows:</p>
 <table class="caption-top table">
 <thead>
@@ -3593,11 +3136,11 @@ Table&nbsp;B.9: Example Runs Up and Runs Down
 </tbody>
 </table>
 <p>Clearly, this sample does not contain the high service times that were in the 100 sample case. The point is, if you resample from only these values, you will never get any values less than 36.84 or bigger than 56.11. The second difficulty is that it will be more difficult to experimentally vary this distribution within the simulation model. If you fit a theoretical distribution to the data, you can vary the parameters of the theoretical distribution with relative ease in any experiments that you perform. Thus, it is worthwhile to attempt to fit and use a reasonable input distribution.</p>
-<p>But what if you cannot find a reasonable input model either because you have very limited data or because no model fits the data very well? In this situation, it is useful to try to use the data in the form of the empirical distribution. Essentially, you treat each observation in the sample as equally likely and randomly draw observations from the sample. In many situations, there are repeated observations within the sample (as above) and you can form a discrete empirical distribution over the values. If this is done for the sample of 10 data points, a discrete empirical distribution can be formed as shown in <a href="#tbl-SimpleEmpDist" class="quarto-xref">Table&nbsp;<span>B.10</span></a>. Again, this limits us to only the values observed in the sample.</p>
+<p>But what if you cannot find a reasonable input model either because you have very limited data or because no model fits the data very well? In this situation, it is useful to try to use the data in the form of the empirical distribution. Essentially, you treat each observation in the sample as equally likely and randomly draw observations from the sample. In many situations, there are repeated observations within the sample (as above) and you can form a discrete empirical distribution over the values. If this is done for the sample of 10 data points, a discrete empirical distribution can be formed as shown in <a href="#tbl-SimpleEmpDist" class="quarto-xref">Table&nbsp;<span>B.8</span></a>. Again, this limits us to only the values observed in the sample.</p>
 <div id="tbl-SimpleEmpDist" class="quarto-float quarto-figure quarto-figure-left anchored">
 <figure class="quarto-float quarto-float-tbl figure">
 <figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-SimpleEmpDist-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Table&nbsp;B.10: Simple Empirical Distribution
+Table&nbsp;B.8: Simple Empirical Distribution
 </figcaption>
 <div aria-describedby="tbl-SimpleEmpDist-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <table class="caption-top table">
@@ -3653,11 +3196,11 @@ Table&nbsp;B.10: Simple Empirical Distribution
 <p>What do you do if the analysis indicates that the data is dependent or that the data is non-stationary? Either of these situations can invalidate the basic assumptions behind the standard distribution fitting process. First, suppose that the data shows some correlation. The first thing that you should do is to verify that the data was correctly collected. The sampling plan for the data collection effort should attempt to ensure the collection of a random sample. If the data was from an automatic collection procedure then it is quite likely that there may be correlation in the observations. This is one of the hazards of using automatic data collection mechanisms. You then need to decide whether modeling the correlation is important or not to the study at hand. Thus, one alternative is to simply ignore the correlation and to continue with the model fitting process. This can be problematic for two reasons. First, the statistical tests within the model fitting process will be suspect, and second, the correlation may be an important part of the input modeling. For example, it has been shown that correlated arrivals and correlated service times in a simple queueing model can have significant effects on the values of the queue’s performance measures. If you have a large enough data set, a basic approach is to form a random sample from the data set itself in order to break up the correlation. Then, you can proceed with fitting a distribution to the random sample; however, you should still model the dependence by trying to incorporate it into the random generation process. There are some techniques for incorporating correlation into the random variable generation process. An introduction to the topic is provided in <span class="citation" data-cites="banks2005discreteevent">(<a href="references.html#ref-banks2005discreteevent" role="doc-biblioref">Banks et al. 2005</a>)</span>.</p>
 <p>If the data show non-stationary behavior, then you can attempt to model the dependence on time using time series models or other non-stationary models. Suffice to say, that these advanced techniques are beyond the scope of this text; however, the next section will discuss the modeling of a special non-stationary model, the non-homogeneous Poisson process, which is very useful for modeling time dependent arrival processes. For additional information on these methods, the interested reader is referred to <span class="citation" data-cites="law2007simulation">(<a href="references.html#ref-law2007simulation" role="doc-biblioref">Law 2007</a>)</span> and <span class="citation" data-cites="leemis2006discreteevent">(<a href="references.html#ref-leemis2006discreteevent" role="doc-biblioref">Leemis and Park 2006</a>)</span> or the references therein.</p>
 <p>Finally, all of the above assumes that you have data from which you can perform an analysis. In many situations, you might have no data whatsoever either because it is too costly to collect or because the system that you are modeling does not exist. In the latter case, you can look at similar systems and see how their inputs were modeled, perhaps adopting some of those input models for the current situation. In either case, you might also rely on expert opinion. In this situation, you can ask an expert in the process to describe the characteristics of a probability distribution that might model the situation. This is where the uniform and the triangular distributions can be very useful, since it is relatively easy to get an expert to indicate a minimum possible value, a maximum possible value, and even a most likely value.</p>
-<p>Alternatively, you can ask the expert to assist in making an empirical distribution based on providing the chance that the random variable falls within various intervals. The breakpoints near the extremes are especially important to get. <a href="#tbl-BreakpointEmpDist" class="quarto-xref">Table&nbsp;<span>B.11</span></a> presents a distribution for the service times based on this method.</p>
+<p>Alternatively, you can ask the expert to assist in making an empirical distribution based on providing the chance that the random variable falls within various intervals. The breakpoints near the extremes are especially important to get. <a href="#tbl-BreakpointEmpDist" class="quarto-xref">Table&nbsp;<span>B.9</span></a> presents a distribution for the service times based on this method.</p>
 <div id="tbl-BreakpointEmpDist" class="quarto-float quarto-figure quarto-figure-left anchored">
 <figure class="quarto-float quarto-float-tbl figure">
 <figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-BreakpointEmpDist-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Table&nbsp;B.11: Breakpoint Based Empirical Distribution
+Table&nbsp;B.9: Breakpoint Based Empirical Distribution
 </figcaption>
 <div aria-describedby="tbl-BreakpointEmpDist-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <table class="caption-top table">
@@ -3744,7 +3287,7 @@ Table&nbsp;B.11: Breakpoint Based Empirical Distribution
 </div>
 <hr>
 <div id="exr-AppDistFitP7" class="theorem exercise">
-<p><span class="theorem-title"><strong>Exercise B.7</strong></span> If <span class="math inline">\(Z \sim N(0,1)\)</span>, and <span class="math inline">\(Y = \sum_{i=1}^k Z_i^2\)</span> then <span class="math inline">\(Y \sim \chi_k^2\)</span>, where <span class="math inline">\(\chi_k^2\)</span> is a chi-squared random variable with <span class="math inline">\(k\)</span> degrees of freedom. Setup an model to generate <span class="math inline">\(n\)</span> = 32, 64, 128, 256, 1024 observations of <span class="math inline">\(Y\)</span> with <span class="math inline">\(k = 5\)</span>. For each sample, fit a distribution to the sample.</p>
+<p><span class="theorem-title"><strong>Exercise B.7</strong></span> If <span class="math inline">\(Z \sim N(0,1)\)</span>, and <span class="math inline">\(Y = \sum_{i=1}^k Z_i^2\)</span> then <span class="math inline">\(Y \sim \chi_k^2\)</span>, where <span class="math inline">\(\chi_k^2\)</span> is a chi-squared random variable with <span class="math inline">\(k\)</span> degrees of freedom. Set up a model to generate <span class="math inline">\(n\)</span> = 32, 64, 128, 256, 1024 observations of <span class="math inline">\(Y\)</span> with <span class="math inline">\(k = 5\)</span>. For each sample, fit a distribution to the sample.</p>
 </div>
 <hr>
 <div id="exr-AppDistFitP8" class="theorem exercise">
@@ -3826,12 +3369,10 @@ Table&nbsp;B.11: Breakpoint Based Empirical Distribution
 <ol type="a">
 <li><p>Test the hypothesis that this data is drawn from a uniform distribution at a 95% confidence level assuming that the interval is between 0 and 100.</p></li>
 <li><p>The interval of the distribution is between <em>a</em> and <em>b</em>, where <em>a</em> and <em>b</em> are unknown parameters estimated from the data.</p></li>
-<li><p>Consider the following output for fitting a uniform distribution to a data set with the Arena Input Analyzer. Would you reject or not reject the hypothesis that the data is uniformly distributed.</p></li>
+<li><p>Consider the following output for fitting a uniform distribution to a data set. Would you reject or not reject the hypothesis that the data is uniformly distributed.</p></li>
 </ol>
 <pre><code>Distribution Summary
-Distribution:   Uniform      
-Expression: UNIF(36, 783)
-Square Error:   0.156400
+Distribution:   Uniform(36, 783)
 
 Chi Square Test
   Number of intervals   = 7
@@ -3843,14 +3384,14 @@ Kolmogorov-Smirnov Test
   Test Statistic    = 0.495
   Corresponding p-value &lt; 0.01
 
-    Data Summary
+Data Summary
 Number of Data Points   = 100
 Min Data Value          = 36.8
 Max Data Value          = 782
 Sample Mean             = 183
 Sample Std Dev          = 142
 
-    Histogram Summary
+Histogram Summary
 Histogram Range     = 36 to 783
 Number of Intervals = 10</code></pre>
 </div>
@@ -3861,7 +3402,7 @@ Number of Intervals = 10</code></pre>
 <thead>
 <tr class="header">
 <th style="text-align: center;"><span class="math inline">\(j\)</span></th>
-<th style="text-align: center;"><span class="math inline">\(c_j\)</span></th>
+<th style="text-align: center;"><span class="math inline">\(x_j\)</span></th>
 <th style="text-align: center;"><span class="math inline">\(c_j\)</span></th>
 <th style="text-align: center;"><span class="math inline">\(np_j\)</span></th>
 <th style="text-align: center;"><span class="math inline">\(\frac{(c_j - np_j)^2}{np_j}\)</span></th>
@@ -3995,7 +3536,7 @@ Number of Intervals = 10</code></pre>
 </div>
 <hr>
 <div id="exr-AppDistFitP11" class="theorem exercise">
-<p><span class="theorem-title"><strong>Exercise B.11</strong></span> Test the following fact by generating instances of <span class="math inline">\(Y = \sum_{i=1}^{r} X_i\)</span>, where <span class="math inline">\(X_i \sim \mathit{expo}(\beta)\)</span> and <span class="math inline">\(\beta = E[X_i]\)</span>. Using <span class="math inline">\(r=5\)</span> and <span class="math inline">\(\beta =2\)</span>. Be careful to specify the correct parameters for the exponential distribution function. The exponential distribution takes in the mean of the distribution as its parameter. Generate 10, 100, 1000 instances of <span class="math inline">\(Y\)</span>. Perform hypothesis tests to check <span class="math inline">\(H_0: \mu = \mu_0\)</span> versus <span class="math inline">\(H_1: \mu \neq \mu_0\)</span> where <span class="math inline">\(\mu\)</span> is the true mean of <span class="math inline">\(Y\)</span> for each of the sample sizes generated. Use the same samples to fit a distribution using the Input Analyzer. Properly interpret the statistical results supplied by the Input Analyzer.</p>
+<p><span class="theorem-title"><strong>Exercise B.11</strong></span> Test the following fact by generating instances of <span class="math inline">\(Y = \sum_{i=1}^{r} X_i\)</span>, where <span class="math inline">\(X_i \sim \mathit{expo}(\beta)\)</span> and <span class="math inline">\(\beta = E[X_i]\)</span>. Using <span class="math inline">\(r=5\)</span> and <span class="math inline">\(\beta =2\)</span>. Be careful to specify the correct parameters for the exponential distribution function. The exponential distribution takes in the mean of the distribution as its parameter. Generate 10, 100, 1000 instances of <span class="math inline">\(Y\)</span>. Perform hypothesis tests to check <span class="math inline">\(H_0: \mu = \mu_0\)</span> versus <span class="math inline">\(H_1: \mu \neq \mu_0\)</span> where <span class="math inline">\(\mu\)</span> is the true mean of <span class="math inline">\(Y\)</span> for each of the sample sizes generated. Use the same samples to fit a distribution using the <code>PDFModeler</code> class. Properly interpret the statistical results supplied by the <code>PDFModeler</code>.</p>
 </div>
 <hr>
 <div id="exr-AppDistFitP12" class="theorem exercise">
@@ -4126,7 +3667,7 @@ Number of Intervals = 10</code></pre>
 </div>
 <hr>
 <div id="exr-AppDistFitP13" class="theorem exercise">
-<p><span class="theorem-title"><strong>Exercise B.13</strong></span> A copy center has one fast copier and one slow copier. The copy time per page for the fast copier is thought to be lognormally distributed with a mean of 1.6 seconds and a standard deviation of 0.3 seconds. A co-op Industrial Engineering student has collected some time study data on the time to copy a page for the slow copier. The times, in seconds, are given in the data file <em>problem13.txt</em></p>
+<p><span class="theorem-title"><strong>Exercise B.13</strong></span> A copy center has one fast copier and one slow copier. The copy time per page for the fast copier is thought to be lognormally distributed with a mean of 1.6 seconds and a standard deviation of 0.3 seconds. A co-op Industrial Engineering student has collected some time study data on the time to copy a page for the slow copier. The times, in seconds, are given in the data file <em>problem13.txt</em>. Test whether the time to copy a page on the slow copier can be modeled with a lognormal distribution.</p>
 </div>
 <hr>
 

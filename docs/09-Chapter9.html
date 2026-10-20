@@ -742,7 +742,7 @@ t^{*}_{b} = \frac{\hat{\theta}^{*}_{b}-\hat{\theta}}{\widehat{se}(\hat{\theta}^{
 6.0, 7.0, 5.0, 1.0, 0.0, 4.0, 6.0, 0.0, 6.0, 1.0
 
 Main Sample
-average = 3.599999999999999
+average = 3.5999999999999996
 90% CI = [1.978733917471777, 5.221266082528222]</code></pre>
 <p>In the notation that we have been using <span class="math inline">\(\bar{x} = \hat{\theta} = 3.5\bar{9}\)</span>. The sample size is small and it is very unlikely that the distribution of the number books in a student’s backpack would be normally distributed. Therefore, the reported confidence interval is certainly approximate. The KSL <code>Statistic</code> class reports its confidence interval assuming a Student-T distribution. We would like to use bootstrapping to produce a confidence interval. We can get started by treating our original sample as if it is the population and sampling from it. Here is some KSL code to illustrate this process.</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb3"><pre class="sourceCode kotlin code-with-copy"><code class="sourceCode kotlin"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co">// make the sample our pseudo-population</span></span>
@@ -763,22 +763,22 @@ average = 3.599999999999999
 <span id="cb3-16"><a href="#cb3-16" aria-hidden="true" tabindex="-1"></a>println<span class="op">(</span><span class="st">"Percentile based 90% ci = </span><span class="ss">$ci</span><span class="st">"</span><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>In this code, we first create an instance of <code>DPopulation</code> using the array of observations of the book count data. Then, a list is created to hold the averages of each bootstrap sample. The loop creates 10 bootstrap samples and captures the average of each sample. Notice that the <code>DPopulation</code> is used to sample <em>with replacement</em> a sample of size 10. It is important that the sample size, 10, be the same as the size of the original sample because our confidence statements are about the original sample (with size 10). Given the bootstrap averages are captured in a list, <code>bootStrapAverages,</code> we can then use the percentile method to get the lower and upper limits for the confidence interval based on the bootstrap reference distribution.</p>
 <pre><code>BootStrap Samples:
-sample_1  = (0.0, 1.0, 1.0, 7.0, 1.0, 1.0, 1.0, 0.0, 1.0, 1.0) with average = 1.4
-sample_2  = (5.0, 1.0, 1.0, 6.0, 4.0, 7.0, 0.0, 1.0, 5.0, 6.0) with average = 3.6
-sample_3  = (0.0, 5.0, 4.0, 6.0, 1.0, 4.0, 7.0, 0.0, 1.0, 6.0) with average = 3.4
-sample_4  = (6.0, 5.0, 0.0, 1.0, 6.0, 6.0, 6.0, 1.0, 6.0, 1.0) with average = 3.8
-sample_5  = (5.0, 1.0, 0.0, 0.0, 0.0, 1.0, 0.0, 6.0, 6.0, 6.0) with average = 2.5
-sample_6  = (4.0, 7.0, 1.0, 0.0, 0.0, 0.0, 0.0, 7.0, 0.0, 1.0) with average = 2.0
-sample_7  = (5.0, 6.0, 1.0, 6.0, 0.0, 6.0, 6.0, 1.0, 5.0, 7.0) with average = 4.3
-sample_8  = (7.0, 6.0, 4.0, 1.0, 1.0, 1.0, 6.0, 1.0, 7.0, 6.0) with average = 4.0
-sample_9  = (0.0, 6.0, 1.0, 6.0, 6.0, 5.0, 7.0, 4.0, 1.0, 1.0) with average = 3.7
-sample_10  = (5.0, 6.0, 7.0, 0.0, 6.0, 6.0, 5.0, 0.0, 1.0, 0.0) with average = 3.6
+sample_1  = (7.0, 1.0, 1.0, 6.0, 5.0, 4.0, 0.0, 1.0, 7.0, 0.0) with average = 3.2
+sample_2  = (4.0, 0.0, 1.0, 5.0, 6.0, 1.0, 5.0, 6.0, 1.0, 7.0) with average = 3.6
+sample_3  = (0.0, 7.0, 6.0, 5.0, 6.0, 7.0, 4.0, 5.0, 6.0, 0.0) with average = 4.6
+sample_4  = (6.0, 6.0, 6.0, 0.0, 4.0, 6.0, 6.0, 1.0, 1.0, 0.0) with average = 3.6
+sample_5  = (4.0, 6.0, 6.0, 1.0, 1.0, 4.0, 0.0, 6.0, 7.0, 4.0) with average = 3.9
+sample_6  = (6.0, 0.0, 5.0, 7.0, 0.0, 6.0, 7.0, 6.0, 0.0, 6.0) with average = 4.3
+sample_7  = (0.0, 6.0, 6.0, 1.0, 1.0, 0.0, 0.0, 5.0, 6.0, 0.0) with average = 2.5
+sample_8  = (6.0, 6.0, 1.0, 0.0, 0.0, 6.0, 6.0, 0.0, 4.0, 6.0) with average = 3.5
+sample_9  = (6.0, 4.0, 4.0, 1.0, 6.0, 7.0, 4.0, 6.0, 6.0, 7.0) with average = 5.1
+sample_10  = (7.0, 1.0, 7.0, 5.0, 6.0, 0.0, 1.0, 6.0, 1.0, 0.0) with average = 3.4
 
 Bootstrap sample averages
-1.4, 3.6, 3.4, 3.8, 2.5, 2.0, 4.3, 4.0, 3.7, 3.6
+3.2, 3.6, 4.6, 3.6, 3.9, 4.3, 2.5, 3.5, 5.1, 3.4
 
-Percentile based 90% ci = [1.4, 4.3]</code></pre>
-<p>The results show 10 bootstrap samples. Notice that due to sampling with replacement, we can have values in the bootstrap samples that repeat and that it is clearly possible that some observations within the original sample, do not appear in the bootstrap samples. It is important to note that this bootstrap confidence interval is for our original estimate, <span class="math inline">\(\bar{x} = \hat{\theta} = 3.5\bar{9}\)</span>. The bootstrap sample averages, <span class="math inline">\((1.4, 3.6, 3.4, 3.8, 2.5, 2.0, 4.3, 4.0, 3.7, 3.6)\)</span> represent the bootstrap estimate of the sampling distribution of <span class="math inline">\(\hat{\theta}^{*}_{b}\)</span>, <span class="math inline">\(F_{\hat{\theta}^{*}_{b}}(\cdot)\)</span>, which we are using as an approximation for the sampling distribution of <span class="math inline">\(\hat{\theta}\)</span>.</p>
+Percentile based 90% ci = [2.5, 5.1]</code></pre>
+<p>The results show 10 bootstrap samples. Notice that due to sampling with replacement, we can have values in the bootstrap samples that repeat and that it is clearly possible that some observations within the original sample, do not appear in the bootstrap samples. It is important to note that this bootstrap confidence interval is for our original estimate, <span class="math inline">\(\bar{x} = \hat{\theta} = 3.5\bar{9}\)</span>. The bootstrap sample averages, <span class="math inline">\((3.2, 3.6, 4.6, 3.6, 3.9, 4.3, 2.5, 3.5, 5.1, 3.4)\)</span> represent the bootstrap estimate of the sampling distribution of <span class="math inline">\(\hat{\theta}^{*}_{b}\)</span>, <span class="math inline">\(F_{\hat{\theta}^{*}_{b}}(\cdot)\)</span>, which we are using as an approximation for the sampling distribution of <span class="math inline">\(\hat{\theta}\)</span>.</p>
 <p>The idea of repeatedly sampling from a given population has been implemented into a set of classes within the KSL that will perform the bootstrapping process and compute a variety of quantities (including confidence intervals) based on the bootstrap samples. <a href="#fig-BootstrapFig" class="quarto-xref">Figure&nbsp;<span>9.1</span></a> presents the <code>BootstrapEstimateIfc</code> interface, the main implementation of this interface (<code>Bootstrap</code>), and a data class, <code>BootstrapEstimate,</code> that is useful when building approaches that require bootstrapping.</p>
 <div id="fig-BootstrapFig" class="quarto-float quarto-figure quarto-figure-left anchored">
 <figure class="quarto-float quarto-float-fig figure">
@@ -866,7 +866,7 @@ Figure&nbsp;9.1: KSL Bootstrap Classes
 <span id="cb8-11"><a href="#cb8-11" aria-hidden="true" tabindex="-1"></a>    println<span class="op">()</span></span>
 <span id="cb8-12"><a href="#cb8-12" aria-hidden="true" tabindex="-1"></a>    <span class="co">// now to the bootstrapping</span></span>
 <span id="cb8-13"><a href="#cb8-13" aria-hidden="true" tabindex="-1"></a>    <span class="kw">val</span> <span class="va">bs</span> <span class="op">=</span> Bootstrap<span class="op">(</span>mainSample<span class="op">,</span> estimator <span class="op">=</span> BSEstimatorIfc<span class="op">.</span>Average<span class="op">(),</span> streamNumber <span class="op">=</span> <span class="dv">3</span><span class="op">)</span></span>
-<span id="cb8-14"><a href="#cb8-14" aria-hidden="true" tabindex="-1"></a>    bs<span class="op">.</span>generateSamples<span class="op">(</span><span class="dv">400</span><span class="op">,</span> numBootstrapTSamples <span class="op">=</span> <span class="dv">399</span><span class="op">)</span></span>
+<span id="cb8-14"><a href="#cb8-14" aria-hidden="true" tabindex="-1"></a>    bs<span class="op">.</span>generateSamples<span class="op">(</span><span class="dv">400</span><span class="op">)</span></span>
 <span id="cb8-15"><a href="#cb8-15" aria-hidden="true" tabindex="-1"></a>    println<span class="op">(</span>bs<span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <p>Running this code results in the following:</p>
@@ -879,23 +879,22 @@ average = 3.5999999999999996
 
 ------------------------------------------------------
 Bootstrap statistical results:
-label = ID_4
+label = ID_5
 ------------------------------------------------------
-statistic name = ID_4
+statistic name = ID_5
 number of bootstrap samples = 400
 size of original sample = 10
 original estimate = 3.5999999999999996
-bias estimate = -0.05175000000000063
-across bootstrap average = 3.548249999999999
-bootstrap std. err. estimate = 0.04007502167379812
+bias estimate = 0.03775000000000084
+across bootstrap average = 3.6377500000000005
+bootstrap std. err. estimate = 0.8329071215825669
 default c.i. level = 0.95
-norm c.i. = [3.5214544007763693, 3.67854559922363]
-basic c.i. = [2.002500000000003, 5.2974999999999985]
-percentile c.i. = [1.902500000000001, 5.197499999999996]
-BCa c.i. = [1.9000000000000001, 5.062949171806798]
-bootstrap-t c.i. = [1.9000000000000001, 5.062949171806798]
+norm c.i. = [1.967532037915134, 5.232467962084865]
+basic c.i. = [1.8999999999999995, 5.1]
+percentile c.i. = [2.1, 5.3]
+BCa c.i. = [1.9, 5.0]
 ------------------------------------------------------</code></pre>
-<p>In these results, it just happens that the BCa and bootstrap-t result in the same intervals. The main question that comes up when bootstrapping is what value should be used for the number of bootstrap samples, <span class="math inline">\(B\)</span>. <span class="citation" data-cites="efron-tibshirani">(<a href="references.html#ref-efron-tibshirani" role="doc-biblioref">Efron and Tibshirani 1994</a>)</span> provide some guidance indicating a range at least starting in the hundreds. There has been some work that suggests the quality of the process is a function of <span class="math inline">\(n\)</span>, the size of the original sample. The work suggests that larger <span class="math inline">\(n\)</span> requires larger <span class="math inline">\(B\)</span>. The relationship <span class="math inline">\(B \approx 40n\)</span> has been suggested.</p>
+<p>The example leaves the <code>numBootstrapTSamples</code> parameter at its default of 0, so the bootstrap-t interval is not computed and the output reports the other four intervals. The four intervals differ because each rests on a different approximation. The BCa interval, [1.9, 5.0], adjusts the percentile interval, [2.1, 5.3], for bias and skewness. The main question that comes up when bootstrapping is what value should be used for the number of bootstrap samples, <span class="math inline">\(B\)</span>. <span class="citation" data-cites="efron-tibshirani">(<a href="references.html#ref-efron-tibshirani" role="doc-biblioref">Efron and Tibshirani 1994</a>)</span> provide some guidance indicating a range at least starting in the hundreds. There has been some work that suggests the quality of the process is a function of <span class="math inline">\(n\)</span>, the size of the original sample. The work suggests that larger <span class="math inline">\(n\)</span> requires larger <span class="math inline">\(B\)</span>. The relationship <span class="math inline">\(B \approx 40n\)</span> has been suggested.</p>
 <p>As previously mentioned, the KSL also supports the estimation of multiple quantities from the sample. This functionality is used extensively within the distribution modeling functionality of the KSL to provide confidence intervals on the parameters of distributions. <a href="#fig-MVBootstrapFig" class="quarto-xref">Figure&nbsp;<span>9.2</span></a> presents the <code>BootstrapSampler</code> class, which will compute multiple estimators on a sample using the <code>MVBSEstimatorIfc</code> interface.</p>
 <div id="fig-MVBootstrapFig" class="quarto-float quarto-figure quarto-figure-left anchored">
 <figure class="quarto-float quarto-float-fig figure">
@@ -1060,14 +1059,14 @@ Bootstrap statistical results:
 statistic name = b0
 number of bootstrap samples = 399
 size of original sample = 100
-original estimate = 10.997223980092517
-bias estimate = 0.09157195462246293
-across bootstrap average = 11.08879593471498
-bootstrap std. err. estimate = 0.04090939870934704
+original estimate = 10.497046113278433
+bias estimate = -0.030842849345942724
+across bootstrap average = 10.46620326393249
+bootstrap std. err. estimate = 0.6542295748425296
 default c.i. level = 0.95
-norm c.i. = [10.917043031928365, 11.07740492825667]
-basic c.i. = [9.052998742918017, 12.427568666255603]
-percentile c.i. = [9.566879293929432, 12.941449217267017]
+norm c.i. = [9.214779707932347, 11.779312518624518]
+basic c.i. = [9.235300221696459, 11.756239973214825]
+percentile c.i. = [9.23785225334204, 11.758792004860407]
 
 ------------------------------------------------------
 Bootstrap statistical results:
@@ -1075,14 +1074,14 @@ Bootstrap statistical results:
 statistic name = b1
 number of bootstrap samples = 399
 size of original sample = 100
-original estimate = 1.9494963162125691
-bias estimate = -0.0037025407662301113
-across bootstrap average = 1.945793775446339
-bootstrap std. err. estimate = 0.002936548908845975
+original estimate = 1.905041830235976
+bias estimate = 0.003230000187099291
+across bootstrap average = 1.9082718304230752
+bootstrap std. err. estimate = 0.05470066041236848
 default c.i. level = 0.95
-norm c.i. = [1.9437407861077505, 1.9552518463173878]
-basic c.i. = [1.84302999325699, 2.0787441726888636]
-percentile c.i. = [1.8202484597362747, 2.0559626391681483]
+norm c.i. = [1.797830505810743, 2.012253154661209]
+basic c.i. = [1.7863888875926772, 2.0016950545762637]
+percentile c.i. = [1.8083886058956882, 2.0236947728792747]
 
 ------------------------------------------------------
 Bootstrap statistical results:
@@ -1090,14 +1089,14 @@ Bootstrap statistical results:
 statistic name = b2
 number of bootstrap samples = 399
 size of original sample = 100
-original estimate = 4.9390811206920375
-bias estimate = -0.010600231082452005
-across bootstrap average = 4.9284808896095855
-bootstrap std. err. estimate = 0.004055345194183637
+original estimate = 5.125969379754494
+bias estimate = -1.7595189984920268E-4
+across bootstrap average = 5.125793427854645
+bootstrap std. err. estimate = 0.07213142347485296
 default c.i. level = 0.95
-norm c.i. = [4.931132790160152, 4.947029451223923]
-basic c.i. = [4.794185241695615, 5.111679266251416]
-percentile c.i. = [4.766482975132659, 5.08397699968846]</code></pre>
+norm c.i. = [4.984594387476197, 5.267344372032791]
+basic c.i. = [4.99197903898926, 5.278594489440505]
+percentile c.i. = [4.973344270068483, 5.259959720519728]</code></pre>
 <p>For more of the theory and methods of bootstrapping within the context of regression, we refer the interested reader to the text, <span class="citation" data-cites="fox2018r">(<a href="references.html#ref-fox2018r" role="doc-biblioref">Fox and Weisberg 2018</a>)</span>. Since the purpose of this section was to illustrate how the KSL facilitates bootstrapping, the interested reader may want to explore more of the theory. From that standpoint, the books by <span class="citation" data-cites="efron-tibshirani">(<a href="references.html#ref-efron-tibshirani" role="doc-biblioref">Efron and Tibshirani 1994</a>)</span> and <span class="citation" data-cites="davison-hinkley">(<a href="references.html#ref-davison-hinkley" role="doc-biblioref">Davison AC 1997</a>)</span> are good starting points. See also the paper <span class="citation" data-cites="efron-tibshirani-1986">(<a href="references.html#ref-efron-tibshirani-1986" role="doc-biblioref">Efron and Tibshirani 1986</a>)</span>.</p>
 </section>
 </section>
@@ -2296,8 +2295,8 @@ f_r(\vec{x},\vec{y}) = \frac{ f(\vec{y})}{f(\vec{x})}
 <span id="cb43-2"><a href="#cb43-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb43-3"><a href="#cb43-3" aria-hidden="true" tabindex="-1"></a>    <span class="kw">private</span> <span class="kw">val</span> <span class="va">myY1Dist</span> <span class="op">=</span> GeneralizedBeta<span class="op">(</span>alphaShape <span class="op">=</span> <span class="fl">2.0</span><span class="op">,</span> betaShape <span class="op">=</span> <span class="fl">5.0</span><span class="op">,</span> minimum <span class="op">=</span> <span class="fl">0.5</span><span class="op">,</span> maximum <span class="op">=</span> <span class="fl">1.5</span><span class="op">)</span></span>
 <span id="cb43-4"><a href="#cb43-4" aria-hidden="true" tabindex="-1"></a>    <span class="kw">private</span> <span class="kw">val</span> <span class="va">myY2Dist</span> <span class="op">=</span> GeneralizedBeta<span class="op">(</span>alphaShape <span class="op">=</span> <span class="fl">2.0</span><span class="op">,</span> betaShape <span class="op">=</span> <span class="fl">5.0</span><span class="op">,</span> minimum <span class="op">=</span> <span class="fl">20.0</span><span class="op">,</span> maximum <span class="op">=</span> <span class="fl">35.0</span><span class="op">)</span></span>
-<span id="cb43-5"><a href="#cb43-5" aria-hidden="true" tabindex="-1"></a>    <span class="kw">private</span> <span class="kw">val</span> <span class="va">myY1RV</span> <span class="op">=</span> myY1Dist<span class="op">.</span>randomVariable</span>
-<span id="cb43-6"><a href="#cb43-6" aria-hidden="true" tabindex="-1"></a>    <span class="kw">private</span> <span class="kw">val</span> <span class="va">myY2RV</span> <span class="op">=</span> myY2Dist<span class="op">.</span>randomVariable</span>
+<span id="cb43-5"><a href="#cb43-5" aria-hidden="true" tabindex="-1"></a>    <span class="kw">private</span> <span class="kw">val</span> <span class="va">myY1RV</span> <span class="op">=</span> myY1Dist<span class="op">.</span>randomVariable<span class="op">()</span></span>
+<span id="cb43-6"><a href="#cb43-6" aria-hidden="true" tabindex="-1"></a>    <span class="kw">private</span> <span class="kw">val</span> <span class="va">myY2RV</span> <span class="op">=</span> myY2Dist<span class="op">.</span>randomVariable<span class="op">()</span></span>
 <span id="cb43-7"><a href="#cb43-7" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb43-8"><a href="#cb43-8" aria-hidden="true" tabindex="-1"></a>    <span class="kw">override</span> <span class="kw">val</span> <span class="va">dimension</span><span class="op">:</span> <span class="kw">Int</span></span>
 <span id="cb43-9"><a href="#cb43-9" aria-hidden="true" tabindex="-1"></a>        <span class="kw">get</span><span class="op">()</span> <span class="op">=</span> <span class="dv">2</span></span>
@@ -2315,7 +2314,7 @@ f_r(\vec{x},\vec{y}) = \frac{ f(\vec{y})}{f(\vec{x})}
 <span id="cb43-21"><a href="#cb43-21" aria-hidden="true" tabindex="-1"></a>        <span class="kw">return</span> doubleArrayOf<span class="op">(</span>myY1RV<span class="op">.</span>value<span class="op">,</span> myY2RV<span class="op">.</span>value<span class="op">)</span></span>
 <span id="cb43-22"><a href="#cb43-22" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
 <span id="cb43-23"><a href="#cb43-23" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p>To run the simulation and generate the random vectors, we use the <code>MetropolisHastingsMV</code> class as illustrated in the following code. Because the function in the example is relatively simple, the expected values of the marginals can be readily computed. In this case, <span class="math inline">\(E[X_1] = 1.0\)</span> and <span class="math inline">\(E[X_2] = 27.5\)</span>, which were used as the initial state of the chain. The initial starting point can be some arbitrary state as long as it is a legal point. This code warms the chain up by 10000 steps and attaches an observer to the generation process to capture the generated values to a file.</p>
+<p>To run the simulation and generate the random vectors, we use the <code>MetropolisHastingsMV</code> class as illustrated in the following code. Because the function in the example is relatively simple, the expected values of the marginals can be readily computed. In this case, <span class="math inline">\(E[X_1] = 1.0\)</span> and <span class="math inline">\(E[X_2] = 1751/64 \approx 27.36\)</span>. The chain starts at <span class="math inline">\((1.0, 27.5)\)</span>, a legal point near these values. The initial starting point can be some arbitrary state as long as it is a legal point. This code warms the chain up by 10000 steps and attaches an observer to the generation process to capture the generated values to a file.</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb44"><pre class="sourceCode kotlin code-with-copy"><code class="sourceCode kotlin"><span id="cb44-1"><a href="#cb44-1" aria-hidden="true" tabindex="-1"></a>    <span class="kw">val</span> <span class="va">f</span> <span class="op">=</span> Function</span>
 <span id="cb44-2"><a href="#cb44-2" aria-hidden="true" tabindex="-1"></a>    <span class="kw">val</span> <span class="va">q</span> <span class="op">=</span> ExampleIndependencePF</span>
 <span id="cb44-3"><a href="#cb44-3" aria-hidden="true" tabindex="-1"></a>    <span class="kw">val</span> <span class="va">x0</span> <span class="op">=</span> doubleArrayOf<span class="op">(</span><span class="fl">1.0</span><span class="op">,</span> <span class="fl">27.5</span><span class="op">)</span></span>
@@ -2325,38 +2324,46 @@ f_r(\vec{x},\vec{y}) = \frac{ f(\vec{y})}{f(\vec{x})}
 <span id="cb44-7"><a href="#cb44-7" aria-hidden="true" tabindex="-1"></a>    m<span class="op">.</span>runAll<span class="op">(</span><span class="dv">10000</span><span class="op">)</span></span>
 <span id="cb44-8"><a href="#cb44-8" aria-hidden="true" tabindex="-1"></a>    println<span class="op">(</span>m<span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <p>The results are only illustrative of the type of default results that are available.</p>
-<pre><code>MetropolisHastings1D
+<pre><code>MetropolisHastingsMV
 Initialized Flag = true
 Burn In Flag = true
-Initial X =[0.9594860880833775, 28.12096270621112]
-Current X = [0.906954110208565, 26.987110000370624]
-Previous X = [1.1256323226794631, 30.436063687178418]
-Last Proposed Y= [0.906954110208565, 26.987110000370624]
-Last Prob. of Acceptance = 0.04051986694353263
-Last f(Y) = 0.09416157659823556
-Last f(X) = 0.08917853778826954
+Initial X =[0.6364642774756969, 28.12096270621112]
+Current X = [0.7659084790625525, 26.987110000370624]
+Previous X = [0.8055044338305741, 30.436063687178418]
+Last Proposed Y= [0.7659084790625525, 26.987110000370624]
+Last Prob. of Acceptance = 0.138993174923458
+Last f(Y) = 0.0784735337252082
+Last f(X) = 0.08168322257064176
 Acceptance Statistics
-Statistic{name='Acceptance Statistics', n=10000.0, avg=0.3430999999999989, sd=0.4747682913728006, ci=[0.3337935942370735, 0.3524064057629243]}
-BatchStatistic{name='X_1', n=39.0, avg=0.9967017932134693, sd=0.15875667093683876, ci=[0.9452388337522397, 1.0481647526746989], lag-1 corr=0.496713378422824, Total number observed = 10000.0}
-BatchStatistic{name='X_2', n=39.0, avg=26.081192452184705, sd=1.3778407004302573, ci=[25.63454816510158, 26.52783673926783], lag-1 corr=0.23746016384798618, Total number observed = 10000.0}</code></pre>
-<p>The <code>MetropolisHastingsMV</code> class automatically estimates the probability of acceptance for the generation process. Generally, the higher the better for efficiency and other characteristics of the chain. In general, achieving a high probability of acceptance may be quite difficult. Probability of acceptance values in the range from 20-50% are not uncommon. Notice that the statistics collected on the marginal output are close to what is expected. The default results use the <code>BatchStatistic</code> class because of the correlation that is typically present in MCMC output. The correlation reported is for the batch means, not the state observations. The raw observation statistics based on the <code>Statistic</code> class can be obtained via the <code>observedStatistics()</code> method of the <code>MetropolisHastingsMV</code> class. Keep in mind that the confidence intervals reported from the <code>Statistic</code> class assume independent observations. Thus, they will have bias as discussed in <a href="05-Chapter5.html#sec-simoainfhorizonbatchmeans" class="quarto-xref"><span>Section 5.6.3</span></a>.</p>
-<p>We can see from some of the initial data that the state vector can repeat in the sampling. Large lengths of runs for repeated observations indicates that the Markov Chain is not mixing very well. This can be a common occurrence for independence samplers. We leave it as an exercise for the reader to improve the sampling.</p>
-<pre><code>0.6351363119853689, 26.352266492202997
-0.5982875748975195, 23.90232944372732
-0.6190352791846846, 21.02435324965421
-0.9193784433785976, 21.682499716304555
-0.9193784433785976, 21.682499716304555
-0.9193784433785976, 21.682499716304555
-0.931177812433096, 24.40013423216797
-0.931177812433096, 24.40013423216797
-0.931177812433096, 24.40013423216797
-0.931177812433096, 24.40013423216797
-0.931177812433096, 24.40013423216797
-0.5712462807702627, 30.282898990787338</code></pre>
+Statistic{name='Acceptance Statistics', n=10000.0, avg=0.36480000000000007, sd=0.48139810387395787, ci=[0.35536363668432935, 0.3742363633156708]}
+BatchStatistic{name='X_1', n=39.0, avg=0.9604509592371925, sd=0.09229882862110408, ci=[0.9305311401353128, 0.9903707783390722], lag-1 corr=0.06320655074977856, Total number observed = 10000.0}
+BatchStatistic{name='X_2', n=39.0, avg=26.295168067266985, sd=1.5629830939761131, ci=[25.788507558897663, 26.801828575636307], lag-1 corr=0.02800560418008783, Total number observed = 10000.0}</code></pre>
+<p>The <code>MetropolisHastingsMV</code> class automatically estimates the probability of acceptance for the generation process. Generally, the higher the better for efficiency and other characteristics of the chain. In general, achieving a high probability of acceptance may be quite difficult. Probability of acceptance values in the range from 20-50% are not uncommon. The statistics collected on the marginal output show that this sampler does not work well. The confidence interval for <span class="math inline">\(X_1\)</span>, [0.931, 0.990], does not contain <span class="math inline">\(E[X_1] = 1.0\)</span>, and the confidence interval for <span class="math inline">\(X_2\)</span>, [25.79, 26.80], does not contain <span class="math inline">\(E[X_2] \approx 27.36\)</span>. The default results use the <code>BatchStatistic</code> class because of the correlation that is typically present in MCMC output. The correlation reported is for the batch means, not the state observations. The raw observation statistics based on the <code>Statistic</code> class can be obtained via the <code>observedStatistics()</code> method of the <code>MetropolisHastingsMV</code> class. Keep in mind that the confidence intervals reported from the <code>Statistic</code> class assume independent observations. Thus, they will have bias as discussed in <a href="05-Chapter5.html#sec-simoainfhorizonbatchmeans" class="quarto-xref"><span>Section 5.6.3</span></a>.</p>
+<p>We can see from some of the initial data that the state vector can repeat in the sampling. Long runs of repeated observations indicate that the Markov Chain is not mixing well. In this run, 6,352 of the 10,000 observations repeat the previous state, and the longest run repeats one state 286 times. This can be a common occurrence for independence samplers, and here the choice of proposal causes it. The beta(2, 5) density of each proposal is nearly 0 near the upper end of its range, where <span class="math inline">\(f(\vec{x})\)</span> is not small. Thus, the sampler rarely proposes states in that region, and when the chain does reach such a state, almost every proposal from it has a small acceptance probability, so the chain stays there. On balance, the region is under-represented in the sample, which is why the estimated means are too small. <a href="#exr-Ch9Ex170" class="quarto-xref">Exercise&nbsp;<span>9.19</span></a> asks you to design a better independence sampler.</p>
+<pre><code>0.5376005066766236, 26.352266492202997
+0.8477251697039869, 23.90232944372732
+0.7957188105835784, 21.02435324965421
+0.9680440314244422, 21.682499716304555
+1.0525995524200615, 26.843069769496953
+1.0525995524200615, 26.843069769496953
+1.0525995524200615, 26.843069769496953
+1.0525995524200615, 26.843069769496953
+1.0525995524200615, 26.843069769496953
+1.0525995524200615, 26.843069769496953
+1.0525995524200615, 26.843069769496953
+0.8572452041877787, 30.282898990787338</code></pre>
 <p>We will reexamine the example, in order to illustrate a random walk sampler. For a random walk sampler, we need to have a symmetric distribution. The random variable <span class="math inline">\(X\)</span> has a symmetric distribution if and only if there is a number <span class="math inline">\(c\)</span> such that <span class="math inline">\(P(X &lt; c − k)=P(X &gt; c+k)\)</span>, for all <span class="math inline">\(k\)</span>. A partial list of symmetric distributions can be found on this <a href="https://en.wikipedia.org/wiki/Symmetric_probability_distribution">Wikipedia page</a>. The most commonly used distributions in random walk samplers are the uniform and the normal distributions.</p>
 <p>The main challenge that we face in this example is that the proposal distribution, <span class="math inline">\(q(\vec{x}|\vec{y})\)</span> should have the same set of possible values as the multi-variate distribution function <span class="math inline">\(f(\vec{x})\)</span>. In the example <span class="math inline">\(f(\vec{x})\)</span> is bounded within the limits, <span class="math inline">\(0.5 \leq x_1 \leq 1.5\)</span> and <span class="math inline">\(20 \leq x_2 \leq 35\)</span>. We avoided this issue in the independence sampler implementation because of the choice of the beta distributions for the marginals of the sampler.</p>
-<p>As previously noted, typical implementations have, <span class="math inline">\(\vec{Y} = \vec{x} + \vec{W}\)</span>, where <span class="math inline">\(\vec{W} \sim G(\vec{W})\)</span> and <span class="math inline">\(G(\cdot)\)</span> is symmetric. Because the proposed value <span class="math inline">\(\vec{x} + \vec{W}\)</span> may “walk” outside the bounds, we need to handle this situation. One possible choice would be to use the truncated normal distribution <span class="math inline">\(N_{[a,b]}(\mu = x, \sigma^2)\)</span>, where <span class="math inline">\([a,b]\)</span> is specified by our limits on <span class="math inline">\(\vec{X}\)</span>. We leave this possibility as an exercise for the reader. In this example, we will use the uniform distribution <span class="math inline">\(U(x-c,x+c)\)</span> where <span class="math inline">\(c &gt; 0\)</span> is some typically small positive constant. We will handle the boundary situation within the implementation.</p>
-<p>The implementation for <span class="math inline">\(f(\vec{x})\)</span> remains the same. The proposal ratio and proposal function are implemented in the following code. Here we specify the intervals for each of the dimensions, the small constants, <span class="math inline">\(c_i\)</span> for each dimension, and the random variable, <span class="math inline">\(e_i \sim U(-c_i, c_i)\)</span> for each dimension. In this case the proposal ratio is always 1.0.</p>
+<p>As previously noted, typical implementations have, <span class="math inline">\(\vec{Y} = \vec{x} + \vec{W}\)</span>, where <span class="math inline">\(\vec{W} \sim G(\vec{W})\)</span> and <span class="math inline">\(G(\cdot)\)</span> is symmetric. Because the proposed value <span class="math inline">\(\vec{x} + \vec{W}\)</span> may “walk” outside the bounds, we need to handle this situation. One possible choice would be to use the truncated normal distribution <span class="math inline">\(N_{[a,b]}(\mu = x, \sigma^2)\)</span>, where <span class="math inline">\([a,b]\)</span> is specified by our limits on <span class="math inline">\(\vec{X}\)</span>. <a href="#exr-Ch9Ex175" class="quarto-xref">Exercise&nbsp;<span>9.20</span></a> asks you to develop this sampler. In this example, we will use the uniform distribution <span class="math inline">\(U(x-c,x+c)\)</span> where <span class="math inline">\(c &gt; 0\)</span> is some typically small positive constant. We will handle the boundary situation within the implementation.</p>
+<p>The implementation for <span class="math inline">\(f(\vec{x})\)</span> remains the same. The proposal ratio and proposal function are implemented in the following code. Here we specify the intervals for each of the dimensions, the small constants, <span class="math inline">\(c_i\)</span> for each dimension, and the random variable, <span class="math inline">\(e_i \sim U(-c_i, c_i)\)</span> for each dimension. Because <code>genYGivenX()</code> discards any value outside the range and tries again, the proposed value <span class="math inline">\(y_i\)</span> is uniformly distributed over the part of <span class="math inline">\([x_i - c_i, x_i + c_i]\)</span> that lies within the range of <span class="math inline">\(X_i\)</span>. Let <span class="math inline">\([a_i, b_i]\)</span> represent the range of <span class="math inline">\(X_i\)</span>, and let <span class="math inline">\(L_i(x_i)\)</span> represent the length of the part of <span class="math inline">\([x_i - c_i, x_i + c_i]\)</span> within that range:</p>
+<p><span class="math display">\[
+L_i(x_i) = \min(b_i, x_i + c_i) - \max(a_i, x_i - c_i)
+\]</span></p>
+<p>Thus, <span class="math inline">\(q(y_i|x_i) = 1/L_i(x_i)\)</span>. Away from the boundaries, <span class="math inline">\(L_i(x_i) = 2c_i\)</span> and the proposal is symmetric. Near a boundary, <span class="math inline">\(L_i(x_i)\)</span> is smaller, so <span class="math inline">\(q(y_i|x_i)\)</span> and <span class="math inline">\(q(x_i|y_i)\)</span> can differ, and the proposal ratio is:</p>
+<p><span class="math display">\[
+p_r(\vec{x},\vec{y}) = \frac{L_1(x_1)L_2(x_2)}{L_1(y_1)L_2(y_2)}
+\]</span></p>
+<p>For <span class="math inline">\(X_1\)</span>, <span class="math inline">\(c_1 = 1\)</span> covers the whole range from any <span class="math inline">\(x_1\)</span>, so <span class="math inline">\(L_1(x_1) = 1\)</span> always. For <span class="math inline">\(X_2\)</span>, the ratio matters whenever the current or proposed value is within 5 of 20 or 35. Treating the proposal as symmetric, with a proposal ratio of 1.0, would bias the chain near the boundaries.</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb47"><pre class="sourceCode kotlin code-with-copy"><code class="sourceCode kotlin"><span id="cb47-1"><a href="#cb47-1" aria-hidden="true" tabindex="-1"></a><span class="kw">object</span> ExampleRandomWalkPF <span class="op">:</span> <span class="dt">ProposalFunctionMVIfc</span> <span class="op">{</span></span>
 <span id="cb47-2"><a href="#cb47-2" aria-hidden="true" tabindex="-1"></a>    <span class="kw">private</span> <span class="kw">val</span> <span class="va">y1Interval</span> <span class="op">=</span> Interval<span class="op">(</span><span class="fl">0.5</span><span class="op">,</span> <span class="fl">1.5</span><span class="op">)</span></span>
 <span id="cb47-3"><a href="#cb47-3" aria-hidden="true" tabindex="-1"></a>    <span class="kw">private</span> <span class="kw">val</span> <span class="va">y2Interval</span> <span class="op">=</span> Interval<span class="op">(</span><span class="fl">20.0</span><span class="op">,</span> <span class="fl">35.0</span><span class="op">)</span></span>
@@ -2369,26 +2376,33 @@ BatchStatistic{name='X_2', n=39.0, avg=26.081192452184705, sd=1.3778407004302573
 <span id="cb47-10"><a href="#cb47-10" aria-hidden="true" tabindex="-1"></a>        <span class="kw">get</span><span class="op">()</span> <span class="op">=</span> <span class="dv">2</span></span>
 <span id="cb47-11"><a href="#cb47-11" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb47-12"><a href="#cb47-12" aria-hidden="true" tabindex="-1"></a>    <span class="kw">override</span> <span class="kw">fun</span> <span class="fu">proposalRatio</span><span class="op">(</span><span class="va">currentX</span><span class="op">:</span> <span class="dt">DoubleArray</span><span class="op">,</span> <span class="va">proposedY</span><span class="op">:</span> <span class="dt">DoubleArray</span><span class="op">):</span> <span class="dt">Double</span> <span class="op">{</span></span>
-<span id="cb47-13"><a href="#cb47-13" aria-hidden="true" tabindex="-1"></a>        <span class="co">//g(y|x) = g(x|y) proposal ratio = g(x|y)/g(y|x) = 1.0</span></span>
-<span id="cb47-14"><a href="#cb47-14" aria-hidden="true" tabindex="-1"></a>        <span class="kw">return</span> <span class="op">(</span><span class="fl">1.0</span><span class="op">)</span></span>
-<span id="cb47-15"><a href="#cb47-15" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
-<span id="cb47-16"><a href="#cb47-16" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb47-17"><a href="#cb47-17" aria-hidden="true" tabindex="-1"></a>    <span class="kw">private</span> <span class="kw">fun</span> <span class="fu">genYGivenX</span><span class="op">(</span><span class="va">interval</span><span class="op">:</span> <span class="dt">Interval</span><span class="op">,</span> <span class="va">rv</span><span class="op">:</span> <span class="dt">UniformRV</span><span class="op">,</span> <span class="va">x</span><span class="op">:</span> <span class="dt">Double</span><span class="op">):</span> <span class="dt">Double</span> <span class="op">{</span></span>
-<span id="cb47-18"><a href="#cb47-18" aria-hidden="true" tabindex="-1"></a>        <span class="kw">var</span> <span class="va">yp</span><span class="op">:</span> <span class="kw">Double</span></span>
-<span id="cb47-19"><a href="#cb47-19" aria-hidden="true" tabindex="-1"></a>        <span class="cf">do</span> <span class="op">{</span></span>
-<span id="cb47-20"><a href="#cb47-20" aria-hidden="true" tabindex="-1"></a>            <span class="kw">val</span> <span class="va">e</span> <span class="op">=</span> rv<span class="op">.</span>value</span>
-<span id="cb47-21"><a href="#cb47-21" aria-hidden="true" tabindex="-1"></a>            yp <span class="op">=</span> x <span class="op">+</span> e</span>
-<span id="cb47-22"><a href="#cb47-22" aria-hidden="true" tabindex="-1"></a>        <span class="op">}</span> <span class="cf">while</span> <span class="op">(!</span>interval<span class="op">.</span>contains<span class="op">(</span>yp<span class="op">))</span></span>
-<span id="cb47-23"><a href="#cb47-23" aria-hidden="true" tabindex="-1"></a>        <span class="kw">return</span> yp</span>
-<span id="cb47-24"><a href="#cb47-24" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
-<span id="cb47-25"><a href="#cb47-25" aria-hidden="true" tabindex="-1"></a>    </span>
-<span id="cb47-26"><a href="#cb47-26" aria-hidden="true" tabindex="-1"></a>    <span class="kw">override</span> <span class="kw">fun</span> <span class="fu">generateProposedGivenCurrent</span><span class="op">(</span><span class="va">currentX</span><span class="op">:</span> <span class="dt">DoubleArray</span><span class="op">):</span> <span class="dt">DoubleArray</span> <span class="op">{</span></span>
-<span id="cb47-27"><a href="#cb47-27" aria-hidden="true" tabindex="-1"></a>        <span class="kw">val</span> <span class="va">y1</span> <span class="op">=</span> genYGivenX<span class="op">(</span>y1Interval<span class="op">,</span> e1rv<span class="op">,</span> currentX<span class="op">[</span><span class="dv">0</span><span class="op">])</span></span>
-<span id="cb47-28"><a href="#cb47-28" aria-hidden="true" tabindex="-1"></a>        <span class="kw">val</span> <span class="va">y2</span> <span class="op">=</span> genYGivenX<span class="op">(</span>y2Interval<span class="op">,</span> e2rv<span class="op">,</span> currentX<span class="op">[</span><span class="dv">1</span><span class="op">])</span></span>
-<span id="cb47-29"><a href="#cb47-29" aria-hidden="true" tabindex="-1"></a>        <span class="kw">return</span> doubleArrayOf<span class="op">(</span>y1<span class="op">,</span> y2<span class="op">)</span></span>
-<span id="cb47-30"><a href="#cb47-30" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
-<span id="cb47-31"><a href="#cb47-31" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p>A small private function <code>genYGivenX()</code> is used to sample a value <span class="math inline">\(x_i + e_i\)</span> until the values are within the desired intervals. To setup and run this case, we have the following code, which is similar to previous run simulation code, except for the use of the random walk sampler.</p>
+<span id="cb47-13"><a href="#cb47-13" aria-hidden="true" tabindex="-1"></a>        <span class="co">// g(y|x) = 1/L(x), where L(x) is the length of [x - c, x + c] within the range</span></span>
+<span id="cb47-14"><a href="#cb47-14" aria-hidden="true" tabindex="-1"></a>        <span class="co">// proposal ratio = g(x|y)/g(y|x) = L(x)/L(y)</span></span>
+<span id="cb47-15"><a href="#cb47-15" aria-hidden="true" tabindex="-1"></a>        <span class="kw">val</span> <span class="va">lx</span> <span class="op">=</span> windowLength<span class="op">(</span>y1Interval<span class="op">,</span> y1c<span class="op">,</span> currentX<span class="op">[</span><span class="dv">0</span><span class="op">])</span> <span class="op">*</span> windowLength<span class="op">(</span>y2Interval<span class="op">,</span> y2c<span class="op">,</span> currentX<span class="op">[</span><span class="dv">1</span><span class="op">])</span></span>
+<span id="cb47-16"><a href="#cb47-16" aria-hidden="true" tabindex="-1"></a>        <span class="kw">val</span> <span class="va">ly</span> <span class="op">=</span> windowLength<span class="op">(</span>y1Interval<span class="op">,</span> y1c<span class="op">,</span> proposedY<span class="op">[</span><span class="dv">0</span><span class="op">])</span> <span class="op">*</span> windowLength<span class="op">(</span>y2Interval<span class="op">,</span> y2c<span class="op">,</span> proposedY<span class="op">[</span><span class="dv">1</span><span class="op">])</span></span>
+<span id="cb47-17"><a href="#cb47-17" aria-hidden="true" tabindex="-1"></a>        <span class="kw">return</span> <span class="op">(</span>lx <span class="op">/</span> ly<span class="op">)</span></span>
+<span id="cb47-18"><a href="#cb47-18" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
+<span id="cb47-19"><a href="#cb47-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb47-20"><a href="#cb47-20" aria-hidden="true" tabindex="-1"></a>    <span class="kw">private</span> <span class="kw">fun</span> <span class="fu">windowLength</span><span class="op">(</span><span class="va">interval</span><span class="op">:</span> <span class="dt">Interval</span><span class="op">,</span> <span class="va">c</span><span class="op">:</span> <span class="dt">Double</span><span class="op">,</span> <span class="va">x</span><span class="op">:</span> <span class="dt">Double</span><span class="op">):</span> <span class="dt">Double</span> <span class="op">{</span></span>
+<span id="cb47-21"><a href="#cb47-21" aria-hidden="true" tabindex="-1"></a>        <span class="kw">return</span> minOf<span class="op">(</span>interval<span class="op">.</span>upperLimit<span class="op">,</span> x <span class="op">+</span> c<span class="op">)</span> <span class="op">-</span> maxOf<span class="op">(</span>interval<span class="op">.</span>lowerLimit<span class="op">,</span> x <span class="op">-</span> c<span class="op">)</span></span>
+<span id="cb47-22"><a href="#cb47-22" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
+<span id="cb47-23"><a href="#cb47-23" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb47-24"><a href="#cb47-24" aria-hidden="true" tabindex="-1"></a>    <span class="kw">private</span> <span class="kw">fun</span> <span class="fu">genYGivenX</span><span class="op">(</span><span class="va">interval</span><span class="op">:</span> <span class="dt">Interval</span><span class="op">,</span> <span class="va">rv</span><span class="op">:</span> <span class="dt">UniformRV</span><span class="op">,</span> <span class="va">x</span><span class="op">:</span> <span class="dt">Double</span><span class="op">):</span> <span class="dt">Double</span> <span class="op">{</span></span>
+<span id="cb47-25"><a href="#cb47-25" aria-hidden="true" tabindex="-1"></a>        <span class="kw">var</span> <span class="va">yp</span><span class="op">:</span> <span class="kw">Double</span></span>
+<span id="cb47-26"><a href="#cb47-26" aria-hidden="true" tabindex="-1"></a>        <span class="cf">do</span> <span class="op">{</span></span>
+<span id="cb47-27"><a href="#cb47-27" aria-hidden="true" tabindex="-1"></a>            <span class="kw">val</span> <span class="va">e</span> <span class="op">=</span> rv<span class="op">.</span>value</span>
+<span id="cb47-28"><a href="#cb47-28" aria-hidden="true" tabindex="-1"></a>            yp <span class="op">=</span> x <span class="op">+</span> e</span>
+<span id="cb47-29"><a href="#cb47-29" aria-hidden="true" tabindex="-1"></a>        <span class="op">}</span> <span class="cf">while</span> <span class="op">(!</span>interval<span class="op">.</span>contains<span class="op">(</span>yp<span class="op">))</span></span>
+<span id="cb47-30"><a href="#cb47-30" aria-hidden="true" tabindex="-1"></a>        <span class="kw">return</span> yp</span>
+<span id="cb47-31"><a href="#cb47-31" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
+<span id="cb47-32"><a href="#cb47-32" aria-hidden="true" tabindex="-1"></a>    </span>
+<span id="cb47-33"><a href="#cb47-33" aria-hidden="true" tabindex="-1"></a>    <span class="kw">override</span> <span class="kw">fun</span> <span class="fu">generateProposedGivenCurrent</span><span class="op">(</span><span class="va">currentX</span><span class="op">:</span> <span class="dt">DoubleArray</span><span class="op">):</span> <span class="dt">DoubleArray</span> <span class="op">{</span></span>
+<span id="cb47-34"><a href="#cb47-34" aria-hidden="true" tabindex="-1"></a>        <span class="kw">val</span> <span class="va">y1</span> <span class="op">=</span> genYGivenX<span class="op">(</span>y1Interval<span class="op">,</span> e1rv<span class="op">,</span> currentX<span class="op">[</span><span class="dv">0</span><span class="op">])</span></span>
+<span id="cb47-35"><a href="#cb47-35" aria-hidden="true" tabindex="-1"></a>        <span class="kw">val</span> <span class="va">y2</span> <span class="op">=</span> genYGivenX<span class="op">(</span>y2Interval<span class="op">,</span> e2rv<span class="op">,</span> currentX<span class="op">[</span><span class="dv">1</span><span class="op">])</span></span>
+<span id="cb47-36"><a href="#cb47-36" aria-hidden="true" tabindex="-1"></a>        <span class="kw">return</span> doubleArrayOf<span class="op">(</span>y1<span class="op">,</span> y2<span class="op">)</span></span>
+<span id="cb47-37"><a href="#cb47-37" aria-hidden="true" tabindex="-1"></a>    <span class="op">}</span></span>
+<span id="cb47-38"><a href="#cb47-38" aria-hidden="true" tabindex="-1"></a><span class="op">}</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<p>A small private function <code>genYGivenX()</code> is used to sample a value <span class="math inline">\(x_i + e_i\)</span> until the values are within the desired intervals. The private function <code>windowLength()</code> computes <span class="math inline">\(L_i(x_i)\)</span> for the proposal ratio. To setup and run this case, we have the following code, which is similar to previous run simulation code, except for the use of the random walk sampler.</p>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb48"><pre class="sourceCode kotlin code-with-copy"><code class="sourceCode kotlin"><span id="cb48-1"><a href="#cb48-1" aria-hidden="true" tabindex="-1"></a>    <span class="kw">val</span> <span class="va">f</span> <span class="op">=</span> Function</span>
 <span id="cb48-2"><a href="#cb48-2" aria-hidden="true" tabindex="-1"></a>    <span class="kw">val</span> <span class="va">q</span> <span class="op">=</span> ExampleRandomWalkPF</span>
 <span id="cb48-3"><a href="#cb48-3" aria-hidden="true" tabindex="-1"></a>    <span class="kw">val</span> <span class="va">x0</span> <span class="op">=</span> doubleArrayOf<span class="op">(</span><span class="fl">1.0</span><span class="op">,</span> <span class="fl">27.5</span><span class="op">)</span></span>
@@ -2397,34 +2411,34 @@ BatchStatistic{name='X_2', n=39.0, avg=26.081192452184705, sd=1.3778407004302573
 <span id="cb48-6"><a href="#cb48-6" aria-hidden="true" tabindex="-1"></a>    m<span class="op">.</span>attachObserver<span class="op">(</span>WriteData<span class="op">(</span><span class="st">"RWData.csv"</span><span class="op">))</span></span>
 <span id="cb48-7"><a href="#cb48-7" aria-hidden="true" tabindex="-1"></a>    m<span class="op">.</span>runAll<span class="op">(</span><span class="dv">10000</span><span class="op">)</span></span>
 <span id="cb48-8"><a href="#cb48-8" aria-hidden="true" tabindex="-1"></a>    println<span class="op">(</span>m<span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p>The results could be considered a bit better than the independence sampler results. Clearly, the acceptance probability is significantly better for this sampler.</p>
-<pre><code>MetropolisHastings1D
+<p>These results are much better than the independence sampler results. The acceptance probability is about 76%, and the confidence intervals for <span class="math inline">\(X_1\)</span>, [0.988, 1.000], and <span class="math inline">\(X_2\)</span>, [27.03, 27.52], contain the expected values.</p>
+<pre><code>MetropolisHastingsMV
 Initialized Flag = true
 Burn In Flag = true
-Initial X =[0.773680150259463, 25.06436933842605]
-Current X = [1.393917079069964, 20.76389519938342]
-Previous X = [1.1538567477857675, 25.59456469111667]
-Last Proposed Y= [1.393917079069964, 20.76389519938342]
-Last Prob. of Acceptance = 0.48031020870117797
-Last f(Y) = 0.04294751544959516
-Last f(X) = 0.08941620367747521
+Initial X =[1.232898824952116, 21.66210904618112]
+Current X = [0.9901386983588482, 34.56485919177585]
+Previous X = [1.0010915655254986, 30.856035274473697]
+Last Proposed Y= [0.9901386983588482, 34.56485919177585]
+Last Prob. of Acceptance = 1.0
+Last f(Y) = 0.08831828347233045
+Last f(X) = 0.09407027997121117
 Acceptance Statistics
-Statistic{name='Acceptance Statistics', n=10000.0, avg=0.785899999999997, sd=0.41021703743479404, ci=[0.7778589276061466, 0.7939410723938475]}
-BatchStatistic{name='X_1', n=39.0, avg=0.999193515968228, sd=0.0159560164316252, ci=[0.9940211737797846, 1.0043658581566715], lag-1 corr=0.10751413994760596, Total number observed = 10000.0}
-BatchStatistic{name='X_2', n=39.0, avg=27.370099404669936, sd=0.6779873978358747, ci=[27.150321314312187, 27.589877495027686], lag-1 corr=-0.11710134097028374, Total number observed = 10000.0}</code></pre>
+Statistic{name='Acceptance Statistics', n=10000.0, avg=0.7649999999999971, sd=0.42402002228424307, ci=[0.7566883615635471, 0.7733116384364471]}
+BatchStatistic{name='X_1', n=39.0, avg=0.9942722556241099, sd=0.01908247292570086, ci=[0.9880864334800687, 1.000458077768151], lag-1 corr=0.02188004287227909, Total number observed = 10000.0}
+BatchStatistic{name='X_2', n=39.0, avg=27.274340246967373, sd=0.7516747812388619, ci=[27.030675470132174, 27.518005023802573], lag-1 corr=0.06419291643105446, Total number observed = 10000.0}</code></pre>
 <p>As we can see from the sampled vectors, there appears to be more mixing.</p>
-<pre><code>0.7114637098246581, 23.334752715575693
-1.3918884893683938, 27.582854620937724
-1.0234882610125577, 28.761501219684373
-1.0234882610125577, 28.761501219684373
-1.0234882610125577, 28.761501219684373
-1.022818982310043, 28.05859569138944
-0.6279823315850492, 30.684331865598743
-1.2590803294191133, 25.866338857499585
-0.9952174851225053, 21.43482917651085
-0.9882686966013114, 24.419256539368444
-0.9882686966013114, 24.419256539368444
-0.5990339635411173, 20.575702628065457</code></pre>
+<pre><code>1.069579952507243, 22.024550682660546
+0.680904832582785, 22.609508333912288
+1.2548563613121715, 20.082804816132036
+1.1412489245140436, 21.174950928987187
+1.1412489245140436, 21.174950928987187
+1.1412489245140436, 21.174950928987187
+1.1412489245140436, 21.174950928987187
+1.1412489245140436, 21.174950928987187
+1.1412489245140436, 21.174950928987187
+1.1412489245140436, 21.174950928987187
+0.9609462269302526, 22.30999636475328
+0.8646527486506351, 24.00918525036553</code></pre>
 <p>This section provided an introduction to Markov Chain Monte Carlo methods. The topic of MCMC is vast and the proliferation of research and applications has been enormously active in the past 20 years. This introduction was meant to only illustrate some of the key concepts that you need to understand when applying the technique using the KSL. There are many additional issues that we did not address, including:</p>
 <ul>
 <li><p>warm up period determination - This has similar characteristics as to that discussed in <a href="05-Chapter5.html#sec-simoainfhorizoninitialbias" class="quarto-xref"><span>Section 5.6.1</span></a> but because of the structure of Markov Chains, there are some additional theoretical results that could be explored.</p></li>
@@ -2456,11 +2470,11 @@ BatchStatistic{name='X_2', n=39.0, avg=27.370099404669936, sd=0.6779873978358747
 <h2 data-number="9.5" class="anchored" data-anchor-id="exercises"><span class="header-section-number">9.5</span> Exercises</h2>
 <hr>
 <div id="exr-Ch9Ex1" class="theorem exercise">
-<p><span class="theorem-title"><strong>Exercise 9.1</strong></span> Consider <a href="#exr-Ch9Ex80" class="quarto-xref">Exercise&nbsp;<span>9.11</span></a>. Develop a bootstrap confidence interval for the median profit. Report your confidence interval at the 0.99 level.</p>
+<p><span class="theorem-title"><strong>Exercise 9.1</strong></span> Consider <a href="#exr-Ch9Ex80" class="quarto-xref">Exercise&nbsp;<span>9.11</span></a>. Develop a bootstrap confidence interval for the median profit. Report your confidence interval at the 0.99 level. The profits of <a href="#exr-Ch9Ex80" class="quarto-xref">Exercise&nbsp;<span>9.11</span></a> come in antithetic pairs, which are not independent. Resample the pairs rather than the individual profits.</p>
 </div>
 <hr>
 <div id="exr-Ch9Ex2" class="theorem exercise">
-<p><span class="theorem-title"><strong>Exercise 9.2</strong></span> Consider <a href="#exr-Ch9Ex80" class="quarto-xref">Exercise&nbsp;<span>9.11</span></a>. Develop a bootstrap confidence interval for the minimum profit. Report your confidence interval at the 0.99 level.</p>
+<p><span class="theorem-title"><strong>Exercise 9.2</strong></span> Consider <a href="#exr-Ch9Ex80" class="quarto-xref">Exercise&nbsp;<span>9.11</span></a>. Develop a bootstrap confidence interval for the minimum profit. Report your confidence interval at the 0.99 level. The profits of <a href="#exr-Ch9Ex80" class="quarto-xref">Exercise&nbsp;<span>9.11</span></a> come in antithetic pairs, which are not independent. Resample the pairs rather than the individual profits.</p>
 </div>
 <hr>
 <div id="exr-Ch9Ex3" class="theorem exercise">
@@ -2468,7 +2482,7 @@ BatchStatistic{name='X_2', n=39.0, avg=27.370099404669936, sd=0.6779873978358747
 <p><span class="math display">\[
 f(x) =
   \begin{cases}
-     \frac{5x}{16} + \frac{3x^3}{32} + \frac{5x^4}{256} &amp; 0 \leq x \leq 2\\
+     \frac{8}{9}\left(\frac{5x}{16} + \frac{3x^3}{32} + \frac{5x^4}{256}\right) &amp; 0 \leq x \leq 2\\
      0 &amp; \text{otherwise} \\
   \end{cases}
 \]</span></p>
@@ -2552,7 +2566,7 @@ f(x) =
 </tr>
 </tbody>
 </table>
-<p>The interest rate has been varying recently and the firm is unsure of the rate for performing the analysis. To be safe, they have decided that the interest rate should be modeled as a beta random variable over the range from 2 to 7 percent with <span class="math inline">\(\alpha_1 = 4.0\)</span> and <span class="math inline">\(\alpha_2 = 1.2\)</span>. Given all the uncertain elements in the situation, they have decided to perform a simulation analysis in order to assess the situation. Use to answer the following questions:</p>
+<p>The interest rate has been varying recently and the firm is unsure of the rate for performing the analysis. To be safe, they have decided that the interest rate should be modeled as a beta random variable over the range from 2 to 7 percent with <span class="math inline">\(\alpha_1 = 4.0\)</span> and <span class="math inline">\(\alpha_2 = 1.2\)</span>. Given all the uncertain elements in the situation, they have decided to perform a simulation analysis in order to assess the situation. Use the simulation to answer the following questions. Use stream 1 for the interest rate and streams 2 to 6 for the cash flows of years 0 to 4. Base your analysis on 1,000 samples.</p>
 <p>Compare the expected present worth of the two alternatives using common random numbers. Estimate the probability that alternative A has a higher present worth than alternative B.</p>
 <p>Determine the number of samples needed to be 95% confidence that you have estimated the <span class="math inline">\(P[PW(A) &gt; PW(B)]\)</span> to within <span class="math inline">\(\pm\)</span> 0.10.</p>
 </div>
@@ -2592,44 +2606,31 @@ f(x) =
 <td style="text-align: center;">0.30</td>
 <td style="text-align: center;"></td>
 </tr>
-<tr class="even">
-<td style="text-align: center;">Fixed Cost</td>
-<td style="text-align: center;">50000</td>
-<td style="text-align: center;">65000</td>
-<td style="text-align: center;">80000</td>
-<td style="text-align: center;"></td>
-</tr>
-<tr class="odd">
-<td style="text-align: center;">Probability</td>
-<td style="text-align: center;">0.40</td>
-<td style="text-align: center;">0.30</td>
-<td style="text-align: center;">0.30</td>
-<td style="text-align: center;"></td>
-</tr>
 </tbody>
 </table>
-<p>Use a simulation model with antithetic variates to estimate the mean profit from your sample and compute a 95% confidence interval for the mean profit. Estimate the probability that the profit will be positive.</p>
+<p>The fixed cost has a triangular distribution with a minimum of $150,000, a mode of $200,000, and a maximum of $250,000.</p>
+<p>Use a simulation model with 1,000 antithetic pairs to estimate the mean profit from your sample and compute a 95% confidence interval for the mean profit. Use stream 1 for the unit cost, stream 2 for the quantity sold, and stream 3 for the fixed cost. Estimate the probability that the profit will be positive.</p>
 </div>
 <hr>
 <div id="exr-Ch9Ex90" class="theorem exercise">
-<p><span class="theorem-title"><strong>Exercise 9.12</strong></span> YBox video game players arrive at a two-person station for testing. The inspection time per YBox set is EXPO(10) minutes. On the average 82% of the sets pass inspection. The remaining 18% are routed to an adjustment station with a single operator. Adjustment time per YBox is UNIF(7,14) minutes. After adjustments are made, the units are routed back to the inspection station to be retested. Build an simulation model of this system. Use a replication length of 30,000 minutes.</p>
+<p><span class="theorem-title"><strong>Exercise 9.12</strong></span> YBox video game players arrive according to a Poisson process with a rate of 8 per hour (stream 1) to a two-person station for testing. The inspection time per YBox set is EXPO(10) minutes (stream 2). On the average 82% of the sets pass inspection (stream 4). The remaining 18% are routed to an adjustment station with a single operator. Adjustment time per YBox is UNIF(7,14) minutes (stream 3). After adjustments are made, the units are routed back to the inspection station to be retested. Build a simulation model of this system. Use 30 replications of 30,000 minutes with a warm up period of 3,000 minutes.</p>
 <p>Use control variates to estimate the total time a set spends in the system.</p>
 </div>
 <hr>
 <div id="exr-Ch9Ex100" class="theorem exercise">
-<p><span class="theorem-title"><strong>Exercise 9.13</strong></span> Create a model to simulate observations from a <span class="math inline">\(N(\mu, \sigma^2)\)</span> random variable. Use your simulation to generate two independent samples of size <span class="math inline">\(n_1 = 20\)</span> and <span class="math inline">\(n_2 = 30\)</span> from normal distributions having <span class="math inline">\(\mu_1 = 2\)</span>, <span class="math inline">\(\sigma_1^2 = 0.64\)</span> and <span class="math inline">\(\mu_2 = 2.2, \sigma_2^2 = 0.64\)</span>. Assume that you don’t know the true means and variances. Use the method of independent samples to test whether <span class="math inline">\(\mu_2 &gt; \mu_1\)</span>.</p>
+<p><span class="theorem-title"><strong>Exercise 9.13</strong></span> Complete <a href="05-Chapter5.html#exr-ch5P7" class="quarto-xref">Exercise&nbsp;<span>5.7</span></a>.</p>
 </div>
 <hr>
 <div id="exr-Ch9Ex110" class="theorem exercise">
-<p><span class="theorem-title"><strong>Exercise 9.14</strong></span> Create a model to simulate observations from a <span class="math inline">\(N(\mu, \sigma^2)\)</span> random variable. Use your simulation to generate two independent samples of size <span class="math inline">\(n_1 = 20\)</span> and <span class="math inline">\(n_2=30\)</span> from normal distributions having <span class="math inline">\(\mu_1 = 2\)</span>, <span class="math inline">\(\sigma_1^2 = 0.64\)</span>, and <span class="math inline">\(\mu_2 = 2.2\)</span>, <span class="math inline">\(\sigma_2^2 = 0.36\)</span>. Assume that you don’t know the true means and variances. Use the method of independent samples to test whether <span class="math inline">\(\mu_2 &gt; \mu_1\)</span>.</p>
+<p><span class="theorem-title"><strong>Exercise 9.14</strong></span> Complete <a href="05-Chapter5.html#exr-ch5P8" class="quarto-xref">Exercise&nbsp;<span>5.8</span></a>.</p>
 </div>
 <hr>
 <div id="exr-Ch9Ex120" class="theorem exercise">
-<p><span class="theorem-title"><strong>Exercise 9.15</strong></span> Create a model to simulate observations from a <span class="math inline">\(N(\mu, \sigma^2)\)</span> random variable. Use your simulation to generate two independent samples of size <span class="math inline">\(n_1 = 30\)</span> and <span class="math inline">\(n_2 = 30\)</span> from normal distributions having <span class="math inline">\(\mu_1 = 2\)</span>, <span class="math inline">\(\sigma_1^2 = 0.64\)</span> and <span class="math inline">\(\mu_2 = 2.2\)</span>, <span class="math inline">\(\sigma_2^2 = 0.36\)</span>. Assume that you don’t know the true means and variances. Use the paired-t method to test whether <span class="math inline">\(\mu_2 &gt; \mu_1\)</span>.</p>
+<p><span class="theorem-title"><strong>Exercise 9.15</strong></span> Complete <a href="05-Chapter5.html#exr-ch5P9" class="quarto-xref">Exercise&nbsp;<span>5.9</span></a>.</p>
 </div>
 <hr>
 <div id="exr-Ch9Ex130" class="theorem exercise">
-<p><span class="theorem-title"><strong>Exercise 9.16</strong></span> Create a model to simulate observations from a <span class="math inline">\(N(\mu, \sigma^2)\)</span> random variable. Use your simulation to generate two dependent samples of size <span class="math inline">\(n_1 = 30\)</span> and <span class="math inline">\(n_2 = 30\)</span> from normal distributions having <span class="math inline">\(\mu_1 = 2\)</span>, <span class="math inline">\(\sigma_1^2 = 0.64\)</span> and <span class="math inline">\(\mu_2 = 2.2\)</span>, <span class="math inline">\(\sigma_2^2 = 0.36\)</span>. Use the method of common random number. Assume that you don’t know the true means and variances. Use the paired-t method to test whether <span class="math inline">\(\mu_2 &gt; \mu_1\)</span>.</p>
+<p><span class="theorem-title"><strong>Exercise 9.16</strong></span> Complete <a href="05-Chapter5.html#exr-ch5P10" class="quarto-xref">Exercise&nbsp;<span>5.10</span></a>.</p>
 </div>
 <hr>
 <div id="exr-Ch9Ex150" class="theorem exercise">
@@ -2666,17 +2667,28 @@ f(x_1, x_2) =
 0.0   &amp; otherwise
 \end{cases}
 \]</span></p>
-<p>Design an independence sampler that is better than the sampler in the example from <a href="#sec-ch9MCMC" class="quarto-xref"><span>Section 9.3.4</span></a>. .</p>
+<p>Design an independence sampler that is better than the sampler in the example from <a href="#sec-ch9MCMC" class="quarto-xref"><span>Section 9.3.4</span></a>.</p>
 <ol type="a">
 <li><p>Estimate the correlation of <span class="math inline">\((X_1, X_2)\)</span> from the example’s implementation and for your sampler. Compare the estimated quantity to the theoretical value.</p></li>
 <li><p>Report the acceptance probability estimate for your sampler.</p></li>
 <li><p>Make a time series plot of the example’s <span class="math inline">\(x_1\)</span> and <span class="math inline">\(x_2\)</span> series. Make an ACF plot for the time series.</p></li>
 <li><p>Make a time series plot of your independence sampler <span class="math inline">\(x_1\)</span> and <span class="math inline">\(x_2\)</span> series. Make an ACF plot for the time series.</p></li>
+<li><p>Compare the means and variances of <span class="math inline">\(X_1\)</span> and <span class="math inline">\(X_2\)</span> estimated from the example’s implementation and from your sampler with the values derived in <a href="#exr-Ch9Ex160" class="quarto-xref">Exercise&nbsp;<span>9.18</span></a>. Explain why the example’s sampler mixes poorly and why your proposal does better.</p></li>
+</ol>
+</div>
+<hr>
+<div id="exr-Ch9Ex175" class="theorem exercise">
+<p><span class="theorem-title"><strong>Exercise 9.20</strong></span> Reconsider the zinc and iron content example of <a href="#sec-ch9MCMC" class="quarto-xref"><span>Section 9.3.4</span></a>. Develop a random walk sampler whose proposal for each dimension is a truncated normal distribution, <span class="math inline">\(Y_i \sim N_{[a_i, b_i]}(\mu = x_i, \sigma_i^2)\)</span>, where <span class="math inline">\([a_i, b_i]\)</span> is the range of <span class="math inline">\(X_i\)</span> and <span class="math inline">\(\sigma_i\)</span> is a standard deviation that you choose. The KSL <code>TruncatedNormal</code> class provides the density of this distribution.</p>
+<ol type="a">
+<li><p>The truncated normal proposal is not symmetric near the boundaries. Derive the proposal ratio <span class="math inline">\(p_r(\vec{x},\vec{y})\)</span> for this sampler. <em>Hint:</em> the density of <span class="math inline">\(N_{[a_i, b_i]}(\mu = x_i, \sigma_i^2)\)</span> divides by <span class="math inline">\(\Phi((b_i - x_i)/\sigma_i) - \Phi((a_i - x_i)/\sigma_i)\)</span>, where <span class="math inline">\(\Phi(\cdot)\)</span> is the standard normal CDF, and this normalizing constant depends on the current state.</p></li>
+<li><p>Implement the sampler. Estimate the means and variances of <span class="math inline">\(X_1\)</span> and <span class="math inline">\(X_2\)</span>, and compare them with the values derived in <a href="#exr-Ch9Ex160" class="quarto-xref">Exercise&nbsp;<span>9.18</span></a>.</p></li>
+<li><p>Try at least two values of each <span class="math inline">\(\sigma_i\)</span> and report the acceptance probability for each. How does the choice of <span class="math inline">\(\sigma_i\)</span> affect the acceptance probability and the mixing of the chain?</p></li>
+<li><p>Make a time series plot and an ACF plot of your sampler’s <span class="math inline">\(x_1\)</span> and <span class="math inline">\(x_2\)</span> series, and compare them with those of the random walk sampler in the example.</p></li>
 </ol>
 </div>
 <hr>
 <div id="exr-Ch9Ex180" class="theorem exercise">
-<p><span class="theorem-title"><strong>Exercise 9.20</strong></span> Suppose that the random variable <span class="math inline">\(X_1\)</span> is the zinc content of an ore sample with a range of values in <span class="math inline">\([0.5, 1.5]\)</span> and the random variable <span class="math inline">\(X_2\)</span> is the iron content of the ore with values in <span class="math inline">\([20.0, 35.0]\)</span>. The joint distribution density function for the random variables has been modeled as:</p>
+<p><span class="theorem-title"><strong>Exercise 9.21</strong></span> Suppose that the random variable <span class="math inline">\(X_1\)</span> is the zinc content of an ore sample with a range of values in <span class="math inline">\([0.5, 1.5]\)</span> and the random variable <span class="math inline">\(X_2\)</span> is the iron content of the ore with values in <span class="math inline">\([20.0, 35.0]\)</span>. The joint distribution density function for the random variables has been modeled as:</p>
 <p><span class="math display">\[
 f(x_1, x_2) =
 \begin{cases}
@@ -2704,7 +2716,7 @@ f(x_1, x_2) =
 </div>
 <hr>
 <div id="exr-Ch9Ex190" class="theorem exercise">
-<p><span class="theorem-title"><strong>Exercise 9.21</strong></span> Consider the following joint density of two random variables x and y given by:</p>
+<p><span class="theorem-title"><strong>Exercise 9.22</strong></span> Consider the following joint density of two random variables x and y given by:</p>
 <p><span class="math display">\[
 f(x,y) =
   \begin{cases}
@@ -2720,7 +2732,7 @@ f(x,y) =
 </div>
 <hr>
 <div id="exr-Ch9Ex200" class="theorem exercise">
-<p><span class="theorem-title"><strong>Exercise 9.22</strong></span> Suppose that the random variable <span class="math inline">\(X_1\)</span> is the zinc content of an ore sample with a range of values in <span class="math inline">\([0.5, 1.5]\)</span> and the random variable <span class="math inline">\(X_2\)</span> is the iron content of the ore with values in <span class="math inline">\([20.0, 35.0]\)</span>. The joint distribution density function for the random variables has been modeled as:</p>
+<p><span class="theorem-title"><strong>Exercise 9.23</strong></span> Suppose that the random variable <span class="math inline">\(X_1\)</span> is the zinc content of an ore sample with a range of values in <span class="math inline">\([0.5, 1.5]\)</span> and the random variable <span class="math inline">\(X_2\)</span> is the iron content of the ore with values in <span class="math inline">\([20.0, 35.0]\)</span>. The joint distribution density function for the random variables has been modeled as:</p>
 <p><span class="math display">\[
 f(x_1, x_2) =
 \begin{cases}
@@ -2737,7 +2749,7 @@ f(x_1, x_2) =
 </div>
 <hr>
 <div id="exr-Ch9Ex210" class="theorem exercise">
-<p><span class="theorem-title"><strong>Exercise 9.23</strong></span> Use <a href="https://en.wikipedia.org/wiki/Latin_hypercube_sampling">Latin hyper-cube</a> sampling to estimate the following integral with 99% confidence to within <span class="math inline">\(\pm 0.01\)</span>.</p>
+<p><span class="theorem-title"><strong>Exercise 9.24</strong></span> Use <a href="https://en.wikipedia.org/wiki/Latin_hypercube_sampling">Latin hyper-cube</a> sampling to estimate the following integral with 99% confidence to within <span class="math inline">\(\pm 0.01\)</span>.</p>
 <p><span class="math display">\[\theta = \int\limits_{0}^{1} \int\limits_{0}^{1} \left( 4x^{2}y + y^{2}\right) \mathrm{d}x \mathrm{d}y\]</span></p>
 <p>Compare and contrast this method to the method you used in <a href="#exr-Ch9Ex40" class="quarto-xref">Exercise&nbsp;<span>9.7</span></a> or <a href="#exr-Ch9Ex60" class="quarto-xref">Exercise&nbsp;<span>9.9</span></a>.</p>
 </div>

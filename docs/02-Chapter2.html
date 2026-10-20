@@ -2473,7 +2473,7 @@ Figure&nbsp;2.16: PMF Comparison Plot of Lab Count Data
 </figure>
 </div>
 <p>The results of the goodness of fit test and the PMF comparison plot, <a href="#fig-LCPMFPlot" class="quarto-xref">Figure&nbsp;<span>2.16</span></a>, clearly indicate that the Poisson distribution should not be rejected as a model for this data.</p>
-<p>The follow example repeats the analysis of <a href="13-AppDistributionFitting.html#sec-appidms2sb3" class="quarto-xref"><span>Section B.5.6</span></a> on the pharmacy service time data using KSL constructs.</p>
+<p>The following example analyzes the pharmacy service time data using KSL constructs.</p>
 <hr>
 <div id="exm-ch2ex27" class="theorem example">
 <p><span class="theorem-title"><strong>Example 2.27 (Analyzing the Pharmacy Data using the KSL)</strong></span> One hundred observations of the service time were collected using a portable digital assistant and are shown in <a href="#tbl-PharmacyDataCh2" class="quarto-xref">Table&nbsp;<span>2.2</span></a> where the first observation is in row 1 column 1, the second observation is in row 2 column 1, the <span class="math inline">\(21^{st}\)</span> observation is in row 1 column 2, and so forth.</p>
@@ -2903,7 +2903,7 @@ Figure&nbsp;2.23: Distribution Plot for Pharmacy Data
 </div>
 <hr>
 <div id="exr-Ch2Ex3" class="theorem exercise">
-<p><span class="theorem-title"><strong>Exercise 2.4</strong></span> The service times for a automated storage and retrieval system has a shifted exponential distribution. It is known that it takes a minimum of 15 seconds for any retrieval. The rate parameter of the exponential distribution is <span class="math inline">\(\lambda = 45\)</span>. Write a KSL program to generate 10 observations from this distribution using stream 1.</p>
+<p><span class="theorem-title"><strong>Exercise 2.4</strong></span> The service time for an automated storage and retrieval system has a shifted exponential distribution. It is known that it takes a minimum of 15 seconds for any retrieval. The time beyond the minimum is exponentially distributed with a mean of 45 seconds. Write a KSL program to generate 10 observations from this distribution using stream 1.</p>
 </div>
 <hr>
 <div id="exr-Ch2Ex4" class="theorem exercise">
@@ -2961,7 +2961,7 @@ Figure&nbsp;2.23: Distribution Plot for Pharmacy Data
      2 \beta^{-2} x e^{(-(x/\beta)^2)} &amp; x &gt; 0\\
      0 &amp; \text{otherwise}
   \end{cases}\]</span></p>
-<p>Write a KSL program to generate 10 observations from this distribution using stream 1 using the inverse transform technique.</p>
+<p>Write a KSL program to generate 10 observations from this distribution with <span class="math inline">\(\beta = 2.0\)</span> using stream 1 and the inverse transform technique.</p>
 </div>
 <hr>
 <div id="exr-Ch2Ex11" class="theorem exercise">
@@ -2993,7 +2993,7 @@ Figure&nbsp;2.23: Distribution Plot for Pharmacy Data
   \end{cases}
 \]</span></p>
 <ol type="a">
-<li>Determine the value of <span class="math inline">\(c\)</span> that will turn <span class="math inline">\(g(x)\)</span> into a probability density function. The resulting probability density function is called a parabolic distribution.</li>
+<li>Determine the value of <span class="math inline">\(c\)</span> that will turn <span class="math inline">\(f(x)\)</span> into a probability density function. The resulting probability density function is called a parabolic distribution.</li>
 <li>Denote the probability density function found in part (a), <span class="math inline">\(f(x)\)</span>. Let <span class="math inline">\(X\)</span> be a random variable from <span class="math inline">\(f(x)\)</span>. Derive the inverse cumulative distribution function for <span class="math inline">\(f(x)\)</span>.</li>
 <li>Write a KSL program to generate 10 observations from this distribution over the range of <span class="math inline">\(a=4\)</span> and <span class="math inline">\(b=12\)</span> using your work from part (a) and (b). Use stream 1 in your implementation.</li>
 </ol>
