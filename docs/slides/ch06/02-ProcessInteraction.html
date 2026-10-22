@@ -1252,6 +1252,203 @@ Manuel D. Rossetti, PhD P.E.
 <li>Entity ID_1 activates ID_2’s <code>simpleProcess</code>, suspends until ID_2 completes, then continues.</li>
 </ul>
 </section>
+<section id="blocking-until-a-process-completes" class="slide level2">
+<h2>Blocking Until a Process Completes</h2>
+<ul>
+<li><code>waitFor(process)</code> combines two steps: it <em>activates</em> the process and then <em>waits</em> for it. The entity can do nothing else in between.</li>
+<li><code>blockUntilCompleted()</code> only waits. The process must have been <em>activated previously</em>, so the entity can do other work first.</li>
+</ul>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb6"><pre class="sourceCode numberSource kotlin number-lines code-with-copy"><code class="sourceCode kotlin"><span id="cb6-1"><a href></a>suspend <span class="kw">fun</span> <span class="fu">blockUntilCompleted</span><span class="op">(</span></span>
+<span id="cb6-2"><a href></a>    <span class="va">process</span><span class="op">:</span> <span class="dt">KSLProcess</span><span class="op">,</span></span>
+<span id="cb6-3"><a href></a>    <span class="va">resumptionPriority</span><span class="op">:</span> <span class="dt">Int</span> <span class="op">=</span> RESUME_PRIORITY<span class="op">,</span></span>
+<span id="cb6-4"><a href></a>    <span class="va">suspensionName</span><span class="op">:</span> <span class="dt">String</span><span class="op">?</span> <span class="op">=</span> null</span>
+<span id="cb6-5"><a href></a><span class="op">)</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<ul>
+<li>If the process has not completed, the entity suspends (<code>BlockedUntilCompletion</code>) until it does.</li>
+<li>If the process has <em>already</em> completed, the call returns immediately: no blocking.</li>
+<li>A terminated process causes an exception, and the process cannot be the caller’s own.</li>
+</ul>
+</section>
+<section id="blockuntilcompleted-example-an-oil-change" class="slide level2 smaller">
+<h2><code>blockUntilCompleted</code> Example: an Oil Change</h2>
+<p>A customer drops off a car (one mechanic, 30-minute oil change), runs an errand, then picks up the car. Customer 1 arrives at 0 with a 20-minute errand; customer 2 arrives at 5 with a 70-minute errand.</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb7"><pre class="sourceCode numberSource kotlin number-lines code-with-copy"><code class="sourceCode kotlin"><span id="cb7-1"><a href></a><span class="kw">private</span> <span class="kw">inner</span> <span class="kw">class</span> Customer<span class="op">(</span><span class="kw">private</span> <span class="kw">val</span> <span class="va">errandTime</span><span class="op">:</span> <span class="dt">Double</span><span class="op">)</span> <span class="op">:</span> <span class="dt">Entity</span><span class="op">()</span> <span class="op">{</span></span>
+<span id="cb7-2"><a href></a>    <span class="kw">val</span> <span class="va">visit</span><span class="op">:</span> KSLProcess <span class="op">=</span> process<span class="op">(</span><span class="st">&quot;visit&quot;</span><span class="op">)</span> <span class="op">{</span></span>
+<span id="cb7-3"><a href></a>        <span class="kw">val</span> <span class="va">car</span> <span class="op">=</span> Car<span class="op">()</span></span>
+<span id="cb7-4"><a href></a>        activate<span class="op">(</span>car<span class="op">.</span>service<span class="op">)</span>                 <span class="co">// start the car&#39;s process</span></span>
+<span id="cb7-5"><a href></a>        delay<span class="op">(</span>errandTime<span class="op">)</span>                     <span class="co">// do something else meanwhile</span></span>
+<span id="cb7-6"><a href></a>        blockUntilCompleted<span class="op">(</span>car<span class="op">.</span>service<span class="op">)</span>      <span class="co">// then wait for the car, if needed</span></span>
+<span id="cb7-7"><a href></a>    <span class="op">}</span></span>
+<span id="cb7-8"><a href></a><span class="op">}</span></span>
+<span id="cb7-9"><a href></a></span>
+<span id="cb7-10"><a href></a><span class="kw">private</span> <span class="kw">inner</span> <span class="kw">class</span> Car <span class="op">:</span> <span class="dt">Entity</span><span class="op">()</span> <span class="op">{</span></span>
+<span id="cb7-11"><a href></a>    <span class="kw">val</span> <span class="va">service</span><span class="op">:</span> KSLProcess <span class="op">=</span> process<span class="op">(</span><span class="st">&quot;service&quot;</span><span class="op">)</span> <span class="op">{</span></span>
+<span id="cb7-12"><a href></a>        use<span class="op">(</span>mechanic<span class="op">,</span> delayDuration <span class="op">=</span> serviceTime<span class="op">)</span></span>
+<span id="cb7-13"><a href></a>    <span class="op">}</span></span>
+<span id="cb7-14"><a href></a><span class="op">}</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<ul>
+<li>The car is its own entity: an entity experiences only one process at a time.</li>
+</ul>
+</section>
+<section id="blockuntilcompleted-example-output" class="slide level2">
+<h2><code>blockUntilCompleted</code> Example: Output</h2>
+<pre><code>0.0 &gt; customer ID_1 drops off car ID_3
+0.0 &gt; car ID_3 waits for the mechanic
+5.0 &gt; customer ID_2 drops off car ID_5
+5.0 &gt; car ID_5 waits for the mechanic
+20.0 &gt; customer ID_1 returns: car service completed = false
+30.0 &gt; car ID_3 service completed
+30.0 &gt; customer ID_1 leaves with car ID_3
+60.0 &gt; car ID_5 service completed
+75.0 &gt; customer ID_2 returns: car service completed = true
+75.0 &gt; customer ID_2 leaves with car ID_5</code></pre>
+<ul>
+<li>Customer ID_1 returns at 20 before the oil change is done, so it <em>blocks</em> until 30.</li>
+<li>Customer ID_2 returns at 75 after the oil change finished at 60, so the call returns immediately.</li>
+<li>Identifiers skip numbers because resource requests are also <code>QObject</code> instances.</li>
+</ul>
+</section>
+<section id="fork-and-join-blockuntilallcompleted" class="slide level2 smaller">
+<h2>Fork and Join: <code>blockUntilAllCompleted</code></h2>
+<ul>
+<li>An order of three parts (10, 15, and 20 minutes) is produced on 2 machines. The order is done when <em>all</em> parts are done.</li>
+<li>Calling <code>waitFor()</code> in a loop would produce the parts one at a time.</li>
+</ul>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb9"><pre class="sourceCode numberSource kotlin number-lines code-with-copy"><code class="sourceCode kotlin"><span id="cb9-1"><a href></a><span class="kw">val</span> <span class="va">fulfillment</span><span class="op">:</span> KSLProcess <span class="op">=</span> process<span class="op">(</span><span class="st">&quot;fulfillment&quot;</span><span class="op">)</span> <span class="op">{</span></span>
+<span id="cb9-2"><a href></a>    <span class="kw">val</span> <span class="va">partProcesses</span> <span class="op">=</span> mutableSetOf<span class="op">&lt;</span>KSLProcess<span class="op">&gt;()</span></span>
+<span id="cb9-3"><a href></a>    <span class="cf">for</span> <span class="op">(</span>part <span class="kw">in</span> parts<span class="op">)</span> <span class="op">{</span></span>
+<span id="cb9-4"><a href></a>        activate<span class="op">(</span>part<span class="op">.</span>production<span class="op">)</span>         <span class="co">// fork: start every part</span></span>
+<span id="cb9-5"><a href></a>        partProcesses<span class="op">.</span>add<span class="op">(</span>part<span class="op">.</span>production<span class="op">)</span></span>
+<span id="cb9-6"><a href></a>    <span class="op">}</span></span>
+<span id="cb9-7"><a href></a>    blockUntilAllCompleted<span class="op">(</span>partProcesses<span class="op">)</span> <span class="co">// join: wait for all of them</span></span>
+<span id="cb9-8"><a href></a>    println<span class="op">(</span><span class="st">&quot;</span><span class="ss">$time</span><span class="st"> &gt; order </span><span class="ss">${</span>this<span class="at">@Order</span><span class="op">.</span>name<span class="ss">}</span><span class="st"> is completed, time in system = </span><span class="ss">${</span>time <span class="op">-</span> createTime<span class="ss">}</span><span class="st">&quot;</span><span class="op">)</span></span>
+<span id="cb9-9"><a href></a><span class="op">}</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<pre><code>10.0 &gt; part ID_2 of order ID_1 is completed
+15.0 &gt; part ID_3 of order ID_1 is completed
+30.0 &gt; part ID_4 of order ID_1 is completed
+30.0 &gt; order ID_1 is completed, time in system = 30.0</code></pre>
+<ul>
+<li>The order completes when its slowest part completes (30 minutes), versus 10 + 15 + 20 = 45 minutes with <code>waitFor()</code> in a loop.</li>
+</ul>
+</section>
+<section id="forming-batches-the-batchqueue-class" class="slide level2">
+<h2>Forming Batches: the <code>BatchQueue</code> Class</h2>
+<ul>
+<li><em>Batching</em>: entities are gathered together before they proceed as a group (e.g. an oven bakes 3 parts at a time).</li>
+<li>Three constructs work together:
+<ul>
+<li><code>BatchQueue&lt;T&gt;</code>: a <code>Queue</code> that holds the entities waiting for a batch (statistics are automatic). Has a default batch size and predicate.</li>
+<li><code>BatchingEntity&lt;T&gt;</code>: an <code>Entity</code> that can be batched with entities of the <em>same type</em>. It holds formed batches in its <code>batches</code> map.</li>
+<li><code>waitedForBatch()</code>: the suspending function that forms the batch.</li>
+</ul></li>
+<li>Every caller enters the queue. If <code>batchSize</code> entities satisfying the predicate are not available, the caller suspends (<code>WaitingForBatch</code>) and the call later returns <code>true</code>.</li>
+<li>Otherwise the caller is the <em>forming entity</em>: it removes and resumes the others, keeps the batch under <code>batchName</code>, and the call returns <code>false</code>.</li>
+</ul>
+</section>
+<section id="the-required-if-returnprocess-form" class="slide level2 smaller">
+<h2>The Required <code>if</code> / <code>return@process</code> Form</h2>
+<p>Parts arrive (mean 2 minutes apart), are baked 3 at a time (5 minutes), then each part is inspected (1 minute).</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb11"><pre class="sourceCode numberSource kotlin number-lines code-with-copy"><code class="sourceCode kotlin"><span id="cb11-1"><a href></a><span class="kw">private</span> <span class="kw">val</span> <span class="va">batchQ</span><span class="op">:</span> BatchQueue<span class="op">&lt;</span>Part<span class="op">&gt;</span> <span class="op">=</span> BatchQueue<span class="op">(</span><span class="kw">this</span><span class="op">,</span> defaultBatchSize <span class="op">=</span> <span class="dv">3</span><span class="op">,</span> name <span class="op">=</span> <span class="st">&quot;OvenBatchQ&quot;</span><span class="op">)</span></span>
+<span id="cb11-2"><a href></a></span>
+<span id="cb11-3"><a href></a><span class="kw">private</span> <span class="kw">inner</span> <span class="kw">class</span> Part <span class="op">:</span> <span class="dt">BatchingEntity</span><span class="op">&lt;</span><span class="dt">Part</span><span class="op">&gt;()</span> <span class="op">{</span></span>
+<span id="cb11-4"><a href></a>    <span class="kw">val</span> <span class="va">baking</span><span class="op">:</span> KSLProcess <span class="op">=</span> process<span class="op">(</span><span class="st">&quot;baking&quot;</span><span class="op">,</span> isDefaultProcess <span class="op">=</span> <span class="kw">true</span><span class="op">)</span> <span class="op">{</span></span>
+<span id="cb11-5"><a href></a>        <span class="cf">if</span> <span class="op">(</span>waitedForBatch<span class="op">(</span>this<span class="at">@Part</span><span class="op">,</span> batchQ<span class="op">,</span> batchName <span class="op">=</span> <span class="st">&quot;load&quot;</span><span class="op">))</span> <span class="op">{</span></span>
+<span id="cb11-6"><a href></a>            return<span class="at">@process</span>          <span class="co">// placed in a batch: exit the process</span></span>
+<span id="cb11-7"><a href></a>        <span class="op">}</span></span>
+<span id="cb11-8"><a href></a>        <span class="kw">val</span> <span class="va">load</span> <span class="op">=</span> this<span class="at">@Part[&quot;load&quot;]</span>   <span class="co">// only the forming entity gets here</span></span>
+<span id="cb11-9"><a href></a>        use<span class="op">(</span>oven<span class="op">,</span> delayDuration <span class="op">=</span> bakeTime<span class="op">)</span></span>
+<span id="cb11-10"><a href></a>        <span class="co">// ... split the batch (next slide)</span></span>
+<span id="cb11-11"><a href></a>    <span class="op">}</span></span>
+<span id="cb11-12"><a href></a><span class="op">}</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<ul>
+<li>You <strong>must</strong> wrap <code>waitedForBatch()</code> in an <code>if</code> and exit with the labeled return <code>return@process</code>.</li>
+<li>Otherwise every batched entity would continue through the rest of the process.</li>
+</ul>
+</section>
+<section id="splitting-the-batch" class="slide level2 smaller">
+<h2>Splitting the Batch</h2>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb12"><pre class="sourceCode numberSource kotlin number-lines code-with-copy"><code class="sourceCode kotlin"><span id="cb12-1"><a href></a>        use<span class="op">(</span>oven<span class="op">,</span> delayDuration <span class="op">=</span> bakeTime<span class="op">)</span></span>
+<span id="cb12-2"><a href></a>        <span class="cf">for</span> <span class="op">(</span>part <span class="kw">in</span> load<span class="op">)</span> <span class="op">{</span></span>
+<span id="cb12-3"><a href></a>            <span class="cf">if</span> <span class="op">(</span>part <span class="op">!=</span> this<span class="at">@Part</span><span class="op">)</span> <span class="op">{</span></span>
+<span id="cb12-4"><a href></a>                activate<span class="op">(</span>part<span class="op">.</span>inspection<span class="op">)</span>   <span class="co">// the others start a new process</span></span>
+<span id="cb12-5"><a href></a>            <span class="op">}</span></span>
+<span id="cb12-6"><a href></a>        <span class="op">}</span></span>
+<span id="cb12-7"><a href></a>        clearBatch<span class="op">(</span><span class="st">&quot;load&quot;</span><span class="op">)</span></span>
+<span id="cb12-8"><a href></a>        use<span class="op">(</span>inspector<span class="op">,</span> delayDuration <span class="op">=</span> inspectionTime<span class="op">)</span>   <span class="co">// the forming entity continues inline</span></span>
+<span id="cb12-9"><a href></a>        timeInSystem<span class="op">.</span>value <span class="op">=</span> time <span class="op">-</span> createTime</span>
+<span id="cb12-10"><a href></a>    <span class="op">}</span></span>
+<span id="cb12-11"><a href></a></span>
+<span id="cb12-12"><a href></a>    <span class="kw">val</span> <span class="va">inspection</span><span class="op">:</span> KSLProcess <span class="op">=</span> process<span class="op">(</span><span class="st">&quot;inspection&quot;</span><span class="op">)</span> <span class="op">{</span></span>
+<span id="cb12-13"><a href></a>        use<span class="op">(</span>inspector<span class="op">,</span> delayDuration <span class="op">=</span> inspectionTime<span class="op">)</span></span>
+<span id="cb12-14"><a href></a>        timeInSystem<span class="op">.</span>value <span class="op">=</span> time <span class="op">-</span> createTime</span>
+<span id="cb12-15"><a href></a>    <span class="op">}</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<ul>
+<li>The batched parts’ <code>baking</code> processes have completed, so their <code>inspection</code> processes can be activated.</li>
+<li>The forming entity is still executing <code>baking</code>, so it cannot activate its own <code>inspection</code>; it performs the same steps inline.</li>
+<li><code>clearBatch()</code> prevents a later batch with the same name from being added to this one.</li>
+</ul>
+</section>
+<section id="batching-results" class="slide level2 smaller">
+<h2>Batching Results</h2>
+<pre><code>1.7784332583142382 &gt; part ID_3 arrives to the batch queue
+1.7784332583142382 &gt; part ID_1 was placed in a batch and ends its baking process
+1.7784332583142382 &gt; part ID_2 was placed in a batch and ends its baking process
+1.7784332583142382 &gt; part ID_3 formed the batch [ID_1, ID_2, ID_3]
+6.778433258314238 &gt; part ID_3 unloads the batch from the oven</code></pre>
+<table class="caption-top">
+<thead>
+<tr class="header">
+<th style="text-align: center;">Name</th>
+<th style="text-align: center;">Count</th>
+<th style="text-align: center;">Average</th>
+<th style="text-align: center;">Half-Width</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: center;">OvenBatchQ:TimeInQ</td>
+<td style="text-align: center;">1</td>
+<td style="text-align: center;">1.027</td>
+<td style="text-align: center;">NaN</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">Oven:InstantaneousUtil</td>
+<td style="text-align: center;">1</td>
+<td style="text-align: center;">0.885</td>
+<td style="text-align: center;">NaN</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">Oven:Q:TimeInQ</td>
+<td style="text-align: center;">1</td>
+<td style="text-align: center;">1.112</td>
+<td style="text-align: center;">NaN</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">PartTimeInSystem</td>
+<td style="text-align: center;">1</td>
+<td style="text-align: center;">8.375</td>
+<td style="text-align: center;">NaN</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">Oven:SeizeCount</td>
+<td style="text-align: center;">1</td>
+<td style="text-align: center;">4</td>
+<td style="text-align: center;">NaN</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">Inspector:SeizeCount</td>
+<td style="text-align: center;">1</td>
+<td style="text-align: center;">9</td>
+<td style="text-align: center;">NaN</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li>The forming entity is included in its own batch (<code>batchesIncludeSelf = true</code> by default).</li>
+<li>One replication of 20 minutes (half-widths are <code>NaN</code>): it illustrates the mechanics only.</li>
+<li>Captured with <code>writeHalfWidthSummaryReportAsMarkDown(KSL.out, df = MarkDown.D3FORMAT)</code>.</li>
+</ul>
+</section>
 <section id="direct-process-interaction-soccer-mom-daughter" class="slide level2">
 <h2>Direct Process Interaction: Soccer Mom &amp; Daughter</h2>
 <p>Consider modeling the interaction between a soccer mom and her daughter. The soccer mom has a daughter who plays forward on a soccer team. The game day proceeds as follows. First, the mom drives the daughter to the game. The drive takes 30 minutes. After arriving to the field, the daughter exits the mini-van, which takes 2 minutes. After the daughter exits the van, the mom departs to run some errands, meanwhile the daughter plays soccer. The mom’s errands take approximately 45 minutes. The soccer game takes approximately 60 minutes. If the mom returns from the errands before the game ends, the mom waits patiently to pick up her daughter to go home. If the game ends, before the mom returns, the daughter waits patiently for the mom to return. Once the mother and daughter are together, the daughter loads up her soccer gear and enters the van. This loading time takes 2 minutes. After all is loaded, the happy mom and daughter drive home, which takes 30 minutes.</p>
@@ -1272,46 +1469,46 @@ Manuel D. Rossetti, PhD P.E.
 </section>
 <section id="soccer-mom-the-mothers-process" class="slide level2">
 <h2>Soccer Mom: the Mother’s Process</h2>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb6"><pre class="sourceCode numberSource kotlin number-lines code-with-copy"><code class="sourceCode kotlin"><span id="cb6-1"><a href></a><span class="kw">private</span> <span class="kw">inner</span> <span class="kw">class</span> Mother <span class="op">:</span> <span class="dt">Entity</span><span class="op">()</span> <span class="op">{</span></span>
-<span id="cb6-2"><a href></a>    <span class="kw">val</span> <span class="va">daughterExiting</span> <span class="op">=</span> Suspension<span class="op">(</span>name <span class="op">=</span> <span class="st">&quot;Suspend for daughter to exit van&quot;</span><span class="op">)</span></span>
-<span id="cb6-3"><a href></a>    <span class="kw">val</span> <span class="va">daughterPlaying</span> <span class="op">=</span> Suspension<span class="op">(</span>name <span class="op">=</span> <span class="st">&quot;Suspend for daughter playing&quot;</span><span class="op">)</span></span>
-<span id="cb6-4"><a href></a>    <span class="kw">val</span> <span class="va">daughterLoading</span> <span class="op">=</span> Suspension<span class="op">(</span>name <span class="op">=</span> <span class="st">&quot;Suspend for daughter entering van&quot;</span><span class="op">)</span></span>
-<span id="cb6-5"><a href></a></span>
-<span id="cb6-6"><a href></a>    <span class="kw">val</span> <span class="va">momProcess</span> <span class="op">=</span> process <span class="op">{</span></span>
-<span id="cb6-7"><a href></a>        delay<span class="op">(</span><span class="fl">30.0</span><span class="op">)</span>                          <span class="co">// drive to game</span></span>
-<span id="cb6-8"><a href></a>        <span class="kw">val</span> <span class="va">daughter</span> <span class="op">=</span> Daughter<span class="op">(</span>this<span class="at">@Mother</span><span class="op">)</span></span>
-<span id="cb6-9"><a href></a>        activate<span class="op">(</span>daughter<span class="op">.</span>daughterProcess<span class="op">)</span></span>
-<span id="cb6-10"><a href></a>        suspendFor<span class="op">(</span>daughterExiting<span class="op">)</span>          <span class="co">// wait for daughter to exit van</span></span>
-<span id="cb6-11"><a href></a>        delay<span class="op">(</span><span class="fl">45.0</span><span class="op">)</span>                          <span class="co">// run errands</span></span>
-<span id="cb6-12"><a href></a>        <span class="cf">if</span> <span class="op">(</span>daughter<span class="op">.</span>motherShopping<span class="op">.</span>isSuspended<span class="op">)</span> <span class="op">{</span></span>
-<span id="cb6-13"><a href></a>            resume<span class="op">(</span>daughter<span class="op">.</span>motherShopping<span class="op">)</span>  <span class="co">// daughter done playing: resume her</span></span>
-<span id="cb6-14"><a href></a>        <span class="op">}</span> <span class="cf">else</span> <span class="op">{</span></span>
-<span id="cb6-15"><a href></a>            suspendFor<span class="op">(</span>daughterPlaying<span class="op">)</span>      <span class="co">// daughter still playing: wait</span></span>
-<span id="cb6-16"><a href></a>        <span class="op">}</span></span>
-<span id="cb6-17"><a href></a>        suspendFor<span class="op">(</span>daughterLoading<span class="op">)</span>          <span class="co">// wait for daughter to load van</span></span>
-<span id="cb6-18"><a href></a>        delay<span class="op">(</span><span class="fl">30.0</span><span class="op">)</span>                          <span class="co">// drive home</span></span>
-<span id="cb6-19"><a href></a>    <span class="op">}</span></span>
-<span id="cb6-20"><a href></a><span class="op">}</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb14"><pre class="sourceCode numberSource kotlin number-lines code-with-copy"><code class="sourceCode kotlin"><span id="cb14-1"><a href></a><span class="kw">private</span> <span class="kw">inner</span> <span class="kw">class</span> Mother <span class="op">:</span> <span class="dt">Entity</span><span class="op">()</span> <span class="op">{</span></span>
+<span id="cb14-2"><a href></a>    <span class="kw">val</span> <span class="va">daughterExiting</span> <span class="op">=</span> Suspension<span class="op">(</span>name <span class="op">=</span> <span class="st">&quot;Suspend for daughter to exit van&quot;</span><span class="op">)</span></span>
+<span id="cb14-3"><a href></a>    <span class="kw">val</span> <span class="va">daughterPlaying</span> <span class="op">=</span> Suspension<span class="op">(</span>name <span class="op">=</span> <span class="st">&quot;Suspend for daughter playing&quot;</span><span class="op">)</span></span>
+<span id="cb14-4"><a href></a>    <span class="kw">val</span> <span class="va">daughterLoading</span> <span class="op">=</span> Suspension<span class="op">(</span>name <span class="op">=</span> <span class="st">&quot;Suspend for daughter entering van&quot;</span><span class="op">)</span></span>
+<span id="cb14-5"><a href></a></span>
+<span id="cb14-6"><a href></a>    <span class="kw">val</span> <span class="va">momProcess</span> <span class="op">=</span> process <span class="op">{</span></span>
+<span id="cb14-7"><a href></a>        delay<span class="op">(</span><span class="fl">30.0</span><span class="op">)</span>                          <span class="co">// drive to game</span></span>
+<span id="cb14-8"><a href></a>        <span class="kw">val</span> <span class="va">daughter</span> <span class="op">=</span> Daughter<span class="op">(</span>this<span class="at">@Mother</span><span class="op">)</span></span>
+<span id="cb14-9"><a href></a>        activate<span class="op">(</span>daughter<span class="op">.</span>daughterProcess<span class="op">)</span></span>
+<span id="cb14-10"><a href></a>        suspendFor<span class="op">(</span>daughterExiting<span class="op">)</span>          <span class="co">// wait for daughter to exit van</span></span>
+<span id="cb14-11"><a href></a>        delay<span class="op">(</span><span class="fl">45.0</span><span class="op">)</span>                          <span class="co">// run errands</span></span>
+<span id="cb14-12"><a href></a>        <span class="cf">if</span> <span class="op">(</span>daughter<span class="op">.</span>motherShopping<span class="op">.</span>isSuspended<span class="op">)</span> <span class="op">{</span></span>
+<span id="cb14-13"><a href></a>            resume<span class="op">(</span>daughter<span class="op">.</span>motherShopping<span class="op">)</span>  <span class="co">// daughter done playing: resume her</span></span>
+<span id="cb14-14"><a href></a>        <span class="op">}</span> <span class="cf">else</span> <span class="op">{</span></span>
+<span id="cb14-15"><a href></a>            suspendFor<span class="op">(</span>daughterPlaying<span class="op">)</span>      <span class="co">// daughter still playing: wait</span></span>
+<span id="cb14-16"><a href></a>        <span class="op">}</span></span>
+<span id="cb14-17"><a href></a>        suspendFor<span class="op">(</span>daughterLoading<span class="op">)</span>          <span class="co">// wait for daughter to load van</span></span>
+<span id="cb14-18"><a href></a>        delay<span class="op">(</span><span class="fl">30.0</span><span class="op">)</span>                          <span class="co">// drive home</span></span>
+<span id="cb14-19"><a href></a>    <span class="op">}</span></span>
+<span id="cb14-20"><a href></a><span class="op">}</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </section>
 <section id="soccer-mom-the-daughters-process" class="slide level2">
 <h2>Soccer Mom: the Daughter’s Process</h2>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb7"><pre class="sourceCode numberSource kotlin number-lines code-with-copy"><code class="sourceCode kotlin"><span id="cb7-1"><a href></a><span class="kw">private</span> <span class="kw">inner</span> <span class="kw">class</span> Daughter<span class="op">(</span><span class="kw">val</span> <span class="va">mother</span><span class="op">:</span> <span class="dt">Mother</span><span class="op">)</span> <span class="op">:</span> <span class="dt">Entity</span><span class="op">()</span> <span class="op">{</span></span>
-<span id="cb7-2"><a href></a></span>
-<span id="cb7-3"><a href></a>    <span class="kw">val</span> <span class="va">motherShopping</span> <span class="op">=</span> Suspension<span class="op">(</span><span class="st">&quot;Suspend for mother shopping&quot;</span><span class="op">)</span></span>
-<span id="cb7-4"><a href></a></span>
-<span id="cb7-5"><a href></a>    <span class="kw">val</span> <span class="va">daughterProcess</span> <span class="op">=</span> process <span class="op">{</span></span>
-<span id="cb7-6"><a href></a>        delay<span class="op">(</span><span class="fl">2.0</span><span class="op">)</span>                           <span class="co">// exit the van</span></span>
-<span id="cb7-7"><a href></a>        resume<span class="op">(</span>mother<span class="op">.</span>daughterExiting<span class="op">)</span>       <span class="co">// resume mom</span></span>
-<span id="cb7-8"><a href></a>        delay<span class="op">(</span><span class="fl">60.0</span><span class="op">)</span>                          <span class="co">// play soccer</span></span>
-<span id="cb7-9"><a href></a>        <span class="cf">if</span> <span class="op">(</span>mother<span class="op">.</span>daughterPlaying<span class="op">.</span>isSuspended<span class="op">)</span> <span class="op">{</span></span>
-<span id="cb7-10"><a href></a>            resume<span class="op">(</span>mother<span class="op">.</span>daughterPlaying<span class="op">)</span>   <span class="co">// mom waiting: resume her</span></span>
-<span id="cb7-11"><a href></a>        <span class="op">}</span> <span class="cf">else</span> <span class="op">{</span></span>
-<span id="cb7-12"><a href></a>            suspendFor<span class="op">(</span>motherShopping<span class="op">)</span>       <span class="co">// mom still shopping: wait</span></span>
-<span id="cb7-13"><a href></a>        <span class="op">}</span></span>
-<span id="cb7-14"><a href></a>        delay<span class="op">(</span><span class="fl">2.0</span><span class="op">)</span>                           <span class="co">// load gear into van</span></span>
-<span id="cb7-15"><a href></a>        resume<span class="op">(</span>mother<span class="op">.</span>daughterLoading<span class="op">)</span>       <span class="co">// resume mom</span></span>
-<span id="cb7-16"><a href></a>    <span class="op">}</span></span>
-<span id="cb7-17"><a href></a><span class="op">}</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb15"><pre class="sourceCode numberSource kotlin number-lines code-with-copy"><code class="sourceCode kotlin"><span id="cb15-1"><a href></a><span class="kw">private</span> <span class="kw">inner</span> <span class="kw">class</span> Daughter<span class="op">(</span><span class="kw">val</span> <span class="va">mother</span><span class="op">:</span> <span class="dt">Mother</span><span class="op">)</span> <span class="op">:</span> <span class="dt">Entity</span><span class="op">()</span> <span class="op">{</span></span>
+<span id="cb15-2"><a href></a></span>
+<span id="cb15-3"><a href></a>    <span class="kw">val</span> <span class="va">motherShopping</span> <span class="op">=</span> Suspension<span class="op">(</span><span class="st">&quot;Suspend for mother shopping&quot;</span><span class="op">)</span></span>
+<span id="cb15-4"><a href></a></span>
+<span id="cb15-5"><a href></a>    <span class="kw">val</span> <span class="va">daughterProcess</span> <span class="op">=</span> process <span class="op">{</span></span>
+<span id="cb15-6"><a href></a>        delay<span class="op">(</span><span class="fl">2.0</span><span class="op">)</span>                           <span class="co">// exit the van</span></span>
+<span id="cb15-7"><a href></a>        resume<span class="op">(</span>mother<span class="op">.</span>daughterExiting<span class="op">)</span>       <span class="co">// resume mom</span></span>
+<span id="cb15-8"><a href></a>        delay<span class="op">(</span><span class="fl">60.0</span><span class="op">)</span>                          <span class="co">// play soccer</span></span>
+<span id="cb15-9"><a href></a>        <span class="cf">if</span> <span class="op">(</span>mother<span class="op">.</span>daughterPlaying<span class="op">.</span>isSuspended<span class="op">)</span> <span class="op">{</span></span>
+<span id="cb15-10"><a href></a>            resume<span class="op">(</span>mother<span class="op">.</span>daughterPlaying<span class="op">)</span>   <span class="co">// mom waiting: resume her</span></span>
+<span id="cb15-11"><a href></a>        <span class="op">}</span> <span class="cf">else</span> <span class="op">{</span></span>
+<span id="cb15-12"><a href></a>            suspendFor<span class="op">(</span>motherShopping<span class="op">)</span>       <span class="co">// mom still shopping: wait</span></span>
+<span id="cb15-13"><a href></a>        <span class="op">}</span></span>
+<span id="cb15-14"><a href></a>        delay<span class="op">(</span><span class="fl">2.0</span><span class="op">)</span>                           <span class="co">// load gear into van</span></span>
+<span id="cb15-15"><a href></a>        resume<span class="op">(</span>mother<span class="op">.</span>daughterLoading<span class="op">)</span>       <span class="co">// resume mom</span></span>
+<span id="cb15-16"><a href></a>    <span class="op">}</span></span>
+<span id="cb15-17"><a href></a><span class="op">}</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <ul>
 <li>The <code>Daughter</code> holds a reference to <code>mother</code>, so it can check <code>mother.daughterPlaying.isSuspended</code> and <code>resume(...)</code> the mom’s suspensions.</li>
 </ul>
@@ -1346,11 +1543,11 @@ Manuel D. Rossetti, PhD P.E.
 <li>Trade-off: <code>Suspension</code> collects <em>no</em> waiting statistics; use <code>HoldQueue</code> / <code>Signal</code> when you need queue statistics.</li>
 <li><code>HoldQueue</code> version — four hold queues stand in for the suspension points; the mom checks whether the daughter is waiting on her:</li>
 </ul>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb9"><pre class="sourceCode numberSource kotlin number-lines code-with-copy"><code class="sourceCode kotlin"><span id="cb9-1"><a href></a><span class="cf">if</span> <span class="op">(</span>waitForMomToShopQ<span class="op">.</span>contains<span class="op">(</span>daughter<span class="op">))</span> <span class="op">{</span></span>
-<span id="cb9-2"><a href></a>    waitForMomToShopQ<span class="op">.</span>removeAndResume<span class="op">(</span>daughter<span class="op">)</span>  <span class="co">// resume the daughter</span></span>
-<span id="cb9-3"><a href></a><span class="op">}</span> <span class="cf">else</span> <span class="op">{</span></span>
-<span id="cb9-4"><a href></a>    hold<span class="op">(</span>waitForDaughterToPlayQ<span class="op">)</span>                 <span class="co">// else wait for her to finish</span></span>
-<span id="cb9-5"><a href></a><span class="op">}</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb17"><pre class="sourceCode numberSource kotlin number-lines code-with-copy"><code class="sourceCode kotlin"><span id="cb17-1"><a href></a><span class="cf">if</span> <span class="op">(</span>waitForMomToShopQ<span class="op">.</span>contains<span class="op">(</span>daughter<span class="op">))</span> <span class="op">{</span></span>
+<span id="cb17-2"><a href></a>    waitForMomToShopQ<span class="op">.</span>removeAndResume<span class="op">(</span>daughter<span class="op">)</span>  <span class="co">// resume the daughter</span></span>
+<span id="cb17-3"><a href></a><span class="op">}</span> <span class="cf">else</span> <span class="op">{</span></span>
+<span id="cb17-4"><a href></a>    hold<span class="op">(</span>waitForDaughterToPlayQ<span class="op">)</span>                 <span class="co">// else wait for her to finish</span></span>
+<span id="cb17-5"><a href></a><span class="op">}</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <ul>
 <li>This low-level coordination demands careful attention to shared state and is error-prone.</li>
 </ul>
@@ -1363,25 +1560,25 @@ Manuel D. Rossetti, PhD P.E.
 <li>Rules: only the entity that <em>created</em> a blockage may start/clear it, and a started blockage <em>must</em> be cleared before the process ends.</li>
 <li><code>BlockingActivity</code> wraps a delay in a blockage; <code>perform(activity)</code> runs it, so you can’t forget to clear it.</li>
 </ul>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb10"><pre class="sourceCode numberSource kotlin number-lines code-with-copy"><code class="sourceCode kotlin"><span id="cb10-1"><a href></a><span class="kw">private</span> <span class="kw">inner</span> <span class="kw">class</span> Mom <span class="op">:</span> <span class="dt">Entity</span><span class="op">()</span> <span class="op">{</span></span>
-<span id="cb10-2"><a href></a>    <span class="kw">val</span> <span class="va">shopping</span> <span class="op">=</span> BlockingActivity<span class="op">(</span><span class="fl">45.0</span><span class="op">)</span>      <span class="co">// a delay wrapped in a blockage</span></span>
-<span id="cb10-3"><a href></a>    <span class="kw">val</span> <span class="va">momProcess</span> <span class="op">=</span> process <span class="op">{</span></span>
-<span id="cb10-4"><a href></a>        delay<span class="op">(</span><span class="fl">30.0</span><span class="op">)</span></span>
-<span id="cb10-5"><a href></a>        <span class="kw">val</span> <span class="va">daughter</span> <span class="op">=</span> Daughter<span class="op">(</span>this<span class="at">@Mom</span><span class="op">)</span></span>
-<span id="cb10-6"><a href></a>        activate<span class="op">(</span>daughter<span class="op">.</span>daughterProcess<span class="op">)</span></span>
-<span id="cb10-7"><a href></a>        waitFor<span class="op">(</span>daughter<span class="op">.</span>unloading<span class="op">)</span>   <span class="co">// suspend until daughter clears it</span></span>
-<span id="cb10-8"><a href></a>        perform<span class="op">(</span>shopping<span class="op">)</span>             <span class="co">// start blockage, delay, clear blockage</span></span>
-<span id="cb10-9"><a href></a>        waitFor<span class="op">(</span>daughter<span class="op">.</span>playing<span class="op">)</span></span>
-<span id="cb10-10"><a href></a>        waitFor<span class="op">(</span>daughter<span class="op">.</span>loading<span class="op">)</span></span>
-<span id="cb10-11"><a href></a>        delay<span class="op">(</span><span class="fl">30.0</span><span class="op">)</span></span>
-<span id="cb10-12"><a href></a>    <span class="op">}</span></span>
-<span id="cb10-13"><a href></a><span class="op">}</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb18"><pre class="sourceCode numberSource kotlin number-lines code-with-copy"><code class="sourceCode kotlin"><span id="cb18-1"><a href></a><span class="kw">private</span> <span class="kw">inner</span> <span class="kw">class</span> Mom <span class="op">:</span> <span class="dt">Entity</span><span class="op">()</span> <span class="op">{</span></span>
+<span id="cb18-2"><a href></a>    <span class="kw">val</span> <span class="va">shopping</span> <span class="op">=</span> BlockingActivity<span class="op">(</span><span class="fl">45.0</span><span class="op">)</span>      <span class="co">// a delay wrapped in a blockage</span></span>
+<span id="cb18-3"><a href></a>    <span class="kw">val</span> <span class="va">momProcess</span> <span class="op">=</span> process <span class="op">{</span></span>
+<span id="cb18-4"><a href></a>        delay<span class="op">(</span><span class="fl">30.0</span><span class="op">)</span></span>
+<span id="cb18-5"><a href></a>        <span class="kw">val</span> <span class="va">daughter</span> <span class="op">=</span> Daughter<span class="op">(</span>this<span class="at">@Mom</span><span class="op">)</span></span>
+<span id="cb18-6"><a href></a>        activate<span class="op">(</span>daughter<span class="op">.</span>daughterProcess<span class="op">)</span></span>
+<span id="cb18-7"><a href></a>        waitFor<span class="op">(</span>daughter<span class="op">.</span>unloading<span class="op">)</span>   <span class="co">// suspend until daughter clears it</span></span>
+<span id="cb18-8"><a href></a>        perform<span class="op">(</span>shopping<span class="op">)</span>             <span class="co">// start blockage, delay, clear blockage</span></span>
+<span id="cb18-9"><a href></a>        waitFor<span class="op">(</span>daughter<span class="op">.</span>playing<span class="op">)</span></span>
+<span id="cb18-10"><a href></a>        waitFor<span class="op">(</span>daughter<span class="op">.</span>loading<span class="op">)</span></span>
+<span id="cb18-11"><a href></a>        delay<span class="op">(</span><span class="fl">30.0</span><span class="op">)</span></span>
+<span id="cb18-12"><a href></a>    <span class="op">}</span></span>
+<span id="cb18-13"><a href></a><span class="op">}</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <ul>
 <li>The daughter uses <code>perform(unloading)</code>, <code>perform(playing)</code>, <code>waitFor(mom.shopping)</code>, <code>perform(loading)</code>.</li>
 <li>Related helpers: <code>BlockingResourceUsage</code>, <code>BlockingResourcePoolUsage</code>, <code>BlockingMovement</code>.</li>
 </ul>
 </section>
-<section id="summary-of-new-concepts" class="slide level2">
+<section id="summary-of-new-concepts" class="slide level2 smaller">
 <h2>Summary of New Concepts</h2>
 <ul>
 <li><em>Process interaction</em>: entities’ processes coordinate by <em>suspending</em> and <em>resuming</em> each other, built on the low-level <code>suspend()</code> / <code>resumeProcess()</code>.</li>
@@ -1389,6 +1586,8 @@ Manuel D. Rossetti, PhD P.E.
 <li><code>Signal</code> — builds on <code>HoldQueue</code>; <code>waitFor(signal)</code> waits, <code>signal.signal(0..4)</code> releases entities by rank, and they remove themselves.</li>
 <li><code>BlockingQueue</code> — communication between two processes; <code>send()</code> blocks when full, <code>waitForItems()</code> blocks when empty (<code>channelQ</code> / <code>senderQ</code> / <code>receiverQ</code>).</li>
 <li><code>waitFor(process)</code> — start another process and suspend until it completes.</li>
+<li><code>blockUntilCompleted(process)</code> / <code>blockUntilAllCompleted(processes)</code> — suspend until previously activated process(es) complete; return immediately if already completed.</li>
+<li><code>BatchQueue</code> / <code>BatchingEntity</code> / <code>waitedForBatch()</code> — form batches of same-type entities; the forming entity carries the batch, the others must <code>return@process</code>.</li>
 <li><code>Suspension</code> — direct suspend/resume via <code>suspendFor()</code> / <code>resume()</code> / <code>isSuspended</code> (no queue statistics).</li>
 <li><code>Blockage</code> / <code>BlockingActivity</code> — a gate (<code>startBlockage</code>/<code>clearBlockage</code>, or <code>perform()</code>); preferred over raw <code>Suspension</code>.</li>
 <li>Implement process interaction by sub-classing <code>ProcessModel</code> and defining processes on sub-classes of <code>Entity</code>.</li>
